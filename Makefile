@@ -38,7 +38,7 @@ submodules: $(SUBTARGETS)
 init:
 	npm install
 
-build:
+build: check lint test
 	npm run build
 
 clean:
