@@ -1,6 +1,6 @@
 #!groovy
 
-build('control-center', 'docker-host') {
+build('dashboard', 'docker-host') {
   checkoutRepo()
   loadBuildUtils()
 
