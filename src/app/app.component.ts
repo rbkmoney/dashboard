@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'das-root',
+    selector: 'dsh-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
