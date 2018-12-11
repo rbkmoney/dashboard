@@ -1,0 +1,10 @@
+<mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav opened mode="side">
+        <dsh-brand></dsh-brand>
+        <p *ngIf="showFiller">Auto-resizing sidenav</p>
+        <button (click)="showFiller = !showFiller">Toggle</button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <dsh-toolbar> <dsh-actionbar fxLayout fxLayoutAlign="end"></dsh-actionbar> </dsh-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>

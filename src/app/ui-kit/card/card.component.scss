@@ -1,0 +1,12 @@
+$card-padding: 30px;
+$card-border-radius: 4px;
+$shadow: 0 8px 20px 0 rgba(174, 188, 230, 0.24);
+$white: #ffffff;
+
+:host {
+    display: block;
+    background-color: $white;
+    padding: $card-padding;
+    border-radius: $card-border-radius;
+    box-shadow: $shadow;
+}

@@ -8,6 +8,7 @@ import {
     MatAutocompleteModule,
     MatRadioModule,
     MatSlideToggleModule,
+    MatIconModule,
     DateAdapter,
     MAT_DATE_LOCALE,
     MAT_DATE_FORMATS,
@@ -20,6 +21,8 @@ import {
 } from '@angular/material-moment-adapter';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 
+import { CardModule } from './card/card.module';
+
 @NgModule({
     imports: [
         MatInputModule,
@@ -29,7 +32,9 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
         MatAutocompleteModule,
         MatRadioModule,
         MatSlideToggleModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule,
+        CardModule
     ],
     exports: [
         MatInputModule,
@@ -39,7 +44,9 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
         MatAutocompleteModule,
         MatRadioModule,
         MatSlideToggleModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule,
+        CardModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

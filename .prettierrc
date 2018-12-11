@@ -4,5 +4,11 @@
     "useTabs": false,
     "tabWidth": 4,
     "semi": true,
-    "bracketSpacing": true
+    "bracketSpacing": true,
+    "overrides": [
+        {
+            "files": "*.svg",
+            "options": { "parser": "html" }
+        }
+    ]
 }

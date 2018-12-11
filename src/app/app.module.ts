@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UiKitModule } from './ui-kit/ui-kit.module';
+import { MainModule } from './main';
+import { PartyMngModule } from './party-mgt';
+import { DetailsModule } from './details';
+import { PageNotFoundModule } from './page-not-found';
 
 @NgModule({
     declarations: [AppComponent],
@@ -14,10 +15,10 @@ import { UiKitModule } from './ui-kit/ui-kit.module';
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        FlexLayoutModule,
-        UiKitModule
+        MainModule,
+        PartyMngModule,
+        DetailsModule,
+        PageNotFoundModule
     ],
     bootstrap: [AppComponent]
 })
