@@ -1,5 +1,11 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
 .container {
-    padding: 30px;
-    max-width: 1128px;
-    margin: 0 auto;
+    @include container($turquoise);
+    @include fullscreen();
+}
+
+.content {
+    @include content($content-padding, $content-max-width);
 }

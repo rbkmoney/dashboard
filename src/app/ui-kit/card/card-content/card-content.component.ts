@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './card-content.component.html',
     styleUrls: ['./card-content.component.scss']
 })
-export class CardContentComponent {
-    constructor() {}
-}
+export class CardContentComponent {}

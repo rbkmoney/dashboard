@@ -1,6 +1,6 @@
-$card-title-margin: 30px;
+@import '../../../../styles/variables.scss';
 
 :host {
     display: block;
-    margin-bottom: $card-title-margin;
+    margin-bottom: $card-header-margin;
 }

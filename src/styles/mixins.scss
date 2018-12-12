@@ -1,0 +1,17 @@
+@mixin fullscreen() {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@mixin content($padding, $max-width) {
+    padding: $padding;
+    max-width: $max-width;
+    margin: 0 auto;
+}
+
+@mixin container($backgroud-color) {
+    background-color: $backgroud-color;
+}

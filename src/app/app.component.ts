@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
+import { IconRegistryService, IconName } from './icon-registry.service';
+
 @Component({
     selector: 'dsh-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
-    constructor() {}
+    constructor(private iconRegistryService: IconRegistryService) {
+        this.iconRegistryService.register([IconName.logo, IconName.user]);
+    }
 }

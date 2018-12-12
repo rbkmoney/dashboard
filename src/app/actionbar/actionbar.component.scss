@@ -1,21 +1,24 @@
-$color: #ffffff;
+@import '../../styles/variables.scss';
+
+$circle-color: $white;
+$circle-shadow: $turquoise-shadow;
 
 .circle {
     border: none;
     outline: none;
-    background-color: $color;
+    background-color: $circle-color;
     border-radius: 50%;
     width: 42px;
     height: 42px;
     text-align: center;
     transition: 0.2s;
-    box-shadow: 0 8px 20px 0 rgba(174, 188, 230, 0.24);
+    box-shadow: $circle-shadow;
     &:active {
         transform: scale(0.9);
     }
     &:hover {
         cursor: pointer;
-        background-color: lighten($color, 10%);
+        background-color: lighten($circle-color, 10%);
     }
 }
 

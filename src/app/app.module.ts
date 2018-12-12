@@ -8,6 +8,7 @@ import { MainModule } from './main';
 import { PartyMngModule } from './party-mgt';
 import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
+import { IconRegistryService } from './icon-registry.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { PageNotFoundModule } from './page-not-found';
         DetailsModule,
         PageNotFoundModule
     ],
+    providers: [IconRegistryService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

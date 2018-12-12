@@ -20,8 +20,6 @@ import { ActionbarModule } from '../actionbar';
         BrandModule,
         ToolbarModule,
         ActionbarModule
-    ],
-    exports: [],
-    providers: []
+    ]
 })
 export class PartyMngModule {}

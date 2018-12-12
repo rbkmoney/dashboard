@@ -8,8 +8,6 @@ import { ActionbarModule } from '../actionbar';
 
 @NgModule({
     declarations: [MainComponent],
-    imports: [FlexLayoutModule, BrandModule, ToolbarModule, ActionbarModule],
-    exports: [],
-    providers: []
+    imports: [FlexLayoutModule, BrandModule, ToolbarModule, ActionbarModule]
 })
 export class MainModule {}
