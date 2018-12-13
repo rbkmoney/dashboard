@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+mat-sidenav-container {
+    @include container($turquoise);
+    @include fullscreen();
+}
+
+.content {
+    @include content($content-padding, $content-max-width);
+}
+
+.brand {
+    height: $toolbar-height;
+}
+
+.side-menu {
+    width: 220px;
+}

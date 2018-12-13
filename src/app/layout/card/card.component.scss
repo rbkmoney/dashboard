@@ -1,0 +1,9 @@
+@import '../../../styles/variables.scss';
+
+:host {
+    display: block;
+    background-color: $card-background-color;
+    padding: $card-padding;
+    border-radius: $card-border-radius;
+    box-shadow: $card-shadow
+}

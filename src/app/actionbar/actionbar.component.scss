@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+$circle-color: $white;
+$circle-shadow: $turquoise-shadow;
+
+.actionbar {
+    height: $toolbar-item-height;
+}
+
+.circle {
+    border: none;
+    outline: none;
+    background-color: $circle-color;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    transition: 0.2s;
+    box-shadow: $circle-shadow;
+    &:active {
+        transform: scale(0.9);
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: lighten($circle-color, 10%);
+    }
+}
+
+.wrapper {
+    padding: 12px 0;
+}
+
+.user-icon {
+    height: 16px;
+    width: 17px;
+}

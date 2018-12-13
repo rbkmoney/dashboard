@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.brand {
+    height: $toolbar-item-height;
+}
+
+mat-icon {
+    height: 41px;
+    width: 81px;
+    cursor: pointer;
+    outline: none;
+}

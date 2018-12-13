@@ -1,0 +1,14 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.display-2 {
+    font-size: 24px;
+}
+
+.container {
+    @include container($turquoise);
+}
+
+.content {
+    @include content($content-padding, $content-max-width);
+}

@@ -1,25 +1,13 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
+import { IconRegistryService, IconName } from './icon-registry.service';
 
 @Component({
     selector: 'dsh-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
-    form: FormGroup;
-
-    constructor(private fb: FormBuilder, private router: ActivatedRoute) {
-        this.form = this.fb.group({
-            shopName: ['', Validators.required],
-            category: [''],
-            creationDate: [''],
-            document: ['One'],
-            comment: [''],
-            checked: [false],
-            radio: [''],
-            slided: [false]
-        });
+    constructor(private iconRegistryService: IconRegistryService) {
+        this.iconRegistryService.register([IconName.logo, IconName.user]);
     }
 }
