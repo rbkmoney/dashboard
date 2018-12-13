@@ -4,14 +4,13 @@ import {
     MatSelectModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatButtonModule,
     MatAutocompleteModule,
     MatRadioModule,
     MatSlideToggleModule,
-    MatIconModule,
+    MAT_DATE_FORMATS,
     DateAdapter,
     MAT_DATE_LOCALE,
-    MAT_DATE_FORMATS,
+    MAT_RIPPLE_GLOBAL_OPTIONS,
     MAT_FORM_FIELD_DEFAULT_OPTIONS
 } from '@angular/material';
 import {
@@ -19,9 +18,6 @@ import {
     MAT_MOMENT_DATE_FORMATS,
     MomentDateAdapter
 } from '@angular/material-moment-adapter';
-import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-
-import { CardModule } from './card/card.module';
 
 @NgModule({
     imports: [
@@ -31,10 +27,7 @@ import { CardModule } from './card/card.module';
         MatDatepickerModule,
         MatAutocompleteModule,
         MatRadioModule,
-        MatSlideToggleModule,
-        MatButtonModule,
-        MatIconModule,
-        CardModule
+        MatSlideToggleModule
     ],
     exports: [
         MatInputModule,
@@ -43,10 +36,7 @@ import { CardModule } from './card/card.module';
         MatDatepickerModule,
         MatAutocompleteModule,
         MatRadioModule,
-        MatSlideToggleModule,
-        MatButtonModule,
-        MatIconModule,
-        CardModule
+        MatSlideToggleModule
     ],
     providers: [
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
@@ -57,4 +47,4 @@ import { CardModule } from './card/card.module';
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
     ]
 })
-export class UiKitModule {}
+export class FormControlsModule {}

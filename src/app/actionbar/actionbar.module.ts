@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
-import { UiKitModule } from '../ui-kit';
 import { ActionbarComponent } from './actionbar.component';
 
 @NgModule({
     declarations: [ActionbarComponent],
-    imports: [UiKitModule],
+    imports: [MatIconModule],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

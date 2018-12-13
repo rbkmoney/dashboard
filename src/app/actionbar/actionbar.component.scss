@@ -3,6 +3,10 @@
 $circle-color: $white;
 $circle-shadow: $turquoise-shadow;
 
+.actionbar {
+    height: $toolbar-item-height;
+}
+
 .circle {
     border: none;
     outline: none;
