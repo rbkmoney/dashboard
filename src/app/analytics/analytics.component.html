@@ -1,0 +1,18 @@
+<div class="container">
+    <dsh-toolbar>
+        <div fxLayout>
+            <dsh-brand fxFlex="100px"></dsh-brand>
+            <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
+        </div>
+    </dsh-toolbar>
+    <div class="content">
+        <div fxLayout="column" fxLayoutGap="30px">
+            <div>
+                <button (click)="toggleCharts()">Add data</button>
+            </div>
+            <div>
+                <dsh-pie-chart [data]="pieChartData"></dsh-pie-chart>
+            </div>
+        </div>
+    </div>
+</div>

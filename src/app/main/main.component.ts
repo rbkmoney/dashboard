@@ -16,4 +16,8 @@ export class MainComponent {
     details() {
         this.router.navigate(['details']);
     }
+
+    analytics() {
+        this.router.navigate(['analytics']);
+    }
 }
