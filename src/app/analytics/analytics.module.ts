@@ -9,14 +9,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     declarations: [AnalyticsComponent],
-    imports: [
-        FlexLayoutModule,
-        CommonModule,
-        ChartsModule,
-        ToolbarModule,
-        BrandModule,
-        ActionbarModule
-    ]
+    imports: [FlexLayoutModule, CommonModule, ChartsModule, ToolbarModule, BrandModule, ActionbarModule]
 })
-export class AnalyticsModule {
-}
+export class AnalyticsModule {}

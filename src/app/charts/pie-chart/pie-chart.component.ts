@@ -30,8 +30,7 @@ export class PieChartComponent implements OnChanges {
 
     public center: string;
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnChanges(changes: any): void {
         this.center = `translate(${this.width / 2}, ${this.height / 2})`;
@@ -42,7 +41,7 @@ export class PieChartComponent implements OnChanges {
 
         const svgPathGenerator = arc()
             .outerRadius(this.radius * 0.95)
-            .innerRadius(this.radius * 0.90)
+            .innerRadius(this.radius * 0.9)
             .cornerRadius(this.radius * 0.05)
             .padAngle(this.radius * 0.0005);
 
@@ -60,5 +59,4 @@ export class PieChartComponent implements OnChanges {
             d.data.path = svgPathGenerator(d);
         });
     }
-
 }

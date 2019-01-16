@@ -7,12 +7,8 @@
     </dsh-toolbar>
     <div class="content">
         <div fxLayout="column" fxLayoutGap="30px">
-            <div>
-                <button (click)="toggleCharts()">Add data</button>
-            </div>
-            <div>
-                <dsh-pie-chart [data]="pieChartData"></dsh-pie-chart>
-            </div>
+            <div><button (click)="toggleCharts()">Add data</button></div>
+            <div><dsh-pie-chart [data]="pieChartData"></dsh-pie-chart></div>
         </div>
     </div>
 </div>

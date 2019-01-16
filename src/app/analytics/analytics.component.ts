@@ -7,7 +7,6 @@ import { PieChartData } from '../charts/pie-chart/pie-chart.component';
     styleUrls: ['./analytics.component.scss']
 })
 export class AnalyticsComponent {
-
     public exampleData: Array<PieChartData> = [
         { value: 10, caption: 'apples', color: '#6b486b' },
         { value: 20, caption: 'oranges', color: '#98abc5' },
@@ -16,11 +15,9 @@ export class AnalyticsComponent {
 
     public pieChartData: Array<PieChartData> = this.exampleData;
 
-    constructor() {
-    }
+    constructor() {}
 
     public toggleCharts() {
         this.pieChartData = [...this.pieChartData, { value: 7, caption: 'some', color: 'black' }];
     }
-
 }
