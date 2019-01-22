@@ -8,9 +8,10 @@ import { PieChartData } from '../charts/pie-chart/pie-chart.component';
 })
 export class AnalyticsComponent {
     public exampleData: Array<PieChartData> = [
-        { value: 10, caption: 'apples', color: '#6b486b' },
-        { value: 20, caption: 'oranges', color: '#98abc5' },
-        { value: 30, caption: 'bananas', color: '#8a89a6' }
+        { value: 25, caption: 'apples', color: 'gray' },
+        { value: 25, caption: 'oranges', color: 'green' },
+        { value: 25, caption: 'bananas', color: 'purple' },
+        { value: 25, caption: 'bananas', color: 'orange' }
     ];
 
     public pieChartData: Array<PieChartData> = this.exampleData;
@@ -18,6 +19,9 @@ export class AnalyticsComponent {
     constructor() {}
 
     public toggleCharts() {
-        this.pieChartData = [...this.pieChartData, { value: 7, caption: 'some', color: 'black' }];
+        this.pieChartData = this.pieChartData.map(point => {
+            point.value = Math.random() * 25;
+            return point;
+        });
     }
 }
