@@ -1,7 +1,12 @@
 <div class="actionbar" fxLayout fxLayoutGap="10px">
-    <div class="circle">
-        <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
+    <div>
+        <div class="circle" #overlayOrigin="cdkOverlayOrigin" cdkOverlayOrigin>
+            <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
+        </div>
     </div>
+    <dsh-dropdown [overlayOrigin]="overlayOrigin"
+        >hello world hello world hello world hello world hello world hello world</dsh-dropdown
+    >
     <div class="circle">
         <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
     </div>

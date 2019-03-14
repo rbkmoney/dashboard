@@ -1,0 +1,9 @@
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+.dropdown {
+    margin-top: 20px;
+    padding: 20px;
+    width: 250px;
+    background-color: white;
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.4);
+}
