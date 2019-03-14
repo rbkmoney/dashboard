@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { Overlay, CdkOverlayOrigin, OverlayConfig } from '@angular/cdk/overlay';
+import { Component, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 
 @Component({
@@ -7,13 +7,14 @@ import { TemplatePortalDirective } from '@angular/cdk/portal';
     templateUrl: 'dropdown.component.html',
     styleUrls: ['dropdown.component.css']
 })
-export class DropdownComponent implements AfterViewInit {
+export class DropdownComponent implements OnChanges {
     @Input() overlayOrigin: CdkOverlayOrigin;
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
+    overlayRef: OverlayRef;
 
     constructor(private overlay: Overlay) {}
 
-    ngAfterViewInit() {
+    private createConfig() {
         const strategy = this.overlay
             .position()
             .connectedTo(
@@ -22,12 +23,23 @@ export class DropdownComponent implements AfterViewInit {
                 { overlayX: 'center', overlayY: 'top' }
             );
 
-        const config = new OverlayConfig({ positionStrategy: strategy });
-        const overlayRef = this.overlay.create(config);
+        const config = new OverlayConfig({ positionStrategy: strategy, hasBackdrop: true, backdropClass: '' });
+        return config;
+    }
 
-        overlayRef.attach(this.portalTemplate);
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.overlayOrigin.currentValue !== changes.overlayOrigin.previousValue) {
+            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', () => this.open());
+        }
+    }
 
-        console.log(this.overlayOrigin);
-        console.log(this.portalTemplate);
+    open() {
+        this.overlayRef = this.overlay.create(this.createConfig());
+        this.overlayRef.backdropClick().subscribe(() => this.close());
+        this.overlayRef.attach(this.portalTemplate);
+    }
+
+    close() {
+        this.overlayRef.detach();
     }
 }
