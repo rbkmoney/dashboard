@@ -14,7 +14,8 @@
         world hello world world hello world hello world hello world hello world hello world world hello world hello
         world hello world hello world hello world world world
     </dsh-dropdown>
-    <div class="circle">
+    <div class="circle" #overlayOrigin2="cdkOverlayOrigin" cdkOverlayOrigin>
         <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
     </div>
+    <dsh-dropdown [overlayOrigin]="overlayOrigin2"> hello s </dsh-dropdown>
 </div>

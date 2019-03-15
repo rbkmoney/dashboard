@@ -1,11 +1,11 @@
 <ng-template cdk-portal #portalTemplate="cdkPortal">
-    <div class="dropdown-wrapper">
+    <div class="dropdown-wrapper" #dropdown>
         <div
             class="dropdown"
             [@openClose]="isOpen ? state.open : state.closed"
             (@openClose.done)="animationEnd($event)"
         >
-            <div class="dropdown-triangle"></div>
+            <div class="dropdown-triangle" [style.left]="triangleLeft" #dropdownTriangle></div>
             <ng-content></ng-content>
         </div>
     </div>
