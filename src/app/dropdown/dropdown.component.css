@@ -2,10 +2,10 @@
 
 .dropdown-wrapper {
     perspective: 2000px;
+    padding: 10px;
 }
 
 .dropdown {
-    margin-top: 15px;
     padding: 20px;
     background-color: white;
     padding: 30px;

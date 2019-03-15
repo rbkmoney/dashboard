@@ -45,15 +45,28 @@ export class DropdownComponent implements OnChanges {
     constructor(private overlay: Overlay) {}
 
     private createOverlay() {
-        const strategy = this.overlay
-            .position()
-            .connectedTo(
-                this.overlayOrigin.elementRef,
-                { originX: 'center', originY: 'bottom' },
-                { overlayX: 'center', overlayY: 'top' }
-            );
         const config = new OverlayConfig({
-            positionStrategy: strategy,
+            positionStrategy: this.overlay
+                .position()
+                .flexibleConnectedTo(this.overlayOrigin.elementRef)
+                .withPush(true)
+                .withDefaultOffsetX(0)
+                .withPositions([
+                    {
+                        originX: 'center',
+                        originY: 'bottom',
+                        overlayX: 'center',
+                        overlayY: 'top',
+                        offsetY: 15
+                    },
+                    {
+                        originX: 'center',
+                        originY: 'top',
+                        overlayX: 'start',
+                        overlayY: 'bottom'
+                    }
+                ]),
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
             hasBackdrop: true,
             backdropClass: '',
             width: '400px'
