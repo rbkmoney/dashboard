@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownComponent } from './dropdown.component';
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, PortalModule, PortalModule],
+    imports: [CommonModule, OverlayModule, PortalModule, PortalModule, BrowserAnimationsModule],
     exports: [DropdownComponent],
     declarations: [DropdownComponent],
     entryComponents: [DropdownComponent],

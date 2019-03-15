@@ -1,9 +1,12 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 
+.dropdown-wrapper {
+    perspective: 2000px;
+}
+
 .dropdown {
     margin-top: 15px;
     padding: 20px;
-    width: 250px;
     background-color: white;
     padding: 30px;
     border-radius: 4px;
@@ -16,7 +19,7 @@
     background-color: white;
     box-shadow: -2px -2px 2px 0 rgba(174, 188, 230, 0.12);
     position: absolute;
-    top: 15px;
+    top: 0;
     left: 50%;
     transform: rotate(45deg) translateX(-75%) translateY(0%);
     border-top-left-radius: 2px;
