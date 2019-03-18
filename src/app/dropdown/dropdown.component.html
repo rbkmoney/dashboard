@@ -3,7 +3,7 @@
         <div
             class="dropdown"
             [@openClose]="isOpen ? state.open : state.closed"
-            (@openClose.done)="animationEnd($event)"
+            (@openClose.done)="animationEndHandler($event)"
         >
             <div class="dropdown-triangle" [style.left]="triangleLeft" #dropdownTriangle></div>
             <ng-content></ng-content>

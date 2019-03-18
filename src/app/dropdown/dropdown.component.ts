@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -35,8 +35,9 @@ enum State {
         ])
     ]
 })
-export class DropdownComponent implements OnChanges {
+export class DropdownComponent implements OnChanges, AfterViewInit {
     @Input() overlayOrigin: CdkOverlayOrigin;
+    @Input() width = 400;
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
     overlayRef: OverlayRef;
     @ViewChild('dropdown') dropdown: ElementRef;
@@ -47,7 +48,17 @@ export class DropdownComponent implements OnChanges {
 
     constructor(private overlay: Overlay) {}
 
-    private createOverlay() {
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.overlayOrigin.currentValue !== changes.overlayOrigin.previousValue) {
+            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', () => this.open());
+        }
+    }
+
+    ngAfterViewInit() {
+        this.create();
+    }
+
+    create() {
         const positionStrategy = this.overlay
             .position()
             .flexibleConnectedTo(this.overlayOrigin.elementRef)
@@ -71,37 +82,35 @@ export class DropdownComponent implements OnChanges {
         const config = new OverlayConfig({
             positionStrategy,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            hasBackdrop: true,
-            backdropClass: '',
-            width: '400px'
+            width: `${this.width}px`
         });
         this.overlayRef = this.overlay.create(config);
-        this.overlayRef.backdropClick().subscribe(() => this.closeStart());
-        this.overlayRef.attach(this.portalTemplate);
         positionStrategy.positionChanges.subscribe(() => {
             this.updateTrianglePosition();
         });
+        window.addEventListener('click', event => {
+            if (
+                (this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) ||
+                (this.dropdown && this.dropdown.nativeElement.contains(event.target))
+            ) {
+                return;
+            }
+            this.close();
+        });
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.overlayOrigin.currentValue !== changes.overlayOrigin.previousValue) {
-            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', () => this.open());
-        }
-    }
-
-    animationEnd(event) {
+    animationEndHandler() {
         if (!this.isOpen) {
-            this.closeEnd();
+            this.closeComplete();
         }
         this.updateTrianglePosition();
     }
 
-    updateTrianglePosition() {
+    private updateTrianglePosition() {
         if (this.dropdown && this.dropdownTriangle && this.overlayOrigin.elementRef) {
             const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
             const dropdownTriangleRect = this.dropdownTriangle.nativeElement.getBoundingClientRect();
             const overlayOriginRect = this.overlayOrigin.elementRef.nativeElement.getBoundingClientRect();
-            console.log(dropdownTriangleRect);
             const leftOffset =
                 overlayOriginRect.left -
                 dropdownRect.left +
@@ -112,16 +121,16 @@ export class DropdownComponent implements OnChanges {
         }
     }
 
-    open() {
-        this.createOverlay();
+    private open() {
+        this.overlayRef.attach(this.portalTemplate);
         this.isOpen = true;
     }
 
-    closeStart() {
+    private close() {
         this.isOpen = false;
     }
 
-    closeEnd() {
+    private closeComplete() {
         this.overlayRef.detach();
     }
 }
