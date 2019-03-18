@@ -1,4 +1,13 @@
-import { Component, Input, ViewChild, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    Input,
+    ViewChild,
+    OnChanges,
+    SimpleChanges,
+    ElementRef,
+    AfterViewInit,
+    OnDestroy
+} from '@angular/core';
 import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 
@@ -10,7 +19,7 @@ import { openCloseAnimation, State } from './open-close-animation';
     styleUrls: ['dropdown.component.css'],
     animations: [openCloseAnimation]
 })
-export class DropdownComponent implements OnChanges, AfterViewInit {
+export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() overlayOrigin: CdkOverlayOrigin;
     @Input() width = 400;
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
@@ -23,14 +32,27 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
 
     constructor(private overlay: Overlay) {}
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.overlayOrigin.currentValue !== changes.overlayOrigin.previousValue) {
-            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', this.overlayOriginClickHandler);
+    ngOnChanges({ overlayOrigin }: SimpleChanges) {
+        if (overlayOrigin.currentValue !== overlayOrigin.previousValue) {
+            if (overlayOrigin.previousValue) {
+                overlayOrigin.previousValue.elementRef.nativeElement.removeEventListener(
+                    'click',
+                    this.overlayOriginClickHandler
+                );
+            }
+            overlayOrigin.currentValue.elementRef.nativeElement.addEventListener(
+                'click',
+                this.overlayOriginClickHandler
+            );
         }
     }
 
     ngAfterViewInit() {
         this.create();
+    }
+
+    ngOnDestroy() {
+        this.overlayOrigin.elementRef.nativeElement.removeEventListener('click', this.overlayOriginClickHandler);
     }
 
     create() {
@@ -63,7 +85,6 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
         positionStrategy.positionChanges.subscribe(() => {
             this.updateTrianglePosition();
         });
-        window.addEventListener('click', this.backdropClickHandler);
     }
 
     animationEndHandler = () => {
@@ -79,12 +100,11 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
 
     private backdropClickHandler = (event: MouseEvent) => {
         if (
-            (this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) ||
-            (this.dropdown && this.dropdown.nativeElement.contains(event.target))
+            !(this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) &&
+            !(this.dropdown && this.dropdown.nativeElement.contains(event.target))
         ) {
-            return;
+            this.close();
         }
-        this.close();
     };
 
     private updateTrianglePosition() {
@@ -107,10 +127,12 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
             this.overlayRef.attach(this.portalTemplate);
         }
         this.isOpen = true;
+        window.addEventListener('click', this.backdropClickHandler);
     }
 
     private close() {
         this.isOpen = false;
+        window.removeEventListener('click', this.backdropClickHandler);
     }
 
     private closeComplete() {
