@@ -1,39 +1,14 @@
 import { Component, Input, ViewChild, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
-enum State {
-    open = 'open',
-    closed = 'closed'
-}
+import { openCloseAnimation, State } from './open-close-animation';
 
 @Component({
     selector: 'dsh-dropdown',
     templateUrl: 'dropdown.component.html',
     styleUrls: ['dropdown.component.css'],
-    animations: [
-        trigger('openClose', [
-            state(
-                State.open,
-                style({
-                    opacity: 1,
-                    transform: 'rotateX(0deg)',
-                    'transform-origin': '0% 0px'
-                })
-            ),
-            state(
-                State.closed,
-                style({
-                    opacity: 0,
-                    transform: 'rotateX(-15deg)',
-                    'transform-origin': '50% -50px'
-                })
-            ),
-            transition(`${State.open} => ${State.closed}`, [animate('0.25s ease')]),
-            transition(`${State.closed} => ${State.open}`, [animate('0.25s ease')])
-        ])
-    ]
+    animations: [openCloseAnimation]
 })
 export class DropdownComponent implements OnChanges, AfterViewInit {
     @Input() overlayOrigin: CdkOverlayOrigin;
@@ -50,7 +25,7 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.overlayOrigin.currentValue !== changes.overlayOrigin.previousValue) {
-            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', () => this.open());
+            this.overlayOrigin.elementRef.nativeElement.addEventListener('click', this.overlayOriginClickHandler);
         }
     }
 
@@ -88,23 +63,29 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
         positionStrategy.positionChanges.subscribe(() => {
             this.updateTrianglePosition();
         });
-        window.addEventListener('click', event => {
-            if (
-                (this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) ||
-                (this.dropdown && this.dropdown.nativeElement.contains(event.target))
-            ) {
-                return;
-            }
-            this.close();
-        });
+        window.addEventListener('click', this.backdropClickHandler);
     }
 
-    animationEndHandler() {
+    animationEndHandler = () => {
         if (!this.isOpen) {
             this.closeComplete();
         }
         this.updateTrianglePosition();
-    }
+    };
+
+    private overlayOriginClickHandler = () => {
+        this.toggle();
+    };
+
+    private backdropClickHandler = (event: MouseEvent) => {
+        if (
+            (this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) ||
+            (this.dropdown && this.dropdown.nativeElement.contains(event.target))
+        ) {
+            return;
+        }
+        this.close();
+    };
 
     private updateTrianglePosition() {
         if (this.dropdown && this.dropdownTriangle && this.overlayOrigin.elementRef) {
@@ -122,7 +103,9 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
     }
 
     private open() {
-        this.overlayRef.attach(this.portalTemplate);
+        if (!this.overlayRef.hasAttached()) {
+            this.overlayRef.attach(this.portalTemplate);
+        }
         this.isOpen = true;
     }
 
@@ -131,6 +114,16 @@ export class DropdownComponent implements OnChanges, AfterViewInit {
     }
 
     private closeComplete() {
-        this.overlayRef.detach();
+        if (this.overlayRef.hasAttached()) {
+            this.overlayRef.detach();
+        }
+    }
+
+    private toggle() {
+        if (this.isOpen) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 }
