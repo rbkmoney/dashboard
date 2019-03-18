@@ -21,7 +21,8 @@ import { openCloseAnimation, State } from './open-close-animation';
 })
 export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() overlayOrigin: CdkOverlayOrigin;
-    @Input() width = 400;
+    @Input() width?: number | string;
+    @Input() height?: number | string;
 
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
     overlayRef: OverlayRef;
@@ -71,7 +72,8 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         const config = new OverlayConfig({
             positionStrategy,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: `${this.width}px`
+            width: this.width,
+            height: this.height
         });
         this.overlayRef = this.overlay.create(config);
         positionStrategy.positionChanges.subscribe(() => {
