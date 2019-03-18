@@ -48,7 +48,14 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         this.overlayOrigin.elementRef.nativeElement.removeEventListener('click', this.overlayOriginClickHandler);
     }
 
-    create() {
+    animationEndHandler = () => {
+        if (this.state === State.closed && this.overlayRef.hasAttached()) {
+            this.overlayRef.detach();
+        }
+        this.updateTrianglePosition();
+    };
+
+    private create() {
         const positionStrategy = this.overlay
             .position()
             .flexibleConnectedTo(this.overlayOrigin.elementRef)
@@ -59,14 +66,7 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
                     originX: 'center',
                     originY: 'bottom',
                     overlayX: 'center',
-                    overlayY: 'top',
-                    offsetY: 10
-                },
-                {
-                    originX: 'center',
-                    originY: 'top',
-                    overlayX: 'start',
-                    overlayY: 'bottom'
+                    overlayY: 'top'
                 }
             ]);
         const config = new OverlayConfig({
@@ -80,13 +80,6 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
             this.updateTrianglePosition();
         });
     }
-
-    animationEndHandler = () => {
-        if (this.state === State.closed && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
-        }
-        this.updateTrianglePosition();
-    };
 
     private overlayOriginClickHandler = () => {
         this.toggle();
@@ -110,8 +103,8 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
                 overlayOriginRect.left -
                 dropdownRect.left +
                 overlayOriginRect.width / 2 -
-                dropdownTriangleRect.width / 2 -
-                4;
+                dropdownTriangleRect.width / 2 +
+                7.5;
             this.triangleLeftOffset = `${leftOffset}px`;
         }
     }

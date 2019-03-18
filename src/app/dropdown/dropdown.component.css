@@ -2,16 +2,15 @@
 
 .dropdown-wrapper {
     perspective: 2000px;
-    padding: 10px;
+    margin: 15px;
     width: 100%;
 }
 
 .dropdown {
-    padding: 20px;
     background-color: white;
-    padding: 30px;
     border-radius: 4px;
     box-shadow: 0 8px 30px 0 rgba(174, 188, 230, 0.5);
+    padding: 30px;
     width: auto;
 }
 
