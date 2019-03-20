@@ -4,7 +4,7 @@
             <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
         </div>
     </div>
-    <dsh-dropdown [overlayOrigin]="overlayOrigin" width="400px">
+    <dsh-dropdown [overlayOrigin]="overlayOrigin" width="400px" #dropdown [hasBackdropClickClose]="false">
         hello world hello world hello world hello world hello world hello world world hello world hello world hello
         world hello world hello world world hello world hello world hello world hello world hello world world hello
         world hello world hello world hello world hello world world hello world hello world hello world hello world
@@ -14,6 +14,7 @@
         world hello world world hello world hello world hello world hello world hello world world hello world hello
         world hello world hello world hello world world world
     </dsh-dropdown>
+    <button (click)="toggle()">test</button>
     <div class="circle" #overlayOrigin2="cdkOverlayOrigin" cdkOverlayOrigin>
         <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
     </div>

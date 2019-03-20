@@ -6,7 +6,9 @@ import {
     SimpleChanges,
     ElementRef,
     AfterViewInit,
-    OnDestroy
+    OnDestroy,
+    EventEmitter,
+    Output
 } from '@angular/core';
 import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
@@ -23,6 +25,9 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() overlayOrigin: CdkOverlayOrigin;
     @Input() width?: number | string;
     @Input() height?: number | string;
+    @Input() hasBackdropClickClose = true;
+
+    @Output() backdropClick? = new EventEmitter<MouseEvent>();
 
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
     overlayRef: OverlayRef;
@@ -46,6 +51,28 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         this.overlayOrigin.elementRef.nativeElement.removeEventListener('click', this.overlayOriginClickHandler);
+    }
+
+    open() {
+        if (!this.overlayRef.hasAttached()) {
+            this.overlayRef.attach(this.portalTemplate);
+        }
+        this.state = State.open;
+        window.addEventListener('mousedown', this.backdropClickHandler);
+        this.updatePosition();
+    }
+
+    close() {
+        this.state = State.closed;
+        window.removeEventListener('mousedown', this.backdropClickHandler);
+    }
+
+    toggle() {
+        if (this.state === State.open) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 
     animationEndHandler = () => {
@@ -105,7 +132,10 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
             !(this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) &&
             !(this.dropdown && this.dropdown.nativeElement.contains(event.target))
         ) {
-            this.close();
+            this.backdropClick.emit(event);
+            if (this.hasBackdropClickClose) {
+                this.close();
+            }
         }
     };
 
@@ -126,28 +156,6 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
                 dropdownTriangleRect.width / 2 +
                 7.5;
             this.triangleLeftOffset = `${leftOffset}px`;
-        }
-    }
-
-    private open() {
-        if (!this.overlayRef.hasAttached()) {
-            this.overlayRef.attach(this.portalTemplate);
-        }
-        this.state = State.open;
-        window.addEventListener('mousedown', this.backdropClickHandler);
-        this.updatePosition();
-    }
-
-    private close() {
-        this.state = State.closed;
-        window.removeEventListener('mousedown', this.backdropClickHandler);
-    }
-
-    private toggle() {
-        if (this.state === State.open) {
-            this.close();
-        } else {
-            this.open();
         }
     }
 }
