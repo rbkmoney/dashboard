@@ -41,7 +41,7 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.create();
+        this.overlayRef = this.createOverlayRef();
     }
 
     ngOnDestroy() {
@@ -52,10 +52,27 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         if (this.state === State.closed && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
         }
-        this.updateTrianglePosition();
+        this.updatePosition();
     };
 
-    private create() {
+    private getWidth() {
+        // overlayX: 'center' has problem with width: '100%'
+        const fillWidth = '99.99%';
+        if (this.width === '100%') {
+            return fillWidth;
+        }
+        if (!this.width || (typeof this.width === 'string' && this.width.slice(-1) === '%')) {
+            return this.width;
+        }
+        const windowWidth = document.body.getBoundingClientRect().width;
+        const width = parseFloat(this.width.toString());
+        if (width + 1 >= windowWidth) {
+            return fillWidth;
+        }
+        return width;
+    }
+
+    private createOverlayRef() {
         const positionStrategy = this.overlay
             .position()
             .flexibleConnectedTo(this.overlayOrigin.elementRef)
@@ -72,13 +89,11 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         const config = new OverlayConfig({
             positionStrategy,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: this.width,
+            width: this.getWidth(),
             height: this.height
         });
-        this.overlayRef = this.overlay.create(config);
-        positionStrategy.positionChanges.subscribe(() => {
-            this.updateTrianglePosition();
-        });
+        positionStrategy.positionChanges.subscribe(this.updatePosition);
+        return this.overlay.create(config);
     }
 
     private overlayOriginClickHandler = () => {
@@ -92,6 +107,11 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         ) {
             this.close();
         }
+    };
+
+    private updatePosition = () => {
+        this.overlayRef.updateSize({ width: this.getWidth() });
+        this.updateTrianglePosition();
     };
 
     private updateTrianglePosition() {
@@ -115,6 +135,7 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
         this.state = State.open;
         window.addEventListener('mousedown', this.backdropClickHandler);
+        this.updatePosition();
     }
 
     private close() {
