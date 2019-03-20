@@ -4,7 +4,6 @@ import {
     ViewChild,
     OnChanges,
     SimpleChanges,
-    ElementRef,
     AfterViewInit,
     OnDestroy,
     EventEmitter,
@@ -12,8 +11,18 @@ import {
 } from '@angular/core';
 import { Overlay, CdkOverlayOrigin, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
+import get from 'lodash.get';
 
 import { openCloseAnimation, State } from './open-close-animation';
+
+class Element {
+    constructor(public getElement: () => HTMLElement) {}
+
+    getSize() {
+        const element = this.getElement();
+        return element ? element.getBoundingClientRect() : undefined;
+    }
+}
 
 @Component({
     selector: 'dsh-dropdown',
@@ -31,11 +40,12 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     @ViewChild('portalTemplate') portalTemplate: TemplatePortalDirective;
     overlayRef: OverlayRef;
-    @ViewChild('dropdown') dropdown: ElementRef;
-    @ViewChild('dropdownTriangle') dropdownTriangle: ElementRef;
     state: State = State.closed;
     states = State;
     triangleLeftOffset;
+    dropdown = new Element(() => get(this.overlayRef, 'overlayElement.firstChild'));
+    triangle = new Element(() => get(this.dropdown.getElement(), 'firstChild.firstChild'));
+    origin = new Element(() => get(this.overlayOrigin, 'elementRef.nativeElement'));
 
     constructor(private overlay: Overlay) {}
 
@@ -128,9 +138,10 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     };
 
     private backdropClickHandler = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
         if (
-            !(this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(event.target)) &&
-            !(this.dropdown && this.dropdown.nativeElement.contains(event.target))
+            !(this.overlayOrigin.elementRef && this.overlayOrigin.elementRef.nativeElement.contains(target)) &&
+            !(this.dropdown.getElement() && this.dropdown.getElement().contains(target))
         ) {
             this.backdropClick.emit(event);
             if (this.hasBackdropClickClose) {
@@ -145,16 +156,11 @@ export class DropdownComponent implements OnChanges, AfterViewInit, OnDestroy {
     };
 
     private updateTrianglePosition() {
-        if (this.dropdown && this.dropdownTriangle && this.overlayOrigin.elementRef) {
-            const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
-            const dropdownTriangleRect = this.dropdownTriangle.nativeElement.getBoundingClientRect();
-            const overlayOriginRect = this.overlayOrigin.elementRef.nativeElement.getBoundingClientRect();
-            const leftOffset =
-                overlayOriginRect.left -
-                dropdownRect.left +
-                overlayOriginRect.width / 2 -
-                dropdownTriangleRect.width / 2 +
-                7.5;
+        const dropdown = this.dropdown.getSize();
+        const triangle = this.triangle.getSize();
+        const origin = this.origin.getSize();
+        if (triangle && dropdown && origin) {
+            const leftOffset = origin.left - dropdown.left + origin.width / 2 - triangle.width / 2 + 7.5;
             this.triangleLeftOffset = `${leftOffset}px`;
         }
     }
