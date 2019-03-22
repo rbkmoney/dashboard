@@ -1,10 +1,10 @@
 <div class="actionbar" fxLayout fxLayoutGap="10px">
     <div>
-        <div class="circle" #overlayOrigin="cdkOverlayOrigin" cdkOverlayOrigin>
+        <div class="circle" [dshDropdownTriggerFor]="dropdown">
             <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
         </div>
     </div>
-    <dsh-dropdown [overlayOrigin]="overlayOrigin" width="400px" #dropdown [hasBackdropClickClose]="false">
+    <dsh-dropdown width="400px" #dropdown="dshDropdown">
         hello world hello world hello world hello world hello world hello world world hello world hello world hello
         world hello world hello world world hello world hello world hello world hello world hello world world hello
         world hello world hello world hello world hello world world hello world hello world hello world hello world
@@ -14,9 +14,4 @@
         world hello world world hello world hello world hello world hello world hello world world hello world hello
         world hello world hello world hello world world world
     </dsh-dropdown>
-    <button (click)="toggle()">test</button>
-    <div class="circle" #overlayOrigin2="cdkOverlayOrigin" cdkOverlayOrigin>
-        <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
-    </div>
-    <dsh-dropdown [overlayOrigin]="overlayOrigin2"> hello s </dsh-dropdown>
 </div>

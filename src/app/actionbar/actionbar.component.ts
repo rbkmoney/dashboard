@@ -1,16 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'dsh-actionbar',
     templateUrl: './actionbar.component.html',
     styleUrls: ['./actionbar.component.scss']
 })
-export class ActionbarComponent {
-    @ViewChild(DropdownComponent) dropdown: DropdownComponent;
-
-    toggle() {
-        this.dropdown.toggle();
-    }
-}
+export class ActionbarComponent {}

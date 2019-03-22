@@ -6,11 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownComponent } from './dropdown.component';
 import { DropdownService } from './dropdown.service';
+import { DropdownTriggerDirective } from './dropdown-trigger.directive';
 
 @NgModule({
     imports: [CommonModule, OverlayModule, PortalModule, PortalModule, BrowserAnimationsModule],
-    exports: [DropdownComponent],
-    declarations: [DropdownComponent],
+    exports: [DropdownComponent, DropdownTriggerDirective],
+    declarations: [DropdownComponent, DropdownTriggerDirective],
     entryComponents: [DropdownComponent],
     providers: [DropdownService]
 })
