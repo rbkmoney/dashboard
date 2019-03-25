@@ -43,9 +43,17 @@ describe('DshDropdown', () => {
 
     it('should close the dropdown', fakeAsync(() => {
         const fixture = createComponent(SimpleDropdownComponent);
-        fixture.detectChanges();
         fixture.componentInstance.trigger.open();
         fixture.componentInstance.trigger.close();
+        tick(500);
+        expect(overlayContainerElement.textContent).toBe('');
+    }));
+
+    it('should toggle the dropdown', fakeAsync(() => {
+        const fixture = createComponent(SimpleDropdownComponent);
+        fixture.componentInstance.trigger.toggle();
+        expect(overlayContainerElement.textContent).toContain('Text');
+        fixture.componentInstance.trigger.toggle();
         tick(500);
         expect(overlayContainerElement.textContent).toBe('');
     }));
