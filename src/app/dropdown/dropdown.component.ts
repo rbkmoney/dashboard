@@ -3,6 +3,11 @@ import { Subject } from 'rxjs';
 
 import { openCloseAnimation, State } from './open-close-animation';
 
+/**
+ * overlayX: 'center' has problem with width: '100%'
+ */
+const FULL_WIDTH = '99.99%';
+
 @Component({
     selector: 'dsh-dropdown',
     templateUrl: 'dropdown.component.html',
@@ -14,45 +19,26 @@ export class DropdownComponent {
     @Input() width?: number | string;
     @Input() height?: number | string;
     @Input() hasBackdropClickClose = true;
-
     @Output() backdropClick? = new EventEmitter<MouseEvent>();
 
-    state: State = State.closed;
-    states = State;
-    triangleLeftOffset;
-
-    animationEnd$ = new Subject();
-
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+    state: State = State.closed;
+    triangleLeftOffset: string;
+    animationDone$ = new Subject();
 
     constructor() {}
 
-    open() {
-        this.state = State.open;
-    }
-
-    close() {
-        this.state = State.closed;
-    }
-
-    animationEndHandler = () => {
-        this.animationEnd$.next();
-    };
-
     getWidth() {
-        // overlayX: 'center' has problem with width: '100%'
-        const fillWidth = '99.99%';
         if (this.width === '100%') {
-            return fillWidth;
+            return FULL_WIDTH;
         }
         if (!this.width || (typeof this.width === 'string' && this.width.slice(-1) === '%')) {
             return this.width;
         }
-        const windowWidth = document.body.getBoundingClientRect().width;
-        const width = parseFloat(this.width.toString());
-        if (width + 1 >= windowWidth) {
-            return fillWidth;
+        const widthPx: number = typeof this.width === 'string' ? parseFloat(this.width) : this.width;
+        if (widthPx + 1 >= document.body.getBoundingClientRect().width) {
+            return FULL_WIDTH;
         }
-        return width;
+        return widthPx;
     }
 }
