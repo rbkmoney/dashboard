@@ -57,6 +57,16 @@ describe('DshDropdown', () => {
         tick(500);
         expect(overlayContainerElement.textContent).toBe('');
     }));
+
+    it('should toggle the dropdown by triggerFor click', fakeAsync(() => {
+        const fixture = createComponent(SimpleDropdownComponent);
+        const button = fixture.nativeElement.querySelector('button');
+        button.click();
+        expect(overlayContainerElement.textContent).toContain('Text');
+        button.click();
+        tick(500);
+        expect(overlayContainerElement.textContent).toBe('');
+    }));
 });
 
 @Component({
