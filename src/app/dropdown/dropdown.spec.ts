@@ -34,59 +34,65 @@ describe('DshDropdown', () => {
         overlayContainer.ngOnDestroy();
     }));
 
-    it('should open the dropdown', () => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        expect(overlayContainerElement.textContent).toBe('');
-        fixture.componentInstance.trigger.open();
-        expect(overlayContainerElement.textContent).toContain('Text');
+    describe('DropdownTriggerDirective API', () => {
+        it('should open the dropdown', () => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            expect(overlayContainerElement.textContent).toBe('');
+            fixture.componentInstance.trigger.open();
+            expect(overlayContainerElement.textContent).toContain('Text');
+        });
+
+        it('should close the dropdown', fakeAsync(() => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            fixture.componentInstance.trigger.open();
+            fixture.componentInstance.trigger.close();
+            tick(500);
+            expect(overlayContainerElement.textContent).toBe('');
+        }));
+
+        it('should toggle the dropdown', fakeAsync(() => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            fixture.componentInstance.trigger.toggle();
+            expect(overlayContainerElement.textContent).toContain('Text');
+            fixture.componentInstance.trigger.toggle();
+            tick(500);
+            expect(overlayContainerElement.textContent).toBe('');
+        }));
     });
 
-    it('should close the dropdown', fakeAsync(() => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        fixture.componentInstance.trigger.open();
-        fixture.componentInstance.trigger.close();
-        tick(500);
-        expect(overlayContainerElement.textContent).toBe('');
-    }));
+    describe('dshDropdownTriggerFor', () => {
+        it('should toggle the dropdown by triggerFor click', fakeAsync(() => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            const button = fixture.nativeElement.querySelector('#toggle');
+            button.click();
+            expect(overlayContainerElement.textContent).toContain('Text');
+            button.click();
+            tick(500);
+            expect(overlayContainerElement.textContent).toBe('');
+        }));
 
-    it('should toggle the dropdown', fakeAsync(() => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        fixture.componentInstance.trigger.toggle();
-        expect(overlayContainerElement.textContent).toContain('Text');
-        fixture.componentInstance.trigger.toggle();
-        tick(500);
-        expect(overlayContainerElement.textContent).toBe('');
-    }));
+        it('should toggle the dropdown by triggerFor inside element click', fakeAsync(() => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            const button = fixture.nativeElement.querySelector('#toggle-content');
+            button.click();
+            expect(overlayContainerElement.textContent).toContain('Text');
+            button.click();
+            tick(500);
+            expect(overlayContainerElement.textContent).toBe('');
+        }));
+    });
 
-    it('should toggle the dropdown by triggerFor click', fakeAsync(() => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        const button = fixture.nativeElement.querySelector('#toggle');
-        button.click();
-        expect(overlayContainerElement.textContent).toContain('Text');
-        button.click();
-        tick(500);
-        expect(overlayContainerElement.textContent).toBe('');
-    }));
-
-    it('should toggle the dropdown by triggerFor inside element click', fakeAsync(() => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        const button = fixture.nativeElement.querySelector('#toggle-content');
-        button.click();
-        expect(overlayContainerElement.textContent).toContain('Text');
-        button.click();
-        tick(500);
-        expect(overlayContainerElement.textContent).toBe('');
-    }));
-
-    it('should do nothing the dropdown by backdrop (another element) click', fakeAsync(() => {
-        const fixture = createComponent(SimpleDropdownComponent);
-        const button = fixture.nativeElement.querySelector('#another');
-        fixture.componentInstance.trigger.open();
-        expect(overlayContainerElement.textContent).toContain('Text');
-        button.click();
-        tick(500);
-        expect(overlayContainerElement.textContent).toContain('Text');
-    }));
+    describe('backdrop', () => {
+        it('should do nothing the dropdown by backdrop (another element) click', fakeAsync(() => {
+            const fixture = createComponent(SimpleDropdownComponent);
+            const button = fixture.nativeElement.querySelector('#another');
+            fixture.componentInstance.trigger.open();
+            expect(overlayContainerElement.textContent).toContain('Text');
+            button.click();
+            tick(500);
+            expect(overlayContainerElement.textContent).toContain('Text');
+        }));
+    });
 });
 
 @Component({
