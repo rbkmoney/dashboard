@@ -93,6 +93,14 @@ describe('DshDropdown', () => {
             expect(overlayContainerElement.textContent).toContain('Text');
         }));
     });
+
+    it('should less or equal specified width', fakeAsync(() => {
+        const fixture = createComponent(SimpleDropdownComponent);
+        fixture.componentInstance.trigger.open();
+        tick(500);
+        const overlayEl = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayEl.getBoundingClientRect().width).toBeLessThanOrEqual(400);
+    }));
 });
 
 @Component({
