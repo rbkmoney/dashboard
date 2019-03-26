@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-dropdown-theme($theme) {
+    $background: map-get($theme, background);
+
+    .dropdown,
+    .dropdown-triangle {
+        background-color: mat-color($background, 'card');
+    }
+}
