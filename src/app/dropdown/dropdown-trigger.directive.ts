@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener, ViewContainerRef, ElementRef } from '@angular/core';
+import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayRef, OverlayConfig, Overlay, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import get from 'lodash.get';
@@ -12,16 +12,16 @@ const WRAPPER_OFFSET = 15;
     selector: '[dshDropdownTriggerFor]',
     exportAs: 'dshDropdownTrigger'
 })
-export class DropdownTriggerDirective {
-    private _overlayRef: OverlayRef;
+export class DropdownTriggerDirective implements OnDestroy {
     @Input('dshDropdownTriggerFor')
     dropdown: DropdownComponent;
+    private _overlayRef: OverlayRef;
+    get overlayRef() {
+        return this._overlayRef || (this._overlayRef = this.createOverlayRef());
+    }
     @HostListener('click')
     onClick() {
         this.toggle();
-    }
-    get overlayRef() {
-        return this._overlayRef || (this._overlayRef = this.createOverlayRef());
     }
 
     constructor(
@@ -29,6 +29,13 @@ export class DropdownTriggerDirective {
         private overlay: Overlay,
         private origin: ElementRef<HTMLElement>
     ) {}
+
+    ngOnDestroy() {
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+        }
+    }
 
     open() {
         if (!this.overlayRef.hasAttached()) {
