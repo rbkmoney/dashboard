@@ -60,18 +60,39 @@ describe('DshDropdown', () => {
 
     it('should toggle the dropdown by triggerFor click', fakeAsync(() => {
         const fixture = createComponent(SimpleDropdownComponent);
-        const button = fixture.nativeElement.querySelector('button');
+        const button = fixture.nativeElement.querySelector('#toggle');
         button.click();
         expect(overlayContainerElement.textContent).toContain('Text');
         button.click();
         tick(500);
         expect(overlayContainerElement.textContent).toBe('');
     }));
+
+    it('should toggle the dropdown by triggerFor inside element click', fakeAsync(() => {
+        const fixture = createComponent(SimpleDropdownComponent);
+        const button = fixture.nativeElement.querySelector('#toggle-content');
+        button.click();
+        expect(overlayContainerElement.textContent).toContain('Text');
+        button.click();
+        tick(500);
+        expect(overlayContainerElement.textContent).toBe('');
+    }));
+
+    it('should do nothing the dropdown by backdrop (another element) click', fakeAsync(() => {
+        const fixture = createComponent(SimpleDropdownComponent);
+        const button = fixture.nativeElement.querySelector('#another');
+        fixture.componentInstance.trigger.open();
+        expect(overlayContainerElement.textContent).toContain('Text');
+        button.click();
+        tick(500);
+        expect(overlayContainerElement.textContent).toContain('Text');
+    }));
 });
 
 @Component({
     template: `
-        <button [dshDropdownTriggerFor]="dropdown">Toggle</button>
+        <button id="another">Another button</button>
+        <button id="toggle" [dshDropdownTriggerFor]="dropdown"><span id="toggle-content">Toggle</span></button>
         <dsh-dropdown width="400px" #dropdown="dshDropdown">Text</dsh-dropdown>
     `
 })
