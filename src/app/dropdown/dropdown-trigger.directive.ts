@@ -15,13 +15,10 @@ const WRAPPER_OFFSET = 15;
 export class DropdownTriggerDirective implements OnDestroy {
     @Input('dshDropdownTriggerFor')
     dropdown: DropdownComponent;
+
     private _overlayRef: OverlayRef;
     get overlayRef() {
         return this._overlayRef || (this._overlayRef = this.createOverlayRef());
-    }
-    @HostListener('click')
-    onClick() {
-        this.toggle();
     }
 
     constructor(
@@ -35,6 +32,11 @@ export class DropdownTriggerDirective implements OnDestroy {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+    }
+
+    @HostListener('click')
+    onClick() {
+        this.toggle();
     }
 
     open() {
