@@ -28,7 +28,7 @@ export class DropdownComponent {
 
     constructor() {}
 
-    getWidth() {
+    get correctedWidth() {
         if (this.width === '100%') {
             return FULL_WIDTH;
         }

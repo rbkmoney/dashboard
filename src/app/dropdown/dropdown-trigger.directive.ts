@@ -17,15 +17,24 @@ export class DropdownTriggerDirective implements OnDestroy {
     dropdown: DropdownComponent;
 
     private _overlayRef: OverlayRef;
-    get overlayRef() {
-        return this._overlayRef || (this._overlayRef = this.createOverlayRef());
-    }
 
     constructor(
         private viewContainerRef: ViewContainerRef,
         private overlay: Overlay,
         private origin: ElementRef<HTMLElement>
     ) {}
+
+    private get dropdownEl(): HTMLElement {
+        return get(this.overlayRef, 'overlayElement.firstChild');
+    }
+
+    private get triangleEl(): HTMLElement {
+        return get(this.dropdownEl, 'firstChild.firstChild');
+    }
+
+    get overlayRef() {
+        return this._overlayRef || (this._overlayRef = this.createOverlayRef());
+    }
 
     ngOnDestroy() {
         if (this._overlayRef) {
@@ -64,14 +73,6 @@ export class DropdownTriggerDirective implements OnDestroy {
         }
     }
 
-    private get dropdownEl(): HTMLElement {
-        return get(this.overlayRef, 'overlayElement.firstChild');
-    }
-
-    private get triangleEl(): HTMLElement {
-        return get(this.dropdownEl, 'firstChild.firstChild');
-    }
-
     private getPortal(): TemplatePortal {
         return new TemplatePortal(this.dropdown.templateRef, this.viewContainerRef);
     }
@@ -108,12 +109,12 @@ export class DropdownTriggerDirective implements OnDestroy {
                     }
                 ]),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: this.dropdown.getWidth()
+            width: this.dropdown.correctedWidth
         });
     }
 
     private updatePosition = () => {
-        this.overlayRef.updateSize({ width: this.dropdown.getWidth() });
+        this.overlayRef.updateSize({ width: this.dropdown.correctedWidth });
         this.dropdown.triangleLeftOffset = this.getTriangleLeftOffset();
     };
 
