@@ -10,6 +10,6 @@ export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
     close() {
-      this.trigger.close();
+        this.trigger.close();
     }
 }
