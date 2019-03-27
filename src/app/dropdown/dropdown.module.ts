@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownComponent } from './dropdown.component';
-import { DropdownService } from './dropdown.service';
 import { DropdownTriggerDirective } from './dropdown-trigger.directive';
 
 @NgModule({
@@ -13,6 +12,6 @@ import { DropdownTriggerDirective } from './dropdown-trigger.directive';
     exports: [DropdownComponent, DropdownTriggerDirective],
     declarations: [DropdownComponent, DropdownTriggerDirective],
     entryComponents: [DropdownComponent],
-    providers: [DropdownService]
+    providers: []
 })
 export class DropdownModule {}
