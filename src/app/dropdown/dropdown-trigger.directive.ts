@@ -2,6 +2,7 @@ import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayRef, OverlayConfig, Overlay, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import get from 'lodash.get';
+import { Key } from 'ts-keycode-enum';
 
 import { DropdownComponent } from './dropdown.component';
 import { State } from './open-close-animation';
@@ -55,12 +56,14 @@ export class DropdownTriggerDirective implements OnDestroy {
             this.dropdown.state = State.open;
             this.updatePosition();
             window.addEventListener('mousedown', this.backdropClickHandler);
+            window.addEventListener('keyup', this.keypressHandler);
         }
     }
 
     close() {
         this.dropdown.state = State.closed;
         window.removeEventListener('mousedown', this.backdropClickHandler);
+        window.removeEventListener('keyup', this.keypressHandler);
     }
 
     toggle() {
@@ -140,6 +143,14 @@ export class DropdownTriggerDirective implements OnDestroy {
             if (this.dropdown.hasBackdropClickClose) {
                 this.close();
             }
+        }
+    };
+
+    private keypressHandler = (event: KeyboardEvent) => {
+        switch (event.keyCode) {
+            case Key.Escape:
+                this.close();
+                return;
         }
     };
 }

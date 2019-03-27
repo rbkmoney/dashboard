@@ -30,6 +30,7 @@
     "lodash.get": "^4.4.2",
     "moment": "^2.22.2",
     "rxjs": "~6.3.3",
+    "ts-keycode-enum": "^1.0.6",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
