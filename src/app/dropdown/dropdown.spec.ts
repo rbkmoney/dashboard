@@ -6,6 +6,17 @@ import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overl
 
 import { DropdownTriggerDirective } from './dropdown-trigger.directive';
 
+@Component({
+    template: `
+        <button id="another">Another button</button>
+        <button id="toggle" [dshDropdownTriggerFor]="dropdown"><span id="toggle-content">Toggle</span></button>
+        <dsh-dropdown width="400px" #dropdown="dshDropdown">Text</dsh-dropdown>
+    `
+})
+class SimpleDropdownComponent {
+    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
+}
+
 describe('DshDropdown', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -102,14 +113,3 @@ describe('DshDropdown', () => {
         expect(overlayEl.getBoundingClientRect().width).toBeLessThanOrEqual(400);
     }));
 });
-
-@Component({
-    template: `
-        <button id="another">Another button</button>
-        <button id="toggle" [dshDropdownTriggerFor]="dropdown"><span id="toggle-content">Toggle</span></button>
-        <dsh-dropdown width="400px" #dropdown="dshDropdown">Text</dsh-dropdown>
-    `
-})
-class SimpleDropdownComponent {
-    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
-}
