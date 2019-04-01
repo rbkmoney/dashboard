@@ -5,10 +5,6 @@
     font-size: 24px;
 }
 
-.container {
-    @include container($turquoise);
-}
-
 .content {
     @include content($content-padding, $content-max-width);
 }
