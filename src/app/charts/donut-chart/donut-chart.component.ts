@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
-import { arc, pie } from 'd3-shape';
-import { select } from 'd3-selection';
+import { Arc, arc, DefaultArcObject, Pie, pie, PieArcDatum } from 'd3-shape';
+import { select, Selection } from 'd3-selection';
 import { interpolate } from 'd3-interpolate';
 import 'd3-transition';
 import { easeExp } from 'd3-ease';
@@ -22,60 +22,62 @@ export class DonutChartComponent implements OnChanges, OnInit {
     @Input()
     data: SegmentData[];
 
-    radius;
+    private radius: number;
+    private svg: Selection<SVGGElement, {}, null, undefined>;
+    private generatePieData: Pie<void, SegmentData>;
+    private generateArc: Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
+    private donut: Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 
-    private myArc;
-    private myPie;
-    private arcs;
-    private pies;
-    private svg;
+    private innerRadius = 0.96; // percent of radius
+    private padAngle = 0.05;
+    private cornerRadius = 4;
 
     constructor() {}
 
     ngOnInit() {
         this.createChart();
-        this.showChartTransition();
+        this.createChartTransition();
     }
 
     ngOnChanges(changes: any) {
-        if (this.pies) {
+        if (this.donut) {
             this.updateChart();
         }
     }
 
     createChart() {
         const container = this.chartContainer.nativeElement;
-        const width = container.offsetWidth;
-        this.radius = width / 2;
+        const size = container.offsetWidth;
+        this.radius = size / 2;
 
         d3.select(container)
             .select('svg')
             .selectAll('*')
             .remove();
 
-        this.myPie = pie<void, SegmentData>()
+        this.generatePieData = pie<void, SegmentData>()
             .sort(null)
             .value(d => d.value);
 
         this.svg = select(container)
             .select('svg')
-            .attr('height', width)
-            .attr('width', width)
+            .attr('height', size)
+            .attr('width', size)
             .append('g')
-            .attr('transform', `translate(${width / 2}, ${width / 2})`)
+            .attr('transform', `translate(${this.radius}, ${this.radius})`)
             .attr('class', 'donutChart');
 
-        this.arcs = this.myPie(this.data);
+        const generatedData = this.generatePieData(this.data);
 
-        this.myArc = arc()
-            .innerRadius(this.radius * 0.96)
+        this.generateArc = arc()
+            .innerRadius(this.radius * this.innerRadius)
             .outerRadius(this.radius)
-            .padAngle(0.05)
-            .cornerRadius(4);
+            .padAngle(this.padAngle)
+            .cornerRadius(this.cornerRadius);
 
-        this.pies = this.svg
+        this.donut = this.svg
             .selectAll('.arc')
-            .data(this.arcs)
+            .data(generatedData)
             .enter()
             .append('path')
             .attr('id', () => 'segment')
@@ -87,32 +89,32 @@ export class DonutChartComponent implements OnChanges, OnInit {
     }
 
     updateChart() {
-        this.pies = this.pies.data(this.myPie(this.data));
+        this.donut = this.donut.data(this.generatePieData(this.data));
         this.updateChartTransition();
     }
 
-    private showChartTransition() {
-        const myArc = this.myArc;
-        return this.pies
+    private createChartTransition() {
+        const generateArc = this.generateArc;
+        return this.donut
             .transition()
             .ease(easeExp)
             .duration(1500)
             .attrTween('d', b => {
                 const i = interpolate({ startAngle: 0, endAngle: 0 }, b);
-                return t => myArc(i(t));
+                return t => generateArc(i(t));
             });
     }
 
     private updateChartTransition() {
-        const myArc = this.myArc;
-        return this.pies
+        const generateArc = this.generateArc;
+        return this.donut
             .transition()
             .ease(easeExp)
             .duration(750)
             .attrTween('d', function(d) {
                 const i = interpolate(this._current, d);
                 this._current = i(0);
-                return t => myArc(i(t));
+                return t => generateArc(i(t));
             });
     }
 }
