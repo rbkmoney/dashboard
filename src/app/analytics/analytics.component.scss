@@ -2,8 +2,8 @@
 @import '../../styles/mixins.scss';
 
 .container {
-  @include container($turquoise);
   @include fullscreen();
+  background-color: $background-color;
 }
 
 .content {
