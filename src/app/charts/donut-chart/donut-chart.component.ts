@@ -48,11 +48,17 @@ export class DonutChartComponent implements OnChanges, OnInit {
         const width = container.offsetWidth;
         this.radius = width / 2;
 
-        d3.select(container).select('svg').selectAll('*').remove();
+        d3.select(container)
+            .select('svg')
+            .selectAll('*')
+            .remove();
 
-        this.myPie = pie<void, SegmentData>().sort(null).value(d => d.value);
+        this.myPie = pie<void, SegmentData>()
+            .sort(null)
+            .value(d => d.value);
 
-        this.svg = select(container).select('svg')
+        this.svg = select(container)
+            .select('svg')
             .attr('height', width)
             .attr('width', width)
             .append('g')
@@ -87,25 +93,26 @@ export class DonutChartComponent implements OnChanges, OnInit {
 
     private showChartTransition() {
         const myArc = this.myArc;
-        return this.pies.transition()
+        return this.pies
+            .transition()
             .ease(easeExp)
             .duration(1500)
-            .attrTween('d', (b) => {
+            .attrTween('d', b => {
                 const i = interpolate({ startAngle: 0, endAngle: 0 }, b);
-                return (t) => myArc(i(t));
+                return t => myArc(i(t));
             });
     }
 
     private updateChartTransition() {
         const myArc = this.myArc;
-        return this.pies.transition()
+        return this.pies
+            .transition()
             .ease(easeExp)
             .duration(750)
             .attrTween('d', function(d) {
                 const i = interpolate(this._current, d);
                 this._current = i(0);
-                return (t) => myArc(i(t));
+                return t => myArc(i(t));
             });
     }
-
 }

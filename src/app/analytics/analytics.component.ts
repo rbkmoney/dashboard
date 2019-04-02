@@ -35,7 +35,7 @@ export class AnalyticsComponent implements OnInit {
                 {
                     name: 'lol',
                     value: this.getRandom()
-                },
+                }
             ]
         },
         {
@@ -48,7 +48,7 @@ export class AnalyticsComponent implements OnInit {
                 {
                     name: 'lol',
                     value: this.getRandom()
-                },
+                }
             ]
         },
         {
@@ -61,7 +61,7 @@ export class AnalyticsComponent implements OnInit {
                 {
                     name: 'lol',
                     value: this.getRandom()
-                },
+                }
             ]
         }
     ];
@@ -86,6 +86,6 @@ export class AnalyticsComponent implements OnInit {
         {
             name: 'omegalul',
             value: this.getRandom()
-        },
-    ]
+        }
+    ];
 }
