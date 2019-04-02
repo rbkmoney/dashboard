@@ -1,11 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 
-.container {
-    @include container($turquoise);
-    @include fullscreen();
-}
-
 .content {
     @include content($content-padding, $content-max-width);
 }

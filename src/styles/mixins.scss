@@ -11,7 +11,3 @@
     max-width: $max-width;
     margin: 0 auto;
 }
-
-@mixin container($backgroud-color) {
-    background-color: $backgroud-color;
-}
