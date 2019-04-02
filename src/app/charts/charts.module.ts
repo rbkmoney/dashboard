@@ -5,8 +5,8 @@ import { LayoutModule } from '../layout';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
-    declarations: [DonutChartComponent, BarChartComponent],
+    declarations: [DonutChartComponent],
     imports: [CommonModule, LayoutModule],
-    exports: [DonutChartComponent, BarChartComponent]
+    exports: [DonutChartComponent]
 })
 export class ChartsModule {}
