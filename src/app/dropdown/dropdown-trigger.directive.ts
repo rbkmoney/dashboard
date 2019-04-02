@@ -134,22 +134,26 @@ export class DropdownTriggerDirective implements OnDestroy {
         }
     }
 
+    private conditionalClose() {
+        if (!this.dropdown.disableClose) {
+            this.close();
+        }
+    }
+
     private backdropClickHandler = (event: MouseEvent & { target: HTMLElement }) => {
         const { target } = event;
         const { dropdownEl } = this;
         const originEl = this.origin.nativeElement;
         if (!(dropdownEl && dropdownEl.contains(target)) && !(originEl && originEl.contains(target))) {
             this.dropdown.backdropClick.emit(event);
-            if (!this.dropdown.disableClose) {
-                this.close();
-            }
+            this.conditionalClose();
         }
     };
 
     private keypressHandler = (event: KeyboardEvent) => {
         switch (event.keyCode) {
             case Key.Escape:
-                this.close();
+                this.conditionalClose();
                 return;
         }
     };
