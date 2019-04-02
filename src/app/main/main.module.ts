@@ -6,10 +6,9 @@ import { BrandModule } from '../brand';
 import { ToolbarModule } from '../toolbar';
 import { ActionbarModule } from '../actionbar';
 import { DshTableModule } from '../table';
-import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
     declarations: [MainComponent],
-    imports: [FlexLayoutModule, BrandModule, ToolbarModule, ActionbarModule, DshTableModule, CdkTableModule]
+    imports: [FlexLayoutModule, BrandModule, ToolbarModule, ActionbarModule, DshTableModule]
 })
 export class MainModule {}
