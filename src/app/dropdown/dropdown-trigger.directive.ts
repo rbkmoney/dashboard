@@ -140,7 +140,7 @@ export class DropdownTriggerDirective implements OnDestroy {
         const originEl = this.origin.nativeElement;
         if (!(dropdownEl && dropdownEl.contains(target)) && !(originEl && originEl.contains(target))) {
             this.dropdown.backdropClick.emit(event);
-            if (this.dropdown.hasBackdropClickClose) {
+            if (!this.dropdown.disableClose) {
                 this.close();
             }
         }

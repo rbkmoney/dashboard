@@ -4,7 +4,7 @@
             <div class="wrapper"><mat-icon class="user-icon" svgIcon="user"></mat-icon></div>
         </div>
     </div>
-    <dsh-dropdown width="400px" #dropdown="dshDropdown" [hasBackdropClickClose]="false">
+    <dsh-dropdown width="400px" #dropdown="dshDropdown" [disableClose]="true">
         <div>Hello world!!!</div>
         <button (click)="close()">Close</button>
     </dsh-dropdown>

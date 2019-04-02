@@ -11,22 +11,19 @@ const FULL_WIDTH = '99.99%';
 @Component({
     selector: 'dsh-dropdown',
     templateUrl: 'dropdown.component.html',
-    styleUrls: ['dropdown.component.css'],
+    styleUrls: ['dropdown.component.scss'],
     animations: [openCloseAnimation],
     exportAs: 'dshDropdown'
 })
 export class DropdownComponent {
     @Input() width?: number | string;
-    @Input() height?: number | string;
-    @Input() hasBackdropClickClose = true;
+    @Input() disableClose = false;
     @Output() backdropClick? = new EventEmitter<MouseEvent>();
 
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
-    state: State = State.closed;
+    state = State.closed;
     triangleLeftOffset: string;
     animationDone$ = new Subject();
-
-    constructor() {}
 
     get correctedWidth() {
         if (this.width === '100%') {

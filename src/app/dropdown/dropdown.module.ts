@@ -11,7 +11,6 @@ import { DropdownTriggerDirective } from './dropdown-trigger.directive';
     imports: [CommonModule, OverlayModule, PortalModule, PortalModule, BrowserAnimationsModule],
     exports: [DropdownComponent, DropdownTriggerDirective],
     declarations: [DropdownComponent, DropdownTriggerDirective],
-    entryComponents: [DropdownComponent],
-    providers: []
+    entryComponents: [DropdownComponent]
 })
 export class DropdownModule {}

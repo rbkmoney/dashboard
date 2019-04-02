@@ -22,6 +22,5 @@ export const openCloseAnimation = trigger('openClose', [
             'transform-origin': '50% -50px'
         })
     ),
-    transition(`${State.open} => ${State.closed}`, [animate('0.25s ease')]),
-    transition(`${State.closed} => ${State.open}`, [animate('0.25s ease')])
+    transition(`${State.open} <=> ${State.closed}`, [animate('0.25s ease')])
 ]);
