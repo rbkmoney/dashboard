@@ -8,4 +8,32 @@
     <div class="content">
         <button (click)="create()">Создать организацию</button> <button (click)="details()">Детали</button>
     </div>
+    <div class="content">
+        <div class="kek">
+            <table dshTable [dataSource]="dataSource">
+                <ng-container dshColumnDef="position">
+                    <th dshHeaderCell *dshHeaderCellDef>No.</th>
+                    <td dshCell *dshCellDef="let element">{{ element.position }}</td>
+                </ng-container>
+
+                <ng-container dshColumnDef="name">
+                    <th dshHeaderCell *dshHeaderCellDef>Name</th>
+                    <td dshCell *dshCellDef="let element">{{ element.name }}</td>
+                </ng-container>
+
+                <ng-container dshColumnDef="weight">
+                    <th dshHeaderCell *dshHeaderCellDef>Weight</th>
+                    <td dshCell *dshCellDef="let element">{{ element.weight }}</td>
+                </ng-container>
+
+                <ng-container dshColumnDef="symbol">
+                    <th dshHeaderCell *dshHeaderCellDef>Symbol</th>
+                    <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
+                </ng-container>
+
+                <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
+                <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+    </div>
 </div>

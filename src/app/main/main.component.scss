@@ -9,3 +9,8 @@
 .content {
     @include content($content-padding, $content-max-width);
 }
+
+.kek {
+    background-color: gray;
+    padding: 25px;
+}

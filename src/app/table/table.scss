@@ -1,0 +1,117 @@
+$dsh-header-row-height: 56px;
+$dsh-row-height: 48px;
+$dsh-row-horizontal-padding: 24px;
+
+.dsh-table {
+  display: block;
+  background-color: #ffffff;
+  border-radius: 5px;
+  color: #636974;
+  padding: 5px;
+
+  thead,
+  tbody {
+    width: 100%;
+    display: block;
+  }
+
+  thead {
+    background-color: #f2f7fb;
+    border-radius: 5px;
+  }
+}
+
+.dsh-header-row {
+  min-height: $dsh-header-row-height;
+}
+
+.dsh-row, .dsh-footer-row {
+  min-height: $dsh-row-height;
+}
+
+.dsh-row, .dsh-header-row, .dsh-footer-row {
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  align-items: center;
+  box-sizing: border-box;
+
+  &::after {
+    display: inline-block;
+    min-height: inherit;
+    content: '';
+  }
+}
+
+.dsh-cell:first-of-type, .dsh-header-cell:first-of-type, .dsh-footer-cell:first-of-type {
+  padding-left: $dsh-row-horizontal-padding;
+
+  [dir='rtl'] & {
+    padding-left: 0;
+    padding-right: $dsh-row-horizontal-padding;
+  }
+}
+
+.dsh-cell:last-of-type, .dsh-header-cell:last-of-type, .dsh-footer-cell:last-of-type {
+  padding-right: $dsh-row-horizontal-padding;
+
+  [dir='rtl'] & {
+    padding-right: 0;
+    padding-left: $dsh-row-horizontal-padding;
+  }
+}
+
+.dsh-cell, .dsh-header-cell, .dsh-footer-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+}
+
+table.dsh-table {
+  border-spacing: 0;
+}
+
+tr.dsh-header-row {
+  height: $dsh-header-row-height;
+}
+
+tr.dsh-row, tr.dsh-footer-row {
+  height: $dsh-row-height;
+}
+
+th.dsh-header-cell {
+  text-align: left;
+
+  [dir='rtl'] & {
+    text-align: right;
+  }
+}
+
+th.dsh-header-cell, td.dsh-cell, td.dsh-footer-cell {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #eff2f4;
+}
+
+th.dsh-header-cell:first-of-type, td.dsh-cell:first-of-type, td.dsh-footer-cell:first-of-type {
+  padding-left: $dsh-row-horizontal-padding;
+
+  [dir='rtl'] & {
+    padding-left: 0;
+    padding-right: $dsh-row-horizontal-padding;
+  }
+}
+
+th.dsh-header-cell:last-of-type, td.dsh-cell:last-of-type, td.dsh-footer-cell:last-of-type {
+  padding-right: $dsh-row-horizontal-padding;
+
+  [dir='rtl'] & {
+    padding-right: 0;
+    padding-left: $dsh-row-horizontal-padding;
+  }
+}
