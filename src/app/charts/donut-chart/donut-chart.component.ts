@@ -36,7 +36,7 @@ export class DonutChartComponent implements OnChanges, OnInit {
         this.createChartTransition();
     }
 
-    ngOnChanges(changes: any) {
+    ngOnChanges(changes: SimpleChanges) {
         if (this.donut) {
             this.updateChart();
         }
