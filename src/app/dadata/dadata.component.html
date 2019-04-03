@@ -1,0 +1,12 @@
+<input
+    matInput
+    #input
+    [formControl]="formControl"
+    [matAutocomplete]="auto"
+    [matAutocompleteConnectedTo]="autocompleteOrigin"
+/>
+<mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let suggestion of suggestions?.suggestions" [value]="suggestion.value">
+        {{ suggestion.value }}
+    </mat-option>
+</mat-autocomplete>

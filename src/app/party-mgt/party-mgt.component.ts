@@ -17,7 +17,8 @@ export class PartyMngComponent {
             comment: [''],
             checked: [false],
             radio: [''],
-            slided: [false]
+            slided: [false],
+            suggestions: ['']
         });
     }
 }
