@@ -29,10 +29,7 @@ export class DshFooterCellDefDirective extends CdkFooterCellDef {}
 
 @Directive({
     selector: '[dshColumnDef]',
-    providers: [
-        { provide: CdkColumnDef, useExisting: DshColumnDefDirective },
-        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: DshColumnDefDirective }
-    ]
+    providers: [{ provide: CdkColumnDef, useExisting: DshColumnDefDirective }]
 })
 export class DshColumnDefDirective extends CdkColumnDef {
     @Input('dshColumnDef') name: string;

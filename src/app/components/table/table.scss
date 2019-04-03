@@ -1,12 +1,18 @@
+@import "../../../styles/variables";
+
 $dsh-header-row-height: 56px;
 $dsh-row-height: 48px;
 $dsh-row-horizontal-padding: 24px;
+$dsh-table-background-color: $white;
+$dsh-thead-background-color: $turquoise;
+$dsh-border-color: #eff2f4;
+$dsh-table-font-color: #636974;
 
 .dsh-table {
   display: block;
-  background-color: #ffffff;
+  background-color: $dsh-table-background-color;
   border-radius: 5px;
-  color: #636974;
+  color: $dsh-table-font-color;
   padding: 5px;
 
   thead,
@@ -16,7 +22,7 @@ $dsh-row-horizontal-padding: 24px;
   }
 
   thead {
-    background-color: #f2f7fb;
+    background-color: $dsh-thead-background-color;
     border-radius: 5px;
   }
 }
@@ -95,7 +101,7 @@ th.dsh-header-cell, td.dsh-cell, td.dsh-footer-cell {
   padding: 0;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-color: #eff2f4;
+  border-color: $dsh-border-color;
 }
 
 th.dsh-header-cell:first-of-type, td.dsh-cell:first-of-type, td.dsh-footer-cell:first-of-type {
