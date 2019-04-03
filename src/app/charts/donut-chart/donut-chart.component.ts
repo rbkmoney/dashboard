@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Arc, arc, DefaultArcObject, Pie, pie, PieArcDatum } from 'd3-shape';
 import { select, Selection } from 'd3-selection';
 import { interpolate } from 'd3-interpolate';
