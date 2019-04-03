@@ -32,7 +32,9 @@ export class DshFooterRowDefDirective extends CdkFooterRowDef {
     providers: [{ provide: CdkRowDef, useExisting: DshRowDefDirective }]
 })
 export class DshRowDefDirective<T> extends CdkRowDef<T> {
+    // tslint:disable-next-line:no-input-rename
     @Input('dshRowDefColumns') columns;
+    // tslint:disable-next-line:no-input-rename
     @Input('dshRowDefWhen') when;
 }
 
