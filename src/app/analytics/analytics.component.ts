@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeriodData, SegmentData } from '../charts/models/chart-data-models';
-import { ChartsService } from '../charts/charts.service';
+import { AnalyticsService } from './analytics.service';
 
 @Component({
     selector: 'dsh-app-analytics',
@@ -11,15 +11,15 @@ export class AnalyticsComponent implements OnInit {
     periodData: PeriodData[];
     segmentData: SegmentData[];
 
-    constructor(private chartsService: ChartsService) {}
+    constructor(private analyticsService: AnalyticsService) {}
 
     ngOnInit() {
-        this.periodData = this.chartsService.getPeriodData();
-        this.segmentData = this.chartsService.getSegmentData();
+        this.periodData = this.analyticsService.getPeriodData();
+        this.segmentData = this.analyticsService.getSegmentData();
     }
 
     refreshValue() {
-        this.periodData = this.chartsService.getPeriodData();
-        this.segmentData = this.chartsService.getSegmentData();
+        this.periodData = this.analyticsService.getPeriodData();
+        this.segmentData = this.analyticsService.getSegmentData();
     }
 }
