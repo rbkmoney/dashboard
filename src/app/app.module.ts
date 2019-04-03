@@ -9,6 +9,7 @@ import { PartyMngModule } from './party-mgt';
 import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
+import { TableModule } from './table';
 
 @NgModule({
     declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { IconRegistryService } from './icon-registry.service';
         MainModule,
         PartyMngModule,
         DetailsModule,
+        TableModule,
         PageNotFoundModule
     ],
     providers: [IconRegistryService],
