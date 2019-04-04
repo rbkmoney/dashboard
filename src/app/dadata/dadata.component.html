@@ -6,7 +6,8 @@
     [matAutocompleteConnectedTo]="autocompleteOrigin"
 />
 <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let suggestion of suggestions?.suggestions" [value]="suggestion.value">
-        {{ suggestion.value }}
+    <mat-option *ngFor="let suggestion of suggestions?.suggestions" [value]="suggestion.value" class="option">
+        <div class="option-header">{{ suggestion.value }}</div>
+        <div class="option-description">{{ suggestion.data.address.value }}</div>
     </mat-option>
 </mat-autocomplete>

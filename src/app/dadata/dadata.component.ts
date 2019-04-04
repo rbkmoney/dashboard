@@ -1,6 +1,3 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { AutofillMonitor } from '@angular/cdk/text-field';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     Component,
@@ -16,9 +13,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
-import { Observable, Subject, Subscription, timer, merge } from 'rxjs';
-import { map, startWith, takeUntil, combineAll, switchMap } from 'rxjs/operators';
 import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/autocomplete-origin';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Observable, Subject, Subscription, timer } from 'rxjs';
+import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
+
 import { DaDataService, Suggestions } from './dadata.service';
 
 const PREFIX = 'dsh-dadata-autocomplete';
