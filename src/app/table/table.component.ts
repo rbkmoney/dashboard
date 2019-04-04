@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { toolbarOffset } from '../layout-settings';
+import { MatTableDataSource } from '@angular/material';
 
 export interface PeriodicElement {
     name: string;
@@ -30,5 +31,5 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TableComponent {
     toolbarOffset = toolbarOffset;
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataSource = ELEMENT_DATA;
+    dataSource = new MatTableDataSource(ELEMENT_DATA);
 }
