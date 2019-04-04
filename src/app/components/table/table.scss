@@ -8,116 +8,93 @@ $dsh-thead-background-color: $turquoise;
 $dsh-border-color: #eff2f4;
 $dsh-table-font-color: #636974;
 
-.dsh-table {
-  display: block;
-  background-color: $dsh-table-background-color;
-  border-radius: 5px;
-  color: $dsh-table-font-color;
-  padding: 5px;
-
-  thead,
-  tbody {
-    width: 100%;
+.dsh {
+  &-table {
     display: block;
-  }
-
-  thead {
-    background-color: $dsh-thead-background-color;
+    background-color: $dsh-table-background-color;
     border-radius: 5px;
+    color: $dsh-table-font-color;
+    padding: 5px;
+    border-spacing: 0;
+
+    thead,
+    tbody {
+      display: block;
+    }
+
+    thead {
+      background-color: $dsh-thead-background-color;
+      border-radius: 5px;
+    }
   }
-}
 
-.dsh-header-row {
-  min-height: $dsh-header-row-height;
-}
+  &-header-row {
+    min-height: $dsh-header-row-height;
+  }
 
-.dsh-row, .dsh-footer-row {
-  min-height: $dsh-row-height;
-}
+  &-row, &-footer-row {
+    min-height: $dsh-row-height;
+  }
 
-.dsh-row, .dsh-header-row, .dsh-footer-row {
-  display: flex;
-  border-width: 0;
-  border-bottom-width: 1px;
-  border-style: solid;
-  align-items: center;
-  box-sizing: border-box;
+  &-row, &-header-row, &-footer-row {
+    display: flex;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-style: solid;
+    align-items: center;
+    box-sizing: border-box;
 
-  &::after {
-    display: inline-block;
+    &::after {
+      display: inline-block;
+      min-height: inherit;
+      content: '';
+    }
+  }
+
+  &-cell:first-of-type, &-header-cell:first-of-type, &-footer-cell:first-of-type {
+    padding-left: $dsh-row-horizontal-padding;
+
+    [dir='rtl'] & {
+      padding-left: 0;
+      padding-right: $dsh-row-horizontal-padding;
+    }
+  }
+
+  &-cell:last-of-type, &-header-cell:last-of-type, &-footer-cell:last-of-type {
+    padding-right: $dsh-row-horizontal-padding;
+
+    [dir='rtl'] & {
+      padding-right: 0;
+      padding-left: $dsh-row-horizontal-padding;
+    }
+  }
+
+  &-cell, &-header-cell, &-footer-cell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    word-wrap: break-word;
     min-height: inherit;
-    content: '';
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: $dsh-border-color;
   }
-}
 
-.dsh-cell:first-of-type, .dsh-header-cell:first-of-type, .dsh-footer-cell:first-of-type {
-  padding-left: $dsh-row-horizontal-padding;
-
-  [dir='rtl'] & {
-    padding-left: 0;
-    padding-right: $dsh-row-horizontal-padding;
+  &-header-row {
+    height: $dsh-header-row-height;
   }
-}
 
-.dsh-cell:last-of-type, .dsh-header-cell:last-of-type, .dsh-footer-cell:last-of-type {
-  padding-right: $dsh-row-horizontal-padding;
-
-  [dir='rtl'] & {
-    padding-right: 0;
-    padding-left: $dsh-row-horizontal-padding;
+  &-row, &-footer-row {
+    height: $dsh-row-height;
   }
-}
 
-.dsh-cell, .dsh-header-cell, .dsh-footer-cell {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  word-wrap: break-word;
-  min-height: inherit;
-}
+  &-header-cell {
+    text-align: left;
 
-table.dsh-table {
-  border-spacing: 0;
-}
-
-tr.dsh-header-row {
-  height: $dsh-header-row-height;
-}
-
-tr.dsh-row, tr.dsh-footer-row {
-  height: $dsh-row-height;
-}
-
-th.dsh-header-cell {
-  text-align: left;
-
-  [dir='rtl'] & {
-    text-align: right;
-  }
-}
-
-th.dsh-header-cell, td.dsh-cell, td.dsh-footer-cell {
-  padding: 0;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-color: $dsh-border-color;
-}
-
-th.dsh-header-cell:first-of-type, td.dsh-cell:first-of-type, td.dsh-footer-cell:first-of-type {
-  padding-left: $dsh-row-horizontal-padding;
-
-  [dir='rtl'] & {
-    padding-left: 0;
-    padding-right: $dsh-row-horizontal-padding;
-  }
-}
-
-th.dsh-header-cell:last-of-type, td.dsh-cell:last-of-type, td.dsh-footer-cell:last-of-type {
-  padding-right: $dsh-row-horizontal-padding;
-
-  [dir='rtl'] & {
-    padding-right: 0;
-    padding-left: $dsh-row-horizontal-padding;
+    [dir='rtl'] & {
+      text-align: right;
+    }
   }
 }
