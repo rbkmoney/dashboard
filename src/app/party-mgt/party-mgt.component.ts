@@ -21,4 +21,8 @@ export class PartyMngComponent {
             suggestions: ['']
         });
     }
+
+    suggestionSelected(e) {
+        console.log(e);
+    }
 }

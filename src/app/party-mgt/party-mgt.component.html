@@ -18,6 +18,7 @@
                                 <dsh-dadata-autocomplete
                                     formControlName="suggestions"
                                     type="party"
+                                    (optionSelected)="suggestionSelected($event)"
                                 ></dsh-dadata-autocomplete>
                             </mat-form-field>
                             <mat-form-field>

@@ -18,7 +18,7 @@ export type RequestSuggestions = { [name in SuggestionType]: Suggest<any, any> }
 
 export type SuggestionParams<T extends SuggestionType> = RequestSuggestions[T]['params'];
 export type SuggestionResult<T extends SuggestionType> = RequestSuggestions[T]['result'];
-export type SuggestionData<T extends SuggestionType> = SuggestionResult<T>['suggestions'];
+export type SuggestionData<T extends SuggestionType> = SuggestionResult<T>['suggestions'][0];
 
 @Injectable()
 export class DaDataService {
@@ -42,7 +42,7 @@ export class DaDataService {
         type: T,
         query: string,
         params: SuggestionParams<T> = {}
-    ): Observable<SuggestionData<T>> {
+    ): Observable<SuggestionData<T>[]> {
         if (!query) {
             return of([]);
         }

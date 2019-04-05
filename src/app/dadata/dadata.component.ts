@@ -9,10 +9,12 @@ import {
     Self,
     ViewChild,
     HostListener,
-    OnInit
+    OnInit,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material';
+import { MatFormFieldControl, MatAutocompleteSelectedEvent } from '@angular/material';
 import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/autocomplete-origin';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AutofillMonitor } from '@angular/cdk/text-field';
@@ -28,7 +30,7 @@ const PREFIX = 'dsh-dadata-autocomplete';
 interface Option<T extends SuggestionType> {
     header: string;
     description: string;
-    value: SuggestionData<T>[0];
+    value: SuggestionData<T>;
 }
 
 @Component({
@@ -41,7 +43,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
 
-    suggestions: SuggestionData<T>;
+    suggestions: SuggestionData<T>[];
     private suggestionsSubscription: Subscription;
     private suggestionsCleanSubscription: Subscription;
     options: Option<T>[];
@@ -55,6 +57,9 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
 
     @Input()
     type: T;
+
+    @Output()
+    optionSelected = new EventEmitter<SuggestionData<T>>();
 
     @Input()
     get disabled(): boolean {
@@ -233,6 +238,11 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
         this.formControl.setValue(value, { emitEvent: false });
     }
 
+    optionSelectedHandler(e: MatAutocompleteSelectedEvent, options: Option<T>[]) {
+        const idx = e.source.options.toArray().findIndex(option => option === e.option);
+        this.optionSelected.next(options[idx].value);
+    }
+
     private observeAutofill(ref: ElementRef): Observable<boolean> {
         return this.autofillMonitor
             .monitor(ref)
@@ -240,7 +250,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             .pipe(startWith(false));
     }
 
-    private getOptionParts(suggestion: SuggestionData<T>[0]): Option<T> {
+    private getOptionParts(suggestion: SuggestionData<T>): Option<T> {
         switch (this.type) {
             case SuggestionType.party:
                 const innOGRN =

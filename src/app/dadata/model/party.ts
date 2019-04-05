@@ -17,12 +17,13 @@ export interface Params {
     status?: Status[];
     type?: Type;
     locations?: {
-        kladr_id?: number;
+        kladr_id: number;
     }[];
 }
 
 export interface Data {
     address: AddressSuggest;
+    [name: string]: any;
 }
 
 export type PartySuggest = Suggest<Params, Data>;
