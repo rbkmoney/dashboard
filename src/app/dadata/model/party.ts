@@ -1,3 +1,6 @@
+import { Suggest } from './suggestions';
+import { AddressSuggest } from './address';
+
 export enum Status {
     ACTIVE = 'ACTIVE',
     LIQUIDATING = 'LIQUIDATING',
@@ -9,7 +12,7 @@ export enum Type {
     INDIVIDUAL = 'INDIVIDUAL'
 }
 
-export interface PartyParams {
+export interface Params {
     count?: number;
     status?: Status[];
     type?: Type;
@@ -17,3 +20,9 @@ export interface PartyParams {
         kladr_id?: number;
     }[];
 }
+
+export interface Data {
+    address: AddressSuggest;
+}
+
+export type PartySuggest = Suggest<Params, Data>;

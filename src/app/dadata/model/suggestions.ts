@@ -4,13 +4,11 @@ export interface Suggestion<T> {
     data: T;
 }
 
-export interface Suggestions {
-    suggestions: Suggestion<PartySuggestionData>[];
+export interface Suggestions<D> {
+    suggestions: Suggestion<D>[];
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface AddressSuggestionData {}
-
-export interface PartySuggestionData {
-    address: Suggestion<AddressSuggestionData>;
+export interface Suggest<P, D> {
+    params: P;
+    result: Suggestions<D>;
 }

@@ -15,7 +15,10 @@
                         <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
                             <mat-form-field>
                                 <mat-label>Название</mat-label>
-                                <dsh-dadata-autocomplete formControlName="suggestions"></dsh-dadata-autocomplete>
+                                <dsh-dadata-autocomplete
+                                    formControlName="suggestions"
+                                    suggestionType="party"
+                                ></dsh-dadata-autocomplete>
                             </mat-form-field>
                             <mat-form-field>
                                 <mat-label>Название магазина</mat-label>

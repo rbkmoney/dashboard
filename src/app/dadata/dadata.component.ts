@@ -20,9 +20,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
 
-import { DaDataService } from './dadata.service';
+import { DaDataService, SuggestionData } from './dadata.service';
 import { SuggestionType } from './model/type';
-import { Suggestion, PartySuggestionData } from './model/suggestions';
 
 const PREFIX = 'dsh-dadata-autocomplete';
 
@@ -32,11 +31,11 @@ const PREFIX = 'dsh-dadata-autocomplete';
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html'
 })
-export class DaDataAutocompleteComponent
+export class DaDataAutocompleteComponent<T extends SuggestionType>
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
 
-    suggestions: Suggestion<PartySuggestionData>[];
+    suggestions: SuggestionData<T>;
     private suggestionsSubscription: Subscription;
     private suggestionsCleanSubscription: Subscription;
 
@@ -46,6 +45,9 @@ export class DaDataAutocompleteComponent
     private _required = false;
     private destroy: Subject<void> = new Subject();
     private _onTouched: () => void;
+
+    @Input()
+    suggestionType: SuggestionType;
 
     @Input()
     get disabled(): boolean {
@@ -104,7 +106,6 @@ export class DaDataAutocompleteComponent
     get empty(): boolean {
         return !this.formControl.value;
     }
-
     get errorState(): boolean {
         return this.ngControl.control === null ? false : !!this.ngControl.control.errors;
     }
@@ -191,7 +192,7 @@ export class DaDataAutocompleteComponent
             });
         }
         this.suggestionsSubscription = timer(200)
-            .pipe(switchMap(() => this.daDataService.getSuggestions(SuggestionType.party, this.formControl.value)))
+            .pipe(switchMap(() => this.daDataService.getSuggestions(this.suggestionType, this.formControl.value)))
             .subscribe(suggestions => {
                 this.suggestions = suggestions;
                 delete this.suggestionsSubscription;
