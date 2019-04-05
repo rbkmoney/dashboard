@@ -22,8 +22,9 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
 
-import { DaDataService, SuggestionData } from './dadata.service';
+import { DaDataService } from './dadata.service';
 import { SuggestionType } from './model/type';
+import { SuggestionData } from './model/suggestions';
 
 const PREFIX = 'dsh-dadata-autocomplete';
 
@@ -57,6 +58,9 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
 
     @Input()
     type: T;
+
+    @Input()
+    count = 10;
 
     @Output()
     optionSelected = new EventEmitter<SuggestionData<T>>();
@@ -204,7 +208,11 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             });
         }
         this.suggestionsSubscription = timer(200)
-            .pipe(switchMap(() => this.daDataService.getSuggestions(this.type, this.formControl.value)))
+            .pipe(
+                switchMap(() =>
+                    this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
+                )
+            )
             .subscribe(suggestions => {
                 this.suggestions = suggestions;
                 this.options = suggestions.map(s => this.getOptionParts(s));
@@ -253,13 +261,11 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     private getOptionParts(suggestion: SuggestionData<T>): Option<T> {
         switch (this.type) {
             case SuggestionType.party:
-                const innOGRN =
-                    suggestion.data.inn && suggestion.data.ogrn
-                        ? suggestion.data.inn + '/' + suggestion.data.ogrn
-                        : suggestion.data.inn || suggestion.data.ogrn || '';
+                const { data } = suggestion as SuggestionData<SuggestionType.party>;
+                const innOGRN = data.inn && data.ogrn ? data.inn + '/' + data.ogrn : data.inn || data.ogrn || '';
                 return {
                     header: suggestion.value,
-                    description: (innOGRN ? innOGRN + ' ' : '') + suggestion.data.address.value,
+                    description: (innOGRN ? innOGRN + ' ' : '') + data.address.value,
                     value: suggestion
                 };
             default:

@@ -1,5 +1,5 @@
-import { Suggest } from './suggestions';
-import { AddressSuggest } from './address';
+import { Suggest, SuggestionData } from './suggestions';
+import { SuggestionType } from './type';
 
 export enum Status {
     ACTIVE = 'ACTIVE',
@@ -22,7 +22,7 @@ export interface Params {
 }
 
 export interface Data {
-    address: AddressSuggest;
+    address: SuggestionData<SuggestionType.address>;
     [name: string]: any;
 }
 

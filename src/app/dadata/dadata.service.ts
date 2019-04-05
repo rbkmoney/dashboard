@@ -5,20 +5,9 @@ import { SuggestionType } from './model/type';
 import { map, switchMap } from 'rxjs/operators';
 
 import { once } from '../shared/rxjs-helpers';
-import { PartySuggest } from './model/party';
-import { AddressSuggest } from './model/address';
-import { Suggest } from './model/suggestions';
+import { SuggestionResult, SuggestionData, SuggestionParams } from './model/suggestions';
 
 type Config = typeof import('../../assets/dadata-config.json');
-
-export type RequestSuggestions = { [name in SuggestionType]: Suggest<any, any> } & {
-    [SuggestionType.party]: PartySuggest;
-    [SuggestionType.address]: AddressSuggest;
-};
-
-export type SuggestionParams<T extends SuggestionType> = RequestSuggestions[T]['params'];
-export type SuggestionResult<T extends SuggestionType> = RequestSuggestions[T]['result'];
-export type SuggestionData<T extends SuggestionType> = SuggestionResult<T>['suggestions'][0];
 
 @Injectable()
 export class DaDataService {
