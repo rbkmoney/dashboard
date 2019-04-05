@@ -19,7 +19,7 @@ import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/au
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Observable, Subject, Subscription, timer } from 'rxjs';
+import { Observable, Subject, Subscription, timer, ReplaySubject } from 'rxjs';
 import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
 
 import { DaDataService } from './dadata.service';
@@ -34,6 +34,38 @@ interface Option<T extends SuggestionType> {
     value: SuggestionData<T>;
 }
 
+function autocompleteValueChanges<T>(
+    valueChanges: Observable<any>,
+    data$: () => Observable<T>,
+    updateTimeout = 200,
+    clearTimeout = 150
+) {
+    const value$ = new ReplaySubject<T>();
+    let subscription: Subscription;
+    let cleanSubscription: Subscription;
+    valueChanges.subscribe(v => {
+        if (subscription) {
+            subscription.unsubscribe();
+            subscription = undefined;
+        }
+        if (!cleanSubscription) {
+            cleanSubscription = timer(updateTimeout + clearTimeout).subscribe(() => {
+                if (subscription) {
+                    value$.next(undefined);
+                }
+                cleanSubscription = undefined;
+            });
+        }
+        subscription = timer(updateTimeout)
+            .pipe(switchMap(data$))
+            .subscribe(data => {
+                value$.next(data);
+                subscription = undefined;
+            });
+    });
+    return value$;
+}
+
 @Component({
     providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
     selector: 'dsh-dadata-autocomplete',
@@ -44,9 +76,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
 
-    suggestions: SuggestionData<T>[];
-    private suggestionsSubscription: Subscription;
-    private suggestionsCleanSubscription: Subscription;
+    suggestions$: Observable<SuggestionData<T>[]>;
     options: Option<T>[];
 
     private _disabled = false;
@@ -151,8 +181,10 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             // to avoid running into a circular import
             this.ngControl.valueAccessor = this;
         }
-        this.formControl.valueChanges.subscribe(() => {
-            this.updateSuggestions();
+        autocompleteValueChanges(this.formControl.valueChanges, () =>
+            this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
+        ).subscribe(suggestions => {
+            this.options = suggestions ? suggestions.map(s => this.getOptionParts(s)) : [];
         });
     }
 
@@ -194,32 +226,6 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
         };
     }
 
-    updateSuggestions() {
-        if (this.suggestionsSubscription) {
-            this.suggestionsSubscription.unsubscribe();
-            delete this.suggestionsSubscription;
-        }
-        if (!this.suggestionsCleanSubscription) {
-            this.suggestionsCleanSubscription = timer(333).subscribe(() => {
-                if (this.suggestionsSubscription) {
-                    delete this.suggestions;
-                }
-                delete this.suggestionsCleanSubscription;
-            });
-        }
-        this.suggestionsSubscription = timer(200)
-            .pipe(
-                switchMap(() =>
-                    this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
-                )
-            )
-            .subscribe(suggestions => {
-                this.suggestions = suggestions;
-                this.options = suggestions.map(s => this.getOptionParts(s));
-                delete this.suggestionsSubscription;
-            });
-    }
-
     registerOnChange(onChange: (value: string) => void): void {
         this.formControl.valueChanges.pipe(takeUntil(this.destroy)).subscribe(onChange);
     }
@@ -246,9 +252,9 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
         this.formControl.setValue(value, { emitEvent: false });
     }
 
-    optionSelectedHandler(e: MatAutocompleteSelectedEvent, options: Option<T>[]) {
+    optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
         const idx = e.source.options.toArray().findIndex(option => option === e.option);
-        this.optionSelected.next(options[idx].value);
+        this.optionSelected.next(this.options[idx].value);
     }
 
     private observeAutofill(ref: ElementRef): Observable<boolean> {

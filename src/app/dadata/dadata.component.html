@@ -5,7 +5,7 @@
     [matAutocomplete]="auto"
     [matAutocompleteConnectedTo]="autocompleteOrigin"
 />
-<mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event, options)">
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event)">
     <mat-option *ngFor="let option of options" [value]="option.header" class="option">
         <div class="option-header" [innerHTML]="option.header | highlight: formControl.value"></div>
         <div class="option-description" [innerHTML]="option.description | highlight: formControl.value"></div>
