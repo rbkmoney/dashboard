@@ -20,7 +20,9 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
 
-import { DaDataService, Suggestions } from './dadata.service';
+import { DaDataService } from './dadata.service';
+import { SuggestionType } from './model/type';
+import { Suggestion, PartySuggestionData } from './model/suggestions';
 
 const PREFIX = 'dsh-dadata-autocomplete';
 
@@ -34,7 +36,7 @@ export class DaDataAutocompleteComponent
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
 
-    suggestions: Suggestions;
+    suggestions: Suggestion<PartySuggestionData>[];
     private suggestionsSubscription: Subscription;
     private suggestionsCleanSubscription: Subscription;
 
@@ -189,7 +191,7 @@ export class DaDataAutocompleteComponent
             });
         }
         this.suggestionsSubscription = timer(200)
-            .pipe(switchMap(() => this.daDataService.getSuggestions(this.formControl.value)))
+            .pipe(switchMap(() => this.daDataService.getSuggestions(SuggestionType.party, this.formControl.value)))
             .subscribe(suggestions => {
                 this.suggestions = suggestions;
                 delete this.suggestionsSubscription;
