@@ -7,10 +7,11 @@ import { map, switchMap } from 'rxjs/operators';
 import { once } from '../shared/rxjs-helpers';
 import { PartySuggest } from './model/party';
 import { AddressSuggest } from './model/address';
+import { Suggest } from './model/suggestions';
 
 type Config = typeof import('../../assets/dadata-config.json');
 
-export type RequestSuggestions = { [name in SuggestionType]: any } & {
+export type RequestSuggestions = { [name in SuggestionType]: Suggest<any, any> } & {
     [SuggestionType.party]: PartySuggest;
     [SuggestionType.address]: AddressSuggest;
 };

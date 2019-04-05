@@ -25,6 +25,12 @@ import { SuggestionType } from './model/type';
 
 const PREFIX = 'dsh-dadata-autocomplete';
 
+interface Option<T extends SuggestionType> {
+    header: string;
+    description: string;
+    value: SuggestionData<T>[0];
+}
+
 @Component({
     providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
     selector: 'dsh-dadata-autocomplete',
@@ -38,6 +44,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     suggestions: SuggestionData<T>;
     private suggestionsSubscription: Subscription;
     private suggestionsCleanSubscription: Subscription;
+    options: Option<T>[];
 
     private _disabled = false;
     private _focused = false;
@@ -47,7 +54,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     private _onTouched: () => void;
 
     @Input()
-    suggestionType: SuggestionType;
+    type: T;
 
     @Input()
     get disabled(): boolean {
@@ -192,9 +199,10 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             });
         }
         this.suggestionsSubscription = timer(200)
-            .pipe(switchMap(() => this.daDataService.getSuggestions(this.suggestionType, this.formControl.value)))
+            .pipe(switchMap(() => this.daDataService.getSuggestions(this.type, this.formControl.value)))
             .subscribe(suggestions => {
                 this.suggestions = suggestions;
+                this.options = suggestions.map(s => this.getOptionParts(s));
                 delete this.suggestionsSubscription;
             });
     }
@@ -230,5 +238,26 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             .monitor(ref)
             .pipe(map(event => event.isAutofilled))
             .pipe(startWith(false));
+    }
+
+    private getOptionParts(suggestion: SuggestionData<T>[0]): Option<T> {
+        switch (this.type) {
+            case SuggestionType.party:
+                const innOGRN =
+                    suggestion.data.inn && suggestion.data.ogrn
+                        ? suggestion.data.inn + '/' + suggestion.data.ogrn
+                        : suggestion.data.inn || suggestion.data.ogrn || '';
+                return {
+                    header: suggestion.value,
+                    description: (innOGRN ? innOGRN + ' ' : '') + suggestion.data.address.value,
+                    value: suggestion
+                };
+            default:
+                return {
+                    header: suggestion.value,
+                    description: '',
+                    value: suggestion
+                };
+        }
     }
 }
