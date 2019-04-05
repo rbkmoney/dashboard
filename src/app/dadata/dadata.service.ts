@@ -4,11 +4,10 @@ import { of, Observable } from 'rxjs';
 import { SuggestionType } from './model/type';
 import { Suggestions, Suggestion, PartySuggestionData } from './model/suggestions';
 import { PartyParams } from './model/party';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { once } from '../shared/rxjs-helpers';
 
-const DADATA_SUGGESTIONS_API_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs';
-
-const DADATA_AUTH_TOKEN = 'Token 513f29a0891d00336496240b5cee89afe8fafde7';
+type Config = typeof import('../../assets/dadata-config.json');
 
 export type SuggestionParams<T extends SuggestionType> = {
     [SuggestionType.party]: PartyParams;
@@ -16,15 +15,20 @@ export type SuggestionParams<T extends SuggestionType> = {
 
 @Injectable()
 export class DaDataService {
-    options = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        })
-    };
+    config$ = once(this.http.get<Config>('/assets/dadata-config.json'));
 
     constructor(private http: HttpClient) {
-        this.options.headers = this.options.headers.set('Authorization', DADATA_AUTH_TOKEN);
+        this.getSuggestions(SuggestionType.party, 'hello').subscribe(r => r);
+    }
+
+    getOptions(token: string) {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: token
+            })
+        };
     }
 
     getSuggestions<T extends SuggestionType>(
@@ -35,8 +39,12 @@ export class DaDataService {
         if (!query) {
             return of([]);
         }
-        return this.http
-            .post<Suggestions>(`${DADATA_SUGGESTIONS_API_URL}/suggest/${type}`, { query, ...params }, this.options)
-            .pipe(map(({ suggestions }) => suggestions));
+        return this.config$.pipe(
+            switchMap(({ suggestionsAPIUrl, token }) =>
+                this.http
+                    .post<Suggestions>(`${suggestionsAPIUrl}/${type}`, { query, ...params }, this.getOptions(token))
+                    .pipe(map(({ suggestions }) => suggestions))
+            )
+        );
     }
 }
