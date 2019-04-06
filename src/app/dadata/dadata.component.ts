@@ -19,8 +19,8 @@ import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/au
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Observable, Subject, Subscription, timer, ReplaySubject } from 'rxjs';
-import { map, startWith, takeUntil, switchMap } from 'rxjs/operators';
+import { Observable, Subject, interval } from 'rxjs';
+import { map, startWith, takeUntil, switchMap, debounce, tap } from 'rxjs/operators';
 
 import { DaDataService } from './dadata.service';
 import { SuggestionType } from './model/type';
@@ -32,38 +32,6 @@ interface Option<T extends SuggestionType> {
     header: string;
     description: string;
     value: SuggestionData<T>;
-}
-
-function autocompleteValueChanges<T>(
-    valueChanges: Observable<any>,
-    data$: () => Observable<T>,
-    updateTimeout = 200,
-    clearTimeout = 150
-) {
-    const value$ = new ReplaySubject<T>();
-    let subscription: Subscription;
-    let cleanSubscription: Subscription;
-    valueChanges.subscribe(v => {
-        if (subscription) {
-            subscription.unsubscribe();
-            subscription = undefined;
-        }
-        if (!cleanSubscription) {
-            cleanSubscription = timer(updateTimeout + clearTimeout).subscribe(() => {
-                if (subscription) {
-                    value$.next(undefined);
-                }
-                cleanSubscription = undefined;
-            });
-        }
-        subscription = timer(updateTimeout)
-            .pipe(switchMap(data$))
-            .subscribe(data => {
-                value$.next(data);
-                subscription = undefined;
-            });
-    });
-    return value$;
 }
 
 @Component({
@@ -181,11 +149,20 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             // to avoid running into a circular import
             this.ngControl.valueAccessor = this;
         }
-        autocompleteValueChanges(this.formControl.valueChanges, () =>
-            this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
-        ).subscribe(suggestions => {
-            this.options = suggestions ? suggestions.map(s => this.getOptionParts(s)) : [];
-        });
+
+        this.formControl.valueChanges
+            .pipe(
+                tap(() => {
+                    delete this.options;
+                }),
+                debounce(() => interval(300)),
+                switchMap(() =>
+                    this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
+                )
+            )
+            .subscribe(suggestions => {
+                this.options = suggestions.map(s => this.getOptionParts(s));
+            });
     }
 
     ngOnInit() {
