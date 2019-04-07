@@ -15,6 +15,10 @@ export class ChartsService {
                 {
                     name: 'lol',
                     value: this.getRandom()
+                },
+                {
+                    name: 'kek',
+                    value: this.getRandom()
                 }
             ]
         },
@@ -28,6 +32,10 @@ export class ChartsService {
                 {
                     name: 'lol',
                     value: this.getRandom()
+                },
+                {
+                    name: 'kek',
+                    value: this.getRandom()
                 }
             ]
         },
@@ -40,6 +48,10 @@ export class ChartsService {
                 },
                 {
                     name: 'lol',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'kek',
                     value: this.getRandom()
                 }
             ]

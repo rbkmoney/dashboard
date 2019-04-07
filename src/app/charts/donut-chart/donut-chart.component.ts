@@ -1,13 +1,10 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-
 import { Arc, arc, DefaultArcObject, Pie, pie, PieArcDatum } from 'd3-shape';
 import { select, Selection } from 'd3-selection';
 import { interpolate } from 'd3-interpolate';
-import 'd3-transition';
 import { easeExp } from 'd3-ease';
 
 import { SegmentData } from '../models/chart-data-models';
-import * as d3 from 'd3';
 import { chartColors } from '../color-constants';
 
 @Component({
@@ -22,12 +19,12 @@ export class DonutChartComponent implements OnChanges, OnInit {
     @Input()
     data: SegmentData[];
 
-    private radius: number;
     private svg: Selection<SVGGElement, {}, null, undefined>;
     private generatePieData: Pie<void, SegmentData>;
     private generateArc: Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
     private donut: Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 
+    private radius: number;
     private innerRadius = 0.96; // percent of radius
     private padAngle = 0.05;
     private cornerRadius = 4;
@@ -50,7 +47,7 @@ export class DonutChartComponent implements OnChanges, OnInit {
         const size = container.offsetWidth;
         this.radius = size / 2;
 
-        d3.select(container)
+        select(container)
             .select('svg')
             .selectAll('*')
             .remove();
