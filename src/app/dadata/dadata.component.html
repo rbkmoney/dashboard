@@ -10,10 +10,4 @@
         <div class="option-header" [innerHTML]="option.header | highlight: formControl.value"></div>
         <div class="option-description" [innerHTML]="option.description | highlight: formControl.value"></div>
     </mat-option>
-    <mat-option disabled *ngIf="!options">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <span>Loading...</span>
-            <mat-spinner diameter="20"></mat-spinner>
-        </div>
-    </mat-option>
 </mat-autocomplete>
