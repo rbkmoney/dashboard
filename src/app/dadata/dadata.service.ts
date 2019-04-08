@@ -13,9 +13,7 @@ type Config = typeof import('../../assets/dadata-config.json');
 export class DaDataService {
     config$ = once(this.http.get<Config>('/assets/dadata-config.json'));
 
-    constructor(private http: HttpClient) {
-        this.getSuggestions(SuggestionType.party, 'hello').subscribe(r => r);
-    }
+    constructor(private http: HttpClient) {}
 
     getOptions(token: string) {
         return {
@@ -40,7 +38,7 @@ export class DaDataService {
                 this.http
                     .post<SuggestionResult<T>>(
                         `${suggestionsAPIUrl}/${type}`,
-                        { query, ...params },
+                        { query, ...(params as object) },
                         this.getOptions(token)
                     )
                     .pipe(map(({ suggestions }) => suggestions))
