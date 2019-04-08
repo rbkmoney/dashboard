@@ -15,7 +15,8 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding, Input, View
 })
 export class DshHeaderRowDefDirective extends CdkHeaderRowDef {
     @Input('dshHeaderRowDef') columns: string[];
-    @Input() sticky: boolean;
+    // tslint:disable-next-line:no-input-rename
+    @Input('dshHeaderRowDefSticky') sticky: boolean;
 }
 
 @Directive({
@@ -24,7 +25,8 @@ export class DshHeaderRowDefDirective extends CdkHeaderRowDef {
 })
 export class DshFooterRowDefDirective extends CdkFooterRowDef {
     @Input('dshFooterRowDef') columns;
-    @Input() sticky;
+    // tslint:disable-next-line:no-input-rename
+    @Input('dshFooterRowDefSticky') sticky;
 }
 
 @Directive({
