@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
-import { SuggestionType } from './model/type';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, shareReplay } from 'rxjs/operators';
 
-import { once } from '../shared/rxjs-helpers';
 import { SuggestionResult, SuggestionData, SuggestionParams } from './model/suggestions';
+import { SuggestionType } from './model/type';
 
 type Config = typeof import('../../assets/dadata-config.json');
 
 @Injectable()
 export class DaDataService {
-    config$ = once(this.http.get<Config>('/assets/dadata-config.json'));
+    config$ = this.http.get<Config>('/assets/dadata-config.json').pipe(shareReplay(1));
 
     constructor(private http: HttpClient) {}
 
