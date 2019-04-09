@@ -26,8 +26,6 @@ import { DaDataService } from './dadata.service';
 import { SuggestionType } from './model/type';
 import { SuggestionData } from './model/suggestions';
 
-const PREFIX = 'dsh-dadata-autocomplete';
-
 interface Option<T extends SuggestionType> {
     header: string;
     description: string;
@@ -43,9 +41,11 @@ interface Option<T extends SuggestionType> {
 export class DaDataAutocompleteComponent<T extends SuggestionType>
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
+    static prefix = 'dsh-dadata-autocomplete';
 
     suggestions$: Observable<SuggestionData<T>[]>;
     options: Option<T>[];
+    isOptionsLoading = false;
 
     private _disabled = false;
     private _focused = false;
@@ -103,7 +103,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     describedBy = '';
 
     @HostBinding()
-    id = `${PREFIX}-${++DaDataAutocompleteComponent.currentId}`;
+    id = `${DaDataAutocompleteComponent.prefix}-${++DaDataAutocompleteComponent.currentId}`;
 
     @HostBinding('class.floating')
     get shouldLabelFloat(): boolean {
@@ -152,9 +152,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
 
         this.formControl.valueChanges
             .pipe(
-                tap(() => {
-                    delete this.options;
-                }),
+                tap(() => (this.isOptionsLoading = true)),
                 debounce(() => interval(300)),
                 switchMap(() =>
                     this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
@@ -162,6 +160,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
             )
             .subscribe(suggestions => {
                 this.options = suggestions.map(s => this.getOptionParts(s));
+                this.isOptionsLoading = false;
             });
     }
 
