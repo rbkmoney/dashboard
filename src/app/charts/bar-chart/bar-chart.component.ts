@@ -22,8 +22,7 @@ export class BarChartComponent implements OnChanges, OnInit {
     data: PeriodData[];
 
     private svg: any;
-    private margin = 30;
-    private chart: any;
+    private margin = 20;
     private xScale0: any;
     private xScale1: any;
     private yScale: any;
@@ -31,11 +30,14 @@ export class BarChartComponent implements OnChanges, OnInit {
     private yAxis: any;
     private height: number;
     private width: number;
+    private barWidth = 5;
+    private barPadding = 3;
+    private transitionDuration = 1000;
 
     constructor() {}
 
     ngOnInit() {
-        this.createChart();
+        this.initChart();
     }
 
     ngOnChanges(changes: any) {
@@ -44,7 +46,7 @@ export class BarChartComponent implements OnChanges, OnInit {
         }
     }
 
-    createChart() {
+    initChart() {
         const element = this.chartContainer.nativeElement;
         this.width = element.offsetWidth - 2 * this.margin;
         this.height = element.offsetHeight - 2 * this.margin;
@@ -52,7 +54,8 @@ export class BarChartComponent implements OnChanges, OnInit {
         this.svg = select(element)
             .select('svg')
             .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight);
+            .attr('height', element.offsetHeight)
+            .attr('transform', `translate(${this.margin}, ${this.margin})`);
 
         this.xScale0 = scaleBand().range([0, this.width]).align(0.1).paddingInner(0.5).paddingOuter(0);
 
@@ -60,7 +63,7 @@ export class BarChartComponent implements OnChanges, OnInit {
 
         this.yScale = scaleLinear().range([this.height, 0]);
 
-        this.xAxis = axisBottom(this.xScale0).tickSize(0);
+        this.xAxis = axisBottom(this.xScale0).tickSize(0).tickFormat(d => this.toNormalDate(d as string));
 
         this.yAxis = axisLeft(this.yScale);
 
@@ -72,41 +75,14 @@ export class BarChartComponent implements OnChanges, OnInit {
 
         this.yScale.domain([0, max(this.data.map((d) => max(d.values.map((x) => x.value))))]);
 
-        const time = this.svg.selectAll('.time')
-            .data(this.data)
-            .enter()
-            .append('g')
-            .attr('class', 'time')
-            .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`);
-
-        // дабл цикл с нумерацией баров
-
-        for (let i = 0; i < this.data.length; i++) {
-            for (let j = 0; j < this.data[i].values.length; j++) {
-                time.selectAll(`.bar${i}.value${j}`)
-                    .data(d => [d])
-                    .enter()
-                    .append('rect')
-                    .attr('class', `bar${i} value${j}`)
-                    .style('fill', chartColors[j])
-                    .transition()
-                    .ease(easeExp)
-                    .duration(1000)
-                    .attr('x', this.xScale1(`value${j}`))
-                    .attr('y', d => this.yScale(d.values[j].value))
-                    .attr('width', 5)
-                    .attr('height', d => this.height - this.yScale(d.values[j].value));
-            }
-        }
-
         this.svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', `translate(${this.margin},${this.height})`)
+            .attr('transform', `translate(${this.margin}, ${this.height})`)
             .call(this.xAxis);
 
         this.svg.append('g')
             .attr('class', 'y axis')
-            // .attr('transform', `translate(${this.margin},0)`)
+            .attr('transform', `translate(${this.margin}, 0)`)
             .call(this.yAxis);
 
         this.updateChart();
@@ -122,42 +98,51 @@ export class BarChartComponent implements OnChanges, OnInit {
 
         this.yScale.domain([0, max(this.data.map((d) => max(d.values.map((x) => x.value))))]);
 
-        const update = this.svg.selectAll('.time').data(this.data);
+        // select('.x.axis').transition().ease(easeExp).duration(1000).call(this.xScale0);
+        // select('.y.axis').transition().ease(easeExp).duration(1000).call(this.yScale);
 
-        update.exit().remove();
+        this.svg.selectAll('.time')
+            .data(this.data)
+            .attr('transform', d => `translate(${this.xScale0(d.time) + this.margin}, 0)`)
+            .exit()
+            .remove();
 
-        for (let i = 0; i < this.data.length; i++) {
-            for (let j = 0; j < this.data[i].values.length; j++) {
-                update.selectAll(`.bar${i}.value${j}`)
-                    .transition()
-                    .ease(easeExp)
-                    .duration(1000)
-                    // .attr('x', d => this.xScale1(d.time))
-                    .attr('y', d => this.yScale(d.values[j].value))
-                    // .attr('width', 5)
-                    .attr('height', d => this.height - this.yScale(d.values[j].value))
-                    .style('fill', chartColors[j]);
-            }
-        }
+        this.svg.selectAll('.time')
+            .data(this.data)
+            .attr('x', d => this.xScale0(d.time))
+            .selectAll('.bar')
+            .data(d => d.values)
+            .transition()
+            .ease(easeExp)
+            .duration(this.transitionDuration)
+            .attr('x', (d, i) => this.xScale1.bandwidth() + i * (this.barWidth + this.barPadding))
+            .attr('y', d => this.yScale(d.value))
+            .attr('width', d => this.barWidth)
+            .attr('height', d => this.height - this.yScale(d.value))
+            .style('fill', (d, i) => chartColors[i]);
 
-        // SHOW WRONG DATA
+        this.svg.selectAll(`.time`)
+            .data(this.data)
+            .enter()
+            .append('g')
+            .attr('class', `time`)
+            .attr('transform', d => `translate(${this.xScale0(d.time) + this.margin}, 0)`)
+            .selectAll(`rect`)
+            .data(d => d.values)
+            .enter()
+            .append('rect')
+            .attr('class', `bar`)
+            .attr('y', this.height)
+            .attr('height', 0)
+            .style('fill', (d, i) => chartColors[i])
+            .attr('x', (d, i) => this.xScale1.bandwidth() + i * (this.barWidth + this.barPadding))
+            .transition()
+            .ease(easeExp)
+            .duration(this.transitionDuration)
+            .attr('y', d => this.yScale(d.value))
+            .attr('width', this.barWidth)
+            .attr('height', d => this.height - this.yScale(d.value));
 
-        for (let i = 0; i < this.data.length; i++) {
-            for (let j = 0; j < this.data[i].values.length; j++) {
-                update.selectAll(`.bar${i}.value${j}`)
-                    .data(d => [d])
-                    .enter()
-                    .append('rect')
-                    .style('fill', chartColors[j])
-                    .transition()
-                    .ease(easeExp)
-                    .duration(1000)
-                    .attr('x', this.xScale0(`value${j}`))
-                    .attr('y', d => this.yScale(d.values[j].value))
-                    .attr('width', 5)
-                    .attr('height', d => this.height - this.yScale(d.values[j].value));
-            }
-        }
     }
 
     private getX1Fields(): Array<string> {
@@ -169,7 +154,7 @@ export class BarChartComponent implements OnChanges, OnInit {
         return fields;
     }
 
-    // createChart() {
+    // initChart() {
     //     const element = this.chartContainer.nativeElement;
     //     this.width = element.offsetWidth - 2 * this.margin;
     //     this.height = element.offsetHeight - 2 * this.margin;

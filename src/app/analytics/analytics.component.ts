@@ -22,4 +22,43 @@ export class AnalyticsComponent implements OnInit {
         this.periodData = this.chartsService.getPeriodData();
         this.segmentData = this.chartsService.getSegmentData();
     }
+
+    addPeriodData() {
+        this.periodData = [
+            ...this.periodData,
+            {
+                time: `${this.getRandom()}-01-03T00:00:00Z`,
+                values: [
+                    {
+                        name: 'kek',
+                        value: this.getRandom()
+                    },
+                    {
+                        name: 'lol',
+                        value: this.getRandom()
+                    },
+                    {
+                        name: 'kek',
+                        value: this.getRandom()
+                    }
+                ]
+            }
+        ]
+    }
+
+    removePeriodData() {
+        this.periodData = this.periodData.slice(0, this.periodData.length - 1);
+    }
+
+    getRandom = () => Math.ceil(Math.random() * 1000);
+
+    addSegmentData() {
+        this.segmentData = [
+            ...this.segmentData,
+            {
+                name: `kek${this.getRandom()}`,
+                value: this.getRandom()
+            }
+        ]
+    }
 }

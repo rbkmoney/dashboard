@@ -8,6 +8,9 @@
     <div class="content">
         <div fxLayout="row" fxLayoutGap="30px">
             <div fxLayoutGap="1"><button (click)="refreshValue()">Refresh data</button></div>
+            <div fxLayoutGap="1"><button (click)="addSegmentData()">Add segment data</button></div>
+            <div fxLayoutGap="1"><button (click)="addPeriodData()">Add period data</button></div>
+            <div fxLayoutGap="1"><button (click)="removePeriodData()">Remove period data</button></div>
             <dsh-card fxLayoutGap="1"><dsh-bar-chart [data]="periodData"></dsh-bar-chart></dsh-card>
             <dsh-card><dsh-donut-chart [data]="segmentData"></dsh-donut-chart></dsh-card>
         </div>
