@@ -11,7 +11,8 @@ import {
     DshTableWithWhenRowAppComponent,
     NativeHtmlTableAppComponent,
     StickyTableAppComponent,
-    TableWithNgContainerRowComponent, TestData
+    TableWithNgContainerRowComponent,
+    TestData
 } from './components.spec';
 
 describe('DshTable', () => {
@@ -46,7 +47,6 @@ describe('DshTable', () => {
                 ['fourth_row'],
                 ['Footer A', 'Footer B', 'Footer C']
             ]);
-
         });
 
         it('should create a table with special when row', () => {
