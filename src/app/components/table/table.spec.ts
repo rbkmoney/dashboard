@@ -37,7 +37,7 @@ describe('DshTable', () => {
             const fixture = TestBed.createComponent(DshTableAppComponent);
             fixture.detectChanges();
 
-            const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
+            const tableElement = fixture.nativeElement.querySelector('.dsh-table');
             const data = fixture.componentInstance.dataSource.data;
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
@@ -101,7 +101,7 @@ describe('DshTable', () => {
         const fixture = TestBed.createComponent(DshTableWithSortAppComponent);
         fixture.detectChanges();
 
-        const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
+        const tableElement = fixture.nativeElement.querySelector('.dsh-table');
         const data = fixture.componentInstance.dataSource.data;
         expectTableTodshChContent(tableElement, [
             ['Column A', 'Column B', 'Column C'],
@@ -115,7 +115,7 @@ describe('DshTable', () => {
         const fixture = TestBed.createComponent(DshTableWithPaginatorAppComponent);
         fixture.detectChanges();
 
-        const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
+        const tableElement = fixture.nativeElement.querySelector('.dsh-table');
         const data = fixture.componentInstance.dataSource.data;
         expectTableTodshChContent(tableElement, [
             ['Column A', 'Column B', 'Column C'],
@@ -129,7 +129,7 @@ describe('DshTable', () => {
         const fixture = TestBed.createComponent(StickyTableAppComponent);
         fixture.detectChanges();
 
-        const stuckCellElement = fixture.nativeElement.querySelector('.dsh-table th')!;
+        const stuckCellElement = fixture.nativeElement.querySelector('.dsh-table th');
         expect(stuckCellElement.classList).toContain('dsh-table-sticky');
     });
 
