@@ -26,7 +26,7 @@ export class DshHeaderRowDefDirective extends CdkHeaderRowDef {
 export class DshFooterRowDefDirective extends CdkFooterRowDef {
     @Input('dshFooterRowDef') columns;
     // tslint:disable-next-line:no-input-rename
-    @Input('dshFooterRowDefSticky') sticky;
+    @Input('dshFooterRowDefSticky') sticky: boolean;
 }
 
 @Directive({
