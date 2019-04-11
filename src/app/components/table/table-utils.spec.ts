@@ -3,11 +3,11 @@ function getElements(element: Element, query: string): Element[] {
 }
 
 function getHeaderRows(tableElement: Element): Element[] {
-    return [].slice.call(tableElement.querySelectorAll('.dsh-header-row'))!;
+    return [].slice.call(tableElement.querySelectorAll('.dsh-header-row'));
 }
 
 function getFooterRows(tableElement: Element): Element[] {
-    return [].slice.call(tableElement.querySelectorAll('.dsh-footer-row'))!;
+    return [].slice.call(tableElement.querySelectorAll('.dsh-footer-row'));
 }
 
 function getRows(tableElement: Element): Element[] {
@@ -60,7 +60,7 @@ function getActualTableContent(tableElement: Element): string[][] {
     });
 
     // Convert the nodes into their text content;
-    return actualTableContent.map(row => row.map(cell => cell.textContent!.trim()));
+    return actualTableContent.map(row => row.map(cell => cell.textContent.trim()));
 }
 
 export function expectTableTodshChContent(tableElement: Element, expected: any[]) {

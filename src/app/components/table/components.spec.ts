@@ -269,7 +269,7 @@ export class DshTableWithSortAppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataSource!.sort = this.sort;
+        this.dataSource.sort = this.sort;
     }
 }
 
@@ -320,7 +320,7 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataSource!.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator;
     }
 }
 
