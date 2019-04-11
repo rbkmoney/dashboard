@@ -85,7 +85,7 @@ export class DshTableAppComponent {
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
-    isFourthRow = (i: number, _rowData: TestData) => i == 3;
+    isFourthRow = (i: number, _rowData: TestData) => i === 3;
 }
 
 @Component({
