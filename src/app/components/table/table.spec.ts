@@ -11,7 +11,7 @@ import {
     DshTableWithWhenRowAppComponent,
     NativeHtmlTableAppComponent,
     StickyTableAppComponent,
-    TableWithNgContainerRowComponent
+    TableWithNgContainerRowComponent, TestData
 } from './components.spec';
 
 describe('DshTable', () => {
@@ -37,7 +37,7 @@ describe('DshTable', () => {
             fixture.detectChanges();
 
             const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
-            const data = fixture.componentInstance.dataSource!.data;
+            const data = fixture.componentInstance.dataSource.data;
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
                 [data[0].a, data[0].b, data[0].c],
@@ -46,6 +46,7 @@ describe('DshTable', () => {
                 ['fourth_row'],
                 ['Footer A', 'Footer B', 'Footer C']
             ]);
+
         });
 
         it('should create a table with special when row', () => {
@@ -86,7 +87,7 @@ describe('DshTable', () => {
         fixture.detectChanges();
 
         const tableElement = fixture.nativeElement.querySelector('table');
-        const data = fixture.componentInstance.dataSource!.data;
+        const data = fixture.componentInstance.dataSource.data;
         expectTableTodshChContent(tableElement, [
             ['Column A', 'Column B', 'Column C'],
             [data[0].a, data[0].b, data[0].c],
@@ -101,7 +102,7 @@ describe('DshTable', () => {
         fixture.detectChanges();
 
         const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
-        const data = fixture.componentInstance.dataSource!.data;
+        const data = fixture.componentInstance.dataSource.data;
         expectTableTodshChContent(tableElement, [
             ['Column A', 'Column B', 'Column C'],
             [data[0].a, data[0].b, data[0].c],
@@ -115,7 +116,7 @@ describe('DshTable', () => {
         fixture.detectChanges();
 
         const tableElement = fixture.nativeElement.querySelector('.dsh-table')!;
-        const data = fixture.componentInstance.dataSource!.data;
+        const data = fixture.componentInstance.dataSource.data;
         expectTableTodshChContent(tableElement, [
             ['Column A', 'Column B', 'Column C'],
             [data[0].a, data[0].b, data[0].c],
@@ -233,7 +234,7 @@ describe('DshTable', () => {
             ]);
 
             flushMicrotasks(); // Resolve promise that updates paginator's length
-            expect(dataSource.paginator!.length).toBe(1);
+            expect(dataSource.paginator.length).toBe(1);
 
             // Change filter to '  A_2  ', should dshCh one row (ignores case and whitespace)
             dataSource.filter = '  A_2  ';

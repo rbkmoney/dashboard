@@ -4,7 +4,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DshTableComponent } from './table';
 import { MatPaginator, MatSort, MatSortHeader, MatTableDataSource } from '@angular/material';
 
-interface TestData {
+export interface TestData {
     a: string | number | undefined;
     b: string | number | undefined;
     c: string | number | undefined;
