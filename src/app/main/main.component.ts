@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DocumentService } from '../document/document.service';
+import { FONTS } from '../document/document-fonts-config';
 
 @Component({
     selector: 'dsh-main',
@@ -96,6 +97,8 @@ export class MainComponent {
                     lineHeight: 1.1
                 }
             })
-            .download();
+            .subscribe(doc => {
+                doc.download();
+            });
     }
 }
