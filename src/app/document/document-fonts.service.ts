@@ -4,7 +4,8 @@ import pdfMake, { TFontFamilyTypes, TFontFamily } from 'pdfmake/build/pdfmake';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
-import { FONTS, Font } from './document-fonts-config';
+import { FONTS } from './document-fonts-config';
+import { Font } from './font';
 
 @Injectable()
 export class DocumentFontsService {
