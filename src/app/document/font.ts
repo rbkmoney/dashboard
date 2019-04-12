@@ -14,7 +14,7 @@ export class FontFamily {
         const fontsTypes: Array<keyof TFontFamilyTypes> = Object.keys(urlMap) as Array<keyof TFontFamilyTypes>;
         for (let i = 0; i < fontsTypes.length; ++i) {
             const type = fontsTypes[i];
-            this.fonts[type] = new Font(this, type, urlMap[type]);
+            (this.fonts as any)[type] = new Font(this, type, (urlMap as any)[type]);
         }
     }
 }
@@ -23,7 +23,7 @@ export class Font {
     base64: string;
 
     get hash() {
-        return `${this.family.name}_${this.type}_(${this.url.replace(/\//g, '_').replace(/ /g, '+')})`;
+        return `${this.family.name}_${this.type.toString()}_(${this.url.replace(/\//g, '_').replace(/ /g, '+')})`;
     }
 
     constructor(public family: FontFamily, public type: keyof TFontFamilyTypes, public url: string) {}
