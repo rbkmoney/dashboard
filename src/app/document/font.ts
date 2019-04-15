@@ -1,5 +1,15 @@
 import { TFontFamilyTypes } from 'pdfmake/build/pdfmake';
 
+export class Font {
+    base64: string;
+
+    get hash() {
+        return `${this.family.name}_${this.type.toString()}_(${this.url.replace(/\//g, '_').replace(/ /g, '+')})`;
+    }
+
+    constructor(public family: FontFamily, public type: keyof TFontFamilyTypes, public url: string) {}
+}
+
 export class FontFamily {
     get hashMap() {
         return Object.keys(this.fonts).reduce((f, type) => {
@@ -17,14 +27,4 @@ export class FontFamily {
             (this.fonts as any)[type] = new Font(this, type, (urlMap as any)[type]);
         }
     }
-}
-
-export class Font {
-    base64: string;
-
-    get hash() {
-        return `${this.family.name}_${this.type.toString()}_(${this.url.replace(/\//g, '_').replace(/ /g, '+')})`;
-    }
-
-    constructor(public family: FontFamily, public type: keyof TFontFamilyTypes, public url: string) {}
 }
