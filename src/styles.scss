@@ -1,86 +1,26 @@
+// Dependencies
 @import '~@angular/material/theming';
+// Utils
+@import './styles/functions';
+// Variables
+@import './styles/variables';
+@import "./styles/palletes";
+// Components
+@import "./styles/main-theme";
 @import './app/dropdown/dropdown-theme';
-@import './styles/variables.scss';
+@import './app/components/table/table-theme';
+
 
 @include mat-core();
-
-body {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    background-color: $backgroud-color; 
-}
-
-$dsh-slateblue: (
-    50: #f4f0ff,
-    100: #f3f0ff,
-    200: #ded6ff,
-    300: #baadff,
-    400: #9385ff,
-    500: #685bff,
-    600: #4b43d9,
-    700: #312eb3,
-    800: #1d1f8c,
-    900: #141866,
-    A100: #ffffff,
-    A200: #ffffff,
-    A400: #dcdaff,
-    A700: #c4c1ff,
-    contrast: (
-        50: $dark-primary-text,
-        100: $dark-primary-text,
-        200: $dark-primary-text,
-        300: $light-primary-text,
-        400: $light-primary-text,
-        500: $light-primary-text,
-        600: $light-primary-text,
-        700: $light-primary-text,
-        800: $light-primary-text,
-        900: $light-primary-text,
-        A100: $dark-primary-text,
-        A200: $light-primary-text,
-        A400: $light-primary-text,
-        A700: $light-primary-text
-    )
-);
-$dsh-palegreen: (
-    50: #f0fff6,
-    100: #e8fff2,
-    200: #b6f2d3,
-    300: #87e6b8,
-    400: #5dd9a1,
-    500: #38cd8f,
-    600: #24a674,
-    700: #16805a,
-    800: #0b5940,
-    900: #063326,
-    A100: #e2ffef,
-    A200: #afffd3,
-    A400: #7cffb7,
-    A700: #63ffa9,
-    contrast: (
-        50: $dark-primary-text,
-        100: $dark-primary-text,
-        200: $dark-primary-text,
-        300: $light-primary-text,
-        400: $light-primary-text,
-        500: $light-primary-text,
-        600: $light-primary-text,
-        700: $light-primary-text,
-        800: $light-primary-text,
-        900: $light-primary-text,
-        A100: $dark-primary-text,
-        A200: $light-primary-text,
-        A400: $light-primary-text,
-        A700: $light-primary-text
-    )
-);
 
 $primary: mat-palette($dsh-slateblue);
 $accent: mat-palette($dsh-palegreen);
 $warn: mat-palette($mat-red);
 
-$theme: mat-light-theme($primary, $accent, $warn);
+$theme: dsh-light-theme($primary, $accent, $warn, $dsh-light-theme-foreground, $dsh-light-theme-background);
+$mat-theme: mat-light-theme($primary, $accent, $warn);
 
-@include angular-material-theme($theme);
+@include angular-material-theme($mat-theme);
+@include dsh-main-theme($theme);
 @include dsh-dropdown-theme($theme);
+@include dsh-table-theme($theme)

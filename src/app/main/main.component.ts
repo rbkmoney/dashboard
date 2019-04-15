@@ -20,6 +20,10 @@ export class MainComponent {
         this.router.navigate(['details']);
     }
 
+    table() {
+        this.router.navigate(['table']);
+    }
+
     downloadDocument() {
         this.documentService
             .createPdf({
