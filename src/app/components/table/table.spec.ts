@@ -7,7 +7,6 @@ import {
     ArrayDataSourceDshTableAppComponent,
     DshTableAppComponent,
     DshTableWithPaginatorAppComponent,
-    DshTableWithSortAppComponent,
     DshTableWithWhenRowAppComponent,
     NativeHtmlTableAppComponent,
     StickyTableAppComponent,
@@ -24,7 +23,6 @@ describe('DshTable', () => {
                 DshTableWithWhenRowAppComponent,
                 ArrayDataSourceDshTableAppComponent,
                 NativeHtmlTableAppComponent,
-                DshTableWithSortAppComponent,
                 DshTableWithPaginatorAppComponent,
                 StickyTableAppComponent,
                 TableWithNgContainerRowComponent
@@ -97,20 +95,6 @@ describe('DshTable', () => {
         ]);
     });
 
-    it('should render with DshTableDataSource and sort', () => {
-        const fixture = TestBed.createComponent(DshTableWithSortAppComponent);
-        fixture.detectChanges();
-
-        const tableElement = fixture.nativeElement.querySelector('.dsh-table');
-        const data = fixture.componentInstance.dataSource.data;
-        expectTableTodshChContent(tableElement, [
-            ['Column A', 'Column B', 'Column C'],
-            [data[0].a, data[0].b, data[0].c],
-            [data[1].a, data[1].b, data[1].c],
-            [data[2].a, data[2].b, data[2].c]
-        ]);
-    });
-
     it('should render with DshTableDataSource and pagination', () => {
         const fixture = TestBed.createComponent(DshTableWithPaginatorAppComponent);
         fixture.detectChanges();
@@ -129,7 +113,7 @@ describe('DshTable', () => {
         const fixture = TestBed.createComponent(StickyTableAppComponent);
         fixture.detectChanges();
 
-        const stuckCellElement = fixture.nativeElement.querySelector('.dsh-table th');
+        const stuckCellElement = fixture.nativeElement.querySelector('.dsh-table tfoot');
         expect(stuckCellElement.classList).toContain('dsh-table-sticky');
     });
 
@@ -194,32 +178,6 @@ describe('DshTable', () => {
                 ['Footer A', 'Footer B', 'Footer C']
             ]);
         });
-
-        it('should update the page index when switching to a smaller data set from a page', fakeAsync(() => {
-            // Add 20 rows so we can switch pages.
-            for (let i = 0; i < 20; i++) {
-                component.underlyingDataSource.addData();
-                fixture.detectChanges();
-                tick();
-                fixture.detectChanges();
-            }
-
-            // Go to the last page.
-            fixture.componentInstance.paginator.lastPage();
-            fixture.detectChanges();
-
-            // Switch to a smaller data set.
-            dataSource.data = [{ a: 'a_0', b: 'b_0', c: 'c_0' }];
-            fixture.detectChanges();
-            tick();
-            fixture.detectChanges();
-
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_0', 'b_0', 'c_0'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        }));
 
         it('should be able to filter the table contents', fakeAsync(() => {
             // Change filter to a_1, should dshCh one row
@@ -302,137 +260,6 @@ describe('DshTable', () => {
             ]);
         }));
 
-        it('should be able to sort the table contents', () => {
-            // Activate column A sort
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_1', 'b_1', 'c_1'],
-                ['a_2', 'b_2', 'c_2'],
-                ['a_3', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            // Activate column A sort again (reverse direction)
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_3', 'b_3', 'c_3'],
-                ['a_2', 'b_2', 'c_2'],
-                ['a_1', 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            // Change sort function to customize how it sorts - first column 1, then 3, then 2
-            dataSource.sortingDataAccessor = data => {
-                switch (data.a) {
-                    case 'a_1':
-                        return 'elephant';
-                    case 'a_2':
-                        return 'zebra';
-                    case 'a_3':
-                        return 'monkey';
-                    default:
-                        return '';
-                }
-            };
-            component.sort.direction = '';
-            component.sort.sort(component.sortHeader);
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_1', 'b_1', 'c_1'],
-                ['a_3', 'b_3', 'c_3'],
-                ['a_2', 'b_2', 'c_2'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        });
-
-        it('should by default correctly sort an empty string', () => {
-            // Activate column A sort
-            dataSource.data[0].a = ' ';
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-
-            // Expect that empty string row comes before the other values
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['', 'b_1', 'c_1'],
-                ['a_2', 'b_2', 'c_2'],
-                ['a_3', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            // Expect that empty string row comes before the other values
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_3', 'b_3', 'c_3'],
-                ['a_2', 'b_2', 'c_2'],
-                ['', 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        });
-
-        it('should by default correctly sort undefined values', () => {
-            // Activate column A sort
-            dataSource.data[0].a = undefined;
-
-            // Expect that undefined row comes before the other values
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['', 'b_1', 'c_1'],
-                ['a_2', 'b_2', 'c_2'],
-                ['a_3', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            // Expect that undefined row comes after the other values
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['a_3', 'b_3', 'c_3'],
-                ['a_2', 'b_2', 'c_2'],
-                ['', 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        });
-
-        it('should sort zero correctly', () => {
-            // Activate column A sort
-            dataSource.data[0].a = 1;
-            dataSource.data[1].a = 0;
-            dataSource.data[2].a = -1;
-
-            // Expect that zero comes after the negative numbers and before the positive ones.
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['-1', 'b_3', 'c_3'],
-                ['0', 'b_2', 'c_2'],
-                ['1', 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            // Expect that zero comes after the negative numbers and before
-            // the positive ones when switching the sorting direction.
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                ['1', 'b_1', 'c_1'],
-                ['0', 'b_2', 'c_2'],
-                ['-1', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        });
-
         it('should be able to page the table contents', fakeAsync(() => {
             // Add 100 rows, should only display first 5 since page length is 5
             for (let i = 0; i < 100; i++) {
@@ -463,35 +290,5 @@ describe('DshTable', () => {
                 ['Footer A', 'Footer B', 'Footer C']
             ]);
         }));
-
-        it('should sort strings with numbers larger than MAX_SAFE_INTEGER correctly', () => {
-            const large = '9563256840123535';
-            const larger = '9563256840123536';
-            const largest = '9563256840123537';
-
-            dataSource.data[0].a = largest;
-            dataSource.data[1].a = larger;
-            dataSource.data[2].a = large;
-
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                [large, 'b_3', 'c_3'],
-                [larger, 'b_2', 'c_2'],
-                [largest, 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-
-            component.sort.sort(component.sortHeader);
-            fixture.detectChanges();
-            expectTableTodshChContent(tableElement, [
-                ['Column A', 'Column B', 'Column C'],
-                [largest, 'b_1', 'c_1'],
-                [larger, 'b_2', 'c_2'],
-                [large, 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
-            ]);
-        });
     });
 });

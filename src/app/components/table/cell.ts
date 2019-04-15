@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, Input } from '@angular/core';
 import {
     CdkCell,
     CdkCellDef,
@@ -33,10 +33,6 @@ export class DshFooterCellDefDirective extends CdkFooterCellDef {}
 })
 export class DshColumnDefDirective extends CdkColumnDef {
     @Input('dshColumnDef') name: string;
-
-    @Input() sticky: boolean;
-
-    @Input() stickyEnd: boolean;
 }
 
 @Directive({
@@ -45,11 +41,6 @@ export class DshColumnDefDirective extends CdkColumnDef {
 export class DshHeaderCellDirective extends CdkHeaderCell {
     @HostBinding('class') classes = 'dsh-header-cell';
     @HostBinding('attr.role') roles = 'columnheader';
-
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`dsh-column-${columnDef.cssClassFriendlyName}`);
-    }
 }
 
 @Directive({
@@ -58,11 +49,6 @@ export class DshHeaderCellDirective extends CdkHeaderCell {
 export class DshFooterCellDirective extends CdkFooterCell {
     @HostBinding('class') classes = 'dsh-footer-cell';
     @HostBinding('attr.role') roles = 'gridcell';
-
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`dsh-column-${columnDef.cssClassFriendlyName}`);
-    }
 }
 
 @Directive({
@@ -71,9 +57,4 @@ export class DshFooterCellDirective extends CdkFooterCell {
 export class DshCellDirective extends CdkCell {
     @HostBinding('class') classes = 'dsh-cell';
     @HostBinding('attr.role') roles = 'gridcell';
-
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`dsh-column-${columnDef.cssClassFriendlyName}`);
-    }
 }

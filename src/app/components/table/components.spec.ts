@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DshTableComponent } from './table';
-import { MatPaginator, MatSort, MatSortHeader, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 export interface TestData {
     a: string | number | undefined;
@@ -50,7 +50,7 @@ class FakeDataSource extends DataSource<TestData> {
 
 @Component({
     template: `
-        <dsh-table [dataSource]="dataSource">
+        <table dshTable [dataSource]="dataSource">
             <ng-container dshColumnDef="column_a">
                 <th dshHeaderCell *dshHeaderCellDef>Column A</th>
                 <td dshCell *dshCellDef="let row">{{ row.a }}</td>
@@ -77,11 +77,12 @@ class FakeDataSource extends DataSource<TestData> {
             <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
             <tr dsh-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
             <tr dsh-footer-row *dshFooterRowDef="columnsToRender"></tr>
-        </dsh-table>
+            <table></table>
+        </table>
     `
 })
 export class DshTableAppComponent {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
+    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -112,7 +113,7 @@ export class DshTableAppComponent {
     `
 })
 export class NativeHtmlTableAppComponent {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
+    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -132,7 +133,7 @@ export class NativeHtmlTableAppComponent {
     `
 })
 export class StickyTableAppComponent {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
+    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
 
     dataSource = new FakeDataSource();
     columnsToRender = ['column_a'];
@@ -140,7 +141,7 @@ export class StickyTableAppComponent {
 
 @Component({
     template: `
-        <dsh-table [dataSource]="dataSource" [multiTemplateDataRows]="multiTemplateDataRows">
+        <table dshTable [dataSource]="dataSource" [multiTemplateDataRows]="multiTemplateDataRows">
             <ng-container dshColumnDef="column_a">
                 <th dshHeaderCell *dshHeaderCellDef>Column A</th>
                 <td dshCell *dshCellDef="let row">{{ row.a }}</td>
@@ -155,7 +156,8 @@ export class StickyTableAppComponent {
             <tr dsh-row *dshRowDef="let row; columns: ['column_a']"></tr>
             <tr dsh-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
             <tr dsh-footer-row *dshFooterRowDef="['column_a']"></tr>
-        </dsh-table>
+            <table></table>
+        </table>
     `
 })
 export class DshTableWithWhenRowAppComponent {
@@ -168,38 +170,36 @@ export class DshTableWithWhenRowAppComponent {
 
 @Component({
     template: `
-        <dsh-table [dataSource]="dataSource" matSort>
+        <table dshTable [dataSource]="dataSource">
             <ng-container dshColumnDef="column_a">
-                <th dshHeaderCell *dshHeaderCellDef dsh-sort-header="a">Column A</th>
-                <td dshCell *dshCellDef="let row">{{ row.a }}</td>
+                <th dshHeaderCell *dshHeaderCellDef>Column A</th>
+                <td dshCell *dshCellDef="let element">{{ element.a }}</td>
                 <td dshFooterCell *dshFooterCellDef>Footer A</td>
             </ng-container>
 
             <ng-container dshColumnDef="column_b">
                 <th dshHeaderCell *dshHeaderCellDef>Column B</th>
-                <td dshCell *dshCellDef="let row">{{ row.b }}</td>
+                <td dshCell *dshCellDef="let element">{{ element.b }}</td>
                 <td dshFooterCell *dshFooterCellDef>Footer B</td>
             </ng-container>
 
             <ng-container dshColumnDef="column_c">
                 <th dshHeaderCell *dshHeaderCellDef>Column C</th>
-                <td dshCell *dshCellDef="let row">{{ row.c }}</td>
+                <td dshCell *dshCellDef="let element">{{ element.c }}</td>
                 <td dshFooterCell *dshFooterCellDef>Footer C</td>
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
             <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
             <tr dsh-footer-row *dshFooterRowDef="columnsToRender"></tr>
-        </dsh-table>
+        </table>
 
         <mat-paginator [pageSize]="5"></mat-paginator>
     `
 })
 export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatSortHeader) sortHeader: MatSortHeader;
+    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();
     dataSource = new MatTableDataSource<TestData>();
@@ -219,63 +219,13 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
     }
 }
 
 @Component({
     template: `
-        <dsh-table [dataSource]="dataSource" matSort>
-            <ng-container dshColumnDef="column_a">
-                <th dshHeaderCell *dshHeaderCellDef dsh-sort-header="a">Column A</th>
-                <td dshCell *dshCellDef="let row">{{ row.a }}</td>
-            </ng-container>
-
-            <ng-container dshColumnDef="column_b">
-                <th dshHeaderCell *dshHeaderCellDef>Column B</th>
-                <td dshCell *dshCellDef="let row">{{ row.b }}</td>
-            </ng-container>
-
-            <ng-container dshColumnDef="column_c">
-                <th dshHeaderCell *dshHeaderCellDef>Column C</th>
-                <td dshCell *dshCellDef="let row">{{ row.c }}</td>
-            </ng-container>
-
-            <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
-        </dsh-table>
-    `
-})
-export class DshTableWithSortAppComponent implements OnInit {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-    underlyingDataSource = new FakeDataSource();
-    dataSource = new MatTableDataSource<TestData>();
-    columnsToRender = ['column_a', 'column_b', 'column_c'];
-
-    constructor() {
-        this.underlyingDataSource.data = [];
-
-        // Add three rows of data
-        this.underlyingDataSource.addData();
-        this.underlyingDataSource.addData();
-        this.underlyingDataSource.addData();
-
-        this.underlyingDataSource.connect().subscribe(data => {
-            this.dataSource.data = data;
-        });
-    }
-
-    ngOnInit() {
-        this.dataSource.sort = this.sort;
-    }
-}
-
-@Component({
-    template: `
-        <dsh-table [dataSource]="dataSource">
+        <table dshTable [dataSource]="dataSource">
             <ng-container dshColumnDef="column_a">
                 <th dshHeaderCell *dshHeaderCellDef>Column A</th>
                 <td dshCell *dshCellDef="let row">{{ row.a }}</td>
@@ -293,14 +243,15 @@ export class DshTableWithSortAppComponent implements OnInit {
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
             <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
-        </dsh-table>
-
-        <mat-paginator [pageSize]="5"></mat-paginator>
+            <table>
+                <mat-paginator [pageSize]="5"></mat-paginator>
+            </table>
+        </table>
     `
 })
 export class DshTableWithPaginatorAppComponent implements OnInit {
-    @ViewChild(DshTableComponent, { static: true }) table: DshTableComponent<TestData>;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();
     dataSource = new MatTableDataSource<TestData>();
@@ -326,7 +277,7 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
 
 @Component({
     template: `
-        <dsh-table [dataSource]="dataSource">
+        <table dshTable [dataSource]="dataSource">
             <ng-container dshColumnDef="column_a">
                 <th dshHeaderCell *dshHeaderCellDef>Column A</th>
                 <td dshCell *dshCellDef="let row">{{ row.a }}</td>
@@ -334,7 +285,8 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
             <ng-container *dshRowDef="let row; columns: columnsToRender"> <tr dsh-row></tr> </ng-container>
-        </dsh-table>
+            <table></table>
+        </table>
     `
 })
 export class TableWithNgContainerRowComponent {

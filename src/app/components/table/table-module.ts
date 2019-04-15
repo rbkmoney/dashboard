@@ -19,6 +19,7 @@ import {
     DshRowDefDirective
 } from './row';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
 
 const EXPORTED_DECLARATIONS = [
     DshTableComponent,
@@ -38,7 +39,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [CdkTableModule, CommonModule],
+    imports: [CdkTableModule, CommonModule, MatTableModule],
     exports: EXPORTED_DECLARATIONS,
     declarations: EXPORTED_DECLARATIONS
 })
