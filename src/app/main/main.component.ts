@@ -23,7 +23,7 @@ export class MainComponent {
     table() {
         this.router.navigate(['table']);
     }
-  
+
     downloadDocument() {
         this.documentService
             .createPdf({
