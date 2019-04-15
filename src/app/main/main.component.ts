@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DocumentService } from '../document/document.service';
-import { FONTS } from '../document/document-fonts-config';
+import { Family } from '../document/document-fonts-config';
 
 @Component({
     selector: 'dsh-main',
@@ -52,7 +52,7 @@ export class MainComponent {
                         margin: [0, 2, 0, 2],
                         style: 'paragraph',
                         text:
-                            'Небанковская кредитная организация «Электронный платежный сервис» (общество с ограниченной ответственностью), именуемая в дальнейшем «НКО», в лице Председателя Правления Бурлакова Кирилла Валерьевича, действующего на основании Устава, с одной стороны, и __________________________________, именуемое о дальнейшем «Клиент», в лице ______________________, действующ___ на основании __________________, с другой стороны, совместно именуемые «Стороны», заключили настоящее Соглашение о нижеследующем:'
+                            'hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello'
                     },
                     {
                         table: {
@@ -63,7 +63,7 @@ export class MainComponent {
                                     {
                                         rowSpan: 3,
                                         text:
-                                            'hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello '
+                                            'hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello'
                                     },
                                     'b',
                                     'b'
@@ -92,7 +92,7 @@ export class MainComponent {
                     right: { alignment: 'right' }
                 },
                 defaultStyle: {
-                    font: 'serif',
+                    font: Family.serif,
                     fontSize: 11,
                     lineHeight: 1.1
                 }
