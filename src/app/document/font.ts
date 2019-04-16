@@ -13,9 +13,9 @@ export class Font {
 export type FontFamily = Partial<Record<keyof TFontFamilyTypes, Font>>;
 
 export function getHashMap(fonts: FontFamily) {
-    return Object.keys(fonts).reduce((f, type) => {
-        f[type] = (fonts[type] as Font).hash;
-        return f;
+    return Object.entries(fonts).reduce((fontHashMap, [type, font]) => {
+        fontHashMap[type] = font.hash;
+        return fontHashMap;
     }, {});
 }
 
@@ -23,11 +23,10 @@ export function createFontFamily(
     family: string,
     urlMap: Partial<Record<keyof TFontFamilyTypes, string>> = {}
 ): FontFamily {
-    const fonts: FontFamily = {};
-    const fontsTypes = Object.keys(urlMap) as Array<keyof TFontFamilyTypes>;
-    for (let i = 0; i < fontsTypes.length; ++i) {
-        const type = fontsTypes[i];
-        (fonts as any)[type] = new Font(family, type, (urlMap as any)[type]);
-    }
-    return fonts;
+    return Object.entries(urlMap).reduce(
+        (fontFamily, [type, url]: [keyof TFontFamilyTypes, string]) => {
+            fontFamily[type] = new Font(family, type, url);
+        },
+        {} as any
+    );
 }

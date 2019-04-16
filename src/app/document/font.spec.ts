@@ -9,7 +9,7 @@ describe('Font', () => {
 
     afterEach(() => {});
 
-    it('font hash', () => {
+    it('hash', () => {
         expect(family.normal.hash).toBe('test_normal_(a_b_c+d.ttf)');
     });
 });
