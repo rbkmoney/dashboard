@@ -1,32 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import pdfMake, { TFontFamilyTypes, TFontFamily } from 'pdfmake/build/pdfmake';
+import pdfMake, { TFontFamilyTypes } from 'pdfmake/build/pdfmake';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
 import { FONTS } from './document-fonts-config';
-import { Font } from './font';
+import { Font, getHashMap } from './font';
 
 @Injectable()
 export class DocumentFontsService {
-    static fonts = FONTS;
-
     init$ = this.loadFonts().pipe(
         shareReplay(1),
         map(() => true)
     );
 
     get fonts(): { [name: string]: Partial<Record<keyof TFontFamilyTypes, keyof typeof FONTS>> } {
-        return FONTS.reduce((currentFonts, font) => {
-            currentFonts[font.name] = font.hashMap;
-            return currentFonts;
-        }, {});
+        return FONTS.reduce(
+            (currentFonts, family) => {
+                currentFonts[Object.values(family)[0].family] = getHashMap(family);
+                return currentFonts;
+            },
+            {} as any
+        );
     }
 
     constructor(private http: HttpClient) {}
 
     loadFonts(): Observable<string[]> {
-        const fonts: Font[] = FONTS.reduce((r, family) => r.concat(Object.values(family.fonts)), []);
+        const fonts: Font[] = FONTS.reduce((r, family) => r.concat(Object.values(family)), []);
         return forkJoin(fonts.map(font => this.loadFont(font.url))).pipe(
             tap(fontsBase64 => {
                 const vfs = {};
