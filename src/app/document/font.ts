@@ -23,10 +23,8 @@ export function createFontFamily(
     family: string,
     urlMap: Partial<Record<keyof TFontFamilyTypes, string>> = {}
 ): FontFamily {
-    return Object.entries(urlMap).reduce(
-        (fontFamily, [type, url]: [keyof TFontFamilyTypes, string]) => {
-            fontFamily[type] = new Font(family, type, url);
-        },
-        {} as any
-    );
+    return Object.entries(urlMap).reduce((fontFamily, [type, url]: [keyof TFontFamilyTypes, string]) => {
+        fontFamily[type] = new Font(family, type, url);
+        return fontFamily;
+    }, {});
 }
