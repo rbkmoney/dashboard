@@ -9,13 +9,7 @@
 @import "./styles/main-theme";
 @import './app/dropdown/dropdown-theme';
 @import './app/components/table/table-theme';
-
-body {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    background-color: $background-color;
-}
+@import './app/charts/bar-chart/bar-chart-theme';
 
 @include mat-core();
 
@@ -30,3 +24,4 @@ $mat-theme: mat-light-theme($primary, $accent, $warn);
 @include dsh-main-theme($theme);
 @include dsh-dropdown-theme($theme);
 @include dsh-table-theme($theme)
+@include dsh-bar-chart-theme($theme)
