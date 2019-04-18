@@ -29,17 +29,20 @@ class SimpleDaDataAutocompleteComponent {
 }
 
 describe('DshDadata', () => {
+    const config = {
+        token: 'Token AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+        suggestionsAPIUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
+    };
+
     function createDaDataService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [DaDataService]
         });
         const injector = getTestBed();
-        return {
-            injector,
-            service: injector.get(DaDataService),
-            httpMock: injector.get(HttpTestingController)
-        };
+        const service: DaDataService = injector.get(DaDataService);
+        const httpMock: HttpTestingController = injector.get(HttpTestingController);
+        return { injector, service, httpMock };
     }
 
     function createComponent<T>(
@@ -52,8 +55,13 @@ describe('DshDadata', () => {
             declarations: [component, ...declarations],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers]
         }).compileComponents();
-
         return TestBed.createComponent<T>(component);
+    }
+
+    function mockConfig(httpMock) {
+        const req = httpMock.expectOne('/assets/dadata-config.json');
+        req.flush(config);
+        return req;
     }
 
     describe('Component', () => {
@@ -66,16 +74,11 @@ describe('DshDadata', () => {
     describe('Service', () => {
         it('should load config', () => {
             const { service, httpMock } = createDaDataService();
-            const config = {
-                token: 'Token AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-                suggestionsAPIUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
-            };
             service.config$.subscribe(c => {
                 expect(c).toEqual(config);
             });
-            const req = httpMock.expectOne('/assets/dadata-config.json');
+            const req = mockConfig(httpMock);
             expect(req.request.method).toBe('GET');
-            req.flush(config);
         });
     });
 });
