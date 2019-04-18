@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DaDataModule } from './dadata.module';
 import { DaDataService } from './dadata.service';
+import { SuggestionType } from './model/type';
 
 @Component({
     template: `
@@ -34,6 +35,61 @@ describe('DshDadata', () => {
         suggestionsAPIUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
     };
 
+    const suggestions = {
+        suggestions: [
+            {
+                value: 'АО "ТЕСТПРИБОР"',
+                unrestricted_value: 'АО "ТЕСТПРИБОР"',
+                data: {}
+            },
+            {
+                value: 'АО "ТЕСТРОН"',
+                unrestricted_value: 'АО "ТЕСТРОН"',
+                data: {}
+            },
+            {
+                value: 'АО "ТЭСТ"',
+                unrestricted_value: 'АО "ТЭСТ"',
+                data: {}
+            },
+            {
+                value: 'ЗАО "КДО-ТЕСТ"',
+                unrestricted_value: 'ЗАО "КДО-ТЕСТ"',
+                data: {}
+            },
+            {
+                value: 'АО "НИИ "ТЕСТ"',
+                unrestricted_value: 'АО "НИИ "ТЕСТ"',
+                data: {}
+            },
+            {
+                value: 'АО "ОЗ ТЕСТ"',
+                unrestricted_value: 'АО "ОЗ ТЕСТ"',
+                data: {}
+            },
+            {
+                value: 'АО "ТЕСТ-3"',
+                unrestricted_value: 'АО "ТЕСТ-3"',
+                data: {}
+            },
+            {
+                value: 'ЗАО "ТЕСТ-ОЙЛ"',
+                unrestricted_value: 'ЗАО "ТЕСТ-ОЙЛ"',
+                data: {}
+            },
+            {
+                value: 'ЗАО "ТИЛИ-ТЕСТО"',
+                unrestricted_value: 'ЗАО "ТИЛИ-ТЕСТО"',
+                data: {}
+            },
+            {
+                value: 'ЗАО "ТРАНССТРОЙ-ТЕСТ"',
+                unrestricted_value: 'ЗАО "ТРАНССТРОЙ-ТЕСТ"',
+                data: {}
+            }
+        ]
+    };
+
     function createDaDataService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
@@ -58,7 +114,7 @@ describe('DshDadata', () => {
         return TestBed.createComponent<T>(component);
     }
 
-    function mockConfig(httpMock) {
+    function mockConfig(httpMock: HttpTestingController) {
         const req = httpMock.expectOne('/assets/dadata-config.json');
         req.flush(config);
         return req;
@@ -79,6 +135,19 @@ describe('DshDadata', () => {
             });
             const req = mockConfig(httpMock);
             expect(req.request.method).toBe('GET');
+        });
+
+        it('should load suggestions', () => {
+            const { service, httpMock } = createDaDataService();
+            service.config$.subscribe(() => {
+                service.getSuggestions(SuggestionType.party, 'тест').subscribe(s => {
+                    expect(s).toEqual(suggestions.suggestions as any);
+                });
+                const req = httpMock.expectOne('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party');
+                req.flush(suggestions);
+                expect(req.request.method).toBe('POST');
+            });
+            mockConfig(httpMock);
         });
     });
 });
