@@ -10,6 +10,7 @@ import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { TableModule } from './table';
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
         PartyMngModule,
         AnalyticsModule,
         DetailsModule,
+        TableModule,
         PageNotFoundModule
     ],
     providers: [IconRegistryService],
