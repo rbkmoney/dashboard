@@ -27,7 +27,7 @@ export class AnalyticsComponent implements OnInit {
         this.periodData = [
             ...this.periodData,
             {
-                time: `${this.getRandom()}-01-03T00:00:00Z`,
+                time: `${this.getRandomYear()}-01-03T00:00:00Z`,
                 values: [
                     {
                         name: 'kek',
@@ -38,19 +38,20 @@ export class AnalyticsComponent implements OnInit {
                         value: this.getRandom()
                     },
                     {
-                        name: 'kek',
+                        name: 'wow',
                         value: this.getRandom()
                     }
                 ]
             }
-        ]
+        ];
     }
 
     removePeriodData() {
         this.periodData = this.periodData.slice(0, this.periodData.length - 1);
     }
 
-    getRandom = () => Math.ceil(Math.random() * 1000);
+    getRandom = () => Math.ceil(Math.random() * 1000000);
+    getRandomYear = () => Math.ceil(Math.random() * 1000 + 1100);
 
     addSegmentData() {
         this.segmentData = [
@@ -59,6 +60,6 @@ export class AnalyticsComponent implements OnInit {
                 name: `kek${this.getRandom()}`,
                 value: this.getRandom()
             }
-        ]
+        ];
     }
 }

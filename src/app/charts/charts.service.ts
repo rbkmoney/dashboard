@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ChartsService {
-    getRandom = () => Math.ceil(Math.random() * 1000);
+    getRandom = () => Math.ceil(Math.random() * 1000000);
 
     getPeriodData = () => [
         {
@@ -17,7 +17,7 @@ export class ChartsService {
                     value: this.getRandom()
                 },
                 {
-                    name: 'kek',
+                    name: 'wow',
                     value: this.getRandom()
                 }
             ]
@@ -34,7 +34,7 @@ export class ChartsService {
                     value: this.getRandom()
                 },
                 {
-                    name: 'kek',
+                    name: 'wow',
                     value: this.getRandom()
                 }
             ]
@@ -51,11 +51,62 @@ export class ChartsService {
                     value: this.getRandom()
                 },
                 {
-                    name: 'kek',
+                    name: 'wow',
                     value: this.getRandom()
                 }
             ]
         }
+        // {
+        //     time: '2017-01-04T00:00:00Z',
+        //     values: [
+        //         {
+        //             name: 'kek',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'lol',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'wow',
+        //             value: this.getRandom()
+        //         }
+        //     ]
+        // },
+        // {
+        //     time: '2017-01-05T00:00:00Z',
+        //     values: [
+        //         {
+        //             name: 'kek',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'lol',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'wow',
+        //             value: this.getRandom()
+        //         }
+        //     ]
+        // },
+        // {
+        //     time: '2017-01-06T00:00:00Z',
+        //     values: [
+        //         {
+        //             name: 'kek',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'lol',
+        //             value: this.getRandom()
+        //         },
+        //         {
+        //             name: 'wow',
+        //             value: this.getRandom()
+        //         }
+        //     ]
+        // }
     ];
 
     getSegmentData = () => [

@@ -1,7 +1,9 @@
-.bar {
-    color: #0b5940;
+@import '../../../styles/variables';
+
+.x.axis > .tick:first-of-type > text {
+    align-self: flex-end;
 }
 
-.value1 {
-    border: 4px double #0b5940;
+.y.axis > path, .x.axis > path {
+    color: transparent;
 }
