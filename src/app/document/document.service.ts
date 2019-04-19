@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createPdf, TDocumentDefinitions, TCreatedPdf } from 'pdfmake/build/pdfmake';
 
-import { DocumentFontsService } from './document-fonts.service';
+import { DocumentFontsService } from './font/document-fonts.service';
 
 @Injectable()
 export class DocumentService {

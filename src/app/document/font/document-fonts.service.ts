@@ -4,7 +4,7 @@ import pdfMake, { TFontFamilyTypes } from 'pdfmake/build/pdfmake';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
-import { FONTS } from './document-fonts-config';
+import { FONTS } from '../document-fonts-config';
 import { Font } from './font';
 import { getFontFamilyHashMap } from './font-family';
 import { blobToBase64 } from './blob-to-base64';

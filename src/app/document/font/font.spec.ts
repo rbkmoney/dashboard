@@ -1,4 +1,4 @@
-import { FontFamily, createFontFamily } from './font';
+import { FontFamily, createFontFamily } from './font-family';
 
 describe('Font', () => {
     let family: FontFamily;
