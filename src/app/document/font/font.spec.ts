@@ -7,8 +7,6 @@ describe('Font', () => {
         family = createFontFamily('test', { normal: 'a/b/c d.ttf' });
     });
 
-    afterEach(() => {});
-
     it('hash', () => {
         expect(family.normal.hash).toBe('test_normal_(a_b_c+d.ttf)');
     });

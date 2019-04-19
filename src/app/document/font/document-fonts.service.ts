@@ -4,26 +4,30 @@ import pdfMake, { TFontFamilyTypes } from 'pdfmake/build/pdfmake';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
-import { FONTS } from '../document-fonts-config';
 import { Font } from './font';
-import { getFontFamilyHashMap } from './font-family';
+import { getFontFamilyHashMap, FontFamily } from './font-family';
 import { blobToBase64 } from './blob-to-base64';
 
 @Injectable()
-export class DocumentFontsService {
-    init$ = this.loadFonts().pipe(
-        shareReplay(1),
-        map(() => true)
-    );
+export class DocumentFontsService<F extends FontFamily[] = FontFamily[]> {
+    init$: Observable<boolean> = this.init();
 
     constructor(private http: HttpClient) {}
 
-    loadFont(fontUrl: string): Observable<string> {
+    init(loadedFonts: F = [] as F): Observable<boolean> {
+        this.init$ = this.loadFonts(loadedFonts).pipe(
+            shareReplay(1),
+            map(() => true)
+        );
+        return this.init$;
+    }
+
+    private loadFont(fontUrl: string): Observable<string> {
         return this.http.request('GET', fontUrl, { responseType: 'blob' }).pipe(switchMap(blob => blobToBase64(blob)));
     }
 
-    loadFonts(): Observable<string[]> {
-        const fonts: Font[] = FONTS.reduce((r, family) => r.concat(Object.values(family)), []);
+    private loadFonts(loadedFonts: F): Observable<string[]> {
+        const fonts: Font[] = loadedFonts.reduce((r, family) => r.concat(Object.values(family)), []);
         return forkJoin(fonts.map(font => this.loadFont(font.url))).pipe(
             tap(fontsBase64 => {
                 const vfs = {};
@@ -32,13 +36,13 @@ export class DocumentFontsService {
                     vfs[fonts[i].hash] = fonts[i].base64;
                 }
                 pdfMake.vfs = vfs;
-                pdfMake.fonts = this.getPdfMakeFonts();
+                pdfMake.fonts = this.getPdfMakeFonts(loadedFonts);
             })
         );
     }
 
-    getPdfMakeFonts() {
-        return FONTS.reduce(
+    private getPdfMakeFonts(loadedFonts: F) {
+        return loadedFonts.reduce(
             (currentFonts, family) => {
                 currentFonts[Object.values(family)[0].family] = getFontFamilyHashMap(family);
                 return currentFonts;
