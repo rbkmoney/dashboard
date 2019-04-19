@@ -14,12 +14,22 @@ export class AnalyticsComponent implements OnInit {
     constructor(private analyticsService: AnalyticsService) {}
 
     ngOnInit() {
-        this.periodData = this.analyticsService.getPeriodData();
-        this.segmentData = this.analyticsService.getSegmentData();
+        this.refreshValue();
     }
 
     refreshValue() {
         this.periodData = this.analyticsService.getPeriodData();
         this.segmentData = this.analyticsService.getSegmentData();
     }
+
+    addSegmentData = () =>
+        (this.segmentData = [
+            ...this.segmentData,
+            {
+                name: `${this.getRandom()}`,
+                value: this.getRandom()
+            }
+        ]);
+
+    getRandom = () => Math.ceil(Math.random() * 1000);
 }
