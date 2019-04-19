@@ -5,7 +5,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
 import { Font } from './font';
-import { getFontFamilyHashMap, FontFamily } from './font-family';
+import { FontFamily } from './font-family';
 import { blobToBase64 } from './blob-to-base64';
 
 @Injectable()
@@ -41,10 +41,17 @@ export class DocumentFontsService<F extends FontFamily[] = FontFamily[]> {
         );
     }
 
+    private getFontFamilyHashMap<T extends string>(fonts: FontFamily<T>) {
+        return Object.entries(fonts).reduce((fontHashMap, [type, font]) => {
+            fontHashMap[type] = font.hash;
+            return fontHashMap;
+        }, {});
+    }
+
     private getPdfMakeFonts(loadedFonts: F) {
         return loadedFonts.reduce(
             (currentFonts, family) => {
-                currentFonts[Object.values(family)[0].family] = getFontFamilyHashMap(family);
+                currentFonts[Object.values(family)[0].family] = this.getFontFamilyHashMap(family);
                 return currentFonts;
             },
             {} as { [name: string]: TFontFamilyTypes }
