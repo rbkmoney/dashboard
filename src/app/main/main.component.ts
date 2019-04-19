@@ -23,7 +23,7 @@ export class MainComponent {
     analytics() {
         this.router.navigate(['analytics']);
     }
-  
+
     table() {
         this.router.navigate(['table']);
     }
