@@ -7,6 +7,7 @@ import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 import { FONTS } from './document-fonts-config';
 import { Font } from './font';
 import { getFontFamilyHashMap } from './font-family';
+import { blobToBase64 } from './blob-to-base64';
 
 @Injectable()
 export class DocumentFontsService {
@@ -16,6 +17,10 @@ export class DocumentFontsService {
     );
 
     constructor(private http: HttpClient) {}
+
+    loadFont(fontUrl: string): Observable<string> {
+        return this.http.request('GET', fontUrl, { responseType: 'blob' }).pipe(switchMap(blob => blobToBase64(blob)));
+    }
 
     loadFonts(): Observable<string[]> {
         const fonts: Font[] = FONTS.reduce((r, family) => r.concat(Object.values(family)), []);
@@ -27,12 +32,12 @@ export class DocumentFontsService {
                     vfs[fonts[i].hash] = fonts[i].base64;
                 }
                 pdfMake.vfs = vfs;
-                pdfMake.fonts = this.getFamilyHashMap();
+                pdfMake.fonts = this.getPdfMakeFonts();
             })
         );
     }
 
-    getFamilyHashMap() {
+    getPdfMakeFonts() {
         return FONTS.reduce(
             (currentFonts, family) => {
                 currentFonts[Object.values(family)[0].family] = getFontFamilyHashMap(family);
@@ -40,22 +45,5 @@ export class DocumentFontsService {
             },
             {} as { [name: string]: TFontFamilyTypes }
         );
-    }
-
-    loadFont(fontUrl: string): Observable<string> {
-        return this.http
-            .request('GET', fontUrl, { responseType: 'blob' })
-            .pipe(switchMap(blob => this.blobToBase64(blob)));
-    }
-
-    blobToBase64(blob: Blob): Observable<string> {
-        return new Observable(observer => {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = () => {
-                observer.next(reader.result.toString().split(';base64,')[1]);
-                observer.complete();
-            };
-        });
     }
 }
