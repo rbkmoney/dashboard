@@ -6,11 +6,12 @@ import { LayoutModule } from '../layout';
 import { ChartsService } from './charts.service';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { DonutChartService } from './donut-chart/donut-chart.service';
 
 @NgModule({
     declarations: [DonutChartComponent, BarChartComponent],
     imports: [CommonModule, LayoutModule],
     exports: [DonutChartComponent, BarChartComponent],
-    providers: [ChartsService]
+    providers: [ChartsService, DonutChartService]
 })
 export class ChartsModule {}
