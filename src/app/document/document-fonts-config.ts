@@ -1,4 +1,4 @@
-import { createFontFamily } from './font';
+import { createFontFamily } from './font-family';
 
 export enum Family {
     serif = 'serif'

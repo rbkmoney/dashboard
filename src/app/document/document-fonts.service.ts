@@ -5,7 +5,8 @@ import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, tap, shareReplay } from 'rxjs/operators';
 
 import { FONTS } from './document-fonts-config';
-import { Font, getHashMap } from './font';
+import { Font } from './font';
+import { getFontFamilyHashMap } from './font-family';
 
 @Injectable()
 export class DocumentFontsService {
@@ -34,7 +35,7 @@ export class DocumentFontsService {
     getFamilyHashMap() {
         return FONTS.reduce(
             (currentFonts, family) => {
-                currentFonts[Object.values(family)[0].family] = getHashMap(family);
+                currentFonts[Object.values(family)[0].family] = getFontFamilyHashMap(family);
                 return currentFonts;
             },
             {} as { [name: string]: TFontFamilyTypes }
