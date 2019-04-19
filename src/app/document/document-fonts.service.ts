@@ -14,16 +14,6 @@ export class DocumentFontsService {
         map(() => true)
     );
 
-    get fonts(): { [name: string]: Partial<Record<keyof TFontFamilyTypes, keyof typeof FONTS>> } {
-        return FONTS.reduce(
-            (currentFonts, family) => {
-                currentFonts[Object.values(family)[0].family] = getHashMap(family);
-                return currentFonts;
-            },
-            {} as any
-        );
-    }
-
     constructor(private http: HttpClient) {}
 
     loadFonts(): Observable<string[]> {
@@ -36,8 +26,18 @@ export class DocumentFontsService {
                     vfs[fonts[i].hash] = fonts[i].base64;
                 }
                 pdfMake.vfs = vfs;
-                pdfMake.fonts = this.fonts as any;
+                pdfMake.fonts = this.getFamilyHashMap();
             })
+        );
+    }
+
+    getFamilyHashMap() {
+        return FONTS.reduce(
+            (currentFonts, family) => {
+                currentFonts[Object.values(family)[0].family] = getHashMap(family);
+                return currentFonts;
+            },
+            {} as { [name: string]: TFontFamilyTypes }
         );
     }
 
