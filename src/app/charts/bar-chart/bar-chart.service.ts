@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { select } from 'd3-selection';
-import { scaleBand, scaleLinear } from 'd3-scale';
+import { select, Selection } from 'd3-selection';
+import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { chartColors } from '../color-constants';
@@ -12,11 +12,11 @@ import { PeriodData } from '../models/chart-data-models';
 
 @Injectable()
 export class BarChartService {
-    private svg: any;
+    private svg: Selection<SVGGElement, {}, null, PeriodData>;
     private margin = 20;
-    private xScale0: any;
-    private xScale1: any;
-    private yScale: any;
+    private xScale0: ScaleBand<string>;
+    private xScale1: ScaleBand<string>;
+    private yScale: ScaleLinear<number, number>;
     private xAxis: any;
     private yAxis: any;
     private height: number;
@@ -35,7 +35,7 @@ export class BarChartService {
             .select('svg')
             .attr('width', element.offsetWidth)
             .attr('height', element.offsetHeight)
-            .attr('transform', `translate(0, 0)`);
+            .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PeriodData>;
 
         this.xScale0 = scaleBand().range([4 * this.margin, this.width - this.margin]);
 
@@ -82,7 +82,7 @@ export class BarChartService {
 
         this.svg
             .selectAll('.time')
-            .data(data)
+            .data<PeriodData>(data)
             .attr('x', d => this.xScale0(d.time))
             .selectAll('.bar')
             .data(d => d.values)
@@ -110,7 +110,7 @@ export class BarChartService {
 
         return this.svg
             .selectAll(`.time`)
-            .data(data)
+            .data<PeriodData>(data)
             .enter()
             .append('g')
             .attr('class', `time`)
