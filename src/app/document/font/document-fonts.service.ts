@@ -10,11 +10,11 @@ import { blobToBase64 } from './blob-to-base64';
 
 @Injectable()
 export class DocumentFontsService<F extends FontFamily[] = FontFamily[]> {
-    init$: Observable<boolean> = this.init();
+    init$: Observable<boolean> = this.init([] as F);
 
     constructor(private http: HttpClient) {}
 
-    init(loadedFonts: F = [] as F): Observable<boolean> {
+    init(loadedFonts: F): Observable<boolean> {
         this.init$ = this.loadFonts(loadedFonts).pipe(
             shareReplay(1),
             map(() => true)
