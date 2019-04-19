@@ -1,14 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { select } from 'd3-selection';
-import { easeExp } from 'd3-ease';
-import { scaleBand, scaleLinear } from 'd3-scale';
-import { axisBottom, axisLeft } from 'd3-axis';
-import { max } from 'd3-array';
-import { locale } from 'moment';
 
 import { PeriodData } from '../models/chart-data-models';
-import { chartColors } from '../color-constants';
 import { BarChartService } from './bar-chart.service';
 
 @Component({
@@ -26,17 +18,16 @@ export class BarChartComponent implements OnChanges, OnInit {
 
     private svg: any;
 
-
     constructor(private barChartService: BarChartService) {}
 
     ngOnInit() {
-        this.initChart();
+        const element = this.chartContainer.nativeElement;
+        this.svg = this.barChartService.initChart(this.data, element);
     }
 
     ngOnChanges(changes: any) {
         if (this.svg) {
-            this.updateChart();
+            this.barChartService.updateChart(this.data);
         }
     }
-
 }
