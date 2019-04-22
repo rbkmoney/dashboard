@@ -1,9 +1,5 @@
 @import '../../../styles/variables';
 
-.x.axis > .tick:first-of-type > text {
-    align-self: flex-end;
-}
-
 .y.axis > path, .x.axis > path {
     color: transparent;
 }

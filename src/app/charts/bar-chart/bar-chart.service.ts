@@ -3,35 +3,35 @@ import { select, Selection } from 'd3-selection';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import { easeExp } from 'd3-ease';
-import { chartColors } from '../color-constants';
-import { axisBottom, axisLeft } from 'd3-axis';
+import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
+import { chartColors } from '../color-constants';
 import { PeriodData } from '../models/chart-data-models';
 
 @Injectable()
 export class BarChartService {
-    private svg: Selection<SVGGElement, {}, null, PeriodData>;
-    private margin = 20;
     private xScale0: ScaleBand<string>;
     private xScale1: ScaleBand<string>;
     private yScale: ScaleLinear<number, number>;
-    private xAxis: any;
-    private yAxis: any;
+    private xAxis: Axis<string>;
+    private yAxis: Axis<AxisDomain>;
     private height: number;
     private width: number;
+    private margin = 20;
     private barWidth = 5;
     private barPadding = 3;
     private transitionDuration = 1000;
     private rx = 3;
     private ry = 3;
+    private tickCount = 5;
 
-    initChart(data: PeriodData[], element) {
+    initChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element) {
         this.width = element.offsetWidth;
         this.height = element.offsetHeight - this.margin;
 
-        this.svg = select(element)
+        svg = select(element)
             .select('svg')
             .attr('width', element.offsetWidth)
             .attr('height', element.offsetHeight)
@@ -43,45 +43,50 @@ export class BarChartService {
 
         this.yScale = scaleLinear().range([this.height, 0]);
 
-        this.yScale.domain([0, max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(5)[1]]);
+        this.yScale.domain([
+            0,
+            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
+        ]);
 
         this.xAxis = this.getCustomAxisX();
         this.yAxis = this.getCustomAxisY();
 
-        this.svg
-            .append('g')
+        svg.append('g')
             .attr('class', 'x axis')
             .attr('transform', `translate(${-0.5 * this.margin}, ${this.height})`);
 
-        this.svg
-            .append('g')
+        svg.append('g')
             .attr('class', 'y axis')
             .attr('transform', `translate(${3 * this.margin}, 0)`);
 
-        return this.updateChart(data);
+        return this.updateChart(svg, data, element);
     }
 
-    updateChart(data: PeriodData[]) {
+    updateChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element) {
         this.xScale0.domain(data.map(d => d.time));
 
         const xFields = this.getX1Fields(data);
         this.xScale1.domain(xFields).range([0, this.getDomainRangeX(xFields.length)]);
 
-        this.yScale.domain([0, max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(5)[1]]);
+        this.yScale.domain([
+            0,
+            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
+        ]);
 
-        select('.x.axis')
+        select(element)
+            .select('.x.axis')
             .transition()
             .ease(easeExp)
             .duration(1000)
-            .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]));
-        select('.y.axis')
+            .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]) as any);
+        select(element)
+            .select('.y.axis')
             .transition()
             .ease(easeExp)
             .duration(1000)
-            .call(this.yAxis);
+            .call(this.yAxis as any);
 
-        this.svg
-            .selectAll('.time')
+        svg.selectAll('.time')
             .data<PeriodData>(data)
             .attr('x', d => this.xScale0(d.time))
             .selectAll('.bar')
@@ -101,15 +106,13 @@ export class BarChartService {
             )
             .style('fill', (d, i) => chartColors[i]);
 
-        this.svg
-            .selectAll('.time')
+        svg.selectAll('.time')
             .data(data)
             .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`)
             .exit()
             .remove();
 
-        return this.svg
-            .selectAll(`.time`)
+        svg.selectAll(`.time`)
             .data<PeriodData>(data)
             .enter()
             .append('g')
@@ -136,6 +139,8 @@ export class BarChartService {
                     this.barWidth
                 )
             );
+
+        return svg;
     }
 
     private getX1Fields(data): Array<string> {
@@ -161,7 +166,7 @@ export class BarChartService {
 
     private getCustomAxisY() {
         return axisLeft(this.yScale)
-            .ticks(5)
+            .ticks(this.tickCount)
             .tickSize(-this.width)
             .tickFormat((d, i) => (i > 0 ? `${(d as number) / 1000} млн ₽` : `${(d as number) / 1000}`));
     }
