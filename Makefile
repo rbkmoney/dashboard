@@ -37,7 +37,7 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init:
+init: swagger-compile
 	npm ci
 
 build: check lint
@@ -54,3 +54,9 @@ lint:
 
 test:
 	npm run test
+
+swagger-clean:
+	rm -rf dist src/app/api/swag-v3/swagger-codegen
+
+swagger-compile: swagger-clean
+	swagger-codegen generate -l typescript-fetch -i schemes/swag/v3/swagger.yaml -o src/app/api/capi/swagger-codegen
