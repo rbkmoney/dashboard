@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { DocumentService } from './document.service';
-import { DocumentFontsService } from './document-fonts.service';
+import { DocumentFontsService } from './font/document-fonts.service';
 
 @NgModule({
     imports: [],
