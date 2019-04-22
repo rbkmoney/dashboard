@@ -26,10 +26,16 @@ export class BarChartService {
     private rx = 3;
     private ry = 3;
     private tickCount = 5;
+    private firstBarMarginLeft: number;
+    private lastBarMarginRight: number;
+    private xAxisHorizontalMargin: number;
+    private yAxisHorizontalMargin: number;
+    private xAxisVerticalMargin: number;
 
     initChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element) {
         this.width = element.offsetWidth;
         this.height = element.offsetHeight - this.margin;
+        this.initMargins();
 
         svg = select(element)
             .select('svg')
@@ -37,7 +43,7 @@ export class BarChartService {
             .attr('height', element.offsetHeight)
             .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PeriodData>;
 
-        this.xScale0 = scaleBand().range([4 * this.margin, this.width - this.margin]);
+        this.xScale0 = scaleBand().range([this.firstBarMarginLeft, this.lastBarMarginRight]);
 
         this.xScale1 = scaleBand();
 
@@ -51,13 +57,7 @@ export class BarChartService {
         this.xAxis = this.getCustomAxisX();
         this.yAxis = this.getCustomAxisY();
 
-        svg.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', `translate(${-0.5 * this.margin}, ${this.height})`);
-
-        svg.append('g')
-            .attr('class', 'y axis')
-            .attr('transform', `translate(${3 * this.margin}, 0)`);
+        this.initAxis(svg);
 
         return this.updateChart(svg, data, element);
     }
@@ -73,6 +73,25 @@ export class BarChartService {
             max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
         ]);
 
+        this.updateAxis(data, element);
+        this.updateOldData(svg, data);
+        this.removeOldData(svg, data);
+        this.drawNewData(svg, data);
+
+        return svg;
+    }
+
+    private initAxis(svg: Selection<SVGGElement, {}, null, PeriodData>) {
+        svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', `translate(${this.xAxisHorizontalMargin}, ${this.xAxisVerticalMargin})`);
+
+        svg.append('g')
+            .attr('class', 'y axis')
+            .attr('transform', `translate(${this.yAxisHorizontalMargin}, 0)`);
+    }
+
+    private updateAxis(data: PeriodData[], element) {
         select(element)
             .select('.x.axis')
             .transition()
@@ -85,7 +104,9 @@ export class BarChartService {
             .ease(easeExp)
             .duration(this.transitionDuration)
             .call(this.yAxis as any);
+    }
 
+    private updateOldData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
         svg.selectAll('.time')
             .data<PeriodData>(data)
             .attr('x', d => this.xScale0(d.time))
@@ -105,13 +126,17 @@ export class BarChartService {
                 )
             )
             .style('fill', (d, i) => chartColors[i]);
+    }
 
+    private removeOldData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
         svg.selectAll('.time')
             .data(data)
             .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`)
             .exit()
             .remove();
+    }
 
+    private drawNewData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
         svg.selectAll(`.time`)
             .data<PeriodData>(data)
             .enter()
@@ -124,7 +149,6 @@ export class BarChartService {
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .attr('x', (d, i) => i * (this.barWidth + this.barPadding))
             .attr('d', d => this.getRoundedBar(d, this.rx, this.ry, 0, this.height, this.barWidth))
             .transition()
             .ease(easeExp)
@@ -139,8 +163,6 @@ export class BarChartService {
                     this.barWidth
                 )
             );
-
-        return svg;
     }
 
     private getX1Fields(data): Array<string> {
@@ -168,10 +190,18 @@ export class BarChartService {
         return axisLeft(this.yScale)
             .ticks(this.tickCount)
             .tickSize(-this.width)
-            .tickFormat((d) => `${d}`)
+            .tickFormat(d => `${d}`);
     }
 
     private getDomainRangeX(length: number): number {
         return length * this.barWidth + (length - 1) * this.barPadding;
+    }
+
+    private initMargins() {
+        this.firstBarMarginLeft = 4 * this.margin;
+        this.lastBarMarginRight = this.width - this.margin;
+        this.xAxisHorizontalMargin = -0.5 * this.margin;
+        this.yAxisHorizontalMargin = 3 * this.margin;
+        this.xAxisVerticalMargin = this.height + 0.2 * this.margin;
     }
 }
