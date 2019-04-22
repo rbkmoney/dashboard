@@ -50,7 +50,7 @@ export class AnalyticsComponent implements OnInit {
         this.periodData = this.periodData.slice(0, this.periodData.length - 1);
     }
 
-    getRandom = () => Math.ceil(Math.random() * 1000000);
+    getRandom = () => Math.ceil(Math.random() * 100000000);
     getRandomYear = () => Math.ceil(Math.random() * 1000 + 1100);
 
     addSegmentData() {

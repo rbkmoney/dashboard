@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ChartsService {
-    getRandom = () => Math.ceil(Math.random() * 1000000);
+    getRandom = () => Math.ceil(Math.random() * 100000000);
 
     getPeriodData = () => [
         {

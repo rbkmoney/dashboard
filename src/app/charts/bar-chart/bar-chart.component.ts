@@ -12,7 +12,6 @@ import {
 import { PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
 import { Selection } from 'd3-selection';
-import { element } from 'protractor';
 
 @Component({
     selector: 'dsh-bar-chart',
@@ -35,7 +34,7 @@ export class BarChartComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         this.element = this.chartContainer.nativeElement;
-        this.svg = this.barChartService.initChart(this.svg, this.data, element);
+        this.svg = this.barChartService.initChart(this.svg, this.data, this.element);
     }
 
     ngOnChanges(changes: SimpleChanges) {

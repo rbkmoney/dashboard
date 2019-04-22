@@ -77,13 +77,13 @@ export class BarChartService {
             .select('.x.axis')
             .transition()
             .ease(easeExp)
-            .duration(1000)
+            .duration(this.transitionDuration)
             .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]) as any);
         select(element)
             .select('.y.axis')
             .transition()
             .ease(easeExp)
-            .duration(1000)
+            .duration(this.transitionDuration)
             .call(this.yAxis as any);
 
         svg.selectAll('.time')
@@ -168,7 +168,7 @@ export class BarChartService {
         return axisLeft(this.yScale)
             .ticks(this.tickCount)
             .tickSize(-this.width)
-            .tickFormat((d, i) => (i > 0 ? `${(d as number) / 1000} млн ₽` : `${(d as number) / 1000}`));
+            .tickFormat((d) => `${d}`)
     }
 
     private getDomainRangeX(length: number): number {
