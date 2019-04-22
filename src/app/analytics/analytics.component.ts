@@ -14,8 +14,7 @@ export class AnalyticsComponent implements OnInit {
     constructor(private chartsService: ChartsService) {}
 
     ngOnInit() {
-        this.periodData = this.chartsService.getPeriodData();
-        this.segmentData = this.chartsService.getSegmentData();
+        this.refreshValue();
     }
 
     refreshValue() {
