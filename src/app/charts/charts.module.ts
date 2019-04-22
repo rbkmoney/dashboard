@@ -9,9 +9,9 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { DonutChartService } from './donut-chart/donut-chart.service';
 
 @NgModule({
-    declarations: [DonutChartComponent, BarChartComponent],
+    declarations: [DonutChartComponent, BarChartComponent, BarChartComponent],
     imports: [CommonModule, LayoutModule],
-    exports: [DonutChartComponent, BarChartComponent],
+    exports: [DonutChartComponent, BarChartComponent, BarChartComponent],
     providers: [ChartsService, DonutChartService]
 })
 export class ChartsModule {}

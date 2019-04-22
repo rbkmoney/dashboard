@@ -1,3 +1,5 @@
-.bar {
-    color: #0b5940;
+@import '../../../styles/variables';
+
+.y.axis > path, .x.axis > path {
+    color: transparent;
 }

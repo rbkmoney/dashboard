@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeriodData, SegmentData } from '../charts/models/chart-data-models';
-import { AnalyticsService } from './analytics.service';
+import { ChartsService } from '../charts/charts.service';
 
 @Component({
     selector: 'dsh-app-analytics',
@@ -11,25 +11,54 @@ export class AnalyticsComponent implements OnInit {
     periodData: PeriodData[];
     segmentData: SegmentData[];
 
-    constructor(private analyticsService: AnalyticsService) {}
+    constructor(private chartsService: ChartsService) {}
 
     ngOnInit() {
         this.refreshValue();
     }
 
     refreshValue() {
-        this.periodData = this.analyticsService.getPeriodData();
-        this.segmentData = this.analyticsService.getSegmentData();
+        this.periodData = this.chartsService.getPeriodData();
+        this.segmentData = this.chartsService.getSegmentData();
     }
 
-    addSegmentData = () =>
-        (this.segmentData = [
+    addPeriodData() {
+        this.periodData = [
+            ...this.periodData,
+            {
+                time: `${this.getRandomYear()}-01-03T00:00:00Z`,
+                values: [
+                    {
+                        name: 'kek',
+                        value: this.getRandom()
+                    },
+                    {
+                        name: 'lol',
+                        value: this.getRandom()
+                    },
+                    {
+                        name: 'wow',
+                        value: this.getRandom()
+                    }
+                ]
+            }
+        ];
+    }
+
+    removePeriodData() {
+        this.periodData = this.periodData.slice(0, this.periodData.length - 1);
+    }
+
+    getRandom = () => Math.ceil(Math.random() * 100000000);
+    getRandomYear = () => Math.ceil(Math.random() * 1000 + 1100);
+
+    addSegmentData() {
+        this.segmentData = [
             ...this.segmentData,
             {
-                name: `${this.getRandom()}`,
+                name: `kek${this.getRandom()}`,
                 value: this.getRandom()
             }
-        ]);
-
-    getRandom = () => Math.ceil(Math.random() * 1000);
+        ];
+    }
 }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Selection } from 'd3-selection';
 import { PieArcDatum } from 'd3-shape';
+import { Selection } from 'd3-selection';
 
 import { SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
