@@ -12,6 +12,7 @@
             <div fxLayoutGap="1"><button (click)="addPeriodData()">Add period data</button></div>
             <div fxLayoutGap="1"><button (click)="removePeriodData()">Remove period data</button></div>
             <dsh-card><dsh-bar-chart [data]="periodData"></dsh-bar-chart></dsh-card>
+            <dsh-card><dsh-linear-chart [data]="periodData"></dsh-linear-chart></dsh-card>
             <dsh-card><dsh-donut-chart [data]="segmentData"></dsh-donut-chart></dsh-card>
         </div>
     </div>
