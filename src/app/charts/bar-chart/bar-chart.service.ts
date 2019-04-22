@@ -19,23 +19,19 @@ export class BarChartService {
     private yAxis: Axis<AxisDomain>;
     private height: number;
     private width: number;
-    private margin = 20;
     private barWidth = 5;
     private barPadding = 3;
     private transitionDuration = 1000;
-    private rx = 3;
-    private ry = 3;
+    private radius = 3;
     private tickCount = 5;
-    private firstBarMarginLeft: number;
-    private lastBarMarginRight: number;
-    private xAxisHorizontalMargin: number;
-    private yAxisHorizontalMargin: number;
-    private xAxisVerticalMargin: number;
+    private commonMargin = 20;
 
-    initChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element) {
+    private margin;
+
+    initChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element: HTMLElement) {
         this.width = element.offsetWidth;
-        this.height = element.offsetHeight - this.margin;
-        this.initMargins();
+        this.height = element.offsetHeight - this.commonMargin;
+        this.margin = this.initMargins(this.width, this.height);
 
         svg = select(element)
             .select('svg')
@@ -43,7 +39,7 @@ export class BarChartService {
             .attr('height', element.offsetHeight)
             .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PeriodData>;
 
-        this.xScale0 = scaleBand().range([this.firstBarMarginLeft, this.lastBarMarginRight]);
+        this.xScale0 = scaleBand().range([this.margin.firstBarMarginLeft, this.margin.lastBarMarginRight]);
 
         this.xScale1 = scaleBand();
 
@@ -62,7 +58,7 @@ export class BarChartService {
         return this.updateChart(svg, data, element);
     }
 
-    updateChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element) {
+    updateChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element: HTMLElement) {
         this.xScale0.domain(data.map(d => d.time));
 
         const xFields = this.getX1Fields(data);
@@ -74,9 +70,7 @@ export class BarChartService {
         ]);
 
         this.updateAxis(data, element);
-        this.updateOldData(svg, data);
-        this.removeOldData(svg, data);
-        this.drawNewData(svg, data);
+        this.updateData(svg, data);
 
         return svg;
     }
@@ -84,14 +78,14 @@ export class BarChartService {
     private initAxis(svg: Selection<SVGGElement, {}, null, PeriodData>) {
         svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', `translate(${this.xAxisHorizontalMargin}, ${this.xAxisVerticalMargin})`);
+            .attr('transform', `translate(${this.margin.xAxisHorizontalMargin}, ${this.margin.xAxisVerticalMargin})`);
 
         svg.append('g')
             .attr('class', 'y axis')
-            .attr('transform', `translate(${this.yAxisHorizontalMargin}, 0)`);
+            .attr('transform', `translate(${this.margin.yAxisHorizontalMargin}, 0)`);
     }
 
-    private updateAxis(data: PeriodData[], element) {
+    private updateAxis(data: PeriodData[], element: HTMLElement) {
         select(element)
             .select('.x.axis')
             .transition()
@@ -106,7 +100,7 @@ export class BarChartService {
             .call(this.yAxis as any);
     }
 
-    private updateOldData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
+    private updateData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
         svg.selectAll('.time')
             .data<PeriodData>(data)
             .attr('x', d => this.xScale0(d.time))
@@ -118,17 +112,18 @@ export class BarChartService {
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.rx,
-                    this.ry,
-                    this.height - this.yScale(d.value) - this.ry,
-                    this.yScale(d.value) + this.ry,
+                    this.height - this.yScale(d.value) - this.radius,
+                    this.yScale(d.value) + this.radius,
                     this.barWidth
                 )
             )
             .style('fill', (d, i) => chartColors[i]);
+
+        this.removeUnusedData(svg, data);
+        this.drawNewData(svg, data);
     }
 
-    private removeOldData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
+    private removeUnusedData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
         svg.selectAll('.time')
             .data(data)
             .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`)
@@ -149,17 +144,15 @@ export class BarChartService {
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .attr('d', d => this.getRoundedBar(d, this.rx, this.ry, 0, this.height, this.barWidth))
+            .attr('d', d => this.getRoundedBar(d, 0, this.height, this.barWidth))
             .transition()
             .ease(easeExp)
             .duration(this.transitionDuration)
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.rx,
-                    this.ry,
-                    this.height - this.yScale(d.value) - this.ry,
-                    this.yScale(d.value) + this.ry,
+                    this.height - this.yScale(d.value) - this.radius,
+                    this.yScale(d.value) + this.radius,
                     this.barWidth
                 )
             );
@@ -169,12 +162,12 @@ export class BarChartService {
         return data[0].values.map(i => i.name);
     }
 
-    private getRoundedBar(d, rx: number, ry: number, height: number, y: number, barWidth: number): string {
+    private getRoundedBar(d, height: number, y: number, barWidth: number): string {
         return `
                 M${this.xScale1(d.name)},${y}
-                a${rx},${ry} 0 0 1 ${rx},${-ry}
-                h${barWidth - 2 * rx}
-                a${rx},${ry} 0 0 1 ${rx},${ry}
+                a${this.radius},${this.radius} 0 0 1 ${this.radius},${-this.radius}
+                h${barWidth - 2 * this.radius}
+                a${this.radius},${this.radius} 0 0 1 ${this.radius},${this.radius}
                 v${height}
                 h${-barWidth}Z
               `;
@@ -197,11 +190,13 @@ export class BarChartService {
         return length * this.barWidth + (length - 1) * this.barPadding;
     }
 
-    private initMargins() {
-        this.firstBarMarginLeft = 4 * this.margin;
-        this.lastBarMarginRight = this.width - this.margin;
-        this.xAxisHorizontalMargin = -0.5 * this.margin;
-        this.yAxisHorizontalMargin = 3 * this.margin;
-        this.xAxisVerticalMargin = this.height + 0.2 * this.margin;
+    private initMargins(width: number, height: number) {
+        return {
+            firstBarMarginLeft: 4 * this.commonMargin,
+            lastBarMarginRight: width - this.commonMargin,
+            xAxisHorizontalMargin: -0.5 * this.commonMargin,
+            xAxisVerticalMargin: height + 0.2 * this.commonMargin,
+            yAxisHorizontalMargin: 3 * this.commonMargin
+        };
     }
 }

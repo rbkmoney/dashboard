@@ -28,7 +28,7 @@ export class BarChartComponent implements OnChanges, OnInit {
     data: PeriodData[];
 
     private svg: Selection<SVGGElement, {}, null, PeriodData>;
-    private element;
+    private element: HTMLElement;
 
     constructor(private barChartService: BarChartService) {}
 
