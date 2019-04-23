@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select, Selection } from 'd3-selection';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
-import { max } from 'd3-array';
+import { extent, max } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { formatDate } from '@angular/common';
@@ -23,8 +23,7 @@ export class BarChartService {
     private barWidth = 5;
     private barPadding = 3;
     private transitionDuration = 1000;
-    private rx = 3;
-    private ry = 3;
+    private radius = 3;
     private tickCount = 5;
     private firstBarMarginLeft: number;
     private lastBarMarginRight: number;
@@ -97,7 +96,7 @@ export class BarChartService {
             .transition()
             .ease(easeExp)
             .duration(this.transitionDuration)
-            .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]) as any);
+            .call(this.xAxis.tickValues(extent(data, d => d.time)) as any);
         select(element)
             .select('.y.axis')
             .transition()
@@ -118,10 +117,8 @@ export class BarChartService {
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.rx,
-                    this.ry,
-                    this.height - this.yScale(d.value) - this.ry,
-                    this.yScale(d.value) + this.ry,
+                    this.height - this.yScale(d.value) - this.radius,
+                    this.yScale(d.value) + this.radius,
                     this.barWidth
                 )
             )
@@ -149,17 +146,15 @@ export class BarChartService {
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .attr('d', d => this.getRoundedBar(d, this.rx, this.ry, 0, this.height, this.barWidth))
+            .attr('d', d => this.getRoundedBar(d, 0, this.height, this.barWidth))
             .transition()
             .ease(easeExp)
             .duration(this.transitionDuration)
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.rx,
-                    this.ry,
-                    this.height - this.yScale(d.value) - this.ry,
-                    this.yScale(d.value) + this.ry,
+                    this.height - this.yScale(d.value) - this.radius,
+                    this.yScale(d.value) + this.radius,
                     this.barWidth
                 )
             );
@@ -169,12 +164,12 @@ export class BarChartService {
         return data[0].values.map(i => i.name);
     }
 
-    private getRoundedBar(d, rx: number, ry: number, height: number, y: number, barWidth: number): string {
+    private getRoundedBar(d, height: number, y: number, barWidth: number): string {
         return `
                 M${this.xScale1(d.name)},${y}
-                a${rx},${ry} 0 0 1 ${rx},${-ry}
-                h${barWidth - 2 * rx}
-                a${rx},${ry} 0 0 1 ${rx},${ry}
+                a${this.radius},${this.radius} 0 0 1 ${this.radius},${-this.radius}
+                h${barWidth - 2 * this.radius}
+                a${this.radius},${this.radius} 0 0 1 ${this.radius},${this.radius}
                 v${height}
                 h${-barWidth}Z
               `;

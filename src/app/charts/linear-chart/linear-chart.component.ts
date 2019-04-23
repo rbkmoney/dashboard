@@ -9,7 +9,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { PeriodData } from '../models/chart-data-models';
+import { PreparedPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
 import { Selection } from 'd3-selection';
 
@@ -21,13 +21,13 @@ import { Selection } from 'd3-selection';
     providers: [LinearChartService]
 })
 export class LinearChartComponent implements OnChanges, OnInit {
-    @ViewChild('barChart')
+    @ViewChild('linearChart')
     private chartContainer: ElementRef;
 
     @Input()
-    data: PeriodData[];
+    data: PreparedPeriodData[];
 
-    private svg: Selection<SVGGElement, {}, null, PeriodData>;
+    private svg: Selection<SVGGElement, {}, null, PreparedPeriodData>;
     private element;
 
     constructor(private linearChartService: LinearChartService) {}
