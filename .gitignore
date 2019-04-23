@@ -43,4 +43,5 @@ testem.log
 Thumbs.db
 
 # Swagger Codegen
+swagger-codegen-cli.jar
 src/app/api/**/swagger-codegen

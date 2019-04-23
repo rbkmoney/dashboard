@@ -55,8 +55,14 @@ lint:
 test:
 	npm run test
 
-swagger-clean:
-	rm -rf dist src/app/api/swag-v3/swagger-codegen
+SWAGGER_SWAG_V3_DIR = 'src/app/api/capi/swagger-codegen'
+SWAGGER_CLI = 'swagger-codegen-cli.jar'
 
-swagger-compile: swagger-clean
-	swagger-codegen generate -l typescript-fetch -i schemes/swag/v3/swagger.yaml -o src/app/api/capi/swagger-codegen
+swagger-init:
+	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.4/swagger-codegen-cli-2.4.4.jar -O $(SWAGGER_CLI)
+
+swagger-clean:
+	rm -rf $(SWAGGER_SWAG_V3_DIR)
+
+swagger-compile: swagger-init swagger-clean
+	java -jar $(SWAGGER_CLI) generate -l typescript-angular --additional-properties ngVersion=7 -i schemes/swag/v3/swagger.yaml -o $(SWAGGER_SWAG_V3_DIR)
