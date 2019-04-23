@@ -1,4 +1,8 @@
-SUBMODULES = build_utils
+UTILS_PATH := build_utils
+SWAGGER_SCHEME_PATH := \
+	schemes/swag/v3
+SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEME_PATH)
+
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
 
 UTILS_PATH := build_utils
