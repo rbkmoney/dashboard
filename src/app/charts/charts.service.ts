@@ -1,113 +1,27 @@
 import { Injectable } from '@angular/core';
+import { PeriodData } from './models/chart-data-models';
 
 @Injectable()
 export class ChartsService {
     getRandom = () => Math.ceil(Math.random() * 100000000);
 
-    getPeriodData = () => [
-        {
-            time: '2017-01-01T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
+    getPeriodData = (timesCount: number, valuesCount: number): PeriodData[] => {
+        const periodData = [];
+        for (let i = 1; i <= timesCount; i++) {
+            const values = [];
+            for (let j = 0; j < valuesCount; j++) {
+                values.push({
+                    name: `kek ${j}`,
                     value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
-        },
-        {
-            time: '2017-01-02T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
-        },
-        {
-            time: '2017-01-03T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
-        },
-        {
-            time: '2017-01-04T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
-        },
-        {
-            time: '2017-01-05T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
-        },
-        {
-            time: '2017-01-06T00:00:00Z',
-            values: [
-                {
-                    name: 'kek',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'lol',
-                    value: this.getRandom()
-                },
-                {
-                    name: 'wow',
-                    value: this.getRandom()
-                }
-            ]
+                })
+            }
+            periodData.push({
+                time: `2017-01-${i > 9 ? i : `0${i}`}T00:00:00Z`,
+                values
+            });
         }
-    ];
+        return periodData;
+    };
 
     getSegmentData = () => [
         {
