@@ -25,6 +25,7 @@ export class LinearChartService {
     private transitionDuration = 1000;
     private tickCount = 5;
     private commonMargin = 20;
+    private radius = 2;
 
     private margin;
 
@@ -119,11 +120,12 @@ export class LinearChartService {
             .data(data)
             .exit()
             .remove();
+
+        svg.selectAll('.circle').remove();
     }
 
     private drawData(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[]) {
-        svg
-            .select('.lines')
+        svg.select('.lines')
             .selectAll(`.line-group`)
             .data(data)
             .enter()
@@ -137,7 +139,28 @@ export class LinearChartService {
             .duration(this.transitionDuration)
             .attr('d', (d) => this.createLine(d.values))
             .style('stroke', (d, i) => chartColors[i]);
+
+        svg.selectAll('circle-group')
+            .data(data)
+            .enter()
+            .append('g')
+            .style('fill', (d, i) => chartColors[i])
+            .selectAll('circle')
+            .data(d => d.values)
+            .enter()
+            .append('g')
+            .attr('class', 'circle')
+            .append('circle')
+            .attr('cx', d => this.xScale(d.time))
+            .attr('cy', this.height)
+            .transition()
+            .ease(easeExp)
+            .duration(this.transitionDuration)
+            .attr('cx', d => this.xScale(d.time))
+            .attr('cy', d => this.yScale(d.value))
+            .attr('r', this.radius);
     }
+
 
     private getCustomAxisX() {
         return axisBottom(this.xScale)

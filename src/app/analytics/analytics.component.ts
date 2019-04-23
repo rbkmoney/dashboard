@@ -77,7 +77,6 @@ export class AnalyticsComponent implements OnInit {
                 v.values.push({time: new Date(d.time), value: d.values[i].value})
             });
         });
-        console.log(data, preparedData);
         return preparedData;
     }
 }
