@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 
 import { ApiModule, Configuration } from './swagger-codegen';
+import { CAPIConfigService } from './capi-config.service';
 
 @NgModule({
     imports: [
-        ApiModule.forRoot(
-            () =>
-                new Configuration({
-                    apiKeys: { Authorization: 'Bearer KEY' },
-                    basePath: 'http://localhost:8000'
-                })
-        )
+        {
+            ngModule: ApiModule,
+            providers: [{ provide: Configuration, useClass: CAPIConfigService }]
+        }
     ],
     declarations: [],
     entryComponents: [],
-    providers: []
+    providers: [CAPIConfigService]
 })
 export class CAPIModule {}
