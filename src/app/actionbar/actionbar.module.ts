@@ -5,11 +5,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../dropdown/dropdown.module';
-import { CAPIModule } from '../api/capi/capi.module';
 
 @NgModule({
     declarations: [ActionbarComponent],
-    imports: [MatIconModule, FlexLayoutModule, DropdownModule, OverlayModule, CAPIModule],
+    imports: [MatIconModule, FlexLayoutModule, DropdownModule, OverlayModule],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

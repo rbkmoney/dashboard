@@ -8,7 +8,7 @@ import { ApiModule, Configuration } from './swagger-codegen';
             () =>
                 new Configuration({
                     apiKeys: { Authorization: 'Bearer KEY' },
-                    basePath: 'http://localhost'
+                    basePath: 'http://localhost:8000'
                 })
         )
     ],
