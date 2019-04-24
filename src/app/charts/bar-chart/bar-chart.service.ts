@@ -8,7 +8,7 @@ import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { PeriodData } from '../models/chart-data-models';
+import { BarChartConfig, PeriodData } from '../models/chart-data-models';
 
 @Injectable()
 export class BarChartService {
@@ -19,19 +19,21 @@ export class BarChartService {
     private yAxis: Axis<AxisDomain>;
     private height: number;
     private width: number;
-    private barWidth = 5;
-    private barPadding = 3;
     private transitionDuration = 1000;
-    private radius = 3;
-    private tickCount = 5;
     private commonMargin = 20;
-
+    private config: BarChartConfig;
     private margin;
 
-    initChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element: HTMLElement) {
+    initChart(
+        svg: Selection<SVGGElement, {}, null, PeriodData>,
+        data: PeriodData[],
+        element: HTMLElement,
+        config?: BarChartConfig
+    ) {
         this.width = element.offsetWidth;
         this.height = element.offsetHeight - this.commonMargin;
         this.margin = this.initMargins(this.width, this.height);
+        this.config = this.initChartConfig(config);
 
         svg = select(element)
             .select('svg')
@@ -47,7 +49,7 @@ export class BarChartService {
 
         this.yScale.domain([
             0,
-            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
+            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
         ]);
 
         this.xAxis = this.getCustomAxisX();
@@ -66,7 +68,7 @@ export class BarChartService {
 
         this.yScale.domain([
             0,
-            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
+            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
         ]);
 
         this.updateAxis(data, element);
@@ -112,9 +114,9 @@ export class BarChartService {
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.height - this.yScale(d.value) - this.radius,
-                    this.yScale(d.value) + this.radius,
-                    this.barWidth
+                    this.height - this.yScale(d.value) - this.config.radius,
+                    this.yScale(d.value) + this.config.radius,
+                    this.config.barWidth
                 )
             )
             .style('fill', (d, i) => chartColors[i]);
@@ -144,16 +146,16 @@ export class BarChartService {
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .attr('d', d => this.getRoundedBar(d, 0, this.height, this.barWidth))
+            .attr('d', d => this.getRoundedBar(d, 0, this.height, this.config.barWidth))
             .transition()
             .ease(easeExp)
             .duration(this.transitionDuration)
             .attr('d', d =>
                 this.getRoundedBar(
                     d,
-                    this.height - this.yScale(d.value) - this.radius,
-                    this.yScale(d.value) + this.radius,
-                    this.barWidth
+                    this.height - this.yScale(d.value) - this.config.radius,
+                    this.yScale(d.value) + this.config.radius,
+                    this.config.barWidth
                 )
             );
     }
@@ -165,9 +167,9 @@ export class BarChartService {
     private getRoundedBar(d, height: number, y: number, barWidth: number): string {
         return `
                 M${this.xScale1(d.name)},${y}
-                a${this.radius},${this.radius} 0 0 1 ${this.radius},${-this.radius}
-                h${barWidth - 2 * this.radius}
-                a${this.radius},${this.radius} 0 0 1 ${this.radius},${this.radius}
+                a${this.config.radius},${this.config.radius} 0 0 1 ${this.config.radius},${-this.config.radius}
+                h${barWidth - 2 * this.config.radius}
+                a${this.config.radius},${this.config.radius} 0 0 1 ${this.config.radius},${this.config.radius}
                 v${height}
                 h${-barWidth}Z
               `;
@@ -181,13 +183,13 @@ export class BarChartService {
 
     private getCustomAxisY() {
         return axisLeft(this.yScale)
-            .ticks(this.tickCount)
+            .ticks(this.config.tickCount)
             .tickSize(-this.width)
             .tickFormat(d => `${d}`);
     }
 
     private getDomainRangeX(length: number): number {
-        return length * this.barWidth + (length - 1) * this.barPadding;
+        return length * this.config.barWidth + (length - 1) * this.config.barPadding;
     }
 
     private initMargins(width: number, height: number) {
@@ -197,6 +199,15 @@ export class BarChartService {
             xAxisHorizontalMargin: -0.5 * this.commonMargin,
             xAxisVerticalMargin: height + 0.2 * this.commonMargin,
             yAxisHorizontalMargin: 3 * this.commonMargin
+        };
+    }
+
+    private initChartConfig(config: BarChartConfig = { barWidth: 5, barPadding: 3, tickCount: 5 }): BarChartConfig {
+        return {
+            barWidth: config.barWidth,
+            barPadding: config.barPadding,
+            radius: config.barWidth / 2,
+            tickCount: config.tickCount
         };
     }
 }

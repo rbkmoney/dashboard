@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select, Selection } from 'd3-selection';
 import { arc, Arc, DefaultArcObject, pie, Pie, PieArcDatum } from 'd3-shape';
-import { SegmentData } from '../models/chart-data-models';
+import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { chartColors } from '../color-constants';
 import { easeExp } from 'd3-ease';
 import { interpolate } from 'd3-interpolate';
@@ -14,13 +14,17 @@ export class DonutChartService {
     private generateArc: Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
     private donut: Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 
-    private innerRadius = 0.96; // percent of radius
-    private padAngle = 0.05;
-    private cornerRadius = 4;
+    private config: DonutChartConfig;
+    private transitionDuration = 1000;
 
-    createChart(data: SegmentData[], element): Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}> {
+    createChart(
+        data: SegmentData[],
+        element: HTMLElement,
+        donutWidth: number = 0.04
+    ): Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}> {
         const size = element.offsetWidth;
         this.radius = size / 2;
+        this.config = this.initChartConfig(donutWidth);
 
         select(element)
             .select('svg')
@@ -40,10 +44,10 @@ export class DonutChartService {
             .attr('class', 'donutChart');
 
         this.generateArc = arc()
-            .innerRadius(this.radius * this.innerRadius)
-            .outerRadius(this.radius)
-            .padAngle(this.padAngle)
-            .cornerRadius(this.cornerRadius);
+            .innerRadius(this.config.innerRadius)
+            .outerRadius(this.config.outerRadius)
+            .padAngle(this.config.padAngle)
+            .cornerRadius(this.config.cornerRadius);
 
         return this.updateChart(data);
     }
@@ -72,7 +76,7 @@ export class DonutChartService {
         return this.donut
             .transition()
             .ease(easeExp)
-            .duration(1500)
+            .duration(this.transitionDuration)
             .attrTween('d', b => {
                 const i = interpolate({ startAngle: 0, endAngle: 0 }, b);
                 return t => generateArc(i(t));
@@ -90,5 +94,14 @@ export class DonutChartService {
                 this._current = i(0);
                 return t => generateArc(i(t));
             });
+    }
+
+    private initChartConfig(donutWidth: number): DonutChartConfig {
+        return {
+            outerRadius: this.radius,
+            innerRadius: (1 - donutWidth) * this.radius,
+            padAngle: 0.05,
+            cornerRadius: this.radius
+        };
     }
 }

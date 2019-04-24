@@ -55,58 +55,58 @@ export class ChartsService {
                     value: this.getRandom()
                 }
             ]
+        },
+        {
+            time: '2017-01-04T00:00:00Z',
+            values: [
+                {
+                    name: 'kek',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'lol',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'wow',
+                    value: this.getRandom()
+                }
+            ]
+        },
+        {
+            time: '2017-01-05T00:00:00Z',
+            values: [
+                {
+                    name: 'kek',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'lol',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'wow',
+                    value: this.getRandom()
+                }
+            ]
+        },
+        {
+            time: '2017-01-06T00:00:00Z',
+            values: [
+                {
+                    name: 'kek',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'lol',
+                    value: this.getRandom()
+                },
+                {
+                    name: 'wow',
+                    value: this.getRandom()
+                }
+            ]
         }
-        // {
-        //     time: '2017-01-04T00:00:00Z',
-        //     values: [
-        //         {
-        //             name: 'kek',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'lol',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'wow',
-        //             value: this.getRandom()
-        //         }
-        //     ]
-        // },
-        // {
-        //     time: '2017-01-05T00:00:00Z',
-        //     values: [
-        //         {
-        //             name: 'kek',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'lol',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'wow',
-        //             value: this.getRandom()
-        //         }
-        //     ]
-        // },
-        // {
-        //     time: '2017-01-06T00:00:00Z',
-        //     values: [
-        //         {
-        //             name: 'kek',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'lol',
-        //             value: this.getRandom()
-        //         },
-        //         {
-        //             name: 'wow',
-        //             value: this.getRandom()
-        //         }
-        //     ]
-        // }
     ];
 
     getSegmentData = () => [
