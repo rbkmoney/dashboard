@@ -8,15 +8,26 @@
 -   [Angular Material](https://material.angular.io/)
 -   [Prettier](https://prettier.io/)
 
+## Initialization
+
+```sh
+# Install packages
+
+npm ci
+
+# Generate swagger
+
+make wc_shell
+make swagger-compile
+```
+
 ## Development server
 
-1. Run `npm install`
 1. Run `npm start`
 1. Navigate to `http://localhost:8000/`
 
 ## Production build
 
-1. Run `npm install`
 1. Run `npm run build`
 1. The build artifacts will be stored in the `dist/` directory.
 

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,10 @@ import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
 import { TableModule } from './table';
+import { APIModule } from './api/api.module';
+import { ConfigService } from './config/config.service';
+
+const initilizeFactory = (config: ConfigService) => () => Promise.all([config.init()]);
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,9 +25,19 @@ import { TableModule } from './table';
         PartyMngModule,
         DetailsModule,
         TableModule,
-        PageNotFoundModule
+        PageNotFoundModule,
+        APIModule
     ],
-    providers: [IconRegistryService],
+    providers: [
+        IconRegistryService,
+        ConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initilizeFactory,
+            deps: [ConfigService],
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
