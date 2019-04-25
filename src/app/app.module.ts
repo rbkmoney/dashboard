@@ -33,6 +33,7 @@ import { ConfigService } from './config/config.service';
     ],
     providers: [
         IconRegistryService,
+        ConfigService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
