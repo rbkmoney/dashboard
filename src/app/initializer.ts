@@ -1,7 +1,10 @@
 import { KeycloakService } from 'keycloak-angular';
 
-export const initializer = (keycloakService: KeycloakService) => () =>
+import { ConfigService } from './config/config.service';
+
+export const initializer = (configService: ConfigService, keycloakService: KeycloakService) => () =>
     Promise.all([
+        configService.init(),
         keycloakService.init({
             config: '/assets/authConfig.json',
             initOptions: {

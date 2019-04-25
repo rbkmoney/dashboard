@@ -12,9 +12,10 @@ build('dashboard', 'docker-host') {
     withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
   }
 
-  pipeDefault() {
+  def pipeline = {
     runStage('init') {
       withGithubSshCredentials {
+        sh 'make submodules'
         sh 'make wc_init'
       }
     }
@@ -37,4 +38,5 @@ build('dashboard', 'docker-host') {
       }
     }
   }
+  pipeDefault(pipeline, 'dr2.rbkmoney.com', 'jenkins_harbor')
 }
