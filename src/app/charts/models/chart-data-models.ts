@@ -45,11 +45,12 @@ export class BarChartConfig {
         public commonMargin = 20
     ) {
         this.radius = barWidth / 2;
+        this.height = height - commonMargin;
         this.margin = {
             firstBarMarginLeft: 4 * commonMargin,
-            lastBarMarginRight: width - commonMargin,
+            lastBarMarginRight: this.width - commonMargin,
             xAxisHorizontalMargin: -0.5 * commonMargin,
-            xAxisVerticalMargin: height + 0.2 * commonMargin,
+            xAxisVerticalMargin: this.height + 0.2 * commonMargin,
             yAxisHorizontalMargin: 3 * commonMargin
         };
     }
