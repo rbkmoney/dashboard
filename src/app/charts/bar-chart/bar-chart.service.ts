@@ -37,7 +37,10 @@ export class BarChartService {
             .attr('height', element.offsetHeight)
             .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PeriodData>;
 
-        this.xScale0 = scaleBand().range([this.config.margin.firstBarMarginLeft, this.config.margin.lastBarMarginRight]);
+        this.xScale0 = scaleBand().range([
+            this.config.margin.firstBarMarginLeft,
+            this.config.margin.lastBarMarginRight
+        ]);
 
         this.xScale1 = scaleBand();
 
@@ -76,7 +79,10 @@ export class BarChartService {
     private initAxis(svg: Selection<SVGGElement, {}, null, PeriodData>) {
         svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`);
+            .attr(
+                'transform',
+                `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`
+            );
 
         svg.append('g')
             .attr('class', 'y axis')
