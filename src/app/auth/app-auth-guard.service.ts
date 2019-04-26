@@ -1,5 +1,6 @@
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
+
 import { KeycloakAuthGuard, KeycloakService } from '../keycloak';
 
 @Injectable()
