@@ -7,7 +7,7 @@ import { Configuration } from './swagger-codegen';
 export class CAPIConfigService extends Configuration {
     constructor(config: ConfigService) {
         super({
-            apiKeys: { Authorization: 'Bearer KEY' },
+            apiKeys: { Authorization: '' },
             basePath: config.api.capiEndpoint
         });
     }
