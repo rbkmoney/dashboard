@@ -20,7 +20,6 @@ export class BarChartService {
     private height: number;
     private width: number;
     private transitionDuration = 1000;
-    private commonMargin = 20;
     private config: BarChartConfig;
     private margin;
 
@@ -30,10 +29,10 @@ export class BarChartService {
         element: HTMLElement,
         config?: BarChartConfig
     ) {
+        this.config = config;
         this.width = element.offsetWidth;
-        this.height = element.offsetHeight - this.commonMargin;
+        this.height = element.offsetHeight - this.config.commonMargin;
         this.margin = this.initMargins(this.width, this.height);
-        this.config = this.initChartConfig(config);
 
         svg = select(element)
             .select('svg')
@@ -194,20 +193,11 @@ export class BarChartService {
 
     private initMargins(width: number, height: number) {
         return {
-            firstBarMarginLeft: 4 * this.commonMargin,
-            lastBarMarginRight: width - this.commonMargin,
-            xAxisHorizontalMargin: -0.5 * this.commonMargin,
-            xAxisVerticalMargin: height + 0.2 * this.commonMargin,
-            yAxisHorizontalMargin: 3 * this.commonMargin
-        };
-    }
-
-    private initChartConfig(config: BarChartConfig = { barWidth: 5, barPadding: 3, tickCount: 5 }): BarChartConfig {
-        return {
-            barWidth: config.barWidth,
-            barPadding: config.barPadding,
-            radius: config.barWidth / 2,
-            tickCount: config.tickCount
+            firstBarMarginLeft: 4 * this.config.commonMargin,
+            lastBarMarginRight: width - this.config.commonMargin,
+            xAxisHorizontalMargin: -0.5 * this.config.commonMargin,
+            xAxisVerticalMargin: height + 0.2 * this.config.commonMargin,
+            yAxisHorizontalMargin: 3 * this.config.commonMargin
         };
     }
 }

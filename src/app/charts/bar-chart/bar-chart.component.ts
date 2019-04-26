@@ -9,7 +9,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { PeriodData } from '../models/chart-data-models';
+import { BarChartConfig, PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
 import { Selection } from 'd3-selection';
 
@@ -33,8 +33,9 @@ export class BarChartComponent implements OnChanges, OnInit {
     constructor(private barChartService: BarChartService) {}
 
     ngOnInit() {
+        const config = new BarChartConfig();
         this.element = this.chartContainer.nativeElement;
-        this.svg = this.barChartService.initChart(this.svg, this.data, this.element);
+        this.svg = this.barChartService.initChart(this.svg, this.data, this.element, config);
     }
 
     ngOnChanges(changes: SimpleChanges) {

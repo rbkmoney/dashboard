@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChi
 import { PieArcDatum } from 'd3-shape';
 import { Selection } from 'd3-selection';
 
-import { SegmentData } from '../models/chart-data-models';
+import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
 
 @Component({
@@ -23,7 +23,8 @@ export class DonutChartComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        this.donut = this.donutChartService.createChart(this.data, element);
+        const config = new DonutChartConfig(element.offsetWidth / 2);
+        this.donut = this.donutChartService.createChart(this.data, element, config);
     }
 
     ngOnChanges(changes: SimpleChanges) {
