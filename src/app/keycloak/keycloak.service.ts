@@ -2,18 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, Observer, Subject } from 'rxjs';
 import { KeycloakOptions, KeycloakEvent } from 'keycloak-angular';
-
-const user: Keycloak.KeycloakProfile = {
-    id: '1',
-    username: 'mock',
-    email: 'mock@rbkmoney.local',
-    firstName: 'Mock',
-    lastName: 'Money',
-    enabled: true,
-    emailVerified: true,
-    totp: true,
-    createdTimestamp: 1
-};
+import { FAKE_USER } from './fake-user';
 
 @Injectable()
 export class KeycloakService {
@@ -50,7 +39,7 @@ export class KeycloakService {
     }
 
     async loadUserProfile(forceReload: boolean = false): Promise<Keycloak.KeycloakProfile> {
-        return user;
+        return FAKE_USER;
     }
 
     async getToken(): Promise<string> {
@@ -58,7 +47,7 @@ export class KeycloakService {
     }
 
     getUsername(): string {
-        return user.username;
+        return FAKE_USER.username;
     }
 
     clearToken(): void {}
