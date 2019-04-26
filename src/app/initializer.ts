@@ -1,4 +1,4 @@
-import { KeycloakService } from 'keycloak-angular';
+import { KeycloakService } from './keycloak';
 
 import { ConfigService } from './config/config.service';
 

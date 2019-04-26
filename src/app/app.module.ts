@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { KeycloakService } from 'keycloak-angular';
+import { KeycloakService } from './keycloak';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
