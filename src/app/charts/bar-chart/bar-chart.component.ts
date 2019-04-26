@@ -33,8 +33,8 @@ export class BarChartComponent implements OnChanges, OnInit {
     constructor(private barChartService: BarChartService) {}
 
     ngOnInit() {
-        const config = new BarChartConfig();
         this.element = this.chartContainer.nativeElement;
+        const config = new BarChartConfig(this.element.offsetWidth, this.element.offsetHeight);
         this.svg = this.barChartService.initChart(this.svg, this.data, this.element, config);
     }
 

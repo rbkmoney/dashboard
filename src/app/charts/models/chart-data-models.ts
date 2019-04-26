@@ -14,13 +14,15 @@ export interface SegmentData {
 }
 
 export class DonutChartConfig {
-    radius: number;
     innerRadius: number;
-    padAngle: number;
     cornerRadius: number;
-    transitionDuration: number;
 
-    constructor(radius: number, donutWidth = 0.04, padAngle = 0.05, transitionDuration = 1000) {
+    constructor(
+        public radius: number,
+        public donutWidth = 0.04,
+        public padAngle = 0.05,
+        public transitionDuration = 1000
+    ) {
         this.radius = radius;
         this.innerRadius = (1 - donutWidth) * radius;
         this.padAngle = padAngle;
@@ -30,19 +32,33 @@ export class DonutChartConfig {
 }
 
 export class BarChartConfig {
-    barWidth: number;
-    barPadding: number;
     radius: number;
-    tickCount: number;
-    transitionDuration: number;
-    commonMargin: number;
+    margin: BarChartMargins;
 
-    constructor(barWidth = 5, barPadding = 3, tickCount = 5, transitionDuration = 1000, commonMargin = 20) {
-        this.barWidth = barWidth;
-        this.barPadding = barPadding;
+    constructor(
+        public width: number,
+        public height: number,
+        public barWidth = 5,
+        public barPadding = 3,
+        public tickCount = 5,
+        public transitionDuration = 1000,
+        public commonMargin = 20
+    ) {
         this.radius = barWidth / 2;
-        this.tickCount = tickCount;
-        this.transitionDuration = transitionDuration;
-        this.commonMargin = commonMargin;
+        this.margin = {
+            firstBarMarginLeft: 4 * commonMargin,
+            lastBarMarginRight: width - commonMargin,
+            xAxisHorizontalMargin: -0.5 * commonMargin,
+            xAxisVerticalMargin: height + 0.2 * commonMargin,
+            yAxisHorizontalMargin: 3 * commonMargin
+        };
     }
+}
+
+export interface BarChartMargins {
+    firstBarMarginLeft: number;
+    lastBarMarginRight: number;
+    xAxisHorizontalMargin: number;
+    xAxisVerticalMargin: number;
+    yAxisHorizontalMargin: number;
 }
