@@ -20,14 +20,13 @@ export class BarChartService {
     private config: BarChartConfig;
 
     initChart(
-        svg: Selection<SVGGElement, {}, null, PeriodData>,
         data: PeriodData[],
         element: HTMLElement,
         config?: BarChartConfig
     ) {
         this.config = config;
 
-        svg = select(element)
+        const svg = select(element)
             .select('svg')
             .attr('width', element.offsetWidth)
             .attr('height', element.offsetHeight)
