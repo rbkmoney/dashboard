@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KeycloakService } from './auth/keycloak-stub';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,11 +10,11 @@ import { PartyMngModule } from './party-mgt';
 import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
+import { AuthModule } from './auth';
+import { initializer } from './initializer';
 import { TableModule } from './table';
 import { APIModule } from './api/api.module';
 import { ConfigService } from './config/config.service';
-
-const initilizeFactory = (config: ConfigService) => () => Promise.all([config.init()]);
 
 @NgModule({
     declarations: [AppComponent],
@@ -24,17 +25,19 @@ const initilizeFactory = (config: ConfigService) => () => Promise.all([config.in
         MainModule,
         PartyMngModule,
         DetailsModule,
+        PageNotFoundModule,
         TableModule,
         PageNotFoundModule,
-        APIModule
+        APIModule,
+        AuthModule
     ],
     providers: [
         IconRegistryService,
         ConfigService,
         {
             provide: APP_INITIALIZER,
-            useFactory: initilizeFactory,
-            deps: [ConfigService],
+            useFactory: initializer,
+            deps: [ConfigService, KeycloakService],
             multi: true
         }
     ],
