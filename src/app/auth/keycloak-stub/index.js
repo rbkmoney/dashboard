@@ -1,9 +1,9 @@
-import { environment } from '../../environments/environment';
-import * as fakeKeycloak from './index.fake';
+import { environment } from '../../../environments/environment';
+import * as stubKeycloak from './index.stub';
 import * as realKeycloak from './index.real';
 
 const { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService } = environment.fakeKeycloak
-    ? fakeKeycloak
+    ? stubKeycloak
     : realKeycloak;
 
 export { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService };

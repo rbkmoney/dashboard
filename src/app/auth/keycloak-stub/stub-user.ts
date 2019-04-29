@@ -1,4 +1,4 @@
-export const FAKE_USER: Keycloak.KeycloakProfile = {
+export const STUB_USER: Keycloak.KeycloakProfile = {
     id: '1',
     username: 'mock',
     email: 'mock@rbkmoney.local',

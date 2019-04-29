@@ -1,4 +1,4 @@
-import { KeycloakService } from './keycloak';
+import { KeycloakService } from './auth/keycloak-stub';
 
 import { ConfigService } from './config/config.service';
 
