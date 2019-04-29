@@ -15,6 +15,7 @@ build('dashboard', 'docker-host') {
   def pipeline = {
     runStage('init') {
       withGithubSshCredentials {
+        sh 'make submodules'
         sh 'make wc_init'
       }
     }

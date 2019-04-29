@@ -28,6 +28,10 @@
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.prod.ts"
+                                },
+                                {
+                                    "replace": "src/app/auth/keycloak-stub/index.js",
+                                    "with": "src/app/auth/keycloak-stub/index.real.ts"
                                 }
                             ],
                             "optimization": true,
@@ -82,7 +86,7 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**", "**/*.json"]
+                        "exclude": ["**/node_modules/**", "**/*.json", "src/app/api/**/swagger-codegen/**"]
                     }
                 }
             }
@@ -108,7 +112,7 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": "e2e/tsconfig.e2e.json",
-                        "exclude": ["**/node_modules/**", "**/*.json"]
+                        "exclude": ["**/node_modules/**", "**/*.json", "src/app/api/**/swagger-codegen/**"]
                     }
                 }
             }

@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
-import { map, switchMap, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { SuggestionResult, SuggestionData, SuggestionParams } from './model/suggestions';
 import { SuggestionType } from './model/type';
-
-type Config = typeof import('../../assets/dadata-config.json');
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class DaDataService {
-    config$ = this.http.get<Config>('/assets/dadata-config.json').pipe(shareReplay(1));
+    options = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        })
+    };
 
-    constructor(private http: HttpClient) {}
-
-    getOptions(token: string) {
-        return {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: token
-            })
-        };
+    constructor(private http: HttpClient, private config: ConfigService) {
+        this.options.headers = this.options.headers.set('Authorization', config.daData.token);
     }
 
     getSuggestions<T extends SuggestionType>(
@@ -32,16 +28,12 @@ export class DaDataService {
         if (!query) {
             return of([]);
         }
-        return this.config$.pipe(
-            switchMap(({ suggestionsAPIUrl, token }) =>
-                this.http
-                    .post<SuggestionResult<T>>(
-                        `${suggestionsAPIUrl}/${type}`,
-                        { query, ...(params as object) },
-                        this.getOptions(token)
-                    )
-                    .pipe(map(({ suggestions }) => suggestions))
+        return this.http
+            .post<SuggestionResult<T>>(
+                `${this.config.daData.suggestionsAPIUrl}/${type}`,
+                { query, ...(params as object) },
+                this.options
             )
-        );
+            .pipe(map(({ suggestions }) => suggestions));
     }
 }
