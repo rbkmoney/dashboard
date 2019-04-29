@@ -13,12 +13,14 @@ type GeneratedArc = Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
 type DonutType = Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 
 @Injectable()
-export class DonutChartService implements ChartService<SegmentData[]> {
+export class DonutChartService implements ChartService<SegmentData, DonutChartConfig> {
     private svg: DonutSvgType;
     private generatePieData: GeneratedPie;
     private generateArc: GeneratedArc;
     private donut: DonutType;
     private config: DonutChartConfig;
+
+    private isInitialized = false;
 
     initChart(data: SegmentData[], element: HTMLElement, config?: DonutChartConfig) {
         this.config = config;
@@ -47,25 +49,28 @@ export class DonutChartService implements ChartService<SegmentData[]> {
             .padAngle(this.config.padAngle)
             .cornerRadius(this.config.cornerRadius);
 
+        this.isInitialized = true;
         this.updateChart(data);
     }
 
     updateChart(data: SegmentData[]) {
-        if (this.donut) {
-            this.donut.remove();
-        }
+        if (this.isInitialized) {
+            if (this.donut) {
+                this.donut.remove();
+            }
 
-        const generatedData = this.generatePieData(data);
-        this.donut = this.svg
-            .selectAll('.arc')
-            .data(generatedData)
-            .enter()
-            .append('path')
-            .attr('id', () => 'segment')
-            .attr('fill', (d, i) => chartColors[i])
-            .attr('periodData-index', (d, i) => i)
-            .style('stroke-width', 1);
-        this.createChartTransition();
+            const generatedData = this.generatePieData(data);
+            this.donut = this.svg
+                .selectAll('.arc')
+                .data(generatedData)
+                .enter()
+                .append('path')
+                .attr('id', () => 'segment')
+                .attr('fill', (d, i) => chartColors[i])
+                .attr('periodData-index', (d, i) => i)
+                .style('stroke-width', 1);
+            this.createChartTransition();
+        }
     }
 
     private createChartTransition() {
@@ -80,6 +85,7 @@ export class DonutChartService implements ChartService<SegmentData[]> {
             });
     }
 
+    // realtime transition, need for repairing a little
     private updateChartTransition() {
         const generateArc = this.generateArc;
         return this.donut

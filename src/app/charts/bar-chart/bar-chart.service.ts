@@ -12,7 +12,7 @@ import { BarChartConfig, ChartService, PeriodData } from '../models/chart-data-m
 import { BarType } from './bar-chart.component';
 
 @Injectable()
-export class BarChartService implements ChartService<PeriodData[]> {
+export class BarChartService implements ChartService<PeriodData, BarChartConfig> {
     private svg: BarType;
     private element: HTMLElement;
     private xScale0: ScaleBand<string>;

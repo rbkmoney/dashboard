@@ -1,5 +1,3 @@
-export type ChartConfig = BarChartConfig | DonutChartConfig;
-
 export interface PeriodData {
     time: string;
     values: PeriodValue[];
@@ -65,8 +63,8 @@ export interface BarChartMargins {
     yAxisHorizontalMargin: number;
 }
 
-export interface ChartService<T> {
-    initChart(data: T, element: HTMLElement, config?: ChartConfig);
+export interface ChartService<T, C> {
+    initChart(data: T[], element: HTMLElement, config?: C);
 
-    updateChart(data: T, config?: ChartConfig);
+    updateChart(data: T[]);
 }
