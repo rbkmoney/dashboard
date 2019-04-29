@@ -1,6 +1,4 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { PieArcDatum } from 'd3-shape';
-import { Selection } from 'd3-selection';
 
 import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
@@ -17,19 +15,15 @@ export class DonutChartComponent implements OnChanges, OnInit {
     @Input()
     data: SegmentData[];
 
-    private donut: Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
-
     constructor(private donutChartService: DonutChartService) {}
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
         const config = new DonutChartConfig(element.offsetWidth / 2);
-        this.donut = this.donutChartService.createChart(this.data, element, config);
+        this.donutChartService.initChart(this.data, element, config);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.donut) {
-            this.donutChartService.updateChart(this.data);
-        }
+        this.donutChartService.updateChart(this.data);
     }
 }

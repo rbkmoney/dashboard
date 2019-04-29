@@ -8,10 +8,12 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { Selection } from 'd3-selection';
 
 import { BarChartConfig, PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
-import { Selection } from 'd3-selection';
+
+export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
 
 @Component({
     selector: 'dsh-bar-chart',
@@ -27,20 +29,15 @@ export class BarChartComponent implements OnChanges, OnInit {
     @Input()
     data: PeriodData[];
 
-    private svg: Selection<SVGGElement, {}, null, PeriodData>;
-    private element: HTMLElement;
-
     constructor(private barChartService: BarChartService) {}
 
     ngOnInit() {
-        this.element = this.chartContainer.nativeElement;
-        const config = new BarChartConfig(this.element.offsetWidth, this.element.offsetHeight);
-        this.svg = this.barChartService.initChart(this.data, this.element, config);
+        const element = this.chartContainer.nativeElement;
+        const config = new BarChartConfig(element.offsetWidth, element.offsetHeight);
+        this.barChartService.initChart(this.data, element, config);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.svg) {
-            this.svg = this.barChartService.updateChart(this.svg, this.data, this.element);
-        }
+        this.barChartService.updateChart(this.data);
     }
 }

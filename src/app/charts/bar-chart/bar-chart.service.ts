@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { select, Selection } from 'd3-selection';
+import { select } from 'd3-selection';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import { easeExp } from 'd3-ease';
@@ -8,10 +8,13 @@ import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { BarChartConfig, PeriodData } from '../models/chart-data-models';
+import { BarChartConfig, ChartService, PeriodData } from '../models/chart-data-models';
+import { BarType } from './bar-chart.component';
 
 @Injectable()
-export class BarChartService {
+export class BarChartService implements ChartService<PeriodData[]> {
+    private svg: BarType;
+    private element: HTMLElement;
     private xScale0: ScaleBand<string>;
     private xScale1: ScaleBand<string>;
     private yScale: ScaleLinear<number, number>;
@@ -19,18 +22,17 @@ export class BarChartService {
     private yAxis: Axis<AxisDomain>;
     private config: BarChartConfig;
 
-    initChart(
-        data: PeriodData[],
-        element: HTMLElement,
-        config?: BarChartConfig
-    ) {
-        this.config = config;
+    private isInitialized = false;
 
-        const svg = select(element)
+    initChart(data: PeriodData[], element: HTMLElement, config?: BarChartConfig) {
+        this.config = config;
+        this.element = element;
+
+        this.svg = select(element)
             .select('svg')
-            .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight)
-            .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PeriodData>;
+            .attr('width', config.width)
+            .attr('height', config.height + config.commonMargin)
+            .attr('transform', `translate(0, 0)`) as BarType;
 
         this.xScale0 = scaleBand().range([
             this.config.margin.firstBarMarginLeft,
@@ -49,49 +51,52 @@ export class BarChartService {
         this.xAxis = this.getCustomAxisX();
         this.yAxis = this.getCustomAxisY();
 
-        this.initAxis(svg);
+        this.initAxis();
 
-        return this.updateChart(svg, data, element);
+        this.isInitialized = true;
+        this.updateChart(data);
     }
 
-    updateChart(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[], element: HTMLElement) {
-        this.xScale0.domain(data.map(d => d.time));
+    updateChart(data: PeriodData[]) {
+        if (this.isInitialized) {
+            this.xScale0.domain(data.map(d => d.time));
 
-        const xFields = this.getX1Fields(data);
-        this.xScale1.domain(xFields).range([0, this.getDomainRangeX(xFields.length)]);
+            const xFields = this.getX1Fields(data);
+            this.xScale1.domain(xFields).range([0, this.getDomainRangeX(xFields.length)]);
 
-        this.yScale.domain([
-            0,
-            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
-        ]);
+            this.yScale.domain([
+                0,
+                max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
+            ]);
 
-        this.updateAxis(data, element);
-        this.updateData(svg, data);
-
-        return svg;
+            this.updateAxis(data);
+            this.updateData(data);
+        }
     }
 
-    private initAxis(svg: Selection<SVGGElement, {}, null, PeriodData>) {
-        svg.append('g')
+    private initAxis() {
+        this.svg
+            .append('g')
             .attr('class', 'x axis')
             .attr(
                 'transform',
                 `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`
             );
 
-        svg.append('g')
+        this.svg
+            .append('g')
             .attr('class', 'y axis')
             .attr('transform', `translate(${this.config.margin.yAxisHorizontalMargin}, 0)`);
     }
 
-    private updateAxis(data: PeriodData[], element: HTMLElement) {
-        select(element)
+    private updateAxis(data: PeriodData[]) {
+        select(this.element)
             .select('.x.axis')
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
             .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]) as any);
-        select(element)
+        select(this.element)
             .select('.y.axis')
             .transition()
             .ease(easeExp)
@@ -99,8 +104,9 @@ export class BarChartService {
             .call(this.yAxis as any);
     }
 
-    private updateData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
-        svg.selectAll('.time')
+    private updateData(data: PeriodData[]) {
+        this.svg
+            .selectAll('.time')
             .data<PeriodData>(data)
             .attr('x', d => this.xScale0(d.time))
             .selectAll('.bar')
@@ -118,20 +124,22 @@ export class BarChartService {
             )
             .style('fill', (d, i) => chartColors[i]);
 
-        this.removeUnusedData(svg, data);
-        this.drawNewData(svg, data);
+        this.removeUnusedData(data);
+        this.drawNewData(data);
     }
 
-    private removeUnusedData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
-        svg.selectAll('.time')
+    private removeUnusedData(data: PeriodData[]) {
+        this.svg
+            .selectAll('.time')
             .data(data)
             .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`)
             .exit()
             .remove();
     }
 
-    private drawNewData(svg: Selection<SVGGElement, {}, null, PeriodData>, data: PeriodData[]) {
-        svg.selectAll(`.time`)
+    private drawNewData(data: PeriodData[]) {
+        this.svg
+            .selectAll(`.time`)
             .data<PeriodData>(data)
             .enter()
             .append('g')

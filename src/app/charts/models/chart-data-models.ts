@@ -1,3 +1,5 @@
+export type ChartConfig = BarChartConfig | DonutChartConfig;
+
 export interface PeriodData {
     time: string;
     values: PeriodValue[];
@@ -45,7 +47,6 @@ export class BarChartConfig {
         public commonMargin = 20
     ) {
         this.radius = barWidth / 2;
-        this.height = height - commonMargin;
         this.margin = {
             firstBarMarginLeft: 4 * commonMargin,
             lastBarMarginRight: this.width - commonMargin,
@@ -62,4 +63,10 @@ export interface BarChartMargins {
     xAxisHorizontalMargin: number;
     xAxisVerticalMargin: number;
     yAxisHorizontalMargin: number;
+}
+
+export interface ChartService<T> {
+    initChart(data: T, element: HTMLElement, config?: ChartConfig);
+
+    updateChart(data: T, config?: ChartConfig);
 }

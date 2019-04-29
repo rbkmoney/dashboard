@@ -4,25 +4,27 @@ import { arc, Arc, DefaultArcObject, pie, Pie, PieArcDatum } from 'd3-shape';
 import { easeExp } from 'd3-ease';
 import { interpolate } from 'd3-interpolate';
 
-import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
+import { ChartService, DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { chartColors } from '../color-constants';
 
-@Injectable()
-export class DonutChartService {
-    private svg: Selection<SVGGElement, {}, null, undefined>;
-    private generatePieData: Pie<void, SegmentData>;
-    private generateArc: Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
-    private donut: Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
+type DonutSvgType = Selection<SVGGElement, {}, null, undefined>;
+type GeneratedPie = Pie<void, SegmentData>;
+type GeneratedArc = Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
+type DonutType = Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 
+@Injectable()
+export class DonutChartService implements ChartService<SegmentData[]> {
+    private svg: DonutSvgType;
+    private generatePieData: GeneratedPie;
+    private generateArc: GeneratedArc;
+    private donut: DonutType;
     private config: DonutChartConfig;
 
-    createChart(
-        data: SegmentData[],
-        element: HTMLElement,
-        config?: DonutChartConfig
-    ): Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}> {
-        const size = element.offsetWidth;
+    private isInitialized = false;
+
+    initChart(data: SegmentData[], element: HTMLElement, config?: DonutChartConfig) {
         this.config = config;
+        const size = config.radius * 2;
 
         select(element)
             .select('svg')
@@ -47,13 +49,15 @@ export class DonutChartService {
             .padAngle(this.config.padAngle)
             .cornerRadius(this.config.cornerRadius);
 
-        return this.updateChart(data);
+        this.isInitialized = true;
+        this.updateChart(data);
     }
 
-    updateChart(data: SegmentData[]): Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}> {
+    updateChart(data: SegmentData[]) {
         if (this.donut) {
             this.donut.remove();
         }
+
         const generatedData = this.generatePieData(data);
         this.donut = this.svg
             .selectAll('.arc')
@@ -65,8 +69,6 @@ export class DonutChartService {
             .attr('periodData-index', (d, i) => i)
             .style('stroke-width', 1);
         this.createChartTransition();
-
-        return this.donut;
     }
 
     private createChartTransition() {
