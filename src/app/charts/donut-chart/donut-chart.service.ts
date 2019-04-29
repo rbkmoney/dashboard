@@ -20,8 +20,6 @@ export class DonutChartService implements ChartService<SegmentData[]> {
     private donut: DonutType;
     private config: DonutChartConfig;
 
-    private isInitialized = false;
-
     initChart(data: SegmentData[], element: HTMLElement, config?: DonutChartConfig) {
         this.config = config;
         const size = config.radius * 2;
@@ -49,7 +47,6 @@ export class DonutChartService implements ChartService<SegmentData[]> {
             .padAngle(this.config.padAngle)
             .cornerRadius(this.config.cornerRadius);
 
-        this.isInitialized = true;
         this.updateChart(data);
     }
 
