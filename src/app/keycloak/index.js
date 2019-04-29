@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
-import * as fakeKeycloak from './keycloak.fake';
-import * as realKeycloak from './keycloak.real';
+import * as fakeKeycloak from './index.fake';
+import * as realKeycloak from './index.real';
 
 const { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService } = environment.fakeKeycloak
     ? fakeKeycloak

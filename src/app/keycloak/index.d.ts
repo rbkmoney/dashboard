@@ -1,1 +1,1 @@
-export * from './keycloak.real';
+export * from './index.real';
