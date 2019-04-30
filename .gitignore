@@ -45,3 +45,6 @@ Thumbs.db
 # Swagger Codegen
 swagger-codegen-cli.jar
 src/app/api/**/swagger-codegen
+
+# Kontur.Focus Model
+src/app/kontur-focus/**/gen-model

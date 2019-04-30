@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --write",
-    "check": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --list-different"
+    "check": "prettier \"**/*.{html,js,ts,css,md,json,prettierrc,svg}\" --list-different",
+    "quicktype": "quicktype -s schema --just-types"
   },
   "private": true,
   "dependencies": {
@@ -58,6 +59,7 @@
     "ngx-build-plus": "^7.2.3",
     "prettier": "~1.15.2",
     "protractor": "~5.4.0",
+    "quicktype": "^15.0.184",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.6"

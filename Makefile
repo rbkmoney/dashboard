@@ -41,7 +41,7 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init: swagger-compile
+init: compile
 	npm ci
 
 build: check lint
@@ -61,12 +61,23 @@ test:
 
 SWAGGER_SWAG_V3_DIR = 'src/app/api/capi/swagger-codegen'
 SWAGGER_CLI = 'swagger-codegen-cli.jar'
-
 swagger-init:
 	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.4/swagger-codegen-cli-2.4.4.jar -O $(SWAGGER_CLI)
-
 swagger-clean:
 	rm -rf $(SWAGGER_SWAG_V3_DIR)
-
-swagger-compile: swagger-init swagger-clean
+swagger-compile:
 	java -jar $(SWAGGER_CLI) generate -l typescript-angular --additional-properties ngVersion=7 -i schemes/swag/v3/swagger.yaml -o $(SWAGGER_SWAG_V3_DIR)
+swagger: swagger-init swagger-clean swagger-compile
+
+KONTUR_FOCUS_MODEL_DIR = src/app/kontur-focus/gen-model
+KONTUR_FOCUS_API = req req/mon monList analytics contacts egrDetails egrDetails/mon licences buh fssp govPurchasesOfParticipant stat
+kontur-focus-clean:
+	rm -rf $(KONTUR_FOCUS_MODEL_DIR)
+kontur-focus-compile:
+	$(foreach req,$(KONTUR_FOCUS_API),\
+	mkdir -p $(shell dirname $(KONTUR_FOCUS_MODEL_DIR)/$(req).ts);\
+	npm run quicktype -- https://focus-api.kontur.ru/api3/$(req)/schema -o $(KONTUR_FOCUS_MODEL_DIR)/$(req).ts;\
+	)
+kontur-focus: kontur-focus-clean kontur-focus-compile
+
+compile: swagger kontur-focus

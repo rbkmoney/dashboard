@@ -18,7 +18,7 @@ npm ci
 # Generate swagger
 
 make wc_shell
-make swagger-compile
+make compile
 ```
 
 ## Development server
