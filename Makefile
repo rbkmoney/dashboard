@@ -70,7 +70,7 @@ swagger-compile:
 swagger: swagger-init swagger-clean swagger-compile
 
 KONTUR_FOCUS_MODEL_DIR = src/app/kontur-focus/gen-model
-KONTUR_FOCUS_API = req req/mon monList analytics contacts egrDetails egrDetails/mon licences buh fssp govPurchasesOfParticipant stat
+KONTUR_FOCUS_API = req req/mon monList analytics contacts egrDetails egrDetails/mon licences buh fssp govPurchasesOfParticipant govPurchasesOfCustomer stat
 kontur-focus-clean:
 	rm -rf $(KONTUR_FOCUS_MODEL_DIR)
 kontur-focus-compile:
