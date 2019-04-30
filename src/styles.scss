@@ -9,7 +9,7 @@
 @import "./styles/main-theme";
 @import './app/dropdown/dropdown-theme';
 @import './app/components/table/table-theme';
-
+@import './app/charts/bar-chart/bar-chart-theme';
 
 @include mat-core();
 
@@ -24,3 +24,4 @@ $mat-theme: mat-light-theme($primary, $accent, $warn);
 @include dsh-main-theme($theme);
 @include dsh-dropdown-theme($theme);
 @include dsh-table-theme($theme)
+@include dsh-bar-chart-theme($theme)

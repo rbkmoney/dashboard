@@ -20,6 +20,10 @@ export class MainComponent {
         this.router.navigate(['details']);
     }
 
+    analytics() {
+        this.router.navigate(['analytics']);
+    }
+
     table() {
         this.router.navigate(['table']);
     }

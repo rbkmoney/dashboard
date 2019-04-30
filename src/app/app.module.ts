@@ -10,6 +10,7 @@ import { PartyMngModule } from './party-mgt';
 import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
 import { TableModule } from './table';
@@ -24,6 +25,7 @@ import { ConfigService } from './config/config.service';
         AppRoutingModule,
         MainModule,
         PartyMngModule,
+        AnalyticsModule,
         DetailsModule,
         PageNotFoundModule,
         TableModule,
