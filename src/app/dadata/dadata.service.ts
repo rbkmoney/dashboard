@@ -30,7 +30,7 @@ export class DaDataService {
         }
         return this.http
             .post<SuggestionResult<T>>(
-                `${this.config.daData.suggestionsAPIUrl}/${type}`,
+                `${this.config.daData.suggestionsApiUrl}/${type}`,
                 { query, ...(params as object) },
                 this.options
             )
