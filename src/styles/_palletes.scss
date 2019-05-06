@@ -1,0 +1,108 @@
+@import 'variables';
+
+// Background palette for light themes.
+$dsh-light-theme-background: (
+    background: $background-color,
+    card: $white
+);
+
+// Background palette for dark themes.
+$dsh-dark-theme-background: (
+    background: #303030,
+    card: $black
+);
+
+// Foreground palette for light themes.
+$dsh-light-theme-foreground: (
+    base: black,
+    disabled-button: rgba($black, 0.26),
+    elevation: black,
+    divider: rgba($black, 0.27),
+    icon: rgba($black, 0.54),
+    icons: rgba($black, 0.54),
+    text: rgba($black, 0.87),
+    secondary-text: rgba($black, 0.67),
+    slider-min: rgba($black, 0.87),
+    slider-off: rgba($black, 0.26),
+    slider-off-active: rgba($black, 0.38)
+);
+
+// Foreground palette for dark themes.
+$dsh-dark-theme-foreground: (
+    base: white,
+    disabled-button: rgba($white, 0.3),
+    elevation: black,
+    divider: rgba($white, 0.27),
+    icon: white,
+    icons: white,
+    text: white,
+    secondary-text: rgba($white, 0.67),
+    slider-min: white,
+    slider-off: rgba($white, 0.3),
+    slider-off-active: rgba($white, 0.3)
+);
+
+$dsh-slateblue: (
+    50: #f4f0ff,
+    100: #f3f0ff,
+    200: #ded6ff,
+    300: #baadff,
+    400: #9385ff,
+    500: #685bff,
+    600: #4b43d9,
+    700: #312eb3,
+    800: #1d1f8c,
+    900: #141866,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #dcdaff,
+    A700: #c4c1ff,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $light-primary-text,
+        400: $light-primary-text,
+        500: $light-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text,
+        A100: $dark-primary-text,
+        A200: $light-primary-text,
+        A400: $light-primary-text,
+        A700: $light-primary-text
+    )
+);
+$dsh-palegreen: (
+    50: #f0fff6,
+    100: #e8fff2,
+    200: #b6f2d3,
+    300: #87e6b8,
+    400: #5dd9a1,
+    500: #38cd8f,
+    600: #24a674,
+    700: #16805a,
+    800: #0b5940,
+    900: #063326,
+    A100: #e2ffef,
+    A200: #afffd3,
+    A400: #7cffb7,
+    A700: #63ffa9,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $light-primary-text,
+        400: $light-primary-text,
+        500: $light-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text,
+        A100: $dark-primary-text,
+        A200: $light-primary-text,
+        A400: $light-primary-text,
+        A700: $light-primary-text
+    )
+);

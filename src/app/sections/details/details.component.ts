@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { toolbarOffset } from '../layout-settings';
+import { toolbarOffset } from '../../layout-settings';
 
 @Component({
     selector: 'dsh-details',

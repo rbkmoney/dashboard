@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DocumentService } from '../document/document.service';
-import { Family } from '../document/document-fonts-config';
+import { DocumentService } from '../../document/document.service';
+import { Family } from '../../document/document-fonts-config';
 
 @Component({
     selector: 'dsh-main',

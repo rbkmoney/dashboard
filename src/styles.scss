@@ -1,14 +1,18 @@
-// Dependencies
 @import '~@angular/material/theming';
+
 // Utils
 @import './styles/functions';
+
 // Variables
 @import './styles/variables';
-@import "./styles/palletes";
+@import './styles/palletes';
+
+// Theme
+@import './styles/main-theme';
+
 // Components
-@import "./styles/main-theme";
 @import './app/dropdown/dropdown-theme';
-@import './app/components/table/table-theme';
+@import './app/table/table-theme';
 @import './app/charts/bar-chart/bar-chart-theme';
 
 @include mat-core();
@@ -23,5 +27,5 @@ $mat-theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($mat-theme);
 @include dsh-main-theme($theme);
 @include dsh-dropdown-theme($theme);
-@include dsh-table-theme($theme)
-@include dsh-bar-chart-theme($theme)
+@include dsh-table-theme($theme);
+@include dsh-bar-chart-theme($theme);

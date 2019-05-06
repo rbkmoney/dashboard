@@ -3,36 +3,18 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakService } from './auth/keycloak-stub';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainModule } from './main';
-import { PartyMngModule } from './party-mgt';
-import { DetailsModule } from './details';
-import { PageNotFoundModule } from './page-not-found';
 import { IconRegistryService } from './icon-registry.service';
-import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
-import { TableModule } from './table';
 import { APIModule } from './api/api.module';
 import { ConfigService } from './config/config.service';
+import { SectionsModule } from './sections/sections.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        MainModule,
-        PartyMngModule,
-        AnalyticsModule,
-        DetailsModule,
-        PageNotFoundModule,
-        TableModule,
-        PageNotFoundModule,
-        APIModule,
-        AuthModule
-    ],
+    imports: [BrowserModule, BrowserAnimationsModule, RouterModule, SectionsModule, APIModule, AuthModule],
     providers: [
         IconRegistryService,
         ConfigService,
