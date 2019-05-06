@@ -8,8 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\" --write",
-    "check": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\" --list-different",
+    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",
+    "prettify": "npm run prettier -- --write",
+    "check": "npm run prettier -- --list-different",
     "quicktype": "quicktype -s schema --just-types"
   },
   "private": true,
