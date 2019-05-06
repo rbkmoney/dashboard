@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { toolbarOffset } from '../../layout-settings';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 export interface PeriodicElement {
     name: string;
