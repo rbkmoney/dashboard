@@ -26,7 +26,7 @@ BUILD_IMAGE_TAG := f3732d29a5e622aabf80542b5138b3631a726adb
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
 
-CALL_W_CONTAINER := init check lint test build clean submodules
+CALL_W_CONTAINER := init check lint test build clean submodules compile
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -41,7 +41,9 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init: compile
+init: npm-init compile
+
+npm-init:
 	npm ci
 
 build: check lint
