@@ -32,7 +32,7 @@ class SimpleDaDataAutocompleteComponent {
 describe('DshDadata', () => {
     const config = {
         token: 'Token AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        suggestionsAPIUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
+        suggestionsApiUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
     };
 
     const suggestions = {

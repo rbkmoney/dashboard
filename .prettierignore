@@ -6,3 +6,5 @@ build_utils
 coverage
 src/app/api/**/swagger-codegen
 schemes
+src/app/**/gen-model
+
