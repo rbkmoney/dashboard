@@ -6,6 +6,7 @@
     "start": "ng serve --port 8000",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
     "test": "ng test",
+    "test-silent": "ng test --watch=false --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",
