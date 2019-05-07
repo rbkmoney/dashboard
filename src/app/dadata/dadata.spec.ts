@@ -8,6 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DaDataModule } from './dadata.module';
 import { DaDataService } from './dadata.service';
 import { SuggestionType } from './model/type';
+import { ConfigService } from '../config/config.service';
+import { ConfigStubService } from '../config/config-stub.service';
 
 @Component({
     template: `
@@ -30,11 +32,6 @@ class SimpleDaDataAutocompleteComponent {
 }
 
 describe('DshDadata', () => {
-    const config = {
-        token: 'Token AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        suggestionsApiUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest'
-    };
-
     const suggestions = {
         suggestions: [
             {
@@ -93,7 +90,7 @@ describe('DshDadata', () => {
     function createDaDataService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [DaDataService]
+            providers: [DaDataService, { provide: ConfigService, useClass: ConfigStubService }]
         });
         const injector = getTestBed();
         const service: DaDataService = injector.get(DaDataService);
@@ -109,15 +106,13 @@ describe('DshDadata', () => {
         TestBed.configureTestingModule({
             imports: [DaDataModule, MatFormFieldModule, ReactiveFormsModule, NoopAnimationsModule],
             declarations: [component, ...declarations],
-            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers]
+            providers: [
+                { provide: ComponentFixtureAutoDetect, useValue: true },
+                { provide: ConfigService, useClass: ConfigStubService },
+                ...providers
+            ]
         }).compileComponents();
         return TestBed.createComponent<T>(component);
-    }
-
-    function mockConfig(httpMock: HttpTestingController) {
-        const req = httpMock.expectOne('/assets/dadata-config.json');
-        req.flush(config);
-        return req;
     }
 
     describe('Component', () => {
@@ -128,26 +123,14 @@ describe('DshDadata', () => {
     });
 
     describe('Service', () => {
-        it('should load config', () => {
-            const { service, httpMock } = createDaDataService();
-            service.config$.subscribe(c => {
-                expect(c).toEqual(config);
-            });
-            const req = mockConfig(httpMock);
-            expect(req.request.method).toBe('GET');
-        });
-
         it('should load suggestions', () => {
             const { service, httpMock } = createDaDataService();
-            service.config$.subscribe(() => {
-                service.getSuggestions(SuggestionType.party, 'тест').subscribe(s => {
-                    expect(s).toEqual(suggestions.suggestions as any);
-                });
-                const req = httpMock.expectOne('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party');
-                req.flush(suggestions);
-                expect(req.request.method).toBe('POST');
+            service.getSuggestions(SuggestionType.party, 'тест').subscribe(s => {
+                expect(s).toEqual(suggestions.suggestions as any);
             });
-            mockConfig(httpMock);
+            const req = httpMock.expectOne('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party');
+            req.flush(suggestions);
+            expect(req.request.method).toBe('POST');
         });
     });
 });
