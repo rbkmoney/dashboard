@@ -10,7 +10,7 @@ import { ToolbarModule } from '../../toolbar';
 import { ActionbarModule } from '../../actionbar';
 import { FormControlsModule } from '../../form-controls';
 import { LayoutModule } from '../../layout';
-import { DaDataModule } from 'src/app/dadata/dadata.module';
+import { DaDataModule } from '../../dadata/dadata.module';
 
 @NgModule({
     declarations: [PartyMngComponent],
