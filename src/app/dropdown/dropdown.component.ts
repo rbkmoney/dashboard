@@ -25,11 +25,11 @@ export class DropdownComponent {
     triangleLeftOffset: string;
     animationDone$ = new Subject();
 
-    get correctedWidth() {
+    getCorrectedWidth() {
         if (this.width === '100%') {
             return FULL_WIDTH;
         }
-        if (!this.width || (typeof this.width === 'string' && this.width.slice(-1) === '%')) {
+        if (this.isAutoSize(this.width)) {
             return this.width;
         }
         const widthPx: number = typeof this.width === 'string' ? parseFloat(this.width) : this.width;
@@ -37,5 +37,9 @@ export class DropdownComponent {
             return FULL_WIDTH;
         }
         return widthPx;
+    }
+
+    private isAutoSize(size: string | number) {
+        return !size || (typeof size === 'string' && size.slice(-1) === '%');
     }
 }

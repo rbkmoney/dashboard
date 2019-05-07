@@ -112,12 +112,12 @@ export class DropdownTriggerDirective implements OnDestroy {
                     }
                 ]),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: this.dropdown.correctedWidth
+            width: this.dropdown.getCorrectedWidth()
         });
     }
 
     private updatePosition = () => {
-        this.overlayRef.updateSize({ width: this.dropdown.correctedWidth });
+        this.overlayRef.updateSize({ width: this.dropdown.getCorrectedWidth() });
         this.dropdown.triangleLeftOffset = this.getTriangleLeftOffset();
     };
 
