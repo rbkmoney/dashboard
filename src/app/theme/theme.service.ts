@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
-import * as themes from '../../themes/themes.json';
+import themes from '../../themes/themes.json';
 
 enum Type {
     JS = 'js',

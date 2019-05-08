@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { KeycloakAngularModule } from './keycloak-stub';
+import { KeycloakAngularModule } from './keycloak';
 
 import { AppAuthGuardService } from './app-auth-guard.service';
 

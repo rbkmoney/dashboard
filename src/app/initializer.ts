@@ -1,5 +1,4 @@
-import { KeycloakService } from './auth/keycloak-stub';
-
+import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config/config.service';
 
 export const initializer = (configService: ConfigService, keycloakService: KeycloakService) => () =>

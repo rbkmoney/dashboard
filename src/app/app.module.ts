@@ -7,18 +7,26 @@ import { AppComponent } from './app.component';
 import { IconRegistryService } from './icon-registry.service';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
-import { APIModule } from './api/api.module';
-import { ConfigService } from './config/config.service';
-import { SectionsModule } from './sections/sections.module';
-import { KeycloakService } from './auth/keycloak-stub';
+import { APIModule } from './api';
+import { SectionsModule } from './sections';
+import { KeycloakService } from './auth/keycloak';
 import { ThemeService, ThemeModule } from './theme';
+import { ConfigModule, ConfigService } from './config';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, BrowserAnimationsModule, RouterModule, SectionsModule, APIModule, AuthModule, ThemeModule],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        RouterModule,
+        SectionsModule,
+        APIModule,
+        AuthModule,
+        ThemeModule,
+        ConfigModule
+    ],
     providers: [
         IconRegistryService,
-        ConfigService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
