@@ -4,6 +4,10 @@ import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
 import themes from '../../themes/themes.json';
 
+/**
+ * If this is JS, then the each theme applied will be only once,
+ * as it webpack hot resolves them
+ */
 enum Type {
     JS = 'js',
     CSS = 'css'
