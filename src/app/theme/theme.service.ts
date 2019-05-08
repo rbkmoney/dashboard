@@ -4,10 +4,6 @@ import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
 import themes from '../../themes/themes.json';
 
-/**
- * If this is JS, then the each theme applied will be only once,
- * as it webpack hot resolves them
- */
 enum Type {
     JS = 'js',
     CSS = 'css'
@@ -20,6 +16,10 @@ export class ThemeService {
     currentTheme: string;
 
     constructor() {
+        this.init();
+    }
+
+    init() {
         this.themes = themes.reduce((t, name) => {
             t[name] = this.createExternal(this.getFilePath(name));
             return t;
@@ -39,8 +39,10 @@ export class ThemeService {
         this.themes[name].add();
         if (this.currentTheme) {
             this.themes[this.currentTheme].remove();
+            document.body.classList.remove(this.currentTheme);
         }
         this.currentTheme = name;
+        document.body.classList.add(this.currentTheme);
     }
 
     private getFilePath(name: string) {

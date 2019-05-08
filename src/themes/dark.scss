@@ -4,25 +4,41 @@
 @import './theme';
 
 $background: (
+    status-bar: black,
+    app-bar: map_get($mat-grey, 900),
     background: #303030,
-    card: rgb(66, 66, 66)
+    hover: rgba(white, 0.04),
+    dialog: map_get($mat-grey, 800),
+    disabled-button: rgba(white, 0.12),
+    raised-button: map-get($mat-grey, 800),
+    focused-button: $light-focused,
+    selected-button: map_get($mat-grey, 900),
+    selected-disabled-button: map_get($mat-grey, 800),
+    disabled-button-toggle: black,
+    unselected-chip: map_get($mat-grey, 700),
+    disabled-list-option: black
 );
 
 $foreground: (
     base: white,
-    disabled-button: rgba(#fff, 0.3),
+    divider: $light-dividers,
+    dividers: $light-dividers,
+    disabled: $light-disabled-text,
+    disabled-button: rgba(white, 0.3),
+    disabled-text: $light-disabled-text,
     elevation: black,
-    divider: rgba(#fff, 0.27),
+    hint-text: $light-disabled-text,
+    secondary-text: $light-secondary-text,
     icon: white,
     icons: white,
     text: white,
-    secondary-text: rgba(#fff, 0.67),
     slider-min: white,
-    slider-off: rgba(#fff, 0.3),
-    slider-off-active: rgba(#fff, 0.3)
+    slider-off: rgba(white, 0.3),
+    slider-off-active: rgba(white, 0.3)
 );
 
 $theme: (
+    name: 'dark',
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
     warn: mat-palette($mat-red),

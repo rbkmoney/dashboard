@@ -4,16 +4,13 @@
 @import '../app/charts/bar-chart/bar-chart-theme';
 
 @mixin dsh-theme($theme) {
-    body {
-        font-size: 14px;
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
+    body.#{map-get($theme, name)} {
         background-color: map-get(map-get($theme, background), background);
+
+        @include angular-material-theme($theme);
+
+        @include dsh-dropdown-theme($theme);
+        @include dsh-table-theme($theme);
+        @include dsh-bar-chart-theme($theme);
     }
-
-    @include angular-material-theme($theme);
-
-    @include dsh-dropdown-theme($theme);
-    @include dsh-table-theme($theme);
-    @include dsh-bar-chart-theme($theme);
 }
