@@ -1,9 +1,14 @@
-$dsh-dark-theme-background: (
+@import '~@angular/material/theming';
+
+@import '../styles/palletes';
+@import './theme';
+
+$background: (
     background: #303030,
     card: #000
 );
 
-$dsh-dark-theme-foreground: (
+$foreground: (
     base: white,
     disabled-button: rgba(#fff, 0.3),
     elevation: black,
@@ -16,3 +21,14 @@ $dsh-dark-theme-foreground: (
     slider-off: rgba(#fff, 0.3),
     slider-off-active: rgba(#fff, 0.3)
 );
+
+$theme: (
+    primary: mat-palette($dsh-slateblue),
+    accent: mat-palette($dsh-palegreen),
+    warn: mat-palette($mat-red),
+    is-dark: true,
+    foreground: $foreground,
+    background: $background
+);
+
+@include dsh-theme($theme);

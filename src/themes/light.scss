@@ -1,16 +1,14 @@
 @import '~@angular/material/theming';
 
 @import '../styles/palletes';
-@import '../styles/theme';
-@import '../styles/main-theme';
 @import './theme';
 
-$dsh-light-theme-background: (
-    background: $background-color,
+$background: (
+    background: #f1f7fb,
     card: #fff
 );
 
-$dsh-light-theme-foreground: (
+$foreground: (
     base: black,
     disabled-button: rgba(#000, 0.26),
     elevation: black,
@@ -24,12 +22,13 @@ $dsh-light-theme-foreground: (
     slider-off-active: rgba(#000, 0.38)
 );
 
-$primary: mat-palette($dsh-slateblue);
-$accent: mat-palette($dsh-palegreen);
-$warn: mat-palette($mat-red);
+$theme: (
+    primary: mat-palette($dsh-slateblue),
+    accent: mat-palette($dsh-palegreen),
+    warn: mat-palette($mat-red),
+    is-dark: false,
+    foreground: $foreground,
+    background: $background
+);
 
-$mat-theme: mat-light-theme($primary, $accent, $warn);
-$theme: theme($primary, $accent, $warn, $dsh-light-theme-foreground, $dsh-light-theme-background);
-
-@include angular-material-theme($mat-theme);
 @include dsh-theme($theme);
