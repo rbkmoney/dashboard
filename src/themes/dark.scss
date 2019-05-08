@@ -8,6 +8,7 @@ $background: (
     app-bar: map_get($mat-grey, 900),
     background: #303030,
     hover: rgba(white, 0.04),
+    card: map_get($mat-grey, 800),
     dialog: map_get($mat-grey, 800),
     disabled-button: rgba(white, 0.12),
     raised-button: map-get($mat-grey, 800),
