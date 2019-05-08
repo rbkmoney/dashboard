@@ -39,16 +39,16 @@ export class ThemeService {
         document.body.classList.add(this.currentTheme);
     }
 
+    getNextTheme(): string {
+        const idx = themes.findIndex(n => n === this.currentTheme) + 1;
+        return themes[idx === themes.length ? 0 : idx];
+    }
+
     private removeCurrentTheme() {
         if (this.currentTheme) {
             this.themes[this.currentTheme].remove();
             document.body.classList.remove(this.currentTheme);
         }
-    }
-
-    private getNextTheme(): string {
-        const idx = themes.findIndex(n => n === this.currentTheme) + 1;
-        return themes[idx === themes.length ? 0 : idx];
     }
 
     private getFilePath(name: string) {
