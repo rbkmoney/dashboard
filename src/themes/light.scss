@@ -1,31 +1,16 @@
 @import '~@angular/material/theming';
-
-// Utils
-@import '../styles/functions';
-
-// Variables
 @import '../styles/variables';
 @import '../styles/palletes';
-
-// Theme
+@import '../styles/theme';
 @import '../styles/main-theme';
-
-// Components
-@import '../app/dropdown/dropdown-theme';
-@import '../app/table/table-theme';
-@import '../app/charts/bar-chart/bar-chart-theme';
-
-@include mat-core();
+@import './theme.scss';
 
 $primary: mat-palette($dsh-slateblue);
 $accent: mat-palette($dsh-palegreen);
 $warn: mat-palette($mat-red);
 
-$theme: dsh-light-theme($primary, $accent, $warn, $dsh-light-theme-foreground, $dsh-light-theme-background);
 $mat-theme: mat-light-theme($primary, $accent, $warn);
+$theme: theme($primary, $accent, $warn, $dsh-light-theme-foreground, $dsh-light-theme-background);
 
 @include angular-material-theme($mat-theme);
-@include dsh-main-theme($theme);
-@include dsh-dropdown-theme($theme);
-@include dsh-table-theme($theme);
-@include dsh-bar-chart-theme($theme);
+@include dsh-theme($theme);

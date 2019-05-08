@@ -1,0 +1,10 @@
+@import '../app/dropdown/dropdown-theme';
+@import '../app/table/table-theme';
+@import '../app/charts/bar-chart/bar-chart-theme';
+
+@mixin dsh-theme($theme) {
+    @include dsh-main-theme($theme);
+    @include dsh-dropdown-theme($theme);
+    @include dsh-table-theme($theme);
+    @include dsh-bar-chart-theme($theme);
+}
