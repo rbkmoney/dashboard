@@ -1,9 +1,28 @@
 @import '~@angular/material/theming';
-@import '../styles/variables';
+
 @import '../styles/palletes';
 @import '../styles/theme';
 @import '../styles/main-theme';
-@import './theme.scss';
+@import './theme';
+
+$dsh-light-theme-background: (
+    background: $background-color,
+    card: #fff
+);
+
+$dsh-light-theme-foreground: (
+    base: black,
+    disabled-button: rgba(#000, 0.26),
+    elevation: black,
+    divider: rgba(#000, 0.27),
+    icon: rgba(#000, 0.54),
+    icons: rgba(#000, 0.54),
+    text: rgba(#000, 0.87),
+    secondary-text: rgba(#000, 0.67),
+    slider-min: rgba(#000, 0.87),
+    slider-off: rgba(#000, 0.26),
+    slider-off-active: rgba(#000, 0.38)
+);
 
 $primary: mat-palette($dsh-slateblue);
 $accent: mat-palette($dsh-palegreen);

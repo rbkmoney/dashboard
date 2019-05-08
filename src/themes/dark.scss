@@ -1,0 +1,18 @@
+$dsh-dark-theme-background: (
+    background: #303030,
+    card: #000
+);
+
+$dsh-dark-theme-foreground: (
+    base: white,
+    disabled-button: rgba(#fff, 0.3),
+    elevation: black,
+    divider: rgba(#fff, 0.27),
+    icon: white,
+    icons: white,
+    text: white,
+    secondary-text: rgba(#fff, 0.67),
+    slider-min: white,
+    slider-off: rgba(#fff, 0.3),
+    slider-off-active: rgba(#fff, 0.3)
+);
