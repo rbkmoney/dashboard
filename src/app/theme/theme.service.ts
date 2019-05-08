@@ -13,7 +13,12 @@ enum Type {
 export class ThemeService {
     themes: { [name: string]: External } = {};
     fileType: Type = environment.production ? Type.CSS : Type.JS;
-    currentTheme: string;
+    get currentTheme() {
+        return localStorage.getItem('dsh-theme') || themes[0];
+    }
+    set currentTheme(theme: string) {
+        localStorage.setItem('dsh-theme', theme);
+    }
 
     constructor() {
         this.init();
@@ -24,25 +29,26 @@ export class ThemeService {
             t[name] = this.createExternal(this.getFilePath(name));
             return t;
         }, {});
-        this.changeTheme();
+        this.changeTheme(this.currentTheme);
     }
 
-    changeTheme(name?: string) {
-        if (!name) {
-            if (this.currentTheme) {
-                const idx = themes.findIndex(n => n === this.currentTheme) + 1;
-                name = themes[idx === themes.length ? 0 : idx];
-            } else {
-                name = themes[0];
-            }
-        }
+    changeTheme(name: string = this.getNextTheme()) {
         this.themes[name].add();
+        this.removeCurrentTheme();
+        this.currentTheme = name;
+        document.body.classList.add(this.currentTheme);
+    }
+
+    private removeCurrentTheme() {
         if (this.currentTheme) {
             this.themes[this.currentTheme].remove();
             document.body.classList.remove(this.currentTheme);
         }
-        this.currentTheme = name;
-        document.body.classList.add(this.currentTheme);
+    }
+
+    private getNextTheme(): string {
+        const idx = themes.findIndex(n => n === this.currentTheme) + 1;
+        return themes[idx === themes.length ? 0 : idx];
     }
 
     private getFilePath(name: string) {
