@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { DropdownTriggerDirective } from '../dropdown/dropdown-trigger.directive';
 
 @Component({

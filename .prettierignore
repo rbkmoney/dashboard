@@ -4,7 +4,6 @@ node_modules
 dist
 build_utils
 coverage
-src/app/api/**/swagger-codegen
 schemes
+src/app/**/swagger-codegen
 src/app/**/gen-model
-

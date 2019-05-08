@@ -5,7 +5,7 @@ import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
 import { PartyMngComponent } from './party-mgt';
 import { DetailsComponent } from './details';
-import { AnalyticsComponent } from './analytics/analytics.component';
+import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
 
 const routes: Routes = [
@@ -39,4 +39,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class SectionsRoutingModule {}

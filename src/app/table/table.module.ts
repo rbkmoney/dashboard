@@ -1,25 +1,46 @@
 import { NgModule } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatPaginatorModule, MatTableModule } from '@angular/material';
+import { DshTableComponent } from './table';
+import { CdkTableModule } from '@angular/cdk/table';
+import {
+    DshCellDefDirective,
+    DshCellDirective,
+    DshColumnDefDirective,
+    DshFooterCellDefDirective,
+    DshFooterCellDirective,
+    DshHeaderCellDefDirective,
+    DshHeaderCellDirective
+} from './cell';
+import {
+    DshFooterRowComponent,
+    DshFooterRowDefDirective,
+    DshHeaderRowComponent,
+    DshHeaderRowDefDirective,
+    DshRowComponent,
+    DshRowDefDirective
+} from './row';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
 
-import { TableComponent } from './table.component';
-import { BrandModule } from '../brand';
-import { ToolbarModule } from '../toolbar';
-import { ActionbarModule } from '../actionbar';
-import { DshTableModule } from '../components/table';
+const EXPORTED_DECLARATIONS = [
+    DshTableComponent,
+    DshHeaderCellDefDirective,
+    DshHeaderRowDefDirective,
+    DshColumnDefDirective,
+    DshCellDefDirective,
+    DshRowDefDirective,
+    DshFooterCellDefDirective,
+    DshFooterRowDefDirective,
+    DshHeaderCellDirective,
+    DshCellDirective,
+    DshFooterCellDirective,
+    DshHeaderRowComponent,
+    DshRowComponent,
+    DshFooterRowComponent
+];
 
 @NgModule({
-    declarations: [TableComponent],
-    imports: [
-        FlexLayoutModule,
-        MatSidenavModule,
-        BrandModule,
-        ToolbarModule,
-        ActionbarModule,
-        DshTableModule,
-        MatTableModule,
-        MatPaginatorModule
-    ]
+    imports: [CdkTableModule, CommonModule, MatTableModule],
+    exports: EXPORTED_DECLARATIONS,
+    declarations: EXPORTED_DECLARATIONS
 })
-export class TableModule {}
+export class DshTableModule {}
