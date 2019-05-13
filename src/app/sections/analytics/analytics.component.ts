@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PeriodData, PreparedPeriodData, SegmentData } from '../charts/models/chart-data-models';
-import { ChartsService } from '../charts/charts.service';
+import { PeriodData, PreparedPeriodData, SegmentData } from '../../charts/models/chart-data-models';
+import { ChartsService } from '../../charts/charts.service';
 
 @Component({
     selector: 'dsh-app-analytics',
