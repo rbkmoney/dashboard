@@ -1,10 +1,7 @@
-@import '../../styles/variables.scss';
-
-$circle-color: $white;
-$circle-shadow: $turquoise-shadow;
+$circle-color: #fff;
 
 .actionbar {
-    height: $toolbar-item-height;
+    height: 50px;
 }
 
 .circle {
@@ -16,7 +13,7 @@ $circle-shadow: $turquoise-shadow;
     height: 42px;
     text-align: center;
     transition: 0.2s;
-    box-shadow: $circle-shadow;
+    box-shadow: 0 8px 20px 0 rgba(174, 188, 230, 0.24);
     &:active {
         transform: scale(0.9);
     }

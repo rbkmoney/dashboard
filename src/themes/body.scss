@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-body-theme($theme) {
+    $background: map-get($theme, background);
+
+    background-color: map-get($background, background);
+    color: map-get($foreground, text);
+}

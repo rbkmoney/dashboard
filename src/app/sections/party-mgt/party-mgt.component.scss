@@ -1,4 +1,3 @@
-@import '../../../styles/variables.scss';
 @import '../../../styles/mixins.scss';
 
 .display-2 {
@@ -6,5 +5,5 @@
 }
 
 .content {
-    @include content($content-padding, $content-max-width);
+    @include content(30px, 1128px);
 }
