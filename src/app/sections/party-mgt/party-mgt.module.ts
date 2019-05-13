@@ -5,9 +5,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule } from '@angular/material';
 
 import { PartyMngComponent } from './party-mgt.component';
-import { BrandModule } from '../../brand';
-import { ToolbarModule } from '../../toolbar';
-import { ActionbarModule } from '../../actionbar';
 import { FormControlsModule } from '../../form-controls';
 import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
@@ -22,9 +19,6 @@ import { DaDataModule } from '../../dadata/dadata.module';
         FlexLayoutModule,
         FormControlsModule,
         LayoutModule,
-        BrandModule,
-        ToolbarModule,
-        ActionbarModule,
         MatFormFieldModule,
         MatAutocompleteModule,
         MatInputModule,

@@ -1,101 +1,93 @@
-<dsh-toolbar>
-    <div fxLayout>
-        <dsh-brand fxFlex="100px"></dsh-brand>
-        <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
-    </div>
-</dsh-toolbar>
-<div class="content">
-    <div fxLayout="column" fxLayoutGap="30px">
-        <div class="display-2">Анкета подключения</div>
-        <div fxLayout fxLayoutGap="30px">
-            <dsh-card fxFlex="70">
-                <dsh-card-header> <dsh-card-title>Контактные данные</dsh-card-title> </dsh-card-header>
-                <dsh-card-content>
-                    <div fxLayout="column" fxLayoutGap="20px">
-                        <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
-                            <mat-form-field>
-                                <mat-label>Название</mat-label>
-                                <dsh-dadata-autocomplete
-                                    formControlName="suggestions"
-                                    type="party"
-                                    (optionSelected)="suggestionSelected($event)"
-                                ></dsh-dadata-autocomplete>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Название магазина</mat-label>
-                                <input id="shopName" type="text" formControlName="shopName" required matInput />
-                                <mat-error *ngIf="form.controls.shopName.invalid">Введите коректное значение</mat-error>
-                            </mat-form-field>
-                            <div fxLayout fxLayoutGap="10px">
-                                <mat-form-field fxFlex>
-                                    <mat-label>Категория магазина</mat-label>
-                                    <mat-select formControlName="category">
-                                        <mat-option value="One">One</mat-option>
-                                        <mat-option value="Two">Two</mat-option>
-                                        <mat-option value="Three">Three</mat-option>
-                                    </mat-select>
-                                    <mat-hint>Hint</mat-hint>
-                                </mat-form-field>
-                                <mat-form-field fxFlex>
-                                    <mat-label>Дата создания</mat-label>
-                                    <input
-                                        id="creationDate"
-                                        formControlName="creationDate"
-                                        type="text"
-                                        matInput
-                                        [matDatepicker]="picker"
-                                        placeholder="дд.мм.гггг"
-                                    />
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                            <mat-form-field>
-                                <mat-label>Документы</mat-label>
-                                <input
-                                    id="document"
-                                    type="text"
-                                    formControlName="document"
-                                    placeholder="Выбирите значение"
-                                    aria-label="Number"
-                                    matInput
-                                    [matAutocomplete]="auto"
-                                />
-                                <mat-autocomplete #auto="matAutocomplete">
+<div fxLayout="column" fxLayoutGap="30px">
+    <div class="display-2">Анкета подключения</div>
+    <div fxLayout fxLayoutGap="30px">
+        <dsh-card fxFlex="70">
+            <dsh-card-header> <dsh-card-title>Контактные данные</dsh-card-title> </dsh-card-header>
+            <dsh-card-content>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
+                        <mat-form-field>
+                            <mat-label>Название</mat-label>
+                            <dsh-dadata-autocomplete
+                                formControlName="suggestions"
+                                type="party"
+                                (optionSelected)="suggestionSelected($event)"
+                            ></dsh-dadata-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Название магазина</mat-label>
+                            <input id="shopName" type="text" formControlName="shopName" required matInput />
+                            <mat-error *ngIf="form.controls.shopName.invalid">Введите коректное значение</mat-error>
+                        </mat-form-field>
+                        <div fxLayout fxLayoutGap="10px">
+                            <mat-form-field fxFlex>
+                                <mat-label>Категория магазина</mat-label>
+                                <mat-select formControlName="category">
                                     <mat-option value="One">One</mat-option>
                                     <mat-option value="Two">Two</mat-option>
                                     <mat-option value="Three">Three</mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Комментарий</mat-label>
-                                <textarea
-                                    id="comment"
-                                    type="textarea"
-                                    formControlName="comment"
-                                    matInput
-                                    rows="5"
-                                ></textarea>
+                                </mat-select>
                                 <mat-hint>Hint</mat-hint>
                             </mat-form-field>
-                            <section fxLayout="column" fxLayoutGap="15px">
-                                <mat-checkbox id="checked" formControlName="checked" color="primary"
-                                    >Check me!</mat-checkbox
-                                >
-                                <mat-radio-group id="radio" formControlName="radio" fxLayout fxLayoutGap="15px">
-                                    <mat-radio-button color="primary" value="1">Option 1</mat-radio-button>
-                                    <mat-radio-button color="primary" value="2">Option 2</mat-radio-button>
-                                </mat-radio-group>
-                                <mat-slide-toggle id="slided" formControlName="slided" color="primary"
-                                    >Slide me!</mat-slide-toggle
-                                >
-                            </section>
-                        </form>
-                        <button mat-raised-button color="accent">Сохранить</button>
-                    </div>
-                </dsh-card-content>
-            </dsh-card>
-            <dsh-card fxFlex="30"> </dsh-card>
-        </div>
+                            <mat-form-field fxFlex>
+                                <mat-label>Дата создания</mat-label>
+                                <input
+                                    id="creationDate"
+                                    formControlName="creationDate"
+                                    type="text"
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    placeholder="дд.мм.гггг"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field>
+                            <mat-label>Документы</mat-label>
+                            <input
+                                id="document"
+                                type="text"
+                                formControlName="document"
+                                placeholder="Выбирите значение"
+                                aria-label="Number"
+                                matInput
+                                [matAutocomplete]="auto"
+                            />
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option value="One">One</mat-option>
+                                <mat-option value="Two">Two</mat-option>
+                                <mat-option value="Three">Three</mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Комментарий</mat-label>
+                            <textarea
+                                id="comment"
+                                type="textarea"
+                                formControlName="comment"
+                                matInput
+                                rows="5"
+                            ></textarea>
+                            <mat-hint>Hint</mat-hint>
+                        </mat-form-field>
+                        <section fxLayout="column" fxLayoutGap="15px">
+                            <mat-checkbox id="checked" formControlName="checked" color="primary"
+                                >Check me!</mat-checkbox
+                            >
+                            <mat-radio-group id="radio" formControlName="radio" fxLayout fxLayoutGap="15px">
+                                <mat-radio-button color="primary" value="1">Option 1</mat-radio-button>
+                                <mat-radio-button color="primary" value="2">Option 2</mat-radio-button>
+                            </mat-radio-group>
+                            <mat-slide-toggle id="slided" formControlName="slided" color="primary"
+                                >Slide me!</mat-slide-toggle
+                            >
+                        </section>
+                    </form>
+                    <button mat-raised-button color="accent">Сохранить</button>
+                </div>
+            </dsh-card-content>
+        </dsh-card>
+        <dsh-card fxFlex="30"> </dsh-card>
     </div>
 </div>

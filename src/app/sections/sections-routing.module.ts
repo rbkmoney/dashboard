@@ -4,9 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
 import { PartyMngComponent } from './party-mgt';
-import { DetailsComponent } from './details';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
+import { OnboardingComponent } from './onboarding';
 
 const routes: Routes = [
     {
@@ -14,12 +14,12 @@ const routes: Routes = [
         component: MainComponent
     },
     {
-        path: 'organization/create',
-        component: PartyMngComponent
+        path: 'onboarding',
+        component: OnboardingComponent
     },
     {
-        path: 'details',
-        component: DetailsComponent
+        path: 'organization/create',
+        component: PartyMngComponent
     },
     {
         path: 'analytics',

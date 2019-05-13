@@ -1,21 +1,3 @@
-@import '../../../styles/mixins.scss';
-
-mat-sidenav-container {
-    @include fullscreen();
-}
-
-.content {
-    @include content(30px, 1128px);
-}
-
-.brand {
-    height: 80px;
-}
-
-.side-menu {
-    width: 220px;
-}
-
 .kek {
     background-color: gray;
     padding: 25px;
