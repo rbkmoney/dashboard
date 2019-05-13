@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-card-theme($theme) {
+    $background: map-get($theme, background);
+
+    .card {
+        background-color: mat-color($background, card);
+    }
+}

@@ -1,17 +1,15 @@
-@import '../../../styles/variables.scss';
 @import '../../../styles/mixins.scss';
 
 mat-sidenav-container {
     @include fullscreen();
-    background-color: $background-color;
 }
 
 .content {
-    @include content($content-padding, $content-max-width);
+    @include content(30px, 1128px);
 }
 
 .brand {
-    height: $toolbar-height;
+    height: 80px;
 }
 
 .side-menu {

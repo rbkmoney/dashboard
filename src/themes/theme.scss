@@ -1,0 +1,20 @@
+@import '~@angular/material/theming';
+
+@import './body';
+@import '../app/dropdown/dropdown-theme';
+@import '../app/table/table-theme';
+@import '../app/charts/bar-chart/bar-chart-theme';
+@import '../app/layout/card/card-theme';
+
+@mixin dsh-theme($theme) {
+    body.#{map-get($theme, name)} {
+        @include angular-material-theme($theme);
+
+        @include dsh-body-theme($theme);
+
+        @include dsh-dropdown-theme($theme);
+        @include dsh-table-theme($theme);
+        @include dsh-bar-chart-theme($theme);
+        @include dsh-card-theme($theme);
+    }
+}
