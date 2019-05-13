@@ -4,7 +4,9 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    .x.axis > .tick:first-of-type > text, .x.axis > .tick:last-of-type > text, .tick > line {
+    .x.axis > .tick:first-of-type > text,
+    .x.axis > .tick:last-of-type > text,
+    .tick > line {
         color: mat-color($foreground, divider);
     }
 

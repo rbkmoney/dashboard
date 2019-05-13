@@ -73,8 +73,8 @@ export class AnalyticsComponent implements OnInit {
             };
         });
         preparedData.forEach((v, i) => {
-            data.forEach((d) => {
-                v.values.push({time: new Date(d.time), value: d.values[i].value})
+            data.forEach(d => {
+                v.values.push({ time: new Date(d.time), value: d.values[i].value });
             });
         });
         return preparedData;

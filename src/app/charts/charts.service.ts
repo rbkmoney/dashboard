@@ -13,7 +13,7 @@ export class ChartsService {
                 values.push({
                     name: `kek ${j}`,
                     value: this.getRandom()
-                })
+                });
             }
             periodData.push({
                 time: `2017-01-${i > 9 ? i : `0${i}`}T00:00:00Z`,
