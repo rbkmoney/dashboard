@@ -11,7 +11,6 @@ import {
 
 import { PreparedPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
-import { Selection } from 'd3-selection';
 
 @Component({
     selector: 'dsh-linear-chart',
@@ -27,19 +26,14 @@ export class LinearChartComponent implements OnChanges, OnInit {
     @Input()
     data: PreparedPeriodData[];
 
-    private svg: Selection<SVGGElement, {}, null, PreparedPeriodData>;
-    private element;
-
     constructor(private linearChartService: LinearChartService) {}
 
     ngOnInit() {
-        this.element = this.chartContainer.nativeElement;
-        this.svg = this.linearChartService.initChart(this.svg, this.data, this.element);
+        const element = this.chartContainer.nativeElement;
+        this.linearChartService.initChart(this.data, element);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.svg) {
-            this.svg = this.linearChartService.updateChart(this.svg, this.data, this.element);
-        }
+        this.linearChartService.updateChart(this.data);
     }
 }

@@ -43,7 +43,7 @@ export class DonutChartConfig {
 
 export class BarChartConfig {
     radius: number;
-    margin: BarChartMargins;
+    margin: PeriodChartsMargins;
 
     constructor(
         public width: number,
@@ -65,12 +65,33 @@ export class BarChartConfig {
     }
 }
 
-export interface BarChartMargins {
+export interface PeriodChartsMargins {
     firstBarMarginLeft: number;
     lastBarMarginRight: number;
     xAxisHorizontalMargin: number;
     xAxisVerticalMargin: number;
     yAxisHorizontalMargin: number;
+}
+
+export class LinearChartConfig {
+    margin: PeriodChartsMargins;
+
+    constructor(
+        public width: number,
+        public height: number,
+        public transitionDuration = 1000,
+        public tickCount = 5,
+        public commonMargin = 20,
+        public radius = 2
+    ) {
+        this.margin = {
+            firstBarMarginLeft: 4 * this.commonMargin,
+            lastBarMarginRight: width - this.commonMargin,
+            xAxisHorizontalMargin: -0.5 * this.commonMargin,
+            yAxisHorizontalMargin: 3 * this.commonMargin,
+            xAxisVerticalMargin: height + 0.2 * this.commonMargin
+        };
+    }
 }
 
 export interface ChartService<T, C> {

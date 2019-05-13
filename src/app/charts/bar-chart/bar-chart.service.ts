@@ -25,13 +25,13 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private isInitialized = false;
 
     initChart(data: PeriodData[], element: HTMLElement, config?: BarChartConfig) {
-        this.config = config;
+        this.config = config ? config : new BarChartConfig(element.offsetWidth, element.offsetHeight);
         this.element = element;
 
         this.svg = select(element)
             .select('svg')
-            .attr('width', config.width)
-            .attr('height', config.height + config.commonMargin)
+            .attr('width', this.config.width)
+            .attr('height', this.config.height + this.config.commonMargin)
             .attr('transform', `translate(0, 0)`) as BarType;
 
         this.xScale0 = scaleBand().range([

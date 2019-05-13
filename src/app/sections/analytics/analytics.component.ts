@@ -20,7 +20,7 @@ export class AnalyticsComponent implements OnInit {
 
     refreshValue() {
         this.periodData = this.chartsService.getPeriodData(7, 2);
-        this.preparedPeriodData = this.preparePeriodData(this.chartsService.getPeriodData(30, 2));
+        this.preparedPeriodData = this.preparePeriodData(this.chartsService.getPeriodData(5, 3));
         this.segmentData = this.chartsService.getSegmentData();
     }
 

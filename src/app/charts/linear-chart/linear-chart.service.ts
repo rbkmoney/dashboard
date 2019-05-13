@@ -9,156 +9,159 @@ import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+import { ChartService, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+
+type LinearChartSvgType = Selection<SVGGElement, {}, null, PreparedPeriodData>;
 
 @Injectable()
-export class LinearChartService {
+export class LinearChartService implements ChartService <PreparedPeriodData, LinearChartConfig>{
 
+    private svg: LinearChartSvgType;
+    private element: HTMLElement;
     private createLine;
     private zeroLine;
     private xScale;
     private yScale;
     private xAxis;
     private yAxis;
-    private height: number;
-    private width: number;
-    private transitionDuration = 1000;
-    private tickCount = 5;
-    private commonMargin = 20;
-    private radius = 2;
+    private config: LinearChartConfig;
 
-    private margin;
+    private isInitialized = false;
 
-    initChart(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[], element) {
-        this.width = element.offsetWidth;
-        this.height = element.offsetHeight - this.commonMargin;
-        this.margin = this.initMargins(this.width, this.height);
+    initChart(data: PreparedPeriodData[], element, config?: LinearChartConfig) {
+        this.config = config ? config : new LinearChartConfig(element.offsetWidth, element.offsetHeight);
+        this.element = element;
 
-        svg = select(element)
+        this.svg = select(element)
             .select('svg')
-            .attr('width', element.offsetWidth)
-            .attr('height', element.offsetHeight)
+            .attr('width', this.config.width)
+            .attr('height', this.config.height  + this.config.commonMargin)
             .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PreparedPeriodData>;
 
-        svg.append('g').attr('class', 'lines');
+        this.svg.append('g').attr('class', 'lines');
 
-        this.xScale = scaleTime().range([this.margin.firstBarMarginLeft, this.margin.lastBarMarginRight]);
+        this.xScale = scaleTime().range([this.config.margin.firstBarMarginLeft, this.config.margin.lastBarMarginRight]);
 
-        this.yScale = scaleLinear().range([this.height, 0]);
+        this.yScale = scaleLinear().range([this.config.height, 0]);
 
         this.yScale.domain([
             0,
-            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
+            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
         ]);
 
         this.createLine = line<PreparedPeriodValue>().x(d => this.xScale(new Date(d.time))).y(d => this.yScale(d.value));
-        this.zeroLine = line<PreparedPeriodValue>().x(d => this.xScale(new Date(d.time))).y(this.height);
+        this.zeroLine = line<PreparedPeriodValue>().x(d => this.xScale(new Date(d.time))).y(this.config.height);
 
 
         this.xAxis = this.getCustomAxisX();
         this.yAxis = this.getCustomAxisY();
 
-        this.initAxis(svg);
-
-        return this.updateChart(svg, data, element);
+        this.initAxis();
+        this.isInitialized = true;
+        this.updateChart(data);
     }
 
-    updateChart(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[], element) {
+    updateChart(data: PreparedPeriodData[]) {
+        if (this.isInitialized) {
+            this.xScale.domain(extent(data[0].values, d => d.time));
 
-        this.xScale.domain(extent(data[0].values, d => d.time));
+            this.yScale.domain([
+                0,
+                max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
+            ]);
 
-        this.yScale.domain([
-            0,
-            max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.tickCount)[1]
-        ]);
-
-        this.updateAxis(data, element);
-        this.updateData(svg, data);
-
-        return svg;
+            this.updateAxis(data);
+            this.updateData(data);
+        }
     }
 
-    private initAxis(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>) {
-        svg.append('g')
+    private initAxis() {
+        this.svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', `translate(${this.margin.xAxisHorizontalMargin}, ${this.margin.xAxisVerticalMargin})`);
-        svg.append('g')
+            .attr('transform', `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`);
+        this.svg.append('g')
             .attr('class', 'y axis')
-            .attr('transform', `translate(${this.margin.yAxisHorizontalMargin}, 0)`);
+            .attr('transform', `translate(${this.config.margin.yAxisHorizontalMargin}, 0)`);
     }
 
-    private updateAxis(data: PreparedPeriodData[], element) {
-        select(element)
+    private updateAxis(data: PreparedPeriodData[]) {
+        select(this.element)
             .select('.x.axis')
             .transition()
             .ease(easeExp)
-            .duration(this.transitionDuration)
+            .duration(this.config.transitionDuration)
             .call(this.xAxis.tickValues(extent(data[0].values, d => d.time)));
-        select(element)
+
+        select(this.element)
             .select('.y.axis')
             .transition()
             .ease(easeExp)
-            .duration(this.transitionDuration)
+            .duration(this.config.transitionDuration)
             .call(this.yAxis as any);
     }
 
-    private updateData(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[]) {
-        svg.select('.lines')
+    private updateData(data: PreparedPeriodData[]) {
+        this.svg.select('.lines')
             .selectAll('.line')
             .data(data)
             .transition()
             .ease(easeExp)
-            .duration(this.transitionDuration)
+            .duration(this.config.transitionDuration)
             .attr('d', (d) => this.createLine(d.values));
 
-        this.removeUnusedData(svg, data);
-        this.drawData(svg, data);
+        this.removeUnusedData(data);
+        this.drawData(data);
     }
 
-    private removeUnusedData(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[]) {
-        svg.selectAll('.time')
+    private removeUnusedData(data: PreparedPeriodData[]) {
+        this.svg.selectAll('.time')
             .data(data)
             .exit()
             .remove();
 
-        svg.selectAll('.circle').remove();
+        this.svg.selectAll('.circle').remove();
     }
 
-    private drawData(svg: Selection<SVGGElement, {}, null, PreparedPeriodData>, data: PreparedPeriodData[]) {
-        svg.select('.lines')
+    private drawData(data: PreparedPeriodData[]) {
+        const linesGroup = this.svg.select('.lines')
             .selectAll(`.line-group`)
             .data(data)
-            .enter()
-            .append('g')
+            .enter();
+
+        const linesDescription = linesGroup.append('g')
             .attr('class', `line-group`)
             .append('path')
             .attr('class', `line`)
-            .attr('d', (d) => this.zeroLine(d.values))
-            .transition()
+            .attr('d', (d) => this.zeroLine(d.values));
+
+        const drawLine = linesDescription.transition()
             .ease(easeExp)
-            .duration(this.transitionDuration)
+            .duration(this.config.transitionDuration)
             .attr('d', (d) => this.createLine(d.values))
             .style('stroke', (d, i) => chartColors[i]);
 
-        svg.selectAll('circle-group')
+        const circleGroup = this.svg.selectAll('circle-group')
             .data(data)
-            .enter()
-            .append('g')
+            .enter();
+
+        const circleDescription = circleGroup.append('g')
             .style('fill', (d, i) => chartColors[i])
             .selectAll('circle')
             .data(d => d.values)
-            .enter()
-            .append('g')
+            .enter();
+
+        const initCircles = circleDescription.append('g')
             .attr('class', 'circle')
             .append('circle')
             .attr('cx', d => this.xScale(d.time))
-            .attr('cy', this.height)
-            .transition()
+            .attr('cy', this.config.height);
+
+        const drawCircles = initCircles.transition()
             .ease(easeExp)
-            .duration(this.transitionDuration)
+            .duration(this.config.transitionDuration)
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', d => this.yScale(d.value))
-            .attr('r', this.radius);
+            .attr('r', this.config.radius);
     }
 
 
@@ -170,18 +173,9 @@ export class LinearChartService {
 
     private getCustomAxisY() {
         return axisLeft(this.yScale)
-            .ticks(this.tickCount)
-            .tickSize(-this.width)
+            .ticks(this.config.tickCount)
+            .tickSize(-this.config.width)
             .tickFormat(d => `${d}`);
     }
 
-    private initMargins(width: number, height: number) {
-        return {
-            firstBarMarginLeft: 4 * this.commonMargin,
-            lastBarMarginRight: width - this.commonMargin,
-            xAxisHorizontalMargin: -0.5 * this.commonMargin,
-            yAxisHorizontalMargin: 3 * this.commonMargin,
-            xAxisVerticalMargin: height + 0.2 * this.commonMargin
-        };
-    }
 }
