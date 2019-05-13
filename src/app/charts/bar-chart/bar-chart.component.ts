@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Selection } from 'd3-selection';
 
-import { BarChartConfig, PeriodData } from '../models/chart-data-models';
+import { PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
 
 export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
@@ -33,8 +33,7 @@ export class BarChartComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        const config = new BarChartConfig(element.offsetWidth, element.offsetHeight);
-        this.barChartService.initChart(this.data, element, config);
+        this.barChartService.initChart(this.data, element);
     }
 
     ngOnChanges(changes: SimpleChanges) {
