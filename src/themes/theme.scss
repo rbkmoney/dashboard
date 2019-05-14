@@ -5,6 +5,7 @@
 @import '../app/table/table-theme';
 @import '../app/charts/bar-chart/bar-chart-theme';
 @import '../app/layout/card/card-theme';
+@import '../app/charts/linear-chart/linear-chart-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -16,5 +17,6 @@
         @include dsh-table-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
+        @include dsh-linear-chart-theme($theme);
     }
 }
