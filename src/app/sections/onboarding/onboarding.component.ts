@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     templateUrl: 'onboarding.component.html',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
     providers: []
 })
 export class OnboardingComponent {
-    constructor() {}
+    form: FormGroup;
+
+    constructor(fb: FormBuilder) {
+        this.form = fb.group({
+            suggestions: ['']
+        });
+    }
 }
