@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { KeycloakService } from './auth/keycloak';
 import { ThemeService, ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
 import { LayoutModule } from './layout';
+import { SettingsModule, SettingsService } from './settings';
 
 @NgModule({
     declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { LayoutModule } from './layout';
         AuthModule,
         ThemeModule,
         ConfigModule,
-        LayoutModule
+        LayoutModule,
+        SettingsModule
     ],
     providers: [
         IconRegistryService,
@@ -36,6 +38,11 @@ import { LayoutModule } from './layout';
             useFactory: initializer,
             deps: [ConfigService, KeycloakService, ThemeService],
             multi: true
+        },
+        {
+            provide: LOCALE_ID,
+            deps: [SettingsService],
+            useFactory: (settingsService: SettingsService) => settingsService.language
         }
     ],
     bootstrap: [AppComponent]

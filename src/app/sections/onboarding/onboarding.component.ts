@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { OnboardingService } from './onboarding.service';
+import { SuggestionData } from '../../dadata/model/suggestions';
+import { SuggestionType } from '../../dadata/model/type';
 
 @Component({
     templateUrl: 'onboarding.component.html',
@@ -7,11 +9,16 @@ import { FormGroup, FormBuilder } from '@angular/forms';
     providers: []
 })
 export class OnboardingComponent {
-    form: FormGroup;
+    get form() {
+        return this.onboardingService.form;
+    }
+    get info() {
+        return this.onboardingService.suggestion ? this.onboardingService.suggestion.data : undefined;
+    }
 
-    constructor(fb: FormBuilder) {
-        this.form = fb.group({
-            suggestions: ['']
-        });
+    constructor(private onboardingService: OnboardingService) {}
+
+    updateSuggestion(suggestion: SuggestionData<SuggestionType.party>) {
+        this.onboardingService.suggestion = suggestion;
     }
 }

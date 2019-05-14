@@ -23,6 +23,13 @@ export interface Params {
 
 export interface Data {
     address: SuggestionData<SuggestionType.address>;
+    name: {
+        full: string;
+        full_with_opf: string;
+        latin: string;
+        short: string;
+        short_with_opf: string;
+    };
     [name: string]: any;
 }
 

@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule, MatListModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
 
 import { OnboardingComponent } from './onboarding.component';
 import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
+import { OnboardingService } from './onboarding.service';
 
 @NgModule({
-    imports: [LayoutModule, DaDataModule, MatFormFieldModule, ReactiveFormsModule, FlexLayoutModule],
+    imports: [
+        LayoutModule,
+        DaDataModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        CommonModule,
+        MatListModule
+    ],
     declarations: [OnboardingComponent],
     entryComponents: [],
-    providers: [OnboardingComponent]
+    providers: [OnboardingService]
 })
 export class OnboardingModule {}
