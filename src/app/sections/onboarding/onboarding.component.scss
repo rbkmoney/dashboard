@@ -1,0 +1,27 @@
+.header {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.form {
+    padding-top: 20px;
+}
+
+.info tr td {
+    padding-right: 15px;
+    padding-bottom: 30px;
+}
+
+.info tr td:last-child {
+    padding-right: 0;
+    font-weight: 300;
+}
+
+.info tr:last-child td {
+    padding-bottom: 0;
+}
+
+.actions {
+    padding-top: 30px;
+}

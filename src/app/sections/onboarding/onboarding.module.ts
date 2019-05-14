@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatListModule, MatButtonModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,8 @@ import { OnboardingService } from './onboarding.service';
         ReactiveFormsModule,
         FlexLayoutModule,
         CommonModule,
-        MatListModule
+        MatListModule,
+        MatButtonModule
     ],
     declarations: [OnboardingComponent],
     entryComponents: [],
