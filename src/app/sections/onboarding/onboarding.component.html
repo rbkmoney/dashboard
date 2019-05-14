@@ -1,35 +1,37 @@
-<dsh-card-header> <dsh-card-title>Заявка на подключение</dsh-card-title> </dsh-card-header>
+<dsh-headline>Заявка на подключение</dsh-headline>
 <dsh-card>
-    <h1 class="header">Поиск организации или ИП</h1>
-    <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form" class="form">
-        <mat-form-field>
-            <mat-label>Введите название в свободной форме, адрес, ИНН или ОГРН</mat-label>
-            <dsh-dadata-autocomplete
-                formControlName="suggestions"
-                type="party"
-                (optionSelected)="updateSuggestion($event)"
-            ></dsh-dadata-autocomplete>
-        </mat-form-field>
-        <div *ngIf="info">
-            <table class="info">
-                <tr>
-                    <td width="200">Наименование:</td>
-                    <td>{{ info.name.full_with_opf }}</td>
-                </tr>
-                <tr *ngIf="info?.address">
-                    <td>Адрес:</td>
-                    <td>{{ info.address.value }}</td>
-                </tr>
-                <tr *ngIf="ogrnInnKpp">
-                    <td>{{ ogrnInnKpp.label }}:</td>
-                    <td>{{ ogrnInnKpp.value }}</td>
-                </tr>
-            </table>
+    <dsh-card-header><dsh-card-title>Поиск организации или ИП</dsh-card-title></dsh-card-header>
+    <dsh-card-content>
+        <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
+            <mat-form-field>
+                <mat-label>Введите название в свободной форме, адрес, ИНН или ОГРН</mat-label>
+                <dsh-dadata-autocomplete
+                    formControlName="suggestions"
+                    type="party"
+                    (optionSelected)="updateSuggestion($event)"
+                ></dsh-dadata-autocomplete>
+            </mat-form-field>
+            <div *ngIf="info">
+                <table class="info">
+                    <tr>
+                        <td width="200">Наименование:</td>
+                        <td>{{ info.name.full_with_opf }}</td>
+                    </tr>
+                    <tr *ngIf="info?.address">
+                        <td>Адрес:</td>
+                        <td>{{ info.address.value }}</td>
+                    </tr>
+                    <tr *ngIf="ogrnInnKpp">
+                        <td>{{ ogrnInnKpp.label }}:</td>
+                        <td>{{ ogrnInnKpp.value }}</td>
+                    </tr>
+                </table>
 
-            <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
-                <button mat-raised-button>Назад</button>
-                <button mat-raised-button color="primary">Далее</button>
+                <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
+                    <button mat-raised-button>Назад</button>
+                    <button mat-raised-button color="primary">Далее</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </dsh-card-content>
 </dsh-card>

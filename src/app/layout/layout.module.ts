@@ -11,6 +11,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material';
 import { LayoutService } from './layout.service';
 import { CommonModule } from '@angular/common';
+import { HeadlineComponent } from './headline/headline.component';
 
 @NgModule({
     imports: [
@@ -24,8 +25,8 @@ import { CommonModule } from '@angular/common';
         MatSidenavModule,
         CommonModule
     ],
-    declarations: [LayoutComponent],
-    exports: [CardModule, LayoutComponent],
+    declarations: [LayoutComponent, HeadlineComponent],
+    exports: [CardModule, LayoutComponent, HeadlineComponent],
     providers: [LayoutService]
 })
 export class LayoutModule {}
