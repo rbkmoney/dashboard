@@ -9,7 +9,8 @@ import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { ChartService, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+import { ChartService, LegendTooltipData, LegendTooltipItem, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 type LinearChartSvgType = Selection<SVGGElement, {}, null, PreparedPeriodData>;
 
@@ -19,6 +20,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private element: HTMLElement;
     private createLine;
     private zeroLine;
+    private tooltipLine;
     private xScale;
     private yScale;
     private xAxis;
@@ -26,6 +28,8 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private config: LinearChartConfig;
 
     private isInitialized = false;
+
+    constructor(private legendTooltipService: LegendTooltipService) {}
 
     initChart(data: PreparedPeriodData[], element, config?: LinearChartConfig) {
         this.config = config ? config : new LinearChartConfig(element.offsetWidth, element.offsetHeight);
@@ -59,6 +63,18 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.yAxis = this.getCustomAxisY();
 
         this.initAxis();
+
+        this.initTooltipLine();
+
+        this.svg
+            .on('mousemove', () => {
+                console.log('kekes');
+                this.moveTooltipLine();
+            })
+            .on('mouseout', () => {
+                this.removeTooltipLine()
+            });
+
         this.isInitialized = true;
         this.updateChart(data);
     }
@@ -171,6 +187,15 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', this.config.height);
 
+        const tooltip = initCircles
+            .on('mouseover', (d, i, x) => {
+                const legendTooltipData = this.getLegendTooltipData(data, i);
+                this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
+            })
+            .on('mouseout', () => {
+                this.legendTooltipService.removeLegend(this.element);
+            });
+
         const drawCircles = initCircles
             .transition()
             .ease(easeExp)
@@ -178,6 +203,21 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', d => this.yScale(d.value))
             .attr('r', this.config.radius);
+    }
+
+    private getLegendTooltipData(data: PreparedPeriodData[], index: number): LegendTooltipData {
+        const date = data[0].values[index].time.toString();
+        const values: LegendTooltipItem[] = [];
+        if (data) {
+            data.forEach((item, i) => {
+                values.push({
+                    name: item.name,
+                    value: item.values[index].value,
+                    color: chartColors[i]
+                });
+            });
+        }
+        return { date, values };
     }
 
     private getCustomAxisX() {
@@ -191,5 +231,24 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .ticks(this.config.tickCount)
             .tickSize(-this.config.width)
             .tickFormat(d => `${d}`);
+    }
+
+    private initTooltipLine() {
+        this.tooltipLine = this.svg.append('line')
+            .attr('class', 'legend-tooltip-line')
+            .attr('stroke', 'none')
+            .attr('y1', 0)
+            .attr('y2', this.config.height);
+    }
+
+    private moveTooltipLine() {
+        this.tooltipLine
+            .attr('stroke', 'black')
+            .attr('x1', (event as MouseEvent).layerX)
+            .attr('x2', (event as MouseEvent).layerX);
+    }
+
+    private removeTooltipLine() {
+        this.tooltipLine.attr('stroke', 'none');
     }
 }

@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-legend-tooltip-theme($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    .legend-tooltip-container {
+        padding: 12px;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        border-radius: 4px;
+        box-shadow: map-get($background, tooltip-shadow);
+        background-color: map-get($background, card);
+        font-size: 12px;
+    }
+
+    .legend-item {
+        display: flex;
+        padding: 8px;
+    }
+
+    .legend-text {
+        display: flex;
+        justify-content: center;
+        padding-left: 8px;
+    }
+
+    .legend-value {
+        display: flex;
+        justify-content: center;
+    }
+
+    .legend-text + .legend-value {
+        //padding-left: 4px;
+    }
+
+    .legend-color, .legend-rect {
+        height: 12px;
+        width: 5px;
+    }
+
+    .legend-tooltip-line {
+        //stroke: black;
+        width: 1px;
+        //display: block;
+    }
+
+}

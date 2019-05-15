@@ -6,6 +6,7 @@ import { interpolate } from 'd3-interpolate';
 
 import { ChartService, DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { chartColors } from '../color-constants';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 type DonutSvgType = Selection<SVGGElement, {}, null, undefined>;
 type GeneratedPie = Pie<void, SegmentData>;
@@ -15,6 +16,7 @@ type DonutType = Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
 @Injectable()
 export class DonutChartService implements ChartService<SegmentData, DonutChartConfig> {
     private svg: DonutSvgType;
+    private element: HTMLElement;
     private generatePieData: GeneratedPie;
     private generateArc: GeneratedArc;
     private donut: DonutType;
@@ -22,7 +24,10 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
 
     private isInitialized = false;
 
+    constructor(private legendTooltipService: LegendTooltipService) {}
+
     initChart(data: SegmentData[], element: HTMLElement, config?: DonutChartConfig) {
+        this.element = element;
         this.config = config;
         const size = config.radius * 2;
 
@@ -68,7 +73,14 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
                 .attr('id', () => 'segment')
                 .attr('fill', (d, i) => chartColors[i])
                 .attr('periodData-index', (d, i) => i)
-                .style('stroke-width', 1);
+                .style('stroke-width', 1)
+                .on('mouseover', (d, i) => {
+                    const legendData = { values: [{ name: d.data.name, color: chartColors[i] }] };
+                    this.legendTooltipService.showLegendTooltip(legendData, this.element);
+                })
+                .on('mouseout', () => {
+                    this.legendTooltipService.removeLegend(this.element);
+                });
             this.createChartTransition();
         }
     }

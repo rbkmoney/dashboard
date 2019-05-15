@@ -94,6 +94,17 @@ export class LinearChartConfig {
     }
 }
 
+export interface LegendTooltipData {
+    date?: string;
+    values: LegendTooltipItem[];
+}
+
+export interface LegendTooltipItem {
+    name: string;
+    color: string;
+    value?: number;
+}
+
 export interface ChartService<T, C> {
     initChart(data: T[], element: HTMLElement, config?: C);
 

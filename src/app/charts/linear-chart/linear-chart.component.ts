@@ -11,13 +11,14 @@ import {
 
 import { PreparedPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Component({
     selector: 'dsh-linear-chart',
     templateUrl: './linear-chart.component.html',
     styleUrls: ['./linear-chart.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    providers: [LinearChartService]
+    providers: [LinearChartService, LegendTooltipService]
 })
 export class LinearChartComponent implements OnChanges, OnInit {
     @ViewChild('linearChart')
@@ -25,6 +26,9 @@ export class LinearChartComponent implements OnChanges, OnInit {
 
     @Input()
     data: PreparedPeriodData[];
+
+    @Input()
+    rawData: PreparedPeriodData[];
 
     constructor(private linearChartService: LinearChartService) {}
 

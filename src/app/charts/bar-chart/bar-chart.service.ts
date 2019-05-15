@@ -8,8 +8,9 @@ import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { BarChartConfig, ChartService, PeriodData } from '../models/chart-data-models';
+import { BarChartConfig, ChartService, LegendTooltipData, LegendTooltipItem, PeriodData, PeriodValue } from '../models/chart-data-models';
 import { BarType } from './bar-chart.component';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Injectable()
 export class BarChartService implements ChartService<PeriodData, BarChartConfig> {
@@ -23,6 +24,8 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private config: BarChartConfig;
 
     private isInitialized = false;
+
+    constructor(private legendTooltipService: LegendTooltipService) {}
 
     initChart(data: PeriodData[], element: HTMLElement, config?: BarChartConfig) {
         this.config = config ? config : new BarChartConfig(element.offsetWidth, element.offsetHeight);
@@ -111,6 +114,14 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .attr('x', d => this.xScale0(d.time))
             .selectAll('.bar')
             .data(d => d.values)
+            .style('fill', (d, i) => chartColors[i])
+            .on('mouseover', (d, i, x) => {
+                const legendTooltipData = this.getLegendTooltipData(data, d);
+                this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
+            })
+            .on('mouseout', () => {
+                this.legendTooltipService.removeLegend(this.element);
+            })
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
@@ -121,8 +132,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                     this.yScale(d.value) + this.config.radius,
                     this.config.barWidth
                 )
-            )
-            .style('fill', (d, i) => chartColors[i]);
+            );
 
         this.removeUnusedData(data);
         this.drawNewData(data);
@@ -151,6 +161,14 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
+            .on('mouseover', (d, i, x) => {
+
+                const legendTooltipData = this.getLegendTooltipData(data, d);
+                this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
+            })
+            .on('mouseout', () => {
+                this.legendTooltipService.removeLegend(this.element);
+            })
             .attr('d', d => this.getRoundedBar(d, 0, this.config.height, this.config.barWidth))
             .transition()
             .ease(easeExp)
@@ -163,6 +181,22 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                     this.config.barWidth
                 )
             );
+    }
+
+    private getLegendTooltipData(data: PeriodData[], value: PeriodValue): LegendTooltipData {
+        const dataIndex = data.findIndex((val) => val.values.includes(value));
+        const date = data[dataIndex].time;
+        const values: LegendTooltipItem[] = [];
+        if (data) {
+            data[dataIndex].values.forEach((item, index) => {
+                values.push({
+                    name: item.name,
+                    value: item.value,
+                    color: chartColors[index]
+                });
+            });
+        }
+        return { date, values };
     }
 
     private getX1Fields(data): Array<string> {
@@ -196,4 +230,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private getDomainRangeX(length: number): number {
         return length * this.config.barWidth + (length - 1) * this.config.barPadding;
     }
+
+
+
 }
