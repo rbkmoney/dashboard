@@ -15,29 +15,29 @@
         font-size: 12px;
     }
 
-    .legend-item {
+    .legend-tooltip-item {
         display: flex;
         padding: 8px;
     }
 
-    .legend-text {
+    .legend-tooltip-item-text {
         display: flex;
         justify-content: center;
         padding-left: 8px;
     }
 
-    .legend-value {
+    .legend-tooltip-item-value {
         display: flex;
         justify-content: center;
     }
 
-    .legend-value-before {
+    .legend-tooltip-item-value-before {
         display: flex;
         padding-left: 4px;
         padding-right: 4px;
     }
 
-    .legend-color, .legend-rect {
+    .legend-tooltip-item-color, .legend-tooltip-item-rect {
         height: 12px;
         width: 5px;
     }

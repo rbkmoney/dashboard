@@ -9,7 +9,7 @@ import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { ChartService, LegendTooltipData, LegendTooltipItem, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+import { ChartService, LegendTooltipData, LegendItem, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 type LinearChartSvgType = Selection<SVGGElement, {}, null, PreparedPeriodData>;
@@ -200,7 +200,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
 
     private getLegendTooltipData(data: PreparedPeriodData[], index: number): LegendTooltipData {
         const date = data[0].values[index].time.toString();
-        const values: LegendTooltipItem[] = [];
+        const values: LegendItem[] = [];
         if (data) {
             data.forEach((item, i) => {
                 values.push({

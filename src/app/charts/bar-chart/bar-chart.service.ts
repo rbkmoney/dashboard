@@ -8,7 +8,7 @@ import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { BarChartConfig, ChartService, LegendTooltipData, LegendTooltipItem, PeriodData, PeriodValue } from '../models/chart-data-models';
+import { BarChartConfig, ChartService, LegendTooltipData, LegendItem, PeriodData, PeriodValue } from '../models/chart-data-models';
 import { BarType } from './bar-chart.component';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
@@ -186,7 +186,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private getLegendTooltipData(data: PeriodData[], value: PeriodValue): LegendTooltipData {
         const dataIndex = data.findIndex((val) => val.values.includes(value));
         const date = data[dataIndex].time;
-        const values: LegendTooltipItem[] = [];
+        const values: LegendItem[] = [];
         if (data) {
             data[dataIndex].values.forEach((item, index) => {
                 values.push({

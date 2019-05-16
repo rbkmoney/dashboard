@@ -96,10 +96,10 @@ export class LinearChartConfig {
 
 export interface LegendTooltipData {
     date?: string;
-    values: LegendTooltipItem[];
+    values: LegendItem[];
 }
 
-export interface LegendTooltipItem {
+export interface LegendItem {
     name: string;
     color: string;
     value?: number;

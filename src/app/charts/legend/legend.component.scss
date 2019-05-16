@@ -1,0 +1,20 @@
+.legend-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    padding: 4px;
+    align-items: center;
+}
+
+.legend-item-svg, .legend-item-rect {
+    height: 12px;
+    width: 5px;
+}
+
+.legend-item-svg {
+    padding: 4px;
+}

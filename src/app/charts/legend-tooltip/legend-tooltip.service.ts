@@ -14,11 +14,11 @@ export class LegendTooltipService {
     private isInitialized = false;
 
     getLegendItem() {
-        const item = this.tooltip.append('div').attr('class', 'legend-item');
-        item.append('svg').attr('class', 'legend-color');
-        item.append('text').attr('class', 'legend-text');
-        item.append('text').attr('class', 'legend-value-before');
-        item.append('text').attr('class', 'legend-value');
+        const item = this.tooltip.append('div').attr('class', 'legend-tooltip-item');
+        item.append('svg').attr('class', 'legend-tooltip-item-color');
+        item.append('text').attr('class', 'legend-tooltip-item-text');
+        item.append('text').attr('class', 'legend-tooltip-item-value-before');
+        item.append('text').attr('class', 'legend-tooltip-item-value');
         return item;
     }
 
@@ -27,23 +27,23 @@ export class LegendTooltipService {
             this.tooltip.append('div').attr('class', 'legend-date').text(formatDate(data.date, 'dd.MM.yyyy, EEEEEE', locale()).toLocaleUpperCase());
         }
 
-        data.values.forEach((v, i) => {
+        data.values.forEach((v) => {
             const item = this.getLegendItem();
 
-            item.select('.legend-color')
+            item.select('.legend-tooltip-item-color')
                 .append('rect')
-                .attr('class', 'legend-rect')
+                .attr('class', 'legend-tooltip-item-rect')
                 .attr('rx', 3)
                 .attr('ry', 3)
                 .attr('fill', v.color);
 
-            item.select('.legend-text').text(v.name);
+            item.select('.legend-tooltip-item-text').text(v.name);
 
             if (v.value) {
-                item.select('.legend-value-before').text('–');
-                item.select('.legend-value').text(v.value);
+                item.select('.legend-tooltip-item-value-before').text('–');
+                item.select('.legend-tooltip-item-value').text(v.value);
             } else {
-                item.select('.legend-value-before').text('');
+                item.select('.legend-tooltip-item-value-before').text('');
             }
         });
     }
