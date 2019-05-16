@@ -31,8 +31,10 @@
         justify-content: center;
     }
 
-    .legend-text + .legend-value {
-        //padding-left: 4px;
+    .legend-value-before {
+        display: flex;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .legend-color, .legend-rect {
@@ -41,9 +43,8 @@
     }
 
     .legend-tooltip-line {
-        //stroke: black;
+        stroke: map-get($background, tooltip-line-color);
         width: 1px;
-        //display: block;
     }
 
 }

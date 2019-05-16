@@ -17,7 +17,8 @@ $background: (
         disabled-button-toggle: map_get($mat-grey, 200),
         unselected-chip: map_get($mat-grey, 300),
         disabled-list-option: map_get($mat-grey, 200),
-        tooltip-shadow: 0 0 8px rgba(black, 0.2)
+        tooltip-shadow: 0 0 8px rgba(black, 0.2),
+        tooltip-line-color: rgba(black, 0.1)
 );
 
 $foreground: (

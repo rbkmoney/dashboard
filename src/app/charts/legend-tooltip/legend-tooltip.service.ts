@@ -1,6 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { select } from 'd3-selection';
 import { LegendTooltipData } from '../models/chart-data-models';
+import { formatDate } from '@angular/common';
+import { locale } from 'moment';
+import { bisectLeft } from 'd3-array';
 
 
 @Injectable()
@@ -14,13 +17,14 @@ export class LegendTooltipService {
         const item = this.tooltip.append('div').attr('class', 'legend-item');
         item.append('svg').attr('class', 'legend-color');
         item.append('text').attr('class', 'legend-text');
+        item.append('text').attr('class', 'legend-value-before');
         item.append('text').attr('class', 'legend-value');
         return item;
     }
 
     getLegendTooltip(data: LegendTooltipData) {
         if (data.date) {
-            this.tooltip.append('div').attr('class', 'legend-date').text(data.date);
+            this.tooltip.append('div').attr('class', 'legend-date').text(formatDate(data.date, 'dd.MM.yyyy, EEEEEE', locale()).toLocaleUpperCase());
         }
 
         data.values.forEach((v, i) => {
@@ -36,7 +40,10 @@ export class LegendTooltipService {
             item.select('.legend-text').text(v.name);
 
             if (v.value) {
-                item.select('.legend-value').text(`–${v.value}`);
+                item.select('.legend-value-before').text('–');
+                item.select('.legend-value').text(v.value);
+            } else {
+                item.select('.legend-value-before').text('');
             }
         });
     }
@@ -49,12 +56,13 @@ export class LegendTooltipService {
             this.isInitialized = true;
         }
 
+        this.removeLegend(element);
         this.getLegendTooltip(data);
 
         select(element)
             .select('.legend-tooltip-container')
-            .style('top', `${(event as MouseEvent).clientY + 5}px`)
-            .style('left', `${(event as MouseEvent).clientX + 5}px`)
+            .style('top', `${(event as MouseEvent).pageY + 5}px`)
+            .style('left', `${(event as MouseEvent).pageX + 5}px`)
             .style('display', 'flex');
     }
 

@@ -161,7 +161,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .on('mouseover', (d, i, x) => {
+            .on('mousemove', (d) => {
 
                 const legendTooltipData = this.getLegendTooltipData(data, d);
                 this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);

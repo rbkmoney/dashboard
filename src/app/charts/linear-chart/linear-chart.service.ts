@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Selection } from 'd3-selection';
 import { line } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
-import { extent, max } from 'd3-array';
+import { bisectLeft, extent, max } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { formatDate } from '@angular/common';
@@ -20,12 +20,12 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private element: HTMLElement;
     private createLine;
     private zeroLine;
-    private tooltipLine;
     private xScale;
     private yScale;
     private xAxis;
     private yAxis;
     private config: LinearChartConfig;
+    private tooltipLine;
 
     private isInitialized = false;
 
@@ -65,15 +65,6 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.initAxis();
 
         this.initTooltipLine();
-
-        this.svg
-            .on('mousemove', () => {
-                console.log('kekes');
-                this.moveTooltipLine();
-            })
-            .on('mouseout', () => {
-                this.removeTooltipLine()
-            });
 
         this.isInitialized = true;
         this.updateChart(data);
@@ -133,6 +124,17 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .duration(this.config.transitionDuration)
             .attr('d', d => this.createLine(d.values));
 
+        this.svg
+            .on('mouseout', () => {
+                this.removeTooltip();
+            })
+            .on('mouseover', () => {
+                this.showTooltip();
+            })
+            .on('mousemove', () => {
+                this.mousemove(data);
+            });
+
         this.removeUnusedData(data);
         this.drawData(data);
     }
@@ -187,15 +189,6 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', this.config.height);
 
-        const tooltip = initCircles
-            .on('mouseover', (d, i, x) => {
-                const legendTooltipData = this.getLegendTooltipData(data, i);
-                this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
-            })
-            .on('mouseout', () => {
-                this.legendTooltipService.removeLegend(this.element);
-            });
-
         const drawCircles = initCircles
             .transition()
             .ease(easeExp)
@@ -236,19 +229,30 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private initTooltipLine() {
         this.tooltipLine = this.svg.append('line')
             .attr('class', 'legend-tooltip-line')
-            .attr('stroke', 'none')
+            .attr('display', 'none')
             .attr('y1', 0)
             .attr('y2', this.config.height);
     }
 
-    private moveTooltipLine() {
-        this.tooltipLine
-            .attr('stroke', 'black')
-            .attr('x1', (event as MouseEvent).layerX)
-            .attr('x2', (event as MouseEvent).layerX);
+    private showTooltip() {
+        this.tooltipLine.attr('display', 'block');
     }
 
-    private removeTooltipLine() {
-        this.tooltipLine.attr('stroke', 'none');
+    private removeTooltip() {
+        this.tooltipLine.attr('display', 'none');
+        this.legendTooltipService.removeLegend(this.element);
+    }
+
+    private mousemove(data: PreparedPeriodData[]) {
+        const dates = data[0].values.map((val) => val.time);
+        const x0 = this.xScale.invert((event as MouseEvent).layerX - (this.config.width / (2 * dates.length)));
+        const i = bisectLeft(dates, x0);
+        const d = dates[i];
+
+        this.getLegendTooltipData(data, i);
+        this.legendTooltipService.showLegendTooltip(this.getLegendTooltipData(data, i), this.element, );
+        this.tooltipLine
+            .attr('x1', this.xScale(d))
+            .attr('x2', this.xScale(d));
     }
 }

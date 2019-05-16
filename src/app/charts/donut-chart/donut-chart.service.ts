@@ -74,7 +74,7 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
                 .attr('fill', (d, i) => chartColors[i])
                 .attr('periodData-index', (d, i) => i)
                 .style('stroke-width', 1)
-                .on('mouseover', (d, i) => {
+                .on('mousemove', (d, i) => {
                     const legendData = { values: [{ name: d.data.name, color: chartColors[i] }] };
                     this.legendTooltipService.showLegendTooltip(legendData, this.element);
                 })
