@@ -9,28 +9,36 @@
                     formControlName="suggestions"
                     type="party"
                     (optionSelected)="updateSuggestion($event)"
+                    #daDadataAutocomplete
                 ></dsh-dadata-autocomplete>
             </mat-form-field>
-            <div *ngIf="info">
-                <table class="info">
-                    <tr>
-                        <td width="200">Наименование:</td>
-                        <td>{{ info.name.full_with_opf }}</td>
-                    </tr>
-                    <tr *ngIf="info?.address">
-                        <td>Адрес:</td>
-                        <td>{{ info.address.value }}</td>
-                    </tr>
-                    <tr *ngIf="ogrnInnKpp">
-                        <td>{{ ogrnInnKpp.label }}:</td>
-                        <td>{{ ogrnInnKpp.value }}</td>
-                    </tr>
-                </table>
-
-                <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
-                    <button mat-raised-button>Назад</button>
-                    <button mat-raised-button color="primary">Далее</button>
+            <div *ngIf="info && !isNothingFound" class="info">
+                <div>
+                    <div width="200">Наименование:</div>
+                    <div>{{ info.name.full_with_opf }}</div>
                 </div>
+                <div *ngIf="info?.address">
+                    <div>Адрес:</div>
+                    <div>{{ info.address.value }}</div>
+                </div>
+                <div *ngIf="ogrnInnKpp">
+                    <div>{{ ogrnInnKpp.label }}:</div>
+                    <div>{{ ogrnInnKpp.value }}</div>
+                </div>
+            </div>
+            <div *ngIf="!info && !!form.controls.suggestions.value">
+                <div class="nothing-found">
+                    {{ isNothingFound ? 'Ничего не найдено. ' : '' }}Можно указать сведения об организации вручную.
+                </div>
+                <mat-radio-group aria-label="Тип организации" formControlName="type">
+                    <mat-radio-button value="0">Юридическое лицо</mat-radio-button>
+                    <mat-radio-button value="1">Индивидуальный предприниматель</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
+                <!-- <button mat-raised-button>Назад</button> -->
+                <div></div>
+                <button mat-raised-button color="primary" [disabled]="!canContinue">Далее</button>
             </div>
         </form>
     </dsh-card-content>

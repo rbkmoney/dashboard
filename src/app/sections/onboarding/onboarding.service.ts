@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
@@ -11,7 +11,12 @@ export class OnboardingService {
 
     constructor(fb: FormBuilder) {
         this.form = fb.group({
-            suggestions: ['']
+            suggestions: [''],
+            type: ['', Validators.required]
+        });
+        this.form.controls.suggestions.valueChanges.subscribe(() => {
+            delete this.suggestion;
+            this.form.controls.type.setValue(undefined);
         });
     }
 }

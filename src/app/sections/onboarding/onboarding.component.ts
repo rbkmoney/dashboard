@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 import { OnboardingService } from './onboarding.service';
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
+import { DaDataAutocompleteComponent } from '../../dadata/dadata.component';
 
 @Component({
     templateUrl: 'onboarding.component.html',
@@ -9,6 +11,12 @@ import { SuggestionType } from '../../dadata/model/type';
     providers: []
 })
 export class OnboardingComponent {
+    @ViewChild(DaDataAutocompleteComponent)
+    daDadataAutocomplete: DaDataAutocompleteComponent;
+
+    get isNothingFound() {
+        return this.daDadataAutocomplete.isNothingFound;
+    }
     get form() {
         return this.onboardingService.form;
     }
@@ -21,6 +29,9 @@ export class OnboardingComponent {
             label: existing.map(([l]) => l).join(' / '),
             value: existing.map(([, v]) => v).join(' / ')
         };
+    }
+    get canContinue(): boolean {
+        return this.form.valid || !!this.info;
     }
 
     constructor(private onboardingService: OnboardingService) {}
