@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PeriodData } from './models/chart-data-models';
+import { PeriodData, SegmentData } from './models/chart-data-models';
 
 @Injectable()
 export class ChartsService {
-    getRandom = () => Math.ceil(Math.random() * 100000000);
+    private loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'.split(
+        ' '
+    );
+    getRandom = (n = 1000000) => Math.ceil(Math.random() * n);
 
     getPeriodData = (timesCount: number, valuesCount: number): PeriodData[] => {
         const periodData = [];
@@ -11,7 +14,7 @@ export class ChartsService {
             const values = [];
             for (let j = 0; j < valuesCount; j++) {
                 values.push({
-                    name: `kek ${j}`,
+                    name: this.loremIpsum[j],
                     value: this.getRandom()
                 });
             }
@@ -23,26 +26,14 @@ export class ChartsService {
         return periodData;
     };
 
-    getSegmentData = () => [
-        {
-            name: 'kek',
-            value: this.getRandom()
-        },
-        {
-            name: 'lol',
-            value: this.getRandom()
-        },
-        {
-            name: 'kappa',
-            value: this.getRandom()
-        },
-        {
-            name: '4head',
-            value: this.getRandom()
-        },
-        {
-            name: 'omegalul',
-            value: this.getRandom()
+    getSegmentData = (n): SegmentData[] => {
+        const data: SegmentData[] = [];
+        for (let i = 0; i < n; i++) {
+            data.push({
+                name: this.loremIpsum[this.getRandom(this.loremIpsum.length - 1)],
+                value: this.getRandom()
+            });
         }
-    ];
+        return data;
+    };
 }

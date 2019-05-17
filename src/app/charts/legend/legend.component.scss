@@ -1,13 +1,24 @@
 .legend-container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
 }
 
 .legend-item {
     display: flex;
-    padding: 4px;
+    padding-left: 8px;
+}
+
+.legend-item-name {
+    display: flex;
     align-items: center;
+    flex: 1;
+}
+
+.legend-item-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 2;
 }
 
 .legend-item-svg,
@@ -17,5 +28,5 @@
 }
 
 .legend-item-svg {
-    padding: 4px;
+    padding: 8px;
 }

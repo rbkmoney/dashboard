@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { LegendItem } from '../models/chart-data-models';
 
 @Component({
@@ -7,7 +6,15 @@ import { LegendItem } from '../models/chart-data-models';
     templateUrl: './legend.component.html',
     styleUrls: ['./legend.component.scss']
 })
-export class LegendComponent {
+export class LegendComponent implements OnInit {
     @Input()
     items: LegendItem[] = [];
+
+    private flexDirection: string;
+
+    ngOnInit() {
+        if (this.items.length > 0) {
+            this.flexDirection = this.items[0].value ? 'column' : 'row';
+        }
+    }
 }

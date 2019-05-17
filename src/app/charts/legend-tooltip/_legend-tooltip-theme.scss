@@ -13,6 +13,7 @@
         box-shadow: map-get($background, tooltip-shadow);
         background-color: map-get($background, card);
         font-size: 12px;
+        z-index: 1;
     }
 
     .legend-tooltip-date {
