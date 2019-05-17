@@ -13,9 +13,9 @@ export class AnalyticsComponent implements OnInit {
     preparedPeriodData: PreparedPeriodData[];
     segmentData: SegmentData[];
 
-    private periodLegendData: LegendItem[];
-    private linearLegendData: LegendItem[];
-    private segmentLegendData: LegendItem[];
+    periodLegendData: LegendItem[];
+    linearLegendData: LegendItem[];
+    segmentLegendData: LegendItem[];
 
     constructor(private chartsService: ChartsService) {}
 

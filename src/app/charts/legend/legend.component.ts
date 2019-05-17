@@ -10,7 +10,7 @@ export class LegendComponent implements OnInit {
     @Input()
     items: LegendItem[] = [];
 
-    private flexDirection: string;
+    flexDirection: string;
 
     ngOnInit() {
         if (this.items.length > 0) {
