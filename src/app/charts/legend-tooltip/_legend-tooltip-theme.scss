@@ -15,6 +15,10 @@
         font-size: 12px;
     }
 
+    .legend-tooltip-date {
+        color: map-get($foreground, legend-tooltip-date-color);
+    }
+
     .legend-tooltip-item {
         display: flex;
         padding: 8px;
@@ -37,7 +41,8 @@
         padding-right: 4px;
     }
 
-    .legend-tooltip-item-color, .legend-tooltip-item-rect {
+    .legend-tooltip-item-color,
+    .legend-tooltip-item-rect {
         height: 12px;
         width: 5px;
     }
@@ -46,5 +51,4 @@
         stroke: map-get($background, tooltip-line-color);
         width: 1px;
     }
-
 }

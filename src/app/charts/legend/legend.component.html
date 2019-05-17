@@ -1,8 +1,8 @@
 <div class="legend-container">
     <div *ngFor="let item of items" class="legend-item">
         <svg class="legend-item-svg">
-            <rect class="legend-item-rect" rx="3px" ry="3px" [attr.fill]=item.color></rect>
+            <rect class="legend-item-rect" rx="3px" ry="3px" [attr.fill]="item.color"></rect>
         </svg>
-        <div class="legend-item-text">{{item.name}}</div>
+        <div class="legend-item-text">{{ item.name }}</div>
     </div>
 </div>

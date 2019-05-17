@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { select } from 'd3-selection';
-import { LegendTooltipData } from '../models/chart-data-models';
 import { formatDate } from '@angular/common';
 import { locale } from 'moment';
-import { bisectLeft } from 'd3-array';
 
+import { LegendTooltipData } from '../models/chart-data-models';
 
 @Injectable()
 export class LegendTooltipService {
-
-    tooltip;
+    private tooltip;
+    private tooltipMouseMargin = 15;
 
     private isInitialized = false;
 
@@ -24,10 +23,13 @@ export class LegendTooltipService {
 
     getLegendTooltip(data: LegendTooltipData) {
         if (data.date) {
-            this.tooltip.append('div').attr('class', 'legend-date').text(formatDate(data.date, 'dd.MM.yyyy, EEEEEE', locale()).toLocaleUpperCase());
+            this.tooltip
+                .append('div')
+                .attr('class', 'legend-tooltip-date')
+                .text(formatDate(data.date, 'dd.MM.yyyy, EEEEEE', locale()).toLocaleUpperCase());
         }
 
-        data.values.forEach((v) => {
+        data.values.forEach(v => {
             const item = this.getLegendItem();
 
             item.select('.legend-tooltip-item-color')
@@ -61,8 +63,8 @@ export class LegendTooltipService {
 
         select(element)
             .select('.legend-tooltip-container')
-            .style('top', `${(event as MouseEvent).pageY + 5}px`)
-            .style('left', `${(event as MouseEvent).pageX + 5}px`)
+            .style('top', `${(event as MouseEvent).pageY + this.tooltipMouseMargin}px`)
+            .style('left', `${(event as MouseEvent).pageX + this.tooltipMouseMargin}px`)
             .style('display', 'flex');
     }
 

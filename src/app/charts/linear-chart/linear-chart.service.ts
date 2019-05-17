@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { select, Selection } from 'd3-selection';
 import { line } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { bisectLeft, extent, max } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { axisBottom, axisLeft } from 'd3-axis';
-import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { ChartService, LegendTooltipData, LegendItem, LinearChartConfig, PreparedPeriodData, PreparedPeriodValue } from '../models/chart-data-models';
+import {
+    ChartService,
+    LegendTooltipData,
+    LegendItem,
+    LinearChartConfig,
+    PreparedPeriodData,
+    PreparedPeriodValue
+} from '../models/chart-data-models';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 type LinearChartSvgType = Selection<SVGGElement, {}, null, PreparedPeriodData>;
@@ -227,7 +234,8 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     }
 
     private initTooltipLine() {
-        this.tooltipLine = this.svg.append('line')
+        this.tooltipLine = this.svg
+            .append('line')
             .attr('class', 'legend-tooltip-line')
             .attr('display', 'none')
             .attr('y1', 0)
@@ -244,15 +252,13 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     }
 
     private mousemove(data: PreparedPeriodData[]) {
-        const dates = data[0].values.map((val) => val.time);
-        const x0 = this.xScale.invert((event as MouseEvent).layerX - (this.config.width / (2 * dates.length)));
+        const dates = data[0].values.map(val => val.time);
+        const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
         const i = bisectLeft(dates, x0);
         const d = dates[i];
 
         this.getLegendTooltipData(data, i);
-        this.legendTooltipService.showLegendTooltip(this.getLegendTooltipData(data, i), this.element, );
-        this.tooltipLine
-            .attr('x1', this.xScale(d))
-            .attr('x2', this.xScale(d));
+        this.legendTooltipService.showLegendTooltip(this.getLegendTooltipData(data, i), this.element);
+        this.tooltipLine.attr('x1', this.xScale(d)).attr('x2', this.xScale(d));
     }
 }

@@ -1,22 +1,13 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { LegendItem } from '../models/chart-data-models';
+import { Component, Input } from '@angular/core';
 
+import { LegendItem } from '../models/chart-data-models';
 
 @Component({
     selector: 'dsh-legend',
     templateUrl: './legend.component.html',
-    styleUrls: ['./legend.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./legend.component.scss']
 })
-export class LegendComponent implements OnInit {
-
+export class LegendComponent {
     @Input()
-    items: LegendItem[];
-
-    ngOnInit() {
-        if (!this.items) {
-            this.items = [];
-        }
-    }
-
+    items: LegendItem[] = [];
 }

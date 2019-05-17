@@ -8,7 +8,14 @@ import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
 
 import { chartColors } from '../color-constants';
-import { BarChartConfig, ChartService, LegendTooltipData, LegendItem, PeriodData, PeriodValue } from '../models/chart-data-models';
+import {
+    BarChartConfig,
+    ChartService,
+    LegendTooltipData,
+    LegendItem,
+    PeriodData,
+    PeriodValue
+} from '../models/chart-data-models';
 import { BarType } from './bar-chart.component';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
@@ -161,8 +168,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .append('path')
             .attr('class', `bar`)
             .style('fill', (d, i) => chartColors[i])
-            .on('mousemove', (d) => {
-
+            .on('mousemove', d => {
                 const legendTooltipData = this.getLegendTooltipData(data, d);
                 this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
             })
@@ -184,7 +190,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     }
 
     private getLegendTooltipData(data: PeriodData[], value: PeriodValue): LegendTooltipData {
-        const dataIndex = data.findIndex((val) => val.values.includes(value));
+        const dataIndex = data.findIndex(val => val.values.includes(value));
         const date = data[dataIndex].time;
         const values: LegendItem[] = [];
         if (data) {
@@ -230,7 +236,4 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private getDomainRangeX(length: number): number {
         return length * this.config.barWidth + (length - 1) * this.config.barPadding;
     }
-
-
-
 }
