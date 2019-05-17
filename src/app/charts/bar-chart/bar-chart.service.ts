@@ -122,7 +122,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .selectAll('.bar')
             .data(d => d.values)
             .style('fill', (d, i) => chartColors[i])
-            .on('mouseover', (d, i, x) => {
+            .on('mousemove', (d, i, x) => {
                 const legendTooltipData = this.getLegendTooltipData(data, d);
                 this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
             })

@@ -10,11 +10,12 @@ export class ChartsService {
 
     getPeriodData = (timesCount: number, valuesCount: number): PeriodData[] => {
         const periodData = [];
+        const additionalIndex = this.getRandom(20);
         for (let i = 1; i <= timesCount; i++) {
             const values = [];
             for (let j = 0; j < valuesCount; j++) {
                 values.push({
-                    name: this.loremIpsum[j],
+                    name: this.loremIpsum[j + additionalIndex],
                     value: this.getRandom()
                 });
             }
