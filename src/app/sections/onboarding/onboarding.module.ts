@@ -17,7 +17,7 @@ import { OnboardingComponent } from './onboarding.component';
 import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
-import { AboutLegalEntityComponent } from './about-legal-entity/about-legal-entity.component';
+import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
         MatFormFieldRequiredModule,
         MatDatepickerModule
     ],
-    declarations: [OnboardingComponent, AboutLegalEntityComponent],
+    declarations: [OnboardingComponent, LegalEntityComponent],
     entryComponents: [],
     providers: [OnboardingService]
 })

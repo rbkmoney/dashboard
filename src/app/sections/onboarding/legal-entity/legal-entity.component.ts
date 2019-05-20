@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { OnboardingService } from '../onboarding.service';
 
 @Component({
-    templateUrl: 'about-legal-entity.component.html',
+    templateUrl: 'legal-entity.component.html',
     styleUrls: ['../onboarding.component.scss'],
     providers: []
 })
-export class AboutLegalEntityComponent {
+export class LegalEntityComponent {
     get form() {
         return this.onboardingService.form.get('legalEntity');
     }
