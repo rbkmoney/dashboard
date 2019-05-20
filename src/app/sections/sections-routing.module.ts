@@ -7,6 +7,7 @@ import { PartyMngComponent } from './party-mgt';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
 import { OnboardingComponent } from './onboarding';
+import { AboutLegalEntityComponent } from './onboarding/about-legal-entity/about-legal-entity.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'onboarding',
         component: OnboardingComponent
+    },
+    {
+        path: 'onboarding/about-legal-entity',
+        component: AboutLegalEntityComponent
     },
     {
         path: 'organization/create',

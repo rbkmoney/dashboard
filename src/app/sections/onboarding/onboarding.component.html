@@ -38,7 +38,14 @@
             <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
                 <!-- <button mat-raised-button>Назад</button> -->
                 <div></div>
-                <button mat-raised-button color="primary" [disabled]="!canContinue">Далее</button>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!canContinue"
+                    routerLink="/onboarding/about-legal-entity"
+                >
+                    Далее
+                </button>
             </div>
         </form>
     </dsh-card-content>
