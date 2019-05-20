@@ -35,7 +35,8 @@ import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
         MatInputModule,
         MatSelectModule,
         MatFormFieldRequiredModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        RouterModule
     ],
     declarations: [OnboardingComponent, LegalEntityComponent],
     entryComponents: [],

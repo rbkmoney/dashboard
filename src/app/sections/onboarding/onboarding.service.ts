@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
@@ -7,6 +8,14 @@ import { SuggestionType } from '../../dadata/model/type';
 @Injectable()
 export class OnboardingService {
     form: FormGroup;
+    legalEntitySteps = [
+        '/onboarding',
+        '/onboarding/legal-entity',
+        '/onboarding/business-info',
+        '/onboarding/founders',
+        '/onboarding/representative',
+        '/onboarding/beneficial-owner'
+    ];
 
     private _suggestion: SuggestionData<SuggestionType.party>;
     get suggestion() {
@@ -25,7 +34,7 @@ export class OnboardingService {
         this._suggestion = suggestion;
     }
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private router: Router) {
         this.form = fb.group({
             suggestions: [''],
             type: ['', Validators.required],
@@ -54,4 +63,23 @@ export class OnboardingService {
             propertyInfo: ['', Validators.required]
         });
     }
+
+    getStepUrl(steps: string[], change: number) {
+        const idx = steps.findIndex(step => step === this.router.url) + change;
+        if (idx >= steps.length) {
+            return steps[steps.length - 1];
+        }
+        if (idx < 0) {
+            return steps[0];
+        }
+        return steps[idx];
+    }
+
+    nextStep = () => {
+        this.router.navigate([this.getStepUrl(this.legalEntitySteps, 1)]);
+    };
+
+    prevStep = () => {
+        this.router.navigate([this.getStepUrl(this.legalEntitySteps, -1)]);
+    };
 }

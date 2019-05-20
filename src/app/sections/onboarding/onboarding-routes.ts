@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: OnboardingComponent
     },
     {
-        path: 'onboarding/about-legal-entity',
+        path: 'onboarding/legal-entity',
         component: LegalEntityComponent
     }
 ];

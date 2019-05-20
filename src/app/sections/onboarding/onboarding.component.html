@@ -36,14 +36,9 @@
                 </mat-radio-group>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
-                <!-- <button mat-raised-button>Назад</button> -->
+                <button mat-raised-button (click)="prevStep()">Назад</button>
                 <div></div>
-                <button
-                    mat-raised-button
-                    color="primary"
-                    [disabled]="!canContinue"
-                    routerLink="/onboarding/about-legal-entity"
-                >
+                <button mat-raised-button color="primary" [disabled]="!canContinue" (click)="nextStep()">
                     Далее
                 </button>
             </div>

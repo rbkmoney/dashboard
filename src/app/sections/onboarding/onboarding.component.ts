@@ -33,6 +33,12 @@ export class OnboardingComponent {
     get canContinue(): boolean {
         return this.form.controls.type.valid || !!this.info;
     }
+    get nextStep() {
+        return this.onboardingService.nextStep;
+    }
+    get prevStep() {
+        return this.onboardingService.prevStep;
+    }
 
     constructor(private onboardingService: OnboardingService) {}
 
