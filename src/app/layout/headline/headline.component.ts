@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'dsh-headline',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
     providers: []
 })
 export class HeadlineComponent {
-    constructor() {}
+    @Input()
+    backward: string;
+
+    constructor(private router: Router) {}
+
+    back() {
+        this.router.navigate([this.backward || '/']);
+    }
 }

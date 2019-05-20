@@ -6,3 +6,13 @@
     margin: 20px 0;
     color: #475166;
 }
+
+.backwards {
+    font-weight: 200;
+    font-size: 14px;
+    cursor: pointer;
+
+    .backwards__text {
+        text-decoration: underline;
+    }
+}
