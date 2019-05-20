@@ -1,67 +1,83 @@
 <dsh-headline>Заявка на подключение</dsh-headline>
-<dsh-card>
-    <dsh-card-header><dsh-card-title>Сведения о юридическом лице</dsh-card-title></dsh-card-header>
-    <dsh-card-content>
-        <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
-            <mat-form-field>
-                <mat-label>Наименование на русском языке</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Наименование на иностранном языке (при наличии)</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="5px">
-                <mat-form-field fxFlex>
-                    <mat-label>ИНН</mat-label>
+<div fxLayout fxLayoutGap="20px">
+    <dsh-card fxFlex>
+        <dsh-card-header><dsh-card-title>Сведения о юридическом лице</dsh-card-title></dsh-card-header>
+        <dsh-card-content>
+            <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
+                <mat-form-field>
+                    <mat-label>Наименование на русском языке</mat-label>
                     <input matInput />
                 </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>ОГРН</mat-label>
+                <mat-form-field>
+                    <mat-label>Наименование на иностранном языке (при наличии)</mat-label>
                     <input matInput />
                 </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="5px">
-                <mat-form-field fxFlex>
-                    <mat-label>Дата государственной регистрации</mat-label>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
+                    <mat-form-field fxFlex>
+                        <mat-label>ИНН</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>ОГРН</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
+                    <mat-form-field fxFlex>
+                        <mat-label>Дата государственной регистрации</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>Оргинизационно-правовая форма</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>Адрес регистрации юридического лица</mat-label>
                     <input matInput />
                 </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>Оргинизационно-правовая форма</mat-label>
+                <mat-form-field>
+                    <mat-label>Фактический адрес</mat-label>
                     <input matInput />
                 </mat-form-field>
-            </div>
-            <mat-form-field>
-                <mat-label>Адрес регистрации юридического лица</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Фактический адрес</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Наличие дополнительных площадей</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="5px">
-                <mat-form-field fxFlex>
-                    <mat-label>Код в соответствии с ОКАТО (при наличии)</mat-label>
+                <mat-form-field>
+                    <mat-label>Наличие дополнительных площадей</mat-label>
                     <input matInput />
                 </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>Код в соответствии с ОКПО (при наличии)</mat-label>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
+                    <mat-form-field fxFlex>
+                        <mat-label>Код в соответствии с ОКАТО (при наличии)</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>Код в соответствии с ОКПО (при наличии)</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>Сведения о договоре аренды помещения</mat-label>
                     <input matInput />
                 </mat-form-field>
-            </div>
-            <mat-form-field>
-                <mat-label>Сведения о договоре аренды помещения</mat-label>
-                <input matInput />
-            </mat-form-field>
-            <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
-                <button mat-raised-button>Назад</button>
-                <div></div>
-                <button mat-raised-button color="primary">Далее</button>
-            </div>
-        </form>
-    </dsh-card-content>
-</dsh-card>
+                <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
+                    <button mat-raised-button>Назад</button>
+                    <div></div>
+                    <button mat-raised-button color="primary">Далее</button>
+                </div>
+            </form>
+        </dsh-card-content>
+    </dsh-card>
+    <div fxLayout="column" fxFlex="320px" fxFlex.lt-md="260px" fxLayoutGap="20px" fxHide.lt-sm="true">
+        <dsh-card>
+            <dsh-card-content>
+                Сведения о юридическом лице
+                <button mat-raised-button color="primary" style="width:100%" disabled>Отправить на рассмотрение</button>
+            </dsh-card-content>
+        </dsh-card>
+        <dsh-card>
+            <dsh-card-header><dsh-card-title>Возникли вопросы?</dsh-card-title></dsh-card-header>
+            <dsh-card-content>
+                Напишите нам на почту help@rbk.money и оставьте свой телефон для связи.
+            </dsh-card-content>
+        </dsh-card>
+    </div>
+</div>
