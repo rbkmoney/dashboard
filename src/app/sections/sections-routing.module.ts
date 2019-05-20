@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
-import { PartyMngComponent } from './party-mgt';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
 import { OnboardingComponent } from './onboarding';
@@ -21,10 +20,6 @@ const routes: Routes = [
     {
         path: 'onboarding/about-legal-entity',
         component: AboutLegalEntityComponent
-    },
-    {
-        path: 'organization/create',
-        component: PartyMngComponent
     },
     {
         path: 'analytics',

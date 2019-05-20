@@ -1,5 +1,12 @@
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatListModule, MatButtonModule, MatRadioModule, MatInputModule } from '@angular/material';
+import {
+    MatFormFieldModule,
+    MatListModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatInputModule,
+    MatSelectModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
@@ -10,6 +17,7 @@ import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
 import { AboutLegalEntityComponent } from './about-legal-entity/about-legal-entity.component';
+import { MatFormFieldRequiredModule } from 'src/app/mat-form-field-required';
 
 @NgModule({
     imports: [
@@ -23,7 +31,9 @@ import { AboutLegalEntityComponent } from './about-legal-entity/about-legal-enti
         MatButtonModule,
         MatRadioModule,
         RouterModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule,
+        MatFormFieldRequiredModule
     ],
     declarations: [OnboardingComponent, AboutLegalEntityComponent],
     entryComponents: [],

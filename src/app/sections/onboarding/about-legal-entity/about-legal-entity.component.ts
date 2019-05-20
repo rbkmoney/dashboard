@@ -8,7 +8,7 @@ import { OnboardingService } from '../onboarding.service';
 })
 export class AboutLegalEntityComponent {
     get form() {
-        return this.onboardingService.form;
+        return this.onboardingService.form.get('legalEntity');
     }
 
     constructor(private onboardingService: OnboardingService) {}

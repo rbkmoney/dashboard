@@ -12,7 +12,21 @@ export class OnboardingService {
     constructor(fb: FormBuilder) {
         this.form = fb.group({
             suggestions: [''],
-            type: ['', Validators.required]
+            type: ['', Validators.required],
+            legalEntity: fb.group({
+                russianName: ['', Validators.required],
+                internationalName: [''],
+                inn: ['', Validators.required],
+                ogrn: ['', Validators.required],
+                registrationDate: ['', Validators.required],
+                legalForm: ['', Validators.required],
+                registrationAddress: ['', Validators.required],
+                actualAddress: ['', Validators.required],
+                additionalSpace: ['', Validators.required],
+                okatoCode: [''],
+                okpoCode: [''],
+                propertyInfo: ['', Validators.required]
+            })
         });
         this.form.controls.suggestions.valueChanges.subscribe(() => {
             delete this.suggestion;

@@ -6,57 +6,57 @@
             <form fxLayout="column" fxLayoutGap="5px" [formGroup]="form">
                 <mat-form-field>
                     <mat-label>Наименование на русском языке</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="russianName" />
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Наименование на иностранном языке (при наличии)</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="internationalName" />
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
                     <mat-form-field fxFlex>
                         <mat-label>ИНН</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="inn" />
                     </mat-form-field>
                     <mat-form-field fxFlex>
                         <mat-label>ОГРН</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="ogrn" />
                     </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
                     <mat-form-field fxFlex>
                         <mat-label>Дата государственной регистрации</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="registrationDate" />
                     </mat-form-field>
                     <mat-form-field fxFlex>
                         <mat-label>Оргинизационно-правовая форма</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="legalForm" />
                     </mat-form-field>
                 </div>
                 <mat-form-field>
                     <mat-label>Адрес регистрации юридического лица</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="registrationAddress" />
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Фактический адрес</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="actualAddress" />
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Наличие дополнительных площадей</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="additionalSpace" />
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
                     <mat-form-field fxFlex>
                         <mat-label>Код в соответствии с ОКАТО (при наличии)</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="okatoCode" />
                     </mat-form-field>
                     <mat-form-field fxFlex>
                         <mat-label>Код в соответствии с ОКПО (при наличии)</mat-label>
-                        <input matInput />
+                        <input matInput formControlName="okpoCode" />
                     </mat-form-field>
                 </div>
                 <mat-form-field>
                     <mat-label>Сведения о договоре аренды помещения</mat-label>
-                    <input matInput />
+                    <input matInput formControlName="propertyInfo" />
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
                     <button mat-raised-button>Назад</button>
