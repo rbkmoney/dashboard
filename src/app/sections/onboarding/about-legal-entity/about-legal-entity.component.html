@@ -25,7 +25,9 @@
                 <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
                     <mat-form-field fxFlex>
                         <mat-label>Дата государственной регистрации</mat-label>
-                        <input matInput formControlName="registrationDate" />
+                        <input matInput [matDatepicker]="picker" formControlName="registrationDate" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex>
                         <mat-label>Оргинизационно-правовая форма</mat-label>

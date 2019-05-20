@@ -5,7 +5,8 @@ import {
     MatButtonModule,
     MatRadioModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,7 +18,7 @@ import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
 import { AboutLegalEntityComponent } from './about-legal-entity/about-legal-entity.component';
-import { MatFormFieldRequiredModule } from 'src/app/mat-form-field-required';
+import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { MatFormFieldRequiredModule } from 'src/app/mat-form-field-required';
         RouterModule,
         MatInputModule,
         MatSelectModule,
-        MatFormFieldRequiredModule
+        MatFormFieldRequiredModule,
+        MatDatepickerModule
     ],
     declarations: [OnboardingComponent, AboutLegalEntityComponent],
     entryComponents: [],
