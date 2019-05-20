@@ -45,6 +45,7 @@
                 <mat-form-field>
                     <mat-label>Наличие дополнительных площадей</mat-label>
                     <input matInput formControlName="additionalSpace" />
+                    <mat-hint>Cклады для хранения товаров и т. п.</mat-hint>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutGap.lt-md="5px">
                     <mat-form-field fxFlex>
@@ -59,6 +60,9 @@
                 <mat-form-field>
                     <mat-label>Сведения о договоре аренды помещения</mat-label>
                     <input matInput formControlName="propertyInfo" />
+                    <mat-hint>
+                        Номер, дата, наименование арендодателя или свидетельство о регистрации права на недвижемость
+                    </mat-hint>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="space-between" class="actions">
                     <button mat-raised-button routerLink="/onboarding">Назад</button>

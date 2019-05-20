@@ -48,7 +48,7 @@ export class OnboardingService {
             legalForm: ['', Validators.required],
             registrationAddress: ['', Validators.required],
             actualAddress: ['', Validators.required],
-            additionalSpace: ['', Validators.required],
+            additionalSpace: ['Не имеется', Validators.required],
             okatoCode: [''],
             okpoCode: [''],
             propertyInfo: ['', Validators.required]
