@@ -25,28 +25,33 @@ export class OnboardingService {
         this._suggestion = suggestion;
     }
 
-    constructor(fb: FormBuilder) {
+    constructor(private fb: FormBuilder) {
         this.form = fb.group({
             suggestions: [''],
             type: ['', Validators.required],
-            legalEntity: fb.group({
-                russianName: ['', Validators.required],
-                internationalName: [''],
-                inn: ['', Validators.required],
-                ogrn: ['', Validators.required],
-                registrationDate: ['', Validators.required],
-                legalForm: ['', Validators.required],
-                registrationAddress: ['', Validators.required],
-                actualAddress: ['', Validators.required],
-                additionalSpace: ['', Validators.required],
-                okatoCode: [''],
-                okpoCode: [''],
-                propertyInfo: ['', Validators.required]
-            })
+            legalEntity: this.createLegalEntityGroup()
         });
         this.form.controls.suggestions.valueChanges.subscribe(() => {
-            delete this.suggestion;
+            this.suggestion = undefined;
             this.form.controls.type.setValue(undefined);
+            this.form.controls.legalEntity = this.createLegalEntityGroup();
+        });
+    }
+
+    createLegalEntityGroup() {
+        return this.fb.group({
+            russianName: ['', Validators.required],
+            internationalName: [''],
+            inn: ['', Validators.required],
+            ogrn: ['', Validators.required],
+            registrationDate: ['', Validators.required],
+            legalForm: ['', Validators.required],
+            registrationAddress: ['', Validators.required],
+            actualAddress: ['', Validators.required],
+            additionalSpace: ['', Validators.required],
+            okatoCode: [''],
+            okpoCode: [''],
+            propertyInfo: ['', Validators.required]
         });
     }
 }

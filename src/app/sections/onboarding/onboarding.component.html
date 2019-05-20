@@ -26,7 +26,7 @@
                     <div>{{ ogrnInnKpp.value }}</div>
                 </div>
             </div>
-            <div *ngIf="!info && !!form.controls.suggestions.value">
+            <div *ngIf="!info && form.controls.suggestions.dirty">
                 <div class="nothing-found">
                     {{ isNothingFound ? 'Ничего не найдено. ' : '' }}Можно указать сведения об организации вручную.
                 </div>

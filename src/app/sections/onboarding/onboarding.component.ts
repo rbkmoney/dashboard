@@ -31,7 +31,7 @@ export class OnboardingComponent {
         };
     }
     get canContinue(): boolean {
-        return this.form.valid || !!this.info;
+        return this.form.controls.type.valid || !!this.info;
     }
 
     constructor(private onboardingService: OnboardingService) {}
