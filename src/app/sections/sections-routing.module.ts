@@ -5,22 +5,14 @@ import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
-import { OnboardingComponent } from './onboarding';
-import { LegalEntityComponent } from './onboarding/legal-entity/legal-entity.component';
+import { routes as onboargindRoutes } from './onboarding';
 
 const routes: Routes = [
     {
         path: '',
         component: MainComponent
     },
-    {
-        path: 'onboarding',
-        component: OnboardingComponent
-    },
-    {
-        path: 'onboarding/about-legal-entity',
-        component: LegalEntityComponent
-    },
+    ...onboargindRoutes,
     {
         path: 'analytics',
         component: AnalyticsComponent
