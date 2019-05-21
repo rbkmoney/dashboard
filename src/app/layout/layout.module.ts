@@ -9,7 +9,6 @@ import { LayoutComponent } from './layout.component';
 import { ToolbarModule } from '../toolbar';
 import { BrandModule } from '../brand';
 import { ActionbarModule } from '../actionbar';
-import { DocumentModule } from '../document/document.module';
 import { LayoutService } from './layout.service';
 import { HeadlineModule } from './headline/headline.module';
 
@@ -19,7 +18,6 @@ import { HeadlineModule } from './headline/headline.module';
         ToolbarModule,
         BrandModule,
         ActionbarModule,
-        DocumentModule,
         RouterModule,
         FlexModule,
         MatSidenavModule,
