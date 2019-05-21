@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { select } from 'd3-selection';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
-import { max } from 'd3-array';
+import { extent, max } from 'd3-array';
 import { easeExp } from 'd3-ease';
-import { Axis, axisBottom, AxisDomain, axisLeft } from 'd3-axis';
-import { locale } from 'moment';
+import { Axis, AxisDomain } from 'd3-axis';
 
 import { chartColors } from '../color-constants';
-import {
-    BarChartConfig,
-    ChartService,
-    LegendTooltipData,
-    LegendItem,
-    PeriodData,
-    PeriodValue
-} from '../models/chart-data-models';
+import { BarChartConfig, ChartService, PeriodData, SVGInitConfig } from '../models/chart-data-models';
 import { BarType } from './bar-chart.component';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
+import { ChartsService } from '../charts.service';
+import { getPeriodLegendTooltipData } from '../chart-utils';
 
 @Injectable()
 export class BarChartService implements ChartService<PeriodData, BarChartConfig> {
@@ -26,23 +18,21 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
     private xScale0: ScaleBand<string>;
     private xScale1: ScaleBand<string>;
     private yScale: ScaleLinear<number, number>;
-    private xAxis: Axis<string>;
+    private xAxis: Axis<AxisDomain>;
     private yAxis: Axis<AxisDomain>;
     private config: BarChartConfig;
 
     private isInitialized = false;
 
-    constructor(private legendTooltipService: LegendTooltipService) {}
+    constructor(private chartsService: ChartsService, private legendTooltipService: LegendTooltipService) {}
 
     initChart(data: PeriodData[], element: HTMLElement, config?: BarChartConfig) {
         this.config = config ? config : new BarChartConfig(element.offsetWidth, element.offsetHeight);
         this.element = element;
 
-        this.svg = select(element)
-            .select('svg')
-            .attr('width', this.config.width)
-            .attr('height', this.config.height + this.config.commonMargin)
-            .attr('transform', `translate(0, 0)`) as BarType;
+        const svgConfig = new SVGInitConfig(element, this.config.width, this.config.height + this.config.commonMargin);
+
+        this.svg = this.chartsService.getSVG(svgConfig) as BarType;
 
         this.xScale0 = scaleBand().range([
             this.config.margin.firstBarMarginLeft,
@@ -58,10 +48,10 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
         ]);
 
-        this.xAxis = this.getCustomAxisX();
-        this.yAxis = this.getCustomAxisY();
+        this.xAxis = this.chartsService.getCustomAxisX(this.xScale0);
+        this.yAxis = this.chartsService.getCustomAxisY(this.yScale, this.config);
 
-        this.initAxis();
+        this.chartsService.initAxis(this.svg, this.config);
 
         this.isInitialized = true;
         this.updateChart(data);
@@ -79,56 +69,39 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
             ]);
 
-            this.updateAxis(data);
+            this.chartsService.updateAxis(
+                this.element,
+                this.config.transitionDuration,
+                extent(data, d => d.time),
+                this.xAxis,
+                this.yAxis
+            );
+
             this.updateData(data);
         }
     }
 
-    private initAxis() {
-        this.svg
-            .append('g')
-            .attr('class', 'x axis')
-            .attr(
-                'transform',
-                `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`
-            );
-
-        this.svg
-            .append('g')
-            .attr('class', 'y axis')
-            .attr('transform', `translate(${this.config.margin.yAxisHorizontalMargin}, 0)`);
-    }
-
-    private updateAxis(data: PeriodData[]) {
-        select(this.element)
-            .select('.x.axis')
-            .transition()
-            .ease(easeExp)
-            .duration(this.config.transitionDuration)
-            .call(this.xAxis.tickValues([data[0].time, data[data.length - 1].time]) as any);
-        select(this.element)
-            .select('.y.axis')
-            .transition()
-            .ease(easeExp)
-            .duration(this.config.transitionDuration)
-            .call(this.yAxis as any);
-    }
-
     private updateData(data: PeriodData[]) {
-        this.svg
+        const timeScale = this.svg
             .selectAll('.time')
             .data<PeriodData>(data)
-            .attr('x', d => this.xScale0(d.time))
+            .attr('x', d => this.xScale0(d.time));
+
+        const describeBars = timeScale
             .selectAll('.bar')
             .data(d => d.values)
-            .style('fill', (d, i) => chartColors[i])
-            .on('mousemove', (d, i, x) => {
-                const legendTooltipData = this.getLegendTooltipData(data, d);
+            .style('fill', (d, i) => chartColors[i]);
+
+        const describeTooltip = describeBars
+            .on('mousemove', d => {
+                const legendTooltipData = getPeriodLegendTooltipData(data, d);
                 this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
             })
             .on('mouseout', () => {
                 this.legendTooltipService.removeLegend(this.element);
-            })
+            });
+
+        const drawBars = describeTooltip
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
@@ -142,7 +115,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             );
 
         this.removeUnusedData(data);
-        this.drawNewData(data);
+        this.drawData(data);
     }
 
     private removeUnusedData(data: PeriodData[]) {
@@ -154,27 +127,35 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .remove();
     }
 
-    private drawNewData(data: PeriodData[]) {
-        this.svg
+    private drawData(data: PeriodData[]) {
+        const timesGroup = this.svg
             .selectAll(`.time`)
             .data<PeriodData>(data)
-            .enter()
+            .enter();
+
+        const drawTimes = timesGroup
             .append('g')
             .attr('class', `time`)
-            .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`)
+            .attr('transform', d => `translate(${this.xScale0(d.time)}, 0)`);
+
+        const describeBars = drawTimes
             .selectAll(`path`)
             .data(d => d.values)
             .enter()
             .append('path')
             .attr('class', `bar`)
-            .style('fill', (d, i) => chartColors[i])
+            .style('fill', (d, i) => chartColors[i]);
+
+        const desctibeTooltip = describeBars
             .on('mousemove', d => {
-                const legendTooltipData = this.getLegendTooltipData(data, d);
+                const legendTooltipData = getPeriodLegendTooltipData(data, d);
                 this.legendTooltipService.showLegendTooltip(legendTooltipData, this.element);
             })
             .on('mouseout', () => {
                 this.legendTooltipService.removeLegend(this.element);
-            })
+            });
+
+        const drawBars = desctibeTooltip
             .attr('d', d => this.getRoundedBar(d, 0, this.config.height, this.config.barWidth))
             .transition()
             .ease(easeExp)
@@ -187,22 +168,6 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                     this.config.barWidth
                 )
             );
-    }
-
-    private getLegendTooltipData(data: PeriodData[], value: PeriodValue): LegendTooltipData {
-        const dataIndex = data.findIndex(val => val.values.includes(value));
-        const date = data[dataIndex].time;
-        const values: LegendItem[] = [];
-        if (data) {
-            data[dataIndex].values.forEach((item, index) => {
-                values.push({
-                    name: item.name,
-                    value: item.value,
-                    color: chartColors[index]
-                });
-            });
-        }
-        return { date, values };
     }
 
     private getX1Fields(data): Array<string> {
@@ -218,19 +183,6 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 v${height}
                 h${-barWidth}Z
               `;
-    }
-
-    private getCustomAxisX() {
-        return axisBottom(this.xScale0)
-            .tickSize(0)
-            .tickFormat(d => formatDate(d as string, 'dd.MM.yyyy', locale()));
-    }
-
-    private getCustomAxisY() {
-        return axisLeft(this.yScale)
-            .ticks(this.config.tickCount)
-            .tickSize(-this.config.width)
-            .tickFormat(d => `${d}`);
     }
 
     private getDomainRangeX(length: number): number {

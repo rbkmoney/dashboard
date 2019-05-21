@@ -10,9 +10,6 @@
             <div fxLayoutGap="1">
                 <button (click)="refreshValue()">Refresh data</button>
             </div>
-            <!--<div fxLayoutGap="1"><button (click)="addSegmentData()">Add segment data</button></div>-->
-            <!--<div fxLayoutGap="1"><button (click)="addPeriodData()">Add period data</button></div>-->
-            <!--<div fxLayoutGap="1"><button (click)="removePeriodData()">Remove period data</button></div>-->
             <dsh-card>
                 <dsh-bar-chart [data]="periodData"></dsh-bar-chart>
                 <dsh-legend [items]="periodLegendData"></dsh-legend>

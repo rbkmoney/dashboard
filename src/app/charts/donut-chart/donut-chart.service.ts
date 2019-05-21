@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { select, Selection } from 'd3-selection';
+import { Selection } from 'd3-selection';
 import { arc, Arc, DefaultArcObject, pie, Pie, PieArcDatum } from 'd3-shape';
 import { easeExp } from 'd3-ease';
 import { interpolate } from 'd3-interpolate';
 
-import { ChartService, DonutChartConfig, SegmentData } from '../models/chart-data-models';
+import { ChartService, DonutChartConfig, SegmentData, SVGInitConfig } from '../models/chart-data-models';
 import { chartColors } from '../color-constants';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
+import { ChartsService } from '../charts.service';
 
-type DonutSvgType = Selection<SVGGElement, {}, null, undefined>;
+export type DonutSvgType = Selection<SVGGElement, {}, null, undefined>;
 type GeneratedPie = Pie<void, SegmentData>;
 type GeneratedArc = Arc<void, PieArcDatum<SegmentData> | DefaultArcObject>;
 type DonutType = Selection<any, PieArcDatum<SegmentData>, SVGGElement, {}>;
@@ -24,26 +25,22 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
 
     private isInitialized = false;
 
-    constructor(private legendTooltipService: LegendTooltipService) {}
+    constructor(private chartsService: ChartsService, private legendTooltipService: LegendTooltipService) {}
 
     initChart(data: SegmentData[], element: HTMLElement, config?: DonutChartConfig) {
         this.element = element;
-        this.config = config;
-        const size = config.radius * 2;
-
-        select(element)
-            .select('svg')
-            .selectAll('*')
-            .remove();
+        this.config = config ? config : new DonutChartConfig(element.offsetWidth / 2);
+        const size = this.config.radius * 2;
 
         this.generatePieData = pie<void, SegmentData>()
             .sort(null)
             .value(d => d.value);
 
-        this.svg = select(element)
-            .select('svg')
-            .attr('height', size)
-            .attr('width', size)
+        const svgConfig = new SVGInitConfig(element, size, size);
+
+        const svg = this.chartsService.getSVG(svgConfig) as DonutSvgType;
+
+        this.svg = svg
             .append('g')
             .attr('transform', `translate(${this.config.radius}, ${this.config.radius})`)
             .attr('class', 'donutChart');
@@ -81,11 +78,11 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
                 .on('mouseout', () => {
                     this.legendTooltipService.removeLegend(this.element);
                 });
-            this.createChartTransition();
+            this.showChartTransition();
         }
     }
 
-    private createChartTransition() {
+    private showChartTransition() {
         const generateArc = this.generateArc;
         return this.donut
             .transition()

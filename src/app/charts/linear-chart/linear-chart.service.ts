@@ -1,52 +1,49 @@
 import { Injectable } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { select, Selection } from 'd3-selection';
-import { line } from 'd3-shape';
-import { scaleLinear, scaleTime } from 'd3-scale';
+import { Selection } from 'd3-selection';
+import { Line, line } from 'd3-shape';
+import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { bisectLeft, extent, max } from 'd3-array';
 import { easeExp } from 'd3-ease';
-import { axisBottom, axisLeft } from 'd3-axis';
-import { locale } from 'moment';
+import { Axis, AxisDomain } from 'd3-axis';
 
 import { chartColors } from '../color-constants';
 import {
     ChartService,
-    LegendTooltipData,
-    LegendItem,
     LinearChartConfig,
-    PreparedPeriodData,
-    PreparedPeriodValue
+    LinearPeriodData,
+    PreparedPeriodValue,
+    SVGInitConfig
 } from '../models/chart-data-models';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
+import { ChartsService } from '../charts.service';
+import { getLinearLegendTooltipData } from '../chart-utils';
 
-type LinearChartSvgType = Selection<SVGGElement, {}, null, PreparedPeriodData>;
+export type LinearChartSvgType = Selection<SVGGElement, {}, null, LinearPeriodData>;
 
 @Injectable()
-export class LinearChartService implements ChartService<PreparedPeriodData, LinearChartConfig> {
+export class LinearChartService implements ChartService<LinearPeriodData, LinearChartConfig> {
     private svg: LinearChartSvgType;
     private element: HTMLElement;
-    private createLine;
-    private zeroLine;
-    private xScale;
-    private yScale;
-    private xAxis;
-    private yAxis;
+    private createLine: Line<PreparedPeriodValue>;
+    private zeroLine: Line<PreparedPeriodValue>;
+    private xScale: ScaleTime<number, number>;
+    private yScale: ScaleLinear<number, number>;
+    private xAxis: Axis<AxisDomain>;
+    private yAxis: Axis<AxisDomain>;
     private config: LinearChartConfig;
-    private tooltipLine;
+    private tooltipLine: Selection<SVGLineElement, {}, null, LinearPeriodData>;
 
     private isInitialized = false;
 
-    constructor(private legendTooltipService: LegendTooltipService) {}
+    constructor(private chartsService: ChartsService, private legendTooltipService: LegendTooltipService) {}
 
-    initChart(data: PreparedPeriodData[], element, config?: LinearChartConfig) {
+    initChart(data: LinearPeriodData[], element, config?: LinearChartConfig) {
         this.config = config ? config : new LinearChartConfig(element.offsetWidth, element.offsetHeight);
         this.element = element;
 
-        this.svg = select(element)
-            .select('svg')
-            .attr('width', this.config.width)
-            .attr('height', this.config.height + this.config.commonMargin)
-            .attr('transform', `translate(0, 0)`) as Selection<SVGGElement, {}, null, PreparedPeriodData>;
+        const svgConfig = new SVGInitConfig(element, this.config.width, this.config.height + this.config.commonMargin);
+
+        this.svg = this.chartsService.getSVG(svgConfig) as LinearChartSvgType;
 
         this.svg.append('g').attr('class', 'lines');
 
@@ -66,10 +63,10 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .x(d => this.xScale(new Date(d.time)))
             .y(this.config.height);
 
-        this.xAxis = this.getCustomAxisX();
-        this.yAxis = this.getCustomAxisY();
+        this.xAxis = this.chartsService.getCustomAxisX(this.xScale);
+        this.yAxis = this.chartsService.getCustomAxisY(this.yScale, this.config);
 
-        this.initAxis();
+        this.chartsService.initAxis(this.svg, this.config);
 
         this.initTooltipLine();
 
@@ -77,7 +74,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.updateChart(data);
     }
 
-    updateChart(data: PreparedPeriodData[]) {
+    updateChart(data: LinearPeriodData[]) {
         if (this.isInitialized) {
             this.xScale.domain(extent(data[0].values, d => d.time));
 
@@ -86,42 +83,19 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
                 max(data.map(d => max(d.values.map(x => x.value)))) + this.yScale.ticks(this.config.tickCount)[1]
             ]);
 
-            this.updateAxis(data);
+            this.chartsService.updateAxis(
+                this.element,
+                this.config.transitionDuration,
+                extent(data[0].values, d => d.time),
+                this.xAxis,
+                this.yAxis
+            );
+
             this.updateData(data);
         }
     }
 
-    private initAxis() {
-        this.svg
-            .append('g')
-            .attr('class', 'x axis')
-            .attr(
-                'transform',
-                `translate(${this.config.margin.xAxisHorizontalMargin}, ${this.config.margin.xAxisVerticalMargin})`
-            );
-        this.svg
-            .append('g')
-            .attr('class', 'y axis')
-            .attr('transform', `translate(${this.config.margin.yAxisHorizontalMargin}, 0)`);
-    }
-
-    private updateAxis(data: PreparedPeriodData[]) {
-        select(this.element)
-            .select('.x.axis')
-            .transition()
-            .ease(easeExp)
-            .duration(this.config.transitionDuration)
-            .call(this.xAxis.tickValues(extent(data[0].values, d => d.time)));
-
-        select(this.element)
-            .select('.y.axis')
-            .transition()
-            .ease(easeExp)
-            .duration(this.config.transitionDuration)
-            .call(this.yAxis as any);
-    }
-
-    private updateData(data: PreparedPeriodData[]) {
+    private updateData(data: LinearPeriodData[]) {
         this.svg
             .select('.lines')
             .selectAll('.line')
@@ -146,7 +120,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.drawData(data);
     }
 
-    private removeUnusedData(data: PreparedPeriodData[]) {
+    private removeUnusedData(data: LinearPeriodData[]) {
         this.svg
             .selectAll('.time')
             .data(data)
@@ -156,7 +130,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.svg.selectAll('.circle').remove();
     }
 
-    private drawData(data: PreparedPeriodData[]) {
+    private drawData(data: LinearPeriodData[]) {
         const linesGroup = this.svg
             .select('.lines')
             .selectAll(`.line-group`)
@@ -205,40 +179,12 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
             .attr('r', this.config.radius);
     }
 
-    private getLegendTooltipData(data: PreparedPeriodData[], index: number): LegendTooltipData {
-        const date = data[0].values[index].time.toString();
-        const values: LegendItem[] = [];
-        if (data) {
-            data.forEach((item, i) => {
-                values.push({
-                    name: item.name,
-                    value: item.values[index].value,
-                    color: chartColors[i]
-                });
-            });
-        }
-        return { date, values };
-    }
-
-    private getCustomAxisX() {
-        return axisBottom(this.xScale)
-            .tickSize(0)
-            .tickFormat(d => formatDate(d as string, 'dd.MM.yyyy', locale()));
-    }
-
-    private getCustomAxisY() {
-        return axisLeft(this.yScale)
-            .ticks(this.config.tickCount)
-            .tickSize(-this.config.width)
-            .tickFormat(d => `${d}`);
-    }
-
     private initTooltipLine() {
         this.tooltipLine = this.svg
             .append('line')
             .attr('class', 'legend-tooltip-line')
             .attr('display', 'none')
-            .attr('y1', 0)
+            .attr('y1', this.config.commonMargin)
             .attr('y2', this.config.height);
     }
 
@@ -251,14 +197,13 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
         this.legendTooltipService.removeLegend(this.element);
     }
 
-    private mousemove(data: PreparedPeriodData[]) {
+    private mousemove(data: LinearPeriodData[]) {
         const dates = data[0].values.map(val => val.time);
         const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
         const i = bisectLeft(dates, x0);
         const d = dates[i];
 
-        this.getLegendTooltipData(data, i);
-        this.legendTooltipService.showLegendTooltip(this.getLegendTooltipData(data, i), this.element);
+        this.legendTooltipService.showLegendTooltip(getLinearLegendTooltipData(data, i), this.element);
         this.tooltipLine.attr('x1', this.xScale(d)).attr('x2', this.xScale(d));
     }
 }

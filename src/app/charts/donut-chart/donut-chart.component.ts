@@ -21,8 +21,7 @@ export class DonutChartComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        const config = new DonutChartConfig(element.offsetWidth / 2);
-        this.donutChartService.initChart(this.data, element, config);
+        this.donutChartService.initChart(this.data, element);
     }
 
     ngOnChanges(changes: SimpleChanges) {
