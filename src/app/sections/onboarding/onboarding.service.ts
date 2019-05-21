@@ -49,18 +49,18 @@ export class OnboardingService {
 
     createLegalEntityGroup() {
         return this.fb.group({
-            russianName: ['', Validators.required],
+            russianName: [''],
             internationalName: [''],
-            inn: ['', Validators.required],
-            ogrn: ['', Validators.required],
-            registrationDate: ['', Validators.required],
-            legalForm: ['', Validators.required],
-            registrationAddress: ['', Validators.required],
-            actualAddress: ['', Validators.required],
-            additionalSpace: ['Не имеется', Validators.required],
+            inn: [''],
+            ogrn: [''],
+            registrationDate: [''],
+            legalForm: [''],
+            registrationAddress: [''],
+            actualAddress: [''],
+            additionalSpace: ['Не имеется'],
             okatoCode: [''],
             okpoCode: [''],
-            propertyInfo: ['', Validators.required]
+            propertyInfo: ['']
         });
     }
 
