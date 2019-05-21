@@ -19,6 +19,7 @@ import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
     imports: [
@@ -35,10 +36,9 @@ import { MatFormFieldRequiredModule } from '../../mat-form-field-required';
         MatInputModule,
         MatSelectModule,
         MatFormFieldRequiredModule,
-        MatDatepickerModule,
-        RouterModule
+        MatDatepickerModule
     ],
-    declarations: [OnboardingComponent, LegalEntityComponent],
+    declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
     entryComponents: [],
     providers: [OnboardingService]
 })
