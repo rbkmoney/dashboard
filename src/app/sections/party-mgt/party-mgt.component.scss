@@ -1,9 +1,0 @@
-@import '../../../styles/mixins.scss';
-
-.display-2 {
-    font-size: 24px;
-}
-
-.content {
-    @include content(30px, 1128px);
-}

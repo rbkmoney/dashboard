@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { toolbarOffset } from '../../layout-settings';
-
 export interface PeriodicElement {
     name: string;
     position: number;
@@ -67,7 +65,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TableComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    toolbarOffset = toolbarOffset;
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
 

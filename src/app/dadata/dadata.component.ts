@@ -38,7 +38,7 @@ interface Option<T extends SuggestionType> {
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html'
 })
-export class DaDataAutocompleteComponent<T extends SuggestionType>
+export class DaDataAutocompleteComponent<T extends SuggestionType = any>
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit {
     static currentId = 0;
     static prefix = 'dsh-dadata-autocomplete';
@@ -54,14 +54,14 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     private destroy: Subject<void> = new Subject();
     private _onTouched: () => void;
 
+    @Output()
+    optionSelected = new EventEmitter<SuggestionData<T>>();
+
     @Input()
     type: T;
 
     @Input()
     count = 10;
-
-    @Output()
-    optionSelected = new EventEmitter<SuggestionData<T>>();
 
     @Input()
     get disabled(): boolean {
@@ -121,7 +121,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
         return !this.formControl.value;
     }
     get errorState(): boolean {
-        return this.ngControl.control === null ? false : !!this.ngControl.control.errors;
+        return this.ngControl.control !== null && !!this.ngControl.control.errors;
     }
 
     get focused(): boolean {
@@ -130,6 +130,16 @@ export class DaDataAutocompleteComponent<T extends SuggestionType>
     set focused(value: boolean) {
         this._focused = value;
         this.stateChanges.next();
+    }
+
+    get isNothingFound() {
+        return (
+            this.ngControl.control &&
+            this.ngControl.control.value &&
+            !this.isOptionsLoading &&
+            Array.isArray(this.options) &&
+            !this.options.length
+        );
     }
 
     formControl = new FormControl();
