@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'dsh-onboarding-layout',
     templateUrl: 'layout.component.html',
-    styleUrls: [],
+    styleUrls: ['layout.component.scss'],
     providers: []
 })
 export class LayoutComponent {
@@ -13,5 +14,9 @@ export class LayoutComponent {
     @Input()
     hasNavigation = true;
 
-    constructor() {}
+    constructor(private router: Router) {}
+
+    back() {
+        this.router.navigate(['/']);
+    }
 }
