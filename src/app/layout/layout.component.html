@@ -1,23 +1,9 @@
-<mat-sidenav-container autosize>
-    <mat-sidenav class="side-menu" [opened]="isShowSidenav" mode="side">
-        <div class="brand" fxLayout fxLayoutAlign="start center">
-            <dsh-brand fxFlexOffset="35px" *ngIf="isShowSidenav"></dsh-brand>
-        </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div class="container">
-            <dsh-toolbar>
-                <div fxLayout>
-                    <dsh-brand fxFlex="100px" *ngIf="!isShowSidenav"></dsh-brand>
-                    <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
-                </div>
-            </dsh-toolbar>
-            <div class="nav">
-                <button routerLink="/onboarding">Заявка на подключение</button>
-                <button routerLink="/analytics">Графики</button>
-                <button routerLink="/table">Таблица</button>
-            </div>
-            <ng-content></ng-content>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="container">
+    <dsh-toolbar></dsh-toolbar>
+    <div class="nav">
+        <button routerLink="/onboarding">Заявка на подключение</button>
+        <button routerLink="/analytics">Графики</button>
+        <button routerLink="/table">Таблица</button>
+    </div>
+    <ng-content></ng-content>
+</div>
