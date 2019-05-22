@@ -3,24 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
-import { PartyMngComponent } from './party-mgt';
-import { DetailsComponent } from './details';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
+import { routes as onboargindRoutes } from './onboarding';
 
 const routes: Routes = [
     {
         path: '',
         component: MainComponent
     },
-    {
-        path: 'organization/create',
-        component: PartyMngComponent
-    },
-    {
-        path: 'details',
-        component: DetailsComponent
-    },
+    ...onboargindRoutes,
     {
         path: 'analytics',
         component: AnalyticsComponent

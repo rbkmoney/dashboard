@@ -32,8 +32,8 @@ $foreground: (
     secondary-text: $light-secondary-text,
     icon: white,
     icons: white,
-    text: white,
-    slider-min: white,
+    text: rgba(white, 0.9),
+    slider-min: rgba(white, 0.9),
     slider-off: rgba(white, 0.3),
     slider-off-active: rgba(white, 0.3)
 );

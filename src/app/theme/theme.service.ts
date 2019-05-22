@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
 import themes from '../../themes/themes.json';
+import { SettingsService } from '../settings';
 
 enum Type {
     JS = 'js',
@@ -13,14 +14,8 @@ enum Type {
 export class ThemeService {
     themes: { [name: string]: External } = {};
     fileType: Type = environment.production ? Type.CSS : Type.JS;
-    get currentTheme() {
-        return localStorage.getItem('dsh-theme') || themes[0];
-    }
-    set currentTheme(theme: string) {
-        localStorage.setItem('dsh-theme', theme);
-    }
 
-    constructor() {
+    constructor(private settingsService: SettingsService) {
         this.init();
     }
 
@@ -29,25 +24,25 @@ export class ThemeService {
             t[name] = this.createExternal(this.getFilePath(name));
             return t;
         }, {});
-        this.changeTheme(this.currentTheme);
+        this.changeTheme(this.settingsService.theme);
     }
 
     changeTheme(name: string = this.getNextTheme()) {
         this.themes[name].add();
         this.removeCurrentTheme();
-        this.currentTheme = name;
-        document.body.classList.add(this.currentTheme);
+        this.settingsService.theme = name;
+        document.body.classList.add(this.settingsService.theme);
     }
 
     getNextTheme(): string {
-        const idx = themes.findIndex(n => n === this.currentTheme) + 1;
+        const idx = themes.findIndex(n => n === this.settingsService.theme) + 1;
         return themes[idx === themes.length ? 0 : idx];
     }
 
     private removeCurrentTheme() {
-        if (this.currentTheme) {
-            this.themes[this.currentTheme].remove();
-            document.body.classList.remove(this.currentTheme);
+        if (this.settingsService.theme) {
+            this.themes[this.settingsService.theme].remove();
+            document.body.classList.remove(this.settingsService.theme);
         }
     }
 
