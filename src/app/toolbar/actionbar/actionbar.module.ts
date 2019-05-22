@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { ActionbarComponent } from './actionbar.component';
-import { DropdownModule } from '../dropdown/dropdown.module';
+import { DropdownModule } from '../../dropdown/dropdown.module';
 
 @NgModule({
     declarations: [ActionbarComponent],

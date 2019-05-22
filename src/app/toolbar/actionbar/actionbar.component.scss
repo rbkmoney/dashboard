@@ -1,9 +1,5 @@
 $circle-color: #fff;
 
-.actionbar {
-    height: 50px;
-}
-
 .circle {
     border: none;
     outline: none;
@@ -23,11 +19,8 @@ $circle-color: #fff;
     }
 }
 
-.wrapper {
+.icon {
     padding: 12px 0;
-}
-
-.user-icon {
-    height: 16px;
-    width: 17px;
+    height: 18px;
+    width: 18px;
 }
