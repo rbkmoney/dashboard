@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    OnInit,
+    Renderer2,
+    ViewEncapsulation
+} from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 
 const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
@@ -11,7 +19,7 @@ const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DshButtonComponent implements CanDisable, CanColor {
+export class DshButtonComponent implements CanDisable, CanColor, OnInit {
     @Input() disabled;
     @Input() color;
 
@@ -29,29 +37,39 @@ export class DshButtonComponent implements CanDisable, CanColor {
                 button.classList.add(attr);
             }
         }
+    }
 
-        button.addEventListener('mouseenter', this.showGlow.bind(this));
-        button.addEventListener('mouseleave', this.hideGlow.bind(this));
-        button.addEventListener('mousemove', this.moveGlow.bind(this));
+    ngOnInit(): void {
+        this.renderer.listen(this.button, 'mouseenter', this.showGlow.bind(this));
+        this.renderer.listen(this.button, 'mouseleave', this.hideGlow.bind(this));
+        this.renderer.listen(this.button, 'mousemove', this.moveGlow.bind(this));
     }
 
     private showGlow() {
         if (!this.glow) {
             this.glow = this.button.querySelector('.dsh-button-glow');
         }
-        if (!this.button.classList.contains('dsh-stroked-button')) {
+        if (this.glowEnabled()) {
             this.renderer.addClass(this.glow, 'show');
         }
     }
 
     private hideGlow() {
-        this.renderer.removeClass(this.glow, 'show');
+        if (this.glowEnabled()) {
+            this.renderer.removeClass(this.glow, 'show');
+        }
     }
 
     private moveGlow(event: MouseEvent) {
-        const x = event.pageX - this.button.offsetLeft;
-        const y = event.pageY - this.button.offsetTop;
-        this.renderer.setStyle(this.glow, 'transform', `translate(${x}px, ${y}px)`);
+        if (this.glowEnabled()) {
+            const x = event.pageX - this.button.offsetLeft;
+            const y = event.pageY - this.button.offsetTop;
+            this.renderer.setStyle(this.glow, 'transform', `translate(${x}px, ${y}px)`);
+        }
+    }
+
+    private glowEnabled() {
+        return !this.button.classList.contains('dsh-stroked-button');
     }
 
     private hasHostAttributes(...attributes: string[]) {
