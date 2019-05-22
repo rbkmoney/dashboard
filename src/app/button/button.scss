@@ -1,0 +1,76 @@
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.dsh {
+  &-button,
+  &-stroked-button {
+    display: inline-block;
+    position: relative;
+    padding: 10px 25px;
+    border: 2px;
+    border-radius: 25px;
+    font-size: 16px;
+    line-height: 24px;
+
+    &:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+  }
+
+  &-button {
+    &-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    &-glow {
+      display: block;
+      position: absolute;
+      height: 160px;
+      width: 160px;
+      top: -80px;
+      left: -80px;
+      opacity: 0;
+      border-radius: 100%;
+      overflow: hidden;
+      z-index: 0;
+      transition: opactity .5s;
+      animation: hide .5s;
+
+      &.show {
+        animation: show .5s;
+        opacity: 1;
+      }
+
+      &-wrapper {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        border-radius: 25px;
+        overflow: hidden;
+        z-index: 0;
+      }
+    }
+  }
+}
