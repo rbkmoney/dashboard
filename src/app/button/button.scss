@@ -1,5 +1,7 @@
+@import '../../styles/variables';
+
 $base-button-font-size: 14px;
-$base-button-font-family: 'Roboto', sans-serif;
+$base-button-font-family: $font-family;
 $base-button-line-height: 24px;
 $base-button-border-radius: 25px;
 
