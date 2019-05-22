@@ -8,6 +8,6 @@ import { IconRegistryService, IconName } from './icon-registry.service';
 })
 export class AppComponent {
     constructor(private iconRegistryService: IconRegistryService) {
-        this.iconRegistryService.register([IconName.logo, IconName.user]);
+        this.iconRegistryService.register([IconName.logo, IconName.user, IconName.notification]);
     }
 }

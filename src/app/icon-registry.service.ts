@@ -4,7 +4,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export enum IconName {
     logo = 'logo',
-    user = 'user'
+    user = 'user',
+    notification = 'notification'
 }
 
 @Injectable()
