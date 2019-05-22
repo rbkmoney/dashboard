@@ -9,6 +9,9 @@ import {
 } from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 
+import { GlowManager } from './glow-manager';
+import { FocusManager } from './focus-manager';
+
 const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
 
 @Component({
@@ -23,7 +26,6 @@ export class DshButtonComponent implements CanDisable, CanColor, OnInit {
     @Input() disabled;
     @Input() color;
 
-    private glow: HTMLElement;
     private button: HTMLButtonElement;
 
     constructor(elementRef: ElementRef, private renderer: Renderer2) {
@@ -39,52 +41,18 @@ export class DshButtonComponent implements CanDisable, CanColor, OnInit {
         }
     }
 
-    ngOnInit(): void {
-        this.renderer.listen(this.button, 'mouseenter', this.showGlow.bind(this));
-        this.renderer.listen(this.button, 'mouseleave', this.hideGlow.bind(this));
-        this.renderer.listen(this.button, 'mousemove', this.moveGlow.bind(this));
-        this.renderer.listen(this.button, 'focusin', this.drawFocus.bind(this));
-        this.renderer.listen(this.button, 'mousedown', this.drawFocus.bind(this));
-        this.renderer.listen(this.button, 'focusout', this.hideFocus.bind(this));
-        this.renderer.listen(this.button, 'mouseup', this.hideFocus.bind(this));
-    }
-
-    private drawFocus() {
-        this.renderer.addClass(this.button, 'focused');
-    }
-
-    private hideFocus() {
-        this.renderer.removeClass(this.button, 'focused');
-    }
-
-    private showGlow() {
-        if (!this.glow) {
-            this.glow = this.button.querySelector('.dsh-button-glow');
+    ngOnInit() {
+        if (this.isGlowAllowed()) {
+            new GlowManager(this.renderer).register(this.button);
         }
-        if (this.glowEnabled()) {
-            this.renderer.addClass(this.glow, 'show');
-        }
+        new FocusManager(this.renderer).register(this.button);
     }
 
-    private hideGlow() {
-        if (this.glowEnabled()) {
-            this.renderer.removeClass(this.glow, 'show');
-        }
-    }
-
-    private moveGlow(event: MouseEvent) {
-        if (this.glowEnabled()) {
-            const x = event.pageX - this.button.offsetLeft;
-            const y = event.pageY - this.button.offsetTop;
-            this.renderer.setStyle(this.glow, 'transform', `translate(${x}px, ${y}px)`);
-        }
-    }
-
-    private glowEnabled() {
+    private isGlowAllowed(): boolean {
         return !this.button.classList.contains('dsh-stroked-button');
     }
 
-    private hasHostAttributes(...attributes: string[]) {
+    private hasHostAttributes(...attributes: string[]): boolean {
         return attributes.some(attribute => this.button.hasAttribute(attribute));
     }
 }

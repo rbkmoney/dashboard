@@ -1,3 +1,13 @@
+$base-button-font-size: 14px;
+$base-button-font-family: 'Roboto', sans-serif;
+$base-button-line-height: 24px;
+$base-button-border-radius: 25px;
+
+$button-padding: 6px 25px;
+
+$stroked-button-padding: 4px 25px;
+$stroked-button-border: 2px;
+
 @keyframes show {
     0% {
         opacity: 0;
@@ -21,11 +31,11 @@
     &-stroked-button {
         display: inline-block;
         position: relative;
-        padding: 10px 25px;
-        border: 2px;
-        border-radius: 25px;
-        font-size: 16px;
-        line-height: 1;
+        border: $stroked-button-border;
+        border-radius: $base-button-border-radius;
+        font-size: $base-button-font-size;
+        font-family: $base-button-font-family;
+        line-height: $base-button-line-height;
 
         &:active:not(:disabled) {
             transform: translateY(1px);
@@ -36,7 +46,13 @@
         }
     }
 
+    &-stroked-button {
+        padding: $stroked-button-padding;
+    }
+
     &-button {
+        padding: $button-padding;
+
         &-text {
             position: relative;
             z-index: 1;
