@@ -26,7 +26,7 @@
     >
         <dsh-card>
             <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                <dsh-state-nav>
+                <dsh-state-nav (select)="selectItem($event)">
                     <dsh-state-nav-item [active]="true">Сведения о юридическом лице</dsh-state-nav-item>
                     <dsh-state-nav-item>Основная деятельность</dsh-state-nav-item>
                     <dsh-state-nav-item>Учредители</dsh-state-nav-item>

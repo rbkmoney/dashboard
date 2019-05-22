@@ -9,7 +9,7 @@ import { StateNavItemComponent } from './state-nav-item/state-nav-item.component
 })
 export class StateNavComponent {
     @Output()
-    select = new EventEmitter();
+    select = new EventEmitter<{ idx: number; item: StateNavItemComponent; items: QueryList<StateNavItemComponent> }>();
 
     private _items: QueryList<StateNavItemComponent>;
     @ContentChildren(StateNavItemComponent)
@@ -33,5 +33,10 @@ export class StateNavComponent {
         for (const item of this.items.toArray().filter(i => i !== selectedItem)) {
             item.unSelect();
         }
+        this.select.next({
+            idx: this.items.toArray().findIndex(i => i === selectedItem),
+            item: selectedItem,
+            items: this.items
+        });
     }
 }

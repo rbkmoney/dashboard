@@ -19,4 +19,8 @@ export class LayoutComponent {
     back() {
         this.router.navigate(['/']);
     }
+
+    selectItem(item) {
+        console.log(item);
+    }
 }
