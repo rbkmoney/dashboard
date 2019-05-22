@@ -33,9 +33,9 @@ export class DshButtonComponent implements CanDisable, CanColor {
             }
         }
 
-        button.onmouseenter = this.showGlow.bind(this);
-        button.onmouseleave = this.hideGlow.bind(this);
-        button.onmousemove = this.moveGlow.bind(this);
+        button.addEventListener('mouseenter', this.showGlow.bind(this));
+        button.addEventListener('mouseleave', this.hideGlow.bind(this));
+        button.addEventListener('mousemove', this.moveGlow.bind(this));
     }
 
     private showGlow() {
@@ -57,11 +57,7 @@ export class DshButtonComponent implements CanDisable, CanColor {
         this.renderer.setStyle(this.glow, 'transform', `translate(${x}px, ${y}px)`);
     }
 
-    private getHostElement() {
-        return this.button;
-    }
-
     private hasHostAttributes(...attributes: string[]) {
-        return attributes.some(attribute => this.getHostElement().hasAttribute(attribute));
+        return attributes.some(attribute => this.button.hasAttribute(attribute));
     }
 }
