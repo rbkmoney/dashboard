@@ -42,7 +42,7 @@ $theme: (
     name: 'dark',
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
-    warn: mat-palette($mat-red),
+    warn: mat-palette($dsh-warn),
     is-dark: true,
     foreground: $foreground,
     background: $background

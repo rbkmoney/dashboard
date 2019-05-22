@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export enum Validation {
     success = 'success',
@@ -12,14 +13,24 @@ export enum Validation {
 })
 export class StateNavItemComponent {
     @Input()
-    active = false;
+    set active(active: boolean | '') {
+        if (active !== false) {
+            this.select();
+        }
+    }
 
     @Input()
     validation: Validation | keyof typeof Validation;
 
+    active$ = new BehaviorSubject(false);
+
     constructor() {}
 
     select() {
-        this.active = true;
+        this.active$.next(true);
+    }
+
+    unSelect() {
+        this.active$.next(false);
     }
 }

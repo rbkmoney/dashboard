@@ -24,4 +24,5 @@ $height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
 }

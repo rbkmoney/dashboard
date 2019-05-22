@@ -1,8 +1,10 @@
-<dsh-headline backward>
+<dsh-headline>
     Заявка на подключение
-    <div class="backwards" (click)="back()">
-        <span>← </span>
-        <span class="backwards__text">Вернуться назад</span>
+    <div class="headline-footer">
+        <div class="backwards" (click)="back()">
+            <span>← </span>
+            <span class="backwards__text">Вернуться назад</span>
+        </div>
     </div>
 </dsh-headline>
 <div fxLayout fxLayoutGap="20px">
@@ -25,7 +27,7 @@
         <dsh-card>
             <dsh-card-content fxLayout="column" fxLayoutGap="20px">
                 <dsh-state-nav>
-                    <dsh-state-nav-item active>Сведения о юридическом лице</dsh-state-nav-item>
+                    <dsh-state-nav-item [active]="true">Сведения о юридическом лице</dsh-state-nav-item>
                     <dsh-state-nav-item>Основная деятельность</dsh-state-nav-item>
                     <dsh-state-nav-item>Учредители</dsh-state-nav-item>
                     <dsh-state-nav-item>Представитель</dsh-state-nav-item>
