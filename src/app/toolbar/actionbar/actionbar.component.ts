@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DropdownTriggerDirective } from '../dropdown/dropdown-trigger.directive';
-import { ThemeService } from '../theme';
+import { DropdownTriggerDirective } from '../../dropdown/dropdown-trigger.directive';
+import { ThemeService } from '../../theme';
 
 @Component({
     selector: 'dsh-actionbar',

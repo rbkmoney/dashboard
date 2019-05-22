@@ -1,0 +1,12 @@
+<div fxLayout>
+    <div class="circle" (click)="changeTheme()">
+        <mat-icon class="icon" svgIcon="notification"></mat-icon>
+    </div>
+    <div class="circle" [dshDropdownTriggerFor]="dropdown" fxFlexOffset="10px">
+        <mat-icon class="icon" svgIcon="user"></mat-icon>
+    </div>
+    <dsh-dropdown width="400px" #dropdown="dshDropdown">
+        <div>Content</div>
+        <button (click)="close()">Close</button>
+    </dsh-dropdown>
+</div>
