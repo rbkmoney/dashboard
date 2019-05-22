@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ContentChildren, QueryList } from '@angular/core';
+
+import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
 
 @Component({
     selector: 'dsh-state-nav',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
     styleUrls: ['state-nav.component.scss']
 })
 export class StateNavComponent {
+    @ContentChildren(StateNavItemComponent) items: QueryList<StateNavItemComponent>;
+
     constructor() {}
 }
