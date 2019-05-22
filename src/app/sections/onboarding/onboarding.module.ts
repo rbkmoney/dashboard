@@ -19,6 +19,7 @@ import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
+import { StateNavModule } from '../../state-nav/state-nav.module';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { LayoutComponent } from './layout/layout.component';
         RouterModule,
         MatInputModule,
         MatSelectModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        StateNavModule
     ],
     declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
     entryComponents: [],
