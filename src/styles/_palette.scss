@@ -3,12 +3,13 @@ $light-text: white;
 
 /* 
 How to create palette
-0. Choose primary color
-1. Enter in https://material.io/inline-tools/color/ primary color - get 50 900 colors
-2. Enter color 500 (gotten at the previous step) into http://mcg.mbitson.com - get A100 - A700 colors
-   and find out about when to use a dark font color and in which light
+0. Choose base color
+1. Enter in https://material.io/inline-tools/color/ base color - get 50-900 colors
+2. Enter color 500 (gotten at the previous step) into http://mcg.mbitson.com - get A100-A700 colors
+   and find out recommendation when to use a dark font color and in which light
 */
 
+// base 400
 $dsh-slateblue: (
     50: #ede8ff,
     100: #d0c6fe,
@@ -42,6 +43,7 @@ $dsh-slateblue: (
     )
 );
 
+// base 300
 $dsh-palegreen: (
     50: #e1f6eb,
     100: #b5e9ce,
@@ -75,6 +77,7 @@ $dsh-palegreen: (
     )
 );
 
+// base 300
 $dsh-warn: (
     50: #ffecef,
     100: #ffd0d5,
@@ -94,8 +97,8 @@ $dsh-warn: (
         50: $dark-text,
         100: $dark-text,
         200: $dark-text,
-        300: $dark-text,
-        400: $dark-text,
+        300: $light-text,
+        400: $light-text,
         500: $light-text,
         600: $light-text,
         700: $light-text,

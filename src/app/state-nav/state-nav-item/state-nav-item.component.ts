@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'dsh-state-nav-item',
@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
     styleUrls: ['state-nav-item.comonent.scss']
 })
 export class StateNavItemComponent {
+    @Input()
+    active = false;
+
+    @Input()
+    success = false;
+
+    @Input()
+    warn = false;
+
     constructor() {}
+
+    select() {
+        this.active = true;
+    }
 }
