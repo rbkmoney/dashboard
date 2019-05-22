@@ -14,7 +14,6 @@
 
             &:focus:not(:disabled) {
                 outline: none;
-                box-shadow: 0px 0px 3px 1px rgba(map-get($foreground, base), 0.35);
             }
         }
 
@@ -27,9 +26,13 @@
                 .dsh-button-glow {
                     background: radial-gradient(
                         circle closest-side,
-                        lighten(mat-color($primary, 400), 5%),
+                        lighten(mat-color($primary, 400), 2%),
                         transparent
                     );
+                }
+
+                &.focused {
+                    background: mat-color($primary, 600);
                 }
             }
 
@@ -43,6 +46,10 @@
                         transparent
                     );
                 }
+
+                &.focused {
+                    background: mat-color($accent, 600);
+                }
             }
 
             &[color='warn'] {
@@ -50,6 +57,10 @@
 
                 .dsh-button-glow {
                     background: radial-gradient(circle closest-side, lighten(mat-color($warn, 400), 10%), transparent);
+                }
+
+                &.focused {
+                    background: mat-color($warn, 600);
                 }
             }
 
@@ -62,16 +73,28 @@
             &[color='primary'] {
                 border: solid mat-color($primary, 500) 2px;
                 color: mat-color($primary, 500);
+
+                &.focused {
+                    background: rgba(mat-color($primary, 500), .1);
+                }
             }
 
             &[color='accent'] {
                 border: solid mat-color($accent, 500) 2px;
                 color: mat-color($accent, 500);
+
+                &.focused {
+                    background: rgba(mat-color($accent, 500), .1);
+                }
             }
 
             &[color='warn'] {
                 border: solid mat-color($warn, 500) 2px;
                 color: mat-color($warn, 500);
+
+                &.focused {
+                    background: rgba(mat-color($warn, 500), .1);
+                }
             }
 
             &:disabled {

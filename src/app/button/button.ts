@@ -43,6 +43,18 @@ export class DshButtonComponent implements CanDisable, CanColor, OnInit {
         this.renderer.listen(this.button, 'mouseenter', this.showGlow.bind(this));
         this.renderer.listen(this.button, 'mouseleave', this.hideGlow.bind(this));
         this.renderer.listen(this.button, 'mousemove', this.moveGlow.bind(this));
+        this.renderer.listen(this.button, 'focusin', this.drawFocus.bind(this));
+        this.renderer.listen(this.button, 'mousedown', this.drawFocus.bind(this));
+        this.renderer.listen(this.button, 'focusout', this.hideFocus.bind(this));
+        this.renderer.listen(this.button, 'mouseup', this.hideFocus.bind(this));
+    }
+
+    private drawFocus() {
+        this.renderer.addClass(this.button, 'focused');
+    }
+
+    private hideFocus() {
+        this.renderer.removeClass(this.button, 'focused');
     }
 
     private showGlow() {
