@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation } from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 
-const BUTTON_HOST_ATTRIBUTES = [
-    'dsh-button',
-    'dsh-stroked-button'
-];
+const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
 
 @Component({
     selector: `dsh-button, button[dsh-button], dsh-stroked-button, button[dsh-stroked-button]`,
@@ -43,7 +40,7 @@ export class DshButtonComponent implements CanDisable, CanColor {
             this.glow = this.button.querySelector('.dsh-button-glow');
         }
         if (!this.button.classList.contains('dsh-stroked-button')) {
-            this.renderer.addClass(this.glow, 'show')
+            this.renderer.addClass(this.glow, 'show');
         }
     }
 

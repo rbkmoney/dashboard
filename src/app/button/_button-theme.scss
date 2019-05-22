@@ -1,76 +1,83 @@
 @import '~@angular/material/theming';
 
 @mixin dsh-button-theme($theme) {
-  $foreground: map-get($theme, foreground);
-  $background: map-get($theme, background);
-  $accent: map-get($theme, accent);
-  $primary: map-get($theme, primary);
-  $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $accent: map-get($theme, accent);
+    $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
 
-  .dsh {
-    &-button,
-    &-stroked-button {
-      background: none;
+    .dsh {
+        &-button,
+        &-stroked-button {
+            background: none;
 
-      &:focus:not(:disabled) {
-        outline: none;
-        box-shadow: 0px 0px 3px 1px rgba(map-get($foreground, base),0.35);
-      }
-    }
-
-    &-button {
-      color: map-get($background, card);
-
-      &[color="primary"] {
-        background: mat-color($primary, 500);
-
-        .dsh-button-glow {
-          background: radial-gradient(circle closest-side, lighten(mat-color($primary, 400), 5%), transparent);
+            &:focus:not(:disabled) {
+                outline: none;
+                box-shadow: 0px 0px 3px 1px rgba(map-get($foreground, base), 0.35);
+            }
         }
-      }
 
-      &[color="accent"] {
-        background: mat-color($accent, 500);
+        &-button {
+            color: map-get($background, card);
 
-        .dsh-button-glow {
-          background: radial-gradient(circle closest-side, lighten(mat-color($accent, 400), 10%), transparent);
+            &[color='primary'] {
+                background: mat-color($primary, 500);
+
+                .dsh-button-glow {
+                    background: radial-gradient(
+                        circle closest-side,
+                        lighten(mat-color($primary, 400), 5%),
+                        transparent
+                    );
+                }
+            }
+
+            &[color='accent'] {
+                background: mat-color($accent, 500);
+
+                .dsh-button-glow {
+                    background: radial-gradient(
+                        circle closest-side,
+                        lighten(mat-color($accent, 400), 10%),
+                        transparent
+                    );
+                }
+            }
+
+            &[color='warn'] {
+                background: mat-color($warn, 500);
+
+                .dsh-button-glow {
+                    background: radial-gradient(circle closest-side, lighten(mat-color($warn, 400), 10%), transparent);
+                }
+            }
+
+            &:disabled {
+                background: map-get($foreground, disabled-button);
+            }
         }
-      }
 
-      &[color="warn"] {
-        background: mat-color($warn, 500);
+        &-stroked-button {
+            &[color='primary'] {
+                border: solid mat-color($primary, 500) 2px;
+                color: mat-color($primary, 500);
+            }
 
-        .dsh-button-glow {
-          background: radial-gradient(circle closest-side, lighten(mat-color($warn, 400), 10%), transparent);
+            &[color='accent'] {
+                border: solid mat-color($accent, 500) 2px;
+                color: mat-color($accent, 500);
+            }
+
+            &[color='warn'] {
+                border: solid mat-color($warn, 500) 2px;
+                color: mat-color($warn, 500);
+            }
+
+            &:disabled {
+                border-color: map-get($foreground, disabled-button);
+                color: map-get($foreground, disabled-button);
+            }
         }
-      }
-
-      &:disabled {
-        background: map-get($foreground, disabled-button);
-      }
     }
-
-    &-stroked-button {
-      &[color="primary"] {
-        border: solid mat-color($primary, 500) 2px;
-        color: mat-color($primary, 500);
-      }
-
-      &[color="accent"] {
-        border: solid mat-color($accent, 500) 2px;
-        color: mat-color($accent, 500);
-      }
-
-      &[color="warn"] {
-        border: solid mat-color($warn, 500) 2px;
-        color: mat-color($warn, 500);
-      }
-
-      &:disabled {
-        border-color: map-get($foreground, disabled-button);
-        color: map-get($foreground, disabled-button);
-      }
-    }
-  }
-
 }

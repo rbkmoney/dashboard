@@ -9,7 +9,15 @@ import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 
 @NgModule({
-    imports: [SectionsRoutingModule, MainModule, AnalyticsModule, PageNotFoundModule, TableModule, OnboardingModule, ButtonsModule],
+    imports: [
+        SectionsRoutingModule,
+        MainModule,
+        AnalyticsModule,
+        PageNotFoundModule,
+        TableModule,
+        OnboardingModule,
+        ButtonsModule
+    ],
     declarations: [],
     entryComponents: [],
     providers: []

@@ -4,15 +4,8 @@ import { NgModule } from '@angular/core';
 import { DshButtonComponent } from './button';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    exports: [
-        DshButtonComponent
-    ],
-    declarations: [
-        DshButtonComponent
-    ]
+    imports: [CommonModule],
+    exports: [DshButtonComponent],
+    declarations: [DshButtonComponent]
 })
-export class DshButtonModule {
-}
+export class DshButtonModule {}
