@@ -10,14 +10,7 @@ import { LayoutService } from './layout.service';
 import { HeadlineModule } from './headline/headline.module';
 
 @NgModule({
-    imports: [
-        CardModule,
-        ToolbarModule,
-        RouterModule,
-        FlexModule,
-        CommonModule,
-        HeadlineModule
-    ],
+    imports: [CardModule, ToolbarModule, RouterModule, FlexModule, CommonModule, HeadlineModule],
     declarations: [LayoutComponent],
     exports: [CardModule, HeadlineModule, LayoutComponent],
     providers: [LayoutService]
