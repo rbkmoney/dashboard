@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
 
+export enum Validation {
+    success = 'success',
+    warn = 'warn'
+}
+
 @Component({
     selector: 'dsh-state-nav-item',
     templateUrl: 'state-nav-item.component.html',
@@ -10,10 +15,7 @@ export class StateNavItemComponent {
     active = false;
 
     @Input()
-    success = false;
-
-    @Input()
-    warn = false;
+    validation: Validation | keyof typeof Validation;
 
     constructor() {}
 

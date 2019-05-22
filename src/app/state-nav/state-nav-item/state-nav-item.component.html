@@ -1,3 +1,7 @@
-<li class="item" (click)="select($event)" [ngClass]="{ active: active, success: success, warn: warn }">
+<li
+    class="item"
+    (click)="select($event)"
+    [ngClass]="{ active: active !== false, success: validation === 'success', warn: validation === 'warn' }"
+>
     <ng-content></ng-content>
 </li>
