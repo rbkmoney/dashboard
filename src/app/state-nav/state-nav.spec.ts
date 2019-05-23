@@ -48,13 +48,13 @@ describe('DshStateNav', () => {
         expect(item.textContent).toBe('second');
     });
 
-    it('should be selected', () => {
+    it('should be init active/selected', () => {
         const fixture = createComponent(SimpleStateNavComponent);
         const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
         expect(item.active$.value).toBe(true);
     });
 
-    it('should be unselected', () => {
+    it('should be init unactive/unselected', () => {
         const fixture = createComponent(SimpleStateNavComponent);
         const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
         expect(item.active$.value).toBe(false);
@@ -66,10 +66,22 @@ describe('DshStateNav', () => {
         expect(item.validation).toBe(Validation.warn);
     });
 
+    it('should has warn class', () => {
+        const fixture = createComponent(SimpleStateNavComponent);
+        const itemContent: HTMLElement = getAllItems(fixture)[1].query(By.css('*')).nativeElement;
+        expect(itemContent.classList.contains('warn')).toBeTruthy();
+    });
+
     it('should be validation=success', () => {
         const fixture = createComponent(SimpleStateNavComponent);
         const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
         expect(item.validation).toBe(Validation.success);
+    });
+
+    it('should has success class', () => {
+        const fixture = createComponent(SimpleStateNavComponent);
+        const itemContent: HTMLElement = getAllItems(fixture)[2].query(By.css('*')).nativeElement;
+        expect(itemContent.classList.contains('success')).toBeTruthy();
     });
 
     it('should be without validation', () => {
