@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTab } from '@angular/material';
 
 @Component({
@@ -7,6 +7,9 @@ import { MatTab } from '@angular/material';
     styleUrls: ['./tab.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class TabComponent extends MatTab {
+export class TabComponent {
+    @Input() label: string;
 
+    @ViewChild(MatTab)
+    public matTab: MatTab;
 }
