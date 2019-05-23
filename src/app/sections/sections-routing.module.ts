@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './page-not-found';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
 import { routes as onboargindRoutes } from './onboarding';
+import { ButtonsComponent } from './buttons';
 
 const routes: Routes = [
     {
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
         path: 'table',
         component: TableComponent
+    },
+    {
+        path: 'buttons',
+        component: ButtonsComponent
     },
     {
         path: '**',

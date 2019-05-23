@@ -6,9 +6,18 @@ import { AnalyticsModule } from './analytics';
 import { PageNotFoundModule } from './page-not-found';
 import { TableModule } from './table';
 import { OnboardingModule } from './onboarding';
+import { ButtonsModule } from './buttons';
 
 @NgModule({
-    imports: [SectionsRoutingModule, MainModule, AnalyticsModule, PageNotFoundModule, TableModule, OnboardingModule],
+    imports: [
+        SectionsRoutingModule,
+        MainModule,
+        AnalyticsModule,
+        PageNotFoundModule,
+        TableModule,
+        OnboardingModule,
+        ButtonsModule
+    ],
     declarations: [],
     entryComponents: [],
     providers: []
