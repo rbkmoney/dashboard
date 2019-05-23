@@ -1,5 +1,5 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { TabComponent } from './tab/tab.component';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { MatTabGroup } from '@angular/material';
 
 
 
@@ -9,12 +9,6 @@ import { TabComponent } from './tab/tab.component';
     styleUrls: ['./tab-group.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class TabGroupComponent {
-    @ViewChild(TabComponent)
-    tab;
-
-    constructor() {
-        console.log(this.tab);
-    }
+export class TabGroupComponent extends MatTabGroup {
 
 }

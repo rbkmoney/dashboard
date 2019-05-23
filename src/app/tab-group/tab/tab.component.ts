@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { MatTab } from '@angular/material';
 
 @Component({
     selector: 'dsh-tab',
@@ -6,6 +7,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     styleUrls: ['./tab.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class TabComponent {
+export class TabComponent extends MatTab {
 
 }
