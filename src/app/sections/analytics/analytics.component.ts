@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LegendItem, PeriodData, PreparedPeriodData, SegmentData } from '../../charts/models/chart-data-models';
+import { LegendItem, PeriodData, LinearPeriodData, SegmentData } from '../../charts/models/chart-data-models';
 import { ChartsService } from '../../charts/charts.service';
-import { chartColors } from '../../charts/color-constants';
+import {
+    getLinearLegendData,
+    getPeriodLegendData,
+    getSegmentLegendData,
+    periodToLinearData
+} from '../../charts/chart-utils';
 
 @Component({
     selector: 'dsh-app-analytics',
@@ -10,7 +15,7 @@ import { chartColors } from '../../charts/color-constants';
 })
 export class AnalyticsComponent implements OnInit {
     periodData: PeriodData[];
-    preparedPeriodData: PreparedPeriodData[];
+    preparedPeriodData: LinearPeriodData[];
     segmentData: SegmentData[];
 
     periodLegendData: LegendItem[];
@@ -25,60 +30,10 @@ export class AnalyticsComponent implements OnInit {
 
     refreshValue() {
         this.periodData = this.chartsService.getPeriodData(7, 2);
-        this.preparedPeriodData = this.preparePeriodData(this.chartsService.getPeriodData(5, 3));
+        this.preparedPeriodData = periodToLinearData(this.chartsService.getPeriodData(10, 2));
         this.segmentData = this.chartsService.getSegmentData(5);
-        this.periodLegendData = this.getPeriodLegendData(this.periodData);
-        this.linearLegendData = this.getLinearLegendData(this.preparedPeriodData);
-        this.segmentLegendData = this.getSegmentLegendData(this.segmentData);
-    }
-
-    private preparePeriodData(data: PeriodData[]): PreparedPeriodData[] {
-        const preparedData: PreparedPeriodData[] = [];
-        data[0].values.forEach((v, i) => {
-            preparedData[i] = {
-                name: v.name,
-                values: []
-            };
-        });
-        preparedData.forEach((v, i) => {
-            data.forEach(d => {
-                v.values.push({ time: new Date(d.time), value: d.values[i].value });
-            });
-        });
-        return preparedData;
-    }
-
-    private getPeriodLegendData(data: PeriodData[]): LegendItem[] {
-        const items: LegendItem[] = [];
-        data[0].values.forEach((item, i) => {
-            items.push({
-                name: item.name,
-                color: chartColors[i]
-            });
-        });
-        return items;
-    }
-
-    private getLinearLegendData(data: PreparedPeriodData[]): LegendItem[] {
-        const items: LegendItem[] = [];
-        data.forEach((item, i) => {
-            items.push({
-                name: item.name,
-                color: chartColors[i]
-            });
-        });
-        return items;
-    }
-
-    private getSegmentLegendData(data: SegmentData[]): LegendItem[] {
-        const items: LegendItem[] = [];
-        data.forEach((item, i) => {
-            items.push({
-                name: item.name,
-                color: chartColors[i],
-                value: item.value
-            });
-        });
-        return items;
+        this.periodLegendData = getPeriodLegendData(this.periodData);
+        this.linearLegendData = getLinearLegendData(this.preparedPeriodData);
+        this.segmentLegendData = getSegmentLegendData(this.segmentData);
     }
 }

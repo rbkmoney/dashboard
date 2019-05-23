@@ -8,7 +8,7 @@ export interface PeriodValue {
     value: number;
 }
 
-export interface PreparedPeriodData {
+export interface LinearPeriodData {
     name: string;
     values: PreparedPeriodValue[];
 }
@@ -103,6 +103,16 @@ export interface LegendItem {
     name: string;
     color: string;
     value?: number;
+}
+
+export class SVGInitConfig {
+    constructor(
+        public element: HTMLElement,
+        public width: number,
+        public height: number,
+        public horizontalTransform: number = 0,
+        public verticalTransform: number = 0
+    ) {}
 }
 
 export interface ChartService<T, C> {

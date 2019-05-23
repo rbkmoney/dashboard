@@ -9,7 +9,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { PreparedPeriodData } from '../models/chart-data-models';
+import { LinearPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
@@ -25,10 +25,10 @@ export class LinearChartComponent implements OnChanges, OnInit {
     private chartContainer: ElementRef;
 
     @Input()
-    data: PreparedPeriodData[];
+    data: LinearPeriodData[];
 
     @Input()
-    rawData: PreparedPeriodData[];
+    rawData: LinearPeriodData[];
 
     constructor(private linearChartService: LinearChartService) {}
 
