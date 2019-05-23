@@ -3,7 +3,7 @@ import { formatDate } from '@angular/common';
 import { select, Selection } from 'd3-selection';
 import { line } from 'd3-shape';
 import { scaleLinear, scaleTime } from 'd3-scale';
-import { bisectLeft, extent, max } from 'd3-array';
+import { bisectLeft, extent, max, min } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
@@ -254,8 +254,7 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private mousemove(data: PreparedPeriodData[]) {
         const dates = data[0].values.map(val => val.time);
         const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
-        let i = bisectLeft(dates, x0);
-        i = i < dates.length ? i : dates.length - 1;
+        const i = min([bisectLeft(dates, x0), dates.length - 1]);
         const d = dates[i];
 
         this.getLegendTooltipData(data, i);
