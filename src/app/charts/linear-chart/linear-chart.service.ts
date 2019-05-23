@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { select, Selection } from 'd3-selection';
-import { line } from 'd3-shape';
-import { scaleLinear, scaleTime } from 'd3-scale';
+import { Selection } from 'd3-selection';
+import { Line, line } from 'd3-shape';
+import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { bisectLeft, extent, max, min } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { Axis, AxisDomain } from 'd3-axis';
