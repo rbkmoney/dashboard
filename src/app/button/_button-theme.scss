@@ -1,0 +1,102 @@
+@import '~@angular/material/theming';
+
+@mixin glow-effect($color, $color-adjustment) {
+    background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);
+}
+
+@mixin dsh-button-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $accent: map-get($theme, accent);
+    $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
+
+    .dsh {
+        &-button,
+        &-stroked-button {
+            background: none;
+
+            &:focus:not(:disabled) {
+                outline: none;
+            }
+        }
+
+        &-button {
+            color: map-get($background, card);
+
+            &[color='primary'] {
+                background: mat-color($primary, 400);
+
+                .dsh-button-glow {
+                    @include glow-effect(mat-color($primary, 400), 4%);
+                }
+
+                &.focused {
+                    background: mat-color($primary, 300);
+                }
+            }
+
+            &[color='accent'] {
+                background: mat-color($accent, 300);
+
+                .dsh-button-glow {
+                    @include glow-effect(mat-color($accent, 300), 10%);
+                }
+
+                &.focused {
+                    background: mat-color($accent, 200);
+                }
+            }
+
+            &[color='warn'] {
+                background: mat-color($warn, 400);
+
+                .dsh-button-glow {
+                    @include glow-effect(mat-color($warn, 400), 5%);
+                }
+
+                &.focused {
+                    background: mat-color($warn, 300);
+                }
+            }
+
+            &:disabled {
+                background: map-get($foreground, disabled-button);
+            }
+        }
+
+        &-stroked-button {
+            &[color='primary'] {
+                border: solid mat-color($primary, 400) 2px;
+                color: mat-color($primary, 400);
+
+                &.focused {
+                    background: rgba(mat-color($primary, 300), 0.1);
+                }
+            }
+
+            &[color='accent'] {
+                border: solid mat-color($accent, 300) 2px;
+                color: mat-color($accent, 300);
+
+                &.focused {
+                    background: rgba(mat-color($accent, 200), 0.1);
+                }
+            }
+
+            &[color='warn'] {
+                border: solid mat-color($warn, 400) 2px;
+                color: mat-color($warn, 400);
+
+                &.focused {
+                    background: rgba(mat-color($warn, 300), 0.1);
+                }
+            }
+
+            &:disabled {
+                border-color: map-get($foreground, disabled-button);
+                color: map-get($foreground, disabled-button);
+            }
+        }
+    }
+}

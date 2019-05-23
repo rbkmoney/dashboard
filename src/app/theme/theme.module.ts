@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { ThemeService } from './theme.service';
+import { SettingsModule } from '../settings';
 
 @NgModule({
     imports: [],
     declarations: [],
     entryComponents: [],
-    providers: [ThemeService]
+    providers: [ThemeService, SettingsModule]
 })
 export class ThemeModule {}

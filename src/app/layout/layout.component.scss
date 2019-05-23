@@ -1,0 +1,12 @@
+$layout-padding: 20px 10px 10px;
+$layout-max-width: 1200px;
+
+.container {
+    padding: $layout-padding;
+    max-width: $layout-max-width;
+    margin: 0 auto;
+}
+
+.nav {
+    padding: 20px 0;
+}

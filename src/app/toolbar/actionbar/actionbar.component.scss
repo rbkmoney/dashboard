@@ -1,0 +1,26 @@
+$circle-color: #fff;
+
+.circle {
+    border: none;
+    outline: none;
+    background-color: $circle-color;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    transition: 0.2s;
+    box-shadow: 0 8px 20px 0 rgba(174, 188, 230, 0.24);
+    &:active {
+        transform: scale(0.9);
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: lighten($circle-color, 10%);
+    }
+}
+
+.icon {
+    padding: 12px 0;
+    height: 18px;
+    width: 18px;
+}

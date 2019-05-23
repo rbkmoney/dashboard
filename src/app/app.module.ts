@@ -1,7 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import {
+    MAT_DATE_FORMATS,
+    DateAdapter,
+    MAT_DATE_LOCALE,
+    MAT_RIPPLE_GLOBAL_OPTIONS,
+    MAT_FORM_FIELD_DEFAULT_OPTIONS
+} from '@angular/material';
+import {
+    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+    MomentDateAdapter,
+    MAT_MOMENT_DATE_FORMATS
+} from '@angular/material-moment-adapter';
 
 import { AppComponent } from './app.component';
 import { IconRegistryService } from './icon-registry.service';
@@ -12,10 +25,13 @@ import { SectionsModule } from './sections';
 import { KeycloakService } from './auth/keycloak';
 import { ThemeService, ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
+import { LayoutModule } from './layout';
+import { SettingsModule, SettingsService } from './settings';
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule,
@@ -23,7 +39,9 @@ import { ConfigModule, ConfigService } from './config';
         APIModule,
         AuthModule,
         ThemeModule,
-        ConfigModule
+        ConfigModule,
+        LayoutModule,
+        SettingsModule
     ],
     providers: [
         IconRegistryService,
@@ -32,7 +50,22 @@ import { ConfigModule, ConfigService } from './config';
             useFactory: initializer,
             deps: [ConfigService, KeycloakService, ThemeService],
             multi: true
-        }
+        },
+        {
+            provide: LOCALE_ID,
+            deps: [SettingsService],
+            useFactory: (settingsService: SettingsService) => settingsService.language
+        },
+        {
+            provide: MAT_DATE_LOCALE,
+            deps: [SettingsService],
+            useFactory: (settingsService: SettingsService) => settingsService.language
+        },
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
     ],
     bootstrap: [AppComponent]
 })

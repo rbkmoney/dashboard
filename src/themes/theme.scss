@@ -7,6 +7,7 @@
 @import '../app/layout/card/card-theme';
 @import '../app/charts/linear-chart/linear-chart-theme';
 @import '../app/charts/legend-tooltip/legend-tooltip-theme';
+@import '../app/button/button-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -20,5 +21,6 @@
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);
         @include dsh-legend-tooltip-theme($theme);
+        @include dsh-button-theme($theme);
     }
 }
