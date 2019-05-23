@@ -12,15 +12,16 @@ import { Selection } from 'd3-selection';
 
 import { PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
 
 @Component({
     selector: 'dsh-bar-chart',
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['./bar-chart.component.scss'],
+    styleUrls: ['./bar-chart.component.scss', '../legend-tooltip/_legend-tooltip-theme.scss'],
     encapsulation: ViewEncapsulation.None,
-    providers: [BarChartService]
+    providers: [BarChartService, LegendTooltipService]
 })
 export class BarChartComponent implements OnChanges, OnInit {
     @ViewChild('barChart')

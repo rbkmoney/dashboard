@@ -5,12 +5,15 @@
     $foreground: map-get($theme, foreground);
 
     .x.axis > .tick:first-of-type > text,
-    .x.axis > .tick:last-of-type > text,
+    .x.axis > .tick:last-of-type > text {
+        color: mat-color($foreground, x-axis-text-color);
+    }
+
     .tick > line {
-        color: mat-color($foreground, divider);
+        color: mat-color($foreground, axis-tick-color);
     }
 
     .y.axis > .tick > text {
-        color: mat-color($foreground, secondary-text);
+        color: mat-color($foreground, y-axis-text-color);
     }
 }

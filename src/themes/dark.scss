@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-
 @import '../styles/palette';
 @import './theme';
 
@@ -17,7 +16,9 @@ $background: (
     selected-disabled-button: map_get($mat-grey, 800),
     disabled-button-toggle: black,
     unselected-chip: map_get($mat-grey, 700),
-    disabled-list-option: black
+    disabled-list-option: black,
+    tooltip-shadow: 0 0 8px rgba(white, 0.2),
+    tooltip-line-color: rgba(white, 0.4)
 );
 
 $foreground: (
@@ -35,7 +36,11 @@ $foreground: (
     text: rgba(white, 0.9),
     slider-min: rgba(white, 0.9),
     slider-off: rgba(white, 0.3),
-    slider-off-active: rgba(white, 0.3)
+    slider-off-active: rgba(white, 0.3),
+    axis-tick-color: rgba(white, 0.1),
+    x-axis-text-color: rgba(white, 0.5),
+    y-axis-text-color: rgba(white, 0.7),
+    legend-tooltip-date-color: rgba(white, 0.5)
 );
 
 $theme: (

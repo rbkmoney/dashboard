@@ -1,0 +1,13 @@
+<div class="legend-container" [style.flex-direction]="flexDirection">
+    <div *ngFor="let item of items" class="legend-item">
+        <div class="legend-item-name">
+            <svg class="legend-item-svg">
+                <rect class="legend-item-rect" rx="3px" ry="3px" [attr.fill]="item.color"></rect>
+            </svg>
+            <div class="legend-item-text">{{ item.name }}</div>
+        </div>
+        <div *ngIf="item.value" class="legend-item-value">
+            <div class="legend-item-text">{{ (item.value % 100) + '%' }}</div>
+        </div>
+    </div>
+</div>
