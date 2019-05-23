@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import {
     MatFormFieldModule,
     MatListModule,
-    MatButtonModule,
     MatRadioModule,
     MatInputModule,
     MatSelectModule,
@@ -20,6 +19,7 @@ import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StateNavModule } from '../../state-nav/state-nav.module';
+import { DshButtonModule } from '../../button';
 
 @NgModule({
     imports: [
@@ -30,13 +30,13 @@ import { StateNavModule } from '../../state-nav/state-nav.module';
         FlexLayoutModule,
         CommonModule,
         MatListModule,
-        MatButtonModule,
         MatRadioModule,
         RouterModule,
         MatInputModule,
         MatSelectModule,
         MatDatepickerModule,
-        StateNavModule
+        StateNavModule,
+        DshButtonModule
     ],
     declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
     entryComponents: [],
