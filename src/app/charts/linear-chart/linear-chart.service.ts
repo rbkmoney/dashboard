@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Selection } from 'd3-selection';
-import { Line, line } from 'd3-shape';
-import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
-import { bisectLeft, extent, max } from 'd3-array';
+import { formatDate } from '@angular/common';
+import { select, Selection } from 'd3-selection';
+import { line } from 'd3-shape';
+import { scaleLinear, scaleTime } from 'd3-scale';
+import { bisectLeft, extent, max, min } from 'd3-array';
 import { easeExp } from 'd3-ease';
 import { Axis, AxisDomain } from 'd3-axis';
 
@@ -200,7 +201,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
     private mousemove(data: LinearPeriodData[]) {
         const dates = data[0].values.map(val => val.time);
         const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
-        const i = bisectLeft(dates, x0);
+        const i = min([bisectLeft(dates, x0), dates.length - 1]);
         const d = dates[i];
 
         this.legendTooltipService.showLegendTooltip(getLinearLegendTooltipData(data, i), this.element);
