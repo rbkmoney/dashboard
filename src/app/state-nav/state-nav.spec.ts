@@ -48,74 +48,77 @@ describe('DshStateNav', () => {
         expect(item.textContent).toBe('second');
     });
 
-    it('should be init active/selected', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
-        expect(item.active$.value).toBe(true);
+    describe('Active', () => {
+        it('should be init active/selected', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
+            expect(item.active$.value).toBe(true);
+        });
+
+        it('should be init unactive/unselected', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
+            expect(item.active$.value).toBe(false);
+        });
     });
 
-    it('should be init unactive/unselected', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-        expect(item.active$.value).toBe(false);
+    describe('Validation', () => {
+        it('should be validation=warn', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
+            expect(item.validation).toBe(Validation.warn);
+        });
+
+        it('should has warn class', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const itemContent: HTMLElement = getAllItems(fixture)[1].query(By.css('*')).nativeElement;
+            expect(itemContent.classList.contains('warn')).toBeTruthy();
+        });
+
+        it('should be validation=success', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
+            expect(item.validation).toBe(Validation.success);
+        });
+
+        it('should has success class', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const itemContent: HTMLElement = getAllItems(fixture)[2].query(By.css('*')).nativeElement;
+            expect(itemContent.classList.contains('success')).toBeTruthy();
+        });
+
+        it('should be without validation', () => {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const item: StateNavItemComponent = getAllItems(fixture)[3].componentInstance;
+            expect(item.validation).toBeUndefined();
+        });
     });
 
-    it('should be validation=warn', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-        expect(item.validation).toBe(Validation.warn);
-    });
-
-    it('should has warn class', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const itemContent: HTMLElement = getAllItems(fixture)[1].query(By.css('*')).nativeElement;
-        expect(itemContent.classList.contains('warn')).toBeTruthy();
-    });
-
-    it('should be validation=success', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
-        expect(item.validation).toBe(Validation.success);
-    });
-
-    it('should has success class', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const itemContent: HTMLElement = getAllItems(fixture)[2].query(By.css('*')).nativeElement;
-        expect(itemContent.classList.contains('success')).toBeTruthy();
-    });
-
-    it('should be without validation', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item: StateNavItemComponent = getAllItems(fixture)[3].componentInstance;
-        expect(item.validation).toBeUndefined();
-    });
-
-    it('should be event handler called', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item = getAllItems(fixture)[3];
-        spyOn(fixture.componentInstance, 'selectItem');
-        item.query(By.css('*')).nativeElement.click();
-        fixture.detectChanges();
-        expect(fixture.componentInstance.selectItem).toHaveBeenCalled();
-    });
-
-    it('should be selected after click', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const item = getAllItems(fixture)[3];
-        spyOn(fixture.componentInstance, 'selectItem');
-        item.query(By.css('*')).nativeElement.click();
-        fixture.detectChanges();
-        expect(item.componentInstance.active$.value).toBe(true);
-    });
-
-    it('should be others unselected after click', () => {
-        const fixture = createComponent(SimpleStateNavComponent);
-        const [item, ...other] = getAllItems(fixture);
-        spyOn(fixture.componentInstance, 'selectItem');
-        item.query(By.css('*')).nativeElement.click();
-        fixture.detectChanges();
-        for (const i of other) {
-            expect(i.componentInstance.active$.value).toBe(false);
+    describe('Item selection', () => {
+        function createAndSelect() {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const [item, ...others] = getAllItems(fixture);
+            spyOn(fixture.componentInstance, 'selectItem');
+            item.query(By.css('*')).nativeElement.click();
+            fixture.detectChanges();
+            return { fixture, item, others };
         }
+
+        it('should be event handler called after click', () => {
+            const { fixture } = createAndSelect();
+            expect(fixture.componentInstance.selectItem).toHaveBeenCalled();
+        });
+
+        it('should be selected after click', () => {
+            const { item } = createAndSelect();
+            expect(item.componentInstance.active$.value).toBe(true);
+        });
+
+        it('should be others unselected after click', () => {
+            const { others } = createAndSelect();
+            for (const item of others) {
+                expect(item.componentInstance.active$.value).toBe(false);
+            }
+        });
     });
 });
