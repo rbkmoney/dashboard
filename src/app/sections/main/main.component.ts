@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'dsh-main',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss']
+    templateUrl: './main.component.html'
 })
-export class MainComponent {
-    constructor() {}
-}
+export class MainComponent {}
