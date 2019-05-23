@@ -27,15 +27,7 @@
         <dsh-card>
             <dsh-card-content fxLayout="column" fxLayoutGap="20px">
                 <dsh-state-nav (select)="selectItem($event)">
-                    <dsh-state-nav-item [active]="true">Сведения о юридическом лице</dsh-state-nav-item>
-                    <dsh-state-nav-item>Основная деятельность</dsh-state-nav-item>
-                    <dsh-state-nav-item>Учредители</dsh-state-nav-item>
-                    <dsh-state-nav-item>Представитель</dsh-state-nav-item>
-                    <dsh-state-nav-item>Бенефициарные владельцы</dsh-state-nav-item>
-                    <dsh-state-nav-item>Финансовое положение</dsh-state-nav-item>
-                    <dsh-state-nav-item validation="success">Налоговое резиденство</dsh-state-nav-item>
-                    <dsh-state-nav-item>Банковские реквизиты</dsh-state-nav-item>
-                    <dsh-state-nav-item validation="warn">Контактная информация</dsh-state-nav-item>
+                    <dsh-state-nav-item *ngFor="let item of items">{{ item.title }}</dsh-state-nav-item>
                 </dsh-state-nav>
                 <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
             </dsh-card-content>

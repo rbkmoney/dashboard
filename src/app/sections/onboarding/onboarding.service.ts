@@ -5,16 +5,25 @@ import { Router } from '@angular/router';
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
 
+interface Step {
+    url: string;
+    title: string;
+}
+
 @Injectable()
 export class OnboardingService {
     form: FormGroup;
-    legalEntitySteps = [
-        '/onboarding',
-        '/onboarding/legal-entity',
-        '/onboarding/business-info',
-        '/onboarding/founders',
-        '/onboarding/representative',
-        '/onboarding/beneficial-owner'
+
+    legalEntitySteps: Step[] = [
+        { url: '/onboarding/legal-entity', title: 'Сведения о юридическом лице' },
+        { url: '/onboarding/business-info', title: 'Основная деятельность' },
+        { url: '/onboarding/founders', title: 'Учредители' },
+        { url: '/onboarding/representative', title: 'Представитель' },
+        { url: '/onboarding/beneficial-owner', title: 'Бенефициарные владельцы' },
+        { url: '/onboarding/financial-position', title: 'Финансовое положение' },
+        { url: '/onboarding/tax-residency', title: 'Налоговое резиденство' },
+        { url: '/onboarding/bank-details', title: 'Банковские реквизиты' },
+        { url: '/onboarding/contact-info', title: 'Контактная информация' }
     ];
 
     private _suggestion: SuggestionData<SuggestionType.party>;
@@ -64,15 +73,15 @@ export class OnboardingService {
         });
     }
 
-    getStepUrl(steps: string[], change: number) {
-        const idx = steps.findIndex(step => step === this.router.url) + change;
+    getStepUrl(steps: Step[], change: number): string {
+        const idx = steps.findIndex(step => step.url === this.router.url) + change;
         if (idx >= steps.length) {
-            return steps[steps.length - 1];
+            return steps[steps.length - 1].url;
         }
         if (idx < 0) {
-            return steps[0];
+            return steps[0].url;
         }
-        return steps[idx];
+        return steps[idx].url;
     }
 
     nextStep = () => {

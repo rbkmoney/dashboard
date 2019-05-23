@@ -1,6 +1,6 @@
 <li
     class="item"
-    (click)="select($event)"
+    (click)="clickHandler($event)"
     [ngClass]="{ active: active$ | async, success: validation === 'success', warn: validation === 'warn' }"
 >
     <ng-content></ng-content>
