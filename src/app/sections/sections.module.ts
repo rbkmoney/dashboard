@@ -7,6 +7,7 @@ import { AnalyticsModule } from './analytics';
 import { DetailsModule } from './details';
 import { PageNotFoundModule } from './page-not-found';
 import { TableModule } from './table';
+import { TabsModule } from './tabs/tabs.module';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { TableModule } from './table';
         AnalyticsModule,
         DetailsModule,
         PageNotFoundModule,
-        TableModule
+        TableModule,
+        TabsModule
     ],
     declarations: [],
     entryComponents: [],

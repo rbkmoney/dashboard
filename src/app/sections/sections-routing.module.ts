@@ -7,6 +7,7 @@ import { PartyMngComponent } from './party-mgt';
 import { DetailsComponent } from './details';
 import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
+import { TabsComponent } from './tabs/tabs.component';
 
 const routes: Routes = [
     {
@@ -28,6 +29,10 @@ const routes: Routes = [
     {
         path: 'table',
         component: TableComponent
+    },
+    {
+        path: 'tabs',
+        component: TabsComponent
     },
     {
         path: '**',

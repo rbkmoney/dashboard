@@ -28,6 +28,10 @@ export class MainComponent {
         this.router.navigate(['table']);
     }
 
+    tabGroup() {
+        this.router.navigate(['tabs']);
+    }
+
     downloadDocument() {
         this.documentService
             .createPdf({
