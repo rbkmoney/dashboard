@@ -254,7 +254,8 @@ export class LinearChartService implements ChartService<PreparedPeriodData, Line
     private mousemove(data: PreparedPeriodData[]) {
         const dates = data[0].values.map(val => val.time);
         const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
-        const i = bisectLeft(dates, x0);
+        let i = bisectLeft(dates, x0);
+        i = i < dates.length ? i : dates.length - 1;
         const d = dates[i];
 
         this.getLegendTooltipData(data, i);
