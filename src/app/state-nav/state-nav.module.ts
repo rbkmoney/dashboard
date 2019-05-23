@@ -3,7 +3,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 
 import { StateNavComponent } from './state-nav.component';
-import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
+import { StateNavItemComponent } from './state-nav-item';
 
 @NgModule({
     imports: [FlexModule, CommonModule],

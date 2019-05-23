@@ -2,6 +2,12 @@ import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@an
 
 import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
 
+export interface SelectEvent {
+    idx: number;
+    item: StateNavItemComponent;
+    items: QueryList<StateNavItemComponent>;
+}
+
 @Component({
     selector: 'dsh-state-nav',
     templateUrl: 'state-nav.component.html',
@@ -9,7 +15,7 @@ import { StateNavItemComponent } from './state-nav-item/state-nav-item.component
 })
 export class StateNavComponent {
     @Output()
-    select = new EventEmitter<{ idx: number; item: StateNavItemComponent; items: QueryList<StateNavItemComponent> }>();
+    select = new EventEmitter<SelectEvent>();
 
     private _items: QueryList<StateNavItemComponent>;
     @ContentChildren(StateNavItemComponent)

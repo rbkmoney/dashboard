@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { OnboardingService } from '../onboarding.service';
+import { OnboardingService, LEGAL_ENTITY_STEPS } from '../onboarding.service';
+import { SelectEvent } from '../../../state-nav';
 
 @Component({
     selector: 'dsh-onboarding-layout',
@@ -16,7 +17,11 @@ export class LayoutComponent {
     hasNavigation = true;
 
     get items() {
-        return this.onboardingService.legalEntitySteps;
+        return LEGAL_ENTITY_STEPS;
+    }
+
+    get selectedItem() {
+        return LEGAL_ENTITY_STEPS[this.onboardingService.currentStep.idx];
     }
 
     constructor(private router: Router, private onboardingService: OnboardingService) {}
@@ -25,7 +30,7 @@ export class LayoutComponent {
         this.router.navigate(['/']);
     }
 
-    selectItem(item) {
-        console.log(item);
+    selectItem({ idx }: SelectEvent) {
+        this.onboardingService.setStep(LEGAL_ENTITY_STEPS[idx]);
     }
 }
