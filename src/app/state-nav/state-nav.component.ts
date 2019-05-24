@@ -1,13 +1,8 @@
 import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
-import { filter } from 'rxjs/operators';
-
-export interface SelectEvent {
-    idx: number;
-    item: StateNavItemComponent;
-    items: QueryList<StateNavItemComponent>;
-}
 
 @Component({
     selector: 'dsh-state-nav',
@@ -16,28 +11,32 @@ export interface SelectEvent {
 })
 export class StateNavComponent {
     @Output()
-    select = new EventEmitter<SelectEvent>();
+    selectedIndexChange = new EventEmitter<number>();
 
-    private _items: QueryList<StateNavItemComponent>;
     @ContentChildren(StateNavItemComponent)
     set items(items: QueryList<StateNavItemComponent>) {
-        this._items = items;
-        items.forEach(item =>
-            item.active$.pipe(filter(active => active)).subscribe(() => {
-                this.selectItem(item);
-            })
-        );
-    }
-    get items() {
-        return this._items;
+        this.updateSelectionSubscriptions(items);
     }
 
-    private selectItem(selectedItem: StateNavItemComponent) {
-        this.items.filter(i => i !== selectedItem).forEach(item => item.unSelect());
-        this.select.next({
-            idx: this.items.toArray().findIndex(i => i === selectedItem),
-            item: selectedItem,
-            items: this.items
-        });
+    private selectionSubscriptions: Subscription[] = [];
+
+    private updateSelectionSubscriptions(items: QueryList<StateNavItemComponent>) {
+        while (this.selectionSubscriptions.length) {
+            this.selectionSubscriptions.pop().unsubscribe();
+        }
+        items.forEach((item, idx) =>
+            this.selectionSubscriptions.push(
+                item.active$.pipe(filter(active => active)).subscribe(() => this.selectItem(idx, items))
+            )
+        );
+    }
+
+    private selectItem(idx: number, items: QueryList<StateNavItemComponent>) {
+        this.cleanSelections(idx, items);
+        this.selectedIndexChange.next(idx);
+    }
+
+    private cleanSelections(idx: number, items: QueryList<StateNavItemComponent>) {
+        items.filter(item => item !== items.toArray()[idx]).forEach(item => item.unselect());
     }
 }

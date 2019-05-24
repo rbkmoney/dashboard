@@ -27,8 +27,6 @@ export class StateNavItemComponent {
 
     active$ = new BehaviorSubject(false);
 
-    constructor() {}
-
     clickHandler(event: MouseEvent) {
         this.click.next(event);
         this.select();
@@ -38,7 +36,7 @@ export class StateNavItemComponent {
         this.active$.next(true);
     }
 
-    unSelect() {
+    unselect() {
         this.active$.next(false);
     }
 }
