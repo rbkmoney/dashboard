@@ -34,7 +34,7 @@ export class StateNavComponent {
         this.selectedIndexChange.next(idx);
     }
 
-    private cleanSelections(idx: number, items: QueryList<StateNavItemComponent>) {
-        items.filter(item => item !== items.toArray()[idx]).forEach(item => item.unselect());
+    private cleanSelections(currentIdx: number, items: QueryList<StateNavItemComponent>) {
+        items.filter((item, idx) => idx !== currentIdx).forEach(item => item.unselect());
     }
 }
