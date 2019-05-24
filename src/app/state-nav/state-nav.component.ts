@@ -1,6 +1,7 @@
 import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@angular/core';
 
 import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
+import { filter } from 'rxjs/operators';
 
 export interface SelectEvent {
     idx: number;
@@ -22,10 +23,8 @@ export class StateNavComponent {
     set items(items: QueryList<StateNavItemComponent>) {
         this._items = items;
         items.forEach(item =>
-            item.active$.subscribe(active => {
-                if (active) {
-                    this.selectItem(item);
-                }
+            item.active$.pipe(filter(active => active)).subscribe(() => {
+                this.selectItem(item);
             })
         );
     }
