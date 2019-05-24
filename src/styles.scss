@@ -9,3 +9,9 @@ body {
     margin: 0;
     transition: all 0.3s ease-in-out;
 }
+
+// Supress warning message: "Could not find Angular Material core theme. ..."
+// Theme is added asynchronously
+.mat-theme-loaded-marker {
+    display: none;
+}

@@ -1,0 +1,7 @@
+<li
+    class="item"
+    (click)="clickHandler($event)"
+    [ngClass]="{ active: active$ | async, success: color === 'success', warn: color === 'warn' }"
+>
+    <ng-content></ng-content>
+</li>

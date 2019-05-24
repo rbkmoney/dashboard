@@ -47,7 +47,7 @@ $theme: (
     name: 'light',
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
-    warn: mat-palette($mat-red),
+    warn: mat-palette($dsh-warn),
     is-dark: false,
     foreground: $foreground,
     background: $background
