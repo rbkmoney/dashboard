@@ -29,12 +29,12 @@ export class StateNavComponent {
         );
     }
 
-    private selectItem(idx: number, items: QueryList<StateNavItemComponent>) {
-        this.cleanSelections(idx, items);
-        this.selectedIndexChange.next(idx);
+    private selectItem(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
+        this.cleanSelections(selectedIdx, items);
+        this.selectedIndexChange.next(selectedIdx);
     }
 
-    private cleanSelections(currentIdx: number, items: QueryList<StateNavItemComponent>) {
-        items.filter((item, idx) => idx !== currentIdx).forEach(item => item.unselect());
+    private cleanSelections(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
+        items.filter((item, idx) => idx !== selectedIdx).forEach(item => item.unselect());
     }
 }
