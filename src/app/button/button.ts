@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    HostBinding,
     Input,
     OnInit,
     Renderer2,
@@ -23,7 +24,7 @@ const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DshButtonComponent implements CanDisable, CanColor, OnInit {
-    @Input() disabled;
+    @HostBinding('attr.role') disabled;
     @Input() color;
 
     private button: HTMLButtonElement;

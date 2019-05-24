@@ -4,6 +4,16 @@
     background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);
 }
 
+@mixin button($text-color, $background-color) {
+    background: $background-color;
+    color: $text-color;
+}
+
+@mixin stroked-button($text-color, $border) {
+    border: $border;
+    color: $text-color;
+}
+
 @mixin dsh-button-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
@@ -22,10 +32,17 @@
         }
 
         &-button {
-            color: map-get($background, card);
+            color: map-get($foreground, base);
+            box-shadow: 0 3px 1px -2px rgba(map-get($foreground, disabled-button), 0.2),
+                0 2px 2px 0 rgba(map-get($foreground, base), 0.14), 0 1px 5px 0 rgba(map-get($foreground, base), 0.12);
+
+            &-glow {
+              @include glow-effect(map-get($foreground, text), 60%);
+            }
 
             &[color='primary'] {
-                background: mat-color($primary, 400);
+                box-shadow: none;
+                @include button(map-get($background, card), mat-color($primary, 400));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($primary, 400), 4%);
@@ -37,7 +54,8 @@
             }
 
             &[color='accent'] {
-                background: mat-color($accent, 300);
+                box-shadow: none;
+                @include button(map-get($background, card), mat-color($accent, 300));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($accent, 300), 10%);
@@ -49,7 +67,8 @@
             }
 
             &[color='warn'] {
-                background: mat-color($warn, 400);
+                box-shadow: none;
+                @include button(map-get($background, card), mat-color($warn, 400));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($warn, 400), 5%);
@@ -66,9 +85,12 @@
         }
 
         &-stroked-button {
+            box-shadow: 0 3px 1px -2px rgba(map-get($foreground, base), 0.2),
+                0 2px 2px 0 rgba(map-get($foreground, base), 0.14), 0 1px 5px 0 rgba(map-get($foreground, base), 0.12);
+
             &[color='primary'] {
-                border: solid mat-color($primary, 400) 2px;
-                color: mat-color($primary, 400);
+                box-shadow: none;
+                @include stroked-button(mat-color($primary, 400), solid mat-color($primary, 400) 2px);
 
                 &.focused {
                     background: rgba(mat-color($primary, 300), 0.1);
@@ -76,8 +98,8 @@
             }
 
             &[color='accent'] {
-                border: solid mat-color($accent, 300) 2px;
-                color: mat-color($accent, 300);
+                box-shadow: none;
+                @include stroked-button(mat-color($accent, 300), solid mat-color($accent, 300) 2px);
 
                 &.focused {
                     background: rgba(mat-color($accent, 200), 0.1);
@@ -85,8 +107,8 @@
             }
 
             &[color='warn'] {
-                border: solid mat-color($warn, 400) 2px;
-                color: mat-color($warn, 400);
+                box-shadow: none;
+                @include stroked-button(mat-color($warn, 400), solid mat-color($warn, 400) 2px);
 
                 &.focused {
                     background: rgba(mat-color($warn, 300), 0.1);

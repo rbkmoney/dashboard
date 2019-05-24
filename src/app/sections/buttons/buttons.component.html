@@ -1,5 +1,11 @@
-<div class="container">
-    <div class="content" fxLayout="column" fxLayoutGap="10px">
+<dsh-card>
+    <dsh-card-content>
+        <div>
+            <button dsh-button>Primary</button>
+        </div>
+        <div>
+            <button dsh-stroked-button>Primary</button>
+        </div>
         <div>
             <button dsh-button color="primary">Primary</button>
         </div>
@@ -19,10 +25,10 @@
             <button dsh-stroked-button color="warn">Warn</button>
         </div>
         <div>
-            <button dsh-button disabled color="accent">Disabled</button>
+            <button dsh-button [disabled]="true" color="accent">Disabled</button>
         </div>
         <div>
             <button dsh-stroked-button disabled color="accent">Disabled</button>
         </div>
-    </div>
-</div>
+    </dsh-card-content>
+</dsh-card>
