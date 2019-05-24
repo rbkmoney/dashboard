@@ -37,7 +37,7 @@
                 0 2px 2px 0 rgba(map-get($foreground, base), 0.14), 0 1px 5px 0 rgba(map-get($foreground, base), 0.12);
 
             &-glow {
-              @include glow-effect(map-get($foreground, text), 60%);
+                @include glow-effect(map-get($foreground, text), 60%);
             }
 
             &[color='primary'] {
