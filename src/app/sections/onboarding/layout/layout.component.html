@@ -26,7 +26,7 @@
     >
         <dsh-card>
             <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                <dsh-state-nav (select)="selectItem($event)">
+                <dsh-state-nav (selectedIndexChange)="selectItem($event)">
                     <dsh-state-nav-item *ngFor="let item of items" [active]="item === selectedItem">
                         {{ item.title }}
                     </dsh-state-nav-item>

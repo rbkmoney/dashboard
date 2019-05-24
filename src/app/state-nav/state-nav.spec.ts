@@ -7,7 +7,7 @@ import { Color } from './state-nav-item';
 
 @Component({
     template: `
-        <dsh-state-nav (select)="selectItem($event)">
+        <dsh-state-nav (selectedIndexChange)="selectItem($event)">
             <dsh-state-nav-item active>first</dsh-state-nav-item>
             <dsh-state-nav-item validation="warn">second</dsh-state-nav-item>
             <dsh-state-nav-item validation="success">third</dsh-state-nav-item>
@@ -18,7 +18,7 @@ import { Color } from './state-nav-item';
 class SimpleStateNavComponent {
     idx: number;
 
-    selectItem({ idx }) {
+    selectItem(idx: number) {
         this.idx = idx;
     }
 }
