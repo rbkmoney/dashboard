@@ -33,12 +33,8 @@ export class StateNavComponent {
         return this._items;
     }
 
-    constructor() {}
-
     private selectItem(selectedItem: StateNavItemComponent) {
-        for (const item of this.items.toArray().filter(i => i !== selectedItem)) {
-            item.unSelect();
-        }
+        this.items.filter(i => i !== selectedItem).forEach(item => item.unSelect());
         this.select.next({
             idx: this.items.toArray().findIndex(i => i === selectedItem),
             item: selectedItem,
