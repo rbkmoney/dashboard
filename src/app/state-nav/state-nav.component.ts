@@ -21,13 +21,13 @@ export class StateNavComponent {
     @ContentChildren(StateNavItemComponent)
     set items(items: QueryList<StateNavItemComponent>) {
         this._items = items;
-        for (const item of items.toArray()) {
+        items.forEach(item =>
             item.active$.subscribe(active => {
                 if (active) {
                     this.selectItem(item);
                 }
-            });
-        }
+            })
+        );
     }
     get items() {
         return this._items;
