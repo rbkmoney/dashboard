@@ -24,10 +24,8 @@ export class StateNavComponent {
         while (this.selectionSubscriptions.length) {
             this.selectionSubscriptions.pop().unsubscribe();
         }
-        items.forEach((item, idx) =>
-            this.selectionSubscriptions.push(
-                item.active$.pipe(filter(active => active)).subscribe(() => this.selectItem(idx, items))
-            )
+        this.selectionSubscriptions = items.map((item, idx) =>
+            item.active$.pipe(filter(active => active)).subscribe(() => this.selectItem(idx, items))
         );
     }
 
