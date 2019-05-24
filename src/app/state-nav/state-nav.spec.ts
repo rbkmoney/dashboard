@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, ComponentFixtureAutoDetect, async } from '@a
 import { By } from '@angular/platform-browser';
 
 import { StateNavItemComponent, StateNavModule } from '.';
-import { Validation } from './state-nav-item';
+import { Color } from './state-nav-item';
 
 @Component({
     template: `
@@ -66,7 +66,7 @@ describe('DshStateNav', () => {
         it('should be validation=warn', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.validation).toBe(Validation.warn);
+            expect(item.color).toBe(Color.warn);
         });
 
         it('should has warn class', () => {
@@ -78,7 +78,7 @@ describe('DshStateNav', () => {
         it('should be validation=success', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
-            expect(item.validation).toBe(Validation.success);
+            expect(item.color).toBe(Color.success);
         });
 
         it('should has success class', () => {
@@ -90,7 +90,7 @@ describe('DshStateNav', () => {
         it('should be without validation', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[3].componentInstance;
-            expect(item.validation).toBeUndefined();
+            expect(item.color).toBeUndefined();
         });
     });
 

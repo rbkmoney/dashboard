@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export enum Validation {
+export enum Color {
     success = 'success',
     warn = 'warn'
 }
@@ -20,7 +20,7 @@ export class StateNavItemComponent {
     }
 
     @Input()
-    validation: Validation | keyof typeof Validation;
+    color: Color | keyof typeof Color;
 
     @Input()
     click = new EventEmitter<MouseEvent>();
