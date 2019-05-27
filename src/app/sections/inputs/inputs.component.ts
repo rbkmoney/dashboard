@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     templateUrl: 'inputs.component.html',
@@ -7,5 +7,13 @@ import { FormBuilder } from '@angular/forms';
     providers: []
 })
 export class InputsComponent {
-    constructor(fb: FormBuilder) {}
+    formGroup: FormGroup;
+
+    constructor(fb: FormBuilder) {
+        this.formGroup = fb.group({
+            bin: '',
+            card: '',
+            sum: ''
+        });
+    }
 }

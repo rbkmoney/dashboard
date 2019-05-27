@@ -1,5 +1,5 @@
 <dsh-card>
-    <dsh-card-content fxLayout="column">
+    <dsh-card-content fxLayout="column" [formGroup]="formGroup">
         <mat-form-field>
             <mat-label>BIN банка-эмитента карты</mat-label>
             <dsh-bin-input></dsh-bin-input>
@@ -9,6 +9,10 @@
             <mat-label>Последние цифры номера карты</mat-label>
             <dsh-card-input></dsh-card-input>
             <mat-hint>Последние 2-4 цифр</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Сумма платежа</mat-label>
+            <input matInput dshCurrencyMask formControlName="sum" />
         </mat-form-field>
     </dsh-card-content>
 </dsh-card>
