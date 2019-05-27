@@ -3,14 +3,14 @@ import {
     Component,
     ElementRef,
     HostBinding,
-    Input, OnChanges,
+    Input,
+    OnChanges,
     OnInit,
-    Renderer2, SimpleChanges,
+    Renderer2,
+    SimpleChanges,
     ViewEncapsulation
 } from '@angular/core';
-import {
-    ThemePalette
-} from '@angular/material/core';
+import { ThemePalette } from '@angular/material/core';
 
 import { GlowManager } from './glow-manager';
 import { FocusManager } from './focus-manager';
@@ -60,11 +60,11 @@ export class DshButtonComponent implements OnInit, OnChanges {
     }
 
     private setColor(color: ThemePalette) {
-        this.renderer.addClass(this.button, `dsh-${color}`)
+        this.renderer.addClass(this.button, `dsh-${color}`);
     }
 
     private removeColor(color: ThemePalette) {
-        this.renderer.removeClass(this.button, `dsh-${color}`)
+        this.renderer.removeClass(this.button, `dsh-${color}`);
     }
 
     private isGlowAllowed(): boolean {
