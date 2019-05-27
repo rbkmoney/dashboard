@@ -4,6 +4,32 @@ import { By } from '@angular/platform-browser';
 import { DshButtonModule } from './index';
 import { ThemePalette } from '@angular/material/core';
 
+/** Test component that contains an DshButton. */
+@Component({
+    template: `
+        <button
+            [tabIndex]="tabIndex"
+            dsh-button
+            type="button"
+            (click)="increment()"
+            [disabled]="isDisabled"
+            [color]="buttonColor"
+        >
+            Go
+        </button>
+    `
+})
+class TestAppComponent {
+    clickCount = 0;
+    isDisabled = false;
+    buttonColor: ThemePalette;
+    tabIndex: number;
+
+    increment() {
+        this.clickCount++;
+    }
+}
+
 describe('DshButton', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -91,29 +117,3 @@ describe('DshButton', () => {
         });
     });
 });
-
-/** Test component that contains an DshButton. */
-@Component({
-    template: `
-        <button
-            [tabIndex]="tabIndex"
-            dsh-button
-            type="button"
-            (click)="increment()"
-            [disabled]="isDisabled"
-            [color]="buttonColor"
-        >
-            Go
-        </button>
-    `
-})
-class TestAppComponent {
-    clickCount = 0;
-    isDisabled = false;
-    buttonColor: ThemePalette;
-    tabIndex: number;
-
-    increment() {
-        this.clickCount++;
-    }
-}
