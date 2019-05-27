@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+}
+
+.dsh-bin-input-element {
+    border: none;
+    background: none;
+    padding: 0;
+    outline: none;
+    font: inherit;
+    text-align: center;
+}
+
+.dsh-bin-input-spacer {
+    opacity: 0;
+    user-select: none;
+    transition: opacity 200ms;
+}
+
+:host.floating .dsh-bin-input-spacer {
+    opacity: 1;
+}
