@@ -18,11 +18,11 @@ export class BINMaskDirective {
     }
 
     onInputChange(value: string, backspace: boolean) {
-        value = value.replace(/\D/g, '');
+        const curVal = value.replace(/\D/g, '');
         let newVal;
         const parts = [];
-        for (let i = 0; i < value.length; i += 4) {
-            parts.push(value.slice(i, i + 4));
+        for (let i = 0; i < curVal.length; i += 4) {
+            parts.push(curVal.slice(i, i + 4));
         }
         newVal = parts.join(' ');
         this.ngControl.valueAccessor.writeValue(newVal);

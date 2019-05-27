@@ -8,7 +8,14 @@
     padding: 0;
     outline: none;
     font: inherit;
-    text-align: center;
+}
+
+.dsh-bin-input-element::placeholder {
+    opacity: 0;
+}
+
+:host.floating .dsh-bin-input-element::placeholder {
+    opacity: 1;
 }
 
 .dsh-bin-input-spacer {

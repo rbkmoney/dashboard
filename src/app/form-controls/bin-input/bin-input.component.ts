@@ -69,7 +69,7 @@ export class BINInputComponent implements MatFormFieldControl<number>, OnDestroy
 
     @Input()
     get value(): number {
-        return this.formControl.value;
+        return this.formControl.value.replace(/\D/g, '');
     }
     set value(v: number) {
         this.formControl.setValue(v);
