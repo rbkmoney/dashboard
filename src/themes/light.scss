@@ -7,7 +7,6 @@ $background: (
     status-bar: map_get($mat-grey, 300),
     app-bar: map_get($mat-grey, 100),
     background: #f1f7fb,
-    hover: rgba(black, 0.04),
     card: white,
     dialog: white,
     disabled-button: rgba(black, 0.12),
@@ -17,7 +16,10 @@ $background: (
     selected-disabled-button: map_get($mat-grey, 400),
     disabled-button-toggle: map_get($mat-grey, 200),
     unselected-chip: map_get($mat-grey, 300),
-    disabled-list-option: map_get($mat-grey, 200)
+    disabled-list-option: map_get($mat-grey, 200),
+    /* 
+        Overrides 
+    */ hover: map_get($dsh-gray, 200)
 );
 
 $foreground: (
@@ -32,10 +34,12 @@ $foreground: (
     secondary-text: rgba(#000, 0.67),
     icon: rgba(#000, 0.54),
     icons: rgba(#000, 0.54),
-    text: #475166,
-    slider-min: #475166,
     slider-off: rgba(#000, 0.26),
-    slider-off-active: rgba(#000, 0.38)
+    slider-off-active: rgba(#000, 0.38),
+    /* 
+        Overrides 
+    */ text: #475166,
+    slider-min: #475166
 );
 
 $theme: (

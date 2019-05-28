@@ -107,3 +107,36 @@ $dsh-warn: (
         A700: $dark-text
     )
 );
+
+$dsh-gray: (
+    50: #f9f9f9,
+    100: #f3f3f3,
+    200: #eaeaea,
+    300: #dadada,
+    400: #b7b7b7,
+    500: #979797,
+    600: #6f6f6f,
+    700: #5b5b5b,
+    800: #3c3c3c,
+    900: #1c1c1c,
+    A100: #ffffff,
+    A200: #eeeeee,
+    A400: #bdbdbd,
+    A700: #616161,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
+        500: $dark-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $light-text
+    )
+);
