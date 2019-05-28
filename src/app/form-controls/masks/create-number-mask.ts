@@ -20,8 +20,8 @@ export function createNumberMask({
     includeThousandsSeparator = true,
     thousandsSeparatorSymbol = comma,
     allowDecimal = false,
-    decimalSymbol = period,
-    alternateSymbols = alternatePeriods,
+    decimalSeparator = period,
+    alternateDecimalSeparators = alternatePeriods,
     decimalLimit = 2,
     requireDecimal = false,
     allowNegative = false,
@@ -31,7 +31,7 @@ export function createNumberMask({
     const prefixLength = (prefix && prefix.length) || 0;
     const suffixLength = (suffix && suffix.length) || 0;
     const thousandsSeparatorSymbolLength = (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
-    const decimalSymbolMask = decimalSymbol.split(emptyString);
+    const decimalSymbolMask = decimalSeparator.split(emptyString);
 
     function numberMask(rawValue = emptyString) {
         const rawValueLength = rawValue.length;
@@ -39,7 +39,7 @@ export function createNumberMask({
         if (rawValue === emptyString || (rawValue[0] === prefix[0] && rawValueLength === 1)) {
             const resultMask: Mask = prefix.split(emptyString);
             return resultMask.concat([digitRegExp]).concat(suffix.split(emptyString));
-        } else if (rawValue === decimalSymbol && allowDecimal) {
+        } else if (rawValue === decimalSeparator && allowDecimal) {
             const resultMask: Mask = prefix.split(emptyString);
             return resultMask.concat(['0', ...decimalSymbolMask, digitRegExp]).concat(suffix.split(emptyString));
         }
@@ -50,7 +50,7 @@ export function createNumberMask({
             rawValue = rawValue.toString().substr(1);
         }
 
-        const indexOfLastDecimal = rawValue.lastIndexOf(decimalSymbol);
+        const indexOfLastDecimal = rawValue.lastIndexOf(decimalSeparator);
         const hasDecimal = indexOfLastDecimal !== -1;
 
         let integer;
@@ -93,7 +93,7 @@ export function createNumberMask({
         mask = convertToMask(integer);
 
         if ((hasDecimal && allowDecimal) || requireDecimal === true) {
-            if (rawValue[indexOfLastDecimal - 1] !== decimalSymbol) {
+            if (rawValue[indexOfLastDecimal - 1] !== decimalSeparator) {
                 mask.push(caretTrap);
             }
 
@@ -107,7 +107,7 @@ export function createNumberMask({
                 mask = mask.concat(fraction);
             }
 
-            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === decimalSymbol) {
+            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === decimalSeparator) {
                 mask.push(digitRegExp);
             }
         }

@@ -4,6 +4,6 @@ export const currencyMask = createNumberMask({
     prefix: '',
     thousandsSeparatorSymbol: ' ',
     allowDecimal: true,
-    decimalSymbol: ', ',
-    alternateSymbols: ['.', ',']
+    decimalSeparator: ', ',
+    alternateDecimalSeparators: ['.', ',']
 });
