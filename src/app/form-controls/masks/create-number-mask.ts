@@ -1,7 +1,10 @@
+import { TextMaskConfig } from 'angular2-text-mask';
+
 const dollarSign = '$';
 const emptyString = '';
 const comma = ',';
 const period = '.';
+const alternatePeriods = ['.', ','];
 const minus = '-';
 const minusRegExp = /-/;
 const nonDigitsRegExp = /\D+/g;
@@ -18,12 +21,13 @@ export function createNumberMask({
     thousandsSeparatorSymbol = comma,
     allowDecimal = false,
     decimalSymbol = period,
+    alternateSymbols = alternatePeriods,
     decimalLimit = 2,
     requireDecimal = false,
     allowNegative = false,
     allowLeadingZeroes = false,
     integerLimit = null
-} = {}) {
+} = {}): TextMaskConfig {
     const prefixLength = (prefix && prefix.length) || 0;
     const suffixLength = (suffix && suffix.length) || 0;
     const thousandsSeparatorSymbolLength = (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
@@ -127,9 +131,15 @@ export function createNumberMask({
         return mask;
     }
 
+    function numberPipe(conformedValue: string, config: TextMaskConfig) {
+        return {
+            value: conformedValue
+        };
+    }
+
     numberMask.instanceOf = 'createNumberMask';
 
-    return numberMask;
+    return { mask: numberMask, pipe: numberPipe };
 }
 
 function convertToMask(strNumber) {
