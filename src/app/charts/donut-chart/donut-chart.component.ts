@@ -2,11 +2,13 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChi
 
 import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Component({
     selector: 'dsh-donut-chart',
     templateUrl: './donut-chart.component.html',
-    styleUrls: ['./donut-chart.component.scss']
+    styleUrls: ['./donut-chart.component.scss', '../legend-tooltip/_legend-tooltip-theme.scss'],
+    providers: [DonutChartService, LegendTooltipService]
 })
 export class DonutChartComponent implements OnChanges, OnInit {
     @ViewChild('donutChart')
@@ -19,8 +21,7 @@ export class DonutChartComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        const config = new DonutChartConfig(element.offsetWidth / 2);
-        this.donutChartService.initChart(this.data, element, config);
+        this.donutChartService.initChart(this.data, element);
     }
 
     ngOnChanges(changes: SimpleChanges) {

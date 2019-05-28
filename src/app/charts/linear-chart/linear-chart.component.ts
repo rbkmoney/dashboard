@@ -9,22 +9,26 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { PreparedPeriodData } from '../models/chart-data-models';
+import { LinearPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Component({
     selector: 'dsh-linear-chart',
     templateUrl: './linear-chart.component.html',
     styleUrls: ['./linear-chart.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    providers: [LinearChartService]
+    providers: [LinearChartService, LegendTooltipService]
 })
 export class LinearChartComponent implements OnChanges, OnInit {
     @ViewChild('linearChart')
     private chartContainer: ElementRef;
 
     @Input()
-    data: PreparedPeriodData[];
+    data: LinearPeriodData[];
+
+    @Input()
+    rawData: LinearPeriodData[];
 
     constructor(private linearChartService: LinearChartService) {}
 

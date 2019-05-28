@@ -11,5 +11,9 @@ export const routes: Routes = [
     {
         path: 'onboarding/legal-entity',
         component: LegalEntityComponent
+    },
+    {
+        path: 'onboarding/business-info',
+        component: LegalEntityComponent
     }
 ];

@@ -1,8 +1,10 @@
-<dsh-headline backward>
+<dsh-headline>
     Заявка на подключение
-    <div class="backwards" (click)="back()">
-        <span>← </span>
-        <span class="backwards__text">Вернуться назад</span>
+    <div class="headline-footer">
+        <div class="backwards" (click)="back()">
+            <span>← </span>
+            <span class="backwards__text">Вернуться назад</span>
+        </div>
     </div>
 </dsh-headline>
 <div fxLayout fxLayoutGap="20px">
@@ -23,9 +25,13 @@
         *ngIf="hasNavigation"
     >
         <dsh-card>
-            <dsh-card-content>
-                Сведения о юридическом лице
-                <button mat-raised-button color="primary" style="width:100%" disabled>Отправить на рассмотрение</button>
+            <dsh-card-content fxLayout="column" fxLayoutGap="20px">
+                <dsh-state-nav (selectedIndexChange)="selectItem($event)">
+                    <dsh-state-nav-item *ngFor="let item of items" [active]="item === selectedItem">
+                        {{ item.title }}
+                    </dsh-state-nav-item>
+                </dsh-state-nav>
+                <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
             </dsh-card-content>
         </dsh-card>
         <dsh-card>

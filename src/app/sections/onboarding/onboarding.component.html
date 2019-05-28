@@ -38,9 +38,9 @@
         </div>
     </form>
     <div fxLayout="row" fxLayoutAlign="space-between">
-        <button mat-raised-button (click)="prevStep()">Назад</button>
+        <button dsh-stroked-button (click)="prevStep()">Назад</button>
         <div></div>
-        <button mat-raised-button color="primary" [disabled]="!canContinue" (click)="nextStep()">
+        <button dsh-button color="accent" [disabled]="!canContinue" (click)="nextStep()">
             Далее
         </button>
     </div>
