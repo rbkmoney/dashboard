@@ -1,28 +1,13 @@
-<div class="container">
-    <div class="content" fxLayout="column" fxLayoutGap="10px">
-        <div>
-            <button dsh-button color="primary">Primary</button>
-        </div>
-        <div>
-            <button dsh-stroked-button color="primary">Primary</button>
-        </div>
-        <div>
-            <button dsh-button color="accent">Accent</button>
-        </div>
-        <div>
-            <button dsh-stroked-button color="accent">Accent</button>
-        </div>
-        <div>
-            <button dsh-button color="warn">Warn</button>
-        </div>
-        <div>
-            <button dsh-stroked-button color="warn">Warn</button>
-        </div>
-        <div>
-            <button dsh-button disabled color="accent">Disabled</button>
-        </div>
-        <div>
-            <button dsh-stroked-button disabled color="accent">Disabled</button>
-        </div>
-    </div>
-</div>
+<dsh-card>
+    <dsh-card-content fxLayout="row" fxLayoutGap="10px">
+        <button dsh-button>Basic</button>
+        <button dsh-button [color]="'primary'">Primary</button>
+        <button dsh-stroked-button color="primary">Primary</button>
+        <button dsh-button color="accent">Accent</button>
+        <button dsh-stroked-button color="accent">Accent</button>
+        <button dsh-button color="warn">Warn</button>
+        <button dsh-stroked-button color="warn">Warn</button>
+        <button dsh-button [disabled]="true" color="accent">Disabled</button>
+        <button dsh-stroked-button disabled color="accent">Disabled</button>
+    </dsh-card-content>
+</dsh-card>

@@ -12,7 +12,7 @@ export class GlowManager {
         }
         this.renderer.listen(t, 'mouseenter', this.showGlow.bind(this));
         this.renderer.listen(t, 'mouseleave', this.hideGlow.bind(this));
-        this.renderer.listen(t, 'mousemove', this.moveGlow.bind(this, t.offsetLeft, t.offsetTop));
+        this.renderer.listen(t, 'mousemove', this.moveGlow.bind(this, t));
     }
 
     private showGlow() {
@@ -23,9 +23,9 @@ export class GlowManager {
         this.renderer.removeClass(this.glowEl, 'show');
     }
 
-    private moveGlow(offsetLeft: number, offsetTop: number, event: MouseEvent) {
-        const x = event.pageX - offsetLeft;
-        const y = event.pageY - offsetTop;
+    private moveGlow(t: HTMLElement, event: MouseEvent) {
+        const x = event.pageX - t.offsetLeft;
+        const y = event.pageY - t.offsetTop;
         this.renderer.setStyle(this.glowEl, 'transform', `translate(${x}px, ${y}px)`);
     }
 }

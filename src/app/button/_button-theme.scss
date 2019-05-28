@@ -4,6 +4,20 @@
     background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);
 }
 
+@mixin button($text-color, $background-color) {
+    background: $background-color;
+    color: $text-color;
+}
+
+@mixin stroked-button($text-color, $border-color) {
+    border: solid $border-color 2px;
+    color: $text-color;
+}
+
+@mixin focused-background($palette, $color) {
+    background: mat-color($palette, $color);
+}
+
 @mixin dsh-button-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
@@ -22,41 +36,49 @@
         }
 
         &-button {
-            color: map-get($background, card);
+            color: map-get($foreground, base);
+            &:hover {
+                transition: background 500ms ease-in-out; // TODO need to animation config
+                background: map-get($background, hover);
+            }
 
-            &[color='primary'] {
-                background: mat-color($primary, 400);
+            &-glow {
+                @include glow-effect(map-get($background, hover), 5%);
+            }
+
+            &.dsh-primary {
+                @include button(map-get($background, card), mat-color($primary, 400));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($primary, 400), 4%);
                 }
 
                 &.focused {
-                    background: mat-color($primary, 300);
+                    @include focused-background($primary, 300);
                 }
             }
 
-            &[color='accent'] {
-                background: mat-color($accent, 300);
+            &.dsh-accent {
+                @include button(map-get($background, card), mat-color($accent, 300));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($accent, 300), 10%);
                 }
 
                 &.focused {
-                    background: mat-color($accent, 200);
+                    @include focused-background($accent, 200);
                 }
             }
 
-            &[color='warn'] {
-                background: mat-color($warn, 400);
+            &.dsh-warn {
+                @include button(map-get($background, card), mat-color($warn, 400));
 
                 .dsh-button-glow {
                     @include glow-effect(mat-color($warn, 400), 5%);
                 }
 
                 &.focused {
-                    background: mat-color($warn, 300);
+                    @include focused-background($warn, 300);
                 }
             }
 
@@ -66,27 +88,24 @@
         }
 
         &-stroked-button {
-            &[color='primary'] {
-                border: solid mat-color($primary, 400) 2px;
-                color: mat-color($primary, 400);
+            &.dsh-primary {
+                @include stroked-button(mat-color($primary, 400), mat-color($primary, 400));
 
                 &.focused {
                     background: rgba(mat-color($primary, 300), 0.1);
                 }
             }
 
-            &[color='accent'] {
-                border: solid mat-color($accent, 300) 2px;
-                color: mat-color($accent, 300);
+            &.dsh-accent {
+                @include stroked-button(mat-color($accent, 300), mat-color($accent, 300));
 
                 &.focused {
                     background: rgba(mat-color($accent, 200), 0.1);
                 }
             }
 
-            &[color='warn'] {
-                border: solid mat-color($warn, 400) 2px;
-                color: mat-color($warn, 400);
+            &.dsh-warn {
+                @include stroked-button(mat-color($warn, 400), mat-color($warn, 400));
 
                 &.focused {
                     background: rgba(mat-color($warn, 300), 0.1);
