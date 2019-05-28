@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
 import { Subject } from 'rxjs';
 
+import { binMask } from './bin-input-mask';
+
 @Component({
     selector: 'dsh-bin-input',
     templateUrl: 'bin-input.component.html',
@@ -74,6 +76,10 @@ export class BINInputComponent implements MatFormFieldControl<number>, OnDestroy
     set value(v: number) {
         this.formControl.setValue(v);
         this.stateChanges.next();
+    }
+
+    get mask() {
+        return binMask;
     }
 
     constructor(private fm: FocusMonitor, private elRef: ElementRef<HTMLElement>) {

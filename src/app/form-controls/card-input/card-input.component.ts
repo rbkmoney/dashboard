@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
 import { Subject } from 'rxjs';
 
+import { cardMask } from './card-input-mask';
+
 @Component({
     selector: 'dsh-card-input',
     templateUrl: 'card-input.component.html',
@@ -74,6 +76,10 @@ export class CardInputComponent implements MatFormFieldControl<number>, OnDestro
     set value(v: number) {
         this.formControl.setValue(v);
         this.stateChanges.next();
+    }
+
+    get mask() {
+        return cardMask;
     }
 
     constructor(private fm: FocusMonitor, private elRef: ElementRef<HTMLElement>) {
