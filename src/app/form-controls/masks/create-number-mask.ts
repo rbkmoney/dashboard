@@ -31,17 +31,30 @@ export function createNumberMask({
     const prefixLength = (prefix && prefix.length) || 0;
     const suffixLength = (suffix && suffix.length) || 0;
     const thousandsSeparatorSymbolLength = (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
-    const decimalSymbolMask = decimalSeparator.split(emptyString);
 
     function numberMask(rawValue = emptyString) {
+        let currentDecimalSeparator = decimalSeparator;
+        if (allowDecimal) {
+            for (const ds of [decimalSeparator, ...alternateDecimalSeparators]) {
+                if (rawValue.indexOf(ds) !== -1) {
+                    currentDecimalSeparator = ds;
+                    break;
+                }
+            }
+        }
+        const currentDecimalSeparatorMask: Mask = currentDecimalSeparator.split(emptyString);
+        const decimalMask = new Array(decimalLimit).fill(0).map(() => digitRegExp);
+
         const rawValueLength = rawValue.length;
 
         if (rawValue === emptyString || (rawValue[0] === prefix[0] && rawValueLength === 1)) {
             const resultMask: Mask = prefix.split(emptyString);
             return resultMask.concat([digitRegExp]).concat(suffix.split(emptyString));
-        } else if (rawValue === decimalSeparator && allowDecimal) {
+        } else if (rawValue === currentDecimalSeparator && allowDecimal) {
             const resultMask: Mask = prefix.split(emptyString);
-            return resultMask.concat(['0', ...decimalSymbolMask, digitRegExp]).concat(suffix.split(emptyString));
+            return resultMask
+                .concat(['0', ...currentDecimalSeparatorMask, ...decimalMask])
+                .concat(suffix.split(emptyString));
         }
 
         const isNegative = rawValue[0] === minus && allowNegative;
@@ -50,7 +63,7 @@ export function createNumberMask({
             rawValue = rawValue.toString().substr(1);
         }
 
-        const indexOfLastDecimal = rawValue.lastIndexOf(decimalSeparator);
+        const indexOfLastDecimal = rawValue.lastIndexOf(currentDecimalSeparator);
         const hasDecimal = indexOfLastDecimal !== -1;
 
         let integer;
@@ -93,21 +106,17 @@ export function createNumberMask({
         mask = convertToMask(integer);
 
         if ((hasDecimal && allowDecimal) || requireDecimal === true) {
-            if (rawValue[indexOfLastDecimal - 1] !== decimalSeparator) {
+            if (rawValue[indexOfLastDecimal - 1] !== currentDecimalSeparator) {
                 mask.push(caretTrap);
             }
 
-            mask.push(...decimalSymbolMask, caretTrap);
+            mask.push(...currentDecimalSeparatorMask, caretTrap);
 
             if (fraction) {
-                if (typeof decimalLimit === number) {
-                    fraction = fraction.slice(0, decimalLimit);
-                }
-
-                mask = mask.concat(fraction);
+                mask = mask.concat(decimalMask);
             }
 
-            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === decimalSeparator) {
+            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === currentDecimalSeparator) {
                 mask.push(digitRegExp);
             }
         }
@@ -133,14 +142,32 @@ export function createNumberMask({
     }
 
     function numberPipe(conformedValue: string, config: TextMaskConfig) {
-        return {
-            value: conformedValue
-        };
+        const indexesOfPipedChars = [];
+        let value = conformedValue;
+
+        if (conformedValue.indexOf(decimalSeparator) === -1) {
+            for (const ds of alternateDecimalSeparators) {
+                const idx = value.indexOf(ds);
+                if (idx !== -1) {
+                    value = value.replace(ds, decimalSeparator);
+                    if (ds.length === decimalSeparator.length) {
+                        indexesOfPipedChars.push(...new Array(ds.length).fill(0).map((im, i) => idx - 1 + i));
+                    } else {
+                        indexesOfPipedChars.push(
+                            ...new Array(value.length - idx - 1).fill(0).map((im, i) => idx - 1 + i)
+                        );
+                    }
+                    break;
+                }
+            }
+        }
+
+        return { value, indexesOfPipedChars };
     }
 
     numberMask.instanceOf = 'createNumberMask';
 
-    return { mask: numberMask, pipe: numberPipe };
+    return { mask: numberMask, pipe: numberPipe, guide: false };
 }
 
 function convertToMask(strNumber) {
