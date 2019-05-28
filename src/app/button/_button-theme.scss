@@ -17,7 +17,7 @@
 }
 
 @mixin focused-background($palette, $color) {
-    background: rgba(mat-color($palette, $color), 0.1);
+    background: mat-color($palette, $color);
 }
 
 @mixin dsh-button-theme($theme) {
