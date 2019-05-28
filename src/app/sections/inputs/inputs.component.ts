@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { currencyMask } from '../../form-controls';
+
 @Component({
     templateUrl: 'inputs.component.html',
     styleUrls: ['inputs.component.scss'],
@@ -8,6 +10,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class InputsComponent {
     formGroup: FormGroup;
+
+    get currencyMask() {
+        return currencyMask;
+    }
 
     constructor(fb: FormBuilder) {
         this.formGroup = fb.group({
