@@ -48,13 +48,15 @@ export function createNumberMask({
         const rawValueLength = rawValue.length;
 
         if (rawValue === emptyString || (rawValue[0] === prefix[0] && rawValueLength === 1)) {
-            const resultMask: Mask = prefix.split(emptyString);
-            return resultMask.concat([digitRegExp]).concat(suffix.split(emptyString));
+            return [...prefix.split(emptyString), digitRegExp, ...suffix.split(emptyString)];
         } else if (rawValue === currentDecimalSeparator && allowDecimal) {
-            const resultMask: Mask = prefix.split(emptyString);
-            return resultMask
-                .concat(['0', ...currentDecimalSeparatorMask, ...decimalMask])
-                .concat(suffix.split(emptyString));
+            return [
+                ...prefix.split(emptyString),
+                '0',
+                ...currentDecimalSeparatorMask,
+                ...decimalMask,
+                ...suffix.split(emptyString)
+            ];
         }
 
         const isNegative = rawValue[0] === minus && allowNegative;
