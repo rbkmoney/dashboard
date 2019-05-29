@@ -21,7 +21,7 @@ export class FloatPanelComponent implements OnDestroy {
 
     private _rulerRef: ElementRulerRef;
     get rulerRef() {
-        return this._rulerRef || (this._rulerRef = this.ruler.create(this.elementRef.nativeElement, 0));
+        return this._rulerRef || (this._rulerRef = this.ruler.create(this.elementRef.nativeElement));
     }
 
     private rulerSubscription: Subscription;

@@ -11,7 +11,7 @@ export interface ElementRulerRef {
 export class ElementRuler {
     constructor(private zone: NgZone) {}
 
-    create(node: any, throttleTime = 100): ElementRulerRef {
+    create<T extends HTMLElement>(node: T, throttleTime = 100): ElementRulerRef {
         let width;
         let height;
         let animationFrameId;
