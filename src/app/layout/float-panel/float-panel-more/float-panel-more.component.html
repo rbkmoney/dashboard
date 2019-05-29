@@ -1,7 +1,20 @@
 <ng-template cdk-portal>
     <dsh-card class="card">
-        <dsh-card-content>
-            <ng-content></ng-content>
+        <dsh-card-content fxLayout="column" fxLayoutGap="20px">
+            <div>
+                <ng-content></ng-content>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+                <div>
+                    <mat-icon svgIcon="notification" (click)="pin()"></mat-icon>
+                </div>
+                <div>
+                    Сбросить параметры поиска
+                </div>
+                <div>
+                    <mat-icon svgIcon="user" (click)="close()"></mat-icon>
+                </div>
+            </div>
         </dsh-card-content>
     </dsh-card>
 </ng-template>

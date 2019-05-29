@@ -7,4 +7,8 @@ import { Component, ViewChild, TemplateRef } from '@angular/core';
 })
 export class FloatPanelMoreComponent {
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+
+    close() {}
+
+    pin() {}
 }
