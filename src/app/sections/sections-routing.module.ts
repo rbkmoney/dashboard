@@ -7,6 +7,7 @@ import { AnalyticsComponent } from './analytics';
 import { TableComponent } from './table';
 import { routes as onboargindRoutes } from './onboarding';
 import { ButtonsComponent } from './buttons';
+import { OperationsComponent } from './operations/operations.component';
 
 const routes: Routes = [
     {
@@ -25,6 +26,10 @@ const routes: Routes = [
     {
         path: 'buttons',
         component: ButtonsComponent
+    },
+    {
+        path: 'operations',
+        component: OperationsComponent
     },
     {
         path: '**',
