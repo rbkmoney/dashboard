@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
     selector: 'dsh-float-panel',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
     styleUrls: ['float-panel.component.scss']
 })
 export class FloatPanelComponent {
-    constructor() {}
+    constructor(private overlay: Overlay) {}
+
+    open() {
+        // const overlayRef = this.overlay.create();
+        // const filePreviewPortal = new ComponentPortal(FilePreviewOverlayComponent);
+        // overlayRef.attach(filePreviewPortal);
+    }
 }
