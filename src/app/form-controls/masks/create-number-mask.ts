@@ -3,8 +3,7 @@ import { TextMaskConfig } from 'angular2-text-mask';
 const dollarSign = '$';
 const emptyString = '';
 const comma = ',';
-const period = ',';
-const alternatePeriods = ['.'];
+const period = '.';
 const minus = '-';
 const minusRegExp = /-/;
 const nonDigitsRegExp = /\D+/g;
@@ -20,8 +19,7 @@ export function createNumberMask({
     includeThousandsSeparator = true,
     thousandsSeparatorSymbol = comma,
     allowDecimal = false,
-    decimalSeparator = period,
-    alternateDecimalSeparators = alternatePeriods,
+    decimalSymbol = period,
     decimalLimit = 2,
     requireDecimal = false,
     allowNegative = false,
@@ -33,30 +31,12 @@ export function createNumberMask({
     const thousandsSeparatorSymbolLength = (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
 
     function numberMask(rawValue = emptyString) {
-        let currentDecimalSeparator = decimalSeparator;
-        if (allowDecimal) {
-            for (const ds of alternateDecimalSeparators) {
-                if (rawValue.indexOf(ds) !== -1) {
-                    currentDecimalSeparator = ds;
-                    break;
-                }
-            }
-        }
-        const currentDecimalSeparatorMask: Mask = currentDecimalSeparator.split(emptyString);
-        const decimalMask = [' ', ...new Array(decimalLimit).fill(0).map(() => digitRegExp)];
-
         const rawValueLength = rawValue.length;
 
         if (rawValue === emptyString || (rawValue[0] === prefix[0] && rawValueLength === 1)) {
             return [...prefix.split(emptyString), digitRegExp, ...suffix.split(emptyString)];
-        } else if (rawValue === currentDecimalSeparator && allowDecimal) {
-            return [
-                ...prefix.split(emptyString),
-                '0',
-                ...currentDecimalSeparatorMask,
-                ...decimalMask,
-                ...suffix.split(emptyString)
-            ];
+        } else if (rawValue === decimalSymbol && allowDecimal) {
+            return [...prefix.split(emptyString), '0', decimalSymbol, digitRegExp, ...suffix.split(emptyString)];
         }
 
         const isNegative = rawValue[0] === minus && allowNegative;
@@ -65,7 +45,7 @@ export function createNumberMask({
             rawValue = rawValue.toString().substr(1);
         }
 
-        const indexOfLastDecimal = rawValue.lastIndexOf(currentDecimalSeparator);
+        const indexOfLastDecimal = rawValue.lastIndexOf(decimalSymbol);
         const hasDecimal = indexOfLastDecimal !== -1;
 
         let integer;
@@ -108,17 +88,21 @@ export function createNumberMask({
         mask = convertToMask(integer);
 
         if ((hasDecimal && allowDecimal) || requireDecimal === true) {
-            if (rawValue[indexOfLastDecimal - 1] !== currentDecimalSeparator) {
+            if (rawValue[indexOfLastDecimal - 1] !== decimalSymbol) {
                 mask.push(caretTrap);
             }
 
-            mask.push(...currentDecimalSeparatorMask, caretTrap);
+            mask.push(decimalSymbol, caretTrap);
 
             if (fraction) {
-                mask = mask.concat(decimalMask);
+                if (typeof decimalLimit === number) {
+                    fraction = fraction.slice(0, decimalLimit);
+                }
+
+                mask = mask.concat(fraction);
             }
 
-            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === currentDecimalSeparator) {
+            if (requireDecimal === true && rawValue[indexOfLastDecimal - 1] === decimalSymbol) {
                 mask.push(digitRegExp);
             }
         }
