@@ -1,4 +1,4 @@
-import { Component, ContentChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, ContentChild, ViewContainerRef, OnDestroy, ElementRef } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -17,7 +17,7 @@ export class FloatPanelComponent implements OnDestroy {
         return this._overlayRef || (this._overlayRef = this.createOverlayRef());
     }
 
-    constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
+    constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef, private elementRef: ElementRef) {}
 
     ngOnDestroy() {
         if (this._overlayRef) {
@@ -44,6 +44,23 @@ export class FloatPanelComponent implements OnDestroy {
     }
 
     private getOverlayConfig(): OverlayConfig {
-        return new OverlayConfig({});
+        return new OverlayConfig({
+            positionStrategy: this.overlay
+                .position()
+                .flexibleConnectedTo(this.elementRef)
+                .withPush(true)
+                .withDefaultOffsetX(0)
+                .withPositions([
+                    {
+                        originX: 'start',
+                        originY: 'top',
+                        overlayX: 'start',
+                        overlayY: 'top'
+                    }
+                ]),
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
+            width: this.elementRef.nativeElement.getBoundingClientRect().width,
+            minHeight: this.elementRef.nativeElement.getBoundingClientRect().height
+        });
     }
 }
