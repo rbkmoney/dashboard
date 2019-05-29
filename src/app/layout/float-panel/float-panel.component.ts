@@ -3,6 +3,8 @@ import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 import { FloatPanelMoreComponent } from './float-panel-more/float-panel-more.component';
+import { ElementRuler, ElementRulerRef } from './element-ruler';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'dsh-float-panel',
@@ -17,7 +19,19 @@ export class FloatPanelComponent implements OnDestroy {
         return this._overlayRef || (this._overlayRef = this.createOverlayRef());
     }
 
-    constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef, private elementRef: ElementRef) {}
+    private _rulerRef: ElementRulerRef;
+    get rulerRef() {
+        return this._rulerRef || (this._rulerRef = this.ruler.create(this.elementRef.nativeElement, 0));
+    }
+
+    private rulerSubscription: Subscription;
+
+    constructor(
+        private overlay: Overlay,
+        private viewContainerRef: ViewContainerRef,
+        private elementRef: ElementRef,
+        private ruler: ElementRuler
+    ) {}
 
     ngOnDestroy() {
         if (this._overlayRef) {
@@ -30,7 +44,15 @@ export class FloatPanelComponent implements OnDestroy {
         if (!this.overlayRef.hasAttached()) {
             const portal = this.getPortal();
             this.overlayRef.attach(portal);
+            this.rulerSubscription = this.rulerRef.change.subscribe(({ width, height }) => {
+                this.overlayRef.updateSize({ width, minHeight: height });
+                this.overlayRef.updatePosition();
+            });
         }
+    }
+
+    close() {
+        this.rulerSubscription.unsubscribe();
     }
 
     private getPortal(): TemplatePortal {
@@ -40,6 +62,7 @@ export class FloatPanelComponent implements OnDestroy {
     private createOverlayRef(): OverlayRef {
         const config = this.getOverlayConfig();
         const overlayRef = this.overlay.create(config);
+
         return overlayRef;
     }
 
