@@ -3,7 +3,7 @@
 @mixin dsh-card-theme($theme) {
     $background: map-get($theme, background);
 
-    .card {
+    .dsh-card {
         background-color: mat-color($background, card);
     }
 }
