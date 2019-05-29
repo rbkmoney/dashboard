@@ -25,8 +25,8 @@ import { SectionsModule } from './sections';
 import { KeycloakService } from './auth/keycloak';
 import { ThemeService, ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
-import { LayoutModule } from './layout';
 import { SettingsModule, SettingsService } from './settings';
+import { ContainerModule } from './container';
 
 @NgModule({
     declarations: [AppComponent],
@@ -40,7 +40,7 @@ import { SettingsModule, SettingsService } from './settings';
         AuthModule,
         ThemeModule,
         ConfigModule,
-        LayoutModule,
+        ContainerModule,
         SettingsModule
     ],
     providers: [
