@@ -21,6 +21,7 @@ export function createNumberMask({
     allowDecimal = false,
     decimalSymbol = period,
     decimalLimit = 2,
+    decimalSuffixMask = [' '],
     requireDecimal = false,
     allowNegative = false,
     allowLeadingZeroes = false,
@@ -29,6 +30,7 @@ export function createNumberMask({
     const prefixLength = (prefix && prefix.length) || 0;
     const suffixLength = (suffix && suffix.length) || 0;
     const thousandsSeparatorSymbolLength = (thousandsSeparatorSymbol && thousandsSeparatorSymbol.length) || 0;
+    const fullDecimalMask = [decimalSymbol, ...decimalSuffixMask];
 
     function numberMask(rawValue = emptyString) {
         const rawValueLength = rawValue.length;
@@ -36,7 +38,7 @@ export function createNumberMask({
         if (rawValue === emptyString || (rawValue[0] === prefix[0] && rawValueLength === 1)) {
             return [...prefix.split(emptyString), digitRegExp, ...suffix.split(emptyString)];
         } else if (rawValue === decimalSymbol && allowDecimal) {
-            return [...prefix.split(emptyString), '0', decimalSymbol, digitRegExp, ...suffix.split(emptyString)];
+            return [...prefix.split(emptyString), '0', ...fullDecimalMask, digitRegExp, ...suffix.split(emptyString)];
         }
 
         const isNegative = rawValue[0] === minus && allowNegative;
@@ -87,12 +89,12 @@ export function createNumberMask({
 
         mask = convertToMask(integer);
 
-        if ((hasDecimal && allowDecimal) || requireDecimal === true) {
+        if ((hasDecimal && allowDecimal) || requireDecimal) {
             if (rawValue[indexOfLastDecimal - 1] !== decimalSymbol) {
                 mask.push(caretTrap);
             }
 
-            mask.push(decimalSymbol, caretTrap);
+            mask.push(decimalSymbol, caretTrap, ...decimalSuffixMask);
 
             if (fraction) {
                 if (typeof decimalLimit === number) {
