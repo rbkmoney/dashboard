@@ -42,3 +42,8 @@ make compile
 
     npm run build -- --prod --stats-json --extraWebpackConfig webpack.extra.js
     npx webpack-bundle-analyzer dist/stats.json
+
+## Guides
+
+-   [Using typography](https://material.angular.io/guide/typography)
+-   [Theming your components](https://material.angular.io/guide/theming-your-components)

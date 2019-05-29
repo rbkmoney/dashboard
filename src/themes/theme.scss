@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@import './body';
+@import '../app/container/container-theme';
 @import '../app/dropdown/dropdown-theme';
 @import '../app/table/table-theme';
 @import '../app/charts/bar-chart/bar-chart-theme';
@@ -13,9 +13,7 @@
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
-
-        @include dsh-body-theme($theme);
-
+        @include dsh-container-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
         @include dsh-bar-chart-theme($theme);

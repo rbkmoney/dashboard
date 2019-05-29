@@ -1,0 +1,69 @@
+@import '~@angular/material/theming';
+@import '../app/button/button-theme';
+@import '../app/state-nav/state-nav-theme';
+
+@mixin dsh-typography($config) {
+    @include dsh-button-typography($config);
+    @include dsh-state-nav-typography($config);
+}
+
+@function dsh-typography-config(
+    $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+    $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+    $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+    $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+    $display-1: mat-typography-level(34px, 40px, 400),
+    $headline: mat-typography-level(24px, 32px, 400),
+    $title: mat-typography-level(20px, 32px, 500),
+    $subheading-2: mat-typography-level(16px, 28px, 400),
+    $subheading-1: mat-typography-level(15px, 24px, 400),
+    $body-2: mat-typography-level(14px, 24px, 500),
+    $body-1: mat-typography-level(14px, 20px, 400),
+    $caption: mat-typography-level(12px, 20px, 400),
+    $button: mat-typography-level(14px, 14px, 500),
+    $input: mat-typography-level(14px, 1.125, 400)
+) {
+    // Declare an initial map with all of the levels.
+    $config: (
+        display-4: $display-4,
+        display-3: $display-3,
+        display-2: $display-2,
+        display-1: $display-1,
+        headline: $headline,
+        title: $title,
+        subheading-2: $subheading-2,
+        subheading-1: $subheading-1,
+        body-2: $body-2,
+        body-1: $body-1,
+        caption: $caption,
+        button: $button,
+        input: $input
+    );
+
+    // Loop through the levels and set the `font-family` of the ones that don't have one to the base.
+    // Note that Sass can't modify maps in place, which means that we need to merge and re-assign.
+    @each $key, $level in $config {
+        @if map-get($level, font-family) == null {
+            $new-level: map-merge(
+                $level,
+                (
+                    font-family: $font-family
+                )
+            );
+            $config: map-merge(
+                $config,
+                (
+                    $key: $new-level
+                )
+            );
+        }
+    }
+
+    // Add the base font family to the config.
+    @return map-merge(
+        $config,
+        (
+            font-family: $font-family
+        )
+    );
+}
