@@ -152,13 +152,7 @@ export function createNumberMask({
                 const idx = value.indexOf(ds);
                 if (idx !== -1) {
                     value = value.replace(ds, decimalSeparator);
-                    if (ds.length === decimalSeparator.length) {
-                        indexesOfPipedChars.push(...new Array(ds.length).fill(0).map((im, i) => idx - 1 + i));
-                    } else {
-                        indexesOfPipedChars.push(
-                            ...new Array(value.length - idx - 1).fill(0).map((im, i) => idx - 1 + i)
-                        );
-                    }
+                    indexesOfPipedChars.push(idx - 1);
                     break;
                 }
             }
