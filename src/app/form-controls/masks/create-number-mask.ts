@@ -3,8 +3,8 @@ import { TextMaskConfig } from 'angular2-text-mask';
 const dollarSign = '$';
 const emptyString = '';
 const comma = ',';
-const period = '.';
-const alternatePeriods = ['.', ','];
+const period = ',';
+const alternatePeriods = ['.'];
 const minus = '-';
 const minusRegExp = /-/;
 const nonDigitsRegExp = /\D+/g;
@@ -35,7 +35,7 @@ export function createNumberMask({
     function numberMask(rawValue = emptyString) {
         let currentDecimalSeparator = decimalSeparator;
         if (allowDecimal) {
-            for (const ds of [decimalSeparator, ...alternateDecimalSeparators]) {
+            for (const ds of alternateDecimalSeparators) {
                 if (rawValue.indexOf(ds) !== -1) {
                     currentDecimalSeparator = ds;
                     break;
@@ -43,7 +43,7 @@ export function createNumberMask({
             }
         }
         const currentDecimalSeparatorMask: Mask = currentDecimalSeparator.split(emptyString);
-        const decimalMask = new Array(decimalLimit).fill(0).map(() => digitRegExp);
+        const decimalMask = [' ', ...new Array(decimalLimit).fill(0).map(() => digitRegExp)];
 
         const rawValueLength = rawValue.length;
 
@@ -143,27 +143,9 @@ export function createNumberMask({
         return mask;
     }
 
-    function numberPipe(conformedValue: string, config: TextMaskConfig) {
-        const indexesOfPipedChars = [];
-        let value = conformedValue;
-
-        if (conformedValue.indexOf(decimalSeparator) === -1) {
-            for (const ds of alternateDecimalSeparators) {
-                const idx = value.indexOf(ds);
-                if (idx !== -1) {
-                    value = value.replace(ds, decimalSeparator);
-                    indexesOfPipedChars.push(idx - 1);
-                    break;
-                }
-            }
-        }
-
-        return { value, indexesOfPipedChars };
-    }
-
     numberMask.instanceOf = 'createNumberMask';
 
-    return { mask: numberMask, pipe: numberPipe, guide: false };
+    return { mask: numberMask, guide: false };
 }
 
 function convertToMask(strNumber) {
