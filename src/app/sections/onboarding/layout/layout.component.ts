@@ -5,8 +5,7 @@ import { OnboardingService, LEGAL_ENTITY_STEPS } from '../onboarding.service';
 
 @Component({
     selector: 'dsh-onboarding-layout',
-    templateUrl: 'layout.component.html',
-    styleUrls: ['layout.component.scss']
+    templateUrl: 'layout.component.html'
 })
 export class LayoutComponent {
     @Input()

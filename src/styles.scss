@@ -1,17 +1,22 @@
 @import '~@angular/material/theming';
-@import './styles/variables';
+@import './styles/typography';
 
-@include mat-core();
-
-body {
-    font-size: 14px;
-    font-family: $font-family;
-    margin: 0;
-    transition: all 0.3s ease-in-out;
+@mixin global-set-up() {
+    body {
+        margin: 0;
+        transition: all 0.3s ease-in-out;
+    }
+    // Supress warning message: "Could not find Angular Material core theme. ..."
+    // Theme is added asynchronously
+    .mat-theme-loaded-marker {
+        display: none;
+    }
 }
 
-// Supress warning message: "Could not find Angular Material core theme. ..."
-// Theme is added asynchronously
-.mat-theme-loaded-marker {
-    display: none;
+@mixin dsh-core($config) {
+    @include global-set-up();
+    @include mat-core($config);
+    @include dsh-typography($config);
 }
+
+@include dsh-core(dsh-typography-config());

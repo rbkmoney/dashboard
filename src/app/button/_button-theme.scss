@@ -119,3 +119,16 @@
         }
     }
 }
+
+@mixin dsh-button-typography($config) {
+    .dsh {
+        &-button,
+        &-stroked-button {
+            font: {
+                family: mat-font-family($config, button);
+                size: mat-font-size($config, button);
+                weight: mat-font-weight($config, button);
+            }
+        }
+    }
+}
