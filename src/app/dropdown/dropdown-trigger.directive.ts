@@ -42,6 +42,7 @@ export class DropdownTriggerDirective implements OnDestroy {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+        this.removeWindowListeners();
     }
 
     @HostListener('click')
@@ -55,15 +56,13 @@ export class DropdownTriggerDirective implements OnDestroy {
             this.overlayRef.attach(portal);
             this.dropdown.state = State.open;
             this.updatePosition();
-            window.addEventListener('mousedown', this.backdropClickHandler);
-            window.addEventListener('keyup', this.keypressHandler);
+            this.addWindowListeners();
         }
     }
 
     close() {
         this.dropdown.state = State.closed;
-        window.removeEventListener('mousedown', this.backdropClickHandler);
-        window.removeEventListener('keyup', this.keypressHandler);
+        this.removeWindowListeners();
     }
 
     toggle() {
@@ -74,6 +73,16 @@ export class DropdownTriggerDirective implements OnDestroy {
         } else {
             this.open();
         }
+    }
+
+    private addWindowListeners() {
+        window.addEventListener('mousedown', this.backdropClickHandler);
+        window.addEventListener('keyup', this.keypressHandler);
+    }
+
+    private removeWindowListeners() {
+        window.removeEventListener('mousedown', this.backdropClickHandler);
+        window.removeEventListener('keyup', this.keypressHandler);
     }
 
     private getPortal(): TemplatePortal {
