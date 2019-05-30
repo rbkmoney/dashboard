@@ -7,10 +7,12 @@ import { FloatPanelComponent } from './float-panel.component';
 import { CardModule } from '../card';
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
+import { ElementRuler } from './element-ruler';
 
 @NgModule({
     imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule],
     declarations: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
-    exports: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent]
+    exports: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
+    providers: [ElementRuler]
 })
 export class FloatPanelModule {}
