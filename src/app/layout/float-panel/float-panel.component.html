@@ -2,24 +2,34 @@
     <dsh-card-content>
         <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
             <div fxFlex><ng-content></ng-content></div>
-            <div *ngIf="!isExpanded">
-                <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
+            <div>
+                <mat-icon
+                    svgIcon="user"
+                    class="action"
+                    (click)="expandToggle()"
+                    [ngStyle]="{ opacity: isExpanded ? 0 : 1 }"
+                ></mat-icon>
             </div>
         </div>
-        <div class="dsh-float-panel-more-wrapper" *ngIf="isExpanded" [ngStyle]="{ height: moreHeight }">
+        <div
+            class="dsh-float-panel-more-wrapper"
+            *ngIf="isExpanded"
+            [@expand]="expandTrigger"
+            (@expand.done)="animationDone($event)"
+        >
             <div #moreContent>
                 <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
-            </div>
-        </div>
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between" *ngIf="isExpanded">
-            <div>
-                <mat-icon svgIcon="notification" (click)="pinToggle()"></mat-icon>
-            </div>
-            <div>
-                <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
-            </div>
-            <div>
-                <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+                    <div>
+                        <mat-icon svgIcon="notification" (click)="pinToggle()"></mat-icon>
+                    </div>
+                    <div>
+                        <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
+                    </div>
+                    <div>
+                        <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
+                    </div>
+                </div>
             </div>
         </div>
     </dsh-card-content>
