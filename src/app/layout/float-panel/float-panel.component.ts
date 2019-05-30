@@ -1,21 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, ContentChild } from '@angular/core';
+import get from 'lodash.get';
 
-import { FloatPanelService } from './float-panel.service';
+import { FloatPanelMoreComponent } from './float-panel-more.component';
+import { FloatPanelActionsComponent } from './float-panel-actions.component';
 
 @Component({
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
-    styleUrls: ['float-panel.component.scss'],
-    providers: [FloatPanelService]
+    styleUrls: ['float-panel.component.scss']
 })
 export class FloatPanelComponent {
-    get expand() {
-        return this.floatPanelService.expand;
+    @ContentChild(FloatPanelMoreComponent) floatPanelMore: FloatPanelMoreComponent;
+    @ContentChild(FloatPanelActionsComponent) floatPanelActions: FloatPanelActionsComponent;
+
+    isExpanded = false;
+    isPinned = false;
+
+    get moreTemplate() {
+        return get(this.floatPanelMore, 'templateRef');
     }
 
-    get isExpanded() {
-        return this.floatPanelService.isExpanded;
+    get actionsTemplate() {
+        return get(this.floatPanelActions, 'templateRef');
     }
 
-    constructor(private floatPanelService: FloatPanelService) {}
+    constructor() {}
+
+    expand = () => {
+        this.isExpanded = true;
+    };
+
+    close = () => {
+        this.isExpanded = false;
+    };
+
+    expandToggle = () => {
+        this.isExpanded ? this.close() : this.expand();
+    };
+
+    pin = () => {
+        this.isPinned = true;
+    };
+
+    unpin = () => {
+        this.isPinned = false;
+    };
+
+    pinToggle = () => {
+        this.isPinned ? this.unpin() : this.pin();
+    };
 }

@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 
 import { FloatPanelComponent } from './float-panel.component';
 import { CardModule } from '../card';
-import { FloatPanelMoreComponent } from './float-panel-more/float-panel-more.component';
-import { FloatPanelService } from './float-panel.service';
+import { FloatPanelMoreComponent } from './float-panel-more.component';
+import { FloatPanelActionsComponent } from './float-panel-actions.component';
 
 @NgModule({
     imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule],
-    declarations: [FloatPanelComponent, FloatPanelMoreComponent],
-    exports: [FloatPanelComponent, FloatPanelMoreComponent]
+    declarations: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
+    exports: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent]
 })
 export class FloatPanelModule {}

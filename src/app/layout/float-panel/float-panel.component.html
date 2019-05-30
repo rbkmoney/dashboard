@@ -1,8 +1,26 @@
 <dsh-card>
-    <dsh-card-content fxLayout="row" fxLayoutGap="20px">
-        <div fxFlex><ng-content></ng-content></div>
-        <div *ngIf="!isExpanded">
-            <mat-icon svgIcon="user" (click)="expand()"></mat-icon>
+    <dsh-card-content>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex><ng-content></ng-content></div>
+            <div *ngIf="!isExpanded">
+                <mat-icon svgIcon="user" (click)="expand()"></mat-icon>
+            </div>
+        </div>
+        <div class="dsh-float-panel-more-wrapper">
+            <div>
+                <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+            <div>
+                <mat-icon svgIcon="notification" (click)="pin()"></mat-icon>
+            </div>
+            <div>
+                <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
+            </div>
+            <div>
+                <mat-icon svgIcon="user" (click)="close()"></mat-icon>
+            </div>
         </div>
     </dsh-card-content>
 </dsh-card>
