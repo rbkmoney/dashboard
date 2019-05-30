@@ -1,4 +1,6 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { FloatPanelService } from '../float-panel.service';
 
 @Component({
     selector: 'dsh-float-panel-more',
@@ -6,9 +8,17 @@ import { Component, ViewChild, TemplateRef } from '@angular/core';
     styleUrls: ['float-panel-more.component.scss']
 })
 export class FloatPanelMoreComponent {
-    @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+    get isExpanded() {
+        return this.floatPanelService.isExpanded;
+    }
 
-    close() {}
+    get close() {
+        return this.floatPanelService.close;
+    }
 
-    pin() {}
+    get pin() {
+        return this.floatPanelService.pinToggle;
+    }
+
+    constructor(private floatPanelService: FloatPanelService) {}
 }
