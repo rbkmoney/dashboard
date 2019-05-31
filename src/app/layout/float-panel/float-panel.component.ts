@@ -1,17 +1,17 @@
-import { Component, ContentChild, ViewChild, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, ContentChild, ViewChild, ElementRef, Input } from '@angular/core';
 import get from 'lodash.get';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
 import { ElementRuler, ElementRulerRef } from './element-ruler';
 import { expandAnimation, State } from './expand-animation';
+import { hideAnimation, State as HideState } from './hide-animation';
 
 @Component({
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation]
+    animations: [expandAnimation, hideAnimation]
 })
 export class FloatPanelComponent {
     @Input()
@@ -24,7 +24,8 @@ export class FloatPanelComponent {
     @ContentChild(FloatPanelMoreComponent) floatPanelMore: FloatPanelMoreComponent;
     @ContentChild(FloatPanelActionsComponent) floatPanelActions: FloatPanelActionsComponent;
 
-    expandTrigger = { value: State.collapsed, params: { height: 0 } };
+    expandTrigger;
+    hideTrigger;
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
@@ -52,35 +53,30 @@ export class FloatPanelComponent {
 
     constructor(private ruler: ElementRuler) {}
 
-    expand = () => {
+    expand() {
         this.isExpanded = true;
-        this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
-    };
+        this.hideTrigger = HideState.hided;
+    }
 
-    close = () => {
-        // this.isExpanded = false;
-        this.expandTrigger = { value: State.collapsed, params: { height: 0 } };
-    };
+    close() {
+        this.isExpanded = false;
+        this.expandTrigger = undefined;
+        this.hideTrigger = undefined;
+    }
 
-    expandToggle = () => {
+    expandToggle() {
         this.isExpanded ? this.close() : this.expand();
-    };
+    }
 
-    pin = () => {
+    pin() {
         this.isPinned = true;
-    };
+    }
 
-    unpin = () => {
+    unpin() {
         this.isPinned = false;
-    };
+    }
 
-    pinToggle = () => {
+    pinToggle() {
         this.isPinned ? this.unpin() : this.pin();
-    };
-
-    animationDone({ toState }) {
-        if (toState === 'collapsed') {
-            this.isExpanded = false;
-        }
     }
 }

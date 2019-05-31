@@ -3,10 +3,9 @@
 
 .dsh-float-panel-more-wrapper {
     height: 0;
-    transition: height 500ms;
     overflow: hidden;
 }
 
 .action {
-    transition: all 250ms;
+    opacity: 1;
 }
