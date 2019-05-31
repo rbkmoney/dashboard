@@ -9,17 +9,9 @@ $dsh-button-border-radius: 25px !default;
 $dsh-stroked-button-line-height: $dsh-button-line-height - 4;
 $dsh-stroked-button-border-width: 1px;
 
-/* stylelint-disable material/no-prefixes */
-@mixin user-select($value) {
-    -webkit-user-select: $value;
-    -moz-user-select: $value;
-    -ms-user-select: $value;
-    user-select: $value;
-}
-
 // Mixin overriding default button styles like the gray background, the border, and the outline.
 @mixin dsh-button-reset {
-    @include user-select(none);
+    user-select: none;
     cursor: pointer;
     outline: none;
     border: none;
