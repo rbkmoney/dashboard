@@ -1,5 +1,7 @@
-import { Component, ContentChild, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ContentChild, ViewChild, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import get from 'lodash.get';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
@@ -18,13 +20,19 @@ export class FloatPanelComponent {
     trigger: string;
 
     isExpanded = false;
-    isPinned = false;
+    isPinned = true;
     moreHeight = 0;
 
     @ContentChild(FloatPanelMoreComponent) floatPanelMore: FloatPanelMoreComponent;
     @ContentChild(FloatPanelActionsComponent) floatPanelActions: FloatPanelActionsComponent;
 
     expandTrigger;
+
+    @ViewChild('template') templateRef: TemplateRef<any>;
+
+    @ViewChild('substrate') substrate: ElementRef<HTMLDivElement>;
+
+    private moreRuler: ElementRulerRef;
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
@@ -48,9 +56,7 @@ export class FloatPanelComponent {
         return get(this.floatPanelActions, 'templateRef');
     }
 
-    private moreRuler: ElementRulerRef;
-
-    constructor(private ruler: ElementRuler) {}
+    constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
     expand() {
         this.isExpanded = true;
@@ -75,5 +81,41 @@ export class FloatPanelComponent {
 
     pinToggle() {
         this.isPinned ? this.unpin() : this.pin();
+    }
+
+    open() {
+        const overlayRef = this.createOverlay();
+        const filePreviewPortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
+        overlayRef.attach(filePreviewPortal);
+        this.unpin();
+    }
+
+    private createOverlay() {
+        const overlayConfig = this.getOverlayConfig();
+        return this.overlay.create(overlayConfig);
+    }
+
+    private getOverlayConfig(): OverlayConfig {
+        const positionStrategy = this.overlay
+            .position()
+            .flexibleConnectedTo(this.substrate.nativeElement)
+            .withPush(true)
+            .withDefaultOffsetX(0)
+            .withPositions([
+                {
+                    originX: 'start',
+                    originY: 'top',
+                    overlayX: 'start',
+                    overlayY: 'top'
+                }
+            ]);
+
+        const overlayConfig = new OverlayConfig({
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
+            width: 300,
+            positionStrategy
+        });
+
+        return overlayConfig;
     }
 }
