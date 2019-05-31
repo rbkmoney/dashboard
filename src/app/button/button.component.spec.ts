@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DshButtonModule } from './index';
+import { ButtonModule } from './index';
 import { ThemePalette } from '@angular/material/core';
 
 /** Test component that contains an DshButton. */
@@ -33,7 +33,7 @@ class TestAppComponent {
 describe('DshButton', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [DshButtonModule],
+            imports: [ButtonModule],
             declarations: [TestAppComponent]
         });
 

@@ -1,0 +1,24 @@
+@import './button-base';
+
+.dsh {
+    &-button,
+    &-stroked-button {
+        @include dsh-button-base();
+
+        &:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+    }
+
+    &-stroked-button {
+        border: $dsh-stroked-button-border-width solid currentColor;
+        line-height: $dsh-stroked-button-line-height;
+    }
+
+    &-button {
+        &-text {
+            position: relative;
+            z-index: 1;
+        }
+    }
+}

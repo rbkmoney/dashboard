@@ -8,6 +8,7 @@ export class FocusManager {
         this.renderer.listen(t, 'mousedown', this.drawFocus.bind(this, t));
         this.renderer.listen(t, 'focusout', this.hideFocus.bind(this, t));
         this.renderer.listen(t, 'mouseup', this.hideFocus.bind(this, t));
+        this.renderer.listen(t, 'mouseleave', this.hideFocus.bind(this, t));
     }
 
     private drawFocus(el: HTMLButtonElement) {
