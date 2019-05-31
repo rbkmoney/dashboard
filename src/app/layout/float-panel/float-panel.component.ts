@@ -1,6 +1,15 @@
-import { Component, ContentChild, ViewChild, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ViewChild,
+    ElementRef,
+    Input,
+    TemplateRef,
+    ViewContainerRef,
+    AfterViewInit
+} from '@angular/core';
 import get from 'lodash.get';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 import { FloatPanelMoreComponent } from './float-panel-more.component';
@@ -15,12 +24,12 @@ import { hideAnimation } from './hide-animation';
     styleUrls: ['float-panel.component.scss'],
     animations: [expandAnimation, hideAnimation]
 })
-export class FloatPanelComponent {
+export class FloatPanelComponent implements AfterViewInit {
     @Input()
     trigger: string;
 
     isExpanded = false;
-    isPinned = true;
+    isPinned = false;
     moreHeight = 0;
 
     @ContentChild(FloatPanelMoreComponent) floatPanelMore: FloatPanelMoreComponent;
@@ -31,6 +40,8 @@ export class FloatPanelComponent {
     @ViewChild('template') templateRef: TemplateRef<any>;
 
     @ViewChild('substrate') substrate: ElementRef<HTMLDivElement>;
+
+    substratePortal: TemplatePortal;
 
     private moreRuler: ElementRulerRef;
 
@@ -56,7 +67,13 @@ export class FloatPanelComponent {
         return get(this.floatPanelActions, 'templateRef');
     }
 
+    overlayRef: OverlayRef;
+
     constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
+
+    ngAfterViewInit() {
+        this.isPinned ? this.toBody() : this.toPortal();
+    }
 
     expand() {
         this.isExpanded = true;
@@ -73,21 +90,37 @@ export class FloatPanelComponent {
 
     pin() {
         this.isPinned = true;
+        this.toBody();
     }
 
     unpin() {
         this.isPinned = false;
+        this.toPortal();
     }
 
     pinToggle() {
         this.isPinned ? this.unpin() : this.pin();
     }
 
-    open() {
-        const overlayRef = this.createOverlay();
-        const filePreviewPortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
-        overlayRef.attach(filePreviewPortal);
-        this.unpin();
+    toPortal() {
+        if (!this.overlayRef) {
+            this.overlayRef = this.createOverlay();
+        }
+        if (!this.overlayRef.hasAttached()) {
+            this.substratePortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
+            this.overlayRef.attach(this.substratePortal);
+        }
+    }
+
+    toBody() {
+        if (this.substratePortal && this.substratePortal.isAttached) {
+            this.substratePortal.detach();
+            this.substratePortal = undefined;
+        }
+        if (this.overlayRef && this.overlayRef.hasAttached()) {
+            this.overlayRef.detach();
+            this.overlayRef = undefined;
+        }
     }
 
     private createOverlay() {
@@ -112,7 +145,7 @@ export class FloatPanelComponent {
 
         const overlayConfig = new OverlayConfig({
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: 300,
+            width: '600px',
             positionStrategy
         });
 
