@@ -1,9 +1,9 @@
 <dsh-card>
     <dsh-card-content>
-        <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
+        <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base" style="height: 28px">
             <div fxFlex><ng-content></ng-content></div>
-            <div>
-                <mat-icon svgIcon="user" class="action" (click)="expandToggle()" [@hide]="hideTrigger"></mat-icon>
+            <div @hide *ngIf="!isExpanded">
+                <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
             </div>
         </div>
         <div class="dsh-float-panel-more-wrapper" [@expand]="expandTrigger" *ngIf="isExpanded">

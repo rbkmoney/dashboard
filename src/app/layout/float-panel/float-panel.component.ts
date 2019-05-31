@@ -5,7 +5,7 @@ import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
 import { ElementRuler, ElementRulerRef } from './element-ruler';
 import { expandAnimation, State } from './expand-animation';
-import { hideAnimation, State as HideState } from './hide-animation';
+import { hideAnimation } from './hide-animation';
 
 @Component({
     selector: 'dsh-float-panel',
@@ -25,7 +25,6 @@ export class FloatPanelComponent {
     @ContentChild(FloatPanelActionsComponent) floatPanelActions: FloatPanelActionsComponent;
 
     expandTrigger;
-    hideTrigger;
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
@@ -55,13 +54,11 @@ export class FloatPanelComponent {
 
     expand() {
         this.isExpanded = true;
-        this.hideTrigger = HideState.hided;
     }
 
     close() {
         this.isExpanded = false;
         this.expandTrigger = undefined;
-        this.hideTrigger = undefined;
     }
 
     expandToggle() {
