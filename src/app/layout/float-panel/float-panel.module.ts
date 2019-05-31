@@ -8,9 +8,10 @@ import { CardModule } from '../card';
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
 import { ElementRuler } from './element-ruler';
+import { DshButtonModule } from '../../button';
 
 @NgModule({
-    imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule],
+    imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule, DshButtonModule],
     declarations: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
     exports: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
     providers: [ElementRuler]

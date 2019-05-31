@@ -1,24 +1,28 @@
 <dsh-card>
     <dsh-card-content>
-        <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base" style="height: 28px">
+        <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
             <div fxFlex><ng-content></ng-content></div>
             <div @hide *ngIf="!isExpanded">
-                <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
+                <button dsh-button (click)="expandToggle()">
+                    <mat-icon svgIcon="user" style="height:16px"></mat-icon>
+                </button>
             </div>
         </div>
         <div class="dsh-float-panel-more-wrapper" [@expand]="expandTrigger" *ngIf="isExpanded">
-            <div #moreContent>
-                <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
+            <div #moreContent fxLayout="column" fxLayoutGap="20px">
+                <div>
+                    <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
+                </div>
                 <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
-                    <div>
-                        <mat-icon svgIcon="notification" (click)="pinToggle()"></mat-icon>
-                    </div>
+                    <button dsh-button (click)="pinToggle()">
+                        <mat-icon svgIcon="notification" style="height:16px"></mat-icon>
+                    </button>
                     <div>
                         <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
                     </div>
-                    <div>
-                        <mat-icon svgIcon="user" (click)="expandToggle()"></mat-icon>
-                    </div>
+                    <button dsh-button (click)="expandToggle()">
+                        <mat-icon svgIcon="user" style="height:16px"></mat-icon>
+                    </button>
                 </div>
             </div>
         </div>
