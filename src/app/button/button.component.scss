@@ -15,10 +15,8 @@
         line-height: $dsh-stroked-button-line-height;
     }
 
-    &-button {
-        &-text {
-            position: relative;
-            z-index: 1;
-        }
+    &-button-content {
+        position: relative;
+        z-index: 1;
     }
 }
