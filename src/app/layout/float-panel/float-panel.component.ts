@@ -15,8 +15,8 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
 import { ElementRuler, ElementRulerRef } from './element-ruler';
-import { expandAnimation, State } from './expand-animation';
-import { hideAnimation } from './hide-animation';
+import { expandAnimation, State } from './animations/expand-animation';
+import { hideAnimation } from './animations/hide-animation';
 
 @Component({
     selector: 'dsh-float-panel',
