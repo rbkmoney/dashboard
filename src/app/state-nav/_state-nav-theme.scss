@@ -9,7 +9,7 @@
     $warn: map-get($theme, warn);
     $warn-text: map-get($warn, contrast);
 
-    .item {
+    .dsh-step-nav-item {
         color: map-get($foreground, text);
 
         // The class order directly affects the order of applying styles (for example, both .warn and .active)
@@ -29,7 +29,7 @@
 }
 
 @mixin dsh-state-nav-typography($config) {
-    .item {
+    .dsh-step-nav-item {
         font: {
             family: mat-font-family($config, body-1);
             size: mat-font-size($config, body-1);

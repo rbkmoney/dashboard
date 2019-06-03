@@ -1,15 +1,9 @@
 import { Renderer2 } from '@angular/core';
 
 export class GlowManager {
-    private glowEl: HTMLElement;
-
-    constructor(private renderer: Renderer2) {}
+    constructor(private renderer: Renderer2, private glowEl: HTMLElement) {}
 
     register(t: HTMLButtonElement) {
-        this.glowEl = t.querySelector('.dsh-button-glow');
-        if (!this.glowEl) {
-            throw new Error('Glow element not found');
-        }
         this.renderer.listen(t, 'mouseenter', this.showGlow.bind(this));
         this.renderer.listen(t, 'mouseleave', this.hideGlow.bind(this));
         this.renderer.listen(t, 'mousemove', this.moveGlow.bind(this, t));
