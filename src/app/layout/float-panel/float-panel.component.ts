@@ -37,7 +37,7 @@ export class FloatPanelComponent implements AfterViewInit {
 
     expandTrigger;
 
-    @ViewChild('template') templateRef: TemplateRef<any>;
+    @ViewChild('template') templateRef: TemplateRef<HTMLElement>;
 
     _substrate: ElementRef<HTMLDivElement>;
     @ViewChild('substrate')

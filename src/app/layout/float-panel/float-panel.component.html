@@ -1,4 +1,4 @@
-<div #substrate></div>
+<div #substrate [ngStyle]="{ height: isPinned ? '0' : '99px' }"></div>
 <ng-template cdk-portal #template>
     <dsh-card class="card">
         <dsh-card-content>
@@ -31,4 +31,4 @@
         </dsh-card-content>
     </dsh-card>
 </ng-template>
-<ng-container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>
+<ng-container #container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>
