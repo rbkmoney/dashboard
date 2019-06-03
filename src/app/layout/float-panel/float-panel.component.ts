@@ -151,6 +151,7 @@ export class FloatPanelComponent implements AfterViewInit {
         const overlayConfig = new OverlayConfig({
             width: get(this.substrateRuler, 'value.width', 0) + 'px',
             positionStrategy,
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
             panelClass: 'panel'
         });
 
