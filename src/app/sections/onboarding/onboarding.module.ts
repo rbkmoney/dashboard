@@ -19,7 +19,7 @@ import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StateNavModule } from '../../state-nav/state-nav.module';
-import { DshButtonModule } from '../../button';
+import { ButtonModule } from '../../button';
 
 @NgModule({
     imports: [
@@ -36,7 +36,7 @@ import { DshButtonModule } from '../../button';
         MatSelectModule,
         MatDatepickerModule,
         StateNavModule,
-        DshButtonModule
+        ButtonModule
     ],
     declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
     entryComponents: [],

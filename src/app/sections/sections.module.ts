@@ -8,6 +8,7 @@ import { TableModule } from './table';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { OperationsModule } from './operations/operations.module';
+import { InputsModule } from './inputs/inputs.module';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { OperationsModule } from './operations/operations.module';
         TableModule,
         OnboardingModule,
         ButtonsModule,
-        OperationsModule
+        OperationsModule,
+        InputsModule
     ],
     declarations: [],
     entryComponents: [],
