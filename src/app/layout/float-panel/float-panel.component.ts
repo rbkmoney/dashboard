@@ -146,22 +146,12 @@ export class FloatPanelComponent implements AfterViewInit {
     private getOverlayConfig(): OverlayConfig {
         const positionStrategy = this.overlay
             .position()
-            .flexibleConnectedTo(this.substrate.nativeElement)
-            .withPush(true)
-            .withDefaultOffsetX(0)
-            .withPositions([
-                {
-                    originX: 'start',
-                    originY: 'top',
-                    overlayX: 'start',
-                    overlayY: 'top'
-                }
-            ]);
+            .connectedTo(this.substrate, { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'top' });
 
         const overlayConfig = new OverlayConfig({
-            scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: get(this.substrateRuler, 'value.width', 0) + 'px',
-            positionStrategy
+            positionStrategy,
+            panelClass: 'panel'
         });
 
         return overlayConfig;

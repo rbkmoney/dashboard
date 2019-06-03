@@ -7,6 +7,15 @@
     overflow: hidden;
 }
 
+.card {
+    width: 100%;
+    overflow-y: scroll;
+}
+
 .actions {
     opacity: 1;
+}
+
+/deep/.panel {
+    bottom: 10px;
 }
