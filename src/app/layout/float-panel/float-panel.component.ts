@@ -13,8 +13,8 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
 
-import { FloatPanelMoreComponent } from './float-panel-more.component';
-import { FloatPanelActionsComponent } from './float-panel-actions.component';
+import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
+import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { ElementRuler, ElementRulerRef } from './element-ruler';
 import { expandAnimation, State } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
@@ -33,8 +33,8 @@ export class FloatPanelComponent implements AfterViewInit {
     isPinned = false;
     moreHeight = 0;
 
-    @ContentChild(FloatPanelMoreComponent) floatPanelMore: FloatPanelMoreComponent;
-    @ContentChild(FloatPanelActionsComponent) floatPanelActions: FloatPanelActionsComponent;
+    @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
+    @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
     expandTrigger;
 

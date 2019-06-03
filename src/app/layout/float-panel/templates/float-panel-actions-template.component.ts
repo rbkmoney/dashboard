@@ -6,6 +6,6 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
         <ng-template><ng-content></ng-content></ng-template>
     `
 })
-export class FloatPanelActionsComponent {
-    @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+export class FloatPanelActionsTemplateComponent {
+    @ViewChild(TemplateRef) templateRef: TemplateRef<{}>;
 }

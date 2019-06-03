@@ -6,15 +6,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { FloatPanelComponent } from './float-panel.component';
 import { CardModule } from '../card';
-import { FloatPanelMoreComponent } from './float-panel-more.component';
-import { FloatPanelActionsComponent } from './float-panel-actions.component';
+import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
+import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { ElementRuler } from './element-ruler';
 import { ButtonModule } from '../../button';
 
 @NgModule({
     imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, OverlayModule],
-    declarations: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
-    exports: [FloatPanelComponent, FloatPanelMoreComponent, FloatPanelActionsComponent],
+    declarations: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
+    exports: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
     providers: [ElementRuler]
 })
 export class FloatPanelModule {}
