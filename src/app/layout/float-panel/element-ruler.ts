@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface ElementRulerRef {
     change: Observable<{ width: number; height: number }>;
+    value: { width: number; height: number };
     dispose(): void;
 }
 
@@ -41,6 +42,12 @@ export class ElementRuler {
         const obs = _change.asObservable();
         const change = throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
 
-        return { dispose, change };
+        return {
+            dispose,
+            change,
+            get value() {
+                return { width, height };
+            }
+        };
     }
 }

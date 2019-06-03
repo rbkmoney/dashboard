@@ -39,11 +39,24 @@ export class FloatPanelComponent implements AfterViewInit {
 
     @ViewChild('template') templateRef: TemplateRef<any>;
 
-    @ViewChild('substrate') substrate: ElementRef<HTMLDivElement>;
+    _substrate: ElementRef<HTMLDivElement>;
+    @ViewChild('substrate')
+    set substrate(substrate: ElementRef<HTMLDivElement>) {
+        this._substrate = substrate;
+        this.substrateRuler = this.ruler.create(substrate.nativeElement);
+        this.substrateRuler.change.subscribe(({ width }) => {
+            if (this.overlayRef) {
+                this.overlayRef.updateSize({ width: width + 'px' });
+            }
+        });
+    }
+    get substrate() {
+        return this._substrate;
+    }
 
     substratePortal: TemplatePortal;
 
-    private moreRuler: ElementRulerRef;
+    private substrateRuler: ElementRulerRef;
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
@@ -62,6 +75,8 @@ export class FloatPanelComponent implements AfterViewInit {
     get moreTemplate() {
         return get(this.floatPanelMore, 'templateRef');
     }
+
+    private moreRuler: ElementRulerRef;
 
     get actionsTemplate() {
         return get(this.floatPanelActions, 'templateRef');
@@ -145,7 +160,7 @@ export class FloatPanelComponent implements AfterViewInit {
 
         const overlayConfig = new OverlayConfig({
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: '600px',
+            width: get(this.substrateRuler, 'value.width', 0) + 'px',
             positionStrategy
         });
 
