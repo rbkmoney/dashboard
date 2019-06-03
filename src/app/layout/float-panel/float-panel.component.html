@@ -1,8 +1,7 @@
-<div style="position: relative">
+<div class="wrapper">
     <div #substrate [ngStyle]="{ height: isPinned ? '0' : substrateHeight }"></div>
-    <div
-        [ngStyle]="{ position: 'absolute', top: 0, left: 0, width: '100%', height: cardHeight, marginBottom: '20px' }"
-    ></div>
+    <div [ngStyle]="{ height: cardHeight }" class="body-extender"></div>
+    <ng-container #container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>
 </div>
 <ng-template cdk-portal #template>
     <div class="card-wrapper" #card>
@@ -38,4 +37,3 @@
         </dsh-card>
     </div>
 </ng-template>
-<ng-container #container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>

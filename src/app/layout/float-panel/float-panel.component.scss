@@ -9,10 +9,22 @@ $base-height: 39px;
     overflow: hidden;
 }
 
+.wrapper {
+    position: relative;
+}
+
 .card-wrapper {
     width: 100%;
 }
 
 .actions {
     opacity: 1;
+}
+
+.body-extender {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: 20px;
 }
