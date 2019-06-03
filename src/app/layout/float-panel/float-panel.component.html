@@ -15,7 +15,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="dsh-float-panel-more-wrapper" [@expand]="expandTrigger" *ngIf="isExpanded">
+                <div
+                    class="dsh-float-panel-more-wrapper"
+                    [@expand]="expandTrigger"
+                    (@expand.done)="expandDone($event)"
+                    *ngIf="isExpanded"
+                >
                     <div #moreContent fxLayout="column" fxLayoutGap="20px">
                         <div>
                             <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>

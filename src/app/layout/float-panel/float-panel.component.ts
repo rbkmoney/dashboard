@@ -11,6 +11,7 @@ import {
 import get from 'lodash.get';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AnimationEvent } from '@angular/animations';
 
 import { FloatPanelMoreComponent } from './float-panel-more.component';
 import { FloatPanelActionsComponent } from './float-panel-actions.component';
@@ -155,6 +156,13 @@ export class FloatPanelComponent implements AfterViewInit {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
             this.overlayRef = undefined;
+        }
+    }
+
+    expandDone({ toState }: AnimationEvent) {
+        switch (toState) {
+            case State.expanded:
+                return;
         }
     }
 

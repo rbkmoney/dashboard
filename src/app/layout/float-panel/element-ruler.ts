@@ -24,9 +24,21 @@ export class ElementRulerRef {
     private change: BehaviorSubject<Sizes> = new BehaviorSubject(new Sizes());
     private animationFrameId: number;
 
-    constructor(public node) {}
+    constructor(public node) {
+        this.update();
+    }
 
     watchOnFrame = () => {
+        this.update();
+        this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
+    };
+
+    watch(throttleTime: number = 150): Observable<Sizes> {
+        const obs = this.change.asObservable();
+        return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
+    }
+
+    update() {
         if (this.node) {
             const nextSizes = this.node.getBoundingClientRect();
             if (
@@ -42,12 +54,6 @@ export class ElementRulerRef {
                 this.change.next(this.sizes);
             }
         }
-        this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
-    };
-
-    watch(throttleTime: number = 150): Observable<Sizes> {
-        const obs = this.change.asObservable();
-        return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
 
     dispose() {
