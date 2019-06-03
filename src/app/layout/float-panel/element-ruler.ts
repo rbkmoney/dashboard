@@ -2,9 +2,18 @@ import { Injectable, NgZone } from '@angular/core';
 import { auditTime } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+interface Sizes {
+    left?: number;
+    right?: number;
+    top?: number;
+    bottom?: number;
+    width: number;
+    height: number;
+}
+
 export interface ElementRulerRef {
-    change: Observable<{ width: number; height: number }>;
-    value: { width: number; height: number };
+    change: Observable<Sizes>;
+    value: Sizes;
     dispose(): void;
 }
 
@@ -13,22 +22,32 @@ export class ElementRuler {
     constructor(private zone: NgZone) {}
 
     create<T extends HTMLElement>(node: T, throttleTime = 100): ElementRulerRef {
-        let width;
-        let height;
+        const sizes: Sizes = {
+            get width() {
+                return sizes.right - sizes.left;
+            },
+            get height() {
+                return sizes.bottom - sizes.top;
+            }
+        };
         let animationFrameId;
 
         const _change = new BehaviorSubject({ width: 0, height: 0 });
 
         const watchOnFrame = () => {
-            const currentWidth = node.clientWidth;
-            const currentHeight = node.clientHeight;
-
-            if (currentWidth !== width || currentHeight !== height) {
-                width = currentWidth;
-                height = currentHeight;
-                _change.next({ width, height });
+            const nextSizes = node.getBoundingClientRect();
+            if (
+                sizes.top !== nextSizes.top ||
+                sizes.right !== nextSizes.right ||
+                sizes.bottom !== nextSizes.bottom ||
+                sizes.left !== nextSizes.left
+            ) {
+                sizes.top = nextSizes.top;
+                sizes.right = nextSizes.right;
+                sizes.bottom = nextSizes.bottom;
+                sizes.left = nextSizes.left;
+                _change.next(sizes);
             }
-
             animationFrameId = requestAnimationFrame(watchOnFrame);
         };
 
@@ -46,7 +65,7 @@ export class ElementRuler {
             dispose,
             change,
             get value() {
-                return { width, height };
+                return sizes;
             }
         };
     }
