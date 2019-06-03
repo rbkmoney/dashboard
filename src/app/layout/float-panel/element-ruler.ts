@@ -26,7 +26,7 @@ export class ElementRulerRef {
 
     constructor(public node) {}
 
-    watchOnFrame() {
+    watchOnFrame = () => {
         if (this.node) {
             const nextSizes = this.node.getBoundingClientRect();
             if (
@@ -43,7 +43,7 @@ export class ElementRulerRef {
             }
         }
         this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
-    }
+    };
 
     watch(throttleTime: number = 150): Observable<Sizes> {
         const obs = this.change.asObservable();
