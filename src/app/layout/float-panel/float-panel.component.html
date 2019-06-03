@@ -3,9 +3,9 @@
     <div [ngStyle]="{ height: cardHeight }" class="body-extender"></div>
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>
 </div>
-<ng-template cdk-portal #template>
-    <div class="card-wrapper" #card>
-        <dsh-card>
+<ng-template #template>
+    <div class="card-wrapper">
+        <dsh-card #card>
             <dsh-card-content>
                 <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
                     <div fxFlex><ng-content></ng-content></div>

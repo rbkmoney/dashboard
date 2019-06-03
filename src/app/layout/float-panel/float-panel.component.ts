@@ -36,14 +36,14 @@ export class FloatPanelComponent implements AfterViewInit {
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
     @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    expandTrigger;
+    expandTrigger: { value: State; params: { height: number } };
 
-    @ViewChild('template') templateRef: TemplateRef<HTMLElement>;
+    @ViewChild('template') templateRef: TemplateRef<{}>;
 
     @ViewChild('card', { read: ElementRef })
     set card(card: ElementRef<HTMLElement>) {
         if (card) {
-            this.cardRuler = this.ruler.create(card.nativeElement.querySelector('*') as HTMLElement);
+            this.cardRuler = this.ruler.create(card.nativeElement);
             this.cardRuler.watch().subscribe(({ height }) => {
                 if (!this.isExpanded) {
                     // TODO add !animation check
