@@ -39,6 +39,23 @@ export class FloatPanelComponent implements AfterViewInit {
 
     @ViewChild('template') templateRef: TemplateRef<HTMLElement>;
 
+    @ViewChild('card', { read: ElementRef })
+    set card(card: ElementRef<HTMLElement>) {
+        if (card) {
+            this.cardRuler = this.ruler.create(card.nativeElement.querySelector('*') as HTMLElement);
+            this.cardRuler.change.subscribe(({ height }) => {
+                if (!this.isExpanded) {
+                    // TODO add !animation check
+                    this.substrateHeight = height + 'px';
+                }
+            });
+        }
+    }
+
+    substrateHeight: string;
+
+    private cardRuler: ElementRulerRef;
+
     _substrate: ElementRef<HTMLDivElement>;
     @ViewChild('substrate')
     set substrate(substrate: ElementRef<HTMLDivElement>) {
