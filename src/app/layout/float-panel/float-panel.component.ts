@@ -43,7 +43,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set card(card: ElementRef<HTMLElement>) {
         if (card) {
             this.cardRuler = this.ruler.create(card.nativeElement.querySelector('*') as HTMLElement);
-            this.cardRuler.change.subscribe(({ height }) => {
+            this.cardRuler.watch().subscribe(({ height }) => {
                 if (!this.isExpanded) {
                     // TODO add !animation check
                     this.substrateHeight = height + 'px';
@@ -61,7 +61,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set substrate(substrate: ElementRef<HTMLDivElement>) {
         this._substrate = substrate;
         this.substrateRuler = this.ruler.create(substrate.nativeElement);
-        this.substrateRuler.change.subscribe(({ width }) => {
+        this.substrateRuler.watch().subscribe(({ width }) => {
             if (this.overlayRef) {
                 this.overlayRef.updateSize({ width: width + 'px' });
             }
@@ -82,7 +82,7 @@ export class FloatPanelComponent implements AfterViewInit {
         }
         if (moreContent) {
             this.moreRuler = this.ruler.create(moreContent.nativeElement);
-            this.moreRuler.change.subscribe(({ height }) => {
+            this.moreRuler.watch().subscribe(({ height }) => {
                 this.moreHeight = height;
                 this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
             });

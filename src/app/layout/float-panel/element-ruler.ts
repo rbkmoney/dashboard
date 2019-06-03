@@ -2,71 +2,67 @@ import { Injectable, NgZone } from '@angular/core';
 import { auditTime } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-interface Sizes {
-    left?: number;
-    right?: number;
-    top?: number;
-    bottom?: number;
-    width: number;
-    height: number;
+class Sizes {
+    top = 0;
+    right = 0;
+    bottom = 0;
+    left = 0;
+
+    get width() {
+        return this.right - this.left;
+    }
+
+    get height() {
+        return this.bottom - this.top;
+    }
 }
 
-export interface ElementRulerRef {
-    change: Observable<Sizes>;
-    value: Sizes;
-    dispose(): void;
+export class ElementRulerRef {
+    get sizes(): Sizes {
+        return this.change.value;
+    }
+    private change: BehaviorSubject<Sizes> = new BehaviorSubject(new Sizes());
+    private animationFrameId: number;
+
+    constructor(public node) {}
+
+    watchOnFrame() {
+        if (this.node) {
+            const nextSizes = this.node.getBoundingClientRect();
+            if (
+                this.sizes.top !== nextSizes.top ||
+                this.sizes.right !== nextSizes.right ||
+                this.sizes.bottom !== nextSizes.bottom ||
+                this.sizes.left !== nextSizes.left
+            ) {
+                this.sizes.top = nextSizes.top;
+                this.sizes.right = nextSizes.right;
+                this.sizes.bottom = nextSizes.bottom;
+                this.sizes.left = nextSizes.left;
+                this.change.next(this.sizes);
+            }
+        }
+        this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
+    }
+
+    watch(throttleTime: number = 150): Observable<Sizes> {
+        const obs = this.change.asObservable();
+        return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
+    }
+
+    dispose() {
+        cancelAnimationFrame(this.animationFrameId);
+        this.change.complete();
+    }
 }
 
 @Injectable()
 export class ElementRuler {
     constructor(private zone: NgZone) {}
 
-    create<T extends HTMLElement>(node: T, throttleTime = 100): ElementRulerRef {
-        const sizes: Sizes = {
-            get width() {
-                return sizes.right - sizes.left;
-            },
-            get height() {
-                return sizes.bottom - sizes.top;
-            }
-        };
-        let animationFrameId;
-
-        const _change = new BehaviorSubject({ width: 0, height: 0 });
-
-        const watchOnFrame = () => {
-            const nextSizes = node.getBoundingClientRect();
-            if (
-                sizes.top !== nextSizes.top ||
-                sizes.right !== nextSizes.right ||
-                sizes.bottom !== nextSizes.bottom ||
-                sizes.left !== nextSizes.left
-            ) {
-                sizes.top = nextSizes.top;
-                sizes.right = nextSizes.right;
-                sizes.bottom = nextSizes.bottom;
-                sizes.left = nextSizes.left;
-                _change.next(sizes);
-            }
-            animationFrameId = requestAnimationFrame(watchOnFrame);
-        };
-
-        this.zone.runOutsideAngular(watchOnFrame);
-
-        const dispose = () => {
-            cancelAnimationFrame(animationFrameId);
-            _change.complete();
-        };
-
-        const obs = _change.asObservable();
-        const change = throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
-
-        return {
-            dispose,
-            change,
-            get value() {
-                return sizes;
-            }
-        };
+    create<T extends HTMLElement>(node: T): ElementRulerRef {
+        const watcher = new ElementRulerRef(node);
+        this.zone.runOutsideAngular(watcher.watchOnFrame);
+        return watcher;
     }
 }
