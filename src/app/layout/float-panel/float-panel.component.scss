@@ -1,5 +1,7 @@
+$base-height: 39px;
+
 .dsh-float-panel-base {
-    min-height: 39px;
+    min-height: $base-height;
 }
 
 .dsh-float-panel-more-wrapper {
@@ -7,15 +9,10 @@
     overflow: hidden;
 }
 
-.card {
+.card-wrapper {
     width: 100%;
-    overflow-y: scroll;
 }
 
 .actions {
     opacity: 1;
-}
-
-/deep/.panel {
-    bottom: 10px;
 }

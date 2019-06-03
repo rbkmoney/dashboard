@@ -1,6 +1,11 @@
-<div #substrate [ngStyle]="{ height: isPinned ? '0' : substrateHeight }"></div>
+<div style="position: relative">
+    <div #substrate [ngStyle]="{ height: isPinned ? '0' : substrateHeight }"></div>
+    <div
+        [ngStyle]="{ position: 'absolute', top: 0, left: 0, width: '100%', height: cardHeight, marginBottom: '20px' }"
+    ></div>
+</div>
 <ng-template cdk-portal #template>
-    <div class="card" #card>
+    <div class="card-wrapper" #card>
         <dsh-card>
             <dsh-card-content>
                 <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">

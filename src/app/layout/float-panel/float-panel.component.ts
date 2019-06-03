@@ -48,11 +48,14 @@ export class FloatPanelComponent implements AfterViewInit {
                     // TODO add !animation check
                     this.substrateHeight = height + 'px';
                 }
+                this.cardHeight = height + 'px';
             });
         }
     }
 
     substrateHeight: string;
+
+    cardHeight: string;
 
     private cardRuler: ElementRulerRef;
 
@@ -168,8 +171,7 @@ export class FloatPanelComponent implements AfterViewInit {
         const overlayConfig = new OverlayConfig({
             width: get(this.substrateRuler, 'value.width', 0) + 'px',
             positionStrategy,
-            scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            panelClass: 'panel'
+            scrollStrategy: this.overlay.scrollStrategies.reposition()
         });
 
         return overlayConfig;
