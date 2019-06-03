@@ -59,7 +59,7 @@ function getActualTableContent(tableElement: Element): string[][] {
         actualTableContent.push(getFooterCells(row));
     });
 
-    // Convert the nodes into their text content;
+    // Convert the nodes into their text _content;
     return actualTableContent.map(row => row.map(cell => cell.textContent.trim()));
 }
 

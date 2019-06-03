@@ -31,7 +31,7 @@ describe('DshTable', () => {
     }));
 
     describe('with basic data source', () => {
-        it('should be able to create a table with the right content and without when row', () => {
+        it('should be able to create a table with the right _content and without when row', () => {
             const fixture = TestBed.createComponent(DshTableAppComponent);
             fixture.detectChanges();
 
