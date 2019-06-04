@@ -5,13 +5,12 @@ import {
     ElementRef,
     Input,
     TemplateRef,
-    ViewContainerRef,
     AfterViewInit,
     Output,
-    EventEmitter
+    EventEmitter,
+    ViewContainerRef
 } from '@angular/core';
 import get from 'lodash.get';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
@@ -19,12 +18,14 @@ import { FloatPanelActionsTemplateComponent } from './templates/float-panel-acti
 import { ElementRuler, ElementRulerRef } from './element-ruler';
 import { expandAnimation, State } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
+import { FloatPanelOverlayService } from './float-panel-overlay.service';
 
 @Component({
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, hideAnimation]
+    animations: [expandAnimation, hideAnimation],
+    providers: [FloatPanelOverlayService]
 })
 export class FloatPanelComponent implements AfterViewInit {
     private _expanded = false;
@@ -82,11 +83,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set substrate(substrate: ElementRef<HTMLDivElement>) {
         this._substrate = substrate;
         this.substrateRuler = this.ruler.create(substrate.nativeElement);
-        this.substrateRuler.watch().subscribe(({ width }) => {
-            if (this.overlayRef) {
-                this.overlayRef.updateSize({ width: width + 'px' });
-            }
-        });
+        this.substrateRuler.watch().subscribe(size => this.floatPanelOverlayService.updateSize(size));
     }
     get substrate() {
         return this._substrate;
@@ -118,11 +115,13 @@ export class FloatPanelComponent implements AfterViewInit {
         return get(this.floatPanelActions, 'templateRef');
     }
 
-    overlayRef: OverlayRef;
-
-    constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {
-        this.expandedChange.subscribe(this.expandChangeSubscriber);
-        this.pinnedChange.subscribe(this.pinChangeSubscriber);
+    constructor(
+        private ruler: ElementRuler,
+        private viewContainerRef: ViewContainerRef,
+        private floatPanelOverlayService: FloatPanelOverlayService
+    ) {
+        this.expandedChange.subscribe(expanded => this.resetExpandTriggerManage(expanded));
+        this.pinnedChange.subscribe(pinned => this.overlayAttachManage(pinned));
     }
 
     ngAfterViewInit() {
@@ -130,51 +129,31 @@ export class FloatPanelComponent implements AfterViewInit {
         this.expanded = this.expanded;
     }
 
-    expandChangeSubscriber = (expanded: boolean) => {
+    resetExpandTriggerManage(expanded: boolean) {
         if (!expanded) {
             this.expandTrigger = undefined;
         }
-    };
+    }
 
     expandToggle() {
         this.expanded = !this.expanded;
     }
 
-    pinChangeSubscriber = (pinned: boolean) => {
+    overlayAttachManage(pinned: boolean) {
         if (pinned) {
-            this.detachOverlay();
+            this.floatPanelOverlayService.detach();
         } else {
-            this.attachOverlay();
+            this.floatPanelOverlayService.attach(
+                new TemplatePortal(this.templateRef, this.viewContainerRef),
+                this.substrate,
+                {
+                    width: get(this.substrateRuler, 'value.width', 0)
+                }
+            );
         }
-    };
+    }
 
     pinToggle() {
         this.pinned = !this.pinned;
-    }
-
-    private attachOverlay() {
-        this.detachOverlay();
-        this.overlayRef = this.overlay.create(this.createOverlayConfig());
-        this.overlayRef.attach(new TemplatePortal(this.templateRef, this.viewContainerRef));
-    }
-
-    private detachOverlay() {
-        if (this.overlayRef && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
-        }
-    }
-
-    private createOverlayConfig(): OverlayConfig {
-        const positionStrategy = this.overlay
-            .position()
-            .connectedTo(this.substrate, { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'top' });
-
-        const overlayConfig = new OverlayConfig({
-            width: get(this.substrateRuler, 'value.width', 0) + 'px',
-            positionStrategy,
-            scrollStrategy: this.overlay.scrollStrategies.reposition()
-        });
-
-        return overlayConfig;
     }
 }
