@@ -15,7 +15,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
-import { ElementRuler, ElementRulerRef } from './element-ruler';
+import { ElementRuler } from './element-ruler';
 import { expandAnimation, State } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
 import { FloatPanelOverlayService } from './float-panel-overlay.service';
@@ -56,12 +56,9 @@ export class FloatPanelComponent implements AfterViewInit {
 
     @ViewChild('card', { read: ElementRef })
     set card(card: ElementRef<HTMLElement>) {
-        if (this.cardRuler) {
-            this.cardRuler.dispose();
-        }
         if (card) {
-            this.cardRuler = this.ruler.create(card.nativeElement);
-            this.cardRuler.watch().subscribe(this.updateCardSize);
+            this.cardRuler.updateNode(card.nativeElement);
+            this.cardRuler.watch().subscribe(size => this.updateCardSize(size));
         }
     }
 
@@ -69,11 +66,8 @@ export class FloatPanelComponent implements AfterViewInit {
     @ViewChild('substrate')
     set substrate(substrate: ElementRef<HTMLDivElement>) {
         this._substrate = substrate;
-        if (this.substrateRuler) {
-            this.substrateRuler.dispose();
-        }
         if (substrate) {
-            this.substrateRuler = this.ruler.create(substrate.nativeElement);
+            this.substrateRuler.updateNode(substrate.nativeElement);
             this.substrateRuler.watch().subscribe(size => this.floatPanelOverlayService.updateSize(size));
         }
     }
@@ -83,12 +77,9 @@ export class FloatPanelComponent implements AfterViewInit {
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
-        if (this.moreRuler) {
-            this.moreRuler.dispose();
-        }
         if (moreContent) {
-            this.moreRuler = this.ruler.create(moreContent.nativeElement);
-            this.moreRuler.watch().subscribe(this.updateMoreContentSize);
+            this.moreRuler.updateNode(moreContent.nativeElement);
+            this.moreRuler.watch().subscribe(size => this.updateMoreContentSize(size));
         }
     }
 
@@ -98,15 +89,15 @@ export class FloatPanelComponent implements AfterViewInit {
 
     moreHeight = 0;
 
-    substrateHeight: string;
+    substrateHeight = 0;
 
-    cardHeight: string;
+    cardHeight = 0;
 
-    private cardRuler: ElementRulerRef;
+    private cardRuler = this.ruler.create();
 
-    private substrateRuler: ElementRulerRef;
+    private substrateRuler = this.ruler.create();
 
-    private moreRuler: ElementRulerRef;
+    private moreRuler = this.ruler.create();
 
     constructor(
         private ruler: ElementRuler,
@@ -122,14 +113,18 @@ export class FloatPanelComponent implements AfterViewInit {
         this.expanded = this.expanded;
     }
 
+    expandStart() {
+        this.expand = true;
+    }
+
+    expandDone() {
+        this.expand = false;
+    }
+
     resetExpandTriggerManage(expanded: boolean) {
         if (!expanded) {
             this.expandTrigger = undefined;
         }
-    }
-
-    expandToggle() {
-        this.expanded = !this.expanded;
     }
 
     overlayAttachManage(pinned: boolean) {
@@ -146,19 +141,23 @@ export class FloatPanelComponent implements AfterViewInit {
         }
     }
 
+    expandToggle() {
+        this.expanded = !this.expanded;
+    }
+
     pinToggle() {
         this.pinned = !this.pinned;
     }
 
-    updateCardSize = ({ height }: { height: number }) => {
+    private updateCardSize({ height }: { height: number }) {
         if (!this.expanded && !this.expand) {
-            this.substrateHeight = height + 'px';
+            this.substrateHeight = height;
         }
-        this.cardHeight = height + 'px';
-    };
+        this.cardHeight = height;
+    }
 
-    updateMoreContentSize = ({ height }: { height: number }) => {
+    private updateMoreContentSize({ height }: { height: number }) {
         this.moreHeight = height;
         this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
-    };
+    }
 }

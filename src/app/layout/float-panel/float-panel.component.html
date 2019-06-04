@@ -1,6 +1,6 @@
 <div class="wrapper">
-    <div #substrate [ngStyle]="{ height: pinned ? '0' : substrateHeight }"></div>
-    <div [ngStyle]="{ height: cardHeight }" class="body-extender"></div>
+    <div #substrate [ngStyle]="{ height: pinned ? '0' : substrateHeight + 'px' }"></div>
+    <div [ngStyle]="{ height: cardHeight + 'px' }" class="body-extender"></div>
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
@@ -18,8 +18,8 @@
                 <div
                     class="dsh-float-panel-more-wrapper"
                     [@expand]="expandTrigger"
-                    (@expand.start)="expand = true"
-                    (@expand.done)="expand = false"
+                    (@expand.start)="expandStart($event)"
+                    (@expand.done)="expandDone($event)"
                     *ngIf="expanded"
                 >
                     <div #moreContent fxLayout="column" fxLayoutGap="20px">

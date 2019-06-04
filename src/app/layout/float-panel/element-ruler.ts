@@ -17,19 +17,19 @@ export class Size {
     }
 }
 
-export class ElementRulerRef {
+export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
     get size(): Size {
         return this.change.value;
     }
     private change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
     private animationFrameId: number;
 
-    constructor(public node) {
-        this.update();
+    constructor(public node?: T) {
+        this.updateSize();
     }
 
     watchOnFrame = () => {
-        this.update();
+        this.updateSize();
         this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
     };
 
@@ -38,7 +38,12 @@ export class ElementRulerRef {
         return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
 
-    update() {
+    updateNode(node: T) {
+        this.node = node;
+        this.updateSize();
+    }
+
+    updateSize() {
         if (this.node) {
             const nextSize = this.node.getBoundingClientRect();
             if (
@@ -66,7 +71,7 @@ export class ElementRulerRef {
 export class ElementRuler {
     constructor(private zone: NgZone) {}
 
-    create<T extends HTMLElement>(node: T): ElementRulerRef {
+    create<T extends HTMLElement>(node?: T): ElementRulerRef {
         const watcher = new ElementRulerRef(node);
         this.zone.runOutsideAngular(watcher.watchOnFrame);
         return watcher;
