@@ -123,24 +123,20 @@ export class FloatPanelComponent implements AfterViewInit {
     overlayRef: OverlayRef;
 
     constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {
-        this.expandedChange.subscribe(expand => {
-            if (!expand) {
-                this.expandTrigger = undefined;
-            }
-        });
-        this.pinnedChange.subscribe(pinned => {
-            if (pinned) {
-                this.removeOverlay();
-            } else {
-                this.crateOverlay();
-            }
-        });
+        this.expandedChange.subscribe(this.expandChangeSubscriber);
+        this.pinnedChange.subscribe(this.pinChangeSubscriber);
     }
 
     ngAfterViewInit() {
         this.pinned = this.pinned;
         this.expanded = this.expanded;
     }
+
+    expandChangeSubscriber = (expanded: boolean) => {
+        if (!expanded) {
+            this.expandTrigger = undefined;
+        }
+    };
 
     expandDone({ toState }: AnimationEvent) {
         switch (toState) {
@@ -153,11 +149,19 @@ export class FloatPanelComponent implements AfterViewInit {
         this.expanded = !this.expanded;
     }
 
+    pinChangeSubscriber = (pinned: boolean) => {
+        if (pinned) {
+            this.removeOverlay();
+        } else {
+            this.createOverlay();
+        }
+    };
+
     pinToggle() {
         this.pinned = !this.pinned;
     }
 
-    private crateOverlay() {
+    private createOverlay() {
         if (this.overlayRef) {
             this.removeOverlay();
         }
