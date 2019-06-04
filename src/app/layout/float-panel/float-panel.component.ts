@@ -48,48 +48,38 @@ export class FloatPanelComponent implements AfterViewInit {
     }
     @Output() pinnedChange = new EventEmitter<boolean>();
 
-    expand = false;
-
-    moreHeight = 0;
-
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
-    @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    expandTrigger: { value: State; params: { height: number } };
+    @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
     @ViewChild('template') templateRef: TemplateRef<{}>;
 
     @ViewChild('card', { read: ElementRef })
     set card(card: ElementRef<HTMLElement>) {
+        if (this.cardRuler) {
+            this.cardRuler.dispose();
+        }
         if (card) {
             this.cardRuler = this.ruler.create(card.nativeElement);
-            this.cardRuler.watch().subscribe(({ height }) => {
-                if (!this.expanded && !this.expand) {
-                    this.substrateHeight = height + 'px';
-                }
-                this.cardHeight = height + 'px';
-            });
+            this.cardRuler.watch().subscribe(this.updateCardSize);
         }
     }
 
-    substrateHeight: string;
-
-    cardHeight: string;
-
-    private cardRuler: ElementRulerRef;
-
-    _substrate: ElementRef<HTMLDivElement>;
+    private _substrate: ElementRef<HTMLDivElement>;
     @ViewChild('substrate')
     set substrate(substrate: ElementRef<HTMLDivElement>) {
         this._substrate = substrate;
-        this.substrateRuler = this.ruler.create(substrate.nativeElement);
-        this.substrateRuler.watch().subscribe(size => this.floatPanelOverlayService.updateSize(size));
+        if (this.substrateRuler) {
+            this.substrateRuler.dispose();
+        }
+        if (substrate) {
+            this.substrateRuler = this.ruler.create(substrate.nativeElement);
+            this.substrateRuler.watch().subscribe(size => this.floatPanelOverlayService.updateSize(size));
+        }
     }
     get substrate() {
         return this._substrate;
     }
-
-    private substrateRuler: ElementRulerRef;
 
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
@@ -98,22 +88,25 @@ export class FloatPanelComponent implements AfterViewInit {
         }
         if (moreContent) {
             this.moreRuler = this.ruler.create(moreContent.nativeElement);
-            this.moreRuler.watch().subscribe(({ height }) => {
-                this.moreHeight = height;
-                this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
-            });
+            this.moreRuler.watch().subscribe(this.updateMoreContentSize);
         }
     }
 
-    get moreTemplate() {
-        return get(this.floatPanelMore, 'templateRef');
-    }
+    expandTrigger: { value: State; params: { height: number } };
+
+    expand = false;
+
+    moreHeight = 0;
+
+    substrateHeight: string;
+
+    cardHeight: string;
+
+    private cardRuler: ElementRulerRef;
+
+    private substrateRuler: ElementRulerRef;
 
     private moreRuler: ElementRulerRef;
-
-    get actionsTemplate() {
-        return get(this.floatPanelActions, 'templateRef');
-    }
 
     constructor(
         private ruler: ElementRuler,
@@ -156,4 +149,16 @@ export class FloatPanelComponent implements AfterViewInit {
     pinToggle() {
         this.pinned = !this.pinned;
     }
+
+    updateCardSize = ({ height }: { height: number }) => {
+        if (!this.expanded && !this.expand) {
+            this.substrateHeight = height + 'px';
+        }
+        this.cardHeight = height + 'px';
+    };
+
+    updateMoreContentSize = ({ height }: { height: number }) => {
+        this.moreHeight = height;
+        this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
+    };
 }

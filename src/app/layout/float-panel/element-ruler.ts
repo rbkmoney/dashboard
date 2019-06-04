@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { auditTime } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-class Size {
+export class Size {
     top = 0;
     right = 0;
     bottom = 0;
