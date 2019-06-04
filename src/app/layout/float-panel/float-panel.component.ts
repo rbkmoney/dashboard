@@ -100,13 +100,12 @@ export class FloatPanelComponent implements AfterViewInit {
         private viewContainerRef: ViewContainerRef,
         private floatPanelOverlayService: FloatPanelOverlayService
     ) {
-        this.expandedChange.subscribe(expanded => this.resetExpandTriggerManage(expanded));
-        this.pinnedChange.subscribe(pinned => this.overlayAttachManage(pinned));
+        this.expandedChange.subscribe(() => this.resetExpandTriggerManage());
+        this.pinnedChange.subscribe(() => this.overlayAttachManage());
     }
 
     ngAfterViewInit() {
-        this.pinned = this.pinned;
-        this.expanded = this.expanded;
+        this.overlayAttachManage();
     }
 
     expandStart() {
@@ -119,14 +118,22 @@ export class FloatPanelComponent implements AfterViewInit {
         this.updateSizes();
     }
 
-    resetExpandTriggerManage(expanded: boolean) {
-        if (!expanded) {
+    expandToggle() {
+        this.expanded = !this.expanded;
+    }
+
+    pinToggle() {
+        this.pinned = !this.pinned;
+    }
+
+    private resetExpandTriggerManage() {
+        if (!this.expanded) {
             this.expandTrigger = undefined;
         }
     }
 
-    overlayAttachManage(pinned: boolean) {
-        if (pinned) {
+    private overlayAttachManage() {
+        if (this.pinned) {
             this.floatPanelOverlayService.detach();
         } else {
             this.floatPanelOverlayService.attach(
@@ -137,14 +144,6 @@ export class FloatPanelComponent implements AfterViewInit {
                 }
             );
         }
-    }
-
-    expandToggle() {
-        this.expanded = !this.expanded;
-    }
-
-    pinToggle() {
-        this.pinned = !this.pinned;
     }
 
     private setCardSize({ height }: { height: number }) {
