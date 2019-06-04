@@ -14,6 +14,7 @@ import get from 'lodash.get';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
@@ -48,6 +49,8 @@ export class FloatPanelComponent implements AfterViewInit {
     }
     @Output() pinnedChange = new EventEmitter<boolean>();
 
+    expand$ = new BehaviorSubject(false);
+
     moreHeight = 0;
 
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
@@ -62,8 +65,7 @@ export class FloatPanelComponent implements AfterViewInit {
         if (card) {
             this.cardRuler = this.ruler.create(card.nativeElement);
             this.cardRuler.watch().subscribe(({ height }) => {
-                if (!this.expanded) {
-                    // TODO add !animation check
+                if (!this.expanded && !this.expand$.value) {
                     this.substrateHeight = height + 'px';
                 }
                 this.cardHeight = height + 'px';
@@ -137,13 +139,6 @@ export class FloatPanelComponent implements AfterViewInit {
             this.expandTrigger = undefined;
         }
     };
-
-    expandDone({ toState }: AnimationEvent) {
-        switch (toState) {
-            case State.expanded:
-                return;
-        }
-    }
 
     expandToggle() {
         this.expanded = !this.expanded;
