@@ -1,16 +1,16 @@
 <dsh-tab-header #tabHeader
                 [selectedIndex]="selectedIndex"
                 (selectFocusedIndex)="selectedIndex = $event">
-    <div class="dsh-tab-label" role="tab" matTabLabelWrapper mat-ripple cdkMonitorElementFocus
-         *ngFor="let tab of tabs; let i = index"
+    <div class="dsh-tab-label" role="tab" dshTabLabelWrapper cdkMonitorElementFocus
+         *ngFor="let tab of _tabs; let i = index"
          [id]="_getTabLabelId(i)"
          [attr.tabIndex]="_getTabIndex(tab, i)"
          [attr.aria-posinset]="i + 1"
-         [attr.aria-setsize]="tabs.length"
+         [attr.aria-setsize]="_tabs.length"
          [attr.aria-selected]="selectedIndex == i"
          [attr.aria-label]="tab.ariaLabel || null"
          [class.mat-tab-label-active]="selectedIndex == i"
-         (click)="handleClick(tab, tabHeader, i)">
+         (click)="_handleClick(tab, _tabHeader, i)">
 
         <div class="dsh-tab-label-content">
             <ng-template [ngIf]="tab.templateLabel">
@@ -24,7 +24,7 @@
 
 <div class="dsh-tab-body-wrapper" #tabBodyWrapper>
     <dsh-tab-body role="tabpanel"
-                  *ngFor="let tab of tabs; let i = index"
+                  *ngFor="let tab of _tabs; let i = index"
                   [id]="_getTabContentId(i)"
                   [attr.aria-labelledby]="_getTabLabelId(i)"
                   [class.mat-tab-body-active]="selectedIndex == i"

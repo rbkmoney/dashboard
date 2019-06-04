@@ -12,6 +12,7 @@ import { DshTabBodyComponent, DshTabBodyPortalDirective } from './tab-body.compo
 import { DshTabLabelDirective } from './tab-label.directive';
 import { DshTabContentDirective } from './tab-content.directive';
 import { DshInkBarDirective } from './ink-bar.directive';
+import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 
 
 
@@ -39,7 +40,8 @@ import { DshInkBarDirective } from './ink-bar.directive';
         DshTabBodyPortalDirective,
         DshTabLabelDirective,
         DshTabContentDirective,
-        DshInkBarDirective
+        DshInkBarDirective,
+        DshTabLabelWrapperDirective
     ]
 })
 export class DshTabsModule {}

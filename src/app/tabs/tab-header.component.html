@@ -1,31 +1,29 @@
-<div class="mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4"
+<div class="dsh-tab-header-pagination dsh-tab-header-pagination-before dsh-elevation-z4"
      #previousPaginator
      aria-hidden="true"
-     mat-ripple [matRippleDisabled]="_disableScrollBefore || disableRipple"
-     [class.mat-tab-header-pagination-disabled]="_disableScrollBefore"
+     [class.dsh-tab-header-pagination-disabled]="_disableScrollBefore"
      (click)="_handlePaginatorClick('before')"
      (mousedown)="_handlePaginatorPress('before')"
      (touchend)="_stopInterval()">
-    <div class="mat-tab-header-pagination-chevron"></div>
+    <div class="dsh-tab-header-pagination-chevron"></div>
 </div>
 
-<div class="mat-tab-label-container" #tabListContainer
+<div class="dsh-tab-label-container" #tabListContainer
      (keydown)="_handleKeydown($event)">
-    <div class="mat-tab-list" #tabList role="tablist" (cdkObserveContent)="_onContentChanges()">
-        <div class="mat-tab-labels">
+    <div class="dsh-tab-list" #tabList role="tablist" (cdkObserveContent)="_onContentChanges()">
+        <div class="dsh-tab-labels">
             <ng-content></ng-content>
         </div>
         <dsh-ink-bar></dsh-ink-bar>
     </div>
 </div>
 
-<div class="mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4"
+<div class="dsh-tab-header-pagination dsh-tab-header-pagination-after dsh-elevation-z4"
      #nextPaginator
      aria-hidden="true"
-     mat-ripple [matRippleDisabled]="_disableScrollAfter || disableRipple"
-     [class.mat-tab-header-pagination-disabled]="_disableScrollAfter"
+     [class.dsh-tab-header-pagination-disabled]="_disableScrollAfter"
      (mousedown)="_handlePaginatorPress('after')"
      (click)="_handlePaginatorClick('after')"
      (touchend)="_stopInterval()">
-    <div class="mat-tab-header-pagination-chevron"></div>
+    <div class="dsh-tab-header-pagination-chevron"></div>
 </div>
