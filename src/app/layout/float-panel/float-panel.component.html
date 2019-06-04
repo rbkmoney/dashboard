@@ -1,7 +1,7 @@
 <div class="wrapper">
-    <div #substrate [ngStyle]="{ height: isPinned ? '0' : substrateHeight }"></div>
+    <div #substrate [ngStyle]="{ height: pinned ? '0' : substrateHeight }"></div>
     <div [ngStyle]="{ height: cardHeight }" class="body-extender"></div>
-    <ng-container #container [ngTemplateOutlet]="template" *ngIf="isPinned"></ng-container>
+    <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
     <div class="card-wrapper">
@@ -9,7 +9,7 @@
             <dsh-card-content>
                 <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
                     <div fxFlex><ng-content></ng-content></div>
-                    <div @hide *ngIf="!isExpanded">
+                    <div @hide *ngIf="!expanded">
                         <button dsh-button (click)="expandToggle()">
                             <mat-icon svgIcon="user" style="height:16px"></mat-icon>
                         </button>
@@ -19,7 +19,7 @@
                     class="dsh-float-panel-more-wrapper"
                     [@expand]="expandTrigger"
                     (@expand.done)="expandDone($event)"
-                    *ngIf="isExpanded"
+                    *ngIf="expanded"
                 >
                     <div #moreContent fxLayout="column" fxLayoutGap="20px">
                         <div>

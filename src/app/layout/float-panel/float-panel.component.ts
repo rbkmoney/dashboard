@@ -6,7 +6,9 @@ import {
     Input,
     TemplateRef,
     ViewContainerRef,
-    AfterViewInit
+    AfterViewInit,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import get from 'lodash.get';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
@@ -26,12 +28,25 @@ import { hideAnimation } from './animations/hide-animation';
     animations: [expandAnimation, hideAnimation]
 })
 export class FloatPanelComponent implements AfterViewInit {
+    private _expanded = false;
     @Input()
-    trigger: string;
+    get expanded() {
+        return this._expanded;
+    }
+    set expanded(expanded) {
+        this.expandedChange.emit((this._expanded = expanded !== false));
+    }
+    @Output() expandedChange = new EventEmitter<boolean>(this.expanded);
 
-    isExpanded = false;
-
-    isPinned = false;
+    private _pinned = false;
+    @Input()
+    get pinned() {
+        return this._pinned;
+    }
+    set pinned(pinned) {
+        this.pinnedChange.emit((this._pinned = pinned !== false));
+    }
+    @Output() pinnedChange = new EventEmitter<boolean>(this.pinned);
 
     moreHeight = 0;
 
@@ -47,7 +62,7 @@ export class FloatPanelComponent implements AfterViewInit {
         if (card) {
             this.cardRuler = this.ruler.create(card.nativeElement);
             this.cardRuler.watch().subscribe(({ height }) => {
-                if (!this.isExpanded) {
+                if (!this.expanded) {
                     // TODO add !animation check
                     this.substrateHeight = height + 'px';
                 }
@@ -107,14 +122,23 @@ export class FloatPanelComponent implements AfterViewInit {
 
     overlayRef: OverlayRef;
 
-    constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
-
-    ngAfterViewInit() {
-        this.init();
+    constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {
+        this.expandedChange.subscribe(expand => {
+            if (!expand) {
+                this.expandTrigger = undefined;
+            }
+        });
+        this.pinnedChange.subscribe(pinned => {
+            if (pinned) {
+                this.toBody();
+            } else {
+                this.toPortal();
+            }
+        });
     }
 
-    init() {
-        this.isPinned ? this.toBody() : this.toPortal();
+    ngAfterViewInit() {
+        this.pinned ? this.toBody() : this.toPortal();
     }
 
     expandDone({ toState }: AnimationEvent) {
@@ -124,31 +148,12 @@ export class FloatPanelComponent implements AfterViewInit {
         }
     }
 
-    expand() {
-        this.isExpanded = true;
-    }
-
-    close() {
-        this.isExpanded = false;
-        this.expandTrigger = undefined;
-    }
-
     expandToggle() {
-        this.isExpanded ? this.close() : this.expand();
-    }
-
-    pin() {
-        this.isPinned = true;
-        this.toBody();
-    }
-
-    unpin() {
-        this.isPinned = false;
-        this.toPortal();
+        this.expanded = !this.expanded;
     }
 
     pinToggle() {
-        this.isPinned ? this.unpin() : this.pin();
+        this.pinned = !this.pinned;
     }
 
     private toPortal() {
