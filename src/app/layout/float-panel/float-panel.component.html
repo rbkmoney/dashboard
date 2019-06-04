@@ -24,14 +24,14 @@
                 >
                     <div #moreContent fxLayout="column" fxLayoutGap="20px">
                         <div>
-                            <ng-container *ngTemplateOutlet="floatPanelMore.templateRef"></ng-container>
+                            <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                         </div>
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
                             <button dsh-button (click)="pinToggle()">
                                 <mat-icon svgIcon="notification" style="height:16px"></mat-icon>
                             </button>
                             <div>
-                                <ng-container *ngTemplateOutlet="floatPanelActions.templateRef"></ng-container>
+                                <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
                             </div>
                             <button dsh-button (click)="expandToggle()">
                                 <mat-icon svgIcon="user" style="height:16px"></mat-icon>

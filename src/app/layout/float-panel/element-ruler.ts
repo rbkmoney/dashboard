@@ -18,7 +18,7 @@ export class Size {
 }
 
 export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
-    get size(): Size {
+    get value(): Size {
         return this.change.value;
     }
     private change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
@@ -47,16 +47,16 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
         if (this.node) {
             const nextSize = this.node.getBoundingClientRect();
             if (
-                this.size.top !== nextSize.top ||
-                this.size.right !== nextSize.right ||
-                this.size.bottom !== nextSize.bottom ||
-                this.size.left !== nextSize.left
+                this.value.top !== nextSize.top ||
+                this.value.right !== nextSize.right ||
+                this.value.bottom !== nextSize.bottom ||
+                this.value.left !== nextSize.left
             ) {
-                this.size.top = nextSize.top;
-                this.size.right = nextSize.right;
-                this.size.bottom = nextSize.bottom;
-                this.size.left = nextSize.left;
-                this.change.next(this.size);
+                this.value.top = nextSize.top;
+                this.value.right = nextSize.right;
+                this.value.bottom = nextSize.bottom;
+                this.value.left = nextSize.left;
+                this.change.next(this.value);
             }
         }
     }
