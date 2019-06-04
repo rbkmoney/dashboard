@@ -58,7 +58,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set card(card: ElementRef<HTMLElement>) {
         if (card) {
             this.cardRuler.updateNode(card.nativeElement);
-            this.cardRuler.watch().subscribe(size => this.updateCardSize(size));
+            this.cardRuler.watch().subscribe(size => this.setCardSize(size));
         }
     }
 
@@ -79,7 +79,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
         if (moreContent) {
             this.moreRuler.updateNode(moreContent.nativeElement);
-            this.moreRuler.watch().subscribe(size => this.updateMoreContentSize(size));
+            this.moreRuler.watch().subscribe(size => this.setMoreContentSize(size));
         }
     }
 
@@ -87,17 +87,13 @@ export class FloatPanelComponent implements AfterViewInit {
 
     expand = false;
 
-    moreHeight = 0;
-
     substrateHeight = 0;
 
-    cardHeight = 0;
+    cardRuler = this.ruler.create();
 
-    private cardRuler = this.ruler.create();
+    substrateRuler = this.ruler.create();
 
-    private substrateRuler = this.ruler.create();
-
-    private moreRuler = this.ruler.create();
+    moreRuler = this.ruler.create();
 
     constructor(
         private ruler: ElementRuler,
@@ -114,11 +110,13 @@ export class FloatPanelComponent implements AfterViewInit {
     }
 
     expandStart() {
+        this.updateSizes();
         this.expand = true;
     }
 
     expandDone() {
         this.expand = false;
+        this.updateSizes();
     }
 
     resetExpandTriggerManage(expanded: boolean) {
@@ -149,15 +147,19 @@ export class FloatPanelComponent implements AfterViewInit {
         this.pinned = !this.pinned;
     }
 
-    private updateCardSize({ height }: { height: number }) {
+    private setCardSize({ height }: { height: number }) {
         if (!this.expanded && !this.expand) {
             this.substrateHeight = height;
         }
-        this.cardHeight = height;
     }
 
-    private updateMoreContentSize({ height }: { height: number }) {
-        this.moreHeight = height;
-        this.expandTrigger = { value: State.expanded, params: { height: this.moreHeight } };
+    private setMoreContentSize({ height }: { height: number }) {
+        this.expandTrigger = { value: State.expanded, params: { height: height } };
+    }
+
+    private updateSizes() {
+        this.moreRuler.updateSize();
+        this.cardRuler.updateSize();
+        this.substrateRuler.updateSize();
     }
 }
