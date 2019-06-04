@@ -18,8 +18,8 @@
                 <div
                     class="dsh-float-panel-more-wrapper"
                     [@expand]="expandTrigger"
-                    (@expand.start)="expand$.next(true)"
-                    (@expand.done)="expand$.next(false)"
+                    (@expand.start)="expand = true"
+                    (@expand.done)="expand = false"
                     *ngIf="expanded"
                 >
                     <div #moreContent fxLayout="column" fxLayoutGap="20px">
