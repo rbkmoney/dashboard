@@ -36,7 +36,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set expanded(expanded) {
         this.expandedChange.emit((this._expanded = expanded !== false));
     }
-    @Output() expandedChange = new EventEmitter<boolean>(this.expanded);
+    @Output() expandedChange = new EventEmitter<boolean>();
 
     private _pinned = false;
     @Input()
@@ -46,7 +46,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set pinned(pinned) {
         this.pinnedChange.emit((this._pinned = pinned !== false));
     }
-    @Output() pinnedChange = new EventEmitter<boolean>(this.pinned);
+    @Output() pinnedChange = new EventEmitter<boolean>();
 
     moreHeight = 0;
 
@@ -130,15 +130,16 @@ export class FloatPanelComponent implements AfterViewInit {
         });
         this.pinnedChange.subscribe(pinned => {
             if (pinned) {
-                this.toBody();
+                this.removeOverlay();
             } else {
-                this.toPortal();
+                this.crateOverlay();
             }
         });
     }
 
     ngAfterViewInit() {
-        this.pinned ? this.toBody() : this.toPortal();
+        this.pinned = this.pinned;
+        this.expanded = this.expanded;
     }
 
     expandDone({ toState }: AnimationEvent) {
@@ -156,33 +157,31 @@ export class FloatPanelComponent implements AfterViewInit {
         this.pinned = !this.pinned;
     }
 
-    private toPortal() {
-        if (!this.overlayRef) {
-            this.overlayRef = this.createOverlay();
+    private crateOverlay() {
+        if (this.overlayRef) {
+            this.removeOverlay();
         }
-        if (!this.overlayRef.hasAttached()) {
-            this.substratePortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
-            this.overlayRef.attach(this.substratePortal);
-        }
+        this.overlayRef = this.overlay.create(this.createOverlayConfig());
+        this.substratePortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
+        this.overlayRef.attach(this.substratePortal);
     }
 
-    private toBody() {
-        if (this.substratePortal && this.substratePortal.isAttached) {
-            this.substratePortal.detach();
+    private removeOverlay() {
+        if (this.substratePortal) {
+            if (this.substratePortal.isAttached) {
+                this.substratePortal.detach();
+            }
             this.substratePortal = undefined;
         }
-        if (this.overlayRef && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
+        if (this.overlayRef) {
+            if (this.overlayRef.hasAttached()) {
+                this.overlayRef.detach();
+            }
             this.overlayRef = undefined;
         }
     }
 
-    private createOverlay() {
-        const overlayConfig = this.getOverlayConfig();
-        return this.overlay.create(overlayConfig);
-    }
-
-    private getOverlayConfig(): OverlayConfig {
+    private createOverlayConfig(): OverlayConfig {
         const positionStrategy = this.overlay
             .position()
             .connectedTo(this.substrate, { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'top' });
