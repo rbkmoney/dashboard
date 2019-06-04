@@ -13,7 +13,6 @@ import {
 import get from 'lodash.get';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AnimationEvent } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
@@ -94,8 +93,6 @@ export class FloatPanelComponent implements AfterViewInit {
         return this._substrate;
     }
 
-    substratePortal: TemplatePortal;
-
     private substrateRuler: ElementRulerRef;
 
     @ViewChild('moreContent')
@@ -146,9 +143,9 @@ export class FloatPanelComponent implements AfterViewInit {
 
     pinChangeSubscriber = (pinned: boolean) => {
         if (pinned) {
-            this.removeOverlay();
+            this.detachOverlay();
         } else {
-            this.createOverlay();
+            this.attachOverlay();
         }
     };
 
@@ -156,27 +153,15 @@ export class FloatPanelComponent implements AfterViewInit {
         this.pinned = !this.pinned;
     }
 
-    private createOverlay() {
-        if (this.overlayRef) {
-            this.removeOverlay();
-        }
+    private attachOverlay() {
+        this.detachOverlay();
         this.overlayRef = this.overlay.create(this.createOverlayConfig());
-        this.substratePortal = new TemplatePortal(this.templateRef, this.viewContainerRef);
-        this.overlayRef.attach(this.substratePortal);
+        this.overlayRef.attach(new TemplatePortal(this.templateRef, this.viewContainerRef));
     }
 
-    private removeOverlay() {
-        if (this.substratePortal) {
-            if (this.substratePortal.isAttached) {
-                this.substratePortal.detach();
-            }
-            this.substratePortal = undefined;
-        }
-        if (this.overlayRef) {
-            if (this.overlayRef.hasAttached()) {
-                this.overlayRef.detach();
-            }
-            this.overlayRef = undefined;
+    private detachOverlay() {
+        if (this.overlayRef && this.overlayRef.hasAttached()) {
+            this.overlayRef.detach();
         }
     }
 
