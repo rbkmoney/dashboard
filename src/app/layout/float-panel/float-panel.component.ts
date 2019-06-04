@@ -30,7 +30,9 @@ export class FloatPanelComponent implements AfterViewInit {
     trigger: string;
 
     isExpanded = false;
+
     isPinned = false;
+
     moreHeight = 0;
 
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
@@ -108,7 +110,18 @@ export class FloatPanelComponent implements AfterViewInit {
     constructor(private ruler: ElementRuler, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
     ngAfterViewInit() {
+        this.init();
+    }
+
+    init() {
         this.isPinned ? this.toBody() : this.toPortal();
+    }
+
+    expandDone({ toState }: AnimationEvent) {
+        switch (toState) {
+            case State.expanded:
+                return;
+        }
     }
 
     expand() {
@@ -138,7 +151,7 @@ export class FloatPanelComponent implements AfterViewInit {
         this.isPinned ? this.unpin() : this.pin();
     }
 
-    toPortal() {
+    private toPortal() {
         if (!this.overlayRef) {
             this.overlayRef = this.createOverlay();
         }
@@ -148,7 +161,7 @@ export class FloatPanelComponent implements AfterViewInit {
         }
     }
 
-    toBody() {
+    private toBody() {
         if (this.substratePortal && this.substratePortal.isAttached) {
             this.substratePortal.detach();
             this.substratePortal = undefined;
@@ -156,13 +169,6 @@ export class FloatPanelComponent implements AfterViewInit {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
             this.overlayRef = undefined;
-        }
-    }
-
-    expandDone({ toState }: AnimationEvent) {
-        switch (toState) {
-            case State.expanded:
-                return;
         }
     }
 
