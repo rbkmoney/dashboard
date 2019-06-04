@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { auditTime } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-class Sizes {
+class Size {
     top = 0;
     right = 0;
     bottom = 0;
@@ -18,10 +18,10 @@ class Sizes {
 }
 
 export class ElementRulerRef {
-    get sizes(): Sizes {
+    get size(): Size {
         return this.change.value;
     }
-    private change: BehaviorSubject<Sizes> = new BehaviorSubject(new Sizes());
+    private change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
     private animationFrameId: number;
 
     constructor(public node) {
@@ -33,25 +33,25 @@ export class ElementRulerRef {
         this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
     };
 
-    watch(throttleTime: number = 150): Observable<Sizes> {
+    watch(throttleTime: number = 150): Observable<Size> {
         const obs = this.change.asObservable();
         return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
 
     update() {
         if (this.node) {
-            const nextSizes = this.node.getBoundingClientRect();
+            const nextSize = this.node.getBoundingClientRect();
             if (
-                this.sizes.top !== nextSizes.top ||
-                this.sizes.right !== nextSizes.right ||
-                this.sizes.bottom !== nextSizes.bottom ||
-                this.sizes.left !== nextSizes.left
+                this.size.top !== nextSize.top ||
+                this.size.right !== nextSize.right ||
+                this.size.bottom !== nextSize.bottom ||
+                this.size.left !== nextSize.left
             ) {
-                this.sizes.top = nextSizes.top;
-                this.sizes.right = nextSizes.right;
-                this.sizes.bottom = nextSizes.bottom;
-                this.sizes.left = nextSizes.left;
-                this.change.next(this.sizes);
+                this.size.top = nextSize.top;
+                this.size.right = nextSize.right;
+                this.size.bottom = nextSize.bottom;
+                this.size.left = nextSize.left;
+                this.change.next(this.size);
             }
         }
     }
