@@ -22,7 +22,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatButtonToggleGroup } from '@angular/material';
+import { _MatButtonToggleMixinBase, MatButtonToggleGroup } from '@angular/material';
 
 export type ToggleType = 'checkbox' | 'radio';
 
@@ -31,7 +31,7 @@ export type ToggleType = 'checkbox' | 'radio';
  * This allows it to support [(ngModel)].
  * @docs-private
  */
-export const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
+export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DshButtonToggleGroupDirective),
     multi: true
@@ -49,7 +49,7 @@ export class DshButtonToggleChange {
 @Directive({
     selector: 'dsh-button-toggle-group, [dshButtonToggleGroup]',
     providers: [
-        MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
+        DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
         { provide: MatButtonToggleGroup, useExisting: DshButtonToggleGroupDirective }
     ],
     /* tslint:disable */
@@ -60,7 +60,7 @@ export class DshButtonToggleChange {
         '[class.dsh-button-toggle-vertical]': 'vertical'
     },
     /* tslint:enable */
-    exportAs: 'matButtonToggleGroup'
+    exportAs: 'dshButtonToggleGroup'
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /** Child button toggle buttons. */
@@ -298,18 +298,13 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     }
 }
 
-// Boilerplate for applying mixins to the DshButtonToggleComponent class.
-/** @docs-private */
-class MatButtonToggleBase {}
-const _MatButtonToggleMixinBase: typeof MatButtonToggleBase = MatButtonToggleBase;
-
 /** Single button inside of a toggle group. */
 @Component({
     selector: 'dsh-button-toggle, [dshButtonToggle]',
     templateUrl: 'button-toggle.html',
     styleUrls: ['button-toggle.scss'],
     encapsulation: ViewEncapsulation.None,
-    exportAs: 'matButtonToggle',
+    exportAs: 'dshButtonToggle',
     changeDetection: ChangeDetectionStrategy.OnPush,
     /* tslint:disable */
     host: {
@@ -381,7 +376,6 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef<HTMLElement>,
         private _focusMonitor: FocusMonitor,
-        // @breaking-change 8.0.0 `defaultTabIndex` to be made a required parameter.
         @Attribute('tabindex') defaultTabIndex: string
     ) {
         super();

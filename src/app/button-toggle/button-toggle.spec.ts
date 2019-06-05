@@ -848,7 +848,6 @@ class ButtonToggleGroupWithNgModelComponent {
     modelValue: string;
     options = [{ label: 'Red', value: 'red' }, { label: 'Green', value: 'green' }, { label: 'Blue', value: 'blue' }];
     lastEvent: DshButtonToggleChange;
-    // disableRipple = false;
 }
 
 @Component({
