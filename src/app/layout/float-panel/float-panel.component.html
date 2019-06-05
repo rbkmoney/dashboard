@@ -1,6 +1,6 @@
 <div class="wrapper">
-    <div #substrate [ngStyle]="{ height: pinned ? 0 : substrateHeight + 'px' }"></div>
-    <div [ngStyle]="{ height: cardHeight + 'px' }" class="body-extender"></div>
+    <div #substrate [ngStyle]="{ height: pinned ? 0 : cardHeight.base + 'px' }"></div>
+    <div [ngStyle]="{ height: cardHeight.current + 'px' }" class="body-extender"></div>
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
