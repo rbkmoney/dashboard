@@ -1,30 +1,32 @@
 $base-height: 39px;
 
-.dsh-float-panel-base {
-    min-height: $base-height;
-}
+.dsh-float-panel {
+    &-base {
+        min-height: $base-height;
+    }
 
-.dsh-float-panel-more-wrapper {
-    height: 0;
-    overflow: hidden;
-}
+    &-wrapper {
+        position: relative;
+    }
 
-.wrapper {
-    position: relative;
-}
+    &-actions {
+        opacity: 1;
+    }
 
-.card-wrapper {
-    width: 100%;
-}
+    &-body-extender {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin-bottom: 20px;
+    }
 
-.actions {
-    opacity: 1;
-}
+    &-card-wrapper {
+        width: 100%;
+    }
 
-.body-extender {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin-bottom: 20px;
+    &-more-wrapper {
+        height: 0;
+        overflow: hidden;
+    }
 }
