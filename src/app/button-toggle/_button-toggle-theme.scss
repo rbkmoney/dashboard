@@ -1,0 +1,89 @@
+@import '~@angular/material/theming';
+
+@mixin mat-button-toggle-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $divider-color: mat-color($foreground, divider);
+
+    .dsh-button-toggle-standalone,
+    .dsh-button-toggle-group {
+        @include _mat-theme-elevation(2, $theme);
+    }
+
+    .dsh-button-toggle-standalone.dsh-button-toggle,
+    .dsh-button-toggle-group {
+        box-shadow: none;
+    }
+
+    .dsh-button-toggle {
+        color: mat-color($foreground, text);
+
+        .dsh-button-toggle-focus-overlay {
+            background-color: mat-color($background, focused-button);
+        }
+    }
+
+    .dsh-button-toggle {
+        color: mat-color($foreground, text);
+        background: mat-color($background, card);
+
+        .dsh-button-toggle-focus-overlay {
+            background-color: mat-color($background, focused-button, 1);
+        }
+    }
+
+    .dsh-button-toggle-group .dsh-button-toggle + .dsh-button-toggle {
+        border-left: solid 1px $divider-color;
+    }
+
+    [dir='rtl'] .dsh-button-toggle-group .dsh-button-toggle + .dsh-button-toggle {
+        border-left: none;
+        border-right: solid 1px $divider-color;
+    }
+
+    .dsh-button-toggle-group.dsh-button-toggle-vertical {
+        .dsh-button-toggle + .dsh-button-toggle {
+            border-left: none;
+            border-right: none;
+            border-top: solid 1px $divider-color;
+        }
+    }
+
+    .dsh-button-toggle-checked {
+        &.dsh-button-toggle {
+            color: mat-color($primary, 400);
+        }
+    }
+
+    .dsh-button-toggle-disabled {
+        color: mat-color($foreground, disabled-button);
+        background-color: mat-color($background, disabled-button-toggle);
+
+        &.dsh-button-toggle {
+            background: mat-color($background, card);
+        }
+
+        &.dsh-button-toggle-checked {
+            background-color: mat-color($background, selected-disabled-button);
+        }
+    }
+
+    .dsh-button-toggle-standalone.dsh-button-toggle,
+    .dsh-button-toggle-group {
+        border: solid 1px $divider-color;
+    }
+}
+
+@mixin dsh-button-toggle-typography($config) {
+    .dsh {
+        &-button-toggle-standalone,
+        &-button-toggle-group {
+            font: {
+                family: mat-font-family($config, button);
+                size: mat-font-size($config, button);
+                weight: mat-font-weight($config, button);
+            }
+        }
+    }
+}

@@ -7,6 +7,7 @@ import { PageNotFoundModule } from './page-not-found';
 import { TableModule } from './table';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
+import { ButtonToggleModule } from './button-toggle';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { ButtonsModule } from './buttons';
         PageNotFoundModule,
         TableModule,
         OnboardingModule,
-        ButtonsModule
+        ButtonsModule,
+        ButtonToggleModule
     ],
     declarations: [],
     entryComponents: [],
