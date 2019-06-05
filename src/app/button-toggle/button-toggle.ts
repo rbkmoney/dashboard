@@ -5,9 +5,7 @@ import {
     Attribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    Directive,
+    Component, ContentChildren, Directive,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -15,8 +13,7 @@ import {
     OnDestroy,
     OnInit,
     Optional,
-    Output,
-    QueryList,
+    Output, QueryList,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -26,151 +23,28 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 export type ToggleType = 'checkbox' | 'radio';
 
+/**
+ * Provider Expression that allows dsh-button-toggle-group to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ * @docs-private
+ */
+export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    // tslint disabled because variable used before declaration.
+    /* tslint:disable */
+    useExisting: forwardRef(() => DshButtonToggleGroupDirective),
+    /* tslint:enable */
+    multi: true
+};
+
 let _uniqueIdCounter = 0;
 
 export class DshButtonToggleChange {
-    constructor(public source: DshButtonToggleComponent, public value: any) {}
-}
-
-/** Single button inside of a toggle group. */
-@Component({
-    selector: 'dsh-button-toggle, [dshButtonToggle]',
-    templateUrl: 'button-toggle.html',
-    styleUrls: ['button-toggle.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'dshButtonToggle',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    /* tslint:disable */
-    host: {
-        '[class.dsh-button-toggle-standalone]': '!buttonToggleGroup',
-        '[class.dsh-button-toggle-checked]': 'checked',
-        '[class.dsh-button-toggle-disabled]': 'disabled',
-        class: 'dsh-button-toggle',
-        // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
-        // but can still receive focus from things like cdkFocusInitial.
-        '[attr.tabindex]': '-1',
-        '[attr.id]': 'id',
-        '[attr.name]': 'null',
-        '(focus)': 'focus()'
-    }
-    /* tslint:enable */
-})
-export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
-    private _isSingleSelector = false;
-    private _checked = false;
-
-    @Input('aria-label') ariaLabel: string;
-    @Input('aria-labelledby') ariaLabelledby: string | null = null;
-    @Input() id: string;
-    @Input() name: string;
-    @Input() value: any;
-    @Input() tabIndex: number | null;
-    @Input()
-    get checked(): boolean {
-        return this.buttonToggleGroup ? this.buttonToggleGroup._isSelected(this) : this._checked;
-    }
-    set checked(value: boolean) {
-        const newValue = coerceBooleanProperty(value);
-
-        if (newValue !== this._checked) {
-            this._checked = newValue;
-
-            if (this.buttonToggleGroup) {
-                this.buttonToggleGroup._syncButtonToggle(this, this._checked);
-            }
-
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    @Input()
-    get disabled(): boolean {
-        return this._disabled || (this.buttonToggleGroup && this.buttonToggleGroup.disabled);
-    }
-    set disabled(value: boolean) {
-        this._disabled = coerceBooleanProperty(value);
-    }
-    private _disabled = false;
-
-    /** Event emitted when the group value changes. */
-    @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
-
-    @ViewChild('button') _buttonElement: ElementRef<HTMLButtonElement>;
-
-    _type: ToggleType;
-    /** The parent button toggle group (exclusive selection). Optional. */
-    buttonToggleGroup: DshButtonToggleGroupDirective;
-
-    /** Unique ID for the underlying `button` element. */
-    get buttonId(): string {
-        return `${this.id}-button`;
-    }
-
     constructor(
-        @Optional() toggleGroup: DshButtonToggleGroupDirective,
-        private _changeDetectorRef: ChangeDetectorRef,
-        private _elementRef: ElementRef<HTMLElement>,
-        private _focusMonitor: FocusMonitor,
-        @Attribute('tabindex') defaultTabIndex: string
-    ) {
-        super();
-
-        const parsedTabIndex = Number(defaultTabIndex);
-        this.tabIndex = parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
-        this.buttonToggleGroup = toggleGroup;
-    }
-
-    ngOnInit() {
-        this._isSingleSelector = this.buttonToggleGroup && !this.buttonToggleGroup.multiple;
-        this._type = this._isSingleSelector ? 'radio' : 'checkbox';
-        this.id = this.id || `dsh-button-toggle-${_uniqueIdCounter++}`;
-
-        if (this._isSingleSelector) {
-            this.name = this.buttonToggleGroup.name;
-        }
-
-        if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
-            this.checked = true;
-        }
-
-        this._focusMonitor.monitor(this._elementRef, true);
-    }
-
-    ngOnDestroy() {
-        const group = this.buttonToggleGroup;
-
-        this._focusMonitor.stopMonitoring(this._elementRef);
-
-        // Remove the toggle from the selection once it's destroyed. Needs to happen
-        // on the next tick in order to avoid "changed after checked" errors.
-        if (group && group._isSelected(this)) {
-            group._syncButtonToggle(this, false, false, true);
-        }
-    }
-
-    focus(): void {
-        this._buttonElement.nativeElement.focus();
-    }
-
-    /** Checks the button toggle due to an interaction with the underlying native button. */
-    _onButtonClick() {
-        const newChecked = this._isSingleSelector ? true : !this._checked;
-
-        if (newChecked !== this._checked) {
-            this._checked = newChecked;
-            if (this.buttonToggleGroup) {
-                this.buttonToggleGroup._syncButtonToggle(this, this._checked, true);
-                this.buttonToggleGroup._onTouched();
-            }
-        }
-        // Emit a change event when it's the single selector
-        this.change.emit(new DshButtonToggleChange(this, this.value));
-    }
-
-    _markForCheck() {
-        this._changeDetectorRef.markForCheck();
-    }
+        public source: DshButtonToggleComponent,
+        public value: any
+    ) {}
 }
-
 
 @Directive({
     selector: 'dsh-button-toggle-group, [dshButtonToggleGroup]',
@@ -189,8 +63,10 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     exportAs: 'dshButtonToggleGroup'
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
-    /** Child button toggle buttons. */
+    /** Child button toggle buttons. tslint disabled because variable used before declaration.  */
+    /* tslint:disable */
     @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
+    /* tslint:enable */
 
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
     @Output() readonly valueChange = new EventEmitter<any>();
@@ -424,13 +300,141 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     }
 }
 
-/**
- * Provider Expression that allows dsh-button-toggle-group to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- * @docs-private
- */
-export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DshButtonToggleGroupDirective),
-    multi: true
-};
+/** Single button inside of a toggle group. */
+@Component({
+    selector: 'dsh-button-toggle, [dshButtonToggle]',
+    templateUrl: 'button-toggle.html',
+    styleUrls: ['button-toggle.scss'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'dshButtonToggle',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    /* tslint:disable */
+    host: {
+        '[class.dsh-button-toggle-standalone]': '!buttonToggleGroup',
+        '[class.dsh-button-toggle-checked]': 'checked',
+        '[class.dsh-button-toggle-disabled]': 'disabled',
+        class: 'dsh-button-toggle',
+        // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
+        // but can still receive focus from things like cdkFocusInitial.
+        '[attr.tabindex]': '-1',
+        '[attr.id]': 'id',
+        '[attr.name]': 'null',
+        '(focus)': 'focus()'
+    }
+    /* tslint:enable */
+})
+export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
+    private _isSingleSelector = false;
+    private _checked = false;
+
+    @Input('aria-label') ariaLabel: string;
+    @Input('aria-labelledby') ariaLabelledby: string | null = null;
+    @Input() id: string;
+    @Input() name: string;
+    @Input() value: any;
+    @Input() tabIndex: number | null;
+    @Input()
+    get checked(): boolean {
+        return this.buttonToggleGroup ? this.buttonToggleGroup._isSelected(this) : this._checked;
+    }
+    set checked(value: boolean) {
+        const newValue = coerceBooleanProperty(value);
+
+        if (newValue !== this._checked) {
+            this._checked = newValue;
+
+            if (this.buttonToggleGroup) {
+                this.buttonToggleGroup._syncButtonToggle(this, this._checked);
+            }
+
+            this._changeDetectorRef.markForCheck();
+        }
+    }
+    @Input()
+    get disabled(): boolean {
+        return this._disabled || (this.buttonToggleGroup && this.buttonToggleGroup.disabled);
+    }
+    set disabled(value: boolean) {
+        this._disabled = coerceBooleanProperty(value);
+    }
+    private _disabled = false;
+
+    /** Event emitted when the group value changes. */
+    @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
+
+    @ViewChild('button') _buttonElement: ElementRef<HTMLButtonElement>;
+
+    _type: ToggleType;
+    /** The parent button toggle group (exclusive selection). Optional. */
+    buttonToggleGroup: DshButtonToggleGroupDirective;
+
+    /** Unique ID for the underlying `button` element. */
+    get buttonId(): string {
+        return `${this.id}-button`;
+    }
+
+    constructor(
+        @Optional() toggleGroup: DshButtonToggleGroupDirective,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _elementRef: ElementRef<HTMLElement>,
+        private _focusMonitor: FocusMonitor,
+        @Attribute('tabindex') defaultTabIndex: string
+    ) {
+        super();
+
+        const parsedTabIndex = Number(defaultTabIndex);
+        this.tabIndex = parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
+        this.buttonToggleGroup = toggleGroup;
+    }
+
+    ngOnInit() {
+        this._isSingleSelector = this.buttonToggleGroup && !this.buttonToggleGroup.multiple;
+        this._type = this._isSingleSelector ? 'radio' : 'checkbox';
+        this.id = this.id || `dsh-button-toggle-${_uniqueIdCounter++}`;
+
+        if (this._isSingleSelector) {
+            this.name = this.buttonToggleGroup.name;
+        }
+
+        if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
+            this.checked = true;
+        }
+
+        this._focusMonitor.monitor(this._elementRef, true);
+    }
+
+    ngOnDestroy() {
+        const group = this.buttonToggleGroup;
+
+        this._focusMonitor.stopMonitoring(this._elementRef);
+
+        // Remove the toggle from the selection once it's destroyed. Needs to happen
+        // on the next tick in order to avoid "changed after checked" errors.
+        if (group && group._isSelected(this)) {
+            group._syncButtonToggle(this, false, false, true);
+        }
+    }
+
+    focus(): void {
+        this._buttonElement.nativeElement.focus();
+    }
+
+    /** Checks the button toggle due to an interaction with the underlying native button. */
+    _onButtonClick() {
+        const newChecked = this._isSingleSelector ? true : !this._checked;
+
+        if (newChecked !== this._checked) {
+            this._checked = newChecked;
+            if (this.buttonToggleGroup) {
+                this.buttonToggleGroup._syncButtonToggle(this, this._checked, true);
+                this.buttonToggleGroup._onTouched();
+            }
+        }
+        // Emit a change event when it's the single selector
+        this.change.emit(new DshButtonToggleChange(this, this.value));
+    }
+
+    _markForCheck() {
+        this._changeDetectorRef.markForCheck();
+    }
+}
