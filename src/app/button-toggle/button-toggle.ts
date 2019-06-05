@@ -5,7 +5,9 @@ import {
     Attribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component, ContentChildren, Directive,
+    Component,
+    ContentChildren,
+    Directive,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -13,7 +15,8 @@ import {
     OnDestroy,
     OnInit,
     Optional,
-    Output, QueryList,
+    Output,
+    QueryList,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -40,10 +43,7 @@ export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
 let _uniqueIdCounter = 0;
 
 export class DshButtonToggleChange {
-    constructor(
-        public source: DshButtonToggleComponent,
-        public value: any
-    ) {}
+    constructor(public source: DshButtonToggleComponent, public value: any) {}
 }
 
 @Directive({
