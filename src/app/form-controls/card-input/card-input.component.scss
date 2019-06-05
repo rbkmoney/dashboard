@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+}
+
+.dsh-card-input-element {
+    border: none;
+    background: none;
+    padding: 0;
+    outline: none;
+    font: inherit;
+    text-align: right;
+}
+
+.dsh-card-input-element::placeholder {
+    opacity: 0;
+}
+
+:host.floating .dsh-card-input-element::placeholder {
+    opacity: 1;
+}
+
+.dsh-card-input-spacer {
+    opacity: 0;
+    user-select: none;
+    transition: opacity 200ms;
+}
+
+:host.floating .dsh-card-input-spacer {
+    opacity: 1;
+}

@@ -8,6 +8,7 @@ import { TableComponent } from './table';
 import { routes as onboargindRoutes } from './onboarding';
 import { ButtonsComponent } from './buttons';
 import { ButtonToggleComponent } from './button-toggle';
+import { InputsComponent } from './inputs/inputs.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
         path: 'button-toggle',
         component: ButtonToggleComponent
+    },
+    {
+        path: 'inputs',
+        component: InputsComponent
     },
     {
         path: '**',
