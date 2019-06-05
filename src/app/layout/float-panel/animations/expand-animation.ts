@@ -1,10 +1,14 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export enum State {
-    expanded = 'expanded'
+    expanded = 'expanded',
+    collapsed = 'collapsed'
 }
+
+const animation = animate('0.35s ease');
 
 export const expandAnimation = trigger('expand', [
     state(State.expanded, style({ height: '{{height}}px' }), { params: { height: 0 } }),
-    transition(`* <=> ${State.expanded}`, [animate('0.25s ease')])
+    transition(`${State.collapsed} <=> ${State.expanded}`, [animation]),
+    transition(`${State.expanded} => void`, [animation])
 ]);

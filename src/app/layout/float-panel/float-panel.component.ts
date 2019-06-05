@@ -84,7 +84,7 @@ export class FloatPanelComponent implements AfterViewInit {
         }
     }
 
-    expandTrigger: { value: State; params: { height: number } };
+    expandTrigger: { value: State; params: { height: number } } | State = State.collapsed;
 
     expand = false;
 
@@ -146,7 +146,7 @@ export class FloatPanelComponent implements AfterViewInit {
 
     private resetExpandTriggerManage() {
         if (!this.expanded) {
-            this.expandTrigger = undefined;
+            this.expandTrigger = State.collapsed;
         }
     }
 
