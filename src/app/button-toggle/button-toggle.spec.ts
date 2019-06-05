@@ -1,19 +1,17 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-    DshButtonToggleComponent,
-    DshButtonToggleGroupDirective,
-    DshButtonToggleModule
-} from './index';
+import { DshButtonToggleComponent, DshButtonToggleGroupDirective, DshButtonToggleModule } from './index';
 import {
     ButtonToggleGroupWithInitialValueComponent,
     ButtonTogglesInsideButtonToggleGroupComponent,
     ButtonTogglesInsideButtonToggleGroupMultipleComponent,
     ButtonToggleWithAriaLabelComponent,
-    ButtonToggleWithAriaLabelledbyComponent, ButtonToggleWithStaticNameComponent,
+    ButtonToggleWithAriaLabelledbyComponent,
+    ButtonToggleWithStaticNameComponent,
     ButtonToggleWithTabindexComponent,
-    FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent, RepeatedButtonTogglesWithPreselectedValueComponent,
+    FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent,
+    RepeatedButtonTogglesWithPreselectedValueComponent,
     StandaloneButtonToggleComponent
 } from './button-toggle.components.spec';
 

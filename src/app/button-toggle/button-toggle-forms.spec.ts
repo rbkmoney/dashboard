@@ -184,7 +184,7 @@ describe('DshButtonToggle with forms', () => {
 
         it(
             'should maintain the selected value when swapping out the list of toggles with one ' +
-            'that still contains the value',
+                'that still contains the value',
             fakeAsync(() => {
                 expect(buttonToggleInstances[0].checked).toBe(false);
                 expect(fixture.componentInstance.modelValue).toBeFalsy();
