@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import get from 'lodash.get';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AnimationEvent } from '@angular/animations';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
@@ -111,12 +112,12 @@ export class FloatPanelComponent implements AfterViewInit {
         this.overlayAttachManage();
     }
 
-    expandStart() {
+    expandStart(e: AnimationEvent) {
         this.updateSizes();
         this.expand = true;
     }
 
-    expandDone() {
+    expandDone(e: AnimationEvent) {
         this.expand = false;
         this.updateSizes();
     }
@@ -129,6 +130,20 @@ export class FloatPanelComponent implements AfterViewInit {
         this.pinned = !this.pinned;
     }
 
+    private attach() {
+        this.floatPanelOverlayService.attach(
+            new TemplatePortal(this.templateRef, this.viewContainerRef),
+            this.substrate,
+            {
+                width: get(this.substrateRuler, 'value.width', 0)
+            }
+        );
+    }
+
+    private detach() {
+        this.floatPanelOverlayService.detach();
+    }
+
     private resetExpandTriggerManage() {
         if (!this.expanded) {
             this.expandTrigger = undefined;
@@ -137,15 +152,9 @@ export class FloatPanelComponent implements AfterViewInit {
 
     private overlayAttachManage() {
         if (this.pinned) {
-            this.floatPanelOverlayService.detach();
+            this.detach();
         } else {
-            this.floatPanelOverlayService.attach(
-                new TemplatePortal(this.templateRef, this.viewContainerRef),
-                this.substrate,
-                {
-                    width: get(this.substrateRuler, 'value.width', 0)
-                }
-            );
+            this.attach();
         }
     }
 
