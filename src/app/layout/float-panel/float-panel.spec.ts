@@ -1,18 +1,18 @@
-import { Component, Type, Provider } from '@angular/core';
+import { Component, Type, Provider, ViewChild } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
+import { By } from '@angular/platform-browser';
 
 import { FloatPanelModule } from './float-panel.module';
+import { FloatPanelComponent } from './float-panel.component';
 
 @Component({
     template: `
-        <dsh-float-panel [pinned]="pinned">
+        <dsh-float-panel [pinned]="pinned" [expanded]="expanded" #floatPanel>
             Базовый фильтр
             <dsh-float-panel-actions>
-                <button dsh-button>
-                    Сбросить
-                </button>
+                <button>Сбросить</button>
             </dsh-float-panel-actions>
             <dsh-float-panel-more>
                 Фильтр
@@ -21,7 +21,9 @@ import { FloatPanelModule } from './float-panel.module';
     `
 })
 class SimpleFloatPanelComponent {
+    @ViewChild('floatPanel') floatPanel: FloatPanelComponent;
     pinned = true;
+    expanded = true;
 }
 
 describe('FloatPanelComponent', () => {
@@ -63,6 +65,21 @@ describe('FloatPanelComponent', () => {
             fixture.componentInstance.pinned = false;
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).not.toBe('');
+        });
+    });
+
+    describe('Expand/collapse', () => {
+        it('should expanded', () => {
+            const fixture = createComponent(SimpleFloatPanelComponent);
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.dsh-float-panel-more-wrapper'))).toBeDefined();
+        });
+
+        it('should collapsed', () => {
+            const fixture = createComponent(SimpleFloatPanelComponent);
+            fixture.componentInstance.expanded = false;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.dsh-float-panel-more-wrapper'))).toBeNull();
         });
     });
 });
