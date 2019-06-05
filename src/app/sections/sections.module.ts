@@ -8,6 +8,7 @@ import { TableModule } from './table';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { ButtonToggleModule } from './button-toggle';
+import { InputsModule } from './inputs/inputs.module';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { ButtonToggleModule } from './button-toggle';
         OnboardingModule,
         ButtonsModule,
         ButtonToggleModule
+        InputsModule
     ],
     declarations: [],
     entryComponents: [],
