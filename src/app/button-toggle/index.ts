@@ -1,1 +1,2 @@
-export * from './public-api';
+export * from './button-toggle';
+export * from './button-toggle.module';
