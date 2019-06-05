@@ -153,7 +153,9 @@ export class FloatPanelComponent implements AfterViewInit {
     }
 
     private setMoreContentSize({ height }: { height: number }) {
-        this.expandTrigger = { value: State.expanded, params: { height } };
+        if (height !== 0) {
+            this.expandTrigger = { value: State.expanded, params: { height } };
+        }
     }
 
     private updateSizes() {

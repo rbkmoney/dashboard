@@ -33,7 +33,7 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
         this.animationFrameId = requestAnimationFrame(this.watchOnFrame);
     };
 
-    watch(throttleTime: number = 150): Observable<Size> {
+    watch(throttleTime: number = 100): Observable<Size> {
         const obs = this.change.asObservable();
         return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
