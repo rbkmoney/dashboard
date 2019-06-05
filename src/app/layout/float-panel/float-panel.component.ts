@@ -8,7 +8,8 @@ import {
     AfterViewInit,
     Output,
     EventEmitter,
-    ViewContainerRef
+    ViewContainerRef,
+    ChangeDetectorRef
 } from '@angular/core';
 import get from 'lodash.get';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -89,6 +90,8 @@ export class FloatPanelComponent implements AfterViewInit {
 
     substrateHeight = 0;
 
+    cardHeight = 0;
+
     cardRuler = this.ruler.create();
 
     substrateRuler = this.ruler.create();
@@ -98,7 +101,8 @@ export class FloatPanelComponent implements AfterViewInit {
     constructor(
         private ruler: ElementRuler,
         private viewContainerRef: ViewContainerRef,
-        private floatPanelOverlayService: FloatPanelOverlayService
+        private floatPanelOverlayService: FloatPanelOverlayService,
+        private ref: ChangeDetectorRef
     ) {
         this.expandedChange.subscribe(() => this.resetExpandTriggerManage());
         this.pinnedChange.subscribe(() => this.overlayAttachManage());
@@ -147,9 +151,11 @@ export class FloatPanelComponent implements AfterViewInit {
     }
 
     private setCardSize({ height }: { height: number }) {
-        if (!this.expanded && !this.expand) {
+        if (!this.expanded && !this.expand && height !== 0) {
             this.substrateHeight = height;
         }
+        this.cardHeight = height;
+        this.ref.markForCheck();
     }
 
     private setMoreContentSize({ height }: { height: number }) {

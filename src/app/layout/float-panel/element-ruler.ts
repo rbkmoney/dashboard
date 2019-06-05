@@ -21,7 +21,9 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
     get value(): Size {
         return this.change.value;
     }
-    private change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
+
+    change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
+
     private animationFrameId: number;
 
     constructor(public node?: T) {
