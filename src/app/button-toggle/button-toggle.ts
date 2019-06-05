@@ -1,6 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
     Attribute,
@@ -23,6 +22,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _MatButtonToggleMixinBase, MatButtonToggleGroup } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export type ToggleType = 'checkbox' | 'radio';
 
@@ -40,10 +40,7 @@ export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
 let _uniqueIdCounter = 0;
 
 export class DshButtonToggleChange {
-    constructor(
-        public source: DshButtonToggleComponent,
-        public value: any
-    ) {}
+    constructor(public source: DshButtonToggleComponent, public value: any) {}
 }
 
 @Directive({
