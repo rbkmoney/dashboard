@@ -26,6 +26,8 @@ class SimpleFloatPanelComponent {
     expanded = true;
 }
 
+const WRAPPER = By.css('.dsh-float-panel-more-wrapper');
+
 describe('FloatPanelComponent', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -54,32 +56,51 @@ describe('FloatPanelComponent', () => {
         overlayContainer.ngOnDestroy();
     }));
 
-    describe('Pin/unpin', () => {
+    describe('Pinned', () => {
         it('should pinned', () => {
             createComponent(SimpleFloatPanelComponent);
             expect(overlayContainerElement.textContent).toBe('');
         });
 
+        describe('Expand/collapse', () => {
+            it('should expanded', () => {
+                const fixture = createComponent(SimpleFloatPanelComponent);
+                fixture.detectChanges();
+                expect(fixture.debugElement.query(WRAPPER)).toBeDefined();
+            });
+
+            it('should collapsed', () => {
+                const fixture = createComponent(SimpleFloatPanelComponent);
+                fixture.componentInstance.expanded = false;
+                fixture.detectChanges();
+                expect(fixture.debugElement.query(WRAPPER)).toBeNull();
+            });
+        });
+    });
+
+    describe('Float', () => {
         it('should float', () => {
             const fixture = createComponent(SimpleFloatPanelComponent);
             fixture.componentInstance.pinned = false;
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).not.toBe('');
         });
-    });
 
-    describe('Expand/collapse', () => {
-        it('should expanded', () => {
-            const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.detectChanges();
-            expect(fixture.debugElement.query(By.css('.dsh-float-panel-more-wrapper'))).toBeDefined();
-        });
+        describe('Expand/collapse', () => {
+            it('should expanded', () => {
+                const fixture = createComponent(SimpleFloatPanelComponent);
+                fixture.componentInstance.pinned = false;
+                fixture.detectChanges();
+                expect(fixture.debugElement.query(WRAPPER)).toBeDefined();
+            });
 
-        it('should collapsed', () => {
-            const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.componentInstance.expanded = false;
-            fixture.detectChanges();
-            expect(fixture.debugElement.query(By.css('.dsh-float-panel-more-wrapper'))).toBeNull();
+            it('should collapsed', () => {
+                const fixture = createComponent(SimpleFloatPanelComponent);
+                fixture.componentInstance.pinned = false;
+                fixture.componentInstance.expanded = false;
+                fixture.detectChanges();
+                expect(fixture.debugElement.query(WRAPPER)).toBeNull();
+            });
         });
     });
 });
