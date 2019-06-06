@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayRef, OverlayConfig, Overlay, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import get from 'lodash.get';
@@ -17,12 +17,15 @@ export class DropdownTriggerDirective implements OnDestroy {
     @Input('dshDropdownTriggerFor')
     dropdown: DropdownComponent;
 
+    private removeWindowListenersFns: (() => void)[] = [];
+
     private _overlayRef: OverlayRef;
 
     constructor(
         private viewContainerRef: ViewContainerRef,
         private overlay: Overlay,
-        private origin: ElementRef<HTMLElement>
+        private origin: ElementRef<HTMLElement>,
+        private renderer: Renderer2
     ) {}
 
     private get dropdownEl(): HTMLElement {
@@ -76,13 +79,17 @@ export class DropdownTriggerDirective implements OnDestroy {
     }
 
     private addWindowListeners() {
-        window.addEventListener('mousedown', this.backdropClickHandler);
-        window.addEventListener('keyup', this.keypressHandler);
+        this.removeWindowListenersFns.push(
+            this.renderer.listen(window, 'mousedown', this.backdropClickHandler),
+            this.renderer.listen(window, 'keyup', this.keypressHandler)
+        );
     }
 
     private removeWindowListeners() {
-        window.removeEventListener('mousedown', this.backdropClickHandler);
-        window.removeEventListener('keyup', this.keypressHandler);
+        let unlisten: () => void;
+        while ((unlisten = this.removeWindowListenersFns.pop())) {
+            unlisten();
+        }
     }
 
     private getPortal(): TemplatePortal {
