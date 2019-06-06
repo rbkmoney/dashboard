@@ -541,7 +541,7 @@ describe('DshButtonToggle without forms', () => {
 
         const hostNode: HTMLElement = fixture.nativeElement.querySelector('.dsh-button-toggle');
 
-        expect(hostNode.hasAttribute('name')).toBe(false);
+        expect(hostNode.hasAttribute('name')).toBe(true);
         expect(hostNode.querySelector('button').getAttribute('name')).toBe('custom-name');
     });
 
