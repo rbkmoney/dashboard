@@ -10,7 +10,6 @@
         color: mat-color($foreground, text);
         background: mat-color($background, card);
 
-
         &-group .dsh-button-toggle + .dsh-button-toggle {
             border-left: solid 1px $divider-color;
         }
