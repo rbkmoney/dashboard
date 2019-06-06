@@ -19,10 +19,10 @@ export class Size {
 
 export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
     get value(): Size {
-        return this.change.value;
+        return this.value$.value;
     }
 
-    change: BehaviorSubject<Size> = new BehaviorSubject(new Size());
+    value$: BehaviorSubject<Size> = new BehaviorSubject(new Size());
 
     private animationFrameId: number;
 
@@ -36,7 +36,7 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
     };
 
     watch(throttleTime: number = 100): Observable<Size> {
-        const obs = this.change.asObservable();
+        const obs = this.value$.asObservable();
         return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
 
@@ -58,14 +58,14 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
                 this.value.right = nextSize.right;
                 this.value.bottom = nextSize.bottom;
                 this.value.left = nextSize.left;
-                this.change.next(this.value);
+                this.value$.next(this.value);
             }
         }
     }
 
     dispose() {
         cancelAnimationFrame(this.animationFrameId);
-        this.change.complete();
+        this.value$.complete();
     }
 }
 

@@ -17,7 +17,7 @@ import { AnimationEvent } from '@angular/animations';
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { ElementRuler } from './element-ruler';
-import { expandAnimation, State } from './animations/expand-animation';
+import { expandAnimation, ExpandState } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
 import { FloatPanelOverlayService } from './float-panel-overlay.service';
 
@@ -84,20 +84,20 @@ export class FloatPanelComponent implements AfterViewInit {
         }
     }
 
-    expandTrigger: { value: State; params: { height: number } } | State = State.collapsed;
-
-    expand = false;
+    expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
 
     cardHeight = {
         base: 0,
         current: 0
     };
 
-    cardRuler = this.ruler.create();
+    private isExpanding = false;
 
-    substrateRuler = this.ruler.create();
+    private cardRuler = this.ruler.create();
 
-    moreRuler = this.ruler.create();
+    private substrateRuler = this.ruler.create();
+
+    private moreRuler = this.ruler.create();
 
     constructor(
         private ruler: ElementRuler,
@@ -114,11 +114,11 @@ export class FloatPanelComponent implements AfterViewInit {
 
     expandStart(e: AnimationEvent) {
         this.updateSizes();
-        this.expand = true;
+        this.isExpanding = true;
     }
 
     expandDone(e: AnimationEvent) {
-        this.expand = false;
+        this.isExpanding = false;
         this.updateSizes();
     }
 
@@ -146,7 +146,7 @@ export class FloatPanelComponent implements AfterViewInit {
 
     private resetExpandTriggerManage() {
         if (!this.expanded) {
-            this.expandTrigger = State.collapsed;
+            this.expandTrigger = ExpandState.collapsed;
         }
     }
 
@@ -159,7 +159,7 @@ export class FloatPanelComponent implements AfterViewInit {
     }
 
     private setCardSize({ height }: { height: number }) {
-        if (!this.expanded && !this.expand && height !== 0) {
+        if (!this.expanded && !this.isExpanding && height !== 0) {
             this.cardHeight.base = height;
         }
         this.cardHeight.current = height;
@@ -167,7 +167,7 @@ export class FloatPanelComponent implements AfterViewInit {
 
     private setMoreContentSize({ height }: { height: number }) {
         if (height !== 0) {
-            this.expandTrigger = { value: State.expanded, params: { height } };
+            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
         }
     }
 
