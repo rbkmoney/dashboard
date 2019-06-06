@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle';
+import { DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

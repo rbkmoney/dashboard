@@ -300,8 +300,8 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
 /** Single button inside of a toggle group. */
 @Component({
     selector: 'dsh-button-toggle, [dshButtonToggle]',
-    templateUrl: 'button-toggle.html',
-    styleUrls: ['button-toggle.scss'],
+    templateUrl: 'button-toggle.component.html',
+    styleUrls: ['button-toggle.component.scss'],
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshButtonToggle',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -310,18 +310,10 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     private _isSingleSelector = false;
     private _checked = false;
 
-    @HostBinding('class.dsh-button-toggle') toggleClass = true;
-    @HostListener('focus') onFocus = this.focus;
-
     @Input('aria-label') ariaLabel: string;
     @Input('aria-labelledby') ariaLabelledby: string | null = null;
-    @HostBinding('attr.id')
-    @Input()
-    id: string;
-    @HostBinding('attr.name')
-    @Input()
-    name: string;
     @Input() value: any;
+
     @HostBinding('class.dsh-button-toggle-checked')
     @Input()
     get checked(): boolean {
@@ -354,6 +346,16 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     get isButtonToggleGroup() {
         return !this.buttonToggleGroup;
     }
+
+    @HostListener('focus') onFocus = this.focus;
+    @HostBinding('class.dsh-button-toggle') toggleClass = true;
+
+    @HostBinding('attr.id')
+    @Input()
+    id: string;
+    @HostBinding('attr.name')
+    @Input()
+    name: string;
 
     /** Event emitted when the group value changes. */
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();

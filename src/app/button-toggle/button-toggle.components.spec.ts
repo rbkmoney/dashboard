@@ -1,5 +1,5 @@
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { DshButtonToggleChange, DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle';
+import { DshButtonToggleChange, DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle.component';
 import { FormControl } from '@angular/forms';
 
 @Component({

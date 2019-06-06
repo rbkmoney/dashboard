@@ -1,2 +1,2 @@
-export * from './button-toggle';
+export * from './button-toggle.component';
 export * from './button-toggle.module';
