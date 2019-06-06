@@ -1,4 +1,6 @@
+$indent: 20px;
+
 :host {
     display: block;
-    margin: 30px 20px;
+    margin: $indent;
 }
