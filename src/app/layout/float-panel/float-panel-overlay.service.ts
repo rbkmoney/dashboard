@@ -9,7 +9,7 @@ export class FloatPanelOverlayService implements OnDestroy {
     constructor(private overlay: Overlay) {}
 
     ngOnDestroy() {
-        this.overlayRef.detach();
+        this.detach();
     }
 
     attach(templatePortal: TemplatePortal, elementRef: ElementRef, config: { width: number }) {

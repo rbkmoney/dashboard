@@ -11,7 +11,6 @@ import {
     ViewContainerRef,
     OnDestroy
 } from '@angular/core';
-import get from 'lodash.get';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
 
