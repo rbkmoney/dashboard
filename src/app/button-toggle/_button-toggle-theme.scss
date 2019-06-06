@@ -10,15 +10,6 @@
         color: mat-color($foreground, text);
         background: mat-color($background, card);
 
-        &-standalone,
-        &-group {
-            @include _mat-theme-elevation(2, $theme);
-        }
-
-        &-standalone.dsh-button-toggle,
-        &-group {
-            box-shadow: none;
-        }
 
         &-group .dsh-button-toggle + .dsh-button-toggle {
             border-left: solid 1px $divider-color;
