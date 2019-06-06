@@ -9,7 +9,6 @@ import {
     ButtonToggleWithAriaLabelComponent,
     ButtonToggleWithAriaLabelledbyComponent,
     ButtonToggleWithStaticNameComponent,
-    ButtonToggleWithTabindexComponent,
     FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent,
     RepeatedButtonTogglesWithPreselectedValueComponent,
     StandaloneButtonToggleComponent
@@ -28,7 +27,6 @@ describe('DshButtonToggle without forms', () => {
                 ButtonToggleWithAriaLabelComponent,
                 ButtonToggleWithAriaLabelledbyComponent,
                 RepeatedButtonTogglesWithPreselectedValueComponent,
-                ButtonToggleWithTabindexComponent,
                 ButtonToggleWithStaticNameComponent
             ]
         });
@@ -94,15 +92,6 @@ describe('DshButtonToggle without forms', () => {
             fixture.detectChanges();
 
             expect(buttonToggleInstances[0].checked).toBe(true);
-        });
-
-        it('should set aria-disabled based on whether the group is disabled', () => {
-            expect(groupNativeElement.getAttribute('aria-disabled')).toBe('false');
-
-            testComponent.isGroupDisabled = true;
-            fixture.detectChanges();
-
-            expect(groupNativeElement.getAttribute('aria-disabled')).toBe('true');
         });
 
         it('should disable the underlying button when the group is disabled', () => {
@@ -535,40 +524,6 @@ describe('DshButtonToggle without forms', () => {
 
             fixture.detectChanges();
             expect(buttonElement.getAttribute('aria-labelledby')).toBe(null);
-        });
-    });
-
-    describe('with tabindex', () => {
-        it('should forward the tabindex to the underlying button', () => {
-            const fixture = TestBed.createComponent(ButtonToggleWithTabindexComponent);
-            fixture.detectChanges();
-
-            const button = fixture.nativeElement.querySelector('.dsh-button-toggle button');
-
-            expect(button.getAttribute('tabindex')).toBe('3');
-        });
-
-        it('should clear the tabindex from the host element', () => {
-            const fixture = TestBed.createComponent(ButtonToggleWithTabindexComponent);
-            fixture.detectChanges();
-
-            const host = fixture.nativeElement.querySelector('.dsh-button-toggle');
-
-            expect(host.getAttribute('tabindex')).toBe('-1');
-        });
-
-        it('should forward focus to the underlying button when the host is focused', () => {
-            const fixture = TestBed.createComponent(ButtonToggleWithTabindexComponent);
-            fixture.detectChanges();
-
-            const host = fixture.nativeElement.querySelector('.dsh-button-toggle');
-            const button = host.querySelector('button');
-
-            expect(document.activeElement).not.toBe(button);
-
-            host.focus();
-
-            expect(document.activeElement).toBe(button);
         });
     });
 

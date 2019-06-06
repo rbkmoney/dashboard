@@ -130,13 +130,6 @@ export class RepeatedButtonTogglesWithPreselectedValueComponent {
 
 @Component({
     template: `
-        <dsh-button-toggle tabindex="3"></dsh-button-toggle>
-    `
-})
-export class ButtonToggleWithTabindexComponent {}
-
-@Component({
-    template: `
         <dsh-button-toggle name="custom-name"></dsh-button-toggle>
     `
 })

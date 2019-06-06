@@ -10,7 +10,9 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    forwardRef, HostBinding, HostListener,
+    forwardRef,
+    HostBinding,
+    HostListener,
     Input,
     OnDestroy,
     OnInit,
@@ -303,7 +305,7 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     styleUrls: ['button-toggle.scss'],
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshButtonToggle',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
     private _isSingleSelector = false;
@@ -315,12 +317,12 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     @Input('aria-label') ariaLabel: string;
     @Input('aria-labelledby') ariaLabelledby: string | null = null;
     @HostBinding('attr.id')
-    @Input() id: string;
+    @Input()
+    id: string;
     @HostBinding('attr.name')
-    @Input() name: string;
+    @Input()
+    name: string;
     @Input() value: any;
-    @HostBinding('attr.tabindex')
-    @Input() tabIndex: number | null = -1;
     @HostBinding('class.dsh-button-toggle-checked')
     @Input()
     get checked(): boolean {
@@ -372,13 +374,10 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
         @Optional() toggleGroup: DshButtonToggleGroupDirective,
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef<HTMLElement>,
-        private _focusMonitor: FocusMonitor,
-        @Attribute('tabindex') defaultTabIndex: string
+        private _focusMonitor: FocusMonitor
     ) {
         super();
 
-        const parsedTabIndex = Number(defaultTabIndex);
-        this.tabIndex = parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
         this.buttonToggleGroup = toggleGroup;
     }
 
