@@ -10,10 +10,6 @@
         color: mat-color($foreground, text);
         background: mat-color($background, card);
 
-        &-focus-overlay {
-            background-color: mat-color($background, focused-button);
-        }
-
         &-standalone,
         &-group {
             @include _mat-theme-elevation(2, $theme);

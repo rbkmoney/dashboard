@@ -10,7 +10,7 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    forwardRef,
+    forwardRef, HostBinding, HostListener,
     Input,
     OnDestroy,
     OnInit,
@@ -52,14 +52,6 @@ export class DshButtonToggleChange {
         DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
         { provide: MatButtonToggleGroup, useExisting: DshButtonToggleGroupDirective }
     ],
-    /* tslint:disable */
-    host: {
-        role: 'group',
-        class: 'dsh-button-toggle-group',
-        '[attr.aria-disabled]': 'disabled',
-        '[class.dsh-button-toggle-vertical]': 'vertical'
-    },
-    /* tslint:enable */
     exportAs: 'dshButtonToggleGroup'
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
@@ -67,6 +59,9 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     /* tslint:disable */
     @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
     /* tslint:enable */
+
+    @HostBinding('class.dsh-button-toggle-group') groupClass = true;
+    @HostBinding('attr.role') role = true;
 
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
     @Output() readonly valueChange = new EventEmitter<any>();
@@ -105,6 +100,7 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     }
 
     /** Whether the toggle group is vertical. */
+    @HostBinding('class.dsh-button-toggle-vertical')
     @Input()
     get vertical(): boolean {
         return this._vertical;
@@ -308,31 +304,24 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshButtonToggle',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    /* tslint:disable */
-    host: {
-        '[class.dsh-button-toggle-standalone]': '!buttonToggleGroup',
-        '[class.dsh-button-toggle-checked]': 'checked',
-        '[class.dsh-button-toggle-disabled]': 'disabled',
-        class: 'dsh-button-toggle',
-        // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
-        // but can still receive focus from things like cdkFocusInitial.
-        '[attr.tabindex]': '-1',
-        '[attr.id]': 'id',
-        '[attr.name]': 'null',
-        '(focus)': 'focus()'
-    }
-    /* tslint:enable */
 })
 export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
     private _isSingleSelector = false;
     private _checked = false;
 
+    @HostBinding('class.dsh-button-toggle') toggleClass = true;
+    @HostListener('focus') onFocus = this.focus;
+
     @Input('aria-label') ariaLabel: string;
     @Input('aria-labelledby') ariaLabelledby: string | null = null;
+    @HostBinding('attr.id')
     @Input() id: string;
+    @HostBinding('attr.name')
     @Input() name: string;
     @Input() value: any;
-    @Input() tabIndex: number | null;
+    @HostBinding('attr.tabindex')
+    @Input() tabIndex: number | null = -1;
+    @HostBinding('class.dsh-button-toggle-checked')
     @Input()
     get checked(): boolean {
         return this.buttonToggleGroup ? this.buttonToggleGroup._isSelected(this) : this._checked;
@@ -350,6 +339,7 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
             this._changeDetectorRef.markForCheck();
         }
     }
+    @HostBinding('class.dsh-button-toggle-disabled')
     @Input()
     get disabled(): boolean {
         return this._disabled || (this.buttonToggleGroup && this.buttonToggleGroup.disabled);
@@ -358,6 +348,11 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
         this._disabled = coerceBooleanProperty(value);
     }
     private _disabled = false;
+
+    @HostBinding('class.dsh-button-toggle-standalone')
+    get isButtonToggleGroup() {
+        return !this.buttonToggleGroup;
+    }
 
     /** Event emitted when the group value changes. */
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
