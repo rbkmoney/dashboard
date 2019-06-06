@@ -34,7 +34,6 @@ export type ToggleType = 'checkbox' | 'radio';
  */
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    // tslint disabled because variable used before declaration.
     /* tslint:disable:no-use-before-declare */
     useExisting: forwardRef(() => DshButtonToggleGroupDirective),
     /* tslint:enable:no-use-before-declare */
@@ -56,7 +55,7 @@ export class DshButtonToggleChange {
     exportAs: 'dshButtonToggleGroup'
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
-    /** Child button toggle buttons. tslint disabled because variable used before declaration.  */
+    /* Child button toggle buttons. */
     /* tslint:disable:no-use-before-declare */
     @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
     /* tslint:enable:no-use-before-declare */
