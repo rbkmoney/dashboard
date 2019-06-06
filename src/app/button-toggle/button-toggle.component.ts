@@ -35,9 +35,9 @@ export type ToggleType = 'checkbox' | 'radio';
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     // tslint disabled because variable used before declaration.
-    /* tslint:disable */
+    /* tslint:no-use-before-declare:disable */
     useExisting: forwardRef(() => DshButtonToggleGroupDirective),
-    /* tslint:enable */
+    /* tslint:no-use-before-declare:enable */
     multi: true
 };
 
@@ -57,9 +57,9 @@ export class DshButtonToggleChange {
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /** Child button toggle buttons. tslint disabled because variable used before declaration.  */
-    /* tslint:disable */
+    /* tslint:no-use-before-declare:disable */
     @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
-    /* tslint:enable */
+    /* tslint:no-use-before-declare:enable */
 
     @HostBinding('class.dsh-button-toggle-group') groupClass = true;
     @HostBinding('attr.role') role = true;
@@ -311,7 +311,7 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     private _checked = false;
 
     @Input('aria-label') ariaLabel: string;
-    @Input('aria-labelledby') ariaLabelledby: string | null = null;
+    @Input('aria-labelledby') ariaLabelledby: string = null;
     @Input() value: any;
 
     @HostBinding('class.dsh-button-toggle-checked')
@@ -332,6 +332,7 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
             this._changeDetectorRef.markForCheck();
         }
     }
+
     @HostBinding('class.dsh-button-toggle-disabled')
     @Input()
     get disabled(): boolean {
@@ -347,12 +348,12 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
         return !this.buttonToggleGroup;
     }
 
-    @HostListener('focus') onFocus = this.focus;
     @HostBinding('class.dsh-button-toggle') toggleClass = true;
 
     @HostBinding('attr.id')
     @Input()
     id: string;
+
     @HostBinding('attr.name')
     @Input()
     name: string;
@@ -369,6 +370,11 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     /** Unique ID for the underlying `button` element. */
     get buttonId(): string {
         return `${this.id}-button`;
+    }
+
+    @HostListener('focus')
+    focus(): void {
+        this._buttonElement.nativeElement.focus();
     }
 
     constructor(
@@ -408,10 +414,6 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
         if (group && group._isSelected(this)) {
             group._syncButtonToggle(this, false, false, true);
         }
-    }
-
-    focus(): void {
-        this._buttonElement.nativeElement.focus();
     }
 
     /** Checks the button toggle due to an interaction with the underlying native button. */
