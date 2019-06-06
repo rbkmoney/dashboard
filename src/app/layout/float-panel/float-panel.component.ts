@@ -8,7 +8,8 @@ import {
     AfterViewInit,
     Output,
     EventEmitter,
-    ViewContainerRef
+    ViewContainerRef,
+    OnDestroy
 } from '@angular/core';
 import get from 'lodash.get';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -28,7 +29,7 @@ import { FloatPanelOverlayService } from './float-panel-overlay.service';
     animations: [expandAnimation, hideAnimation],
     providers: [FloatPanelOverlayService]
 })
-export class FloatPanelComponent implements AfterViewInit {
+export class FloatPanelComponent implements AfterViewInit, OnDestroy {
     private _expanded = false;
     @Input()
     get expanded() {
@@ -110,6 +111,12 @@ export class FloatPanelComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.overlayAttachManage();
+    }
+
+    ngOnDestroy() {
+        this.cardRuler.dispose();
+        this.substrateRuler.dispose();
+        this.moreRuler.dispose();
     }
 
     expandStart(e: AnimationEvent) {
