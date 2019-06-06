@@ -1,12 +1,16 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, OnDestroy } from '@angular/core';
 import { OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
 @Injectable()
-export class FloatPanelOverlayService {
+export class FloatPanelOverlayService implements OnDestroy {
     overlayRef: OverlayRef;
 
     constructor(private overlay: Overlay) {}
+
+    ngOnDestroy() {
+        this.overlayRef.detach();
+    }
 
     attach(templatePortal: TemplatePortal, elementRef: ElementRef, config: { width: number }) {
         this.detach();
