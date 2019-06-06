@@ -11,3 +11,79 @@
         <button dsh-stroked-button color="accent" disabled>Disabled</button>
     </dsh-card-content>
 </dsh-card>
+
+<dsh-card>
+    <dsh-card-content fxLayout="column" fxLayoutGap="30px">
+        <div>
+            <dsh-button-toggle value="today">
+                Сегодня
+            </dsh-button-toggle>
+        </div>
+        <div fxLayout="column" fxLayoutGap="30px">
+            <div>
+                <dsh-button-toggle-group>
+                    <dsh-button-toggle value="today">
+                        Сегодня
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="week">
+                        Неделя
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="month">
+                        Месяц
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="more" disabled>
+                        <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+                    </dsh-button-toggle>
+                </dsh-button-toggle-group>
+            </div>
+            <div>
+                <dsh-button-toggle-group multiple>
+                    <dsh-button-toggle value="today">
+                        Сегодня
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="week">
+                        Неделя
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="month">
+                        Месяц
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="more" disabled>
+                        <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+                    </dsh-button-toggle>
+                </dsh-button-toggle-group>
+            </div>
+            <div>
+                <dsh-button-toggle-group [multiple]="true">
+                    <dsh-button-toggle value="today">
+                        Сегодня
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="week">
+                        Неделя
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="month">
+                        Месяц
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="more" disabled>
+                        <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+                    </dsh-button-toggle>
+                </dsh-button-toggle-group>
+            </div>
+        </div>
+        <div>
+            <dsh-button-toggle-group vertical>
+                <dsh-button-toggle value="today">
+                    Сегодня
+                </dsh-button-toggle>
+                <dsh-button-toggle value="week">
+                    Неделя
+                </dsh-button-toggle>
+                <dsh-button-toggle value="month">
+                    Месяц
+                </dsh-button-toggle>
+                <dsh-button-toggle value="more" disabled>
+                    <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+                </dsh-button-toggle>
+            </dsh-button-toggle-group>
+        </div>
+    </dsh-card-content>
+</dsh-card>
