@@ -22,12 +22,14 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
         return this.value$.value;
     }
 
+    node: T;
+
     value$: BehaviorSubject<Size> = new BehaviorSubject(new Size());
 
     private animationFrameId: number;
 
-    constructor(public node?: T) {
-        this.updateSize();
+    constructor(node: T | (() => T)) {
+        this.setNode(node);
     }
 
     watchOnFrame = () => {
@@ -40,8 +42,13 @@ export class ElementRulerRef<T extends HTMLElement = HTMLElement> {
         return throttleTime > 0 ? obs.pipe(auditTime(throttleTime)) : obs;
     }
 
-    updateNode(node: T) {
-        this.node = node;
+    setNode(node: T | (() => T)) {
+        if (typeof node === 'function') {
+            delete this.node;
+            Object.defineProperty(this, 'node', { get: node });
+        } else {
+            this.node = node;
+        }
         this.updateSize();
     }
 

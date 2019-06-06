@@ -58,7 +58,7 @@ export class FloatPanelComponent implements AfterViewInit {
     @ViewChild('card', { read: ElementRef })
     set card(card: ElementRef<HTMLElement>) {
         if (card) {
-            this.cardRuler.updateNode(card.nativeElement);
+            this.cardRuler.setNode(card.nativeElement);
             this.cardRuler.watch().subscribe(size => this.setCardSize(size));
         }
     }
@@ -68,7 +68,7 @@ export class FloatPanelComponent implements AfterViewInit {
     set substrate(substrate: ElementRef<HTMLDivElement>) {
         this._substrate = substrate;
         if (substrate) {
-            this.substrateRuler.updateNode(substrate.nativeElement);
+            this.substrateRuler.setNode(substrate.nativeElement);
             this.substrateRuler.watch().subscribe(size => this.floatPanelOverlayService.updateSize(size));
         }
     }
@@ -79,7 +79,7 @@ export class FloatPanelComponent implements AfterViewInit {
     @ViewChild('moreContent')
     set moreContent(moreContent: ElementRef<HTMLDivElement>) {
         if (moreContent) {
-            this.moreRuler.updateNode(moreContent.nativeElement);
+            this.moreRuler.setNode(moreContent.nativeElement);
             this.moreRuler.watch().subscribe(size => this.setMoreContentSize(size));
         }
     }
