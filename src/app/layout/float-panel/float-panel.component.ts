@@ -134,9 +134,7 @@ export class FloatPanelComponent implements AfterViewInit {
         this.floatPanelOverlayService.attach(
             new TemplatePortal(this.templateRef, this.viewContainerRef),
             this.substrate,
-            {
-                width: get(this.substrateRuler, 'value.width', 0)
-            }
+            { width: this.substrateRuler.value.width }
         );
     }
 
