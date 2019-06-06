@@ -5,7 +5,7 @@ export enum ExpandState {
     collapsed = 'collapsed'
 }
 
-const animation = animate('0.35s ease');
+const animation = animate('0.15s ease-in-out');
 
 export const expandAnimation = trigger('expand', [
     state(ExpandState.expanded, style({ height: '{{height}}px' }), { params: { height: 0 } }),
