@@ -13,7 +13,7 @@ import { Platform } from '@angular/cdk/platform';
 import { FocusManager } from './focus-manager';
 import { ColorManager } from './color-manager';
 
-const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button'];
+const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button', 'dsh-icon-button', 'dsh-fab-button'];
 
 // Boilerplate for applying mixins to MatButton.
 class MatButtonBase {
@@ -24,7 +24,7 @@ const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled
 
 @Component({
     /* tslint:disable */
-    selector: `button[dsh-button], button[dsh-stroked-button]`,
+    selector: `button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button], button[dsh-fab-button]`,
     host: {
         '[attr.disabled]': 'disabled || null'
     },
@@ -70,11 +70,15 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     }
 
     private initGlowAvailability(): boolean {
-        return !this.platform.ANDROID && !this.platform.IOS && !this.isStrokedButton() && !this.button.disabled;
+        return !this.platform.ANDROID && !this.platform.IOS && !this.isStrokedButton() && !this.isIconButton() && !this.button.disabled;
     }
 
     private isStrokedButton(): boolean {
         return this.button.classList.contains('dsh-stroked-button');
+    }
+
+    private isIconButton(): boolean {
+        return  this.button.classList.contains('dsh-icon-button');
     }
 
     private hasHostAttributes(...attributes: string[]): boolean {

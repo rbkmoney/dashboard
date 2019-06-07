@@ -20,6 +20,12 @@
     }
 }
 
+@mixin icon-focused-background($color, $transparent) {
+    &.focused {
+        background: rgba($color, $transparent);
+    }
+}
+
 @mixin dsh-glow-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
@@ -64,7 +70,8 @@
             }
         }
 
-        &-button {
+        &-button,
+        &-fab-button {
             color: map-get($foreground, base);
 
             &:hover {
@@ -112,13 +119,36 @@
                 color: map-get($foreground, disabled-button);
             }
         }
+
+        &-icon-button {
+            background: transparent;
+            transition: background .3s;
+
+            &.dsh-primary {
+                @include focused-background(rgba(mat-color($primary, 300), 0.2));
+            }
+
+            &.dsh-accent {
+                @include focused-background(rgba(mat-color($accent, 200), 0.2));
+            }
+
+            &.dsh-warn {
+                @include focused-background(rgba(mat-color($warn, 300), 0.2));
+            }
+
+            &:focus:not(:disabled) {
+                outline: none;
+            }
+        }
     }
 }
 
 @mixin dsh-button-typography($config) {
     .dsh {
         &-button,
-        &-stroked-button {
+        &-stroked-button,
+        &-icon-button,
+        &-fab-button {
             font: {
                 family: mat-font-family($config, button);
                 size: mat-font-size($config, button);

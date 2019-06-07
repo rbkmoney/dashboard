@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@mixin mat-button-toggle-theme($theme) {
+@mixin dsh-button-toggle-theme($theme) {
     $primary: map-get($theme, primary);
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);

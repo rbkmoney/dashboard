@@ -15,8 +15,38 @@
         line-height: $dsh-stroked-button-line-height;
     }
 
+    &-fab-button {
+        @include mat-fab($dsh-fab-size, $dsh-fab-padding);
+    }
+
+    &-icon-button {
+        padding: 0;
+
+        // Reset the min-width from the button base.
+        min-width: 0;
+
+        width: $dsh-icon-button-size;
+        height: $dsh-icon-button-size;
+
+        flex-shrink: 0;
+        line-height: $dsh-icon-button-size;
+        border-width: 0;
+        border-radius: $dsh-icon-button-border-radius;
+        cursor: pointer;
+
+        i, .mat-icon {
+            line-height: $dsh-icon-button-line-height;
+        }
+
+        &:disabled {
+            cursor: auto;
+        }
+    }
+
     &-button-content {
         position: relative;
         z-index: 1;
+        display: flex;
+        justify-content: center;
     }
 }
