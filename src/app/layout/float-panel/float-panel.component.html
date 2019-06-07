@@ -1,11 +1,15 @@
 <div class="dsh-float-panel-wrapper">
-    <div #substrate [ngStyle]="{ height: pinned ? 0 : cardHeight.base + 'px' }"></div>
+    <div
+        #substrate
+        (dshResized)="onSubstrateResize($event)"
+        [ngStyle]="{ height: pinned ? 0 : cardHeight.base + 'px' }"
+    ></div>
     <div [ngStyle]="{ height: cardHeight.current + 'px' }" class="dsh-float-panel-body-extender"></div>
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
     <div class="dsh-float-panel-card-wrapper">
-        <dsh-card #card>
+        <dsh-card (dshResized)="setCardHeight($event.height)">
             <dsh-card-content>
                 <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
                     <div fxFlex><ng-content></ng-content></div>
@@ -22,20 +26,22 @@
                     (@expand.done)="expandDone($event)"
                     *ngIf="expanded"
                 >
-                    <div #moreContent fxLayout="column" fxLayoutGap="20px">
-                        <div>
-                            <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
-                        </div>
-                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
-                            <button dsh-button (click)="pinToggle()">
-                                <mat-icon svgIcon="notification" style="height:16px"></mat-icon>
-                            </button>
+                    <div (dshResized)="setMoreContentHeight($event.height)">
+                        <div fxLayout="column" fxLayoutGap="20px">
                             <div>
-                                <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
+                                <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                             </div>
-                            <button dsh-button (click)="expandToggle()">
-                                <mat-icon svgIcon="user" style="height:16px"></mat-icon>
-                            </button>
+                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+                                <button dsh-button (click)="pinToggle()">
+                                    <mat-icon svgIcon="notification" style="height:16px"></mat-icon>
+                                </button>
+                                <div>
+                                    <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
+                                </div>
+                                <button dsh-button (click)="expandToggle()">
+                                    <mat-icon svgIcon="user" style="height:16px"></mat-icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
