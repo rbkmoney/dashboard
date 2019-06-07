@@ -23,3 +23,12 @@ $dsh-card-border-radius: 4px !default;
     margin-bottom: -$dsh-card-padding / 2;
     padding-top: $dsh-card-padding;
 }
+
+.dsh-card-header {
+    display: flex;
+    flex-direction: row;
+
+    .dsh-card-title {
+        margin-bottom: $dsh-card-padding;
+    }
+}
