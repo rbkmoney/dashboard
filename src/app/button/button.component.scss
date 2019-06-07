@@ -16,7 +16,7 @@
     }
 
     &-fab-button {
-        @include mat-fab($dsh-fab-size, $dsh-fab-padding);
+        @include dsh-fab($dsh-fab-size, $dsh-fab-padding);
     }
 
     &-icon-button {

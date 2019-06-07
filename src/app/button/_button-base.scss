@@ -16,8 +16,8 @@ $dsh-icon-button-line-height: 24px !default;
 
 // Fab standards
 $dsh-fab-border-radius: 50% !default;
-$dsh-fab-size: 56px !default;
-$dsh-fab-padding: 16px !default;
+$dsh-fab-size: 42px !default;
+$dsh-fab-padding: 9px !default;
 
 // Mixin overriding default button styles like the gray background, the border, and the outline.
 @mixin dsh-button-reset {
@@ -75,7 +75,7 @@ $dsh-fab-padding: 16px !default;
 }
 
 // Applies styles to fab button type only
-@mixin mat-fab($size, $padding) {
+@mixin dsh-fab($size, $padding) {
     @include dsh-button-base();
 
     // Reset the min-width from the button base.
