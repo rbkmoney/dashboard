@@ -7,16 +7,17 @@ import { ResizedEvent } from './resized-event';
     selector: '[dshResized]'
 })
 export class ResizedDirective implements OnInit, OnDestroy {
-    @Output()
-    readonly dshResized = new EventEmitter<ResizedEvent>();
-
-    private oldWidth: number;
-
-    private oldHeight: number;
-
+    @Output() readonly dshResized = new EventEmitter<ResizedEvent>();
+    private currentEvent: ResizedEvent;
     private resizeSensor: ResizeSensor;
 
-    constructor(private readonly element: ElementRef) {}
+    constructor(private readonly element: ElementRef) {
+        this.currentEvent = {
+            element: this.element,
+            width: 0,
+            height: 0
+        };
+    }
 
     ngOnInit() {
         this.resizeSensor = new ResizeSensor(this.element.nativeElement, () => this.resize());
@@ -29,12 +30,17 @@ export class ResizedDirective implements OnInit, OnDestroy {
     private resize() {
         const width = this.element.nativeElement.clientWidth;
         const height = this.element.nativeElement.clientHeight;
-        if (width === this.oldWidth && height === this.oldHeight) {
+        if (width === this.currentEvent.width && height === this.currentEvent.height) {
             return;
         }
-        const event = new ResizedEvent(this.element, width, height, this.oldWidth, this.oldHeight);
-        this.oldWidth = width;
-        this.oldHeight = height;
+        const event = {
+            element: this.element,
+            width,
+            height,
+            oldWidth: this.currentEvent.width,
+            oldHeight: this.currentEvent.height
+        };
+        this.currentEvent = event;
         this.dshResized.emit(event);
     }
 }
