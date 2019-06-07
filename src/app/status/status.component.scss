@@ -1,0 +1,10 @@
+$size: 10px;
+
+.dsh-status {
+    &-icon {
+        display: inline-block;
+        border-radius: 50%;
+        width: $size;
+        height: $size;
+    }
+}

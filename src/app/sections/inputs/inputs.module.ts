@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { InputsComponent } from './inputs.component';
-import { FormControlsModule } from '../../form-controls/form-controls.module';
-import { LayoutModule } from 'src/app/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormControlsModule } from '../../form-controls';
+import { LayoutModule } from '../../layout';
+import { StatusModule } from '../../status';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatInputModule,
         FormControlsModule,
         LayoutModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        StatusModule
     ],
     declarations: [InputsComponent]
 })

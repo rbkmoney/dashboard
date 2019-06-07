@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-status-theme($theme) {
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .dsh-status {
+        &[color='success'] {
+            .dsh-status-icon {
+                background-color: mat-color($accent, 300);
+            }
+        }
+
+        &[color='warn'] {
+            .dsh-status-icon {
+                background-color: mat-color($warn, 300);
+            }
+        }
+
+        &[color='error'] {
+            .dsh-status-icon {
+                background-color: mat-color($warn, 300);
+            }
+        }
+    }
+}
