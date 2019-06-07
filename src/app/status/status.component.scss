@@ -1,5 +1,9 @@
 $size: 10px;
 
+:host {
+    display: inline-block;
+}
+
 .dsh-status {
     &-icon {
         display: inline-block;

@@ -2,8 +2,8 @@ import { Component, Input, HostBinding } from '@angular/core';
 
 export enum Color {
     success = 'success',
-    warn = 'warn',
-    error = 'error'
+    pending = 'pending',
+    warn = 'warn'
 }
 
 @Component({

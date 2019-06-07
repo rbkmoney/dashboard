@@ -14,6 +14,14 @@
             <mat-label>Сумма платежа</mat-label>
             <input matInput formControlName="sum" [textMask]="currencyMask" placeholder="0, 00" />
         </mat-form-field>
+        <dsh-status>Подтвержден</dsh-status>
         <dsh-status color="success">Подтвержден</dsh-status>
+        <dsh-status color="pending">Подтвержден</dsh-status>
+        <dsh-status color="warn">Подтвержден</dsh-status>
+        <div>
+            <dsh-status color="success">Подтвержден</dsh-status>
+            <dsh-status color="warn"></dsh-status>
+            <dsh-status color="pending">Подтвержден</dsh-status>
+        </div>
     </dsh-card-content>
 </dsh-card>
