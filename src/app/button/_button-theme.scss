@@ -122,7 +122,7 @@
 
         &-icon-button {
             background: transparent;
-            transition: background .3s;
+            transition: background 0.3s;
 
             &.dsh-primary {
                 @include focused-background(rgba(mat-color($primary, 300), 0.2));

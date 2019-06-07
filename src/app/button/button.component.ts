@@ -70,7 +70,13 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     }
 
     private initGlowAvailability(): boolean {
-        return !this.platform.ANDROID && !this.platform.IOS && !this.isStrokedButton() && !this.isIconButton() && !this.button.disabled;
+        return (
+            !this.platform.ANDROID &&
+            !this.platform.IOS &&
+            !this.isStrokedButton() &&
+            !this.isIconButton() &&
+            !this.button.disabled
+        );
     }
 
     private isStrokedButton(): boolean {
@@ -78,7 +84,7 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     }
 
     private isIconButton(): boolean {
-        return  this.button.classList.contains('dsh-icon-button');
+        return this.button.classList.contains('dsh-icon-button');
     }
 
     private hasHostAttributes(...attributes: string[]): boolean {
