@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { IconRegistryService, IconName } from './icon-registry.service';
+import { IconName, IconRegistryService } from './icon-registry.service';
 
 @Component({
     selector: 'dsh-root',
@@ -8,6 +8,6 @@ import { IconRegistryService, IconName } from './icon-registry.service';
 })
 export class AppComponent {
     constructor(private iconRegistryService: IconRegistryService) {
-        this.iconRegistryService.register([IconName.logo, IconName.user, IconName.notification]);
+        this.iconRegistryService.register([IconName.logo, IconName.user, IconName.notification, IconName.hor_dots]);
     }
 }

@@ -1,0 +1,16 @@
+<button
+    #button
+    class="dsh-button-toggle-button"
+    type="button"
+    [id]="buttonId"
+    [attr.aria-pressed]="checked"
+    [disabled]="disabled || null"
+    [attr.name]="name || null"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    (click)="_onButtonClick()"
+>
+    <div class="dsh-button-toggle-label-content">
+        <ng-content></ng-content>
+    </div>
+</button>

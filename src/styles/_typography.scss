@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import '../app/button/button-theme';
+@import '../app/button-toggle/button-toggle-theme';
 @import '../app/state-nav/state-nav-theme';
 @import '../app/layout/card/card-theme';
 
@@ -7,6 +8,7 @@
     @include dsh-button-typography($config);
     @include dsh-state-nav-typography($config);
     @include dsh-card-typography($config);
+    @include dsh-button-toggle-typography($config);
 }
 
 @function dsh-typography-config(
