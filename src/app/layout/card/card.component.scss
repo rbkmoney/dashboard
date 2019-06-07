@@ -1,7 +1,34 @@
-:host {
+$dsh-card-padding: 20px !default;
+$dsh-card-border-radius: 4px !default;
+
+%dsh-card-section-base {
     display: block;
-    border-radius: 4px;
-    box-shadow: 0 8px 20px 0 rgba(174, 188, 230, 0.24);
-    // fix of margin problem in child blocks
-    overflow: hidden;
+}
+
+.dsh-card {
+    @extend %dsh-card-section-base;
+    position: relative;
+    padding: $dsh-card-padding;
+    border-radius: $dsh-card-border-radius;
+}
+
+.dsh-card-content {
+    @extend %dsh-card-section-base;
+}
+
+.dsh-card-actions {
+    @extend %dsh-card-section-base;
+    margin-left: -$dsh-card-padding / 2;
+    margin-right: -$dsh-card-padding / 2;
+    margin-bottom: -$dsh-card-padding / 2;
+    padding-top: $dsh-card-padding;
+}
+
+.dsh-card-header {
+    display: flex;
+    flex-direction: row;
+
+    .dsh-card-title {
+        margin-bottom: $dsh-card-padding;
+    }
 }

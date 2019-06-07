@@ -1,10 +1,12 @@
 @import '~@angular/material/theming';
 @import '../app/button/button-theme';
 @import '../app/state-nav/state-nav-theme';
+@import '../app/layout/card/card-theme';
 
 @mixin dsh-typography($config) {
     @include dsh-button-typography($config);
     @include dsh-state-nav-typography($config);
+    @include dsh-card-typography($config);
 }
 
 @function dsh-typography-config(
