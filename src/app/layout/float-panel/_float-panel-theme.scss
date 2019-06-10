@@ -14,7 +14,9 @@
 
 @mixin dsh-float-panel-typography($config) {
     .dsh-float-panel {
-        font-family: mat-font-family($config);
-        font-size: mat-font-size($config, body-1);
+        &-template-wrapper {
+            font-family: mat-font-family($config);
+            font-size: mat-font-size($config, body-1);
+        }
     }
 }
