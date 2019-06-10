@@ -77,6 +77,74 @@ $dsh-palegreen: (
     )
 );
 
+// base 400
+$dsh-success: (
+    50: #e7f8eb,
+    100: #c5ecce,
+    200: #9fe0af,
+    300: #75d58f,
+    400: #51cb76,
+    500: #25c15c,
+    600: #1ab152,
+    700: #059e46,
+    800: #008d3b,
+    900: #006d27,
+    A100: #cdffd7,
+    A200: #9affae,
+    A400: #67ff85,
+    A700: #4dff71,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
+        500: $dark-text,
+        600: $dark-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
+// base 800
+$dsh-pending: (
+    50: #fff9e6,
+    100: #ffedc0,
+    200: #ffe39a,
+    300: #ffd976,
+    400: #ffcf63,
+    500: #ffc85d,
+    600: #ffbb58,
+    700: #ffaa54,
+    800: #fc9b51,
+    900: #f5824d,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffefdb,
+    A700: #ffe4c2,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
+        500: $dark-text,
+        600: $dark-text,
+        700: $dark-text,
+        800: $dark-text,
+        900: $dark-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text
+    )
+);
+
 // base 300
 $dsh-warn: (
     50: #ffecef,
