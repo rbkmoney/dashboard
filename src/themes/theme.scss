@@ -1,24 +1,28 @@
 @import '~@angular/material/theming';
 
-@import './body';
+@import '../app/container/container-theme';
 @import '../app/dropdown/dropdown-theme';
 @import '../app/table/table-theme';
 @import '../app/charts/bar-chart/bar-chart-theme';
 @import '../app/layout/card/card-theme';
 @import '../app/charts/linear-chart/linear-chart-theme';
+@import '../app/state-nav/state-nav-theme';
+@import '../app/charts/legend-tooltip/legend-tooltip-theme';
+@import '../app/button/button-theme';
 @import '../app/tabs/tabs-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
-
-        @include dsh-body-theme($theme);
-
+        @include dsh-container-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);
         @include dsh-tabs-theme($theme);
+        @include dsh-state-nav-theme($theme);
+        @include dsh-legend-tooltip-theme($theme);
+        @include dsh-button-theme($theme);
     }
 }

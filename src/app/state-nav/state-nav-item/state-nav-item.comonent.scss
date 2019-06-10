@@ -1,0 +1,28 @@
+$height: 40px;
+
+:host {
+    display: block;
+    display: flex;
+}
+
+.dsh-step-nav-item {
+    display: block;
+    border: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: $height;
+    line-height: $height;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    padding: 0 9.5px;
+    background-color: transparent;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}

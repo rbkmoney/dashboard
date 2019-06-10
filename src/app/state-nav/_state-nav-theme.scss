@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-state-nav-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $primary: map-get($theme, primary);
+    $primary-text: map-get($primary, contrast);
+    $accent: map-get($theme, accent);
+    $accent-text: map-get($accent, contrast);
+    $warn: map-get($theme, warn);
+    $warn-text: map-get($warn, contrast);
+
+    .dsh-step-nav-item {
+        color: map-get($foreground, text);
+
+        // The class order directly affects the order of applying styles (for example, both .warn and .active)
+        &.success {
+            background: mat-color($accent, 300);
+            color: map-get($accent-text, 300);
+        }
+        &.warn {
+            background: mat-color($warn, 300);
+            color: map-get($warn-text, 300);
+        }
+        &.active {
+            background: mat-color($primary, 400);
+            color: map-get($primary-text, 400);
+        }
+    }
+}
+
+@mixin dsh-state-nav-typography($config) {
+    .dsh-step-nav-item {
+        font: {
+            family: mat-font-family($config, body-1);
+            size: mat-font-size($config, body-1);
+            weight: mat-font-weight($config, body-1);
+        }
+    }
+}
