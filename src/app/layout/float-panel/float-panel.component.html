@@ -14,7 +14,7 @@
             (dshResized)="setCardHeight($event.height)"
             [ngClass]="{ 'dsh-float-panel-card-expanded': expanded }"
         >
-            <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
+            <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
                 <div fxFlex><ng-content></ng-content></div>
                 <div @hide *ngIf="!expanded" class="dsh-float-panel-base-action">
                     <button dsh-icon-button (click)="expandToggle()">
