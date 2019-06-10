@@ -4,6 +4,7 @@
 @import '../app/state-nav/state-nav-theme';
 @import '../app/layout/card/card-theme';
 @import '../app/layout/float-panel/float-panel-theme';
+@import '../app/status/status-theme';
 
 @mixin dsh-typography($config) {
     @include dsh-button-typography($config);
@@ -11,6 +12,7 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
+    @include dsh-status-typography($config);
 }
 
 @function dsh-typography-config(
