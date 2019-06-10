@@ -1,4 +1,4 @@
-<div class="dsh-float-panel-wrapper">
+<div class="dsh-float-panel">
     <div
         #substrate
         (dshResized)="onSubstrateResize($event)"
@@ -16,14 +16,14 @@
         >
             <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
                 <div fxFlex><ng-content></ng-content></div>
-                <div @hide *ngIf="!expanded" class="dsh-float-panel-expand-action">
+                <div @hide *ngIf="!expanded" class="dsh-float-panel-base-action">
                     <button dsh-button (click)="expandToggle()">
                         <mat-icon svgIcon="user" style="height:16px"></mat-icon>
                     </button>
                 </div>
             </div>
             <div
-                class="dsh-float-panel-more-wrapper"
+                class="dsh-float-panel-more"
                 [@expand]="expandTrigger"
                 (@expand.start)="expandStart($event)"
                 (@expand.done)="expandDone($event)"
@@ -31,7 +31,7 @@
             >
                 <div (dshResized)="setMoreContentHeight($event.height)">
                     <div fxLayout="column" fxLayoutGap="20px">
-                        <div class="dsh-float-panel-card-more-content">
+                        <div class="dsh-float-panel-more-content">
                             <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                         </div>
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">

@@ -5,14 +5,7 @@ $card-border-radius: 4px !default;
 $card-without-actions-padding: $card-padding - $actions-padding;
 
 .dsh-float-panel {
-    &-base {
-        min-height: $base-height;
-        margin: 0 $card-without-actions-padding;
-    }
-
-    &-wrapper {
-        position: relative;
-    }
+    position: relative;
 
     &-body-extender {
         position: absolute;
@@ -20,10 +13,6 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         left: 0;
         width: 100%;
         margin-bottom: $card-padding;
-    }
-
-    &-expand-action {
-        margin-right: -$card-without-actions-padding;
     }
 
     &-template-wrapper {
@@ -42,12 +31,21 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         }
     }
 
-    &-more-wrapper {
-        height: 0;
-        overflow: hidden;
+    &-base {
+        min-height: $base-height;
+        margin: 0 $card-without-actions-padding;
+
+        &-action {
+            margin-right: -$card-without-actions-padding;
+        }
     }
 
-    &-card-more-content {
-        padding: 0 $card-without-actions-padding;
+    &-more {
+        height: 0;
+        overflow: hidden;
+
+        &-content {
+            padding: 0 $card-without-actions-padding;
+        }
     }
 }

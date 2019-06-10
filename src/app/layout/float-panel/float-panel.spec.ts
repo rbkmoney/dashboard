@@ -26,7 +26,7 @@ class SimpleFloatPanelComponent {
     expanded = true;
 }
 
-const WRAPPER = By.css('.dsh-float-panel-more-wrapper');
+const WRAPPER = By.css('.dsh-float-panel-more');
 
 describe('FloatPanelComponent', () => {
     let overlayContainer: OverlayContainer;
