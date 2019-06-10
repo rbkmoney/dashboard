@@ -5,7 +5,7 @@
     $background: map-get($theme, background);
 
     .dsh-float-panel {
-        &-card-wrapper {
+        &-template-wrapper {
             @include dsh-shadow($theme);
             background-color: mat-color($background, card);
         }
@@ -14,7 +14,7 @@
 
 @mixin dsh-float-panel-typography($config) {
     .dsh-float-panel {
-        &-card-wrapper {
+        &-template-wrapper {
             font-family: mat-font-family($config);
             font-size: mat-font-size($config, body-1);
         }
