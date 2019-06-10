@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-side-menu-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-side-menu {
+        &-item {
+            &-selected {
+                color: mat-color($primary, 400);
+            }
+        }
+    }
+}
+
+@mixin dsh-side-menu-typography($config) {
+    .dsh-side-menu {
+        &-item {
+            @include mat-typography-level-to-styles($config, body-1);
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'dsh-side-menu',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['side-menu.component.scss']
 })
 export class SideMenuComponent {
-    constructor() {}
+    @HostBinding('class.dsh-side-menu') root = true;
 }

@@ -2,11 +2,13 @@
 @import '../app/button/button-theme';
 @import '../app/button-toggle/button-toggle-theme';
 @import '../app/state-nav/state-nav-theme';
+@import '../app/side-menu/side-menu-theme';
 
 @mixin dsh-typography($config) {
     @include dsh-button-typography($config);
     @include dsh-state-nav-typography($config);
     @include dsh-button-toggle-typography($config);
+    @include dsh-side-menu-typography($config);
 }
 
 @function dsh-typography-config(
