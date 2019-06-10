@@ -5,7 +5,7 @@
     $background: map-get($theme, background);
 
     .dsh-float-panel {
-        &-template-wrapper {
+        &-card {
             @include dsh-shadow($theme);
             background-color: mat-color($background, card);
         }
