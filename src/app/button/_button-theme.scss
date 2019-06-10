@@ -26,6 +26,12 @@
     }
 }
 
+@mixin transparent-hover() {
+    &:hover {
+        background: transparent;
+    }
+}
+
 @mixin dsh-glow-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
@@ -73,10 +79,13 @@
         &-button,
         &-fab-button {
             color: map-get($foreground, base);
+            background: transparent;
 
             &:hover {
                 background: map-get($background, hover);
             }
+
+            @include focused-background(map-get($background, selected-disabled-button));
 
             &.dsh-primary {
                 @include button(map-get($background, card), mat-color($primary, 400));
@@ -123,6 +132,7 @@
         &-icon-button {
             background: transparent;
             transition: background 0.3s;
+            @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
                 @include focused-background(rgba(mat-color($primary, 300), 0.2));
