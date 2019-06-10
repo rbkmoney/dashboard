@@ -8,10 +8,14 @@
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
-    <div class="dsh-float-panel-card-wrapper" (dshResized)="setCardHeight($event.height)">
+    <div
+        class="dsh-float-panel-card-wrapper"
+        (dshResized)="setCardHeight($event.height)"
+        [ngClass]="{ 'dsh-float-panel-card-wrapper-expanded': expanded }"
+    >
         <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
             <div fxFlex><ng-content></ng-content></div>
-            <div @hide *ngIf="!expanded">
+            <div @hide *ngIf="!expanded" class="dsh-float-panel-expand-action">
                 <button dsh-button (click)="expandToggle()">
                     <mat-icon svgIcon="user" style="height:16px"></mat-icon>
                 </button>
@@ -26,7 +30,7 @@
         >
             <div (dshResized)="setMoreContentHeight($event.height)">
                 <div fxLayout="column" fxLayoutGap="20px">
-                    <div>
+                    <div class="dsh-float-panel-card-more-content">
                         <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                     </div>
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
