@@ -7,7 +7,7 @@ $card-without-actions-padding: $card-padding - $actions-padding;
 .dsh-float-panel {
     &-base {
         min-height: $base-height;
-        margin: 0 $card-without-actions-padding 0 $card-without-actions-padding;
+        margin: 0 $card-without-actions-padding;
     }
 
     &-wrapper {
@@ -27,6 +27,11 @@ $card-without-actions-padding: $card-padding - $actions-padding;
     }
 
     &-card-wrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    &-card {
         width: 100%;
         border-radius: $card-border-radius;
         padding: $card-padding $actions-padding $card-padding $actions-padding;
