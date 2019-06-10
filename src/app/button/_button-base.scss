@@ -61,10 +61,6 @@ $dsh-fab-padding: 6px !default;
     // on most browsers except on IE11 where it defaults to `hidden`.
     overflow: visible;
 
-    dsh-glow {
-        border-radius: $dsh-button-border-radius;
-    }
-
     &[disabled] {
         cursor: default;
     }
@@ -87,8 +83,4 @@ $dsh-fab-padding: 6px !default;
     padding: 0;
 
     flex-shrink: 0;
-
-    dsh-glow {
-        border-radius: $dsh-fab-border-radius;
-    }
 }
