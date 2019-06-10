@@ -17,8 +17,8 @@
             <div fxLayout="row" fxLayoutGap="20px" class="dsh-float-panel-base">
                 <div fxFlex><ng-content></ng-content></div>
                 <div @hide *ngIf="!expanded" class="dsh-float-panel-base-action">
-                    <button dsh-button (click)="expandToggle()">
-                        <mat-icon svgIcon="user" style="height:16px"></mat-icon>
+                    <button dsh-icon-button (click)="expandToggle()">
+                        <mat-icon svgIcon="user"></mat-icon>
                     </button>
                 </div>
             </div>
@@ -35,14 +35,14 @@
                             <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                         </div>
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
-                            <button dsh-button (click)="pinToggle()">
-                                <mat-icon svgIcon="notification" style="height:16px"></mat-icon>
+                            <button dsh-icon-button (click)="pinToggle()">
+                                <mat-icon svgIcon="notification"></mat-icon>
                             </button>
                             <div>
                                 <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
                             </div>
-                            <button dsh-button (click)="expandToggle()">
-                                <mat-icon svgIcon="user" style="height:16px"></mat-icon>
+                            <button dsh-icon-button (click)="expandToggle()">
+                                <mat-icon svgIcon="user"></mat-icon>
                             </button>
                         </div>
                     </div>
