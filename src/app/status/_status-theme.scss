@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-status-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    $text: map-get($foreground, text);
+
+    $success-base: map-get($theme, success-base);
+    $pending-base: map-get($theme, pending-base);
+    $warn-base: map-get($theme, warn-base);
+
+    .dsh-status {
+        color: $text;
+
+        .dsh-status-icon {
+            background-color: $text;
+        }
+
+        &[color='success'] {
+            color: $success-base;
+
+            .dsh-status-icon {
+                background-color: $success-base;
+            }
+        }
+
+        &[color='pending'] {
+            color: $pending-base;
+
+            .dsh-status-icon {
+                background-color: $pending-base;
+            }
+        }
+
+        &[color='warn'] {
+            color: $warn-base;
+
+            .dsh-status-icon {
+                background-color: $warn-base;
+            }
+        }
+    }
+}
+
+@mixin dsh-status-typography($config) {
+    .dsh-status {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}
