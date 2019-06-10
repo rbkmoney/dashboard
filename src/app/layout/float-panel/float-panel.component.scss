@@ -26,7 +26,7 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         margin-right: -$card-without-actions-padding;
     }
 
-    &-card-wrapper {
+    &-template-wrapper {
         display: flex;
         width: 100%;
     }

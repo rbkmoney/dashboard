@@ -8,7 +8,7 @@
     <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
 </div>
 <ng-template #template>
-    <div class="dsh-float-panel-card-wrapper">
+    <div class="dsh-float-panel-template-wrapper">
         <div
             class="dsh-float-panel-card"
             (dshResized)="setCardHeight($event.height)"
