@@ -15,7 +15,6 @@ import { DshInkBarDirective } from './ink-bar.directive';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -25,7 +24,6 @@ import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
         ObserversModule,
         A11yModule
     ],
-    // Don't export all components because some are only to be used internally.
     exports: [
         DshTabGroupComponent,
         DshTabComponent,

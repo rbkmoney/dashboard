@@ -1,19 +1,25 @@
 import {
     AfterContentChecked,
     AfterContentInit,
-    AfterViewInit, ChangeDetectorRef,
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
-    ContentChildren, ElementRef, EventEmitter,
-    Input, NgZone,
-    OnDestroy, Optional, Output,
-    QueryList, ViewChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    OnDestroy,
+    Optional,
+    Output,
+    QueryList,
+    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
-import { CanDisableRipple, CanDisableRippleCtor, mixinDisableRipple } from '@angular/material';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 import { DshInkBarDirective } from './ink-bar.directive';
-import { fromEvent, Subject, of as observableOf, merge, timer } from 'rxjs';
+import { fromEvent, merge, of as observableOf, Subject, timer } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/overlay';
@@ -22,38 +28,15 @@ import { takeUntil } from 'rxjs/operators';
 import { END, ENTER, hasModifierKey, HOME, SPACE } from '@angular/cdk/keycodes';
 
 const passiveEventListenerOptions =
-    normalizePassiveListenerOptions({passive: true}) as EventListenerOptions;
+    normalizePassiveListenerOptions({ passive: true }) as EventListenerOptions;
 
-/**
- * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
- * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
- * beginning of the list.
- */
 export type ScrollDirection = 'after' | 'before';
 
-/**
- * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
- * provide a small affordance to the label next to it.
- */
 const EXAGGERATED_OVERSCROLL = 60;
 
-/**
- * Amount of milliseconds to wait before starting to scroll the header automatically.
- * Set a little conservatively in order to handle fake events dispatched on touch devices.
- */
 const HEADER_SCROLL_DELAY = 650;
 
-/**
- * Interval in milliseconds at which to scroll the header
- * while the user is holding their pointer.
- */
 const HEADER_SCROLL_INTERVAL = 100;
-
-// Boilerplate for applying mixins to MatTabHeader.
-/** @docs-private */
-class MatTabHeaderBase {}
-const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTabHeaderBase =
-    mixinDisableRipple(MatTabHeaderBase);
 
 @Component({
     selector: 'dsh-tab-header',
@@ -62,8 +45,8 @@ const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTabHeaderBase =
     styleUrls: ['tab-header.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
-    implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy, CanDisableRipple {
+export class DshTabHeaderComponent
+    implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
 
     @ContentChildren(DshTabLabelWrapperDirective) _labelWrappers: QueryList<DshTabLabelWrapperDirective>;
     @ViewChild(DshInkBarDirective) _inkBar: DshInkBarDirective;
@@ -102,7 +85,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
     /** Used to manage focus between the tabs. */
     private _keyManager: FocusKeyManager<DshTabLabelWrapperDirective>;
 
-    /** Cached text content of the header. */
+    /** Cached text _content of the header. */
     private _currentTextContent: string;
 
     /** Stream that will stop the automated scrolling. */
@@ -111,6 +94,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
     /** The index of the active tab. */
     @Input()
     get selectedIndex(): number { return this._selectedIndex; }
+
     set selectedIndex(value: number) {
         value = coerceNumberProperty(value);
         this._selectedIndexChanged = this._selectedIndex !== value;
@@ -120,6 +104,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
             this._keyManager.updateActiveItemIndex(value);
         }
     }
+
     private _selectedIndex = 0;
 
     /** Event emitted when the option is selected. */
@@ -134,7 +119,6 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
                 @Optional() private _dir: Directionality,
                 private _ngZone: NgZone,
                 private _platform: Platform) {
-        super();
 
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
         _ngZone.runOutsideAngular(() => {
@@ -144,7 +128,6 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
                     this._stopInterval();
                 });
         });
-        console.log(this._tabList)
     }
 
     ngAfterContentChecked(): void {
@@ -172,6 +155,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
             this._scrollDistanceChanged = false;
             this._changeDetectorRef.markForCheck();
         }
+        this.focusIndex = 0;
     }
 
     /** Handles keyboard events on the header. */
@@ -259,18 +243,18 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
     }
 
     /**
-     * Callback for when the MutationObserver detects that the content has changed.
+     * Callback for when the MutationObserver detects that the _content has changed.
      */
     _onContentChanges() {
         const textContent = this._elementRef.nativeElement.textContent;
 
-        // We need to diff the text content of the header, because the MutationObserver callback
-        // will fire even if the text content didn't change which is inefficient and is prone
+        // We need to diff the text _content of the header, because the MutationObserver callback
+        // will fire even if the text _content didn't change which is inefficient and is prone
         // to infinite loops if a poorly constructed expression is passed in (see #14249).
         if (textContent !== this._currentTextContent) {
             this._currentTextContent = textContent;
 
-            // The content observer runs outside the `NgZone` by default, which
+            // The _content observer runs outside the `NgZone` by default, which
             // means that we need to bring the callback back in ourselves.
             this._ngZone.run(() => {
                 this.updatePagination();
@@ -303,7 +287,6 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
         if (!this._isValidIndex(value) || this.focusIndex === value || !this._keyManager) {
             return;
         }
-
         this._keyManager.setActiveItem(value);
     }
 
@@ -360,7 +343,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
         // and ripples will exceed the boundaries of the visible tab bar.
         // See: https://github.com/angular/components/issues/10276
         // We round the `transform` here, because transforms with sub-pixel precision cause some
-        // browsers to blur the content of the element.
+        // browsers to blur the _content of the element.
         this._tabList.nativeElement.style.transform = `translateX(${Math.round(translateX)}px)`;
 
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
@@ -374,6 +357,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
 
     /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
     get scrollDistance(): number { return this._scrollDistance; }
+
     set scrollDistance(value: number) {
         this._scrollTo(value);
     }
@@ -516,7 +500,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
         // Keep the timer going until something tells it to stop or the component is destroyed.
             .pipe(takeUntil(merge(this._stopScrolling, this._destroyed)))
             .subscribe(() => {
-                const {maxScrollDistance, distance} = this._scrollHeader(direction);
+                const { maxScrollDistance, distance } = this._scrollHeader(direction);
 
                 // Stop the timer if we've reached the start or the end.
                 if (distance === 0 || distance >= maxScrollDistance) {
@@ -539,7 +523,7 @@ export class DshTabHeaderComponent extends _MatTabHeaderMixinBase
         this._scrollDistanceChanged = true;
         this._checkScrollingControls();
 
-        return {maxScrollDistance, distance: this._scrollDistance};
+        return { maxScrollDistance, distance: this._scrollDistance };
     }
 
 

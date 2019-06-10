@@ -1,0 +1,15 @@
+@import '~@angular/cdk/a11y';
+
+@mixin dsh-tabs-typography($config) {
+    .dsh-tab-group {
+        font-family: mat-font-family($config);
+    }
+
+    .dsh-tab-label, .dsh-tab-link {
+        font: {
+            family: mat-font-family($config, button);
+            size: mat-font-size($config, button);
+            weight: mat-font-weight($config, button);
+        }
+    }
+}

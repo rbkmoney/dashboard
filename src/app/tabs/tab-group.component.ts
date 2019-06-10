@@ -63,7 +63,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
 
     @ViewChild('tabHeader') _tabHeader: DshTabHeaderComponent;
 
-    /** The tab index that should be selected after the content has been checked. */
+    /** The tab index that should be selected after the _content has been checked. */
     private _indexToSelect: number | null = 0;
 
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -113,10 +113,10 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     set backgroundColor(value: ThemePalette) {
         const nativeElement: HTMLElement = this._elementRef.nativeElement;
 
-        nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
+        nativeElement.classList.remove(`dsh-background-${this.backgroundColor}`);
 
         if (value) {
-            nativeElement.classList.add(`mat-background-${value}`);
+            nativeElement.classList.add(`dsh-background-${value}`);
         }
 
         this._backgroundColor = value;
@@ -150,7 +150,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     }
 
     /**
-     * After the content is checked, this component knows what tabs have been defined
+     * After the _content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position
      * each tab should be in according to the new selected index, and additionally we know how
      * a new selected tab should transition in (from the left or right).
@@ -170,7 +170,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
             }
 
             // Changing these values after change detection has run
-            // since the checked content may contain references to them.
+            // since the checked _content may contain references to them.
             Promise.resolve().then(() => {
                 this._tabs.forEach((tab, index) => tab.isActive = index === indexToSelect);
 
@@ -201,7 +201,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
         this._subscribeToTabLabels();
 
         // Subscribe to changes in the amount of tabs, in order to be
-        // able to re-render the content as new tabs are added or removed.
+        // able to re-render the _content as new tabs are added or removed.
         this._tabsSubscription = this._tabs.changes.subscribe(() => {
             const indexToSelect = this._clampTabIndex(this._indexToSelect);
 
@@ -224,6 +224,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
             this._subscribeToTabLabels();
             this._changeDetectorRef.markForCheck();
         });
+        console.log(this);
     }
 
     ngOnDestroy() {
@@ -315,11 +316,11 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
         return `dsh-tab-content-${this._groupId}-${i}`;
     }
 
-    private _getTabIndex(tab: DshTabComponent, idx: number): number | null {
-        if (tab.disabled) {
-            return null;
-        }
+    private _getTabIndex(idx: number): number | null {
         return this.selectedIndex === idx ? 0 : -1;
     }
+
+    private _isActive = (i: number) => this.selectedIndex === i;
+
 }
 

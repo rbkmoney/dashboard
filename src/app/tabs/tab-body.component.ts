@@ -22,6 +22,7 @@ import { CdkPortalOutlet, PortalHostDirective, TemplatePortal } from '@angular/c
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
+import { dshTabsAnimations } from './tabs-animations';
 
 export declare type DshTabBodyPositionState = 'left' | 'center' | 'right' | 'left-origin-center' | 'right-origin-center';
 
@@ -46,8 +47,7 @@ export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit
             .pipe(startWith(this._host._isCenterPosition(this._host._position)))
             .subscribe((isCentering: boolean) => {
                 if (isCentering && !this.hasAttached()) {
-                    console.log(this._host.content);
-                    this.attach(this._host.content);
+                    this.attach(this._host._content);
                 }
             });
 
@@ -67,13 +67,13 @@ export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit
     selector: 'dsh-tab-body',
     exportAs: 'dshTabBody',
     templateUrl: 'tab-body.component.html',
-    styleUrls: ['tab-body.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    animations: [dshTabsAnimations.translateTab]
 })
 export class DshTabBodyComponent implements OnInit, OnDestroy {
 
-    @HostBinding('class')
-    className = 'dsh-tab-body';
+    @HostBinding('class.dsh-tab-body')
+    classTabBody = true;
 
     private _positionIndex: number;
 
@@ -93,7 +93,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
     @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
 
-    @Input() content: TemplatePortal;
+    @Input('content') _content: TemplatePortal;
 
     @Input() origin: number;
 

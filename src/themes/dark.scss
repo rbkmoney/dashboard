@@ -17,7 +17,9 @@ $background: (
     selected-disabled-button: map_get($mat-grey, 800),
     disabled-button-toggle: black,
     unselected-chip: map_get($mat-grey, 700),
-    disabled-list-option: black
+    disabled-list-option: black,
+        ink-bar-color: map_get($dsh-slateblue, 500),
+        tab-header-divider: map_get($mat-grey, 500)
 );
 
 $foreground: (

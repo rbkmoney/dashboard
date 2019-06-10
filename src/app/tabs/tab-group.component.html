@@ -1,16 +1,20 @@
 <dsh-tab-header #tabHeader
                 [selectedIndex]="selectedIndex"
+                (indexFocused)="_focusChanged($event)"
                 (selectFocusedIndex)="selectedIndex = $event">
     <div class="dsh-tab-label" role="tab" dshTabLabelWrapper cdkMonitorElementFocus
          *ngFor="let tab of _tabs; let i = index"
          [id]="_getTabLabelId(i)"
-         [attr.tabIndex]="_getTabIndex(tab, i)"
+         [attr.tabIndex]="_getTabIndex(i)"
          [attr.aria-posinset]="i + 1"
          [attr.aria-setsize]="_tabs.length"
-         [attr.aria-selected]="selectedIndex == i"
+         [attr.aria-controls]="_getTabContentId(i)"
+         [attr.aria-selected]="_isActive(i)"
          [attr.aria-label]="tab.ariaLabel || null"
-         [class.mat-tab-label-active]="selectedIndex == i"
-         (click)="_handleClick(tab, _tabHeader, i)">
+         [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
+         [class.dsh-tab-label-active]="_isActive(i)"
+         [disabled]="tab.disabled"
+         (click)="_handleClick(tab, tabHeader, i)">
 
         <div class="dsh-tab-label-content">
             <ng-template [ngIf]="tab.templateLabel">
@@ -27,9 +31,12 @@
                   *ngFor="let tab of _tabs; let i = index"
                   [id]="_getTabContentId(i)"
                   [attr.aria-labelledby]="_getTabLabelId(i)"
-                  [class.mat-tab-body-active]="selectedIndex == i"
+                  [class.dsh-tab-body-active]="_isActive(i)"
                   [content]="tab.content"
                   [position]="tab.position"
-                  [origin]="tab.origin">
+                  [origin]="tab.origin"
+                  [animationDuration]="animationDuration"
+                  (_onCentered)="_removeTabBodyWrapperHeight()"
+                  (_onCentering)="_setTabBodyWrapperHeight($event)">
     </dsh-tab-body>
 </div>

@@ -1,23 +1,18 @@
-import { Directive, ElementRef } from '@angular/core';
-import { CanDisable, CanDisableCtor, mixinDisabled } from '@angular/material/core';
-
-class DshTabLabelWrapperBase {}
-
-const _DshTabLabelWrapperMixinBase: CanDisableCtor & typeof DshTabLabelWrapperBase =
-    mixinDisabled(DshTabLabelWrapperBase);
+import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Directive({
     selector: '[dshTabLabelWrapper]'
-    // inputs: ['disabled'],
-    // host: {
-    //   '[class.mat-tab-disabled]': 'disabled',
-    //   '[attr.aria-disabled]': '!!disabled',
-    // }
 })
-export class DshTabLabelWrapperDirective extends _DshTabLabelWrapperMixinBase implements CanDisable {
-    constructor(public elementRef: ElementRef) {
-        super();
-    }
+export class DshTabLabelWrapperDirective {
+    @Input() disabled: boolean;
+
+    @HostBinding('class.dsh-tab-disabled')
+    dshTabDisabled = this.disabled;
+
+    @HostBinding('attr.aria-disabled')
+    ariaDisabled = !!this.disabled;
+
+    constructor(public elementRef: ElementRef) {}
 
     focus(): void {
         this.elementRef.nativeElement.focus();
