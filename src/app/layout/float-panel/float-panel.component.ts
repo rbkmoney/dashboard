@@ -9,7 +9,8 @@ import {
     Output,
     EventEmitter,
     ViewContainerRef,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    OnDestroy
 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
@@ -28,7 +29,7 @@ import { ResizedEvent } from '../../resized';
     animations: [expandAnimation, hideAnimation],
     providers: [FloatPanelOverlayService]
 })
-export class FloatPanelComponent implements AfterViewInit {
+export class FloatPanelComponent implements AfterViewInit, OnDestroy {
     private _expanded = false;
     @Input()
     get expanded() {
@@ -77,6 +78,10 @@ export class FloatPanelComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.overlayAttachManage();
+    }
+
+    ngOnDestroy() {
+        this.detach();
     }
 
     onSubstrateResize({ width }: ResizedEvent) {

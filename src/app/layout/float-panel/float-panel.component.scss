@@ -1,4 +1,7 @@
 $base-height: 39px;
+$card-padding: 20px !default;
+$actions-padding: 10px !default;
+$card-border-radius: 4px !default;
 
 .dsh-float-panel {
     &-base {
@@ -9,20 +12,18 @@ $base-height: 39px;
         position: relative;
     }
 
-    &-actions {
-        opacity: 1;
-    }
-
     &-body-extender {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: $card-padding;
     }
 
     &-card-wrapper {
         width: 100%;
+        border-radius: $card-border-radius;
+        padding: $card-padding;
     }
 
     &-more-wrapper {

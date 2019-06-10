@@ -5,14 +5,13 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { FloatPanelComponent } from './float-panel.component';
-import { CardModule } from '../card';
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { ButtonModule } from '../../button';
 import { ResizedModule } from '../../resized';
 
 @NgModule({
-    imports: [CardModule, MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, OverlayModule, ResizedModule],
+    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, OverlayModule, ResizedModule],
     declarations: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
     exports: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent]
 })
