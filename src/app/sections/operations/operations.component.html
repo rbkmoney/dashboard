@@ -2,20 +2,22 @@
     <h1 class="mat-headline">Операции</h1>
     <dsh-float-panel>
         <div fxLayout fxLayoutGap="20px">
-            <dsh-button-toggle-group fxFlex="324px">
-                <dsh-button-toggle value="today">
-                    Сегодня
-                </dsh-button-toggle>
-                <dsh-button-toggle value="week">
-                    Неделя
-                </dsh-button-toggle>
-                <dsh-button-toggle value="month">
-                    Месяц
-                </dsh-button-toggle>
-                <dsh-button-toggle value="more">
-                    <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
-                </dsh-button-toggle>
-            </dsh-button-toggle-group>
+            <div fxFlex="324px">
+                <dsh-button-toggle-group>
+                    <dsh-button-toggle value="today">
+                        Сегодня
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="week">
+                        Неделя
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="month">
+                        Месяц
+                    </dsh-button-toggle>
+                    <dsh-button-toggle value="more">
+                        <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+                    </dsh-button-toggle>
+                </dsh-button-toggle-group>
+            </div>
             <mat-form-field style="margin: -3.5px 0 -22.313px 0">
                 <mat-label>Статус платежа</mat-label>
                 <input matInput />
