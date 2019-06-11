@@ -1,8 +1,14 @@
 <div class="container">
     <dsh-toolbar></dsh-toolbar>
     <div fxLayout="row" fxLayoutGap="20px">
-        <dsh-side-menu fxFlex="200px">
-            <dsh-side-menu-item routerLink="/onboarding" selected>Заявка на подключение</dsh-side-menu-item>
+        <dsh-side-menu fxFlex="180px">
+            <dsh-side-menu-item
+                routerLink="/onboarding"
+                routerLinkActive
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+                >Заявка на подключение</dsh-side-menu-item
+            >
             <dsh-side-menu-item routerLink="/analytics">Графики</dsh-side-menu-item>
             <dsh-side-menu-item routerLink="/table">Таблица</dsh-side-menu-item>
             <dsh-side-menu-item routerLink="/buttons">Кнопки</dsh-side-menu-item>

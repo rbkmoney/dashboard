@@ -1,4 +1,5 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, EventEmitter, HostListener } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'dsh-side-menu-item',
@@ -6,15 +7,24 @@ import { Component, HostBinding, Input } from '@angular/core';
     styleUrls: ['side-menu-item.component.scss']
 })
 export class SideMenuItemComponent {
-    @HostBinding('class.dsh-side-menu-item') root = true;
-
-    private _selected = false;
-    @HostBinding('class.dsh-side-menu-item-selected')
+    active$ = new BehaviorSubject(false);
+    @HostBinding('class.dsh-side-menu-item-active')
     @Input()
-    get selected() {
-        return this._selected;
+    set active(active: boolean | '') {
+        this.active$.next(active !== false);
     }
-    set selected(selected) {
-        this._selected = selected !== false;
+    get active() {
+        return this.active$.getValue();
+    }
+
+    @Input()
+    click = new EventEmitter<MouseEvent>();
+
+    @HostBinding('class.dsh-side-menu-item') private root = true;
+
+    @HostListener('click')
+    clickHandler(event: MouseEvent) {
+        this.click.next(event);
+        this.active = true;
     }
 }
