@@ -7,6 +7,7 @@ import { PageNotFoundModule } from './page-not-found';
 import { TableModule } from './table';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
+import { OperationsModule } from './operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { InputsModule } from './inputs/inputs.module';
         TableModule,
         OnboardingModule,
         ButtonsModule,
+        OperationsModule,
         InputsModule
     ],
     declarations: [],

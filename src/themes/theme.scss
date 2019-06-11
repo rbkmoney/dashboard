@@ -5,6 +5,7 @@
 @import '../app/table/table-theme';
 @import '../app/charts/bar-chart/bar-chart-theme';
 @import '../app/layout/card/card-theme';
+@import '../app/layout/float-panel/float-panel-theme';
 @import '../app/charts/linear-chart/linear-chart-theme';
 @import '../app/state-nav/state-nav-theme';
 @import '../app/charts/legend-tooltip/legend-tooltip-theme';
@@ -24,6 +25,7 @@
         @include dsh-state-nav-theme($theme);
         @include dsh-legend-tooltip-theme($theme);
         @include dsh-button-theme($theme);
+        @include dsh-float-panel-theme($theme);
         @include dsh-button-toggle-theme($theme);
         @include dsh-status-theme($theme);
     }
