@@ -71,6 +71,7 @@
     "quicktype": "^15.0.187",
     "ts-node": "~7.0.0",
     "tslint": "~5.16.0",
-    "typescript": "~3.2.4"
+    "typescript": "~3.2.4",
+    "vsc-base": "^0.8.24"
   }
 }
