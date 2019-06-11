@@ -2,6 +2,8 @@
 
 @mixin dsh-state-nav-theme($theme) {
     $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
     $primary: map-get($theme, primary);
     $primary-text: map-get($primary, contrast);
     $accent: map-get($theme, accent);
@@ -11,6 +13,10 @@
 
     .dsh-step-nav-item {
         color: map-get($foreground, text);
+
+        &:hover {
+            background: map-get($background, hover);
+        }
 
         // The class order directly affects the order of applying styles (for example, both .warn and .active)
         &.success {
