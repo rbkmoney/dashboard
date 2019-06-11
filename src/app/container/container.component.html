@@ -5,14 +5,34 @@
             <dsh-side-menu-item
                 routerLink="/onboarding"
                 routerLinkActive
-                #rla="routerLinkActive"
-                [active]="rla.isActive"
+                #onboarding="routerLinkActive"
+                [active]="onboarding.isActive"
                 >Заявка на подключение</dsh-side-menu-item
             >
-            <dsh-side-menu-item routerLink="/analytics">Графики</dsh-side-menu-item>
-            <dsh-side-menu-item routerLink="/table">Таблица</dsh-side-menu-item>
-            <dsh-side-menu-item routerLink="/buttons">Кнопки</dsh-side-menu-item>
-            <dsh-side-menu-item routerLink="/inputs">Поля ввода</dsh-side-menu-item>
+            <dsh-side-menu-item
+                routerLink="/analytics"
+                routerLinkActive
+                #analytics="routerLinkActive"
+                [active]="analytics.isActive"
+                >Графики</dsh-side-menu-item
+            >
+            <dsh-side-menu-item routerLink="/table" routerLinkActive #table="routerLinkActive" [active]="table.isActive"
+                >Таблица</dsh-side-menu-item
+            >
+            <dsh-side-menu-item
+                routerLink="/buttons"
+                routerLinkActive
+                #buttons="routerLinkActive"
+                [active]="buttons.isActive"
+                >Кнопки</dsh-side-menu-item
+            >
+            <dsh-side-menu-item
+                routerLink="/inputs"
+                routerLinkActive
+                #inputs="routerLinkActive"
+                [active]="inputs.isActive"
+                >Поля ввода</dsh-side-menu-item
+            >
         </dsh-side-menu>
         <div class="content" fxFlex>
             <ng-content></ng-content>

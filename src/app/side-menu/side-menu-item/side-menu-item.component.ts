@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'dsh-side-menu-item',
-    templateUrl: 'side-menu-item.component.html',
+    template: `
+        <ng-content></ng-content>
+    `,
     styleUrls: ['side-menu-item.component.scss']
 })
 export class SideMenuItemComponent {
