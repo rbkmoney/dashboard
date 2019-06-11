@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@angular/core';
+import { Component, ContentChildren, QueryList, EventEmitter, Output, Input, HostBinding } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -10,6 +10,16 @@ import { StateNavItemComponent } from './state-nav-item/state-nav-item.component
     styleUrls: ['state-nav.component.scss']
 })
 export class StateNavComponent {
+    _flat = false;
+    @HostBinding('class.dsh-state-nav-flat')
+    @Input()
+    set flat(flat) {
+        this._flat = flat !== false;
+    }
+    get flat() {
+        return this._flat;
+    }
+
     @Output()
     selectedIndexChange = new EventEmitter<number>();
 
