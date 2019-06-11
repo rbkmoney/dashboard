@@ -1,14 +1,42 @@
 <dsh-card>
     <dsh-card-content fxLayout="column" fxLayoutGap="10px">
         <button dsh-button>Basic</button>
+        <button dsh-icon-button>
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+        <button dsh-fab-button>
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+
         <button dsh-button [color]="'primary'">Primary</button>
         <button dsh-stroked-button color="primary">Primary</button>
+        <button dsh-icon-button color="primary">
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+        <button dsh-fab-button color="primary">Primary</button>
+
         <button dsh-button color="accent">Accent</button>
         <button dsh-stroked-button color="accent">Accent</button>
+        <button dsh-icon-button color="accent">
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+        <button dsh-fab-button color="accent">
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+
         <button dsh-button color="warn">Warn</button>
         <button dsh-stroked-button color="warn">Warn</button>
+        <button dsh-icon-button color="warn">
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+        <button dsh-fab-button color="warn">Warn</button>
+
         <button dsh-button [disabled]="true" color="accent">Disabled</button>
         <button dsh-stroked-button color="accent" disabled>Disabled</button>
+        <button dsh-icon-button color="accent" disabled>
+            <mat-icon class="icon" svgIcon="hor_dots"></mat-icon>
+        </button>
+        <button dsh-fab-button color="accent" disabled>Disabled</button>
     </dsh-card-content>
 </dsh-card>
 
