@@ -3,7 +3,6 @@
 @import '../app/button/button-theme';
 @import '../app/button-toggle/button-toggle-theme';
 @import '../app/state-nav/state-nav-theme';
-@import '../app/side-menu/side-menu-theme';
 @import '../app/layout/card/card-theme';
 @import '../app/layout/float-panel/float-panel-theme';
 @import '../app/status/status-theme';
@@ -13,7 +12,6 @@
     @include dsh-state-nav-typography($config);
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
-    @include dsh-side-menu-typography($config);
     @include dsh-float-panel-typography($config);
     @include dsh-status-typography($config);
 }

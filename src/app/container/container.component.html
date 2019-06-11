@@ -1,46 +1,46 @@
 <div class="container">
     <dsh-toolbar></dsh-toolbar>
     <div fxLayout="row" fxLayoutGap="20px">
-        <dsh-side-menu fxFlex="180px">
-            <dsh-side-menu-item
+        <dsh-state-nav fxFlex="180px">
+            <dsh-state-nav-item
                 routerLink="/onboarding"
                 routerLinkActive
                 #onboarding="routerLinkActive"
                 [active]="onboarding.isActive"
-                >Заявка на подключение</dsh-side-menu-item
+                >Заявка на подключение</dsh-state-nav-item
             >
-            <dsh-side-menu-item
+            <dsh-state-nav-item
                 routerLink="/operations"
                 routerLinkActive
                 #table="routerLinkActive"
                 [active]="table.isActive"
-                >Операции</dsh-side-menu-item
+                >Операции</dsh-state-nav-item
             >
-            <dsh-side-menu-item
+            <dsh-state-nav-item
                 routerLink="/analytics"
                 routerLinkActive
                 #analytics="routerLinkActive"
                 [active]="analytics.isActive"
-                >Графики</dsh-side-menu-item
+                >Графики</dsh-state-nav-item
             >
-            <dsh-side-menu-item routerLink="/table" routerLinkActive #table="routerLinkActive" [active]="table.isActive"
-                >Таблица</dsh-side-menu-item
+            <dsh-state-nav-item routerLink="/table" routerLinkActive #table="routerLinkActive" [active]="table.isActive"
+                >Таблица</dsh-state-nav-item
             >
-            <dsh-side-menu-item
+            <dsh-state-nav-item
                 routerLink="/buttons"
                 routerLinkActive
                 #buttons="routerLinkActive"
                 [active]="buttons.isActive"
-                >Кнопки</dsh-side-menu-item
+                >Кнопки</dsh-state-nav-item
             >
-            <dsh-side-menu-item
+            <dsh-state-nav-item
                 routerLink="/inputs"
                 routerLinkActive
                 #inputs="routerLinkActive"
                 [active]="inputs.isActive"
-                >Поля ввода</dsh-side-menu-item
+                >Поля ввода</dsh-state-nav-item
             >
-        </dsh-side-menu>
+        </dsh-state-nav>
         <div class="content" fxFlex>
             <ng-content></ng-content>
         </div>

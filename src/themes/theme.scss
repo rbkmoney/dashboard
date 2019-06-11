@@ -11,7 +11,6 @@
 @import '../app/charts/legend-tooltip/legend-tooltip-theme';
 @import '../app/button/button-theme';
 @import '../app/button-toggle/button-toggle-theme';
-@import '../app/side-menu/side-menu-theme';
 @import '../app/status/status-theme';
 
 @mixin dsh-theme($theme) {
@@ -27,7 +26,6 @@
         @include dsh-legend-tooltip-theme($theme);
         @include dsh-button-theme($theme);
         @include dsh-button-toggle-theme($theme);
-        @include dsh-side-menu-theme($theme);
         @include dsh-float-panel-theme($theme);
         @include dsh-status-theme($theme);
     }

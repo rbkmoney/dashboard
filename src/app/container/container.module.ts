@@ -4,10 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ContainerComponent } from './container.component';
 import { ToolbarModule } from './toolbar';
-import { SideMenuModule } from '../side-menu';
+import { StateNavModule } from '../state-nav';
 
 @NgModule({
-    imports: [ToolbarModule, RouterModule, SideMenuModule, FlexLayoutModule],
+    imports: [ToolbarModule, RouterModule, StateNavModule, FlexLayoutModule],
     declarations: [ContainerComponent],
     exports: [ContainerComponent]
 })
