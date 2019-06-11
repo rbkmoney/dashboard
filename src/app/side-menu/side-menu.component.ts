@@ -1,8 +1,8 @@
 import { Component, HostBinding, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { SideMenuItemComponent } from './side-menu-item';
-import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'dsh-side-menu',
