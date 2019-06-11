@@ -16,8 +16,7 @@ import { ButtonsModule } from './buttons';
         AnalyticsModule,
         PageNotFoundModule,
         TableModule,
-        TabsModule
-        TableModule,
+        TabsModule,
         OnboardingModule,
         ButtonsModule
     ],

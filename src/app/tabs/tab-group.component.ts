@@ -17,11 +17,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple, ThemePalette } from '@angular/material';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { merge, Subscription } from 'rxjs';
 
-import { DshTabComponent } from './tab.component';
 import { DshTabHeaderComponent } from './tab-header.component';
+import { DshTabComponent } from './tab.component';
 
 let nextId = 0;
 
@@ -41,9 +40,7 @@ export interface DshTabsConfig {
 }
 
 export class DshTabChangeEvent {
-    /** Index of the currently-selected tab. */
     index: number;
-    /** Reference to the currently-selected tab. */
     tab: DshTabComponent;
 }
 
@@ -66,9 +63,6 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     /** The tab index that should be selected after the _content has been checked. */
     private _indexToSelect: number | null = 0;
 
-    /** Snapshot of the height of the tab body wrapper before another tab is activated. */
-    private _tabBodyWrapperHeight = 0;
-
     /** Subscription to tabs being added/removed. */
     private _tabsSubscription = Subscription.EMPTY;
 
@@ -79,7 +73,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     @Input()
     get dynamicHeight(): boolean { return this._dynamicHeight; }
 
-    set dynamicHeight(value: boolean) { this._dynamicHeight = coerceBooleanProperty(value); }
+    set dynamicHeight(value: boolean) { this._dynamicHeight = value; }
 
     private _dynamicHeight = false;
 
@@ -88,7 +82,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     get selectedIndex(): number | null { return this._selectedIndex; }
 
     set selectedIndex(value: number | null) {
-        this._indexToSelect = coerceNumberProperty(value, null);
+        this._indexToSelect = value;
     }
 
     private _selectedIndex: number | null = null;
@@ -127,10 +121,6 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
     @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    /** Event emitted when focus has changed within a tab group. */
-    @Output() readonly focusChange: EventEmitter<DshTabChangeEvent> =
-        new EventEmitter<DshTabChangeEvent>();
-
     /** Event emitted when the body animation has completed */
     @Output() readonly animationDone: EventEmitter<void> = new EventEmitter<void>();
 
@@ -138,7 +128,7 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     @Output() readonly selectedTabChange: EventEmitter<DshTabChangeEvent> =
         new EventEmitter<DshTabChangeEvent>(true);
 
-    private _groupId: number;
+    private readonly _groupId: number;
 
     constructor(elementRef: ElementRef,
                 private _changeDetectorRef: ChangeDetectorRef,
@@ -224,23 +214,11 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
             this._subscribeToTabLabels();
             this._changeDetectorRef.markForCheck();
         });
-        console.log(this);
     }
 
     ngOnDestroy() {
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
-    }
-
-    /** Re-aligns the ink bar to the selected tab element. */
-    realignInkBar() {
-        if (this._tabHeader) {
-            this._tabHeader._alignInkBarToSelectedTab();
-        }
-    }
-
-    _focusChanged(index: number) {
-        this.focusChange.emit(this._createChangeEvent(index));
     }
 
     private _createChangeEvent(index: number): DshTabChangeEvent {
@@ -267,58 +245,19 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
             .subscribe(() => this._changeDetectorRef.markForCheck());
     }
 
-    /** Clamps the given index to the bounds of 0 and the tabs length. */
-    private _clampTabIndex(index: number | null): number {
-        // Note the `|| 0`, which ensures that values like NaN can't get through
-        // and which would otherwise throw the component into an infinite loop
-        // (since Math.max(NaN, 0) === NaN).
-        return Math.min(this._tabs.length - 1, Math.max(index || 0, 0));
-    }
-
-    /**
-     * Sets the height of the body wrapper to the height of the activating tab if dynamic
-     * height property is true.
-     */
-    _setTabBodyWrapperHeight(tabHeight: number): void {
-        if (!this._dynamicHeight || !this._tabBodyWrapperHeight) { return; }
-
-        const wrapper: HTMLElement = this._tabBodyWrapper.nativeElement;
-
-        wrapper.style.height = this._tabBodyWrapperHeight + 'px';
-
-        // This conditional forces the browser to paint the height so that
-        // the animation to the new height can have an origin.
-        if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            wrapper.style.height = tabHeight + 'px';
-        }
-    }
-
-    /** Removes the height of the tab body wrapper. */
-    _removeTabBodyWrapperHeight(): void {
-        const wrapper = this._tabBodyWrapper.nativeElement;
-        this._tabBodyWrapperHeight = wrapper.clientHeight;
-        wrapper.style.height = '';
-        this.animationDone.emit();
-    }
-
-    /** Handle click events, setting new selected index if appropriate. */
     _handleClick(tab: DshTabComponent, tabHeader: DshTabHeaderComponent, index: number) {
         if (!tab.disabled) {
-            this.selectedIndex = tabHeader.focusIndex = index;
+            this.selectedIndex = index;
         }
     }
 
-    private _getTabLabelId(i: number): string {
-        return `dsh-tab-label-${this._groupId}-${i}`;
-    }
+    private _clampTabIndex = (index: number | null) => Math.min(this._tabs.length - 1, Math.max(index || 0, 0));
 
-    private _getTabContentId(i: number): string {
-        return `dsh-tab-content-${this._groupId}-${i}`;
-    }
+    private _getTabLabelId = (i: number) => `dsh-tab-label-${this._groupId}-${i}`;
 
-    private _getTabIndex(idx: number): number | null {
-        return this.selectedIndex === idx ? 0 : -1;
-    }
+    private _getTabContentId = (i: number) => `dsh-tab-content-${this._groupId}-${i}`;
+
+    private _getTabIndex = (i: number) => this.selectedIndex === i ? 0 : -1;
 
     private _isActive = (i: number) => this.selectedIndex === i;
 

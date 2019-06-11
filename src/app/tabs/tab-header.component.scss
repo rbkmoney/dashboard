@@ -2,6 +2,10 @@
 
 @import 'tabs-theme';
 
+.dsh-tab-list {
+    transform: translateX(0);
+}
+
 .dsh-tab-header {
     display: flex;
     overflow: hidden;
@@ -10,7 +14,7 @@
 }
 
 .dsh-tab-label {
-    height: 48px;
+    height: 40px;
     padding: 0 24px;
     cursor: pointer;
     box-sizing: border-box;

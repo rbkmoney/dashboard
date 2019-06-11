@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Selection } from 'd3-selection';
 
-import { PeriodData } from '../models/chart-data-models';
+import { BarChartConfig, PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
@@ -30,11 +30,14 @@ export class BarChartComponent implements OnChanges, OnInit {
     @Input()
     data: PeriodData[];
 
+    @Input()
+    config: BarChartConfig;
+
     constructor(private barChartService: BarChartService) {}
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        this.barChartService.initChart(this.data, element);
+        this.barChartService.initChart(this.data, element, this.config);
     }
 
     ngOnChanges(changes: SimpleChanges) {

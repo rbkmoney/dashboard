@@ -1,22 +1,30 @@
 import { Component, ContentChild, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { CanDisable, CanDisableCtor, mixinDisabled } from '@angular/material';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
 import { DshTabLabelDirective } from './tab-label.directive';
 import { DshTabContentDirective } from './tab-content.directive';
 
+class DshTabBase {}
+
+const _DshTabMixinBase: CanDisableCtor & typeof DshTabBase =
+    mixinDisabled(DshTabBase);
+
 @Component({
     selector: 'dsh-tab',
     templateUrl: 'tab.component.html',
-    exportAs: 'dshTab'
+    exportAs: 'dshTab',
 })
-export class DshTabComponent implements OnInit, OnChanges, OnDestroy {
+export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
 
     @ContentChild(DshTabContentDirective, { read: TemplateRef })
     _explicitContent: TemplateRef<any>;
 
     @ViewChild(TemplateRef) _implicitContent: TemplateRef<any>;
+
+    @Input() disabled: boolean;
 
     // tslint:disable-next-line
     @Input('label') textLabel = '';
@@ -40,7 +48,9 @@ export class DshTabComponent implements OnInit, OnChanges, OnDestroy {
 
     isActive = false;
 
-    constructor(private _viewContainerRef: ViewContainerRef) {}
+    constructor(private _viewContainerRef: ViewContainerRef) {
+        super();
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {

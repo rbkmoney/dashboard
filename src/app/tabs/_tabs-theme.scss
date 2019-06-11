@@ -1,5 +1,4 @@
 @import '~@angular/cdk/a11y';
-@import 'tabs-common';
 
 @mixin dsh-tabs-theme($theme) {
     $primary: map-get($theme, primary);
@@ -8,23 +7,44 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    .dsh-tab-label-active {
-        color: map-get($background, ink-bar-color);
+    .dsh {
+        &-tab-label {
+            min-width: 100px;
+            color: map-get($foreground, text)
+        }
+
+        &-tab-label-active {
+            color: map-get($primary, 400);
+        }
+
+        &-tab-labels {
+            border-bottom: 1px solid map-get($background, tab-header-divider);
+        }
+
+        &-ink-bar {
+            background-color: map-get($primary, 400);
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            transition: 500ms ease;
+
+        }
+
+        &-tab-label[ng-reflect-disabled="true"] {
+            cursor: default;
+            color: map-get($foreground, disabled-text);
+        }
     }
+}
 
-    .dsh-tab-labels {
-        border-bottom: 1px solid map-get($background, tab-header-divider);
-    }
-
-    .dsh-ink-bar {
-        $height: 2px;
-        $dsh-tab-animation-duration: 500ms;
-
-        background-color: map-get($background, ink-bar-color);
-        position: absolute;
-        bottom: 0;
-        height: $height;
-        transition: $dsh-tab-animation-duration ease;
-
+@mixin dsh-tabs-typography($config) {
+    .dsh {
+        &-tab-label {
+            font: {
+                family: mat-font-family($config, subheading-2);
+                size: mat-font-size($config, subheading-2);
+                weight: mat-font-weight($config, subheading-2);
+            }
+        }
     }
 }

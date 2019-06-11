@@ -63,8 +63,8 @@ export class LegendTooltipService {
 
         select(element)
             .select('.legend-tooltip-container')
-            .style('top', `${(event as MouseEvent).pageY + this.tooltipMouseMargin}px`)
-            .style('left', `${(event as MouseEvent).pageX + this.tooltipMouseMargin}px`)
+            .style('top', `${(event as MouseEvent).clientY + this.tooltipMouseMargin}px`)
+            .style('left', `${(event as MouseEvent).clientX + this.tooltipMouseMargin}px`)
             .style('display', 'flex');
     }
 

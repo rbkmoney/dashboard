@@ -1,63 +1,59 @@
 <div class="container">
-    <dsh-toolbar>
-        <div fxLayout>
-            <dsh-brand fxFlex="100px"></dsh-brand>
-            <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
-        </div>
-    </dsh-toolbar>
     <div class="content">
         <mat-tab-group>
-            <mat-tab label="Платежи">
-                Платежи content
+            <mat-tab label="Столбчатый">
+                <dsh-card>
+                    <dsh-card-content>
+                        <dsh-bar-chart [data]="periodData" [config]="barChartConfig"></dsh-bar-chart>
+                        <dsh-legend [items]="periodLegendData"></dsh-legend>
+                    </dsh-card-content>
+                </dsh-card>
             </mat-tab>
-            <mat-tab label="Возвраты">
-                Возвраты content
+            <mat-tab label="Столбчатый">
+                <dsh-card>
+                    <dsh-card-content>
+                        <dsh-bar-chart [data]="periodData" [config]="barChartConfig"></dsh-bar-chart>
+                        <dsh-legend [items]="periodLegendData"></dsh-legend>
+                    </dsh-card-content>
+                </dsh-card>
             </mat-tab>
-            <mat-tab label="Инвойсы">
-                Инвойсы content
+            <mat-tab label="Столбчатый">
+                <!--<dsh-card>-->
+                    <!--<dsh-card-content>-->
+                        <!--<dsh-bar-chart [data]="periodData" [config]="barChartConfig"></dsh-bar-chart>-->
+                        <!--<dsh-legend [items]="periodLegendData"></dsh-legend>-->
+                    <!--</dsh-card-content>-->
+                <!--</dsh-card>-->
             </mat-tab>
         </mat-tab-group>
-        <dsh-card>
-            <dsh-card-content>
-                <dsh-tab-group>
-                    <dsh-tab label="Платежи">
-                        <div>
-                            Платежи content
+        <dsh-tab-group>
+            <dsh-tab label="Столбчатый">
+                <dsh-card>
+                    <dsh-card-content>
+                        <dsh-bar-chart [data]="periodData" [config]="barChartConfig"></dsh-bar-chart>
+                        <dsh-legend [items]="periodLegendData"></dsh-legend>
+                    </dsh-card-content>
+                </dsh-card>
+            </dsh-tab>
+            <dsh-tab label="Линейный">
+                <dsh-card>
+                    <dsh-card-content>
+                        <dsh-linear-chart [data]="preparedPeriodData" [config]="linearChartConfig"></dsh-linear-chart>
+                        <dsh-legend [items]="linearLegendData"></dsh-legend>
+                    </dsh-card-content>
+                </dsh-card>
+            </dsh-tab>
+            <dsh-tab label="Круговой">
+                <dsh-card>
+                    <dsh-card-content>
+                        <div class="side-legend">
+                            <dsh-donut-chart [data]="segmentData" [config]="donutChartConfig"></dsh-donut-chart>
+                            <dsh-legend [items]="segmentLegendData"></dsh-legend>
                         </div>
-                        <div>
-                            Платежи content
-                        </div>
-                        <div>
-                            Платежи content
-                        </div><div>
-                        Платежи content
-                    </div><div>
-                        Платежи content
-                    </div>vv
-                        v
-                        v
-                        <div>
-                            Платежи content
-                        </div>
-                        <div>
-                            Платежи content
-                        </div>
-                        v
-                        v
-
-
-
-
-                    </dsh-tab>
-                    <dsh-tab label="Возвраты">
-                        Возвраты content
-                    </dsh-tab>
-                    <dsh-tab label="Инвойсы">
-                        Инвойсы content
-                    </dsh-tab>
-                </dsh-tab-group>
-            </dsh-card-content>
-        </dsh-card>
-
+                    </dsh-card-content>
+                </dsh-card>
+            </dsh-tab>
+            <dsh-tab label="Географический" disabled></dsh-tab>
+        </dsh-tab-group>
     </div>
 </div>

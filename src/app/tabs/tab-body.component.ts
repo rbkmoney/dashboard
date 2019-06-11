@@ -148,15 +148,9 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
         }
     }
 
-    _getLayoutDirection(): Direction {
-        return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
-    }
+    _getLayoutDirection = (): Direction => this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
 
-    _isCenterPosition(position: DshTabBodyPositionState | string): boolean {
-        return position === 'center' ||
-            position === 'left-origin-center' ||
-            position === 'right-origin-center';
-    }
+    _isCenterPosition = (position: DshTabBodyPositionState | string) => position.indexOf('center') !== -1;
 
     private _computePositionAnimationState(dir: Direction = this._getLayoutDirection()) {
         if (this._positionIndex < 0) {
@@ -177,5 +171,4 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
         return 'right-origin-center';
     }
-
 }
