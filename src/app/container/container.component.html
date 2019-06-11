@@ -10,6 +10,13 @@
                 >Заявка на подключение</dsh-side-menu-item
             >
             <dsh-side-menu-item
+                routerLink="/operations"
+                routerLinkActive
+                #table="routerLinkActive"
+                [active]="table.isActive"
+                >Операции</dsh-side-menu-item
+            >
+            <dsh-side-menu-item
                 routerLink="/analytics"
                 routerLinkActive
                 #analytics="routerLinkActive"
