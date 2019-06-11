@@ -1,9 +1,14 @@
 $height: 40px;
+$border-radius: 4px;
+
+:host,
+.dsh-state-nav-item {
+    outline: none;
+}
 
 :host {
     display: block;
     display: flex;
-    outline: none;
 }
 
 .dsh-state-nav-item {
@@ -14,14 +19,10 @@ $height: 40px;
     margin: 0;
     height: $height;
     line-height: $height;
-    border-radius: 4px;
-    font-weight: normal;
-    font-size: 14px;
+    border-radius: $border-radius;
     cursor: pointer;
     text-align: left;
-    padding: 0 9.5px;
     background-color: transparent;
-    outline: none;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
