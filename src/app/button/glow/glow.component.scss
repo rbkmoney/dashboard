@@ -1,14 +1,5 @@
 @import '../button-base';
 
-@keyframes show {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
 :host {
     position: absolute;
     height: 100%;
@@ -30,9 +21,9 @@
     opacity: 0;
     border-radius: 100%;
     z-index: 0;
+    transition: opacity 0.5s ease;
 
     &.show {
-        animation: show 0.5s;
         opacity: 1;
     }
 }
