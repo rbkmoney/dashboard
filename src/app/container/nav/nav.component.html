@@ -1,0 +1,32 @@
+<dsh-state-nav fxFlex="180px">
+    <dsh-state-nav-item
+        routerLink="/onboarding"
+        routerLinkActive
+        #onboarding="routerLinkActive"
+        [selected]="onboarding.isActive"
+        >Заявка на подключение</dsh-state-nav-item
+    >
+    <dsh-state-nav-item
+        routerLink="/operations"
+        routerLinkActive
+        #operations="routerLinkActive"
+        [selected]="operations.isActive"
+        >Операции</dsh-state-nav-item
+    >
+    <dsh-state-nav-item
+        routerLink="/analytics"
+        routerLinkActive
+        #analytics="routerLinkActive"
+        [selected]="analytics.isActive"
+        >Графики</dsh-state-nav-item
+    >
+    <dsh-state-nav-item routerLink="/table" routerLinkActive #table="routerLinkActive" [selected]="table.isActive"
+        >Таблица</dsh-state-nav-item
+    >
+    <dsh-state-nav-item routerLink="/buttons" routerLinkActive #buttons="routerLinkActive" [selected]="buttons.isActive"
+        >Кнопки</dsh-state-nav-item
+    >
+    <dsh-state-nav-item routerLink="/inputs" routerLinkActive #inputs="routerLinkActive" [selected]="inputs.isActive"
+        >Поля ввода</dsh-state-nav-item
+    >
+</dsh-state-nav>
