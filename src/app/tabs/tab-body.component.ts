@@ -31,44 +31,6 @@ export declare type DshTabBodyPositionState =
     | 'left-origin-center'
     | 'right-origin-center';
 
-@Directive({
-    selector: '[dshTabBodyHost]'
-})
-export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit, OnDestroy {
-    private _centeringSub = Subscription.EMPTY;
-    private _leavingSub = Subscription.EMPTY;
-
-    constructor(
-        componentFactoryResolver: ComponentFactoryResolver,
-        viewContainerRef: ViewContainerRef,
-        @Inject(forwardRef(() => DshTabBodyComponent)) private _host: DshTabBodyComponent
-    ) {
-        super(componentFactoryResolver, viewContainerRef);
-    }
-
-    ngOnInit(): void {
-        super.ngOnInit();
-
-        this._centeringSub = this._host._beforeCentering
-            .pipe(startWith(this._host._isCenterPosition(this._host._position)))
-            .subscribe((isCentering: boolean) => {
-                if (isCentering && !this.hasAttached()) {
-                    this.attach(this._host._content);
-                }
-            });
-
-        this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {
-            this.detach();
-        });
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this._centeringSub.unsubscribe();
-        this._leavingSub.unsubscribe();
-    }
-}
-
 @Component({
     selector: 'dsh-tab-body',
     exportAs: 'dshTabBody',
@@ -98,7 +60,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
     @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
 
-    @Input('content') _content: TemplatePortal;
+    @Input() content: TemplatePortal;
 
     @Input() origin: number;
 
@@ -180,5 +142,43 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
         }
 
         return 'right-origin-center';
+    }
+}
+
+@Directive({
+    selector: '[dshTabBodyHost]'
+})
+export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit, OnDestroy {
+    private _centeringSub = Subscription.EMPTY;
+    private _leavingSub = Subscription.EMPTY;
+
+    constructor(
+        componentFactoryResolver: ComponentFactoryResolver,
+        viewContainerRef: ViewContainerRef,
+        @Inject(forwardRef(() => DshTabBodyComponent)) private _host: DshTabBodyComponent
+    ) {
+        super(componentFactoryResolver, viewContainerRef);
+    }
+
+    ngOnInit(): void {
+        super.ngOnInit();
+
+        this._centeringSub = this._host._beforeCentering
+            .pipe(startWith(this._host._isCenterPosition(this._host._position)))
+            .subscribe((isCentering: boolean) => {
+                if (isCentering && !this.hasAttached()) {
+                    this.attach(this._host.content);
+                }
+            });
+
+        this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {
+            this.detach();
+        });
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this._centeringSub.unsubscribe();
+        this._leavingSub.unsubscribe();
     }
 }

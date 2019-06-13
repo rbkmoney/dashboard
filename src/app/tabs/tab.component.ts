@@ -39,6 +39,7 @@ export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisa
     // tslint:disable-next-line
     @Input('label') textLabel = '';
 
+    // tslint:disable-next-line
     @Input('aria-label') ariaLabel: string;
 
     // tslint:disable-next-line
