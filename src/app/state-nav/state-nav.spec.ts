@@ -52,13 +52,13 @@ describe('DshStateNav', () => {
         it('should be init selected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
-            expect(item.selected$.value).toBe(true);
+            expect(item.selected).toBe(true);
         });
 
         it('should be init unselected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.selected$.value).toBe(false);
+            expect(item.selected).toBe(false);
         });
     });
 

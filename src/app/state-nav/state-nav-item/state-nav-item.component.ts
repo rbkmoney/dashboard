@@ -12,10 +12,13 @@ export enum Color {
     styleUrls: ['state-nav-item.comonent.scss']
 })
 export class StateNavItemComponent {
-    selected$ = new BehaviorSubject(false);
+    selected$ = new BehaviorSubject<boolean>(false);
     @Input()
     set selected(selected) {
-        this.selected$.next(selected !== false);
+        selected = selected !== false;
+        if (selected !== this.selected) {
+            this.selected$.next(selected);
+        }
     }
     get selected() {
         return this.selected$.value;

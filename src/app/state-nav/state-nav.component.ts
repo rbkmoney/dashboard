@@ -22,15 +22,20 @@ export class StateNavComponent {
     @Output()
     selectedIdxChange = new EventEmitter<number>();
 
-    set selectedIdx(idx) {
-        if (this.selectedIdx !== idx) {
-            const selectedItem = this.items.toArray()[idx];
-            this.items.filter(item => item !== selectedItem).forEach(item => (item.selected = false));
-            this.selectedIdxChange.next(idx);
+    set selectedIdx(selectedIdx) {
+        const selectedCount = this.items.toArray().filter(({ selected }) => selected).length;
+        (selectedIdx === -1 ? this.items : this.items.filter(({}, idx) => idx !== selectedIdx)).forEach(
+            item => (item.selected = false)
+        );
+        if (selectedCount > 1) {
+            if (selectedIdx !== -1) {
+                this.items.toArray()[selectedIdx].selected = true;
+            }
+            this.selectedIdxChange.next(selectedIdx);
         }
     }
     get selectedIdx() {
-        return this.items.toArray().findIndex(item => item.selected);
+        return this.items.toArray().findIndex(({ selected }) => selected);
     }
 
     private _items: QueryList<StateNavItemComponent>;
@@ -58,7 +63,6 @@ export class StateNavComponent {
         if (selected) {
             this.selectedIdx = changedIdx;
         } else if (this.selectedIdx === changedIdx) {
-            this.items.toArray()[changedIdx].selected = false;
             this.selectedIdx = -1;
         }
     }
