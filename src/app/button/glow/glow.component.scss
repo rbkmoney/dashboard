@@ -1,8 +1,5 @@
 @import '../button-base';
 
-$dsh-glow-height: $dsh-button-line-height;
-$dsh-glow-border-radius: $dsh-button-border-radius;
-
 @keyframes show {
     0% {
         opacity: 0;
@@ -14,13 +11,13 @@ $dsh-glow-border-radius: $dsh-button-border-radius;
 
 :host {
     position: absolute;
-    height: $dsh-glow-height;
+    height: 100%;
     width: 100%;
     left: 0;
     top: 0;
-    border-radius: $dsh-glow-border-radius;
     overflow: hidden;
     z-index: 0;
+    border-radius: $dsh-button-border-radius;
 }
 
 .dsh-glow {

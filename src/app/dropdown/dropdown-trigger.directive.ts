@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayRef, OverlayConfig, Overlay, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import get from 'lodash.get';
@@ -17,12 +17,15 @@ export class DropdownTriggerDirective implements OnDestroy {
     @Input('dshDropdownTriggerFor')
     dropdown: DropdownComponent;
 
+    private removeWindowListenersFns: (() => void)[] = [];
+
     private _overlayRef: OverlayRef;
 
     constructor(
         private viewContainerRef: ViewContainerRef,
         private overlay: Overlay,
-        private origin: ElementRef<HTMLElement>
+        private origin: ElementRef<HTMLElement>,
+        private renderer: Renderer2
     ) {}
 
     private get dropdownEl(): HTMLElement {
@@ -42,6 +45,7 @@ export class DropdownTriggerDirective implements OnDestroy {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+        this.removeWindowListeners();
     }
 
     @HostListener('click')
@@ -55,15 +59,13 @@ export class DropdownTriggerDirective implements OnDestroy {
             this.overlayRef.attach(portal);
             this.dropdown.state = State.open;
             this.updatePosition();
-            window.addEventListener('mousedown', this.backdropClickHandler);
-            window.addEventListener('keyup', this.keypressHandler);
+            this.addWindowListeners();
         }
     }
 
     close() {
         this.dropdown.state = State.closed;
-        window.removeEventListener('mousedown', this.backdropClickHandler);
-        window.removeEventListener('keyup', this.keypressHandler);
+        this.removeWindowListeners();
     }
 
     toggle() {
@@ -73,6 +75,20 @@ export class DropdownTriggerDirective implements OnDestroy {
             }
         } else {
             this.open();
+        }
+    }
+
+    private addWindowListeners() {
+        this.removeWindowListenersFns.push(
+            this.renderer.listen(window, 'mousedown', this.backdropClickHandler),
+            this.renderer.listen(window, 'keyup', this.keypressHandler)
+        );
+    }
+
+    private removeWindowListeners() {
+        let unlisten: () => void;
+        while ((unlisten = this.removeWindowListenersFns.pop())) {
+            unlisten();
         }
     }
 

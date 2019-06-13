@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export enum IconName {
     logo = 'logo',
     user = 'user',
+    hor_dots = 'hor_dots',
     notification = 'notification'
 }
 

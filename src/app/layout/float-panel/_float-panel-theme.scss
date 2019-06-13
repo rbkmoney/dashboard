@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import '../../../styles/shadow';
+
+@mixin dsh-float-panel-theme($theme) {
+    $background: map-get($theme, background);
+
+    .dsh-float-panel {
+        &-card {
+            @include dsh-shadow($theme);
+            background-color: mat-color($background, card);
+        }
+    }
+}
+
+@mixin dsh-float-panel-typography($config) {
+    .dsh-float-panel {
+        &-template-wrapper {
+            font-family: mat-font-family($config);
+            font-size: mat-font-size($config, body-1);
+        }
+    }
+}

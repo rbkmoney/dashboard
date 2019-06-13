@@ -1,0 +1,12 @@
+@function get-shadow($color, $opacity) {
+    $color: rgba($color, $opacity);
+
+    @return '0px 8px 20px 0px #{$color}';
+}
+
+@mixin dsh-shadow($theme) {
+    $primary: map-get($theme, primary);
+    $shadow-color: mat-color($primary, 100);
+
+    box-shadow: #{get-shadow($shadow-color, 0.24)};
+}
