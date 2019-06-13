@@ -97,11 +97,11 @@ describe('DshStateNav', () => {
     describe('Item selection', () => {
         function createAndSelect() {
             const fixture = createComponent(SimpleStateNavComponent);
-            const [item, ...others] = getAllItems(fixture);
+            const [first, item, ...others] = getAllItems(fixture);
             spyOn(fixture.componentInstance, 'selectItem');
             item.query(By.css('*')).nativeElement.click();
             fixture.detectChanges();
-            return { fixture, item, others };
+            return { fixture, item, others: [first, ...others] };
         }
 
         it('should be event handler called after click', () => {
