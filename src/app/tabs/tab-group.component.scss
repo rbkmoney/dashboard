@@ -1,5 +1,3 @@
-@import 'tabs-theme';
-
 .dsh-tab-group {
     display: flex;
     flex-direction: column;
@@ -20,7 +18,7 @@
     display: block;
     overflow: hidden;
 
-    // Fix for auto _content wrapping in IE11
+    // Fix for auto content wrapping in IE11
     flex-basis: 100%;
 
     &.dsh-tab-body-active {

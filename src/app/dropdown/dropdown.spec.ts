@@ -84,7 +84,7 @@ describe('DshDropdown', () => {
 
         it('should toggle the dropdown by triggerFor inside element click', fakeAsync(() => {
             const fixture = createComponent(SimpleDropdownComponent);
-            const button = fixture.nativeElement.querySelector('#toggle-_content');
+            const button = fixture.nativeElement.querySelector('#toggle-content');
             button.click();
             expect(overlayContainerElement.textContent).toContain('Text');
             button.click();
