@@ -7,8 +7,8 @@ import { Color } from './state-nav-item';
 
 @Component({
     template: `
-        <dsh-state-nav (selectedIndexChange)="selectItem($event)">
-            <dsh-state-nav-item active>first</dsh-state-nav-item>
+        <dsh-state-nav (selectedIdxChange)="selectItem($event)">
+            <dsh-state-nav-item selected>first</dsh-state-nav-item>
             <dsh-state-nav-item color="warn">second</dsh-state-nav-item>
             <dsh-state-nav-item color="success">third</dsh-state-nav-item>
             <dsh-state-nav-item>last</dsh-state-nav-item>
@@ -48,17 +48,17 @@ describe('DshStateNav', () => {
         expect(item.textContent).toBe('second');
     });
 
-    describe('Active', () => {
-        it('should be init active/selected', () => {
+    describe('Selected', () => {
+        it('should be init selected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
-            expect(item.active$.value).toBe(true);
+            expect(item.selected$.value).toBe(true);
         });
 
-        it('should be init unactive/unselected', () => {
+        it('should be init unselected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.active$.value).toBe(false);
+            expect(item.selected$.value).toBe(false);
         });
     });
 
@@ -111,13 +111,13 @@ describe('DshStateNav', () => {
 
         it('should be selected after click', () => {
             const { item } = createAndSelect();
-            expect(item.componentInstance.active$.value).toBe(true);
+            expect(item.componentInstance.selected$.value).toBe(true);
         });
 
         it('should be others unselected after click', () => {
             const { others } = createAndSelect();
             for (const item of others) {
-                expect(item.componentInstance.active$.value).toBe(false);
+                expect(item.componentInstance.selected$.value).toBe(false);
             }
         });
     });

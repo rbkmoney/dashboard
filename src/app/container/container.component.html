@@ -6,38 +6,42 @@
                 routerLink="/onboarding"
                 routerLinkActive
                 #onboarding="routerLinkActive"
-                [active]="onboarding.isActive"
+                [selected]="onboarding.isActive"
                 >Заявка на подключение</dsh-state-nav-item
             >
             <dsh-state-nav-item
                 routerLink="/operations"
                 routerLinkActive
-                #table="routerLinkActive"
-                [active]="table.isActive"
+                #operations="routerLinkActive"
+                [selected]="operations.isActive"
                 >Операции</dsh-state-nav-item
             >
             <dsh-state-nav-item
                 routerLink="/analytics"
                 routerLinkActive
                 #analytics="routerLinkActive"
-                [active]="analytics.isActive"
+                [selected]="analytics.isActive"
                 >Графики</dsh-state-nav-item
             >
-            <dsh-state-nav-item routerLink="/table" routerLinkActive #table="routerLinkActive" [active]="table.isActive"
+            <dsh-state-nav-item
+                routerLink="/table"
+                routerLinkActive
+                #table="routerLinkActive"
+                [selected]="table.isActive"
                 >Таблица</dsh-state-nav-item
             >
             <dsh-state-nav-item
                 routerLink="/buttons"
                 routerLinkActive
                 #buttons="routerLinkActive"
-                [active]="buttons.isActive"
+                [selected]="buttons.isActive"
                 >Кнопки</dsh-state-nav-item
             >
             <dsh-state-nav-item
                 routerLink="/inputs"
                 routerLinkActive
                 #inputs="routerLinkActive"
-                [active]="inputs.isActive"
+                [selected]="inputs.isActive"
                 >Поля ввода</dsh-state-nav-item
             >
         </dsh-state-nav>

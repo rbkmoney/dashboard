@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export enum Color {
@@ -12,31 +12,19 @@ export enum Color {
     styleUrls: ['state-nav-item.comonent.scss']
 })
 export class StateNavItemComponent {
+    selected$ = new BehaviorSubject(false);
     @Input()
-    set active(active: boolean | '') {
-        if (active !== false) {
-            this.select();
-        }
+    set selected(selected) {
+        this.selected$.next(selected !== false);
+    }
+    get selected() {
+        return this.selected$.value;
     }
 
     @Input()
     color: Color | keyof typeof Color;
 
-    @Input()
-    click = new EventEmitter<MouseEvent>();
-
-    active$ = new BehaviorSubject(false);
-
     clickHandler(event: MouseEvent) {
-        this.click.next(event);
-        this.select();
-    }
-
-    select() {
-        this.active$.next(true);
-    }
-
-    unselect() {
-        this.active$.next(false);
+        this.selected = true;
     }
 }

@@ -15,14 +15,14 @@
         &-item {
             color: map-get($foreground, text);
 
-            // The class order directly affects the order of applying styles (for example, both .warn and .active)
+            // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
                 color: mat-color($accent, 300);
             }
             &.warn {
                 color: mat-color($warn, 300);
             }
-            &.active {
+            &.selected {
                 color: mat-color($primary, 400);
             }
         }
@@ -33,7 +33,7 @@
                     background: map-get($background, hover);
                 }
 
-                // The class order directly affects the order of applying styles (for example, both .warn and .active)
+                // The class order directly affects the order of applying styles (for example, both .warn and .selected)
                 &.success {
                     background: mat-color($accent, 300);
                     color: map-get($accent-text, 300);
@@ -42,7 +42,7 @@
                     background: mat-color($warn, 300);
                     color: map-get($warn-text, 300);
                 }
-                &.active {
+                &.selected {
                     background: mat-color($primary, 400);
                     color: map-get($primary-text, 400);
                 }

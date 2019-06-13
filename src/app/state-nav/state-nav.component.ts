@@ -1,8 +1,7 @@
 import { Component, ContentChildren, QueryList, EventEmitter, Output, Input, HostBinding } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
+import { StateNavItemComponent } from './state-nav-item';
 
 @Component({
     selector: 'dsh-state-nav',
@@ -21,11 +20,27 @@ export class StateNavComponent {
     }
 
     @Output()
-    selectedIndexChange = new EventEmitter<number>();
+    selectedIdxChange = new EventEmitter<number>();
 
+    set selectedIdx(idx) {
+        if (this.selectedIdx !== idx) {
+            const selectedItem = this.items.toArray()[idx];
+            this.items.filter(item => item !== selectedItem).forEach(item => (item.selected = false));
+            this.selectedIdxChange.next(idx);
+        }
+    }
+    get selectedIdx() {
+        return this.items.toArray().findIndex(item => item.selected);
+    }
+
+    private _items: QueryList<StateNavItemComponent>;
     @ContentChildren(StateNavItemComponent)
-    set items(items: QueryList<StateNavItemComponent>) {
+    set items(items) {
+        this._items = items;
         this.updateSelectionSubscriptions(items);
+    }
+    get items() {
+        return this._items;
     }
 
     private selectionSubscriptions: Subscription[] = [];
@@ -35,16 +50,16 @@ export class StateNavComponent {
             this.selectionSubscriptions.pop().unsubscribe();
         }
         this.selectionSubscriptions = items.map((item, idx) =>
-            item.active$.pipe(filter(active => active)).subscribe(() => this.selectItem(idx, items))
+            item.selected$.subscribe(selected => this.selectionManage(idx, selected))
         );
     }
 
-    private selectItem(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
-        this.cleanSelections(selectedIdx, items);
-        this.selectedIndexChange.next(selectedIdx);
-    }
-
-    private cleanSelections(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
-        items.filter((item, idx) => idx !== selectedIdx).forEach(item => item.unselect());
+    private selectionManage(changedIdx: number, selected: boolean) {
+        if (selected) {
+            this.selectedIdx = changedIdx;
+        } else if (this.selectedIdx === changedIdx) {
+            this.items.toArray()[changedIdx].selected = false;
+            this.selectedIdx = -1;
+        }
     }
 }
