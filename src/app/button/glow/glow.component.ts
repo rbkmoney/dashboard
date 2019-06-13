@@ -30,6 +30,9 @@ export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     constructor(private renderer: Renderer2) {}
 
     ngOnChanges({ color }: SimpleChanges) {
+        if (this.glowRef.nativeElement && color.firstChange) {
+            this.colorManager = new ColorManager(this.renderer, this.glowRef.nativeElement);
+        }
         if (this.glowRef.nativeElement && color && color.previousValue !== color.currentValue) {
             this.colorManager.set(color.currentValue);
             this.colorManager.remove(color.previousValue);
@@ -37,10 +40,11 @@ export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
-        this.colorManager = new ColorManager(this.renderer, this.glowRef.nativeElement);
+        if (!this.target) {
+            throw new Error('Target button element should be specified');
+        }
         this.glowManager = new GlowManager(this.renderer, this.glowRef.nativeElement);
         this.glowManager.register(this.target);
-        this.colorManager.set(this.color);
     }
 
     ngOnDestroy() {
