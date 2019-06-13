@@ -12,7 +12,16 @@ import { ChartsModule } from '../../charts';
 
 @NgModule({
     declarations: [TabsComponent],
-    imports: [FlexLayoutModule, BrandModule, ToolbarModule, ActionbarModule, DshTabsModule, MatTabsModule, CardModule, ChartsModule],
+    imports: [
+        FlexLayoutModule,
+        BrandModule,
+        ToolbarModule,
+        ActionbarModule,
+        DshTabsModule,
+        MatTabsModule,
+        CardModule,
+        ChartsModule
+    ],
     exports: [TabsComponent]
 })
 export class TabsModule {}

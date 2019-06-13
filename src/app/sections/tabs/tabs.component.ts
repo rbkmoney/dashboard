@@ -9,7 +9,12 @@ import {
     SegmentData
 } from '../../charts/models/chart-data-models';
 import { ChartsService } from '../../charts/charts.service';
-import { getLinearLegendData, getPeriodLegendData, getSegmentLegendData, periodToLinearData } from '../../charts/chart-utils';
+import {
+    getLinearLegendData,
+    getPeriodLegendData,
+    getSegmentLegendData,
+    periodToLinearData
+} from '../../charts/chart-utils';
 
 @Component({
     selector: 'dsh-tabs',
@@ -29,7 +34,6 @@ export class TabsComponent implements OnInit {
     donutChartConfig: DonutChartConfig;
     linearChartConfig: LinearChartConfig;
 
-
     constructor(private chartsService: ChartsService) {}
 
     ngOnInit() {
@@ -47,5 +51,4 @@ export class TabsComponent implements OnInit {
         this.linearLegendData = getLinearLegendData(this.preparedPeriodData);
         this.segmentLegendData = getSegmentLegendData(this.segmentData);
     }
-
 }

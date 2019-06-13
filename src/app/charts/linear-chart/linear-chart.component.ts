@@ -1,4 +1,13 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 
 import { LinearChartConfig, LinearPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';

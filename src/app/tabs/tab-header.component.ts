@@ -26,9 +26,7 @@ import { DshInkBarDirective } from './ink-bar.directive';
     styleUrls: ['tab-header.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class DshTabHeaderComponent
-    implements AfterContentChecked, AfterContentInit, OnDestroy {
-
+export class DshTabHeaderComponent implements AfterContentChecked, AfterContentInit, OnDestroy {
     @ContentChildren(DshTabLabelWrapperDirective) _labelWrappers: QueryList<DshTabLabelWrapperDirective>;
     @ViewChild(DshInkBarDirective) _inkBar: DshInkBarDirective;
     @ViewChild('tabListContainer') _tabListContainer: ElementRef;
@@ -41,7 +39,9 @@ export class DshTabHeaderComponent
     private _stopScrolling = new Subject<void>();
 
     @Input()
-    get selectedIndex(): number { return this._selectedIndex; }
+    get selectedIndex(): number {
+        return this._selectedIndex;
+    }
 
     set selectedIndex(value: number) {
         this._selectedIndexChanged = this._selectedIndex !== value;
@@ -50,10 +50,12 @@ export class DshTabHeaderComponent
 
     private _selectedIndex = 0;
 
-    constructor(private _elementRef: ElementRef,
-                private _changeDetectorRef: ChangeDetectorRef,
-                private _viewportRuler: ViewportRuler,
-                @Optional() private _dir: Directionality) {}
+    constructor(
+        private _elementRef: ElementRef,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _viewportRuler: ViewportRuler,
+        @Optional() private _dir: Directionality
+    ) {}
 
     ngAfterContentChecked() {
         if (this._selectedIndexChanged) {
@@ -73,9 +75,10 @@ export class DshTabHeaderComponent
     }
 
     _alignInkBarToSelectedTab() {
-        const selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
-            this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
-            null;
+        const selectedLabelWrapper =
+            this._labelWrappers && this._labelWrappers.length
+                ? this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement
+                : null;
 
         this._inkBar.alignToElement(selectedLabelWrapper);
     }

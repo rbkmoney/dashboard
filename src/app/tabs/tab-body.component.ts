@@ -24,7 +24,12 @@ import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
 import { dshTabsAnimations } from './tabs-animations';
 
-export declare type DshTabBodyPositionState = 'left' | 'center' | 'right' | 'left-origin-center' | 'right-origin-center';
+export declare type DshTabBodyPositionState =
+    | 'left'
+    | 'center'
+    | 'right'
+    | 'left-origin-center'
+    | 'right-origin-center';
 
 @Directive({
     selector: '[dshTabBodyHost]'
@@ -36,7 +41,8 @@ export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit
     constructor(
         componentFactoryResolver: ComponentFactoryResolver,
         viewContainerRef: ViewContainerRef,
-        @Inject(forwardRef(() => DshTabBodyComponent)) private _host: DshTabBodyComponent) {
+        @Inject(forwardRef(() => DshTabBodyComponent)) private _host: DshTabBodyComponent
+    ) {
         super(componentFactoryResolver, viewContainerRef);
     }
 
@@ -71,7 +77,6 @@ export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit
     animations: [dshTabsAnimations.translateTab]
 })
 export class DshTabBodyComponent implements OnInit, OnDestroy {
-
     @HostBinding('class.dsh-tab-body')
     classTabBody = true;
 
@@ -105,10 +110,11 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
         this._computePositionAnimationState();
     }
 
-    constructor(private _elementRef: ElementRef<HTMLElement>,
-                @Optional() private _dir: Directionality,
-                changeDetectorRef: ChangeDetectorRef) {
-
+    constructor(
+        private _elementRef: ElementRef<HTMLElement>,
+        @Optional() private _dir: Directionality,
+        changeDetectorRef: ChangeDetectorRef
+    ) {
         if (_dir) {
             this._dirChangeSubscription = _dir.change.subscribe((dir: Direction) => {
                 this._computePositionAnimationState(dir);
@@ -116,17 +122,21 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
             });
         }
 
-        this._translateTabComplete.pipe(distinctUntilChanged((x, y) => {
-            return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(event => {
-            if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
-                this._onCentered.emit();
-            }
+        this._translateTabComplete
+            .pipe(
+                distinctUntilChanged((x, y) => {
+                    return x.fromState === y.fromState && x.toState === y.toState;
+                })
+            )
+            .subscribe(event => {
+                if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
+                    this._onCentered.emit();
+                }
 
-            if (this._isCenterPosition(event.fromState) && !this._isCenterPosition(this._position)) {
-                this._afterLeavingCenter.emit();
-            }
-        });
+                if (this._isCenterPosition(event.fromState) && !this._isCenterPosition(this._position)) {
+                    this._afterLeavingCenter.emit();
+                }
+            });
     }
 
     ngOnInit() {
@@ -148,7 +158,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
         }
     }
 
-    _getLayoutDirection = (): Direction => this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
+    _getLayoutDirection = (): Direction => (this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr');
 
     _isCenterPosition = (position: DshTabBodyPositionState | string) => position.indexOf('center') !== -1;
 

@@ -10,7 +10,7 @@
     .dsh {
         &-tab-label {
             min-width: 100px;
-            color: map-get($foreground, text)
+            color: map-get($foreground, text);
         }
 
         &-tab-label-active {
@@ -27,10 +27,9 @@
             bottom: 0;
             height: 2px;
             transition: 500ms ease;
-
         }
 
-        &-tab-label[ng-reflect-disabled="true"] {
+        &-tab-label[ng-reflect-disabled='true'] {
             cursor: default;
             color: map-get($foreground, disabled-text);
         }

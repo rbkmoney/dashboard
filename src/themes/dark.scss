@@ -18,7 +18,7 @@ $background: (
     disabled-button-toggle: black,
     unselected-chip: map_get($mat-grey, 700),
     disabled-list-option: black,
-    tab-header-divider: map_get($mat-grey, 500),
+    tab-header-divider: map_get($mat-grey, 500)
 );
 
 $foreground: (
@@ -40,7 +40,7 @@ $foreground: (
     axis-tick-color: rgba(white, 0.1),
     x-axis-text-color: rgba(white, 0.5),
     y-axis-text-color: rgba(white, 0.7),
-    legend-tooltip-date-color: rgba(white, 0.5),
+    legend-tooltip-date-color: rgba(white, 0.5)
 );
 
 $theme: (

@@ -1,4 +1,15 @@
-import { Component, ContentChild, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '@angular/material';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
@@ -8,13 +19,12 @@ import { DshTabContentDirective } from './tab-content.directive';
 
 class DshTabBase {}
 
-const _DshTabMixinBase: CanDisableCtor & typeof DshTabBase =
-    mixinDisabled(DshTabBase);
+const _DshTabMixinBase: CanDisableCtor & typeof DshTabBase = mixinDisabled(DshTabBase);
 
 @Component({
     selector: 'dsh-tab',
     templateUrl: 'tab.component.html',
-    exportAs: 'dshTab',
+    exportAs: 'dshTab'
 })
 export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
@@ -64,6 +74,8 @@ export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisa
 
     ngOnInit(): void {
         this._contentPortal = new TemplatePortal(
-            this._explicitContent || this._implicitContent, this._viewContainerRef);
+            this._explicitContent || this._implicitContent,
+            this._viewContainerRef
+        );
     }
 }

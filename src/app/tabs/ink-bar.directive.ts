@@ -3,14 +3,13 @@ import { Directive, ElementRef, HostBinding, Inject, InjectionToken, NgZone } fr
 // tslint:disable-next-line
 export interface _DshInkBarPositioner {
     // tslint:disable-next-line
-    (element: HTMLElement): { left: string, width: string };
+    (element: HTMLElement): { left: string; width: string };
 }
 
-export const _DSH_INK_BAR_POSITIONER =
-    new InjectionToken<_DshInkBarPositioner>('DshInkBarPositioner', {
-        providedIn: 'root',
-        factory: _DSH_INK_BAR_POSITIONER_FACTORY
-    });
+export const _DSH_INK_BAR_POSITIONER = new InjectionToken<_DshInkBarPositioner>('DshInkBarPositioner', {
+    providedIn: 'root',
+    factory: _DSH_INK_BAR_POSITIONER_FACTORY
+});
 
 export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
     const method = (element: HTMLElement) => ({
@@ -26,14 +25,14 @@ export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
     selector: 'dsh-ink-bar'
 })
 export class DshInkBarDirective {
-
     @HostBinding('class.dsh-ink-bar')
     classInkBar = true;
 
     constructor(
         private _elementRef: ElementRef<HTMLElement>,
         private _ngZone: NgZone,
-        @Inject(_DSH_INK_BAR_POSITIONER) private _inkBarPositioner: _DshInkBarPositioner) { }
+        @Inject(_DSH_INK_BAR_POSITIONER) private _inkBarPositioner: _DshInkBarPositioner
+    ) {}
 
     alignToElement(element: HTMLElement) {
         this.show();
@@ -47,9 +46,9 @@ export class DshInkBarDirective {
         }
     }
 
-    show = () => this._elementRef.nativeElement.style.visibility = 'visible';
+    show = () => (this._elementRef.nativeElement.style.visibility = 'visible');
 
-    hide = () => this._elementRef.nativeElement.style.visibility = 'hidden';
+    hide = () => (this._elementRef.nativeElement.style.visibility = 'hidden');
 
     private _setStyles(element: HTMLElement) {
         const positions = this._inkBarPositioner(element);

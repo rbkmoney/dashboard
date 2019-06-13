@@ -14,22 +14,9 @@ import { DshTabContentDirective } from './tab-content.directive';
 import { DshInkBarDirective } from './ink-bar.directive';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        MatCommonModule,
-        PortalModule,
-        MatRippleModule,
-        ObserversModule,
-        A11yModule
-    ],
-    exports: [
-        DshTabGroupComponent,
-        DshTabComponent,
-        DshTabHeaderComponent,
-        DshTabBodyComponent
-    ],
+    imports: [CommonModule, MatCommonModule, PortalModule, MatRippleModule, ObserversModule, A11yModule],
+    exports: [DshTabGroupComponent, DshTabComponent, DshTabHeaderComponent, DshTabBodyComponent],
     declarations: [
         DshTabGroupComponent,
         DshTabComponent,

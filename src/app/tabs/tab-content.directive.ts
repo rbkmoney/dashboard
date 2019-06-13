@@ -1,6 +1,6 @@
-import {Directive, TemplateRef} from '@angular/core';
+import { Directive, TemplateRef } from '@angular/core';
 
-@Directive({selector: '[dshTabContent]'})
+@Directive({ selector: '[dshTabContent]' })
 export class DshTabContentDirective {
-    constructor(public template: TemplateRef<any>) { }
+    constructor(public template: TemplateRef<any>) {}
 }
