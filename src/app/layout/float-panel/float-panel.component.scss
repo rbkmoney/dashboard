@@ -1,0 +1,51 @@
+$base-height: 51.313px;
+$card-padding: 20px !default;
+$actions-padding: 10px !default;
+$card-border-radius: 4px !default;
+$card-without-actions-padding: $card-padding - $actions-padding;
+
+.dsh-float-panel {
+    position: relative;
+
+    &-body-extender {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin-bottom: $card-padding;
+    }
+
+    &-template-wrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    &-card {
+        width: 100%;
+        border-radius: $card-border-radius;
+        padding: $card-padding $actions-padding $card-padding $actions-padding;
+        transition: padding 150ms ease;
+
+        &-expanded {
+            padding-bottom: $actions-padding;
+        }
+    }
+
+    &-base {
+        min-height: $base-height;
+        margin: 0 $card-without-actions-padding;
+
+        &-action {
+            margin-right: -$card-without-actions-padding;
+        }
+    }
+
+    &-more {
+        height: 0;
+        overflow: hidden;
+
+        &-content {
+            padding: 0 $card-without-actions-padding;
+        }
+    }
+}

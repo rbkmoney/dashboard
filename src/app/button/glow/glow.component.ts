@@ -1,4 +1,14 @@
-import { Component, Input, OnInit, Renderer2, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    Renderer2,
+    ElementRef,
+    OnChanges,
+    SimpleChanges,
+    ViewChild,
+    OnDestroy
+} from '@angular/core';
 import { ThemePalette } from '@angular/material';
 
 import { GlowManager } from './glow-manager';
@@ -9,26 +19,31 @@ import { ColorManager } from '../color-manager';
     templateUrl: 'glow.component.html',
     styleUrls: ['glow.component.scss']
 })
-export class GlowComponent implements OnInit, OnChanges {
+export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     @Input() target: HTMLButtonElement;
     @Input() color: ThemePalette;
 
-    private glowEl: HTMLElement;
+    @ViewChild('glow') private glowRef: ElementRef<HTMLSpanElement>;
     private colorManager: ColorManager;
+    private glowManager: GlowManager;
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(private renderer: Renderer2) {}
 
     ngOnChanges({ color }: SimpleChanges) {
-        if (this.glowEl && color && color.previousValue !== color.currentValue) {
+        if (this.glowRef.nativeElement && color && color.previousValue !== color.currentValue) {
             this.colorManager.set(color.currentValue);
             this.colorManager.remove(color.previousValue);
         }
     }
 
     ngOnInit() {
-        this.glowEl = this.elementRef.nativeElement.querySelector('.dsh-glow');
-        this.colorManager = new ColorManager(this.renderer, this.glowEl);
-        new GlowManager(this.renderer, this.glowEl).register(this.target);
+        this.colorManager = new ColorManager(this.renderer, this.glowRef.nativeElement);
+        this.glowManager = new GlowManager(this.renderer, this.glowRef.nativeElement);
+        this.glowManager.register(this.target);
         this.colorManager.set(this.color);
+    }
+
+    ngOnDestroy() {
+        this.glowManager.unregister();
     }
 }

@@ -19,11 +19,13 @@ $background: (
     disabled-list-option: map_get($mat-grey, 200),
     tab-header-divider: map_get($mat-grey, 500),
     /*
-        Overrides
-    */ hover: map_get($dsh-gray, 200),
+     * Overrides
+     *
+ */ hover: map_get($dsh-gray, 200),
     /*
-       Custom
-    */ tooltip-shadow: 0 0 8px rgba(black, 0.2),
+     * Custom
+     *
+ */ tooltip-shadow: 0 0 8px rgba(black, 0.2),
     tooltip-line-color: rgba(black, 0.1)
 );
 
@@ -42,25 +44,35 @@ $foreground: (
     slider-off: rgba(#000, 0.26),
     slider-off-active: rgba(#000, 0.38),
     /*
-        Overrides
-    */ text: #475166,
+     * Overrides
+     *
+ */ text: #475166,
     slider-min: #475166,
     /*
-        Custom
-    */ axis-tick-color: rgba(black, 0.1),
+     * Custom
+     *
+ */ axis-tick-color: rgba(black, 0.1),
     x-axis-text-color: rgba(black, 0.3),
     y-axis-text-color: rgba(black, 0.5),
     legend-tooltip-date-color: rgba(black, 0.3)
 );
 
 $theme: (
-    name: 'light',
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
     warn: mat-palette($dsh-warn),
     is-dark: false,
     foreground: $foreground,
-    background: $background
+    background: $background,
+    /*
+     * Custom
+     *
+ */ name: 'light',
+    success: mat-palette($dsh-success),
+    pending: mat-palette($dsh-pending),
+    success-base: mat-color(mat-palette($dsh-success), 400),
+    pending-base: mat-color(mat-palette($dsh-pending), 800),
+    warn-base: mat-color(mat-palette($dsh-warn), 300)
 );
 
 @include dsh-theme($theme);

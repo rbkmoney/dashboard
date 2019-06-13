@@ -44,13 +44,21 @@ $foreground: (
 );
 
 $theme: (
-    name: 'dark',
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
     warn: mat-palette($dsh-warn),
     is-dark: true,
     foreground: $foreground,
-    background: $background
+    background: $background,
+    /*
+     * Custom
+     *
+ */ name: 'dark',
+    success: mat-palette($dsh-success),
+    pending: mat-palette($dsh-pending),
+    success-base: mat-color(mat-palette($dsh-success), 400),
+    pending-base: mat-color(mat-palette($dsh-pending), 800),
+    warn-base: mat-color(mat-palette($dsh-warn), 300)
 );
 
 @include dsh-theme($theme);
