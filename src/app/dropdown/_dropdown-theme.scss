@@ -8,3 +8,9 @@
         background-color: mat-color($background, card);
     }
 }
+
+@mixin dsh-dropdown-typography($config) {
+    .dropdown {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}

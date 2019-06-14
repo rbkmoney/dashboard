@@ -6,9 +6,19 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown/dropdown.module';
 import { StateNavModule } from '../../state-nav';
+import { ButtonModule } from '../../button';
+import { StatusModule } from '../../status';
 
 @NgModule({
-    imports: [MatIconModule, FlexLayoutModule, DropdownModule, OverlayModule, StateNavModule],
+    imports: [
+        MatIconModule,
+        FlexLayoutModule,
+        DropdownModule,
+        OverlayModule,
+        StateNavModule,
+        ButtonModule,
+        StatusModule
+    ],
     declarations: [ActionbarComponent],
     exports: [ActionbarComponent]
 })
