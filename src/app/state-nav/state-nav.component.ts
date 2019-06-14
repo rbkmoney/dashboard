@@ -1,4 +1,13 @@
-import { Component, ContentChildren, QueryList, EventEmitter, Output, Input, HostBinding } from '@angular/core';
+import {
+    Component,
+    ContentChildren,
+    QueryList,
+    EventEmitter,
+    Output,
+    Input,
+    HostBinding,
+    ViewEncapsulation
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { StateNavItemComponent } from './state-nav-item';
@@ -6,7 +15,8 @@ import { StateNavItemComponent } from './state-nav-item';
 @Component({
     selector: 'dsh-state-nav',
     templateUrl: 'state-nav.component.html',
-    styleUrls: ['state-nav.component.scss']
+    styleUrls: ['state-nav.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class StateNavComponent {
     _flat = false;

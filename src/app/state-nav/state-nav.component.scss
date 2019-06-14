@@ -4,7 +4,7 @@ $flat-padding: 9.5px;
     margin: 0;
     padding: 0;
 
-    /deep/ &-flat {
+    &-flat {
         .dsh-state-nav-item {
             padding: 0 $flat-padding !important;
         }
