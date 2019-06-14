@@ -1,5 +1,6 @@
 $height: 40px;
 $border-radius: 4px;
+$elements-padding: 5px;
 
 :host,
 .dsh-state-nav-item {
@@ -12,7 +13,8 @@ $border-radius: 4px;
 }
 
 .dsh-state-nav-item {
-    display: block;
+    display: flex;
+    align-items: center;
     border: none;
     width: 100%;
     padding: 0;
@@ -27,4 +29,8 @@ $border-radius: 4px;
     text-overflow: ellipsis;
     white-space: nowrap;
     transition: background-color 0.1s ease-out, color 0.1s ease-out;
+
+    & > ::ng-deep * {
+        margin-right: $elements-padding;
+    }
 }
