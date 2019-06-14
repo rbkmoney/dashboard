@@ -1,13 +1,22 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 
 import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
+import { DshButtonToggleModule } from '../../button-toggle';
 
 @NgModule({
-    imports: [LayoutModule, FlexLayoutModule, ButtonModule, MatFormFieldModule, MatInputModule],
+    imports: [
+        LayoutModule,
+        FlexLayoutModule,
+        ButtonModule,
+        DshButtonToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule
+    ],
     declarations: [OperationsComponent]
 })
 export class OperationsModule {}
