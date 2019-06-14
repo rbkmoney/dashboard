@@ -37,6 +37,9 @@ export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+        if (!this.target) {
+            throw new Error('Target button element should be specified');
+        }
         this.colorManager = new ColorManager(this.renderer, this.glowRef.nativeElement);
         this.glowManager = new GlowManager(this.renderer, this.glowRef.nativeElement);
         this.glowManager.register(this.target);
