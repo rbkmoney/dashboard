@@ -11,12 +11,22 @@
 </div>
 
 <dsh-dropdown width="400px" #claimsDropdown="dshDropdown">
-    Последние заявки
+    <dsh-dropdown-content>
+        Последние заявки
+    </dsh-dropdown-content>
+    <dsh-dropdown-actions>
+        <dsh-state-nav flat>
+            <dsh-state-nav-item>Документы</dsh-state-nav-item>
+            <dsh-state-nav-item>Выход</dsh-state-nav-item>
+        </dsh-state-nav>
+    </dsh-dropdown-actions>
 </dsh-dropdown>
 
 <dsh-dropdown width="180px" #userDropdown="dshDropdown">
-    <dsh-state-nav flat>
-        <dsh-state-nav-item>Документы</dsh-state-nav-item>
-        <dsh-state-nav-item>Выход</dsh-state-nav-item>
-    </dsh-state-nav>
+    <dsh-dropdown-actions>
+        <dsh-state-nav flat>
+            <dsh-state-nav-item>Документы</dsh-state-nav-item>
+            <dsh-state-nav-item>Выход</dsh-state-nav-item>
+        </dsh-state-nav>
+    </dsh-dropdown-actions>
 </dsh-dropdown>
