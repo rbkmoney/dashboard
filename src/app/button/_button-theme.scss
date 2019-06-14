@@ -67,8 +67,10 @@
 
     .dsh {
         &-button,
-        &-stroked-button {
-            background: none;
+        &-stroked-button,
+        &-fab-button,
+        &-icon-button {
+            background: transparent;
             color: map-get($foreground, text);
 
             &:focus:not(:disabled) {
@@ -78,9 +80,6 @@
 
         &-button,
         &-fab-button {
-            color: map-get($foreground, base);
-            background: transparent;
-
             &:hover {
                 background: map-get($background, hover);
             }
@@ -130,8 +129,6 @@
         }
 
         &-icon-button {
-            background: transparent;
-            transition: background 0.3s;
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
@@ -144,10 +141,6 @@
 
             &.dsh-warn {
                 @include focused-background(rgba(mat-color($warn, 300), 0.2));
-            }
-
-            &:focus:not(:disabled) {
-                outline: none;
             }
         }
     }
