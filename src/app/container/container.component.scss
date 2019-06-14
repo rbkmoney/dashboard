@@ -1,6 +1,7 @@
 $container-padding: 20px 10px 10px 10px;
 $container-max-width: 1200px;
-$content-padding: 20px 0 0 0;
+$content-padding: 20px;
+$nav-padding: 46px;
 
 .container {
     padding: $container-padding;
@@ -9,9 +10,9 @@ $content-padding: 20px 0 0 0;
 }
 
 .content {
-    padding: $content-padding;
+    padding: $content-padding 0 0 0;
 }
 
 .nav {
-    padding: 20px 0;
+    padding-top: $nav-padding;
 }
