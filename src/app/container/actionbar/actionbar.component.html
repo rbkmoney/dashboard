@@ -1,12 +1,22 @@
-<div fxLayout>
+<div fxLayout fxLayoutGap="10px">
     <div class="circle" (click)="changeTheme()">
-        <mat-icon class="icon" svgIcon="notification"></mat-icon>
+        <mat-icon class="icon">brightness_4</mat-icon>
     </div>
-    <div class="circle" [dshDropdownTriggerFor]="dropdown" fxFlexOffset="10px">
-        <mat-icon class="icon" svgIcon="user"></mat-icon>
+    <div class="circle" [dshDropdownTriggerFor]="claimsDropdown">
+        <mat-icon class="icon">subject</mat-icon>
     </div>
-    <dsh-dropdown width="400px" #dropdown="dshDropdown">
-        <div>Content</div>
-        <button (click)="close()">Close</button>
-    </dsh-dropdown>
+    <div class="circle" [dshDropdownTriggerFor]="userDropdown">
+        <mat-icon class="icon">person</mat-icon>
+    </div>
 </div>
+
+<dsh-dropdown width="400px" #claimsDropdown="dshDropdown">
+    Последние заявки
+</dsh-dropdown>
+
+<dsh-dropdown width="180px" #userDropdown="dshDropdown">
+    <dsh-state-nav flat>
+        <dsh-state-nav-item>Документы</dsh-state-nav-item>
+        <dsh-state-nav-item>Выход</dsh-state-nav-item>
+    </dsh-state-nav>
+</dsh-dropdown>
