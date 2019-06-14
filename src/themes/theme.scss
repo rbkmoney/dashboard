@@ -27,8 +27,8 @@
         @include dsh-state-nav-theme($theme);
         @include dsh-legend-tooltip-theme($theme);
         @include dsh-button-theme($theme);
-        @include dsh-float-panel-theme($theme);
         @include dsh-button-toggle-theme($theme);
+        @include dsh-float-panel-theme($theme);
         @include dsh-status-theme($theme);
     }
 }

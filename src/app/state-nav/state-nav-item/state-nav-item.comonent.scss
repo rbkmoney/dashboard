@@ -1,28 +1,36 @@
 $height: 40px;
+$border-radius: 4px;
+$elements-padding: 10px;
+
+:host,
+.dsh-state-nav-item {
+    outline: none;
+}
 
 :host {
     display: block;
     display: flex;
 }
 
-.dsh-step-nav-item {
-    display: block;
+.dsh-state-nav-item {
+    display: flex;
+    align-items: center;
     border: none;
     width: 100%;
     padding: 0;
     margin: 0;
     height: $height;
     line-height: $height;
-    border-radius: 4px;
-    font-weight: normal;
-    font-size: 14px;
+    border-radius: $border-radius;
     cursor: pointer;
     text-align: left;
-    padding: 0 9.5px;
     background-color: transparent;
-    outline: none;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     transition: background-color 0.1s ease-out, color 0.1s ease-out;
+
+    & > ::ng-deep * {
+        margin-right: $elements-padding;
+    }
 }

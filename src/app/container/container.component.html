@@ -1,15 +1,9 @@
 <div class="container">
     <dsh-toolbar></dsh-toolbar>
-    <div class="nav">
-        <button routerLink="/onboarding">Заявка на подключение</button>
-        <button routerLink="/analytics">Графики</button>
-        <button routerLink="/table">Таблица</button>
-        <button routerLink="/buttons">Кнопки</button>
-        <button routerLink="/tabs">Tabs</button>
-        <button routerLink="/operations">Операции</button>
-        <button routerLink="/inputs">Поля ввода</button>
-    </div>
-    <div class="content">
-        <ng-content></ng-content>
+    <div fxLayout="row" fxLayoutGap="20px" class="content">
+        <dsh-nav class="nav"></dsh-nav>
+        <div fxFlex>
+            <ng-content></ng-content>
+        </div>
     </div>
 </div>

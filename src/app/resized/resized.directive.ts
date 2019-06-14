@@ -11,16 +11,16 @@ export class ResizedDirective implements OnInit, OnDestroy {
     private currentEvent: ResizedEvent;
     private resizeSensor: ResizeSensor;
 
-    constructor(private readonly element: ElementRef) {
+    constructor(private readonly elementRef: ElementRef<HTMLElement>) {
         this.currentEvent = {
-            element: this.element,
+            element: this.elementRef,
             width: 0,
             height: 0
         };
     }
 
     ngOnInit() {
-        this.resizeSensor = new ResizeSensor(this.element.nativeElement, () => this.resize());
+        this.resizeSensor = new ResizeSensor(this.elementRef.nativeElement, () => this.resize());
     }
 
     ngOnDestroy() {
@@ -28,13 +28,12 @@ export class ResizedDirective implements OnInit, OnDestroy {
     }
 
     private resize() {
-        const width = this.element.nativeElement.clientWidth;
-        const height = this.element.nativeElement.clientHeight;
+        const { width, height } = this.elementRef.nativeElement.getBoundingClientRect();
         if (width === this.currentEvent.width && height === this.currentEvent.height) {
             return;
         }
         const event = {
-            element: this.element,
+            element: this.elementRef,
             width,
             height,
             oldWidth: this.currentEvent.width,

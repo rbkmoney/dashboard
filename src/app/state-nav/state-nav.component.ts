@@ -1,21 +1,62 @@
-import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import {
+    Component,
+    ContentChildren,
+    QueryList,
+    EventEmitter,
+    Output,
+    Input,
+    HostBinding,
+    ViewEncapsulation
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { StateNavItemComponent } from './state-nav-item/state-nav-item.component';
+import { StateNavItemComponent } from './state-nav-item';
 
 @Component({
     selector: 'dsh-state-nav',
     templateUrl: 'state-nav.component.html',
-    styleUrls: ['state-nav.component.scss']
+    styleUrls: ['state-nav.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class StateNavComponent {
-    @Output()
-    selectedIndexChange = new EventEmitter<number>();
+    private _flat = false;
+    @HostBinding('class.dsh-state-nav-flat')
+    @Input()
+    set flat(flat) {
+        this._flat = coerceBooleanProperty(flat);
+    }
+    get flat() {
+        return this._flat;
+    }
 
+    @Output()
+    selectedIdxChange = new EventEmitter<number>();
+
+    set selectedIdx(selectedIdx) {
+        const selectedCount = this.items.toArray().filter(({ selected }) => selected).length;
+        (selectedIdx === -1 ? this.items : this.items.filter(({}, idx) => idx !== selectedIdx)).forEach(
+            item => (item.selected = false)
+        );
+        if (selectedCount > 1) {
+            if (selectedIdx !== -1) {
+                this.items.toArray()[selectedIdx].selected = true;
+            }
+            this.selectedIdxChange.next(selectedIdx);
+        }
+    }
+    get selectedIdx() {
+        return this.items.toArray().findIndex(({ selected }) => selected);
+    }
+
+    private _items: QueryList<StateNavItemComponent>;
     @ContentChildren(StateNavItemComponent)
-    set items(items: QueryList<StateNavItemComponent>) {
+    set items(items) {
+        this._items = items;
         this.updateSelectionSubscriptions(items);
+    }
+    get items() {
+        return this._items;
     }
 
     private selectionSubscriptions: Subscription[] = [];
@@ -25,16 +66,15 @@ export class StateNavComponent {
             this.selectionSubscriptions.pop().unsubscribe();
         }
         this.selectionSubscriptions = items.map((item, idx) =>
-            item.active$.pipe(filter(active => active)).subscribe(() => this.selectItem(idx, items))
+            item.selected$.subscribe(selected => this.selectionManage(idx, selected))
         );
     }
 
-    private selectItem(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
-        this.cleanSelections(selectedIdx, items);
-        this.selectedIndexChange.next(selectedIdx);
-    }
-
-    private cleanSelections(selectedIdx: number, items: QueryList<StateNavItemComponent>) {
-        items.filter((item, idx) => idx !== selectedIdx).forEach(item => item.unselect());
+    private selectionManage(changedIdx: number, selected: boolean) {
+        if (selected) {
+            this.selectedIdx = changedIdx;
+        } else if (this.selectedIdx === changedIdx) {
+            this.selectedIdx = -1;
+        }
     }
 }
