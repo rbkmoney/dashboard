@@ -5,7 +5,6 @@ import { MainModule } from './main';
 import { AnalyticsModule } from './analytics';
 import { PageNotFoundModule } from './page-not-found';
 import { TableModule } from './table';
-import { TabsModule } from './tabs/tabs-section.module';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { OperationsModule } from './operations/operations.module';
@@ -18,7 +17,6 @@ import { InputsModule } from './inputs/inputs.module';
         AnalyticsModule,
         PageNotFoundModule,
         TableModule,
-        TabsModule,
         OnboardingModule,
         ButtonsModule,
         OperationsModule,

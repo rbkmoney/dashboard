@@ -6,6 +6,7 @@ import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
 import { DshButtonToggleModule } from '../../button-toggle';
+import { DshTabsModule } from '../../tabs';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { DshButtonToggleModule } from '../../button-toggle';
         DshButtonToggleModule,
         MatFormFieldModule,
         MatInputModule,
-        MatIconModule
+        MatIconModule,
+        DshTabsModule
     ],
     declarations: [OperationsComponent]
 })
