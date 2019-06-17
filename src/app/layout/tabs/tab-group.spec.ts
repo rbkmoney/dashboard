@@ -10,7 +10,6 @@ import { DshTabComponent } from './tab.component';
 import { DshTabGroupComponent, DshTabHeaderPosition } from './tab-group.component';
 
 describe('DshTabGroupComponentComponent', () => {
-
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [DshTabsModule, NoopAnimationsModule],
@@ -59,8 +58,8 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should update tab positions when selected index is changed', () => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent =
-                fixture.debugElement.query(By.css('dsh-tab-group')).componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+                .componentInstance;
             const tabs: DshTabComponent[] = component._tabs.toArray();
 
             expect(tabs[0].position).toBeLessThan(0);
@@ -82,8 +81,8 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should clamp the selected index to the size of the number of tabs', () => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent =
-                fixture.debugElement.query(By.css('dsh-tab-group')).componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+                .componentInstance;
 
             fixture.componentInstance.selectedIndex = -1;
             fixture.detectChanges();
@@ -102,7 +101,6 @@ describe('DshTabGroupComponentComponent', () => {
                 fixture.detectChanges();
             }).not.toThrow();
         });
-
     });
 
     describe('disable tabs', () => {
@@ -129,40 +127,38 @@ describe('DshTabGroupComponentComponent', () => {
             fixture.detectChanges();
         }));
 
-        it('should be able to add a new tab, select it, and have correct origin position',
-            fakeAsync(() => {
-                const component: DshTabGroupComponent =
-                    fixture.debugElement.query(By.css('dsh-tab-group')).componentInstance;
+        it('should be able to add a new tab, select it, and have correct origin position', fakeAsync(() => {
+            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+                .componentInstance;
 
-                let tabs: DshTabComponent[] = component._tabs.toArray();
-                expect(tabs[0].origin).toBe(null);
-                expect(tabs[1].origin).toBe(0);
-                expect(tabs[2].origin).toBe(null);
+            let tabs: DshTabComponent[] = component._tabs.toArray();
+            expect(tabs[0].origin).toBe(null);
+            expect(tabs[1].origin).toBe(0);
+            expect(tabs[2].origin).toBe(null);
 
-                fixture.componentInstance.tabs.push({ label: 'New tab', content: 'to right of index' });
-                fixture.componentInstance.selectedIndex = 4;
-                fixture.detectChanges();
-                tick();
+            fixture.componentInstance.tabs.push({ label: 'New tab', content: 'to right of index' });
+            fixture.componentInstance.selectedIndex = 4;
+            fixture.detectChanges();
+            tick();
 
-                tabs = component._tabs.toArray();
-                expect(tabs[3].origin).toBeGreaterThanOrEqual(0);
+            tabs = component._tabs.toArray();
+            expect(tabs[3].origin).toBeGreaterThanOrEqual(0);
 
-                fixture.componentInstance.selectedIndex = 0;
-                fixture.detectChanges();
-                tick();
+            fixture.componentInstance.selectedIndex = 0;
+            fixture.detectChanges();
+            tick();
 
-                fixture.componentInstance.tabs.push({ label: 'New tab', content: 'to left of index' });
-                fixture.detectChanges();
-                tick();
+            fixture.componentInstance.tabs.push({ label: 'New tab', content: 'to left of index' });
+            fixture.detectChanges();
+            tick();
 
-                tabs = component._tabs.toArray();
-                expect(tabs[0].origin).toBeLessThan(0);
-            }));
-
+            tabs = component._tabs.toArray();
+            expect(tabs[0].origin).toBeLessThan(0);
+        }));
 
         it('should update selected index if the last tab removed while selected', fakeAsync(() => {
-            const component: DshTabGroupComponent =
-                fixture.debugElement.query(By.css('dsh-tab-group')).componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+                .componentInstance;
 
             const numberOfTabs = component._tabs.length;
             fixture.componentInstance.selectedIndex = numberOfTabs - 1;
@@ -178,8 +174,8 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should be able to select a new tab after creation', fakeAsync(() => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent =
-                fixture.debugElement.query(By.css('dsh-tab-group')).componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+                .componentInstance;
 
             fixture.componentInstance.tabs.push({ label: 'Last tab', content: 'at the end' });
             fixture.componentInstance.selectedIndex = 3;
@@ -190,33 +186,33 @@ describe('DshTabGroupComponentComponent', () => {
             expect(component.selectedIndex).toBe(3);
             expect(component._tabs.toArray()[3].isActive).toBe(true);
         }));
-
     });
 
     function checkSelectedIndex(expectedIndex: number, fixture: ComponentFixture<any>) {
         fixture.detectChanges();
 
-        const tabComponent: DshTabGroupComponent = fixture.debugElement
-            .query(By.css('dsh-tab-group')).componentInstance;
+        const tabComponent: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
+            .componentInstance;
         expect(tabComponent.selectedIndex).toBe(expectedIndex);
 
-        const tabLabelElement = fixture.debugElement
-            .query(By.css(`.dsh-tab-label:nth-of-type(${expectedIndex + 1})`)).nativeElement;
+        const tabLabelElement = fixture.debugElement.query(By.css(`.dsh-tab-label:nth-of-type(${expectedIndex + 1})`))
+            .nativeElement;
         expect(tabLabelElement.classList.contains('dsh-tab-label-active')).toBe(true);
 
-        const tabContentElement = fixture.debugElement
-            .query(By.css(`dsh-tab-body:nth-of-type(${expectedIndex + 1})`)).nativeElement;
+        const tabContentElement = fixture.debugElement.query(By.css(`dsh-tab-body:nth-of-type(${expectedIndex + 1})`))
+            .nativeElement;
         expect(tabContentElement.classList.contains('dsh-tab-body-active')).toBe(true);
     }
-
 });
 
 @Component({
     template: `
-        <dsh-tab-group class="tab-group"
-                       [(selectedIndex)]="selectedIndex"
-                       [headerPosition]="headerPosition"
-                       (selectedTabChange)="handleSelection($event)">
+        <dsh-tab-group
+            class="tab-group"
+            [(selectedIndex)]="selectedIndex"
+            [headerPosition]="headerPosition"
+            (selectedTabChange)="handleSelection($event)"
+        >
             <dsh-tab>
                 <ng-template dsh-tab-label>Tab One</ng-template>
                 Tab one content
@@ -241,17 +237,18 @@ class SimpleTabsTestAppComponent {
     handleSelection(event: any) {
         this.selectEvent = event;
     }
-
 }
 
 @Component({
     template: `
-        <dsh-tab-group class="tab-group"
-                       [(selectedIndex)]="selectedIndex"
-                       (selectedTabChange)="handleSelection($event)">
+        <dsh-tab-group
+            class="tab-group"
+            [(selectedIndex)]="selectedIndex"
+            (selectedTabChange)="handleSelection($event)"
+        >
             <dsh-tab *ngFor="let tab of tabs">
-                <ng-template dsh-tab-label>{{tab.label}}</ng-template>
-                {{tab.content}}
+                <ng-template dsh-tab-label>{{ tab.label }}</ng-template>
+                {{ tab.content }}
             </dsh-tab>
         </dsh-tab-group>
     `
@@ -273,17 +270,14 @@ class SimpleDynamicTabsTestAppComponent {
 @Component({
     template: `
         <dsh-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
-            <dsh-tab *ngFor="let tab of tabs" label="{{tab.label}}">
-                {{tab.content}}
+            <dsh-tab *ngFor="let tab of tabs" label="{{ tab.label }}">
+                {{ tab.content }}
             </dsh-tab>
         </dsh-tab-group>
     `
 })
 class BindedTabsTestAppComponent {
-    tabs = [
-        { label: 'one', content: 'one' },
-        { label: 'two', content: 'two' }
-    ];
+    tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
     selectedIndex = 0;
 }
 
@@ -322,10 +316,7 @@ class DisabledTabsTestAppComponent {
     `
 })
 class AsyncTabsTestAppComponent implements OnInit {
-    private _tabs = [
-        { label: 'one', content: 'one' },
-        { label: 'two', content: 'two' }
-    ];
+    private _tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
 
     tabs: Observable<any>;
 
@@ -337,13 +328,12 @@ class AsyncTabsTestAppComponent implements OnInit {
     }
 }
 
-
 @Component({
     template: `
         <dsh-tab-group>
             <dsh-tab label="Junk food"> Pizza, fries</dsh-tab>
             <dsh-tab label="Vegetables"> Broccoli, spinach</dsh-tab>
-            <dsh-tab [label]="otherLabel"> {{otherContent}} </dsh-tab>
+            <dsh-tab [label]="otherLabel"> {{ otherContent }} </dsh-tab>
             <dsh-tab label="Legumes"><p #legumes>Peanuts</p></dsh-tab>
         </dsh-tab-group>
     `
@@ -353,7 +343,6 @@ class TabGroupWithSimpleApiComponent {
     otherContent = 'Apples, grapes';
     @ViewChild('legumes') legumes: any;
 }
-
 
 @Component({
     selector: 'dsh-nested-tabs',
@@ -389,7 +378,6 @@ class NestedTabsComponent {}
 })
 class TemplateTabsComponent {}
 
-
 @Component({
     template: `
         <dsh-tab-group>
@@ -402,7 +390,6 @@ class TabGroupWithAriaInputsComponent {
     ariaLabelledby: string;
 }
 
-
 @Component({
     template: `
         <dsh-tab-group>
@@ -413,5 +400,4 @@ class TabGroupWithAriaInputsComponent {
         <div *ngIf="pizza.isActive">pizza is active</div>
     `
 })
-class TabGroupWithIsActiveBindingComponent {
-}
+class TabGroupWithIsActiveBindingComponent {}
