@@ -1,4 +1,4 @@
-@import '~@angular/cdk/a11y';
+@import '../../../../node_modules/@angular/cdk/a11y';
 
 @mixin dsh-tabs-theme($theme) {
     $primary: map-get($theme, primary);
@@ -9,7 +9,6 @@
 
     .dsh {
         &-tab-label {
-            min-width: 100px;
             color: map-get($foreground, text);
         }
 
@@ -18,19 +17,14 @@
         }
 
         &-tab-labels {
-            border-bottom: 1px solid map-get($background, tab-header-divider);
+            border-color: map-get($foreground, divider);
         }
 
         &-ink-bar {
             background-color: map-get($primary, 400);
-            position: absolute;
-            bottom: 0;
-            height: 2px;
-            transition: 500ms ease;
         }
 
-        &-tab-label[ng-reflect-disabled='true'] {
-            cursor: default;
+        &-tab-label-disabled {
             color: map-get($foreground, disabled-text);
         }
     }

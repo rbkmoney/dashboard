@@ -13,7 +13,7 @@
         [attr.aria-label]="tab.ariaLabel || null"
         [attr.aria-labelledby]="!tab.ariaLabel && tab.ariaLabelledby ? tab.ariaLabelledby : null"
         [class.dsh-tab-label-active]="_isActive(i)"
-        [disabled]="tab.disabled"
+        [class.dsh-tab-label-disabled]="tab.disabled"
         (click)="_handleClick(tab, i)"
     >
         <div class="dsh-tab-label-content">

@@ -67,8 +67,6 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
 
     @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output() readonly animationDone: EventEmitter<void> = new EventEmitter<void>();
-
     @Output() readonly selectedTabChange: EventEmitter<DshTabChangeEvent> = new EventEmitter<DshTabChangeEvent>(true);
 
     private readonly _groupId: number;
