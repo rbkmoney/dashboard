@@ -13,9 +13,13 @@ export class KeycloakService {
         return true;
     }
 
-    async login(options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {}
+    async login(options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {
+        console.info('login');
+    }
 
-    async logout(redirectUri?: string): Promise<void> {}
+    async logout(redirectUri?: string): Promise<void> {
+        console.info('logout');
+    }
 
     async register(options: Keycloak.KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
