@@ -9,9 +9,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { StateNavItemComponent } from './state-nav-item';
+import { coerceBoolean } from '../../utils';
 
 @Component({
     selector: 'dsh-state-nav',
@@ -20,15 +20,10 @@ import { StateNavItemComponent } from './state-nav-item';
     encapsulation: ViewEncapsulation.None
 })
 export class StateNavComponent {
-    private _flat = false;
     @HostBinding('class.dsh-state-nav-flat')
     @Input()
-    set flat(flat) {
-        this._flat = coerceBooleanProperty(flat);
-    }
-    get flat() {
-        return this._flat;
-    }
+    @coerceBoolean
+    flat = false;
 
     @Output()
     selectedIdxChange = new EventEmitter<number>();
