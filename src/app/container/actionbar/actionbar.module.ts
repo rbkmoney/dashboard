@@ -8,7 +8,8 @@ import { DropdownModule } from '../../dropdown';
 import { StateNavModule } from '../../state-nav';
 import { ButtonModule } from '../../button';
 import { StatusModule } from '../../status';
-import { ClaimListComponent, ClaimListItemComponent } from './claim-list';
+import { UserComponent } from './user';
+import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 
 @NgModule({
     imports: [
@@ -20,7 +21,7 @@ import { ClaimListComponent, ClaimListItemComponent } from './claim-list';
         ButtonModule,
         StatusModule
     ],
-    declarations: [ActionbarComponent, ClaimListComponent, ClaimListItemComponent],
+    declarations: [ActionbarComponent, ClaimsListComponent, ClaimsListItemComponent, UserComponent, ClaimsComponent],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { KeycloakService } from '../../auth';
 
 import { DropdownTriggerDirective } from '../../dropdown';
 import { ThemeService } from '../../theme';
@@ -12,11 +11,7 @@ import { ThemeService } from '../../theme';
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
-    constructor(private themeService: ThemeService, private keycloakService: KeycloakService) {}
-
-    async logout() {
-        await this.keycloakService.logout();
-    }
+    constructor(private themeService: ThemeService) {}
 
     changeTheme() {
         this.themeService.changeTheme();

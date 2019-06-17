@@ -11,30 +11,9 @@
 </div>
 
 <dsh-dropdown width="590px" #claimsDropdown="dshDropdown">
-    <dsh-dropdown-content fxLayout="column" fxLayoutGap="10px">
-        <div>
-            <h1 class="mat-title">Последние заявки</h1>
-            <dsh-claim-list>
-                <dsh-claim-list-item status="Одобрена" color="success">Заявка на подключение</dsh-claim-list-item>
-                <dsh-claim-list-item status="Отклонена" color="warn"
-                    >Изменение данных средсва вывода</dsh-claim-list-item
-                >
-                <dsh-claim-list-item status="На рассмотрении">Изменение расписания вывода средств</dsh-claim-list-item>
-                <dsh-claim-list-item status="Требуются ваши действия" color="pending"
-                    >Изменения данных контракта</dsh-claim-list-item
-                >
-                <dsh-claim-list-item status="На рассмотрении">Изменения данных контракта</dsh-claim-list-item>
-            </dsh-claim-list>
-        </div>
-        <button dsh-button class="action">Перейти ко всем заявкам</button>
-    </dsh-dropdown-content>
+    <dsh-claims></dsh-claims>
 </dsh-dropdown>
 
 <dsh-dropdown width="180px" #userDropdown="dshDropdown">
-    <dsh-dropdown-actions>
-        <dsh-state-nav flat>
-            <dsh-state-nav-item>Документы</dsh-state-nav-item>
-            <dsh-state-nav-item (click)="logout()">Выход</dsh-state-nav-item>
-        </dsh-state-nav>
-    </dsh-dropdown-actions>
+    <dsh-user></dsh-user>
 </dsh-dropdown>
