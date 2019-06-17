@@ -14,52 +14,17 @@
     <dsh-dropdown-content fxLayout="column" fxLayoutGap="10px">
         <div>
             <h1 class="mat-title">Последние заявки</h1>
-            <table class="table">
-                <tr>
-                    <td>
-                        Заявка на подключение
-                    </td>
-                    <td>
-                        <dsh-status color="success">Одобрена</dsh-status>
-                    </td>
-                    <td>
-                        <mat-icon>more_vert</mat-icon>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Заявка на подключение
-                    </td>
-                    <td>
-                        <dsh-status color="success">Одобрена</dsh-status>
-                    </td>
-                    <td>
-                        <mat-icon>more_vert</mat-icon>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Заявка на подключение
-                    </td>
-                    <td>
-                        <dsh-status color="success">Одобрена</dsh-status>
-                    </td>
-                    <td>
-                        <mat-icon>more_vert</mat-icon>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Заявка на подключение
-                    </td>
-                    <td>
-                        <dsh-status color="success">Одобрена</dsh-status>
-                    </td>
-                    <td>
-                        <mat-icon>more_vert</mat-icon>
-                    </td>
-                </tr>
-            </table>
+            <dsh-claim-list>
+                <dsh-claim-list-item status="Одобрена" color="success">Заявка на подключение</dsh-claim-list-item>
+                <dsh-claim-list-item status="Отклонена" color="warn"
+                    >Изменение данных средсва вывода</dsh-claim-list-item
+                >
+                <dsh-claim-list-item status="На рассмотрении">Изменение расписания вывода средств</dsh-claim-list-item>
+                <dsh-claim-list-item status="Требуются ваши действия" color="pending"
+                    >Изменения данных контракта</dsh-claim-list-item
+                >
+                <dsh-claim-list-item status="На рассмотрении">Изменения данных контракта</dsh-claim-list-item>
+            </dsh-claim-list>
         </div>
         <button dsh-button class="action">Перейти ко всем заявкам</button>
     </dsh-dropdown-content>

@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutGap="10px" style="height: 50px" fxLayoutAlign="space-between center">
+    <div fxFlex="50">
+        <ng-content></ng-content>
+    </div>
+    <div fxFlex>
+        <dsh-status [color]="color">{{ status }}</dsh-status>
+    </div>
+    <div>
+        <button dsh-icon-button (click)="clickHandler($event)"><mat-icon>more_vert</mat-icon></button>
+    </div>
+</div>
