@@ -12,6 +12,10 @@ export const config: Config = {
     },
     konturFocus: {
         apiV3Url: 'https://focus-api.kontur.ru/api3'
+    },
+    ext: {
+        docsEndpoint: 'https://rbkmoney.github.io/docs',
+        supportEmail: 'support@rbkmoney.com'
     }
 };
 

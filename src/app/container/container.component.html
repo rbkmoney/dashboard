@@ -1,7 +1,8 @@
+<dsh-welcome-image *ngIf="isMainPage()"></dsh-welcome-image>
 <div class="container">
-    <dsh-toolbar></dsh-toolbar>
-    <div fxLayout="row" fxLayoutGap="20px" class="content">
-        <dsh-nav class="nav"></dsh-nav>
+    <dsh-toolbar [brandType]="brandType()"></dsh-toolbar>
+    <div class="content" fxLayout="row" fxLayoutGap="20px">
+        <dsh-nav *ngIf="!isMainPage()" class="nav"></dsh-nav>
         <div fxFlex>
             <ng-content></ng-content>
         </div>
