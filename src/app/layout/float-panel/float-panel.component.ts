@@ -39,10 +39,7 @@ export class FloatPanelComponent {
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
 
-    cardHeight = {
-        base: 0,
-        current: 0
-    };
+    baseContentHeight = 0;
 
     private isExpanding = false;
 
@@ -73,12 +70,8 @@ export class FloatPanelComponent {
         }
     }
 
-    setCardHeight(height: number) {
-        if (!this.expanded && !this.isExpanding && height !== 0) {
-            this.cardHeight.base = height;
-        }
-        this.cardHeight.current = height;
-        this.ref.detectChanges();
+    setBaseContentHeight(height: number) {
+        this.baseContentHeight = height;
     }
 
     private resetExpandTriggerManage() {
