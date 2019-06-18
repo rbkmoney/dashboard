@@ -1,36 +1,44 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-headline">Операции</h1>
-    <dsh-float-panel>
-        <dsh-justify-wrapper>
-            <dsh-button-toggle-group fxFlex="324px">
-                <dsh-button-toggle value="today">
-                    Сегодня
-                </dsh-button-toggle>
-                <dsh-button-toggle value="week">
-                    Неделя
-                </dsh-button-toggle>
-                <dsh-button-toggle value="month">
-                    Месяц
-                </dsh-button-toggle>
-                <dsh-button-toggle value="more">
-                    <mat-icon>more_horiz</mat-icon>
-                </dsh-button-toggle>
-            </dsh-button-toggle-group>
-            <mat-form-field>
-                <mat-label>Статус платежа</mat-label>
-                <input matInput />
-            </mat-form-field>
-        </dsh-justify-wrapper>
-        <dsh-float-panel-actions>
-            <button dsh-button>
-                Сбросить параметры поиска
-            </button>
-        </dsh-float-panel-actions>
-        <dsh-float-panel-more>
-            <div style="height: 250px"></div>
-        </dsh-float-panel-more>
-    </dsh-float-panel>
-    <dsh-card>
-        <dsh-card-content style="height: 500px"> </dsh-card-content>
-    </dsh-card>
+    <dsh-tab-group>
+        <dsh-tab label="Платежи">
+            <div fxLayout="column" fxLayoutGap="20px">
+                <dsh-float-panel fxFlexOffset="20px">
+                    <dsh-justify-wrapper>
+                        <dsh-button-toggle-group fxFlex="324px">
+                            <dsh-button-toggle value="today">
+                                Сегодня
+                            </dsh-button-toggle>
+                            <dsh-button-toggle value="week">
+                                Неделя
+                            </dsh-button-toggle>
+                            <dsh-button-toggle value="month">
+                                Месяц
+                            </dsh-button-toggle>
+                            <dsh-button-toggle value="more">
+                                <mat-icon>more_horiz</mat-icon>
+                            </dsh-button-toggle>
+                        </dsh-button-toggle-group>
+                        <mat-form-field>
+                            <mat-label>Статус платежа</mat-label>
+                            <input matInput />
+                        </mat-form-field>
+                    </dsh-justify-wrapper>
+                    <dsh-float-panel-actions>
+                        <button dsh-button>
+                            Сбросить параметры поиска
+                        </button>
+                    </dsh-float-panel-actions>
+                    <dsh-float-panel-more>
+                        <div style="height: 250px"></div>
+                    </dsh-float-panel-more>
+                </dsh-float-panel>
+                <dsh-card>
+                    <dsh-card-content style="height: 500px"> </dsh-card-content>
+                </dsh-card>
+            </div>
+        </dsh-tab>
+        <dsh-tab label="Возвраты">Возвраты</dsh-tab>
+        <dsh-tab label="Инвойсы" disabled>Инвойсы</dsh-tab>
+    </dsh-tab-group>
 </div>

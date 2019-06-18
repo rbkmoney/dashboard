@@ -1,0 +1,43 @@
+@import '../../../../node_modules/@angular/cdk/a11y';
+
+@mixin dsh-tabs-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    .dsh {
+        &-tab-label {
+            color: map-get($foreground, text);
+        }
+
+        &-tab-label-active {
+            color: map-get($primary, 400);
+        }
+
+        &-tab-labels {
+            border-color: map-get($foreground, divider);
+        }
+
+        &-ink-bar {
+            background-color: map-get($primary, 400);
+        }
+
+        &-tab-label-disabled {
+            color: map-get($foreground, disabled-text);
+        }
+    }
+}
+
+@mixin dsh-tabs-typography($config) {
+    .dsh {
+        &-tab-label {
+            font: {
+                family: mat-font-family($config, subheading-2);
+                size: mat-font-size($config, subheading-2);
+                weight: mat-font-weight($config, subheading-2);
+            }
+        }
+    }
+}
