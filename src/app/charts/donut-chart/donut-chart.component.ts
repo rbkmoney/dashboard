@@ -17,11 +17,14 @@ export class DonutChartComponent implements OnChanges, OnInit {
     @Input()
     data: SegmentData[];
 
+    @Input()
+    config: DonutChartConfig;
+
     constructor(private donutChartService: DonutChartService) {}
 
     ngOnInit() {
         const element = this.chartContainer.nativeElement;
-        this.donutChartService.initChart(this.data, element);
+        this.donutChartService.initChart(this.data, element, this.config);
     }
 
     ngOnChanges(changes: SimpleChanges) {

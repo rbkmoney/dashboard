@@ -1,0 +1,42 @@
+<dsh-tab-header #tabHeader [selectedIndex]="selectedIndex">
+    <div
+        class="dsh-tab-label"
+        role="tab"
+        dshTabLabelWrapper
+        *ngFor="let tab of _tabs; let i = index"
+        [id]="_getTabLabelId(i)"
+        [attr.tabIndex]="_getTabIndex(i)"
+        [attr.aria-posinset]="i + 1"
+        [attr.aria-setsize]="_tabs.length"
+        [attr.aria-controls]="_getTabContentId(i)"
+        [attr.aria-selected]="_isActive(i)"
+        [attr.aria-label]="tab.ariaLabel || null"
+        [attr.aria-labelledby]="!tab.ariaLabel && tab.ariaLabelledby ? tab.ariaLabelledby : null"
+        [class.dsh-tab-label-active]="_isActive(i)"
+        [class.dsh-tab-label-disabled]="tab.disabled"
+        (click)="_handleClick(tab, i)"
+    >
+        <div class="dsh-tab-label-content">
+            <ng-template [ngIf]="tab.templateLabel">
+                <ng-template [cdkPortalOutlet]="tab.templateLabel"></ng-template>
+            </ng-template>
+
+            <ng-template [ngIf]="!tab.templateLabel">{{ tab.textLabel }}</ng-template>
+        </div>
+    </div>
+</dsh-tab-header>
+
+<div class="dsh-tab-body-wrapper" #tabBodyWrapper>
+    <dsh-tab-body
+        role="tabpanel"
+        *ngFor="let tab of _tabs; let i = index"
+        [id]="_getTabContentId(i)"
+        [attr.aria-labelledby]="_getTabLabelId(i)"
+        [class.dsh-tab-body-active]="_isActive(i)"
+        [content]="tab.content"
+        [position]="tab.position"
+        [origin]="tab.origin"
+        [animationDuration]="animationDuration"
+    >
+    </dsh-tab-body>
+</div>
