@@ -7,8 +7,8 @@ import { Color } from './state-nav-item';
 
 @Component({
     template: `
-        <dsh-state-nav (selectedIndexChange)="selectItem($event)">
-            <dsh-state-nav-item active>first</dsh-state-nav-item>
+        <dsh-state-nav (selectedIdxChange)="selectItem($event)" [autoselect]="autoselect">
+            <dsh-state-nav-item selected>first</dsh-state-nav-item>
             <dsh-state-nav-item color="warn">second</dsh-state-nav-item>
             <dsh-state-nav-item color="success">third</dsh-state-nav-item>
             <dsh-state-nav-item>last</dsh-state-nav-item>
@@ -17,6 +17,7 @@ import { Color } from './state-nav-item';
 })
 class SimpleStateNavComponent {
     idx: number;
+    autoselect = false;
 
     selectItem(idx: number) {
         this.idx = idx;
@@ -48,17 +49,17 @@ describe('DshStateNav', () => {
         expect(item.textContent).toBe('second');
     });
 
-    describe('Active', () => {
-        it('should be init active/selected', () => {
+    describe('Selected', () => {
+        it('should be init selected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[0].componentInstance;
-            expect(item.active$.value).toBe(true);
+            expect(item.selected).toBe(true);
         });
 
-        it('should be init unactive/unselected', () => {
+        it('should be init unselected', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.active$.value).toBe(false);
+            expect(item.selected).toBe(false);
         });
     });
 
@@ -97,27 +98,40 @@ describe('DshStateNav', () => {
     describe('Item selection', () => {
         function createAndSelect() {
             const fixture = createComponent(SimpleStateNavComponent);
-            const [item, ...others] = getAllItems(fixture);
+            const [first, item, ...others] = getAllItems(fixture);
             spyOn(fixture.componentInstance, 'selectItem');
             item.query(By.css('*')).nativeElement.click();
             fixture.detectChanges();
-            return { fixture, item, others };
+            return { fixture, item, others: [first, ...others] };
         }
 
         it('should be event handler called after click', () => {
             const { fixture } = createAndSelect();
             expect(fixture.componentInstance.selectItem).toHaveBeenCalled();
         });
+    });
+
+    describe('Autoselect', () => {
+        function createAndSelect() {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const [first, item, ...others] = getAllItems(fixture);
+            fixture.componentInstance.autoselect = true;
+            fixture.detectChanges();
+            spyOn(fixture.componentInstance, 'selectItem');
+            item.query(By.css('*')).nativeElement.click();
+            fixture.detectChanges();
+            return { fixture, item, others: [first, ...others] };
+        }
 
         it('should be selected after click', () => {
             const { item } = createAndSelect();
-            expect(item.componentInstance.active$.value).toBe(true);
+            expect((item.componentInstance as StateNavItemComponent).selected).toBe(true);
         });
 
         it('should be others unselected after click', () => {
             const { others } = createAndSelect();
             for (const item of others) {
-                expect(item.componentInstance.active$.value).toBe(false);
+                expect((item.componentInstance as StateNavItemComponent).selected).toBe(false);
             }
         });
     });

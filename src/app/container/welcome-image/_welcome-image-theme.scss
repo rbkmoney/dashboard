@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-welcome-image-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-welcome-image {
+        background-color: mat-color($primary, 400);
+    }
+}

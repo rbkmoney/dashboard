@@ -1,7 +1,7 @@
 <li
-    class="dsh-step-nav-item"
+    class="dsh-state-nav-item"
     (click)="clickHandler($event)"
-    [ngClass]="{ active: active$ | async, success: color === 'success', warn: color === 'warn' }"
+    [ngClass]="{ selected: selected, success: color === 'success', warn: color === 'warn' }"
 >
     <ng-content></ng-content>
 </li>

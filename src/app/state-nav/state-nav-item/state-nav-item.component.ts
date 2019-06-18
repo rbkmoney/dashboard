@@ -1,5 +1,7 @@
-import { Component, Input, EventEmitter } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import { coerceBoolean } from '../../../utils';
 
 export enum Color {
     success = 'success',
@@ -13,30 +15,15 @@ export enum Color {
 })
 export class StateNavItemComponent {
     @Input()
-    set active(active: boolean | '') {
-        if (active !== false) {
-            this.select();
-        }
-    }
+    @coerceBoolean
+    selected = false;
 
     @Input()
     color: Color | keyof typeof Color;
 
-    @Input()
-    click = new EventEmitter<MouseEvent>();
-
-    active$ = new BehaviorSubject(false);
+    attemptToSelect$ = new Subject<boolean>();
 
     clickHandler(event: MouseEvent) {
-        this.click.next(event);
-        this.select();
-    }
-
-    select() {
-        this.active$.next(true);
-    }
-
-    unselect() {
-        this.active$.next(false);
+        this.attemptToSelect$.next(true);
     }
 }

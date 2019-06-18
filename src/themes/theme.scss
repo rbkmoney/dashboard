@@ -10,8 +10,11 @@
 @import '../app/state-nav/state-nav-theme';
 @import '../app/charts/legend-tooltip/legend-tooltip-theme';
 @import '../app/button/button-theme';
+@import '../app/layout/tabs/tabs-theme';
 @import '../app/button-toggle/button-toggle-theme';
 @import '../app/status/status-theme';
+@import '../app/sections/main/main-theme';
+@import '../app/container/welcome-image/welcome-image-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -22,11 +25,14 @@
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);
+        @include dsh-tabs-theme($theme);
         @include dsh-state-nav-theme($theme);
         @include dsh-legend-tooltip-theme($theme);
         @include dsh-button-theme($theme);
-        @include dsh-float-panel-theme($theme);
         @include dsh-button-toggle-theme($theme);
+        @include dsh-float-panel-theme($theme);
         @include dsh-status-theme($theme);
+        @include dsh-main-section-theme($theme);
+        @include dsh-welcome-image-theme($theme);
     }
 }

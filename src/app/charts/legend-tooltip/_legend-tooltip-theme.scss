@@ -7,7 +7,7 @@
     .legend-tooltip-container {
         padding: 12px;
         display: none;
-        position: absolute;
+        position: fixed;
         flex-direction: column;
         border-radius: 4px;
         box-shadow: map-get($background, tooltip-shadow);

@@ -27,7 +27,11 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
                     {
                         type: 'file',
                         name: inputs => `${getComponentPath(inputs.name)}.html`,
-                        content: inputs => ``
+                        content: inputs => `
+<div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
+    <ng-content></ng-content>
+</div>
+`
                     },
                     {
                         type: 'file',

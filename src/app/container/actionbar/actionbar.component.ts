@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DropdownTriggerDirective } from '../../dropdown/dropdown-trigger.directive';
+import { DropdownTriggerDirective } from '../../dropdown';
 import { ThemeService } from '../../theme';
 
 @Component({
@@ -12,10 +12,6 @@ export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
     constructor(private themeService: ThemeService) {}
-
-    close() {
-        this.trigger.close();
-    }
 
     changeTheme() {
         this.themeService.changeTheme();

@@ -51,7 +51,11 @@ export class ${getModuletName(inputs.name)} {}
                     {
                         type: 'file',
                         name: inputs => `${getComponentPath(inputs.name)}.html`,
-                        content: inputs => ``
+                        content: inputs => `
+<div class="${PREFIX}-${vsc.toKebabCase(inputs.name)}">
+    <ng-content></ng-content>
+</div>
+`
                     },
                     {
                         type: 'file',

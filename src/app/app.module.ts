@@ -22,6 +22,8 @@ import { AuthModule } from './auth';
 import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
+import { KeycloakService, KeycloakAngularModule } from './auth';
+import { ThemeService, ThemeModule } from './theme';
 import { KeycloakService } from './auth/keycloak';
 import { ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
@@ -42,7 +44,8 @@ import { LocaleService } from './locale/locale.service';
         ThemeModule,
         ConfigModule,
         ContainerModule,
-        SettingsModule
+        SettingsModule,
+        KeycloakAngularModule
     ],
     providers: [
         IconRegistryService,

@@ -1,4 +1,12 @@
-.state-nav {
+$flat-padding: 9.5px;
+
+.dsh-state-nav {
     margin: 0;
     padding: 0;
+
+    &-flat {
+        .dsh-state-nav-item {
+            padding: 0 $flat-padding !important;
+        }
+    }
 }

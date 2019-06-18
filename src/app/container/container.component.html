@@ -1,14 +1,10 @@
+<dsh-welcome-image *ngIf="isMainPage()"></dsh-welcome-image>
 <div class="container">
-    <dsh-toolbar></dsh-toolbar>
-    <div class="nav">
-        <button routerLink="/onboarding">{{ 'REQUEST_FOR_CONNECTION' | lc }}</button>
-        <button routerLink="/analytics">{{ 'CHARTS' | lc }}</button>
-        <button routerLink="/table">{{ 'TABLE' | lc }}</button>
-        <button routerLink="/buttons">{{ 'BUTTONS' | lc }}</button>
-        <button routerLink="/operations">{{ 'OPERATIONS' | lc }}</button>
-        <button routerLink="/inputs">{{ 'INPUTS' | lc }}</button>
-    </div>
-    <div class="content">
-        <ng-content></ng-content>
+    <dsh-toolbar [brandType]="brandType()"></dsh-toolbar>
+    <div class="content" fxLayout="row" fxLayoutGap="20px">
+        <dsh-nav *ngIf="!isMainPage()" class="nav"></dsh-nav>
+        <div fxFlex>
+            <ng-content></ng-content>
+        </div>
     </div>
 </div>

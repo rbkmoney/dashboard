@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 @import '../styles/palette';
 @import './theme';
 
@@ -6,7 +7,6 @@ $background: (
     status-bar: black,
     app-bar: map_get($mat-grey, 900),
     background: #303030,
-    hover: rgba(white, 0.04),
     card: map_get($mat-grey, 800),
     dialog: map_get($mat-grey, 800),
     disabled-button: rgba(white, 0.12),
@@ -17,8 +17,15 @@ $background: (
     disabled-button-toggle: black,
     unselected-chip: map_get($mat-grey, 700),
     disabled-list-option: black,
-    tooltip-shadow: 0 0 8px rgba(white, 0.2),
-    tooltip-line-color: rgba(white, 0.4)
+    /*
+     * Overrides
+     *
+ */ hover: map_get($dsh-gray, 200),
+    /*
+     * Custom
+     *
+ */ tooltip-shadow: 0 0 8px rgba(white, 0.2),
+    tooltip-line-color: rgba(white, 0.1)
 );
 
 $foreground: (
@@ -33,11 +40,17 @@ $foreground: (
     secondary-text: $light-secondary-text,
     icon: white,
     icons: white,
-    text: rgba(white, 0.9),
-    slider-min: rgba(white, 0.9),
     slider-off: rgba(white, 0.3),
     slider-off-active: rgba(white, 0.3),
-    axis-tick-color: rgba(white, 0.1),
+    /*
+     * Overrides
+     *
+ */ text: rgba(white, 0.9),
+    slider-min: rgba(white, 0.9),
+    /*
+     * Custom
+     *
+ */ axis-tick-color: rgba(white, 0.1),
     x-axis-text-color: rgba(white, 0.5),
     y-axis-text-color: rgba(white, 0.7),
     legend-tooltip-date-color: rgba(white, 0.5)

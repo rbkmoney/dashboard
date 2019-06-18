@@ -1,0 +1,13 @@
+$dsh-header-container-padding: 60px 0 0 80px;
+
+.header-container {
+    padding: $dsh-header-container-padding;
+
+    .title {
+        margin-bottom: 0;
+    }
+
+    .link {
+        text-decoration: none;
+    }
+}
