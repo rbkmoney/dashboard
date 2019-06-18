@@ -7,11 +7,18 @@ import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
 import { PaymentsComponent } from './payments/payments.component';
 import { DshTableModule } from '../../table';
-import { LocalePipe } from '../../locale/locale.pipe';
+import { LocaleModule } from '../../locale/locale.module';
 
 @NgModule({
-    imports: [LayoutModule, FlexLayoutModule, ButtonModule, MatFormFieldModule, MatInputModule, DshTableModule],
-    exports: [LocalePipe],
-    declarations: [OperationsComponent, PaymentsComponent, LocalePipe]
+    imports: [
+        LayoutModule,
+        FlexLayoutModule,
+        ButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        DshTableModule,
+        LocaleModule
+    ],
+    declarations: [OperationsComponent, PaymentsComponent]
 })
 export class OperationsModule {}

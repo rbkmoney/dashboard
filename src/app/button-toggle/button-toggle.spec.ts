@@ -490,7 +490,7 @@ describe('DshButtonToggle without forms', () => {
             expect(buttonElement.hasAttribute('aria-label')).toBe(false);
         });
 
-        it('should init the provided aria-label', () => {
+        it('should use the provided aria-label', () => {
             const fixture = TestBed.createComponent(ButtonToggleWithAriaLabelComponent);
             const checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
             const checkboxNativeElement = checkboxDebugElement.nativeElement;
@@ -506,7 +506,7 @@ describe('DshButtonToggle without forms', () => {
         let checkboxNativeElement: HTMLElement;
         let buttonElement: HTMLButtonElement;
 
-        it('should init the provided aria-labelledby', () => {
+        it('should use the provided aria-labelledby', () => {
             const fixture = TestBed.createComponent(ButtonToggleWithAriaLabelledbyComponent);
             checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
             checkboxNativeElement = checkboxDebugElement.nativeElement;

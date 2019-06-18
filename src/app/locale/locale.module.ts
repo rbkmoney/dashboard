@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { SettingsModule } from '../settings';
 import { LocaleService } from './locale.service';
+import { LocalePipe } from './locale.pipe';
 
 @NgModule({
-    imports: [],
-    declarations: [],
-    entryComponents: [],
-    providers: [LocaleService, SettingsModule]
+    declarations: [LocalePipe],
+    providers: [LocaleService, SettingsModule],
+    exports: [LocalePipe]
 })
 export class LocaleModule {}

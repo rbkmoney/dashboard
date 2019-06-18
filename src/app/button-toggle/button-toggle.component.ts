@@ -34,9 +34,9 @@ export type ToggleType = 'checkbox' | 'radio';
  */
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    /* tslint:disable:no-init-before-declare */
+    /* tslint:disable:no-use-before-declare */
     useExisting: forwardRef(() => DshButtonToggleGroupDirective),
-    /* tslint:enable:no-init-before-declare */
+    /* tslint:enable:no-use-before-declare */
     multi: true
 };
 
@@ -56,9 +56,9 @@ export class DshButtonToggleChange {
 })
 export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /* Child button toggle buttons. */
-    /* tslint:disable:no-init-before-declare */
+    /* tslint:disable:no-use-before-declare */
     @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
-    /* tslint:enable:no-init-before-declare */
+    /* tslint:enable:no-use-before-declare */
 
     @HostBinding('class.dsh-button-toggle-group') groupClass = true;
     @HostBinding('attr.role') role = true;

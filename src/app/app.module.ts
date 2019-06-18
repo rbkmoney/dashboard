@@ -23,12 +23,11 @@ import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
 import { KeycloakService } from './auth/keycloak';
-import { ThemeService, ThemeModule } from './theme';
+import { ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
 import { LocaleService } from './locale/locale.service';
-import { LocaleModule } from './locale/locale.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -41,7 +40,6 @@ import { LocaleModule } from './locale/locale.module';
         APIModule,
         AuthModule,
         ThemeModule,
-        LocaleModule,
         ConfigModule,
         ContainerModule,
         SettingsModule

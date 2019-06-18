@@ -3,10 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { ContainerComponent } from './container.component';
 import { ToolbarModule } from './toolbar';
-import { OperationsModule } from '../sections/operations/operations.module';
+import { LocaleModule } from '../locale/locale.module';
 
 @NgModule({
-    imports: [ToolbarModule, RouterModule, OperationsModule],
+    imports: [ToolbarModule, RouterModule, LocaleModule],
     declarations: [ContainerComponent],
     exports: [ContainerComponent]
 })
