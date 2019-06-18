@@ -2,7 +2,11 @@ import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { TranslationService } from './translation/translation.service';
 
-export const initializer = (configService: ConfigService, keycloakService: KeycloakService, translationService: TranslationService) => () =>
+export const initializer = (
+    configService: ConfigService,
+    keycloakService: KeycloakService,
+    translationService: TranslationService
+) => () =>
     Promise.all([
         configService.init(),
         keycloakService.init({
@@ -15,5 +19,5 @@ export const initializer = (configService: ConfigService, keycloakService: Keycl
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
         }),
-        translationService.init('ru')
+        translationService.init()
     ]);

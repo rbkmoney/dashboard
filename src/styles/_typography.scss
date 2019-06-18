@@ -5,7 +5,7 @@
 @import '../app/layout/card/card-theme';
 @import '../app/layout/float-panel/float-panel-theme';
 @import '../app/status/status-theme';
-@import "../app/table/table-theme";
+@import '../app/table/table-theme';
 
 @mixin dsh-typography($config) {
     @include dsh-button-typography($config);

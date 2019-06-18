@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { tap } from 'rxjs/operators';
+import { SettingsService } from '../settings';
 
 @Injectable()
 export class TranslationService {
     locale = {};
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
-    init(lang: string) {
+    async init() {
+        const lang = this.settingsService.language;
         const path = `/assets/locales/${lang}.json`;
 
-        this.http.get(path).pipe(tap(locale => this.locale = locale)).subscribe();
+        this.locale = await this.http.get(path).toPromise();
     }
 }

@@ -13,7 +13,7 @@ export class LocalePipe implements PipeTransform {
         if (str) {
             return str;
         } else {
-            console.warn(`${key} is missing in locale file.`)
+            console.warn(`${key} is missing in locale file.`);
             return key;
         }
     }

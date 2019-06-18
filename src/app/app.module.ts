@@ -28,6 +28,7 @@ import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
 import { TranslationService } from './translation/translation.service';
+import { TranslationModule } from './translation/translation.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -40,6 +41,7 @@ import { TranslationService } from './translation/translation.service';
         APIModule,
         AuthModule,
         ThemeModule,
+        TranslationModule,
         ConfigModule,
         ContainerModule,
         SettingsModule
@@ -49,7 +51,7 @@ import { TranslationService } from './translation/translation.service';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, ThemeService, TranslationService],
+            deps: [ConfigService, KeycloakService, TranslationService],
             multi: true
         },
         {

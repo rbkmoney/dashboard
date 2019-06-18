@@ -11,9 +11,7 @@ import { LocalePipe } from '../../translation/translation.pipe';
 
 @NgModule({
     imports: [LayoutModule, FlexLayoutModule, ButtonModule, MatFormFieldModule, MatInputModule, DshTableModule],
-    exports: [
-        LocalePipe
-    ],
+    exports: [LocalePipe],
     declarations: [OperationsComponent, PaymentsComponent, LocalePipe]
 })
 export class OperationsModule {}
