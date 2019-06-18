@@ -1,10 +1,6 @@
 import { Directive, ElementRef, HostBinding, Inject, InjectionToken, NgZone } from '@angular/core';
 
-// tslint:disable-next-line:class-name
-export interface _DshInkBarPositioner {
-    // tslint:disable-next-line:callable-types
-    (element: HTMLElement): { left: string; width: string };
-}
+export type _DshInkBarPositioner = (element: HTMLElement) => { left: string; width: string };
 
 export const _DSH_INK_BAR_POSITIONER = new InjectionToken<_DshInkBarPositioner>('DshInkBarPositioner', {
     providedIn: 'root',
@@ -21,7 +17,6 @@ export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
 }
 
 @Directive({
-    // tslint:disable-next-line:directive-selector
     selector: 'dsh-ink-bar'
 })
 export class DshInkBarDirective {
