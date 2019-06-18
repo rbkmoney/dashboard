@@ -1,35 +1,18 @@
-import {
-    Component,
-    ContentChild,
-    ViewChild,
-    ElementRef,
-    Input,
-    TemplateRef,
-    AfterViewInit,
-    Output,
-    EventEmitter,
-    ViewContainerRef,
-    ChangeDetectorRef,
-    OnDestroy
-} from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { Component, ContentChild, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { expandAnimation, ExpandState } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
-import { FloatPanelOverlayService } from './float-panel-overlay.service';
-import { ResizedEvent } from '../../resized';
 
 @Component({
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, hideAnimation],
-    providers: [FloatPanelOverlayService]
+    animations: [expandAnimation, hideAnimation]
 })
-export class FloatPanelComponent implements AfterViewInit, OnDestroy {
+export class FloatPanelComponent {
     private _expanded = false;
     @Input()
     get expanded() {
@@ -54,10 +37,6 @@ export class FloatPanelComponent implements AfterViewInit, OnDestroy {
 
     @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    @ViewChild('template') templateRef: TemplateRef<{}>;
-
-    @ViewChild('substrate') private substrate: ElementRef<HTMLDivElement>;
-
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
 
     cardHeight = {
@@ -67,26 +46,8 @@ export class FloatPanelComponent implements AfterViewInit, OnDestroy {
 
     private isExpanding = false;
 
-    constructor(
-        private viewContainerRef: ViewContainerRef,
-        private floatPanelOverlayService: FloatPanelOverlayService,
-        private ref: ChangeDetectorRef
-    ) {
+    constructor(private ref: ChangeDetectorRef) {
         this.expandedChange.subscribe(() => this.resetExpandTriggerManage());
-        this.pinnedChange.subscribe(() => this.overlayAttachManage());
-    }
-
-    ngAfterViewInit() {
-        this.overlayAttachManage();
-    }
-
-    ngOnDestroy() {
-        this.detach();
-    }
-
-    onSubstrateResize({ width }: ResizedEvent) {
-        this.floatPanelOverlayService.updateSize({ width });
-        this.ref.detectChanges();
     }
 
     expandStart(e: AnimationEvent) {
@@ -120,29 +81,9 @@ export class FloatPanelComponent implements AfterViewInit, OnDestroy {
         this.ref.detectChanges();
     }
 
-    private attach() {
-        this.floatPanelOverlayService.attach(
-            new TemplatePortal(this.templateRef, this.viewContainerRef),
-            this.substrate,
-            { width: this.substrate.nativeElement.clientWidth }
-        );
-    }
-
-    private detach() {
-        this.floatPanelOverlayService.detach();
-    }
-
     private resetExpandTriggerManage() {
         if (!this.expanded) {
             this.expandTrigger = ExpandState.collapsed;
-        }
-    }
-
-    private overlayAttachManage() {
-        if (this.pinned) {
-            this.detach();
-        } else {
-            this.attach();
         }
     }
 }

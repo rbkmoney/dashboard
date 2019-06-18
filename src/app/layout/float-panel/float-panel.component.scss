@@ -5,7 +5,8 @@ $card-border-radius: 4px !default;
 $card-without-actions-padding: $card-padding - $actions-padding;
 
 .dsh-float-panel {
-    position: relative;
+    display: flex;
+    width: 100%;
 
     &-body-extender {
         position: absolute;
@@ -13,11 +14,6 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         left: 0;
         width: 100%;
         margin-bottom: $card-padding;
-    }
-
-    &-template-wrapper {
-        display: flex;
-        width: 100%;
     }
 
     &-card {

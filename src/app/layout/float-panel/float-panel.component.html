@@ -1,53 +1,42 @@
 <div class="dsh-float-panel">
     <div
-        #substrate
-        (dshResized)="onSubstrateResize($event)"
-        [ngStyle]="{ height: pinned ? 0 : cardHeight.base + 'px' }"
-    ></div>
-    <div [ngStyle]="{ height: cardHeight.current + 'px' }" class="dsh-float-panel-body-extender"></div>
-    <ng-container #container [ngTemplateOutlet]="template" *ngIf="pinned"></ng-container>
-</div>
-<ng-template #template>
-    <div class="dsh-float-panel-template-wrapper">
-        <div
-            class="dsh-float-panel-card"
-            (dshResized)="setCardHeight($event.height)"
-            [ngClass]="{ 'dsh-float-panel-card-expanded': expanded }"
-        >
-            <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
-                <div fxFlex><ng-content></ng-content></div>
-                <div @hide *ngIf="!expanded" class="dsh-float-panel-base-action">
-                    <button dsh-icon-button (click)="expandToggle()">
-                        <mat-icon>expand_more</mat-icon>
-                    </button>
-                </div>
+        class="dsh-float-panel-card"
+        (dshResized)="setCardHeight($event.height)"
+        [ngClass]="{ 'dsh-float-panel-card-expanded': expanded }"
+    >
+        <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
+            <div fxFlex><ng-content></ng-content></div>
+            <div @hide *ngIf="!expanded" class="dsh-float-panel-base-action">
+                <button dsh-icon-button (click)="expandToggle()">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
             </div>
-            <div
-                class="dsh-float-panel-more"
-                [@expand]="expandTrigger"
-                (@expand.start)="expandStart($event)"
-                (@expand.done)="expandDone($event)"
-                *ngIf="expanded"
-            >
-                <div (dshResized)="setMoreContentHeight($event.height)">
-                    <div fxLayout="column" fxLayoutGap="20px">
-                        <div class="dsh-float-panel-more-content">
-                            <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
+        </div>
+        <div
+            class="dsh-float-panel-more"
+            [@expand]="expandTrigger"
+            (@expand.start)="expandStart($event)"
+            (@expand.done)="expandDone($event)"
+            *ngIf="expanded"
+        >
+            <div (dshResized)="setMoreContentHeight($event.height)">
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <div class="dsh-float-panel-more-content">
+                        <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+                        <button dsh-icon-button (click)="pinToggle()">
+                            <mat-icon svgIcon="place_outline"></mat-icon>
+                        </button>
+                        <div>
+                            <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
                         </div>
-                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
-                            <button dsh-icon-button (click)="pinToggle()">
-                                <mat-icon svgIcon="place_outline"></mat-icon>
-                            </button>
-                            <div>
-                                <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
-                            </div>
-                            <button dsh-icon-button (click)="expandToggle()">
-                                <mat-icon>expand_less</mat-icon>
-                            </button>
-                        </div>
+                        <button dsh-icon-button (click)="expandToggle()">
+                            <mat-icon>expand_less</mat-icon>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</ng-template>
+</div>
