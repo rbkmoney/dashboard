@@ -5,13 +5,16 @@ import {
     Renderer2,
     SimpleChanges,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    Input,
+    HostBinding
 } from '@angular/core';
 import { mixinDisabled, CanDisableCtor } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 
 import { FocusManager } from './focus-manager';
 import { ColorManager } from './color-manager';
+import { coerceBoolean } from '../../utils';
 
 const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button', 'dsh-icon-button', 'dsh-fab-button'];
 
@@ -23,13 +26,7 @@ class MatButtonBase {
 const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled(MatButtonBase);
 
 @Component({
-    /* tslint:disable */
-    selector: `button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button], button[dsh-fab-button]`,
-    host: {
-        '[attr.disabled]': 'disabled || null'
-    },
-    inputs: ['disabled', 'color'],
-    /* tslint:enable */
+    selector: 'button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button], button[dsh-fab-button]',
     exportAs: 'dshButton',
     templateUrl: 'button.component.html',
     styleUrls: ['button.component.scss'],
@@ -37,6 +34,18 @@ const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
+    @Input()
+    color;
+
+    @Input()
+    @coerceBoolean
+    disabled = false;
+
+    @HostBinding('attr.disabled')
+    get attrDisabled() {
+        return this.disabled ? 'disabled' : null;
+    }
+
     glowAllowed = false;
 
     private button: HTMLButtonElement;
