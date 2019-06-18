@@ -7,7 +7,7 @@ import { Color } from './state-nav-item';
 
 @Component({
     template: `
-        <dsh-state-nav (selectedIdxChange)="selectItem($event)">
+        <dsh-state-nav (selectedIdxChange)="selectItem($event)" [autoselect]="autoselect">
             <dsh-state-nav-item selected>first</dsh-state-nav-item>
             <dsh-state-nav-item color="warn">second</dsh-state-nav-item>
             <dsh-state-nav-item color="success">third</dsh-state-nav-item>
@@ -17,6 +17,7 @@ import { Color } from './state-nav-item';
 })
 class SimpleStateNavComponent {
     idx: number;
+    autoselect = false;
 
     selectItem(idx: number) {
         this.idx = idx;
@@ -108,16 +109,29 @@ describe('DshStateNav', () => {
             const { fixture } = createAndSelect();
             expect(fixture.componentInstance.selectItem).toHaveBeenCalled();
         });
+    });
+
+    describe('Autoselect', () => {
+        function createAndSelect() {
+            const fixture = createComponent(SimpleStateNavComponent);
+            const [first, item, ...others] = getAllItems(fixture);
+            fixture.componentInstance.autoselect = true;
+            fixture.detectChanges();
+            spyOn(fixture.componentInstance, 'selectItem');
+            item.query(By.css('*')).nativeElement.click();
+            fixture.detectChanges();
+            return { fixture, item, others: [first, ...others] };
+        }
 
         it('should be selected after click', () => {
             const { item } = createAndSelect();
-            expect(item.componentInstance.selected$.value).toBe(true);
+            expect((item.componentInstance as StateNavItemComponent).selected).toBe(true);
         });
 
         it('should be others unselected after click', () => {
             const { others } = createAndSelect();
             for (const item of others) {
-                expect(item.componentInstance.selected$.value).toBe(false);
+                expect((item.componentInstance as StateNavItemComponent).selected).toBe(false);
             }
         });
     });

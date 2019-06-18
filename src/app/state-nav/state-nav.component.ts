@@ -9,9 +9,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { StateNavItemComponent } from './state-nav-item';
+import { coerceBoolean } from '../../utils';
 
 @Component({
     selector: 'dsh-state-nav',
@@ -20,29 +20,27 @@ import { StateNavItemComponent } from './state-nav-item';
     encapsulation: ViewEncapsulation.None
 })
 export class StateNavComponent {
-    private _flat = false;
     @HostBinding('class.dsh-state-nav-flat')
     @Input()
-    set flat(flat) {
-        this._flat = coerceBooleanProperty(flat);
-    }
-    get flat() {
-        return this._flat;
-    }
+    @coerceBoolean
+    flat = false;
+
+    @Input()
+    @coerceBoolean
+    autoselect = false;
 
     @Output()
     selectedIdxChange = new EventEmitter<number>();
 
-    set selectedIdx(selectedIdx) {
-        const selectedCount = this.items.toArray().filter(({ selected }) => selected).length;
-        (selectedIdx === -1 ? this.items : this.items.filter(({}, idx) => idx !== selectedIdx)).forEach(
-            item => (item.selected = false)
-        );
-        if (selectedCount > 1) {
-            if (selectedIdx !== -1) {
-                this.items.toArray()[selectedIdx].selected = true;
+    set selectedIdx(nextSelectedIdx) {
+        if (nextSelectedIdx !== this.selectedIdx) {
+            if (this.autoselect) {
+                this.items[this.selectedIdx] = false;
+                this.items.forEach((item, idx) => {
+                    item.selected = idx === nextSelectedIdx;
+                });
             }
-            this.selectedIdxChange.next(selectedIdx);
+            this.selectedIdxChange.next(nextSelectedIdx);
         }
     }
     get selectedIdx() {
@@ -66,15 +64,7 @@ export class StateNavComponent {
             this.selectionSubscriptions.pop().unsubscribe();
         }
         this.selectionSubscriptions = items.map((item, idx) =>
-            item.selected$.subscribe(selected => this.selectionManage(idx, selected))
+            item.attemptToSelect$.subscribe(() => (this.selectedIdx = idx))
         );
-    }
-
-    private selectionManage(changedIdx: number, selected: boolean) {
-        if (selected) {
-            this.selectedIdx = changedIdx;
-        } else if (this.selectedIdx === changedIdx) {
-            this.selectedIdx = -1;
-        }
     }
 }

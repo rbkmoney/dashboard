@@ -10,23 +10,20 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { CanDisable, CanDisableCtor, mixinDisabled } from '@angular/material';
+import { CanDisable } from '@angular/material';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
 import { DshTabLabelDirective } from './tab-label.directive';
 import { DshTabContentDirective } from './tab-content.directive';
-
-class DshTabBase {}
-
-const _DshTabMixinBase: CanDisableCtor & typeof DshTabBase = mixinDisabled(DshTabBase);
+import { coerceBoolean } from '../../../utils';
 
 @Component({
     selector: 'dsh-tab',
     templateUrl: 'tab.component.html',
     exportAs: 'dshTab'
 })
-export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
+export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy {
     @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
 
     @ContentChild(DshTabContentDirective, { read: TemplateRef })
@@ -34,15 +31,15 @@ export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisa
 
     @ViewChild(TemplateRef) _implicitContent: TemplateRef<any>;
 
-    @Input() disabled: boolean;
+    @Input()
+    @coerceBoolean
+    disabled: boolean;
 
     // tslint:disable-next-line:no-input-rename
     @Input('label') textLabel = '';
 
-    // tslint:disable-next-line:no-input-rename
     @Input('aria-label') ariaLabel: string;
 
-    // tslint:disable-next-line:no-input-rename
     @Input('aria-labelledby') ariaLabelledby: string;
 
     private _contentPortal: TemplatePortal | null = null;
@@ -59,9 +56,7 @@ export class DshTabComponent extends _DshTabMixinBase implements OnInit, CanDisa
 
     isActive = false;
 
-    constructor(private _viewContainerRef: ViewContainerRef) {
-        super();
-    }
+    constructor(private _viewContainerRef: ViewContainerRef) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {

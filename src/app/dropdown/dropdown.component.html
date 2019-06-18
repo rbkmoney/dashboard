@@ -1,8 +1,10 @@
 <ng-template cdk-portal>
     <div class="dropdown-wrapper">
-        <div class="dropdown" [@openClose]="state" (@openClose.done)="animationDone$.next($event)">
+        <div [@openClose]="state" (@openClose.done)="animationDone$.next($event)">
             <div class="dropdown-triangle" [style.left]="triangleLeftOffset"></div>
-            <ng-content></ng-content>
+            <div class="dropdown">
+                <ng-content></ng-content>
+            </div>
         </div>
     </div>
 </ng-template>

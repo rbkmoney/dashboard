@@ -42,32 +42,32 @@ export class DshTabChangeEvent {
     encapsulation: ViewEncapsulation.None
 })
 export class DshTabGroupComponent extends _MatTabGroupMixinBase implements AfterContentChecked {
-    @ContentChildren(DshTabComponent) _tabs: QueryList<DshTabComponent>;
-
-    @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
-
-    @ViewChild('tabHeader') _tabHeader: DshTabHeaderComponent;
-
-    private _indexToSelect: number | null = 0;
+    @Input() headerPosition: DshTabHeaderPosition = 'above';
 
     @Input()
     get selectedIndex(): number | null {
         return this._selectedIndex;
     }
 
+    @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output() readonly selectedTabChange: EventEmitter<DshTabChangeEvent> = new EventEmitter<DshTabChangeEvent>(true);
+
+    @ContentChildren(DshTabComponent) _tabs: QueryList<DshTabComponent>;
+
+    @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
+
+    @ViewChild('tabHeader') _tabHeader: DshTabHeaderComponent;
+
+    animationDuration = '500ms';
+
     set selectedIndex(value: number | null) {
         this._indexToSelect = value;
     }
 
+    private _indexToSelect: number | null = 0;
+
     private _selectedIndex: number | null = null;
-
-    @Input() headerPosition: DshTabHeaderPosition = 'above';
-
-    private animationDuration = '500ms';
-
-    @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
-
-    @Output() readonly selectedTabChange: EventEmitter<DshTabChangeEvent> = new EventEmitter<DshTabChangeEvent>(true);
 
     private readonly _groupId: number;
 
@@ -109,6 +109,20 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
         }
     }
 
+    _handleClick(tab: DshTabComponent, index: number) {
+        if (!tab.disabled) {
+            this.selectedIndex = index;
+        }
+    }
+
+    _getTabLabelId = (i: number) => `dsh-tab-label-${this._groupId}-${i}`;
+
+    _getTabContentId = (i: number) => `dsh-tab-content-${this._groupId}-${i}`;
+
+    _getTabIndex = (i: number) => (this.selectedIndex === i ? 0 : -1);
+
+    _isActive = (i: number) => this.selectedIndex === i;
+
     private _createChangeEvent(index: number): DshTabChangeEvent {
         const event = new DshTabChangeEvent();
         event.index = index;
@@ -118,19 +132,5 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
         return event;
     }
 
-    private _handleClick(tab: DshTabComponent, index: number) {
-        if (!tab.disabled) {
-            this.selectedIndex = index;
-        }
-    }
-
     private _clampTabIndex = (index: number | null) => Math.min(this._tabs.length - 1, Math.max(index || 0, 0));
-
-    private _getTabLabelId = (i: number) => `dsh-tab-label-${this._groupId}-${i}`;
-
-    private _getTabContentId = (i: number) => `dsh-tab-content-${this._groupId}-${i}`;
-
-    private _getTabIndex = (i: number) => (this.selectedIndex === i ? 0 : -1);
-
-    private _isActive = (i: number) => this.selectedIndex === i;
 }
