@@ -8,6 +8,7 @@ export class ConfigStubService implements Config {
     api: Config['api'];
     daData: Config['daData'];
     konturFocus: Config['konturFocus'];
+    ext: Config['ext'];
 
     constructor() {
         for (const [name, config] of Object.entries(appConfig)) {

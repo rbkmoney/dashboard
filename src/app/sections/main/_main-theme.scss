@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-main-section-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-main-section-text {
+        color: map-get($foreground, contrast-test);
+    }
+}

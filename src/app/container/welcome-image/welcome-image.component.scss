@@ -1,0 +1,8 @@
+$dsh-welcome-image-height: 462px;
+
+.dsh-welcome-image {
+    height: $dsh-welcome-image-height;
+    margin-bottom: -$dsh-welcome-image-height;
+    background-position: center;
+    background-size: cover;
+}
