@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../../../styles/shadow';
 @import 'widgets';
 
 @mixin dsh-widgets-theme($theme) {
@@ -6,8 +7,8 @@
 
     .dsh-widget {
         &-container {
+            @include dsh-shadow($theme);
             background-color: mat-color($background, card);
-            box-shadow: mat-color($background, box-shadow);
         }
     }
 }
