@@ -27,6 +27,7 @@ import { ThemeService, ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
+import { TranslationService } from './translation/translation.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -48,7 +49,7 @@ import { ContainerModule } from './container';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, ThemeService],
+            deps: [ConfigService, KeycloakService, ThemeService, TranslationService],
             multi: true
         },
         {

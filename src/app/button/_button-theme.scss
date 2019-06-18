@@ -85,7 +85,7 @@
                 background: map-get($background, hover);
             }
 
-            @include focused-background(map-get($background, selected-disabled-button));
+            @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
                 @include button(map-get($background, card), mat-color($primary, 400));
