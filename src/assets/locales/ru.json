@@ -7,5 +7,15 @@
     "ANALYTICS": "Аналитика",
     "PRIVATE_OFFICE": "Личный кабинет",
     "DOCUMENTATION": "Документация",
-    "SUPPORT": "Поддержка"
+    "SUPPORT": "Поддержка",
+    "BACK": "Назад",
+    "PAYMENTS": "Платежи",
+    "TODAY": "Сегодня",
+    "WEEK": "Неделя",
+    "MONTH": "Месяц",
+    "PAYMENT_STATUS": "Статус платежа",
+    "RESET_SEARCH_PARAMS": "Сбросить параметры поиска",
+    "INVOICES": "Инвойсы",
+    "REFUNDS": "Возвраты",
+    "SHOW_MORE": "Показать еще"
 }

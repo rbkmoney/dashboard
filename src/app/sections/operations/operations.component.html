@@ -1,32 +1,32 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-headline">Операции</h1>
+    <h1 class="mat-headline">{{'OPERATIONS' | lc}}</h1>
     <dsh-tab-group>
-        <dsh-tab label="Платежи">
+        <dsh-tab label="{{'PAYMENTS' | lc}}">
             <div fxLayout="column" fxLayoutGap="20px">
                 <dsh-float-panel fxFlexOffset="20px">
                     <dsh-justify-wrapper>
                         <dsh-button-toggle-group fxFlex="324px">
                             <dsh-button-toggle value="today">
-                                Сегодня
+                                {{'TODAY' | lc}}
                             </dsh-button-toggle>
                             <dsh-button-toggle value="week">
-                                Неделя
+                                {{'WEEK' | lc}}
                             </dsh-button-toggle>
                             <dsh-button-toggle value="month">
-                                Месяц
+                                {{'MONTH' | lc}}
                             </dsh-button-toggle>
                             <dsh-button-toggle value="more">
                                 <mat-icon>more_horiz</mat-icon>
                             </dsh-button-toggle>
                         </dsh-button-toggle-group>
                         <mat-form-field>
-                            <mat-label>Статус платежа</mat-label>
+                            <mat-label>{{'PAYMENT_STATUS' | lc}}</mat-label>
                             <input matInput />
                         </mat-form-field>
                     </dsh-justify-wrapper>
                     <dsh-float-panel-actions>
                         <button dsh-button>
-                            Сбросить параметры поиска
+                            {{'RESET_SEARCH_PARAMS' | lc}}
                         </button>
                     </dsh-float-panel-actions>
                     <dsh-float-panel-more>
@@ -38,7 +38,7 @@
                 </dsh-card>
             </div>
         </dsh-tab>
-        <dsh-tab label="Возвраты">Возвраты</dsh-tab>
-        <dsh-tab label="Инвойсы" disabled>Инвойсы</dsh-tab>
+        <dsh-tab label="{{'REFUNDS' | lc}}">{{'REFUNDS' | lc}}</dsh-tab>
+        <dsh-tab label="{{'INVOICES' | lc}}" disabled>{{'INVOICES' | lc}}</dsh-tab>
     </dsh-tab-group>
 </div>
