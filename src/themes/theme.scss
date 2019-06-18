@@ -13,6 +13,7 @@
 @import '../app/layout/tabs/tabs-theme';
 @import '../app/button-toggle/button-toggle-theme';
 @import '../app/status/status-theme';
+@import '../app/sections/main/widgets/widgets-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
 
@@ -34,5 +35,6 @@
         @include dsh-status-theme($theme);
         @include dsh-main-section-theme($theme);
         @include dsh-welcome-image-theme($theme);
+        @include dsh-widgets-theme($theme);
     }
 }

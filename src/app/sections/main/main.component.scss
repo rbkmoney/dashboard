@@ -10,4 +10,17 @@ $dsh-header-container-padding: 60px 0 0 80px;
     .link {
         text-decoration: none;
     }
+
+    .operations-container {
+        display: inline-flex;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 347px;
+    }
+
+    dsh-payments-widget + dsh-wallets-widget {
+        margin-left: 40px;
+    }
 }

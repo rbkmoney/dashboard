@@ -1,0 +1,33 @@
+@import '~@angular/material/theming';
+@import 'widgets';
+
+@mixin dsh-widgets-theme($theme) {
+    $background: map-get($theme, background);
+
+    .dsh-widget {
+        &-container {
+            background-color: mat-color($background, card);
+            box-shadow: mat-color($background, box-shadow);
+        }
+    }
+}
+
+@mixin dsh-widgets-typography($config) {
+    .dsh-widget {
+        &-title {
+            font: {
+                family: mat-font-family($config, title);
+                size: mat-font-size($config, title);
+                weight: mat-font-weight($config, title);
+            }
+        }
+
+        &-text {
+            font: {
+                family: mat-font-family($config, subheading-1);
+                size: mat-font-size($config, subheading-1);
+                weight: mat-font-weight($config, subheading-1);
+            }
+        }
+    }
+}
