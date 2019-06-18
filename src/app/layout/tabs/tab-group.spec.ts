@@ -9,6 +9,174 @@ import { DshTabsModule } from './tabs.module';
 import { DshTabComponent } from './tab.component';
 import { DshTabGroupComponent, DshTabHeaderPosition } from './tab-group.component';
 
+@Component({
+    template: `
+        <dsh-tab-group
+            class="tab-group"
+            [(selectedIndex)]="selectedIndex"
+            [headerPosition]="headerPosition"
+            (selectedTabChange)="handleSelection($event)"
+        >
+            <dsh-tab>
+                <ng-template dsh-tab-label>Tab One</ng-template>
+                Tab one content
+            </dsh-tab>
+            <dsh-tab>
+                <ng-template dsh-tab-label>Tab Two</ng-template>
+                <span>Tab </span><span>two</span><span>content</span>
+            </dsh-tab>
+            <dsh-tab>
+                <ng-template dsh-tab-label>Tab Three</ng-template>
+                Tab three content
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class SimpleTabsTestAppComponent {
+    @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
+    selectedIndex = 1;
+    selectEvent: any;
+    headerPosition: DshTabHeaderPosition = 'above';
+
+    handleSelection(event: any) {
+        this.selectEvent = event;
+    }
+}
+
+@Component({
+    template: `
+        <dsh-tab-group
+            class="tab-group"
+            [(selectedIndex)]="selectedIndex"
+            (selectedTabChange)="handleSelection($event)"
+        >
+            <dsh-tab *ngFor="let tab of tabs">
+                <ng-template dsh-tab-label>{{ tab.label }}</ng-template>
+                {{ tab.content }}
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class SimpleDynamicTabsTestAppComponent {
+    tabs = [
+        { label: 'Label 1', content: 'Content 1' },
+        { label: 'Label 2', content: 'Content 2' },
+        { label: 'Label 3', content: 'Content 3' }
+    ];
+    selectedIndex = 1;
+    selectEvent: any;
+
+    handleSelection(event: any) {
+        this.selectEvent = event;
+    }
+}
+
+@Component({
+    template: `
+        <dsh-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
+            <dsh-tab *ngFor="let tab of tabs" label="{{ tab.label }}">
+                {{ tab.content }}
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class BindedTabsTestAppComponent {
+    tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
+    selectedIndex = 0;
+}
+
+@Component({
+    selector: 'dsh-test-app',
+    template: `
+        <dsh-tab-group class="tab-group">
+            <dsh-tab>
+                <ng-template dsh-tab-label>Tab One</ng-template>
+                Tab one content
+            </dsh-tab>
+            <dsh-tab disabled>
+                <ng-template dsh-tab-label>Tab Two</ng-template>
+                Tab two content
+            </dsh-tab>
+            <dsh-tab [disabled]="isDisabled">
+                <ng-template dsh-tab-label>Tab Three</ng-template>
+                Tab three content
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class DisabledTabsTestAppComponent {
+    @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
+    isDisabled = false;
+}
+
+@Component({
+    template: `
+        <dsh-tab-group class="tab-group">
+            <dsh-tab *ngFor="let tab of tabs | async">
+                <ng-template dsh-tab-label>{{ tab.label }}</ng-template>
+                {{ tab.content }}
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class AsyncTabsTestAppComponent implements OnInit {
+    private _tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
+
+    tabs: Observable<any>;
+
+    ngOnInit() {
+        // Use ngOnInit because there is some issue with scheduling the async task in the constructor.
+        this.tabs = new Observable((observer: any) => {
+            setTimeout(() => observer.next(this._tabs));
+        });
+    }
+}
+
+@Component({
+    template: `
+        <dsh-tab-group>
+            <dsh-tab label="Junk food"> Pizza, fries</dsh-tab>
+            <dsh-tab label="Vegetables"> Broccoli, spinach</dsh-tab>
+            <dsh-tab [label]="otherLabel"> {{ otherContent }} </dsh-tab>
+            <dsh-tab label="Legumes"><p #legumes>Peanuts</p></dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class TabGroupWithSimpleApiComponent {
+    otherLabel = 'Fruit';
+    otherContent = 'Apples, grapes';
+    @ViewChild('legumes') legumes: any;
+}
+
+@Component({
+    selector: 'dsh-template-tabs',
+    template: `
+        <dsh-tab-group>
+            <dsh-tab label="One">
+                Eager
+            </dsh-tab>
+            <dsh-tab label="Two">
+                <ng-template matTabContent>
+                    <div class="child">Hi</div>
+                </ng-template>
+            </dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class TemplateTabsComponent {}
+
+@Component({
+    template: `
+        <dsh-tab-group>
+            <dsh-tab [aria-label]="ariaLabel" [aria-labelledby]="ariaLabelledby"></dsh-tab>
+        </dsh-tab-group>
+    `
+})
+class TabGroupWithAriaInputsComponent {
+    ariaLabel: string;
+    ariaLabelledby: string;
+}
+
 describe('DshTabGroupComponentComponent', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -21,8 +189,7 @@ describe('DshTabGroupComponentComponent', () => {
                 DisabledTabsTestAppComponent,
                 TabGroupWithSimpleApiComponent,
                 TemplateTabsComponent,
-                TabGroupWithAriaInputsComponent,
-                TabGroupWithIsActiveBindingComponent
+                TabGroupWithAriaInputsComponent
             ]
         });
 
@@ -204,200 +371,3 @@ describe('DshTabGroupComponentComponent', () => {
         expect(tabContentElement.classList.contains('dsh-tab-body-active')).toBe(true);
     }
 });
-
-@Component({
-    template: `
-        <dsh-tab-group
-            class="tab-group"
-            [(selectedIndex)]="selectedIndex"
-            [headerPosition]="headerPosition"
-            (selectedTabChange)="handleSelection($event)"
-        >
-            <dsh-tab>
-                <ng-template dsh-tab-label>Tab One</ng-template>
-                Tab one content
-            </dsh-tab>
-            <dsh-tab>
-                <ng-template dsh-tab-label>Tab Two</ng-template>
-                <span>Tab </span><span>two</span><span>content</span>
-            </dsh-tab>
-            <dsh-tab>
-                <ng-template dsh-tab-label>Tab Three</ng-template>
-                Tab three content
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class SimpleTabsTestAppComponent {
-    @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
-    selectedIndex = 1;
-    selectEvent: any;
-    headerPosition: DshTabHeaderPosition = 'above';
-
-    handleSelection(event: any) {
-        this.selectEvent = event;
-    }
-}
-
-@Component({
-    template: `
-        <dsh-tab-group
-            class="tab-group"
-            [(selectedIndex)]="selectedIndex"
-            (selectedTabChange)="handleSelection($event)"
-        >
-            <dsh-tab *ngFor="let tab of tabs">
-                <ng-template dsh-tab-label>{{ tab.label }}</ng-template>
-                {{ tab.content }}
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class SimpleDynamicTabsTestAppComponent {
-    tabs = [
-        { label: 'Label 1', content: 'Content 1' },
-        { label: 'Label 2', content: 'Content 2' },
-        { label: 'Label 3', content: 'Content 3' }
-    ];
-    selectedIndex = 1;
-    selectEvent: any;
-
-    handleSelection(event: any) {
-        this.selectEvent = event;
-    }
-}
-
-@Component({
-    template: `
-        <dsh-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
-            <dsh-tab *ngFor="let tab of tabs" label="{{ tab.label }}">
-                {{ tab.content }}
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class BindedTabsTestAppComponent {
-    tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
-    selectedIndex = 0;
-}
-
-@Component({
-    selector: 'dsh-test-app',
-    template: `
-        <dsh-tab-group class="tab-group">
-            <dsh-tab>
-                <ng-template dsh-tab-label>Tab One</ng-template>
-                Tab one content
-            </dsh-tab>
-            <dsh-tab disabled>
-                <ng-template dsh-tab-label>Tab Two</ng-template>
-                Tab two content
-            </dsh-tab>
-            <dsh-tab [disabled]="isDisabled">
-                <ng-template dsh-tab-label>Tab Three</ng-template>
-                Tab three content
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class DisabledTabsTestAppComponent {
-    @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
-    isDisabled = false;
-}
-
-@Component({
-    template: `
-        <dsh-tab-group class="tab-group">
-            <dsh-tab *ngFor="let tab of tabs | async">
-                <ng-template dsh-tab-label>{{ tab.label }}</ng-template>
-                {{ tab.content }}
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class AsyncTabsTestAppComponent implements OnInit {
-    private _tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
-
-    tabs: Observable<any>;
-
-    ngOnInit() {
-        // Use ngOnInit because there is some issue with scheduling the async task in the constructor.
-        this.tabs = new Observable((observer: any) => {
-            setTimeout(() => observer.next(this._tabs));
-        });
-    }
-}
-
-@Component({
-    template: `
-        <dsh-tab-group>
-            <dsh-tab label="Junk food"> Pizza, fries</dsh-tab>
-            <dsh-tab label="Vegetables"> Broccoli, spinach</dsh-tab>
-            <dsh-tab [label]="otherLabel"> {{ otherContent }} </dsh-tab>
-            <dsh-tab label="Legumes"><p #legumes>Peanuts</p></dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class TabGroupWithSimpleApiComponent {
-    otherLabel = 'Fruit';
-    otherContent = 'Apples, grapes';
-    @ViewChild('legumes') legumes: any;
-}
-
-@Component({
-    selector: 'dsh-nested-tabs',
-    template: `
-        <dsh-tab-group>
-            <dsh-tab label="One">Tab one content</dsh-tab>
-            <dsh-tab label="Two">
-                Tab two content
-                <dsh-tab-group [dynamicHeight]="true">
-                    <dsh-tab label="Inner tab one">Inner content one</dsh-tab>
-                    <dsh-tab label="Inner tab two">Inner content two</dsh-tab>
-                </dsh-tab-group>
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class NestedTabsComponent {}
-
-@Component({
-    selector: 'dsh-template-tabs',
-    template: `
-        <dsh-tab-group>
-            <dsh-tab label="One">
-                Eager
-            </dsh-tab>
-            <dsh-tab label="Two">
-                <ng-template matTabContent>
-                    <div class="child">Hi</div>
-                </ng-template>
-            </dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class TemplateTabsComponent {}
-
-@Component({
-    template: `
-        <dsh-tab-group>
-            <dsh-tab [aria-label]="ariaLabel" [aria-labelledby]="ariaLabelledby"></dsh-tab>
-        </dsh-tab-group>
-    `
-})
-class TabGroupWithAriaInputsComponent {
-    ariaLabel: string;
-    ariaLabelledby: string;
-}
-
-@Component({
-    template: `
-        <dsh-tab-group>
-            <dsh-tab label="Junk food" #pizza> Pizza, fries</dsh-tab>
-            <dsh-tab label="Vegetables"> Broccoli, spinach</dsh-tab>
-        </dsh-tab-group>
-
-        <div *ngIf="pizza.isActive">pizza is active</div>
-    `
-})
-class TabGroupWithIsActiveBindingComponent {}
