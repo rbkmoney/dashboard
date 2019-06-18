@@ -48,7 +48,7 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
 
     glowAllowed = false;
 
-    private button: HTMLButtonElement;
+    button: HTMLButtonElement;
     private colorManager: ColorManager;
 
     constructor(elementRef: ElementRef, private renderer: Renderer2, private platform: Platform) {
