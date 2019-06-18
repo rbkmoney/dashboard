@@ -4,5 +4,8 @@
     "TABLE": "Таблица",
     "REQUEST_FOR_CONNECTION": "Заявка на подключение",
     "OPERATIONS": "Операции",
-    "ANALYTICS": "Аналитика"
+    "ANALYTICS": "Аналитика",
+    "PRIVATE_OFFICE": "Личный кабинет",
+    "DOCUMENTATION": "Документация",
+    "SUPPORT": "Поддержка"
 }
