@@ -1,16 +1,24 @@
-<div class="dsh-float-panel" [ngStyle]="{ height: baseContentHeight + 'px' }">
-    <dsh-card class="dsh-float-panel-card" (dshResized)="setBaseContentHeight($event.height)">
-        <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
-            <div fxFlex><ng-content></ng-content></div>
-            <button
-                dsh-icon-button
-                (click)="expandToggle()"
-                @hide
-                *ngIf="!expanded"
-                class="dsh-float-panel-base-action"
-            >
-                <mat-icon>expand_more</mat-icon>
-            </button>
+<div
+    class="dsh-float-panel"
+    [ngStyle]="{
+        height: (pinned ? cardHeight : baseContentHeight) + 'px',
+        padding: pinned ? 0 : '20px'
+    }"
+>
+    <dsh-card class="dsh-float-panel-card" (dshResized)="setCardHeight($event.height)">
+        <div (dshResized)="setBaseContentHeight($event.height)">
+            <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
+                <div fxFlex><ng-content></ng-content></div>
+                <button
+                    dsh-icon-button
+                    (click)="expandToggle()"
+                    @hide
+                    *ngIf="!expanded"
+                    class="dsh-float-panel-base-action"
+                >
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
         </div>
         <div
             class="dsh-float-panel-more"

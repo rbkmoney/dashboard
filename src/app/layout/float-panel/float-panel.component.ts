@@ -39,6 +39,7 @@ export class FloatPanelComponent {
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
 
+    cardHeight = 0;
     baseContentHeight = 0;
 
     private isExpanding = false;
@@ -63,15 +64,21 @@ export class FloatPanelComponent {
         this.pinned = !this.pinned;
     }
 
-    setMoreContentHeight(height: number) {
+    setCardHeight(height: number) {
         if (height !== 0) {
-            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
-            this.ref.detectChanges();
+            this.cardHeight = height;
         }
     }
 
     setBaseContentHeight(height: number) {
         this.baseContentHeight = height;
+    }
+
+    setMoreContentHeight(height: number) {
+        if (height !== 0) {
+            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+            this.ref.detectChanges();
+        }
     }
 
     private resetExpandTriggerManage() {

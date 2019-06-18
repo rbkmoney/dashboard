@@ -6,6 +6,7 @@ $card-without-actions-padding: $card-padding - $actions-padding;
 
 .dsh-float-panel {
     position: relative;
+    padding: $card-padding;
 
     &-card {
         position: absolute;
