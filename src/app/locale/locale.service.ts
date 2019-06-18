@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SettingsService } from '../settings';
 
 @Injectable()
-export class TranslationService {
+export class LocaleService {
     locale = {};
 
     constructor(private http: HttpClient, private settingsService: SettingsService) {}

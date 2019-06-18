@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { SettingsModule } from '../settings';
-import { TranslationService } from './translation.service';
+import { LocaleService } from './locale.service';
 
 @NgModule({
     imports: [],
     declarations: [],
     entryComponents: [],
-    providers: [TranslationService, SettingsModule]
+    providers: [LocaleService, SettingsModule]
 })
-export class TranslationModule {}
+export class LocaleModule {}

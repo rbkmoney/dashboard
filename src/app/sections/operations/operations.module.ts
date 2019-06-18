@@ -7,7 +7,7 @@ import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
 import { PaymentsComponent } from './payments/payments.component';
 import { DshTableModule } from '../../table';
-import { LocalePipe } from '../../translation/translation.pipe';
+import { LocalePipe } from '../../locale/locale.pipe';
 
 @NgModule({
     imports: [LayoutModule, FlexLayoutModule, ButtonModule, MatFormFieldModule, MatInputModule, DshTableModule],

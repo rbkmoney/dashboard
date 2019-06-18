@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TranslationService } from './translation.service';
+import { LocaleService } from './locale.service';
 
 @Pipe({
     name: 'lc',
     pure: false
 })
 export class LocalePipe implements PipeTransform {
-    constructor(private translate: TranslationService) {}
+    constructor(private localeService: LocaleService) {}
 
     transform(key: string): string {
-        const str = this.translate.locale[key];
+        const str = this.localeService.locale[key];
         if (str) {
             return str;
         } else {
