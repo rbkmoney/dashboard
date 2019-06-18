@@ -8,6 +8,7 @@ export class ConfigService implements Config {
     api: Config['api'];
     daData: Config['daData'];
     konturFocus: Config['konturFocus'];
+    ext: Config['ext'];
 
     constructor(private http: HttpClient) {}
 
