@@ -12,10 +12,9 @@ import { NavComponent } from './nav';
 import { WelcomeImageModule } from './welcome-image';
 
 @NgModule({
-    imports: [ToolbarModule, RouterModule, LocaleModule],
-    declarations: [ContainerComponent],
     imports: [
         CommonModule,
+        LocaleModule,
         ToolbarModule,
         RouterModule,
         StateNavModule,

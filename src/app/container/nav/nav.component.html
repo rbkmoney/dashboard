@@ -5,7 +5,7 @@
         #analytics="routerLinkActive"
         [selected]="analytics.isActive"
     >
-        <mat-icon>pie_chart</mat-icon>Аналитика
+        <mat-icon>pie_chart</mat-icon>{{'ANALYTICS' | lc}}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/operations"
@@ -13,7 +13,7 @@
         #operations="routerLinkActive"
         [selected]="operations.isActive"
     >
-        <mat-icon>table_chart</mat-icon>Операции
+        <mat-icon>table_chart</mat-icon>{{'OPERATIONS' | lc}}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/onboarding"
@@ -21,10 +21,10 @@
         #onboarding="routerLinkActive"
         [selected]="onboarding.isActive"
     >
-        <mat-icon>description</mat-icon>Заявка на подключение
+        <mat-icon>description</mat-icon>{{'REQUEST_FOR_CONNECTION' | lc}}
     </dsh-state-nav-item>
     <dsh-state-nav-item routerLink="/table" routerLinkActive #table="routerLinkActive" [selected]="table.isActive">
-        <mat-icon>description</mat-icon>Таблица
+        <mat-icon>description</mat-icon>{{'TABLE' | lc}}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/buttons"
@@ -32,9 +32,9 @@
         #buttons="routerLinkActive"
         [selected]="buttons.isActive"
     >
-        <mat-icon>description</mat-icon>Кнопки
+        <mat-icon>description</mat-icon>{{'BUTTONS' | lc}}
     </dsh-state-nav-item>
     <dsh-state-nav-item routerLink="/inputs" routerLinkActive #inputs="routerLinkActive" [selected]="inputs.isActive">
-        <mat-icon>description</mat-icon>Поля ввода
+        <mat-icon>description</mat-icon>{{'INPUTS' | lc}}
     </dsh-state-nav-item>
 </dsh-state-nav>
