@@ -1,7 +1,6 @@
 import { Component, Type, Provider, ViewChild } from '@angular/core';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { By } from '@angular/platform-browser';
 
 import { FloatPanelModule } from './float-panel.module';
@@ -29,9 +28,6 @@ class SimpleFloatPanelComponent {
 const WRAPPER = By.css('.dsh-float-panel-more');
 
 describe('FloatPanelComponent', () => {
-    let overlayContainer: OverlayContainer;
-    let overlayContainerElement: HTMLElement;
-
     function createComponent<T>(
         component: Type<T>,
         providers: Provider[] = [],
@@ -43,32 +39,8 @@ describe('FloatPanelComponent', () => {
             providers
         }).compileComponents();
 
-        inject([OverlayContainer], (oc: FullscreenOverlayContainer) => {
-            overlayContainer = oc;
-            overlayContainerElement = oc.getContainerElement();
-        })();
-
         return TestBed.createComponent<T>(component);
     }
-
-    afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
-        currentOverlayContainer.ngOnDestroy();
-        overlayContainer.ngOnDestroy();
-    }));
-
-    describe('Pin/unpin', () => {
-        it('should pinned', () => {
-            createComponent(SimpleFloatPanelComponent);
-            expect(overlayContainerElement.textContent).toBe('');
-        });
-
-        it('should float', () => {
-            const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.componentInstance.pinned = false;
-            fixture.detectChanges();
-            expect(overlayContainerElement.textContent).not.toBe('');
-        });
-    });
 
     describe('Pinned expand/collapse', () => {
         it('should expanded', () => {

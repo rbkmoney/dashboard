@@ -1,39 +1,22 @@
-$base-height: 51.313px;
-$card-padding: 20px !default;
-$actions-padding: 10px !default;
-$card-border-radius: 4px !default;
+$card-padding: 20px;
+$actions-padding: 10px;
 $card-without-actions-padding: $card-padding - $actions-padding;
 
 .dsh-float-panel {
     position: relative;
 
-    &-body-extender {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        margin-bottom: $card-padding;
-    }
-
-    &-template-wrapper {
-        display: flex;
-        width: 100%;
-    }
-
     &-card {
-        width: 100%;
-        border-radius: $card-border-radius;
-        padding: $card-padding $actions-padding $card-padding $actions-padding;
-        transition: padding 150ms ease;
-
-        &-expanded {
-            padding-bottom: $actions-padding;
+        &-unpinned {
+            position: absolute;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            right: 0;
         }
     }
 
     &-base {
-        min-height: $base-height;
-        margin: 0 $card-without-actions-padding;
+        width: 100%;
 
         &-action {
             margin-right: -$card-without-actions-padding;
@@ -43,9 +26,12 @@ $card-without-actions-padding: $card-padding - $actions-padding;
     &-more {
         height: 0;
         overflow: hidden;
+        margin-left: -$card-without-actions-padding;
+        margin-right: -$card-without-actions-padding;
 
         &-content {
-            padding: 0 $card-without-actions-padding;
+            padding-left: $actions-padding;
+            padding-right: $actions-padding;
         }
     }
 }
