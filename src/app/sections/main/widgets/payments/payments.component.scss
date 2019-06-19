@@ -1,43 +1,35 @@
 .dsh-payment-widget {
     &-icon {
-        position: absolute;
         height: 138px;
-        width: 138px;
-        top: 20px;
-        left: -20px;
+        width: 180px;
+    }
+
+    &-text-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-icon-container {
+        margin-left: -40px;
+        padding-right: 30px;
     }
 
     @media only screen and (max-width: 640px) {
-        &-icon {
-            left: 20px;
+        &-icon-container {
+            margin-left: 0;
         }
     }
 
-    &-title,
-    &-text {
-        padding-left: 190px;
-    }
-
-    &-title + &-text {
-        padding-top: 10px;
-    }
-
     &-title {
-        height: 36px;
-        padding-top: 30px;
-    }
-
-    &-text {
-        padding-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
     &-action-button {
-        left: 30px;
-        bottom: 20px;
+        margin-right: auto;
     }
 
     &-test-button {
-        right: 30px;
-        bottom: 20px;
+        margin-left: auto;
     }
 }

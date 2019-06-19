@@ -2,28 +2,26 @@
     &-container {
         display: flex;
         flex-direction: column;
-        position: relative;
-        height: 240px;
-        width: 500px;
+        min-height: 200px;
+        max-width: 460px;
+        padding: 20px;
         border-radius: 4px;
     }
 
     &-button {
-        position: absolute;
-        width: 210px;
+        min-width: 210px;
     }
-}
 
-.test-container {
-    margin: 20px;
-}
+    &-info-container {
+        display: flex;
+        margin-bottom: auto;
+    }
 
-.horizontal {
-    display: flex;
-    flex-direction: row;
-}
-
-.vertical {
-    display: flex;
-    flex-direction: column;
+    &-action-container {
+        display: flex;
+        flex-flow: row wrap;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: auto;
+    }
 }

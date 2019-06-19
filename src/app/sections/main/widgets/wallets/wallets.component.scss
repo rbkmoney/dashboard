@@ -1,38 +1,32 @@
 .dsh-wallet-widget {
     &-icon {
-        position: absolute;
         height: 138px;
         width: 138px;
-        top: 20px;
-        right: -20px;
     }
 
-    @media only screen and (max-width: 560px) {
-        &-icon {
-            right: 20px;
+    &-text-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-icon-container {
+        margin-right: -40px;
+        padding-left: 30px;
+    }
+
+    @media only screen and (max-width: 640px) {
+        &-icon-container {
+            margin-right: 0;
         }
     }
 
     &-title,
     &-text {
-        padding-left: 30px;
-    }
-
-    &-title + &-text {
-        padding-top: 10px;
+        padding-left: 10px;
     }
 
     &-title {
-        height: 36px;
-        padding-top: 30px;
-    }
-
-    &-text {
-        padding-right: 148px;
-    }
-
-    &-button {
-        left: 30px;
-        bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }
