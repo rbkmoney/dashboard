@@ -1,15 +1,25 @@
+$dsh-widget-container-padding: 20px;
+$dsh-widget-button-width: 210px;
+$dsh-action-container-additional-padding: 10px;
+$dsh-title-vertical-padding: 10px;
+
 .dsh-widget {
     &-container {
         display: flex;
         flex-direction: column;
         min-height: 200px;
         max-width: 460px;
-        padding: 20px;
+        padding: $dsh-widget-container-padding;
         border-radius: 4px;
     }
 
+    &-title {
+        padding-top: $dsh-title-vertical-padding;
+        padding-bottom: $dsh-title-vertical-padding;
+    }
+
     &-button {
-        min-width: 210px;
+        min-width: $dsh-widget-button-width;
     }
 
     &-info-container {
@@ -20,8 +30,8 @@
     &-action-container {
         display: flex;
         flex-flow: row wrap;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: $dsh-action-container-additional-padding;
+        padding-right: $dsh-action-container-additional-padding;
         margin-top: auto;
     }
 }

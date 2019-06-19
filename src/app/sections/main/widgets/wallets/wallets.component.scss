@@ -1,3 +1,5 @@
+$dsh-wallet-widget-additional-text-padding: 10px;
+
 .dsh-wallet-widget {
     &-icon {
         height: 138px;
@@ -22,11 +24,7 @@
 
     &-title,
     &-text {
-        padding-left: 10px;
+        padding-left: $dsh-wallet-widget-additional-text-padding;
     }
 
-    &-title {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
 }
