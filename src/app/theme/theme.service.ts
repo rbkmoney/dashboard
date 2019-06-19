@@ -15,6 +15,10 @@ export class ThemeService {
     themes: { [name: string]: External } = {};
     fileType: Type = environment.production ? Type.CSS : Type.JS;
 
+    get themeIdx(): number {
+        return themes.findIndex(n => n === this.settingsService.theme);
+    }
+
     constructor(private settingsService: SettingsService) {
         this.init();
     }
@@ -27,16 +31,16 @@ export class ThemeService {
         this.changeTheme(this.settingsService.theme);
     }
 
-    changeTheme(name: string = this.getNextTheme()) {
+    changeTheme(name: string = this.getTheme(1)) {
         this.themes[name].add();
         this.removeCurrentTheme();
         this.settingsService.theme = name;
         document.body.classList.add(this.settingsService.theme);
     }
 
-    getNextTheme(): string {
-        const idx = themes.findIndex(n => n === this.settingsService.theme) + 1;
-        return themes[idx === themes.length ? 0 : idx];
+    private getTheme(changeIdx: number = 0): string {
+        const nextIdx = (this.themeIdx + changeIdx) % themes.length;
+        return themes[nextIdx < 0 ? themes.length - nextIdx : nextIdx];
     }
 
     private removeCurrentTheme() {
