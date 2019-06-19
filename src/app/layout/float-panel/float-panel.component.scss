@@ -1,12 +1,9 @@
-$base-height: 51.313px;
 $card-padding: 20px;
 $actions-padding: 10px;
-$card-border-radius: 4px;
 $card-without-actions-padding: $card-padding - $actions-padding;
 
 .dsh-float-panel {
     position: relative;
-    padding: $card-padding;
 
     &-card {
         position: absolute;
@@ -14,14 +11,10 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         top: 0;
         left: 0;
         right: 0;
-        border-radius: $card-border-radius;
-        transition: padding 150ms ease;
-        padding: $card-padding;
     }
 
     &-base {
         width: 100%;
-        min-height: $base-height;
 
         &-action {
             margin-right: -$card-without-actions-padding;
