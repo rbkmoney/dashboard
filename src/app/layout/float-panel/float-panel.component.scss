@@ -33,7 +33,6 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         overflow: hidden;
         margin-left: -$card-without-actions-padding;
         margin-right: -$card-without-actions-padding;
-        margin-bottom: -$card-without-actions-padding;
 
         &-content {
             padding-left: $actions-padding;
