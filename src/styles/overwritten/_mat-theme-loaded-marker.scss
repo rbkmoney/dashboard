@@ -1,0 +1,7 @@
+@mixin dsh-mat-theme-loaded-marker() {
+    // Supress warning message: "Could not find Angular Material core theme. ..."
+    // Theme is added asynchronously and this check is not needed
+    .mat-theme-loaded-marker {
+        display: none;
+    }
+}

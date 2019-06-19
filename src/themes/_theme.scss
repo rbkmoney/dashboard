@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+@import '../registration';
+
+@mixin dsh-theme($theme) {
+    body.#{map-get($theme, name)} {
+        @include dsh-theme-registration($theme);
+    }
+}

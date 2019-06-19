@@ -1,0 +1,56 @@
+@import '~@angular/material/theming';
+@import './styles/overwritten/overwritten-registration';
+@import './app/container/container-theme';
+@import './app/dropdown/dropdown-theme';
+@import './app/table/table-theme';
+@import './app/charts/bar-chart/bar-chart-theme';
+@import './app/layout/card/card-theme';
+@import './app/layout/float-panel/float-panel-theme';
+@import './app/charts/linear-chart/linear-chart-theme';
+@import './app/state-nav/state-nav-theme';
+@import './app/charts/legend-tooltip/legend-tooltip-theme';
+@import './app/button/button-theme';
+@import './app/layout/tabs/tabs-theme';
+@import './app/button-toggle/button-toggle-theme';
+@import './app/status/status-theme';
+@import './app/sections/main/main-theme';
+@import './app/container/welcome-image/welcome-image-theme';
+
+@mixin dsh-theme-registration($theme) {
+    // Material
+    @include angular-material-theme($theme);
+    // Material overwritten
+    @include dsh-overwritten-theme-registration($theme);
+    // Custom
+    @include dsh-container-theme($theme);
+    @include dsh-dropdown-theme($theme);
+    @include dsh-table-theme($theme);
+    @include dsh-bar-chart-theme($theme);
+    @include dsh-card-theme($theme);
+    @include dsh-linear-chart-theme($theme);
+    @include dsh-tabs-theme($theme);
+    @include dsh-state-nav-theme($theme);
+    @include dsh-legend-tooltip-theme($theme);
+    @include dsh-button-theme($theme);
+    @include dsh-button-toggle-theme($theme);
+    @include dsh-float-panel-theme($theme);
+    @include dsh-status-theme($theme);
+    @include dsh-main-section-theme($theme);
+    @include dsh-welcome-image-theme($theme);
+}
+
+@mixin dsh-typography-registration($config) {
+    // Material
+    @include mat-core($config);
+    // Material overwritten
+    @include dsh-overwritten-typography-registration($config);
+    // Custom
+    @include dsh-button-typography($config);
+    @include dsh-state-nav-typography($config);
+    @include dsh-tabs-typography($config);
+    @include dsh-card-typography($config);
+    @include dsh-button-toggle-typography($config);
+    @include dsh-float-panel-typography($config);
+    @include dsh-status-typography($config);
+    @include dsh-dropdown-typography($config);
+}
