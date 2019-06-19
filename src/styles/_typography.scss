@@ -8,6 +8,7 @@
 @import '../app/layout/float-panel/float-panel-theme';
 @import '../app/status/status-theme';
 @import '../app/sections/main/widgets/widgets-theme';
+@import '../app/dropdown/dropdown-theme';
 
 @mixin dsh-typography($config) {
     @include dsh-button-typography($config);
@@ -18,6 +19,7 @@
     @include dsh-float-panel-typography($config);
     @include dsh-status-typography($config);
     @include dsh-widgets-typography($config);
+    @include dsh-dropdown-typography($config);
 }
 
 @function dsh-typography-config(

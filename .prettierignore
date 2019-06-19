@@ -7,3 +7,4 @@ coverage
 schemes
 src/app/**/swagger-codegen
 src/app/**/gen-model
+.vscode

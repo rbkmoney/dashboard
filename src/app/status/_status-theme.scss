@@ -16,7 +16,7 @@
             background-color: $text;
         }
 
-        &[color='success'] {
+        &-success {
             color: $success-base;
 
             .dsh-status-icon {
@@ -24,7 +24,7 @@
             }
         }
 
-        &[color='pending'] {
+        &-pending {
             color: $pending-base;
 
             .dsh-status-icon {
@@ -32,7 +32,7 @@
             }
         }
 
-        &[color='warn'] {
+        &-warn {
             color: $warn-base;
 
             .dsh-status-icon {

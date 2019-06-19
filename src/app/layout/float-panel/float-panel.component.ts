@@ -1,100 +1,41 @@
-import {
-    Component,
-    ContentChild,
-    ViewChild,
-    ElementRef,
-    Input,
-    TemplateRef,
-    AfterViewInit,
-    Output,
-    EventEmitter,
-    ViewContainerRef,
-    ChangeDetectorRef,
-    OnDestroy
-} from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { AnimationEvent } from '@angular/animations';
+import { Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { filter } from 'rxjs/operators';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { expandAnimation, ExpandState } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
-import { FloatPanelOverlayService } from './float-panel-overlay.service';
-import { ResizedEvent } from '../../resized';
+import { coerce } from '../../../utils';
 
 @Component({
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, hideAnimation],
-    providers: [FloatPanelOverlayService]
+    animations: [expandAnimation, hideAnimation]
 })
-export class FloatPanelComponent implements AfterViewInit, OnDestroy {
-    private _expanded = false;
-    @Input()
-    get expanded() {
-        return this._expanded;
-    }
-    set expanded(expanded) {
-        this.expandedChange.emit((this._expanded = expanded !== false));
-    }
+export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
-
-    private _pinned = false;
     @Input()
-    get pinned() {
-        return this._pinned;
-    }
-    set pinned(pinned) {
-        this.pinnedChange.emit((this._pinned = pinned !== false));
-    }
+    @coerce(v => coerceBooleanProperty(v), (v, self) => self.expandedChange.emit(v))
+    expanded = false;
+
     @Output() pinnedChange = new EventEmitter<boolean>();
+    @Input()
+    @coerce(v => coerceBooleanProperty(v), (v, self) => self.pinnedChange.emit(v))
+    pinned = false;
 
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
 
     @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    @ViewChild('template') templateRef: TemplateRef<{}>;
+    expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;
 
-    @ViewChild('substrate') private substrate: ElementRef<HTMLDivElement>;
+    cardHeight = 0;
+    baseContentHeight = 0;
 
-    expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
-
-    cardHeight = {
-        base: 0,
-        current: 0
-    };
-
-    private isExpanding = false;
-
-    constructor(
-        private viewContainerRef: ViewContainerRef,
-        private floatPanelOverlayService: FloatPanelOverlayService,
-        private ref: ChangeDetectorRef
-    ) {
-        this.expandedChange.subscribe(() => this.resetExpandTriggerManage());
-        this.pinnedChange.subscribe(() => this.overlayAttachManage());
-    }
-
-    ngAfterViewInit() {
-        this.overlayAttachManage();
-    }
-
-    ngOnDestroy() {
-        this.detach();
-    }
-
-    onSubstrateResize({ width }: ResizedEvent) {
-        this.floatPanelOverlayService.updateSize({ width });
-        this.ref.detectChanges();
-    }
-
-    expandStart(e: AnimationEvent) {
-        this.isExpanding = true;
-    }
-
-    expandDone(e: AnimationEvent) {
-        this.isExpanding = false;
+    constructor() {
+        this.expandedChange.pipe(filter(expanded => !expanded)).subscribe(() => this.resetExpandTrigger());
     }
 
     expandToggle() {
@@ -106,43 +47,10 @@ export class FloatPanelComponent implements AfterViewInit, OnDestroy {
     }
 
     setMoreContentHeight(height: number) {
-        if (height !== 0) {
-            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
-            this.ref.detectChanges();
-        }
+        this.expandTrigger = { value: ExpandState.expanded, params: { height } };
     }
 
-    setCardHeight(height: number) {
-        if (!this.expanded && !this.isExpanding && height !== 0) {
-            this.cardHeight.base = height;
-        }
-        this.cardHeight.current = height;
-        this.ref.detectChanges();
-    }
-
-    private attach() {
-        this.floatPanelOverlayService.attach(
-            new TemplatePortal(this.templateRef, this.viewContainerRef),
-            this.substrate,
-            { width: this.substrate.nativeElement.clientWidth }
-        );
-    }
-
-    private detach() {
-        this.floatPanelOverlayService.detach();
-    }
-
-    private resetExpandTriggerManage() {
-        if (!this.expanded) {
-            this.expandTrigger = ExpandState.collapsed;
-        }
-    }
-
-    private overlayAttachManage() {
-        if (this.pinned) {
-            this.detach();
-        } else {
-            this.attach();
-        }
+    private resetExpandTrigger() {
+        this.expandTrigger = ExpandState.collapsed;
     }
 }

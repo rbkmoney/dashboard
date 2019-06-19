@@ -22,7 +22,7 @@ import { AuthModule } from './auth';
 import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
-import { KeycloakService } from './auth/keycloak';
+import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeService, ThemeModule } from './theme';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
@@ -41,7 +41,8 @@ import { ContainerModule } from './container';
         ThemeModule,
         ConfigModule,
         ContainerModule,
-        SettingsModule
+        SettingsModule,
+        KeycloakAngularModule
     ],
     providers: [
         IconRegistryService,
