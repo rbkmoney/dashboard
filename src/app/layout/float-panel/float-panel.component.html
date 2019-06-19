@@ -1,6 +1,6 @@
 <div class="dsh-float-panel" [ngStyle]="{ height: (pinned ? cardHeight : baseContentHeight + 40) + 'px' }">
-    <dsh-card class="dsh-float-panel-card" (dshResized)="setCardHeight($event.height)">
-        <div (dshResized)="setBaseContentHeight($event.height)">
+    <dsh-card class="dsh-float-panel-card" (dshResized)="cardHeight = $event.height">
+        <div (dshResized)="baseContentHeight = $event.height">
             <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
                 <div fxFlex><ng-content></ng-content></div>
                 <button
@@ -14,13 +14,7 @@
                 </button>
             </div>
         </div>
-        <div
-            class="dsh-float-panel-more"
-            [@expand]="expandTrigger"
-            (@expand.start)="expandStart($event)"
-            (@expand.done)="expandDone($event)"
-            *ngIf="expanded"
-        >
+        <div class="dsh-float-panel-more" [@expand]="expandTrigger" *ngIf="expanded">
             <div (dshResized)="setMoreContentHeight($event.height)">
                 <div fxLayout="column" fxLayoutGap="20px">
                     <div class="dsh-float-panel-more-content">

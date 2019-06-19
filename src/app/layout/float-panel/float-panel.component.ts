@@ -1,10 +1,12 @@
-import { Component, ContentChild, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
+import { Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { filter } from 'rxjs/operators';
 
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { expandAnimation, ExpandState } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
+import { coerce } from '../../../utils';
 
 @Component({
     selector: 'dsh-float-panel',
@@ -13,47 +15,27 @@ import { hideAnimation } from './animations/hide-animation';
     animations: [expandAnimation, hideAnimation]
 })
 export class FloatPanelComponent {
-    private _expanded = false;
-    @Input()
-    get expanded() {
-        return this._expanded;
-    }
-    set expanded(expanded) {
-        this.expandedChange.emit((this._expanded = expanded !== false));
-    }
     @Output() expandedChange = new EventEmitter<boolean>();
-
-    private _pinned = false;
     @Input()
-    get pinned() {
-        return this._pinned;
-    }
-    set pinned(pinned) {
-        this.pinnedChange.emit((this._pinned = pinned !== false));
-    }
+    @coerce(v => coerceBooleanProperty(v), (v, self) => self.expandedChange.emit(v))
+    expanded = false;
+
     @Output() pinnedChange = new EventEmitter<boolean>();
+    @Input()
+    @coerce(v => coerceBooleanProperty(v), (v, self) => self.pinnedChange.emit(v))
+    pinned = false;
 
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
 
     @ContentChild(FloatPanelActionsTemplateComponent) floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
+    expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;
 
     cardHeight = 0;
     baseContentHeight = 0;
 
-    private isExpanding = false;
-
-    constructor(private ref: ChangeDetectorRef) {
-        this.expandedChange.subscribe(() => this.resetExpandTriggerManage());
-    }
-
-    expandStart(e: AnimationEvent) {
-        this.isExpanding = true;
-    }
-
-    expandDone(e: AnimationEvent) {
-        this.isExpanding = false;
+    constructor() {
+        this.expandedChange.pipe(filter(expanded => !expanded)).subscribe(() => this.resetExpandTrigger());
     }
 
     expandToggle() {
@@ -64,26 +46,11 @@ export class FloatPanelComponent {
         this.pinned = !this.pinned;
     }
 
-    setCardHeight(height: number) {
-        if (height !== 0) {
-            this.cardHeight = height;
-        }
-    }
-
-    setBaseContentHeight(height: number) {
-        this.baseContentHeight = height;
-    }
-
     setMoreContentHeight(height: number) {
-        if (height !== 0) {
-            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
-            this.ref.detectChanges();
-        }
+        this.expandTrigger = { value: ExpandState.expanded, params: { height } };
     }
 
-    private resetExpandTriggerManage() {
-        if (!this.expanded) {
-            this.expandTrigger = ExpandState.collapsed;
-        }
+    private resetExpandTrigger() {
+        this.expandTrigger = ExpandState.collapsed;
     }
 }
