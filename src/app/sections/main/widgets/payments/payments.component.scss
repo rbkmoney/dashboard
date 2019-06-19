@@ -15,12 +15,6 @@
         padding-right: 30px;
     }
 
-    @media only screen and (max-width: 640px) {
-        &-icon-container {
-            margin-left: 0;
-        }
-    }
-
     &-action-button {
         margin-right: auto;
     }
@@ -28,4 +22,16 @@
     &-test-button {
         margin-left: auto;
     }
+
+    @media only screen and (max-width: 640px) {
+        &-icon-container {
+            margin-left: 0;
+        }
+    }
+}
+
+.test {
+    background-color: black;
+    width: 200px;
+    height: 30px;
 }

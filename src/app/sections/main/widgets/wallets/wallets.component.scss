@@ -16,14 +16,14 @@ $dsh-wallet-widget-additional-text-padding: 10px;
         padding-left: 30px;
     }
 
+    &-title,
+    &-text {
+        padding-left: $dsh-wallet-widget-additional-text-padding;
+    }
+
     @media only screen and (max-width: 640px) {
         &-icon-container {
             margin-right: 0;
         }
-    }
-
-    &-title,
-    &-text {
-        padding-left: $dsh-wallet-widget-additional-text-padding;
     }
 }

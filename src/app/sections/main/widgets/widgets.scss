@@ -29,9 +29,20 @@ $dsh-title-vertical-padding: 10px;
 
     &-action-container {
         display: flex;
-        flex-flow: row wrap;
+        flex-wrap: wrap;
         padding-left: $dsh-action-container-additional-padding;
         padding-right: $dsh-action-container-additional-padding;
         margin-top: auto;
     }
+
+    //@media only screen and (max-width: 640px) {
+    //    &-action-container {
+    //        align-items: center;
+    //        justify-content: center;
+    //    }
+    //
+    //    &-button {
+    //        margin-top: 10px;
+    //    }
+    //}
 }
