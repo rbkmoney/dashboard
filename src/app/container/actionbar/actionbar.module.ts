@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MatMenuModule, MatIconModule } from '@angular/material';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown';
@@ -19,7 +19,8 @@ import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from '.
         OverlayModule,
         StateNavModule,
         ButtonModule,
-        StatusModule
+        StatusModule,
+        MatMenuModule
     ],
     declarations: [ActionbarComponent, ClaimsListComponent, ClaimsListItemComponent, UserComponent, ClaimsComponent],
     exports: [ActionbarComponent]

@@ -15,10 +15,15 @@
 @import '../app/status/status-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
+@import '../styles/overwritten/mat-manu';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
+        // Material
         @include angular-material-theme($theme);
+        // Material overwritten
+        @include dsh-mat-menu-theme($theme);
+        // Custom
         @include dsh-container-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);

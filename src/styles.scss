@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 @import './styles/typography';
 
+@import './styles/overwritten/mat-manu';
+
 @mixin global-set-up() {
     body {
         margin: 0;
@@ -20,3 +22,5 @@
 }
 
 @include dsh-core(dsh-typography-config());
+
+@include dsh-mat-menu();

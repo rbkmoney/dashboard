@@ -1,0 +1,37 @@
+@import '../shadow';
+
+$selector: '.mat-menu-panel.mat-menu-panel.mat-menu-panel';
+
+@mixin dsh-mat-menu() {
+    #{$selector} {
+        border-radius: 4px;
+
+        .mat-menu-content {
+            padding: 10px;
+        }
+
+        .mat-menu-item {
+            border-radius: 4px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 9.5px;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@mixin dsh-mat-menu-theme($theme) {
+    $background: map-get($theme, background);
+
+    #{$selector} {
+        @include dsh-shadow($theme);
+
+        .mat-menu-item:hover:enabled {
+            background: map-get($background, hover);
+        }
+    }
+}
