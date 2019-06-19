@@ -14,5 +14,6 @@ $dsh-operations-container-padding-top: 140px;
 }
 
 .operations-container {
+    flex-wrap: wrap;
     padding-top: $dsh-operations-container-padding-top;
 }
