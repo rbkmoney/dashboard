@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import localeRu from '@angular/common/locales/ru';
 
-import themes from '../../themes/themes.json';
 import { registerLocaleData } from '@angular/common';
 
 type SettingsStorageKeys = 'language' | 'theme';
