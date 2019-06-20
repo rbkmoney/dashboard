@@ -18,7 +18,8 @@ export class LocaleService {
     constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
     async init() {
-        const lang = this.settingsService.language;registerLocaleData(angularLocaleData[lang], lang);
+        const lang = this.settingsService.language;
+        registerLocaleData(angularLocaleData[lang], lang);
         const path = `/assets/locales/${lang}.json`;
 
         this.locale = await this.http
