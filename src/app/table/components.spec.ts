@@ -1,8 +1,9 @@
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { DshTableComponent } from './table';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+
+import { DshTableComponent } from './table';
 
 export interface TestData {
     a: string | number | undefined;

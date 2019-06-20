@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { LegendItem } from '../models/chart-data-models';
 
 @Component({

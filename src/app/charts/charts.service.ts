@@ -3,12 +3,12 @@ import { formatDate } from '@angular/common';
 import { select } from 'd3-selection';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { locale } from 'moment';
+import { easeExp } from 'd3-ease';
 
 import { BarType } from './bar-chart/bar-chart.component';
 import { DonutSvgType } from './donut-chart/donut-chart.service';
 import { LinearChartSvgType } from './linear-chart/linear-chart.service';
 import { PeriodData, SegmentData, SVGInitConfig } from './models/chart-data-models';
-import { easeExp } from 'd3-ease';
 
 export type ChartSVG = BarType | DonutSvgType | LinearChartSvgType;
 

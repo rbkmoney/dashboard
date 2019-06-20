@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
-import { DshTableComponent } from './table';
 import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
+
+import { DshTableComponent } from './table';
 import {
     DshCellDefDirective,
     DshCellDirective,
@@ -18,8 +21,6 @@ import {
     DshRowComponent,
     DshRowDefDirective
 } from './row';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material';
 
 const EXPORTED_DECLARATIONS = [
     DshTableComponent,
