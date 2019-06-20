@@ -13,11 +13,10 @@ const angularLocaleData = {
 const defaultLanguage = 'ru';
 const supportedLanguages = ['ru'];
 
-
 @Injectable()
 export class SettingsService {
     get language() {
-        let lang = this.get('language') || navigator.language || (navigator as any).userLanguage
+        let lang = this.get('language') || navigator.language || (navigator as any).userLanguage;
         lang = supportedLanguages.includes(lang) ? lang : defaultLanguage;
         registerLocaleData(angularLocaleData[lang], lang);
 
