@@ -8,11 +8,21 @@
         </div>
         <dsh-tab-group>
             <dsh-tab label="Обсуждения">
-                Последние изменения 10 минут назад
-                <button dsh-button>Обновить</button>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    Последние изменения 10 минут назад
+                    <button dsh-button>Обновить</button>
+                </div>
+                <mat-form-field style="width:100%">
+                    <textarea matInput></textarea>
+                </mat-form-field>
+                <button dsh-stroked-button>Оставить комментарий</button>
             </dsh-tab>
             <dsh-tab label="Изменения" disabled></dsh-tab>
             <dsh-tab label="Документы" disabled></dsh-tab>
         </dsh-tab-group>
     </dsh-card-content>
+    <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between">
+        <button dsh-stroked-button color="warn">Отозвать</button>
+        <button dsh-button color="accent">Отправить на рассмотрение</button>
+    </dsh-card-actions>
 </dsh-card>
