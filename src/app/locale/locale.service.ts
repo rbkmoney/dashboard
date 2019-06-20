@@ -7,8 +7,9 @@ import localeRu from '@angular/common/locales/ru';
 
 import { SettingsService } from '../settings';
 
-registerLocaleData(localeRu, 'ru');
-
+const angularLocaleData = {
+    ru: localeRu
+};
 const defaultLanguage = 'ru';
 const supportedLanguages = ['ru'];
 
@@ -21,6 +22,9 @@ export class LocaleService {
     async init() {
         let lang = this.settingsService.language;
         lang = supportedLanguages.includes(lang) ? lang : defaultLanguage;
+
+        registerLocaleData(angularLocaleData[lang], lang);
+
         const path = `/assets/locales/${lang}.json`;
 
         this.locale = await this.http
