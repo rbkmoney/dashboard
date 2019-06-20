@@ -12,7 +12,7 @@ export function coerce<I = any, O = any, T = any>(
             set: afterFn
                 ? function(v) {
                       this[_key] = fn.call(this, v);
-                      afterFn.call(this, this[_key], v, this);
+                      afterFn.call(this, this[_key], this, v);
                   }
                 : function(v) {
                       this[_key] = fn.call(this, v, this);
