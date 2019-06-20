@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
+import localeRu from '@angular/common/locales/ru';
 
 import themes from '../../themes/themes.json';
+import { registerLocaleData } from '@angular/common';
 
 type SettingsStorageKeys = 'language' | 'theme';
 type SettingsStorageData = { [key in SettingsStorageKeys]: string };
 
+const angularLocaleData = {
+    ru: localeRu
+};
+const defaultLanguage = 'ru';
+const supportedLanguages = ['ru'];
+
+
 @Injectable()
 export class SettingsService {
     get language() {
-        return this.get('language') || navigator.language || (navigator as any).userLanguage;
+        let lang = this.get('language') || navigator.language || (navigator as any).userLanguage
+        lang = supportedLanguages.includes(lang) ? lang : defaultLanguage;
+        registerLocaleData(angularLocaleData[lang], lang);
+
+        return lang;
     }
     set language(language: string) {
         this.set({ language });
