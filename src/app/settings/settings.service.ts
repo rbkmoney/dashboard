@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 
-import themes from '../../themes/themes.json';
-
 registerLocaleData(localeRu, 'ru');
 
 type SettingsStorageKeys = 'language' | 'theme';
@@ -19,13 +17,11 @@ export class SettingsService {
     }
 
     get theme() {
-        return this.get('theme') || themes[0];
+        return this.get('theme');
     }
     set theme(theme: string) {
         this.set({ theme });
     }
-
-    constructor() {}
 
     private set(keyOrKeyValue: SettingsStorageKeys | Partial<SettingsStorageData>, value?: string) {
         if (typeof keyOrKeyValue === 'string') {

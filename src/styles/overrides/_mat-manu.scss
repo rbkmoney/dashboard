@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../shadow';
+@import '../utils/shadow';
 
 $selector: '.mat-menu-panel.mat-menu-panel.mat-menu-panel';
 $height: 40px;
@@ -9,7 +9,7 @@ $gap: 10px;
 $border-radius: 4px;
 $icon-padding: 10px;
 
-@mixin dsh-mat-menu() {
+@mixin mat-menu-override() {
     #{$selector} {
         border-radius: $border-radius;
 
@@ -35,7 +35,7 @@ $icon-padding: 10px;
     }
 }
 
-@mixin dsh-mat-menu-theme($theme) {
+@mixin mat-menu-override-theme($theme) {
     $background: map-get($theme, background);
 
     #{$selector} {
