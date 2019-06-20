@@ -1,6 +1,7 @@
 $dsh-header-row-height: 56px;
 $dsh-row-height: 52px;
 $dsh-row-horizontal-padding: 24px;
+$dsh-header-border-radius: 4px;
 
 .dsh {
     &-table {
@@ -16,10 +17,10 @@ $dsh-row-horizontal-padding: 24px;
 
         thead {
             tr:first-child th:first-child {
-                border-radius: 4px 0 0 4px;
+                border-radius: $dsh-header-border-radius 0 0 $dsh-header-border-radius;
             }
             tr:first-child th:last-child {
-                border-radius: 0 4px 4px 0;
+                border-radius: 0 $dsh-header-border-radius $dsh-header-border-radius 0;
             }
         }
     }

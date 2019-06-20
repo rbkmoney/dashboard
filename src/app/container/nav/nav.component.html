@@ -5,7 +5,7 @@
         #analytics="routerLinkActive"
         [selected]="analytics.isActive"
     >
-        <mat-icon>pie_chart</mat-icon>{{ 'ANALYTICS' | lc }}
+        <mat-icon>pie_chart</mat-icon>{{ 'sections.mainMenu.analytics' | lc }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/operations"
@@ -13,7 +13,7 @@
         #operations="routerLinkActive"
         [selected]="operations.isActive"
     >
-        <mat-icon>table_chart</mat-icon>{{ 'OPERATIONS' | lc }}
+        <mat-icon>table_chart</mat-icon>{{ 'sections.mainMenu.operations' | lc }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/onboarding"
@@ -21,10 +21,7 @@
         #onboarding="routerLinkActive"
         [selected]="onboarding.isActive"
     >
-        <mat-icon>description</mat-icon>{{ 'REQUEST_FOR_CONNECTION' | lc }}
-    </dsh-state-nav-item>
-    <dsh-state-nav-item routerLink="/table" routerLinkActive #table="routerLinkActive" [selected]="table.isActive">
-        <mat-icon>description</mat-icon>{{ 'TABLE' | lc }}
+        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.requestForConnection' | lc }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/buttons"
@@ -32,9 +29,9 @@
         #buttons="routerLinkActive"
         [selected]="buttons.isActive"
     >
-        <mat-icon>description</mat-icon>{{ 'BUTTONS' | lc }}
+        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.buttons' | lc }}
     </dsh-state-nav-item>
     <dsh-state-nav-item routerLink="/inputs" routerLinkActive #inputs="routerLinkActive" [selected]="inputs.isActive">
-        <mat-icon>description</mat-icon>{{ 'INPUTS' | lc }}
+        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.inputs' | lc }}
     </dsh-state-nav-item>
 </dsh-state-nav>

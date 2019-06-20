@@ -1,7 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DshButtonToggleComponent, DshButtonToggleGroupDirective, DshButtonToggleModule } from './index';
+import { ButtonToggleComponent, ButtonToggleGroupDirective, ButtonToggleModule } from './index';
 import {
     ButtonToggleGroupWithInitialValueComponent,
     ButtonTogglesInsideButtonToggleGroupComponent,
@@ -17,7 +17,7 @@ import {
 describe('DshButtonToggle without forms', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [DshButtonToggleModule],
+            imports: [ButtonToggleModule],
             declarations: [
                 ButtonTogglesInsideButtonToggleGroupComponent,
                 ButtonTogglesInsideButtonToggleGroupMultipleComponent,
@@ -41,8 +41,8 @@ describe('DshButtonToggle without forms', () => {
         let buttonToggleDebugElements: DebugElement[];
         let buttonToggleNativeElements: HTMLElement[];
         let buttonToggleLabelElements: HTMLLabelElement[];
-        let groupInstance: DshButtonToggleGroupDirective;
-        let buttonToggleInstances: DshButtonToggleComponent[];
+        let groupInstance: ButtonToggleGroupDirective;
+        let buttonToggleInstances: ButtonToggleComponent[];
         let testComponent: ButtonTogglesInsideButtonToggleGroupComponent;
 
         beforeEach(() => {
@@ -51,13 +51,11 @@ describe('DshButtonToggle without forms', () => {
 
             testComponent = fixture.debugElement.componentInstance;
 
-            groupDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleGroupDirective));
+            groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
             groupNativeElement = groupDebugElement.nativeElement;
-            groupInstance = groupDebugElement.injector.get<DshButtonToggleGroupDirective>(
-                DshButtonToggleGroupDirective
-            );
+            groupInstance = groupDebugElement.injector.get<ButtonToggleGroupDirective>(ButtonToggleGroupDirective);
 
-            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(DshButtonToggleComponent));
+            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
 
             buttonToggleNativeElements = buttonToggleDebugElements.map(debugEl => debugEl.nativeElement);
 
@@ -246,10 +244,10 @@ describe('DshButtonToggle without forms', () => {
         it('should not fire an initial change event', () => {
             const fixture = TestBed.createComponent(ButtonToggleGroupWithInitialValueComponent);
             const testComponent = fixture.debugElement.componentInstance;
-            const groupDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleGroupDirective));
-            const groupInstance: DshButtonToggleGroupDirective = groupDebugElement.injector.get<
-                DshButtonToggleGroupDirective
-            >(DshButtonToggleGroupDirective);
+            const groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
+            const groupInstance: ButtonToggleGroupDirective = groupDebugElement.injector.get<
+                ButtonToggleGroupDirective
+            >(ButtonToggleGroupDirective);
 
             fixture.detectChanges();
 
@@ -273,8 +271,8 @@ describe('DshButtonToggle without forms', () => {
         let buttonToggleDebugElements: DebugElement[];
         let buttonToggleNativeElements: HTMLElement[];
         let buttonToggleLabelElements: HTMLLabelElement[];
-        let groupInstance: DshButtonToggleGroupDirective;
-        let buttonToggleInstances: DshButtonToggleComponent[];
+        let groupInstance: ButtonToggleGroupDirective;
+        let buttonToggleInstances: ButtonToggleComponent[];
         let testComponent: ButtonTogglesInsideButtonToggleGroupMultipleComponent;
 
         beforeEach(fakeAsync(() => {
@@ -283,13 +281,11 @@ describe('DshButtonToggle without forms', () => {
 
             testComponent = fixture.debugElement.componentInstance;
 
-            groupDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleGroupDirective));
+            groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
             groupNativeElement = groupDebugElement.nativeElement;
-            groupInstance = groupDebugElement.injector.get<DshButtonToggleGroupDirective>(
-                DshButtonToggleGroupDirective
-            );
+            groupInstance = groupDebugElement.injector.get<ButtonToggleGroupDirective>(ButtonToggleGroupDirective);
 
-            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(DshButtonToggleComponent));
+            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
             buttonToggleNativeElements = buttonToggleDebugElements.map(debugEl => debugEl.nativeElement);
             buttonToggleLabelElements = fixture.debugElement
                 .queryAll(By.css('button'))
@@ -405,14 +401,14 @@ describe('DshButtonToggle without forms', () => {
         let buttonToggleDebugElement: DebugElement;
         let buttonToggleNativeElement: HTMLElement;
         let buttonToggleLabelElement: HTMLLabelElement;
-        let buttonToggleInstance: DshButtonToggleComponent;
+        let buttonToggleInstance: ButtonToggleComponent;
         let buttonToggleButtonElement: HTMLButtonElement;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(StandaloneButtonToggleComponent);
             fixture.detectChanges();
 
-            buttonToggleDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
+            buttonToggleDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             buttonToggleNativeElement = buttonToggleDebugElement.nativeElement;
             buttonToggleLabelElement = fixture.debugElement.query(By.css('.dsh-button-toggle-label-content'))
                 .nativeElement;
@@ -482,7 +478,7 @@ describe('DshButtonToggle without forms', () => {
     describe('aria-label handling ', () => {
         it('should not set the aria-label attribute if none is provided', () => {
             const fixture = TestBed.createComponent(StandaloneButtonToggleComponent);
-            const checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
+            const checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             const checkboxNativeElement = checkboxDebugElement.nativeElement;
             const buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
 
@@ -492,7 +488,7 @@ describe('DshButtonToggle without forms', () => {
 
         it('should use the provided aria-label', () => {
             const fixture = TestBed.createComponent(ButtonToggleWithAriaLabelComponent);
-            const checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
+            const checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             const checkboxNativeElement = checkboxDebugElement.nativeElement;
             const buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
 
@@ -508,7 +504,7 @@ describe('DshButtonToggle without forms', () => {
 
         it('should use the provided aria-labelledby', () => {
             const fixture = TestBed.createComponent(ButtonToggleWithAriaLabelledbyComponent);
-            checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
+            checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             checkboxNativeElement = checkboxDebugElement.nativeElement;
             buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
 
@@ -518,7 +514,7 @@ describe('DshButtonToggle without forms', () => {
 
         it('should not assign aria-labelledby if none is provided', () => {
             const fixture = TestBed.createComponent(StandaloneButtonToggleComponent);
-            checkboxDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleComponent));
+            checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             checkboxNativeElement = checkboxDebugElement.nativeElement;
             buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
 

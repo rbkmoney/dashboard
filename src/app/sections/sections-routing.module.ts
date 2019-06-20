@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
 import { AnalyticsComponent } from './analytics';
-import { TableComponent } from './table';
 import { routes as onboargindRoutes } from './onboarding';
 import { ButtonsComponent } from './buttons';
 import { OperationsComponent } from './operations/operations.component';
@@ -19,10 +18,6 @@ const routes: Routes = [
     {
         path: 'analytics',
         component: AnalyticsComponent
-    },
-    {
-        path: 'table',
-        component: TableComponent
     },
     {
         path: 'buttons',

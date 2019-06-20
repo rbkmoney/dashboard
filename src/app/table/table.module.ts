@@ -1,41 +1,41 @@
 import { NgModule } from '@angular/core';
-import { DshTableComponent } from './table';
+import { TableComponent } from './table';
 import { CdkTableModule } from '@angular/cdk/table';
 import {
-    DshCellDefDirective,
-    DshCellDirective,
-    DshColumnDefDirective,
-    DshFooterCellDefDirective,
-    DshFooterCellDirective,
-    DshHeaderCellDefDirective,
-    DshHeaderCellDirective
+    CellDefDirective,
+    CellDirective,
+    ColumnDefDirective,
+    FooterCellDefDirective,
+    FooterCellDirective,
+    HeaderCellDefDirective,
+    HeaderCellDirective
 } from './cell';
 import {
-    DshFooterRowComponent,
-    DshFooterRowDefDirective,
-    DshHeaderRowComponent,
-    DshHeaderRowDefDirective,
-    DshRowComponent,
-    DshRowDefDirective
+    FooterRowComponent,
+    FooterRowDefDirective,
+    HeaderRowComponent,
+    HeaderRowDefDirective,
+    RowComponent,
+    RowDefDirective
 } from './row';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material';
 
 const EXPORTED_DECLARATIONS = [
-    DshTableComponent,
-    DshHeaderCellDefDirective,
-    DshHeaderRowDefDirective,
-    DshColumnDefDirective,
-    DshCellDefDirective,
-    DshRowDefDirective,
-    DshFooterCellDefDirective,
-    DshFooterRowDefDirective,
-    DshHeaderCellDirective,
-    DshCellDirective,
-    DshFooterCellDirective,
-    DshHeaderRowComponent,
-    DshRowComponent,
-    DshFooterRowComponent
+    TableComponent,
+    HeaderCellDefDirective,
+    HeaderRowDefDirective,
+    ColumnDefDirective,
+    CellDefDirective,
+    RowDefDirective,
+    FooterCellDefDirective,
+    FooterRowDefDirective,
+    HeaderCellDirective,
+    CellDirective,
+    FooterCellDirective,
+    HeaderRowComponent,
+    RowComponent,
+    FooterRowComponent
 ];
 
 @NgModule({
@@ -43,4 +43,4 @@ const EXPORTED_DECLARATIONS = [
     exports: EXPORTED_DECLARATIONS,
     declarations: EXPORTED_DECLARATIONS
 })
-export class DshTableModule {}
+export class TableModule {}

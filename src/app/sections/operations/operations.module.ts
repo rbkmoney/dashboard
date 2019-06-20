@@ -6,10 +6,10 @@ import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
 import { PaymentsComponent } from './payments/payments.component';
-import { DshTableModule } from '../../table';
-import { LocaleModule } from '../../locale/locale.module';
-import { DshButtonToggleModule } from '../../button-toggle';
+import { TableModule } from '../../table';
+import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
+import { LocaleModule } from '../../locale/locale.module';
 
 @NgModule({
     imports: [
@@ -18,11 +18,11 @@ import { DshTabsModule } from '../../layout/tabs';
         ButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        DshTableModule,
-        LocaleModule,
-        DshButtonToggleModule,
+        TableModule,
+        ButtonToggleModule,
         MatIconModule,
-        DshTabsModule
+        DshTabsModule,
+        LocaleModule
     ],
     declarations: [OperationsComponent, PaymentsComponent]
 })

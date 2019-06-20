@@ -11,9 +11,9 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding, Input, View
 
 @Directive({
     selector: '[dshHeaderRowDef]',
-    providers: [{ provide: CdkHeaderRowDef, useExisting: DshHeaderRowDefDirective }]
+    providers: [{ provide: CdkHeaderRowDef, useExisting: HeaderRowDefDirective }]
 })
-export class DshHeaderRowDefDirective extends CdkHeaderRowDef {
+export class HeaderRowDefDirective extends CdkHeaderRowDef {
     @Input('dshHeaderRowDef') columns: string[];
     // tslint:disable-next-line:no-input-rename
     @Input('dshHeaderRowDefSticky') sticky: boolean;
@@ -21,9 +21,9 @@ export class DshHeaderRowDefDirective extends CdkHeaderRowDef {
 
 @Directive({
     selector: '[dshFooterRowDef]',
-    providers: [{ provide: CdkFooterRowDef, useExisting: DshFooterRowDefDirective }]
+    providers: [{ provide: CdkFooterRowDef, useExisting: FooterRowDefDirective }]
 })
-export class DshFooterRowDefDirective extends CdkFooterRowDef {
+export class FooterRowDefDirective extends CdkFooterRowDef {
     @Input('dshFooterRowDef') columns;
     // tslint:disable-next-line:no-input-rename
     @Input('dshFooterRowDefSticky') sticky: boolean;
@@ -31,9 +31,9 @@ export class DshFooterRowDefDirective extends CdkFooterRowDef {
 
 @Directive({
     selector: '[dshRowDef]',
-    providers: [{ provide: CdkRowDef, useExisting: DshRowDefDirective }]
+    providers: [{ provide: CdkRowDef, useExisting: RowDefDirective }]
 })
-export class DshRowDefDirective<T> extends CdkRowDef<T> {
+export class RowDefDirective<T> extends CdkRowDef<T> {
     // tslint:disable-next-line:no-input-rename
     @Input('dshRowDefColumns') columns;
     // tslint:disable-next-line:no-input-rename
@@ -48,9 +48,9 @@ export class DshRowDefDirective<T> extends CdkRowDef<T> {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshHeaderRow',
-    providers: [{ provide: CdkHeaderRow, useExisting: DshHeaderRowComponent }]
+    providers: [{ provide: CdkHeaderRow, useExisting: HeaderRowComponent }]
 })
-export class DshHeaderRowComponent extends CdkHeaderRow {
+export class HeaderRowComponent extends CdkHeaderRow {
     @HostBinding('class') classes = 'dsh-header-row';
     @HostBinding('attr.role') roles = 'row';
 }
@@ -63,9 +63,9 @@ export class DshHeaderRowComponent extends CdkHeaderRow {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshFooterRow',
-    providers: [{ provide: CdkFooterRow, useExisting: DshFooterRowComponent }]
+    providers: [{ provide: CdkFooterRow, useExisting: FooterRowComponent }]
 })
-export class DshFooterRowComponent extends CdkFooterRow {
+export class FooterRowComponent extends CdkFooterRow {
     @HostBinding('class') classes = 'dsh-footer-row';
     @HostBinding('attr.role') roles = 'row';
 }
@@ -78,9 +78,9 @@ export class DshFooterRowComponent extends CdkFooterRow {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshRow',
-    providers: [{ provide: CdkRow, useExisting: DshRowComponent }]
+    providers: [{ provide: CdkRow, useExisting: RowComponent }]
 })
-export class DshRowComponent extends CdkRow {
+export class RowComponent extends CdkRow {
     @HostBinding('class') classes = 'dsh-row';
     @HostBinding('attr.role') roles = 'row';
 }
