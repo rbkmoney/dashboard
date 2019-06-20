@@ -2,31 +2,24 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 
 import { LocaleService } from './locale.service';
 import { LocalePipe } from './locale.pipe';
-import { HttpClient } from '@angular/common/http';
-import { SettingsService } from '../settings';
 
-class HttpClientStub {}
-class SettingsServiceStub {}
+class LocaleServiceStub {
+    locale = {
+        'test key': 'test value'
+    };
+}
 
 describe('LocalePipe', () => {
     let lc: LocalePipe;
     let ls: LocaleService;
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            providers: [
-                LocaleService,
-                { provide: HttpClient, useClass: HttpClientStub },
-                { provide: SettingsService, useClass: SettingsServiceStub }
-            ],
+            providers: [LocaleService, { provide: LocaleService, useClass: LocaleServiceStub }],
             declarations: [LocalePipe]
         });
         ls = TestBed.get(LocaleService);
-        ls.locale = {
-            'test key': 'test value'
-        };
         lc = new LocalePipe(ls);
         spyOn(console, 'warn');
-        TestBed.compileComponents();
     }));
 
     it('should return test value', () => {
