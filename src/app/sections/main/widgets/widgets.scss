@@ -1,7 +1,7 @@
-$dsh-widget-container-padding: 20px;
-$dsh-widget-button-width: 210px;
-$dsh-action-container-additional-padding: 10px;
-$dsh-title-vertical-padding: 10px;
+$container-padding: 20px;
+$button-width: 210px;
+$additional-padding: 10px;
+$vertical-padding: 10px;
 
 .dsh-widget {
     &-container {
@@ -9,17 +9,17 @@ $dsh-title-vertical-padding: 10px;
         flex-direction: column;
         min-height: 200px;
         max-width: 460px;
-        padding: $dsh-widget-container-padding;
+        padding: $container-padding;
         border-radius: 4px;
     }
 
     &-title {
-        padding-top: $dsh-title-vertical-padding;
-        padding-bottom: $dsh-title-vertical-padding;
+        padding-top: $vertical-padding;
+        padding-bottom: $vertical-padding;
     }
 
     &-button {
-        min-width: $dsh-widget-button-width;
+        min-width: $button-width;
     }
 
     &-info-container {
@@ -30,19 +30,8 @@ $dsh-title-vertical-padding: 10px;
     &-action-container {
         display: flex;
         flex-wrap: wrap;
-        padding-left: $dsh-action-container-additional-padding;
-        padding-right: $dsh-action-container-additional-padding;
+        padding-left: $additional-padding;
+        padding-right: $additional-padding;
         margin-top: auto;
     }
-
-    //@media only screen and (max-width: 640px) {
-    //    &-action-container {
-    //        align-items: center;
-    //        justify-content: center;
-    //    }
-    //
-    //    &-button {
-    //        margin-top: 10px;
-    //    }
-    //}
 }

@@ -1,4 +1,4 @@
-$dsh-wallet-widget-additional-text-padding: 10px;
+$additional-text-padding: 10px;
 
 .dsh-wallet-widget {
     &-icon {
@@ -18,7 +18,7 @@ $dsh-wallet-widget-additional-text-padding: 10px;
 
     &-title,
     &-text {
-        padding-left: $dsh-wallet-widget-additional-text-padding;
+        padding-left: $additional-text-padding;
     }
 
     @media only screen and (max-width: 640px) {
