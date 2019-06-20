@@ -27,13 +27,11 @@ export class SettingsService {
     }
 
     get theme() {
-        return this.get('theme') || themes[0];
+        return this.get('theme');
     }
     set theme(theme: string) {
         this.set({ theme });
     }
-
-    constructor() {}
 
     private set(keyOrKeyValue: SettingsStorageKeys | Partial<SettingsStorageData>, value?: string) {
         if (typeof keyOrKeyValue === 'string') {

@@ -6,6 +6,14 @@
         <dsh-status [color]="color">{{ status }}</dsh-status>
     </div>
     <div>
-        <button dsh-icon-button (click)="clickHandler()"><mat-icon>more_vert</mat-icon></button>
+        <button dsh-icon-button (click)="clickHandler()" [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
     </div>
 </div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <span>Детали заявки</span>
+    </button>
+</mat-menu>

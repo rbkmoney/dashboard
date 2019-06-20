@@ -3,14 +3,16 @@
 @mixin dsh-dropdown-theme($theme) {
     $background: map-get($theme, background);
 
-    .dropdown,
-    .dropdown-triangle {
-        background-color: mat-color($background, card);
+    .dsh-dropdown {
+        &,
+        &-triangle {
+            background-color: mat-color($background, card);
+        }
     }
 }
 
 @mixin dsh-dropdown-typography($config) {
-    .dropdown {
+    .dsh-dropdown {
         @include mat-typography-level-to-styles($config, body-1);
     }
 }
