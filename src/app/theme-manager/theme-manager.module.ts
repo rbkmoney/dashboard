@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { ThemeService } from './theme.service';
+import { ThemeManager } from './theme-manager.service';
 import { SettingsModule } from '../settings';
 
 @NgModule({
     imports: [],
     declarations: [],
     entryComponents: [],
-    providers: [ThemeService, SettingsModule]
+    providers: [ThemeManager, SettingsModule]
 })
-export class ThemeModule {}
+export class ThemeManagerModule {}
