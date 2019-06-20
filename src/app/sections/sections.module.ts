@@ -9,6 +9,7 @@ import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { OperationsModule } from './operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
+import { ClaimModule } from './claim';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { InputsModule } from './inputs/inputs.module';
         OnboardingModule,
         ButtonsModule,
         OperationsModule,
-        InputsModule
+        InputsModule,
+        ClaimModule
     ],
     declarations: [],
     entryComponents: [],
