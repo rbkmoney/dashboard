@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
-import themes from '../../themes/themes.json';
 import { SettingsService } from '../settings';
 
 enum Type {
@@ -10,33 +9,40 @@ enum Type {
     CSS = 'css'
 }
 
+const themes = ['light', 'dark'];
+
 @Injectable()
-export class ThemeService {
-    themes: { [name: string]: External } = {};
-    fileType: Type = environment.production ? Type.CSS : Type.JS;
+export class ThemeManager {
+    private themes: { [name: string]: External } = {};
+    private fileType: Type = environment.production ? Type.CSS : Type.JS;
 
     constructor(private settingsService: SettingsService) {
         this.init();
     }
 
-    init() {
-        this.themes = themes.reduce((t, name) => {
-            t[name] = this.createExternal(this.getFilePath(name));
-            return t;
-        }, {});
-        this.changeTheme(this.settingsService.theme);
-    }
-
-    changeTheme(name: string = this.getNextTheme()) {
+    changeTheme(name: string = this.getTheme(1)) {
         this.themes[name].add();
         this.removeCurrentTheme();
         this.settingsService.theme = name;
         document.body.classList.add(this.settingsService.theme);
     }
 
-    getNextTheme(): string {
-        const idx = themes.findIndex(n => n === this.settingsService.theme) + 1;
-        return themes[idx === themes.length ? 0 : idx];
+    private init() {
+        this.themes = themes.reduce((t, name) => {
+            t[name] = this.createExternal(this.getFilePath(name));
+            return t;
+        }, {});
+        const defaultTheme = themes[0];
+        this.changeTheme(this.settingsService.theme || defaultTheme);
+    }
+
+    private get themeIdx(): number {
+        return themes.findIndex(n => n === this.settingsService.theme);
+    }
+
+    private getTheme(changeIdx: number = 0): string {
+        const nextIdx = (this.themeIdx + changeIdx) % themes.length;
+        return themes[nextIdx < 0 ? themes.length - nextIdx : nextIdx];
     }
 
     private removeCurrentTheme() {

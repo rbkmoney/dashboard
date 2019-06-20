@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { DropdownTriggerDirective } from '../../dropdown';
-import { ThemeService } from '../../theme';
+import { ThemeManager } from '../../theme-manager';
 
 @Component({
     selector: 'dsh-actionbar',
@@ -11,7 +11,7 @@ import { ThemeService } from '../../theme';
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
-    constructor(private themeService: ThemeService) {}
+    constructor(private themeService: ThemeManager) {}
 
     changeTheme() {
         this.themeService.changeTheme();

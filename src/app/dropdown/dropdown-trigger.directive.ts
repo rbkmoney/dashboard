@@ -160,7 +160,12 @@ export class DropdownTriggerDirective implements OnDestroy {
         const { target } = event;
         const { dropdownEl } = this;
         const originEl = this.origin.nativeElement;
-        if (!(dropdownEl && dropdownEl.contains(target)) && !(originEl && originEl.contains(target))) {
+        const overlayEl = document.querySelector('.cdk-overlay-container');
+        if (
+            !(dropdownEl && dropdownEl.contains(target)) &&
+            !(originEl && originEl.contains(target)) &&
+            !(overlayEl && overlayEl.contains(target))
+        ) {
             this.dropdown.backdropClick.emit(event);
             this.conditionalClose();
         }

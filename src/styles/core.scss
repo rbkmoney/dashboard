@@ -1,0 +1,41 @@
+@import '~@angular/material/theming';
+@import './utils/typography';
+@import '../app/container/container-theme';
+@import '../app/dropdown/dropdown-theme';
+@import '../app/table/table-theme';
+@import '../app/charts/bar-chart/bar-chart-theme';
+@import '../app/layout/card/card-theme';
+@import '../app/layout/float-panel/float-panel-theme';
+@import '../app/charts/linear-chart/linear-chart-theme';
+@import '../app/state-nav/state-nav-theme';
+@import '../app/charts/legend-tooltip/legend-tooltip-theme';
+@import '../app/button/button-theme';
+@import '../app/layout/tabs/tabs-theme';
+@import '../app/button-toggle/button-toggle-theme';
+@import '../app/status/status-theme';
+@import '../app/sections/main/main-theme';
+@import '../app/container/welcome-image/welcome-image-theme';
+@import './overrides/body';
+@import './overrides/mat-manu';
+@import './overrides/mat-theme-loaded-marker';
+
+@mixin dsh-overrides() {
+    @include body-override();
+    @include mat-menu-override();
+    @include mat-theme-loaded-marker-override();
+}
+
+@mixin dsh-typography($config) {
+    @include mat-core($config);
+    @include dsh-button-typography($config);
+    @include dsh-state-nav-typography($config);
+    @include dsh-tabs-typography($config);
+    @include dsh-card-typography($config);
+    @include dsh-button-toggle-typography($config);
+    @include dsh-float-panel-typography($config);
+    @include dsh-status-typography($config);
+    @include dsh-dropdown-typography($config);
+}
+
+@include dsh-overrides();
+@include dsh-typography(dsh-typography-config());
