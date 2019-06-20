@@ -2,8 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
 
 import { SettingsService } from '../settings';
+
+const angularLocaleData = {
+    ru: localeRu
+};
 
 @Injectable()
 export class LocaleService {
@@ -12,7 +18,9 @@ export class LocaleService {
     constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
     async init() {
-        const path = `/assets/locales/${this.settingsService.language}.json`;
+        const lang = this.settingsService.language;
+        registerLocaleData(angularLocaleData[lang], lang);
+        const path = `/assets/locales/${lang}.json`;
 
         this.locale = await this.http
             .get(path)
