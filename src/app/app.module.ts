@@ -23,7 +23,7 @@ import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
-import { ThemeService, ThemeModule } from './theme';
+import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
@@ -38,7 +38,7 @@ import { ContainerModule } from './container';
         SectionsModule,
         APIModule,
         AuthModule,
-        ThemeModule,
+        ThemeManagerModule,
         ConfigModule,
         ContainerModule,
         SettingsModule,
@@ -49,7 +49,7 @@ import { ContainerModule } from './container';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, ThemeService],
+            deps: [ConfigService, KeycloakService],
             multi: true
         },
         {

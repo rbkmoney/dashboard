@@ -1,25 +1,26 @@
 @import '~@angular/material/theming';
-
-@import '../app/container/container-theme';
-@import '../app/dropdown/dropdown-theme';
-@import '../app/table/table-theme';
-@import '../app/charts/bar-chart/bar-chart-theme';
-@import '../app/layout/card/card-theme';
-@import '../app/layout/float-panel/float-panel-theme';
-@import '../app/charts/linear-chart/linear-chart-theme';
-@import '../app/state-nav/state-nav-theme';
-@import '../app/charts/legend-tooltip/legend-tooltip-theme';
-@import '../app/button/button-theme';
-@import '../app/layout/tabs/tabs-theme';
-@import '../app/button-toggle/button-toggle-theme';
-@import '../app/status/status-theme';
-@import '../app/sections/main/widgets/widgets-theme';
-@import '../app/sections/main/main-theme';
-@import '../app/container/welcome-image/welcome-image-theme';
+@import '../overrides/mat-manu';
+@import '../../app/container/container-theme';
+@import '../../app/dropdown/dropdown-theme';
+@import '../../app/table/table-theme';
+@import '../../app/charts/bar-chart/bar-chart-theme';
+@import '../../app/layout/card/card-theme';
+@import '../../app/layout/float-panel/float-panel-theme';
+@import '../../app/charts/linear-chart/linear-chart-theme';
+@import '../../app/state-nav/state-nav-theme';
+@import '../../app/charts/legend-tooltip/legend-tooltip-theme';
+@import '../../app/button/button-theme';
+@import '../../app/layout/tabs/tabs-theme';
+@import '../../app/button-toggle/button-toggle-theme';
+@import '../../app/status/status-theme';
+@import '../../app/sections/main/main-theme';
+@import '../../app/container/welcome-image/welcome-image-theme';
+@import '../../app/sections/main/widgets/widgets-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
+        @include mat-menu-override-theme($theme);
         @include dsh-container-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
