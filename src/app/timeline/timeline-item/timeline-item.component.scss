@@ -1,0 +1,35 @@
+$size: 36px;
+$icons-size: 18px;
+$line-size: 2px;
+
+.dsh-timeline-item {
+    padding-bottom: 20px;
+
+    &-title {
+        height: $size;
+        line-height: $size;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-content {
+        padding-top: 10px;
+    }
+
+    &-badge {
+        display: flex;
+        height: $size;
+        min-width: $size;
+        max-width: $size;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        z-index: 10;
+
+        ::ng-deep & .mat-icon {
+            height: $icons-size;
+            width: $icons-size;
+            font-size: $icons-size;
+        }
+    }
+}

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss']
 })
-export class ClaimComponent {
-    constructor() {}
-}
+export class ClaimComponent {}

@@ -10,6 +10,10 @@ function getComponentPath(name: string) {
     return `${vsc.toKebabCase(name)}.component`;
 }
 
+function getClassName(name: string) {
+    return `${PREFIX}-${vsc.toKebabCase(name)}`;
+}
+
 export function Template(path: string, templatePath: string): vsc.vscTemplate {
     return {
         userInputs: [
@@ -53,7 +57,6 @@ import { Component } from '@angular/core';
     styleUrls: ['${getComponentPath(inputs.name)}.scss']
 })
 export class ${getComponentName(inputs.name)} {
-    constructor() {}
 }
 `
                     },

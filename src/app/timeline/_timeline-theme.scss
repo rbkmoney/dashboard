@@ -1,0 +1,50 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-timeline-theme($theme) {
+    $neutral: map-get($theme, neutral);
+    $success-base: map-get($theme, success-base);
+    $pending-base: map-get($theme, pending-base);
+    $warn-base: map-get($theme, warn-base);
+    $line-color: mat-color($neutral, 200);
+
+    .dsh-timeline {
+        border-bottom-color: $line-color;
+
+        &::after {
+            background-color: $line-color;
+        }
+    }
+
+    .dsh-timeline-item {
+        &-badge {
+            background-color: $line-color;
+        }
+
+        &-success {
+            .dsh-timeline-item-badge {
+                background-color: $success-base;
+                color: #fff;
+            }
+        }
+
+        &-pending {
+            .dsh-timeline-item-badge {
+                background-color: $pending-base;
+                color: #fff;
+            }
+        }
+
+        &-warn {
+            .dsh-timeline-item-badge {
+                background-color: $warn-base;
+                color: #fff;
+            }
+        }
+    }
+}
+
+@mixin dsh-timeline-typography($config) {
+    .dsh-timeline {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}

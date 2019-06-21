@@ -18,6 +18,7 @@
 @import './overrides/body';
 @import './overrides/mat-manu';
 @import './overrides/mat-theme-loaded-marker';
+@import '../app/timeline/timeline-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -35,6 +36,7 @@
     @include dsh-float-panel-typography($config);
     @include dsh-status-typography($config);
     @include dsh-dropdown-typography($config);
+    @include dsh-timeline-typography($config);
 }
 
 @include dsh-overrides();
