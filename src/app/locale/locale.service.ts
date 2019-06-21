@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import get from 'lodash.get';
 
 import { SettingsService } from '../settings';
 
@@ -13,25 +14,33 @@ const angularLocaleData = {
 
 @Injectable()
 export class LocaleService {
-    locale = {};
+    private dictionary;
 
     constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
-    async init() {
+    async init(): Promise<void> {
         const lang = this.settingsService.language;
         registerLocaleData(angularLocaleData[lang], lang);
-        const path = `/assets/locales/${lang}.json`;
-
-        this.locale = await this.http
-            .get(path)
+        this.dictionary = await this.http
+            .get(`/assets/locales/${lang}.json`)
             .pipe(
                 catchError(err => {
-                    console.error(err);
-                    return new Observable(observer => {
-                        observer.complete();
-                    });
+                    console.error('An error occurred while fetch locale dictionary', err);
+                    return new Observable(observer => observer.complete());
                 })
             )
             .toPromise();
+    }
+
+    mapDictionaryKey(key: string): string {
+        if (!this.dictionary) {
+            console.warn('Locale dictionary is not defined');
+            return key;
+        }
+        const str = get(this.dictionary, key, key);
+        if (str === key) {
+            console.warn(`Locale dictionary mismatch: ${key}`);
+        }
+        return str;
     }
 }
