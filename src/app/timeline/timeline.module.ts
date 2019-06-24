@@ -4,12 +4,27 @@ import { CommonModule } from '@angular/common';
 
 import { TimelineComponent } from './timeline.component';
 import { TimelineItemComponent } from './timeline-item';
-import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title.component';
-import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge.component';
+import {
+    TimelineItemTitleComponent,
+    TimelineItemBadgeComponent,
+    TimelineItemContentComponent
+} from './timeline-item/timeline-item-templates';
 
 @NgModule({
     imports: [FlexLayoutModule, CommonModule],
-    declarations: [TimelineComponent, TimelineItemComponent, TimelineItemTitleComponent, TimelineItemBadgeComponent],
-    exports: [TimelineComponent, TimelineItemComponent, TimelineItemTitleComponent, TimelineItemBadgeComponent]
+    declarations: [
+        TimelineComponent,
+        TimelineItemComponent,
+        TimelineItemTitleComponent,
+        TimelineItemBadgeComponent,
+        TimelineItemContentComponent
+    ],
+    exports: [
+        TimelineComponent,
+        TimelineItemComponent,
+        TimelineItemTitleComponent,
+        TimelineItemBadgeComponent,
+        TimelineItemContentComponent
+    ]
 })
 export class TimelineModule {}

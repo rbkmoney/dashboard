@@ -1,7 +1,10 @@
-import { Component, ContentChild, Input, HostBinding } from '@angular/core';
+import { Component, ContentChild, Input } from '@angular/core';
 
-import { TimelineItemTitleComponent } from './timeline-item-title.component';
-import { TimelineItemBadgeComponent } from './timeline-item-badge.component';
+import {
+    TimelineItemTitleComponent,
+    TimelineItemBadgeComponent,
+    TimelineItemContentComponent
+} from './timeline-item-templates';
 import { StatusColor } from '../../theme-manager/color';
 
 @Component({
@@ -14,4 +17,5 @@ export class TimelineItemComponent {
 
     @ContentChild(TimelineItemTitleComponent) timelineItemTitleComponent: TimelineItemTitleComponent;
     @ContentChild(TimelineItemBadgeComponent) timelineItemBadgeComponent: TimelineItemBadgeComponent;
+    @ContentChild(TimelineItemContentComponent) timelineItemContentComponent: TimelineItemContentComponent;
 }

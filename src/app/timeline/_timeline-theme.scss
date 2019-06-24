@@ -16,28 +16,30 @@
     }
 
     .dsh-timeline-item {
-        &-badge {
-            background-color: $line-color;
+        &-title {
+            &-badge {
+                background-color: $line-color;
+            }
         }
 
         &-success {
-            .dsh-timeline-item-badge {
+            .dsh-timeline-item-title-badge {
                 background-color: $success-base;
-                color: #fff;
+                color: map-get($background, card);
             }
         }
 
         &-pending {
-            .dsh-timeline-item-badge {
+            .dsh-timeline-item-title-badge {
                 background-color: $pending-base;
-                color: #fff;
+                color: map-get($background, card);
             }
         }
 
         &-warn {
-            .dsh-timeline-item-badge {
+            .dsh-timeline-item-title-badge {
                 background-color: $warn-base;
-                color: #fff;
+                color: map-get($background, card);
             }
         }
     }

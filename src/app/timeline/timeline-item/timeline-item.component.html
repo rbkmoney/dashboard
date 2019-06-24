@@ -1,13 +1,13 @@
-<div fxLayout="row" fxLayoutGap="10px" [class]="'dsh-timeline-item' + (color ? ' dsh-timeline-item-' + color : '')">
-    <div class="dsh-timeline-item-badge">
-        <ng-container *ngTemplateOutlet="timelineItemBadgeComponent?.templateRef"></ng-container>
-    </div>
-    <div fxFlex>
-        <div class="dsh-timeline-item-title">
+<div fxLayout="column" [class]="'dsh-timeline-item' + (color ? ' dsh-timeline-item-' + color : '')">
+    <div class="dsh-timeline-item-title">
+        <div class="dsh-timeline-item-title-badge">
+            <ng-container *ngTemplateOutlet="timelineItemBadgeComponent?.templateRef"></ng-container>
+        </div>
+        <div class="dsh-timeline-item-title-content">
             <ng-container *ngTemplateOutlet="timelineItemTitleComponent?.templateRef"></ng-container>
         </div>
-        <div class="dsh-timeline-item-content">
-            <ng-content></ng-content>
-        </div>
+    </div>
+    <div class="dsh-timeline-item-content" *ngIf="timelineItemContentComponent?.templateRef">
+        <ng-container *ngTemplateOutlet="timelineItemContentComponent?.templateRef"></ng-container>
     </div>
 </div>
