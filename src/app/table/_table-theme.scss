@@ -21,7 +21,7 @@
                 background: inherit;
             }
 
-            & thead {
+            & thead th {
                 background: mat-color($background, background);
             }
         }
@@ -50,7 +50,7 @@
         }
 
         &-header-cell {
-            font-size: mat-font-size($config, caption);
+            font-size: mat-font-size($config, body-2);
             font-weight: mat-font-weight($config, body-2);
         }
 

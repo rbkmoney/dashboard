@@ -35,7 +35,7 @@ export type ToggleType = 'checkbox' | 'radio';
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     /* tslint:disable:no-use-before-declare */
-    useExisting: forwardRef(() => DshButtonToggleGroupDirective),
+    useExisting: forwardRef(() => ButtonToggleGroupDirective),
     /* tslint:enable:no-use-before-declare */
     multi: true
 };
@@ -43,21 +43,21 @@ export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
 let _uniqueIdCounter = 0;
 
 export class DshButtonToggleChange {
-    constructor(public source: DshButtonToggleComponent, public value: any) {}
+    constructor(public source: ButtonToggleComponent, public value: any) {}
 }
 
 @Directive({
     selector: 'dsh-button-toggle-group, [dshButtonToggleGroup]',
     providers: [
         DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
-        { provide: MatButtonToggleGroup, useExisting: DshButtonToggleGroupDirective }
+        { provide: MatButtonToggleGroup, useExisting: ButtonToggleGroupDirective }
     ],
     exportAs: 'dshButtonToggleGroup'
 })
-export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
+export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /* Child button toggle buttons. */
     /* tslint:disable:no-use-before-declare */
-    @ContentChildren(forwardRef(() => DshButtonToggleComponent)) _buttonToggles: QueryList<DshButtonToggleComponent>;
+    @ContentChildren(forwardRef(() => ButtonToggleComponent)) _buttonToggles: QueryList<ButtonToggleComponent>;
     /* tslint:enable:no-use-before-declare */
 
     @HostBinding('class.dsh-button-toggle-group') groupClass = true;
@@ -69,7 +69,7 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     private _vertical = false;
     private _multiple = false;
     private _disabled = false;
-    private _selectionModel: SelectionModel<DshButtonToggleComponent>;
+    private _selectionModel: SelectionModel<ButtonToggleComponent>;
     private _name = `dsh-button-toggle-group-${_uniqueIdCounter++}`;
 
     private _rawValue: any;
@@ -156,7 +156,7 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     constructor(private _changeDetector: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this._selectionModel = new SelectionModel<DshButtonToggleComponent>(this.multiple, undefined, false);
+        this._selectionModel = new SelectionModel<ButtonToggleComponent>(this.multiple, undefined, false);
     }
 
     ngAfterContentInit() {
@@ -203,11 +203,11 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
      * @param isUserInput Whether the change was a result of a user interaction.
      * @param deferEvents Whether to defer emitting the change events.
      */
-    _syncButtonToggle(toggle: DshButtonToggleComponent, select: boolean, isUserInput = false, deferEvents = false) {
+    _syncButtonToggle(toggle: ButtonToggleComponent, select: boolean, isUserInput = false, deferEvents = false) {
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
-            (this.selected as DshButtonToggleComponent).checked = false;
+            (this.selected as ButtonToggleComponent).checked = false;
         }
 
         if (select) {
@@ -227,12 +227,12 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     }
 
     /** Checks whether a button toggle is selected. */
-    _isSelected(toggle: DshButtonToggleComponent) {
+    _isSelected(toggle: ButtonToggleComponent) {
         return this._selectionModel.isSelected(toggle);
     }
 
     /** Determines whether a button toggle should be checked on init. */
-    _isPrechecked(toggle: DshButtonToggleComponent) {
+    _isPrechecked(toggle: ButtonToggleComponent) {
         if (typeof this._rawValue === 'undefined') {
             return false;
         }
@@ -305,7 +305,7 @@ export class DshButtonToggleGroupDirective implements ControlValueAccessor, OnIn
     exportAs: 'dshButtonToggle',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
+export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
     private _isSingleSelector = false;
     private _checked = false;
 
@@ -364,7 +364,7 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
 
     _type: ToggleType;
     /** The parent button toggle group (exclusive selection). Optional. */
-    buttonToggleGroup: DshButtonToggleGroupDirective;
+    buttonToggleGroup: ButtonToggleGroupDirective;
 
     /** Unique ID for the underlying `button` element. */
     get buttonId(): string {
@@ -377,7 +377,7 @@ export class DshButtonToggleComponent extends _MatButtonToggleMixinBase implemen
     }
 
     constructor(
-        @Optional() toggleGroup: DshButtonToggleGroupDirective,
+        @Optional() toggleGroup: ButtonToggleGroupDirective,
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef<HTMLElement>,
         private _focusMonitor: FocusMonitor

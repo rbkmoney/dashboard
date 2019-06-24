@@ -20,6 +20,7 @@ import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
 import { StateNavModule } from '../../state-nav/state-nav.module';
 import { ButtonModule } from '../../button';
+import { LocaleModule } from '../../locale/locale.module';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { ButtonModule } from '../../button';
         MatSelectModule,
         MatDatepickerModule,
         StateNavModule,
-        ButtonModule
+        ButtonModule,
+        LocaleModule
     ],
     declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
     entryComponents: [],

@@ -38,10 +38,10 @@
         </div>
     </form>
     <div fxLayout="row" fxLayoutAlign="space-between">
-        <button dsh-stroked-button (click)="prevStep()">Назад</button>
+        <button dsh-stroked-button (click)="prevStep()">{{ 'common.back' | lc }}</button>
         <div></div>
         <button dsh-button color="accent" [disabled]="!canContinue" (click)="nextStep()">
-            Далее
+            {{ 'common.next' | lc }}
         </button>
     </div>
 </dsh-onboarding-layout>

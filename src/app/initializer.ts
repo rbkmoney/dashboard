@@ -1,7 +1,12 @@
 import { KeycloakService } from './auth/keycloak';
-import { ConfigService } from './config/config.service';
+import { ConfigService } from './config';
+import { LocaleService } from './locale/locale.service';
 
-export const initializer = (configService: ConfigService, keycloakService: KeycloakService) => () =>
+export const initializer = (
+    configService: ConfigService,
+    keycloakService: KeycloakService,
+    localeService: LocaleService
+) => () =>
     Promise.all([
         configService.init(),
         keycloakService.init({
@@ -13,5 +18,6 @@ export const initializer = (configService: ConfigService, keycloakService: Keycl
             enableBearerInterceptor: true,
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
-        })
+        }),
+        localeService.init()
     ]);

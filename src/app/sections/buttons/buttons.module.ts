@@ -5,10 +5,10 @@ import { MatIconModule } from '@angular/material';
 import { ButtonsComponent } from './buttons.component';
 import { ButtonModule } from '../../button';
 import { CardModule } from '../../layout/card';
-import { DshButtonToggleModule } from '../../button-toggle';
+import { ButtonToggleModule } from '../../button-toggle';
 
 @NgModule({
     declarations: [ButtonsComponent],
-    imports: [FlexLayoutModule, ButtonModule, CardModule, DshButtonToggleModule, MatIconModule]
+    imports: [FlexLayoutModule, ButtonModule, CardModule, ButtonToggleModule, MatIconModule]
 })
 export class ButtonsModule {}

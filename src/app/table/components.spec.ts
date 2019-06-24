@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { DshTableComponent } from './table';
+import { TableComponent } from './table';
 
 export interface TestData {
     a: string | number | undefined;
@@ -83,7 +83,7 @@ class FakeDataSource extends DataSource<TestData> {
     `
 })
 export class DshTableAppComponent {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -114,7 +114,7 @@ export class DshTableAppComponent {
     `
 })
 export class NativeHtmlTableAppComponent {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -134,7 +134,7 @@ export class NativeHtmlTableAppComponent {
     `
 })
 export class StickyTableAppComponent {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource = new FakeDataSource();
     columnsToRender = ['column_a'];
@@ -162,7 +162,7 @@ export class StickyTableAppComponent {
     `
 })
 export class DshTableWithWhenRowAppComponent {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     multiTemplateDataRows = false;
     dataSource: FakeDataSource | null = new FakeDataSource();
@@ -199,7 +199,7 @@ export class DshTableWithWhenRowAppComponent {
     `
 })
 export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();
@@ -251,7 +251,7 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
     `
 })
 export class DshTableWithPaginatorAppComponent implements OnInit {
-    @ViewChild(DshTableComponent) table: DshTableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();

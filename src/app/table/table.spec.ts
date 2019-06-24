@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } fr
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule, MatSortModule, MatTableDataSource } from '@angular/material';
 
-import { DshTableModule } from './index';
+import { TableModule } from './';
 import { expectTableTodshChContent } from './table-utils.spec';
 import {
     ArrayDataSourceDshTableAppComponent,
@@ -18,7 +18,7 @@ import {
 describe('DshTable', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [DshTableModule, MatPaginatorModule, MatSortModule, NoopAnimationsModule],
+            imports: [TableModule, MatPaginatorModule, MatSortModule, NoopAnimationsModule],
             declarations: [
                 DshTableAppComponent,
                 DshTableWithWhenRowAppComponent,

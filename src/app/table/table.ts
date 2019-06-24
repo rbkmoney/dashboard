@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material';
     // tslint:disable-next-line:validate-decorators
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class DshTableComponent<T> extends CdkTable<T> {
+export class TableComponent<T> extends CdkTable<T> {
     /** Overrides the sticky CSS class set by the `CdkTable`. */
     protected stickyCssClass = 'dsh-table-sticky';
 
