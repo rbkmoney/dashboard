@@ -1,8 +1,8 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { DshButtonToggleModule } from './button-toggle.module';
+import { ButtonToggleModule } from './button-toggle.module';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
-import { DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle.component';
+import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import { By } from '@angular/platform-browser';
 import {
     ButtonToggleGroupWithFormControlComponent,
@@ -12,7 +12,7 @@ import {
 describe('DshButtonToggle with forms', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [DshButtonToggleModule, FormsModule, ReactiveFormsModule],
+            imports: [ButtonToggleModule, FormsModule, ReactiveFormsModule],
             declarations: [ButtonToggleGroupWithNgModelComponent, ButtonToggleGroupWithFormControlComponent]
         });
 
@@ -22,7 +22,7 @@ describe('DshButtonToggle with forms', () => {
     describe('using FormControl', () => {
         let fixture: ComponentFixture<ButtonToggleGroupWithFormControlComponent>;
         let groupDebugElement: DebugElement;
-        let groupInstance: DshButtonToggleGroupDirective;
+        let groupInstance: ButtonToggleGroupDirective;
         let testComponent: ButtonToggleGroupWithFormControlComponent;
 
         beforeEach(fakeAsync(() => {
@@ -31,10 +31,8 @@ describe('DshButtonToggle with forms', () => {
 
             testComponent = fixture.debugElement.componentInstance;
 
-            groupDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleGroupDirective));
-            groupInstance = groupDebugElement.injector.get<DshButtonToggleGroupDirective>(
-                DshButtonToggleGroupDirective
-            );
+            groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
+            groupInstance = groupDebugElement.injector.get<ButtonToggleGroupDirective>(ButtonToggleGroupDirective);
         }));
 
         it('should toggle the disabled state', () => {
@@ -71,8 +69,8 @@ describe('DshButtonToggle with forms', () => {
         let fixture: ComponentFixture<ButtonToggleGroupWithNgModelComponent>;
         let groupDebugElement: DebugElement;
         let buttonToggleDebugElements: DebugElement[];
-        let groupInstance: DshButtonToggleGroupDirective;
-        let buttonToggleInstances: DshButtonToggleComponent[];
+        let groupInstance: ButtonToggleGroupDirective;
+        let buttonToggleInstances: ButtonToggleComponent[];
         let testComponent: ButtonToggleGroupWithNgModelComponent;
         let groupNgModel: NgModel;
         let innerButtons: HTMLElement[];
@@ -82,13 +80,11 @@ describe('DshButtonToggle with forms', () => {
             fixture.detectChanges();
             testComponent = fixture.debugElement.componentInstance;
 
-            groupDebugElement = fixture.debugElement.query(By.directive(DshButtonToggleGroupDirective));
-            groupInstance = groupDebugElement.injector.get<DshButtonToggleGroupDirective>(
-                DshButtonToggleGroupDirective
-            );
+            groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
+            groupInstance = groupDebugElement.injector.get<ButtonToggleGroupDirective>(ButtonToggleGroupDirective);
             groupNgModel = groupDebugElement.injector.get<NgModel>(NgModel);
 
-            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(DshButtonToggleComponent));
+            buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
             buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
             innerButtons = buttonToggleDebugElements.map(debugEl => debugEl.query(By.css('button')).nativeElement);
 
@@ -146,7 +142,7 @@ describe('DshButtonToggle with forms', () => {
                 expect(buttonToggle.checked).toBe(groupInstance.value === buttonToggle.value);
             }
 
-            const selected = groupInstance.selected as DshButtonToggleComponent;
+            const selected = groupInstance.selected as ButtonToggleComponent;
 
             expect(selected.value).toBe(groupInstance.value);
         });
@@ -201,7 +197,7 @@ describe('DshButtonToggle with forms', () => {
                 tick();
                 fixture.detectChanges();
 
-                buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(DshButtonToggleComponent));
+                buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
                 buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
 
                 expect(buttonToggleInstances[0].checked).toBe(true);

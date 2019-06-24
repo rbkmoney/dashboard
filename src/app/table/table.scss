@@ -1,11 +1,11 @@
 $dsh-header-row-height: 56px;
-$dsh-row-height: 48px;
+$dsh-row-height: 52px;
 $dsh-row-horizontal-padding: 24px;
+$dsh-header-border-radius: 4px;
 
 .dsh {
     &-table {
         display: block;
-        border-radius: 5px;
         padding: 0;
         border-spacing: 0;
 
@@ -16,7 +16,12 @@ $dsh-row-horizontal-padding: 24px;
         }
 
         thead {
-            border-radius: 5px;
+            tr:first-child th:first-child {
+                border-radius: $dsh-header-border-radius 0 0 $dsh-header-border-radius;
+            }
+            tr:first-child th:last-child {
+                border-radius: 0 $dsh-header-border-radius $dsh-header-border-radius 0;
+            }
         }
     }
 

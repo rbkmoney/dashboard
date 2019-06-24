@@ -5,20 +5,25 @@ import { MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/mate
 import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
-import { DshButtonToggleModule } from '../../button-toggle';
+import { PaymentsComponent } from './payments/payments.component';
+import { TableModule } from '../../table';
+import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
+import { LocaleModule } from '../../locale/locale.module';
 
 @NgModule({
     imports: [
         LayoutModule,
         FlexLayoutModule,
         ButtonModule,
-        DshButtonToggleModule,
         MatFormFieldModule,
         MatInputModule,
+        TableModule,
+        ButtonToggleModule,
         MatIconModule,
-        DshTabsModule
+        DshTabsModule,
+        LocaleModule
     ],
-    declarations: [OperationsComponent]
+    declarations: [OperationsComponent, PaymentsComponent]
 })
 export class OperationsModule {}

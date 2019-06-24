@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 
 export interface PeriodicElement {
     name: string;
@@ -58,17 +58,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-    selector: 'dsh-details',
-    templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss']
+    selector: 'dsh-payments',
+    templateUrl: 'payments.component.html'
 })
-export class TableComponent implements OnInit {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
+export class PaymentsComponent {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-    ngOnInit() {
-        this.dataSource.paginator = this.paginator;
-    }
 }

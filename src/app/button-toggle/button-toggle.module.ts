@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { DshButtonToggleComponent, DshButtonToggleGroupDirective } from './button-toggle.component';
+import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [CommonModule],
-    exports: [DshButtonToggleGroupDirective, DshButtonToggleComponent],
-    declarations: [DshButtonToggleGroupDirective, DshButtonToggleComponent]
+    exports: [ButtonToggleGroupDirective, ButtonToggleComponent],
+    declarations: [ButtonToggleGroupDirective, ButtonToggleComponent]
 })
-export class DshButtonToggleModule {}
+export class ButtonToggleModule {}
