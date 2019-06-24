@@ -1,0 +1,44 @@
+{
+    "common": {
+        "showMore": "Показать еще",
+        "resetSearchParams": "Сбросить параметры поиска",
+        "back": "Назад",
+        "next": "Далее",
+        "today": "Сегодня",
+        "week": "Неделя",
+        "month": "Месяц"
+    },
+    "sections": {
+        "mainMenu": {
+            "operations": "Операции",
+            "inputs": "Поля ввода",
+            "buttons": "Кнопки",
+            "table": "Таблица",
+            "analytics": "Аналитика",
+            "requestForConnection": "Заявка на подключение"
+        },
+        "mainPage": {
+            "menu": {
+                "documentation": "Документация",
+                "support": "Поддержка",
+                "operations": "Операции",
+                "privateOffice": "Личный кабинет"
+            }
+        },
+        "operations": {
+            "title": "Операции",
+            "payments": {
+                "title": "Платежи",
+                "filter": {
+                    "status": "Статус платежа"
+                }
+            },
+            "invoices": {
+                "title": "Инвойсы"
+            },
+            "refunds": {
+                "title": "Возвраты"
+            }
+        }
+    }
+}

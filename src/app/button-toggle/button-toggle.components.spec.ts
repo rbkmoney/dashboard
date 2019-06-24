@@ -1,9 +1,5 @@
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import {
-    DshButtonToggleChange,
-    DshButtonToggleComponent,
-    DshButtonToggleGroupDirective
-} from './button-toggle.component';
+import { DshButtonToggleChange, ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -64,7 +60,7 @@ export class ButtonTogglesInsideButtonToggleGroupMultipleComponent {
 })
 export class FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent {
     value: ('' | number | null | undefined | boolean)[] = [0];
-    @ViewChildren(DshButtonToggleComponent) toggles: QueryList<DshButtonToggleComponent>;
+    @ViewChildren(ButtonToggleComponent) toggles: QueryList<ButtonToggleComponent>;
 }
 
 @Component({
@@ -125,8 +121,8 @@ export class ButtonToggleWithAriaLabelledbyComponent {}
     `
 })
 export class RepeatedButtonTogglesWithPreselectedValueComponent {
-    @ViewChild(DshButtonToggleGroupDirective) toggleGroup: DshButtonToggleGroupDirective;
-    @ViewChildren(DshButtonToggleComponent) toggles: QueryList<DshButtonToggleComponent>;
+    @ViewChild(ButtonToggleGroupDirective) toggleGroup: ButtonToggleGroupDirective;
+    @ViewChildren(ButtonToggleComponent) toggles: QueryList<ButtonToggleComponent>;
 
     possibleValues = ['One', 'Two', 'Three'];
     value = 'Two';

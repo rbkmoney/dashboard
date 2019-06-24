@@ -11,34 +11,34 @@ import {
 
 @Directive({
     selector: '[dshCellDef]',
-    providers: [{ provide: CdkCellDef, useExisting: DshCellDefDirective }]
+    providers: [{ provide: CdkCellDef, useExisting: CellDefDirective }]
 })
-export class DshCellDefDirective extends CdkCellDef {}
+export class CellDefDirective extends CdkCellDef {}
 
 @Directive({
     selector: '[dshHeaderCellDef]',
-    providers: [{ provide: CdkHeaderCellDef, useExisting: DshHeaderCellDefDirective }]
+    providers: [{ provide: CdkHeaderCellDef, useExisting: HeaderCellDefDirective }]
 })
-export class DshHeaderCellDefDirective extends CdkHeaderCellDef {}
+export class HeaderCellDefDirective extends CdkHeaderCellDef {}
 
 @Directive({
     selector: '[dshFooterCellDef]',
-    providers: [{ provide: CdkFooterCellDef, useExisting: DshFooterCellDefDirective }]
+    providers: [{ provide: CdkFooterCellDef, useExisting: FooterCellDefDirective }]
 })
-export class DshFooterCellDefDirective extends CdkFooterCellDef {}
+export class FooterCellDefDirective extends CdkFooterCellDef {}
 
 @Directive({
     selector: '[dshColumnDef]',
-    providers: [{ provide: CdkColumnDef, useExisting: DshColumnDefDirective }]
+    providers: [{ provide: CdkColumnDef, useExisting: ColumnDefDirective }]
 })
-export class DshColumnDefDirective extends CdkColumnDef {
+export class ColumnDefDirective extends CdkColumnDef {
     @Input('dshColumnDef') name: string;
 }
 
 @Directive({
     selector: 'dshHeaderCell, th[dshHeaderCell]'
 })
-export class DshHeaderCellDirective extends CdkHeaderCell {
+export class HeaderCellDirective extends CdkHeaderCell {
     @HostBinding('class') classes = 'dsh-header-cell';
     @HostBinding('attr.role') roles = 'columnheader';
 }
@@ -46,7 +46,7 @@ export class DshHeaderCellDirective extends CdkHeaderCell {
 @Directive({
     selector: 'dshFooterCell, td[dshFooterCell]'
 })
-export class DshFooterCellDirective extends CdkFooterCell {
+export class FooterCellDirective extends CdkFooterCell {
     @HostBinding('class') classes = 'dsh-footer-cell';
     @HostBinding('attr.role') roles = 'gridcell';
 }
@@ -54,7 +54,7 @@ export class DshFooterCellDirective extends CdkFooterCell {
 @Directive({
     selector: 'dshCell, td[dshCell]'
 })
-export class DshCellDirective extends CdkCell {
+export class CellDirective extends CdkCell {
     @HostBinding('class') classes = 'dsh-cell';
     @HostBinding('attr.role') roles = 'gridcell';
 }

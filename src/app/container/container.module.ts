@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { ContainerComponent } from './container.component';
 import { ToolbarModule } from './toolbar';
+import { LocaleModule } from '../locale/locale.module';
 import { StateNavModule } from '../state-nav';
 import { NavComponent } from './nav';
 import { WelcomeImageModule } from './welcome-image';
@@ -13,6 +14,7 @@ import { WelcomeImageModule } from './welcome-image';
 @NgModule({
     imports: [
         CommonModule,
+        LocaleModule,
         ToolbarModule,
         RouterModule,
         StateNavModule,

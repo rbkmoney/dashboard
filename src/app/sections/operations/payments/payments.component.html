@@ -1,4 +1,4 @@
-<div class="kek">
+<div fxLayout="column" fxLayoutGap="15px">
     <table dshTable [dataSource]="dataSource">
         <ng-container dshColumnDef="position">
             <th dshHeaderCell *dshHeaderCellDef>No.</th>
@@ -26,8 +26,7 @@
 
         <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
         <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
-        <tr dsh-footer-row *dshFooterRowDef="displayedColumns; sticky: true"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <button dsh-button>{{ 'common.showMore' | lc }}</button>
 </div>
