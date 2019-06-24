@@ -1,0 +1,11 @@
+$height: 36px;
+$border-radius: 4px;
+$padding: 10px;
+
+.dsh-expand-panel {
+    display: flex;
+    align-items: center;
+    min-height: $height;
+    border-radius: $border-radius;
+    padding: 0 $padding;
+}

@@ -94,7 +94,7 @@ export * from './${getComponentPath(inputs.name)}'
                     },
                     {
                         type: 'file',
-                        name: inputs => `_${vsc.toKebabCase(inputs.name)}.scss`,
+                        name: inputs => `_${vsc.toKebabCase(inputs.name)}-theme.scss`,
                         content: inputs => `
 @import '~@angular/material/theming';
 
@@ -106,7 +106,7 @@ export * from './${getComponentPath(inputs.name)}'
 @mixin ${getCssClassName(inputs.name)}-typography($config) {
     .${getCssClassName(inputs.name)} {
     }
-}                        
+}
 `
                     }
                 ]

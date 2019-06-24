@@ -8,6 +8,7 @@ import { LayoutModule } from '../../layout';
 import { DshTabsModule } from '../../layout/tabs';
 import { ButtonModule } from '../../button';
 import { TimelineModule } from '../../timeline';
+import { ExpandPanelModule } from '../../expand-panel';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { TimelineModule } from '../../timeline';
         MatFormFieldModule,
         MatInputModule,
         TimelineModule,
-        MatIconModule
+        MatIconModule,
+        ExpandPanelModule
     ],
     declarations: [ClaimComponent, DetailsComponent],
     exports: []

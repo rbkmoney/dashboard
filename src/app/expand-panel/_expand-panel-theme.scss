@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-expand-panel-theme($theme) {
+    .dsh-expand-panel {
+        background-color: map-get(map-get($theme, background), background);
+    }
+}
+
+@mixin dsh-expand-panel-typography($config) {
+    .dsh-expand-panel {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}
