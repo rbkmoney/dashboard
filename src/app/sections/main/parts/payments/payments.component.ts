@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { LocaleService } from '../../../../locale';
+
 export enum PaymentPartType {
     prestine = 'prestine',
     onboardingPending = 'pending',
@@ -24,39 +26,31 @@ export class PaymentsComponent implements OnInit {
 
     config: ContentConfig;
 
+    constructor(private lcService: LocaleService) {}
+
     ngOnInit() {
         this.config = this.toConfig(this.type);
     }
 
-    private toConfig(type: PaymentPartType): ContentConfig {
+    private toConfig(type: PaymentPartType, basePath = 'sections.main.payments'): ContentConfig {
+        const mapDict = path => this.lcService.mapDictionaryKey(`${basePath}.${path}`);
+        const mapSubheading = path => mapDict(`subheading.${path}`);
+        const mapAction = path => mapDict(`action.${path}`);
+        const toContentConf = (subheading, action) => ({
+            subheading: mapSubheading(subheading),
+            action: mapAction(action)
+        });
         switch (type) {
             case PaymentPartType.prestine:
-                return {
-                    subheading:
-                        'Управление платежами и возвратами. Контролирование интеграции с платформой, и многое другое.',
-                    action: 'Подключиться'
-                };
+                return toContentConf('prestine', 'join');
             case PaymentPartType.onboardingPending:
-                return {
-                    subheading: 'Вы начали процесс заполнения заявки на подключение.',
-                    action: 'Продолжить'
-                };
+                return toContentConf('onboardingPending', 'continue');
             case PaymentPartType.onboardingReview:
-                return {
-                    subheading: 'Ваша заявка на подключение рассматривается.',
-                    action: 'Детали заявки'
-                };
+                return toContentConf('onboardingReview', 'claimDetails');
             case PaymentPartType.onboardingReviewed:
-                return {
-                    subheading: 'Мы рассмотрели вашу заявку. От вас требуются дополнительные действия.',
-                    action: 'Детали заявки'
-                };
-            case PaymentPartType.prestine:
-                return {
-                    subheading:
-                        'Управление платежами и возвратами. Контролирование интеграции с платформой, и многое другое.',
-                    action: 'Перейти'
-                };
+                return toContentConf('onboardingReviewed', 'claimDetails');
+            case PaymentPartType.accepted:
+                return toContentConf('prestine', 'details');
         }
     }
 }

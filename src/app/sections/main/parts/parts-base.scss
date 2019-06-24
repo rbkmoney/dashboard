@@ -3,7 +3,7 @@ $dsh-serface-border-radius: 4px;
 $dsh-serface-max-width: 440px;
 $dsh-serface-subheading-height: 90px;
 
-.dsh-main-parts-serface {
+.dsh-main-parts-surface {
     display: block;
     position: relative;
     padding: $dsh-serface-padding;
@@ -15,13 +15,13 @@ $dsh-serface-subheading-height: 90px;
 }
 
 @media only screen and (max-width: 960px) {
-    .dsh-main-parts-serface {
+    .dsh-main-parts-surface {
         width: $dsh-serface-max-width;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .dsh-main-parts-serface {
+    .dsh-main-parts-surface {
         width: auto;
         max-width: 100%;
     }

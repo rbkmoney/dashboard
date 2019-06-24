@@ -1,4 +1,4 @@
-<div class="dsh-main-parts-serface">
+<div class="dsh-main-parts-surface">
     <div fxLayout="column" fxLayoutAlign="space-between stretch">
         <div fxLayout fxLayoutGap="30px">
             <mat-icon
@@ -10,7 +10,7 @@
                 svgIcon="bill"
             ></mat-icon>
             <div>
-                <h2 class="mat-title">Платежи</h2>
+                <h2 class="mat-title">{{ 'sections.main.payments.title' | lc }}</h2>
                 <h4 class="mat-subheading-1 subheading">
                     {{ config.subheading }}
                 </h4>
@@ -24,7 +24,9 @@
             fxLayoutGap.xs="10px"
         >
             <button fxFlex dsh-button color="accent" [routerLink]="actionRouterLink">{{ config.action }}</button>
-            <button fxFlex dsh-stroked-button color="accent" routerLink="/operations">Тестовое окружение</button>
+            <button fxFlex dsh-stroked-button color="accent" routerLink="/operations">
+                {{ 'sections.main.payments.testEnvironment' | lc }}
+            </button>
         </div>
     </div>
 </div>

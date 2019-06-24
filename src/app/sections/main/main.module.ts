@@ -6,12 +6,12 @@ import { MatIconModule } from '@angular/material';
 
 import { MainComponent } from './main.component';
 import { ButtonModule } from '../../button';
-import { PaymentsComponent as PaymentsPartComponent } from './parts';
-import { WalletsComponent as WalletsPartComponent } from './parts';
-import { LocaleModule } from '../../locale/locale.module';
+import { LocaleModule } from '../../locale';
+import { PaymentsComponent } from './parts';
+import { WalletsComponent } from './parts';
 
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, RouterModule, MatIconModule, ButtonModule, LocaleModule],
-    declarations: [MainComponent]
+    declarations: [MainComponent, PaymentsComponent, WalletsComponent]
 })
 export class MainModule {}
