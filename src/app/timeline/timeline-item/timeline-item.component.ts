@@ -1,10 +1,5 @@
-import { Component, ContentChild, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {
-    TimelineItemTitleComponent,
-    TimelineItemBadgeComponent,
-    TimelineItemContentComponent
-} from './timeline-item-templates';
 import { StatusColor } from '../../theme-manager/color';
 
 @Component({
@@ -14,8 +9,4 @@ import { StatusColor } from '../../theme-manager/color';
 })
 export class TimelineItemComponent {
     @Input() color: StatusColor;
-
-    @ContentChild(TimelineItemTitleComponent) timelineItemTitleComponent: TimelineItemTitleComponent;
-    @ContentChild(TimelineItemBadgeComponent) timelineItemBadgeComponent: TimelineItemBadgeComponent;
-    @ContentChild(TimelineItemContentComponent) timelineItemContentComponent: TimelineItemContentComponent;
 }

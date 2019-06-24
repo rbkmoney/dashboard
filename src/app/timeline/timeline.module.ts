@@ -4,11 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { TimelineComponent } from './timeline.component';
 import { TimelineItemComponent } from './timeline-item';
-import {
-    TimelineItemTitleComponent,
-    TimelineItemBadgeComponent,
-    TimelineItemContentComponent
-} from './timeline-item/timeline-item-templates';
+import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title';
+import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
+import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 
 @NgModule({
     imports: [FlexLayoutModule, CommonModule],

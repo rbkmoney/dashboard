@@ -1,40 +1,7 @@
-$size: 36px;
-$icons-size: 18px;
-$line-size: 2px;
-$content-padding: 10px;
+@import './timeline-item.scss';
 
 .dsh-timeline-item {
     padding-bottom: 20px;
-
-    &-title {
-        display: flex;
-        align-items: center;
-        min-height: $size;
-
-        &-badge {
-            display: flex;
-            height: $size;
-            min-width: $size;
-            max-width: $size;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            z-index: 10;
-
-            ::ng-deep & .mat-icon {
-                height: $icons-size;
-                width: $icons-size;
-                font-size: $icons-size;
-            }
-        }
-
-        &-content {
-            padding-left: $content-padding;
-        }
-    }
-
-    &-content {
-        padding-left: $size + $content-padding;
-        padding-top: $content-padding;
-    }
+    padding-left: $size + $content-padding;
+    position: relative;
 }
