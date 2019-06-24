@@ -12,3 +12,5 @@ export const expandAnimation = trigger('expand', [
     transition(`${ExpandState.collapsed} <=> ${ExpandState.expanded}`, [animation]),
     transition(`${ExpandState.expanded} => void`, [animation])
 ]);
+
+export type ExpandTrigger = ExpandState | { value: ExpandState; params: { height: number } };

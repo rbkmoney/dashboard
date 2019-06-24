@@ -2,7 +2,7 @@ import { Component, ContentChild, Input } from '@angular/core';
 
 import { ExpandPanelContentComponent } from './expand-panel-content.component';
 import { coerceBoolean } from '../../utils';
-import { ExpandState, expandAnimation } from './expand-animation';
+import { ExpandState, expandAnimation, ExpandTrigger } from './expand-animation';
 import { PaletteColor } from '../theme-manager';
 
 @Component({
@@ -21,7 +21,7 @@ export class ExpandPanelComponent {
 
     height = 0;
 
-    expandTrigger: any = ExpandState.collapsed;
+    expandTrigger: ExpandTrigger = ExpandState.collapsed;
 
     get expandable() {
         return !!this.expandPanelContentComponent;

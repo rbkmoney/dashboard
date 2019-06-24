@@ -1,4 +1,4 @@
-<div [class]="'dsh-expand-panel' + (color ? ' dsh-expand-panel-' + color : '')">
+<div class="dsh-expand-panel{{ 'dsh-expand-panel-' + color | activeClass: color }}">
     <div class="dsh-expand-panel-header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div><ng-content></ng-content></div>
         <mat-icon class="arrow" (click)="toggle($event)" [ngClass]="{ 'arrow-expanded': expanded }" *ngIf="expandable">
