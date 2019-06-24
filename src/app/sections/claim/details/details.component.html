@@ -8,9 +8,9 @@
         </div>
         <dsh-tab-group>
             <dsh-tab label="Обсуждения">
-                <div fxLayout="row" fxLayoutAlign="space-between">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px 0">
                     Последние изменения 10 минут назад
-                    <button dsh-button>Обновить</button>
+                    <a>Обновить</a>
                 </div>
                 <dsh-timeline>
                     <dsh-timeline-item>
@@ -49,10 +49,12 @@
                         </dsh-timeline-item-content>
                     </dsh-timeline-item>
                 </dsh-timeline>
-                <mat-form-field style="width:100%">
-                    <textarea matInput></textarea>
-                </mat-form-field>
-                <button dsh-stroked-button>Оставить комментарий</button>
+                <div style="margin: 20px 0 0 0">
+                    <mat-form-field style="width:100%">
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                    <button dsh-stroked-button style="float: right">Оставить комментарий</button>
+                </div>
             </dsh-tab>
             <dsh-tab label="Изменения" disabled></dsh-tab>
             <dsh-tab label="Документы" disabled></dsh-tab>
