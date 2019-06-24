@@ -16,10 +16,13 @@ $border-size: 1px;
         padding: 0 $padding - $border-size;
     }
 
+    &-content {
+        height: 0;
+        overflow: hidden;
+        padding: $content-padding;
+    }
+
     .arrow {
-        font-size: $action-size;
-        width: $action-size;
-        height: $action-size;
         cursor: pointer;
         transition: transform 150ms ease;
         user-select: none;
@@ -29,9 +32,9 @@ $border-size: 1px;
         }
     }
 
-    &-content {
-        height: 0;
-        overflow: hidden;
-        padding: $content-padding;
+    ::ng-deep & .mat-icon {
+        font-size: $action-size;
+        width: $action-size;
+        height: $action-size;
     }
 }
