@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import { CommonModule } from '@angular/common';
+
+import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 
 @NgModule({
     imports: [CommonModule],
