@@ -1,19 +1,34 @@
 @import '~@angular/material/theming';
 
+$SELECTOR: '.dsh-expand-panel';
+
+@mixin colored($color) {
+    border-color: $color;
+    #{$SELECTOR}-header {
+        background-color: $color;
+    }
+}
+
 @mixin dsh-expand-panel-theme($theme) {
     $background: map-get(map-get($theme, background), background);
+    $accent: mat-color(map-get($theme, accent), 50);
+    $primary: mat-color(map-get($theme, primary), 50);
 
-    .dsh-expand-panel {
-        border-color: $background;
+    #{$SELECTOR} {
+        @include colored($background);
 
-        &-header {
-            background-color: $background;
+        &-accent {
+            @include colored($accent);
+        }
+
+        &-primary {
+            @include colored($primary);
         }
     }
 }
 
 @mixin dsh-expand-panel-typography($config) {
-    .dsh-expand-panel {
+    #{$SELECTOR} {
         @include mat-typography-level-to-styles($config, body-1);
     }
 }

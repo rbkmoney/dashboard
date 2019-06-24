@@ -3,6 +3,7 @@ import { Component, ContentChild, Input } from '@angular/core';
 import { ExpandPanelContentComponent } from './expand-panel-content.component';
 import { coerceBoolean } from '../../utils';
 import { ExpandState, expandAnimation } from './expand-animation';
+import { PaletteColor } from '../theme-manager';
 
 @Component({
     selector: 'dsh-expand-panel',
@@ -14,6 +15,9 @@ export class ExpandPanelComponent {
     @Input()
     @coerceBoolean
     expanded = false;
+
+    @Input()
+    color: PaletteColor;
 
     height = 0;
 
