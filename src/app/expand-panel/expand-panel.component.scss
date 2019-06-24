@@ -3,16 +3,17 @@ $border-radius: 4px;
 $padding: 10px;
 $action-size: 18px;
 $content-padding: 10px;
+$border-size: 1px;
 
 .dsh-expand-panel {
     border-radius: $border-radius;
-    border: 1px solid;
+    border: $border-size solid;
 
     &-header {
         display: flex;
         align-items: center;
-        min-height: $height;
-        padding: 0 $padding;
+        min-height: $height - $border-size * 2;
+        padding: 0 $padding - $border-size;
     }
 
     .arrow {
@@ -21,6 +22,7 @@ $content-padding: 10px;
         height: $action-size;
         cursor: pointer;
         transition: transform 150ms ease;
+        user-select: none;
 
         &-expanded {
             transform: rotate(180deg);
