@@ -20,7 +20,7 @@ describe('LocaleService', () => {
     beforeAll(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [LocaleService, {provide: SettingsService, useClass: SettingsServiceStub}]
+            providers: [LocaleService, { provide: SettingsService, useClass: SettingsServiceStub }]
         });
         ls = TestBed.get(LocaleService);
         spyOn(console, 'warn');
@@ -30,9 +30,8 @@ describe('LocaleService', () => {
         ls.init().then(() => {});
         const req = httpMock.expectOne(`/assets/locales/ru.json`, 'get the dictionary');
         req.flush(dummyDict);
-        expect(req.request.method).toBe("GET");
+        expect(req.request.method).toBe('GET');
     }));
-
 
     it('should return test value', () => {
         expect(ls.mapDictionaryKey('test key')).toBe('test value');
