@@ -8,6 +8,6 @@
         </div>
     </div>
     <div class="dsh-timeline-item-content" *ngIf="timelineItemContentComponent?.templateRef">
-        <div *ngTemplateOutlet="timelineItemContentComponent?.templateRef"></div>
+        <ng-container *ngTemplateOutlet="timelineItemContentComponent?.templateRef"></ng-container>
     </div>
 </div>

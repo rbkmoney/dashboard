@@ -1,11 +1,35 @@
 $height: 36px;
 $border-radius: 4px;
 $padding: 10px;
+$action-size: 18px;
+$content-padding: 10px;
 
 .dsh-expand-panel {
-    display: flex;
-    align-items: center;
-    min-height: $height;
     border-radius: $border-radius;
-    padding: 0 $padding;
+    border: 1px solid;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        min-height: $height;
+        padding: 0 $padding;
+    }
+
+    .arrow {
+        font-size: $action-size;
+        width: $action-size;
+        height: $action-size;
+        cursor: pointer;
+        transition: transform 150ms ease;
+
+        &-expanded {
+            transform: rotate(180deg);
+        }
+    }
+
+    &-content {
+        height: 0;
+        overflow: hidden;
+        padding: $content-padding;
+    }
 }
