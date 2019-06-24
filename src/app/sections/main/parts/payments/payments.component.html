@@ -1,0 +1,30 @@
+<div class="dsh-main-parts-serface">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout fxLayoutGap="30px">
+            <mat-icon
+                fxHide.md="true"
+                fxHide.sm="true"
+                fxHide.xs="true"
+                fxFlex="180px"
+                class="bill-icon"
+                svgIcon="bill"
+            ></mat-icon>
+            <div>
+                <h2 class="mat-title">Платежи</h2>
+                <h4 class="mat-subheading-1 subheading">
+                    {{ config.subheading }}
+                </h4>
+            </div>
+        </div>
+        <div
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="space-between stretch"
+            fxLayoutGap="20px"
+            fxLayoutGap.xs="10px"
+        >
+            <button fxFlex dsh-button color="accent" [routerLink]="actionRouterLink">{{ config.action }}</button>
+            <button fxFlex dsh-stroked-button color="accent" routerLink="/operations">Тестовое окружение</button>
+        </div>
+    </div>
+</div>

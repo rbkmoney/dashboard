@@ -5,9 +5,28 @@
         <a class="mat-caption dsh-main-section-text link" [href]="supportMailto">Поддержка</a>
     </div>
 </div>
-<div class="content-container">
-    <div class="operations-container" fxLayout fxLayoutGap="40px grid" fxLayoutAlign="space-evenly center">
-        <dsh-payments-widget [status]="statuses.FIRST"></dsh-payments-widget>
-        <dsh-wallets-widget></dsh-wallets-widget>
-    </div>
+<div
+    *ngIf="hasWallets"
+    class="parts-container"
+    fxLayout
+    fxLayout.md="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutGap="40px"
+    fxLayoutGap.md="20px"
+    fxLayoutGap.sm="10px"
+    fxLayoutGap.xs="10px"
+    fxLayoutAlign="center center"
+    fxLayoutAlign.xs="start stretch"
+>
+    <dsh-payments [type]="paymentsSectionType" [actionRouterLink]="paymentsSectionActionRouterLink"></dsh-payments>
+    <dsh-wallets></dsh-wallets>
+</div>
+<div *ngIf="!hasWallets" class="parts-container">
+    <dsh-payments
+        [type]="paymentsSectionType"
+        [actionRouterLink]="paymentsSectionActionRouterLink"
+        fxFlexOffset="80px"
+        fxFlexOffset.xs="0"
+    ></dsh-payments>
 </div>

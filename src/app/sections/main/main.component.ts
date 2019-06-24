@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ConfigService } from '../../config';
-import { ClaimStatus } from './widgets/payments/payments.component';
+import { PaymentPartType } from './parts';
 
 @Component({
     templateUrl: 'main.component.html',
@@ -10,8 +10,9 @@ import { ClaimStatus } from './widgets/payments/payments.component';
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
-
-    statuses = ClaimStatus;
+    hasWallets = true;
+    paymentsSectionType = PaymentPartType.prestine;
+    paymentsSectionActionRouterLink = '/';
 
     constructor(private configService: ConfigService) {}
 }
