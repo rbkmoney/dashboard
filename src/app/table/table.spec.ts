@@ -4,7 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { TableModule } from './index';
+import { TableModule } from './';
 import { expectTableTodshChContent } from './table-utils.spec';
 import {
     ArrayDataSourceDshTableAppComponent,

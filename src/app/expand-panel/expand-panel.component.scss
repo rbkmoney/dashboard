@@ -1,0 +1,43 @@
+$height: 36px;
+$border-radius: 4px;
+$padding: 10px;
+$action-size: 18px;
+$content-padding: 10px;
+$border-size: 1px;
+
+.dsh-expand-panel {
+    border-radius: $border-radius;
+    border: $border-size solid;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        min-height: $height - $border-size * 2;
+        padding: 0 $padding - $border-size;
+
+        &-expandable {
+            cursor: pointer;
+        }
+    }
+
+    &-content {
+        height: 0;
+        overflow: hidden;
+        padding: $content-padding;
+    }
+
+    .arrow {
+        transition: transform 150ms ease;
+        user-select: none;
+
+        &-expanded {
+            transform: rotate(180deg);
+        }
+    }
+
+    ::ng-deep & .mat-icon {
+        font-size: $action-size;
+        width: $action-size;
+        height: $action-size;
+    }
+}
