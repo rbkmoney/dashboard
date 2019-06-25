@@ -360,7 +360,7 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     /** Event emitted when the group value changes. */
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
 
-    @ViewChild('button') _buttonElement: ElementRef<HTMLButtonElement>;
+    @ViewChild('button', { static: true }) _buttonElement: ElementRef<HTMLButtonElement>;
 
     _type: ToggleType;
     /** The parent button toggle group (exclusive selection). Optional. */

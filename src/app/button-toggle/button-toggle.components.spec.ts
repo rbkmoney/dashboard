@@ -122,7 +122,7 @@ export class ButtonToggleWithAriaLabelledbyComponent {}
     `
 })
 export class RepeatedButtonTogglesWithPreselectedValueComponent {
-    @ViewChild(ButtonToggleGroupDirective) toggleGroup: ButtonToggleGroupDirective;
+    @ViewChild(ButtonToggleGroupDirective, { static: true }) toggleGroup: ButtonToggleGroupDirective;
     @ViewChildren(ButtonToggleComponent) toggles: QueryList<ButtonToggleComponent>;
 
     possibleValues = ['One', 'Two', 'Three'];

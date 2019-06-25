@@ -21,7 +21,7 @@ import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
     providers: [LinearChartService, LegendTooltipService]
 })
 export class LinearChartComponent implements OnChanges, OnInit {
-    @ViewChild('linearChart')
+    @ViewChild('linearChart', { static: true })
     private chartContainer: ElementRef;
 
     @Input()

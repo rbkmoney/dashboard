@@ -7,5 +7,5 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
     `
 })
 export class FloatPanelMoreTemplateComponent {
-    @ViewChild(TemplateRef) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
 }

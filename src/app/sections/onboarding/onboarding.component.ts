@@ -11,7 +11,7 @@ import { DaDataAutocompleteComponent } from '../../dadata/dadata.component';
     providers: []
 })
 export class OnboardingComponent {
-    @ViewChild(DaDataAutocompleteComponent)
+    @ViewChild(DaDataAutocompleteComponent, { static: true })
     daDadataAutocomplete: DaDataAutocompleteComponent;
 
     get isNothingFound() {

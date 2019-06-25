@@ -20,7 +20,7 @@ export class DropdownComponent {
     @Input() disableClose = false;
     @Output() backdropClick? = new EventEmitter<MouseEvent>();
 
-    @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
     state = State.closed;
     triangleLeftOffset: string;
     animationDone$ = new Subject();

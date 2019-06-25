@@ -24,12 +24,12 @@ import { coerceBoolean } from '../../../utils';
     exportAs: 'dshTab'
 })
 export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy {
-    @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
+    @ContentChild(DshTabLabelDirective, { static: true }) templateLabel: DshTabLabelDirective;
 
-    @ContentChild(DshTabContentDirective, { read: TemplateRef })
+    @ContentChild(DshTabContentDirective, { read: TemplateRef, static: true })
     _explicitContent: TemplateRef<any>;
 
-    @ViewChild(TemplateRef) _implicitContent: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
     @Input()
     @coerceBoolean

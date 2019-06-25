@@ -23,7 +23,7 @@ export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     @Input() target: HTMLButtonElement;
     @Input() color: ThemePalette;
 
-    @ViewChild('glow') private glowRef: ElementRef<HTMLSpanElement>;
+    @ViewChild('glow', { static: true }) private glowRef: ElementRef<HTMLSpanElement>;
     private colorManager: ColorManager;
     private glowManager: GlowManager;
 

@@ -14,7 +14,7 @@ import { DropdownTriggerDirective } from './dropdown-trigger.directive';
     `
 })
 class SimpleDropdownComponent {
-    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
+    @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 }
 
 describe('DshDropdown', () => {

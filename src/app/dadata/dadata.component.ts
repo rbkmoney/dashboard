@@ -110,7 +110,7 @@ export class DaDataAutocompleteComponent<T extends SuggestionType = any>
         return this.focused || !this.empty;
     }
 
-    @ViewChild('input', { read: ElementRef })
+    @ViewChild('input', { read: ElementRef, static: true })
     inputRef: ElementRef<HTMLInputElement>;
 
     autofilled = false;
