@@ -30,9 +30,11 @@ export class ExpandPanelComponent {
     @ContentChild(ExpandPanelContentComponent) expandPanelContentComponent: ExpandPanelContentComponent;
 
     toggle() {
-        this.expanded = !this.expanded;
-        if (!this.expanded) {
-            this.expandTrigger = ExpandState.collapsed;
+        if (this.expandable) {
+            this.expanded = !this.expanded;
+            if (!this.expanded) {
+                this.expandTrigger = ExpandState.collapsed;
+            }
         }
     }
 

@@ -14,6 +14,10 @@ $border-size: 1px;
         align-items: center;
         min-height: $height - $border-size * 2;
         padding: 0 $padding - $border-size;
+
+        &-expandable {
+            cursor: pointer;
+        }
     }
 
     &-content {
@@ -23,7 +27,6 @@ $border-size: 1px;
     }
 
     .arrow {
-        cursor: pointer;
         transition: transform 150ms ease;
         user-select: none;
 
