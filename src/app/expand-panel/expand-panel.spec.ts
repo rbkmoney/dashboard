@@ -4,10 +4,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
 import { ExpandPanelModule } from './expand-panel.module';
+import { PaletteColor } from '../theme-manager';
 
 @Component({
     template: `
-        <dsh-expand-panel [expanded]="expanded">
+        <dsh-expand-panel [expanded]="expanded" [color]="color">
             Hello world
             <dsh-expand-panel-content>
                 Content
@@ -17,11 +18,13 @@ import { ExpandPanelModule } from './expand-panel.module';
 })
 class SampleExpandPanelComponent {
     expanded = false;
+    color: PaletteColor;
 }
 
 const TITLE_SELECTOR = By.css('.dsh-expand-panel-header > div');
 const CONTENT_SELECTOR = By.css('.dsh-expand-panel-content');
 const EXPANDER_SELECTOR = By.css('.arrow');
+const ROOT_SELECTOR = By.css('.dsh-expand-panel');
 
 describe('ExpandPanel', () => {
     function createComponent<T>(
@@ -44,26 +47,35 @@ describe('ExpandPanel', () => {
         expect(fixture.debugElement.query(TITLE_SELECTOR).nativeElement.textContent.trim()).toBe('Hello world');
     });
 
-    it('should expanded by param', () => {
+    it('should expanded when settting expanded param', () => {
         const fixture = createComponent(SampleExpandPanelComponent);
         fixture.componentInstance.expanded = true;
         fixture.detectChanges();
         expect(fixture.debugElement.query(CONTENT_SELECTOR).nativeElement.textContent.trim()).toBe('Content');
     });
 
-    it('should expanded by click', () => {
+    it('should expanded when click', () => {
         const fixture = createComponent(SampleExpandPanelComponent);
         fixture.debugElement.query(EXPANDER_SELECTOR).nativeElement.click();
         fixture.detectChanges();
         expect(fixture.debugElement.query(CONTENT_SELECTOR).nativeElement.textContent.trim()).toBe('Content');
     });
 
-    it('should collapsed by click', () => {
+    it('should collapsed when settting click', () => {
         const fixture = createComponent(SampleExpandPanelComponent);
         fixture.componentInstance.expanded = true;
         fixture.detectChanges();
         fixture.debugElement.query(EXPANDER_SELECTOR).nativeElement.click();
         fixture.detectChanges();
         expect(fixture.debugElement.query(TITLE_SELECTOR).nativeElement.textContent.trim()).toBe('Hello world');
+    });
+
+    it('should change class when settting color', () => {
+        const fixture = createComponent(SampleExpandPanelComponent);
+        const baseClass = fixture.debugElement.query(ROOT_SELECTOR).nativeElement.className;
+        fixture.componentInstance.color = PaletteColor.primary;
+        fixture.detectChanges();
+        const newClass = fixture.debugElement.query(ROOT_SELECTOR).nativeElement.className;
+        expect(baseClass).not.toBe(newClass);
     });
 });

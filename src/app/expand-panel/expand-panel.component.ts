@@ -37,7 +37,6 @@ export class ExpandPanelComponent {
     }
 
     updateExpandTrigger(height = 0) {
-        console.log(height);
         this.expandTrigger = height ? { value: ExpandState.expanded, params: { height } } : ExpandState.collapsed;
     }
 }
