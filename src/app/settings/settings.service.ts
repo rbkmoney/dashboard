@@ -3,16 +3,15 @@ import { Injectable } from '@angular/core';
 type SettingsStorageKeys = 'language' | 'theme';
 type SettingsStorageData = { [key in SettingsStorageKeys]: string };
 
-const defaultLanguage = 'ru';
-const supportedLanguages = ['ru'];
+export enum SupportedLanguages {
+    ru = 'ru'
+}
+export const defaultLanguage = SupportedLanguages.ru;
 
 @Injectable()
-export class SettingsService {
+export class SettingsService implements SettingsStorageData {
     get language() {
-        let lang = this.get('language') || navigator.language || (navigator as any).userLanguage;
-        lang = supportedLanguages.includes(lang) ? lang : defaultLanguage;
-
-        return lang;
+        return this.get('language');
     }
     set language(language: string) {
         this.set({ language });
@@ -23,6 +22,17 @@ export class SettingsService {
     }
     set theme(theme: string) {
         this.set({ theme });
+    }
+
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        if (!this.get('language')) {
+            const language = navigator.language || (navigator as any).userLanguage;
+            this.language = Object.values(SupportedLanguages).includes(language) ? language : defaultLanguage;
+        }
     }
 
     private set(keyOrKeyValue: SettingsStorageKeys | Partial<SettingsStorageData>, value?: string) {
