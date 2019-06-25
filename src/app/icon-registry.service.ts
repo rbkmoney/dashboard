@@ -8,7 +8,9 @@ export enum IconName {
     user = 'user',
     hor_dots = 'hor_dots',
     notification = 'notification',
-    place_outline = 'place_outline'
+    place_outline = 'place_outline',
+    bill = 'bill',
+    wallet = 'wallet'
 }
 
 @Injectable()

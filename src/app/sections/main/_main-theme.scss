@@ -2,8 +2,13 @@
 
 @mixin dsh-main-section-theme($theme) {
     $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
 
     .dsh-main-section-text {
         color: map-get($foreground, contrast-test);
+    }
+
+    .dsh-main-parts-surface {
+        background-color: map-get($background, card);
     }
 }

@@ -14,7 +14,9 @@ export class AppComponent {
             IconName.user,
             IconName.notification,
             IconName.hor_dots,
-            IconName.place_outline
+            IconName.place_outline,
+            IconName.bill,
+            IconName.wallet
         ]);
     }
 }

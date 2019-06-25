@@ -2,7 +2,6 @@ import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Observable } from 'rxjs';
 
 import { DshTabsModule } from './tabs.module';

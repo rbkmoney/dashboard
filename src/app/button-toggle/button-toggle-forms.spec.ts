@@ -1,9 +1,10 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ButtonToggleModule } from './button-toggle.module';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
-import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import { By } from '@angular/platform-browser';
+
+import { ButtonToggleModule } from './button-toggle.module';
+import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import {
     ButtonToggleGroupWithFormControlComponent,
     ButtonToggleGroupWithNgModelComponent

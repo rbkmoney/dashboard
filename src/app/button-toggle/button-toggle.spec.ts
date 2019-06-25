@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ButtonToggleComponent, ButtonToggleGroupDirective, ButtonToggleModule } from './index';
 import {
     ButtonToggleGroupWithInitialValueComponent,

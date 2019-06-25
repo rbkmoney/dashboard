@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleService } from './locale.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SettingsService } from '../settings';
 
 class SettingsServiceStub {

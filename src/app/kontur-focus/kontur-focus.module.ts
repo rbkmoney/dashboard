@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { KonturFocusService } from './kontur-focus.service';
 
 @NgModule({

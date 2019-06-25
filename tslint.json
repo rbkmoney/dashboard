@@ -50,6 +50,18 @@
         "use-life-cycle-interface": true,
         "use-pipe-transform-interface": true,
         "component-class-suffix": true,
-        "directive-class-suffix": true
+        "directive-class-suffix": true,
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "any",
+                "named-imports-order": "any",
+                "grouped-imports": true,
+                "groups": [
+                    { "name": "node_modules", "match": "^(?![.])", "order": 30 },
+                    { "name": "cuerrent", "match": "^[.]", "order": 40 }
+                ]
+            }
+        ]
     }
 }

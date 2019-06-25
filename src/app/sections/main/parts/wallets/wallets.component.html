@@ -1,0 +1,25 @@
+<div class="dsh-main-parts-surface">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout fxLayoutGap="30px">
+            <div>
+                <h2 class="mat-title">{{ 'sections.main.wallets.title' | lc }}</h2>
+                <h4 class="mat-subheading-1 subheading">
+                    {{ 'sections.main.wallets.subheading' | lc }}
+                </h4>
+            </div>
+            <mat-icon
+                fxHide.md="true"
+                fxHide.sm="true"
+                fxHide.xs="true"
+                fxFlex="138px"
+                class="wallet-icon"
+                svgIcon="wallet"
+            ></mat-icon>
+        </div>
+        <div fxLayout fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+            <button fxFlex="50" fxFlex.xs="100" dsh-button color="accent" routerLink="/">
+                {{ 'sections.main.wallets.action' | lc }}
+            </button>
+        </div>
+    </div>
+</div>

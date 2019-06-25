@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TableComponent } from './table';
 import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
+
+import { TableComponent } from './table';
 import {
     CellDefDirective,
     CellDirective,
@@ -18,8 +21,6 @@ import {
     RowComponent,
     RowDefDirective
 } from './row';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material';
 
 const EXPORTED_DECLARATIONS = [
     TableComponent,

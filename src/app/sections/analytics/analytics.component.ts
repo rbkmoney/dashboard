@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LegendItem, PeriodData, LinearPeriodData, SegmentData } from '../../charts/models/chart-data-models';
 import { ChartsService } from '../../charts/charts.service';
 import {

@@ -1,8 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ButtonModule } from './index';
 import { ThemePalette } from '@angular/material/core';
+
+import { ButtonModule } from './index';
 
 /** Test component that contains an DshButton. */
 @Component({
