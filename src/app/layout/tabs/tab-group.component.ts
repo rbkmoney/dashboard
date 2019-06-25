@@ -11,7 +11,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple } from '@angular/material';
+import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple } from '@angular/material/core';
 
 import { DshTabHeaderComponent } from './tab-header.component';
 import { DshTabComponent } from './tab.component';

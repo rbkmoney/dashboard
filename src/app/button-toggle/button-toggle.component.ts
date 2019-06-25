@@ -22,7 +22,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { _MatButtonToggleMixinBase, MatButtonToggleGroup } from '@angular/material';
+import { MatButtonToggleGroup, CanDisableRippleCtor, mixinDisableRipple } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
 export type ToggleType = 'checkbox' | 'radio';
@@ -34,9 +34,8 @@ export type ToggleType = 'checkbox' | 'radio';
  */
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    /* tslint:disable:no-use-before-declare */
+    // tslint:disable-next-line:no-use-before-declare
     useExisting: forwardRef(() => ButtonToggleGroupDirective),
-    /* tslint:enable:no-use-before-declare */
     multi: true
 };
 
@@ -295,6 +294,13 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
         this.valueChange.emit(this.value);
     }
 }
+
+// Boilerplate for applying mixins to the MatButtonToggle class.
+/** @docs-private */
+class MatButtonToggleBase {}
+const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase = mixinDisableRipple(
+    MatButtonToggleBase
+);
 
 /** Single button inside of a toggle group. */
 @Component({

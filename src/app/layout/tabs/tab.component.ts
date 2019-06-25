@@ -10,7 +10,7 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { CanDisable } from '@angular/material';
+import { CanDisable } from '@angular/material/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 

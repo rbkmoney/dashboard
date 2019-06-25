@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import {
-    MatFormFieldModule,
-    MatListModule,
-    MatRadioModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule
-} from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';

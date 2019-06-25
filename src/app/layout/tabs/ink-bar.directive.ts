@@ -26,7 +26,7 @@ export class DshInkBarDirective {
     constructor(
         private _elementRef: ElementRef<HTMLElement>,
         private _ngZone: NgZone,
-        @Inject(_DSH_INK_BAR_POSITIONER) private _inkBarPositioner: _DshInkBarPositioner
+        @Inject(_DSH_INK_BAR_POSITIONER) private _inkBarPositioner: any
     ) {}
 
     alignToElement(element: HTMLElement) {

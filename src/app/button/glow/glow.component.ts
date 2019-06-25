@@ -9,7 +9,7 @@ import {
     ViewChild,
     OnDestroy
 } from '@angular/core';
-import { ThemePalette } from '@angular/material';
+import { ThemePalette } from '@angular/material/core';
 
 import { GlowManager } from './glow-manager';
 import { ColorManager } from '../color-manager';
