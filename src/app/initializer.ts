@@ -1,6 +1,6 @@
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
-import { LocaleService } from './locale/locale.service';
+import { LocaleService } from './locale';
 
 export const initializer = (
     configService: ConfigService,

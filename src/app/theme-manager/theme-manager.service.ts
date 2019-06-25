@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
@@ -16,13 +17,13 @@ export class ThemeManager {
     private themes: { [name: string]: External } = {};
     private fileType: Type = environment.production ? Type.CSS : Type.JS;
 
-    constructor(private settingsService: SettingsService) {
+    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
         this.init();
     }
 
     changeTheme(name: string = this.getTheme(1)) {
-        this.themes[name].add();
         this.removeCurrentTheme();
+        this.themes[name].add(this.doc);
         this.settingsService.theme = name;
         document.body.classList.add(this.settingsService.theme);
     }
@@ -47,7 +48,7 @@ export class ThemeManager {
 
     private removeCurrentTheme() {
         if (this.settingsService.theme) {
-            this.themes[this.settingsService.theme].remove();
+            this.themes[this.settingsService.theme].remove(this.doc);
             document.body.classList.remove(this.settingsService.theme);
         }
     }
