@@ -25,9 +25,9 @@ export class FloatPanelComponent {
     @coerce(v => coerceBooleanProperty(v), (v, self) => self.pinnedChange.emit(v))
     pinned = false;
 
-    @ContentChild(FloatPanelMoreTemplateComponent, { static: true }) floatPanelMore: FloatPanelMoreTemplateComponent;
+    @ContentChild(FloatPanelMoreTemplateComponent, { static: false }) floatPanelMore: FloatPanelMoreTemplateComponent;
 
-    @ContentChild(FloatPanelActionsTemplateComponent, { static: true })
+    @ContentChild(FloatPanelActionsTemplateComponent, { static: false })
     floatPanelActions: FloatPanelActionsTemplateComponent;
 
     expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;
