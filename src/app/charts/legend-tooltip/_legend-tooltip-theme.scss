@@ -1,16 +1,17 @@
 @import '~@angular/material/theming';
+@import '../../../styles/utils/shadow';
 
 @mixin dsh-legend-tooltip-theme($theme) {
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
     .legend-tooltip-container {
+        @include dsh-shadow($theme);
         padding: 12px;
         display: none;
         position: fixed;
         flex-direction: column;
         border-radius: 4px;
-        box-shadow: map-get($background, tooltip-shadow);
         background-color: map-get($background, card);
         font-size: 12px;
         z-index: 1;

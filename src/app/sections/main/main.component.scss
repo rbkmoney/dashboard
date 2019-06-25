@@ -1,4 +1,6 @@
 $dsh-header-container-padding: 60px 0 0 80px;
+$dsh-parts-container-padding: 120px 0 0 0;
+$dsh-parts-container-padding-xs: 40px 0 0 0;
 
 .header-container {
     padding: $dsh-header-container-padding;
@@ -9,5 +11,19 @@ $dsh-header-container-padding: 60px 0 0 80px;
 
     .link {
         text-decoration: none;
+    }
+}
+
+.parts-container {
+    padding: $dsh-parts-container-padding;
+}
+
+@media only screen and (max-width: 600px) {
+    .header-container {
+        padding: 0;
+    }
+
+    .parts-container {
+        padding: $dsh-parts-container-padding-xs;
     }
 }
