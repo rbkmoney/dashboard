@@ -18,6 +18,10 @@ function getComponentPath(name: string) {
     return `${vsc.toKebabCase(name)}.component`;
 }
 
+function getCssClassName(name: string) {
+    return `${PREFIX}-${vsc.toKebabCase(name)}`;
+}
+
 export function Template(path: string, templatePath: string): vsc.vscTemplate {
     return {
         userInputs: [
@@ -42,8 +46,8 @@ import { ${getComponentName(inputs.name)} } from './${getComponentPath(inputs.na
 
 @NgModule({
     imports: [],
-    exports: [${getComponentName(inputs.name)}],
-    declarations: [${getComponentName(inputs.name)}]
+    declarations: [${getComponentName(inputs.name)}],
+    exports: [${getComponentName(inputs.name)}]
 })
 export class ${getModuletName(inputs.name)} {}
 `
@@ -61,7 +65,7 @@ export class ${getModuletName(inputs.name)} {}
                         type: 'file',
                         name: inputs => `${getComponentPath(inputs.name)}.scss`,
                         content: inputs => `
-.${PREFIX}-${vsc.toKebabCase(inputs.name)} {
+.${getCssClassName(inputs.name)} {
 }
 `
                     },
@@ -77,7 +81,6 @@ import { Component } from '@angular/core';
     styleUrls: ['${getComponentPath(inputs.name)}.scss']
 })
 export class ${getComponentName(inputs.name)} {
-    constructor() {}
 }
 `
                     },
@@ -87,6 +90,23 @@ export class ${getComponentName(inputs.name)} {
                         content: inputs => `
 export * from './${getModulePath(inputs.name)}';
 export * from './${getComponentPath(inputs.name)}'
+`
+                    },
+                    {
+                        type: 'file',
+                        name: inputs => `_${vsc.toKebabCase(inputs.name)}-theme.scss`,
+                        content: inputs => `
+@import '~@angular/material/theming';
+
+@mixin ${getCssClassName(inputs.name)}-theme($theme) {
+    .${getCssClassName(inputs.name)} {
+    }
+}
+
+@mixin ${getCssClassName(inputs.name)}-typography($config) {
+    .${getCssClassName(inputs.name)} {
+    }
+}
 `
                     }
                 ]

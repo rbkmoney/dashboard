@@ -1,0 +1,17 @@
+$size: 36px;
+$line-size: 2px;
+
+.dsh-timeline {
+    position: relative;
+    border-bottom: $line-size solid;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: $line-size;
+        left: $size / 2 - $line-size / 2;
+    }
+}

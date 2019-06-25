@@ -1,0 +1,20 @@
+<div class="dsh-expand-panel{{ 'dsh-expand-panel-' + color | activeClass: color }}">
+    <div
+        class="dsh-expand-panel-header"
+        fxLayout="row"
+        fxLayoutGap="10px"
+        fxLayoutAlign="space-between center"
+        (click)="toggle()"
+        [ngClass]="{ 'dsh-expand-panel-header-expandable': expandable }"
+    >
+        <div><ng-content></ng-content></div>
+        <mat-icon class="arrow" [ngClass]="{ 'arrow-expanded': expanded }" *ngIf="expandable">
+            keyboard_arrow_down
+        </mat-icon>
+    </div>
+    <div class="dsh-expand-panel-content" *ngIf="expandable && expanded" [@expand]="expandTrigger">
+        <div (dshResized)="updateExpandTrigger($event.height)">
+            <ng-container *ngTemplateOutlet="expandPanelContentComponent?.templateRef"></ng-container>
+        </div>
+    </div>
+</div>

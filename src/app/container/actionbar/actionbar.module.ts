@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatMenuModule, MatIconModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown';
@@ -20,7 +21,8 @@ import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from '.
         StateNavModule,
         ButtonModule,
         StatusModule,
-        MatMenuModule
+        MatMenuModule,
+        RouterModule
     ],
     declarations: [ActionbarComponent, ClaimsListComponent, ClaimsListItemComponent, UserComponent, ClaimsComponent],
     exports: [ActionbarComponent]

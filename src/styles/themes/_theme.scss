@@ -15,6 +15,8 @@
 @import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
+@import '../../app/timeline/timeline-theme';
+@import '../../app/expand-panel/expand-panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -35,5 +37,7 @@
         @include dsh-status-theme($theme);
         @include dsh-main-section-theme($theme);
         @include dsh-welcome-image-theme($theme);
+        @include dsh-timeline-theme($theme);
+        @include dsh-expand-panel-theme($theme);
     }
 }

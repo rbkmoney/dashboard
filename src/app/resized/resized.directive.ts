@@ -4,7 +4,7 @@ import { ResizeSensor } from 'css-element-queries';
 import { ResizedEvent } from './resized-event';
 
 @Directive({
-    selector: '[dshResized]'
+    selector: '[dshResized], [dsh-resized]'
 })
 export class ResizedDirective implements OnInit, OnDestroy {
     @Output() readonly dshResized = new EventEmitter<ResizedEvent>();
