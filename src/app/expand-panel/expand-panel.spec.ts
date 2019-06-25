@@ -19,6 +19,10 @@ class SampleExpandPanelComponent {
     expanded = false;
 }
 
+const TITLE_SELECTOR = By.css('.dsh-expand-panel-header > div');
+const CONTENT_SELECTOR = By.css('.dsh-expand-panel-content');
+const EXPANDER_SELECTOR = By.css('.arrow');
+
 describe('ExpandPanel', () => {
     function createComponent<T>(
         component: Type<T>,
@@ -30,20 +34,36 @@ describe('ExpandPanel', () => {
             declarations: [component, ...declarations],
             providers
         }).compileComponents();
-        return TestBed.createComponent<T>(component);
+        const fixture = TestBed.createComponent<T>(component);
+        fixture.detectChanges();
+        return fixture;
     }
 
     it('should render content', () => {
         const fixture = createComponent(SampleExpandPanelComponent);
-        expect(fixture.debugElement.query(By.css('*')).nativeElement.textContent.trim()).toBe('Hello world');
+        expect(fixture.debugElement.query(TITLE_SELECTOR).nativeElement.textContent.trim()).toBe('Hello world');
     });
 
-    it('should expanded', () => {
+    it('should expanded by param', () => {
         const fixture = createComponent(SampleExpandPanelComponent);
         fixture.componentInstance.expanded = true;
         fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.dsh-expand-panel-content')).nativeElement.textContent.trim()).toBe(
-            'Content'
-        );
+        expect(fixture.debugElement.query(CONTENT_SELECTOR).nativeElement.textContent.trim()).toBe('Content');
+    });
+
+    it('should expanded by click', () => {
+        const fixture = createComponent(SampleExpandPanelComponent);
+        fixture.debugElement.query(EXPANDER_SELECTOR).nativeElement.click();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(CONTENT_SELECTOR).nativeElement.textContent.trim()).toBe('Content');
+    });
+
+    it('should collapsed by click', () => {
+        const fixture = createComponent(SampleExpandPanelComponent);
+        fixture.componentInstance.expanded = true;
+        fixture.detectChanges();
+        fixture.debugElement.query(EXPANDER_SELECTOR).nativeElement.click();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(TITLE_SELECTOR).nativeElement.textContent.trim()).toBe('Hello world');
     });
 });
