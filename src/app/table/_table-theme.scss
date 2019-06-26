@@ -45,17 +45,11 @@
 
 @mixin dsh-table-typography($config) {
     .dsh {
-        &-table {
-            font-family: mat-font-family($config);
-        }
-
-        &-header-cell {
-            font-size: mat-font-size($config, body-2);
-            font-weight: mat-font-weight($config, body-2);
-        }
-
+        &-header-cell,
         &-cell,
         &-footer-cell {
+            font-family: mat-font-family($config);
+            font-weight: mat-font-weight($config, body-1);
             font-size: mat-font-size($config, body-1);
         }
     }

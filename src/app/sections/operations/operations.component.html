@@ -1,52 +1,9 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-headline">{{ 'sections.operations.title' | lc }}</h1>
     <dsh-tab-group>
-        <dsh-tab label="{{ 'sections.operations.payments.title' | lc }}">
-            <div fxLayout="column" fxLayoutGap="20px">
-                <dsh-float-panel fxFlexOffset="20px">
-                    <dsh-justify-wrapper>
-                        <dsh-button-toggle-group fxFlex="324px">
-                            <dsh-button-toggle value="today">
-                                {{ 'common.today' | lc }}
-                            </dsh-button-toggle>
-                            <dsh-button-toggle value="week">
-                                {{ 'common.week' | lc }}
-                            </dsh-button-toggle>
-                            <dsh-button-toggle value="month">
-                                {{ 'common.month' | lc }}
-                            </dsh-button-toggle>
-                            <dsh-button-toggle value="more">
-                                <mat-icon>more_horiz</mat-icon>
-                            </dsh-button-toggle>
-                        </dsh-button-toggle-group>
-                        <mat-form-field>
-                            <mat-label>{{ 'sections.operations.payments.filter.status' | lc }}</mat-label>
-                            <input matInput />
-                        </mat-form-field>
-                    </dsh-justify-wrapper>
-                    <dsh-float-panel-actions>
-                        <button dsh-button>
-                            {{ 'common.resetSearchParams' | lc }}
-                        </button>
-                    </dsh-float-panel-actions>
-                    <dsh-float-panel-more>
-                        <div style="height: 250px">
-                            text
-                        </div>
-                    </dsh-float-panel-more>
-                </dsh-float-panel>
-                <dsh-card>
-                    <dsh-card-content>
-                        <dsh-payments></dsh-payments>
-                    </dsh-card-content>
-                </dsh-card>
-            </div>
-        </dsh-tab>
-        <dsh-tab label="{{ 'sections.operations.refunds.title' | lc }}">{{
-            'sections.operations.refunds.title' | lc
-        }}</dsh-tab>
-        <dsh-tab label="{{ 'sections.operations.invoices.title' | lc }}" disabled>{{
-            'sections.operations.invoices.title' | lc
-        }}</dsh-tab>
+        <dsh-tab label="{{ 'sections.operations.payments.title' | lc }}"></dsh-tab>
+        <dsh-tab label="{{ 'sections.operations.refunds.title' | lc }}"></dsh-tab>
+        <dsh-tab label="{{ 'sections.operations.invoices.title' | lc }}" disabled></dsh-tab>
     </dsh-tab-group>
+    <router-outlet fxHide></router-outlet>
 </div>

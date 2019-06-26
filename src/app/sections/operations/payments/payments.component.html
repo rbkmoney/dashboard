@@ -1,32 +1,79 @@
-<div fxLayout="column" fxLayoutGap="15px">
-    <table dshTable [dataSource]="dataSource">
-        <ng-container dshColumnDef="position">
-            <th dshHeaderCell *dshHeaderCellDef>No.</th>
-            <td dshCell *dshCellDef="let element">{{ element.position }}</td>
-            <td dshFooterCell *dshFooterCellDef>Weight</td>
-        </ng-container>
+<div fxLayout="column" fxLayoutGap="20px">
+    <dsh-float-panel>
+        <dsh-justify-wrapper>
+            <dsh-button-toggle-group fxFlex="324px">
+                <dsh-button-toggle value="today">
+                    {{ 'common.today' | lc }}
+                </dsh-button-toggle>
+                <dsh-button-toggle value="week">
+                    {{ 'common.week' | lc }}
+                </dsh-button-toggle>
+                <dsh-button-toggle value="month">
+                    {{ 'common.month' | lc }}
+                </dsh-button-toggle>
+                <dsh-button-toggle value="more">
+                    <mat-icon>more_horiz</mat-icon>
+                </dsh-button-toggle>
+            </dsh-button-toggle-group>
+            <mat-form-field>
+                <mat-label>{{ 'sections.operations.payments.filter.status' | lc }}</mat-label>
+                <input matInput/>
+            </mat-form-field>
+        </dsh-justify-wrapper>
+        <dsh-float-panel-actions>
+            <button dsh-button>
+                {{ 'common.resetSearchParams' | lc }}
+            </button>
+        </dsh-float-panel-actions>
+        <dsh-float-panel-more>
+            <div style="height: 250px">
+                text
+            </div>
+        </dsh-float-panel-more>
+    </dsh-float-panel>
 
-        <ng-container dshColumnDef="name">
-            <th dshHeaderCell *dshHeaderCellDef>Name</th>
-            <td dshCell *dshCellDef="let element">{{ element.name }}</td>
-            <td dshFooterCell *dshFooterCellDef>Weight</td>
-        </ng-container>
+    <dsh-card>
+        <dsh-card-content fxLayout="column" fxLayoutGap="15px">
+            <div fxLayout fxLayoutAlign="space-between center">
+                <span class="last-update">{{'sections.operations.payments.lastUpdate' | lc}}: Только что</span>
+                <button dsh-button class="update-btn">{{'sections.operations.payments.refresh' | lc}}</button>
+            </div>
+            <table dshTable [dataSource]="dataSource">
+                <ng-container dshColumnDef="amount">
+                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.amount' | lc}}</th>
+                    <td dshCell *dshCellDef="let element">{{ element.position }}</td>
+                </ng-container>
 
-        <ng-container dshColumnDef="weight">
-            <th dshHeaderCell *dshHeaderCellDef>Weight</th>
-            <td dshCell *dshCellDef="let element">{{ element.weight }}</td>
-            <td dshFooterCell *dshFooterCellDef>Weight</td>
-        </ng-container>
+                <ng-container dshColumnDef="status">
+                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.status' | lc}}</th>
+                    <td dshCell *dshCellDef="let element">{{ element.name }}</td>
+                </ng-container>
 
-        <ng-container dshColumnDef="symbol">
-            <th dshHeaderCell *dshHeaderCellDef>Symbol</th>
-            <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
-            <td dshFooterCell *dshFooterCellDef>Weight</td>
-        </ng-container>
+                <ng-container dshColumnDef="statusChanged">
+                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.statusChanged' | lc}}</th>
+                    <td dshCell *dshCellDef="let element">{{ element.weight }}</td>
+                </ng-container>
 
-        <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
-        <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+                <ng-container dshColumnDef="invoice">
+                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.invoice' | lc}}</th>
+                    <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
+                </ng-container>
 
-    <button dsh-button>{{ 'common.showMore' | lc }}</button>
+                <ng-container dshColumnDef="attributes">
+                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.attributes' | lc}}</th>
+                    <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
+                </ng-container>
+
+                <ng-container dshColumnDef="actions">
+                    <th dshHeaderCell *dshHeaderCellDef></th>
+                    <td dshCell *dshCellDef="let element">...</td>
+                </ng-container>
+
+                <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
+                <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <button dsh-button>{{ 'common.showMore' | lc }}</button>
+        </dsh-card-content>
+    </dsh-card>
 </div>

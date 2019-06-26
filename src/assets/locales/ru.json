@@ -51,6 +51,15 @@
                 "title": "Платежи",
                 "filter": {
                     "status": "Статус платежа"
+                },
+                "refresh": "Обновить",
+                "lastUpdate": "Последнее обновление",
+                "table": {
+                    "amount": "Сумма списания",
+                    "status": "Статус",
+                    "statusChanged": "Статус изменен",
+                    "invoice": "Инвойс",
+                    "attributes": "Признаки"
                 }
             },
             "invoices": {

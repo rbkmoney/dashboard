@@ -12,6 +12,7 @@ import { TableModule } from '../../table';
 import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
 import { LocaleModule } from '../../locale/locale.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { LocaleModule } from '../../locale/locale.module';
         ButtonToggleModule,
         MatIconModule,
         DshTabsModule,
-        LocaleModule
+        LocaleModule,
+        RouterModule
     ],
     declarations: [OperationsComponent, PaymentsComponent]
 })
