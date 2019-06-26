@@ -14,7 +14,7 @@ build('dashboard', 'docker-host') {
 
   def pipeline = {
     runStage('init') {
-      env.NG_CLI_ANALYTICS = false
+      env.NG_CLI_ANALYTICS = "ci"
       withGithubSshCredentials {
         sh 'make submodules'
         sh 'make wc_init'
