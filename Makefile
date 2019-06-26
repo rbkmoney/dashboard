@@ -44,7 +44,7 @@ submodules: $(SUBTARGETS)
 init: npm-init compile
 
 npm-init:
-	npm ci
+	NG_CLI_ANALYTICS=false npm ci
 
 build: check lint
 	npm run build
