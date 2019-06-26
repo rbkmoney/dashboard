@@ -9,7 +9,7 @@ import { ThemeManager } from '../../theme-manager';
     styleUrls: ['./actionbar.component.scss']
 })
 export class ActionbarComponent {
-    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
+    @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
     constructor(private themeService: ThemeManager) {}
 

@@ -3,13 +3,8 @@ import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {
-    MAT_DATE_FORMATS,
-    DateAdapter,
-    MAT_DATE_LOCALE,
-    MAT_RIPPLE_GLOBAL_OPTIONS,
-    MAT_FORM_FIELD_DEFAULT_OPTIONS
-} from '@angular/material';
+import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MomentDateAdapter,

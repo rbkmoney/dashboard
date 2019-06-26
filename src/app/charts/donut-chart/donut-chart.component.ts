@@ -11,7 +11,7 @@ import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
     providers: [DonutChartService, LegendTooltipService]
 })
 export class DonutChartComponent implements OnChanges, OnInit {
-    @ViewChild('donutChart')
+    @ViewChild('donutChart', { static: true })
     private chartContainer: ElementRef;
 
     @Input()

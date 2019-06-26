@@ -28,9 +28,9 @@ import { DshInkBarDirective } from './ink-bar.directive';
 })
 export class DshTabHeaderComponent implements AfterContentChecked, AfterContentInit, OnDestroy {
     @ContentChildren(DshTabLabelWrapperDirective) _labelWrappers: QueryList<DshTabLabelWrapperDirective>;
-    @ViewChild(DshInkBarDirective) _inkBar: DshInkBarDirective;
-    @ViewChild('tabListContainer') _tabListContainer: ElementRef;
-    @ViewChild('tabList') _tabList: ElementRef;
+    @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
+    @ViewChild('tabListContainer', { static: true }) _tabListContainer: ElementRef;
+    @ViewChild('tabList', { static: true }) _tabList: ElementRef;
 
     private _selectedIndexChanged = false;
 

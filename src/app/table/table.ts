@@ -1,6 +1,6 @@
 import { CdkTable } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'dsh-table, table[dshTable]',

@@ -10,7 +10,7 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { CanDisable } from '@angular/material';
+import { CanDisable } from '@angular/material/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
@@ -24,12 +24,12 @@ import { coerceBoolean } from '../../../utils';
     exportAs: 'dshTab'
 })
 export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy {
-    @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
+    @ContentChild(DshTabLabelDirective, { static: false }) templateLabel: DshTabLabelDirective;
 
-    @ContentChild(DshTabContentDirective, { read: TemplateRef })
+    @ContentChild(DshTabContentDirective, { read: TemplateRef, static: false })
     _explicitContent: TemplateRef<any>;
 
-    @ViewChild(TemplateRef) _implicitContent: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
     @Input()
     @coerceBoolean

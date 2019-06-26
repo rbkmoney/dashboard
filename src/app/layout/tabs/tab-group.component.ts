@@ -11,7 +11,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple } from '@angular/material';
+import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple } from '@angular/material/core';
 
 import { DshTabHeaderComponent } from './tab-header.component';
 import { DshTabComponent } from './tab.component';
@@ -55,9 +55,9 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
 
     @ContentChildren(DshTabComponent) _tabs: QueryList<DshTabComponent>;
 
-    @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
+    @ViewChild('tabBodyWrapper', { static: true }) _tabBodyWrapper: ElementRef;
 
-    @ViewChild('tabHeader') _tabHeader: DshTabHeaderComponent;
+    @ViewChild('tabHeader', { static: true }) _tabHeader: DshTabHeaderComponent;
 
     animationDuration = '500ms';
 

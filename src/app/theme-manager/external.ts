@@ -5,18 +5,18 @@ export abstract class External<T extends HTMLElement = HTMLElement> {
 
     protected abstract createElement(): T;
 
-    add() {
+    add(doc: Document) {
         if (!this.element) {
             this.element = this.createElement();
         }
-        if (!document.head.contains(this.element)) {
-            document.head.appendChild(this.element);
+        if (!doc.head.contains(this.element)) {
+            doc.head.appendChild(this.element);
         }
     }
 
-    remove() {
-        if (document.head.contains(this.element)) {
-            document.head.removeChild(this.element);
+    remove(doc: Document) {
+        if (doc.head.contains(this.element)) {
+            doc.head.removeChild(this.element);
         }
     }
 }

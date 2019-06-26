@@ -5,5 +5,5 @@ import { Component, ViewChild, TemplateRef } from '@angular/core';
     template: '<ng-template><ng-content></ng-content></ng-template>'
 })
 export class ExpandPanelContentComponent {
-    @ViewChild(TemplateRef) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: false }) templateRef: TemplateRef<{}>;
 }

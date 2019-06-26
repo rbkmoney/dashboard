@@ -20,7 +20,7 @@ import { FloatPanelComponent } from './float-panel.component';
     `
 })
 class SimpleFloatPanelComponent {
-    @ViewChild('floatPanel') floatPanel: FloatPanelComponent;
+    @ViewChild('floatPanel', { static: false }) floatPanel: FloatPanelComponent;
     pinned = true;
     expanded = true;
 }

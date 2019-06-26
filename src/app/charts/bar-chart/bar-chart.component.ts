@@ -24,7 +24,7 @@ export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
     providers: [BarChartService, LegendTooltipService]
 })
 export class BarChartComponent implements OnChanges, OnInit {
-    @ViewChild('barChart')
+    @ViewChild('barChart', { static: true })
     private chartContainer: ElementRef;
 
     @Input()
