@@ -13,7 +13,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { TableModule } from '../../table';
 import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
-import { LocaleModule } from '../../locale/locale.module';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [
