@@ -1,7 +1,10 @@
 <div class="dsh-float-panel" [ngStyle]="{ 'min-height': baseContentHeight + 40 + 'px' }">
     <dsh-card
         class="dsh-float-panel-card"
-        [ngClass]="{ 'dsh-float-panel-card-unpinned': !pinned }"
+        [ngClass]="{
+            'dsh-float-panel-card-unpinned': !pinned,
+            'dsh-float-panel-card-unpinned-unexpanded': !pinned && !expanded
+         }"
         (dshResized)="cardHeight = $event.height"
     >
         <div (dshResized)="baseContentHeight = $event.height">

@@ -38,6 +38,14 @@ const routes: Routes = [
             {
                 path: 'payments',
                 component: PaymentsComponent
+            },
+            {
+                path: 'refunds',
+                component: PaymentsComponent
+            },
+            {
+                path: 'invoices',
+                component: PaymentsComponent
             }
         ]
     },

@@ -13,6 +13,7 @@ import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
 import { LocaleModule } from '../../locale/locale.module';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { RouterModule } from '@angular/router';
         MatIconModule,
         DshTabsModule,
         LocaleModule,
-        RouterModule
+        RouterModule,
+        CommonModule
     ],
     declarations: [OperationsComponent, PaymentsComponent]
 })
