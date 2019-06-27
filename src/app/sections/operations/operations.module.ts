@@ -3,6 +3,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 
 import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../layout';
@@ -11,9 +12,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { TableModule } from '../../table';
 import { ButtonToggleModule } from '../../button-toggle';
 import { DshTabsModule } from '../../layout/tabs';
-import { LocaleModule } from '../../locale/locale.module';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [
@@ -27,7 +26,6 @@ import { CommonModule } from '@angular/common';
         MatIconModule,
         DshTabsModule,
         LocaleModule,
-        RouterModule,
         CommonModule
     ],
     declarations: [OperationsComponent, PaymentsComponent]

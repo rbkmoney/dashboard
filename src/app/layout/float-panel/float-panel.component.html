@@ -4,7 +4,7 @@
         [ngClass]="{
             'dsh-float-panel-card-unpinned': !pinned,
             'dsh-float-panel-card-unpinned-unexpanded': !pinned && !expanded
-         }"
+        }"
         (dshResized)="cardHeight = $event.height"
     >
         <div (dshResized)="baseContentHeight = $event.height">

@@ -17,7 +17,7 @@
             </dsh-button-toggle-group>
             <mat-form-field>
                 <mat-label>{{ 'sections.operations.payments.filter.status' | lc }}</mat-label>
-                <input matInput/>
+                <input matInput />
             </mat-form-field>
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
@@ -35,32 +35,34 @@
     <dsh-card>
         <dsh-card-content fxLayout="column" fxLayoutGap="15px">
             <div fxLayout fxLayoutAlign="space-between center">
-                <span class="last-update">{{'sections.operations.payments.lastUpdate' | lc}}: Только что</span>
-                <button dsh-button class="update-btn">{{'sections.operations.payments.refresh' | lc}}</button>
+                <span class="last-update">{{ 'sections.operations.payments.lastUpdate' | lc }}: Только что</span>
+                <button dsh-button class="update-btn">{{ 'sections.operations.payments.refresh' | lc }}</button>
             </div>
             <table dshTable [dataSource]="dataSource">
                 <ng-container dshColumnDef="amount">
-                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.amount' | lc}}</th>
+                    <th dshHeaderCell *dshHeaderCellDef>{{ 'sections.operations.payments.table.amount' | lc }}</th>
                     <td dshCell *dshCellDef="let element">{{ element.position }}</td>
                 </ng-container>
 
                 <ng-container dshColumnDef="status">
-                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.status' | lc}}</th>
+                    <th dshHeaderCell *dshHeaderCellDef>{{ 'sections.operations.payments.table.status' | lc }}</th>
                     <td dshCell *dshCellDef="let element">{{ element.name }}</td>
                 </ng-container>
 
                 <ng-container dshColumnDef="statusChanged">
-                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.statusChanged' | lc}}</th>
+                    <th dshHeaderCell *dshHeaderCellDef>
+                        {{ 'sections.operations.payments.table.statusChanged' | lc }}
+                    </th>
                     <td dshCell *dshCellDef="let element">{{ element.weight }}</td>
                 </ng-container>
 
                 <ng-container dshColumnDef="invoice">
-                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.invoice' | lc}}</th>
+                    <th dshHeaderCell *dshHeaderCellDef>{{ 'sections.operations.payments.table.invoice' | lc }}</th>
                     <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
                 </ng-container>
 
                 <ng-container dshColumnDef="attributes">
-                    <th dshHeaderCell *dshHeaderCellDef>{{'sections.operations.payments.table.attributes' | lc}}</th>
+                    <th dshHeaderCell *dshHeaderCellDef>{{ 'sections.operations.payments.table.attributes' | lc }}</th>
                     <td dshCell *dshCellDef="let element">{{ element.symbol }}</td>
                 </ng-container>
 

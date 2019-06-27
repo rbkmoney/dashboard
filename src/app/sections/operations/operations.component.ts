@@ -12,7 +12,6 @@ class Tab {
     encapsulation: ViewEncapsulation.None
 })
 export class OperationsComponent {
-
     tabs: Tab[] = [
         {
             name: 'sections.operations.payments.title',
@@ -28,9 +27,7 @@ export class OperationsComponent {
         }
     ];
 
-    constructor(private router: Router) {
-    }
-
+    constructor(private router: Router) {}
 
     tabChanged(tab: number) {
         this.router.navigate(['operations', `${this.tabs[tab].url}`]);

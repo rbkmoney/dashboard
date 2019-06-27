@@ -33,7 +33,7 @@ const routes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: 'payments',
+                redirectTo: 'payments'
             },
             {
                 path: 'payments',
