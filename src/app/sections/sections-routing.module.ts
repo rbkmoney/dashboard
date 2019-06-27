@@ -9,6 +9,7 @@ import { routes as claimRoutes } from './claim';
 import { ButtonsComponent } from './buttons';
 import { OperationsComponent } from './operations/operations.component';
 import { InputsComponent } from './inputs/inputs.component';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
     {
         path: 'inputs',
         component: InputsComponent
+    },
+    {
+        path: 'payment-details',
+        component: PaymentDetailsComponent
     },
     {
         path: '**',

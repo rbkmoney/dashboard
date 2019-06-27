@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-payment-details-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    .dsh {
+        &-details-title, &-text {
+            color: map-get($foreground, text);
+        }
+
+        &-secondary-title, &-item-title {
+            color: map-get($foreground, secondary-title);
+        }
+    }
+}
+
+@mixin dsh-payment-details-typography($config) {
+    .dsh {
+        &-details-title {
+            @include mat-typography-level-to-styles($config, headline);
+        }
+
+        &-item-title {
+            @include mat-typography-level-to-styles($config, caption);
+        }
+
+        &-text {
+            @include mat-typography-level-to-styles($config, body-1);
+        }
+    }
+}

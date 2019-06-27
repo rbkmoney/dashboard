@@ -1,0 +1,28 @@
+<dsh-card>
+    <dsh-card-content>
+        <div fxLayout="row wrap" fxFlex="100" fxLayoutGap="1px">
+            <dsh-status-item [color]="statusColor" [text]="statusText"  fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33"></dsh-status-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.createdAt" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.createdAt | formatTime}}</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.statusChangedAt" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.statusChangedAt | formatTime}}</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.amount" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.amount}}</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.chargeAmount" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.amount - payment.fee}}</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.fee" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.fee}} ({{(payment.fee / payment.amount) * 100}}%)</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.rrn" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.rrn}}</div>
+            </dsh-detail-item>
+            <dsh-detail-item [title]='"sections.paymentDetails.details.titles.error" | lc' fxFlex.lt-sm="100" fxFlex.sm="49" fxFlex.gt-xs="33">
+                <div class="dsh-text">{{payment.error.code}}</div>
+            </dsh-detail-item>
+        </div>
+    </dsh-card-content>
+</dsh-card>

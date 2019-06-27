@@ -59,6 +59,34 @@
             "refunds": {
                 "title": "Возвраты"
             }
+        },
+        "paymentDetails": {
+            "headline": {
+                "title": "Детали платежа"
+            },
+            "details": {
+                "titles": {
+                    "status": "Статус",
+                    "chargeAmount": "Сумма зачисления",
+                    "rrn": "RRN",
+                    "createdAt": "Платеж создан",
+                    "amount": "Сумма списания",
+                    "error": "Ошибка проведения платежа",
+                    "statusChangedAt": "Статус изменен",
+                    "fee": "Комиссия"
+                },
+                "statuses": {
+                    "processed": "Оплачено",
+                    "failed": "Неуспешно",
+                    "refunded": "Возврат",
+                    "cancelled": "Отмена",
+                    "captured": "Подтвержден",
+                    "pending": "В ожидании"
+                }
+            },
+            "paymentTool": {
+                "title": "Средство оплаты"
+            }
         }
     }
 }
