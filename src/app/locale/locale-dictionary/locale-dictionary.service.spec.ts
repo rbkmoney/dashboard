@@ -1,8 +1,8 @@
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { LocaleService } from './locale.service';
-import { SettingsService } from '../settings';
+import { LocaleDictionaryService } from './locale-dictionary.service';
+import { SettingsService } from '../../settings';
 
 class SettingsServiceStub {
     get language() {
@@ -15,16 +15,16 @@ const dummyDict = {
 };
 
 describe('LocaleService', () => {
-    let ls: LocaleService;
+    let ls: LocaleDictionaryService;
     let httpMock: HttpTestingController;
     beforeAll(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [LocaleService, { provide: SettingsService, useClass: SettingsServiceStub }]
+            providers: [LocaleDictionaryService, { provide: SettingsService, useClass: SettingsServiceStub }]
         });
-        ls = TestBed.get(LocaleService);
+        ls = TestBed.get(LocaleDictionaryService);
         spyOn(console, 'warn');
-        ls = TestBed.get(LocaleService);
+        ls = TestBed.get(LocaleDictionaryService);
         httpMock = TestBed.get(HttpTestingController);
 
         ls.init().then(() => {});

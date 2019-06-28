@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { LocaleService } from '../../../../locale';
+import { LocaleDictionaryService } from '../../../../locale';
 
 export enum PaymentPartType {
     prestine = 'prestine',
@@ -23,10 +23,11 @@ interface ContentConfig {
 export class PaymentsComponent implements OnInit {
     @Input() type: PaymentPartType = PaymentPartType.prestine;
     @Input() actionRouterLink = '/';
+    @Input() testEnvironmentRouterLink = '/';
 
     config: ContentConfig;
 
-    constructor(private lcService: LocaleService) {}
+    constructor(private lcService: LocaleDictionaryService) {}
 
     ngOnInit() {
         this.config = this.toConfig(this.type);

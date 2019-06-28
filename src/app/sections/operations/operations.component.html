@@ -1,7 +1,0 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-headline">{{ 'sections.operations.title' | lc }}</h1>
-    <dsh-tab-group (selectedIndexChange)="tabChanged($event)">
-        <dsh-tab *ngFor="let tab of tabs" label="{{ tab.name | lc }}"></dsh-tab>
-    </dsh-tab-group>
-    <router-outlet fxHide></router-outlet>
-</div>

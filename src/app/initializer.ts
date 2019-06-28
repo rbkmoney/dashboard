@@ -1,11 +1,11 @@
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
-import { LocaleService } from './locale';
+import { LocaleDictionaryService } from './locale/locale-dictionary';
 
 export const initializer = (
     configService: ConfigService,
     keycloakService: KeycloakService,
-    localeService: LocaleService
+    localeService: LocaleDictionaryService
 ) => () =>
     Promise.all([
         configService.init(),
