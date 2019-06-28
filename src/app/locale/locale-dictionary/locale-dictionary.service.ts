@@ -14,7 +14,7 @@ const angularLocaleData: { [locale in SupportedLanguages]: any } = {
 
 @Injectable()
 export class LocaleDictionaryService {
-    dictionary;
+    private dictionary;
 
     constructor(private http: HttpClient, private settingsService: SettingsService) {}
 

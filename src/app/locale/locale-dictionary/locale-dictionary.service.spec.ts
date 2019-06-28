@@ -2,7 +2,7 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleDictionaryService } from './locale-dictionary.service';
-import { SettingsService } from '../../settings';
+import { SettingsService } from '../../settings/settings.service';
 
 class SettingsServiceStub {
     get language() {
@@ -14,7 +14,7 @@ const dummyDict = {
     'test key': 'test value'
 };
 
-describe('LocaleService', () => {
+describe('LocaleDictionaryService', () => {
     let ls: LocaleDictionaryService;
     let httpMock: HttpTestingController;
     beforeAll(fakeAsync(() => {

@@ -1,3 +1,2 @@
-
 export * from './refunds.module';
-export * from './refunds.component'
+export * from './refunds.component';
