@@ -12,19 +12,16 @@ $background: (
     disabled-button: rgba(black, 0.12),
     raised-button: white,
     focused-button: $dark-focused,
-    selected-button: map_get($mat-grey, 300),
     selected-disabled-button: map_get($mat-grey, 400),
     disabled-button-toggle: map_get($mat-grey, 200),
     unselected-chip: map_get($mat-grey, 300),
     disabled-list-option: map_get($mat-grey, 200),
     /*
-     * Overrides
-     *
- */ hover: map_get($dsh-gray, 200),
-    /*
      * Custom
      *
- */ tooltip-line-color: rgba(black, 0.1)
+ */ hover: map_get($mat-grey, 200),
+    selected-button: map_get($mat-grey, 100),
+    tooltip-line-color: rgba(black, 0.1)
 );
 
 $foreground: (
@@ -69,7 +66,7 @@ $theme: (
  */ name: 'light',
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
-    neutral: mat-palette($dsh-gray),
+    neutral: mat-palette($mat-grey),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300)

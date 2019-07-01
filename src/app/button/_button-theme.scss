@@ -40,7 +40,7 @@
     $warn: map-get($theme, warn);
 
     .dsh-glow {
-        @include glow-effect(map-get($background, hover), 5%);
+        @include glow-effect(map-get($background, hover), 1%);
 
         &.dsh-primary {
             @include glow-effect(mat-color($primary, 400), 4%);
@@ -81,9 +81,8 @@
         &-button,
         &-fab-button {
             &:hover {
-                background: map-get($background, hover);
+                background: mat-color($background, hover);
             }
-
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
