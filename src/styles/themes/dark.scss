@@ -17,10 +17,7 @@ $background: (
     disabled-button-toggle: black,
     unselected-chip: map_get($mat-grey, 700),
     disabled-list-option: black,
-    /*
-     * Overrides
-     *
- */ hover: map_get($dsh-gray, 200),
+    hover: rgba(white, 0.04),
     /*
      * Custom
      *
@@ -68,7 +65,7 @@ $theme: (
  */ name: 'dark',
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
-    neutral: mat-palette($dsh-gray),
+    neutral: mat-palette($mat-gray),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300)
