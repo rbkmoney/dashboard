@@ -6,9 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MainComponent } from './main.component';
 import { ButtonModule } from '../../button';
-import { LocaleModule } from '../../locale';
 import { PaymentsComponent } from './parts';
 import { WalletsComponent } from './parts';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, RouterModule, MatIconModule, ButtonModule, LocaleModule],

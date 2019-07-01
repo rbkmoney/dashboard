@@ -7,7 +7,6 @@ import { AnalyticsComponent } from './analytics';
 import { routes as onboargindRoutes } from './onboarding';
 import { routes as claimRoutes } from './claim';
 import { ButtonsComponent } from './buttons';
-import { OperationsComponent } from './operations/operations.component';
 import { InputsComponent } from './inputs/inputs.component';
 
 const routes: Routes = [
@@ -24,10 +23,6 @@ const routes: Routes = [
     {
         path: 'buttons',
         component: ButtonsComponent
-    },
-    {
-        path: 'operations',
-        component: OperationsComponent
     },
     {
         path: 'inputs',

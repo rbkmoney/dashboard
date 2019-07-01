@@ -6,14 +6,14 @@ import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import get from 'lodash.get';
 
-import { SettingsService, SupportedLanguages } from '../settings';
+import { SettingsService, SupportedLanguages } from '../../settings';
 
 const angularLocaleData: { [locale in SupportedLanguages]: any } = {
     ru: localeRu
 };
 
 @Injectable()
-export class LocaleService {
+export class LocaleDictionaryService {
     private dictionary;
 
     constructor(private http: HttpClient, private settingsService: SettingsService) {}

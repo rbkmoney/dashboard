@@ -9,14 +9,6 @@
         "month": "Месяц"
     },
     "sections": {
-        "mainMenu": {
-            "operations": "Операции",
-            "inputs": "Поля ввода",
-            "buttons": "Кнопки",
-            "table": "Таблица",
-            "analytics": "Аналитика",
-            "requestForConnection": "Заявка на подключение"
-        },
         "main": {
             "header": {
                 "documentation": "Документация",
@@ -45,12 +37,34 @@
                 }
             }
         },
+        "payment-section": {
+            "nav": {
+                "operations": "Операции"
+            },
+            "operations": {
+                "headline": "Операции",
+                "tabs": {
+                    "payments": "Платежи",
+                    "refunds": "Возвраты",
+                    "invoices": "Инвойсы"
+                }
+            }
+        },
         "operations": {
             "title": "Операции",
             "payments": {
                 "title": "Платежи",
                 "filter": {
                     "status": "Статус платежа"
+                },
+                "refresh": "Обновить",
+                "lastUpdate": "Последнее обновление",
+                "table": {
+                    "amount": "Сумма списания",
+                    "status": "Статус",
+                    "statusChanged": "Статус изменен",
+                    "invoice": "Инвойс",
+                    "attributes": "Признаки"
                 }
             },
             "invoices": {

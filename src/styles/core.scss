@@ -39,6 +39,7 @@
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-expand-panel-typography($config);
+    @include dsh-table-typography($config);
 }
 
 @include dsh-overrides();

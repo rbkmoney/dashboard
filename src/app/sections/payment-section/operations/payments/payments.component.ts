@@ -59,9 +59,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @Component({
     selector: 'dsh-payments',
-    templateUrl: 'payments.component.html'
+    templateUrl: 'payments.component.html',
+    styleUrls: ['payments.component.scss']
 })
 export class PaymentsComponent {
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+    displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
 }
