@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-headline">{{ 'sections.operations.title' | lc }}</h1>
+    <h1 class="mat-headline">{{ dictionaryBasePath + '.headline' | lc }}</h1>
     <nav mat-tab-nav-bar>
         <a
             mat-tab-link
@@ -9,7 +9,7 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ link.label }}
+            {{ link.label | lc }}
         </a>
     </nav>
     <router-outlet></router-outlet>

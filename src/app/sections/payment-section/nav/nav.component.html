@@ -5,23 +5,15 @@
         #analytics="routerLinkActive"
         [selected]="analytics.isActive"
     >
-        <mat-icon>pie_chart</mat-icon>{{ 'sections.mainMenu.analytics' | lc }}
+        <mat-icon>pie_chart</mat-icon>Аналитика
     </dsh-state-nav-item>
     <dsh-state-nav-item
-        routerLink="./operations/payments"
+        routerLink="./operations"
         routerLinkActive
         #operations="routerLinkActive"
         [selected]="operations.isActive"
     >
-        <mat-icon>table_chart</mat-icon>{{ 'sections.mainMenu.operations' | lc }}
-    </dsh-state-nav-item>
-    <dsh-state-nav-item
-        routerLink="/onboarding"
-        routerLinkActive
-        #onboarding="routerLinkActive"
-        [selected]="onboarding.isActive"
-    >
-        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.requestForConnection' | lc }}
+        <mat-icon>table_chart</mat-icon>{{ 'sections.payment-section.nav.operations' | lc }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="/buttons"
@@ -29,9 +21,9 @@
         #buttons="routerLinkActive"
         [selected]="buttons.isActive"
     >
-        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.buttons' | lc }}
+        <mat-icon>description</mat-icon>Кнопки
     </dsh-state-nav-item>
     <dsh-state-nav-item routerLink="/inputs" routerLinkActive #inputs="routerLinkActive" [selected]="inputs.isActive">
-        <mat-icon>description</mat-icon>{{ 'sections.mainMenu.inputs' | lc }}
+        <mat-icon>description</mat-icon>Поля ввода
     </dsh-state-nav-item>
 </dsh-state-nav>

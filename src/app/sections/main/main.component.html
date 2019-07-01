@@ -25,7 +25,7 @@
 >
     <dsh-payments
         [type]="paymentsSectionType"
-        testEnvironmentRouterLink="/payment-section/operations/payments"
+        [testEnvironmentRouterLink]="testEnvironmentRouterLink"
         [actionRouterLink]="paymentsSectionActionRouterLink"
     ></dsh-payments>
     <dsh-wallets></dsh-wallets>
@@ -33,6 +33,7 @@
 <div *ngIf="!hasWallets" class="parts-container">
     <dsh-payments
         [type]="paymentsSectionType"
+        [testEnvironmentRouterLink]="testEnvironmentRouterLink"
         [actionRouterLink]="paymentsSectionActionRouterLink"
         fxFlexOffset="80px"
         fxFlexOffset.xs="0"

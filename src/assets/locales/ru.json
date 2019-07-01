@@ -9,14 +9,6 @@
         "month": "Месяц"
     },
     "sections": {
-        "mainMenu": {
-            "operations": "Операции",
-            "inputs": "Поля ввода",
-            "buttons": "Кнопки",
-            "table": "Таблица",
-            "analytics": "Аналитика",
-            "requestForConnection": "Заявка на подключение"
-        },
         "main": {
             "header": {
                 "documentation": "Документация",
@@ -42,6 +34,19 @@
                     "continue": "Продолжить",
                     "claimDetails": "Детали заявки",
                     "details": "Перейти"
+                }
+            }
+        },
+        "payment-section": {
+            "nav": {
+                "operations": "Операции"
+            },
+            "operations": {
+                "headline": "Операции",
+                "tabs": {
+                    "payments": "Платежи",
+                    "refunds": "Возвраты",
+                    "invoices": "Инвойсы"
                 }
             }
         },
