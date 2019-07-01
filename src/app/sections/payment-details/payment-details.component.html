@@ -1,5 +1,8 @@
 <div class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
     <dsh-details-headline [paymentID]="payment.id"></dsh-details-headline>
     <dsh-details [payment]="payment"></dsh-details>
-    <dsh-payment-tool></dsh-payment-tool>
+    <dsh-payment-tool [bankCard]="payment.payer.paymentResourcePayer.paymentToolDetails.cardNumberMask"></dsh-payment-tool>
+    <dsh-payer-details [payer]="payment.payer"></dsh-payer-details>
+    <dsh-hold-details></dsh-hold-details>
+    <dsh-reccurent-details></dsh-reccurent-details>
 </div>

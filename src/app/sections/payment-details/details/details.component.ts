@@ -20,6 +20,21 @@ export class DetailsComponent implements OnInit {
         this.initStatus();
     }
 
+    getCurrencySymbol(): string {
+        switch (this.payment.currency) {
+            case 'RUB':
+                return '₽';
+            case 'USD':
+                return '$';
+            default:
+                return '';
+        }
+    }
+
+    getFeePercent(): number {
+        return Math.round((this.payment.fee / this.payment.amount) * 10000) / 100;
+    }
+
     private initStatus() {
         switch (this.payment.status) {
             case this.statuses.Processed:

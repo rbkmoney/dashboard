@@ -1,5 +1,9 @@
 .dsh {
     &-detail-item {
-        max-width: 220px;
+        padding: 8px 0;
+    }
+
+    &-item-title {
+        padding-bottom: 4px;
     }
 }

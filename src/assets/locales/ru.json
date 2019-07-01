@@ -1,92 +1,111 @@
 {
-    "common": {
-        "showMore": "Показать еще",
-        "resetSearchParams": "Сбросить параметры поиска",
-        "back": "Назад",
-        "next": "Далее",
-        "today": "Сегодня",
-        "week": "Неделя",
-        "month": "Месяц"
+  "common": {
+    "showMore": "Показать еще",
+    "resetSearchParams": "Сбросить параметры поиска",
+    "back": "Назад",
+    "next": "Далее",
+    "today": "Сегодня",
+    "week": "Неделя",
+    "month": "Месяц"
+  },
+  "sections": {
+    "mainMenu": {
+      "operations": "Операции",
+      "inputs": "Поля ввода",
+      "buttons": "Кнопки",
+      "table": "Таблица",
+      "analytics": "Аналитика",
+      "requestForConnection": "Заявка на подключение"
     },
-    "sections": {
-        "mainMenu": {
-            "operations": "Операции",
-            "inputs": "Поля ввода",
-            "buttons": "Кнопки",
-            "table": "Таблица",
-            "analytics": "Аналитика",
-            "requestForConnection": "Заявка на подключение"
+    "main": {
+      "header": {
+        "documentation": "Документация",
+        "support": "Поддержка",
+        "dashboard": "Личный кабинет"
+      },
+      "wallets": {
+        "title": "Кошельки",
+        "subheading": "Управление кошельками. Пополнение и вывод средств.",
+        "action": "Перейти"
+      },
+      "payments": {
+        "title": "Платежи",
+        "testEnvironment": "Тестовое окружение",
+        "subheading": {
+          "prestine": "Управление платежами и возвратами. Контролирование интеграции с платформой, и многое другое.",
+          "onboardingPending": "Вы начали процесс заполнения заявки на подключение.",
+          "onboardingReview": "Ваша заявка на подключение рассматривается.",
+          "onboardingReviewed": "Мы рассмотрели вашу заявку. От вас требуются дополнительные действия."
         },
-        "main": {
-            "header": {
-                "documentation": "Документация",
-                "support": "Поддержка",
-                "dashboard": "Личный кабинет"
-            },
-            "wallets": {
-                "title": "Кошельки",
-                "subheading": "Управление кошельками. Пополнение и вывод средств.",
-                "action": "Перейти"
-            },
-            "payments": {
-                "title": "Платежи",
-                "testEnvironment": "Тестовое окружение",
-                "subheading": {
-                    "prestine": "Управление платежами и возвратами. Контролирование интеграции с платформой, и многое другое.",
-                    "onboardingPending": "Вы начали процесс заполнения заявки на подключение.",
-                    "onboardingReview": "Ваша заявка на подключение рассматривается.",
-                    "onboardingReviewed": "Мы рассмотрели вашу заявку. От вас требуются дополнительные действия."
-                },
-                "action": {
-                    "join": "Подключиться",
-                    "continue": "Продолжить",
-                    "claimDetails": "Детали заявки",
-                    "details": "Перейти"
-                }
-            }
-        },
-        "operations": {
-            "title": "Операции",
-            "payments": {
-                "title": "Платежи",
-                "filter": {
-                    "status": "Статус платежа"
-                }
-            },
-            "invoices": {
-                "title": "Инвойсы"
-            },
-            "refunds": {
-                "title": "Возвраты"
-            }
-        },
-        "paymentDetails": {
-            "headline": {
-                "title": "Детали платежа"
-            },
-            "details": {
-                "titles": {
-                    "status": "Статус",
-                    "chargeAmount": "Сумма зачисления",
-                    "rrn": "RRN",
-                    "createdAt": "Платеж создан",
-                    "amount": "Сумма списания",
-                    "error": "Ошибка проведения платежа",
-                    "statusChangedAt": "Статус изменен",
-                    "fee": "Комиссия"
-                },
-                "statuses": {
-                    "processed": "Оплачено",
-                    "failed": "Неуспешно",
-                    "refunded": "Возврат",
-                    "cancelled": "Отмена",
-                    "captured": "Подтвержден",
-                    "pending": "В ожидании"
-                }
-            },
-            "paymentTool": {
-                "title": "Средство оплаты"
-            }
+        "action": {
+          "join": "Подключиться",
+          "continue": "Продолжить",
+          "claimDetails": "Детали заявки",
+          "details": "Перейти"
         }
+      }
+    },
+    "operations": {
+      "title": "Операции",
+      "payments": {
+        "title": "Платежи",
+        "filter": {
+          "status": "Статус платежа"
+        }
+      },
+      "invoices": {
+        "title": "Инвойсы"
+      },
+      "refunds": {
+        "title": "Возвраты"
+      }
+    },
+    "paymentDetails": {
+      "headline": {
+        "title": "Детали платежа"
+      },
+      "details": {
+        "titles": {
+          "status": "Статус",
+          "chargeAmount": "Сумма зачисления",
+          "rrn": "RRN",
+          "createdAt": "Платеж создан",
+          "amount": "Сумма списания",
+          "error": "Ошибка проведения платежа",
+          "statusChangedAt": "Статус изменен",
+          "fee": "Комиссия"
+        },
+        "statuses": {
+          "processed": "Оплачено",
+          "failed": "Неуспешно",
+          "refunded": "Возврат",
+          "cancelled": "Отмена",
+          "captured": "Подтвержден",
+          "pending": "В ожидании"
+        }
+      },
+      "paymentTool": {
+        "title": "Средство оплаты",
+        "card": "Банковская карта"
+      },
+      "payer": {
+        "title": "Плательщик",
+        "titles": {
+          "fingerprint": "Fingerprint",
+          "ip": "IP"
+        }
+      },
+      "hold": {
+        "title": "Платеж совершен с удержанием денежных средств",
+        "actions": {
+          "deny": "Отменить",
+          "accept": "Подтвердить"
+        }
+      },
+      "recurrent": {
+        "title": "Платеж является родительским рекуррентным",
+        "description": "Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+      }
     }
+  }
 }

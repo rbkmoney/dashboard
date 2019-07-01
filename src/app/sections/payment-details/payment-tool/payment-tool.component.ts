@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'dsh-payment-tool',
-  templateUrl: './payment-tool.component.html',
-  styleUrls: ['./payment-tool.component.scss']
+    selector: 'dsh-payment-tool',
+    templateUrl: './payment-tool.component.html',
+    styleUrls: ['./payment-tool.component.scss']
 })
 export class PaymentToolComponent implements OnInit {
 
-  constructor() { }
+    @Input() bankCard: string;
 
-  ngOnInit() {
-  }
+    constructor() { }
 
+    ngOnInit() {
+    }
+
+    getFormattedBankCard = (): string => this.bankCard.replace(/(.{4})/g, '$& ')
 }

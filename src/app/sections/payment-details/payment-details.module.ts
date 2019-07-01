@@ -15,9 +15,14 @@ import { DetailItemComponent } from './detail-item/detail-item.component';
 import { StatusItemComponent } from './detail-item/status-item/status-item.component';
 import { FormatTimePipe } from './format-time.pipe';
 import { PaymentToolComponent } from './payment-tool/payment-tool.component';
+import { FormatAmountPipe } from './format-amount.pipe';
+import { PayerDetailsComponent } from './payer-details/payer-details.component';
+import { HoldDetailsComponent } from './hold-details/hold-details.component';
+import { ButtonModule } from '../../button';
+import { ReccurentDetailsComponent } from './reccurent-details/reccurent-details.component';
 
 @NgModule({
-    imports: [LayoutModule, StatusModule, MatIconModule, LocaleModule, FlexLayoutModule, RouterModule, CardModule],
+    imports: [LayoutModule, StatusModule, MatIconModule, LocaleModule, FlexLayoutModule, RouterModule, CardModule, ButtonModule],
     declarations: [
         PaymentDetailsComponent,
         DetailsHeadlineComponent,
@@ -27,6 +32,10 @@ import { PaymentToolComponent } from './payment-tool/payment-tool.component';
         StatusItemComponent,
         FormatTimePipe,
         PaymentToolComponent,
+        FormatAmountPipe,
+        PayerDetailsComponent,
+        HoldDetailsComponent,
+        ReccurentDetailsComponent
     ],
     exports: [PaymentDetailsComponent]
 })

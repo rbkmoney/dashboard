@@ -1,6 +1,18 @@
 <dsh-card>
-    <dsh-card-title>{{'sections.paymentDetails.paymentTool.title' | lc}}</dsh-card-title>
+    <dsh-card-title class="dsh-title">{{'sections.paymentDetails.paymentTool.title' | lc}}</dsh-card-title>
     <dsh-card-content>
-
+        <dsh-detail-item [title]="'sections.paymentDetails.paymentTool.card' | lc">
+            <div class="dsh-payment-tool-container" fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
+                <div class="dsh-bank-card-number">
+                    {{getFormattedBankCard()}}
+                </div>
+                <mat-icon svgIcon="visa"></mat-icon>
+                <mat-icon svgIcon="mastercard"></mat-icon>
+                <mat-icon svgIcon="mir"></mat-icon>
+                <mat-icon svgIcon="apple_pay"></mat-icon>
+                <mat-icon svgIcon="samsung_pay"></mat-icon>
+                <mat-icon svgIcon="google_pay"></mat-icon>
+            </div>
+        </dsh-detail-item>
     </dsh-card-content>
 </dsh-card>

@@ -1,0 +1,23 @@
+<dsh-card>
+    <dsh-card-title class="dsh-title">{{'sections.paymentDetails.hold.title' | lc}}</dsh-card-title>
+    <dsh-card-content>
+        <div class="dsh-container" fxLayout="column">
+            <div class="dsh-text">
+                Срок удержания до 20 июня 2019, 12:45. Осталось 6 дней 3 часа 7 минут. После истечения срока удержания, средства будут возвращенны плательщику. Вы можете подтверидить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.
+            </div>
+            <div class="dsh-hold-actions-container" fxLayout="row wrap" fxFlex="100">
+                <div class="dsh-button-container" fxFlex="50">
+                    <button class="dsh-hold-button" dsh-stroked-button color="warn">
+                        {{'sections.paymentDetails.hold.actions.deny' | lc}}
+                    </button>
+                </div>
+                <div class="dsh-button-container" fxFlex="50" fxLayoutAlign="end none">
+                    <button class="dsh-hold-button" dsh-stroked-button color="accent">
+                        {{'sections.paymentDetails.hold.actions.accept' | lc}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </dsh-card-content>
+</dsh-card>
