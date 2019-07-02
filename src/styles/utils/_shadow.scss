@@ -8,5 +8,5 @@
     $primary: map-get($theme, primary);
     $shadow-color: mat-color($primary, 100);
 
-    box-shadow: #{get-shadow($shadow-color, 0.24)};
+    box-shadow: #{get-shadow($shadow-color, 0.24)} !important;
 }

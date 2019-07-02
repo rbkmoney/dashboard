@@ -1,0 +1,5 @@
+@mixin mat-snack-bar-override() {
+    .mat-snack-bar-container {
+        box-shadow: none !important;
+    }
+}

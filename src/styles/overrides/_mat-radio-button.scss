@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin mat-radio-button-override-typography($config) {
+    .mat-radio-button {
+        font: {
+            family: mat-font-family($config, body-1);
+            size: mat-font-size($config, body-1);
+            weight: mat-font-weight($config, body-1);
+        }
+    }
+}

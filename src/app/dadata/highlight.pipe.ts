@@ -19,7 +19,7 @@ export class HighlightSearchPipe implements PipeTransform {
             return value;
         }
 
-        const replacedValue = value.replace(re, '<mark>' + match[0] + '</mark>');
+        const replacedValue = value.replace(re, '<mark class="dsh-dadata-autocomplete-mark">' + match[0] + '</mark>');
         return this.sanitizer.bypassSecurityTrustHtml(replacedValue);
     }
 }
