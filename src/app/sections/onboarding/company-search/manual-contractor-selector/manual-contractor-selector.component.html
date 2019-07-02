@@ -1,0 +1,15 @@
+<div class="container">
+    <p class="mat-body-1">Ничего не найдено. Можно указать сведения об организации вручную.</p>
+    <mat-radio-group
+        (change)="selected($event)"
+        fxLayout
+        fxLayout.sm="column"
+        fxLayout.xs="column"
+        fxLayoutGap="20px"
+        fxLayoutGap.sm="10px"
+        fxLayoutGap.xs="10px"
+    >
+        <mat-radio-button value="IndividualEntity">Индивидуальный предпрениматель</mat-radio-button>
+        <mat-radio-button value="LegalEntity">Юридическое лицо</mat-radio-button>
+    </mat-radio-group>
+</div>

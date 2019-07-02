@@ -8,8 +8,14 @@
 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event)">
     <ng-container *ngIf="!isOptionsLoading">
         <mat-option *ngFor="let option of options" [value]="option.header" class="option">
-            <div class="option-header" [innerHTML]="option.header | highlight: formControl.value"></div>
-            <div class="option-description" [innerHTML]="option.description | highlight: formControl.value"></div>
+            <div
+                class="dsh-dadata-autocomplete-option-header"
+                [innerHTML]="option.header | highlight: formControl.value"
+            ></div>
+            <div
+                class="dsh-dadata-autocomplete-option-description"
+                [innerHTML]="option.description | highlight: formControl.value"
+            ></div>
         </mat-option>
     </ng-container>
 </mat-autocomplete>

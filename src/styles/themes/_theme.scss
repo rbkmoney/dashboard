@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
-@import '../overrides/mat-manu';
+@import '../overrides/mat-menu';
+@import '../overrides/mat-autocomplete-panel';
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
@@ -18,11 +19,13 @@
 @import '../../app/container/welcome-image/welcome-image-theme';
 @import '../../app/timeline/timeline-theme';
 @import '../../app/expand-panel/expand-panel-theme';
+@import '../../app/dadata/dadata-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
         @include mat-menu-override-theme($theme);
+        @include mat-autocomplete-panel-override-theme($theme);
         @include dsh-container-theme($theme);
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
@@ -41,5 +44,6 @@
         @include dsh-welcome-image-theme($theme);
         @include dsh-timeline-theme($theme);
         @include dsh-expand-panel-theme($theme);
+        @include dsh-dadata-autocomplete-theme($theme);
     }
 }

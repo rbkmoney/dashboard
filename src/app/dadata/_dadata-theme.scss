@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-dadata-autocomplete-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-dadata-autocomplete-mark {
+        background-color: mat-color($primary, 100);
+    }
+}
+
+@mixin dsh-dadata-autocomplete-typography($config) {
+    .dsh-dadata-autocomplete-option-header {
+        font: {
+            family: mat-font-family($config, body-1);
+            size: mat-font-size($config, body-1);
+            weight: mat-font-weight($config, body-1);
+        }
+    }
+
+    .dsh-dadata-autocomplete-option-description {
+        font: {
+            family: mat-font-family($config, caption);
+            size: mat-font-size($config, caption);
+            weight: mat-font-weight($config, caption);
+        }
+    }
+}
