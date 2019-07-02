@@ -54,7 +54,8 @@ $foreground: (
     y-axis-text-color: rgba(black, 0.5),
     legend-tooltip-date-color: rgba(black, 0.3),
     contrast-test: white,
-    secondary-title: map_get($mat-grey, 500)
+    secondary-title: map_get($mat-grey, 500),
+    list-divider: map_get($mat-grey, 200)
 );
 
 $theme: (

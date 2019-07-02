@@ -63,5 +63,4 @@ export class DetailsComponent implements OnInit {
                 break;
         }
     }
-
 }

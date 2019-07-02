@@ -2,4 +2,8 @@
     &-payment-details {
         max-width: 660px;
     }
+
+    :host ::ng-deep &-container {
+        padding-top: 10px;
+    }
 }

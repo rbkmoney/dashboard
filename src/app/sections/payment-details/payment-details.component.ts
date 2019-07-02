@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../api/capi/swagger-codegen';
-
 
 @Component({
     selector: 'dsh-payment-details',
     templateUrl: './payment-details.component.html',
-    styleUrls: ['./payment-details.component.scss']
+    styleUrls: ['./payment-details.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated
 })
 export class PaymentDetailsComponent implements OnInit {
     @Input() payment: PaymentSearchResult;

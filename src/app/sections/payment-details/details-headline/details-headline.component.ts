@@ -8,9 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class DetailsHeadlineComponent implements OnInit {
     @Input() paymentID: string;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
-
+    ngOnInit() {}
 }

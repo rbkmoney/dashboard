@@ -53,7 +53,8 @@ $foreground: (
     x-axis-text-color: rgba(white, 0.5),
     y-axis-text-color: rgba(white, 0.7),
     legend-tooltip-date-color: rgba(white, 0.5),
-    secondary-title: map_get($mat-grey, 500)
+    secondary-title: map_get($mat-grey, 500),
+    list-divider: map_get($mat-grey, 200)
 );
 
 $theme: (

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material';
+import { MatDividerModule, MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { LayoutModule } from '../../layout';
 import { PaymentDetailsComponent } from './payment-details.component';
@@ -20,9 +21,24 @@ import { PayerDetailsComponent } from './payer-details/payer-details.component';
 import { HoldDetailsComponent } from './hold-details/hold-details.component';
 import { ButtonModule } from '../../button';
 import { ReccurentDetailsComponent } from './reccurent-details/reccurent-details.component';
+import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
+import { ShopDetailsComponent } from './shop-details/shop-details.component';
+import { RefundsComponent } from './refunds/refunds.component';
+import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
 
 @NgModule({
-    imports: [LayoutModule, StatusModule, MatIconModule, LocaleModule, FlexLayoutModule, RouterModule, CardModule, ButtonModule],
+    imports: [
+        LayoutModule,
+        StatusModule,
+        MatIconModule,
+        LocaleModule,
+        FlexLayoutModule,
+        RouterModule,
+        CardModule,
+        ButtonModule,
+        CommonModule,
+        MatDividerModule
+    ],
     declarations: [
         PaymentDetailsComponent,
         DetailsHeadlineComponent,
@@ -35,7 +51,11 @@ import { ReccurentDetailsComponent } from './reccurent-details/reccurent-details
         FormatAmountPipe,
         PayerDetailsComponent,
         HoldDetailsComponent,
-        ReccurentDetailsComponent
+        ReccurentDetailsComponent,
+        InvoiceDetailsComponent,
+        ShopDetailsComponent,
+        RefundsComponent,
+        RefundItemComponent
     ],
     exports: [PaymentDetailsComponent]
 })

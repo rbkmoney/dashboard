@@ -5,8 +5,13 @@
     $background: map-get($theme, background);
 
     .dsh {
-        &-secondary-title, &-item-title {
+        &-secondary-title,
+        &-item-title {
             color: map-get($foreground, secondary-title);
+        }
+
+        &-divider {
+            background-color: map-get($foreground, list-divider);
         }
     }
 }

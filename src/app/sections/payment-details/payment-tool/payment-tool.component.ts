@@ -6,13 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./payment-tool.component.scss']
 })
 export class PaymentToolComponent implements OnInit {
-
     @Input() bankCard: string;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
-    getFormattedBankCard = (): string => this.bankCard.replace(/(.{4})/g, '$& ')
+    getFormattedBankCard = (): string => this.bankCard.replace(/(.{4})/g, '$& ');
 }
