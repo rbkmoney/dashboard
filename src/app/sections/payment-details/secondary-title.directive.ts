@@ -6,6 +6,6 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 export class SecondaryTitleDirective {
     constructor(el: ElementRef, private renderer: Renderer2) {
         el.nativeElement.textContent = '#' + el.nativeElement.textContent;
-        this.renderer.addClass(el.nativeElement, 'dsh-secondary-title');
+        this.renderer.addClass(el.nativeElement, 'dsh-payment-details-secondary-title');
     }
 }

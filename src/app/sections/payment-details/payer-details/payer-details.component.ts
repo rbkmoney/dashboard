@@ -1,16 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Payer } from '../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payer-details',
-    templateUrl: './payer-details.component.html',
-    styleUrls: ['./payer-details.component.scss']
+    templateUrl: './payer-details.component.html'
 })
-export class PayerDetailsComponent implements OnInit {
+export class PayerDetailsComponent {
     @Input() payer: Payer;
-
-    constructor() {}
-
-    ngOnInit() {}
 }

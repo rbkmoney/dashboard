@@ -16,8 +16,6 @@ export class InvoiceDetailsComponent implements OnInit {
     statusColor: Color;
     statusText: string;
 
-    constructor() {}
-
     ngOnInit() {
         this.invoice = {
             status: this.statuses.Paid,

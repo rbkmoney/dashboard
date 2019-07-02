@@ -16,8 +16,6 @@ export class RefundItemComponent implements OnInit {
     statusColor: Color;
     statusText: string;
 
-    constructor() {}
-
     ngOnInit() {
         this.initStatus();
     }

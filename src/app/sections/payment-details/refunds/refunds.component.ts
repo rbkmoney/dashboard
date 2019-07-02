@@ -10,8 +10,6 @@ import { Refund } from '../../../api/capi/swagger-codegen';
 export class RefundsComponent implements OnInit {
     @Input() refunds: Refund[];
 
-    constructor() {}
-
     ngOnInit() {
         const refund = {
             status: Refund.StatusEnum.Succeeded,

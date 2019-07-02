@@ -4,7 +4,7 @@
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
 
-    .dsh {
+    .dsh-payment-details {
         &-secondary-title,
         &-item-title {
             color: map-get($foreground, secondary-title);
@@ -17,7 +17,7 @@
 }
 
 @mixin dsh-payment-details-typography($config) {
-    .dsh {
+    .dsh-payment-details {
         &-details-title {
             @include mat-typography-level-to-styles($config, headline);
         }

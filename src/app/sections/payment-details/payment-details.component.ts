@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { PaymentSearchResult, PaymentStatus } from '../../api/capi/swagger-codegen';
+import { PaymentResourcePayer, PaymentSearchResult, PaymentStatus } from '../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payment-details',

@@ -16,7 +16,7 @@
             fxFlex.sm="49"
             fxFlex.gt-xs="33"
         >
-            <div class="dsh-text">{{ refund.amount / 100 | formatAmount }} ₽</div>
+            <div class="dsh-payment-details-text">{{ refund.amount / 100 | formatAmount }} ₽</div>
         </dsh-detail-item>
         <dsh-detail-item
             [title]="'sections.paymentDetails.refunds.titles.createdAt' | lc"
@@ -24,13 +24,13 @@
             fxFlex.sm="49"
             fxFlex.gt-xs="33"
         >
-            <div class="dsh-text">{{ refund.createdAt | formatTime }}</div>
+            <div class="dsh-payment-details-text">{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
         </dsh-detail-item>
         <dsh-detail-item [title]="'sections.paymentDetails.refunds.titles.reason' | lc" fxFlex="100">
-            <div class="dsh-text">{{ refund.reason }}</div>
+            <div class="dsh-payment-details-text">{{ refund.reason }}</div>
         </dsh-detail-item>
         <dsh-detail-item [title]="'sections.paymentDetails.refunds.titles.error' | lc" fxFlex="100">
-            <div class="dsh-text">{{ refund.error.message }}</div>
+            <div class="dsh-payment-details-text">{{ refund.error.message }}</div>
         </dsh-detail-item>
     </div>
 </div>

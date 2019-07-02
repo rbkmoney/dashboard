@@ -14,7 +14,6 @@ import { DetailsComponent } from './details/details.component';
 import { CardModule } from '../../layout/card';
 import { DetailItemComponent } from './detail-item/detail-item.component';
 import { StatusItemComponent } from './detail-item/status-item/status-item.component';
-import { FormatTimePipe } from './format-time.pipe';
 import { PaymentToolComponent } from './payment-tool/payment-tool.component';
 import { FormatAmountPipe } from './format-amount.pipe';
 import { PayerDetailsComponent } from './payer-details/payer-details.component';
@@ -47,7 +46,6 @@ import { FormatPercentPipe } from './format-percent.pipe';
         DetailsComponent,
         DetailItemComponent,
         StatusItemComponent,
-        FormatTimePipe,
         PaymentToolComponent,
         FormatAmountPipe,
         FormatPercentPipe,

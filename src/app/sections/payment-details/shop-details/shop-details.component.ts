@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'dsh-shop-details',
-    templateUrl: './shop-details.component.html',
-    styleUrls: ['./shop-details.component.scss']
+    templateUrl: './shop-details.component.html'
 })
-export class ShopDetailsComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit() {}
-}
+export class ShopDetailsComponent {}

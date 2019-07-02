@@ -1,14 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'dsh-details-headline',
     templateUrl: './details-headline.component.html',
     styleUrls: ['./details-headline.component.scss']
 })
-export class DetailsHeadlineComponent implements OnInit {
+export class DetailsHeadlineComponent {
     @Input() paymentID: string;
-
-    constructor() {}
-
-    ngOnInit() {}
 }

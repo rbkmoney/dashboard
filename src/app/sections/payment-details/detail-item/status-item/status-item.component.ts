@@ -1,18 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Color } from '../../../../status';
 
 @Component({
     selector: 'dsh-status-item',
-    templateUrl: './status-item.component.html',
-    styleUrls: ['./status-item.component.scss']
+    templateUrl: './status-item.component.html'
 })
-export class StatusItemComponent implements OnInit {
+export class StatusItemComponent {
     @Input() color: Color;
 
     @Input() text: string;
-
-    constructor() {}
-
-    ngOnInit() {}
 }

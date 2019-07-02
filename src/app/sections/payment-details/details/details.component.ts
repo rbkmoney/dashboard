@@ -5,8 +5,7 @@ import { Color } from '../../../status';
 
 @Component({
     selector: 'dsh-details',
-    templateUrl: './details.component.html',
-    styleUrls: ['./details.component.scss']
+    templateUrl: './details.component.html'
 })
 export class DetailsComponent implements OnInit {
     @Input() payment: PaymentSearchResult;
