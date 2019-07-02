@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 import { BrandType } from './brand/brand-type';
 
@@ -9,13 +11,20 @@ import { BrandType } from './brand/brand-type';
     styleUrls: ['container.component.scss']
 })
 export class ContainerComponent {
-    constructor(private router: Router) {}
+    routerNavigationEnd: Observable<boolean>;
 
-    isMainPage(): boolean {
+    constructor(private router: Router) {
+        this.routerNavigationEnd = router.events.pipe(
+            filter(e => e instanceof NavigationEnd),
+            map(() => true)
+        );
+    }
+
+    isRoot(): boolean {
         return this.router.url === '/';
     }
 
     brandType(): BrandType {
-        return this.isMainPage() ? BrandType.invert : BrandType.normal;
+        return this.isRoot() ? BrandType.invert : BrandType.normal;
     }
 }

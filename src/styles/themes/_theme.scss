@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 @import '../overrides/mat-manu';
 @import '../../app/container/container-theme';
+@import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
 @import '../../app/table/table-theme';
 @import '../../app/charts/bar-chart/bar-chart-theme';
@@ -24,6 +25,7 @@
         @include angular-material-theme($theme);
         @include mat-menu-override-theme($theme);
         @include dsh-container-theme($theme);
+        @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
         @include dsh-bar-chart-theme($theme);

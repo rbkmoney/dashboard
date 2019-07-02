@@ -4,10 +4,6 @@
     &-button,
     &-stroked-button {
         @include dsh-button-base();
-
-        &:active:not(:disabled) {
-            transform: translateY(1px);
-        }
     }
 
     &-stroked-button {

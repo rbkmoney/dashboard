@@ -1,10 +1,7 @@
-<dsh-welcome-image *ngIf="isMainPage()"></dsh-welcome-image>
-<div class="container">
-    <dsh-toolbar [brandType]="brandType()"></dsh-toolbar>
-    <div class="content" fxLayout="row" fxLayoutGap="20px">
-        <dsh-nav *ngIf="!isMainPage()" class="nav"></dsh-nav>
-        <div fxFlex>
-            <ng-content></ng-content>
-        </div>
+<div *ngIf="routerNavigationEnd | async">
+    <dsh-welcome-image *ngIf="isRoot()"></dsh-welcome-image>
+    <div class="container">
+        <dsh-toolbar [brandType]="brandType()"></dsh-toolbar>
+        <ng-content></ng-content>
     </div>
 </div>

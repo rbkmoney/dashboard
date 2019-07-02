@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -22,7 +21,7 @@ import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
-import { LocaleService } from './locale/locale.service';
+import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
 
 @NgModule({
     declarations: [AppComponent],
@@ -30,7 +29,6 @@ import { LocaleService } from './locale/locale.service';
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule,
         SectionsModule,
         APIModule,
         AuthModule,
@@ -38,6 +36,7 @@ import { LocaleService } from './locale/locale.service';
         ConfigModule,
         ContainerModule,
         SettingsModule,
+        LocaleDictionaryModule,
         KeycloakAngularModule
     ],
     providers: [
@@ -45,7 +44,7 @@ import { LocaleService } from './locale/locale.service';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleService],
+            deps: [ConfigService, KeycloakService, LocaleDictionaryService],
             multi: true
         },
         {

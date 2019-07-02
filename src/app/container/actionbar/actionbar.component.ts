@@ -5,8 +5,7 @@ import { ThemeManager } from '../../theme-manager';
 
 @Component({
     selector: 'dsh-actionbar',
-    templateUrl: './actionbar.component.html',
-    styleUrls: ['./actionbar.component.scss']
+    templateUrl: './actionbar.component.html'
 })
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;

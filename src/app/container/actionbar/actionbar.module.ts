@@ -12,6 +12,7 @@ import { ButtonModule } from '../../button';
 import { StatusModule } from '../../status';
 import { UserComponent } from './user';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
+import { ActionItemComponent } from './action-item';
 
 @NgModule({
     imports: [
@@ -25,7 +26,14 @@ import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from '.
         MatMenuModule,
         RouterModule
     ],
-    declarations: [ActionbarComponent, ClaimsListComponent, ClaimsListItemComponent, UserComponent, ClaimsComponent],
+    declarations: [
+        ActionbarComponent,
+        ActionItemComponent,
+        ClaimsListComponent,
+        ClaimsListItemComponent,
+        UserComponent,
+        ClaimsComponent
+    ],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

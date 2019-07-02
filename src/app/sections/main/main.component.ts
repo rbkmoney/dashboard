@@ -12,7 +12,8 @@ export class MainComponent {
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
     hasWallets = true;
     paymentsSectionType = PaymentPartType.prestine;
-    paymentsSectionActionRouterLink = '/';
+    paymentsSectionActionRouterLink = '/onboarding';
+    testEnvironmentRouterLink = '/payment-section/operations';
 
     constructor(private configService: ConfigService) {}
 }

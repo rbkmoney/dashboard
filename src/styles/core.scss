@@ -20,7 +20,6 @@
 @import './overrides/mat-theme-loaded-marker';
 @import '../app/timeline/timeline-theme';
 @import '../app/expand-panel/expand-panel-theme';
-@import '../app/sections/payment-details/payment-details-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -40,6 +39,7 @@
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-expand-panel-typography($config);
+    @include dsh-table-typography($config);
     @include dsh-payment-details-typography($config);
 }
 
