@@ -25,6 +25,7 @@ import { InvoiceDetailsComponent } from './invoice-details/invoice-details.compo
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
+import { FormatPercentPipe } from './format-percent.pipe';
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import { RefundItemComponent } from './refunds/refund-item/refund-item.component
         FormatTimePipe,
         PaymentToolComponent,
         FormatAmountPipe,
+        FormatPercentPipe,
         PayerDetailsComponent,
         HoldDetailsComponent,
         ReccurentDetailsComponent,
