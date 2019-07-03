@@ -1,5 +1,5 @@
 <div class="container">
-    <p class="mat-body-1">Ничего не найдено. Можно указать сведения об организации вручную.</p>
+    <p class="mat-body-1">{{ 'sections.onboarding.companySearch.manualContractorSelector.description' | lc }}</p>
     <mat-radio-group
         (change)="selected($event)"
         fxLayout
@@ -9,7 +9,11 @@
         fxLayoutGap.sm="10px"
         fxLayoutGap.xs="10px"
     >
-        <mat-radio-button value="IndividualEntity">Индивидуальный предпрениматель</mat-radio-button>
-        <mat-radio-button value="LegalEntity">Юридическое лицо</mat-radio-button>
+        <mat-radio-button value="IndividualEntity">{{
+            'sections.onboarding.companySearch.manualContractorSelector.individualEntity' | lc
+        }}</mat-radio-button>
+        <mat-radio-button value="LegalEntity">{{
+            'sections.onboarding.companySearch.manualContractorSelector.legalEntity' | lc
+        }}</mat-radio-button>
     </mat-radio-group>
 </div>

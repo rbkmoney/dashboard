@@ -50,6 +50,28 @@
                 }
             }
         },
+        "onboarding": {
+            "headline": "Заявка на подключение",
+            "companySearch": {
+                "title": "Поиск компании или ИП",
+                "searchFieldLabel": "Введите название в свободной форме, адрес, ИНН или ОГРН",
+                "companyDetails": {
+                    "name": "Наименование",
+                    "address": "Адрес",
+                    "ogrnInnKpp": "ОГРН / ИНН / КПП"
+                },
+                "leaveOnboardingDialog": {
+                    "subheading": "Отменить заполнение заявки и вернуться обратно?",
+                    "decline": "Вернуться обратно",
+                    "confirm": "Продолжить заполнение"
+                },
+                "manualContractorSelector": {
+                    "description": "Ничего не найдено. Можно указать сведения об организации вручную.",
+                    "individualEntity": "Индивидуальный предпрениматель",
+                    "legalEntity": "Юридическое лицо"
+                }
+            }
+        },
         "operations": {
             "title": "Операции",
             "payments": {

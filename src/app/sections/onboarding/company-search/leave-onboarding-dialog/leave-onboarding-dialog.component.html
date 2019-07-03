@@ -1,4 +1,4 @@
-<h3 class="mat-subheading-2">Отменить заполнение заявки и вернуться обратно?</h3>
+<h3 class="mat-subheading-2">{{ 'sections.onboarding.companySearch.leaveOnboardingDialog.subheading' | lc }}</h3>
 <div
     mat-dialog-actions
     fxLayout="row"
@@ -7,6 +7,10 @@
     fxLayoutGap="20px"
     fxLayoutGap.xs="10px"
 >
-    <button fxFlex fxFlex.xs="none" dsh-button (click)="decline()">Вернуться обратно</button>
-    <button fxFlex fxFlex.xs="none" dsh-button cdkFocusInitial (click)="confirm()">Продолжить заполнение</button>
+    <button fxFlex fxFlex.xs="none" dsh-button (click)="decline()">
+        {{ 'sections.onboarding.companySearch.leaveOnboardingDialog.decline' | lc }}
+    </button>
+    <button fxFlex fxFlex.xs="none" dsh-button cdkFocusInitial (click)="confirm()">
+        {{ 'sections.onboarding.companySearch.leaveOnboardingDialog.confirm' | lc }}
+    </button>
 </div>
