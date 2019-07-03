@@ -65,4 +65,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class PaymentsComponent {
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+    search(kek: any) {
+        console.log('Search!', kek);
+    }
 }
