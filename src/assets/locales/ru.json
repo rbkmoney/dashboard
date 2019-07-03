@@ -6,7 +6,8 @@
         "next": "Далее",
         "today": "Сегодня",
         "week": "Неделя",
-        "month": "Месяц"
+        "month": "Месяц",
+        "dateFormat": "ДД.ММ.ГГГГ"
     },
     "sections": {
         "mainMenu": {
@@ -50,7 +51,62 @@
             "payments": {
                 "title": "Платежи",
                 "filter": {
-                    "status": "Статус платежа"
+                    "paymentStatus": {
+                        "title": "Статус платежа",
+                        "pending": "pending",
+                        "processed": "processed",
+                        "captured": "captured",
+                        "cancelled": "cancelled",
+                        "refunded": "refunded",
+                        "failed": "failed",
+                        "any": "Любой статус"
+                    },
+                    "shopID": "Магазин",
+                    "fromTime": "Начало периода",
+                    "toTime": "Конец периода",
+                    "payerEmail": "Email плательщика",
+                    "paymentFlow": {
+                        "title": "Тип проведения платежа",
+                        "instant": "instant",
+                        "hold": "hold",
+                        "any": "Любой тип"
+                    },
+                    "paymentID": "Идентификатор платежа",
+                    "invoiceID": "Идентификатор инвойса",
+                    "bankCardTokenProvider": {
+                        "title": "Провайдер платежных токенов",
+                        "applepay": "applepay",
+                        "googlepay": "googlepay",
+                        "samsungpay": "samsungpay",
+                        "any": "Любой провайдер"
+                    },
+                    "paymentMethod": {
+                        "title": "Метод оплаты",
+                        "bankCard": "bankCard",
+                        "paymentTerminal": "paymentTerminal",
+                        "any": "Любой метод"
+                    },
+                    "paymentAmount": "Сумма платежа",
+                    "bankCardPaymentSystem": {
+                        "title": "Платежаня система",
+                        "visa": "visa",
+                        "mastercard": "mastercard",
+                        "visaelectron": "visaelectron",
+                        "maestro": "maestro",
+                        "forbrugsforeningen": "forbrugsforeningen",
+                        "dankort": "dankort",
+                        "amex": "amex",
+                        "dinersclub": "dinersclub",
+                        "discover": "discover",
+                        "unionpay": "unionpay",
+                        "jcb": "jcb",
+                        "nspkmir": "nspkmir",
+                        "any": "Любая система"
+                    },
+                    "first6": "BIN банка-эмитента карты",
+                    "last4": "Последнице цифры номера карты",
+                    "payerFingerprint": "Fingerprint плательщика",
+                    "payerIP": "IP-адрес плательщика"
                 },
                 "refresh": "Обновить",
                 "lastUpdate": "Последнее обновление",
