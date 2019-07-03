@@ -1,4 +1,4 @@
-<h3 class="mat-subheading-2">{{ 'sections.onboarding.companySearch.leaveOnboardingDialog.subheading' | lc }}</h3>
+<h3 class="mat-subheading-2">{{ dicBasePath + '.subheading' | lc }}</h3>
 <div
     mat-dialog-actions
     fxLayout="row"
@@ -8,9 +8,9 @@
     fxLayoutGap.xs="10px"
 >
     <button fxFlex fxFlex.xs="none" dsh-button (click)="decline()">
-        {{ 'sections.onboarding.companySearch.leaveOnboardingDialog.decline' | lc }}
+        {{ dicBasePath + '.decline' | lc }}
     </button>
     <button fxFlex fxFlex.xs="none" dsh-button cdkFocusInitial (click)="confirm()">
-        {{ 'sections.onboarding.companySearch.leaveOnboardingDialog.confirm' | lc }}
+        {{ dicBasePath + '.confirm' | lc }}
     </button>
 </div>

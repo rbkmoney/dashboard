@@ -1,10 +1,10 @@
 <div class="container" fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-headline">{{ 'sections.onboarding.headline' | lc }}</h1>
     <dsh-card>
-        <h2 class="mat-title">{{ 'sections.onboarding.companySearch.title' | lc }}</h2>
+        <h2 class="mat-title">{{ dicBasePath + '.title' | lc }}</h2>
         <form fxLayout="column" [formGroup]="form">
             <mat-form-field>
-                <mat-label>{{ 'sections.onboarding.companySearch.searchFieldLabel' | lc }}</mat-label>
+                <mat-label>{{ dicBasePath + '.searchFieldLabel' | lc }}</mat-label>
                 <dsh-dadata-autocomplete
                     formControlName="searchStr"
                     type="party"
