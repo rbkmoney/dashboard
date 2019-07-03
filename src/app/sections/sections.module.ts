@@ -15,12 +15,12 @@ import { PaymentDetailsModule } from './payment-details';
 
 @NgModule({
     imports: [
+        OnboardingModule,
         PaymentSectionModule,
         SectionsRoutingModule,
         MainModule,
         AnalyticsModule,
         PageNotFoundModule,
-        OnboardingModule,
         ButtonsModule,
         OperationsModule,
         InputsModule,

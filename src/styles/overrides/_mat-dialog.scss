@@ -1,0 +1,5 @@
+@mixin mat-dialog-override() {
+    .mat-dialog-container {
+        box-shadow: none !important;
+    }
+}

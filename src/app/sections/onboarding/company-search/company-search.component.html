@@ -1,0 +1,35 @@
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+    <h1 class="mat-headline">{{ 'sections.onboarding.headline' | lc }}</h1>
+    <dsh-card>
+        <h2 class="mat-title">{{ dicBasePath + '.title' | lc }}</h2>
+        <form fxLayout="column" [formGroup]="form">
+            <mat-form-field>
+                <mat-label>{{ dicBasePath + '.searchFieldLabel' | lc }}</mat-label>
+                <dsh-dadata-autocomplete
+                    formControlName="searchStr"
+                    type="party"
+                    (optionSelected)="updateSuggestion($event)"
+                    (errorOccurred)="searchSuggestionError($event)"
+                    (suggestionNotFound)="suggestionNotFound()"
+                    #daDadataAutocomplete
+                ></dsh-dadata-autocomplete>
+            </mat-form-field>
+        </form>
+        <div class="info-block">
+            <dsh-company-details
+                *ngIf="companyDetails && !manualContractorSelector"
+                [details]="companyDetails"
+            ></dsh-company-details>
+            <dsh-manual-contractor-selector
+                *ngIf="manualContractorSelector"
+                (selectContractorType)="manualSelectContractorType($event)"
+            ></dsh-manual-contractor-selector>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button dsh-stroked-button color="accent" (click)="back()">
+                {{ 'common.back' | lc }}
+            </button>
+            <button dsh-button color="accent" (click)="next()">{{ 'common.next' | lc }}</button>
+        </div>
+    </dsh-card>
+</div>

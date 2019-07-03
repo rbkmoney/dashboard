@@ -23,8 +23,10 @@
             fxLayoutGap="20px"
             fxLayoutGap.xs="10px"
         >
-            <button fxFlex dsh-button color="accent" [routerLink]="actionRouterLink">{{ config.action }}</button>
-            <button fxFlex dsh-stroked-button color="accent" [routerLink]="testEnvironmentRouterLink">
+            <button fxFlex fxFlex.xs="none" dsh-button color="accent" [routerLink]="actionRouterLink">
+                {{ config.action }}
+            </button>
+            <button fxFlex fxFlex.xs="none" dsh-stroked-button color="accent" [routerLink]="testEnvironmentRouterLink">
                 {{ 'sections.main.payments.testEnvironment' | lc }}
             </button>
         </div>

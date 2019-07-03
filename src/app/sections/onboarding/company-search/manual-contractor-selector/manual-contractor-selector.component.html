@@ -1,0 +1,15 @@
+<div class="container">
+    <p class="mat-body-1">{{ dicBasePath + '.description' | lc }}</p>
+    <mat-radio-group
+        (change)="selected($event)"
+        fxLayout
+        fxLayout.sm="column"
+        fxLayout.xs="column"
+        fxLayoutGap="20px"
+        fxLayoutGap.sm="10px"
+        fxLayoutGap.xs="10px"
+    >
+        <mat-radio-button value="IndividualEntity">{{ dicBasePath + '.individualEntity' | lc }}</mat-radio-button>
+        <mat-radio-button value="LegalEntity">{{ dicBasePath + '.legalEntity' | lc }}</mat-radio-button>
+    </mat-radio-group>
+</div>

@@ -9,8 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material';
 
-import { OnboardingComponent } from './onboarding.component';
 import { LayoutModule } from '../../layout';
 import { DaDataModule } from '../../dadata/dadata.module';
 import { OnboardingService } from './onboarding.service';
@@ -19,9 +19,13 @@ import { LayoutComponent } from './layout/layout.component';
 import { StateNavModule } from '../../state-nav/state-nav.module';
 import { ButtonModule } from '../../button';
 import { LocaleModule } from '../../locale/locale.module';
+import { OnboardingRoutingModule } from './onboarding-routing.module';
+import { CompanySearchModule } from './company-search';
 
 @NgModule({
     imports: [
+        OnboardingRoutingModule,
+        CompanySearchModule,
         LayoutModule,
         DaDataModule,
         MatFormFieldModule,
@@ -36,10 +40,10 @@ import { LocaleModule } from '../../locale/locale.module';
         MatDatepickerModule,
         StateNavModule,
         ButtonModule,
-        LocaleModule
+        LocaleModule,
+        MatDialogModule
     ],
-    declarations: [OnboardingComponent, LegalEntityComponent, LayoutComponent],
-    entryComponents: [],
+    declarations: [LegalEntityComponent, LayoutComponent],
     providers: [OnboardingService]
 })
 export class OnboardingModule {}

@@ -1,0 +1,13 @@
+$dsh-company-search-padding: 20px 0 0 0;
+$dsh-company-search-max-width: 900px;
+$dsh-info-block-padding: 0 0 20px 0;
+
+.container {
+    padding: $dsh-company-search-padding;
+    max-width: $dsh-company-search-max-width;
+    margin: 0 auto;
+}
+
+.info-block {
+    padding: $dsh-info-block-padding;
+}
