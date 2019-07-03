@@ -63,7 +63,5 @@ export class DetailsComponent implements OnInit {
                 this.statusText = 'sections.paymentDetails.details.statuses.pending';
                 break;
         }
-
-
     }
 }
