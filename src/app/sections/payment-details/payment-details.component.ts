@@ -1,6 +1,13 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { PaymentResourcePayer, PaymentSearchResult, PaymentStatus } from '../../api/capi/swagger-codegen';
+import {
+    PaymentResourcePayer,
+    PaymentSearchResult,
+    PaymentStatus,
+    PaymentToolDetailsBankCard,
+    PayoutToolDetailsBankCard
+} from '../../api/capi/swagger-codegen';
+import PaymentSystemEnum = PaymentToolDetailsBankCard.PaymentSystemEnum;
 
 @Component({
     selector: 'dsh-payment-details',
@@ -10,6 +17,8 @@ import { PaymentResourcePayer, PaymentSearchResult, PaymentStatus } from '../../
 })
 export class PaymentDetailsComponent implements OnInit {
     @Input() payment: PaymentSearchResult;
+
+    payoutToolDetailsBankCard: PayoutToolDetailsBankCard;
 
     ngOnInit() {
         this.payment = {
@@ -21,17 +30,12 @@ export class PaymentDetailsComponent implements OnInit {
             amount: 1500000,
             currency: 'RUB',
             fee: 16500,
-            rrn: 627334568648,
             flow: {
                 type: 'PaymentFlowInstant'
             },
             payer: {
                 payerType: 'PaymentResourcePayer',
-                paymentResourcePayer: {
-                    paymentToolDetails: {
-                        cardNumberMask: '847837******3457'
-                    }
-                },
+                paymentResourcePayer: {},
                 clientInfo: {
                     fingerprint: 'ca35b70d7582a867e415d22d018e18c7',
                     ip: '2A04:4A00:5:966:80E8:ACEC:D40:D5D5'
@@ -46,5 +50,11 @@ export class PaymentDetailsComponent implements OnInit {
             statusChangedAt: new Date(),
             makeRecurrent: false
         } as PaymentSearchResult;
+
+        this.payoutToolDetailsBankCard = {
+            detailsType: '',
+            cardNumberMask: '847837******3457',
+            paymentSystem: PaymentSystemEnum.Mastercard
+        };
     }
 }

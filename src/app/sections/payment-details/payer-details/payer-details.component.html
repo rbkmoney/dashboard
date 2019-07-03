@@ -1,6 +1,6 @@
 <dsh-card>
     <dsh-card-title class="dsh-payment-details-title"
-        >{{ 'sections.paymentDetails.payer.title' | lc }}: {{ payer.contactInfo.email }}</dsh-card-title
+        >{{ 'sections.paymentDetails.payer.title' | lc }}: {{ contactInfo.email }}</dsh-card-title
     >
     <dsh-card-content>
         <div class="dsh-container" fxLayout="row wrap" fxLayoutGap="10px" fxFlex="100">
@@ -9,14 +9,14 @@
                 fxFlex.lt-sm="100"
                 fxFlex.gt-xs="49"
             >
-                {{ payer.clientInfo.fingerprint }}
+                {{ clientInfo.fingerprint }}
             </dsh-detail-item>
             <dsh-detail-item
                 [title]="'sections.paymentDetails.payer.titles.ip' | lc"
                 fxFlex.lt-sm="100"
                 fxFlex.gt-xs="49"
             >
-                {{ payer.clientInfo.ip }}
+                {{ clientInfo.ip }}
             </dsh-detail-item>
         </div>
     </dsh-card-content>

@@ -10,6 +10,8 @@ import { Color } from '../../../status';
 export class DetailsComponent implements OnInit {
     @Input() payment: PaymentSearchResult;
 
+    rrn = 627334568648;
+
     statusColor: Color;
     statusText: string;
 
@@ -61,5 +63,7 @@ export class DetailsComponent implements OnInit {
                 this.statusText = 'sections.paymentDetails.details.statuses.pending';
                 break;
         }
+
+
     }
 }

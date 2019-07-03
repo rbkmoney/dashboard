@@ -1,11 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { Payer } from '../../../api/capi/swagger-codegen';
+import { ClientInfo, ContactInfo, Payer } from '../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payer-details',
     templateUrl: './payer-details.component.html'
 })
-export class PayerDetailsComponent {
+export class PayerDetailsComponent implements OnInit {
     @Input() payer: Payer;
+
+    contactInfo: ContactInfo;
+    clientInfo: ClientInfo;
+
+    ngOnInit() {
+        this.contactInfo = {
+            email: 'payer@mail.com'
+        };
+
+        this.clientInfo = {
+            ip: '2A04:4A00:5:966:80E8:ACEC:D40:D5D5',
+            fingerprint: 'ca35b70d7582a867e415d22d018e18c7'
+        };
+    }
 }
