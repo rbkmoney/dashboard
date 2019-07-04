@@ -13,10 +13,18 @@ import { DshTabLabelDirective } from './tab-label.directive';
 import { DshTabContentDirective } from './tab-content.directive';
 import { DshInkBarDirective } from './ink-bar.directive';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
+import { TabLinkDirective, TabNavComponent } from './tab-nav-bar';
 
 @NgModule({
     imports: [CommonModule, MatCommonModule, PortalModule, MatRippleModule, ObserversModule, A11yModule],
-    exports: [DshTabGroupComponent, DshTabComponent, DshTabHeaderComponent, DshTabBodyComponent],
+    exports: [
+        DshTabGroupComponent,
+        DshTabComponent,
+        DshTabHeaderComponent,
+        DshTabBodyComponent,
+        TabNavComponent,
+        TabLinkDirective
+    ],
     declarations: [
         DshTabGroupComponent,
         DshTabComponent,
@@ -26,7 +34,9 @@ import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
         DshTabLabelDirective,
         DshTabContentDirective,
         DshInkBarDirective,
-        DshTabLabelWrapperDirective
+        DshTabLabelWrapperDirective,
+        TabNavComponent,
+        TabLinkDirective
     ]
 })
 export class DshTabsModule {}
