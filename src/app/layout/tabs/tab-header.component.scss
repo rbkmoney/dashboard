@@ -1,29 +1,45 @@
 @import '../../../../node_modules/@angular/cdk/a11y';
 
+@mixin ink-bar {
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    height: 2px;
+    transition: 500ms ease;
+}
+
+@mixin tab-header {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+@mixin tab-label {
+    min-width: 100px;
+    height: 40px;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}
+
 .dsh {
     &-tab-list {
         position: relative;
     }
 
     &-tab-header {
-        display: flex;
-        overflow: hidden;
-        position: relative;
-        flex-shrink: 0;
+        @include tab-header;
     }
 
     &-tab-label {
-        min-width: 100px;
-        height: 40px;
-        padding: 0 24px;
-        cursor: pointer;
-        box-sizing: border-box;
-        text-align: center;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        white-space: nowrap;
-        position: relative;
+        @include tab-label;
 
         &:focus {
             outline: none;
@@ -46,11 +62,7 @@
     }
 
     &-ink-bar {
-        position: absolute;
-        bottom: 0;
-        right: 100%;
-        height: 2px;
-        transition: 500ms ease;
+        @include ink-bar;
     }
 
     &-tab-label-disabled {

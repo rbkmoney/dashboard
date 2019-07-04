@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-headline">{{ dictionaryBasePath + '.headline' | lc }}</h1>
-    <nav mat-tab-nav-bar>
+    <nav dsh-tab-nav-bar>
         <a
-            mat-tab-link
+            dsh-tab-link
             *ngFor="let link of links"
             [routerLink]="link.path"
             routerLinkActive
