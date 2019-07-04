@@ -43,6 +43,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 
     @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
 
+    // tslint:disable-next-line:no-use-before-declare
     @ContentChildren(forwardRef(() => TabLinkDirective), { descendants: true })
     _tabLinks: QueryList<TabLinkDirective>;
 
@@ -130,6 +131,6 @@ export class TabLinkDirective implements CanDisable, HasTabIndex {
         platform: Platform,
         @Attribute('tabindex') tabIndex: string
     ) {
-        this.tabIndex = parseInt(tabIndex) || 0;
+        this.tabIndex = parseInt(tabIndex, 10) || 0;
     }
 }
