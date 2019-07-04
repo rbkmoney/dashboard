@@ -1,11 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
-    templateUrl: 'operations.component.html',
-    styleUrls: ['operations.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: 'operations.component.html'
 })
 export class OperationsComponent {
     dictionaryBasePath = 'sections.payment-section.operations';
