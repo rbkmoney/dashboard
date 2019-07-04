@@ -35,11 +35,6 @@
     .dsh {
         &-tab-label {
             @include mat-typography-level-to-styles($config, subheading-2);
-            //font: {
-            //    family: mat-font-family($config, subheading-2);
-            //    size: mat-font-size($config, subheading-2);
-            //    weight: mat-font-weight($config, subheading-2);
-            //}
         }
     }
 }
