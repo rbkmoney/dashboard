@@ -1,7 +1,16 @@
 <dsh-float-panel [formGroup]="searchForm" novalidate>
-    <dsh-justify-wrapper fxLayout fxLayoutAlign="start center" fxLayoutGap="20px">
-        <div>
-            <dsh-button-toggle-group fxFlex="30">
+    <dsh-justify-wrapper
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayout.xs="column"
+        fxLayoutAlign.xs="center stretch"
+        fxLayoutGap.xs="0"
+        fxLayoutGap.sm="20px"
+        fxLayout.sm="column"
+        fxLayoutAlign.sm="center stretch"
+    >
+        <div fxFlex="30">
+            <dsh-button-toggle-group fxFlex="325px" fxFlex.xs="100">
                 <dsh-button-toggle value="today">
                     {{ 'common.today' | lc }}
                 </dsh-button-toggle>
@@ -15,36 +24,32 @@
                     <mat-icon>more_horiz</mat-icon>
                 </dsh-button-toggle>
             </dsh-button-toggle-group>
-            <div fxLayout fxFlex="30" fxLayoutGap="10px">
-                <mat-form-field>
-                    <mat-label>{{ 'sections.operations.payments.filter.fromTime' | lc }}</mat-label>
-                    <input required matInput formControlName="fromTime" [matDatepicker]="fromTimeRange" />
-                    <mat-datepicker-toggle matSuffix [for]="fromTimeRange"></mat-datepicker-toggle>
-                    <mat-datepicker #fromTimeRange></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{ 'sections.operations.payments.filter.toTime' | lc }}</mat-label>
-                    <input required matInput formControlName="toTime" [matDatepicker]="toTimeRange" />
-                    <mat-datepicker-toggle matSuffix [for]="toTimeRange"></mat-datepicker-toggle>
-                    <mat-datepicker #toTimeRange></mat-datepicker>
-                </mat-form-field>
-            </div>
         </div>
-        <mat-form-field fxFlex="25">
-            <mat-label>{{ 'sections.operations.payments.filter.shopID' | lc }}</mat-label>
-            <input matInput formControlName="shopID" />
-        </mat-form-field>
-        <mat-form-field fxFlex="25">
-            <mat-label>{{ 'sections.operations.payments.filter.paymentStatus.title' | lc }}</mat-label>
-            <mat-select formControlName="paymentStatus">
-                <mat-option>
-                    {{ 'sections.operations.payments.filter.paymentStatus.any' | lc }}
-                </mat-option>
-                <mat-option *ngFor="let status of statuses" [value]="status">
-                    {{ 'sections.operations.payments.filter.paymentStatus.' + status | lc }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div
+            fxFlex="50"
+            fxLayoutAlign="end center"
+            fxLayoutGap="20px"
+            fxLayoutAlign.xs="center stretch"
+            fxLayout.xs="column"
+            fxLayoutGap.xs="0"
+            fxLayoutGap.md="10px"
+        >
+            <mat-form-field fxFlex="50">
+                <mat-label>{{ 'sections.operations.payments.filter.shopID' | lc }}</mat-label>
+                <input matInput formControlName="shopID" />
+            </mat-form-field>
+            <mat-form-field fxFlex="50">
+                <mat-label>{{ 'sections.operations.payments.filter.paymentStatus.title' | lc }}</mat-label>
+                <mat-select formControlName="paymentStatus">
+                    <mat-option>
+                        {{ 'sections.operations.payments.filter.paymentStatus.any' | lc }}
+                    </mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status">
+                        {{ 'sections.operations.payments.filter.paymentStatus.' + status | lc }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </dsh-justify-wrapper>
     <dsh-float-panel-actions>
         <button dsh-button (click)="reset()">
@@ -52,27 +57,52 @@
         </button>
     </dsh-float-panel-actions>
     <dsh-float-panel-more>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <div fxLayout fxFlex="30" fxLayoutGap="10px">
-                <mat-form-field>
+        <div
+            fxLayout
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            fxLayout.xs="column"
+            fxLayoutAlign.xs="center stretch"
+            fxLayoutGap.xs="0"
+            fxLayout.sm="column"
+            fxLayoutAlign.sm="center stretch"
+            fxLayoutGap.sm="0"
+        >
+            <div
+                fxLayout
+                fxFlex="50"
+                fxLayoutGap="10px"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.sm="20px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.fromTime' | lc }}</mat-label>
                     <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
                     <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
                     <mat-datepicker #fromTime></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.toTime' | lc }}</mat-label>
                     <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
                     <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
                     <mat-datepicker #toTime></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div fxFlex="50" fxLayoutGap="20px">
-                <mat-form-field>
+            <div
+                fxFlex="50"
+                fxLayoutGap="20px"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.md="10px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.payerEmail' | lc }}</mat-label>
                     <input matInput type="email" formControlName="payerEmail" />
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.paymentFlow.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
@@ -85,19 +115,44 @@
                 </mat-form-field>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <div fxLayout fxFlex="30" fxLayoutGap="10px">
-                <mat-form-field>
+        <div
+            fxLayout
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            fxLayout.xs="column"
+            fxLayoutAlign.xs="center stretch"
+            fxLayoutGap.xs="0"
+            fxLayout.sm="column"
+            fxLayoutGap.sm="0"
+            fxLayoutAlign.sm="center stretch"
+        >
+            <div
+                fxLayout
+                fxFlex="50"
+                fxLayoutGap="10px"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.sm="20px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.paymentID' | lc }}</mat-label>
                     <input matInput formControlName="paymentID" />
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.invoiceID' | lc }}</mat-label>
                     <input matInput formControlName="invoiceID" />
                 </mat-form-field>
             </div>
-            <div fxFlex="50" fxLayoutGap="20px">
-                <mat-form-field>
+            <div
+                fxFlex="50"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap="20px"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.md="10px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.bankCardTokenProvider.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
@@ -108,7 +163,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.paymentMethod.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
@@ -121,13 +176,31 @@
                 </mat-form-field>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <div fxLayout fxFlex="30" fxLayoutGap="10px">
-                <mat-form-field>
+        <div
+            fxLayout
+            fxLayoutGap="10px"
+            fxLayoutAlign="start center"
+            fxLayout.xs="column"
+            fxLayoutAlign.xs="center stretch"
+            fxLayoutGap.xs="0"
+            fxLayout.sm="column"
+            fxLayoutAlign.sm="center stretch"
+            fxLayoutGap.sm="0"
+        >
+            <div
+                fxLayout
+                fxFlex="50"
+                fxLayoutGap="10px"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.sm="20px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.paymentAmount' | lc }}</mat-label>
                     <input matInput type="number" formControlName="paymentAmount" />
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.bankCardPaymentSystem.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
@@ -139,19 +212,35 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div fxFlex="50" fxLayoutGap="20px">
-                <mat-form-field>
+            <div
+                fxFlex="50"
+                fxLayoutGap="20px"
+                fxLayout.xs="column"
+                fxLayoutAlign.xs="center stretch"
+                fxLayoutGap.xs="0"
+                fxLayoutGap.sm="20px"
+                fxLayoutGap.md="10px"
+            >
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.last4' | lc }}</mat-label>
-                    <input matInput formControlName="last4" />
+                    <dsh-card-input (ngModelChange)="inputChanged($event, 'last4')"></dsh-card-input>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field fxFlex="50">
                     <mat-label>{{ 'sections.operations.payments.filter.first6' | lc }}</mat-label>
-                    <input matInput formControlName="first6" />
+                    <dsh-bin-input (ngModelChange)="inputChanged($event, 'first6')"></dsh-bin-input>
                 </mat-form-field>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <mat-form-field fxFlex="30">
+        <div
+            fxLayout
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            fxLayout.xs="column"
+            fxLayoutAlign.xs="center stretch"
+            fxLayoutGap.xs="0"
+            fxLayoutGap.sm="20px"
+        >
+            <mat-form-field fxFlex="50">
                 <mat-label>{{ 'sections.operations.payments.filter.payerFingerprint' | lc }}</mat-label>
                 <input matInput formControlName="payerFingerprint" />
             </mat-form-field>

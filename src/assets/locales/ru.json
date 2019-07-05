@@ -1,6 +1,7 @@
 {
     "common": {
         "showMore": "Показать еще",
+        "collapse": "Свернуть",
         "resetSearchParams": "Сбросить параметры поиска",
         "back": "Назад",
         "next": "Далее",

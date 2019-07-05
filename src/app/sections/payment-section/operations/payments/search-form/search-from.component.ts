@@ -12,6 +12,7 @@ import { BANK_CARD_PAYMENT_SYSTEM } from '../bank-card-payment-system';
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
+    styleUrls: ['search-form.component.scss'],
     providers: [SearchFormService]
 })
 export class SearchFormComponent implements OnInit {
@@ -50,5 +51,9 @@ export class SearchFormComponent implements OnInit {
 
     changed(kek) {
         console.log(kek);
+    }
+
+    inputChanged(value: any, key: string) {
+        console.log(value, key);
     }
 }

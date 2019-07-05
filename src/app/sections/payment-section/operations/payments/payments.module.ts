@@ -18,6 +18,8 @@ import { TableModule } from '../../../../table';
 import { ButtonToggleModule } from '../../../../button-toggle';
 import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form/search-from.component';
+import { BinInputModule } from '../../../../form-controls/bin-input/bin-input.module';
+import { CardInputModule } from '../../../../form-controls/card-input/card-input.module';
 
 @NgModule({
     imports: [
@@ -34,7 +36,9 @@ import { SearchFormComponent } from './search-form/search-from.component';
         LocaleModule,
         ReactiveFormsModule,
         MatDatepickerModule,
-        MatSelectModule
+        MatSelectModule,
+        BinInputModule,
+        CardInputModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent]
 })
