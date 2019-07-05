@@ -9,6 +9,7 @@ import { ContractorTypeSelect } from './contractor-type-select';
 })
 export class ManualContractorSelectorComponent implements OnDestroy {
     @Output() selectContractorType: EventEmitter<ContractorTypeSelect> = new EventEmitter();
+    dicBasePath = 'sections.onboarding.companySearch.manualContractorSelector';
 
     selected(e: MatRadioChange) {
         this.selectContractorType.emit(e.value);

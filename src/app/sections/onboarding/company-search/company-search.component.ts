@@ -17,6 +17,7 @@ import { ContractorTypeSelect } from './manual-contractor-selector';
     styleUrls: ['company-search.component.scss']
 })
 export class CompanySearchComponent implements OnInit, OnDestroy {
+    dicBasePath = 'sections.onboarding.companySearch';
     form: FormGroup;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;

@@ -6,6 +6,8 @@ import { MatDialogRef } from '@angular/material';
     styleUrls: ['leave-onboarding-dialog.component.scss']
 })
 export class LeaveOnboardingDialogComponent {
+    dicBasePath = 'sections.onboarding.companySearch.leaveOnboardingDialog';
+
     constructor(public dialogRef: MatDialogRef<LeaveOnboardingDialogComponent, 'decline' | undefined>) {}
 
     decline() {

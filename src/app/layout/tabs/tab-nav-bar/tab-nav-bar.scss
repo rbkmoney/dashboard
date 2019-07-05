@@ -1,0 +1,27 @@
+@import '../tabs-theme';
+@import '../tab-header.component.scss';
+
+.dsh-tab-nav-bar {
+    @include tab-header;
+}
+
+.dsh-tab-links {
+    width: 100%;
+    border-bottom: 1px solid;
+}
+
+.dsh-tab-link {
+    @include tab-label;
+    text-decoration: none;
+    outline: none;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+
+    &.dsh-tab-disabled {
+        pointer-events: none;
+    }
+}
+
+.dsh-ink-bar {
+    @include ink-bar;
+}
