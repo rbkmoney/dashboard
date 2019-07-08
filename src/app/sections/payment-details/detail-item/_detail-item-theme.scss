@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-payment-details-detail-item-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-payment-details {
+        &-item-title {
+            color: map-get($gray, 500);
+        }
+    }
+}

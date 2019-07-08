@@ -1,36 +1,21 @@
-<div fxLayout="row wrap" fxFlex="100" fxLayoutGap="1px">
-    <div class="dsh-subtitle">
-        {{ 'sections.paymentDetails.refunds.titles.refundTitle' | lc }} <span dshSecondaryTitle>{{ refund.id }}</span>
+<div fxLayout="column" fxLayoutGap="10px">
+    <div class="mat-subheading-1">
+        {{ localePath + '.titles.refundTitle' | lc }}
+        <span dshSecondaryTitle>#{{ refund.id }}</span>
     </div>
-    <div fxLayout="row wrap" fxFlex="100">
-        <dsh-status-item
-            [color]="statusColor"
-            [text]="statusText"
-            fxFlex.lt-sm="100"
-            fxFlex.sm="49"
-            fxFlex.gt-xs="33"
-        ></dsh-status-item>
-        <dsh-detail-item
-            [title]="'sections.paymentDetails.refunds.titles.amount' | lc"
-            fxFlex.lt-sm="100"
-            fxFlex.sm="49"
-            fxFlex.gt-xs="33"
-        >
-            <div class="dsh-payment-details-text">{{ refund.amount / 100 | formatAmount }} ₽</div>
+    <div fxLayout="row wrap">
+        <dsh-detail-status-item [info]="getStatusViewInfo()"></dsh-detail-status-item>
+        <dsh-detail-item [title]="localePath + '.titles.amount' | lc">
+            <div class="mat-body-1">{{ refund.amount / 100 | formatAmount | formatCurrency:refund.currency }}</div>
         </dsh-detail-item>
-        <dsh-detail-item
-            [title]="'sections.paymentDetails.refunds.titles.createdAt' | lc"
-            fxFlex.lt-sm="100"
-            fxFlex.sm="49"
-            fxFlex.gt-xs="33"
-        >
-            <div class="dsh-payment-details-text">{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
-        </dsh-detail-item>
-        <dsh-detail-item [title]="'sections.paymentDetails.refunds.titles.reason' | lc" fxFlex="100">
-            <div class="dsh-payment-details-text">{{ refund.reason }}</div>
-        </dsh-detail-item>
-        <dsh-detail-item [title]="'sections.paymentDetails.refunds.titles.error' | lc" fxFlex="100">
-            <div class="dsh-payment-details-text">{{ refund.error.message }}</div>
+        <dsh-detail-item [title]="localePath + '.titles.createdAt' | lc">
+            <div class="mat-body-1">{{ refund.createdAt | date:'dd MMMM yyyy, HH:mm' }}</div>
         </dsh-detail-item>
     </div>
+    <dsh-detail-item *ngIf="refund.reason" [title]="localePath + '.titles.reason' | lc">
+        <div class="mat-body-1">{{ refund.reason }}</div>
+    </dsh-detail-item>
+    <dsh-detail-item *ngIf="refund.error" [title]="localePath + '.titles.error' | lc">
+        <div class="mat-body-1">{{ refund.error.message }}</div>
+    </dsh-detail-item>
 </div>

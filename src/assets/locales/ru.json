@@ -97,12 +97,12 @@
             }
         },
         "paymentDetails": {
-            "headline": {
-                "title": "Детали платежа"
+            "title": "Детали платежа",
+            "statusDetailItem": {
+                "status": "Статус"
             },
             "details": {
                 "titles": {
-                    "status": "Статус",
                     "chargeAmount": "Сумма зачисления",
                     "rrn": "RRN",
                     "createdAt": "Платеж создан",
@@ -122,27 +122,29 @@
             },
             "paymentTool": {
                 "title": "Средство оплаты",
-                "card": "Банковская карта"
+                "titles": {
+                    "card": "Банковская карта"
+                }
             },
-            "payer": {
+            "payerDetails": {
                 "title": "Плательщик",
                 "titles": {
                     "fingerprint": "Fingerprint",
                     "ip": "IP"
                 }
             },
-            "hold": {
+            "holdDetails": {
                 "title": "Платеж совершен с удержанием денежных средств",
                 "actions": {
                     "deny": "Отменить",
                     "accept": "Подтвердить"
                 }
             },
-            "recurrent": {
+            "recurrentDetails": {
                 "title": "Платеж является родительским рекуррентным",
                 "description": "Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
             },
-            "invoice": {
+            "invoiceDetails": {
                 "title": "Инвойс",
                 "titles": {
                     "product": "Продукт",
@@ -155,7 +157,7 @@
                     "cancelled": "Отменен"
                 }
             },
-            "shop": {
+            "shopDetails": {
                 "title": "Магазин",
                 "titles": {
                     "name": "Название",
@@ -165,19 +167,21 @@
             "refunds": {
                 "title": "Возвраты",
                 "createRefund": "Совершить возврат",
-                "titles": {
-                    "refundTitle": "Возврат",
-                    "amount": "Сумма",
-                    "createdAt": "Совершен",
-                    "reason": "Причина",
-                    "error": "Ошибка"
-                },
-                "statuses": {
-                    "succeeded": "Успешен",
-                    "pending": "Ожидание",
-                    "failed": "Неуспешно"
-                },
-                "showMore": "Показать ещё"
+                "showMore": "Показать ещё",
+                "refundItem": {
+                    "titles": {
+                        "refundTitle": "Возврат",
+                        "amount": "Сумма",
+                        "createdAt": "Совершен",
+                        "reason": "Причина",
+                        "error": "Ошибка"
+                    },
+                    "statuses": {
+                        "succeeded": "Успешен",
+                        "pending": "Ожидание",
+                        "failed": "Неуспешно"
+                    }
+                }
             }
         }
     }

@@ -49,9 +49,7 @@ $foreground: (
  */ axis-tick-color: rgba(white, 0.1),
     x-axis-text-color: rgba(white, 0.5),
     y-axis-text-color: rgba(white, 0.7),
-    legend-tooltip-date-color: rgba(white, 0.5),
-    secondary-title: map_get($mat-grey, 500),
-    list-divider: map_get($mat-grey, 200)
+    legend-tooltip-date-color: rgba(white, 0.5)
 );
 
 $theme: (
@@ -68,6 +66,7 @@ $theme: (
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
     neutral: mat-palette($mat-gray),
+    gray: mat-palette($mat-gray),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300)

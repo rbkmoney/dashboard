@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-payment-details-refunds-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-payment-details-refunds {
+        &-divider {
+            background-color: map-get($gray, 200);
+        }
+    }
+}
+
+@mixin dsh-payment-details-refunds-typography($config) {
+    .dsh-payment-details-refunds {
+        &-title {
+            @include mat-typography-level-to-styles($config, title);
+        }
+    }
+}

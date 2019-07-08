@@ -1,9 +1,5 @@
 .dsh {
-    &-detail-item {
-        padding-bottom: 8px;
-    }
-
-    &-item-title {
-        padding-bottom: 4px;
+    &-payment-detail-item {
+        min-width: 200px;
     }
 }

@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
     selector: 'dsh-shop-details',
     templateUrl: './shop-details.component.html'
 })
-export class ShopDetailsComponent {}
+export class ShopDetailsComponent {
+    private localePath = 'sections.paymentDetails.shopDetails';
+}

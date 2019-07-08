@@ -1,12 +1,10 @@
 <dsh-card>
-    <dsh-card-title class="dsh-payment-details-title">{{
-        'sections.paymentDetails.recurrent.title' | lc
-    }}</dsh-card-title>
+    <dsh-card-title>
+        <h2 class="mat-h2">{{ localePath + '.title' | lc }}</h2>
+    </dsh-card-title>
     <dsh-card-content>
-        <div class="dsh-container">
-            <div class="dsh-payment-details-text">
-                {{ 'sections.paymentDetails.recurrent.description' | lc }}
-            </div>
+        <div class="mat-body-1">
+            {{ localePath + '.description' | lc }}
         </div>
     </dsh-card-content>
 </dsh-card>

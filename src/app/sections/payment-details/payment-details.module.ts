@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatDividerModule, MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -7,13 +7,10 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '../../layout';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { StatusModule } from '../../status';
-import { DetailsHeadlineComponent } from './details-headline/details-headline.component';
 import { LocaleModule } from '../../locale';
-import { SecondaryTitleDirective } from './secondary-title.directive';
 import { DetailsComponent } from './details/details.component';
 import { CardModule } from '../../layout/card';
 import { DetailItemComponent } from './detail-item/detail-item.component';
-import { StatusItemComponent } from './detail-item/status-item/status-item.component';
 import { PaymentToolComponent } from './payment-tool/payment-tool.component';
 import { FormatAmountPipe } from './format-amount.pipe';
 import { PayerDetailsComponent } from './payer-details/payer-details.component';
@@ -25,6 +22,10 @@ import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
 import { FormatPercentPipe } from './format-percent.pipe';
+import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
+import { StatusDetailItemComponent } from './status-detail-item/status-detail-item.component';
+import { FormatCurrencyPipe } from './format-currency.pipe';
+import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
 
 @NgModule({
     imports: [
@@ -37,25 +38,25 @@ import { FormatPercentPipe } from './format-percent.pipe';
         CardModule,
         ButtonModule,
         CommonModule,
-        MatDividerModule
+        PaymentDetailsRoutingModule
     ],
     declarations: [
         PaymentDetailsComponent,
-        DetailsHeadlineComponent,
-        SecondaryTitleDirective,
         DetailsComponent,
         DetailItemComponent,
-        StatusItemComponent,
+        StatusDetailItemComponent,
         PaymentToolComponent,
         FormatAmountPipe,
         FormatPercentPipe,
+        FormatCurrencyPipe,
         PayerDetailsComponent,
         HoldDetailsComponent,
         ReccurentDetailsComponent,
         InvoiceDetailsComponent,
         ShopDetailsComponent,
         RefundsComponent,
-        RefundItemComponent
+        RefundItemComponent,
+        SecondaryTitleDirective
     ],
     exports: [PaymentDetailsComponent]
 })

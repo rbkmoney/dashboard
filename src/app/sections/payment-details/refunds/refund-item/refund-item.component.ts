@@ -1,39 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
 import { Color } from '../../../../status';
+import { StatusViewInfo } from '../../status-detail-item/status-detail-item.component';
 
 @Component({
     selector: 'dsh-refund-item',
-    templateUrl: './refund-item.component.html',
-    styleUrls: ['./refund-item.component.scss']
+    templateUrl: './refund-item.component.html'
 })
-export class RefundItemComponent implements OnInit {
+export class RefundItemComponent {
     @Input() refund: Refund;
 
     statuses = RefundStatus.StatusEnum;
 
-    statusColor: Color;
-    statusText: string;
+    private localePath = 'sections.paymentDetails.refunds.refundItem';
 
-    ngOnInit() {
-        this.initStatus();
-    }
-
-    private initStatus() {
+    private getStatusViewInfo(): StatusViewInfo {
+        const statuses = this.localePath + '.statuses';
+        let color: Color;
+        let text: string;
         switch (this.refund.status) {
             case this.statuses.Succeeded:
-                this.statusColor = Color.success;
-                this.statusText = 'sections.paymentDetails.refunds.statuses.succeeded';
+                color = Color.success;
+                text = statuses + '.succeeded';
                 break;
             case this.statuses.Failed:
-                this.statusColor = Color.warn;
-                this.statusText = 'sections.paymentDetails.refunds.statuses.failed';
+                color = Color.warn;
+                text = statuses + '.failed';
                 break;
             case this.statuses.Pending:
-                this.statusColor = Color.pending;
-                this.statusText = 'sections.paymentDetails.refunds.statuses.pending';
+                color = Color.pending;
+                text = statuses + '.pending';
                 break;
         }
+        return { color, text };
     }
 }

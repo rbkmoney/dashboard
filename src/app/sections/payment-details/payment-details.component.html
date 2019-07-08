@@ -1,13 +1,17 @@
-<div class="dsh-payment-details-container" fxFlex="100" fxLayoutAlign="center">
-    <div class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
-        <dsh-details-headline [paymentID]="payment.id"></dsh-details-headline>
-        <dsh-details [payment]="payment"></dsh-details>
-        <dsh-payment-tool [bankCard]="payoutToolDetailsBankCard.cardNumberMask"></dsh-payment-tool>
-        <dsh-payer-details [payer]="payment.payer"></dsh-payer-details>
-        <dsh-hold-details></dsh-hold-details>
-        <dsh-reccurent-details></dsh-reccurent-details>
-        <dsh-invoice-details></dsh-invoice-details>
-        <dsh-shop-details></dsh-shop-details>
-        <dsh-refunds></dsh-refunds>
+<div class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
+    <div class="mat-h1" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+        <mat-icon class="dsh-back-icon" routerLink="..">arrow_back</mat-icon>
+        <div>
+            {{ 'sections.paymentDetails.title' | lc }}
+            <span dshSecondaryTitle>#{{ payment.id }}</span>
+        </div>
     </div>
+    <dsh-details [payment]="payment"></dsh-details>
+    <dsh-payment-tool [paymentToolDetails]="payoutToolDetailsBankCard"></dsh-payment-tool>
+    <dsh-payer-details [payer]="payment.payer"></dsh-payer-details>
+    <dsh-hold-details></dsh-hold-details>
+    <dsh-reccurent-details *ngIf="payment.makeRecurrent"></dsh-reccurent-details>
+    <dsh-invoice-details></dsh-invoice-details>
+    <dsh-shop-details></dsh-shop-details>
+    <dsh-refunds></dsh-refunds>
 </div>

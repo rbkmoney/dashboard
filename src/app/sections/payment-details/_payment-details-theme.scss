@@ -1,37 +1,19 @@
 @import '~@angular/material/theming';
 
+@import 'refunds/refunds-theme';
+@import 'detail-item/detail-item-theme';
+@import 'secondary-title/secondary-title-theme';
+
 @mixin dsh-payment-details-theme($theme) {
-    $foreground: map-get($theme, foreground);
-    $background: map-get($theme, background);
+    $gray: map-get($theme, gray);
 
-    .dsh-payment-details {
-        &-secondary-title,
-        &-item-title {
-            color: map-get($foreground, secondary-title);
-        }
+    @include dsh-payment-details-refunds-theme($theme);
 
-        &-divider {
-            background-color: map-get($foreground, list-divider);
-        }
-    }
+    @include dsh-payment-details-detail-item-theme($theme);
+
+    @include dsh-payment-details-secondary-title-theme($theme);
 }
 
 @mixin dsh-payment-details-typography($config) {
-    .dsh-payment-details {
-        &-details-title {
-            @include mat-typography-level-to-styles($config, headline);
-        }
-
-        &-item-title {
-            @include mat-typography-level-to-styles($config, caption);
-        }
-
-        &-text {
-            @include mat-typography-level-to-styles($config, body-1);
-        }
-
-        &-title {
-            @include mat-typography-level-to-styles($config, title);
-        }
-    }
+    @include dsh-payment-details-refunds-typography($config);
 }

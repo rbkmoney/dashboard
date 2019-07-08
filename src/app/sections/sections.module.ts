@@ -17,6 +17,7 @@ import { PaymentDetailsModule } from './payment-details';
     imports: [
         OnboardingModule,
         PaymentSectionModule,
+        PaymentDetailsModule,
         SectionsRoutingModule,
         MainModule,
         AnalyticsModule,
@@ -25,7 +26,6 @@ import { PaymentDetailsModule } from './payment-details';
         OperationsModule,
         InputsModule,
         ClaimModule,
-        PaymentDetailsModule
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent]

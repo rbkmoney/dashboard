@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
+import { StatusViewInfo } from '../status-detail-item/status-detail-item.component';
 
 @Component({
     selector: 'dsh-invoice-details',
@@ -13,8 +14,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     statuses = InvoiceStatus.StatusEnum;
 
-    statusColor: Color;
-    statusText: string;
+    private localePath = 'sections.paymentDetails.invoiceDetails';
 
     ngOnInit() {
         this.invoice = {
@@ -22,29 +22,33 @@ export class InvoiceDetailsComponent implements OnInit {
             reason: 'Хочу вернуть деньги',
             id: 'hsDw31Yeo7d',
             amount: 12300,
-            product: 'Полный кектус, покупай скорее'
+            product: 'Полный кектус, покупай скорее',
+            currency: 'RUB'
         } as Invoice;
-        this.initStatus();
     }
 
-    private initStatus() {
+    private getStatusViewInfo(): StatusViewInfo {
+        const statuses = this.localePath + '.statuses';
+        let color: Color;
+        let text: string;
         switch (this.invoice.status) {
             case this.statuses.Paid:
-                this.statusColor = Color.success;
-                this.statusText = 'sections.paymentDetails.invoice.statuses.paid';
+                color = Color.success;
+                text = statuses + '.paid';
                 break;
             case this.statuses.Fulfilled:
-                this.statusColor = Color.success;
-                this.statusText = 'sections.paymentDetails.invoice.statuses.fulfilled';
+                color = Color.success;
+                text = statuses + '.fulfilled';
                 break;
             case this.statuses.Cancelled:
-                this.statusColor = Color.warn;
-                this.statusText = 'sections.paymentDetails.invoice.statuses.cancelled';
+                color = Color.warn;
+                text = statuses + '.cancelled';
                 break;
             case this.statuses.Unpaid:
-                this.statusColor = Color.pending;
-                this.statusText = 'sections.paymentDetails.invoice.statuses.unpaid';
+                color = Color.pending;
+                text = statuses + '.unpaid';
                 break;
         }
+        return { color, text };
     }
 }

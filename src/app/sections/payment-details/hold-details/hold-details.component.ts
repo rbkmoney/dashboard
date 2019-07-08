@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
     templateUrl: './hold-details.component.html',
     styleUrls: ['./hold-details.component.scss']
 })
-export class HoldDetailsComponent {}
+export class HoldDetailsComponent {
+    private localePath = 'sections.paymentDetails.holdDetails';
+}

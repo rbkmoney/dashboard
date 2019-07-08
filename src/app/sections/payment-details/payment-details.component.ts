@@ -26,7 +26,7 @@ export class PaymentDetailsComponent implements OnInit {
             id: 'H3dg32Hd2',
             invoiceID: 'J3hd76G63bd2G',
             shopID: 'h83hd3s63b23f',
-            createdAt: new Date(),
+            createdAt: '2010-10-10T12:12:12Z',
             amount: 1500000,
             currency: 'RUB',
             fee: 16500,
@@ -47,12 +47,12 @@ export class PaymentDetailsComponent implements OnInit {
             error: {
                 code: 'Недостаточно средств'
             },
-            statusChangedAt: new Date(),
-            makeRecurrent: false
+            statusChangedAt: '2010-10-10T12:12:12Z',
+            makeRecurrent: true
         } as PaymentSearchResult;
 
         this.payoutToolDetailsBankCard = {
-            detailsType: '',
+            detailsType: 'PaymentToolDetailsBankCard',
             cardNumberMask: '847837******3457',
             paymentSystem: PaymentSystemEnum.Mastercard
         };

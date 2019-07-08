@@ -1,22 +1,22 @@
 <dsh-card>
-    <dsh-card-title class="dsh-payment-details-title">{{
-        'sections.paymentDetails.paymentTool.title' | lc
-    }}</dsh-card-title>
+    <dsh-card-title>
+        <h2 class="mat-h2">
+            {{ localePath + '.title' | lc }}
+        </h2>
+    </dsh-card-title>
     <dsh-card-content>
-        <div class="dsh-container">
-            <dsh-detail-item [title]="'sections.paymentDetails.paymentTool.card' | lc">
-                <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
-                    <div class="dsh-bank-card-number">
-                        {{ getFormattedBankCard() }}
-                    </div>
-                    <mat-icon svgIcon="visa"></mat-icon>
-                    <mat-icon svgIcon="mastercard"></mat-icon>
-                    <mat-icon svgIcon="mir"></mat-icon>
-                    <mat-icon svgIcon="apple_pay"></mat-icon>
-                    <mat-icon svgIcon="samsung_pay"></mat-icon>
-                    <mat-icon svgIcon="google_pay"></mat-icon>
+        <dsh-detail-item [title]="localePath + '.titles.card' | lc">
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
+                <div class="dsh-bank-card-number">
+                    {{ getFormattedBankCard() }}
                 </div>
-            </dsh-detail-item>
-        </div>
+                <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Visa" svgIcon="visa"></mat-icon>
+                <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Mastercard" svgIcon="mastercard"></mat-icon>
+                <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Nspkmir" svgIcon="mir"></mat-icon>
+                <!--<mat-icon svgIcon="apple_pay"></mat-icon>-->
+                <!--<mat-icon svgIcon="samsung_pay"></mat-icon>-->
+                <!--<mat-icon svgIcon="google_pay"></mat-icon>-->
+            </div>
+        </dsh-detail-item>
     </dsh-card-content>
 </dsh-card>

@@ -8,13 +8,15 @@ import { Refund } from '../../../api/capi/swagger-codegen';
     styleUrls: ['./refunds.component.scss']
 })
 export class RefundsComponent implements OnInit {
+    private localePath = 'sections.paymentDetails.refunds';
+
     @Input() refunds: Refund[];
 
     ngOnInit() {
         const refund = {
             status: Refund.StatusEnum.Succeeded,
             id: '1',
-            createdAt: new Date(),
+            createdAt: '2019-06-14T10:12:12Z',
             amount: 1200000,
             currency: 'RUB',
             reason: 'Почему нет? Захотел - вернул, не захотел - не вернул',

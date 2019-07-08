@@ -2,66 +2,50 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
+import { StatusViewInfo } from '../status-detail-item/status-detail-item.component';
 
 @Component({
     selector: 'dsh-details',
     templateUrl: './details.component.html'
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent {
     @Input() payment: PaymentSearchResult;
 
     rrn = 627334568648;
 
-    statusColor: Color;
-    statusText: string;
-
     private statuses = PaymentStatus.StatusEnum;
+    private localePath = 'sections.paymentDetails.details';
 
-    ngOnInit() {
-        this.initStatus();
-    }
-
-    getCurrencySymbol(): string {
-        switch (this.payment.currency) {
-            case 'RUB':
-                return '₽';
-            case 'USD':
-                return '$';
-            default:
-                return '';
-        }
-    }
-
-    getFeePercent(): number {
-        return Math.round((this.payment.fee / this.payment.amount) * 10000) / 100;
-    }
-
-    private initStatus() {
+    private getStatusViewInfo(): StatusViewInfo {
+        const statuses = this.localePath + '.statuses';
+        let color: Color;
+        let text: string;
         switch (this.payment.status) {
             case this.statuses.Processed:
-                this.statusColor = Color.success;
-                this.statusText = 'sections.paymentDetails.details.statuses.processed';
+                color = Color.success;
+                text = statuses + '.processed';
                 break;
             case this.statuses.Failed:
-                this.statusColor = Color.warn;
-                this.statusText = 'sections.paymentDetails.details.statuses.failed';
+                color = Color.warn;
+                text = statuses + '.failed';
                 break;
             case this.statuses.Refunded:
-                this.statusColor = Color.success;
-                this.statusText = 'sections.paymentDetails.details.statuses.refunded';
+                color = Color.success;
+                text = statuses + '.refunded';
                 break;
             case this.statuses.Cancelled:
-                this.statusColor = Color.warn;
-                this.statusText = 'sections.paymentDetails.details.statuses.cancelled';
+                color = Color.warn;
+                text = statuses + '.cancelled';
                 break;
             case this.statuses.Captured:
-                this.statusColor = Color.pending;
-                this.statusText = 'sections.paymentDetails.details.statuses.captured';
+                color = Color.pending;
+                text = statuses + '.captured';
                 break;
             case this.statuses.Pending:
-                this.statusColor = Color.pending;
-                this.statusText = 'sections.paymentDetails.details.statuses.pending';
+                color = Color.pending;
+                text = statuses + '.pending';
                 break;
         }
+        return { color, text };
     }
 }

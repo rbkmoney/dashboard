@@ -1,23 +1,27 @@
-<dsh-card>
+<dsh-card fxLayout="column" fxLayoutGap="10px">
     <dsh-card-title>
-        <div fxLayout fxFlex="100" fxLayoutAlign="none center">
-            <div class="dsh-payment-details-title" fxFlex="50">{{ 'sections.paymentDetails.refunds.title' | lc }}</div>
-            <div fxFlex="50" fxLayoutAlign="end none">
-                <button dsh-stroked-button color="accent">
-                    {{ 'sections.paymentDetails.refunds.createRefund' | lc }}
-                </button>
+        <div fxLayout
+             fxLayout.xs="column"
+             fxLayoutAlign="space-between stretch"
+             fxLayoutGap="0"
+             fxLayoutGap.xs="10px">
+            <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
+                {{ localePath + '.title' | lc }}
             </div>
+            <button fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent">
+                {{ localePath + '.createRefund' | lc }}
+            </button>
         </div>
     </dsh-card-title>
     <dsh-card-content>
-        <div class="dsh-container" fxLayout="column" fxFlex="100">
+        <div fxLayout="column">
             <ng-container *ngFor="let refund of refunds">
                 <dsh-refund-item [refund]="refund"></dsh-refund-item>
-                <div class="dsh-payment-details-divider"></div>
+                <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
-            <div class="dsh-show-more" fxFlex="100">
-                <button dsh-button fxFlex="100">{{ 'sections.paymentDetails.refunds.showMore' | lc }}</button>
-            </div>
+            <button class="dsh-payment-details-refunds-show-more-refunds"
+                    dsh-button>{{ localePath + '.showMore' | lc }}
+            </button>
         </div>
     </dsh-card-content>
 </dsh-card>

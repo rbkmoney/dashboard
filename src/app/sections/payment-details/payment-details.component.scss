@@ -1,9 +1,12 @@
+$dsh-payment-details-max-width: 660px;
+
 .dsh {
     &-payment-details {
-        max-width: 660px;
+        margin: 0 auto;
+        max-width: $dsh-payment-details-max-width;
     }
 
-    :host ::ng-deep &-container {
-        padding-top: 10px;
+    &-back-icon:hover {
+        cursor: pointer;
     }
 }

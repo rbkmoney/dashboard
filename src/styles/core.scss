@@ -47,9 +47,9 @@
     @include dsh-timeline-typography($config);
     @include dsh-expand-panel-typography($config);
     @include dsh-table-typography($config);
-    @include dsh-payment-details-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
     @include mat-radio-button-override-typography($config);
+    @include dsh-payment-details-typography($config);
 }
 
 @include dsh-overrides();

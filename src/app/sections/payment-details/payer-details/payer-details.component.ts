@@ -12,6 +12,8 @@ export class PayerDetailsComponent implements OnInit {
     contactInfo: ContactInfo;
     clientInfo: ClientInfo;
 
+    private localePath = 'sections.paymentDetails.payerDetails';
+
     ngOnInit() {
         this.contactInfo = {
             email: 'payer@mail.com'
