@@ -25,6 +25,24 @@ export class SearchFormService {
         return this.defaultValues;
     }
 
+    filterByDateRange(value: 'today' | 'week' | 'month' | 'more') {
+        switch (value) {
+            case 'more':
+                break;
+            case 'today':
+                this.searchForm.patchValue({
+                    fromTime: moment().startOf('day').toDate(),
+                    toTime: moment().endOf('day').toDate()
+                });
+                break;
+            default:
+                this.searchForm.patchValue({
+                    fromTime: moment().startOf('day').subtract(1, value).toDate(),
+                    toTime: moment().endOf('day').toDate()
+                });
+        }
+    }
+
     private updateQueryParams(value: any) {
         const queryParams = this.formValueToQueryParams(value);
         this.router.navigate(['payment-section', 'operations', 'payments'], { queryParams });

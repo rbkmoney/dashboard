@@ -55,21 +55,9 @@ export class SearchFormComponent implements OnInit {
     }
 
     filterByDateRange(value: 'today' | 'week' | 'month' | 'more') {
-        switch (value) {
-            case 'more':
-                this.expanded = true;
-                break;
-            case 'today':
-                this.searchForm.patchValue({
-                    fromTime: moment().startOf('day').toDate(),
-                    toTime: moment().endOf('day').toDate()
-                });
-                break;
-            default:
-                this.searchForm.patchValue({
-                    fromTime: moment().startOf('day').subtract(1, value).toDate(),
-                    toTime: moment().endOf('day').toDate()
-                });
+        if (value === 'more') {
+            this.expanded = true;
         }
+        this.searchFormService.filterByDateRange(value);
     }
 }
