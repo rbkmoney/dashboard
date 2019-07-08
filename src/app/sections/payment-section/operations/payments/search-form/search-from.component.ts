@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { SearchFormService } from './search-form.service';
 import { PAYMENT_STATUS } from '../payment-status';
@@ -19,7 +20,10 @@ export class SearchFormComponent implements OnInit {
     @Output()
     search: EventEmitter<any> = new EventEmitter<any>();
 
+    localeBaseDir = 'sections.operations.payments.filter'
+
     searchForm: FormGroup;
+    expanded = false;
 
     statuses: string[];
     flows: string[];
@@ -27,7 +31,8 @@ export class SearchFormComponent implements OnInit {
     tokenProviders: string[];
     bankCardPaymentSystems: string[];
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService) {
+    }
 
     ngOnInit(): void {
         this.statuses = Object.values(PAYMENT_STATUS);
@@ -49,11 +54,22 @@ export class SearchFormComponent implements OnInit {
         this.search.emit(this.searchFormService.reset());
     }
 
-    changed(kek) {
-        console.log(kek);
-    }
-
-    inputChanged(value: any, key: string) {
-        console.log(value, key);
+    filterByDateRange(value: 'today' | 'week' | 'month' | 'more') {
+        switch (value) {
+            case 'more':
+                this.expanded = true;
+                break;
+            case 'today':
+                this.searchForm.patchValue({
+                    fromTime: moment().startOf('day').toDate(),
+                    toTime: moment().endOf('day').toDate()
+                });
+                break;
+            default:
+                this.searchForm.patchValue({
+                    fromTime: moment().startOf('day').subtract(1, value).toDate(),
+                    toTime: moment().endOf('day').toDate()
+                });
+        }
     }
 }
