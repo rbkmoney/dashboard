@@ -31,14 +31,23 @@ export class SearchFormService {
                 break;
             case 'today':
                 this.searchForm.patchValue({
-                    fromTime: moment().startOf('day').toDate(),
-                    toTime: moment().endOf('day').toDate()
+                    fromTime: moment()
+                        .startOf('day')
+                        .toDate(),
+                    toTime: moment()
+                        .endOf('day')
+                        .toDate()
                 });
                 break;
             default:
                 this.searchForm.patchValue({
-                    fromTime: moment().startOf('day').subtract(1, value).toDate(),
-                    toTime: moment().endOf('day').toDate()
+                    fromTime: moment()
+                        .startOf('day')
+                        .subtract(1, value)
+                        .toDate(),
+                    toTime: moment()
+                        .endOf('day')
+                        .toDate()
                 });
         }
     }

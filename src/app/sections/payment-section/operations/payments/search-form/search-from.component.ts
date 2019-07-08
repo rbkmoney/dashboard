@@ -20,7 +20,7 @@ export class SearchFormComponent implements OnInit {
     @Output()
     search: EventEmitter<any> = new EventEmitter<any>();
 
-    localeBaseDir = 'sections.operations.payments.filter'
+    localeBaseDir = 'sections.operations.payments.filter';
 
     searchForm: FormGroup;
     expanded = false;
@@ -31,8 +31,7 @@ export class SearchFormComponent implements OnInit {
     tokenProviders: string[];
     bankCardPaymentSystems: string[];
 
-    constructor(private searchFormService: SearchFormService) {
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit(): void {
         this.statuses = Object.values(PAYMENT_STATUS);
