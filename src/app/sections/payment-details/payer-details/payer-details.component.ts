@@ -12,7 +12,7 @@ export class PayerDetailsComponent implements OnInit {
     contactInfo: ContactInfo;
     clientInfo: ClientInfo;
 
-    private localePath = 'sections.paymentDetails.payerDetails';
+    localePath = 'sections.paymentDetails.payerDetails';
 
     ngOnInit() {
         this.contactInfo = {

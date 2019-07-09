@@ -16,7 +16,7 @@ import { FormatAmountPipe } from './format-amount.pipe';
 import { PayerDetailsComponent } from './payer-details/payer-details.component';
 import { HoldDetailsComponent } from './hold-details/hold-details.component';
 import { ButtonModule } from '../../button';
-import { ReccurentDetailsComponent } from './reccurent-details/reccurent-details.component';
+import { RecurrentDetailsComponent } from './recurrent-details/recurrent-details.component';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { RefundsComponent } from './refunds/refunds.component';
@@ -24,7 +24,6 @@ import { RefundItemComponent } from './refunds/refund-item/refund-item.component
 import { FormatPercentPipe } from './format-percent.pipe';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailItemComponent } from './status-detail-item/status-detail-item.component';
-import { FormatCurrencyPipe } from './format-currency.pipe';
 import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
 import { HoldDetailsService } from './hold-details/hold-details.service';
 
@@ -49,10 +48,9 @@ import { HoldDetailsService } from './hold-details/hold-details.service';
         PaymentToolComponent,
         FormatAmountPipe,
         FormatPercentPipe,
-        FormatCurrencyPipe,
         PayerDetailsComponent,
         HoldDetailsComponent,
-        ReccurentDetailsComponent,
+        RecurrentDetailsComponent,
         InvoiceDetailsComponent,
         ShopDetailsComponent,
         RefundsComponent,

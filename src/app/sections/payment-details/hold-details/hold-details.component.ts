@@ -12,7 +12,7 @@ import { HoldDetailsService } from './hold-details.service';
 export class HoldDetailsComponent implements OnInit {
     @Input() holdDate: string;
 
-    private localePath = 'sections.paymentDetails.holdDetails';
+    localePath = 'sections.paymentDetails.holdDetails';
 
     template = template;
 

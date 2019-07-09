@@ -20,7 +20,7 @@ export class PaymentToolComponent implements OnInit {
 
     paymentSystems = PaymentToolDetailsBankCard.PaymentSystemEnum;
 
-    private localePath = 'sections.paymentDetails.paymentTool';
+    localePath = 'sections.paymentDetails.paymentTool';
 
     ngOnInit() {
         switch (this.paymentToolDetails.detailsType) {

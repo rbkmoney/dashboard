@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
     templateUrl: './shop-details.component.html'
 })
 export class ShopDetailsComponent {
-    private localePath = 'sections.paymentDetails.shopDetails';
+    localePath = 'sections.paymentDetails.shopDetails';
 }

@@ -13,21 +13,18 @@
             <div fxLayout="row" fxLayout.xs="column" fxFlexAlign="space-between" fxLayoutGap.xs="10px">
                 <dsh-detail-item [title]="localePath + '.titles.amount' | lc">
                     <div class="mat-body-1">
-                        {{ payment.amount / 100 | formatAmount | formatCurrency: payment.currency }}
+                        {{ payment.amount / 100 | formatAmount }} {{ toCurrencySymbol(payment.currency) }}
                     </div>
                 </dsh-detail-item>
                 <dsh-detail-item [title]="localePath + '.titles.chargeAmount' | lc">
                     <div class="mat-body-1">
-                        {{
-                            (payment.amount - (payment.fee || 0)) / 100
-                                | formatAmount
-                                | formatCurrency: payment.currency
-                        }}
+                        {{ (payment.amount - (payment.fee || 0)) / 100 | formatAmount }}
+                        {{ toCurrencySymbol(payment.currency) }}
                     </div>
                 </dsh-detail-item>
                 <dsh-detail-item *ngIf="payment.fee" [title]="localePath + '.titles.fee' | lc">
                     <div class="mat-body-1">
-                        {{ payment.fee / 100 | formatCurrency: payment.currency }} ({{
+                        {{ payment.fee / 100 }} {{ toCurrencySymbol(payment.currency) }} ({{
                             payment.fee / payment.amount | percent: '1.0-2':'en'
                         }})
                     </div>

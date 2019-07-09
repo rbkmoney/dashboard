@@ -7,7 +7,7 @@ import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 
 @Injectable()
 export class HoldDetailsService {
-    private localePath = 'sections.paymentDetails.holdDetails';
+    localePath = 'sections.paymentDetails.holdDetails';
 
     private timeUpdateInterval = 60 * 1000;
 

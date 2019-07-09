@@ -8,7 +8,7 @@ import { Refund } from '../../../api/capi/swagger-codegen';
     styleUrls: ['./refunds.component.scss']
 })
 export class RefundsComponent implements OnInit {
-    private localePath = 'sections.paymentDetails.refunds';
+    localePath = 'sections.paymentDetails.refunds';
 
     @Input() refunds: Refund[];
 

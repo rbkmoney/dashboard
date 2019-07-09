@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
 import { StatusViewInfo } from '../status-detail-item/status-detail-item.component';
+import { toCurrencySymbol } from '../currency-utils';
 
 @Component({
     selector: 'dsh-details',
@@ -13,10 +14,13 @@ export class DetailsComponent {
 
     rrn = 627334568648;
 
-    private statuses = PaymentStatus.StatusEnum;
-    private localePath = 'sections.paymentDetails.details';
+    localePath = 'sections.paymentDetails.details';
 
-    private getStatusViewInfo(): StatusViewInfo {
+    toCurrencySymbol = toCurrencySymbol;
+
+    private statuses = PaymentStatus.StatusEnum;
+
+    getStatusViewInfo(): StatusViewInfo {
         const statuses = this.localePath + '.statuses';
         let color: Color;
         let text: string;
