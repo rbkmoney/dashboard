@@ -9,7 +9,7 @@
     <dsh-details [payment]="payment"></dsh-details>
     <dsh-payment-tool [paymentToolDetails]="payoutToolDetailsBankCard"></dsh-payment-tool>
     <dsh-payer-details [payer]="payment.payer"></dsh-payer-details>
-    <dsh-hold-details></dsh-hold-details>
+    <dsh-hold-details [holdDate]="payment.createdAt"></dsh-hold-details>
     <dsh-reccurent-details *ngIf="payment.makeRecurrent"></dsh-reccurent-details>
     <dsh-invoice-details></dsh-invoice-details>
     <dsh-shop-details></dsh-shop-details>

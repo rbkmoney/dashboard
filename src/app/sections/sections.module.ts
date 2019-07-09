@@ -25,7 +25,7 @@ import { PaymentDetailsModule } from './payment-details';
         ButtonsModule,
         OperationsModule,
         InputsModule,
-        ClaimModule,
+        ClaimModule
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent]

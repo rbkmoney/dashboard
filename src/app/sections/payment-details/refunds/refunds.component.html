@@ -1,10 +1,6 @@
 <dsh-card fxLayout="column" fxLayoutGap="10px">
     <dsh-card-title>
-        <div fxLayout
-             fxLayout.xs="column"
-             fxLayoutAlign="space-between stretch"
-             fxLayoutGap="0"
-             fxLayoutGap.xs="10px">
+        <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ localePath + '.title' | lc }}
             </div>
@@ -19,8 +15,8 @@
                 <dsh-refund-item [refund]="refund"></dsh-refund-item>
                 <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
-            <button class="dsh-payment-details-refunds-show-more-refunds"
-                    dsh-button>{{ localePath + '.showMore' | lc }}
+            <button class="dsh-payment-details-refunds-show-more-refunds" dsh-button>
+                {{ localePath + '.showMore' | lc }}
             </button>
         </div>
     </dsh-card-content>

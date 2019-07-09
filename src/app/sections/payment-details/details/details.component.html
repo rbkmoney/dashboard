@@ -1,33 +1,39 @@
 <dsh-card>
     <dsh-card-content>
         <div fxLayout="column" fxLayoutGap="10px">
-            <div fxLayout="row wrap" fxFlexAlign="space-between">
+            <div fxLayout="row" fxLayout.xs="column" fxFlexAlign="space-between" fxLayoutGap.xs="10px">
                 <dsh-detail-status-item [info]="getStatusViewInfo()"></dsh-detail-status-item>
                 <dsh-detail-item [title]="localePath + '.titles.createdAt' | lc">
-                    <div class="mat-body-1">{{ payment.createdAt | date:'dd MMMM yyyy, HH:mm' }}</div>
+                    <div class="mat-body-1">{{ payment.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
                 </dsh-detail-item>
                 <dsh-detail-item *ngIf="payment.statusChangedAt" [title]="localePath + '.titles.statusChangedAt' | lc">
-                    <div class="mat-body-1">{{ payment.statusChangedAt | date:'dd MMMM yyyy, HH:mm' }}</div>
+                    <div class="mat-body-1">{{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
                 </dsh-detail-item>
             </div>
-            <div  fxLayout="row wrap" fxFlexAlign="space-between">
+            <div fxLayout="row" fxLayout.xs="column" fxFlexAlign="space-between" fxLayoutGap.xs="10px">
                 <dsh-detail-item [title]="localePath + '.titles.amount' | lc">
                     <div class="mat-body-1">
-                        {{ payment.amount / 100 | formatAmount | formatCurrency:payment.currency }}
+                        {{ payment.amount / 100 | formatAmount | formatCurrency: payment.currency }}
                     </div>
                 </dsh-detail-item>
                 <dsh-detail-item [title]="localePath + '.titles.chargeAmount' | lc">
                     <div class="mat-body-1">
-                        {{ (payment.amount - (payment.fee || 0)) / 100 | formatAmount | formatCurrency:payment.currency }}
+                        {{
+                            (payment.amount - (payment.fee || 0)) / 100
+                                | formatAmount
+                                | formatCurrency: payment.currency
+                        }}
                     </div>
                 </dsh-detail-item>
                 <dsh-detail-item *ngIf="payment.fee" [title]="localePath + '.titles.fee' | lc">
                     <div class="mat-body-1">
-                        {{ payment.fee / 100 | formatCurrency : payment.currency  }} ({{ payment.fee / payment.amount | percent:'1.0-2':'en' }})
+                        {{ payment.fee / 100 | formatCurrency: payment.currency }} ({{
+                            payment.fee / payment.amount | percent: '1.0-2':'en'
+                        }})
                     </div>
                 </dsh-detail-item>
             </div>
-            <div  fxLayout="row wrap" fxFlexAlign="space-between">
+            <div fxLayout="row" fxLayout.xs="column" fxFlexAlign="space-between" fxLayoutGap.xs="10px">
                 <dsh-detail-item [title]="localePath + '.titles.rrn' | lc">
                     <div class="mat-body-1">{{ rrn }}</div>
                 </dsh-detail-item>

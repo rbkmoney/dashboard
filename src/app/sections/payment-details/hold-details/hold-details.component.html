@@ -7,22 +7,27 @@
     <dsh-card-content>
         <div fxLayout="column">
             <div class="mat-body-1">
-                Срок удержания до 20 июня 2019, 12:45. Осталось 6 дней 3 часа 7 минут. После истечения срока удержания,
-                средства будут возвращенны плательщику. Вы можете подтверидить (зачисление в вашу пользу) или отменить
-                (возврат плательщику) удержание.
+                {{
+                    template(localePath + '.message' | lc)({
+                        holdUntil: holdDate | date: 'dd MMMM yyyy, HH:mm',
+                        timeUntilHold: timeUntilHold$ | async
+                    })
+                }}
             </div>
-            <div class="dsh-button-container"
-                 fxLayout
-                 fxLayout.xs="column"
-                 fxLayoutAlign="space-between stretch"
-                 fxLayoutGap="0"
-                 fxLayoutGap.xs="10px">
-                    <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="warn">
-                        {{ localePath + '.actions.deny' | lc }}
-                    </button>
-                    <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="accent">
-                        {{ localePath + '.actions.accept' | lc }}
-                    </button>
+            <div
+                class="dsh-button-container"
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap="0"
+                fxLayoutGap.xs="10px"
+            >
+                <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="warn">
+                    {{ localePath + '.actions.deny' | lc }}
+                </button>
+                <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="accent">
+                    {{ localePath + '.actions.accept' | lc }}
+                </button>
             </div>
         </div>
     </dsh-card-content>

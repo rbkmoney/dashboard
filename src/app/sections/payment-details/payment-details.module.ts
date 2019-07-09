@@ -26,6 +26,7 @@ import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailItemComponent } from './status-detail-item/status-detail-item.component';
 import { FormatCurrencyPipe } from './format-currency.pipe';
 import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
+import { HoldDetailsService } from './hold-details/hold-details.service';
 
 @NgModule({
     imports: [
@@ -58,6 +59,7 @@ import { SecondaryTitleDirective } from './secondary-title/secondary-title.direc
         RefundItemComponent,
         SecondaryTitleDirective
     ],
-    exports: [PaymentDetailsComponent]
+    exports: [PaymentDetailsComponent],
+    providers: [HoldDetailsService]
 })
 export class PaymentDetailsModule {}
