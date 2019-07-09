@@ -15,13 +15,8 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         }
     }
 
-    &-base {
-        width: 100%;
-    }
-
     &-actions {
-        margin-right: -10px;
-        width: 38px; // TODO: width of button. small dirty hack.
+        margin-right: -$card-without-actions-padding;
     }
 
     &-more {
@@ -35,18 +30,5 @@ $card-without-actions-padding: $card-padding - $actions-padding;
             padding-left: $actions-padding;
             padding-right: $actions-padding; // actions padding + head button width + margin compensation
         }
-    }
-}
-
-@media only screen and (min-width: 1280px) {
-    .dsh-float-panel-more-content {
-        padding-right: $actions-padding + 38px + 10px; // actions padding + head button width + margin compensation
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .dsh-float-panel-actions {
-        width: 100%;
-        margin: auto;
     }
 }

@@ -1,16 +1,15 @@
 <dsh-float-panel [formGroup]="searchForm" novalidate [(expanded)]="expanded">
-    <dsh-justify-wrapper
-        fxLayout="row"
-        fxLayoutAlign="space-between center"
-        fxLayout.xs="column"
-        fxLayoutAlign.xs="center stretch"
-        fxLayoutGap.xs="0"
-        fxLayoutGap.sm="20px"
+    <div
+        fxLayout
+        [fxLayoutGap]="layoutGap"
         fxLayout.sm="column"
-        fxLayoutAlign.sm="center stretch"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutAlign.sm="space-between stretch"
+        fxLayoutAlign.xs="space-between stretch"
     >
-        <div fxFlex="30">
-            <dsh-button-toggle-group fxFlex="325px" fxFlex.xs="100" (valueChange)="filterByDateRange($event)">
+        <div fxFlex>
+            <dsh-button-toggle-group (valueChange)="filterByDateRange($event)">
                 <dsh-button-toggle value="today">
                     {{ 'common.today' | lc }}
                 </dsh-button-toggle>
@@ -25,20 +24,12 @@
                 </dsh-button-toggle>
             </dsh-button-toggle-group>
         </div>
-        <div
-            fxFlex="50"
-            fxLayoutAlign="end center"
-            fxLayoutGap="20px"
-            fxLayoutAlign.xs="center stretch"
-            fxLayout.xs="column"
-            fxLayoutGap.xs="0"
-            fxLayoutGap.md="10px"
-        >
-            <mat-form-field fxFlex="50">
+        <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.shopID' | lc }}</mat-label>
                 <input matInput formControlName="shopID" />
             </mat-form-field>
-            <mat-form-field fxFlex="50">
+            <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.paymentStatus.title' | lc }}</mat-label>
                 <mat-select formControlName="paymentStatus">
                     <mat-option>
@@ -49,8 +40,8 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>
-    </dsh-justify-wrapper>
+        </dsh-justify-wrapper>
+    </div>
     <dsh-float-panel-actions>
         <button dsh-button (click)="reset()">
             {{ 'common.resetSearchParams' | lc }}
@@ -59,50 +50,32 @@
     <dsh-float-panel-more>
         <div
             fxLayout
-            fxLayoutAlign="start center"
-            fxLayoutGap="10px"
-            fxLayout.xs="column"
-            fxLayoutAlign.xs="center stretch"
-            fxLayoutGap.xs="0"
             fxLayout.sm="column"
-            fxLayoutAlign.sm="center stretch"
+            fxLayout.xs="column"
+            [fxLayoutGap]="layoutGap"
             fxLayoutGap.sm="0"
+            fxLayoutGap.xs="0"
         >
-            <div
-                fxLayout
-                fxFlex="50"
-                fxLayoutGap="10px"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.sm="20px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.fromTime' | lc }}</mat-label>
                     <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
                     <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
                     <mat-datepicker #fromTime></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.toTime' | lc }}</mat-label>
                     <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
                     <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
                     <mat-datepicker #toTime></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div
-                fxFlex="50"
-                fxLayoutGap="20px"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.md="10px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.payerEmail' | lc }}</mat-label>
                     <input matInput type="email" formControlName="payerEmail" />
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.paymentFlow.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
@@ -117,42 +90,24 @@
         </div>
         <div
             fxLayout
-            fxLayoutAlign="start center"
-            fxLayoutGap="10px"
-            fxLayout.xs="column"
-            fxLayoutAlign.xs="center stretch"
-            fxLayoutGap.xs="0"
             fxLayout.sm="column"
+            fxLayout.xs="column"
+            [fxLayoutGap]="layoutGap"
             fxLayoutGap.sm="0"
-            fxLayoutAlign.sm="center stretch"
+            fxLayoutGap.xs="0"
         >
-            <div
-                fxLayout
-                fxFlex="50"
-                fxLayoutGap="10px"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.sm="20px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.paymentID' | lc }}</mat-label>
                     <input matInput formControlName="paymentID" />
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.invoiceID' | lc }}</mat-label>
                     <input matInput formControlName="invoiceID" />
                 </mat-form-field>
             </div>
-            <div
-                fxFlex="50"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap="20px"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.md="10px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.bankCardTokenProvider.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
@@ -163,7 +118,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.paymentMethod.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
@@ -178,29 +133,18 @@
         </div>
         <div
             fxLayout
-            fxLayoutGap="10px"
-            fxLayoutAlign="start center"
-            fxLayout.xs="column"
-            fxLayoutAlign.xs="center stretch"
-            fxLayoutGap.xs="0"
             fxLayout.sm="column"
-            fxLayoutAlign.sm="center stretch"
+            fxLayout.xs="column"
+            [fxLayoutGap]="layoutGap"
             fxLayoutGap.sm="0"
+            fxLayoutGap.xs="0"
         >
-            <div
-                fxLayout
-                fxFlex="50"
-                fxLayoutGap="10px"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.sm="20px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.paymentAmount' | lc }}</mat-label>
                     <input matInput type="number" formControlName="paymentAmount" />
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.bankCardPaymentSystem.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
@@ -212,20 +156,12 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div
-                fxFlex="50"
-                fxLayoutGap="20px"
-                fxLayout.xs="column"
-                fxLayoutAlign.xs="center stretch"
-                fxLayoutGap.xs="0"
-                fxLayoutGap.sm="20px"
-                fxLayoutGap.md="10px"
-            >
-                <mat-form-field fxFlex="50">
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.last4' | lc }}</mat-label>
                     <dsh-card-input></dsh-card-input>
                 </mat-form-field>
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.first6' | lc }}</mat-label>
                     <dsh-bin-input></dsh-bin-input>
                 </mat-form-field>
@@ -233,18 +169,17 @@
         </div>
         <div
             fxLayout
-            fxLayoutAlign="start center"
-            fxLayoutGap="10px"
+            fxLayout.sm="column"
             fxLayout.xs="column"
-            fxLayoutAlign.xs="center stretch"
+            [fxLayoutGap]="layoutGap"
+            fxLayoutGap.sm="0"
             fxLayoutGap.xs="0"
-            fxLayoutGap.sm="20px"
         >
-            <mat-form-field fxFlex="50">
+            <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.payerFingerprint' | lc }}</mat-label>
                 <input matInput formControlName="payerFingerprint" />
             </mat-form-field>
-            <mat-form-field fxFlex="50">
+            <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.payerIP' | lc }}</mat-label>
                 <input matInput formControlName="payerIP" />
             </mat-form-field>

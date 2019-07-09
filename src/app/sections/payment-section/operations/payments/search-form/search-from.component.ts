@@ -1,7 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
-import * as moment from 'moment';
 
 import { SearchFormService } from './search-form.service';
 import { PAYMENT_STATUS } from '../payment-status';
@@ -21,6 +20,7 @@ export class SearchFormComponent implements OnInit {
     search: EventEmitter<any> = new EventEmitter<any>();
 
     localeBaseDir = 'sections.operations.payments.filter';
+    layoutGap = '20px';
 
     searchForm: FormGroup;
     expanded = false;
