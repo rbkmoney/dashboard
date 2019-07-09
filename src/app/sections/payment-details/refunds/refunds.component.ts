@@ -16,7 +16,7 @@ export class RefundsComponent implements OnInit {
         const refund = {
             status: Refund.StatusEnum.Succeeded,
             id: '1',
-            createdAt: '2019-06-14T10:12:12Z',
+            createdAt: '2019-06-14T10:12:12Z' as any,
             amount: 1200000,
             currency: 'RUB',
             reason: 'Почему нет? Захотел - вернул, не захотел - не вернул',
