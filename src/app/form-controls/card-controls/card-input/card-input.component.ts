@@ -3,12 +3,12 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { cardMask } from './card-input-mask';
-import { CustomFormControl } from '../custom-form-control';
+import { CustomFormControl } from '../../custom-form-control';
 
 @Component({
     selector: 'dsh-card-input',
     templateUrl: 'card-input.component.html',
-    styleUrls: ['card-input.component.scss'],
+    styleUrls: ['../card-controls.scss', 'card-input.component.scss'],
     providers: [
         { provide: MatFormFieldControl, useExisting: CardInputComponent },
         {

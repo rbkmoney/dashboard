@@ -18,8 +18,8 @@ import { TableModule } from '../../../../table';
 import { ButtonToggleModule } from '../../../../button-toggle';
 import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form/search-from.component';
-import { BinInputModule } from '../../../../form-controls/bin-input/bin-input.module';
-import { CardInputModule } from '../../../../form-controls/card-input/card-input.module';
+import { BinInputModule } from '../../../../form-controls/card-controls/bin-input/bin-input.module';
+import { CardInputModule } from '../../../../form-controls/card-controls/card-input/card-input.module';
 
 @NgModule({
     imports: [

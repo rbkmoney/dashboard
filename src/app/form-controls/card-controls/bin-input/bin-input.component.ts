@@ -3,12 +3,12 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { binMask } from './bin-input-mask';
-import { CustomFormControl } from '../custom-form-control';
+import { CustomFormControl } from '../../custom-form-control';
 
 @Component({
     selector: 'dsh-bin-input',
     templateUrl: 'bin-input.component.html',
-    styleUrls: ['bin-input.component.scss'],
+    styleUrls: ['../card-controls.scss'],
     providers: [
         { provide: MatFormFieldControl, useExisting: BINInputComponent },
         {

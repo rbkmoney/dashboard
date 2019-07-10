@@ -2,7 +2,7 @@
 <input
     class="dsh-card-input-element"
     [formControl]="formControl"
-    (keyup)="writeValue($event.target.value)"
+    (change)="writeValue($event.target.value)"
     size="4"
     placeholder="0000"
     [textMask]="mask"

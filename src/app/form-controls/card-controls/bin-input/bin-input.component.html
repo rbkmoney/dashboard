@@ -1,8 +1,8 @@
 <input
-    class="dsh-bin-input-element"
+    class="dsh-card-input-element"
     size="9"
     [formControl]="formControl"
-    (keyup)="writeValue($event.target.value)"
+    (change)="writeValue($event.target.value)"
     placeholder="0000&nbsp;00"
     [textMask]="mask"
 />
