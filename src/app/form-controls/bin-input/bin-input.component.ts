@@ -3,7 +3,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { binMask } from './bin-input-mask';
-import { FormControlBoilerplate } from '../form-control-boilerplate';
+import { CustomFormControl } from '../custom-form-control';
 
 @Component({
     selector: 'dsh-bin-input',
@@ -18,7 +18,7 @@ import { FormControlBoilerplate } from '../form-control-boilerplate';
         }
     ]
 })
-export class BINInputComponent extends FormControlBoilerplate {
+export class BINInputComponent extends CustomFormControl {
     static nextId = 0;
 
     @HostBinding('id')

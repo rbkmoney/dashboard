@@ -3,7 +3,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { cardMask } from './card-input-mask';
-import { FormControlBoilerplate } from '../form-control-boilerplate';
+import { CustomFormControl } from '../custom-form-control';
 
 @Component({
     selector: 'dsh-card-input',
@@ -18,7 +18,7 @@ import { FormControlBoilerplate } from '../form-control-boilerplate';
         }
     ]
 })
-export class CardInputComponent extends FormControlBoilerplate {
+export class CardInputComponent extends CustomFormControl {
     static nextId = 0;
 
     @HostBinding('id')

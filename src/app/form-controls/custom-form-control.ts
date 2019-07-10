@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
-export class FormControlBoilerplate
+export class CustomFormControl
     implements MatFormFieldControl<any>, OnInit, OnDestroy, DoCheck, ControlValueAccessor {
     @HostBinding('class.floating')
     get shouldLabelFloat() {
