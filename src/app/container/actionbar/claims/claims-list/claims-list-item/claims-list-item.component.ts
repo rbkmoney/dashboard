@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Color } from '../../../../../status';
+import { StatusColor } from '../../../../../theme-manager';
 
 @Component({
     selector: 'dsh-claims-list-item',
@@ -12,7 +12,10 @@ export class ClaimsListItemComponent {
     status: string;
 
     @Input()
-    color: Color;
+    color: StatusColor;
+
+    @Input()
+    id: number;
 
     clickHandler() {}
 }

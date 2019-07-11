@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: ClaimComponent
     },
     {
-        path: 'claim/details',
+        path: 'claim/:id/details',
         component: DetailsComponent
     }
 ];
