@@ -4,7 +4,8 @@ import { Config } from './config';
 
 export const config: Config = {
     api: {
-        capiEndpoint: 'http://localhost:8000'
+        capiEndpoint: 'http://localhost:8000',
+        claimManagementEndpoint: 'http://localhost:9005'
     },
     daData: {
         token: 'Token XXX',

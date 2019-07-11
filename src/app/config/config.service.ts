@@ -12,8 +12,8 @@ export class ConfigService implements Config {
 
     constructor(private http: HttpClient) {}
 
-    async init() {
-        const appConfig = await this.http.get<Config>('/assets/appConfig.json').toPromise();
+    async init({ configUrl }: { configUrl: string }) {
+        const appConfig = await this.http.get<Config>(configUrl).toPromise();
         for (const [name, config] of Object.entries(appConfig)) {
             this[name] = config;
         }

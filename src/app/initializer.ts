@@ -8,7 +8,7 @@ export const initializer = (
     localeService: LocaleDictionaryService
 ) => () =>
     Promise.all([
-        configService.init(),
+        configService.init({ configUrl: '/assets/appConfig.json' }),
         keycloakService.init({
             config: '/assets/authConfig.json',
             initOptions: {
@@ -19,5 +19,5 @@ export const initializer = (
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
         }),
-        localeService.init()
+        localeService.init({ localesUrl: '/assets/locales' })
     ]);

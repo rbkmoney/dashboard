@@ -3,6 +3,7 @@
     "outputRootDir": "src/app/api",
     "outputDir": "swagger-codegen",
     "schemes": {
-        "capi": "schemes/swag/v3/swagger.yaml"
+        "capi": "schemes/swag/v3/swagger.yaml",
+        "claim-management": "schemes/claim-management/v0/swagger.json"
     }
 }

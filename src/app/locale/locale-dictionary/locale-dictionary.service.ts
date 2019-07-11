@@ -18,11 +18,11 @@ export class LocaleDictionaryService {
 
     constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
-    async init(): Promise<void> {
+    async init({ localesUrl }: { localesUrl: string }): Promise<void> {
         const lang = this.settingsService.language;
         registerLocaleData(angularLocaleData[lang], lang);
         this.dictionary = await this.http
-            .get(`/assets/locales/${lang}.json`)
+            .get(`${localesUrl}/${lang}.json`)
             .pipe(
                 catchError(err => {
                     console.error('An error occurred while fetch locale dictionary', err);
