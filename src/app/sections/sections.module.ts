@@ -8,7 +8,7 @@ import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { OperationsModule } from './payment-section/operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
-import { ClaimModule } from './claim';
+import { ClaimModule } from './claims';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 

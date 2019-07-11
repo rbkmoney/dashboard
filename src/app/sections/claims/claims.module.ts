@@ -2,7 +2,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 
-import { ClaimComponent } from './claim.component';
+import { ClaimComponent } from './claims.component';
 import { DetailsComponent } from './details';
 import { LayoutModule } from '../../layout';
 import { DshTabsModule } from '../../layout/tabs';

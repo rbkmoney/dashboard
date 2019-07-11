@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DetailsComponent } from './details';
-import { ClaimComponent } from './claim.component';
+import { ClaimComponent } from './claims.component';
 
 export const routes: Routes = [
     {
