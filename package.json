@@ -15,7 +15,8 @@
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
     "fix": "npm run lint-fix; npm run prettify",
-    "quicktype": "quicktype -s schema --just-types"
+    "quicktype": "quicktype -s schema --just-types",
+    "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts"
   },
   "private": true,
   "dependencies": {
