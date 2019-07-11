@@ -1,0 +1,8 @@
+{
+    "cli": "http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.4/swagger-codegen-cli-2.4.4.jar",
+    "outputRootDir": "src/app/api",
+    "outputDir": "swagger-codegen",
+    "schemes": {
+        "capi": "schemes/swag/v3/swagger.yaml"
+    }
+}

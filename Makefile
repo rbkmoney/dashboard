@@ -1,7 +1,6 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEME_PATH := \
-	schemes/swag/v3
-SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEME_PATH)
+SWAGGER_SCHEMES_PATH := schemes/swag/v3
+SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
 
@@ -61,15 +60,8 @@ lint:
 test:
 	npm run test
 
-SWAGGER_SWAG_V3_DIR = 'src/app/api/capi/swagger-codegen'
-SWAGGER_CLI = 'swagger-codegen-cli.jar'
-swagger-init:
-	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.4/swagger-codegen-cli-2.4.4.jar -O $(SWAGGER_CLI)
-swagger-clean:
-	rm -rf $(SWAGGER_SWAG_V3_DIR)
-swagger-compile:
-	java -jar $(SWAGGER_CLI) generate -l typescript-angular --additional-properties ngVersion=7 -i schemes/swag/v3/swagger.yaml -o $(SWAGGER_SWAG_V3_DIR)
-swagger: swagger-init swagger-clean swagger-compile
+swagger:
+	npm run codegen
 
 KONTUR_FOCUS_MODEL_DIR = src/app/kontur-focus/gen-model
 KONTUR_FOCUS_API = req req/mon monList analytics contacts egrDetails egrDetails/mon licences buh fssp govPurchasesOfParticipant govPurchasesOfCustomer stat

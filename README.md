@@ -17,8 +17,7 @@ npm ci
 
 # Generate swagger
 
-make wc_shell
-make compile
+npm run codegen
 ```
 
 ## Development server
@@ -30,6 +29,11 @@ make compile
 
 1. Run `npm run build`
 1. The build artifacts will be stored in the `dist/` directory.
+
+## Add API
+
+1. Add submodule to `schemes/<SCHEME_NAME>/<VER:VX>`
+1. [Generate swagger](#initialization)
 
 ## Tests
 
