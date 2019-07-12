@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'dsh-details',
-    templateUrl: 'details.component.html',
-    styleUrls: ['details.component.scss']
+    selector: 'dsh-claim',
+    templateUrl: 'claim.component.html',
+    styleUrls: ['claim.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class ClaimComponent implements OnInit {
     id: number;
 
     constructor(private route: ActivatedRoute) {}

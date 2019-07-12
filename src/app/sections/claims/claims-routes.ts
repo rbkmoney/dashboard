@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
 
-import { DetailsComponent } from './details';
-import { ClaimComponent } from './claims.component';
+import { ClaimComponent } from './claim';
+import { ClaimsComponent } from './claims.component';
 
 export const routes: Routes = [
     {
         path: 'claim',
-        component: ClaimComponent
+        component: ClaimsComponent
     },
     {
-        path: 'claim/:id/details',
-        component: DetailsComponent
+        path: 'claim/:id',
+        component: ClaimComponent
     }
 ];
