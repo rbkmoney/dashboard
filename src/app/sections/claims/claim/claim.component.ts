@@ -9,6 +9,21 @@ import { ActivatedRoute } from '@angular/router';
 export class ClaimComponent implements OnInit {
     id: number;
 
+    links = [
+        {
+            path: '',
+            label: 'sections.claim.conversation.label'
+        },
+        {
+            path: 'changes',
+            label: 'sections.claim.changes.label'
+        },
+        {
+            path: 'documents',
+            label: 'sections.claim.documents.label'
+        }
+    ];
+
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {

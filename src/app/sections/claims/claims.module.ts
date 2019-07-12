@@ -1,6 +1,7 @@
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { CommonModule } from '@angular/common';
 
 import { ClaimComponent } from './claim';
 import { LayoutModule } from '../../layout';
@@ -9,6 +10,8 @@ import { ButtonModule } from '../../button';
 import { TimelineModule } from '../../timeline';
 import { ExpandPanelModule } from '../../expand-panel';
 import { ConversationComponent } from './claim';
+import { ClaimsRoutingModule } from './claims-routing.module';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [
@@ -20,9 +23,11 @@ import { ConversationComponent } from './claim';
         MatInputModule,
         TimelineModule,
         MatIconModule,
-        ExpandPanelModule
+        ExpandPanelModule,
+        ClaimsRoutingModule,
+        LocaleModule,
+        CommonModule
     ],
-    declarations: [ClaimComponent, ConversationComponent],
-    exports: []
+    declarations: [ClaimComponent, ConversationComponent]
 })
-export class ClaimModule {}
+export class ClaimsModule {}

@@ -95,6 +95,17 @@
             "refunds": {
                 "title": "Возвраты"
             }
+        },
+        "claim": {
+            "conversation": {
+                "label": "Обсуждения"
+            },
+            "changes": {
+                "label": "Изменения"
+            },
+            "documents": {
+                "label": "Документы"
+            }
         }
     }
 }

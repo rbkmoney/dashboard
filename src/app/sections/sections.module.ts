@@ -8,22 +8,24 @@ import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
 import { OperationsModule } from './payment-section/operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
-import { ClaimModule } from './claims';
+import { ClaimsModule } from './claims';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 
 @NgModule({
     imports: [
         OnboardingModule,
-        PaymentSectionModule,
-        SectionsRoutingModule,
         MainModule,
         AnalyticsModule,
         PageNotFoundModule,
         ButtonsModule,
         OperationsModule,
         InputsModule,
-        ClaimModule
+        // modules with routing module depends on order (TODO: maybe there is an error / problem)
+        PaymentSectionModule,
+        ClaimsModule,
+        SectionsRoutingModule
+        // end modules with routing
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent]

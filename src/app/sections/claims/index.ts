@@ -1,2 +1,2 @@
 export * from './claims.module';
-export * from './claims-routes';
+export * from './claims-routing.module';
