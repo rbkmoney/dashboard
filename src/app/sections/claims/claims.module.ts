@@ -2,7 +2,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 
-import { ClaimsComponent } from './claims.component';
 import { ClaimComponent } from './claim';
 import { LayoutModule } from '../../layout';
 import { DshTabsModule } from '../../layout/tabs';
@@ -22,7 +21,7 @@ import { ExpandPanelModule } from '../../expand-panel';
         MatIconModule,
         ExpandPanelModule
     ],
-    declarations: [ClaimsComponent, ClaimComponent],
+    declarations: [ClaimComponent],
     exports: []
 })
 export class ClaimModule {}
