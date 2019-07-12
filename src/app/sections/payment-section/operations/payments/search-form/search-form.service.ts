@@ -28,17 +28,18 @@ export class SearchFormService {
             .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
     }
 
-    reset() {
+    reset(): PaymentSearchFormValue {
         this.searchForm.reset(this.defaultValues);
+        return this.defaultValues;
     }
 
-    private initForm(): FormGroup {
+    private initForm(defaultLimit = 20): FormGroup {
         const form = this.fb.group({
             fromTime: moment()
                 .subtract(1, 'month')
                 .startOf('day'),
             toTime: moment().endOf('day'),
-            limit: [20, Validators.required],
+            limit: [defaultLimit, Validators.required],
             shopID: '',
             paymentStatus: '',
             paymentFlow: '',

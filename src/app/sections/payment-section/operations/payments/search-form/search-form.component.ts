@@ -12,12 +12,11 @@ import { PaymentSearchFormValue } from './payment-search-form-value';
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
+    @Input() layoutGap = '20px';
 
-    @Output()
-    formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
+    @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
     localeBaseDir = 'sections.operations.payments.filter';
-    layoutGap = '20px';
 
     searchForm: FormGroup;
     expanded = false;
@@ -43,7 +42,7 @@ export class SearchFormComponent implements OnInit {
 
     constructor(private searchFormService: SearchFormService) {}
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
         this.formValueChanges.emit(this.searchForm.value);
         this.searchForm.valueChanges
@@ -55,7 +54,6 @@ export class SearchFormComponent implements OnInit {
     }
 
     reset() {
-        this.searchFormService.reset();
-        this.formValueChanges.emit(this.searchForm.value);
+        this.formValueChanges.emit(this.searchFormService.reset());
     }
 }
