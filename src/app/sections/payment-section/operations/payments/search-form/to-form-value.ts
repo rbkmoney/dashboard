@@ -1,6 +1,7 @@
 import * as moment from 'moment';
+import { Params } from '@angular/router';
 
-export const toFormValue = (obj: any): Object => {
+export const toFormValue = (obj: Params): Object => {
     return {
         ...obj,
         fromTime: moment(obj.fromTime).startOf('day'),
