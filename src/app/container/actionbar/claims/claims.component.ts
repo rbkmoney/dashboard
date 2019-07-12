@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
-import { ClaimsService, Claim } from '../../../api/claim-management/swagger-codegen';
+import { ClaimsService, Claim } from '../../../api/claim-management';
 import { StatusColor } from '../../../theme-manager';
+import { genXRequestID } from '../../../api';
 
 @Component({
     selector: 'dsh-claims',
@@ -12,7 +13,7 @@ export class ClaimsComponent {
     claims: any[];
 
     constructor(private claimManagement: ClaimsService) {
-        this.claimManagement.searchClaims(Math.random().toString(), 5).subscribe(({ result }) => {
+        this.claimManagement.searchClaims(genXRequestID(), 5).subscribe(({ result }) => {
             this.claims = result.map(claim => this.toCleanClaim(claim));
         });
     }
