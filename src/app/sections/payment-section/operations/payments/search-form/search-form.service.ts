@@ -28,7 +28,7 @@ export class SearchFormService {
     }
 
     private updateQueryParams(value: PaymentSearchFormValue) {
-        const queryParams = toQueryParams(value);
+        const queryParams = toQueryParams<PaymentSearchFormValue>(value);
         this.router.navigate([location.pathname], { queryParams });
     }
 

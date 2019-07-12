@@ -6,10 +6,9 @@ import {
     PaymentStatus,
     PaymentTerminalProvider
 } from '../../../../../api/capi/swagger-codegen';
+import { SearchFormValue } from './search-form-value';
 
-export class PaymentSearchFormValue {
-    fromTime: string;
-    toTime: string;
+export interface PaymentSearchFormValue extends SearchFormValue {
     limit: string;
     shopID?: string;
     paymentStatus?: PaymentStatus.StatusEnum;
