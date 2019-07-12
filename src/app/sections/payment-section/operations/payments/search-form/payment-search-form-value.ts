@@ -7,7 +7,7 @@ import {
     PaymentTerminalProvider
 } from '../../../../../api/capi/swagger-codegen';
 
-export class SearchFormParams {
+export class PaymentSearchFormValue {
     fromTime: string;
     toTime: string;
     limit: string;

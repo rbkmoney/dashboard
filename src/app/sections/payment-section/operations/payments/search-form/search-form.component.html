@@ -9,7 +9,7 @@
         fxLayoutAlign.xs="space-between stretch"
     >
         <div fxFlex>
-            <dsh-button-toggle-group (valueChange)="filterByDateRange($event)">
+            <dsh-button-toggle-group>
                 <dsh-button-toggle value="today">
                     {{ 'common.today' | lc }}
                 </dsh-button-toggle>
@@ -30,13 +30,13 @@
                 <input matInput formControlName="shopID" />
             </mat-form-field>
             <mat-form-field fxFlex>
-                <mat-label>{{ localeBaseDir + '.paymentStatus.title' | lc }}</mat-label>
+                <mat-label>{{ 'common.paymentStatus.title' | lc }}</mat-label>
                 <mat-select formControlName="paymentStatus">
                     <mat-option>
-                        {{ localeBaseDir + '.paymentStatus.any' | lc }}
+                        {{ 'common.any' | lc }}
                     </mat-option>
                     <mat-option *ngFor="let status of statuses" [value]="status">
-                        {{ localeBaseDir + '.paymentStatus.' + status | lc }}
+                        {{ 'common.paymentStatus.' + status | lc }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -76,13 +76,13 @@
                     <input matInput type="email" formControlName="payerEmail" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentFlow.title' | lc }}</mat-label>
+                    <mat-label>{{ 'common.paymentFlow.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
-                            {{ localeBaseDir + '.paymentFlow.any' | lc }}
+                            {{ 'common.any' | lc }}
                         </mat-option>
                         <mat-option *ngFor="let flow of flows" [value]="flow">
-                            {{ localeBaseDir + '.paymentFlow.' + flow | lc }}
+                            {{ 'common.paymentFlow.' + flow | lc }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -108,24 +108,24 @@
             </div>
             <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.bankCardTokenProvider.title' | lc }}</mat-label>
+                    <mat-label>{{ 'common.bankCardTokenProvider.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
-                            {{ localeBaseDir + '.bankCardTokenProvider.any' | lc }}
+                            {{ 'common.any' | lc }}
                         </mat-option>
                         <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
-                            {{ localeBaseDir + '.bankCardTokenProvider.' + tokenProvider | lc }}
+                            {{ 'common.bankCardTokenProvider.' + tokenProvider | lc }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentMethod.title' | lc }}</mat-label>
+                    <mat-label>{{ 'common.paymentMethod.title' | lc }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
-                            {{ localeBaseDir + '.paymentMethod.any' | lc }}
+                            {{ 'common.any' | lc }}
                         </mat-option>
                         <mat-option *ngFor="let method of methods" [value]="method">
-                            {{ localeBaseDir + '.paymentMethod.' + method | lc }}
+                            {{ 'common.paymentMethod.' + method | lc }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -145,13 +145,13 @@
                     <input matInput type="number" formControlName="paymentAmount" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.bankCardPaymentSystem.title' | lc }}</mat-label>
+                    <mat-label>{{ 'common.bankCardPaymentSystem.title' | lc }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
-                            {{ localeBaseDir + '.bankCardPaymentSystem.any' | lc }}
+                            {{ 'common.any' | lc }}
                         </mat-option>
                         <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
-                            {{ localeBaseDir + '.bankCardPaymentSystem.' + method | lc }}
+                            {{ 'common.bankCardPaymentSystem.' + method | lc }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -159,11 +159,11 @@
             <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
                 <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.last4' | lc }}</mat-label>
-                    <dsh-card-input formControlName="last4"></dsh-card-input>
+                    <dsh-card-last-digits-input formControlName="last4"></dsh-card-last-digits-input>
                 </mat-form-field>
                 <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.first6' | lc }}</mat-label>
-                    <dsh-bin-input formControlName="first6"></dsh-bin-input>
+                    <dsh-card-bin-input formControlName="first6"></dsh-card-bin-input>
                 </mat-form-field>
             </div>
         </div>

@@ -2,99 +2,46 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import clone from 'lodash.clone';
-import isEqual from 'lodash.isequal';
-import mapValues from 'lodash.mapvalues';
+import { filter } from 'rxjs/operators';
 
-import { SearchFormParams } from './search-form-params';
+import { PaymentSearchFormValue } from './payment-search-form-value';
+import { isEmpty } from './is-empty';
+import { toQueryParams } from './to-query-params';
+import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup;
-    private defaultValues: SearchFormParams;
-    private urlDateFormat = 'YYYY-MM-DD';
+    private defaultValues: PaymentSearchFormValue;
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.searchForm = this.initForm();
-        this.route.queryParams.subscribe(queryParams => this.updateFormValue(queryParams));
+        this.defaultValues = this.searchForm.value;
+        this.route.queryParams
+            .pipe(filter(queryParams => !isEmpty(queryParams)))
+            .subscribe(queryParams => this.updateFormValue(queryParams as PaymentSearchFormValue));
         this.searchForm.valueChanges.subscribe(values => this.updateQueryParams(values));
     }
 
-    reset(): any {
+    reset() {
         this.searchForm.reset(this.defaultValues);
-        return this.defaultValues;
     }
 
-    filterByDateRange(value: 'today' | 'week' | 'month' | 'more') {
-        switch (value) {
-            case 'more':
-                break;
-            case 'today':
-                this.searchForm.patchValue({
-                    fromTime: moment()
-                        .startOf('day')
-                        .toDate(),
-                    toTime: moment()
-                        .endOf('day')
-                        .toDate()
-                });
-                break;
-            default:
-                this.searchForm.patchValue({
-                    fromTime: moment()
-                        .startOf('day')
-                        .subtract(1, value)
-                        .toDate(),
-                    toTime: moment()
-                        .endOf('day')
-                        .toDate()
-                });
-        }
+    private updateQueryParams(value: PaymentSearchFormValue) {
+        const queryParams = toQueryParams(value);
+        this.router.navigate([location.pathname], { queryParams });
     }
 
-    private updateQueryParams(value: any) {
-        const queryParams = this.formValueToQueryParams(value);
-        this.router.navigate(['payment-section', 'operations', 'payments'], { queryParams });
-    }
-
-    private updateFormValue(queryParams: any) {
-        if (isEqual(queryParams, {})) {
-            this.updateQueryParams(this.defaultValues);
-        } else {
-            this.searchForm.patchValue(this.queryParamsToFormValue(queryParams));
-        }
-    }
-
-    private formValueToQueryParams(formValue: SearchFormParams): any {
-        const mapped = mapValues(formValue, value => (isEqual(value, '') ? null : value));
-        return {
-            ...mapped,
-            fromTime: moment(formValue.fromTime).format(this.urlDateFormat),
-            toTime: moment(formValue.toTime).format(this.urlDateFormat)
-        };
-    }
-
-    private queryParamsToFormValue(params: any): SearchFormParams {
-        return {
-            ...params,
-            fromTime: moment(params.fromTime)
-                .startOf('day')
-                .toDate(),
-            toTime: moment(params.toTime)
-                .endOf('day')
-                .toDate()
-        };
+    private updateFormValue(queryParams: PaymentSearchFormValue) {
+        this.searchForm.patchValue(toFormValue(queryParams));
     }
 
     private initForm(): FormGroup {
         const form = this.fb.group({
             fromTime: moment()
                 .subtract(1, 'month')
-                .startOf('day')
-                .toDate(),
-            toTime: moment()
-                .endOf('day')
-                .toDate(),
+                .startOf('day'),
+            toTime: moment().endOf('day'),
             limit: [20, Validators.required],
             shopID: '',
             paymentStatus: '',
@@ -114,7 +61,6 @@ export class SearchFormService {
             paymentAmount: '',
             continuationToken: ''
         });
-        this.defaultValues = clone(form.value);
         return form;
     }
 }

@@ -6,7 +6,7 @@ import { binMask } from './bin-input-mask';
 import { CustomFormControl } from '../../custom-form-control';
 
 @Component({
-    selector: 'dsh-bin-input',
+    selector: 'dsh-card-bin-input',
     templateUrl: 'bin-input.component.html',
     styleUrls: ['../card-controls.scss'],
     providers: [
