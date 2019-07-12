@@ -10,7 +10,6 @@
         "month": "Месяц",
         "any": "Любой",
         "paymentStatus": {
-            "title": "Статус платежа",
             "pending": "pending",
             "processed": "processed",
             "captured": "captured",
@@ -129,7 +128,12 @@
                     "first6": "BIN банка-эмитента карты",
                     "last4": "Последние цифры номера карты",
                     "payerFingerprint": "Fingerprint плательщика",
-                    "payerIP": "IP-адрес плательщика"
+                    "payerIP": "IP-адрес плательщика",
+                    "paymentStatus": "Статус платежа",
+                    "paymentFlow": "Тип проведения платежа",
+                    "bankCardTokenProvider": "Провайдер платежных токенов",
+                    "bankCardPaymentSystem": "Платежаня система",
+                    "paymentMethod": "Метод оплаты"
                 },
                 "refresh": "Обновить",
                 "lastUpdate": "Последнее обновление",

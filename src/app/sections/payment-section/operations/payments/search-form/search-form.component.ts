@@ -22,11 +22,11 @@ export class SearchFormComponent implements OnInit {
     searchForm: FormGroup;
     expanded = false;
 
-    statuses = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
-    flows = ['instant', 'hold'];
-    methods = ['bankCard', 'paymentTerminal'];
-    tokenProviders = ['applepay', 'googlepay', 'samsungpay'];
-    bankCardPaymentSystems = [
+    statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
+    flows: string[] = ['instant', 'hold'];
+    methods: string[] = ['bankCard', 'paymentTerminal'];
+    tokenProviders: string[] = ['applepay', 'googlepay', 'samsungpay'];
+    bankCardPaymentSystems: string[] = [
         'visa',
         'mastercard',
         'visaelectron',

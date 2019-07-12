@@ -1,10 +1,12 @@
 import * as moment from 'moment';
 import { Params } from '@angular/router';
 
-export const toFormValue = (obj: Params): Object => {
+import { SearchFormValue } from './search-form-value';
+
+export function toFormValue<T extends SearchFormValue>(obj: Params): T {
     return {
         ...obj,
-        fromTime: moment(obj.fromTime).startOf('day'),
-        toTime: moment(obj.toTime).endOf('day')
-    };
-};
+        fromTime: moment(obj.fromTime),
+        toTime: moment(obj.toTime)
+    } as T;
+}

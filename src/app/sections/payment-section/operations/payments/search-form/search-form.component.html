@@ -30,7 +30,7 @@
                 <input matInput formControlName="shopID" />
             </mat-form-field>
             <mat-form-field fxFlex>
-                <mat-label>{{ 'common.paymentStatus.title' | lc }}</mat-label>
+                <mat-label>{{ localeBaseDir + '.paymentStatus' | lc }}</mat-label>
                 <mat-select formControlName="paymentStatus">
                     <mat-option>
                         {{ 'common.any' | lc }}
@@ -76,7 +76,7 @@
                     <input matInput type="email" formControlName="payerEmail" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ 'common.paymentFlow.title' | lc }}</mat-label>
+                    <mat-label>{{ localeBaseDir + '.paymentFlow' | lc }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
                             {{ 'common.any' | lc }}
@@ -108,7 +108,7 @@
             </div>
             <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ 'common.bankCardTokenProvider.title' | lc }}</mat-label>
+                    <mat-label>{{ localeBaseDir + '.bankCardTokenProvider' | lc }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
                             {{ 'common.any' | lc }}
@@ -119,7 +119,7 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ 'common.paymentMethod.title' | lc }}</mat-label>
+                    <mat-label>{{ localeBaseDir + '.paymentMethod' | lc }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
                             {{ 'common.any' | lc }}
@@ -145,7 +145,7 @@
                     <input matInput type="number" formControlName="paymentAmount" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ 'common.bankCardPaymentSystem.title' | lc }}</mat-label>
+                    <mat-label>{{ localeBaseDir + '.bankCardPaymentSystem' | lc }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
                             {{ 'common.any' | lc }}
