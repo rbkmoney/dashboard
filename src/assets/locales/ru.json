@@ -133,7 +133,8 @@
                     "paymentFlow": "Тип проведения платежа",
                     "bankCardTokenProvider": "Провайдер платежных токенов",
                     "bankCardPaymentSystem": "Платежаня система",
-                    "paymentMethod": "Метод оплаты"
+                    "paymentMethod": "Метод оплаты",
+                    "rnn": "RNN платежа"
                 },
                 "refresh": "Обновить",
                 "lastUpdate": "Последнее обновление",

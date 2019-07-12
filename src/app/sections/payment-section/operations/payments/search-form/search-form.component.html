@@ -98,8 +98,8 @@
         >
             <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentID' | lc }}</mat-label>
-                    <input matInput formControlName="paymentID" />
+                    <mat-label>{{ localeBaseDir + '.rnn' | lc }}</mat-label>
+                    <input matInput formControlName="rnn" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
                     <mat-label>{{ localeBaseDir + '.invoiceID' | lc }}</mat-label>
@@ -175,14 +175,22 @@
             fxLayoutGap.sm="0"
             fxLayoutGap.xs="0"
         >
-            <mat-form-field fxFlex>
-                <mat-label>{{ localeBaseDir + '.payerFingerprint' | lc }}</mat-label>
-                <input matInput formControlName="payerFingerprint" />
-            </mat-form-field>
-            <mat-form-field fxFlex>
-                <mat-label>{{ localeBaseDir + '.payerIP' | lc }}</mat-label>
-                <input matInput formControlName="payerIP" />
-            </mat-form-field>
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.paymentID' | lc }}</mat-label>
+                    <input matInput formControlName="paymentID" />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.payerIP' | lc }}</mat-label>
+                    <input matInput formControlName="payerIP" />
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.payerFingerprint' | lc }}</mat-label>
+                    <input matInput formControlName="payerFingerprint" />
+                </mat-form-field>
+            </div>
         </div>
     </dsh-float-panel-more>
 </dsh-float-panel>
