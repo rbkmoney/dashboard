@@ -8,6 +8,7 @@ import { DshTabsModule } from '../../layout/tabs';
 import { ButtonModule } from '../../button';
 import { TimelineModule } from '../../timeline';
 import { ExpandPanelModule } from '../../expand-panel';
+import { ConversationComponent } from './claim';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { ExpandPanelModule } from '../../expand-panel';
         MatIconModule,
         ExpandPanelModule
     ],
-    declarations: [ClaimComponent],
+    declarations: [ClaimComponent, ConversationComponent],
     exports: []
 })
 export class ClaimModule {}
