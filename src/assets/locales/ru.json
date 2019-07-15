@@ -28,8 +28,8 @@
         },
         "bankCardPaymentSystem": {
             "visa": "Visa",
-            "mastercard": "MasterCard",
-            "visaelectron": "Vise Electron",
+            "mastercard": "Mastercard",
+            "visaelectron": "Visa Electron",
             "maestro": "Maestro",
             "forbrugsforeningen": "Forbrugsforeningen",
             "dankort": "Dankort",
@@ -38,7 +38,7 @@
             "discover": "Discover Card",
             "unionpay": "UnionPay",
             "jcb": "JCB",
-            "nspkmir": "НСПК МИР"
+            "nspkmir": "MIR"
         },
         "paymentMethod": {
             "bankCard": "Банковская карта",
