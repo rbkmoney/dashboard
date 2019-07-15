@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
+
 export interface PeriodicElement {
     name: string;
     position: number;
@@ -65,4 +67,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class PaymentsComponent {
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+    search(paymentSearchFormValue: PaymentSearchFormValue) {
+        console.log('Search!', paymentSearchFormValue);
+    }
 }

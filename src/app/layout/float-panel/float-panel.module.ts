@@ -9,9 +9,10 @@ import { FloatPanelActionsTemplateComponent } from './templates/float-panel-acti
 import { ButtonModule } from '../../button';
 import { ResizedModule } from '../../resized';
 import { CardModule } from '../card';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
-    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule],
+    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, LocaleModule],
     declarations: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
     exports: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent]
 })

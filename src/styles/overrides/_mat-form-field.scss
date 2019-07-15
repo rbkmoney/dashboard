@@ -1,0 +1,5 @@
+@mixin mat-form-field-infix-override() {
+    .mat-form-field-infix {
+        width: auto !important;
+    }
+}
