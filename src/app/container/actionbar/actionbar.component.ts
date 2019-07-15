@@ -10,6 +10,10 @@ import { ThemeManager } from '../../theme-manager';
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
+    get closeDropdown() {
+        return () => this.trigger.close();
+    }
+
     constructor(private themeService: ThemeManager) {}
 
     changeTheme() {

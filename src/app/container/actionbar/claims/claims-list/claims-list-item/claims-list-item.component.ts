@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { StatusColor } from '../../../../../theme-manager';
 
@@ -17,5 +17,10 @@ export class ClaimsListItemComponent {
     @Input()
     id: number;
 
-    clickHandler() {}
+    @Output()
+    action = new EventEmitter<{ isMoving: boolean; event: MouseEvent }>();
+
+    clickHandler(event: MouseEvent) {
+        this.action.emit({ isMoving: true, event });
+    }
 }

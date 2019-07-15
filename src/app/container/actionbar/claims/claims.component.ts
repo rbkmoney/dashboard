@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ClaimsService, Claim } from '../../../api/claim-management';
 import { StatusColor } from '../../../theme-manager';
@@ -10,6 +10,9 @@ import { genXRequestID } from '../../../api';
     styleUrls: ['claims.component.scss']
 })
 export class ClaimsComponent {
+    @Input()
+    closeDropdown: () => void;
+
     claims: any[];
 
     constructor(private claimManagement: ClaimsService) {
@@ -36,5 +39,11 @@ export class ClaimsComponent {
             title: claim.status,
             id: claim.id
         };
+    }
+
+    actionHandler({ isMoving }) {
+        if (isMoving) {
+            this.closeDropdown();
+        }
     }
 }
