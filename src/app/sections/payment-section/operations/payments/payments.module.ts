@@ -15,10 +15,10 @@ import { PaymentsComponent } from './payments.component';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
-import { ButtonToggleModule } from '../../../../button-toggle';
 import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { FormControlsModule } from '../../../../form-controls';
+import { DaterangeSelectorModule } from '../daterange-selector';
 
 @NgModule({
     imports: [
@@ -30,13 +30,13 @@ import { FormControlsModule } from '../../../../form-controls';
         MatFormFieldModule,
         MatInputModule,
         TableModule,
-        ButtonToggleModule,
         MatIconModule,
         LocaleModule,
         ReactiveFormsModule,
         MatDatepickerModule,
         MatSelectModule,
-        FormControlsModule
+        FormControlsModule,
+        DaterangeSelectorModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent]
 })

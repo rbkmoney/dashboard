@@ -8,22 +8,12 @@
         fxLayoutAlign.sm="space-between stretch"
         fxLayoutAlign.xs="space-between stretch"
     >
-        <div fxFlex>
-            <dsh-button-toggle-group>
-                <dsh-button-toggle value="today">
-                    {{ 'common.today' | lc }}
-                </dsh-button-toggle>
-                <dsh-button-toggle value="week">
-                    {{ 'common.week' | lc }}
-                </dsh-button-toggle>
-                <dsh-button-toggle value="month">
-                    {{ 'common.month' | lc }}
-                </dsh-button-toggle>
-                <dsh-button-toggle value="more" (click)="expanded = true; fromTime.open()">
-                    <mat-icon>more_horiz</mat-icon>
-                </dsh-button-toggle>
-            </dsh-button-toggle-group>
-        </div>
+        <dsh-daterange-selector
+            [value]="searchForm.value"
+            (selectDaterange)="selectDaterange($event)"
+            (selectMore)="expanded = true"
+            fxFlex
+        ></dsh-daterange-selector>
         <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.shopID' | lc }}</mat-label>

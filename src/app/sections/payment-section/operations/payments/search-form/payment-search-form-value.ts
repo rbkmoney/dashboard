@@ -6,7 +6,7 @@ import {
     PaymentStatus,
     PaymentTerminalProvider
 } from '../../../../../api/capi/swagger-codegen';
-import { SearchFormValue } from './search-form-value';
+import { SearchFormValue } from '../../search-form-value';
 
 export interface PaymentSearchFormValue extends SearchFormValue {
     limit: string;

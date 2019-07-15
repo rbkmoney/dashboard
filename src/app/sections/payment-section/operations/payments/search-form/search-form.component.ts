@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime, filter } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
+import { SearchFormValue } from '../../search-form-value';
 
 @Component({
     selector: 'dsh-search-form',
@@ -17,10 +17,8 @@ export class SearchFormComponent implements OnInit {
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
     localeBaseDir = 'sections.operations.payments.filter';
-
     searchForm: FormGroup;
     expanded = false;
-
     statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
     flows: string[] = ['instant', 'hold'];
     methods: string[] = ['bankCard', 'paymentTerminal'];
@@ -45,12 +43,11 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
         this.formValueChanges.emit(this.searchForm.value);
-        this.searchForm.valueChanges
-            .pipe(
-                filter(() => this.searchForm.status === 'VALID'),
-                debounceTime(this.valueDebounceTime)
-            )
-            .subscribe(value => this.formValueChanges.emit(value));
+        this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
+    }
+
+    selectDaterange(v: SearchFormValue) {
+        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {
