@@ -7,8 +7,6 @@ import { SearchFormValue } from '../../search-form-value';
 import {
     BankCardPaymentSystem,
     BankCardTokenProvider,
-    PaymentFlow,
-    PaymentMethod,
     PaymentStatus
 } from '../../../../../api/capi/swagger-codegen';
 
@@ -27,8 +25,8 @@ export class SearchFormComponent implements OnInit {
     searchForm: FormGroup;
     expanded = false;
     statuses: PaymentStatus.StatusEnum[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
-    flows: string[] = ['instant', 'hold'];
-    methods: string[] = ['bankCard', 'paymentTerminal'];
+    flows = ['instant', 'hold'] as const;
+    methods = ['bankCard', 'paymentTerminal'] as const;
     tokenProviders: BankCardTokenProvider[] = ['applepay', 'googlepay', 'samsungpay'];
     bankCardPaymentSystems: BankCardPaymentSystem[] = [
         'visa',
