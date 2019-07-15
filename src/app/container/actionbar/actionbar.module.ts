@@ -15,6 +15,8 @@ import { UserComponent } from './user';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 import { ActionItemComponent } from './action-item';
 import { APIModule } from '../../api';
+import { ClaimsModule } from '../../sections/claims';
+import { ClaimsService } from '../../claims';
 
 @NgModule({
     imports: [
@@ -28,7 +30,8 @@ import { APIModule } from '../../api';
         MatMenuModule,
         RouterModule,
         APIModule,
-        CommonModule
+        CommonModule,
+        ClaimsModule
     ],
     declarations: [
         ActionbarComponent,
@@ -38,6 +41,7 @@ import { APIModule } from '../../api';
         UserComponent,
         ClaimsComponent
     ],
+    providers: [ClaimsService],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

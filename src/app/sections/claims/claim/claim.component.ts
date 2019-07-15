@@ -28,7 +28,7 @@ export class ClaimComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap.subscribe(params => {
-            this.id = parseInt(params.get('id'));
+            this.id = parseInt(params.get('id'), 10);
         });
     }
 }

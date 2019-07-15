@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ClaimsService, Claim } from '../../../api/claim-management';
-import { StatusColor } from '../../../theme-manager';
-import { genXRequestID } from '../../../api';
+import { ClaimsService } from '../../../claims';
 
 @Component({
     selector: 'dsh-claims',
@@ -13,33 +11,9 @@ export class ClaimsComponent {
     @Input()
     closeDropdown: () => void;
 
-    claims: any[];
+    claims$ = this.claimsService.getClaims(5, 5000);
 
-    constructor(private claimManagement: ClaimsService) {
-        this.claimManagement.searchClaims(genXRequestID(), 5).subscribe(({ result }) => {
-            this.claims = result.map(claim => this.toCleanClaim(claim));
-        });
-    }
-
-    toCleanClaim(claim: Claim) {
-        const colorMapping = {
-            pending: StatusColor.pending,
-            pendingAcceptance: StatusColor.pending,
-            review: StatusColor.pending,
-            revoked: StatusColor.warn,
-            denied: StatusColor.warn,
-            accepted: StatusColor.success
-        };
-        const statusMapping = {
-            pendingAcceptance: 'pending acceptance'
-        };
-        return {
-            status: statusMapping[claim.status] || claim.status,
-            color: colorMapping[claim.status],
-            title: claim.status,
-            id: claim.id
-        };
-    }
+    constructor(private claimsService: ClaimsService) {}
 
     actionHandler({ isMoving }) {
         if (isMoving) {

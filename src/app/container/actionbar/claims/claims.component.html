@@ -3,7 +3,7 @@
         <h1 class="mat-title">Последние заявки</h1>
         <dsh-claims-list>
             <dsh-claims-list-item
-                *ngFor="let claim of claims; index as i"
+                *ngFor="let claim of claims$ | async; index as i"
                 [status]="claim.status"
                 [color]="claim.color"
                 [id]="claim.id"
