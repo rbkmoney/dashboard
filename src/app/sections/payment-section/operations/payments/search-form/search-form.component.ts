@@ -4,6 +4,13 @@ import { FormGroup } from '@angular/forms';
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
+import {
+    BankCardPaymentSystem,
+    BankCardTokenProvider,
+    PaymentFlow,
+    PaymentMethod,
+    PaymentStatus
+} from '../../../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-search-form',
@@ -19,11 +26,11 @@ export class SearchFormComponent implements OnInit {
     localeBaseDir = 'sections.operations.payments.filter';
     searchForm: FormGroup;
     expanded = false;
-    statuses: string[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
+    statuses: PaymentStatus.StatusEnum[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
     flows: string[] = ['instant', 'hold'];
     methods: string[] = ['bankCard', 'paymentTerminal'];
-    tokenProviders: string[] = ['applepay', 'googlepay', 'samsungpay'];
-    bankCardPaymentSystems: string[] = [
+    tokenProviders: BankCardTokenProvider[] = ['applepay', 'googlepay', 'samsungpay'];
+    bankCardPaymentSystems: BankCardPaymentSystem[] = [
         'visa',
         'mastercard',
         'visaelectron',
