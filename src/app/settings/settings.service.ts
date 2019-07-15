@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
-type SettingsStorageKeys = 'language' | 'theme';
-type SettingsStorageData = { [key in SettingsStorageKeys]: string };
+const settingsStorageKeys = ['language', 'theme'] as const;
 
-export enum SupportedLanguages {
-    ru = 'ru'
-}
-export const defaultLanguage = SupportedLanguages.ru;
+type SettingsStorageData = { [key in typeof settingsStorageKeys[number]]: string };
+
+export const supportedLanguages = ['ru'] as const;
+
+export const defaultLanguage = supportedLanguages[0];
 
 @Injectable()
 export class SettingsService implements SettingsStorageData {
@@ -15,6 +16,7 @@ export class SettingsService implements SettingsStorageData {
     }
     set language(language: string) {
         this.set({ language });
+        moment.locale(language);
     }
 
     get theme() {
@@ -24,31 +26,30 @@ export class SettingsService implements SettingsStorageData {
         this.set({ theme });
     }
 
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        if (!this.get('language')) {
+    async init() {
+        if (!this.language) {
             const language = navigator.language || (navigator as any).userLanguage;
-            this.language = Object.values(SupportedLanguages).includes(language) ? language : defaultLanguage;
+            this.language = supportedLanguages.includes(language) ? language : defaultLanguage;
+        }
+        for (const key of settingsStorageKeys) {
+            this[key] = this[key];
         }
     }
 
-    private set(keyOrKeyValue: SettingsStorageKeys | Partial<SettingsStorageData>, value?: string) {
+    private set(keyOrKeyValue: keyof SettingsStorageData | Partial<SettingsStorageData>, value?: string) {
         if (typeof keyOrKeyValue === 'string') {
             return localStorage.setItem(this.getKeyName(keyOrKeyValue), value);
         }
         for (const [k, v] of Object.entries(keyOrKeyValue)) {
-            this.set(k as SettingsStorageKeys, v);
+            this.set(k as keyof SettingsStorageData, v);
         }
     }
 
-    private get(key: SettingsStorageKeys) {
+    private get(key: keyof SettingsStorageData) {
         return localStorage.getItem(this.getKeyName(key));
     }
 
-    private getKeyName(name: SettingsStorageKeys) {
+    private getKeyName(name: keyof SettingsStorageData) {
         return `dsh-${name}`;
     }
 }

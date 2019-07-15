@@ -3,52 +3,13 @@
     <a>Обновить</a>
 </div>
 <dsh-timeline>
-    <dsh-timeline-item>
-        <dsh-timeline-item-title><b class="mat-body-2">hello world</b> title</dsh-timeline-item-title>
-        <dsh-timeline-item-badge><mat-icon>create</mat-icon></dsh-timeline-item-badge>
-        <div dsh-timeline-item-content fxLayout="column" fxLayoutGap="10px">
-            <dsh-expand-panel>
-                Анкета юридического лица
-                <dsh-expand-panel-content>
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                    добавили комментарий 1 час назад<br />
-                </dsh-expand-panel-content>
-            </dsh-expand-panel>
-            <dsh-expand-panel>Анкета юридического лица</dsh-expand-panel>
-            <dsh-expand-panel>Анкета юридического лица</dsh-expand-panel>
-        </div>
-    </dsh-timeline-item>
-    <dsh-timeline-item color="success">
-        <dsh-timeline-item-title><b class="mat-body-2">hello world</b> title</dsh-timeline-item-title>
-        <dsh-timeline-item-badge><mat-icon>create</mat-icon></dsh-timeline-item-badge>
-    </dsh-timeline-item>
-    <dsh-timeline-item color="pending">
+    <dsh-timeline-item *ngFor="let change of (claim$ | async)?.changeset" [color]="'pending'">
         <dsh-timeline-item-title>
-            <b class="mat-body-2">Менеджер</b> добавили комментарий 1 час назад
+            <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt }}
         </dsh-timeline-item-title>
         <dsh-timeline-item-badge><mat-icon>mode_comment</mat-icon></dsh-timeline-item-badge>
         <dsh-timeline-item-content>
-            <div>hello world</div>
-            <div>hello world</div>
-            <div>hello world</div>
-        </dsh-timeline-item-content>
-    </dsh-timeline-item>
-    <dsh-timeline-item color="warn">
-        <dsh-timeline-item-title>
-            <b class="mat-body-2">Менеджер</b> добавили комментарий 1 час назад
-        </dsh-timeline-item-title>
-        <dsh-timeline-item-badge><mat-icon>mode_comment</mat-icon></dsh-timeline-item-badge>
-        <dsh-timeline-item-content>
-            <div>hello world</div>
-            <div>hello world</div>
-            <div>hello world</div>
+            {{ change.modificationID }}
         </dsh-timeline-item-content>
     </dsh-timeline-item>
 </dsh-timeline>

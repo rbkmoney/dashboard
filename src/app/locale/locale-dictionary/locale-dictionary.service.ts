@@ -6,9 +6,9 @@ import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import get from 'lodash.get';
 
-import { SettingsService, SupportedLanguages } from '../../settings';
+import { SettingsService, supportedLanguages } from '../../settings';
 
-const angularLocaleData: { [locale in SupportedLanguages]: any } = {
+const angularLocaleData: { [locale in typeof supportedLanguages[number]]: any } = {
     ru: localeRu
 };
 

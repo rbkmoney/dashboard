@@ -1,10 +1,10 @@
-<h1 class="mat-headline">Детали заявки #{{ id }}</h1>
+<h1 class="mat-headline">Детали заявки #{{ (claim$ | async)?.id }}</h1>
 
 <dsh-card>
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
             <h2 class="mat-title">Заявка на подключение</h2>
-            <h2 class="mat-title">Одобрена</h2>
+            <h2 class="mat-title">{{ (claim$ | async)?.status }}</h2>
         </div>
         <nav dsh-tab-nav-bar>
             <a

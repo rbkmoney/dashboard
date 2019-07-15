@@ -44,7 +44,7 @@ import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleDictionaryService],
+            deps: [ConfigService, KeycloakService, LocaleDictionaryService, SettingsService],
             multi: true
         },
         {
