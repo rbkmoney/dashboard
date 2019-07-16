@@ -2,9 +2,19 @@ import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
 import { timer, Observable } from 'rxjs';
 import * as moment from 'moment';
+import get from 'lodash.get';
 
 import { genXRequestID } from '../api';
-import { Claim, ClaimsService as APIClaimsService, ModificationUnit } from '../api/claim-management';
+import {
+    Claim,
+    ClaimsService as APIClaimsService,
+    ModificationUnit,
+    Modification,
+    DocumentModification,
+    StatusModification,
+    FileModification,
+    CommentModification
+} from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
 import { LocaleDictionaryService } from '../locale';
 
@@ -54,7 +64,7 @@ export class ClaimsService {
         return {
             pending: StatusColor.pending,
             pendingAcceptance: StatusColor.pending,
-            review: StatusColor.pending,
+            review: StatusColor.neutral,
             revoked: StatusColor.warn,
             denied: StatusColor.warn,
             accepted: StatusColor.success
@@ -64,6 +74,67 @@ export class ClaimsService {
     getLocalizedClaimStatus(status: string): string {
         if (status) {
             return this.localeDictionaryService.mapDictionaryKey(`common.claim.status.${status}`);
+        }
+    }
+
+    getModificationIcon(unit: ModificationUnit) {
+        switch (unit.modification.modificationType) {
+            case Modification.ModificationTypeEnum.ClaimModification:
+                const modification = get(unit.modification, 'modification');
+                if (modification) {
+                    if (
+                        (modification as DocumentModification).documentModificationType ===
+                        DocumentModification.DocumentModificationTypeEnum.DocumentCreated
+                    )
+                        return 'attach_file';
+                    if (
+                        (modification as StatusModification).statusModificationType ===
+                        StatusModification.StatusModificationTypeEnum.StatusChanged
+                    )
+                        return 'insert_emoticon';
+                    if (
+                        (modification as FileModification).fileModificationType ===
+                        FileModification.FileModificationTypeEnum.FileCreated
+                    )
+                        return 'attach_file';
+                    if (
+                        (modification as CommentModification).commentModificationType ===
+                        CommentModification.CommentModificationTypeEnum.CommentCreated
+                    )
+                        return 'mode_comment';
+                }
+            case Modification.ModificationTypeEnum.PartyModification:
+        }
+        return 'create';
+    }
+
+    getModificationColor(unit: ModificationUnit): StatusColor {
+        switch (unit.modification.modificationType) {
+            case Modification.ModificationTypeEnum.ClaimModification:
+                const modification = get(unit.modification, 'modification');
+                if (modification) {
+                    if (
+                        (modification as DocumentModification).documentModificationType ===
+                        DocumentModification.DocumentModificationTypeEnum.DocumentCreated
+                    )
+                        return StatusColor.success;
+                    if (
+                        (modification as StatusModification).statusModificationType ===
+                        StatusModification.StatusModificationTypeEnum.StatusChanged
+                    )
+                        return StatusColor.success;
+                    if (
+                        (modification as FileModification).fileModificationType ===
+                        FileModification.FileModificationTypeEnum.FileCreated
+                    )
+                        return StatusColor.success;
+                    if (
+                        (modification as CommentModification).commentModificationType ===
+                        CommentModification.CommentModificationTypeEnum.CommentCreated
+                    )
+                        return StatusColor.success;
+                }
+            case Modification.ModificationTypeEnum.PartyModification:
         }
     }
 }
