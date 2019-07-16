@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ClaimService } from './claim.service';
-import { ViewClaim } from '../../../claims';
+import { ViewClaim, ClaimsService } from '../../../claims';
 
 @Component({
     selector: 'dsh-claim',
@@ -30,5 +30,5 @@ export class ClaimComponent {
         return this.claimService.claim$;
     }
 
-    constructor(private claimService: ClaimService) {}
+    constructor(private claimService: ClaimService, public claimsService: ClaimsService) {}
 }

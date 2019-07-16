@@ -4,7 +4,7 @@
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
             <h2 class="mat-title">Заявка на подключение</h2>
-            <h2 class="mat-title">{{ (claim$ | async)?.status }}</h2>
+            <h2 class="mat-title">{{ claimsService.getLocalizedClaimStatus((claim$ | async)?.status) }}</h2>
         </div>
         <nav dsh-tab-nav-bar>
             <a

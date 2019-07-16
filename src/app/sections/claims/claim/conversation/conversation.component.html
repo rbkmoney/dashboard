@@ -3,7 +3,7 @@
     <a>Обновить</a>
 </div>
 <dsh-timeline>
-    <dsh-timeline-item *ngFor="let change of (claim$ | async)?.changeset" [color]="'pending'">
+    <dsh-timeline-item *ngFor="let change of (claim$ | async)?.changeset" [color]="getChangeColor(change)">
         <dsh-timeline-item-title>
             <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt | humanizedDuration }} назад
         </dsh-timeline-item-title>
@@ -11,7 +11,7 @@
             ><mat-icon>{{ getChangeIcon(change) }}</mat-icon></dsh-timeline-item-badge
         >
         <dsh-timeline-item-content>
-            {{ change.modificationID }}
+            <!-- {{ change.modificationID }} -->
         </dsh-timeline-item-content>
     </dsh-timeline-item>
 </dsh-timeline>

@@ -13,6 +13,7 @@ import { ConversationComponent } from './claim';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { LocaleModule } from '../../locale';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { ClaimsModule as ClaimsManagerModule } from '../../claims';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ClaimsRoutingModule,
         LocaleModule,
         CommonModule,
-        HumanizeDurationModule
+        HumanizeDurationModule,
+        ClaimsManagerModule
     ],
     declarations: [ClaimComponent, ConversationComponent]
 })

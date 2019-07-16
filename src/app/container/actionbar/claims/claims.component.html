@@ -4,12 +4,12 @@
         <dsh-claims-list>
             <dsh-claims-list-item
                 *ngFor="let claim of claims$ | async; index as i"
-                [status]="claim.status"
-                [color]="claim.color"
+                [status]="claimsService.getLocalizedClaimStatus(claim.status)"
+                [color]="claimsService.getClaimStatusColor(claim.status)"
                 [id]="claim.id"
                 (action)="actionHandler($event)"
             >
-                {{ claim.title }}
+                {{ claimsService.getLocalizedClaimStatus(claim.status) }}
             </dsh-claims-list-item>
         </dsh-claims-list>
     </div>

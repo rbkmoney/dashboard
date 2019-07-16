@@ -13,7 +13,7 @@ export class ClaimsComponent {
 
     claims$ = this.claimsService.getClaims(5, 5000);
 
-    constructor(private claimsService: ClaimsService) {}
+    constructor(public claimsService: ClaimsService) {}
 
     actionHandler({ isMoving }) {
         if (isMoving) {

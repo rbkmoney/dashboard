@@ -4,46 +4,33 @@ import { timer, Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { genXRequestID } from '../api';
-import { Claim, ClaimsService as APIClaimsService } from '../api/claim-management';
+import { Claim, ClaimsService as APIClaimsService, ModificationUnit } from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
+import { LocaleDictionaryService } from '../locale';
 
-export interface ViewClaim extends Pick<Claim, Exclude<keyof Claim, 'createdAt' | 'updatedAt' | 'changeset'>> {
-    color: StatusColor;
-    title: string;
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+export interface ViewClaim extends Omit<Claim, 'createdAt' | 'updatedAt' | 'changeset'> {
     createdAt: moment.Moment;
     updatedAt: moment.Moment;
-    changeset: any;
+    changeset: (Omit<ModificationUnit, 'createdAt'> & { createdAt: moment.Moment })[];
 }
+
+const claimStatuses = ['pending', 'pendingAcceptance', 'review', 'revoked', 'denied', 'accepted'] as const;
 
 @Injectable()
 export class ClaimsService {
-    constructor(private claimsService: APIClaimsService) {}
+    constructor(private claimsService: APIClaimsService, private localeDictionaryService: LocaleDictionaryService) {}
 
     toViewClaim(claim: Claim): ViewClaim {
-        const colorMapping = {
-            pending: StatusColor.pending,
-            pendingAcceptance: StatusColor.pending,
-            review: StatusColor.pending,
-            revoked: StatusColor.warn,
-            denied: StatusColor.warn,
-            accepted: StatusColor.success
-        };
-        const statusMapping = {
-            pendingAcceptance: 'В ожидании принятия'
-        };
         return {
             ...claim,
-            status: statusMapping[claim.status] || claim.status,
-            color: colorMapping[claim.status],
-            title: claim.status,
             updatedAt: moment(claim.updatedAt),
             createdAt: moment(claim.createdAt),
-            changeset: claim.changeset.map(change => {
-                return {
-                    ...change,
-                    createdAt: moment(change.createdAt)
-                };
-            })
+            changeset: claim.changeset.map(unit => ({
+                ...unit,
+                createdAt: moment(unit.createdAt)
+            }))
         };
     }
 
@@ -61,5 +48,22 @@ export class ClaimsService {
             return timer(0, interval).pipe(switchMap(() => this.getClaim(claimID)));
         }
         return this.claimsService.getClaimByID(genXRequestID(), claimID).pipe(map(claim => this.toViewClaim(claim)));
+    }
+
+    getClaimStatusColor(status: string): StatusColor {
+        return {
+            pending: StatusColor.pending,
+            pendingAcceptance: StatusColor.pending,
+            review: StatusColor.pending,
+            revoked: StatusColor.warn,
+            denied: StatusColor.warn,
+            accepted: StatusColor.success
+        }[status];
+    }
+
+    getLocalizedClaimStatus(status: string): string {
+        if (status) {
+            return this.localeDictionaryService.mapDictionaryKey(`common.claim.status.${status}`);
+        }
     }
 }
