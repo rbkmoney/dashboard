@@ -7,12 +7,12 @@ import { genXRequestID } from '../api';
 import { Claim, ClaimsService as APIClaimsService } from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
 
-//extends Omit<Claim, 'createdAt' | 'updatedAt'>
-export interface ViewClaim extends Claim {
+export interface ViewClaim extends Pick<Claim, Exclude<keyof Claim, 'createdAt' | 'updatedAt' | 'changeset'>> {
     color: StatusColor;
     title: string;
-    // createdAt: moment.Moment;
-    // updatedAt: moment.Moment;
+    createdAt: moment.Moment;
+    updatedAt: moment.Moment;
+    changeset: any;
 }
 
 @Injectable()
@@ -36,10 +36,14 @@ export class ClaimsService {
             status: statusMapping[claim.status] || claim.status,
             color: colorMapping[claim.status],
             title: claim.status,
-            // @ts-ignore
             updatedAt: moment(claim.updatedAt),
-            // @ts-ignore
-            createdAt: moment(claim.createdAt)
+            createdAt: moment(claim.createdAt),
+            changeset: claim.changeset.map(change => {
+                return {
+                    ...change,
+                    createdAt: moment(change.createdAt)
+                };
+            })
         };
     }
 

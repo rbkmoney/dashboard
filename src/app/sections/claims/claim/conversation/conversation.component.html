@@ -5,7 +5,7 @@
 <dsh-timeline>
     <dsh-timeline-item *ngFor="let change of (claim$ | async)?.changeset" [color]="'pending'">
         <dsh-timeline-item-title>
-            <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt }}
+            <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt | humanizedDuration }} назад
         </dsh-timeline-item-title>
         <dsh-timeline-item-badge><mat-icon>mode_comment</mat-icon></dsh-timeline-item-badge>
         <dsh-timeline-item-content>
