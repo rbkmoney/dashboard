@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
 import { timer, Observable } from 'rxjs';
+import * as moment from 'moment';
 
 import { genXRequestID } from '../api';
 import { Claim, ClaimsService as APIClaimsService } from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
 
+//extends Omit<Claim, 'createdAt' | 'updatedAt'>
 export interface ViewClaim extends Claim {
     color: StatusColor;
     title: string;
+    // createdAt: moment.Moment;
+    // updatedAt: moment.Moment;
 }
 
 @Injectable()
@@ -31,7 +35,11 @@ export class ClaimsService {
             ...claim,
             status: statusMapping[claim.status] || claim.status,
             color: colorMapping[claim.status],
-            title: claim.status
+            title: claim.status,
+            // @ts-ignore
+            updatedAt: moment(claim.updatedAt),
+            // @ts-ignore
+            createdAt: moment(claim.createdAt)
         };
     }
 

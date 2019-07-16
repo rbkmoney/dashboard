@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px 0">
-    Последние изменения 10 минут назад
+    Последние изменения {{ (claim$ | async)?.updatedAt | humanizedDuration }} назад
     <a>Обновить</a>
 </div>
 <dsh-timeline>

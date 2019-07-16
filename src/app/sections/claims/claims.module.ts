@@ -12,6 +12,7 @@ import { ExpandPanelModule } from '../../expand-panel';
 import { ConversationComponent } from './claim';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { LocaleModule } from '../../locale';
+import { HumanizeDurationModule } from '../../humanize-duration';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { LocaleModule } from '../../locale';
         ExpandPanelModule,
         ClaimsRoutingModule,
         LocaleModule,
-        CommonModule
+        CommonModule,
+        HumanizeDurationModule
     ],
     declarations: [ClaimComponent, ConversationComponent]
 })
