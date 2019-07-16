@@ -6,7 +6,6 @@ import { AnalyticsModule } from './analytics';
 import { PageNotFoundModule } from './page-not-found';
 import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
-import { OperationsModule } from './payment-section/operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
 import { ClaimsModule } from './claims';
 import { SectionsComponent } from './sections.component';
@@ -19,7 +18,6 @@ import { PaymentSectionModule } from './payment-section';
         AnalyticsModule,
         PageNotFoundModule,
         ButtonsModule,
-        OperationsModule,
         InputsModule,
         // modules with routing module depends on order (TODO: maybe there is an error / problem)
         PaymentSectionModule,
