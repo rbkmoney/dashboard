@@ -7,7 +7,7 @@
         <dsh-detail-status-item [info]="getStatusViewInfo()"></dsh-detail-status-item>
         <dsh-detail-item [title]="localePath + '.titles.amount' | lc">
             <div class="mat-body-1">
-                {{ refund.amount / 100 | formatAmount }} {{ toCurrencySymbol(refund.currency) }}
+                {{ refund.amount / 100 | formatAmount }} {{ refund.currency | currencySymbol }}
             </div>
         </dsh-detail-item>
         <dsh-detail-item [title]="localePath + '.titles.createdAt' | lc">

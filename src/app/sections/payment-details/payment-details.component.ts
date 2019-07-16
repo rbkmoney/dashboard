@@ -26,7 +26,7 @@ export class PaymentDetailsComponent implements OnInit {
             id: 'H3dg32Hd2',
             invoiceID: 'J3hd76G63bd2G',
             shopID: 'h83hd3s63b23f',
-            createdAt: '2019-07-12T14:46:15Z' as any,
+            createdAt: '2019-08-03T14:46:15Z' as any,
             amount: 1500000,
             currency: 'RUB',
             fee: 16500,

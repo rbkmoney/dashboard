@@ -5,7 +5,7 @@ import { PaymentDetailsComponent } from './payment-details.component';
 
 const paymentDetailsRoutes: Routes = [
     {
-        path: 'payment/:paymentID',
+        path: 'invoice/:invoiceID/payment/:paymentID',
         component: PaymentDetailsComponent
     }
 ];

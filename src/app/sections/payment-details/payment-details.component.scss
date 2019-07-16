@@ -1,9 +1,11 @@
 $dsh-payment-details-max-width: 660px;
+$dsh-payment-details-top-padding: 20px;
 
 .dsh {
     &-payment-details {
         margin: 0 auto;
         max-width: $dsh-payment-details-max-width;
+        padding-top: $dsh-payment-details-top-padding;
     }
 
     &-back-icon:hover {

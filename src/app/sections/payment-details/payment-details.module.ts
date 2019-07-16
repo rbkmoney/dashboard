@@ -25,7 +25,9 @@ import { FormatPercentPipe } from './format-percent.pipe';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailItemComponent } from './status-detail-item/status-detail-item.component';
 import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
-import { HoldDetailsService } from './hold-details/hold-details.service';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { FormatBankCardPipe } from './format-bank-card.pipe';
+import { HoldTimePipe } from './hold-time.pipe';
 
 @NgModule({
     imports: [
@@ -55,9 +57,11 @@ import { HoldDetailsService } from './hold-details/hold-details.service';
         ShopDetailsComponent,
         RefundsComponent,
         RefundItemComponent,
-        SecondaryTitleDirective
+        SecondaryTitleDirective,
+        HoldTimePipe,
+        CurrencySymbolPipe,
+        FormatBankCardPipe
     ],
-    exports: [PaymentDetailsComponent],
-    providers: [HoldDetailsService]
+    exports: [PaymentDetailsComponent]
 })
 export class PaymentDetailsModule {}

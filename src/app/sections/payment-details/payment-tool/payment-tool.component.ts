@@ -35,6 +35,4 @@ export class PaymentToolComponent implements OnInit {
                 break;
         }
     }
-
-    getFormattedBankCard = (): string => this.bankCard.cardNumberMask.replace(/(.{4})/g, '$& ');
 }

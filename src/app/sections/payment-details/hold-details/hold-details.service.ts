@@ -9,7 +9,7 @@ import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 export class HoldDetailsService {
     localePath = 'sections.paymentDetails.holdDetails';
 
-    private timeUpdateInterval = 60 * 1000;
+    private timeUpdateInterval = 1000;
 
     constructor(private localeDictionaryService: LocaleDictionaryService) {}
 
@@ -21,55 +21,21 @@ export class HoldDetailsService {
         const d = moment(holdDate).diff(moment(), 'days');
         const h = moment(holdDate).diff(moment(), 'hours') % 24;
         const m = (moment(holdDate).diff(moment(), 'minutes') - d * 24 * 60) % 60;
+        const s = (moment(holdDate).diff(moment(), 'seconds') - d * 24 * 60 * 60) % 60;
 
-        return `${this.getDaysUntilHoldTime(d)} ${this.getHoursUntilHoldTime(h)} ${this.getMinutesUntilHoldTime(m)}`;
+        return `${this.getDaysUntilHoldTime(d)} ${this.getHoursUntilHoldTime(h)} ${this.getMinutesUntilHoldTime(m)} ${this.getSecondsUntilHoldTime(s)}`;
     }
 
-    private getDaysUntilHoldTime(time: number): string {
-        const times = this.localePath + '.times';
-        const days = time.toString();
-        const lastSymbol = days.toString().charAt(days.length - 1);
-        switch (lastSymbol) {
-            case '1':
-                return `${days} ${this.localeDictionaryService.mapDictionaryKey(times + '.oneDay')}`;
-            case '2':
-            case '3':
-            case '4':
-                return `${days} ${this.localeDictionaryService.mapDictionaryKey(times + '.fewDays')}`;
-            default:
-                return `${days} ${this.localeDictionaryService.mapDictionaryKey(times + '.manyDays')}`;
-        }
-    }
+    private getDaysUntilHoldTime = (minutes: number) =>
+        `${minutes} ${this.localeDictionaryService.mapDictionaryKey(this.localePath + '.times.days')}`;
 
-    private getHoursUntilHoldTime(time: number) {
-        const times = this.localePath + '.times';
-        const hours = time.toString();
-        const lastSymbol = hours.toString().charAt(hours.length - 1);
-        switch (lastSymbol) {
-            case '1':
-                return `${hours} ${this.localeDictionaryService.mapDictionaryKey(times + '.oneHour')}`;
-            case '2':
-            case '3':
-            case '4':
-                return `${hours} ${this.localeDictionaryService.mapDictionaryKey(times + '.fewHours')}`;
-            default:
-                return `${hours} ${this.localeDictionaryService.mapDictionaryKey(times + '.manyHours')}`;
-        }
-    }
+    private getHoursUntilHoldTime = (minutes: number) =>
+        `${minutes} ${this.localeDictionaryService.mapDictionaryKey(this.localePath + '.times.hours')}`;
 
-    private getMinutesUntilHoldTime(time: number) {
-        const times = this.localePath + '.times';
-        const minutes = time.toString();
-        const lastSymbol = minutes.toString().charAt(minutes.length - 1);
-        switch (lastSymbol) {
-            case '1':
-                return `${minutes} ${this.localeDictionaryService.mapDictionaryKey(times + '.oneMinute')}`;
-            case '2':
-            case '3':
-            case '4':
-                return `${minutes} ${this.localeDictionaryService.mapDictionaryKey(times + '.fewMinutes')}`;
-            default:
-                return `${minutes} ${this.localeDictionaryService.mapDictionaryKey(times + '.manyMinutes')}`;
-        }
-    }
+    private getMinutesUntilHoldTime = (minutes: number) =>
+        `${minutes} ${this.localeDictionaryService.mapDictionaryKey(this.localePath + '.times.minutes')}`;
+
+    private getSecondsUntilHoldTime = (minutes: number) =>
+        `${minutes} ${this.localeDictionaryService.mapDictionaryKey(this.localePath + '.times.seconds')}`;
+
 }

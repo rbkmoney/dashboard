@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
 import { Color } from '../../../../status';
 import { StatusViewInfo } from '../../status-detail-item/status-detail-item.component';
-import { toCurrencySymbol } from '../../currency-utils';
 
 @Component({
     selector: 'dsh-refund-item',
@@ -15,8 +14,6 @@ export class RefundItemComponent {
     statuses = RefundStatus.StatusEnum;
 
     localePath = 'sections.paymentDetails.refunds.refundItem';
-
-    toCurrencySymbol = toCurrencySymbol;
 
     getStatusViewInfo(): StatusViewInfo {
         const statuses = this.localePath + '.statuses';

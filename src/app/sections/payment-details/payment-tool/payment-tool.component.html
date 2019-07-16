@@ -8,7 +8,7 @@
         <dsh-detail-item [title]="localePath + '.titles.card' | lc">
             <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
                 <div class="dsh-bank-card-number">
-                    {{ getFormattedBankCard() }}
+                    {{ bankCard.cardNumberMask | formatBankCard }}
                 </div>
                 <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Visa" svgIcon="visa"></mat-icon>
                 <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Mastercard" svgIcon="mastercard"></mat-icon>

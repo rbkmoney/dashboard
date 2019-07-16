@@ -5,27 +5,21 @@
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <div fxLayout="column">
+        <div fxLayout="column" fxLayoutGap="20px">
             <div class="mat-body-1">
-                {{
-                    template(localePath + '.message' | lc)({
-                        holdUntil: holdDate | date: 'dd MMMM yyyy, HH:mm',
-                        timeUntilHold: timeUntilHold$ | async
-                    })
-                }}
+                {{ holdDate | holdTimePipe | async }} {{ localePath + '.message' | lc }}
             </div>
             <div
-                class="dsh-button-container"
                 fxLayout
                 fxLayout.xs="column"
                 fxLayoutAlign="space-between stretch"
                 fxLayoutGap="0"
                 fxLayoutGap.xs="10px"
             >
-                <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="warn">
+                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
                     {{ localePath + '.actions.deny' | lc }}
                 </button>
-                <button fxFlex.xs fxFlex="none" class="dsh-hold-button" dsh-stroked-button color="accent">
+                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
                     {{ localePath + '.actions.accept' | lc }}
                 </button>
             </div>

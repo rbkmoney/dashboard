@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
 import { StatusViewInfo } from '../status-detail-item/status-detail-item.component';
-import { toCurrencySymbol } from '../currency-utils';
 
 @Component({
     selector: 'dsh-invoice-details',
@@ -16,8 +15,6 @@ export class InvoiceDetailsComponent implements OnInit {
     statuses = InvoiceStatus.StatusEnum;
 
     localePath = 'sections.paymentDetails.invoiceDetails';
-
-    toCurrencySymbol = toCurrencySymbol;
 
     ngOnInit() {
         this.invoice = {
