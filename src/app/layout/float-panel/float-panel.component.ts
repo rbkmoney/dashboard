@@ -25,6 +25,8 @@ export class FloatPanelComponent {
     @coerce(v => coerceBooleanProperty(v), (v, self) => self.pinnedChange.emit(v))
     pinned = false;
 
+    @Input() layoutGap = '20px';
+
     @ContentChild(FloatPanelMoreTemplateComponent, { static: false }) floatPanelMore: FloatPanelMoreTemplateComponent;
 
     @ContentChild(FloatPanelActionsTemplateComponent, { static: false })

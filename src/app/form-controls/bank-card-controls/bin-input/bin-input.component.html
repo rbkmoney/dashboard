@@ -1,0 +1,9 @@
+<input
+    class="dsh-card-input-element"
+    size="9"
+    [formControl]="formControl"
+    (change)="writeValue($event.target.value)"
+    placeholder="0000&nbsp;00"
+    [textMask]="mask"
+/>
+<span class="dsh-card-input-spacer">**&nbsp;****&nbsp;****</span>
