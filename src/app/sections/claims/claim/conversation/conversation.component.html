@@ -7,7 +7,9 @@
         <dsh-timeline-item-title>
             <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt | humanizedDuration }} назад
         </dsh-timeline-item-title>
-        <dsh-timeline-item-badge><mat-icon>mode_comment</mat-icon></dsh-timeline-item-badge>
+        <dsh-timeline-item-badge
+            ><mat-icon>{{ getChangeIcon(change) }}</mat-icon></dsh-timeline-item-badge
+        >
         <dsh-timeline-item-content>
             {{ change.modificationID }}
         </dsh-timeline-item-content>
