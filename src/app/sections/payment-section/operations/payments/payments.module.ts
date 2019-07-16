@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatSelectModule
+} from '@angular/material';
 
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
-import { ButtonToggleModule } from '../../../../button-toggle';
-import { LocaleModule } from '../../../../locale/locale.module';
+import { LocaleModule } from '../../../../locale';
+import { SearchFormComponent } from './search-form/search-form.component';
+import { FormControlsModule } from '../../../../form-controls';
+import { DaterangeSelectorModule } from '../daterange-selector';
 
 @NgModule({
     imports: [
@@ -21,10 +30,14 @@ import { LocaleModule } from '../../../../locale/locale.module';
         MatFormFieldModule,
         MatInputModule,
         TableModule,
-        ButtonToggleModule,
         MatIconModule,
-        LocaleModule
+        LocaleModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        FormControlsModule,
+        DaterangeSelectorModule
     ],
-    declarations: [PaymentsComponent]
+    declarations: [PaymentsComponent, SearchFormComponent]
 })
 export class PaymentsModule {}

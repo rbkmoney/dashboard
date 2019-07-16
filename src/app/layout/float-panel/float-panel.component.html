@@ -7,26 +7,28 @@
         (dshResized)="cardHeight = $event.height"
     >
         <div (dshResized)="baseContentHeight = $event.height">
-            <div class="dsh-float-panel-base" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign=" center">
-                <div fxFlex><ng-content></ng-content></div>
-                <button
-                    dsh-icon-button
-                    (click)="expandToggle()"
-                    @hide
-                    *ngIf="!expanded"
-                    class="dsh-float-panel-base-action"
-                >
-                    <mat-icon>expand_more</mat-icon>
-                </button>
+            <div fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
+                <!--need this additional div because invisible resize-sensor affects render-->
+                <div fxFlex>
+                    <ng-content></ng-content>
+                </div>
+                <div *ngIf="!expanded" fxLayout class="dsh-float-panel-actions" fxLayoutAlign="center center">
+                    <button dsh-icon-button (click)="expandToggle()" @hide fxHide.sm fxHide.xs>
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <button dsh-button (click)="expandToggle()" fxFlex fxHide fxShow.sm fxShow.xs>
+                        {{ 'common.showMore' | lc }}
+                    </button>
+                </div>
             </div>
         </div>
         <div class="dsh-float-panel-more" [@expand]="expandTrigger" *ngIf="expanded">
             <div (dshResized)="setMoreContentHeight($event.height)">
-                <div fxLayout="column" fxLayoutGap="20px">
+                <div fxLayout="column" [fxLayoutGap]="layoutGap">
                     <div class="dsh-float-panel-more-content">
                         <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                     </div>
-                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
+                    <div fxLayout [fxLayoutGap]="layoutGap" fxLayoutAlign="space-between">
                         <button dsh-icon-button (click)="pinToggle()">
                             <mat-icon svgIcon="place_outline"></mat-icon>
                         </button>
