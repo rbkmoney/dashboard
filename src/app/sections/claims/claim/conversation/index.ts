@@ -1,2 +1,1 @@
-
-export * from './conversation.component'
+export * from './conversation.component';

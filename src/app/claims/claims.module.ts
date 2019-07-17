@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 
+import { ClaimsService } from './claims.service';
+
 @NgModule({
-    imports: [],
-    declarations: [],
-    entryComponents: [],
-    providers: []
+    providers: [ClaimsService]
 })
 export class ClaimsModule {}

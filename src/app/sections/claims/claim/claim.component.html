@@ -10,7 +10,7 @@
             <a
                 dsh-tab-link
                 *ngFor="let link of links"
-                [routerLink]="link.path"
+                [routerLink]="'/claim/' + (claim$ | async)?.id + '/' + link.path"
                 routerLinkActive
                 #rla="routerLinkActive"
                 [active]="rla.isActive"

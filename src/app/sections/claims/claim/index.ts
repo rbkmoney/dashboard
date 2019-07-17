@@ -1,2 +1,1 @@
-export * from './claim.component';
-export * from './conversation';
+export * from './claim.module';

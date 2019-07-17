@@ -6,7 +6,6 @@ import { ViewClaim, ClaimsService } from '../../../claims';
 
 @Component({
     selector: 'dsh-claim',
-    providers: [ClaimService],
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss']
 })

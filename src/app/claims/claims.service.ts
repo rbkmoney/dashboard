@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, share } from 'rxjs/operators';
 import { timer, Observable } from 'rxjs';
 import * as moment from 'moment';
 import get from 'lodash.get';
@@ -46,11 +46,15 @@ export class ClaimsService {
 
     getClaims(count: number = 5, interval?: number): Observable<ViewClaim[]> {
         if (interval) {
-            return timer(0, interval).pipe(switchMap(() => this.getClaims(count)));
+            return timer(0, interval).pipe(
+                switchMap(() => this.getClaims(count)),
+                share()
+            );
         }
-        return this.claimsService
-            .searchClaims(genXRequestID(), count)
-            .pipe(map(({ result }) => result.map(claim => this.toViewClaim(claim))));
+        return this.claimsService.searchClaims(genXRequestID(), count).pipe(
+            map(({ result }) => result.map(claim => this.toViewClaim(claim))),
+            share()
+        );
     }
 
     getClaim(claimID: number, interval?: number): Observable<ViewClaim> {

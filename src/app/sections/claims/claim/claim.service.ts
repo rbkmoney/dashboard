@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap, filter, tap } from 'rxjs/operators';
-import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { switchMap, filter, map, distinctUntilChanged, share } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../claims';
 
 @Injectable()
 export class ClaimService {
-    claim$ = this.route.paramMap.pipe(
-        filter(params => !!params.get('id')),
-        switchMap(params => this.claimsService.getClaim(Number(params.get('id'))))
+    claim$ = this.router.routerState.root.firstChild.params.pipe(
+        filter(({ id }) => !!id),
+        map(({ id }) => Number(id)),
+        distinctUntilChanged(),
+        switchMap(id => this.claimsService.getClaim(id)),
+        share()
     );
 
-    constructor(private route: ActivatedRoute, private claimsService: ClaimsService) {}
+    constructor(private router: Router, private claimsService: ClaimsService) {}
 }
