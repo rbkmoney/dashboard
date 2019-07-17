@@ -1,12 +1,49 @@
 {
     "common": {
         "showMore": "Показать еще",
+        "collapse": "Свернуть",
         "resetSearchParams": "Сбросить параметры поиска",
         "back": "Назад",
         "next": "Далее",
         "today": "Сегодня",
         "week": "Неделя",
-        "month": "Месяц"
+        "month": "Месяц",
+        "any": "Любой",
+        "paymentStatus": {
+            "pending": "Запущен",
+            "processed": "Обработан",
+            "captured": "Подтвержден",
+            "cancelled": "Отменен",
+            "refunded": "Возвращен",
+            "failed": "Неуспешен"
+        },
+        "paymentFlow": {
+            "instant": "Мгновенный",
+            "hold": "С удержанием"
+        },
+        "bankCardTokenProvider": {
+            "applepay": "Apple Pay",
+            "googlepay": "Google Pay",
+            "samsungpay": "Samsung Pay"
+        },
+        "bankCardPaymentSystem": {
+            "visa": "Visa",
+            "mastercard": "Mastercard",
+            "visaelectron": "Visa Electron",
+            "maestro": "Maestro",
+            "forbrugsforeningen": "Forbrugsforeningen",
+            "dankort": "Dankort",
+            "amex": "American Express",
+            "dinersclub": "Diners Club International",
+            "discover": "Discover Card",
+            "unionpay": "UnionPay",
+            "jcb": "JCB",
+            "nspkmir": "MIR"
+        },
+        "paymentMethod": {
+            "bankCard": "Банковская карта",
+            "paymentTerminal": "Терминал"
+        }
     },
     "sections": {
         "main": {
@@ -77,7 +114,23 @@
             "payments": {
                 "title": "Платежи",
                 "filter": {
-                    "status": "Статус платежа"
+                    "shopID": "Магазин",
+                    "fromTime": "Начало периода",
+                    "toTime": "Конец периода",
+                    "payerEmail": "Email плательщика",
+                    "paymentID": "Идентификатор платежа",
+                    "invoiceID": "Идентификатор инвойса",
+                    "paymentAmount": "Сумма платежа",
+                    "first6": "BIN банка-эмитента карты",
+                    "last4": "Последние цифры номера карты",
+                    "payerFingerprint": "Fingerprint плательщика",
+                    "payerIP": "IP-адрес плательщика",
+                    "paymentStatus": "Статус платежа",
+                    "paymentFlow": "Тип проведения платежа",
+                    "bankCardTokenProvider": "Провайдер платежных токенов",
+                    "bankCardPaymentSystem": "Платежаня система",
+                    "paymentMethod": "Метод оплаты",
+                    "rnn": "RNN платежа"
                 },
                 "refresh": "Обновить",
                 "lastUpdate": "Последнее обновление",

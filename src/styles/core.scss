@@ -21,6 +21,7 @@
 @import './overrides/mat-dialog';
 @import './overrides/mat-snack-bar';
 @import './overrides/mat-radio-button';
+@import './overrides/mat-form-field';
 @import '../app/timeline/timeline-theme';
 @import '../app/expand-panel/expand-panel-theme';
 @import '../app/dadata/dadata-theme';
@@ -32,6 +33,7 @@
     @include mat-theme-loaded-marker-override();
     @include mat-dialog-override();
     @include mat-snack-bar-override();
+    @include mat-form-field-infix-override();
 }
 
 @mixin dsh-typography($config) {

@@ -15,15 +15,12 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         }
     }
 
-    &-base {
-        width: 100%;
-
-        &-action {
-            margin-right: -$card-without-actions-padding;
-        }
+    &-actions {
+        margin-right: -$card-without-actions-padding;
     }
 
     &-more {
+        margin-top: $card-padding;
         height: 0;
         overflow: hidden;
         margin-left: -$card-without-actions-padding;
@@ -31,7 +28,7 @@ $card-without-actions-padding: $card-padding - $actions-padding;
 
         &-content {
             padding-left: $actions-padding;
-            padding-right: $actions-padding;
+            padding-right: $actions-padding; // actions padding + head button width + margin compensation
         }
     }
 }

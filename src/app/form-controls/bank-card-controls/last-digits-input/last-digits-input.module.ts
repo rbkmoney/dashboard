@@ -3,12 +3,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { A11yModule } from '@angular/cdk/a11y';
 import { TextMaskModule } from 'angular2-text-mask';
 
-import { CardInputComponent } from './card-input.component';
+import { LastDigitsInputComponent } from './last-digits-input.component';
 
 @NgModule({
     imports: [FormsModule, ReactiveFormsModule, A11yModule, TextMaskModule],
-    entryComponents: [CardInputComponent],
-    declarations: [CardInputComponent],
-    exports: [CardInputComponent]
+    entryComponents: [LastDigitsInputComponent],
+    declarations: [LastDigitsInputComponent],
+    exports: [LastDigitsInputComponent]
 })
-export class CardInputModule {}
+export class LastDigitsInputModule {}
