@@ -3,15 +3,9 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '../../config/config.service';
 import { Configuration } from './swagger-codegen';
 
-// keycloak-angular will automatically set up before requesting
-const STUB_AUTHORIZATION = 'Bearer STUB';
-
 @Injectable()
 export class CAPIConfigService extends Configuration {
-    constructor(config: ConfigService) {
-        super({
-            apiKeys: { Authorization: STUB_AUTHORIZATION },
-            basePath: config.api.capiEndpoint
-        });
+    constructor({ api }: ConfigService) {
+        super({ apiKeys: {}, basePath: api.capiEndpoint });
     }
 }
