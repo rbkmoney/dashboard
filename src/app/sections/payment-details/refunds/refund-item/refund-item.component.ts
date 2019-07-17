@@ -1,38 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
 import { Color } from '../../../../status';
-import { StatusViewInfo } from '../../status-detail-item/status-detail-item.component';
+import { StatusViewInfo } from '../../status-details-item/status-details-item.component';
 
 @Component({
     selector: 'dsh-refund-item',
     templateUrl: './refund-item.component.html'
 })
-export class RefundItemComponent {
+export class RefundItemComponent implements OnInit {
     @Input() refund: Refund;
 
-    statuses = RefundStatus.StatusEnum;
+    @Input() layoutGap = '20px';
 
     localePath = 'sections.paymentDetails.refunds.refundItem';
 
-    getStatusViewInfo(): StatusViewInfo {
-        const statuses = this.localePath + '.statuses';
-        let color: Color;
-        let text: string;
-        switch (this.refund.status) {
-            case this.statuses.Succeeded:
-                color = Color.success;
-                text = statuses + '.succeeded';
-                break;
-            case this.statuses.Failed:
-                color = Color.warn;
-                text = statuses + '.failed';
-                break;
-            case this.statuses.Pending:
-                color = Color.pending;
-                text = statuses + '.pending';
-                break;
+    statusViewInfo: StatusViewInfo;
+
+    ngOnInit() {
+        this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `${this.localePath}.statuses`);
+    }
+
+    getStatusViewInfo(status: RefundStatus.StatusEnum, localePath: string): StatusViewInfo {
+        const statusEnum = RefundStatus.StatusEnum;
+        switch (status) {
+            case statusEnum.Succeeded:
+                return { color: Color.success, text: `${localePath}.succeeded` };
+            case statusEnum.Failed:
+                return { color: Color.warn, text: `${localePath}.failed` };
+            case statusEnum.Pending:
+                return { color: Color.pending, text: `${localePath}.pending` };
         }
-        return { color, text };
     }
 }

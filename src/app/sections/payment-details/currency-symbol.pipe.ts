@@ -5,7 +5,7 @@ import { getCurrencySymbol } from '@angular/common';
     name: 'currencySymbol'
 })
 export class CurrencySymbolPipe implements PipeTransform {
-    transform (code: string): string {
+    transform(code: string): string {
         return getCurrencySymbol(code, 'narrow');
     }
 }

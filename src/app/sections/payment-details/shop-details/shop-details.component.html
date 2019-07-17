@@ -3,13 +3,13 @@
         <div class="mat-h2">{{ localePath + '.title' | lc }}</div>
     </dsh-card-title>
     <dsh-card-content>
-        <div fxLayout="column" fxLayoutGap="10px">
-            <dsh-detail-item [title]="localePath + '.titles.name' | lc">
+        <div fxLayout="column" [fxLayoutGap]="layoutGap">
+            <dsh-details-item [title]="localePath + '.titles.name' | lc">
                 Я в своем познании настолько преисполнился, что я как будто бы уже сто триллионов.
-            </dsh-detail-item>
-            <dsh-detail-item [title]="localePath + '.titles.url' | lc">
+            </dsh-details-item>
+            <dsh-details-item [title]="localePath + '.titles.url' | lc">
                 https://kektus-shmektus.com
-            </dsh-detail-item>
+            </dsh-details-item>
         </div>
     </dsh-card-content>
 </dsh-card>

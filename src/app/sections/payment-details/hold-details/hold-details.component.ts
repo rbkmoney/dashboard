@@ -1,23 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { HoldDetailsService } from './hold-details.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'dsh-hold-details',
-    templateUrl: './hold-details.component.html',
-    providers: [HoldDetailsService]
+    templateUrl: './hold-details.component.html'
 })
-export class HoldDetailsComponent implements OnInit {
+export class HoldDetailsComponent {
     @Input() holdDate: string;
 
+    @Input() layoutGap = '20px';
+
     localePath = 'sections.paymentDetails.holdDetails';
-
-    timeUntilHold$: Observable<string>;
-
-    constructor(private holdDetailsService: HoldDetailsService) {}
-
-    ngOnInit() {
-        this.timeUntilHold$ = this.holdDetailsService.getHoldTimer(this.holdDate);
-    }
 }

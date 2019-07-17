@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
-import { StatusViewInfo } from '../status-detail-item/status-detail-item.component';
+import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 
 @Component({
     selector: 'dsh-invoice-details',
@@ -12,43 +12,36 @@ import { StatusViewInfo } from '../status-detail-item/status-detail-item.compone
 export class InvoiceDetailsComponent implements OnInit {
     @Input() invoice: Invoice;
 
-    statuses = InvoiceStatus.StatusEnum;
+    @Input() layoutGap = '20px';
 
     localePath = 'sections.paymentDetails.invoiceDetails';
 
+    statusViewInfo: StatusViewInfo;
+
     ngOnInit() {
         this.invoice = {
-            status: this.statuses.Paid,
+            status: InvoiceStatus.StatusEnum.Paid,
             reason: 'Хочу вернуть деньги',
             id: 'hsDw31Yeo7d',
             amount: 12300,
             product: 'Полный кектус, покупай скорее',
             currency: 'RUB'
         } as Invoice;
+
+        this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `${this.localePath}.statuses`);
     }
 
-    getStatusViewInfo(): StatusViewInfo {
-        const statuses = this.localePath + '.statuses';
-        let color: Color;
-        let text: string;
-        switch (this.invoice.status) {
-            case this.statuses.Paid:
-                color = Color.success;
-                text = statuses + '.paid';
-                break;
-            case this.statuses.Fulfilled:
-                color = Color.success;
-                text = statuses + '.fulfilled';
-                break;
-            case this.statuses.Cancelled:
-                color = Color.warn;
-                text = statuses + '.cancelled';
-                break;
-            case this.statuses.Unpaid:
-                color = Color.pending;
-                text = statuses + '.unpaid';
-                break;
+    getStatusViewInfo(status: InvoiceStatus.StatusEnum, localePath: string): StatusViewInfo {
+        const statusEnum = InvoiceStatus.StatusEnum;
+        switch (status) {
+            case statusEnum.Paid:
+                return { color: Color.success, text: `${localePath}.paid` };
+            case statusEnum.Fulfilled:
+                return { color: Color.success, text: `${localePath}.fulfilled` };
+            case statusEnum.Cancelled:
+                return { color: Color.warn, text: `${localePath}.cancelled` };
+            case statusEnum.Unpaid:
+                return { color: Color.pending, text: `${localePath}.unpaid` };
         }
-        return { color, text };
     }
 }

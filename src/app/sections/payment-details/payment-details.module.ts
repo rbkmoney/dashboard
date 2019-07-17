@@ -10,9 +10,9 @@ import { StatusModule } from '../../status';
 import { LocaleModule } from '../../locale';
 import { DetailsComponent } from './details/details.component';
 import { CardModule } from '../../layout/card';
-import { DetailItemComponent } from './detail-item/detail-item.component';
+import { DetailsItemComponent } from './details-item/details-item.component';
 import { PaymentToolComponent } from './payment-tool/payment-tool.component';
-import { FormatAmountPipe } from './format-amount.pipe';
+import { AmountPipe } from './amount.pipe';
 import { PayerDetailsComponent } from './payer-details/payer-details.component';
 import { HoldDetailsComponent } from './hold-details/hold-details.component';
 import { ButtonModule } from '../../button';
@@ -21,12 +21,11 @@ import { InvoiceDetailsComponent } from './invoice-details/invoice-details.compo
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
-import { FormatPercentPipe } from './format-percent.pipe';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
-import { StatusDetailItemComponent } from './status-detail-item/status-detail-item.component';
+import { StatusDetailsItemComponent } from './status-details-item/status-details-item.component';
 import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
-import { FormatBankCardPipe } from './format-bank-card.pipe';
+import { BankCardPipe } from './bank-card.pipe';
 import { HoldTimePipe } from './hold-time.pipe';
 
 @NgModule({
@@ -45,11 +44,10 @@ import { HoldTimePipe } from './hold-time.pipe';
     declarations: [
         PaymentDetailsComponent,
         DetailsComponent,
-        DetailItemComponent,
-        StatusDetailItemComponent,
+        DetailsItemComponent,
+        StatusDetailsItemComponent,
         PaymentToolComponent,
-        FormatAmountPipe,
-        FormatPercentPipe,
+        AmountPipe,
         PayerDetailsComponent,
         HoldDetailsComponent,
         RecurrentDetailsComponent,
@@ -60,7 +58,7 @@ import { HoldTimePipe } from './hold-time.pipe';
         SecondaryTitleDirective,
         HoldTimePipe,
         CurrencySymbolPipe,
-        FormatBankCardPipe
+        BankCardPipe
     ],
     exports: [PaymentDetailsComponent]
 })

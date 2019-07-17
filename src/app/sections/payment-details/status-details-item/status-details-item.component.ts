@@ -8,9 +8,9 @@ export interface StatusViewInfo {
 }
 
 @Component({
-    selector: 'dsh-detail-status-item',
-    templateUrl: './status-detail-item.component.html'
+    selector: 'dsh-details-status-item',
+    templateUrl: './status-details-item.component.html'
 })
-export class StatusDetailItemComponent {
+export class StatusDetailsItemComponent {
     @Input() info: StatusViewInfo;
 }

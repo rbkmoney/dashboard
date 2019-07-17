@@ -7,7 +7,7 @@ import template from 'lodash.template';
 import { LocaleDictionaryService } from '../../locale/locale-dictionary';
 
 @Pipe({
-    name: 'holdTimePipe'
+    name: 'holdTime'
 })
 export class HoldTimePipe implements PipeTransform {
     private times = 'sections.paymentDetails.holdDetails.times';
@@ -18,15 +18,18 @@ export class HoldTimePipe implements PipeTransform {
     transform(date: string): Observable<string> {
         return timer(0, this.timeUpdateInterval).pipe(
             map(() =>
-                template(this.localeDictionaryService.mapDictionaryKey('sections.paymentDetails.holdDetails.holdTime'))({
-                    holdUntil: moment(date).format('D MMMM YYYY, HH:mm'),
-                    timeUntilHold: this.getTimeUntilDate(date)
-                }))
+                template(this.localeDictionaryService.mapDictionaryKey('sections.paymentDetails.holdDetails.holdTime'))(
+                    {
+                        holdUntil: moment(date).format('D MMMM YYYY, HH:mm'),
+                        timeUntilHold: this.getTimeUntilDate(date)
+                    }
+                )
+            )
         );
     }
 
-    private getTimeUntilDate(date: string): string {
-        const seconds = moment(date).diff(moment(), 'seconds');
+    private getTimeUntilDate(date: string, now = moment()): string {
+        const seconds = moment(date).diff(now, 'seconds');
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
@@ -43,8 +46,10 @@ export class HoldTimePipe implements PipeTransform {
         `${hours % 24} ${this.localeDictionaryService.mapDictionaryKey(this.times + '.hours')}`;
 
     private getMinutesUntilDate = (minutes: number): string =>
-        `${minutes % (24 * 60) % 60} ${this.localeDictionaryService.mapDictionaryKey(this.times + '.minutes')}`;
+        `${(minutes % (24 * 60)) % 60} ${this.localeDictionaryService.mapDictionaryKey(this.times + '.minutes')}`;
 
     private getSecondsUntilDate = (seconds: number): string =>
-        `${seconds % (24 * 60 * 60) % (60 * 60) % 60} ${this.localeDictionaryService.mapDictionaryKey(this.times + '.seconds')}`;
+        `${((seconds % (24 * 60 * 60)) % (60 * 60)) % 60} ${this.localeDictionaryService.mapDictionaryKey(
+            this.times + '.seconds'
+        )}`;
 }

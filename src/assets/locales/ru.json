@@ -105,6 +105,7 @@
                 "titles": {
                     "chargeAmount": "Сумма зачисления",
                     "rrn": "RRN",
+                    "spid": "SPID",
                     "createdAt": "Платеж создан",
                     "amount": "Сумма списания",
                     "error": "Ошибка проведения платежа",

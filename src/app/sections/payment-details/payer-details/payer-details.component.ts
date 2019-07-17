@@ -9,6 +9,8 @@ import { ClientInfo, ContactInfo, Payer } from '../../../api/capi/swagger-codege
 export class PayerDetailsComponent implements OnInit {
     @Input() payer: Payer;
 
+    @Input() layoutGap = '20px';
+
     contactInfo: ContactInfo;
     clientInfo: ClientInfo;
 

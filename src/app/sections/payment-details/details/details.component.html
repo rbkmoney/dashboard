@@ -1,54 +1,51 @@
 <dsh-card>
     <dsh-card-content>
         <div fxLayout="column" [fxLayoutGap]="layoutGap">
-            <div fxLayout="row"
-                 fxLayout.xs="column"
-                 fxLayoutAlign="space-between stretch"
-                 fxLayoutGap="0"
-                 [fxLayoutGap.xs]="layoutGap">
-                <dsh-detail-status-item [info]="getStatusViewInfo()"></dsh-detail-status-item>
-                <dsh-detail-item [title]="localePath + '.titles.createdAt' | lc">
+            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
+                <dsh-details-item [title]="localePath + '.titles.createdAt' | lc" fxFlex="33">
                     <div class="mat-body-1">{{ payment.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
-                </dsh-detail-item>
-                <dsh-detail-item *ngIf="payment.statusChangedAt" [title]="localePath + '.titles.statusChangedAt' | lc">
+                </dsh-details-item>
+                <dsh-details-item
+                    *ngIf="payment.statusChangedAt"
+                    [title]="localePath + '.titles.statusChangedAt' | lc"
+                    fxFlex="33"
+                >
                     <div class="mat-body-1">{{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
-                </dsh-detail-item>
+                </dsh-details-item>
             </div>
-            <div fxLayout="row"
-                 fxLayout.xs="column"
-                 fxLayoutAlign="space-between stretch"
-                 fxLayoutGap="0"
-                 [fxLayoutGap.xs]="layoutGap">
-                <dsh-detail-item [title]="localePath + '.titles.amount' | lc">
+            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ payment.amount / 100 | formatAmount }} {{ payment.currency | currencySymbol }}
+                        {{ payment.amount / 100 | amount }} {{ payment.currency | currencySymbol }}
                     </div>
-                </dsh-detail-item>
-                <dsh-detail-item [title]="localePath + '.titles.chargeAmount' | lc">
+                </dsh-details-item>
+                <dsh-details-item [title]="localePath + '.titles.chargeAmount' | lc" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ (payment.amount - (payment.fee || 0)) / 100 | formatAmount }}
+                        {{ (payment.amount - (payment.fee || 0)) / 100 | amount }}
                         {{ payment.currency | currencySymbol }}
                     </div>
-                </dsh-detail-item>
-                <dsh-detail-item *ngIf="payment.fee" [title]="localePath + '.titles.fee' | lc">
+                </dsh-details-item>
+                <dsh-details-item *ngIf="payment.fee" [title]="localePath + '.titles.fee' | lc" fxFlex="33">
                     <div class="mat-body-1">
                         {{ payment.fee / 100 }} {{ payment.currency | currencySymbol }} ({{
                             payment.fee / payment.amount | percent: '1.0-2':'en'
                         }})
                     </div>
-                </dsh-detail-item>
+                </dsh-details-item>
             </div>
-            <div fxLayout="row"
-                 fxLayout.xs="column"
-                 fxLayoutAlign="space-between stretch"
-                 fxLayoutGap="0"
-                 [fxLayoutGap.xs]="layoutGap">
-                <dsh-detail-item [title]="localePath + '.titles.rrn' | lc">
+            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item [title]="localePath + '.titles.rrn' | lc" fxFlex="33">
                     <div class="mat-body-1">{{ rrn }}</div>
-                </dsh-detail-item>
-                <dsh-detail-item *ngIf="payment.error?.code" [title]="localePath + '.titles.error' | lc">
+                </dsh-details-item>
+                <dsh-details-item [title]="localePath + '.titles.spid' | lc" fxFlex="33">
+                    <div class="mat-body-1">{{ spid }}</div>
+                </dsh-details-item>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item *ngIf="payment.error?.code" [title]="localePath + '.titles.error' | lc">
                     <div class="mat-body-1">{{ payment.error.code }}</div>
-                </dsh-detail-item>
+                </dsh-details-item>
             </div>
         </div>
     </dsh-card-content>

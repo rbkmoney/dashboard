@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'formatAmount'
+    name: 'amount'
 })
-export class FormatAmountPipe implements PipeTransform {
+export class AmountPipe implements PipeTransform {
     transform(value: number): string {
         return value
             .toFixed(2)

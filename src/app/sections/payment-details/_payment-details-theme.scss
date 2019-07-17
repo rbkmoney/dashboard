@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 @import 'refunds/refunds-theme';
-@import 'detail-item/detail-item-theme';
+@import 'details-item/details-item-theme';
 @import 'secondary-title/secondary-title-theme';
 
 @mixin dsh-payment-details-theme($theme) {
@@ -9,7 +9,7 @@
 
     @include dsh-payment-details-refunds-theme($theme);
 
-    @include dsh-payment-details-detail-item-theme($theme);
+    @include dsh-payment-details-item-theme($theme);
 
     @include dsh-payment-details-secondary-title-theme($theme);
 }

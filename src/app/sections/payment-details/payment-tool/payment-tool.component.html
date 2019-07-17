@@ -5,10 +5,10 @@
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <dsh-detail-item [title]="localePath + '.titles.card' | lc">
+        <dsh-details-item [title]="localePath + '.titles.card' | lc">
             <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
                 <div class="dsh-bank-card-number">
-                    {{ bankCard.cardNumberMask | formatBankCard }}
+                    {{ bankCard.cardNumberMask | bankCard }}
                 </div>
                 <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Visa" svgIcon="visa"></mat-icon>
                 <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems.Mastercard" svgIcon="mastercard"></mat-icon>
@@ -17,6 +17,6 @@
                 <!--<mat-icon svgIcon="samsung_pay"></mat-icon>-->
                 <!--<mat-icon svgIcon="google_pay"></mat-icon>-->
             </div>
-        </dsh-detail-item>
+        </dsh-details-item>
     </dsh-card-content>
 </dsh-card>

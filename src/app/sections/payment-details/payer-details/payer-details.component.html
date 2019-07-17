@@ -3,13 +3,13 @@
         <h2 class="mat-h2">{{ localePath + '.title' | lc }}: {{ contactInfo.email }}</h2>
     </dsh-card-title>
     <dsh-card-content>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
-            <dsh-detail-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
+        <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+            <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
                 {{ clientInfo.fingerprint }}
-            </dsh-detail-item>
-            <dsh-detail-item [title]="localePath + '.titles.ip' | lc" fxFlex>
+            </dsh-details-item>
+            <dsh-details-item [title]="localePath + '.titles.ip' | lc" fxFlex>
                 {{ clientInfo.ip }}
-            </dsh-detail-item>
+            </dsh-details-item>
         </div>
     </dsh-card-content>
 </dsh-card>
