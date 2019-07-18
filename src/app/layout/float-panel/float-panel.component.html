@@ -2,11 +2,11 @@
     <dsh-card
         class="dsh-float-panel-card"
         [ngClass]="{
-            'dsh-float-panel-card-unpinned': !pinned || !expanded
+            'dsh-float-panel-card-unpinned': !expanded || !pinned
         }"
         (dshResized)="cardHeight = $event.height"
     >
-        <div (dshResized)="baseContentHeight = $event.height">
+        <div (dshResized)="setBaseContentHeight($event.height)">
             <div fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
                 <!--need this additional div because invisible resize-sensor affects render-->
                 <div fxFlex>
