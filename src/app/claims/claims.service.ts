@@ -13,7 +13,9 @@ import {
     DocumentModification,
     StatusModification,
     FileModification,
-    CommentModification
+    CommentModification,
+    ContractorModification,
+    ContractModification
 } from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
 import { LocaleDictionaryService } from '../locale';
@@ -96,7 +98,7 @@ export class ClaimsService {
                         (modification as DocumentModification).documentModificationType ===
                         DocumentModification.DocumentModificationTypeEnum.DocumentCreated
                     )
-                        return 'attach_file';
+                        return 'add';
                     if (
                         (modification as StatusModification).statusModificationType ===
                         StatusModification.StatusModificationTypeEnum.StatusChanged
@@ -115,7 +117,7 @@ export class ClaimsService {
                 }
             case Modification.ModificationTypeEnum.PartyModification:
         }
-        return 'create';
+        // return 'create';
     }
 
     getModificationColor(unit: ModificationUnit): StatusColor {
@@ -124,27 +126,56 @@ export class ClaimsService {
                 const modification = get(unit.modification, 'modification');
                 if (modification) {
                     if (
-                        (modification as DocumentModification).documentModificationType ===
-                        DocumentModification.DocumentModificationTypeEnum.DocumentCreated
-                    )
-                        return StatusColor.success;
-                    if (
                         (modification as StatusModification).statusModificationType ===
                         StatusModification.StatusModificationTypeEnum.StatusChanged
                     )
                         return StatusColor.success;
+                }
+            case Modification.ModificationTypeEnum.PartyModification:
+        }
+    }
+
+    getLocalizedModificationStatus(unit: ModificationUnit) {
+        const modification = get(unit.modification, 'modification');
+        switch (unit.modification.modificationType) {
+            case Modification.ModificationTypeEnum.ClaimModification:
+                if (modification) {
+                    if (
+                        (modification as DocumentModification).documentModificationType ===
+                        DocumentModification.DocumentModificationTypeEnum.DocumentCreated
+                    )
+                        return 'создана анкета';
+                    if (
+                        (modification as StatusModification).statusModificationType ===
+                        StatusModification.StatusModificationTypeEnum.StatusChanged
+                    )
+                        return 'изменен статус';
                     if (
                         (modification as FileModification).fileModificationType ===
                         FileModification.FileModificationTypeEnum.FileCreated
                     )
-                        return StatusColor.success;
+                        return 'добавлен файл';
                     if (
                         (modification as CommentModification).commentModificationType ===
                         CommentModification.CommentModificationTypeEnum.CommentCreated
                     )
-                        return StatusColor.success;
+                        return 'добавлен комментарий';
                 }
+                return 'обновлена заявка';
             case Modification.ModificationTypeEnum.PartyModification:
+                if (modification) {
+                    if (
+                        (modification as ContractorModification).contractorModificationType ===
+                        ContractorModification.ContractorModificationTypeEnum.Contractor
+                    )
+                        return 'обновлен контрагент';
+                    if (
+                        (modification as ContractModification).contractModificationType ===
+                        ContractModification.ContractModificationTypeEnum.ContractParams
+                    )
+                        return 'обнавлен контракт';
+                }
+                return 'обновлен магазин';
         }
     }
 }
