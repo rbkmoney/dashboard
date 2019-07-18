@@ -42,7 +42,7 @@
                     <div class="mat-body-1">{{ spid }}</div>
                 </dsh-details-item>
             </div>
-            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+            <div fxLayout="row" fxLayout.xs="column">
                 <dsh-details-item *ngIf="payment.error?.code" [title]="localePath + '.titles.error' | lc">
                     <div class="mat-body-1">{{ payment.error.code }}</div>
                 </dsh-details-item>

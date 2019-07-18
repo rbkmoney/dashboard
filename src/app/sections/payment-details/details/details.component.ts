@@ -11,7 +11,7 @@ import { StatusViewInfo } from '../status-details-item/status-details-item.compo
 export class DetailsComponent implements OnInit {
     @Input() payment: PaymentSearchResult;
 
-    @Input() layoutGap = '20px';
+    @Input() layoutGap = '10px';
 
     rrn = 123456789012;
     spid = 234232323242321;
