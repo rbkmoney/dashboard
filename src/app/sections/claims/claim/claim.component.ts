@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { ClaimService } from './claim.service';
 import { ViewClaim, ClaimsService } from '../../../claims';
@@ -12,7 +13,7 @@ import { ViewClaim, ClaimsService } from '../../../claims';
 export class ClaimComponent {
     links = [
         {
-            path: '',
+            path: 'conversation',
             label: 'sections.claim.conversation.label'
         },
         {
@@ -29,5 +30,5 @@ export class ClaimComponent {
         return this.claimService.claim$;
     }
 
-    constructor(private claimService: ClaimService, public claimsService: ClaimsService) {}
+    constructor(private claimService: ClaimService, public claimsService: ClaimsService, public router: Router) {}
 }

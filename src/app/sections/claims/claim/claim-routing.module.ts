@@ -14,7 +14,7 @@ import { ChangesComponent } from './changes';
                 component: ClaimComponent,
                 children: [
                     {
-                        path: '',
+                        path: 'conversation',
                         component: ConversationComponent
                     },
                     {
