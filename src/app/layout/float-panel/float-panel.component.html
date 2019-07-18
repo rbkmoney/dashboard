@@ -7,12 +7,11 @@
         (dshResized)="cardHeight = $event.height"
     >
         <div (dshResized)="setBaseContentHeight($event.height)">
-            <div fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
-                <!--need this additional div because invisible resize-sensor affects render-->
-                <div fxFlex>
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
+                <div fxFlex.gt-sm>
                     <ng-content></ng-content>
                 </div>
-                <div *ngIf="!expanded" fxLayout class="dsh-float-panel-actions" fxLayoutAlign="center center">
+                <div *ngIf="!expanded" class="dsh-float-panel-actions" fxLayout fxLayoutAlign="center center">
                     <button dsh-icon-button (click)="expandToggle()" @hide fxHide.sm fxHide.xs>
                         <mat-icon>expand_more</mat-icon>
                     </button>
