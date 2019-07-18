@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px 0">
-    Последние изменения {{ (claim$ | async)?.updatedAt | humanizedDuration }} назад
+    Последние изменения {{ (claim$ | async)?.updatedAt | humanizedDuration: { largest: 1 } }} назад
     <a>Обновить</a>
 </div>
 <dsh-timeline>
@@ -8,7 +8,8 @@
         [color]="claimsService.getModificationColor(change)"
     >
         <dsh-timeline-item-title>
-            <b class="mat-body-2">Менеджер</b> добавили комментарий {{ change.createdAt | humanizedDuration }} назад
+            <b class="mat-body-2">Менеджер</b> добавили комментарий
+            {{ change.createdAt | humanizedDuration: { largest: 1 } }} назад
         </dsh-timeline-item-title>
         <dsh-timeline-item-badge
             ><mat-icon>{{ claimsService.getModificationIcon(change) }}</mat-icon></dsh-timeline-item-badge

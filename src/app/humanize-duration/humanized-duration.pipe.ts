@@ -1,10 +1,8 @@
 import { Pipe, PipeTransform, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import * as moment from 'moment';
 import { Subscription, interval } from 'rxjs';
+import { HumanizerOptions } from 'humanize-duration';
 
-import { HumanizeDurationService } from './humanize-duration.service';
-
-type Value = number | moment.Moment;
+import { HumanizeDurationService, Value } from './humanize-duration.service';
 
 @Pipe({ name: 'humanizedDuration', pure: false })
 export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
@@ -14,17 +12,17 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
 
     constructor(private humanizeDurationService: HumanizeDurationService, private ref: ChangeDetectorRef) {}
 
-    transform(value: Value) {
+    transform(value: Value, config: HumanizerOptions = {}) {
         if (value !== this.inputValue) {
             if (typeof value === 'object') {
                 this.dispose();
                 this.inputValue = value;
                 this.subscription = interval(1000).subscribe(() => {
                     this.ref.markForCheck();
-                    this.updateLatestValue(value);
+                    this.updateLatestValue(value, config);
                 });
             }
-            this.updateLatestValue(value);
+            this.updateLatestValue(value, config);
         }
         return this.latestValue;
     }
@@ -39,7 +37,7 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
         }
     }
 
-    private updateLatestValue(value: Value) {
-        this.latestValue = this.humanizeDurationService.getDuration(value);
+    private updateLatestValue(value: Value, config: HumanizerOptions = {}) {
+        this.latestValue = this.humanizeDurationService.getDuration(value, config);
     }
 }
