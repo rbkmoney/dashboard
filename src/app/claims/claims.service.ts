@@ -115,9 +115,7 @@ export class ClaimsService {
                     )
                         return 'mode_comment';
                 }
-            case Modification.ModificationTypeEnum.PartyModification:
         }
-        // return 'create';
     }
 
     getModificationColor(unit: ModificationUnit): StatusColor {
@@ -131,7 +129,6 @@ export class ClaimsService {
                     )
                         return StatusColor.success;
                 }
-            case Modification.ModificationTypeEnum.PartyModification:
         }
     }
 
