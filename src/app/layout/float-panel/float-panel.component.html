@@ -12,10 +12,10 @@
                     <ng-content></ng-content>
                 </div>
                 <div *ngIf="!expanded" class="dsh-float-panel-actions" fxLayout fxLayoutAlign="center center">
-                    <button dsh-icon-button (click)="expandToggle()" @hide fxHide.sm fxHide.xs>
+                    <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
                         <mat-icon>expand_more</mat-icon>
                     </button>
-                    <button dsh-button (click)="expandToggle()" fxFlex fxHide fxShow.sm fxShow.xs>
+                    <button dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
                         {{ 'common.showMore' | lc }}
                     </button>
                 </div>
