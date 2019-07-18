@@ -9,9 +9,9 @@
         <nav dsh-tab-nav-bar>
             <a
                 dsh-tab-link
-                *ngFor="let link of links"
-                [routerLink]="'/claim/' + (claim$ | async)?.id + '/' + link.path"
-                [active]="router.url.includes('/claim/' + (claim$ | async)?.id + '/' + link.path)"
+                *ngFor="let link of links$ | async"
+                [routerLink]="link.path"
+                [active]="router.url.includes(link.path)"
             >
                 {{ link.label | lc }}
             </a>
