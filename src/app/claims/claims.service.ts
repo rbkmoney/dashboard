@@ -59,9 +59,15 @@ export class ClaimsService {
 
     getClaim(claimID: number, interval?: number): Observable<ViewClaim> {
         if (interval) {
-            return timer(0, interval).pipe(switchMap(() => this.getClaim(claimID)));
+            return timer(0, interval).pipe(
+                switchMap(() => this.getClaim(claimID)),
+                share()
+            );
         }
-        return this.claimsService.getClaimByID(genXRequestID(), claimID).pipe(map(claim => this.toViewClaim(claim)));
+        return this.claimsService.getClaimByID(genXRequestID(), claimID).pipe(
+            map(claim => this.toViewClaim(claim)),
+            share()
+        );
     }
 
     getClaimStatusColor(status: string): StatusColor {

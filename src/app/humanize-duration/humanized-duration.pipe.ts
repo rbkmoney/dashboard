@@ -16,12 +16,14 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
 
     transform(value: Value) {
         if (value !== this.inputValue) {
-            this.dispose();
-            this.inputValue = value;
-            this.subscription = interval(1000).subscribe(() => {
-                this.ref.markForCheck();
-                this.updateLatestValue(value);
-            });
+            if (typeof value === 'object') {
+                this.dispose();
+                this.inputValue = value;
+                this.subscription = interval(1000).subscribe(() => {
+                    this.ref.markForCheck();
+                    this.updateLatestValue(value);
+                });
+            }
             this.updateLatestValue(value);
         }
         return this.latestValue;
