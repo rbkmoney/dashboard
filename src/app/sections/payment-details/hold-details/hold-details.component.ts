@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import template from 'lodash.template';
+
+import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 
 @Component({
     selector: 'dsh-hold-details',
@@ -9,5 +12,9 @@ export class HoldDetailsComponent {
 
     @Input() layoutGap = '20px';
 
+    template = template;
+
     localePath = 'sections.paymentDetails.holdDetails';
+
+    constructor(private localeDictionaryService: LocaleDictionaryService) {}
 }

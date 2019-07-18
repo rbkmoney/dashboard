@@ -18,7 +18,7 @@ export class RefundItemComponent implements OnInit {
     statusViewInfo: StatusViewInfo;
 
     ngOnInit() {
-        this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `${this.localePath}.statuses`);
+        this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `common.refundStatus`);
     }
 
     getStatusViewInfo(status: RefundStatus.StatusEnum, localePath: string): StatusViewInfo {

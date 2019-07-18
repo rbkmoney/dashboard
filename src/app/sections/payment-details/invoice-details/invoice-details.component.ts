@@ -28,7 +28,7 @@ export class InvoiceDetailsComponent implements OnInit {
             currency: 'RUB'
         } as Invoice;
 
-        this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `${this.localePath}.statuses`);
+        this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `common.invoiceStatus`);
     }
 
     getStatusViewInfo(status: InvoiceStatus.StatusEnum, localePath: string): StatusViewInfo {

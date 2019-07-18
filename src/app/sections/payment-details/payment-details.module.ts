@@ -26,7 +26,8 @@ import { StatusDetailsItemComponent } from './status-details-item/status-details
 import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
-import { HoldTimePipe } from './hold-time.pipe';
+import { TimeUntilHoldPipe } from './time-until-hold.pipe';
+import { HoldDatePipe } from './hold-date.pipe';
 
 @NgModule({
     imports: [
@@ -56,9 +57,10 @@ import { HoldTimePipe } from './hold-time.pipe';
         RefundsComponent,
         RefundItemComponent,
         SecondaryTitleDirective,
-        HoldTimePipe,
+        TimeUntilHoldPipe,
         CurrencySymbolPipe,
-        BankCardPipe
+        BankCardPipe,
+        HoldDatePipe
     ],
     exports: [PaymentDetailsComponent]
 })

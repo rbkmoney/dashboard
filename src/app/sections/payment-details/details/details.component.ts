@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
     statusViewInfo: StatusViewInfo;
 
     ngOnInit() {
-        this.statusViewInfo = this.getStatusViewInfo(this.payment.status, `${this.localePath}.statuses`);
+        this.statusViewInfo = this.getStatusViewInfo(this.payment.status, `common.paymentStatus`);
     }
 
     getStatusViewInfo(status: PaymentStatus.StatusEnum, localePath: string): StatusViewInfo {

@@ -6,7 +6,11 @@
     </dsh-card-title>
     <dsh-card-content>
         <div fxLayout="column" fxLayoutGap="20px">
-            <div class="mat-body-1">{{ holdDate | holdTime | async }} {{ localePath + '.message' | lc }}</div>
+            <div class="mat-body-1">
+                {{ holdDate | date: 'd MMMM yyyy, HH:mm' | holdDatePipe }}
+                {{ holdDate | timeUntilHold | async }}
+                {{ localePath + '.message' | lc }}
+            </div>
             <div
                 fxLayout="row"
                 fxLayout.xs="column"

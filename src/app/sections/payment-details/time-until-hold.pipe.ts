@@ -7,9 +7,9 @@ import template from 'lodash.template';
 import { LocaleDictionaryService } from '../../locale/locale-dictionary';
 
 @Pipe({
-    name: 'holdTime'
+    name: 'timeUntilHold'
 })
-export class HoldTimePipe implements PipeTransform {
+export class TimeUntilHoldPipe implements PipeTransform {
     private times = 'sections.paymentDetails.holdDetails.times';
     private timeUpdateInterval = 1000;
 
@@ -18,12 +18,11 @@ export class HoldTimePipe implements PipeTransform {
     transform(date: string): Observable<string> {
         return timer(0, this.timeUpdateInterval).pipe(
             map(() =>
-                template(this.localeDictionaryService.mapDictionaryKey('sections.paymentDetails.holdDetails.holdTime'))(
-                    {
-                        holdUntil: moment(date).format('D MMMM YYYY, HH:mm'),
-                        timeUntilHold: this.getTimeUntilDate(date)
-                    }
-                )
+                template(
+                    this.localeDictionaryService.mapDictionaryKey('sections.paymentDetails.holdDetails.timeUntilHold')
+                )({
+                    timeUntilHold: this.getTimeUntilDate(date)
+                })
             )
         );
     }
