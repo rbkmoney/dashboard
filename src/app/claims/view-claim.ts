@@ -103,7 +103,7 @@ export class ViewModificationUnit {
                             case StatusModificationUnit.StatusEnum.PendingAcceptance:
                                 return {
                                     icon: 'sentiment_satisfied',
-                                    label: getLabel('pendingAcceptence'),
+                                    label: getLabel('pendingAcceptance'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.Review:
