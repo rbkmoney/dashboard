@@ -15,7 +15,7 @@
 
 npm ci
 
-# Generate swagger
+# Generate swagger API Angular modules
 
 npm run codegen
 ```
@@ -32,8 +32,14 @@ npm run codegen
 
 ## Add API
 
-1. Add submodule to `schemes/<SCHEME_NAME>/<VER:VX>`
-1. [Generate swagger](#initialization)
+1.  Add submodule `<SCHEME_NAME>`
+
+    ```sh
+    git submodule -b <SCHEME_BRANCH> add <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
+    ```
+
+1.  Add submodule directory (`schemes/<SCHEME_NAME>/<VER:VX>`) to Makefile `SWAGGER_SCHEMES_PATH`
+1.  [Generate swagger API Angular modules](#initialization)
 
 ## Tests
 
