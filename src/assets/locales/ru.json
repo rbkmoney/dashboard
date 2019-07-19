@@ -227,6 +227,7 @@
             "refunds": {
                 "title": "Возвраты",
                 "createRefund": "Совершить возврат",
+                "noRefunds": "Возвратов нет",
                 "showMore": "Показать ещё",
                 "refundItem": {
                     "titles": {

@@ -1,14 +1,14 @@
 <dsh-card>
     <dsh-card-title>
-        <h2 class="mat-h2">{{ localePath + '.title' | lc }}: {{ contactInfo.email }}</h2>
+        <h2 class="mat-h2">{{ localePath + '.title' | lc }}: {{ contactInfo?.email }}</h2>
     </dsh-card-title>
     <dsh-card-content>
         <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
-                {{ clientInfo.fingerprint }}
+                {{ clientInfo?.fingerprint }}
             </dsh-details-item>
             <dsh-details-item [title]="localePath + '.titles.ip' | lc" fxFlex>
-                {{ clientInfo.ip }}
+                {{ clientInfo?.ip }}
             </dsh-details-item>
         </div>
     </dsh-card-content>

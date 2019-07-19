@@ -15,7 +15,15 @@
                 <dsh-refund-item [refund]="refund"></dsh-refund-item>
                 <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
-            <button class="dsh-payment-details-refunds-show-more-refunds" dsh-button>
+            <div *ngIf="totalCount == 0">
+                {{ localePath + '.noRefunds' | lc }}
+            </div>
+            <button
+                    *ngIf="refunds.length < totalCount"
+                    class="dsh-payment-details-refunds-show-more-refunds"
+                    dsh-button
+                    (click)="getMoreRefunds(invoiceID, paymentID, refunds.length)"
+            >
                 {{ localePath + '.showMore' | lc }}
             </button>
         </div>

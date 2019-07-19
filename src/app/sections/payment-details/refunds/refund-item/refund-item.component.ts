@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
-import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
+import { RefundSearchResult, RefundStatus } from '../../../../api/capi/swagger-codegen';
 import { Color } from '../../../../status';
 import { StatusViewInfo } from '../../status-details-item/status-details-item.component';
 
@@ -8,8 +8,8 @@ import { StatusViewInfo } from '../../status-details-item/status-details-item.co
     selector: 'dsh-refund-item',
     templateUrl: './refund-item.component.html'
 })
-export class RefundItemComponent implements OnInit {
-    @Input() refund: Refund;
+export class RefundItemComponent implements OnChanges {
+    @Input() refund: RefundSearchResult;
 
     @Input() layoutGap = '20px';
 
@@ -17,7 +17,7 @@ export class RefundItemComponent implements OnInit {
 
     statusViewInfo: StatusViewInfo;
 
-    ngOnInit() {
+    ngOnChanges() {
         this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `common.refundStatus`);
     }
 

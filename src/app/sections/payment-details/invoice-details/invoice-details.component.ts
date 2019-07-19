@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
 import { Color } from '../../../status';
@@ -9,7 +9,7 @@ import { StatusViewInfo } from '../status-details-item/status-details-item.compo
     templateUrl: './invoice-details.component.html',
     styleUrls: ['./invoice-details.component.scss']
 })
-export class InvoiceDetailsComponent implements OnInit {
+export class InvoiceDetailsComponent implements OnChanges {
     @Input() invoice: Invoice;
 
     @Input() layoutGap = '20px';
@@ -18,17 +18,10 @@ export class InvoiceDetailsComponent implements OnInit {
 
     statusViewInfo: StatusViewInfo;
 
-    ngOnInit() {
-        this.invoice = {
-            status: InvoiceStatus.StatusEnum.Paid,
-            reason: 'Хочу вернуть деньги',
-            id: 'hsDw31Yeo7d',
-            amount: 12300,
-            product: 'Полный кектус, покупай скорее',
-            currency: 'RUB'
-        } as Invoice;
-
-        this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `common.invoiceStatus`);
+    ngOnChanges() {
+        if (this.invoice) {
+            this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `common.invoiceStatus`);
+        }
     }
 
     getStatusViewInfo(status: InvoiceStatus.StatusEnum, localePath: string): StatusViewInfo {
