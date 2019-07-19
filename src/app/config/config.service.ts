@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Config } from './config';
+import { BaseConfig, Config } from './config';
 
 @Injectable()
-export class ConfigService implements Config {
-    api: Config['api'];
-    daData: Config['daData'];
-    konturFocus: Config['konturFocus'];
-    ext: Config['ext'];
-
-    constructor(private http: HttpClient) {}
+export class ConfigService extends BaseConfig {
+    constructor(private http: HttpClient) {
+        super();
+    }
 
     async init({ configUrl }: { configUrl: string }) {
         const appConfig = await this.http.get<Config>(configUrl).toPromise();
