@@ -45,6 +45,11 @@ export class ViewModificationUnit {
     get color(): StatusColor {
         return this.getExtensions().color;
     }
+    get author(): string {
+        return `common.claim.modification.author.${
+            this.isTypedModification<PartyModification>(this.base, 'PartyModification') ? 'manager' : 'you'
+        }`;
+    }
 
     constructor(public readonly base: ModificationUnit) {}
 
