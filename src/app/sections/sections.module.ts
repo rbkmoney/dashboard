@@ -11,11 +11,13 @@ import { InputsModule } from './inputs/inputs.module';
 import { ClaimModule } from './claim';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
+import { PaymentDetailsModule } from './payment-details';
 
 @NgModule({
     imports: [
         OnboardingModule,
         PaymentSectionModule,
+        PaymentDetailsModule,
         SectionsRoutingModule,
         MainModule,
         AnalyticsModule,

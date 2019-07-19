@@ -10,7 +10,13 @@ export enum IconName {
     notification = 'notification',
     place_outline = 'place_outline',
     bill = 'bill',
-    wallet = 'wallet'
+    wallet = 'wallet',
+    mir = 'mir',
+    mastercard = 'mastercard',
+    apple_pay = 'apple_pay',
+    samsung_pay = 'samsung_pay',
+    google_pay = 'google_pay',
+    visa = 'visa'
 }
 
 @Injectable()
