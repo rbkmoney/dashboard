@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@import 'refunds/refunds-theme';
+@import 'details-item/details-item-theme';
+@import 'secondary-title/secondary-title-theme';
+
+@mixin dsh-payment-details-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    @include dsh-payment-details-refunds-theme($theme);
+
+    @include dsh-payment-details-item-theme($theme);
+
+    @include dsh-payment-details-secondary-title-theme($theme);
+}
+
+@mixin dsh-payment-details-typography($config) {
+    @include dsh-payment-details-refunds-typography($config);
+}

@@ -16,7 +16,13 @@ export class AppComponent {
             IconName.hor_dots,
             IconName.place_outline,
             IconName.bill,
-            IconName.wallet
+            IconName.wallet,
+            IconName.mir,
+            IconName.mastercard,
+            IconName.apple_pay,
+            IconName.samsung_pay,
+            IconName.google_pay,
+            IconName.visa
         ]);
     }
 }

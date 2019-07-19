@@ -17,6 +17,17 @@
             "refunded": "Возвращен",
             "failed": "Неуспешен"
         },
+        "invoiceStatus": {
+            "paid": "Оплачен",
+            "unpaid": "Не оплачен",
+            "fulfilled": "Погашен",
+            "cancelled": "Отменен"
+        },
+        "refundStatus": {
+            "succeeded": "Успешен",
+            "pending": "Запущен",
+            "failed": "Неуспешен"
+        },
         "paymentFlow": {
             "instant": "Мгновенный",
             "hold": "С удержанием"
@@ -186,6 +197,85 @@
             },
             "documents": {
                 "label": "Документы"
+            }
+        },
+        "paymentDetails": {
+            "title": "Детали платежа",
+            "statusDetailItem": {
+                "status": "Статус"
+            },
+            "details": {
+                "titles": {
+                    "chargeAmount": "Сумма зачисления",
+                    "rrn": "RRN",
+                    "spid": "SPID",
+                    "createdAt": "Платеж создан",
+                    "amount": "Сумма списания",
+                    "error": "Ошибка проведения платежа",
+                    "statusChangedAt": "Статус изменен",
+                    "fee": "Комиссия"
+                }
+            },
+            "paymentTool": {
+                "title": "Средство оплаты",
+                "titles": {
+                    "card": "Банковская карта"
+                }
+            },
+            "payerDetails": {
+                "title": "Плательщик",
+                "titles": {
+                    "fingerprint": "Fingerprint",
+                    "ip": "IP"
+                }
+            },
+            "holdDetails": {
+                "title": "Платеж совершен с удержанием денежных средств",
+                "holdDate": "Срок удержания до <%- holdDate %>.",
+                "timeUntilHold": "Осталось <%- timeUntilHold %>.",
+                "message": "После истечения срока удержания, средства будут возвращенны плательщику. Вы можете подтверидить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.",
+                "actions": {
+                    "deny": "Отменить",
+                    "accept": "Подтвердить"
+                },
+                "times": {
+                    "days": "д.",
+                    "hours": "ч.",
+                    "minutes": "мин.",
+                    "seconds": "сек."
+                }
+            },
+            "recurrentDetails": {
+                "title": "Платеж является родительским рекуррентным",
+                "description": "Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+            },
+            "invoiceDetails": {
+                "title": "Инвойс",
+                "titles": {
+                    "product": "Продукт",
+                    "amount": "Стоимость"
+                }
+            },
+            "shopDetails": {
+                "title": "Магазин",
+                "titles": {
+                    "name": "Название",
+                    "url": "URL"
+                }
+            },
+            "refunds": {
+                "title": "Возвраты",
+                "createRefund": "Совершить возврат",
+                "showMore": "Показать ещё",
+                "refundItem": {
+                    "titles": {
+                        "refundTitle": "Возврат",
+                        "amount": "Сумма",
+                        "createdAt": "Совершен",
+                        "reason": "Причина",
+                        "error": "Ошибка"
+                    }
+                }
             }
         }
     }

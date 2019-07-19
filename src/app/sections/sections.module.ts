@@ -10,10 +10,10 @@ import { InputsModule } from './inputs/inputs.module';
 import { ClaimsModule } from './claims';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
+import { PaymentDetailsModule } from './payment-details';
 
 @NgModule({
     imports: [
-        OnboardingModule,
         MainModule,
         AnalyticsModule,
         PageNotFoundModule,
@@ -22,7 +22,8 @@ import { PaymentSectionModule } from './payment-section';
         // modules with routing module depends on order (TODO: maybe there is an error / problem)
         PaymentSectionModule,
         ClaimsModule,
-        SectionsRoutingModule
+        SectionsRoutingModule,
+        PaymentDetailsModule
         // end modules with routing
     ],
     declarations: [SectionsComponent],

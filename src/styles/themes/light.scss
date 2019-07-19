@@ -67,6 +67,7 @@ $theme: (
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
     neutral: mat-palette($mat-grey),
+    gray: mat-palette($mat-grey),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300)
