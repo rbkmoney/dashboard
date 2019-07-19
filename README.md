@@ -32,7 +32,7 @@ npm run codegen
 
 ## Add API
 
-1.  Add submodule `<SCHEME_NAME>`
+1.  Add submodule
 
     ```sh
     git submodule -b <SCHEME_BRANCH> add <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
@@ -40,6 +40,10 @@ npm run codegen
 
 1.  Add submodule directory (`schemes/<SCHEME_NAME>/<VER:VX>`) to Makefile `SWAGGER_SCHEMES_PATH`
 1.  [Generate swagger API Angular modules](#initialization)
+1.  Add `src/api/<SCHEME_NAME>`:
+    -   `index.ts`
+    -   `<SCHEME_NAME>.module.ts`
+    -   `<SCHEME_NAME>-config.service.ts`
 
 ## Tests
 
