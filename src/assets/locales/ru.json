@@ -56,7 +56,12 @@
             "modification": {
                 "label": {
                     "documentCreated": "создана анкета",
-                    "statusChanged": "изменен статус",
+                    "pending": "переведена в ожидание",
+                    "pendingAcceptance": "переведена в ожидание ваших действий",
+                    "review": "рассматривается",
+                    "revoked": "отозвана",
+                    "denied": "отклонена",
+                    "accepted": "одобрена",
                     "fileCreated": "добавлен файл",
                     "commentCreated": "добавлен комментарий",
                     "contractorUpdated": "обновлен контрагент",

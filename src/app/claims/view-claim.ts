@@ -85,32 +85,37 @@ export class ViewModificationUnit {
                             case StatusModificationUnit.StatusEnum.Accepted:
                                 return {
                                     icon: 'insert_emoticon',
-                                    label: getLabel('statusChanged'),
+                                    label: getLabel('accepted'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.Denied:
                                 return {
-                                    label: getLabel('statusChanged'),
+                                    icon: 'mood_bad',
+                                    label: getLabel('denied'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.Pending:
                                 return {
-                                    label: getLabel('statusChanged'),
+                                    icon: 'sentiment_satisfied',
+                                    label: getLabel('pending'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.PendingAcceptance:
                                 return {
-                                    label: getLabel('statusChanged'),
+                                    icon: 'sentiment_satisfied',
+                                    label: getLabel('pendingAcceptence'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.Review:
                                 return {
-                                    label: getLabel('statusChanged'),
+                                    icon: 'sentiment_satisfied',
+                                    label: getLabel('review'),
                                     color
                                 };
                             case StatusModificationUnit.StatusEnum.Revoked:
                                 return {
-                                    label: getLabel('statusChanged'),
+                                    icon: 'mood_bad',
+                                    label: getLabel('revoked'),
                                     color
                                 };
                         }
