@@ -68,6 +68,7 @@
     "@types/lodash.isempty": "^4.4.6",
     "@types/lodash.mapvalues": "^4.6.6",
     "@types/lodash.random": "^3.2.6",
+    "@types/lodash.template": "^4.4.6",
     "@types/moment": "^2.13.0",
     "@types/node": "^11.13.10",
     "@types/pdfmake": "^0.1.5",
