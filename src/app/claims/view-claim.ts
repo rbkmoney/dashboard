@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import get from 'lodash.get';
 
 import {
     Claim,
@@ -39,7 +40,7 @@ interface ViewModificationUnitExtension {
     color?: StatusColor;
 }
 
-export class ViewModificationUnit {
+export class ViewModificationUnit implements ViewModificationUnitExtension {
     get createdAt() {
         return moment(this.base.createdAt);
     }
@@ -62,21 +63,21 @@ export class ViewModificationUnit {
         base: ModificationUnit,
         type: Modification.ModificationTypeEnum
     ): base is ModificationUnit & { modification: M } {
-        return !!(base && base.modification && base.modification.modificationType === type);
+        return get(base, 'modification.modificationType') === type;
     }
 
     isTypedClaimModificationUnit<M extends ClaimModification & { modification: any }>(
         base: ModificationUnit & { modification: ClaimModification },
         modificationType: keyof M['modification']
     ): base is ModificationUnit & { modification: M } {
-        return !!(base.modification && (base.modification as M).modification[modificationType]);
+        return !!get(base.modification, ['modification', modificationType]);
     }
 
     isTypedPartyModificationUnit<M extends PartyModification & { modification: any }>(
         base: ModificationUnit & { modification: PartyModification },
         modificationType: keyof M['modification']
     ): base is ModificationUnit & { modification: M } {
-        return !!(base.modification && (base.modification as M).modification[modificationType]);
+        return !!get(base.modification, ['modification', modificationType]);
     }
 
     getExtensions(base: ModificationUnit = this.base): ViewModificationUnitExtension {
