@@ -17,6 +17,7 @@ import { ActionItemComponent } from './action-item';
 import { APIModule } from '../../api';
 import { ClaimsModule } from '../../sections/claims';
 import { ClaimsService } from '../../claims';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { ClaimsService } from '../../claims';
         RouterModule,
         APIModule,
         CommonModule,
-        ClaimsModule
+        ClaimsModule,
+        LocaleModule
     ],
     declarations: [
         ActionbarComponent,

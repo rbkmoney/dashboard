@@ -52,6 +52,19 @@
                 "revoked": "Отозвана",
                 "denied": "Отклонена",
                 "accepted": "Одобрена"
+            },
+            "modification": {
+                "label": {
+                    "documentCreated": "создана анкета",
+                    "statusChanged": "изменен статус",
+                    "fileCreated": "добавлен файл",
+                    "commentCreated": "добавлен комментарий",
+                    "contractorUpdated": "обновлен контрагент",
+                    "contractUpdated": "обновлен контракт",
+                    "shopUpdated": "обновлен магазин",
+                    "claimUpdated": "обновлена заявка",
+                    "updated": "обновлен"
+                }
             }
         }
     },
