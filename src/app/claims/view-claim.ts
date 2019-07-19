@@ -32,6 +32,13 @@ function statusMapToColor(status: string): StatusColor {
     }[status];
 }
 
+interface ViewModificationUnitExtension {
+    label: string;
+    author: string;
+    icon?: string;
+    color?: StatusColor;
+}
+
 export class ViewModificationUnit {
     get createdAt() {
         return moment(this.base.createdAt);
@@ -72,11 +79,9 @@ export class ViewModificationUnit {
         return !!(base.modification && (base.modification as M).modification[modificationType]);
     }
 
-    getExtensions(
-        base: ModificationUnit = this.base
-    ): { label: string; icon?: string; color?: StatusColor; author?: string } {
+    getExtensions(base: ModificationUnit = this.base): ViewModificationUnitExtension {
         let label: string;
-        let author = 'manager';
+        let author: string;
         let icon: string;
         let color: StatusColor;
         if (this.isTypedModification<ClaimModification>(base, 'ClaimModification')) {
@@ -187,7 +192,7 @@ export class ViewModificationUnit {
         }
         return {
             label: `common.claim.modification.label.${label}`,
-            author: `common.claim.modification.author.${author}`,
+            author: `common.claim.modification.author.${author || 'manager'}`,
             icon,
             color
         };
