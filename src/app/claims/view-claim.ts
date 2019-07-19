@@ -46,9 +46,7 @@ export class ViewModificationUnit {
         return this.getExtensions().color;
     }
     get author(): string {
-        return `common.claim.modification.author.${
-            this.isTypedModification<PartyModification>(this.base, 'PartyModification') ? 'manager' : 'you'
-        }`;
+        return this.getExtensions().author;
     }
 
     constructor(public readonly base: ModificationUnit) {}
@@ -74,104 +72,125 @@ export class ViewModificationUnit {
         return !!(base.modification && (base.modification as M).modification[modificationType]);
     }
 
-    getExtensions(base: ModificationUnit = this.base): { label: string; icon?: string; color?: StatusColor } {
-        const getLabel = (label: string) => `common.claim.modification.label.${label}`;
+    getExtensions(
+        base: ModificationUnit = this.base
+    ): { label: string; icon?: string; color?: StatusColor; author?: string } {
+        let label: string;
+        let author = 'manager';
+        let icon: string;
+        let color: StatusColor;
         if (this.isTypedModification<ClaimModification>(base, 'ClaimModification')) {
+            author = 'you';
             if (this.isTypedClaimModificationUnit<DocumentModificationUnit>(base, 'documentModificationType')) {
                 switch (base.modification.modification.documentModificationType) {
                     case DocumentModification.DocumentModificationTypeEnum.DocumentCreated:
-                        return { icon: 'add', label: getLabel('documentCreated') };
+                        icon = 'add';
+                        label = 'documentCreated';
+                        break;
                 }
             } else if (this.isTypedClaimModificationUnit<StatusModificationUnit>(base, 'statusModificationType')) {
                 switch (base.modification.modification.statusModificationType) {
                     case StatusModification.StatusModificationTypeEnum.StatusChanged:
-                        const color = statusMapToColor(base.modification.status);
+                        color = statusMapToColor(base.modification.status);
+                        author = 'manager';
                         switch (base.modification.status) {
                             case StatusModificationUnit.StatusEnum.Accepted:
-                                return {
-                                    icon: 'insert_emoticon',
-                                    label: getLabel('accepted'),
-                                    color
-                                };
+                                icon = 'insert_emoticon';
+                                label = 'accepted';
+                                break;
                             case StatusModificationUnit.StatusEnum.Denied:
-                                return {
-                                    icon: 'mood_bad',
-                                    label: getLabel('denied'),
-                                    color
-                                };
+                                icon = 'mood_bad';
+                                label = 'denied';
+                                break;
                             case StatusModificationUnit.StatusEnum.Pending:
-                                return {
-                                    icon: 'sentiment_satisfied',
-                                    label: getLabel('pending'),
-                                    color
-                                };
+                                icon = 'sentiment_satisfied';
+                                label = 'pending';
+                                break;
                             case StatusModificationUnit.StatusEnum.PendingAcceptance:
-                                return {
-                                    icon: 'sentiment_satisfied',
-                                    label: getLabel('pendingAcceptance'),
-                                    color
-                                };
+                                icon = 'sentiment_satisfied';
+                                label = 'pendingAcceptance';
+                                break;
                             case StatusModificationUnit.StatusEnum.Review:
-                                return {
-                                    icon: 'sentiment_satisfied',
-                                    label: getLabel('review'),
-                                    color
-                                };
+                                icon = 'sentiment_satisfied';
+                                label = 'review';
+                                break;
                             case StatusModificationUnit.StatusEnum.Revoked:
-                                return {
-                                    icon: 'mood_bad',
-                                    label: getLabel('revoked'),
-                                    color
-                                };
+                                icon = 'mood_bad';
+                                label = 'revoked';
+                                break;
                         }
                 }
             } else if (this.isTypedClaimModificationUnit<FileModificationUnit>(base, 'fileModificationType')) {
                 switch (base.modification.modification.fileModificationType) {
                     case FileModification.FileModificationTypeEnum.FileCreated:
-                        return { icon: 'attach_file', label: getLabel('fileCreated') };
+                        icon = 'attach_file';
+                        label = 'fileCreated';
+                        break;
                 }
             } else if (this.isTypedClaimModificationUnit<CommentModificationUnit>(base, 'commentModificationType')) {
                 switch (base.modification.modification.commentModificationType) {
                     case CommentModification.CommentModificationTypeEnum.CommentCreated:
-                        return { icon: 'mode_comment', label: getLabel('commentCreated') };
+                        icon = 'mode_comment';
+                        label = 'commentCreated';
+                        break;
                 }
+            } else {
+                console.error('Claim modification unidentified');
+                label = 'claimUpdated';
             }
-            console.error('Claim modification unidentified');
-            return { label: getLabel('claimUpdated') };
         } else if (this.isTypedModification<PartyModification>(base, 'PartyModification')) {
-            const icon = 'create';
+            author = 'manager';
+            icon = 'create';
             if (this.isTypedPartyModificationUnit<ContractorModificationUnit>(base, 'contractorModificationType')) {
                 switch (base.modification.modification.contractorModificationType) {
                     case ContractorModification.ContractorModificationTypeEnum.Contractor:
-                        return { icon, label: getLabel('contractorUpdated') };
+                        label = 'contractorUpdated';
+                        break;
                 }
             } else if (this.isTypedPartyModificationUnit<ContractModificationUnit>(base, 'contractModificationType')) {
                 switch (base.modification.modification.contractModificationType) {
                     case ContractModification.ContractModificationTypeEnum.ContractAdjustmentModificationUnit:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.ContractParams:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.ContractTermination:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.ContractorID:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.LegalAgreement:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.PayoutToolModificationUnit:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                     case ContractModification.ContractModificationTypeEnum.ReportPreferences:
-                        return { icon, label: getLabel('contractUpdated') };
+                        label = 'contractUpdated';
+                        break;
                 }
             }
             // TODO: ShopModificationUnit
             // else if (this.isTypedPartyModificationUnit<ShopModificationUnit>(base, 'shopModificationType')) {
             //     console.error('Shop modification unidentified');
             // }
-            // console.error('Party modification unidentified');
-            return { label: getLabel('shopUpdated'), icon };
+            else {
+                // console.error('Party modification unidentified');
+                label = 'shopUpdated';
+            }
         }
-        console.error('Modification unidentified');
-        return { label: getLabel('updated') };
+        if (!label) {
+            console.error('Modification unidentified');
+            label = 'updated';
+        }
+        return {
+            label: `common.claim.modification.label.${label}`,
+            author: `common.claim.modification.author.${author}`,
+            icon,
+            color
+        };
     }
 }
 
