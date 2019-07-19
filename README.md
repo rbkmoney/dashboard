@@ -40,6 +40,7 @@ npm run codegen
 
 1.  Add submodule directory (`schemes/<SCHEME_NAME>/<VER:VX>`) to Makefile `SWAGGER_SCHEMES_PATH`
 1.  [Generate swagger API Angular modules](#initialization)
+1.  Update `config.json` and `stub-config.json`
 1.  Add `src/api/<SCHEME_NAME>`:
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`

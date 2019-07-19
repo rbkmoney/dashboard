@@ -18,7 +18,7 @@ describe('ConfigService', () => {
 
     it('should load config', () => {
         const { service, httpMock } = createService();
-        service.init().then(() => {
+        service.init({ configUrl: '/assets/appConfig.json' }).then(() => {
             for (const [k, v] of Object.entries(config)) {
                 expect(service[k]).toEqual(v);
             }
