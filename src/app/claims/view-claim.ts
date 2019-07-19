@@ -1,5 +1,4 @@
 import * as moment from 'moment';
-import get from 'lodash.get';
 
 import {
     Claim,
@@ -21,6 +20,17 @@ import {
     ContractModificationUnit
 } from '../api/claim-management';
 import { StatusColor } from '../theme-manager';
+
+function statusMapToColor(status: string): StatusColor {
+    return {
+        pending: StatusColor.pending,
+        pendingAcceptance: StatusColor.pending,
+        review: StatusColor.neutral,
+        revoked: StatusColor.warn,
+        denied: StatusColor.warn,
+        accepted: StatusColor.success
+    }[status];
+}
 
 export class ViewModificationUnit {
     get createdAt() {
@@ -70,11 +80,40 @@ export class ViewModificationUnit {
             } else if (this.isTypedClaimModificationUnit<StatusModificationUnit>(base, 'statusModificationType')) {
                 switch (base.modification.modification.statusModificationType) {
                     case StatusModification.StatusModificationTypeEnum.StatusChanged:
-                        return {
-                            icon: 'insert_emoticon',
-                            label: getLabel('statusChanged'),
-                            color: StatusColor.success
-                        };
+                        const color = statusMapToColor(base.modification.status);
+                        switch (base.modification.status) {
+                            case StatusModificationUnit.StatusEnum.Accepted:
+                                return {
+                                    icon: 'insert_emoticon',
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                            case StatusModificationUnit.StatusEnum.Denied:
+                                return {
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                            case StatusModificationUnit.StatusEnum.Pending:
+                                return {
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                            case StatusModificationUnit.StatusEnum.PendingAcceptance:
+                                return {
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                            case StatusModificationUnit.StatusEnum.Review:
+                                return {
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                            case StatusModificationUnit.StatusEnum.Revoked:
+                                return {
+                                    label: getLabel('statusChanged'),
+                                    color
+                                };
+                        }
                 }
             } else if (this.isTypedClaimModificationUnit<FileModificationUnit>(base, 'fileModificationType')) {
                 switch (base.modification.modification.fileModificationType) {
@@ -115,7 +154,10 @@ export class ViewModificationUnit {
                 }
             }
             // TODO: ShopModificationUnit
-            console.error('Shop modification unidentified');
+            // else if (this.isTypedPartyModificationUnit<ShopModificationUnit>(base, 'shopModificationType')) {
+            //     console.error('Shop modification unidentified');
+            // }
+            // console.error('Party modification unidentified');
             return { label: getLabel('shopUpdated'), icon };
         }
         console.error('Modification unidentified');
@@ -140,14 +182,7 @@ export class ViewClaim {
         return `common.claim.status.${this.base.status}`;
     }
     get color(): StatusColor {
-        return {
-            pending: StatusColor.pending,
-            pendingAcceptance: StatusColor.pending,
-            review: StatusColor.neutral,
-            revoked: StatusColor.warn,
-            denied: StatusColor.warn,
-            accepted: StatusColor.success
-        }[status];
+        return statusMapToColor(this.base.status);
     }
 
     constructor(public readonly base: Claim) {}
