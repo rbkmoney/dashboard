@@ -50,7 +50,6 @@ export class FloatPanelComponent {
     }
 
     setBaseContentHeight(height: number) {
-        console.log(height);
         this.baseContentHeight = height;
     }
 
