@@ -36,7 +36,7 @@ export class LocaleDictionaryService {
 
     mapDictionaryKey(key: string): string {
         if (!this.dictionary) {
-            console.warn('Locale dictionary is not defined');
+            console.error('Locale dictionary is not defined');
             return key;
         } else if (!key) {
             return key;
@@ -45,8 +45,9 @@ export class LocaleDictionaryService {
             return key;
         }
         const str = get(this.dictionary, key, STATIC_MARK);
-        if (str !== STATIC_MARK) {
+        if (str === STATIC_MARK) {
             console.warn(`Unknown locale dictionary "${key}" key`);
+            return key;
         }
         return str;
     }
