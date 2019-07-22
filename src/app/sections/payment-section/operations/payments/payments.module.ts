@@ -19,6 +19,9 @@ import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { FormControlsModule } from '../../../../form-controls';
 import { DaterangeSelectorModule } from '../daterange-selector';
+import { StatusModule } from '../../../../status';
+import { PaymentStatusColorPipe } from './status-color.pipe';
+import { FromMinorPipe } from './from-minor.pipe';
 
 @NgModule({
     imports: [
@@ -36,8 +39,9 @@ import { DaterangeSelectorModule } from '../daterange-selector';
         MatDatepickerModule,
         MatSelectModule,
         FormControlsModule,
-        DaterangeSelectorModule
+        DaterangeSelectorModule,
+        StatusModule
     ],
-    declarations: [PaymentsComponent, SearchFormComponent]
+    declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, FromMinorPipe]
 })
 export class PaymentsModule {}

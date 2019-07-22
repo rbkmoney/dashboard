@@ -38,7 +38,7 @@
         &-row,
         &-header-row,
         &-footer-row {
-            border-bottom-color: mat-color($foreground, divider);
+            border-bottom-color: mat-color($foreground, table-divider);
         }
     }
 }
