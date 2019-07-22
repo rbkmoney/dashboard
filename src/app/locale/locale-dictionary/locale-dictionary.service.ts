@@ -12,6 +12,8 @@ const angularLocaleData: { [locale in typeof supportedLanguages[number]]: any } 
     ru: localeRu
 };
 
+const STATIC_MARK = Symbol();
+
 @Injectable()
 export class LocaleDictionaryService {
     private dictionary;
@@ -36,10 +38,15 @@ export class LocaleDictionaryService {
         if (!this.dictionary) {
             console.warn('Locale dictionary is not defined');
             return key;
+        } else if (!key) {
+            return key;
+        } else if (typeof key !== 'string' && typeof key !== 'number') {
+            console.warn(`Key must be a number or a string. Get: ${typeof key} "${key}"`);
+            return key;
         }
-        const str = get(this.dictionary, key, key);
-        if (str === key) {
-            console.warn(`Locale dictionary mismatch: ${key}`);
+        const str = get(this.dictionary, key, STATIC_MARK);
+        if (str !== STATIC_MARK) {
+            console.warn(`Unknown locale dictionary "${key}" key`);
         }
         return str;
     }
