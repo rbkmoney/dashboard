@@ -150,7 +150,7 @@
                     "status": "Статус",
                     "statusChanged": "Статус изменен",
                     "invoice": "Инвойс",
-                    "attributes": "Признаки"
+                    "shop": "Магазин"
                 }
             },
             "invoices": {

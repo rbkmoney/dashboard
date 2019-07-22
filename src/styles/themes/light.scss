@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-
 @import '../utils/palette';
 @import './theme';
 
@@ -17,9 +16,9 @@ $background: (
     unselected-chip: map_get($mat-grey, 300),
     disabled-list-option: map_get($mat-grey, 200),
     /*
-     * Custom
-     *
- */ hover: map_get($mat-grey, 200),
+   * Custom
+   *
+*/ hover: map_get($mat-grey, 200),
     selected-button: map_get($mat-grey, 100),
     tooltip-line-color: rgba(black, 0.1)
 );
@@ -27,6 +26,7 @@ $background: (
 $foreground: (
     base: black,
     divider: rgba(#000, 0.27),
+    table-divider: map_get($mat-grey, 300),
     dividers: $dark-dividers,
     disabled: $dark-disabled-text,
     disabled-button: rgba(#000, 0.26),
@@ -39,14 +39,14 @@ $foreground: (
     slider-off: rgba(#000, 0.26),
     slider-off-active: rgba(#000, 0.38),
     /*
-     * Overrides
-     *
- */ text: #475166,
+   * Overrides
+   *
+*/ text: #475166,
     slider-min: #475166,
     /*
-     * Custom
-     *
- */ axis-tick-color: rgba(black, 0.1),
+   * Custom
+   *
+*/ axis-tick-color: rgba(black, 0.1),
     x-axis-text-color: rgba(black, 0.3),
     y-axis-text-color: rgba(black, 0.5),
     legend-tooltip-date-color: rgba(black, 0.3),
@@ -61,9 +61,9 @@ $theme: (
     foreground: $foreground,
     background: $background,
     /*
-     * Custom
-     *
- */ name: 'light',
+   * Custom
+   *
+*/ name: 'light',
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
     neutral: mat-palette($mat-grey),
