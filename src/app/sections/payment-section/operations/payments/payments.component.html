@@ -33,7 +33,7 @@
                         <th dshHeaderCell *dshHeaderCellDef>
                             {{ localeBseDir + '.table.statusChanged' | lc }}
                         </th>
-                        <td dshCell *dshCellDef="let element">{{ element.statusChangedAt | date: 'medium' }}</td>
+                        <td dshCell *dshCellDef="let element">{{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</td>
                     </ng-container>
 
                     <ng-container dshColumnDef="invoice">
