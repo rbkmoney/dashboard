@@ -1,7 +1,7 @@
 {
     "api": {
-        "capiEndpoint": "http://localhost:9000",
-        "claimManagementEndpoint": "http://localhost:9003"
+        "capiEndpoint": "http://localhost:9001",
+        "claimManagementEndpoint": "http://localhost:9004"
     },
     "daData": {
         "token": "Token 513f29a0891d00336496240b5cee89afe8fafde7",
