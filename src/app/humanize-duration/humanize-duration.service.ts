@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as humanizeDurationz from 'humanize-duration';
+import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 
 import { SettingsService } from '../settings';
@@ -8,8 +8,8 @@ export type Value = number | moment.Moment;
 
 @Injectable()
 export class HumanizeDurationService {
-    get duration() {
-        return humanizeDurationz.humanizer({
+    private get duration() {
+        return humanizeDuration.humanizer({
             language: this.settinsService.language,
             round: true,
             delimiter: ' '
@@ -18,7 +18,7 @@ export class HumanizeDurationService {
 
     constructor(private settinsService: SettingsService) {}
 
-    getDuration(value: Value, config: humanizeDurationz.HumanizerOptions = {}) {
+    getDuration(value: Value, config: humanizeDuration.HumanizerOptions = {}) {
         let diffMs;
         switch (typeof value) {
             case 'string':
