@@ -2,7 +2,7 @@
   "name": "dashboard",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "prepush": "npm run test-silent",
     "start": "ng serve --port 8000",
     "aot": "ng serve --port 8000 --aot",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
@@ -74,6 +74,7 @@
     "@types/node": "^11.13.10",
     "@types/pdfmake": "^0.1.5",
     "codelyzer": "^5.0.1",
+    "husky": "^3.0.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
