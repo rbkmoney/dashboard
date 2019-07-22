@@ -1,0 +1,24 @@
+<dsh-card>
+    <dsh-card-title>
+        <div class="mat-h2" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+            <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon>
+            <div>
+                {{ localePath + '.title' | lc }}
+                <span dshSecondaryTitle>#{{ invoice.id }}</span>
+            </div>
+        </div>
+    </dsh-card-title>
+    <dsh-card-content>
+        <div fxLayout="column" [fxLayoutGap]="layoutGap">
+            <dsh-details-item [title]="localePath + '.titles.product' | lc">
+                {{ invoice.product }}
+            </dsh-details-item>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
+                <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
+                    {{ invoice.amount / 100 | amount }} {{ invoice.currency | currencySymbol }}
+                </dsh-details-item>
+            </div>
+        </div>
+    </dsh-card-content>
+</dsh-card>
