@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 import { ClaimsService } from '../../../claims';
 
@@ -8,16 +8,10 @@ import { ClaimsService } from '../../../claims';
     styleUrls: ['claims.component.scss']
 })
 export class ClaimsComponent {
-    @Input()
-    closeDropdown: () => void;
+    @Output()
+    action = new EventEmitter();
 
     claims$ = this.claimsService.getClaims(5, 5000);
 
     constructor(public claimsService: ClaimsService) {}
-
-    actionHandler({ isMoving }) {
-        if (isMoving) {
-            this.closeDropdown();
-        }
-    }
 }

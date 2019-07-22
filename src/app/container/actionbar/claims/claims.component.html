@@ -7,7 +7,7 @@
                 [status]="claim.status | lc"
                 [color]="claim.color"
                 [id]="claim.id"
-                (action)="actionHandler($event)"
+                (action)="action.next($event)"
             >
                 {{ claim.status | lc }}
             </dsh-claims-list-item>
