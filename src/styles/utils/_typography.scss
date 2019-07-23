@@ -60,3 +60,11 @@
         )
     );
 }
+
+@mixin typo-truncate($width, $max-width) {
+    width: $width;
+    max-width: $max-width;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

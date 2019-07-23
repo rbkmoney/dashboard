@@ -1,8 +1,14 @@
 $nav-padding: 46px;
 $section-container-padding: 20px 0 0 0;
 
-.section-container {
-    padding: $section-container-padding;
+.section {
+    &-container {
+        padding: $section-container-padding;
+    }
+
+    &-content {
+        max-width: 100%;
+    }
 }
 
 .nav {
