@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { switchMap, filter, map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
 
-import { ClaimsService } from '../../../claims';
+import { ClaimsService } from '../../claims';
 
 @Injectable()
 export class ClaimService {

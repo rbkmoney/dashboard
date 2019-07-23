@@ -3,20 +3,20 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 
-import { LayoutModule } from '../../../layout';
-import { ClaimService } from './claim.service';
+import { HumanizeDurationModule } from '../../humanize-duration';
+import { LayoutModule } from '../../layout';
+import { ButtonModule } from '../../button';
+import { TimelineModule } from '../../timeline';
+import { ExpandPanelModule } from '../../expand-panel';
+import { LocaleModule } from '../../locale';
+import { DshTabsModule } from '../../layout/tabs';
+import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ConversationComponent } from './conversation';
 import { ChangesComponent } from './changes';
 import { DocumentsComponent } from './documents';
-import { ClaimRoutingModule } from './claim-routing.module';
-import { DshTabsModule } from '../../../layout/tabs';
-import { ButtonModule } from '../../../button';
-import { TimelineModule } from '../../../timeline';
-import { ExpandPanelModule } from '../../../expand-panel';
-import { LocaleModule } from '../../../locale';
-import { HumanizeDurationModule } from '../../../humanize-duration';
-import { ClaimsModule as ClaimsManagerModule } from '../../../claims';
+import { ClaimService } from './claim.service';
+import { ClaimsModule } from '../../claims';
 
 @NgModule({
     imports: [
@@ -32,7 +32,7 @@ import { ClaimsModule as ClaimsManagerModule } from '../../../claims';
         LocaleModule,
         CommonModule,
         HumanizeDurationModule,
-        ClaimsManagerModule,
+        ClaimsModule,
         ClaimRoutingModule
     ],
     declarations: [ClaimComponent, ConversationComponent, ChangesComponent, DocumentsComponent],

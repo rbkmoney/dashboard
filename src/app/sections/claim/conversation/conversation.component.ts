@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ViewClaim, ClaimsService } from '../../../../claims';
+import { ViewClaim, ClaimsService } from '../../../claims';
 import { ClaimService } from '../claim.service';
 
 @Component({

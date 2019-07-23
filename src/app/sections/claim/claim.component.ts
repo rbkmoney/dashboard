@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from './claim.service';
-import { ViewClaim, ClaimsService } from '../../../claims';
+import { ViewClaim, ClaimsService } from '../../claims';
 
 @Component({
     selector: 'dsh-claim',
