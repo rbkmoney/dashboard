@@ -1,3 +1,5 @@
+@import '../../../../../styles/utils/typography';
+
 .update-btn,
 .last-update {
     font-weight: normal;
@@ -22,14 +24,10 @@
 }
 
 .truncate {
-    width: 100%;
-    max-width: 289px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @include typo-truncate(100%, 289px);
 }
 
-.scroll {
+.table-container {
     overflow-x: auto;
 }
 

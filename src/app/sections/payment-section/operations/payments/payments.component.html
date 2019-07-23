@@ -7,7 +7,7 @@
                 <span class="last-update">{{ localeBseDir + '.lastUpdate' | lc }}: Только что</span>
                 <button dsh-button class="update-btn">{{ localeBseDir + '.refresh' | lc }}</button>
             </div>
-            <div class="scroll">
+            <div class="table-container">
                 <table dshTable [dataSource]="dataSource">
                     <ng-container dshColumnDef="amount">
                         <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>

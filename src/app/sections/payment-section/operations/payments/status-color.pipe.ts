@@ -8,15 +8,16 @@ import { Color } from '../../../../status';
 })
 export class PaymentStatusColorPipe implements PipeTransform {
     transform(status: PaymentSearchResult.StatusEnum): Color {
+        const statusEnum = PaymentSearchResult.StatusEnum;
         switch (status) {
-            case PaymentSearchResult.StatusEnum.Captured:
-            case PaymentSearchResult.StatusEnum.Processed:
-            case PaymentSearchResult.StatusEnum.Refunded:
+            case statusEnum.Captured:
+            case statusEnum.Processed:
+            case statusEnum.Refunded:
                 return Color.success;
-            case PaymentSearchResult.StatusEnum.Failed:
-            case PaymentSearchResult.StatusEnum.Cancelled:
+            case statusEnum.Failed:
+            case statusEnum.Cancelled:
                 return Color.warn;
-            case PaymentSearchResult.StatusEnum.Pending:
+            case statusEnum.Pending:
                 return Color.pending;
         }
     }
