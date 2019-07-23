@@ -3,6 +3,7 @@
 @mixin dsh-table-theme($theme) {
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
+    $gray: map-get($theme, gray);
 
     .dsh {
         &-table {
@@ -38,7 +39,7 @@
         &-row,
         &-header-row,
         &-footer-row {
-            border-bottom-color: mat-color($foreground, table-divider);
+            border-bottom-color: mat-color($gray, 300);
         }
     }
 }

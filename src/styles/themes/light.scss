@@ -26,7 +26,6 @@ $background: (
 $foreground: (
     base: black,
     divider: rgba(#000, 0.27),
-    table-divider: map_get($mat-grey, 300),
     dividers: $dark-dividers,
     disabled: $dark-disabled-text,
     disabled-button: rgba(#000, 0.26),
