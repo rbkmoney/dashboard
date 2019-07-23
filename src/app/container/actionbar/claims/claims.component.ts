@@ -11,7 +11,7 @@ export class ClaimsComponent {
     @Output()
     action = new EventEmitter();
 
-    claims$ = this.claimsService.getClaims(5, 5000);
+    claims$ = this.claimsService.getClaims(5);
 
     constructor(public claimsService: ClaimsService) {}
 }
