@@ -1,10 +1,6 @@
 @mixin body-override() {
-    //html {
-    //    width: 100%;
-    //}
     body {
         margin: 0;
         transition: background 200ms ease-in-out;
-        //width: 100%;
     }
 }
