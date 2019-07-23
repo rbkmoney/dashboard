@@ -13,26 +13,20 @@ import { getClaimStatusViewInfo } from '../../view-utils';
     styleUrls: ['claim.component.scss']
 })
 export class ClaimComponent {
-    links$ = this.claimService.claim$.pipe(
-        map(({ id }) => {
-            const getPath = (p: string) => `/claim/${id}/${p}`;
-            return [
-                {
-                    path: getPath('conversation'),
-                    label: 'sections.claim.conversation.label'
-                },
-                {
-                    path: getPath('changes'),
-                    label: 'sections.claim.changes.label'
-                },
-                {
-                    path: getPath('documents'),
-                    label: 'sections.claim.documents.label'
-                }
-            ];
-        }),
-        shareReplay(1)
-    );
+    links = [
+        {
+            path: 'conversation',
+            label: 'sections.claim.conversation.label'
+        },
+        {
+            path: 'changes',
+            label: 'sections.claim.changes.label'
+        },
+        {
+            path: 'documents',
+            label: 'sections.claim.documents.label'
+        }
+    ];
 
     claim$ = this.claimService.claim$.pipe(
         map(({ id, status }) => ({
