@@ -26,9 +26,8 @@ export class RefundsComponent implements OnChanges {
     }
 
     getMoreRefunds = (invoiceID: string, paymentID: string, offset = 0) =>
-        this.paymentDetailsService.searchRefunds(invoiceID, paymentID, offset).subscribe(({ result, totalCount }) => {
+        this.paymentDetailsService.getRefunds(invoiceID, paymentID, offset).subscribe(({ result, totalCount }) => {
             this.refunds.push(...result);
             this.totalCount = totalCount;
         });
-
 }

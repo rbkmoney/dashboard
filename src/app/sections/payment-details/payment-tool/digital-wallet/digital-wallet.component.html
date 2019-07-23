@@ -1,0 +1,8 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+    <dsh-details-item [title]="localePath + '.titles.digitalWalletType' | lc" fxFlex>
+        {{ localePath + '.titles.' + qiwi.digitalWalletDetailsType | lc }}
+    </dsh-details-item>
+    <dsh-details-item [title]="localePath + '.titles.phoneNumber' | lc" fxFlex>
+        {{ qiwi.phoneNumberMask | phoneNumber }}
+    </dsh-details-item>
+</div>

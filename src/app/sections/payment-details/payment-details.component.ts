@@ -33,32 +33,21 @@ export class PaymentDetailsComponent implements OnInit {
 
     refunds: Refund[];
 
-    payoutToolDetailsBankCard: PayoutToolDetailsBankCard;
-
-    constructor(
-        private route: ActivatedRoute,
-        private paymentDetailsService: PaymentDetailsService
-    ) {}
+    constructor(private route: ActivatedRoute, private paymentDetailsService: PaymentDetailsService) {}
 
     ngOnInit() {
-        this.route.params.subscribe((params) => {
+        this.route.params.subscribe(params => {
             this.invoiceID = params['invoiceID'];
             this.paymentID = params['paymentID'];
-            this.paymentDetailsService.searchPayments(this.invoiceID, this.paymentID).subscribe((payments) => {
+            this.paymentDetailsService.getPayment(this.invoiceID, this.paymentID).subscribe(payments => {
                 this.payment = payments.result[0];
             });
-            this.paymentDetailsService.getInvoiceByID(this.invoiceID).subscribe((invoice) => {
+            this.paymentDetailsService.getInvoiceByID(this.invoiceID).subscribe(invoice => {
                 this.invoice = invoice;
-                this.paymentDetailsService.getShopByID(invoice.shopID).subscribe((shop) => {
-                   this.shop = shop;
+                this.paymentDetailsService.getShopByID(invoice.shopID).subscribe(shop => {
+                    this.shop = shop;
                 });
             });
         });
-
-        this.payoutToolDetailsBankCard = {
-            detailsType: 'PaymentToolDetailsBankCard',
-            cardNumberMask: '847837******3457',
-            paymentSystem: PaymentSystemEnum.Mastercard
-        };
     }
 }

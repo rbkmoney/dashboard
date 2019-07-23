@@ -180,14 +180,26 @@
             "paymentTool": {
                 "title": "Средство оплаты",
                 "titles": {
-                    "card": "Банковская карта"
+                    "card": "Банковская карта",
+                    "digitalWalletType": "Цифровой кошелек",
+                    "DigitalWalletDetailsQIWI": "QIWI",
+                    "phoneNumber": "Номер телефона",
+                    "terminal": "Платежный терминал"
+                },
+                "terminals": {
+                    "euroset": "Евросеть"
                 }
             },
             "payerDetails": {
                 "title": "Плательщик",
                 "titles": {
                     "fingerprint": "Fingerprint",
-                    "ip": "IP"
+                    "ip": "IP",
+                    "customerID": "Customer ID",
+                    "email": "Электронная почта",
+                    "phoneNumber": "Номер телефона",
+                    "invoiceID": "Идентификатор родительского инвойса",
+                    "paymentID": "Идентификатор родительского платежа"
                 }
             },
             "holdDetails": {

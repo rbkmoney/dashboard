@@ -1,29 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
-import { ClientInfo, ContactInfo, Payer } from '../../../api/capi/swagger-codegen';
+import { CustomerPayer, Payer, PaymentResourcePayer, RecurrentPayer } from '../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payer-details',
     templateUrl: './payer-details.component.html'
 })
-export class PayerDetailsComponent implements OnInit {
+export class PayerDetailsComponent implements OnChanges {
     @Input() payer: Payer;
 
     @Input() layoutGap = '20px';
 
-    contactInfo: ContactInfo;
-    clientInfo: ClientInfo;
+    customerPayer: CustomerPayer;
+    paymentResourcePayer: PaymentResourcePayer;
+    recurrentPayer: RecurrentPayer;
+
+    payerEmail: string;
 
     localePath = 'sections.paymentDetails.payerDetails';
 
-    ngOnInit() {
-        this.contactInfo = {
-            email: 'payer@mail.com'
-        };
-
-        this.clientInfo = {
-            ip: '2A04:4A00:5:966:80E8:ACEC:D40:D5D5',
-            fingerprint: 'ca35b70d7582a867e415d22d018e18c7'
-        };
+    ngOnChanges() {
+        if (this.payer) {
+            switch (this.payer.payerType) {
+                case 'CustomerPayer':
+                    this.customerPayer = this.payer as CustomerPayer;
+                    break;
+                case 'PaymentResourcePayer':
+                    this.paymentResourcePayer = this.payer as PaymentResourcePayer;
+                    this.payerEmail = this.paymentResourcePayer.contactInfo.email;
+                    break;
+                case 'RecurrentPayer':
+                    this.recurrentPayer = this.payer as RecurrentPayer;
+                    this.payerEmail = this.recurrentPayer.contactInfo.email;
+                    break;
+            }
+        }
     }
 }

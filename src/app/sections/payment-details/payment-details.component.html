@@ -1,5 +1,5 @@
 <div class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
-    <div class="mat-h1" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+    <div class="mat-h1" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
         <mat-icon class="dsh-back-icon" routerLink="..">arrow_back</mat-icon>
         <div>
             {{ 'sections.paymentDetails.title' | lc }}
@@ -7,9 +7,15 @@
         </div>
     </div>
     <dsh-details [payment]="payment"></dsh-details>
-    <dsh-payment-tool [paymentToolDetails]="payoutToolDetailsBankCard"></dsh-payment-tool>
+    <dsh-payment-tool
+        *ngIf="payment?.payer?.payerType === 'PaymentResourcePayer'"
+        [paymentToolDetails]="payment?.payer?.paymentToolDetails"
+    ></dsh-payment-tool>
     <dsh-payer-details [payer]="payment?.payer"></dsh-payer-details>
-    <dsh-hold-details *ngIf="payment?.flow?.type === 'PaymentFlowHold'" [holdDate]="payment?.flow?.heldUntil"></dsh-hold-details>
+    <dsh-hold-details
+        *ngIf="payment?.flow?.type === 'PaymentFlowHold'"
+        [holdDate]="payment?.flow?.heldUntil"
+    ></dsh-hold-details>
     <dsh-recurrent-details *ngIf="payment?.makeRecurrent"></dsh-recurrent-details>
     <dsh-invoice-details [invoice]="invoice"></dsh-invoice-details>
     <dsh-shop-details *ngIf="shop" [shopName]="shop.details.name" [shopURL]="shop.location.url"></dsh-shop-details>

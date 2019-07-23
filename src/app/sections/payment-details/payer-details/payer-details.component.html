@@ -1,14 +1,34 @@
 <dsh-card>
     <dsh-card-title>
-        <h2 class="mat-h2">{{ localePath + '.title' | lc }}: {{ contactInfo?.email }}</h2>
+        <h2 class="mat-h2">
+            {{ localePath + '.title' | lc }}<span *ngIf="payerEmail">: {{ payerEmail }}</span>
+        </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+        <div *ngIf="customerPayer">
+            <dsh-details-item [title]="localePath + '.titles.customerID' | lc">
+                {{ customerPayer.customerID }}
+            </dsh-details-item>
+        </div>
+        <div *ngIf="paymentResourcePayer" fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
-                {{ clientInfo?.fingerprint }}
+                {{ paymentResourcePayer.clientInfo?.fingerprint }}
             </dsh-details-item>
             <dsh-details-item [title]="localePath + '.titles.ip' | lc" fxFlex>
-                {{ clientInfo?.ip }}
+                {{ paymentResourcePayer.clientInfo?.ip }}
+            </dsh-details-item>
+        </div>
+        <div *ngIf="recurrentPayer" fxLayout="column" [fxLayoutGap]="layoutGap">
+            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item [title]="localePath + '.titles.invoiceID' | lc" fxFlex>
+                    {{ recurrentPayer.recurrentParentPayment?.invoiceID }}
+                </dsh-details-item>
+                <dsh-details-item [title]="localePath + '.titles.paymentID' | lc" fxFlex>
+                    {{ recurrentPayer.recurrentParentPayment?.paymentID }}
+                </dsh-details-item>
+            </div>
+            <dsh-details-item [title]="localePath + '.titles.phoneNumber' | lc" fxFlex>
+                {{ recurrentPayer.contactInfo.phoneNumber }}
             </dsh-details-item>
         </div>
     </dsh-card-content>

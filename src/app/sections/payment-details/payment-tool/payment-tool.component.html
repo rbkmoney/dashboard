@@ -5,18 +5,8 @@
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <dsh-details-item [title]="localePath + '.titles.card' | lc">
-            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
-                <div class="dsh-bank-card-number">
-                    {{ bankCard?.cardNumberMask | bankCard }}
-                </div>
-                <mat-icon *ngIf="bankCard?.paymentSystem === paymentSystems?.Visa" svgIcon="visa"></mat-icon>
-                <mat-icon *ngIf="bankCard?.paymentSystem === paymentSystems?.Mastercard" svgIcon="mastercard"></mat-icon>
-                <mat-icon *ngIf="bankCard?.paymentSystem === paymentSystems?.Nspkmir" svgIcon="mir"></mat-icon>
-                <!--<mat-icon svgIcon="apple_pay"></mat-icon>-->
-                <!--<mat-icon svgIcon="samsung_pay"></mat-icon>-->
-                <!--<mat-icon svgIcon="google_pay"></mat-icon>-->
-            </div>
-        </dsh-details-item>
+        <dsh-bank-card *ngIf="bankCard" [bankCard]="bankCard"></dsh-bank-card>
+        <dsh-digital-wallet *ngIf="digitalWallet" [digitalWallet]="digitalWallet"></dsh-digital-wallet>
+        <dsh-payment-terminal *ngIf="paymentTerminal" [paymentTerminal]="paymentTerminal"></dsh-payment-terminal>
     </dsh-card-content>
 </dsh-card>

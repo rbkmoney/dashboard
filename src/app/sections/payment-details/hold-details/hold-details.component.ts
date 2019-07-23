@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import moment from 'moment';
 
 @Component({
     selector: 'dsh-hold-details',
@@ -10,4 +11,6 @@ export class HoldDetailsComponent {
     @Input() layoutGap = '20px';
 
     localePath = 'sections.paymentDetails.holdDetails';
+
+    isHoldExpired = (date: string): boolean => moment(date).diff(moment()) < 0;
 }

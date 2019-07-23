@@ -8,7 +8,7 @@
         <div fxLayout="column" fxLayoutGap="20px">
             <div class="mat-body-1">
                 {{ holdDate | date: 'd MMMM yyyy, HH:mm' | holdDatePipe }}
-                {{ holdDate | timeUntilHold | async }}
+                {{ isHoldExpired(holdDate) ? '' : (holdDate | timeUntilHold | async) }}
                 {{ localePath + '.message' | lc }}
             </div>
             <div
@@ -18,10 +18,10 @@
                 fxLayoutGap="0"
                 [fxLayoutGap.xs]="layoutGap"
             >
-                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
+                <button *ngIf="!isHoldExpired(holdDate)" fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
                     {{ localePath + '.actions.deny' | lc }}
                 </button>
-                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
+                <button *ngIf="!isHoldExpired(holdDate)" fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
                     {{ localePath + '.actions.accept' | lc }}
                 </button>
             </div>

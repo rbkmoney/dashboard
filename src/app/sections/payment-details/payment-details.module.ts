@@ -28,6 +28,11 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { TimeUntilHoldPipe } from './time-until-hold.pipe';
 import { HoldDatePipe } from './hold-date.pipe';
+import { PhoneNumberPipe } from './phone-number.pipe';
+import { DigitalWalletComponent } from './payment-tool/digital-wallet/digital-wallet.component';
+import { BankCardComponent } from './payment-tool/bank-card/bank-card.component';
+import { PaymentTerminalComponent } from './payment-tool/payment-terminal/payment-terminal.component';
+import { SearchModule } from '../../search/search.module';
 
 @NgModule({
     imports: [
@@ -40,7 +45,8 @@ import { HoldDatePipe } from './hold-date.pipe';
         CardModule,
         ButtonModule,
         CommonModule,
-        PaymentDetailsRoutingModule
+        PaymentDetailsRoutingModule,
+        SearchModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -60,7 +66,11 @@ import { HoldDatePipe } from './hold-date.pipe';
         TimeUntilHoldPipe,
         CurrencySymbolPipe,
         BankCardPipe,
-        HoldDatePipe
+        HoldDatePipe,
+        PhoneNumberPipe,
+        DigitalWalletComponent,
+        BankCardComponent,
+        PaymentTerminalComponent
     ],
     exports: [PaymentDetailsComponent]
 })

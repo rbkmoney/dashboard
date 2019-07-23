@@ -19,10 +19,10 @@
                 {{ localePath + '.noRefunds' | lc }}
             </div>
             <button
-                    *ngIf="refunds.length < totalCount"
-                    class="dsh-payment-details-refunds-show-more-refunds"
-                    dsh-button
-                    (click)="getMoreRefunds(invoiceID, paymentID, refunds.length)"
+                *ngIf="refunds.length < totalCount"
+                class="dsh-payment-details-refunds-show-more-refunds"
+                dsh-button
+                (click)="getMoreRefunds(invoiceID, paymentID, refunds.length)"
             >
                 {{ localePath + '.showMore' | lc }}
             </button>
