@@ -1,5 +1,36 @@
+@import '../../../../../styles/utils/typography';
+
 .update-btn,
 .last-update {
     font-weight: normal;
     font-size: 12px;
+}
+
+.arrow-forward {
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 3px;
+    transition: transform 0.3s;
+}
+
+.link-with-arrow {
+    &:hover {
+        cursor: pointer;
+
+        .arrow-forward {
+            transform: translate3d(5px, 0, 0);
+        }
+    }
+}
+
+.truncate {
+    @include typo-truncate(100%, 289px);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.dsh-table {
+    width: 100%;
 }
