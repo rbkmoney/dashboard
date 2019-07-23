@@ -6,18 +6,18 @@
             <span dshSecondaryTitle>#{{ payment?.id }}</span>
         </div>
     </div>
-    <dsh-details [payment]="payment"></dsh-details>
+    <dsh-details *ngIf="payment" [payment]="payment"></dsh-details>
     <dsh-payment-tool
         *ngIf="payment?.payer?.payerType === 'PaymentResourcePayer'"
         [paymentToolDetails]="getPaymentToolDetails(payment.payer)"
     ></dsh-payment-tool>
-    <dsh-payer-details [payer]="payment?.payer"></dsh-payer-details>
+    <dsh-payer-details *ngIf="payment?.payer" [payer]="payment?.payer"></dsh-payer-details>
     <dsh-hold-details
         *ngIf="payment?.flow?.type === 'PaymentFlowHold'"
         [holdDate]="getHoldDate(payment.flow)"
     ></dsh-hold-details>
     <dsh-recurrent-details *ngIf="payment?.makeRecurrent"></dsh-recurrent-details>
-    <dsh-invoice-details [invoice]="invoice"></dsh-invoice-details>
+    <dsh-invoice-details *ngIf="invoice" [invoice]="invoice"></dsh-invoice-details>
     <dsh-shop-details *ngIf="shop" [shopName]="shop.details.name" [shopURL]="getUrl(shop.location)"></dsh-shop-details>
     <dsh-refunds [invoiceID]="invoiceID" [paymentID]="paymentID"></dsh-refunds>
 </div>
