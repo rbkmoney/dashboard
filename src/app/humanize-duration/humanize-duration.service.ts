@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { SettingsService } from '../settings';
 
-export type Value = number | moment.Moment;
+export type Value = number | string | moment.Moment;
 
 @Injectable()
 export class HumanizeDurationService {
@@ -19,16 +19,7 @@ export class HumanizeDurationService {
     constructor(private settinsService: SettingsService) {}
 
     getDuration(value: Value, config: humanizeDuration.HumanizerOptions = {}) {
-        let diffMs;
-        switch (typeof value) {
-            case 'string':
-            case 'number':
-                diffMs = Number(value);
-                break;
-            default:
-                diffMs = moment().diff(value);
-                break;
-        }
+        const diffMs = typeof value === 'number' ? value : moment().diff(moment(value));
         if (config.largest === 1) {
             return moment.duration(diffMs).humanize();
         }

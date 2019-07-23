@@ -19,15 +19,12 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
 
     transform(value: Value, { interval: intervalMs, ...config }: HumanizeDurationConfig = {}) {
         if (value !== this.inputValue) {
-            if (typeof value === 'object') {
+            this.inputValue = value;
+            if (typeof value !== 'number') {
                 this.dispose();
-                this.inputValue = value;
-                this.subscription = interval(intervalMs || 1000).subscribe(() => {
-                    this.ref.markForCheck();
-                    this.setLatestValue(value, config);
-                });
+                this.subscription = interval(intervalMs || 1000).subscribe(() => this.updateValue(value, config));
             }
-            this.setLatestValue(value, config);
+            this.latestValue = this.humanizeDurationService.getDuration(value, config);
         }
         return this.latestValue;
     }
@@ -42,7 +39,11 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
         }
     }
 
-    private setLatestValue(value: Value, config: HumanizerOptions = {}) {
-        this.latestValue = this.humanizeDurationService.getDuration(value, config);
+    private updateValue(value: Value, config: HumanizerOptions = {}) {
+        const duration = this.humanizeDurationService.getDuration(value, config);
+        if (duration !== this.latestValue) {
+            this.ref.markForCheck();
+            this.latestValue = duration;
+        }
     }
 }
