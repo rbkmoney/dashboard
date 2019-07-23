@@ -4,7 +4,7 @@
 </div>
 
 <dsh-timeline>
-    <dsh-timeline-item *ngFor="let unit of (claim$ | async)?.changeset" [color]="unit.color">
+    <dsh-timeline-item *ngFor="let unit of changesetViewInfo$ | async" [color]="unit.color">
         <dsh-timeline-item-title>
             <b class="mat-body-2">{{ unit.author | lc }}</b>
             {{ unit.label | lc }}

@@ -3,24 +3,20 @@ import { map, share } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { genXRequestID } from '../api';
-import { ClaimsService as APIClaimsService } from '../api/claim-management';
-import { ViewClaim } from './view-claim';
+import { ClaimsService as APIClaimsService, Claim } from '../api/claim-management';
 
 @Injectable()
 export class ClaimsService {
     constructor(private claimsService: APIClaimsService) {}
 
-    getClaims(count: number = 5): Observable<ViewClaim[]> {
+    getClaims(count: number = 5): Observable<Claim[]> {
         return this.claimsService.searchClaims(genXRequestID(), count).pipe(
-            map(({ result }) => result.map(claim => new ViewClaim(claim))),
+            map(({ result }) => result),
             share()
         );
     }
 
-    getClaim(claimID): Observable<ViewClaim> {
-        return this.claimsService.getClaimByID(genXRequestID(), claimID).pipe(
-            map(claim => new ViewClaim(claim)),
-            share()
-        );
+    getClaim(claimID): Observable<Claim> {
+        return this.claimsService.getClaimByID(genXRequestID(), claimID);
     }
 }

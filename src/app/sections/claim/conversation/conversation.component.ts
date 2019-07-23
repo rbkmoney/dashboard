@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { ViewClaim, ClaimsService } from '../../../claims';
+import { ClaimsService } from '../../../claims';
 import { ClaimService } from '../claim.service';
+import { Claim } from '../../../api/claim-management';
+import { getModificationViewInfo } from './get-modification-view-info';
 
 @Component({
     selector: 'dsh-conversation',
@@ -10,9 +13,16 @@ import { ClaimService } from '../claim.service';
     styleUrls: ['conversation.component.scss']
 })
 export class ConversationComponent {
-    get claim$(): Observable<ViewClaim> {
+    get claim$(): Observable<Claim> {
         return this.claimService.claim$;
     }
+
+    changesetViewInfo$ = this.claimService.claim$.pipe(
+        map(({ changeset }) =>
+            changeset.map(unit => ({ createdAt: unit.createdAt, ...getModificationViewInfo(unit) }))
+        ),
+        shareReplay(1)
+    );
 
     constructor(private claimService: ClaimService, public claimsService: ClaimsService) {}
 }

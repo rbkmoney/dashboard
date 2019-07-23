@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from './claim.service';
-import { ViewClaim, ClaimsService } from '../../claims';
+import { ClaimsService } from '../../claims';
+import { getClaimStatusViewInfo } from '../../view-utils';
 
 @Component({
     selector: 'dsh-claim',
@@ -12,7 +13,7 @@ import { ViewClaim, ClaimsService } from '../../claims';
     styleUrls: ['claim.component.scss']
 })
 export class ClaimComponent {
-    links$ = this.claim$.pipe(
+    links$ = this.claimService.claim$.pipe(
         map(({ id }) => {
             const getPath = (p: string) => `/claim/${id}/${p}`;
             return [
@@ -33,9 +34,13 @@ export class ClaimComponent {
         shareReplay(1)
     );
 
-    get claim$(): Observable<ViewClaim> {
-        return this.claimService.claim$;
-    }
+    claim$ = this.claimService.claim$.pipe(
+        map(({ id, status }) => ({
+            id,
+            ...getClaimStatusViewInfo(status)
+        })),
+        shareReplay(1)
+    );
 
     constructor(private claimService: ClaimService, public claimsService: ClaimsService, public router: Router) {}
 }
