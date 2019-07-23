@@ -4,6 +4,11 @@ import { HumanizerOptions } from 'humanize-duration';
 
 import { HumanizeDurationService, Value } from './humanize-duration.service';
 
+export interface HumanizeDurationConfig {
+    interval?: number;
+    largest?: number;
+}
+
 @Pipe({ name: 'humanizedDuration', pure: false })
 export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
     private latestValue: string;
@@ -12,17 +17,17 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
 
     constructor(private humanizeDurationService: HumanizeDurationService, private ref: ChangeDetectorRef) {}
 
-    transform(value: Value, config: HumanizerOptions = {}) {
+    transform(value: Value, { interval: intervalMs, ...config }: HumanizeDurationConfig = {}) {
         if (value !== this.inputValue) {
             if (typeof value === 'object') {
                 this.dispose();
                 this.inputValue = value;
-                this.subscription = interval(1000).subscribe(() => {
+                this.subscription = interval(intervalMs || 1000).subscribe(() => {
                     this.ref.markForCheck();
-                    this.updateLatestValue(value, config);
+                    this.setLatestValue(value, config);
                 });
             }
-            this.updateLatestValue(value, config);
+            this.setLatestValue(value, config);
         }
         return this.latestValue;
     }
@@ -37,7 +42,7 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
         }
     }
 
-    private updateLatestValue(value: Value, config: HumanizerOptions = {}) {
+    private setLatestValue(value: Value, config: HumanizerOptions = {}) {
         this.latestValue = this.humanizeDurationService.getDuration(value, config);
     }
 }
