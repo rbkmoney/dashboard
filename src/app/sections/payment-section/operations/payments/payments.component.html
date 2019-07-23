@@ -7,7 +7,7 @@
                 <span class="last-update">{{ localeBseDir + '.lastUpdate' | lc }}: Только что</span>
                 <button dsh-button class="update-btn">{{ localeBseDir + '.refresh' | lc }}</button>
             </div>
-            <div style="overflow-x:auto;">
+            <div class="scroll">
                 <table dshTable [dataSource]="dataSource" fxFlex="100">
                     <ng-container dshColumnDef="amount">
                         <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
@@ -33,7 +33,9 @@
                         <th dshHeaderCell *dshHeaderCellDef>
                             {{ localeBseDir + '.table.statusChanged' | lc }}
                         </th>
-                        <td dshCell *dshCellDef="let element">{{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</td>
+                        <td dshCell *dshCellDef="let element">
+                            {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
+                        </td>
                     </ng-container>
 
                     <ng-container dshColumnDef="invoice">

@@ -16,9 +16,9 @@ $background: (
     unselected-chip: map_get($mat-grey, 300),
     disabled-list-option: map_get($mat-grey, 200),
     /*
-   * Custom
-   *
-*/ hover: map_get($mat-grey, 200),
+     * Custom
+     *
+    */ hover: map_get($mat-grey, 200),
     selected-button: map_get($mat-grey, 100),
     tooltip-line-color: rgba(black, 0.1)
 );
@@ -39,9 +39,9 @@ $foreground: (
     slider-off: rgba(#000, 0.26),
     slider-off-active: rgba(#000, 0.38),
     /*
-   * Overrides
-   *
-*/ text: #475166,
+     * Overrides
+     *
+    */ text: #475166,
     slider-min: #475166,
     /*
    * Custom
@@ -63,7 +63,7 @@ $theme: (
     /*
    * Custom
    *
-*/ name: 'light',
+   */ name: 'light',
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
     neutral: mat-palette($mat-grey),
