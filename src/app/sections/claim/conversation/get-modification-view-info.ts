@@ -126,34 +126,27 @@ export function getModificationViewInfo(unit: ModificationUnit): ModificationUni
     } else if (isModification<PartyModification>(unit, 'PartyModification')) {
         author = 'manager';
         icon = 'create';
+        label = 'addedChanges';
         if (isPartyModificationUnit<ContractorModificationUnit>(unit, 'contractorModificationType')) {
             switch (unit.modification.modification.contractorModificationType) {
                 case ContractorModification.ContractorModificationTypeEnum.Contractor:
-                    label = 'contractorUpdated';
                     break;
             }
         } else if (isPartyModificationUnit<ContractModificationUnit>(unit, 'contractModificationType')) {
             switch (unit.modification.modification.contractModificationType) {
                 case ContractModification.ContractModificationTypeEnum.ContractAdjustmentModificationUnit:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.ContractParams:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.ContractTermination:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.ContractorID:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.LegalAgreement:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.PayoutToolModificationUnit:
-                    label = 'contractUpdated';
                     break;
                 case ContractModification.ContractModificationTypeEnum.ReportPreferences:
-                    label = 'contractUpdated';
                     break;
             }
         }
@@ -163,7 +156,6 @@ export function getModificationViewInfo(unit: ModificationUnit): ModificationUni
         // }
         else {
             // console.error('Party modification unidentified');
-            label = 'shopUpdated';
         }
     }
     if (!label) {

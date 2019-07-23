@@ -75,9 +75,7 @@
                     "accepted": "одобрена",
                     "fileCreated": "добавлен файл",
                     "commentCreated": "добавлен комментарий",
-                    "contractorUpdated": "обновлен контрагент",
-                    "contractUpdated": "обновлен контракт",
-                    "shopUpdated": "обновлен магазин",
+                    "addedChanges": "добавлены изменения",
                     "claimUpdated": "обновлена заявка",
                     "updated": "обновлен"
                 },
