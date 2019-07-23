@@ -3,15 +3,19 @@ import { ActivatedRoute } from '@angular/router';
 
 import {
     Invoice,
-    InvoicesService,
+    Payer,
+    PaymentFlow,
+    PaymentFlowHold,
+    PaymentResourcePayer,
     PaymentSearchResult,
+    PaymentToolDetails,
     PaymentToolDetailsBankCard,
-    PayoutToolDetailsBankCard,
     Refund,
-    Shop
+    Shop,
+    ShopLocation,
+    ShopLocationUrl
 } from '../../api/capi/swagger-codegen';
 import { PaymentDetailsService } from './payment-details.service';
-import PaymentSystemEnum = PaymentToolDetailsBankCard.PaymentSystemEnum;
 
 @Component({
     selector: 'dsh-payment-details',
@@ -50,4 +54,10 @@ export class PaymentDetailsComponent implements OnInit {
             });
         });
     }
+
+    getPaymentToolDetails = (payer: Payer): PaymentToolDetails => (payer as PaymentResourcePayer).paymentToolDetails;
+
+    getHoldDate = (flow: PaymentFlow): string => (flow as PaymentFlowHold).heldUntil.toString();
+
+    getUrl = (shopLocation: ShopLocation): string => (shopLocation as ShopLocationUrl).url;
 }
