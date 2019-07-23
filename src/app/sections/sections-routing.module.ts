@@ -25,6 +25,10 @@ const routes: Routes = [
         component: InputsComponent
     },
     {
+        path: 'claim/:id',
+        loadChildren: () => import('./claim').then(({ ClaimModule }) => ClaimModule)
+    },
+    {
         path: '**',
         component: PageNotFoundComponent
     }

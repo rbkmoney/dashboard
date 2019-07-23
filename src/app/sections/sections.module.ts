@@ -6,7 +6,6 @@ import { AnalyticsModule } from './analytics';
 import { PageNotFoundModule } from './page-not-found';
 import { ButtonsModule } from './buttons';
 import { InputsModule } from './inputs/inputs.module';
-import { ClaimModule } from './claim';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
@@ -19,7 +18,6 @@ import { PaymentDetailsModule } from './payment-details';
         ButtonsModule,
         InputsModule,
         PaymentSectionModule,
-        ClaimModule,
         SectionsRoutingModule,
         PaymentDetailsModule
     ],

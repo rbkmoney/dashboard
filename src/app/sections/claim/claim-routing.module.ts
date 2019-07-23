@@ -10,7 +10,7 @@ import { ChangesComponent } from './changes';
     imports: [
         RouterModule.forChild([
             {
-                path: 'claim/:id',
+                path: '',
                 component: ClaimComponent,
                 children: [
                     {
