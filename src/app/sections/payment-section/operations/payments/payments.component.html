@@ -8,7 +8,7 @@
                 <button dsh-button class="update-btn">{{ localeBseDir + '.refresh' | lc }}</button>
             </div>
             <div class="scroll">
-                <table dshTable [dataSource]="dataSource" fxFlex="100">
+                <table dshTable [dataSource]="dataSource">
                     <ng-container dshColumnDef="amount">
                         <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
                             {{ localeBseDir + '.table.amount' | lc }}
