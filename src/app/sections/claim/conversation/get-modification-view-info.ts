@@ -31,25 +31,25 @@ function statusMapToColor(status: string): StatusColor {
     }[status];
 }
 
-function isTypedModification<M extends Modification>(
-    base: ModificationUnit,
+function isModification<M extends Modification>(
+    unit: ModificationUnit,
     type: Modification.ModificationTypeEnum
-): base is ModificationUnit & { modification: M } {
-    return get(base, 'modification.modificationType') === type;
+): unit is ModificationUnit & { modification: M } {
+    return get(unit, 'modification.modificationType') === type;
 }
 
-function isTypedClaimModificationUnit<M extends ClaimModification & { modification: any }>(
-    base: ModificationUnit & { modification: ClaimModification },
+function isClaimModificationUnit<M extends ClaimModification & { modification: any }>(
+    unit: ModificationUnit & { modification: ClaimModification },
     modificationType: keyof M['modification']
-): base is ModificationUnit & { modification: M } {
-    return !!get(base.modification, ['modification', modificationType]);
+): unit is ModificationUnit & { modification: M } {
+    return !!get(unit.modification, ['modification', modificationType]);
 }
 
-function isTypedPartyModificationUnit<M extends PartyModification & { modification: any }>(
-    base: ModificationUnit & { modification: PartyModification },
+function isPartyModificationUnit<M extends PartyModification & { modification: any }>(
+    unit: ModificationUnit & { modification: PartyModification },
     modificationType: keyof M['modification']
-): base is ModificationUnit & { modification: M } {
-    return !!get(base.modification, ['modification', modificationType]);
+): unit is ModificationUnit & { modification: M } {
+    return !!get(unit.modification, ['modification', modificationType]);
 }
 
 export interface ModificationUnitViewInfo {
@@ -59,26 +59,26 @@ export interface ModificationUnitViewInfo {
     color?: StatusColor;
 }
 
-export function getModificationViewInfo(base: ModificationUnit): ModificationUnitViewInfo {
+export function getModificationViewInfo(unit: ModificationUnit): ModificationUnitViewInfo {
     let label: string;
     let author: string;
     let icon: string;
     let color: StatusColor;
-    if (isTypedModification<ClaimModification>(base, 'ClaimModification')) {
+    if (isModification<ClaimModification>(unit, 'ClaimModification')) {
         author = 'you';
-        if (isTypedClaimModificationUnit<DocumentModificationUnit>(base, 'documentModificationType')) {
-            switch (base.modification.modification.documentModificationType) {
+        if (isClaimModificationUnit<DocumentModificationUnit>(unit, 'documentModificationType')) {
+            switch (unit.modification.modification.documentModificationType) {
                 case DocumentModification.DocumentModificationTypeEnum.DocumentCreated:
                     icon = 'add';
                     label = 'documentCreated';
                     break;
             }
-        } else if (isTypedClaimModificationUnit<StatusModificationUnit>(base, 'statusModificationType')) {
-            switch (base.modification.modification.statusModificationType) {
+        } else if (isClaimModificationUnit<StatusModificationUnit>(unit, 'statusModificationType')) {
+            switch (unit.modification.modification.statusModificationType) {
                 case StatusModification.StatusModificationTypeEnum.StatusChanged:
-                    color = statusMapToColor(base.modification.status);
+                    color = statusMapToColor(unit.modification.status);
                     author = 'manager';
-                    switch (base.modification.status) {
+                    switch (unit.modification.status) {
                         case StatusModificationUnit.StatusEnum.Accepted:
                             icon = 'insert_emoticon';
                             label = 'accepted';
@@ -105,15 +105,15 @@ export function getModificationViewInfo(base: ModificationUnit): ModificationUni
                             break;
                     }
             }
-        } else if (isTypedClaimModificationUnit<FileModificationUnit>(base, 'fileModificationType')) {
-            switch (base.modification.modification.fileModificationType) {
+        } else if (isClaimModificationUnit<FileModificationUnit>(unit, 'fileModificationType')) {
+            switch (unit.modification.modification.fileModificationType) {
                 case FileModification.FileModificationTypeEnum.FileCreated:
                     icon = 'attach_file';
                     label = 'fileCreated';
                     break;
             }
-        } else if (isTypedClaimModificationUnit<CommentModificationUnit>(base, 'commentModificationType')) {
-            switch (base.modification.modification.commentModificationType) {
+        } else if (isClaimModificationUnit<CommentModificationUnit>(unit, 'commentModificationType')) {
+            switch (unit.modification.modification.commentModificationType) {
                 case CommentModification.CommentModificationTypeEnum.CommentCreated:
                     icon = 'mode_comment';
                     label = 'commentCreated';
@@ -123,17 +123,17 @@ export function getModificationViewInfo(base: ModificationUnit): ModificationUni
             console.error('Claim modification unidentified');
             label = 'claimUpdated';
         }
-    } else if (isTypedModification<PartyModification>(base, 'PartyModification')) {
+    } else if (isModification<PartyModification>(unit, 'PartyModification')) {
         author = 'manager';
         icon = 'create';
-        if (isTypedPartyModificationUnit<ContractorModificationUnit>(base, 'contractorModificationType')) {
-            switch (base.modification.modification.contractorModificationType) {
+        if (isPartyModificationUnit<ContractorModificationUnit>(unit, 'contractorModificationType')) {
+            switch (unit.modification.modification.contractorModificationType) {
                 case ContractorModification.ContractorModificationTypeEnum.Contractor:
                     label = 'contractorUpdated';
                     break;
             }
-        } else if (isTypedPartyModificationUnit<ContractModificationUnit>(base, 'contractModificationType')) {
-            switch (base.modification.modification.contractModificationType) {
+        } else if (isPartyModificationUnit<ContractModificationUnit>(unit, 'contractModificationType')) {
+            switch (unit.modification.modification.contractModificationType) {
                 case ContractModification.ContractModificationTypeEnum.ContractAdjustmentModificationUnit:
                     label = 'contractUpdated';
                     break;
