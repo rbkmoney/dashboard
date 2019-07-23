@@ -109,7 +109,7 @@ export function getModificationViewInfo(unit: ModificationUnit): ModificationUni
             switch (unit.modification.modification.fileModificationType) {
                 case FileModification.FileModificationTypeEnum.FileCreated:
                     icon = 'attach_file';
-                    label = 'fileCreated';
+                    label = 'documentAdded';
                     break;
             }
         } else if (isClaimModificationUnit<CommentModificationUnit>(unit, 'commentModificationType')) {

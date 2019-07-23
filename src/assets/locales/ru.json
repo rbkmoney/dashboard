@@ -73,7 +73,7 @@
                     "revoked": "отозвана",
                     "denied": "отклонена",
                     "accepted": "одобрена",
-                    "fileCreated": "добавлен файл",
+                    "documentAdded": "добавлен документ",
                     "commentCreated": "добавлен комментарий",
                     "addedChanges": "добавлены изменения",
                     "claimUpdated": "обновлена заявка",
