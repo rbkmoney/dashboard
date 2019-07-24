@@ -1,9 +1,9 @@
-<h1 class="mat-headline">Детали заявки #{{ (claim$ | async)?.id }}</h1>
+<h1 class="mat-headline">{{ 'section.claim.datails' | lc }} #{{ (claim$ | async)?.id }}</h1>
 
 <dsh-card>
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
-            <h2 class="mat-title">Заявка на подключение</h2>
+            <h2 class="mat-title">{{ 'section.claim.request' | lc }}</h2>
             <h2 class="mat-title">{{ (claim$ | async)?.status | lc }}</h2>
         </div>
         <nav dsh-tab-nav-bar>
@@ -23,7 +23,7 @@
         </div>
     </dsh-card-content>
     <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between">
-        <button dsh-stroked-button color="warn">Отозвать</button>
-        <button dsh-button color="accent">Отправить на рассмотрение</button>
+        <button dsh-stroked-button color="warn">{{ 'section.claim.recall' | lc }}</button>
+        <button dsh-button color="accent">{{ 'section.claim.placeBefore' | lc }}</button>
     </dsh-card-actions>
 </dsh-card>

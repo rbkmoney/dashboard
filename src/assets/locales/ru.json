@@ -56,6 +56,8 @@
             "paymentTerminal": "Терминал"
         },
         "claim": {
+            "recent": "Последние заявки",
+            "goToAll": "Перейти ко всем заявкам",
             "status": {
                 "pending": "В ожидании",
                 "pendingAcceptance": "Требуются ваши действия",
@@ -199,7 +201,11 @@
             },
             "documents": {
                 "label": "Документы"
-            }
+            },
+            "details": "Детали заявки",
+            "placeBefore": "Отправить на рассмотрение",
+            "recall": "Отозвать",
+            "request": "Заявка на подключение"
         },
         "paymentDetails": {
             "title": "Детали платежа",

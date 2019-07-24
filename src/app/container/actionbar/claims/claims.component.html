@@ -1,6 +1,6 @@
 <dsh-dropdown-content fxLayout="column" fxLayoutGap="10px">
     <div>
-        <h1 class="mat-title">Последние заявки</h1>
+        <h1 class="mat-title">{{ 'common.claim.recent' | lc }}</h1>
         <dsh-claims-list>
             <dsh-claims-list-item
                 *ngFor="let claim of claims$ | async; index as i"
@@ -13,5 +13,5 @@
             </dsh-claims-list-item>
         </dsh-claims-list>
     </div>
-    <button dsh-button class="action">Перейти ко всем заявкам</button>
+    <button dsh-button class="action">{{ 'common.claim.goToAll' | lc }}</button>
 </dsh-dropdown-content>
