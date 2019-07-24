@@ -1,6 +1,7 @@
 import { StatusColor } from '../theme-manager';
+import { StatusModificationUnit } from '../api/claim-management';
 
-export function statusMapToColor(status: string): StatusColor {
+export function statusMapToColor(status: StatusModificationUnit.StatusEnum): StatusColor {
     return {
         pending: StatusColor.pending,
         pendingAcceptance: StatusColor.pending,
@@ -11,7 +12,7 @@ export function statusMapToColor(status: string): StatusColor {
     }[status];
 }
 
-export function getClaimStatusViewInfo(status: string) {
+export function getClaimStatusViewInfo(status: StatusModificationUnit.StatusEnum) {
     return {
         status: `common.claim.status.${status}`,
         color: statusMapToColor(status)
