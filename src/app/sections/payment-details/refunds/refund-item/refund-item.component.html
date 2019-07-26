@@ -6,7 +6,7 @@
     <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
         <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
         <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
-            <div class="mat-body-1">{{ refund?.amount / 100 | amount }} {{ refund?.currency | currencySymbol }}</div>
+            <div class="mat-body-1">{{ refund?.amount | fromMinor | currency: refund?.currency }}</div>
         </dsh-details-item>
         <dsh-details-item [title]="localePath + '.titles.createdAt' | lc" fxFlex="33">
             <div class="mat-body-1">{{ refund?.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>

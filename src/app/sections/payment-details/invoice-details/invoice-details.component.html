@@ -16,7 +16,7 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" [fxLayoutGap.xs]="layoutGap">
                 <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
                 <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
-                    {{ invoice?.amount / 100 | amount }} {{ invoice?.currency | currencySymbol }}
+                    {{ invoice?.amount | fromMinor | currency: invoice?.currency }}
                 </dsh-details-item>
             </div>
         </div>

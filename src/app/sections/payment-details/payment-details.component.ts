@@ -9,7 +9,6 @@ import {
     PaymentResourcePayer,
     PaymentSearchResult,
     PaymentToolDetails,
-    PaymentToolDetailsBankCard,
     Refund,
     Shop,
     ShopLocation,
@@ -41,12 +40,12 @@ export class PaymentDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.invoiceID = params['invoiceID'];
-            this.paymentID = params['paymentID'];
-            this.paymentDetailsService.getPayment(this.invoiceID, this.paymentID).subscribe(payments => {
-                this.payment = payments.result[0];
-            });
-            this.paymentDetailsService.getInvoiceByID(this.invoiceID).subscribe(invoice => {
+            const invoiceID = params['invoiceID'];
+            const paymentID = params['paymentID'];
+
+            this.paymentDetailsService.getPayment(invoiceID, paymentID).subscribe(payment => this.payment = payment);
+
+            this.paymentDetailsService.getInvoiceByID(invoiceID).subscribe(invoice => {
                 this.invoice = invoice;
                 this.paymentDetailsService.getShopByID(invoice.shopID).subscribe(shop => {
                     this.shop = shop;

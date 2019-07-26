@@ -33,6 +33,7 @@ import { DigitalWalletComponent } from './payment-tool/digital-wallet/digital-wa
 import { BankCardComponent } from './payment-tool/bank-card/bank-card.component';
 import { PaymentTerminalComponent } from './payment-tool/payment-terminal/payment-terminal.component';
 import { SearchModule } from '../../search/search.module';
+import { PaymentsModule } from '../payment-section/operations/payments/payments.module';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { SearchModule } from '../../search/search.module';
         ButtonModule,
         CommonModule,
         PaymentDetailsRoutingModule,
-        SearchModule
+        SearchModule,
+        PaymentsModule
     ],
     declarations: [
         PaymentDetailsComponent,

@@ -14,8 +14,8 @@
             <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
                 {{ paymentResourcePayer.clientInfo?.fingerprint }}
             </dsh-details-item>
-            <dsh-details-item [title]="localePath + '.titles.ip' | lc" fxFlex>
-                {{ paymentResourcePayer.clientInfo?.ip }}
+            <dsh-details-item *ngIf="paymentResourcePayer.clientInfo?.ip" [title]="localePath + '.titles.ip' | lc" fxFlex>
+                {{ paymentResourcePayer.clientInfo.ip }}
             </dsh-details-item>
         </div>
         <div *ngIf="recurrentPayer" fxLayout="column" [fxLayoutGap]="layoutGap">
@@ -27,7 +27,7 @@
                     {{ recurrentPayer.recurrentParentPayment?.paymentID }}
                 </dsh-details-item>
             </div>
-            <dsh-details-item [title]="localePath + '.titles.phoneNumber' | lc" fxFlex>
+            <dsh-details-item *ngIf="recurrentPayer.contactInfo.phoneNumber" [title]="localePath + '.titles.phoneNumber' | lc" fxFlex>
                 {{ recurrentPayer.contactInfo.phoneNumber }}
             </dsh-details-item>
         </div>

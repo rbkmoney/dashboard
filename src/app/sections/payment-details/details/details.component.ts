@@ -13,9 +13,6 @@ export class DetailsComponent implements OnChanges {
 
     @Input() layoutGap = '10px';
 
-    rrn = 123456789012;
-    spid = 234232323242321;
-
     localePath = 'sections.paymentDetails.details';
 
     statusViewInfo: StatusViewInfo;
