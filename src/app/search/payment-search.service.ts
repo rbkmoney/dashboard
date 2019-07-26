@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import moment from 'moment';
+import { flatMap, map } from 'rxjs/operators';
 
 import { PaymentSearchResult, SearchService } from '../api/capi/swagger-codegen';
 import { genXRequestID } from '../api/gen-x-request-id';
 import { PaymentsSearchParams } from './payments-search-params';
 import { PaymentsWithToken } from './payments-with-token';
-import { flatMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class PaymentSearchService {
@@ -49,5 +49,4 @@ export class PaymentSearchService {
             invoiceID,
             paymentID
         }).pipe(map(res => res.result[0]));
-
 }

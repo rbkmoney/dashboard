@@ -18,7 +18,19 @@ export interface PaymentsSearchParams {
     bin?: string;
     lastDigits?: string;
     bankCardTokenProvider?: 'applepay' | 'googlepay' | 'samsungpay';
-    bankCardPaymentSystem?: 'visa' | 'mastercard' | 'visaelectron' | 'maestro' | 'forbrugsforeningen' | 'dankort' | 'amex' | 'dinersclub' | 'discover' | 'unionpay' | 'jcb' | 'nspkmir';
+    bankCardPaymentSystem?:
+        | 'visa'
+        | 'mastercard'
+        | 'visaelectron'
+        | 'maestro'
+        | 'forbrugsforeningen'
+        | 'dankort'
+        | 'amex'
+        | 'dinersclub'
+        | 'discover'
+        | 'unionpay'
+        | 'jcb'
+        | 'nspkmir';
     paymentAmount?: number;
     continuationToken?: string;
     observe?: 'body';
