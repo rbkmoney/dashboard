@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import get from 'lodash.get';
+import template from 'lodash.template';
 
 import { SettingsService, supportedLanguages } from '../../settings';
 
@@ -34,7 +35,7 @@ export class LocaleDictionaryService {
             .toPromise();
     }
 
-    mapDictionaryKey(key: string): string {
+    mapDictionaryKey(key: string, templateData?: object): string {
         if (!this.dictionary) {
             console.error('Locale dictionary is not defined');
             return key;
@@ -48,6 +49,9 @@ export class LocaleDictionaryService {
         if (str === STATIC_MARK) {
             console.warn(`Unknown locale dictionary "${key}" key`);
             return key;
+        }
+        if (templateData) {
+            return template(str)(templateData);
         }
         return str;
     }

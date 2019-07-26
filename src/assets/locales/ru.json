@@ -9,6 +9,7 @@
         "week": "Неделя",
         "month": "Месяц",
         "any": "Любой",
+        "update": "Обновить",
         "paymentStatus": {
             "pending": "Запущен",
             "processed": "Обработан",
@@ -194,7 +195,10 @@
         },
         "claim": {
             "conversation": {
-                "label": "Обсуждения"
+                "label": "Обсуждения",
+                "leaveTheComment": "Оставьте комментарий",
+                "toLeaveTheComment": "Оставить комментарий",
+                "lastChanges": "Последние изменения <%- date %> назад"
             },
             "changes": {
                 "label": "Изменения"

@@ -1,6 +1,9 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px 0">
-    Последние изменения {{ (claim$ | async)?.updatedAt | humanizedDuration: { largest: 1 } }} назад
-    <a>Обновить</a>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
+    {{
+        'sections.claim.conversation.lastChanges'
+            | lc: { date: (claim$ | async)?.updatedAt | humanizedDuration: { largest: 1 } }
+    }}
+    <a>{{ 'common.update' | lc }}</a>
 </div>
 
 <dsh-timeline>
@@ -19,9 +22,9 @@
     </dsh-timeline-item>
 </dsh-timeline>
 
-<div style="margin: 20px 0 0 0">
-    <mat-form-field style="width:100%">
-        <textarea matInput placeholder="Оставьте комментарий"></textarea>
+<div class="comments">
+    <mat-form-field class="form-field">
+        <textarea matInput [placeholder]="'sections.claim.conversation.leaveTheComment' | lc"></textarea>
     </mat-form-field>
-    <button dsh-stroked-button style="float: right">Оставить комментарий</button>
+    <button dsh-stroked-button class="action">{{ 'sections.claim.conversation.toLeaveTheComment' | lc }}</button>
 </div>
