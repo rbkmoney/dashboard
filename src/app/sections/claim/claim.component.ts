@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from './claim.service';
-import { ClaimsService } from '../../claims';
 import { getClaimStatusViewInfo } from '../../view-utils';
 import { StatusModificationUnit } from '../../api/claim-management';
 
@@ -36,5 +34,5 @@ export class ClaimComponent {
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimService, public claimsService: ClaimsService, public router: Router) {}
+    constructor(private claimService: ClaimService) {}
 }

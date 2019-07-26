@@ -24,5 +24,5 @@ export class ClaimsComponent {
         shareReplay(1)
     );
 
-    constructor(public claimsService: ClaimsService) {}
+    constructor(private claimsService: ClaimsService) {}
 }

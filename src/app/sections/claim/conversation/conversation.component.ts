@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { ClaimsService } from '../../../claims';
 import { ClaimService } from '../claim.service';
 import { Claim } from '../../../api/claim-management';
 import { getModificationViewInfo } from './get-modification-view-info';
@@ -24,5 +23,5 @@ export class ConversationComponent {
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimService, public claimsService: ClaimsService) {}
+    constructor(private claimService: ClaimService) {}
 }
