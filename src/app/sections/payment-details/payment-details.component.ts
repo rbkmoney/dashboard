@@ -43,7 +43,7 @@ export class PaymentDetailsComponent implements OnInit {
             const invoiceID = params['invoiceID'];
             const paymentID = params['paymentID'];
 
-            this.paymentDetailsService.getPayment(invoiceID, paymentID).subscribe(payment => this.payment = payment);
+            this.paymentDetailsService.getPayment(invoiceID, paymentID).subscribe(payment => (this.payment = payment));
 
             this.paymentDetailsService.getInvoiceByID(invoiceID).subscribe(invoice => {
                 this.invoice = invoice;

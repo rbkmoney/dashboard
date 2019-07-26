@@ -22,19 +22,28 @@
                 </dsh-details-item>
                 <dsh-details-item [title]="localePath + '.titles.chargeAmount' | lc" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ (payment?.amount - (payment?.fee || 0)) | fromMinor | currency: payment?.currency }}
+                        {{ payment?.amount - (payment?.fee || 0) | fromMinor | currency: payment?.currency }}
                     </div>
                 </dsh-details-item>
                 <dsh-details-item *ngIf="payment?.fee" [title]="localePath + '.titles.fee' | lc" fxFlex="33">
                     <div class="mat-body-1">
                         {{ payment?.fee | fromMinor | currency: payment?.currency }} ({{
-                        (payment?.fee / payment?.amount) | percent: '1.0-2':'en'
+                            payment?.fee / payment?.amount | percent: '1.0-2':'en'
                         }})
                     </div>
                 </dsh-details-item>
             </div>
-            <div *ngIf="payment?.transactionInfo?.rrn || payment?.shortID" fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
-                <dsh-details-item *ngIf="payment.transactionInfo.rrn" [title]="localePath + '.titles.rrn' | lc" fxFlex="33">
+            <div
+                *ngIf="payment?.transactionInfo?.rrn || payment?.shortID"
+                fxLayout="row"
+                fxLayout.xs="column"
+                [fxLayoutGap.xs]="layoutGap"
+            >
+                <dsh-details-item
+                    *ngIf="payment.transactionInfo.rrn"
+                    [title]="localePath + '.titles.rrn' | lc"
+                    fxFlex="33"
+                >
                     <div class="mat-body-1">{{ payment.transactionInfo.rrn }}</div>
                 </dsh-details-item>
                 <dsh-details-item *ngIf="payment?.shortID" [title]="localePath + '.titles.spid' | lc" fxFlex="33">

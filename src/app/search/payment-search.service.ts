@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import moment from 'moment';
-import { flatMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { PaymentSearchResult, SearchService } from '../api/capi/swagger-codegen';
 import { genXRequestID } from '../api/gen-x-request-id';

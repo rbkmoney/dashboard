@@ -42,9 +42,7 @@ import { FromMinorPipe } from './from-minor.pipe';
         DaterangeSelectorModule,
         StatusModule
     ],
-    exports: [
-        FromMinorPipe
-    ],
+    exports: [FromMinorPipe],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, FromMinorPipe]
 })
 export class PaymentsModule {}
