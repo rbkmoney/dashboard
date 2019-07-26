@@ -15,8 +15,10 @@ export interface PaymentsSearchParams {
     payerIP?: string;
     payerFingerprint?: string;
     customerID?: string;
-    bin?: string;
-    lastDigits?: string;
+    first6?: string;
+    last4?: string;
+    rrn?: string;
+    approvalCode?: string;
     bankCardTokenProvider?: 'applepay' | 'googlepay' | 'samsungpay';
     bankCardPaymentSystem?:
         | 'visa'
