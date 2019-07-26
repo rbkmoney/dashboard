@@ -25,7 +25,7 @@ const routes: Routes = [
         component: InputsComponent
     },
     {
-        path: 'claim/:id',
+        path: 'claim',
         loadChildren: () => import('./claim').then(({ ClaimModule }) => ClaimModule)
     },
     {

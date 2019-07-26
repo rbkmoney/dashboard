@@ -8,7 +8,7 @@ import { ChangesComponent } from './changes';
 
 const claimRoutes: Routes = [
     {
-        path: '',
+        path: ':id',
         component: ClaimComponent,
         children: [
             {
