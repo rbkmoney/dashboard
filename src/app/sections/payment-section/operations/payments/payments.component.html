@@ -3,15 +3,12 @@
 
     <dsh-card>
         <dsh-card-content fxLayout="column" fxLayoutGap="15px">
-            <div fxLayout fxLayoutAlign="space-between center">
-                <span class="last-update">{{ localeBseDir + '.lastUpdate' | lc }}: Только что</span>
-                <button dsh-button class="update-btn">{{ localeBseDir + '.refresh' | lc }}</button>
-            </div>
+            <dsh-last-updated (update)="refresh()" [lastUpdated]="lastUpdated"></dsh-last-updated>
             <div class="table-container">
                 <table dshTable [dataSource]="dataSource">
                     <ng-container dshColumnDef="amount">
                         <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
-                            {{ localeBseDir + '.table.amount' | lc }}
+                            {{ localeBaseDir + '.table.amount' | lc }}
                         </th>
                         <td dshCell fxFlex="150px" *dshCellDef="let element">
                             {{ element.amount | fromMinor | currency: element.currency }}
@@ -20,7 +17,7 @@
 
                     <ng-container dshColumnDef="status">
                         <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
-                            {{ localeBseDir + '.table.status' | lc }}
+                            {{ localeBaseDir + '.table.status' | lc }}
                         </th>
                         <td dshCell fxFlex="140px" *dshCellDef="let element">
                             <dsh-status [color]="element.status | paymentStatusColor">{{
@@ -31,7 +28,7 @@
 
                     <ng-container dshColumnDef="statusChanged">
                         <th dshHeaderCell *dshHeaderCellDef>
-                            {{ localeBseDir + '.table.statusChanged' | lc }}
+                            {{ localeBaseDir + '.table.statusChanged' | lc }}
                         </th>
                         <td dshCell *dshCellDef="let element">
                             {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
@@ -40,7 +37,7 @@
 
                     <ng-container dshColumnDef="invoice">
                         <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                            {{ localeBseDir + '.table.invoice' | lc }}
+                            {{ localeBaseDir + '.table.invoice' | lc }}
                         </th>
                         <td dshCell *dshCellDef="let element" fxHide fxShow.gt-sm>
                             <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
@@ -51,7 +48,7 @@
                     </ng-container>
 
                     <ng-container dshColumnDef="attributes">
-                        <th dshHeaderCell *dshHeaderCellDef>{{ localeBseDir + '.table.shop' | lc }}</th>
+                        <th dshHeaderCell *dshHeaderCellDef>{{ localeBaseDir + '.table.shop' | lc }}</th>
                         <td dshCell *dshCellDef="let element">
                             <span class="truncate">{{ element.shopID }}</span>
                         </td>
@@ -69,7 +66,7 @@
                 </table>
             </div>
 
-            <button dsh-button>{{ 'common.showMore' | lc }}</button>
+            <button *ngIf="lastContinuationToken" (click)="showMore()" dsh-button>{{ 'common.showMore' | lc }}</button>
         </dsh-card-content>
     </dsh-card>
 </div>

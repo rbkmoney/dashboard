@@ -26,6 +26,5 @@ export interface PaymentSearchFormValue extends SearchFormValue {
     bankCardTokenProvider?: BankCardTokenProvider;
     bankCardPaymentSystem?: BankCardPaymentSystem;
     paymentAmount?: number;
-    continuationToken?: string;
     rnn?: string;
 }

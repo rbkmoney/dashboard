@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-last-update-typography($config) {
+    .update-link,
+    .last-update {
+        font-size: mat-font-size($config, caption);
+    }
+}

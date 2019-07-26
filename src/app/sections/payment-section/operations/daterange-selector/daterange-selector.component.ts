@@ -12,7 +12,7 @@ import { SelectorItem } from './select-item';
 export class DaterangeSelectorComponent implements OnChanges {
     @Input() value: SearchFormValue;
     @Output() selectDaterange: EventEmitter<SearchFormValue> = new EventEmitter();
-    @Output() selectMore: EventEmitter<void> = new EventEmitter();
+    @Output() selectMore: EventEmitter<void> = new EventEmitter(true);
 
     items: SelectorItem[];
 

@@ -1,131 +1,9 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { PaymentFlow, PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
-
-const DATA: PaymentSearchResult[] = [
-    {
-        status: PaymentSearchResult.StatusEnum.Cancelled,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 350000000000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Captured,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Failed,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Pending,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Processed,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Refunded,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Cancelled,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDASDSADASDASDSADASDASDSADASDASDSADASDASDSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Captured,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDASDSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Failed,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDAS'
-    },
-    {
-        status: PaymentSearchResult.StatusEnum.Captured,
-        id: 'DSAKDNAS321',
-        invoiceID: 'DSDASDAS432',
-        createdAt: new Date('2019-07-18T16:26:30Z'),
-        amount: 35000,
-        currency: 'RUB',
-        payer: { payerType: '321321' },
-        flow: { type: PaymentFlow.TypeEnum.PaymentFlowHold },
-        statusChangedAt: new Date('2019-07-18T16:26:30Z'),
-        shopID: 'DSADASDDSADASDASDSADASDASDSADASDASDSADASDAS  AS'
-    }
-];
+import { InlineResponse2001, PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payments',
@@ -134,10 +12,42 @@ const DATA: PaymentSearchResult[] = [
 })
 export class PaymentsComponent {
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
-    dataSource = new MatTableDataSource(DATA);
-    localeBseDir = 'sections.operations.payments';
+    dataSource: MatTableDataSource<PaymentSearchResult> = new MatTableDataSource(null);
+    localeBaseDir = 'sections.operations.payments';
+    lastContinuationToken: string;
+    lastPaymentSearchFormValue: PaymentSearchFormValue;
+    lastUpdated: Date;
 
-    search(paymentSearchFormValue: PaymentSearchFormValue) {
-        console.log('Search!', paymentSearchFormValue);
+    kek: (keke: PaymentSearchFormValue, continuationToken?: string) => Observable<InlineResponse2001> = () =>
+        new Observable(subscriber => {
+            subscriber.next({ result: [], continuationToken: Math.random().toString() });
+            subscriber.complete();
+        });
+
+    search(searchFormValue: PaymentSearchFormValue, token?: string) {
+        this.lastPaymentSearchFormValue = searchFormValue;
+        this.kek(searchFormValue, token).subscribe(r => {
+            const { continuationToken, result } = r;
+            this.lastContinuationToken = r.continuationToken ? continuationToken : null;
+            this.dataSource.data = result;
+            this.updateLastUpdated();
+        });
+    }
+
+    showMore() {
+        this.kek(this.lastPaymentSearchFormValue, this.lastContinuationToken).subscribe(r => {
+            const { continuationToken, result } = r;
+            this.lastContinuationToken = continuationToken;
+            this.dataSource.data = this.dataSource.data.concat(result);
+            this.updateLastUpdated();
+        });
+    }
+
+    refresh() {
+        this.search(this.lastPaymentSearchFormValue);
+    }
+
+    private updateLastUpdated() {
+        this.lastUpdated = new Date();
     }
 }

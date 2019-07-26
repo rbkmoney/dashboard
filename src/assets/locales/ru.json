@@ -9,6 +9,8 @@
         "week": "Неделя",
         "month": "Месяц",
         "any": "Любой",
+        "refresh": "Обновить",
+        "lastUpdate": "Последнее обновление",
         "paymentStatus": {
             "pending": "Запущен",
             "processed": "Обработан",
@@ -143,8 +145,6 @@
                     "paymentMethod": "Метод оплаты",
                     "rnn": "RNN платежа"
                 },
-                "refresh": "Обновить",
-                "lastUpdate": "Последнее обновление",
                 "table": {
                     "amount": "Сумма списания",
                     "status": "Статус",
