@@ -4,7 +4,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { ClaimService } from '../claim.service';
 import { Claim } from '../../../api/claim-management';
-import { getModificationViewInfo } from './get-modification-view-info';
+import { toTimelineActionsInfo } from './to-timeline-actions-info';
 
 @Component({
     selector: 'dsh-conversation',
@@ -17,9 +17,7 @@ export class ConversationComponent {
     }
 
     changesetViewInfo$ = this.claimService.claim$.pipe(
-        map(({ changeset }) =>
-            changeset.map(unit => ({ createdAt: unit.createdAt, ...getModificationViewInfo(unit) }))
-        ),
+        map(({ changeset }) => toTimelineActionsInfo(changeset)),
         shareReplay(1)
     );
 

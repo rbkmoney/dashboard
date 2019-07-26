@@ -68,8 +68,8 @@
                 "accepted": "Одобрена"
             },
             "modification": {
-                "label": {
-                    "documentCreated": "создана анкета",
+                "action": {
+                    "claimCreated": "создана анкета",
                     "pending": "переведена в ожидание",
                     "pendingAcceptance": "переведена в ожидание ваших действий",
                     "review": "рассматривается",
@@ -77,10 +77,8 @@
                     "denied": "отклонена",
                     "accepted": "одобрена",
                     "documentAdded": "добавлен документ",
-                    "commentCreated": "добавлен комментарий",
-                    "addedChanges": "добавлены изменения",
-                    "claimUpdated": "обновлена заявка",
-                    "updated": "обновлен"
+                    "commentAdded": "добавлен комментарий",
+                    "changesAdded": "добавлены изменения"
                 },
                 "author": {
                     "manager": "Менеджером",
