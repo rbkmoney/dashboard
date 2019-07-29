@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { toTimelineActionsInfo } from './to-timeline-actions-info';
+import { toTimelineActionsInfo } from './to-timeline-action-info';
 import { ClaimService } from '../claim.service';
 
 @Component({
