@@ -6,25 +6,30 @@
     <a>{{ 'common.update' | lc }}</a>
 </div>
 
-<dsh-timeline>
-    <dsh-timeline-item *ngFor="let unit of changesetViewInfo$ | async" [color]="unit.color">
-        <dsh-timeline-item-title>
-            <b class="mat-body-2">{{ unit.author | lc }}</b>
-            {{ unit.actionName | lc }}
-            {{ unit.createdAt | humanizedDuration: { largest: 1 } }} назад
-        </dsh-timeline-item-title>
-        <dsh-timeline-item-badge>
-            <mat-icon>{{ unit.iconName }}</mat-icon>
-        </dsh-timeline-item-badge>
-        <dsh-timeline-item-content>
-            <!-- TODO: описание -->
-        </dsh-timeline-item-content>
-    </dsh-timeline-item>
-</dsh-timeline>
-
-<div class="comments">
-    <mat-form-field class="form-field">
-        <textarea matInput [placeholder]="'sections.claim.conversation.leaveTheComment' | lc"></textarea>
-    </mat-form-field>
-    <button dsh-stroked-button class="action">{{ 'sections.claim.conversation.toLeaveTheComment' | lc }}</button>
+<div fxLayout="column" fxLayoutGap="20px">
+    <dsh-timeline>
+        <dsh-timeline-item *ngFor="let unit of changesetViewInfo$ | async" [color]="unit.color">
+            <dsh-timeline-item-title>
+                <b class="mat-body-2">{{ unit.author | lc }}</b>
+                {{ unit.actionName | lc }}
+                {{ unit.createdAt | humanizedDuration: { largest: 1 } }} {{ 'sections.claim.conversation.ago' | lc }}
+            </dsh-timeline-item-title>
+            <dsh-timeline-item-badge>
+                <mat-icon>{{ unit.iconName }}</mat-icon>
+            </dsh-timeline-item-badge>
+            <dsh-timeline-item-content>
+                <!-- TODO: описание -->
+            </dsh-timeline-item-content>
+        </dsh-timeline-item>
+    </dsh-timeline>
+    <div class="comment" fxLayout="column">
+        <mat-form-field>
+            <textarea matInput [placeholder]="'sections.claim.conversation.leaveTheComment' | lc"></textarea>
+        </mat-form-field>
+        <div>
+            <button dsh-stroked-button class="action">
+                {{ 'sections.claim.conversation.toLeaveTheComment' | lc }}
+            </button>
+        </div>
+    </div>
 </div>
