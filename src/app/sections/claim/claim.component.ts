@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
-import { ClaimService } from './claim.service';
 import { getClaimStatusViewInfo } from '../../view-utils';
 import { StatusModificationUnit } from '../../api/claim-management';
+import { ClaimService } from './claim.service';
 
 @Component({
     selector: 'dsh-claim',
@@ -26,7 +27,7 @@ export class ClaimComponent {
         }
     ];
 
-    claim$ = this.claimService.claim$.pipe(
+    claim$ = this.claimService.getClaimByParams(this.route.params).pipe(
         map(({ id, status }) => ({
             id,
             ...getClaimStatusViewInfo(status as StatusModificationUnit.StatusEnum)
@@ -34,5 +35,5 @@ export class ClaimComponent {
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimService) {}
+    constructor(private route: ActivatedRoute, private claimService: ClaimService) {}
 }

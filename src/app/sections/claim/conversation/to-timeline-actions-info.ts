@@ -23,7 +23,7 @@ enum TimelineAction {
     documentsAdded, // добавлены документы
     commentAdded, // добавлен комментарий
     statusReview, // заявка отправлена на рассмотрение
-    statusPendindAcceptance, // заявка рассмотренна. Требуются ваши действия.
+    statusPendingAcceptance, // заявка рассмотренна. Требуются ваши действия.
     statusDenied, // заявка отклонена
     statusRevoked, // заявка отозвана
     statusAccepted, // заявка одобрена
@@ -33,7 +33,7 @@ enum TimelineAction {
 function getTimelineActionIconName(action: TimelineAction) {
     return ({
         [TimelineAction.statusPending]: 'sentiment_satisfied',
-        [TimelineAction.statusPendindAcceptance]: 'sentiment_satisfied',
+        [TimelineAction.statusPendingAcceptance]: 'sentiment_satisfied',
         [TimelineAction.statusReview]: 'sentiment_satisfied',
         [TimelineAction.statusRevoked]: 'mood_bad',
         [TimelineAction.statusDenied]: 'mood_bad',
@@ -48,7 +48,7 @@ function getTimelineActionIconName(action: TimelineAction) {
 function getTimelineActionColor(action: TimelineAction): StatusColor {
     return {
         [TimelineAction.statusPending]: StatusColor.pending,
-        [TimelineAction.statusPendindAcceptance]: StatusColor.pending,
+        [TimelineAction.statusPendingAcceptance]: StatusColor.pending,
         [TimelineAction.statusReview]: StatusColor.neutral,
         [TimelineAction.statusRevoked]: StatusColor.warn,
         [TimelineAction.statusDenied]: StatusColor.warn,
@@ -59,7 +59,7 @@ function getTimelineActionColor(action: TimelineAction): StatusColor {
 function getTimelineActionName(action: TimelineAction): string {
     const timelineActionName = ({
         [TimelineAction.statusPending]: 'pending',
-        [TimelineAction.statusPendindAcceptance]: 'pendindAcceptance',
+        [TimelineAction.statusPendingAcceptance]: 'pendingAcceptance',
         [TimelineAction.statusReview]: 'review',
         [TimelineAction.statusRevoked]: 'revoked',
         [TimelineAction.statusDenied]: 'denied',
@@ -124,7 +124,7 @@ function getUnitTimelineAction(unit: ModificationUnit): TimelineAction {
                         case StatusModificationUnit.StatusEnum.Pending:
                             return TimelineAction.statusPending;
                         case StatusModificationUnit.StatusEnum.PendingAcceptance:
-                            return TimelineAction.statusPendindAcceptance;
+                            return TimelineAction.statusPendingAcceptance;
                         case StatusModificationUnit.StatusEnum.Review:
                             return TimelineAction.statusReview;
                         case StatusModificationUnit.StatusEnum.Revoked:
