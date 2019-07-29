@@ -17,14 +17,15 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
 
     constructor(private humanizeDurationService: HumanizeDurationService, private ref: ChangeDetectorRef) {}
 
-    transform(value: Value, { interval: intervalMs, ...config }: HumanizeDurationConfig = {}) {
+    transform(value: Value, { interval: inpIntervalMs, ...config }: HumanizeDurationConfig = {}) {
         if (value !== this.inputValue) {
             this.inputValue = value;
+            this.latestValue = this.humanizeDurationService.getDuration(value, config);
             if (typeof value !== 'number') {
                 this.dispose();
-                this.subscription = interval(intervalMs || 1000).subscribe(() => this.updateValue(value, config));
+                const intervalMs = inpIntervalMs || this.getInterval(value, config);
+                this.subscription = interval(intervalMs).subscribe(() => this.updateValue(value, config));
             }
-            this.latestValue = this.humanizeDurationService.getDuration(value, config);
         }
         return this.latestValue;
     }
@@ -33,13 +34,24 @@ export class HumanizedDurationPipe implements OnDestroy, PipeTransform {
         this.dispose();
     }
 
+    private getInterval(value: Value, { largest }: HumanizerOptions): number {
+        if (largest === 1) {
+            const diffMs = this.humanizeDurationService.getDiffMs(value);
+            if (diffMs < 3600000) {
+                return 20000;
+            }
+            return 600000;
+        }
+        return 1000;
+    }
+
     private dispose(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
 
-    private updateValue(value: Value, config: HumanizerOptions = {}) {
+    private updateValue(value: Value, config: HumanizerOptions) {
         const duration = this.humanizeDurationService.getDuration(value, config);
         if (duration !== this.latestValue) {
             this.ref.markForCheck();

@@ -18,8 +18,12 @@ export class HumanizeDurationService {
 
     constructor(private settinsService: SettingsService) {}
 
+    getDiffMs(value: Value): number {
+        return Math.abs(typeof value === 'number' ? value : moment().diff(moment(value)));
+    }
+
     getDuration(value: Value, config: humanizeDuration.HumanizerOptions = {}): string {
-        const diffMs = typeof value === 'number' ? value : moment().diff(moment(value));
+        const diffMs = this.getDiffMs(value);
         if (isNaN(diffMs)) {
             return null;
         }
