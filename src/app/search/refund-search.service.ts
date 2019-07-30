@@ -14,7 +14,7 @@ export class RefundSearchService {
         invoiceID: string,
         paymentID: string,
         offset: number,
-        limit = 1,
+        limit = 20,
         fromTime = moment().subtract(1, 'M') as any,
         toTime = moment() as any
     ): Observable<RefundsWithTotalCount> {
