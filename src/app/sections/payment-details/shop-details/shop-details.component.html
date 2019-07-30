@@ -1,14 +1,14 @@
-<dsh-card>
+<dsh-card *ngIf="shop$ | async as shop">
     <dsh-card-title>
         <div class="mat-h2">{{ localePath + '.title' | lc }}</div>
     </dsh-card-title>
     <dsh-card-content>
         <div fxLayout="column" [fxLayoutGap]="layoutGap">
             <dsh-details-item [title]="localePath + '.titles.name' | lc">
-                {{ (shop | async)?.details?.name }}
+                {{ shop?.details?.name }}
             </dsh-details-item>
             <dsh-details-item [title]="localePath + '.titles.url' | lc">
-                {{ (shop | async)?.location?.url }}
+                {{ getShopUrl(shop?.location) }}
             </dsh-details-item>
         </div>
     </dsh-card-content>
