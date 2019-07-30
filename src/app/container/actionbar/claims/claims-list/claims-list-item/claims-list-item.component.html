@@ -1,19 +1,17 @@
-<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" class="item">
+<div fxLayout fxLayoutGap="10px" fxLayoutAlign="space-between center" class="item">
     <div fxFlex="60">
-        <ng-content></ng-content>
+        {{ listItem.claimType }}
     </div>
-    <div fxFlex="40">
-        <dsh-status [color]="color">{{ status }}</dsh-status>
-    </div>
-    <div>
-        <button dsh-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-        </button>
-    </div>
+    <dsh-status fxFlex="40" [color]="listItem.statusViewInfo.color">{{
+        listItem.statusViewInfo.statusDicPath | lc
+    }}</dsh-status>
+    <button dsh-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/claim', id, 'conversation']" (click)="clickHandler($event)">
-        Детали заявки
+    <button mat-menu-item [routerLink]="['/claim', claim.id, 'conversation']" (click)="menuItemSelected.emit()">
+        {{ 'actionbar.claims.details' | lc }}
     </button>
 </mat-menu>

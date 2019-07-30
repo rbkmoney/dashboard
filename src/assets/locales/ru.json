@@ -56,17 +56,15 @@
             "bankCard": "Банковская карта",
             "paymentTerminal": "Терминал"
         },
+        "claimStatus": {
+            "pending": "В ожидании",
+            "pendingAcceptance": "Требуются ваши действия",
+            "review": "На рассмотрении",
+            "revoked": "Отозвана",
+            "denied": "Отклонена",
+            "accepted": "Одобрена"
+        },
         "claim": {
-            "recent": "Последние заявки",
-            "goToAll": "Перейти ко всем заявкам",
-            "status": {
-                "pending": "В ожидании",
-                "pendingAcceptance": "Требуются ваши действия",
-                "review": "На рассмотрении",
-                "revoked": "Отозвана",
-                "denied": "Отклонена",
-                "accepted": "Одобрена"
-            },
             "modification": {
                 "action": {
                     "claimCreated": "создана анкета",
@@ -85,6 +83,13 @@
                     "you": "Вами"
                 }
             }
+        }
+    },
+    "actionbar": {
+        "claims": {
+            "title": "Последние заявки",
+            "details": "Детали заявки",
+            "goToAll": "Перейти ко всем заявкам"
         }
     },
     "sections": {

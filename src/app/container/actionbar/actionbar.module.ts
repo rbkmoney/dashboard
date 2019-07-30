@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatSnackBarModule } from '@angular/material';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown';
@@ -31,7 +32,8 @@ import { LocaleModule } from '../../locale';
         RouterModule,
         APIModule,
         CommonModule,
-        LocaleModule
+        LocaleModule,
+        MatSnackBarModule
     ],
     declarations: [
         ActionbarComponent,
