@@ -11,7 +11,9 @@ import { ClaimService } from '../claim.service';
     styleUrls: ['conversation.component.scss']
 })
 export class ConversationComponent {
-    changesetViewInfo$ = this.claimService.getClaimByParams(this.route.params).pipe(
+    claim$ = this.claimService.getClaimByParams(this.route.params);
+
+    changesetViewInfo$ = this.claim$.pipe(
         map(({ changeset }) => toTimelineActionsInfo(changeset)),
         shareReplay(1)
     );
