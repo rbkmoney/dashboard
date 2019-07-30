@@ -11,18 +11,18 @@
     </dsh-card-title>
     <dsh-card-content>
         <div fxLayout="column">
-            <ng-container *ngFor="let refund of refunds">
+            <ng-container *ngFor="let refund of refundsService.refunds | async">
                 <dsh-refund-item [refund]="refund"></dsh-refund-item>
                 <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
-            <div *ngIf="totalCount === 0">
+            <div *ngIf="refundsService.isRefundsAvailable()">
                 {{ localePath + '.noRefunds' | lc }}
             </div>
             <button
-                *ngIf="refunds.length < totalCount"
+                *ngIf="refundsService.isMoreRefundsAvailable()"
                 class="dsh-payment-details-refunds-show-more-refunds"
                 dsh-button
-                (click)="getMoreRefunds(invoiceID, paymentID, refunds.length)"
+                (click)="refundsService.loadRefunds(invoiceID, paymentID)"
             >
                 {{ 'common.showMore' | lc }}
             </button>

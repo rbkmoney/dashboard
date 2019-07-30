@@ -34,6 +34,9 @@ import { BankCardComponent } from './payment-tool/bank-card/bank-card.component'
 import { PaymentTerminalComponent } from './payment-tool/payment-terminal/payment-terminal.component';
 import { SearchModule } from '../../search/search.module';
 import { PaymentsModule } from '../payment-section/operations/payments/payments.module';
+import { CustomerPayerComponent } from './payer-details/customer-payer/customer-payer.component';
+import { PaymentResourcePayerComponent } from './payer-details/payment-resource-payer/payment-resource-payer.component';
+import { RecurrentPayerComponent } from './payer-details/recurrent-payer/recurrent-payer.component';
 
 @NgModule({
     imports: [
@@ -72,7 +75,10 @@ import { PaymentsModule } from '../payment-section/operations/payments/payments.
         PhoneNumberPipe,
         DigitalWalletComponent,
         BankCardComponent,
-        PaymentTerminalComponent
+        PaymentTerminalComponent,
+        CustomerPayerComponent,
+        PaymentResourcePayerComponent,
+        RecurrentPayerComponent
     ],
     exports: [PaymentDetailsComponent]
 })

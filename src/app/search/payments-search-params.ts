@@ -1,9 +1,4 @@
 export interface PaymentsSearchParams {
-    xRequestID: string;
-    fromTime: Date;
-    toTime: Date;
-    limit: number;
-    xRequestDeadline?: string;
     shopID?: string;
     paymentStatus?: 'pending' | 'processed' | 'captured' | 'cancelled' | 'refunded' | 'failed';
     paymentFlow?: 'instant' | 'hold';
@@ -34,7 +29,4 @@ export interface PaymentsSearchParams {
         | 'jcb'
         | 'nspkmir';
     paymentAmount?: number;
-    continuationToken?: string;
-    observe?: 'body';
-    reportProgress?: boolean;
 }

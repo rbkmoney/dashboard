@@ -1,33 +1,23 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
-import { PaymentDetailsService } from '../payment-details.service';
+import { RefundsService } from './refunds.service';
 
 @Component({
     selector: 'dsh-refunds',
     templateUrl: './refunds.component.html',
-    styleUrls: ['./refunds.component.scss']
+    styleUrls: ['./refunds.component.scss'],
+    providers: [RefundsService]
 })
-export class RefundsComponent implements OnChanges {
+export class RefundsComponent implements OnInit {
     @Input() invoiceID: string;
 
     @Input() paymentID: string;
 
-    refunds: RefundSearchResult[] = [];
-
-    totalCount = 0;
-
     localePath = 'sections.paymentDetails.refunds';
 
-    constructor(private paymentDetailsService: PaymentDetailsService) {}
+    constructor(private refundsService: RefundsService) {}
 
-    ngOnChanges() {
-        this.getMoreRefunds(this.invoiceID, this.paymentID);
+    ngOnInit() {
+        this.refundsService.loadRefunds(this.invoiceID, this.paymentID);
     }
-
-    getMoreRefunds = (invoiceID: string, paymentID: string, offset = 0) =>
-        this.paymentDetailsService.getRefunds(invoiceID, paymentID, offset).subscribe(({ result, totalCount }) => {
-            this.refunds.push(...result);
-            this.totalCount = totalCount || 0;
-        });
 }

@@ -1,4 +1,5 @@
 import random from 'lodash.random';
+
 function genID(length: number) {
     let result = '';
     for (let i = 0; i < length; ++i) {
@@ -6,6 +7,7 @@ function genID(length: number) {
     }
     return result;
 }
+
 export function genXRequestID() {
     return genID(32);
 }

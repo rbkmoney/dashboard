@@ -7,6 +7,12 @@ import {
     PaymentToolDetailsPaymentTerminal
 } from '../../../api/capi/swagger-codegen';
 
+enum PaymentToolDetailsType {
+    BankCard = 'PaymentToolDetailsBankCard',
+    Wallet = 'PaymentToolDetailsDigitalWallet',
+    Terminal = 'PaymentToolDetailsPaymentTerminal'
+}
+
 @Component({
     selector: 'dsh-payment-tool',
     templateUrl: './payment-tool.component.html'
@@ -23,13 +29,13 @@ export class PaymentToolComponent implements OnChanges {
     ngOnChanges() {
         if (this.paymentToolDetails) {
             switch (this.paymentToolDetails.detailsType) {
-                case 'PaymentToolDetailsBankCard':
+                case PaymentToolDetailsType.BankCard:
                     this.bankCard = this.paymentToolDetails as PaymentToolDetailsBankCard;
                     break;
-                case 'PaymentToolDetailsDigitalWallet':
+                case PaymentToolDetailsType.Wallet:
                     this.digitalWallet = this.paymentToolDetails as PaymentToolDetailsDigitalWallet;
                     break;
-                case 'PaymentToolDetailsPaymentTerminal':
+                case PaymentToolDetailsType.Terminal:
                     this.paymentTerminal = this.paymentToolDetails as PaymentToolDetailsPaymentTerminal;
                     break;
             }

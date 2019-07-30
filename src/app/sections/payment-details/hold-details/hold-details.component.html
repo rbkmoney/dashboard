@@ -1,4 +1,4 @@
-<dsh-card>
+<dsh-card *ngIf="flowHold.heldUntil.toString() as holdDate">
     <dsh-card-title>
         <h2 class="mat-h2">
             {{ localePath + '.title' | lc }}

@@ -12,13 +12,19 @@ import { PaymentsWithToken } from './payments-with-token';
 export class PaymentSearchService {
     constructor(private searchService: SearchService) {}
 
-    getPayments = (paymentsSearchParams: PaymentsSearchParams): Observable<PaymentsWithToken> =>
-        this.searchService.searchPayments(
+    getPayments(
+        paymentsSearchParams: PaymentsSearchParams,
+        limit = 20,
+        fromTime = moment().subtract(1, 'M') as any,
+        toTime = moment() as any,
+        continuationToken?: string
+    ): Observable<PaymentsWithToken> {
+        return this.searchService.searchPayments(
             genXRequestID(),
-            paymentsSearchParams.fromTime,
-            paymentsSearchParams.toTime,
-            paymentsSearchParams.limit,
-            paymentsSearchParams.xRequestDeadline,
+            fromTime,
+            toTime,
+            limit,
+            undefined,
             paymentsSearchParams.shopID,
             paymentsSearchParams.paymentStatus,
             paymentsSearchParams.paymentFlow,
@@ -37,18 +43,19 @@ export class PaymentSearchService {
             paymentsSearchParams.bankCardTokenProvider,
             paymentsSearchParams.bankCardPaymentSystem,
             paymentsSearchParams.paymentAmount,
-            paymentsSearchParams.continuationToken,
-            paymentsSearchParams.observe,
-            paymentsSearchParams.reportProgress
+            continuationToken,
+            undefined,
+            undefined
         );
+    }
 
-    getPayment = (invoiceID: string, paymentID: string): Observable<PaymentSearchResult> =>
-        this.getPayments({
-            xRequestID: genXRequestID(),
-            fromTime: moment().subtract(1, 'year') as any,
-            toTime: moment() as any,
-            limit: 1,
-            invoiceID,
-            paymentID
-        }).pipe(map(res => res.result[0]));
+    getPayment(invoiceID: string, paymentID: string): Observable<PaymentSearchResult> {
+        return this.getPayments(
+            {
+                invoiceID,
+                paymentID
+            },
+            20
+        ).pipe(map(res => res.result[0]));
+    }
 }

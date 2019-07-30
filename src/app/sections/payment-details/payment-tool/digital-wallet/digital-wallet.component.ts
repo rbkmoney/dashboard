@@ -1,6 +1,11 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { DigitalWalletDetails, DigitalWalletDetailsQIWI } from '../../../../api/capi/swagger-codegen';
+import {
+    DigitalWalletDetails,
+    DigitalWalletDetailsQIWI,
+    PaymentToolDetailsDigitalWallet
+} from '../../../../api/capi/swagger-codegen';
+import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWalletDetailsTypeEnum;
 
 @Component({
     selector: 'dsh-digital-wallet',
@@ -15,7 +20,7 @@ export class DigitalWalletComponent implements OnChanges {
 
     ngOnChanges() {
         switch (this.digitalWallet.digitalWalletDetailsType) {
-            case 'DigitalWalletDetailsQIWI':
+            case DigitalWalletDetailsTypeEnum.DigitalWalletDetailsQIWI:
                 this.qiwi = this.digitalWallet as DigitalWalletDetailsQIWI;
                 break;
         }

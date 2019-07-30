@@ -5,39 +5,11 @@
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <div *ngIf="customerPayer">
-            <dsh-details-item [title]="localePath + '.titles.customerID' | lc">
-                {{ customerPayer.customerID }}
-            </dsh-details-item>
-        </div>
-        <div *ngIf="paymentResourcePayer" fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
-            <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
-                {{ paymentResourcePayer.clientInfo?.fingerprint }}
-            </dsh-details-item>
-            <dsh-details-item
-                *ngIf="paymentResourcePayer.clientInfo?.ip"
-                [title]="localePath + '.titles.ip' | lc"
-                fxFlex
-            >
-                {{ paymentResourcePayer.clientInfo.ip }}
-            </dsh-details-item>
-        </div>
-        <div *ngIf="recurrentPayer" fxLayout="column" [fxLayoutGap]="layoutGap">
-            <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
-                <dsh-details-item [title]="localePath + '.titles.invoiceID' | lc" fxFlex>
-                    {{ recurrentPayer.recurrentParentPayment?.invoiceID }}
-                </dsh-details-item>
-                <dsh-details-item [title]="localePath + '.titles.paymentID' | lc" fxFlex>
-                    {{ recurrentPayer.recurrentParentPayment?.paymentID }}
-                </dsh-details-item>
-            </div>
-            <dsh-details-item
-                *ngIf="recurrentPayer.contactInfo.phoneNumber"
-                [title]="localePath + '.titles.phoneNumber' | lc"
-                fxFlex
-            >
-                {{ recurrentPayer.contactInfo.phoneNumber }}
-            </dsh-details-item>
-        </div>
+        <dsh-customer-payer *ngIf="customerPayer" [customerPayer]="customerPayer"></dsh-customer-payer>
+        <dsh-payment-resource-payer
+            *ngIf="paymentResourcePayer"
+            [paymentResourcePayer]="paymentResourcePayer"
+        ></dsh-payment-resource-payer>
+        <dsh-recurrent-payer *ngIf="recurrentPayer" [recurrentPayer]="recurrentPayer"></dsh-recurrent-payer>
     </dsh-card-content>
 </dsh-card>

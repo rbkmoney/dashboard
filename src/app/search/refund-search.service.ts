@@ -2,19 +2,27 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import moment from 'moment';
 
-import { InlineResponse2003, SearchService } from '../api/capi/swagger-codegen';
+import { SearchService } from '../api/capi/swagger-codegen';
 import { genXRequestID } from '../api/gen-x-request-id';
+import { RefundsWithTotalCount } from './refunds-with-total-count';
 
 @Injectable()
 export class RefundSearchService {
     constructor(private searchService: SearchService) {}
 
-    getRefunds = (invoiceID: string, paymentID: string, offset: number): Observable<InlineResponse2003> =>
-        this.searchService.searchRefunds(
+    getRefunds(
+        invoiceID: string,
+        paymentID: string,
+        offset: number,
+        limit = 1,
+        fromTime = moment().subtract(1, 'M') as any,
+        toTime = moment() as any
+    ): Observable<RefundsWithTotalCount> {
+        return this.searchService.searchRefunds(
             genXRequestID(),
-            moment().subtract(1, 'year') as any,
-            moment() as any,
-            3,
+            fromTime,
+            toTime,
+            limit,
             undefined,
             undefined,
             offset,
@@ -25,4 +33,5 @@ export class RefundSearchService {
             undefined,
             undefined
         );
+    }
 }

@@ -54,6 +54,12 @@
         "paymentMethod": {
             "bankCard": "Банковская карта",
             "paymentTerminal": "Терминал"
+        },
+        "digitalWalletProvider": {
+            "DigitalWalletDetailsQIWI": "QIWI"
+        },
+        "paymentTerminalProvider": {
+            "euroset": "Евросеть"
         }
     },
     "sections": {
@@ -182,12 +188,8 @@
                 "titles": {
                     "card": "Банковская карта",
                     "digitalWalletType": "Цифровой кошелек",
-                    "DigitalWalletDetailsQIWI": "QIWI",
                     "phoneNumber": "Номер телефона",
                     "terminal": "Платежный терминал"
-                },
-                "terminals": {
-                    "euroset": "Евросеть"
                 }
             },
             "payerDetails": {
