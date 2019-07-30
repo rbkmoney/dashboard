@@ -1,26 +1,26 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { StatusColor } from '../../../../../theme-manager';
+import { Claim } from '../../../../../api/claim-management/swagger-codegen';
+import { ClaimsListItemService, ClaimListItem } from './claims-list-item.service';
 
 @Component({
     selector: 'dsh-claims-list-item',
     templateUrl: 'claims-list-item.component.html',
-    styleUrls: ['claims-list-item.component.scss']
+    styleUrls: ['claims-list-item.component.scss'],
+    providers: [ClaimsListItemService]
 })
-export class ClaimsListItemComponent {
-    @Input()
-    status: string;
+export class ClaimsListItemComponent implements OnChanges {
+    @Input() claim: Claim;
 
-    @Input()
-    color: StatusColor;
+    @Output() menuItemSelected = new EventEmitter();
 
-    @Input()
-    id: number;
+    listItem: ClaimListItem;
 
-    @Output()
-    action = new EventEmitter<{ isMoving: boolean; event: MouseEvent }>();
+    constructor(private listItemService: ClaimsListItemService) {}
 
-    clickHandler(event: MouseEvent) {
-        this.action.emit({ isMoving: true, event });
+    ngOnChanges({ claim }: SimpleChanges) {
+        if (this.listItemService.isNeedToUpdate(claim)) {
+            this.listItem = this.listItemService.toClaimListItem(claim.currentValue);
+        }
     }
 }

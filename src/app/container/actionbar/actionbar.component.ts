@@ -16,9 +16,7 @@ export class ActionbarComponent {
         this.themeService.changeTheme();
     }
 
-    actionHandler({ isMoving }) {
-        if (isMoving) {
-            this.trigger.close();
-        }
+    closeDropdown() {
+        this.trigger.close();
     }
 }

@@ -1,7 +1,14 @@
 import { StatusColor } from '../theme-manager';
 import { StatusModificationUnit } from '../api/claim-management';
 
-export function statusMapToColor(status: StatusModificationUnit.StatusEnum): StatusColor {
+type ClaimStatus = StatusModificationUnit.StatusEnum;
+
+export interface ClaimStatusViewInfo {
+    statusDicPath: string;
+    color: StatusColor;
+}
+
+function statusMapToColor(status: ClaimStatus): StatusColor {
     return {
         pending: StatusColor.pending,
         pendingAcceptance: StatusColor.pending,
@@ -12,9 +19,7 @@ export function statusMapToColor(status: StatusModificationUnit.StatusEnum): Sta
     }[status];
 }
 
-export function getClaimStatusViewInfo(status: StatusModificationUnit.StatusEnum) {
-    return {
-        status: `common.claim.status.${status}`,
-        color: statusMapToColor(status)
-    };
-}
+export const getClaimStatusViewInfo = (status: ClaimStatus): ClaimStatusViewInfo => ({
+    statusDicPath: `common.claimStatus.${status}`,
+    color: statusMapToColor(status)
+});

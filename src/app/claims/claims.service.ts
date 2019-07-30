@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
-import { map, share } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { genXRequestID } from '../api';
 import { ClaimsService as APIClaimsService, Claim } from '../api/claim-management';
+import { ClaimsWithToken } from './claims-with-token';
+import { ClaimStatuses } from './claim-statuses';
 
 @Injectable()
 export class ClaimsService {
     constructor(private claimsService: APIClaimsService) {}
 
-    getClaims(count: number = 5): Observable<Claim[]> {
-        return this.claimsService.searchClaims(genXRequestID(), count).pipe(
-            map(({ result }) => result),
-            share()
-        );
+    searchClaims(
+        limit: number,
+        continuationToken?: string,
+        claimStatuses?: ClaimStatuses[]
+    ): Observable<ClaimsWithToken> {
+        return this.claimsService.searchClaims(genXRequestID(), limit, undefined, continuationToken, claimStatuses);
     }
 
     getClaim(claimID): Observable<Claim> {
