@@ -15,7 +15,7 @@ export class RefundsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.refunds';
 
-    constructor(private refundsService: RefundsService) {}
+    constructor(public refundsService: RefundsService) {}
 
     ngOnInit() {
         this.refundsService.loadRefunds(this.invoiceID, this.paymentID);

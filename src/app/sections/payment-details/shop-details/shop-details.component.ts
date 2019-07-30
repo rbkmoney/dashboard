@@ -15,7 +15,7 @@ export class ShopDetailsComponent implements OnInit {
 
     @Input() layoutGap = '20px';
 
-    private shop$: Observable<Shop>;
+    shop$: Observable<Shop>;
 
     localePath = 'sections.paymentDetails.shopDetails';
 
