@@ -1,1 +1,3 @@
-export type ClaimStatuses = 'pending' | 'review' | 'pendingAcceptance' | 'accepted' | 'denied' | 'revoked';
+import { StatusModificationUnit } from '../api/claim-management';
+
+export type ClaimStatuses = StatusModificationUnit.StatusEnum;
