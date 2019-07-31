@@ -10,7 +10,7 @@ enum Type {
     CSS = 'css'
 }
 
-const themes = ['light', 'dark'];
+const themes = ['light', 'dark'] as const;
 
 @Injectable()
 export class ThemeManager {
@@ -58,6 +58,6 @@ export class ThemeManager {
     }
 
     private createExternal(url: string): External {
-        return new (this.fileType === 'js' ? Script : Style)(url);
+        return new (this.fileType === Type.JS ? Script : Style)(url);
     }
 }
