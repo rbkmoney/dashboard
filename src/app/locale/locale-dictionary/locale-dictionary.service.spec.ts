@@ -11,7 +11,8 @@ class SettingsServiceStub {
 }
 
 const dummyDict = {
-    'test key': 'test value'
+    'test key': 'test value',
+    template_test_key: 'test <%- replacement %> value'
 };
 
 describe('LocaleDictionaryService', () => {
@@ -20,7 +21,7 @@ describe('LocaleDictionaryService', () => {
             imports: [HttpClientTestingModule],
             providers: [LocaleDictionaryService, { provide: SettingsService, useClass: SettingsServiceStub }]
         });
-        const ls = TestBed.get(LocaleDictionaryService);
+        const ls: LocaleDictionaryService = TestBed.get(LocaleDictionaryService);
         const httpMock = TestBed.get(HttpTestingController);
         const load = ls.init({ localesUrl: '/assets/locales' });
         const req = httpMock.expectOne(`/assets/locales/ru.json`);
@@ -37,6 +38,13 @@ describe('LocaleDictionaryService', () => {
 
     it('should return test value', async done => {
         expect((await createService()).ls.mapDictionaryKey('test key')).toBe('test value');
+        done();
+    });
+
+    it('should return template test value', async done => {
+        expect((await createService()).ls.mapDictionaryKey('template_test_key', { replacement: 'sample' })).toBe(
+            'test sample value'
+        );
         done();
     });
 
