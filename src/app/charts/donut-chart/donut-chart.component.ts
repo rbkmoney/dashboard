@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
@@ -27,7 +27,7 @@ export class DonutChartComponent implements OnChanges, OnInit {
         this.donutChartService.initChart(this.data, element, this.config);
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges() {
         this.donutChartService.updateChart(this.data);
     }
 }

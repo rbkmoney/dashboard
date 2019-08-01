@@ -149,7 +149,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
             .ease(easeExp)
             .duration(this.config.transitionDuration)
             .attr('d', d => this.createLine(d.values))
-            .style('stroke', (d, i) => chartColors[i]);
+            .style('stroke', (_d, i) => chartColors[i]);
 
         const circleGroup = this.svg
             .selectAll('circle-group')
@@ -158,7 +158,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
 
         const circleDescription = circleGroup
             .append('g')
-            .style('fill', (d, i) => chartColors[i])
+            .style('fill', (_d, i) => chartColors[i])
             .selectAll('circle')
             .data(d => d.values)
             .enter();

@@ -90,7 +90,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
         const describeBars = timeScale
             .selectAll('.bar')
             .data(d => d.values)
-            .style('fill', (d, i) => chartColors[i]);
+            .style('fill', (_d, i) => chartColors[i]);
 
         const describeTooltip = describeBars
             .on('mousemove', d => {
@@ -144,7 +144,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .enter()
             .append('path')
             .attr('class', `bar`)
-            .style('fill', (d, i) => chartColors[i]);
+            .style('fill', (_d, i) => chartColors[i]);
 
         const desctibeTooltip = describeBars
             .on('mousemove', d => {

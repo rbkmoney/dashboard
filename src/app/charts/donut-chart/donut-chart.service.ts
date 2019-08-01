@@ -68,8 +68,8 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
                 .enter()
                 .append('path')
                 .attr('id', () => 'segment')
-                .attr('fill', (d, i) => chartColors[i])
-                .attr('periodData-index', (d, i) => i)
+                .attr('fill', (_d, i) => chartColors[i])
+                .attr('periodData-index', (_d, i) => i)
                 .style('stroke-width', 1)
                 .on('mousemove', (d, i) => {
                     const legendData = { values: [{ name: d.data.name, color: chartColors[i] }] };
