@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 const settingsStorageKeys = ['language', 'theme'] as const;
-
 type SettingsStorageData = { [key in typeof settingsStorageKeys[number]]: string };
 
 export const supportedThemes = ['light', 'dark'] as const;
@@ -16,7 +15,7 @@ export class SettingsService implements SettingsStorageData {
     get language() {
         return this.get('language');
     }
-    set language(language: string) {
+    set language(language: typeof supportedLanguages[number]) {
         this.set({ language });
         moment.locale(language);
     }
@@ -24,16 +23,16 @@ export class SettingsService implements SettingsStorageData {
     get theme() {
         return this.get('theme');
     }
-    set theme(theme: string) {
+    set theme(theme: typeof supportedThemes[number]) {
         this.set({ theme });
     }
 
     async init() {
-        if (!this.language) {
+        if (!this.language || !supportedLanguages.includes(this.language)) {
             const language = navigator.language || (navigator as any).userLanguage;
             this.language = supportedLanguages.includes(language) ? language : defaultLanguage;
         }
-        if (!this.theme) {
+        if (!this.theme || !supportedThemes.includes(this.theme)) {
             this.theme = supportedThemes[0];
         }
         for (const key of settingsStorageKeys) {
@@ -50,7 +49,7 @@ export class SettingsService implements SettingsStorageData {
         }
     }
 
-    private get(key: keyof SettingsStorageData) {
+    private get(key: keyof SettingsStorageData): any {
         return localStorage.getItem(this.getKeyName(key));
     }
 

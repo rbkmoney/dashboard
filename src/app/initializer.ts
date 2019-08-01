@@ -8,8 +8,9 @@ export const initializer = (
     keycloakService: KeycloakService,
     localeService: LocaleDictionaryService,
     settingsService: SettingsService
-) => () =>
-    Promise.all([
+) => async () => {
+    await settingsService.init();
+    await Promise.all([
         configService.init({ configUrl: '/assets/appConfig.json' }),
         keycloakService.init({
             config: '/assets/authConfig.json',
@@ -21,6 +22,6 @@ export const initializer = (
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
         }),
-        localeService.init({ localesUrl: '/assets/locales' }),
-        settingsService.init()
+        localeService.init({ localesUrl: '/assets/locales' })
     ]);
+};

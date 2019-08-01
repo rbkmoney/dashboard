@@ -19,7 +19,7 @@ export class ThemeManager {
         this.init();
     }
 
-    changeTheme(name: string = this.getTheme(1)) {
+    changeTheme(name = this.getTheme(1)) {
         this.removeCurrentTheme();
         this.themes[name].add(this.doc);
         this.settingsService.theme = name;
@@ -39,7 +39,7 @@ export class ThemeManager {
         return supportedThemes.findIndex(n => n === this.settingsService.theme);
     }
 
-    private getTheme(changeIdx: number = 0): string {
+    private getTheme(changeIdx: number = 0) {
         const nextIdx = (this.themeIdx + changeIdx) % supportedThemes.length;
         return supportedThemes[nextIdx < 0 ? supportedThemes.length - nextIdx : nextIdx];
     }
