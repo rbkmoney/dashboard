@@ -3,14 +3,12 @@ import { DOCUMENT } from '@angular/common';
 
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
-import { SettingsService } from '../settings';
+import { SettingsService, supportedThemes } from '../settings';
 
 enum Type {
     JS = 'js',
     CSS = 'css'
 }
-
-const themes = ['light', 'dark'] as const;
 
 @Injectable()
 export class ThemeManager {
@@ -29,21 +27,21 @@ export class ThemeManager {
     }
 
     private init() {
-        this.themes = themes.reduce((t, name) => {
+        this.themes = supportedThemes.reduce((t, name) => {
             t[name] = this.createExternal(this.getFilePath(name));
             return t;
         }, {});
-        const defaultTheme = themes[0];
+        const defaultTheme = supportedThemes[0];
         this.changeTheme(this.settingsService.theme || defaultTheme);
     }
 
     private get themeIdx(): number {
-        return themes.findIndex(n => n === this.settingsService.theme);
+        return supportedThemes.findIndex(n => n === this.settingsService.theme);
     }
 
     private getTheme(changeIdx: number = 0): string {
-        const nextIdx = (this.themeIdx + changeIdx) % themes.length;
-        return themes[nextIdx < 0 ? themes.length - nextIdx : nextIdx];
+        const nextIdx = (this.themeIdx + changeIdx) % supportedThemes.length;
+        return supportedThemes[nextIdx < 0 ? supportedThemes.length - nextIdx : nextIdx];
     }
 
     private removeCurrentTheme() {

@@ -5,8 +5,10 @@ const settingsStorageKeys = ['language', 'theme'] as const;
 
 type SettingsStorageData = { [key in typeof settingsStorageKeys[number]]: string };
 
+export const supportedThemes = ['light', 'dark'] as const;
 export const supportedLanguages = ['ru'] as const;
 
+export const defaultTheme = supportedThemes[0];
 export const defaultLanguage = supportedLanguages[0];
 
 @Injectable()
@@ -30,6 +32,9 @@ export class SettingsService implements SettingsStorageData {
         if (!this.language) {
             const language = navigator.language || (navigator as any).userLanguage;
             this.language = supportedLanguages.includes(language) ? language : defaultLanguage;
+        }
+        if (!this.theme) {
+            this.theme = supportedThemes[0];
         }
         for (const key of settingsStorageKeys) {
             this[key] = this[key];
