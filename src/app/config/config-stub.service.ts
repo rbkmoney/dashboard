@@ -12,5 +12,6 @@ export class ConfigStubService extends BaseConfig {
         }
     }
 
+    // tslint:disable-next-line: no-empty
     async init() {}
 }

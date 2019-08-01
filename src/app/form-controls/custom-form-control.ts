@@ -107,8 +107,10 @@ export class CustomFormControl implements MatFormFieldControl<any>, OnInit, OnDe
         }
     }
 
+    // tslint:disable-next-line: no-empty
     onChange = (value: any) => {};
 
+    // tslint:disable-next-line: no-empty
     onTouched = () => {};
 
     writeValue(value: any): void {

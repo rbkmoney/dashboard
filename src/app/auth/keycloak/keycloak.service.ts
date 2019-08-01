@@ -7,6 +7,7 @@ import { STUB_USER } from './stub-user';
 
 @Injectable()
 export class KeycloakService {
+    // tslint:disable-next-line: no-empty
     constructor() {}
 
     async init(options: KeycloakOptions = {}): Promise<boolean> {
@@ -21,6 +22,7 @@ export class KeycloakService {
         console.log('logout');
     }
 
+    // tslint:disable-next-line: no-empty
     async register(options: Keycloak.KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
     isUserInRole(role: string): boolean {
@@ -55,6 +57,7 @@ export class KeycloakService {
         return STUB_USER.username;
     }
 
+    // tslint:disable-next-line: no-empty
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {
