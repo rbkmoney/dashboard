@@ -95,6 +95,7 @@ export class DonutChartService implements ChartService<SegmentData, DonutChartCo
     }
 
     // realtime transition, need for repairing a little
+    // tslint:disable-next-line: no-unused-variable
     private updateChartTransition() {
         const generateArc = this.generateArc;
         return this.donut

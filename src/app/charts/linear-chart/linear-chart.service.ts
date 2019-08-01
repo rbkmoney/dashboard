@@ -144,7 +144,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
             .attr('class', `line`)
             .attr('d', d => this.zeroLine(d.values));
 
-        const drawLine = linesDescription
+        linesDescription
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
@@ -170,7 +170,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', this.config.height);
 
-        const drawCircles = initCircles
+        initCircles
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)

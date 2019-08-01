@@ -101,7 +101,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 this.legendTooltipService.removeLegend(this.element);
             });
 
-        const drawBars = describeTooltip
+        describeTooltip
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
@@ -155,7 +155,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 this.legendTooltipService.removeLegend(this.element);
             });
 
-        const drawBars = desctibeTooltip
+        desctibeTooltip
             .attr('d', d => this.getRoundedBar(d, 0, this.config.height, this.config.barWidth))
             .transition()
             .ease(easeExp)

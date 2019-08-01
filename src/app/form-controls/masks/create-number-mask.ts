@@ -11,8 +11,6 @@ const number = 'number';
 const digitRegExp = /\d/;
 const caretTrap = '[]';
 
-type Mask = Array<RegExp | string>;
-
 export function createNumberMask({
     prefix = dollarSign,
     suffix = emptyString,

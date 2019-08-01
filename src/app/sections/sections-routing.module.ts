@@ -26,7 +26,7 @@ const routes: Routes = [
     },
     {
         path: 'claim',
-        loadChildren: () => import('./claim').then(({ ClaimModule }) => ClaimModule)
+        loadChildren: () => import('./claim').then(m => m.ClaimModule)
     },
     {
         path: '**',
