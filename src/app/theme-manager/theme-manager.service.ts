@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 
 import { environment } from '../../environments/environment';
 import { Script, Style, External } from './external';
-import { SettingsService, supportedThemes } from '../settings';
+import { SettingsService } from '../settings';
 
 enum Type {
     JS = 'js',
@@ -12,43 +12,68 @@ enum Type {
 
 @Injectable()
 export class ThemeManager {
+    static readonly KEY = 'theme';
+
+    default: string;
+
+    get supported() {
+        return Object.keys(this.themes);
+    }
+
+    get theme(): string {
+        return this.getCorrectName(this.settingsService.get(ThemeManager.KEY));
+    }
+    set theme(name: string) {
+        if (this.theme !== name) {
+            this.setTheme(name);
+        }
+    }
+
     private themes: { [name: string]: External } = {};
     private fileType: Type = environment.production ? Type.CSS : Type.JS;
 
-    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
-        this.init();
-    }
+    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {}
 
-    changeTheme(name = this.getTheme(1)) {
-        this.removeCurrentTheme();
-        this.themes[name].add(this.doc);
-        this.settingsService.theme = name;
-        document.body.classList.add(this.settingsService.theme);
-    }
-
-    private init() {
-        this.themes = supportedThemes.reduce((t, name) => {
-            t[name] = this.createExternal(this.getFilePath(name));
-            return t;
+    init(supportedThemes: ArrayLike<any>, defaultTheme: string) {
+        this.default = defaultTheme;
+        this.themes = Array.from(supportedThemes).reduce((themes, name) => {
+            themes[name] = this.createExternal(this.getFilePath(name));
+            return themes;
         }, {});
-        const defaultTheme = supportedThemes[0];
-        this.changeTheme(this.settingsService.theme || defaultTheme);
+        if (!this.supported.includes(this.theme)) {
+            this.theme = defaultTheme;
+        }
+        this.setTheme(this.theme);
     }
 
-    private get themeIdx(): number {
-        return supportedThemes.findIndex(n => n === this.settingsService.theme);
+    change(offset: number = 1) {
+        this.theme = this.getThemeByOffset(offset);
     }
 
-    private getTheme(changeIdx: number = 0) {
-        const nextIdx = (this.themeIdx + changeIdx) % supportedThemes.length;
-        return supportedThemes[nextIdx < 0 ? supportedThemes.length - nextIdx : nextIdx];
+    private setTheme(name: string) {
+        const correctName = this.getCorrectName(name);
+        this.removeCurrentTheme();
+        this.themes[correctName].add(this.doc);
+        document.body.classList.add(correctName);
+        this.settingsService.set(ThemeManager.KEY, correctName);
+    }
+
+    private getThemeByOffset(offset: number) {
+        const themeIdx = this.supported.findIndex(n => n === this.theme);
+        const nextIdx = (themeIdx + offset) % this.supported.length;
+        return this.supported[nextIdx < 0 ? this.supported.length - nextIdx : nextIdx];
+    }
+
+    private getCorrectName(theme: string) {
+        if (!this.supported.includes(theme)) {
+            return this.default;
+        }
+        return theme;
     }
 
     private removeCurrentTheme() {
-        if (this.settingsService.theme) {
-            this.themes[this.settingsService.theme].remove(this.doc);
-            document.body.classList.remove(this.settingsService.theme);
-        }
+        this.themes[this.theme].remove(this.doc);
+        document.body.classList.remove(this.theme);
     }
 
     private getFilePath(name: string) {

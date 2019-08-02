@@ -2,30 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import localeRu from '@angular/common/locales/ru';
-import { registerLocaleData } from '@angular/common';
 import get from 'lodash.get';
 import template from 'lodash.template';
 
-import { SettingsService, supportedLanguages } from '../../settings';
-
-const angularLocaleData: { [locale in typeof supportedLanguages[number]]: any } = {
-    ru: localeRu
-};
+import { LanguageService } from '../../languge/language.service';
 
 const STATIC_MARK = Symbol();
 
+interface LocalesUrls {
+    [language: string]: string;
+}
+
 @Injectable()
 export class LocaleDictionaryService {
-    private dictionary;
+    private dictionary: any;
 
-    constructor(private http: HttpClient, private settingsService: SettingsService) {}
+    constructor(private http: HttpClient, private languageService: LanguageService) {}
 
-    async init({ localesUrl }: { localesUrl: string }): Promise<void> {
-        const lang = this.settingsService.language;
-        registerLocaleData(angularLocaleData[lang], lang);
+    async init<L extends LocalesUrls = LocalesUrls>(localesUrls: L): Promise<void> {
         this.dictionary = await this.http
-            .get(`${localesUrl}/${lang}.json`)
+            .get(localesUrls[this.languageService.language] || localesUrls[this.languageService.default])
             .pipe(
                 catchError(err => {
                     console.error('An error occurred while fetch locale dictionary', err);

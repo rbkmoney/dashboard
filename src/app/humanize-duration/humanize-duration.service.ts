@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 
-import { SettingsService } from '../settings';
+import { LanguageService } from '../languge/language.service';
 
 export type Value = number | string | moment.Moment | Date;
 
@@ -15,13 +15,13 @@ export class HumanizeDurationService {
 
     private get duration() {
         return humanizeDuration.humanizer({
-            language: this.settinsService.language,
+            language: this.languageService.language,
             round: true,
             delimiter: ' '
         });
     }
 
-    constructor(private settinsService: SettingsService) {}
+    constructor(private languageService: LanguageService) {}
 
     getDiffMs(value: Value): number {
         return Math.abs(this.isDiff(value) ? value : moment().diff(moment(value)));

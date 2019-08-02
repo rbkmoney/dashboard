@@ -13,7 +13,7 @@ export class ActionbarComponent {
     constructor(private themeService: ThemeManager) {}
 
     changeTheme() {
-        this.themeService.changeTheme();
+        this.themeService.change();
     }
 
     closeDropdown() {

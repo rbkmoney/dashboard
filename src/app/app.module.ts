@@ -17,11 +17,12 @@ import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
-import { ThemeManagerModule } from './theme-manager';
+import { ThemeManagerModule, ThemeManager } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
+import { LanguageService } from './languge';
 
 @NgModule({
     declarations: [AppComponent],
@@ -44,18 +45,18 @@ import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleDictionaryService, SettingsService],
+            deps: [ConfigService, KeycloakService, LocaleDictionaryService, ThemeManager, LanguageService],
             multi: true
         },
         {
             provide: LOCALE_ID,
             deps: [SettingsService],
-            useFactory: (settingsService: SettingsService) => settingsService.language
+            useFactory: (languageService: LanguageService) => languageService.language
         },
         {
             provide: MAT_DATE_LOCALE,
             deps: [SettingsService],
-            useFactory: (settingsService: SettingsService) => settingsService.language
+            useFactory: (languageService: LanguageService) => languageService.language
         },
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
