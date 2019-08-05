@@ -12,7 +12,7 @@ export interface Step {
 @Component({
     selector: 'dsh-stepper-item',
     templateUrl: 'stepper-item.component.html',
-    styleUrls: ['../vertical-stepper.component.scss']
+    styleUrls: ['../vertical-stepper/vertical-stepper.component.scss']
 })
 export class StepperItemComponent {
     @Input()

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
-import { Step } from './vertical-stepper/stepper-item/stepper-item.component';
+import { Step } from './stepper/stepper-item/stepper-item.component';
 
 enum Type {
     legalEntity

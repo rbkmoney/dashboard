@@ -1,7 +1,6 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
-import { Stepper } from '../stepper/stepper';
-import { Step } from './stepper-item/stepper-item.component';
+import { Stepper } from '../stepper';
 
 @Component({
     selector: 'dsh-vertical-stepper',

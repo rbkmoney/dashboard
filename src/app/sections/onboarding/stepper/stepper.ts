@@ -1,8 +1,8 @@
-import { ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { coerceBoolean } from '../../../../utils/coerce';
-import { Step, StepperItemComponent } from '../vertical-stepper/stepper-item/stepper-item.component';
+import { Step, StepperItemComponent } from './stepper-item/stepper-item.component';
 
 export class Stepper {
     @Input()

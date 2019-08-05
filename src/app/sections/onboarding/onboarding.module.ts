@@ -21,8 +21,7 @@ import { ButtonModule } from '../../button';
 import { LocaleModule } from '../../locale';
 import { OnboardingRoutingModule } from './onboarding-routing.module';
 import { CompanySearchModule } from './company-search';
-import { VerticalStepperComponent } from './vertical-stepper/vertical-stepper.component';
-import { StepperItemComponent } from './vertical-stepper/stepper-item/stepper-item.component';
+import { StepperModule } from './stepper/stepper.module';
 
 @NgModule({
     imports: [
@@ -44,9 +43,10 @@ import { StepperItemComponent } from './vertical-stepper/stepper-item/stepper-it
         ButtonModule,
         LocaleModule,
         MatDialogModule,
-        MatIconModule
+        MatIconModule,
+        StepperModule
     ],
-    declarations: [LegalEntityComponent, LayoutComponent, VerticalStepperComponent, StepperItemComponent],
+    declarations: [LegalEntityComponent, LayoutComponent],
     providers: [OnboardingService]
 })
 export class OnboardingModule {}
