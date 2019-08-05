@@ -13,6 +13,6 @@ import { StepperItemComponent } from './stepper-item/stepper-item.component';
         MatIconModule
     ],
     declarations: [VerticalStepperComponent, StepperItemComponent],
-    exports: [VerticalStepperComponent, StepperItemComponent]
+    exports: [VerticalStepperComponent]
 })
 export class StepperModule {}
