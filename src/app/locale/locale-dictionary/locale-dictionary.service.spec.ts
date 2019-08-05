@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleDictionaryService } from './locale-dictionary.service';
-import { SettingsService } from '../../settings/settings.service';
+import { LanguageService } from '../../languge';
 
-class SettingsServiceStub {
+class LanguageServiceStub {
     get language() {
         return 'ru';
     }
@@ -19,11 +19,11 @@ describe('LocaleDictionaryService', () => {
     async function createService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [LocaleDictionaryService, { provide: SettingsService, useClass: SettingsServiceStub }]
+            providers: [LocaleDictionaryService, { provide: LanguageService, useClass: LanguageServiceStub }]
         });
         const ls: LocaleDictionaryService = TestBed.get(LocaleDictionaryService);
         const httpMock = TestBed.get(HttpTestingController);
-        const load = ls.init({ localesUrl: '/assets/locales' });
+        const load = ls.init({ ru: '/assets/locales/ru.json' });
         const req = httpMock.expectOne(`/assets/locales/ru.json`);
         req.flush(dummyDict);
         await load;
