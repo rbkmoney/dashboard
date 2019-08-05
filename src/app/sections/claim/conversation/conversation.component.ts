@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { toTimelineActionsInfo } from './to-timeline-action-info';
+import { toTimelineInfo } from './to-timeline-info';
 import { ClaimService } from '../claim.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class ConversationComponent {
     claim$ = this.claimService.getClaimByParams(this.route.params);
 
     changesetViewInfo$ = this.claim$.pipe(
-        map(({ changeset }) => toTimelineActionsInfo(changeset)),
+        map(({ changeset }) => toTimelineInfo(changeset)),
         shareReplay(1)
     );
 

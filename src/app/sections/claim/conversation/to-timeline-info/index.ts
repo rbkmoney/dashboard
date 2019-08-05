@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 import { ModificationUnit, Modification, ClaimModification, PartyModification } from '../../../../api/claim-management';
 import { TimelineAction } from './timeline-action';
-import { TimelineActionInfo } from './timeline-action-info';
+import { TimelineItemInfo } from './timeline-item-info';
 import { getTimelineActionIconName } from './get-timeline-action-icon-name';
 import { getTimelineActionColor } from './get-timeline-action-color';
 import { getTimelineActionName } from './get-timeline-action-name';
@@ -31,18 +31,27 @@ function getUnitTimelineAction(unit: ModificationUnit): TimelineAction {
     console.error('Modification unidentified');
 }
 
-export function toTimelineActionInfo(unit: ModificationUnit): TimelineActionInfo {
-    const action = getUnitTimelineAction(unit);
+function toModificationUnitBatches(units: ModificationUnit[]): ModificationUnit[][] {
+    return units.map(u => [u]);
+}
+
+export function toTimelineItemInfo(batch: ModificationUnit[]): TimelineItemInfo {
+    const [firstUnit] = batch;
+    const lastUnit = batch[batch.length - 1];
+    const action = getUnitTimelineAction(firstUnit);
+    const createdAt: string = lastUnit.createdAt as any;
     return {
         action,
         actionName: getTimelineActionName(action),
         author: 'common.claim.modification.author.manager',
-        createdAt: (unit.createdAt as any) as string,
+        createdAt,
         iconName: getTimelineActionIconName(action),
         color: getTimelineActionColor(action)
     };
 }
 
-export function toTimelineActionsInfo(units: ModificationUnit[]): TimelineActionInfo[] {
-    return sortUnits(units).map(toTimelineActionInfo);
+export function toTimelineInfo(units: ModificationUnit[]): TimelineItemInfo[] {
+    const sortedUnits = sortUnits(units);
+    const batches = toModificationUnitBatches(sortedUnits);
+    return batches.map(toTimelineItemInfo);
 }

@@ -2,7 +2,7 @@ import { StatusColor } from '../../../../theme-manager';
 import { getTimelineActionIconName } from './get-timeline-action-icon-name';
 import { TimelineAction } from './timeline-action';
 
-export interface TimelineActionInfo {
+export interface TimelineItemInfo {
     action: TimelineAction;
     actionName: string;
     author: string;
