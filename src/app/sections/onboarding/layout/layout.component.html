@@ -19,11 +19,11 @@
         >
             <dsh-card>
                 <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                    <dsh-state-nav (selectedIdxChange)="selectItem($event)" flat>
-                        <dsh-state-nav-item *ngFor="let item of items" [selected]="item === selectedItem">
-                            {{ item.title }}
-                        </dsh-state-nav-item>
-                    </dsh-state-nav>
+                    <dsh-vertical-stepper
+                        (selectedIdxChange)="selectItem($event)"
+                        [steps]="items"
+                        [selectedItem]="selectedItem"
+                    ></dsh-vertical-stepper>
                     <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
                 </dsh-card-content>
             </dsh-card>

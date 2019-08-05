@@ -9,18 +9,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatIconModule } from '@angular/material';
 
 import { LayoutModule } from '../../layout';
-import { DaDataModule } from '../../dadata/dadata.module';
+import { DaDataModule } from '../../dadata';
 import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
-import { StateNavModule } from '../../state-nav/state-nav.module';
+import { StateNavModule } from '../../state-nav';
 import { ButtonModule } from '../../button';
-import { LocaleModule } from '../../locale/locale.module';
+import { LocaleModule } from '../../locale';
 import { OnboardingRoutingModule } from './onboarding-routing.module';
 import { CompanySearchModule } from './company-search';
+import { VerticalStepperComponent } from './vertical-stepper/vertical-stepper.component';
+import { StepperItemComponent } from './vertical-stepper/stepper-item/stepper-item.component';
 
 @NgModule({
     imports: [
@@ -41,9 +43,10 @@ import { CompanySearchModule } from './company-search';
         StateNavModule,
         ButtonModule,
         LocaleModule,
-        MatDialogModule
+        MatDialogModule,
+        MatIconModule
     ],
-    declarations: [LegalEntityComponent, LayoutComponent],
+    declarations: [LegalEntityComponent, LayoutComponent, VerticalStepperComponent, StepperItemComponent],
     providers: [OnboardingService]
 })
 export class OnboardingModule {}

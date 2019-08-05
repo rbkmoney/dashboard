@@ -21,6 +21,7 @@
 @import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
+@import '../../app/sections/onboarding/vertical-stepper/vertical-stepper-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -47,5 +48,6 @@
         @include dsh-expand-panel-theme($theme);
         @include dsh-dadata-autocomplete-theme($theme);
         @include dsh-payment-details-theme($theme);
+        @include dsh-vertical-stepper-mixin($theme);
     }
 }

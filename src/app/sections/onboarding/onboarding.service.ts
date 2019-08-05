@@ -4,18 +4,14 @@ import { Router } from '@angular/router';
 
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
+import { Step } from './vertical-stepper/stepper-item/stepper-item.component';
 
 enum Type {
     legalEntity
 }
 
-interface Step {
-    url: string;
-    title: string;
-}
-
 export const LEGAL_ENTITY_STEPS: Step[] = [
-    { url: '/onboarding/legal-entity', title: 'Сведения о юридическом лице' },
+    { url: '/onboarding/legal-entity', title: 'Сведения о юридическом лице', status: 'success' },
     { url: '/onboarding/business-info', title: 'Основная деятельность' },
     { url: '/onboarding/founders', title: 'Учредители' },
     { url: '/onboarding/representative', title: 'Представитель' },

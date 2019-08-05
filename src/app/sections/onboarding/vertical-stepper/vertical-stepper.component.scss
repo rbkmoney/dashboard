@@ -1,0 +1,48 @@
+//.dsh-state-nav-item {
+//  border: none;
+//  width: 100%;
+//  padding: 0;
+//  margin: 0;
+//  height: $height;
+//  line-height: $height;
+//  border-radius: $border-radius;
+//  cursor: pointer;
+//  text-align: left;
+//  background-color: transparent;
+//  overflow: hidden;
+//  text-overflow: ellipsis;
+//  white-space: nowrap;
+//  transition: background-color 0.1s ease-out, color 0.1s ease-out;
+//
+//  & > ::ng-deep * {
+//    margin-right: $elements-padding;
+//  }
+//}
+
+$height: 40px;
+$border-radius: 4px;
+$elements-padding: 10px;
+$icon-container-width: 24px;
+$icon-size: 24px;
+$item-padding: ($height - $icon-size) / 2;
+
+.dsh {
+    &-stepper {
+        &-item {
+            padding: $item-padding 0;
+            cursor: pointer;
+
+            &-content {
+                line-height: $icon-size;
+            }
+
+            &-icon-container {
+                width: $icon-container-width;
+
+                mat-icon {
+                    font-size: $icon-size;
+                }
+            }
+        }
+    }
+}

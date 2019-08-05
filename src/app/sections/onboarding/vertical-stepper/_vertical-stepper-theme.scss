@@ -1,0 +1,43 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-vertical-stepper-mixin($theme) {
+    $foreground: map-get($theme, foreground);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .dsh-vertical-stepper {
+        color: map-get($foreground, text);
+
+        .dsh-stepper-item {
+            // The class order directly affects the order of applying styles (for example, both .warn and .selected)
+            &.success {
+                mat-icon {
+                    color: mat-color($accent, 300);
+                }
+            }
+
+            &.warn {
+                mat-icon {
+                    color: mat-color($warn, 300);
+                }
+            }
+
+            &.selected {
+                color: mat-color($primary, 400);
+            }
+        }
+    }
+}
+
+@mixin dsh-vertical-stepper-typography($config) {
+    .dsh-vertical-stepper {
+        .dsh-stepper-item {
+            font: {
+                family: mat-font-family($config, body-1);
+                size: mat-font-size($config, body-1);
+                weight: mat-font-weight($config, body-1);
+            }
+        }
+    }
+}
