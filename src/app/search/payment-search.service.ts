@@ -14,18 +14,20 @@ export class PaymentSearchService {
     constructor(private searchService: SearchService) {}
 
     searchPayments(
-        params: PaymentsSearchParams,
-        limit = 20,
-        fromTime = moment().subtract(1, 'M').utc().format(),
-        toTime = moment().utc().format(),
-        continuationToken?: string
+        {
+            xRequestID = genXRequestID(),
+            limit = 20,
+            fromTime = moment().subtract(1, 'M').utc().format(),
+            toTime = moment().utc().format(),
+            ...params
+        }: PaymentsSearchParams
     ): Observable<PaymentsWithToken> {
         return this.searchService.searchPayments(
-            genXRequestID(),
+            xRequestID,
             fakeDate(fromTime),
             fakeDate(toTime),
             limit,
-            undefined,
+            params.xRequestDeadline,
             params.shopID,
             params.paymentStatus,
             params.paymentFlow,
@@ -44,7 +46,8 @@ export class PaymentSearchService {
             params.bankCardTokenProvider,
             params.bankCardPaymentSystem,
             params.paymentAmount,
-            continuationToken,
+            params.excludedShops,
+            params.continuationToken,
             undefined,
             undefined
         );
@@ -54,9 +57,9 @@ export class PaymentSearchService {
         return this.searchPayments(
             {
                 invoiceID,
-                paymentID
-            },
-            1
+                paymentID,
+                limit: 1
+            }
         ).pipe(map(res => res.result[0]));
     }
 }

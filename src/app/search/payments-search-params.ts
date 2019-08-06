@@ -4,8 +4,8 @@ type params = Parameters<SearchService['searchPayments']>;
 
 export interface PaymentsSearchParams {
     xRequestID?: params[0];
-    fromTime?: params[1];
-    toTime?: params[2];
+    fromTime?: string;
+    toTime?: string;
     limit?: params[3];
     xRequestDeadline?: params[4];
     shopID?: params[5];
@@ -26,7 +26,6 @@ export interface PaymentsSearchParams {
     bankCardTokenProvider?: params[20];
     bankCardPaymentSystem?: params[21];
     paymentAmount?: params[22];
-    continuationToken?: params[23];
-    observe?: params[24];
-    reportProgress?: params[25];
+    excludedShops?:params[23]
+    continuationToken?: params[24];
 }

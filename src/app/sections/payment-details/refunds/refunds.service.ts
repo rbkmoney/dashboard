@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RefundSearchService } from '../../../search/refund-search.service';
 import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
 
 @Injectable()
 export class RefundsService {
-    refunds = new Subject<RefundSearchResult[]>();
+    private refunds$ = new BehaviorSubject<RefundSearchResult[]>([]);
 
-    totalCount = 0;
+    private hasMoreRefunds$ = new BehaviorSubject<boolean>(false);
 
-    offset = 0;
+    private continuationToken: string;
 
     constructor(private refundSearchService: RefundSearchService) {}
 
     loadRefunds(invoiceID: string, paymentID: string) {
-        this.refundSearchService.searchRefunds(invoiceID, paymentID, this.offset).subscribe(refundsWithTotalCount => {
-            this.totalCount = refundsWithTotalCount.totalCount;
-            this.offset += refundsWithTotalCount.result.length;
-            this.refunds.next(refundsWithTotalCount.result);
+        this.refundSearchService.searchRefunds(invoiceID, paymentID, this.continuationToken).subscribe(refundsWithToken => {
+            this.continuationToken = refundsWithToken.continuationToken;
+            this.hasMoreRefunds$.next(!!refundsWithToken.continuationToken);
+            this.refunds$.next(this.refunds$.getValue().concat(refundsWithToken.result));
         });
     }
 
-    isMoreRefundsAvailable(): boolean {
-        return this.offset < this.totalCount;
+    refunds(): Observable<RefundSearchResult[]> {
+        return this.refunds$.asObservable();
     }
 
-    isRefundsAvailable(): boolean {
-        return this.totalCount > 0;
+    hasMoreObservable(): Observable<boolean> {
+        return this.hasMoreRefunds$.asObservable();
     }
 }
