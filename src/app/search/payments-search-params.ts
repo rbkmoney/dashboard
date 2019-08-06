@@ -3,11 +3,9 @@ import { SearchService } from '../api/capi/swagger-codegen';
 type params = Parameters<SearchService['searchPayments']>;
 
 export interface PaymentsSearchParams {
-    xRequestID?: params[0];
     fromTime?: string;
     toTime?: string;
     limit?: params[3];
-    xRequestDeadline?: params[4];
     shopID?: params[5];
     paymentStatus?: params[6];
     paymentFlow?: params[7];

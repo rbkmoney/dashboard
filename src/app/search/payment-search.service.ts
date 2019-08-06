@@ -14,7 +14,6 @@ export class PaymentSearchService {
     constructor(private searchService: SearchService) {}
 
     searchPayments({
-        xRequestID = genXRequestID(),
         limit = 20,
         fromTime = moment()
             .subtract(1, 'M')
@@ -26,11 +25,11 @@ export class PaymentSearchService {
         ...params
     }: PaymentsSearchParams): Observable<PaymentsWithToken> {
         return this.searchService.searchPayments(
-            xRequestID,
+            genXRequestID(),
             fakeDate(fromTime),
             fakeDate(toTime),
             limit,
-            params.xRequestDeadline,
+            undefined,
             params.shopID,
             params.paymentStatus,
             params.paymentFlow,
