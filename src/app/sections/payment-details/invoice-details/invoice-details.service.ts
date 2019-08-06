@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Invoice, InvoicesService } from '../../../api/capi/swagger-codegen';
-import { genXRequestID } from '../../../api/gen-x-request-id';
+import { Invoice } from '../../../api/capi/swagger-codegen';
+import { InvoiceService } from '../../../invoice/invoice.service';
 
 @Injectable()
 export class InvoiceDetailsService {
-    constructor(private invoicesService: InvoicesService) {}
+    constructor(private invoiceService: InvoiceService) {}
 
-    getInvoiceByID = (invoiceID: string): Observable<Invoice> =>
-        this.invoicesService.getInvoiceByID(genXRequestID(), invoiceID);
+    getInvoiceByID(invoiceID: string): Observable<Invoice> {
+        return this.invoiceService.getInvoiceByID(invoiceID);
+    }
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Shop, ShopsService } from '../../../api/capi/swagger-codegen';
-import { genXRequestID } from '../../../api/gen-x-request-id';
+import { Shop } from '../../../api/capi/swagger-codegen';
+import { ShopService } from '../../../shop/shop.service';
 
 @Injectable()
 export class ShopDetailsService {
-    constructor(private shopsService: ShopsService) {}
+    constructor(private shopService: ShopService) {}
 
     getShopByID(shopID: string): Observable<Shop> {
-        return this.shopsService.getShopByID(genXRequestID(), shopID);
+        return this.shopService.getShopByID(shopID);
     }
 }

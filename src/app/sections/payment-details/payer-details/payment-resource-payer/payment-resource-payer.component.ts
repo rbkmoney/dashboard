@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 
 import { PaymentResourcePayer } from '../../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
     selector: 'dsh-payment-resource-payer',
@@ -9,7 +10,7 @@ import { PaymentResourcePayer } from '../../../../api/capi/swagger-codegen';
 export class PaymentResourcePayerComponent {
     @Input() paymentResourcePayer: PaymentResourcePayer;
 
-    @Input() layoutGap = '20px';
-
     localePath = 'sections.paymentDetails.payerDetails';
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

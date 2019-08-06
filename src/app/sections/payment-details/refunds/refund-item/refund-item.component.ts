@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 
 import { RefundSearchResult, RefundStatus } from '../../../../api/capi/swagger-codegen';
-import { Color } from '../../../../status';
 import { StatusViewInfo } from '../../status-details-item/status-details-item.component';
+import { LAYOUT_GAP } from '../../../constants';
+import { StatusColor } from '../../../../theme-manager';
 
 @Component({
     selector: 'dsh-refund-item',
@@ -11,11 +12,11 @@ import { StatusViewInfo } from '../../status-details-item/status-details-item.co
 export class RefundItemComponent implements OnChanges {
     @Input() refund: RefundSearchResult;
 
-    @Input() layoutGap = '20px';
-
     localePath = 'sections.paymentDetails.refunds.refundItem';
 
     statusViewInfo: StatusViewInfo;
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnChanges() {
         this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `common.refundStatus`);
@@ -25,11 +26,11 @@ export class RefundItemComponent implements OnChanges {
         const statusEnum = RefundStatus.StatusEnum;
         switch (status) {
             case statusEnum.Succeeded:
-                return { color: Color.success, text: `${localePath}.succeeded` };
+                return { color: StatusColor.success, text: `${localePath}.succeeded` };
             case statusEnum.Failed:
-                return { color: Color.warn, text: `${localePath}.failed` };
+                return { color: StatusColor.warn, text: `${localePath}.failed` };
             case statusEnum.Pending:
-                return { color: Color.pending, text: `${localePath}.pending` };
+                return { color: StatusColor.pending, text: `${localePath}.pending` };
         }
     }
 }

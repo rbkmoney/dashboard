@@ -1,4 +1,4 @@
-<dsh-card fxLayout="column" fxLayoutGap="10px">
+<dsh-card fxLayout="column" [fxLayoutGap]="layoutGap">
     <dsh-card-title>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
@@ -9,23 +9,21 @@
             </button>
         </div>
     </dsh-card-title>
-    <dsh-card-content>
-        <div fxLayout="column">
-            <ng-container *ngFor="let refund of refundsService.refunds | async">
-                <dsh-refund-item [refund]="refund"></dsh-refund-item>
-                <div class="dsh-payment-details-refunds-divider"></div>
-            </ng-container>
-            <div *ngIf="refundsService.isRefundsAvailable()">
-                {{ localePath + '.noRefunds' | lc }}
-            </div>
-            <button
+    <dsh-card-content fxLayout="column">
+        <ng-container *ngFor="let refund of refundsService.refunds | async">
+            <dsh-refund-item [refund]="refund"></dsh-refund-item>
+            <div class="dsh-payment-details-refunds-divider"></div>
+        </ng-container>
+        <div *ngIf="refundsService.isRefundsAvailable()">
+            {{ localePath + '.noRefunds' | lc }}
+        </div>
+        <button
                 *ngIf="refundsService.isMoreRefundsAvailable()"
                 class="dsh-payment-details-refunds-show-more-refunds"
                 dsh-button
                 (click)="refundsService.loadRefunds(invoiceID, paymentID)"
-            >
-                {{ 'common.showMore' | lc }}
-            </button>
-        </div>
+        >
+            {{ 'common.showMore' | lc }}
+        </button>
     </dsh-card-content>
 </dsh-card>

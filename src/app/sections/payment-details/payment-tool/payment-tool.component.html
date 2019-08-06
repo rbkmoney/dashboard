@@ -1,12 +1,15 @@
 <dsh-card>
     <dsh-card-title>
-        <h2 class="mat-h2">
+        <h2 class="mat-title">
             {{ localePath + '.title' | lc }}
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <dsh-bank-card *ngIf="bankCard" [bankCard]="bankCard"></dsh-bank-card>
-        <dsh-digital-wallet *ngIf="digitalWallet" [digitalWallet]="digitalWallet"></dsh-digital-wallet>
-        <dsh-payment-terminal *ngIf="paymentTerminal" [paymentTerminal]="paymentTerminal"></dsh-payment-terminal>
+        <dsh-bank-card *ngIf="paymentToolDetails.detailsType === Type.BankCard"
+                       [bankCard]="paymentToolDetails"></dsh-bank-card>
+        <dsh-digital-wallet *ngIf="paymentToolDetails.detailsType === Type.Wallet"
+                            [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
+        <dsh-payment-terminal *ngIf="paymentToolDetails.detailsType === Type.Terminal"
+                              [paymentTerminal]="paymentToolDetails"></dsh-payment-terminal>
     </dsh-card-content>
 </dsh-card>

@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CustomerPayer, Payer, PaymentResourcePayer, RecurrentPayer } from '../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
 
-enum PayerType {
+export enum PayerType {
     CustomerPayer = 'CustomerPayer',
     PaymentResourcePayer = 'PaymentResourcePayer',
     RecurrentPayer = 'RecurrentPayer'
@@ -12,34 +13,14 @@ enum PayerType {
     selector: 'dsh-payer-details',
     templateUrl: './payer-details.component.html'
 })
-export class PayerDetailsComponent implements OnChanges {
+export class PayerDetailsComponent {
     @Input() payer: Payer;
 
-    @Input() layoutGap = '20px';
-
-    customerPayer: CustomerPayer;
-    paymentResourcePayer: PaymentResourcePayer;
-    recurrentPayer: RecurrentPayer;
+    PayerType = PayerType;
 
     payerEmail: string;
 
     localePath = 'sections.paymentDetails.payerDetails';
 
-    ngOnChanges() {
-        if (this.payer) {
-            switch (this.payer.payerType) {
-                case PayerType.CustomerPayer:
-                    this.customerPayer = this.payer as CustomerPayer;
-                    break;
-                case PayerType.PaymentResourcePayer:
-                    this.paymentResourcePayer = this.payer as PaymentResourcePayer;
-                    this.payerEmail = this.paymentResourcePayer.contactInfo.email;
-                    break;
-                case PayerType.RecurrentPayer:
-                    this.recurrentPayer = this.payer as RecurrentPayer;
-                    this.payerEmail = this.recurrentPayer.contactInfo.email;
-                    break;
-            }
-        }
-    }
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

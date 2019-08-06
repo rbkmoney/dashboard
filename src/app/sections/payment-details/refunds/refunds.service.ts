@@ -15,7 +15,7 @@ export class RefundsService {
     constructor(private refundSearchService: RefundSearchService) {}
 
     loadRefunds(invoiceID: string, paymentID: string) {
-        this.refundSearchService.getRefunds(invoiceID, paymentID, this.offset).subscribe(refundsWithTotalCount => {
+        this.refundSearchService.searchRefunds(invoiceID, paymentID, this.offset).subscribe(refundsWithTotalCount => {
             this.totalCount = refundsWithTotalCount.totalCount;
             this.offset += refundsWithTotalCount.result.length;
             this.refunds.next(refundsWithTotalCount.result);

@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import moment from 'moment';
 
 import { PaymentFlowHold } from '../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-hold-details',
@@ -10,9 +11,9 @@ import { PaymentFlowHold } from '../../../api/capi/swagger-codegen';
 export class HoldDetailsComponent {
     @Input() flowHold: PaymentFlowHold;
 
-    @Input() layoutGap = '20px';
-
     localePath = 'sections.paymentDetails.holdDetails';
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     isHoldExpired(date: string): boolean {
         return moment(date).diff(moment()) < 0;

@@ -1,5 +1,5 @@
 <div *ngIf="payment$ | async as payment" class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
-    <div class="mat-h1" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+    <div class="mat-headline" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
         <mat-icon class="dsh-back-icon" routerLink="..">arrow_back</mat-icon>
         <div>
             {{ 'sections.paymentDetails.title' | lc }}
@@ -11,9 +11,10 @@
         *ngIf="getPaymentToolDetails(payment)"
         [paymentToolDetails]="getPaymentToolDetails(payment)"
     ></dsh-payment-tool>
-    <dsh-payer-details *ngIf="payment?.payer" [payer]="payment.payer"></dsh-payer-details>
+    <dsh-payer-details *ngIf="payment?.payer && payment?.payer.payerType !== PayerType.RecurrentPayer" [payer]="payment.payer"></dsh-payer-details>
     <dsh-hold-details *ngIf="payment?.flow?.type === 'PaymentFlowHold'" [flowHold]="payment.flow"></dsh-hold-details>
-    <dsh-recurrent-details *ngIf="payment?.makeRecurrent"></dsh-recurrent-details>
+    <dsh-make-recurrent *ngIf="payment?.makeRecurrent"></dsh-make-recurrent>
+    <dsh-recurrent-details *ngIf="payment?.payer?.payerType === PayerType.RecurrentPayer" [recurrentPayer]="payment.payer"></dsh-recurrent-details>
     <dsh-invoice-details *ngIf="payment?.invoiceID" [invoiceID]="payment.invoiceID"></dsh-invoice-details>
     <dsh-shop-details *ngIf="payment?.shopID" [shopID]="payment.shopID"></dsh-shop-details>
     <dsh-refunds></dsh-refunds>

@@ -1,15 +1,15 @@
 <dsh-card>
     <dsh-card-title>
-        <h2 class="mat-h2">
+        <h2 class="mat-title">
             {{ localePath + '.title' | lc }}<span *ngIf="payerEmail">: {{ payerEmail }}</span>
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <dsh-customer-payer *ngIf="customerPayer" [customerPayer]="customerPayer"></dsh-customer-payer>
+        <dsh-customer-payer *ngIf="payer?.payerType === PayerType.CustomerPayer"
+                            [customerPayer]="payer"></dsh-customer-payer>
         <dsh-payment-resource-payer
-            *ngIf="paymentResourcePayer"
-            [paymentResourcePayer]="paymentResourcePayer"
+                *ngIf="payer?.payerType === PayerType.PaymentResourcePayer"
+                [paymentResourcePayer]="payer"
         ></dsh-payment-resource-payer>
-        <dsh-recurrent-payer *ngIf="recurrentPayer" [recurrentPayer]="recurrentPayer"></dsh-recurrent-payer>
     </dsh-card-content>
 </dsh-card>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import {
     DigitalWalletDetails,
@@ -18,11 +18,13 @@ export class DigitalWalletComponent implements OnChanges {
 
     localePath = 'sections.paymentDetails.paymentTool';
 
-    ngOnChanges() {
-        switch (this.digitalWallet.digitalWalletDetailsType) {
-            case DigitalWalletDetailsTypeEnum.DigitalWalletDetailsQIWI:
-                this.qiwi = this.digitalWallet as DigitalWalletDetailsQIWI;
-                break;
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.digitalWallet.previousValue !== changes.digitalWallet.currentValue) {
+            switch (this.digitalWallet.digitalWalletDetailsType) {
+                case DigitalWalletDetailsTypeEnum.DigitalWalletDetailsQIWI:
+                    this.qiwi = this.digitalWallet as DigitalWalletDetailsQIWI;
+                    break;
+            }
         }
     }
 }

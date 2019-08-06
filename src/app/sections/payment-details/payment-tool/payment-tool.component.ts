@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import {
     PaymentToolDetails,
@@ -17,28 +17,14 @@ enum PaymentToolDetailsType {
     selector: 'dsh-payment-tool',
     templateUrl: './payment-tool.component.html'
 })
-export class PaymentToolComponent implements OnChanges {
+export class PaymentToolComponent {
     @Input() paymentToolDetails: PaymentToolDetails;
+
+    Type = PaymentToolDetailsType;
 
     bankCard: PaymentToolDetailsBankCard;
     digitalWallet: PaymentToolDetailsDigitalWallet;
     paymentTerminal: PaymentToolDetailsPaymentTerminal;
 
     localePath = 'sections.paymentDetails.paymentTool';
-
-    ngOnChanges() {
-        if (this.paymentToolDetails) {
-            switch (this.paymentToolDetails.detailsType) {
-                case PaymentToolDetailsType.BankCard:
-                    this.bankCard = this.paymentToolDetails as PaymentToolDetailsBankCard;
-                    break;
-                case PaymentToolDetailsType.Wallet:
-                    this.digitalWallet = this.paymentToolDetails as PaymentToolDetailsDigitalWallet;
-                    break;
-                case PaymentToolDetailsType.Terminal:
-                    this.paymentTerminal = this.paymentToolDetails as PaymentToolDetailsPaymentTerminal;
-                    break;
-            }
-        }
-    }
 }

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { RefundsService } from './refunds.service';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-refunds',
@@ -15,7 +16,10 @@ export class RefundsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.refunds';
 
-    constructor(public refundsService: RefundsService) {}
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        public refundsService: RefundsService
+    ) {}
 
     ngOnInit() {
         this.refundsService.loadRefunds(this.invoiceID, this.paymentID);

@@ -36,7 +36,11 @@ import { SearchModule } from '../../search/search.module';
 import { PaymentsModule } from '../payment-section/operations/payments/payments.module';
 import { CustomerPayerComponent } from './payer-details/customer-payer/customer-payer.component';
 import { PaymentResourcePayerComponent } from './payer-details/payment-resource-payer/payment-resource-payer.component';
-import { RecurrentPayerComponent } from './payer-details/recurrent-payer/recurrent-payer.component';
+import { ShopLocationUrlComponent } from './shop-details/shop-location-url/shop-location-url.component';
+import { ViewUtilsModule } from '../../view-utils/view-utils.module';
+import { MakeRecurrentComponent } from './make-recurrent/make-recurrent.component';
+import { InvoiceModule } from '../../invoice/invoice.module';
+import { ShopModule } from '../../shop/shop.module';
 
 @NgModule({
     imports: [
@@ -51,7 +55,10 @@ import { RecurrentPayerComponent } from './payer-details/recurrent-payer/recurre
         CommonModule,
         PaymentDetailsRoutingModule,
         SearchModule,
-        PaymentsModule
+        PaymentsModule,
+        ViewUtilsModule,
+        InvoiceModule,
+        ShopModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -78,7 +85,8 @@ import { RecurrentPayerComponent } from './payer-details/recurrent-payer/recurre
         PaymentTerminalComponent,
         CustomerPayerComponent,
         PaymentResourcePayerComponent,
-        RecurrentPayerComponent
+        ShopLocationUrlComponent,
+        MakeRecurrentComponent
     ],
     exports: [PaymentDetailsComponent]
 })

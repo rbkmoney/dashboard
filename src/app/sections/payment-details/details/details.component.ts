@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
-import { Color } from '../../../status';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { LAYOUT_GAP } from '../../constants';
+import { StatusColor } from '../../../theme-manager';
 
 @Component({
     selector: 'dsh-details',
@@ -11,33 +12,34 @@ import { StatusViewInfo } from '../status-details-item/status-details-item.compo
 export class DetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;
 
-    @Input() layoutGap = '10px';
-
     localePath = 'sections.paymentDetails.details';
 
     statusViewInfo: StatusViewInfo;
 
-    ngOnChanges() {
-        if (this.payment) {
-            this.statusViewInfo = this.getStatusViewInfo(this.payment.status, `common.paymentStatus`);
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.payment.currentValue !== changes.payment.previousValue) {
+            this.statusViewInfo = this.getStatusViewInfo(this.payment.status);
         }
     }
 
-    getStatusViewInfo(status: PaymentStatus.StatusEnum, localePath: string): StatusViewInfo {
+    getStatusViewInfo(status: PaymentStatus.StatusEnum): StatusViewInfo {
+        const localePath = `common.paymentStatus`;
         const statusEnum = PaymentStatus.StatusEnum;
         switch (status) {
             case statusEnum.Processed:
-                return { color: Color.success, text: `${localePath}.processed` };
+                return { color: StatusColor.success, text: `${localePath}.processed` };
             case statusEnum.Failed:
-                return { color: Color.warn, text: `${localePath}.failed` };
+                return { color: StatusColor.warn, text: `${localePath}.failed` };
             case statusEnum.Refunded:
                 return { color: null, text: `${localePath}.refunded` };
             case statusEnum.Cancelled:
-                return { color: Color.warn, text: `${localePath}.cancelled` };
+                return { color: StatusColor.warn, text: `${localePath}.cancelled` };
             case statusEnum.Captured:
-                return { color: Color.success, text: `${localePath}.captured` };
+                return { color: StatusColor.success, text: `${localePath}.captured` };
             case statusEnum.Pending:
-                return { color: Color.pending, text: `${localePath}.pending` };
+                return { color: StatusColor.pending, text: `${localePath}.pending` };
         }
     }
 }
