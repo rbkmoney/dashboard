@@ -18,10 +18,7 @@ export class ShopDetailsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.shopDetails';
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private shopDetailsService: ShopDetailsService
-    ) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
 
     ngOnInit() {
         this.shop$ = this.shopDetailsService.getShopByID(this.shopID);

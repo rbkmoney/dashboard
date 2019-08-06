@@ -5,11 +5,17 @@
         </h2>
     </dsh-card-title>
     <dsh-card-content>
-        <dsh-bank-card *ngIf="paymentToolDetails.detailsType === Type.BankCard"
-                       [bankCard]="paymentToolDetails"></dsh-bank-card>
-        <dsh-digital-wallet *ngIf="paymentToolDetails.detailsType === Type.Wallet"
-                            [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
-        <dsh-payment-terminal *ngIf="paymentToolDetails.detailsType === Type.Terminal"
-                              [paymentTerminal]="paymentToolDetails"></dsh-payment-terminal>
+        <dsh-bank-card
+            *ngIf="paymentToolDetails.detailsType === Type.BankCard"
+            [bankCard]="paymentToolDetails"
+        ></dsh-bank-card>
+        <dsh-digital-wallet
+            *ngIf="paymentToolDetails.detailsType === Type.Wallet"
+            [digitalWallet]="paymentToolDetails"
+        ></dsh-digital-wallet>
+        <dsh-payment-terminal
+            *ngIf="paymentToolDetails.detailsType === Type.Terminal"
+            [paymentTerminal]="paymentToolDetails"
+        ></dsh-payment-terminal>
     </dsh-card-content>
 </dsh-card>

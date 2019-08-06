@@ -11,12 +11,12 @@
             {{ localePath + '.message' | lc }}
         </div>
         <div
-                *ngIf="!isHoldExpired(holdDate)"
-                fxLayout="row"
-                fxLayout.xs="column"
-                fxLayoutAlign="space-between stretch"
-                fxLayoutGap="0"
-                [fxLayoutGap.xs]="layoutGap"
+            *ngIf="!isHoldExpired(holdDate)"
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutAlign="space-between stretch"
+            fxLayoutGap="0"
+            [fxLayoutGap.xs]="layoutGap"
         >
             <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
                 {{ localePath + '.actions.deny' | lc }}

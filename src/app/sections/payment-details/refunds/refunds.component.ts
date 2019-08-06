@@ -22,10 +22,7 @@ export class RefundsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.refunds';
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        public refundsService: RefundsService
-    ) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
 
     ngOnInit() {
         this.refunds$ = this.refundsService.refunds();

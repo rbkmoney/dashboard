@@ -15,11 +15,13 @@ export class RefundsService {
     constructor(private refundSearchService: RefundSearchService) {}
 
     loadRefunds(invoiceID: string, paymentID: string) {
-        this.refundSearchService.searchRefunds(invoiceID, paymentID, this.continuationToken).subscribe(refundsWithToken => {
-            this.continuationToken = refundsWithToken.continuationToken;
-            this.hasMoreRefunds$.next(!!refundsWithToken.continuationToken);
-            this.refunds$.next(this.refunds$.getValue().concat(refundsWithToken.result));
-        });
+        this.refundSearchService
+            .searchRefunds(invoiceID, paymentID, this.continuationToken)
+            .subscribe(refundsWithToken => {
+                this.continuationToken = refundsWithToken.continuationToken;
+                this.hasMoreRefunds$.next(!!refundsWithToken.continuationToken);
+                this.refunds$.next(this.refunds$.getValue().concat(refundsWithToken.result));
+            });
     }
 
     refunds(): Observable<RefundSearchResult[]> {

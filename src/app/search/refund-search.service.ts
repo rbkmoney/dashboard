@@ -16,8 +16,13 @@ export class RefundSearchService {
         paymentID: string,
         continuationToken: string,
         limit = 1,
-        fromTime = moment().subtract(1, 'M').utc().format(),
-        toTime = moment().utc().format()
+        fromTime = moment()
+            .subtract(1, 'M')
+            .utc()
+            .format(),
+        toTime = moment()
+            .utc()
+            .format()
     ): Observable<RefundsWithTotalCount> {
         return this.searchService.searchRefunds(
             genXRequestID(),

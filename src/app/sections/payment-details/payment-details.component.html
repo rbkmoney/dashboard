@@ -11,10 +11,16 @@
         *ngIf="getPaymentToolDetails(payment)"
         [paymentToolDetails]="getPaymentToolDetails(payment)"
     ></dsh-payment-tool>
-    <dsh-payer-details *ngIf="payment?.payer && payment?.payer.payerType !== PayerType.RecurrentPayer" [payer]="payment.payer"></dsh-payer-details>
+    <dsh-payer-details
+        *ngIf="payment?.payer && payment?.payer.payerType !== PayerType.RecurrentPayer"
+        [payer]="payment.payer"
+    ></dsh-payer-details>
     <dsh-hold-details *ngIf="payment?.flow?.type === 'PaymentFlowHold'" [flowHold]="payment.flow"></dsh-hold-details>
     <dsh-make-recurrent *ngIf="payment?.makeRecurrent"></dsh-make-recurrent>
-    <dsh-recurrent-details *ngIf="payment?.payer?.payerType === PayerType.RecurrentPayer" [recurrentPayer]="payment.payer"></dsh-recurrent-details>
+    <dsh-recurrent-details
+        *ngIf="payment?.payer?.payerType === PayerType.RecurrentPayer"
+        [recurrentPayer]="payment.payer"
+    ></dsh-recurrent-details>
     <dsh-invoice-details *ngIf="payment?.invoiceID" [invoiceID]="payment.invoiceID"></dsh-invoice-details>
     <dsh-shop-details *ngIf="payment?.shopID" [shopID]="payment.shopID"></dsh-shop-details>
     <dsh-refunds></dsh-refunds>

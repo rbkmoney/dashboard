@@ -20,10 +20,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.invoiceDetails';
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private invoiceDetailsService: InvoiceDetailsService
-    ) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private invoiceDetailsService: InvoiceDetailsService) {}
 
     ngOnInit() {
         this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);

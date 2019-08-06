@@ -13,15 +13,18 @@ import { fakeDate } from './fake-date';
 export class PaymentSearchService {
     constructor(private searchService: SearchService) {}
 
-    searchPayments(
-        {
-            xRequestID = genXRequestID(),
-            limit = 20,
-            fromTime = moment().subtract(1, 'M').utc().format(),
-            toTime = moment().utc().format(),
-            ...params
-        }: PaymentsSearchParams
-    ): Observable<PaymentsWithToken> {
+    searchPayments({
+        xRequestID = genXRequestID(),
+        limit = 20,
+        fromTime = moment()
+            .subtract(1, 'M')
+            .utc()
+            .format(),
+        toTime = moment()
+            .utc()
+            .format(),
+        ...params
+    }: PaymentsSearchParams): Observable<PaymentsWithToken> {
         return this.searchService.searchPayments(
             xRequestID,
             fakeDate(fromTime),
@@ -54,12 +57,10 @@ export class PaymentSearchService {
     }
 
     getPayment(invoiceID: string, paymentID: string): Observable<PaymentSearchResult> {
-        return this.searchPayments(
-            {
-                invoiceID,
-                paymentID,
-                limit: 1
-            }
-        ).pipe(map(res => res.result[0]));
+        return this.searchPayments({
+            invoiceID,
+            paymentID,
+            limit: 1
+        }).pipe(map(res => res.result[0]));
     }
 }

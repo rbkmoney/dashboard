@@ -8,10 +8,7 @@ import { PaymentSearchService } from '../../search/payment-search.service';
 
 @Injectable()
 export class PaymentDetailsService {
-    constructor(
-        private paymentSearchService: PaymentSearchService,
-        private route: ActivatedRoute
-    ) {}
+    constructor(private paymentSearchService: PaymentSearchService, private route: ActivatedRoute) {}
 
     getPayment(): Observable<PaymentSearchResult> {
         return this.route.params.pipe(

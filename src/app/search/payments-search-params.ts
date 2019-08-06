@@ -26,6 +26,6 @@ export interface PaymentsSearchParams {
     bankCardTokenProvider?: params[20];
     bankCardPaymentSystem?: params[21];
     paymentAmount?: params[22];
-    excludedShops?:params[23]
+    excludedShops?: params[23];
     continuationToken?: params[24];
 }

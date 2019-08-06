@@ -6,7 +6,6 @@ import { PaymentSearchResult, PaymentToolDetails } from '../../api/capi/swagger-
 import { PaymentDetailsService } from './payment-details.service';
 import { PayerType } from './payer-details/payer-details.component';
 
-
 @Component({
     templateUrl: './payment-details.component.html',
     styleUrls: ['./payment-details.component.scss'],

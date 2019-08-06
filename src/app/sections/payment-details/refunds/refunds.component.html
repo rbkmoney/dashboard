@@ -18,10 +18,10 @@
             {{ localePath + '.noRefunds' | lc }}
         </div>
         <button
-                *ngIf="hasMoreRefunds$ | async"
-                class="dsh-payment-details-refunds-show-more-refunds"
-                dsh-button
-                (click)="loadMore()"
+            *ngIf="hasMoreRefunds$ | async"
+            class="dsh-payment-details-refunds-show-more-refunds"
+            dsh-button
+            (click)="loadMore()"
         >
             {{ 'common.showMore' | lc }}
         </button>
