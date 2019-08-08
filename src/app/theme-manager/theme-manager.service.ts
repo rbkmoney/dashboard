@@ -73,7 +73,7 @@ export class ThemeManager {
 
     private removeCurrentTheme() {
         this.themes[this.theme].remove(this.doc);
-        document.body.classList.remove(this.theme);
+        this.doc.body.classList.remove(this.theme);
     }
 
     private getFilePath(name: string) {

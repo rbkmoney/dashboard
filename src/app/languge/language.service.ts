@@ -4,9 +4,9 @@ import { registerLocaleData } from '@angular/common';
 
 import { SettingsService } from '../settings';
 
-interface AngularLocaleData {
-    [name: string]: any;
-}
+type AngularLocaleData<N extends string = string> = {
+    [name in N]: any;
+};
 
 @Injectable()
 export class LanguageService {
@@ -27,10 +27,10 @@ export class LanguageService {
 
     constructor(private settingsService: SettingsService) {}
 
-    init<L extends AngularLocaleData = AngularLocaleData>(
-        supportedLanguages: ArrayLike<any>,
-        defaultLanguage: string,
-        angularLocaleData: L
+    init<S extends ArrayLike<any> = ArrayLike<any>>(
+        supportedLanguages: S,
+        defaultLanguage: S[number],
+        angularLocaleData: AngularLocaleData<S[number]>
     ) {
         this.supported = Array.from(supportedLanguages);
         this.default = defaultLanguage;

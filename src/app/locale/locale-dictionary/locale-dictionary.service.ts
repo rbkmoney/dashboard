@@ -9,9 +9,9 @@ import { LanguageService } from '../../languge/language.service';
 
 const STATIC_MARK = Symbol();
 
-interface LocalesUrls {
-    [language: string]: string;
-}
+type LocalesUrls<L extends string = string> = {
+    [language in L]: string;
+};
 
 @Injectable()
 export class LocaleDictionaryService {
@@ -19,7 +19,7 @@ export class LocaleDictionaryService {
 
     constructor(private http: HttpClient, private languageService: LanguageService) {}
 
-    async init<L extends LocalesUrls = LocalesUrls>(localesUrls: L): Promise<void> {
+    async init<L extends string = string>(localesUrls: LocalesUrls<L>): Promise<void> {
         this.dictionary = await this.http
             .get(localesUrls[this.languageService.language] || localesUrls[this.languageService.default])
             .pipe(
