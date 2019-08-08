@@ -8,7 +8,7 @@ import { DshTabsModule } from '../../../layout/tabs';
 import { LocaleModule } from '../../../locale';
 import { OperationsRoutingModule } from './operations-routing.module';
 import { LastUpdatedComponent } from './last-updated/last-updated.component';
-import { FromMinorPipe } from './payments/from-minor.pipe';
+import { FromMinorPipe } from './from-minor.pipe';
 
 @NgModule({
     imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, DshTabsModule, LocaleModule],
