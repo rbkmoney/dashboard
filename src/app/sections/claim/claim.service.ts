@@ -14,7 +14,7 @@ export class ClaimService {
             filter(({ id }) => !!id),
             map(({ id }) => Number(id)),
             distinctUntilChanged(),
-            switchMap(id => this.claimsService.getClaim(id))
+            switchMap(id => this.claimsService.getClaimByID(id))
         );
     }
 }

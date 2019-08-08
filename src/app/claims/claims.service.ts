@@ -4,21 +4,23 @@ import { Observable } from 'rxjs';
 import { genXRequestID } from '../api';
 import { ClaimsService as APIClaimsService, Claim } from '../api/claim-management';
 import { ClaimsWithToken } from './claims-with-token';
-import { ClaimStatuses } from './claim-statuses';
+
+type searchClaimsParams = Parameters<APIClaimsService['searchClaims']>;
+type getClaimByIDParams = Parameters<APIClaimsService['getClaimByID']>;
 
 @Injectable()
 export class ClaimsService {
     constructor(private claimsService: APIClaimsService) {}
 
     searchClaims(
-        limit: number,
-        continuationToken?: string,
-        claimStatuses?: ClaimStatuses[]
+        limit: searchClaimsParams[1],
+        continuationToken?: searchClaimsParams[3],
+        claimStatuses?: searchClaimsParams[4]
     ): Observable<ClaimsWithToken> {
         return this.claimsService.searchClaims(genXRequestID(), limit, undefined, continuationToken, claimStatuses);
     }
 
-    getClaim(claimID): Observable<Claim> {
+    getClaimByID(claimID: getClaimByIDParams[1]): Observable<Claim> {
         return this.claimsService.getClaimByID(genXRequestID(), claimID);
     }
 }
