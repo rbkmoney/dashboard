@@ -26,7 +26,7 @@
 @import '../app/expand-panel/expand-panel-theme';
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
-@import '../app/sections/payment-section/operations/payments/last-updated/last-updated-theme';
+@import '../app/sections/payment-section/operations/last-updated/last-updated-theme';
 
 @mixin dsh-overrides() {
     @include body-override();

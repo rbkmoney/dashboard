@@ -1,0 +1,67 @@
+<dsh-float-panel [formGroup]="searchForm" novalidate [(expanded)]="expanded">
+    <div
+        fxLayout
+        [fxLayoutGap]="layoutGap"
+        fxLayout.sm="column"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutAlign.sm="space-between stretch"
+        fxLayoutAlign.xs="space-between stretch"
+    >
+        <dsh-daterange-selector
+            [value]="searchForm.value"
+            (selectDaterange)="selectDaterange($event)"
+            (selectMore)="expanded = true"
+            fxFlex
+        ></dsh-daterange-selector>
+        <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex>
+                <mat-label>{{ localeBaseDir + '.refundID' | lc }}</mat-label>
+                <input matInput formControlName="refundID" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ localeBaseDir + '.refundStatus' | lc }}</mat-label>
+                <mat-select formControlName="refundStatus">
+                    <mat-option>
+                        {{ 'common.any' | lc }}
+                    </mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status">
+                        {{ 'common.refundStatus.' + status | lc }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </dsh-justify-wrapper>
+    </div>
+    <dsh-float-panel-actions>
+        <button dsh-button (click)="reset()">
+            {{ 'common.resetSearchParams' | lc }}
+        </button>
+    </dsh-float-panel-actions>
+    <dsh-float-panel-more>
+        <div
+            fxLayout
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            [fxLayoutGap]="layoutGap"
+            fxLayoutGap.sm="0"
+            fxLayoutGap.xs="0"
+        >
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.invoiceID' | lc }}</mat-label>
+                    <input matInput formControlName="invoiceID" />
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.paymentID' | lc }}</mat-label>
+                    <input matInput formControlName="paymentID" />
+                </mat-form-field>
+            </div>
+            <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ localeBaseDir + '.excludedShops' | lc }}</mat-label>
+                    <input matInput formControlName="excludedShops" />
+                </mat-form-field>
+            </div>
+        </div>
+    </dsh-float-panel-more>
+</dsh-float-panel>

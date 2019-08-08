@@ -7,9 +7,12 @@ import { LayoutModule } from '../../../layout';
 import { DshTabsModule } from '../../../layout/tabs';
 import { LocaleModule } from '../../../locale';
 import { OperationsRoutingModule } from './operations-routing.module';
+import { LastUpdatedComponent } from './last-updated/last-updated.component';
+import { FromMinorPipe } from './payments/from-minor.pipe';
 
 @NgModule({
     imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, DshTabsModule, LocaleModule],
-    declarations: [OperationsComponent]
+    declarations: [OperationsComponent, LastUpdatedComponent, FromMinorPipe],
+    exports: [LastUpdatedComponent, FromMinorPipe]
 })
 export class OperationsModule {}
