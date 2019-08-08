@@ -10,9 +10,7 @@ import {
     CommentModification
 } from '../../../../api/claim-management';
 import { TimelineAction } from './timeline-action';
-import { SpecificModificationUnit, getIsSpecificModificationUnit } from './specific-modification-unit';
-
-const isClaimModificationUnit = getIsSpecificModificationUnit<ClaimModification>();
+import { SpecificModificationUnit } from './specific-modification-unit';
 
 function getDocumentModificationTimelineAction(
     unit: SpecificModificationUnit<DocumentModificationUnit>
@@ -61,14 +59,16 @@ function getCommentModificationTimelineAction(unit: SpecificModificationUnit<Com
 }
 
 export function getClaimModificationTimelineAction(unit: SpecificModificationUnit<ClaimModification>): TimelineAction {
-    if (isClaimModificationUnit<DocumentModificationUnit>(unit, 'documentModificationType')) {
-        return getDocumentModificationTimelineAction(unit);
-    } else if (isClaimModificationUnit<StatusModificationUnit>(unit, 'statusModificationType')) {
-        return getStatusModificationTimelineAction(unit);
-    } else if (isClaimModificationUnit<FileModificationUnit>(unit, 'fileModificationType')) {
-        return getFileModificationTimelineAction(unit);
-    } else if (isClaimModificationUnit<CommentModificationUnit>(unit, 'commentModificationType')) {
-        return getCommentModificationTimelineAction(unit);
+    const { ClaimModificationTypeEnum: ClaimModificationType } = ClaimModification;
+    switch (unit.modification.claimModificationType) {
+        case ClaimModificationType.DocumentModificationUnit:
+            return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<DocumentModificationUnit>);
+        case ClaimModificationType.StatusModificationUnit:
+            return getStatusModificationTimelineAction(unit as SpecificModificationUnit<StatusModificationUnit>);
+        case ClaimModificationType.FileModificationUnit:
+            return getFileModificationTimelineAction(unit as SpecificModificationUnit<FileModificationUnit>);
+        case ClaimModificationType.CommentModificationUnit:
+            return getCommentModificationTimelineAction(unit as SpecificModificationUnit<CommentModificationUnit>);
     }
     console.error('Claim modification unidentified');
 }

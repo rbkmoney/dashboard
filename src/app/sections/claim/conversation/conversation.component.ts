@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
 
-import { toTimelineInfo } from './to-timeline-info';
-import { ClaimService } from '../claim.service';
+import { ConversationService } from './conversation.service';
 
 @Component({
     selector: 'dsh-conversation',
     templateUrl: 'conversation.component.html',
-    styleUrls: ['conversation.component.scss']
+    styleUrls: ['conversation.component.scss'],
+    providers: [ConversationService]
 })
 export class ConversationComponent {
-    claim$ = this.claimService.getClaimByParams(this.route.params);
+    get claim$() {
+        return this.conversationService.claim$;
+    }
 
-    changesetViewInfo$ = this.claim$.pipe(
-        map(({ changeset }) => toTimelineInfo(changeset)),
-        shareReplay(1)
-    );
+    get timelineInfo$() {
+        return this.conversationService.timelineInfo$;
+    }
 
-    constructor(private route: ActivatedRoute, private claimService: ClaimService) {}
+    constructor(private conversationService: ConversationService) {}
 }
