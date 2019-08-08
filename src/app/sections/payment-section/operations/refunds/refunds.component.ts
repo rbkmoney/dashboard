@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { InlineResponse2003, RefundSearchResult } from '../../../../api/capi/swagger-codegen';
 import { RefundSearchFormValue } from './search-form/refund-search-form-value';
+import { refundSearchConverter } from './refund-search-converter';
 
 @Component({
     selector: 'dsh-refunds',
@@ -156,7 +157,7 @@ export class RefundsComponent {
 
     search(searchFormValue: RefundSearchFormValue, token?: string) {
         this.lastRefundSearchFormValue = searchFormValue;
-        this.kek(searchFormValue, token).subscribe(r => {
+        this.kek(refundSearchConverter(searchFormValue), token).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = r.continuationToken ? continuationToken : null;
             this.dataSource.data = result;
