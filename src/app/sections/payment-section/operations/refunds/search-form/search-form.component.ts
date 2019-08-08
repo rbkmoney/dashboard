@@ -4,9 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { SearchFormService } from './search-form.service';
 import { RefundSearchFormValue } from './refund-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
-import {
-    RefundStatus
-} from '../../../../../api/capi/swagger-codegen';
+import { RefundStatus } from '../../../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-search-form',

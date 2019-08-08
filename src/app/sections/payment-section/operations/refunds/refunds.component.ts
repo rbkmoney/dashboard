@@ -23,132 +23,133 @@ export class RefundsComponent {
             subscriber.next({
                 result: [
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'pending',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'pending',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'succeeded',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'succeeded',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     },
                     {
-                        'invoiceID': 'DNSAKJSADSADSA',
-                        'paymentID': 'DSAKJDNSAKNDKSA',
-                        'id': 'DSANKJDNASKNDKKJNK',
-                        'createdAt': new Date(),
-                        'amount': 100000,
-                        'currency': 'RUB',
-                        'reason': 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        'status': 'failed',
-                        'error': {
-                            'code': 'KEK',
-                            'message': 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
+                        invoiceID: 'DNSAKJSADSADSA',
+                        paymentID: 'DSAKJDNSAKNDKSA',
+                        id: 'DSANKJDNASKNDKKJNK',
+                        createdAt: new Date(),
+                        amount: 100000,
+                        currency: 'RUB',
+                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
+                        status: 'failed',
+                        error: {
+                            code: 'KEK',
+                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
                         }
                     }
-                ], continuationToken: Math.random().toString()
+                ],
+                continuationToken: Math.random().toString()
             });
             subscriber.complete();
         });
