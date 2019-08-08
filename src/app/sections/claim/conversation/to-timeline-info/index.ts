@@ -43,7 +43,7 @@ export function toTimelineItemInfo(batch: ModificationUnit[]): TimelineItemInfo 
     return {
         action,
         actionName: getTimelineActionName(action),
-        author: 'common.claim.modification.author.manager',
+        author: 'sections.claim.conversation.to-timeline-info.author.manager',
         createdAt,
         iconName: getTimelineActionIconName(action),
         color: getTimelineActionColor(action)

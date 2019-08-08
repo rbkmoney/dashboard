@@ -13,5 +13,5 @@ export function getTimelineActionName(action: TimelineAction): string {
         [TimelineAction.commentAdded]: 'commentAdded',
         [TimelineAction.changesAdded]: 'changesAdded'
     } as const)[action];
-    return timelineActionName ? `common.claim.modification.action.${timelineActionName}` : undefined;
+    return timelineActionName ? `sections.claim.conversation.to-timeline-info.action.${timelineActionName}` : undefined;
 }

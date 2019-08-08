@@ -63,26 +63,6 @@
             "revoked": "Отозвана",
             "denied": "Отклонена",
             "accepted": "Одобрена"
-        },
-        "claim": {
-            "modification": {
-                "action": {
-                    "claimCreated": "создана анкета",
-                    "pending": "переведена в ожидание",
-                    "pendingAcceptance": "переведена в ожидание ваших действий",
-                    "review": "рассматривается",
-                    "revoked": "отозвана",
-                    "denied": "отклонена",
-                    "accepted": "одобрена",
-                    "documentAdded": "добавлен документ",
-                    "commentAdded": "добавлен комментарий",
-                    "changesAdded": "добавлены изменения"
-                },
-                "author": {
-                    "manager": "Менеджером",
-                    "you": "Вами"
-                }
-            }
         }
     },
     "actionbar": {
@@ -202,7 +182,25 @@
                 "leaveTheComment": "Оставьте комментарий",
                 "toLeaveTheComment": "Оставить комментарий",
                 "lastChanges": "Последние изменения <%- date %> назад",
-                "ago": "назад"
+                "ago": "назад",
+                "to-timeline-info": {
+                    "action": {
+                        "claimCreated": "создана анкета",
+                        "pending": "переведена в ожидание",
+                        "pendingAcceptance": "переведена в ожидание ваших действий",
+                        "review": "рассматривается",
+                        "revoked": "отозвана",
+                        "denied": "отклонена",
+                        "accepted": "одобрена",
+                        "documentAdded": "добавлен документ",
+                        "commentAdded": "добавлен комментарий",
+                        "changesAdded": "добавлены изменения"
+                    },
+                    "author": {
+                        "manager": "Менеджером",
+                        "you": "Вами"
+                    }
+                }
             },
             "changes": {
                 "label": "Изменения"
