@@ -7,9 +7,6 @@ import { ThemeManager } from './theme-manager';
 import { LanguageService } from './languge';
 
 const supportedLanguages = ['ru'] as const;
-const language = navigator.language || (navigator as any).userLanguage;
-const defaultLanguage = supportedLanguages.includes(language) ? language : supportedLanguages[0];
-
 const supportedThemes = ['light', 'dark'] as const;
 
 export const initializer = (
@@ -20,9 +17,13 @@ export const initializer = (
     languageService: LanguageService
 ) => async () => {
     themeManager.init(supportedThemes, supportedThemes[0]);
-    languageService.init<{ [locale in typeof supportedLanguages[number]]: any }>(supportedLanguages, defaultLanguage, {
-        ru: localeRu
-    });
+    languageService.init<{ [locale in typeof supportedLanguages[number]]: any }>(
+        supportedLanguages,
+        supportedLanguages[0],
+        {
+            ru: localeRu
+        }
+    );
     await Promise.all([
         configService.init({ configUrl: '/assets/appConfig.json' }),
         keycloakService.init({

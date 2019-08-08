@@ -47,8 +47,13 @@ export class LanguageService {
 
     private getCorrectLanguage(language: string) {
         if (!this.supported.includes(language)) {
-            return this.default;
+            return this.getRecomended();
         }
         return language;
+    }
+
+    private getRecomended() {
+        const language = navigator.language || (navigator as any).userLanguage;
+        return this.supported.includes(language) ? language : this.default;
     }
 }
