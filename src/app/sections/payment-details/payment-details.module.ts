@@ -33,7 +33,6 @@ import { DigitalWalletComponent } from './payment-tool/digital-wallet/digital-wa
 import { BankCardComponent } from './payment-tool/bank-card/bank-card.component';
 import { PaymentTerminalComponent } from './payment-tool/payment-terminal/payment-terminal.component';
 import { SearchModule } from '../../search/search.module';
-import { PaymentsModule } from '../payment-section/operations/payments/payments.module';
 import { CustomerPayerComponent } from './payer-details/customer-payer/customer-payer.component';
 import { PaymentResourcePayerComponent } from './payer-details/payment-resource-payer/payment-resource-payer.component';
 import { ShopLocationUrlComponent } from './shop-details/shop-location-url/shop-location-url.component';
@@ -55,7 +54,6 @@ import { ShopModule } from '../../shop/shop.module';
         CommonModule,
         PaymentDetailsRoutingModule,
         SearchModule,
-        PaymentsModule,
         ViewUtilsModule,
         InvoiceModule,
         ShopModule
