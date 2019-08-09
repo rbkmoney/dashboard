@@ -13,10 +13,8 @@ export const initializer = (
     configService: ConfigService,
     keycloakService: KeycloakService,
     localeService: LocaleDictionaryService,
-    themeManager: ThemeManager,
     languageService: LanguageService
 ) => async () => {
-    themeManager.init(supportedThemes, supportedThemes[0]);
     languageService.init(supportedLanguages, supportedLanguages[0], { ru: localeRu });
     await Promise.all([
         configService.init({ configUrl: '/assets/appConfig.json' }),

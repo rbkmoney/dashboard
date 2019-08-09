@@ -45,7 +45,7 @@ import { LanguageService } from './languge';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleDictionaryService, ThemeManager, LanguageService],
+            deps: [ConfigService, KeycloakService, LocaleDictionaryService, LanguageService],
             multi: true
         },
         {

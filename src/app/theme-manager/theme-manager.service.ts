@@ -2,8 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { environment } from '../../environments/environment';
-import { Script, Style, External } from './external';
 import { SettingsService } from '../settings';
+import { ThemeName } from './theme-name';
 
 enum Type {
     JS = 'js',
@@ -14,73 +14,55 @@ enum Type {
 export class ThemeManager {
     static readonly KEY = 'theme';
 
-    default: string;
+    current: ThemeName;
 
-    get supported() {
-        return Object.keys(this.themes);
+    private element: HTMLScriptElement | HTMLLinkElement;
+
+    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
+        const name = this.settingsService.get(ThemeManager.KEY);
+        const correctedName = this.getCorrectName(name);
+        this.change(correctedName);
     }
 
-    get theme(): string {
-        return this.getCorrectName(this.settingsService.get(ThemeManager.KEY));
+    change(name: ThemeName) {
+        this.removeCurrent();
+        this.set(name);
     }
-    set theme(name: string) {
-        if (this.theme !== name) {
-            this.setTheme(name);
+
+    private getCorrectName(theme: ThemeName | string): ThemeName {
+        if (!Object.values(ThemeName).includes(theme)) {
+            return this.current || ThemeName.light;
         }
+        return theme as ThemeName;
     }
 
-    private themes: { [name: string]: External } = {};
-    private fileType: Type = environment.production ? Type.CSS : Type.JS;
+    private set(name: ThemeName) {
+        const fileType: Type = environment.production ? Type.CSS : Type.JS;
+        const url = `themes/${name}.${fileType}`;
+        this.element = fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
+        this.doc.head.appendChild(this.element);
+        this.doc.body.classList.add(name);
+        this.settingsService.set(ThemeManager.KEY, name);
+        this.current = name;
+    }
 
-    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {}
-
-    init(supportedThemes: ArrayLike<any>, defaultTheme: string) {
-        this.default = defaultTheme;
-        this.themes = Array.from(supportedThemes).reduce((themes, name) => {
-            themes[name] = this.createExternal(this.getFilePath(name));
-            return themes;
-        }, {});
-        if (!this.supported.includes(this.theme)) {
-            this.theme = defaultTheme;
+    private removeCurrent() {
+        if (this.doc.head.contains(this.element)) {
+            this.doc.head.removeChild(this.element);
         }
-        this.setTheme(this.theme);
+        this.doc.body.classList.remove(this.current);
     }
 
-    change(offset: number = 1) {
-        this.theme = this.getThemeByOffset(offset);
+    private createStyleElement(url: string): HTMLLinkElement {
+        const styleElement = document.createElement('link');
+        styleElement.href = url;
+        styleElement.rel = 'stylesheet';
+        return styleElement;
     }
 
-    private setTheme(name: string) {
-        const correctName = this.getCorrectName(name);
-        this.removeCurrentTheme();
-        this.themes[correctName].add(this.doc);
-        document.body.classList.add(correctName);
-        this.settingsService.set(ThemeManager.KEY, correctName);
-    }
-
-    private getThemeByOffset(offset: number) {
-        const themeIdx = this.supported.findIndex(n => n === this.theme);
-        const nextIdx = (themeIdx + offset) % this.supported.length;
-        return this.supported[nextIdx < 0 ? this.supported.length - nextIdx : nextIdx];
-    }
-
-    private getCorrectName(theme: string) {
-        if (!this.supported.includes(theme)) {
-            return this.default;
-        }
-        return theme;
-    }
-
-    private removeCurrentTheme() {
-        this.themes[this.theme].remove(this.doc);
-        this.doc.body.classList.remove(this.theme);
-    }
-
-    private getFilePath(name: string) {
-        return `themes/${name}.${this.fileType}`;
-    }
-
-    private createExternal(url: string): External {
-        return new (this.fileType === Type.JS ? Script : Style)(url);
+    private createScriptElement(url: string): HTMLScriptElement {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = url;
+        return scriptElement;
     }
 }

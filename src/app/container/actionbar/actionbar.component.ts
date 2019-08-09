@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { DropdownTriggerDirective } from '../../dropdown';
-import { ThemeManager } from '../../theme-manager';
+import { ThemeManager, ThemeName } from '../../theme-manager';
 
 @Component({
     selector: 'dsh-actionbar',
@@ -13,7 +13,9 @@ export class ActionbarComponent {
     constructor(private themeService: ThemeManager) {}
 
     changeTheme() {
-        this.themeService.change();
+        const themes: string[] = Object.values(ThemeName);
+        const nextThemeIdx = (themes.findIndex(name => name === this.themeService.current) + 1) % themes.length;
+        this.themeService.change(themes[nextThemeIdx] as any);
     }
 
     closeDropdown() {
