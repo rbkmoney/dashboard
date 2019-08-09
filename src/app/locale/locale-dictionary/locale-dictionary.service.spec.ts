@@ -2,13 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleDictionaryService } from './locale-dictionary.service';
-import { LanguageService } from '../language';
-
-class LanguageServiceStub {
-    get language() {
-        return 'ru';
-    }
-}
+import { LanguageService, Language } from '../language';
 
 const dummyDict = {
     'test key': 'test value',
@@ -19,7 +13,7 @@ describe('LocaleDictionaryService', () => {
     async function createService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [LocaleDictionaryService, { provide: LanguageService, useClass: LanguageServiceStub }]
+            providers: [LocaleDictionaryService, { provide: LanguageService, useValue: { active: Language.ru } }]
         });
         const ls: LocaleDictionaryService = TestBed.get(LocaleDictionaryService);
         const httpMock = TestBed.get(HttpTestingController);
