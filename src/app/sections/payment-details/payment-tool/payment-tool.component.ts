@@ -1,11 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import {
-    PaymentToolDetails,
-    PaymentToolDetailsBankCard,
-    PaymentToolDetailsDigitalWallet,
-    PaymentToolDetailsPaymentTerminal
-} from '../../../api/capi/swagger-codegen';
+import { PaymentToolDetails } from '../../../api/capi/swagger-codegen';
 
 enum PaymentToolDetailsType {
     BankCard = 'PaymentToolDetailsBankCard',
@@ -21,10 +16,6 @@ export class PaymentToolComponent {
     @Input() paymentToolDetails: PaymentToolDetails;
 
     Type = PaymentToolDetailsType;
-
-    bankCard: PaymentToolDetailsBankCard;
-    digitalWallet: PaymentToolDetailsDigitalWallet;
-    paymentTerminal: PaymentToolDetailsPaymentTerminal;
 
     localePath = 'sections.paymentDetails.paymentTool';
 }

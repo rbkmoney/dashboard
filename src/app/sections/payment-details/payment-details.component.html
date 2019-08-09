@@ -1,21 +1,18 @@
-<div *ngIf="payment$ | async as payment" class="dsh-payment-details" fxLayout="column" fxLayoutGap="20px">
-    <div class="mat-headline" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-        <mat-icon class="dsh-back-icon" routerLink="..">arrow_back</mat-icon>
-        <div>
-            {{ 'sections.paymentDetails.title' | lc }}
-            <span dshSecondaryTitle>#{{ payment?.id }}</span>
-        </div>
-    </div>
+<div *ngIf="payment$ | async as payment" class="dsh-payment-details" fxLayout="column" [fxLayoutGap]="layoutGap">
+    <dsh-headline [paymentID]="payment?.id"></dsh-headline>
     <dsh-details [payment]="payment"></dsh-details>
     <dsh-payment-tool
         *ngIf="getPaymentToolDetails(payment)"
         [paymentToolDetails]="getPaymentToolDetails(payment)"
     ></dsh-payment-tool>
     <dsh-payer-details
-        *ngIf="payment?.payer && payment?.payer.payerType !== PayerType.RecurrentPayer"
+        *ngIf="payment?.payer?.payerType !== PayerType.RecurrentPayer"
         [payer]="payment.payer"
     ></dsh-payer-details>
-    <dsh-hold-details *ngIf="payment?.flow?.type === 'PaymentFlowHold'" [flowHold]="payment.flow"></dsh-hold-details>
+    <dsh-hold-details
+        *ngIf="payment?.flow?.type === PaymentFlow.PaymentFlowHold"
+        [flowHold]="payment.flow"
+    ></dsh-hold-details>
     <dsh-make-recurrent *ngIf="payment?.makeRecurrent"></dsh-make-recurrent>
     <dsh-recurrent-details
         *ngIf="payment?.payer?.payerType === PayerType.RecurrentPayer"
