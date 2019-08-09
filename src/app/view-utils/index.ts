@@ -1,1 +1,1 @@
-export * from './get-claim-view-info';
+export * from './get-claim-status-view-info';

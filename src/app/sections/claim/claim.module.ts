@@ -26,7 +26,6 @@ import { ConversationModule } from './conversation';
         ClaimRoutingModule,
         ConversationModule
     ],
-    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent],
-    providers: [ClaimService]
+    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })
 export class ClaimModule {}

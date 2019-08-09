@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { ConversationService } from './conversation.service';
+import { ClaimService } from '../claim.service';
 
 @Component({
     selector: 'dsh-conversation',
@@ -10,8 +11,8 @@ import { ConversationService } from './conversation.service';
     providers: [ConversationService]
 })
 export class ConversationComponent {
-    updatedAt$ = this.conversationService.claim$.pipe(map(({ updatedAt }) => updatedAt));
+    updatedAt$ = this.claimService.claim$.pipe(map(({ updatedAt }) => updatedAt));
     timelineInfo$ = this.conversationService.timelineInfo$;
 
-    constructor(private conversationService: ConversationService) {}
+    constructor(private conversationService: ConversationService, private claimService: ClaimService) {}
 }

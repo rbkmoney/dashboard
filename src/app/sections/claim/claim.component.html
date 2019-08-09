@@ -1,10 +1,10 @@
-<h1 class="mat-headline">{{ 'sections.claim.details' | lc }} #{{ (claim$ | async)?.id }}</h1>
+<h1 class="mat-headline">{{ 'sections.claim.details' | lc }} #{{ claimID$ | async }}</h1>
 
 <dsh-card>
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
             <h2 class="mat-title">{{ 'sections.claim.request' | lc }}</h2>
-            <h2 class="mat-title">{{ (claim$ | async)?.status | lc }}</h2>
+            <h2 class="mat-title">{{ (claimStatusViewInfo$ | async)?.statusDicPath | lc }}</h2>
         </div>
         <nav dsh-tab-nav-bar>
             <a

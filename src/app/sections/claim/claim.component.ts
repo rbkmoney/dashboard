@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
-import { getClaimStatusViewInfo } from '../../view-utils';
-import { StatusModificationUnit } from '../../api/claim-management';
 import { ClaimService } from './claim.service';
 
 @Component({
     selector: 'dsh-claim',
     templateUrl: 'claim.component.html',
-    styleUrls: ['claim.component.scss']
+    styleUrls: ['claim.component.scss'],
+    providers: [ClaimService]
 })
 export class ClaimComponent {
     links = [
@@ -27,13 +25,8 @@ export class ClaimComponent {
         }
     ];
 
-    claim$ = this.claimService.getClaimByParams(this.route.params).pipe(
-        map(({ id, status }) => ({
-            id,
-            ...getClaimStatusViewInfo(status as StatusModificationUnit.StatusEnum)
-        })),
-        shareReplay(1)
-    );
+    claimID$ = this.claimService.claim$.pipe(map(({ id }) => id));
+    claimStatusViewInfo$ = this.claimService.claimStatusViewInfo$;
 
-    constructor(private route: ActivatedRoute, private claimService: ClaimService) {}
+    constructor(private claimService: ClaimService) {}
 }
