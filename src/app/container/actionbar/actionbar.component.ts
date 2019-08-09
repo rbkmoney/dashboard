@@ -13,9 +13,9 @@ export class ActionbarComponent {
     constructor(private themeService: ThemeManager) {}
 
     changeTheme() {
-        const themes: string[] = Object.values(ThemeName);
+        const themes: ThemeName[] = Object.values(ThemeName);
         const nextThemeIdx = (themes.findIndex(name => name === this.themeService.current) + 1) % themes.length;
-        this.themeService.change(themes[nextThemeIdx] as any);
+        this.themeService.change(themes[nextThemeIdx]);
     }
 
     closeDropdown() {

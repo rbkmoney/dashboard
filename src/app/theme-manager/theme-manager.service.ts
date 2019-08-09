@@ -37,7 +37,7 @@ export class ThemeManager {
     }
 
     private set(name: ThemeName) {
-        this.element = this.createElement();
+        this.element = this.createElement(name);
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
         this.settingsService.set(ThemeManager.KEY, name);
@@ -51,7 +51,7 @@ export class ThemeManager {
         this.doc.body.classList.remove(this.current);
     }
 
-    private createElement(): HTMLLinkElement | HTMLScriptElement {
+    private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
         const fileType: Type = environment.production ? Type.CSS : Type.JS;
         const url = `themes/${name}.${fileType}`;
         return fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
