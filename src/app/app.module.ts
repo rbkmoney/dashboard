@@ -22,7 +22,7 @@ import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
-import { LanguageService } from './languge';
+import { LanguageService } from './language';
 
 @NgModule({
     declarations: [AppComponent],

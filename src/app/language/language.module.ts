@@ -7,4 +7,4 @@ import { SettingsModule } from '../settings';
     imports: [SettingsModule],
     providers: [LanguageService]
 })
-export class LangugeModule {}
+export class LanguageModule {}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 
-import { LanguageService } from '../languge/language.service';
+import { LanguageService } from '../language';
 
 export type Value = number | string | moment.Moment | Date;
 

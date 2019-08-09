@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { HumanizedDurationPipe } from './humanized-duration.pipe';
 import { HumanizeDurationService } from './humanize-duration.service';
-import { LangugeModule } from '../languge';
+import { LanguageModule } from '../language';
 
 @NgModule({
-    imports: [LangugeModule],
+    imports: [LanguageModule],
     declarations: [HumanizedDurationPipe],
     providers: [HumanizeDurationService],
     exports: [HumanizedDurationPipe]

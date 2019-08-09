@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import get from 'lodash.get';
 import template from 'lodash.template';
 
-import { LanguageService } from '../../languge/language.service';
+import { LanguageService } from '../../language/language.service';
 
 const STATIC_MARK = Symbol();
 
