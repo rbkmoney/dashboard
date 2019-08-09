@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 
-import { Payer } from '../../../api/capi/swagger-codegen';
+import { Payer, PaymentResourcePayer } from '../../../api/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 
 // TODO add to swag
@@ -24,4 +24,8 @@ export class PayerDetailsComponent {
     localePath = 'sections.paymentDetails.payerDetails';
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    paymentResourcePayer(): PaymentResourcePayer | null {
+        return this.payer.payerType === PayerType.PaymentResourcePayer ? (this.payer as PaymentResourcePayer) : null;
+    }
 }
