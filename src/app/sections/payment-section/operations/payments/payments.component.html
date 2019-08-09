@@ -10,8 +10,8 @@
                         <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
                             {{ localeBaseDir + '.table.amount' | lc }}
                         </th>
-                        <td dshCell fxFlex="150px" *dshCellDef="let element">
-                            {{ element.amount | fromMinor | currency: element.currency }}
+                        <td dshCell fxFlex="150px" *dshCellDef="let payment">
+                            {{ payment.amount | fromMinor | currency: payment.currency }}
                         </td>
                     </ng-container>
 
@@ -19,9 +19,9 @@
                         <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
                             {{ localeBaseDir + '.table.status' | lc }}
                         </th>
-                        <td dshCell fxFlex="140px" *dshCellDef="let element">
-                            <dsh-status [color]="element.status | paymentStatusColor">{{
-                                'common.paymentStatus.' + element.status | lc
+                        <td dshCell fxFlex="140px" *dshCellDef="let payment">
+                            <dsh-status [color]="payment.status | paymentStatusColor">{{
+                                'common.paymentStatus.' + payment.status | lc
                             }}</dsh-status>
                         </td>
                     </ng-container>
@@ -30,8 +30,8 @@
                         <th dshHeaderCell *dshHeaderCellDef>
                             {{ localeBaseDir + '.table.statusChanged' | lc }}
                         </th>
-                        <td dshCell *dshCellDef="let element">
-                            {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
+                        <td dshCell *dshCellDef="let payment">
+                            {{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
                         </td>
                     </ng-container>
 
@@ -39,9 +39,9 @@
                         <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
                             {{ localeBaseDir + '.table.invoice' | lc }}
                         </th>
-                        <td dshCell *dshCellDef="let element" fxHide fxShow.gt-sm>
+                        <td dshCell *dshCellDef="let payment" fxHide fxShow.gt-sm>
                             <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                                ><span>{{ element.invoiceID }}</span>
+                                ><span>{{ payment.invoiceID }}</span>
                                 <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
                             >
                         </td>
@@ -49,14 +49,14 @@
 
                     <ng-container dshColumnDef="attributes">
                         <th dshHeaderCell *dshHeaderCellDef>{{ localeBaseDir + '.table.shop' | lc }}</th>
-                        <td dshCell *dshCellDef="let element">
-                            <span class="truncate">{{ element.shopID }}</span>
+                        <td dshCell *dshCellDef="let payment">
+                            <span class="truncate">{{ payment.shopID }}</span>
                         </td>
                     </ng-container>
 
                     <ng-container dshColumnDef="actions">
                         <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
-                        <td dshCell fxFlex="42px" *dshCellDef="let element">
+                        <td dshCell fxFlex="42px" *dshCellDef="let payment">
                             <button dsh-icon-button><mat-icon>more_vert</mat-icon></button>
                         </td>
                     </ng-container>

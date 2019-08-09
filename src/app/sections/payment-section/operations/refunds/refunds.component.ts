@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { InlineResponse2003, RefundSearchResult } from '../../../../api/capi/swagger-codegen';
 import { RefundSearchFormValue } from './search-form/refund-search-form-value';
 import { refundSearchConverter } from './refund-search-converter';
+import { RefundSearchParams } from '../../../../search/refund-search-params';
 
 @Component({
     selector: 'dsh-refunds',
@@ -18,138 +19,12 @@ export class RefundsComponent {
     lastContinuationToken: string;
     lastRefundSearchFormValue: RefundSearchFormValue;
     lastUpdated: Date;
+    limit = 20;
 
-    kek: (keke: RefundSearchFormValue, continuationToken?: string) => Observable<InlineResponse2003> = () =>
+    kek: (keke: RefundSearchParams, continuationToken?: string) => Observable<InlineResponse2003> = () =>
         new Observable(subscriber => {
             subscriber.next({
-                result: [
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'pending',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'succeeded',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    },
-                    {
-                        invoiceID: 'DNSAKJSADSADSA',
-                        paymentID: 'DSAKJDNSAKNDKSA',
-                        id: 'DSANKJDNASKNDKKJNK',
-                        createdAt: new Date(),
-                        amount: 100000,
-                        currency: 'RUB',
-                        reason: 'NJDKJSANDS NDSKJANDKSAJD NDKJSNKDASN',
-                        status: 'failed',
-                        error: {
-                            code: 'KEK',
-                            message: 'DSAKDNKJSANDKJ NDSAKJNDKJSA NDSKJANDKSA'
-                        }
-                    }
-                ],
+                result: [],
                 continuationToken: Math.random().toString()
             });
             subscriber.complete();
@@ -157,7 +32,7 @@ export class RefundsComponent {
 
     search(searchFormValue: RefundSearchFormValue, token?: string) {
         this.lastRefundSearchFormValue = searchFormValue;
-        this.kek(refundSearchConverter(searchFormValue), token).subscribe(r => {
+        this.kek(refundSearchConverter(searchFormValue, this.limit), token).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = r.continuationToken ? continuationToken : null;
             this.dataSource.data = result;
@@ -166,7 +41,10 @@ export class RefundsComponent {
     }
 
     showMore() {
-        this.kek(this.lastRefundSearchFormValue, this.lastContinuationToken).subscribe(r => {
+        this.kek(
+            refundSearchConverter(this.lastRefundSearchFormValue, this.limit),
+            this.lastContinuationToken
+        ).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = continuationToken;
             this.dataSource.data = this.dataSource.data.concat(result);

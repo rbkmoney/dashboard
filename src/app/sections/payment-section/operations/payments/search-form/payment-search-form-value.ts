@@ -9,7 +9,6 @@ import {
 import { SearchFormValue } from '../../search-form-value';
 
 export interface PaymentSearchFormValue extends SearchFormValue {
-    limit: string;
     shopID?: string;
     paymentStatus?: PaymentStatus.StatusEnum;
     paymentFlow?: PaymentFlow.TypeEnum;

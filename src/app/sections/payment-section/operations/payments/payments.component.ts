@@ -17,8 +17,13 @@ export class PaymentsComponent {
     lastContinuationToken: string;
     lastPaymentSearchFormValue: PaymentSearchFormValue;
     lastUpdated: Date;
+    limit = 20;
 
-    kek: (keke: PaymentSearchFormValue, continuationToken?: string) => Observable<InlineResponse2001> = () =>
+    kek: (
+        keke: PaymentSearchFormValue,
+        limit: number,
+        continuationToken?: string
+    ) => Observable<InlineResponse2001> = () =>
         new Observable(subscriber => {
             subscriber.next({ result: [], continuationToken: Math.random().toString() });
             subscriber.complete();
@@ -26,7 +31,7 @@ export class PaymentsComponent {
 
     search(searchFormValue: PaymentSearchFormValue, token?: string) {
         this.lastPaymentSearchFormValue = searchFormValue;
-        this.kek(searchFormValue, token).subscribe(r => {
+        this.kek(searchFormValue, this.limit, token).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = r.continuationToken ? continuationToken : null;
             this.dataSource.data = result;
@@ -35,7 +40,7 @@ export class PaymentsComponent {
     }
 
     showMore() {
-        this.kek(this.lastPaymentSearchFormValue, this.lastContinuationToken).subscribe(r => {
+        this.kek(this.lastPaymentSearchFormValue, this.limit, this.lastContinuationToken).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = continuationToken;
             this.dataSource.data = this.dataSource.data.concat(result);
