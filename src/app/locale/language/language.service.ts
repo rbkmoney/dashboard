@@ -10,35 +10,30 @@ import { angularLocaleData } from './angular-locale-data';
 export class LanguageService {
     private static readonly KEY = 'language';
 
-    get language(): Language {
-        return this.getCorrectLanguage(this.settingsService.get(LanguageService.KEY));
-    }
-    set language(value: Language) {
-        if (value !== this.language) {
-            this.setLanguage(value);
-        }
-    }
+    active: Language;
 
     constructor(private settingsService: SettingsService) {
-        this.setLanguage(this.language);
+        const language = this.settingsService.get(LanguageService.KEY);
+        const correctedLanguage = this.getCorrectLanguage(language);
+        this.change(correctedLanguage);
     }
 
-    private setLanguage(value: Language | string) {
-        const language = this.getCorrectLanguage(value);
+    change(language: Language) {
         moment.locale(language);
         registerLocaleData(angularLocaleData[language], language);
         this.settingsService.set(LanguageService.KEY, language);
+        this.active = language;
     }
 
-    private getCorrectLanguage(language: Language | string) {
+    private getCorrectLanguage(language: Language | string): Language {
         if (!Object.values(Language).includes(language)) {
             return this.getRecomended();
         }
-        return language;
+        return language as Language;
     }
 
-    private getRecomended() {
+    private getRecomended(): Language {
         const language = navigator.language || (navigator as any).userLanguage;
-        return Object.values(Language).includes(language) ? language : this.language || Language.ru;
+        return Object.values(Language).includes(language) ? language : this.active || Language.ru;
     }
 }

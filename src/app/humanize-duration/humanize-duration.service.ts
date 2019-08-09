@@ -15,7 +15,7 @@ export class HumanizeDurationService {
 
     private get duration() {
         return humanizeDuration.humanizer({
-            language: this.languageService.language,
+            language: this.languageService.active,
             round: true,
             delimiter: ' '
         });

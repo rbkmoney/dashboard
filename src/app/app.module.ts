@@ -51,12 +51,12 @@ import { LanguageService } from './locale/language';
         {
             provide: LOCALE_ID,
             deps: [SettingsService],
-            useFactory: (languageService: LanguageService) => languageService.language
+            useFactory: (languageService: LanguageService) => languageService.active
         },
         {
             provide: MAT_DATE_LOCALE,
             deps: [SettingsService],
-            useFactory: (languageService: LanguageService) => languageService.language
+            useFactory: (languageService: LanguageService) => languageService.active
         },
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },

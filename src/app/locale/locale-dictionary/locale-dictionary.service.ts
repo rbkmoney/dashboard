@@ -15,7 +15,7 @@ export class LocaleDictionaryService {
 
     async init(localesUrls: { [language in Language]: string }): Promise<void> {
         this.dictionary = await this.http
-            .get(localesUrls[this.languageService.language])
+            .get(localesUrls[this.languageService.active])
             .pipe(
                 catchError(err => {
                     console.error('An error occurred while fetch locale dictionary', err);
