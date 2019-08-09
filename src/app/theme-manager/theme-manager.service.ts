@@ -37,9 +37,7 @@ export class ThemeManager {
     }
 
     private set(name: ThemeName) {
-        const fileType: Type = environment.production ? Type.CSS : Type.JS;
-        const url = `themes/${name}.${fileType}`;
-        this.element = fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
+        this.element = this.createElement();
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
         this.settingsService.set(ThemeManager.KEY, name);
@@ -51,6 +49,12 @@ export class ThemeManager {
             this.doc.head.removeChild(this.element);
         }
         this.doc.body.classList.remove(this.current);
+    }
+
+    private createElement(): HTMLLinkElement | HTMLScriptElement {
+        const fileType: Type = environment.production ? Type.CSS : Type.JS;
+        const url = `themes/${name}.${fileType}`;
+        return fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
     }
 
     private createStyleElement(url: string): HTMLLinkElement {
