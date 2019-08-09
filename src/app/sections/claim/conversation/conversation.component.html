@@ -1,7 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
     {{
-        'sections.claim.conversation.lastChanges'
-            | lc: { date: (claim$ | async)?.updatedAt | humanizedDuration: { largest: 1 } }
+        'sections.claim.conversation.lastChanges' | lc: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
     }}
     <a>{{ 'common.update' | lc }}</a>
 </div>

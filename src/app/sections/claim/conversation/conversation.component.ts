@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { ConversationService } from './conversation.service';
 
@@ -9,13 +10,8 @@ import { ConversationService } from './conversation.service';
     providers: [ConversationService]
 })
 export class ConversationComponent {
-    get claim$() {
-        return this.conversationService.claim$;
-    }
-
-    get timelineInfo$() {
-        return this.conversationService.timelineInfo$;
-    }
+    updatedAt$ = this.conversationService.claim$.pipe(map(({ updatedAt }) => updatedAt));
+    timelineInfo$ = this.conversationService.timelineInfo$;
 
     constructor(private conversationService: ConversationService) {}
 }
