@@ -17,7 +17,7 @@ import { initializer } from './initializer';
 import { APIModule } from './api';
 import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
-import { ThemeManagerModule, ThemeManager } from './theme-manager';
+import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';

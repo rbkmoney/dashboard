@@ -3,7 +3,6 @@ import localeRu from '@angular/common/locales/ru';
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { LocaleDictionaryService } from './locale/locale-dictionary';
-import { ThemeManager } from './theme-manager';
 import { LanguageService } from './languge';
 
 const supportedLanguages = ['ru'] as const;
