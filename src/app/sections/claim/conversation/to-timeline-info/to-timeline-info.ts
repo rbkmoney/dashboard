@@ -5,7 +5,7 @@ import { TimelineItemInfo } from './timeline-item-info';
 import { toTimelineItemInfo } from './to-timeline-item-info';
 
 function sortUnits(units: ModificationUnit[]): ModificationUnit[] {
-    return units.sort(({ createdAt: a }, { createdAt: b }) => moment(a).milliseconds() - moment(b).milliseconds());
+    return units.sort(({ createdAt: a }, { createdAt: b }) => moment(b).diff(moment(a)));
 }
 
 function toModificationUnitBatches(units: ModificationUnit[]): ModificationUnit[][] {
