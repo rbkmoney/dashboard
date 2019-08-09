@@ -8,38 +8,37 @@ import { LayoutModule } from '../../layout';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { StatusModule } from '../../status';
 import { LocaleModule } from '../../locale';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
-import { DetailsItemComponent } from './details-item/details-item.component';
-import { PaymentToolComponent } from './payment-tool/payment-tool.component';
+import { DetailsItemComponent } from './details-item';
+import {
+    PaymentToolComponent,
+    DigitalWalletComponent,
+    BankCardComponent,
+    PaymentTerminalComponent
+} from './payment-tool';
 import { AmountPipe } from './amount.pipe';
-import { PayerDetailsComponent } from './payer-details/payer-details.component';
-import { HoldDetailsComponent } from './hold-details/hold-details.component';
+import { PayerDetailsComponent, CustomerPayerComponent, PaymentResourcePayerComponent } from './payer-details';
+import { HoldDetailsComponent } from './hold-details';
 import { ButtonModule } from '../../button';
-import { RecurrentDetailsComponent } from './recurrent-details/recurrent-details.component';
-import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
-import { ShopDetailsComponent } from './shop-details/shop-details.component';
-import { RefundsComponent } from './refunds/refunds.component';
-import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
+import { RecurrentDetailsComponent } from './recurrent-details';
+import { InvoiceDetailsComponent } from './invoice-details';
+import { RefundsComponent, RefundItemComponent } from './refunds';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
-import { StatusDetailsItemComponent } from './status-details-item/status-details-item.component';
-import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
+import { StatusDetailsItemComponent } from './status-details-item';
+import { SecondaryTitleDirective } from './secondary-title';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { TimeUntilHoldPipe } from './time-until-hold.pipe';
 import { HoldDatePipe } from './hold-date.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
-import { DigitalWalletComponent } from './payment-tool/digital-wallet/digital-wallet.component';
-import { BankCardComponent } from './payment-tool/bank-card/bank-card.component';
-import { PaymentTerminalComponent } from './payment-tool/payment-terminal/payment-terminal.component';
-import { SearchModule } from '../../search/search.module';
-import { CustomerPayerComponent } from './payer-details/customer-payer/customer-payer.component';
-import { PaymentResourcePayerComponent } from './payer-details/payment-resource-payer/payment-resource-payer.component';
-import { ShopLocationUrlComponent } from './shop-details/shop-location-url/shop-location-url.component';
-import { ViewUtilsModule } from '../../view-utils/view-utils.module';
-import { MakeRecurrentComponent } from './make-recurrent/make-recurrent.component';
-import { InvoiceModule } from '../../invoice/invoice.module';
-import { ShopModule } from '../../shop/shop.module';
+import { SearchModule } from '../../search';
+import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
+import { ViewUtilsModule } from '../../view-utils';
+import { MakeRecurrentComponent } from './make-recurrent';
+import { InvoiceModule } from '../../invoice';
+import { ShopModule } from '../../shop';
+import { HeadlineComponent } from './headline';
 
 @NgModule({
     imports: [
@@ -84,8 +83,8 @@ import { ShopModule } from '../../shop/shop.module';
         CustomerPayerComponent,
         PaymentResourcePayerComponent,
         ShopLocationUrlComponent,
-        MakeRecurrentComponent
-    ],
-    exports: [PaymentDetailsComponent]
+        MakeRecurrentComponent,
+        HeadlineComponent
+    ]
 })
 export class PaymentDetailsModule {}

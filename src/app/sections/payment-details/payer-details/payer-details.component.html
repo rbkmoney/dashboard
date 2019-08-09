@@ -1,7 +1,8 @@
 <dsh-card>
     <dsh-card-title>
         <h2 class="mat-title">
-            {{ localePath + '.title' | lc }}<span *ngIf="payerEmail">: {{ payerEmail }}</span>
+            {{ localePath + '.title' | lc
+            }}<span *ngIf="payer?.contactInfo?.email">: {{ payer?.contactInfo?.email }}</span>
         </h2>
     </dsh-card-title>
     <dsh-card-content>

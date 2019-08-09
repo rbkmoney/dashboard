@@ -13,7 +13,7 @@
                 <div class="mat-body-1">{{ payment?.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
             </dsh-details-item>
         </div>
-        <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount | fromMinor | currency: payment?.currency }}
@@ -36,6 +36,7 @@
             *ngIf="payment?.transactionInfo?.rrn || payment?.shortID"
             fxLayout="row"
             fxLayout.xs="column"
+            fxLayoutGap="0"
             [fxLayoutGap.xs]="layoutGap"
         >
             <dsh-details-item *ngIf="payment?.shortID" [title]="localePath + '.titles.spid' | lc" fxFlex="33">

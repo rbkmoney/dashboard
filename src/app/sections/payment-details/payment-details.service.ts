@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../api/capi/swagger-codegen';
-import { PaymentSearchService } from '../../search/payment-search.service';
+import { PaymentSearchService } from '../../search';
 
 @Injectable()
 export class PaymentDetailsService {
@@ -12,7 +12,9 @@ export class PaymentDetailsService {
 
     getPayment(): Observable<PaymentSearchResult> {
         return this.route.params.pipe(
-            switchMap(({ invoiceID, paymentID }) => this.paymentSearchService.getPayment(invoiceID, paymentID))
+            switchMap(({ invoiceID, paymentID }) =>
+                this.paymentSearchService.getPaymentByDuration(invoiceID, paymentID, 3, 'M')
+            )
         );
     }
 }

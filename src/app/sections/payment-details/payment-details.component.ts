@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import get from 'lodash.get';
 
-import { PaymentSearchResult, PaymentToolDetails } from '../../api/capi/swagger-codegen';
+import { PaymentSearchResult, PaymentToolDetails, PaymentFlow } from '../../api/capi/swagger-codegen';
 import { PaymentDetailsService } from './payment-details.service';
 import { PayerType } from './payer-details/payer-details.component';
+import { LAYOUT_GAP } from '../constants';
 
 @Component({
     templateUrl: './payment-details.component.html',
@@ -15,8 +16,9 @@ export class PaymentDetailsComponent implements OnInit {
     payment$: Observable<PaymentSearchResult>;
 
     PayerType = PayerType;
+    PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(private paymentDetailsService: PaymentDetailsService) {}
+    constructor(private paymentDetailsService: PaymentDetailsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnInit() {
         this.payment$ = this.paymentDetailsService.getPayment();
