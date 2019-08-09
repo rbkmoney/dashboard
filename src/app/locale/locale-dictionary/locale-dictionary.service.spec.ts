@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleDictionaryService } from './locale-dictionary.service';
-import { LanguageService } from '../../language';
+import { LanguageService } from '../language';
 
 class LanguageServiceStub {
     get language() {

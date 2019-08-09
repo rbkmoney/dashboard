@@ -10,7 +10,6 @@ import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ChangesComponent } from './changes';
 import { DocumentsComponent } from './documents';
-import { ClaimService } from './claim.service';
 import { ClaimsModule } from '../../claims';
 import { ConversationModule } from './conversation';
 

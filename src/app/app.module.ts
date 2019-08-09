@@ -22,7 +22,7 @@ import { ConfigModule, ConfigService } from './config';
 import { SettingsModule, SettingsService } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
-import { LanguageService } from './language';
+import { LanguageService } from './locale/language';
 
 @NgModule({
     declarations: [AppComponent],
@@ -45,7 +45,7 @@ import { LanguageService } from './language';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleDictionaryService, LanguageService],
+            deps: [ConfigService, KeycloakService, LocaleDictionaryService],
             multi: true
         },
         {

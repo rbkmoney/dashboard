@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { LanguageService } from './language.service';
-import { SettingsModule } from '../settings';
+import { SettingsModule } from '../../settings';
 
 @NgModule({
     imports: [SettingsModule],

@@ -5,13 +5,7 @@ import { Observable } from 'rxjs';
 import get from 'lodash.get';
 import template from 'lodash.template';
 
-import { LanguageService } from '../../language/language.service';
-
-const STATIC_MARK = Symbol();
-
-type LocalesUrls<L extends string = string> = {
-    [language in L]: string;
-};
+import { LanguageService, Language } from '../language';
 
 @Injectable()
 export class LocaleDictionaryService {
@@ -19,9 +13,9 @@ export class LocaleDictionaryService {
 
     constructor(private http: HttpClient, private languageService: LanguageService) {}
 
-    async init<L extends string = string>(localesUrls: LocalesUrls<L>): Promise<void> {
+    async init(localesUrls: { [language in Language]: string }): Promise<void> {
         this.dictionary = await this.http
-            .get(localesUrls[this.languageService.language] || localesUrls[this.languageService.default])
+            .get(localesUrls[this.languageService.language])
             .pipe(
                 catchError(err => {
                     console.error('An error occurred while fetch locale dictionary', err);
@@ -41,8 +35,9 @@ export class LocaleDictionaryService {
             console.warn(`Key must be a number or a string. Get: ${typeof key} "${key}"`);
             return key;
         }
-        const str = get(this.dictionary, key, STATIC_MARK);
-        if (str === STATIC_MARK) {
+        const defaultMark = Symbol();
+        const str = get(this.dictionary, key, defaultMark);
+        if (str === defaultMark) {
             console.warn(`Unknown locale dictionary "${key}" key`);
             return key;
         }

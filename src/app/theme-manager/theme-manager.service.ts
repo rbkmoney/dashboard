@@ -12,7 +12,7 @@ enum Type {
 
 @Injectable()
 export class ThemeManager {
-    static readonly KEY = 'theme';
+    private static readonly KEY = 'theme';
 
     current: ThemeName;
 

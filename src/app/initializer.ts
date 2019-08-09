@@ -1,19 +1,13 @@
-import localeRu from '@angular/common/locales/ru';
-
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { LocaleDictionaryService } from './locale/locale-dictionary';
-import { LanguageService } from './language';
-
-const supportedLanguages = ['ru'] as const;
+import { Language } from './locale';
 
 export const initializer = (
     configService: ConfigService,
     keycloakService: KeycloakService,
-    localeService: LocaleDictionaryService,
-    languageService: LanguageService
+    localeService: LocaleDictionaryService
 ) => async () => {
-    languageService.init(supportedLanguages, supportedLanguages[0], { ru: localeRu });
     await Promise.all([
         configService.init({ configUrl: '/assets/appConfig.json' }),
         keycloakService.init({
@@ -26,6 +20,6 @@ export const initializer = (
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
         }),
-        localeService.init<typeof supportedLanguages[number]>({ ru: '/assets/locales/ru.json' })
+        localeService.init({ [Language.ru]: '/assets/locales/ru.json' })
     ]);
 };
