@@ -6,7 +6,6 @@ import { LocaleDictionaryService } from './locale/locale-dictionary';
 import { LanguageService } from './languge';
 
 const supportedLanguages = ['ru'] as const;
-const supportedThemes = ['light', 'dark'] as const;
 
 export const initializer = (
     configService: ConfigService,
