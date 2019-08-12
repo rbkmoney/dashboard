@@ -3,7 +3,6 @@ import { Component, Inject, Input } from '@angular/core';
 import { Payer, PaymentResourcePayer } from '../../../api/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 
-// TODO add to swag
 export enum PayerType {
     CustomerPayer = 'CustomerPayer',
     PaymentResourcePayer = 'PaymentResourcePayer',

@@ -2,16 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import get from 'lodash.get';
 
-import {
-    PaymentSearchResult,
-    PaymentStatus,
-    PaymentToolDetailsBankCard,
-    PayoutToolDetailsBankCard
-} from '../../api/capi/swagger-codegen';
-import PaymentSystemEnum = PaymentToolDetailsBankCard.PaymentSystemEnum;
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api/capi/swagger-codegen';
 import { PaymentDetailsService } from './payment-details.service';
-import { PayerType } from './payer-details/payer-details.component';
+import { PayerType } from './payer-details';
 import { LAYOUT_GAP } from '../constants';
 
 @Component({
