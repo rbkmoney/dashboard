@@ -1,5 +1,4 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import {
     AfterContentChecked,
@@ -48,7 +47,6 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     _tabLinks: QueryList<TabLinkDirective>;
 
     constructor(
-        elementRef: ElementRef,
         @Optional() private _dir: Directionality,
         private _ngZone: NgZone,
         private _changeDetectorRef: ChangeDetectorRef,
@@ -127,8 +125,6 @@ export class TabLinkDirective implements CanDisable, HasTabIndex {
     constructor(
         private _tabNavBar: TabNavComponent,
         public _elementRef: ElementRef,
-        ngZone: NgZone,
-        platform: Platform,
         @Attribute('tabindex') tabIndex: string
     ) {
         this.tabIndex = parseInt(tabIndex, 10) || 0;

@@ -2,9 +2,12 @@ import { Component, Type, Provider, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FloatPanelModule } from './float-panel.module';
 import { FloatPanelComponent } from './float-panel.component';
+import { LocaleDictionaryModule } from '../../locale';
+import { SettingsModule } from '../../settings';
 
 @Component({
     template: `
@@ -34,7 +37,13 @@ describe('FloatPanelComponent', () => {
         declarations: any[] = []
     ): ComponentFixture<T> {
         TestBed.configureTestingModule({
-            imports: [FloatPanelModule, NoopAnimationsModule],
+            imports: [
+                FloatPanelModule,
+                NoopAnimationsModule,
+                LocaleDictionaryModule,
+                HttpClientTestingModule,
+                SettingsModule
+            ],
             declarations: [component, ...declarations],
             providers
         }).compileComponents();

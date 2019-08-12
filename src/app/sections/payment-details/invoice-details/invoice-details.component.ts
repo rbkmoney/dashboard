@@ -2,10 +2,10 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
+import { StatusColor as Color } from '../../../theme-manager';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 import { InvoiceDetailsService } from './invoice-details.service';
 import { LAYOUT_GAP } from '../../constants';
-import { StatusColor } from '../../../theme-manager';
 
 @Component({
     selector: 'dsh-invoice-details',
@@ -31,13 +31,13 @@ export class InvoiceDetailsComponent implements OnInit {
         const statusEnum = InvoiceStatus.StatusEnum;
         switch (status) {
             case statusEnum.Paid:
-                return { color: StatusColor.success, text: `${localePath}.paid` };
+                return { color: Color.success, text: `${localePath}.paid` };
             case statusEnum.Fulfilled:
-                return { color: StatusColor.success, text: `${localePath}.fulfilled` };
+                return { color: Color.success, text: `${localePath}.fulfilled` };
             case statusEnum.Cancelled:
-                return { color: StatusColor.warn, text: `${localePath}.cancelled` };
+                return { color: Color.warn, text: `${localePath}.cancelled` };
             case statusEnum.Unpaid:
-                return { color: StatusColor.pending, text: `${localePath}.unpaid` };
+                return { color: Color.pending, text: `${localePath}.unpaid` };
         }
     }
 }

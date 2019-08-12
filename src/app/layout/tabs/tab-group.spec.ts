@@ -197,11 +197,9 @@ describe('DshTabGroupComponentComponent', () => {
 
     describe('basic', () => {
         let fixture: ComponentFixture<SimpleTabsTestAppComponent>;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(SimpleTabsTestAppComponent);
-            element = fixture.nativeElement;
         });
 
         it('should default to the second tab', () => {

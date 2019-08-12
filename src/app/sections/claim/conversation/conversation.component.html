@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
+    {{
+        'sections.claim.conversation.lastChanges' | lc: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
+    }}
+    <a>{{ 'common.update' | lc }}</a>
+</div>
+
+<div fxLayout="column" fxLayoutGap="20px">
+    <dsh-timeline>
+        <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
+            <dsh-timeline-item-title>
+                <b class="mat-body-2">{{ item.author | timelineItemAuthorDicPath | lc }}</b>
+                {{ item.action | timelineActionDicPath | lc }}
+                {{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ 'sections.claim.conversation.ago' | lc }}
+            </dsh-timeline-item-title>
+            <dsh-timeline-item-badge>
+                <dsh-timeline-action-icon [action]="item.action"></dsh-timeline-action-icon>
+            </dsh-timeline-item-badge>
+            <dsh-timeline-item-content>
+                <!-- TODO: описание -->
+            </dsh-timeline-item-content>
+        </dsh-timeline-item>
+    </dsh-timeline>
+    <div class="comment" fxLayout="column">
+        <mat-form-field>
+            <textarea matInput [placeholder]="'sections.claim.conversation.leaveTheComment' | lc"></textarea>
+        </mat-form-field>
+        <div>
+            <button dsh-stroked-button class="action">
+                {{ 'sections.claim.conversation.toLeaveTheComment' | lc }}
+            </button>
+        </div>
+    </div>
+</div>

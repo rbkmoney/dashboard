@@ -12,7 +12,7 @@
     border-radius: 50%;
     z-index: 10;
 
-    ::ng-deep & .mat-icon {
+    ::ng-deep * {
         height: $icons-size;
         width: $icons-size;
         font-size: $icons-size;

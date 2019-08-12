@@ -2,21 +2,20 @@
     <dsh-card
         class="dsh-float-panel-card"
         [ngClass]="{
-            'dsh-float-panel-card-unpinned': !pinned || !expanded
+            'dsh-float-panel-card-unpinned': !expanded || !pinned
         }"
         (dshResized)="cardHeight = $event.height"
     >
-        <div (dshResized)="baseContentHeight = $event.height">
-            <div fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
-                <!--need this additional div because invisible resize-sensor affects render-->
-                <div fxFlex>
+        <div (dshResized)="setBaseContentHeight($event.height)">
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
+                <div fxFlex.gt-sm>
                     <ng-content></ng-content>
                 </div>
-                <div *ngIf="!expanded" fxLayout class="dsh-float-panel-actions" fxLayoutAlign="center center">
-                    <button dsh-icon-button (click)="expandToggle()" @hide fxHide.sm fxHide.xs>
+                <div *ngIf="!expanded" class="dsh-float-panel-actions" fxLayout fxLayoutAlign="center center">
+                    <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
                         <mat-icon>expand_more</mat-icon>
                     </button>
-                    <button dsh-button (click)="expandToggle()" fxFlex fxHide fxShow.sm fxShow.xs>
+                    <button dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
                         {{ 'common.showMore' | lc }}
                     </button>
                 </div>

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { StatusColor } from '../../../theme-manager';
+import { StatusColor as Color } from '../../../theme-manager';
 
 export interface StatusViewInfo {
-    color: StatusColor;
+    color: Color;
     text: string;
 }
 

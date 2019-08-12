@@ -49,6 +49,10 @@ export class FloatPanelComponent {
         this.pinned = !this.pinned;
     }
 
+    setBaseContentHeight(height: number) {
+        this.baseContentHeight = height;
+    }
+
     setMoreContentHeight(height: number) {
         this.expandTrigger = { value: ExpandState.expanded, params: { height } };
     }

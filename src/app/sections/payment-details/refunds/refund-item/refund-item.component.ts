@@ -1,9 +1,10 @@
 import { Component, Inject, Input, OnChanges } from '@angular/core';
 
+import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
+import { StatusColor as Color } from '../../../../theme-manager';
 import { RefundSearchResult, RefundStatus } from '../../../../api/capi/swagger-codegen';
 import { StatusViewInfo } from '../../status-details-item/status-details-item.component';
 import { LAYOUT_GAP } from '../../../constants';
-import { StatusColor } from '../../../../theme-manager';
 
 @Component({
     selector: 'dsh-refund-item',
@@ -26,11 +27,11 @@ export class RefundItemComponent implements OnChanges {
         const statusEnum = RefundStatus.StatusEnum;
         switch (status) {
             case statusEnum.Succeeded:
-                return { color: StatusColor.success, text: `${localePath}.succeeded` };
+                return { color: Color.success, text: `${localePath}.succeeded` };
             case statusEnum.Failed:
-                return { color: StatusColor.warn, text: `${localePath}.failed` };
+                return { color: Color.warn, text: `${localePath}.failed` };
             case statusEnum.Pending:
-                return { color: StatusColor.pending, text: `${localePath}.pending` };
+                return { color: Color.pending, text: `${localePath}.pending` };
         }
     }
 }

@@ -1,15 +1,12 @@
 <dsh-dropdown-content fxLayout="column" fxLayoutGap="10px">
-    <div>
-        <h1 class="mat-title">Последние заявки</h1>
-        <dsh-claims-list>
-            <dsh-claims-list-item status="Одобрена" color="success">Заявка на подключение</dsh-claims-list-item>
-            <dsh-claims-list-item status="Отклонена" color="warn">Изменение данных средсва вывода</dsh-claims-list-item>
-            <dsh-claims-list-item status="На рассмотрении">Изменение расписания вывода средств</dsh-claims-list-item>
-            <dsh-claims-list-item status="Требуются ваши действия" color="pending"
-                >Изменения данных контракта</dsh-claims-list-item
-            >
-            <dsh-claims-list-item status="На рассмотрении">Изменения данных контракта</dsh-claims-list-item>
-        </dsh-claims-list>
-    </div>
-    <button dsh-button class="action">Перейти ко всем заявкам</button>
+    <h1 class="mat-title">{{ dicBasePath + '.title' | lc }}</h1>
+    <dsh-claims-list>
+        <dsh-claims-list-item
+            *ngFor="let claim of claims$ | async"
+            [claim]="claim"
+            (menuItemSelected)="menuItemSelected.next()"
+        >
+        </dsh-claims-list-item>
+    </dsh-claims-list>
+    <button dsh-button class="action">{{ dicBasePath + '.goToAll' | lc }}</button>
 </dsh-dropdown-content>

@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 import { LAYOUT_GAP } from '../../constants';
-import { StatusColor } from '../../../theme-manager';
+import { StatusColor as Color } from '../../../theme-manager';
 
 @Component({
     selector: 'dsh-details',
@@ -29,17 +29,17 @@ export class DetailsComponent implements OnChanges {
         const statusEnum = PaymentStatus.StatusEnum;
         switch (status) {
             case statusEnum.Processed:
-                return { color: StatusColor.success, text: `${localePath}.processed` };
+                return { color: Color.success, text: `${localePath}.processed` };
             case statusEnum.Failed:
-                return { color: StatusColor.warn, text: `${localePath}.failed` };
+                return { color: Color.warn, text: `${localePath}.failed` };
             case statusEnum.Refunded:
-                return { color: null, text: `${localePath}.refunded` };
+                return { color: Color.success, text: `${localePath}.refunded` };
             case statusEnum.Cancelled:
-                return { color: StatusColor.warn, text: `${localePath}.cancelled` };
+                return { color: Color.warn, text: `${localePath}.cancelled` };
             case statusEnum.Captured:
-                return { color: StatusColor.success, text: `${localePath}.captured` };
+                return { color: Color.pending, text: `${localePath}.captured` };
             case statusEnum.Pending:
-                return { color: StatusColor.pending, text: `${localePath}.pending` };
+                return { color: Color.pending, text: `${localePath}.pending` };
         }
     }
 }
