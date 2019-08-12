@@ -10,6 +10,7 @@ import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
 import { LAYOUT_GAP } from './constants';
+import { OnboardingModule } from './onboarding';
 
 @NgModule({
     imports: [
@@ -19,8 +20,9 @@ import { LAYOUT_GAP } from './constants';
         ButtonsModule,
         InputsModule,
         PaymentSectionModule,
-        SectionsRoutingModule,
-        PaymentDetailsModule
+        OnboardingModule,
+        PaymentDetailsModule,
+        SectionsRoutingModule
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent],
