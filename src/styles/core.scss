@@ -12,7 +12,6 @@
 @import '../app/button/button-theme';
 @import '../app/layout/tabs/tabs-theme';
 @import '../app/button-toggle/button-toggle-theme';
-@import '../app/status/status-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
 @import './overrides/body';
@@ -44,7 +43,6 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
-    @include dsh-status-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-expand-panel-typography($config);

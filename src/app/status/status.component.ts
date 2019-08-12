@@ -1,6 +1,7 @@
 import { Component, Input, HostBinding } from '@angular/core';
 
 import { StatusColor } from '../theme-manager';
+import { coerceBoolean } from '../../utils';
 
 @Component({
     selector: 'dsh-status',
@@ -9,6 +10,10 @@ import { StatusColor } from '../theme-manager';
 })
 export class StatusComponent {
     @Input() color: StatusColor;
+
+    @Input()
+    @coerceBoolean
+    mark = true;
 
     @HostBinding('class.dsh-status') baseClass = true;
 

@@ -4,7 +4,7 @@ export enum TimelineAction {
     documentsAdded, // добавлены документы
     commentAdded, // добавлен комментарий
     statusReview, // заявка отправлена на рассмотрение
-    statusPendingAcceptance, // заявка рассмотренна. Требуются ваши действия.
+    statusPendingAcceptance, // заявка рассмотрена. Требуются ваши действия.
     statusDenied, // заявка отклонена
     statusRevoked, // заявка отозвана
     statusAccepted, // заявка одобрена

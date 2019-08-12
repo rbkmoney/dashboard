@@ -4,7 +4,9 @@
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
             <h2 class="mat-title">{{ 'sections.claim.request' | lc }}</h2>
-            <h2 class="mat-title">{{ (claimStatusViewInfo$ | async)?.statusDicPath | lc }}</h2>
+            <dsh-status [color]="(claimStatusViewInfo$ | async)?.color" class="mat-title" mark="false">
+                {{ (claimStatusViewInfo$ | async)?.statusDicPath | lc }}
+            </dsh-status>
         </div>
         <nav dsh-tab-nav-bar>
             <a

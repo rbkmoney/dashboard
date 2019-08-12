@@ -12,6 +12,7 @@ import { ChangesComponent } from './changes';
 import { DocumentsComponent } from './documents';
 import { ClaimsModule } from '../../claims';
 import { ConversationModule } from './conversation';
+import { StatusModule } from '../../status';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { ConversationModule } from './conversation';
         LocaleModule,
         ClaimsModule,
         ClaimRoutingModule,
-        ConversationModule
+        ConversationModule,
+        StatusModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })
