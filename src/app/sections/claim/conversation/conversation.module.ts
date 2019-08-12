@@ -12,7 +12,7 @@ import { TimelineActionDicPathPipe } from './timeline-action-dic-path.pipe';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { LocaleModule } from '../../../locale';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { TimelineItemAuthorNamePipe } from './timeline-item-author-name.pipe';
+import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.pipe';
 
 @NgModule({
     imports: [
@@ -32,7 +32,7 @@ import { TimelineItemAuthorNamePipe } from './timeline-item-author-name.pipe';
         ConversationComponent,
         TimelineActionDicPathPipe,
         TimelineActionIconComponent,
-        TimelineItemAuthorNamePipe
+        TimelineItemAuthorDicPathPipe
     ],
     exports: [ConversationComponent]
 })
