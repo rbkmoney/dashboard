@@ -1,18 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { TimelineAction } from './to-timeline-info';
-import { LocaleDictionaryService } from '../../../locale';
 
-@Pipe({ name: 'timelineActionTitle' })
-export class TimelineActionTitlePipe implements PipeTransform {
-    constructor(private localeDictionaryService: LocaleDictionaryService) {}
-
+@Pipe({ name: 'timelineActionDicPath' })
+export class TimelineActionDicPathPipe implements PipeTransform {
     transform(value: TimelineAction): string {
-        return this.localeDictionaryService.mapDictionaryKey(this.getTimelineActionTitle(value));
+        return this.getTimelineActionDicPath(value);
     }
 
-    getTimelineActionTitle(action: TimelineAction): string {
-        const timelineActionTitle = ({
+    getTimelineActionDicPath(action: TimelineAction): string {
+        const timelineActionDicPathPart = ({
             [TimelineAction.statusPending]: 'pending',
             [TimelineAction.statusPendingAcceptance]: 'pendingAcceptance',
             [TimelineAction.statusReview]: 'review',
@@ -24,6 +21,9 @@ export class TimelineActionTitlePipe implements PipeTransform {
             [TimelineAction.commentAdded]: 'commentAdded',
             [TimelineAction.changesAdded]: 'changesAdded'
         } as const)[action];
-        return timelineActionTitle && `sections.claim.conversation.to-timeline-info.action.${timelineActionTitle}`;
+        return (
+            timelineActionDicPathPart &&
+            `sections.claim.conversation.to-timeline-info.action.${timelineActionDicPathPart}`
+        );
     }
 }

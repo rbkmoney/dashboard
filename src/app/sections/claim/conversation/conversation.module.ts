@@ -8,7 +8,7 @@ import { ConversationComponent } from './conversation.component';
 import { TimelineActionIconComponent } from './timeline-action-icon';
 import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
-import { TimelineActionTitlePipe } from './timeline-action-title.pipe';
+import { TimelineActionDicPathPipe } from './timeline-action-dic-path.pipe';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { LocaleModule } from '../../../locale';
 import { HumanizeDurationModule } from '../../../humanize-duration';
@@ -30,7 +30,7 @@ import { TimelineItemAuthorNamePipe } from './timeline-item-author-name.pipe';
     ],
     declarations: [
         ConversationComponent,
-        TimelineActionTitlePipe,
+        TimelineActionDicPathPipe,
         TimelineActionIconComponent,
         TimelineItemAuthorNamePipe
     ],
