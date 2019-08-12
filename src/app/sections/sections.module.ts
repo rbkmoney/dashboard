@@ -9,6 +9,7 @@ import { InputsModule } from './inputs/inputs.module';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
+import { OnboardingModule } from './onboarding';
 
 @NgModule({
     imports: [
@@ -18,8 +19,9 @@ import { PaymentDetailsModule } from './payment-details';
         ButtonsModule,
         InputsModule,
         PaymentSectionModule,
-        SectionsRoutingModule,
-        PaymentDetailsModule
+        OnboardingModule,
+        PaymentDetailsModule,
+        SectionsRoutingModule
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent]
