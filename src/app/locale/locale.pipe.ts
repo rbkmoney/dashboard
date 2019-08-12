@@ -8,7 +8,7 @@ import { LocaleDictionaryService } from './locale-dictionary';
 export class LocalePipe implements PipeTransform {
     constructor(private localeService: LocaleDictionaryService) {}
 
-    transform(key: string): string {
-        return this.localeService.mapDictionaryKey(key);
+    transform(key: string, templateData?: object): string {
+        return this.localeService.mapDictionaryKey(key, templateData);
     }
 }

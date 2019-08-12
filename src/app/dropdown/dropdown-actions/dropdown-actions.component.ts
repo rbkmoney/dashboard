@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: 'dropdown-actions.component.html',
     styleUrls: ['dropdown-actions.component.scss']
 })
-export class DropdownActionsComponent {
-    constructor() {}
-}
+export class DropdownActionsComponent {}

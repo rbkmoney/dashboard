@@ -1,3 +1,31 @@
-<div class="dsh-claim">
-    <ng-content></ng-content>
-</div>
+<h1 class="mat-headline">{{ 'sections.claim.details' | lc }} #{{ claimID$ | async }}</h1>
+
+<dsh-card>
+    <dsh-card-content>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h2 class="mat-title">{{ 'sections.claim.request' | lc }}</h2>
+            <dsh-status [color]="(claimStatusViewInfo$ | async)?.color" class="mat-title" mark="false">
+                {{ (claimStatusViewInfo$ | async)?.statusDicPath | lc }}
+            </dsh-status>
+        </div>
+        <nav dsh-tab-nav-bar>
+            <a
+                dsh-tab-link
+                *ngFor="let link of links"
+                [routerLink]="link.path"
+                routerLinkActive
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+            >
+                {{ link.label | lc }}
+            </a>
+        </nav>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </dsh-card-content>
+    <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between">
+        <button dsh-stroked-button color="warn">{{ 'sections.claim.recall' | lc }}</button>
+        <button dsh-button color="accent">{{ 'sections.claim.placeBefore' | lc }}</button>
+    </dsh-card-actions>
+</dsh-card>

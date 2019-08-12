@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 
 import { config as appConfig } from './config-stub';
-import { Config } from './config';
+import { BaseConfig } from './config';
 
 @Injectable()
-export class ConfigStubService implements Config {
-    api: Config['api'];
-    daData: Config['daData'];
-    konturFocus: Config['konturFocus'];
-    ext: Config['ext'];
-
+export class ConfigStubService extends BaseConfig {
     constructor() {
+        super();
         for (const [name, config] of Object.entries(appConfig)) {
             this[name] = config;
         }
     }
 
+    // tslint:disable-next-line: no-empty
     async init() {}
 }

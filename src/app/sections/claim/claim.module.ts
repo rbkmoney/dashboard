@@ -1,28 +1,32 @@
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
 
-import { ClaimComponent } from './claim.component';
-import { DetailsComponent } from './details';
 import { LayoutModule } from '../../layout';
-import { DshTabsModule } from '../../layout/tabs';
 import { ButtonModule } from '../../button';
-import { TimelineModule } from '../../timeline';
-import { ExpandPanelModule } from '../../expand-panel';
+import { LocaleModule } from '../../locale';
+import { DshTabsModule } from '../../layout/tabs';
+import { ClaimRoutingModule } from './claim-routing.module';
+import { ClaimComponent } from './claim.component';
+import { ChangesComponent } from './changes';
+import { DocumentsComponent } from './documents';
+import { ClaimsModule } from '../../claims';
+import { ConversationModule } from './conversation';
+import { StatusModule } from '../../status';
 
 @NgModule({
     imports: [
+        CommonModule,
         LayoutModule,
         DshTabsModule,
         ButtonModule,
         FlexLayoutModule,
-        MatFormFieldModule,
-        MatInputModule,
-        TimelineModule,
-        MatIconModule,
-        ExpandPanelModule
+        LocaleModule,
+        ClaimsModule,
+        ClaimRoutingModule,
+        ConversationModule,
+        StatusModule
     ],
-    declarations: [ClaimComponent, DetailsComponent],
-    exports: []
+    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })
 export class ClaimModule {}

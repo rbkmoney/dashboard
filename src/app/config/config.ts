@@ -1,5 +1,5 @@
-type AppConfig = typeof import('../../assets/appConfig.json');
+import { getBaseClass } from '../../utils';
 
-// Interface is needed so that you can implement in the class
-// tslint:disable-next-line:no-empty-interface
-export interface Config extends AppConfig {}
+export type Config = typeof import('../../assets/appConfig.json');
+
+export const BaseConfig = getBaseClass<Config>();

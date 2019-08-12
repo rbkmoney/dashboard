@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main';
 import { PageNotFoundComponent } from './page-not-found';
 import { AnalyticsComponent } from './analytics';
-import { routes as claimRoutes } from './claim';
 import { ButtonsComponent } from './buttons';
 import { InputsComponent } from './inputs/inputs.component';
 
@@ -13,7 +12,6 @@ const routes: Routes = [
         path: '',
         component: MainComponent
     },
-    ...claimRoutes,
     {
         path: 'analytics',
         component: AnalyticsComponent
@@ -27,13 +25,17 @@ const routes: Routes = [
         component: InputsComponent
     },
     {
+        path: 'claim',
+        loadChildren: () => import('./claim').then(m => m.ClaimModule)
+    },
+    {
         path: '**',
         component: PageNotFoundComponent
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' })],
     exports: [RouterModule]
 })
 export class SectionsRoutingModule {}

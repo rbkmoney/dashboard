@@ -15,10 +15,9 @@
 
 npm ci
 
-# Generate swagger
+# Generate swagger API Angular modules
 
-make wc_shell
-make compile
+npm run codegen
 ```
 
 ## Development server
@@ -30,6 +29,22 @@ make compile
 
 1. Run `npm run build`
 1. The build artifacts will be stored in the `dist/` directory.
+
+## Add API
+
+1.  Add submodule
+
+    ```sh
+    git submodule -b <SCHEME_BRANCH> add <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
+    ```
+
+1.  Add submodule directory (`schemes/<SCHEME_NAME>/<VER:VX>`) to Makefile `SWAGGER_SCHEMES_PATH`
+1.  [Generate swagger API Angular modules](#initialization)
+1.  Update `config.json` and `stub-config.json`
+1.  Add `src/api/<SCHEME_NAME>`:
+    -   `index.ts`
+    -   `<SCHEME_NAME>.module.ts`
+    -   `<SCHEME_NAME>-config.service.ts`
 
 ## Tests
 

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {
-    PaymentResourcePayer,
     PaymentSearchResult,
     PaymentStatus,
     PaymentToolDetailsBankCard,

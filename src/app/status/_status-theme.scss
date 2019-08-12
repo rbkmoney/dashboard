@@ -41,9 +41,3 @@
         }
     }
 }
-
-@mixin dsh-status-typography($config) {
-    .dsh-status {
-        @include mat-typography-level-to-styles($config, body-1);
-    }
-}

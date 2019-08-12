@@ -1,44 +1,51 @@
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LocaleDictionaryService } from './locale-dictionary.service';
-import { SettingsService } from '../../settings/settings.service';
-
-class SettingsServiceStub {
-    get language() {
-        return 'ru';
-    }
-}
+import { LanguageService, Language } from '../language';
 
 const dummyDict = {
-    'test key': 'test value'
+    'test key': 'test value',
+    template_test_key: 'test <%- replacement %> value'
 };
 
 describe('LocaleDictionaryService', () => {
-    let ls: LocaleDictionaryService;
-    let httpMock: HttpTestingController;
-    beforeAll(fakeAsync(() => {
+    async function createService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [LocaleDictionaryService, { provide: SettingsService, useClass: SettingsServiceStub }]
+            providers: [LocaleDictionaryService, { provide: LanguageService, useValue: { active: Language.ru } }]
         });
-        ls = TestBed.get(LocaleDictionaryService);
-        spyOn(console, 'warn');
-        ls = TestBed.get(LocaleDictionaryService);
-        httpMock = TestBed.get(HttpTestingController);
-
-        ls.init().then(() => {});
-        const req = httpMock.expectOne(`/assets/locales/ru.json`, 'get the dictionary');
+        const ls: LocaleDictionaryService = TestBed.get(LocaleDictionaryService);
+        const httpMock = TestBed.get(HttpTestingController);
+        const load = ls.init({ ru: '/assets/locales/ru.json' });
+        const req = httpMock.expectOne(`/assets/locales/ru.json`);
         req.flush(dummyDict);
-        expect(req.request.method).toBe('GET');
-    }));
+        await load;
+        return { ls, httpMock, req };
+    }
 
-    it('should return test value', () => {
-        expect(ls.mapDictionaryKey('test key')).toBe('test value');
+    it('should return config', async done => {
+        const { req } = await createService();
+        expect(req.request.method).toBe('GET');
+        done();
     });
 
-    it('should return test key and call warning', () => {
-        expect(ls.mapDictionaryKey('test_key')).toBe('test_key');
+    it('should return test value', async done => {
+        expect((await createService()).ls.mapDictionaryKey('test key')).toBe('test value');
+        done();
+    });
+
+    it('should return template test value', async done => {
+        expect((await createService()).ls.mapDictionaryKey('template_test_key', { replacement: 'sample' })).toBe(
+            'test sample value'
+        );
+        done();
+    });
+
+    it('should return test key and call warning', async done => {
+        spyOn(console, 'warn');
+        expect((await createService()).ls.mapDictionaryKey('test_key')).toBe('test_key');
         expect(console.warn).toHaveBeenCalled();
+        done();
     });
 });
