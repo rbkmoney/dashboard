@@ -9,9 +9,9 @@ export type Value = number | string | moment.Moment | Date;
 @Injectable()
 export class HumanizeDurationService {
     static HOUR_MS = 3600000;
-    static MIN_HUMINIZE_DURATION_UPDATE_MS = 1000;
-    static MOMENT_HUMINIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
-    static MOMENT_HUMINIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
+    static MIN_HUMANIZE_DURATION_UPDATE_MS = 1000;
+    static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
+    static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
 
     private get duration() {
         return humanizeDuration.humanizer({
@@ -41,11 +41,11 @@ export class HumanizeDurationService {
         if (largest === 1) {
             const diffMs = this.getDiffMs(value);
             if (diffMs < HumanizeDurationService.HOUR_MS) {
-                return HumanizeDurationService.MOMENT_HUMINIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS;
+                return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS;
             }
-            return HumanizeDurationService.MOMENT_HUMINIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS;
+            return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS;
         }
-        return HumanizeDurationService.MIN_HUMINIZE_DURATION_UPDATE_MS;
+        return HumanizeDurationService.MIN_HUMANIZE_DURATION_UPDATE_MS;
     }
 
     isDiff(value: Value): value is number {

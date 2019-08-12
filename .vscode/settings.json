@@ -10,7 +10,9 @@
         "CAPI",
         "Keycloak",
         "dadata",
+        "downlevel",
         "dropdown",
+        "esnext",
         "mastercard"
     ],
     "cSpell.language": "en,ru"
