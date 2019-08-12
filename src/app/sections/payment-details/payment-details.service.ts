@@ -13,7 +13,7 @@ export class PaymentDetailsService {
     getPayment(): Observable<PaymentSearchResult> {
         return this.route.params.pipe(
             switchMap(({ invoiceID, paymentID }) =>
-                this.paymentSearchService.getPaymentByDuration(invoiceID, paymentID, 3, 'M')
+                this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
             )
         );
     }

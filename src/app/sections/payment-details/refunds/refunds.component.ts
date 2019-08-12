@@ -26,7 +26,7 @@ export class RefundsComponent implements OnInit {
 
     ngOnInit() {
         this.refunds$ = this.refundsService.refunds();
-        this.hasMoreRefunds$ = this.refundsService.hasMoreObservable();
+        this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
         this.loadMore();
     }
 

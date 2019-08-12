@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { RefundSearchService } from '../../../search/refund-search.service';
+import { RefundSearchService } from '../../../search';
 import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
 
 @Injectable()
@@ -16,11 +16,11 @@ export class RefundsService {
 
     loadRefunds(invoiceID: string, paymentID: string) {
         this.refundSearchService
-            .searchRefunds(invoiceID, paymentID, this.continuationToken)
-            .subscribe(refundsWithToken => {
-                this.continuationToken = refundsWithToken.continuationToken;
-                this.hasMoreRefunds$.next(!!refundsWithToken.continuationToken);
-                this.refunds$.next(this.refunds$.getValue().concat(refundsWithToken.result));
+            .searchRefundsByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID, 3, this.continuationToken)
+            .subscribe(({ continuationToken, result }) => {
+                this.continuationToken = continuationToken;
+                this.hasMoreRefunds$.next(!!continuationToken);
+                this.refunds$.next(this.refunds$.getValue().concat(result));
             });
     }
 
@@ -28,7 +28,7 @@ export class RefundsService {
         return this.refunds$.asObservable();
     }
 
-    hasMoreObservable(): Observable<boolean> {
+    hasMoreRefunds(): Observable<boolean> {
         return this.hasMoreRefunds$.asObservable();
     }
 }
