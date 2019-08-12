@@ -10,8 +10,6 @@ import { CAPIConfigService } from './capi-config.service';
             providers: [{ provide: Configuration, useClass: CAPIConfigService }]
         }
     ],
-    declarations: [],
-    entryComponents: [],
     providers: [CAPIConfigService]
 })
 export class CAPIModule {}

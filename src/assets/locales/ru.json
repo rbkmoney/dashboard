@@ -9,6 +9,7 @@
         "week": "Неделя",
         "month": "Месяц",
         "any": "Любой",
+        "update": "Обновить",
         "paymentStatus": {
             "pending": "Запущен",
             "processed": "Обработан",
@@ -54,6 +55,21 @@
         "paymentMethod": {
             "bankCard": "Банковская карта",
             "paymentTerminal": "Терминал"
+        },
+        "claimStatus": {
+            "pending": "В ожидании",
+            "pendingAcceptance": "Требуются ваши действия",
+            "review": "На рассмотрении",
+            "revoked": "Отозвана",
+            "denied": "Отклонена",
+            "accepted": "Одобрена"
+        }
+    },
+    "actionbar": {
+        "claims": {
+            "title": "Последние заявки",
+            "details": "Детали заявки",
+            "goToAll": "Перейти ко всем заявкам"
         }
     },
     "sections": {
@@ -159,6 +175,43 @@
             "refunds": {
                 "title": "Возвраты"
             }
+        },
+        "claim": {
+            "conversation": {
+                "label": "Обсуждения",
+                "leaveTheComment": "Оставьте комментарий",
+                "toLeaveTheComment": "Оставить комментарий",
+                "lastChanges": "Последние изменения <%- date %> назад",
+                "ago": "назад",
+                "to-timeline-info": {
+                    "action": {
+                        "claimCreated": "создана анкета",
+                        "pending": "переведена в ожидание",
+                        "pendingAcceptance": "переведена в ожидание ваших действий",
+                        "review": "рассматривается",
+                        "revoked": "отозвана",
+                        "denied": "отклонена",
+                        "accepted": "одобрена",
+                        "documentAdded": "добавлен документ",
+                        "commentAdded": "добавлен комментарий",
+                        "changesAdded": "добавлены изменения"
+                    },
+                    "author": {
+                        "manager": "Менеджером",
+                        "you": "Вами"
+                    }
+                }
+            },
+            "changes": {
+                "label": "Изменения"
+            },
+            "documents": {
+                "label": "Документы"
+            },
+            "details": "Детали заявки",
+            "placeBefore": "Отправить на рассмотрение",
+            "recall": "Отозвать",
+            "request": "Заявка на подключение"
         },
         "paymentDetails": {
             "title": "Детали платежа",

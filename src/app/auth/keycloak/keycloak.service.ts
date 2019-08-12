@@ -7,27 +7,29 @@ import { STUB_USER } from './stub-user';
 
 @Injectable()
 export class KeycloakService {
+    // tslint:disable-next-line: no-empty
     constructor() {}
 
-    async init(options: KeycloakOptions = {}): Promise<boolean> {
+    async init(_options: KeycloakOptions = {}): Promise<boolean> {
         return true;
     }
 
-    async login(options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {
+    async login(_options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {
         console.log('login');
     }
 
-    async logout(redirectUri?: string): Promise<void> {
+    async logout(_redirectUri?: string): Promise<void> {
         console.log('logout');
     }
 
-    async register(options: Keycloak.KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
+    // tslint:disable-next-line: no-empty
+    async register(_options: Keycloak.KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
-    isUserInRole(role: string): boolean {
+    isUserInRole(_role: string): boolean {
         return true;
     }
 
-    getUserRoles(allRoles: boolean = true): string[] {
+    getUserRoles(_allRoles: boolean = true): string[] {
         return [];
     }
 
@@ -35,15 +37,15 @@ export class KeycloakService {
         return true;
     }
 
-    isTokenExpired(minValidity: number = 0): boolean {
+    isTokenExpired(_minValidity: number = 0): boolean {
         return false;
     }
 
-    async updateToken(minValidity: number = 5): Promise<boolean> {
+    async updateToken(_minValidity: number = 5): Promise<boolean> {
         return true;
     }
 
-    async loadUserProfile(forceReload: boolean = false): Promise<Keycloak.KeycloakProfile> {
+    async loadUserProfile(_forceReload: boolean = false): Promise<Keycloak.KeycloakProfile> {
         return STUB_USER;
     }
 
@@ -55,6 +57,7 @@ export class KeycloakService {
         return STUB_USER.username;
     }
 
+    // tslint:disable-next-line: no-empty
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {

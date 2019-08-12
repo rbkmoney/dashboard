@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
-import { Color } from '../../../status';
+import { StatusColor as Color } from '../../../theme-manager';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 
 @Component({

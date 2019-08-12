@@ -23,7 +23,7 @@ export class StateNavItemComponent {
 
     attemptToSelect$ = new Subject<boolean>();
 
-    clickHandler(event: MouseEvent) {
+    clickHandler() {
         this.attemptToSelect$.next(true);
     }
 }

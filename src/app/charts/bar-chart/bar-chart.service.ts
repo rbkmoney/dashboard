@@ -90,7 +90,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
         const describeBars = timeScale
             .selectAll('.bar')
             .data(d => d.values)
-            .style('fill', (d, i) => chartColors[i]);
+            .style('fill', (_d, i) => chartColors[i]);
 
         const describeTooltip = describeBars
             .on('mousemove', d => {
@@ -101,7 +101,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 this.legendTooltipService.removeLegend(this.element);
             });
 
-        const drawBars = describeTooltip
+        describeTooltip
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
@@ -144,7 +144,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
             .enter()
             .append('path')
             .attr('class', `bar`)
-            .style('fill', (d, i) => chartColors[i]);
+            .style('fill', (_d, i) => chartColors[i]);
 
         const desctibeTooltip = describeBars
             .on('mousemove', d => {
@@ -155,7 +155,7 @@ export class BarChartService implements ChartService<PeriodData, BarChartConfig>
                 this.legendTooltipService.removeLegend(this.element);
             });
 
-        const drawBars = desctibeTooltip
+        desctibeTooltip
             .attr('d', d => this.getRoundedBar(d, 0, this.config.height, this.config.barWidth))
             .transition()
             .ease(easeExp)

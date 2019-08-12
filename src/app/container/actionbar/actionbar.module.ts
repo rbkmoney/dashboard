@@ -4,6 +4,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatSnackBarModule } from '@angular/material';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown';
@@ -13,6 +15,9 @@ import { StatusModule } from '../../status';
 import { UserComponent } from './user';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 import { ActionItemComponent } from './action-item';
+import { APIModule } from '../../api';
+import { ClaimsService } from '../../claims';
+import { LocaleModule } from '../../locale';
 
 @NgModule({
     imports: [
@@ -24,7 +29,11 @@ import { ActionItemComponent } from './action-item';
         ButtonModule,
         StatusModule,
         MatMenuModule,
-        RouterModule
+        RouterModule,
+        APIModule,
+        CommonModule,
+        LocaleModule,
+        MatSnackBarModule
     ],
     declarations: [
         ActionbarComponent,
@@ -34,6 +43,7 @@ import { ActionItemComponent } from './action-item';
         UserComponent,
         ClaimsComponent
     ],
+    providers: [ClaimsService],
     exports: [ActionbarComponent]
 })
 export class ActionbarModule {}

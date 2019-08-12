@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
-import { Color } from '../../../status';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { StatusColor as Color } from '../../../theme-manager';
 
 @Component({
     selector: 'dsh-details',

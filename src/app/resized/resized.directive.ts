@@ -3,6 +3,11 @@ import { ResizeSensor } from 'css-element-queries';
 
 import { ResizedEvent } from './resized-event';
 
+/**
+ * @description sometimes when used need wrapped div (or another HTML element)
+ * because add "resize sensor" invisible element
+ * (for example: affects flex layout gap - extra indentation will be added)
+ */
 @Directive({
     selector: '[dshResized], [dsh-resized]'
 })

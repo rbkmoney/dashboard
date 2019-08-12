@@ -144,12 +144,12 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
             .attr('class', `line`)
             .attr('d', d => this.zeroLine(d.values));
 
-        const drawLine = linesDescription
+        linesDescription
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
             .attr('d', d => this.createLine(d.values))
-            .style('stroke', (d, i) => chartColors[i]);
+            .style('stroke', (_d, i) => chartColors[i]);
 
         const circleGroup = this.svg
             .selectAll('circle-group')
@@ -158,7 +158,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
 
         const circleDescription = circleGroup
             .append('g')
-            .style('fill', (d, i) => chartColors[i])
+            .style('fill', (_d, i) => chartColors[i])
             .selectAll('circle')
             .data(d => d.values)
             .enter();
@@ -170,7 +170,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
             .attr('cx', d => this.xScale(d.time))
             .attr('cy', this.config.height);
 
-        const drawCircles = initCircles
+        initCircles
             .transition()
             .ease(easeExp)
             .duration(this.config.transitionDuration)
