@@ -2,25 +2,25 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 
-import { InlineResponse2003, RefundSearchResult } from '../../../../api/capi/swagger-codegen';
-import { RefundSearchFormValue } from './search-form/refund-search-form-value';
-import { RefundSearchParams } from '../../../../search/refund-search-params';
+import { InlineResponse200, Invoice } from '../../../../api/capi/swagger-codegen';
+import { InvoiceSearchFormValue } from './search-form/invoice-search-form-value';
+import { InvoiceSearchParams } from '../../../../search/invoice-search-params';
 
 @Component({
-    selector: 'dsh-refunds',
-    templateUrl: 'refunds.component.html',
-    styleUrls: ['refunds.component.scss']
+    selector: 'dsh-invoices',
+    templateUrl: 'invoices.component.html',
+    styleUrls: ['invoices.component.scss']
 })
-export class RefundsComponent {
-    displayedColumns: string[] = ['amount', 'status', 'createdAt', 'invoiceID', 'paymentID', 'reason', 'actions'];
-    dataSource: MatTableDataSource<RefundSearchResult> = new MatTableDataSource(null);
-    localeBaseDir = 'sections.operations.refunds';
+export class InvoicesComponent {
+    displayedColumns: string[] = ['actions'];
+    dataSource: MatTableDataSource<Invoice> = new MatTableDataSource(null);
+    localeBaseDir = 'sections.operations.invoices';
     lastContinuationToken: string;
-    lastRefundSearchFormValue: RefundSearchFormValue;
+    lastInvoiceSearchFormValue: InvoiceSearchFormValue;
     lastUpdated: Date;
     limit = 20;
 
-    kek: (keke: RefundSearchParams, continuationToken?: string) => Observable<InlineResponse2003> = () =>
+    kek: (keke: InvoiceSearchParams, continuationToken?: string) => Observable<InlineResponse200> = () =>
         new Observable(subscriber => {
             subscriber.next({
                 result: [],
@@ -29,8 +29,8 @@ export class RefundsComponent {
             subscriber.complete();
         });
 
-    search(searchFormValue: RefundSearchFormValue, token?: string) {
-        this.lastRefundSearchFormValue = searchFormValue;
+    search(searchFormValue: InvoiceSearchFormValue, token?: string) {
+        this.lastInvoiceSearchFormValue = searchFormValue;
         this.kek({ ...searchFormValue, limit: this.limit }, token).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = r.continuationToken ? continuationToken : null;
@@ -40,7 +40,7 @@ export class RefundsComponent {
     }
 
     showMore() {
-        this.kek({ ...this.lastRefundSearchFormValue, limit: this.limit }, this.lastContinuationToken).subscribe(r => {
+        this.kek({ ...this.lastInvoiceSearchFormValue, limit: this.limit }, this.lastContinuationToken).subscribe(r => {
             const { continuationToken, result } = r;
             this.lastContinuationToken = continuationToken;
             this.dataSource.data = this.dataSource.data.concat(result);
@@ -49,7 +49,7 @@ export class RefundsComponent {
     }
 
     refresh() {
-        this.search(this.lastRefundSearchFormValue);
+        this.search(this.lastInvoiceSearchFormValue);
     }
 
     private updateLastUpdated() {

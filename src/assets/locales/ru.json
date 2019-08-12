@@ -154,7 +154,33 @@
                 }
             },
             "invoices": {
-                "title": "Инвойсы"
+                "title": "Инвойсы",
+                "filter": {
+                    "shopID": "Магазин",
+                    "fromTime": "Начало периода",
+                    "toTime": "Конец периода",
+                    "payerEmail": "Email плательщика",
+                    "paymentID": "Идентификатор платежа",
+                    "invoiceID": "Идентификатор инвойса",
+                    "invoiceAmount": "Сумма инвойса",
+                    "first6": "BIN банка-эмитента карты",
+                    "last4": "Последние цифры номера карты",
+                    "payerFingerprint": "Fingerprint плательщика",
+                    "payerIP": "IP-адрес плательщика",
+                    "invoiceStatus": "Статус инвойса",
+                    "paymentStatus": "Статус платежа",
+                    "paymentFlow": "Тип проведения платежа",
+                    "bankCardTokenProvider": "Провайдер платежных токенов",
+                    "bankCardPaymentSystem": "Платежаня система",
+                    "paymentMethod": "Метод оплаты"
+                },
+                "table": {
+                    "amount": "Сумма списания",
+                    "status": "Статус",
+                    "statusChanged": "Статус изменен",
+                    "invoice": "Инвойс",
+                    "shop": "Магазин"
+                }
             },
             "refunds": {
                 "title": "Возвраты",
