@@ -5,5 +5,11 @@
     },
     "javascript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.words": [
+        "CAPI",
+        "Keycloak",
+        "mastercard"
+    ],
+    "cSpell.language": "en,ru"
 }
