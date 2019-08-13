@@ -1,11 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { ShopDetailsService } from './shop-details.service';
+import { Shop } from '../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-shop-details',
-    templateUrl: './shop-details.component.html'
+    templateUrl: './shop-details.component.html',
+    providers: [ShopDetailsService]
 })
-export class ShopDetailsComponent {
-    @Input() layoutGap = '20px';
+export class ShopDetailsComponent implements OnInit {
+    @Input() shopID: string;
+
+    shop$: Observable<Shop>;
 
     localePath = 'sections.paymentDetails.shopDetails';
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
+
+    ngOnInit() {
+        this.shop$ = this.shopDetailsService.getShopByID(this.shopID);
+    }
 }

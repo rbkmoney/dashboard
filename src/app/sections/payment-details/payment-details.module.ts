@@ -8,26 +8,36 @@ import { LayoutModule } from '../../layout';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { StatusModule } from '../../status';
 import { LocaleModule } from '../../locale';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
-import { DetailsItemComponent } from './details-item/details-item.component';
-import { PaymentToolComponent } from './payment-tool/payment-tool.component';
+import { DetailsItemComponent } from './details-item';
+import {
+    BankCardComponent,
+    DigitalWalletComponent,
+    PaymentTerminalComponent,
+    PaymentToolComponent
+} from './payment-tool';
 import { AmountPipe } from './amount.pipe';
-import { PayerDetailsComponent } from './payer-details/payer-details.component';
-import { HoldDetailsComponent } from './hold-details/hold-details.component';
+import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
+import { HoldDetailsComponent } from './hold-details';
 import { ButtonModule } from '../../button';
-import { RecurrentDetailsComponent } from './recurrent-details/recurrent-details.component';
-import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
-import { ShopDetailsComponent } from './shop-details/shop-details.component';
-import { RefundsComponent } from './refunds/refunds.component';
-import { RefundItemComponent } from './refunds/refund-item/refund-item.component';
+import { RecurrentDetailsComponent } from './recurrent-details';
+import { InvoiceDetailsComponent } from './invoice-details';
+import { RefundItemComponent, RefundsComponent } from './refunds';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
-import { StatusDetailsItemComponent } from './status-details-item/status-details-item.component';
-import { SecondaryTitleDirective } from './secondary-title/secondary-title.directive';
+import { StatusDetailsItemComponent } from './status-details-item';
+import { SecondaryTitleDirective } from './secondary-title';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
-import { TimeUntilHoldPipe } from './time-until-hold.pipe';
-import { HoldDatePipe } from './hold-date.pipe';
+import { PhoneNumberPipe } from './phone-number.pipe';
+import { SearchModule } from '../../search';
+import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
+import { ViewUtilsModule } from '../../view-utils';
+import { MakeRecurrentComponent } from './make-recurrent';
+import { InvoiceModule } from '../../invoice';
+import { ShopModule } from '../../shop';
+import { HeadlineComponent } from './headline';
+import { HumanizeDurationModule } from '../../humanize-duration';
 
 @NgModule({
     imports: [
@@ -40,7 +50,12 @@ import { HoldDatePipe } from './hold-date.pipe';
         CardModule,
         ButtonModule,
         CommonModule,
-        PaymentDetailsRoutingModule
+        PaymentDetailsRoutingModule,
+        SearchModule,
+        ViewUtilsModule,
+        InvoiceModule,
+        ShopModule,
+        HumanizeDurationModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -57,11 +72,17 @@ import { HoldDatePipe } from './hold-date.pipe';
         RefundsComponent,
         RefundItemComponent,
         SecondaryTitleDirective,
-        TimeUntilHoldPipe,
         CurrencySymbolPipe,
         BankCardPipe,
-        HoldDatePipe
-    ],
-    exports: [PaymentDetailsComponent]
+        PhoneNumberPipe,
+        DigitalWalletComponent,
+        BankCardComponent,
+        PaymentTerminalComponent,
+        CustomerPayerComponent,
+        PaymentResourcePayerComponent,
+        ShopLocationUrlComponent,
+        MakeRecurrentComponent,
+        HeadlineComponent
+    ]
 })
 export class PaymentDetailsModule {}
