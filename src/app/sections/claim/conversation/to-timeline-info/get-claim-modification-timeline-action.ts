@@ -59,7 +59,7 @@ function getCommentModificationTimelineAction(unit: SpecificModificationUnit<Com
 }
 
 export function getClaimModificationTimelineAction(unit: SpecificModificationUnit<ClaimModification>): TimelineAction {
-    const { ClaimModificationTypeEnum: ClaimModificationType } = ClaimModification;
+    const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
     switch (unit.modification.claimModificationType) {
         case ClaimModificationType.DocumentModificationUnit:
             return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<DocumentModificationUnit>);
