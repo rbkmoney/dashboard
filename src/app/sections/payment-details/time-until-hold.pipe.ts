@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import moment from 'moment';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import template from 'lodash.template';
 
 import { LocaleDictionaryService } from '../../locale/locale-dictionary';
 
@@ -16,15 +15,7 @@ export class TimeUntilHoldPipe implements PipeTransform {
     constructor(private localeDictionaryService: LocaleDictionaryService) {}
 
     transform(date: string): Observable<string> {
-        return timer(0, this.timeUpdateInterval).pipe(
-            map(() =>
-                template(
-                    this.localeDictionaryService.mapDictionaryKey('sections.paymentDetails.holdDetails.timeUntilHold')
-                )({
-                    timeUntilHold: this.getTimeUntilDate(date)
-                })
-            )
-        );
+        return timer(0, this.timeUpdateInterval).pipe(map(() => this.getTimeUntilDate(date)));
     }
 
     private getTimeUntilDate(date: string, now = moment()): string {

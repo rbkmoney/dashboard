@@ -33,6 +33,16 @@
             "instant": "Мгновенный",
             "hold": "С удержанием"
         },
+        "shortTimeUnits": {
+            "year": "г.",
+            "week": "нед.",
+            "month": "мес.",
+            "day": "д.",
+            "hour": "ч.",
+            "minute": "мин.",
+            "second": "сек.",
+            "millisecond": "мсек."
+        },
         "bankCardTokenProvider": {
             "applepay": "Apple Pay",
             "googlepay": "Google Pay",
@@ -260,18 +270,11 @@
             },
             "holdDetails": {
                 "title": "Платеж совершен с удержанием денежных средств",
-                "holdDate": "Срок удержания до <%- holdDate %>.",
-                "timeUntilHold": "Осталось <%- timeUntilHold %>.",
+                "holdDate": "Срок удержания до <%- holdDate %>",
                 "message": "После истечения срока удержания, средства будут возвращены плательщику. Вы можете подтвердить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.",
                 "actions": {
                     "deny": "Отменить",
                     "accept": "Подтвердить"
-                },
-                "times": {
-                    "days": "д.",
-                    "hours": "ч.",
-                    "minutes": "мин.",
-                    "seconds": "сек."
                 }
             },
             "recurrentDetails": {

@@ -39,6 +39,7 @@ import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../invoice';
 import { ShopModule } from '../../shop';
 import { HeadlineComponent } from './headline';
+import { HumanizeDurationModule } from '../../humanize-duration';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { HeadlineComponent } from './headline';
         SearchModule,
         ViewUtilsModule,
         InvoiceModule,
-        ShopModule
+        ShopModule,
+        HumanizeDurationModule
     ],
     declarations: [
         PaymentDetailsComponent,

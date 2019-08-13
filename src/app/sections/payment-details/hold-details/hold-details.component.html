@@ -4,10 +4,10 @@
             {{ localePath + '.title' | lc }}
         </h2>
     </dsh-card-title>
-    <dsh-card-content fxLayout="column" fxLayoutGap="20px">
+    <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-body-1">
             {{ holdDate | date: 'd MMMM yyyy, HH:mm' | holdDatePipe }}
-            {{ isHoldExpired(holdDate) ? '' : (holdDate | timeUntilHold | async) }}
+            {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
             {{ localePath + '.message' | lc }}
         </div>
         <div
