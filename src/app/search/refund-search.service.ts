@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 
 import { RefundSearchResult, SearchService } from '../api/capi/swagger-codegen';
-import { genXRequestID } from '../api/gen-x-request-id';
+import { genXRequestID } from '../api';
 import { RefundsWithToken } from './refunds-with-token';
 import { fakeDate } from './fake-date';
 import { Duration } from './duration';
