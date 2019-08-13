@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -9,9 +9,9 @@ import {
     MomentDateAdapter,
     MAT_MOMENT_DATE_FORMATS
 } from '@angular/material-moment-adapter';
+import { MatIconRegistry } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { IconRegistryService } from './icon-registry.service';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
 import { APIModule } from './api';
@@ -23,6 +23,7 @@ import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
 import { LanguageService } from './locale/language';
+import { icons } from './icons';
 
 @NgModule({
     declarations: [AppComponent],
@@ -41,7 +42,6 @@ import { LanguageService } from './locale/language';
         KeycloakAngularModule
     ],
     providers: [
-        IconRegistryService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
@@ -66,4 +66,18 @@ import { LanguageService } from './locale/language';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+        this.registerIcons();
+    }
+
+    registerIcons() {
+        for (const name of icons) {
+            this.matIconRegistry.addSvgIcon(
+                name,
+                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/${name}.svg`)
+            );
+        }
+        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
+    }
+}
