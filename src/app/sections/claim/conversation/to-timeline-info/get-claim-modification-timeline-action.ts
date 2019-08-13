@@ -59,16 +59,20 @@ function getCommentModificationTimelineAction(unit: SpecificModificationUnit<Com
 }
 
 export function getClaimModificationTimelineAction(unit: SpecificModificationUnit<ClaimModification>): TimelineAction {
-    const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
-    switch (unit.modification.claimModificationType) {
-        case ClaimModificationType.DocumentModificationUnit:
-            return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<DocumentModificationUnit>);
-        case ClaimModificationType.StatusModificationUnit:
-            return getStatusModificationTimelineAction(unit as SpecificModificationUnit<StatusModificationUnit>);
-        case ClaimModificationType.FileModificationUnit:
-            return getFileModificationTimelineAction(unit as SpecificModificationUnit<FileModificationUnit>);
-        case ClaimModificationType.CommentModificationUnit:
-            return getCommentModificationTimelineAction(unit as SpecificModificationUnit<CommentModificationUnit>);
+    if (unit && unit.modification && unit.modification.claimModificationType) {
+        const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
+        switch (unit.modification.claimModificationType) {
+            case ClaimModificationType.DocumentModificationUnit:
+                return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<
+                    DocumentModificationUnit
+                >);
+            case ClaimModificationType.StatusModificationUnit:
+                return getStatusModificationTimelineAction(unit as SpecificModificationUnit<StatusModificationUnit>);
+            case ClaimModificationType.FileModificationUnit:
+                return getFileModificationTimelineAction(unit as SpecificModificationUnit<FileModificationUnit>);
+            case ClaimModificationType.CommentModificationUnit:
+                return getCommentModificationTimelineAction(unit as SpecificModificationUnit<CommentModificationUnit>);
+        }
     }
     console.error('Claim modification unidentified');
 }

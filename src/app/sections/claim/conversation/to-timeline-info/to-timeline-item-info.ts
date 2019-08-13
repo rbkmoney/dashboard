@@ -17,14 +17,18 @@ function getUnitTimelineAction(unit: ModificationUnit): TimelineAction {
     console.error('Modification unidentified');
 }
 
-export function toTimelineItemInfo(batch: ModificationUnit[]): TimelineItemInfo {
-    const [firstUnit] = batch;
-    const lastUnit = batch[batch.length - 1];
-    const action = getUnitTimelineAction(firstUnit);
-    return {
-        action,
-        author: Author.manager,
-        createdAt: lastUnit.createdAt as any,
-        color: getTimelineActionColor(action)
-    };
+export function toTimelineItemInfo(batch: SpecificModificationUnit[]): TimelineItemInfo {
+    if (Array.isArray(batch) && batch.length) {
+        const [firstUnit] = batch;
+        const lastUnit = batch[batch.length - 1];
+        const action = getUnitTimelineAction(firstUnit);
+        if (action) {
+            return {
+                action,
+                author: Author.manager,
+                createdAt: lastUnit.createdAt as any,
+                color: getTimelineActionColor(action)
+            };
+        }
+    }
 }
