@@ -4,8 +4,8 @@
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ localePath + '.title' | lc }}
             </div>
-            <button fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent">
-                {{ localePath + '.createRefund' | lc }}
+            <button fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent" (click)="createRefundDialog()">
+                {{ localePath + '.createRefund.title' | lc }}
             </button>
         </div>
     </dsh-card-title>

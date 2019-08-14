@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material';
+import { MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutModule } from '../../layout';
 import { PaymentDetailsComponent } from './payment-details.component';
@@ -11,12 +12,7 @@ import { LocaleModule } from '../../locale';
 import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
 import { DetailsItemComponent } from './details-item';
-import {
-    BankCardComponent,
-    DigitalWalletComponent,
-    PaymentTerminalComponent,
-    PaymentToolComponent
-} from './payment-tool';
+import { BankCardComponent, DigitalWalletComponent, PaymentTerminalComponent, PaymentToolComponent } from './payment-tool';
 import { AmountPipe } from './amount.pipe';
 import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
 import { HoldDetailsComponent } from './hold-details';
@@ -31,13 +27,18 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
 import { SearchModule } from '../../search';
-import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
+import { ShopDetailsComponent } from './shop-details';
+import { ShopLocationUrlComponent } from './shop-details/shop-location-url';
 import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../invoice';
 import { ShopModule } from '../../shop';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { CreateRefundComponent } from './refunds/create-refund/create-refund.component';
+import { AccountModule } from '../../account/account.module';
+import { RefundModule } from '../../refund/refund.module';
+import { CancelHoldComponent } from './hold-details/cancel-hold/cancel-hold.component';
 
 @NgModule({
     imports: [
@@ -52,9 +53,17 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         CommonModule,
         PaymentDetailsRoutingModule,
         SearchModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
         ViewUtilsModule,
         InvoiceModule,
         ShopModule,
+        MatCheckboxModule,
+        RefundModule,
+        AccountModule,
         HumanizeDurationModule
     ],
     declarations: [
@@ -82,7 +91,13 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         PaymentResourcePayerComponent,
         ShopLocationUrlComponent,
         MakeRecurrentComponent,
-        HeadlineComponent
-    ]
+        HeadlineComponent,
+        MakeRecurrentComponent,
+        CreateRefundComponent,
+        CancelHoldComponent
+    ],
+    entryComponents: [CreateRefundComponent],
+    exports: [PaymentDetailsComponent]
 })
+
 export class PaymentDetailsModule {}

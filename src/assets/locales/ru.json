@@ -298,7 +298,14 @@
             },
             "refunds": {
                 "title": "Возвраты",
-                "createRefund": "Совершить возврат",
+                "createRefund": {
+                    "title": "Совершить возврат",
+                    "reason": "Причина",
+                    "amount": "Сумма возврата",
+                    "cancel": "Отмена",
+                    "partialRefund": "Частичный возврат",
+                    "balance": "Ваш баланс"
+                },
                 "noRefunds": "Возвратов нет",
                 "refundItem": {
                     "titles": {

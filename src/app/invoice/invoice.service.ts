@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoicesService } from '../api/capi/swagger-codegen';
-import { genXRequestID } from '../api/gen-x-request-id';
+import { genXRequestID } from '../api';
 
 @Injectable()
 export class InvoiceService {

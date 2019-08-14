@@ -1,9 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../theme-manager';
-import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { StatusViewInfo } from '../status-details-item';
 import { InvoiceDetailsService } from './invoice-details.service';
 import { LAYOUT_GAP } from '../../constants';
 
@@ -13,7 +13,7 @@ import { LAYOUT_GAP } from '../../constants';
     styleUrls: ['./invoice-details.component.scss'],
     providers: [InvoiceDetailsService]
 })
-export class InvoiceDetailsComponent implements OnInit {
+export class InvoiceDetailsComponent implements OnChanges {
     @Input() invoiceID: string;
 
     invoice$: Observable<Invoice>;
@@ -22,7 +22,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private invoiceDetailsService: InvoiceDetailsService) {}
 
-    ngOnInit() {
+    ngOnChanges() {
         this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
     }
 

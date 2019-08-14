@@ -1,9 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
 
 import { RefundsService } from './refunds.service';
 import { LAYOUT_GAP } from '../../constants';
 import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
+import { CreateRefundComponent, CreateRefundData } from './create-refund/create-refund.component';
 
 @Component({
     selector: 'dsh-refunds',
@@ -11,10 +13,12 @@ import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
     styleUrls: ['./refunds.component.scss'],
     providers: [RefundsService]
 })
-export class RefundsComponent implements OnInit {
+export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
 
     @Input() paymentID: string;
+
+    @Input() shopID: string;
 
     refunds$: Observable<RefundSearchResult[]>;
 
@@ -22,9 +26,16 @@ export class RefundsComponent implements OnInit {
 
     localePath = 'sections.paymentDetails.refunds';
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
+    private dialogSub: Subscription = Subscription.EMPTY;
 
-    ngOnInit() {
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        public refundsService: RefundsService,
+        private dialog: MatDialog
+    ) {}
+
+    ngOnChanges() {
+        this.refundsService.initRefunds();
         this.refunds$ = this.refundsService.refunds();
         this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
         this.loadMore();
@@ -32,5 +43,17 @@ export class RefundsComponent implements OnInit {
 
     loadMore() {
         this.refundsService.loadRefunds(this.invoiceID, this.paymentID);
+    }
+
+    createRefundDialog() {
+        this.dialog.open(CreateRefundComponent, {
+            data: {
+                shopID: this.shopID,
+                invoiceID: this.invoiceID,
+                paymentID: this.paymentID
+            } as CreateRefundData,
+            width: '450px',
+            disableClose: true
+        });
     }
 }

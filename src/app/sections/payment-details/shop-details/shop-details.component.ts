@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ShopDetailsService } from './shop-details.service';
@@ -10,7 +10,7 @@ import { LAYOUT_GAP } from '../../constants';
     templateUrl: './shop-details.component.html',
     providers: [ShopDetailsService]
 })
-export class ShopDetailsComponent implements OnInit {
+export class ShopDetailsComponent implements OnChanges {
     @Input() shopID: string;
 
     shop$: Observable<Shop>;
@@ -19,7 +19,7 @@ export class ShopDetailsComponent implements OnInit {
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
 
-    ngOnInit() {
+    ngOnChanges() {
         this.shop$ = this.shopDetailsService.getShopByID(this.shopID);
     }
 }
