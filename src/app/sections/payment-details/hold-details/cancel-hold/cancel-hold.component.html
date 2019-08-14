@@ -1,0 +1,15 @@
+<div *ngIf="form" fxLayout="column" [fxLayoutGap]="layoutGap">
+    <h2 class="mat-title">{{ localePath + '.cancelTitle' | lc }}</h2>
+    <form fxLayout="column" [fxLayoutGap]="layoutGap" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{ localePath + '.reason' | lc }}</mat-label>
+            <input matInput type="text" formControlName="reason" />
+        </mat-form-field>
+    </form>
+    <mat-dialog-actions [fxLayoutGap]="layoutGap">
+        <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ localePath + '.cancel' | lc }}</button>
+        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+            {{ localePath + '.accept' | lc }}
+        </button>
+    </mat-dialog-actions>
+</div>

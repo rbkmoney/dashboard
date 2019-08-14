@@ -12,6 +12,11 @@
     <dsh-hold-details
         *ngIf="payment?.flow?.type === PaymentFlow.PaymentFlowHold"
         [flowHold]="payment.flow"
+        [invoiceID]="payment.invoiceID"
+        [paymentID]="payment.id"
+        [currency]="payment.currency"
+        [acceptMaxAmount]="payment.amount"
+        [paymentStatus]="payment.status"
     ></dsh-hold-details>
     <dsh-make-recurrent *ngIf="payment?.makeRecurrent"></dsh-make-recurrent>
     <dsh-recurrent-details

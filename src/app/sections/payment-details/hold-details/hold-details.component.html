@@ -6,23 +6,23 @@
     </dsh-card-title>
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-body-1">
-            {{ localePath + '.holdDate' | lc: { holdDate: holdDate } }} {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
-            {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
-            {{ localePath + '.message' | lc }}
+            {{ localePath + '.holdDate' | lc: { holdDate: holdDate } }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
+            }}{{ isHoldActive(holdDate) ? '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' : '.' }}
+            {{ getHoldText(holdDate) }}
         </div>
         <div
-            *ngIf="!isHoldExpired(holdDate)"
+            *ngIf="isHoldActive(holdDate)"
             fxLayout="row"
             fxLayout.xs="column"
             fxLayoutAlign="space-between stretch"
             fxLayoutGap="0"
             [fxLayoutGap.xs]="layoutGap"
         >
-            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
-                {{ localePath + '.actions.deny' | lc }}
+            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn" (click)="cancelHoldDialog()">
+                {{ localePath + '.cancel' | lc }}
             </button>
-            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
-                {{ localePath + '.actions.accept' | lc }}
+            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent" (click)="acceptHoldDialog()">
+                {{ localePath + '.accept' | lc }}
             </button>
         </div>
     </dsh-card-content>

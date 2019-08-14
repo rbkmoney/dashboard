@@ -1,5 +1,12 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material';
+import {
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -38,6 +45,9 @@ import { InvoiceModule } from '../../invoice';
 import { ShopModule } from '../../shop';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { CancelHoldComponent } from './hold-details/cancel-hold/cancel-hold.component';
+import { PaymentModule } from '../../payment';
+import { AcceptHoldComponent } from './hold-details/accept-hold/accept-hold.component';
 
 @NgModule({
     imports: [
@@ -55,7 +65,14 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ViewUtilsModule,
         InvoiceModule,
         ShopModule,
-        HumanizeDurationModule
+        HumanizeDurationModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        PaymentModule,
+        MatCheckboxModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -82,7 +99,10 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         PaymentResourcePayerComponent,
         ShopLocationUrlComponent,
         MakeRecurrentComponent,
-        HeadlineComponent
-    ]
+        HeadlineComponent,
+        CancelHoldComponent,
+        AcceptHoldComponent
+    ],
+    entryComponents: [CancelHoldComponent, AcceptHoldComponent]
 })
 export class PaymentDetailsModule {}

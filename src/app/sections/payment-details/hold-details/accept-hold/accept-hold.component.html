@@ -1,0 +1,22 @@
+<div *ngIf="form" fxLayout="column" [fxLayoutGap]="layoutGap">
+    <h2 class="mat-title">{{ localePath + '.acceptTitle' | lc }}</h2>
+    <form fxLayout="column" [fxLayoutGap]="layoutGap" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{ localePath + '.reason' | lc }}</mat-label>
+            <input matInput type="text" formControlName="reason" />
+        </mat-form-field>
+        <mat-checkbox [checked]="isPartialAccept" (change)="onCheckboxChange(!isPartialAccept)">{{
+            localePath + '.partialAccept' | lc
+        }}</mat-checkbox>
+        <mat-form-field *ngIf="isPartialAccept">
+            <mat-label>{{ localePath + '.amount' | lc }}</mat-label>
+            <input matInput type="text" formControlName="amount" required />
+        </mat-form-field>
+    </form>
+    <mat-dialog-actions [fxLayoutGap]="layoutGap">
+        <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ localePath + '.cancel' | lc }}</button>
+        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+            {{ localePath + '.accept' | lc }}
+        </button>
+    </mat-dialog-actions>
+</div>
