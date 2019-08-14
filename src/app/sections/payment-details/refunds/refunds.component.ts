@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { RefundsService } from './refunds.service';
 import { LAYOUT_GAP } from '../../constants';
@@ -27,8 +27,6 @@ export class RefundsComponent implements OnChanges {
     hasMoreRefunds$: Observable<boolean>;
 
     localePath = 'sections.paymentDetails.refunds';
-
-    private dialogSub: Subscription = Subscription.EMPTY;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
