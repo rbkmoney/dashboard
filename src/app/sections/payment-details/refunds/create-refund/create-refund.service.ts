@@ -7,10 +7,8 @@ import { ShopService } from '../../../../shop/shop.service';
 import { AccountService } from '../../../../account/account.service';
 import { Account, Refund, RefundParams, Shop } from '../../../../api/capi/swagger-codegen';
 
-
 @Injectable()
 export class CreateRefundService {
-
     constructor(
         private refundService: RefundService,
         private shopService: ShopService,
@@ -18,10 +16,7 @@ export class CreateRefundService {
     ) {}
 
     createRefund(invoiceID: string, paymentID: string, params?: RefundParams): Observable<Refund> {
-        return this.refundService.createRefund(
-            invoiceID,
-            paymentID,
-            params);
+        return this.refundService.createRefund(invoiceID, paymentID, params);
     }
 
     getMinorAmountFromString(amount: string): number {
@@ -38,8 +33,7 @@ export class CreateRefundService {
     }
 
     getAccount(shopID: string): Observable<Account> {
-        return this.getShopByID(shopID)
-            .pipe(switchMap((shop) => this.getAccountByID(shop.account.settlementID)));
+        return this.getShopByID(shopID).pipe(switchMap(shop => this.getAccountByID(shop.account.settlementID)));
     }
 
     private getAccountByID(settlementID: number): Observable<Account> {
@@ -49,5 +43,4 @@ export class CreateRefundService {
     private getShopByID(shopID: string): Observable<Shop> {
         return this.shopService.getShopByID(shopID);
     }
-
 }

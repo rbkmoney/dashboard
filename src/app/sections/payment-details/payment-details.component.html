@@ -20,5 +20,10 @@
     ></dsh-recurrent-details>
     <dsh-invoice-details *ngIf="payment?.invoiceID" [invoiceID]="payment.invoiceID"></dsh-invoice-details>
     <dsh-shop-details *ngIf="payment?.shopID" [shopID]="payment.shopID"></dsh-shop-details>
-    <dsh-refunds [paymentID]="payment.id" [invoiceID]="payment.invoiceID" [shopID]="payment.shopID"></dsh-refunds>
+    <dsh-refunds
+        [paymentID]="payment.id"
+        [invoiceID]="payment.invoiceID"
+        [shopID]="payment.shopID"
+        [refundMaxAmount]="payment.amount"
+    ></dsh-refunds>
 </div>

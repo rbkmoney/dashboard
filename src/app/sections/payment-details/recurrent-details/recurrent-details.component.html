@@ -4,9 +4,16 @@
     </dsh-card-title>
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <p class="mat-body-1">{{ localePath + '.description' | lc }}</p>
-<!--    TODO: BUG - invoices and refunds not updated after routerLink    -->
-        <button dsh-stroked-button color="accent"
-                [routerLink]="'/invoice/' + recurrentPayer.recurrentParentPayment.invoiceID + '/payment/' + recurrentPayer.recurrentParentPayment.paymentID">
+        <button
+            dsh-stroked-button
+            color="accent"
+            [routerLink]="
+                '/invoice/' +
+                recurrentPayer.recurrentParentPayment.invoiceID +
+                '/payment/' +
+                recurrentPayer.recurrentParentPayment.paymentID
+            "
+        >
             {{ localePath + '.goToParentPayment' | lc }}
         </button>
     </dsh-card-content>

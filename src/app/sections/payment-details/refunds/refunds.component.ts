@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 
@@ -19,6 +19,8 @@ export class RefundsComponent implements OnChanges {
     @Input() paymentID: string;
 
     @Input() shopID: string;
+
+    @Input() refundMaxAmount: number;
 
     refunds$: Observable<RefundSearchResult[]>;
 
@@ -50,7 +52,8 @@ export class RefundsComponent implements OnChanges {
             data: {
                 shopID: this.shopID,
                 invoiceID: this.invoiceID,
-                paymentID: this.paymentID
+                paymentID: this.paymentID,
+                refundMaxAmount: this.refundMaxAmount
             } as CreateRefundData,
             width: '450px',
             disableClose: true

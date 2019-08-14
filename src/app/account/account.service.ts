@@ -6,7 +6,6 @@ import { genXRequestID } from '../api/gen-x-request-id';
 
 @Injectable()
 export class AccountService {
-
     constructor(private accountsService: AccountsService) {}
 
     getAccountByID(accountID: number): Observable<Account> {

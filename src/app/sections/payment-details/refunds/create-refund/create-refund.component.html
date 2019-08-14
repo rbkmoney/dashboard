@@ -3,13 +3,14 @@
     <form fxLayout="column" [fxLayoutGap]="layoutGap" [formGroup]="form">
         <mat-form-field>
             <mat-label>{{ localePath + '.reason' | lc }}</mat-label>
-            <input matInput type="text" formControlName="reason"/>
+            <input matInput type="text" formControlName="reason" />
         </mat-form-field>
-        <mat-checkbox [checked]="isPartialRefund"
-                      (change)="onCheckboxChange(!isPartialRefund)">{{ localePath + '.partialRefund' | lc }}</mat-checkbox>
+        <mat-checkbox [checked]="isPartialRefund" (change)="onCheckboxChange(!isPartialRefund)">{{
+            localePath + '.partialRefund' | lc
+        }}</mat-checkbox>
         <mat-form-field *ngIf="isPartialRefund">
             <mat-label>{{ localePath + '.amount' | lc }}</mat-label>
-            <input matInput type="text" formControlName="amount" required/>
+            <input matInput type="text" formControlName="amount" required />
             <mat-hint *ngIf="account">
                 {{ localePath + '.balance' | lc }}
                 : {{ account.availableAmount | fromMinor | currency: account.currency }}
@@ -18,7 +19,8 @@
     </form>
     <mat-dialog-actions [fxLayoutGap]="layoutGap">
         <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ localePath + '.cancel' | lc }}</button>
-        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex
-                (click)="confirm()">{{ localePath + '.title' | lc }}</button>
+        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+            {{ localePath + '.title' | lc }}
+        </button>
     </mat-dialog-actions>
 </div>
