@@ -57,6 +57,7 @@ export class AcceptHoldComponent {
             });
     }
 
+    // TODO: change validator to amountValidator
     onCheckboxChange(value: boolean) {
         this.isPartialAccept = value;
         if (value) {
