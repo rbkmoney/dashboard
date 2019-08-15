@@ -7,6 +7,7 @@ import round from 'lodash.round';
 import { LAYOUT_GAP } from '../../../constants';
 import { Account, RefundParams } from '../../../../api/capi/swagger-codegen';
 import { CreateRefundService } from './create-refund.service';
+import { amountValidator } from '../../../../validators';
 
 export interface CreateRefundData {
     shopID: string;
@@ -23,7 +24,7 @@ export interface CreateRefundData {
 export class CreateRefundComponent implements OnInit {
     localePath = 'sections.paymentDetails.refunds.createRefund';
 
-    form: FormGroup = undefined;
+    form: FormGroup;
 
     isPartialRefund = false;
 
@@ -62,7 +63,7 @@ export class CreateRefundComponent implements OnInit {
         this.createRefundService
             .createRefund(this.createRefundData.invoiceID, this.createRefundData.paymentID, params)
             .pipe(take(1))
-            .subscribe(_ => {
+            .subscribe(() => {
                 this.dialogRef.close();
             });
     }
@@ -74,7 +75,7 @@ export class CreateRefundComponent implements OnInit {
                 'amount',
                 this.fb.control('', [
                     Validators.required,
-                    Validators.pattern(/^\d+([\,\.]\d{1,2})?$/),
+                    amountValidator,
                     Validators.min(1),
                     Validators.max(round(this.createRefundData.refundMaxAmount / 100, 2))
                 ])

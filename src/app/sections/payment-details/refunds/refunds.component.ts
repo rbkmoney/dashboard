@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 
@@ -34,11 +34,17 @@ export class RefundsComponent implements OnChanges {
         private dialog: MatDialog
     ) {}
 
-    ngOnChanges() {
-        this.refundsService.initRefunds();
-        this.refunds$ = this.refundsService.refunds();
-        this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
-        this.loadMore();
+    ngOnChanges(changes: SimpleChanges) {
+        if (
+            changes.invoiceID.currentValue !== changes.invoiceID.previousValue &&
+            changes.paymentID.currentValue !== changes.paymentID.previousValue &&
+            changes.shopID.currentValue !== changes.shopID.previousValue
+        ) {
+            this.refundsService.initRefunds();
+            this.refunds$ = this.refundsService.refunds();
+            this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
+            this.loadMore();
+        }
     }
 
     loadMore() {

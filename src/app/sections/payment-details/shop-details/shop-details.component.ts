@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ShopDetailsService } from './shop-details.service';
@@ -19,7 +19,9 @@ export class ShopDetailsComponent implements OnChanges {
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
 
-    ngOnChanges() {
-        this.shop$ = this.shopDetailsService.getShopByID(this.shopID);
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.shopID.currentValue !== changes.shopID.previousValue) {
+            this.shop$ = this.shopDetailsService.getShopByID(this.shopID);
+        }
     }
 }

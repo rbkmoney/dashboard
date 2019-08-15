@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
@@ -22,8 +22,10 @@ export class InvoiceDetailsComponent implements OnChanges {
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private invoiceDetailsService: InvoiceDetailsService) {}
 
-    ngOnChanges() {
-        this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.invoiceID.currentValue !== changes.invoiceID.previousValue) {
+            this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
+        }
     }
 
     getStatusViewInfo(status: InvoiceStatus.StatusEnum): StatusViewInfo {
