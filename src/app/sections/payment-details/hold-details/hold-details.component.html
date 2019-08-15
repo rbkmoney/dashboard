@@ -8,7 +8,13 @@
         <div class="mat-body-1">
             {{ localePath + '.holdDate' | lc: { holdDate: holdDate } }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
             }}{{ isHoldActive(holdDate) ? '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' : '.' }}
-            {{ getHoldText(holdDate) }}
+            <ng-container *ngIf="isHoldActive(holdDate); else expiredHold">
+                {{ getActiveHoldText() | lc }}
+                {{ localePath + '.activeHoldTutorial' | lc }}
+            </ng-container>
+            <ng-template #expiredHold>
+                {{ getExpiredHoldText() | lc }}
+            </ng-template>
         </div>
         <div
             *ngIf="isHoldActive(holdDate)"

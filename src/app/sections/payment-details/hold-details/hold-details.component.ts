@@ -41,37 +41,22 @@ export class HoldDetailsComponent {
         private dialog: MatDialog
     ) {}
 
-    // TODO: better function for that shit
-    getHoldText(date: string): string {
-        let tutorial = '';
-        let onExpiration = '';
-        let expiredHold = '';
-        if (this.isHoldActive(date)) {
-            tutorial = this.getHoldTutorial();
-            switch (this.flowHold.onHoldExpiration) {
-                case this.onHoldExpirationEnum.Capture:
-                    onExpiration = this.getLocalizedText('holdWithCapture');
-                    break;
-                case this.onHoldExpirationEnum.Cancel:
-                    onExpiration = this.getLocalizedText('holdWithCancel');
-                    break;
-            }
-        } else {
-            switch (this.paymentStatus) {
-                case this.paymentStatusEnum.Captured:
-                    expiredHold = this.getLocalizedText('capturedHoldMessage');
-                    break;
-                case this.paymentStatusEnum.Cancelled:
-                    expiredHold = this.getLocalizedText('cancelledHoldMessage');
-                    break;
-            }
+    getActiveHoldText(): string {
+        switch (this.flowHold.onHoldExpiration) {
+            case this.onHoldExpirationEnum.Capture:
+                return `${this.localePath}.holdWithCapture`;
+            case this.onHoldExpirationEnum.Cancel:
+                return `${this.localePath}.holdWithCancel`;
         }
-
-        return `${onExpiration} ${tutorial} ${expiredHold}`;
     }
 
-    private getHoldTutorial(): string {
-        return this.getLocalizedText('activeHoldTutorial');
+    getExpiredHoldText(): string {
+        switch (this.paymentStatus) {
+            case this.paymentStatusEnum.Captured:
+                return `${this.localePath}.capturedHoldMessage`;
+            case this.paymentStatusEnum.Cancelled:
+                return `${this.localePath}.cancelledHoldMessage`;
+        }
     }
 
     cancelHoldDialog() {
@@ -100,9 +85,5 @@ export class HoldDetailsComponent {
 
     isHoldActive(date: string): boolean {
         return moment(date).diff(moment()) > 0 && this.paymentStatus === this.paymentStatusEnum.Processed;
-    }
-
-    private getLocalizedText(value: string): string {
-        return this.localeService.mapDictionaryKey(`${this.localePath}.${value}`);
     }
 }
