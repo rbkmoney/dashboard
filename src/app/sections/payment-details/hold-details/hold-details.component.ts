@@ -6,7 +6,6 @@ import { PaymentFlowHold, PaymentStatus } from '../../../api/capi/swagger-codege
 import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent } from './cancel-hold/cancel-hold.component';
 import { AcceptHoldComponent, AcceptHoldData } from './accept-hold/accept-hold.component';
-import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 
 export interface CancelHoldData {
     invoiceID: string;
@@ -35,11 +34,7 @@ export class HoldDetailsComponent {
 
     localePath = 'sections.paymentDetails.holdDetails';
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private localeService: LocaleDictionaryService,
-        private dialog: MatDialog
-    ) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private dialog: MatDialog) {}
 
     getActiveHoldText(): string {
         switch (this.flowHold.onHoldExpiration) {
