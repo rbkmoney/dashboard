@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { take, tap } from 'rxjs/operators';
 import round from 'lodash.round';
 
@@ -24,7 +24,9 @@ export interface CreateRefundData {
 export class CreateRefundComponent implements OnInit {
     localePath = 'sections.paymentDetails.refunds.createRefund';
 
-    form: FormGroup;
+    form = this.fb.group({
+        reason: ['']
+    });
 
     isPartialRefund = false;
 
@@ -44,9 +46,6 @@ export class CreateRefundComponent implements OnInit {
                 this.account = account;
             })
         );
-        this.form = this.fb.group({
-            reason: ['']
-        });
     }
 
     decline() {
