@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import round from 'lodash.round';
+import { Observable } from 'rxjs';
 
 import { LAYOUT_GAP } from '../../../constants';
 import { Account, RefundParams } from '../../../../api/capi/swagger-codegen';
@@ -30,7 +31,7 @@ export class CreateRefundComponent implements OnInit {
 
     isPartialRefund = false;
 
-    account: Account;
+    account$: Observable<Account>;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
@@ -41,11 +42,7 @@ export class CreateRefundComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.createRefundService.getAccount(this.createRefundData.shopID).pipe(
-            tap(account => {
-                this.account = account;
-            })
-        );
+        this.account$ = this.createRefundService.getAccount(this.createRefundData.shopID);
     }
 
     decline() {
@@ -54,11 +51,11 @@ export class CreateRefundComponent implements OnInit {
 
     confirm() {
         const { reason, amount } = this.form.getRawValue();
-        const params = {
+        const params: RefundParams = {
             reason,
             amount: this.createRefundService.getMinorAmountFromString(amount),
             currency: 'RUB'
-        } as RefundParams;
+        };
         this.createRefundService
             .createRefund(this.createRefundData.invoiceID, this.createRefundData.paymentID, params)
             .pipe(take(1))

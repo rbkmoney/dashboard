@@ -19,6 +19,7 @@ export class CreateRefundService {
         return this.refundService.createRefund(invoiceID, paymentID, params);
     }
 
+    // TODO: use function from utils
     getMinorAmountFromString(amount: string): number {
         const numericalAmount = this.amountToNumber(amount);
         return numericalAmount > 0 ? this.getMinorAmount(numericalAmount) : undefined;

@@ -105,7 +105,6 @@ import { RefundModule } from '../../refund/refund.module';
         MakeRecurrentComponent,
         CreateRefundComponent
     ],
-    entryComponents: [CreateRefundComponent],
-    exports: [PaymentDetailsComponent]
+    entryComponents: [CreateRefundComponent]
 })
 export class PaymentDetailsModule {}
