@@ -8,7 +8,7 @@ import { CaptureParams } from '../../../../api/capi/swagger-codegen';
 export class AcceptHoldService {
     constructor(private paymentService: PaymentService) {}
 
-    capturePayment(invoiceID: string, paymentID: string, params: CaptureParams): Observable<any> {
+    capturePayment(invoiceID: string, paymentID: string, params: CaptureParams): Observable<void> {
         return this.paymentService.capturePayment(invoiceID, paymentID, params);
     }
 }

@@ -12,6 +12,9 @@ export interface CancelHoldData {
     paymentID: string;
 }
 
+const paymentStatusEnum = PaymentStatus.StatusEnum;
+const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
+
 @Component({
     selector: 'dsh-hold-details',
     templateUrl: './hold-details.component.html'
@@ -29,56 +32,55 @@ export class HoldDetailsComponent {
 
     @Input() acceptMaxAmount: number;
 
-    paymentStatusEnum = PaymentStatus.StatusEnum;
-    onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
-
     localePath = 'sections.paymentDetails.holdDetails';
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private dialog: MatDialog) {}
 
     getActiveHoldText(): string {
         switch (this.flowHold.onHoldExpiration) {
-            case this.onHoldExpirationEnum.Capture:
+            case onHoldExpirationEnum.Capture:
                 return `${this.localePath}.holdWithCapture`;
-            case this.onHoldExpirationEnum.Cancel:
+            case onHoldExpirationEnum.Cancel:
                 return `${this.localePath}.holdWithCancel`;
         }
     }
 
     getExpiredHoldText(): string {
         switch (this.paymentStatus) {
-            case this.paymentStatusEnum.Captured:
+            case paymentStatusEnum.Captured:
                 return `${this.localePath}.capturedHoldMessage`;
-            case this.paymentStatusEnum.Cancelled:
+            case paymentStatusEnum.Cancelled:
                 return `${this.localePath}.cancelledHoldMessage`;
         }
     }
 
     cancelHoldDialog() {
+        const data: CancelHoldData = {
+            invoiceID: this.invoiceID,
+            paymentID: this.paymentID
+        };
         this.dialog.open(CancelHoldComponent, {
-            data: {
-                invoiceID: this.invoiceID,
-                paymentID: this.paymentID
-            } as CancelHoldData,
+            data,
             width: '450px',
             disableClose: true
         });
     }
 
     acceptHoldDialog() {
+        const data: AcceptHoldData = {
+            invoiceID: this.invoiceID,
+            paymentID: this.paymentID,
+            currency: this.currency,
+            acceptMaxAmount: this.acceptMaxAmount
+        };
         this.dialog.open(AcceptHoldComponent, {
-            data: {
-                invoiceID: this.invoiceID,
-                paymentID: this.paymentID,
-                currency: this.currency,
-                acceptMaxAmount: this.acceptMaxAmount
-            } as AcceptHoldData,
+            data,
             width: '450px',
             disableClose: true
         });
     }
 
     isHoldActive(date: string): boolean {
-        return moment(date).diff(moment()) > 0 && this.paymentStatus === this.paymentStatusEnum.Processed;
+        return moment(date).diff(moment()) > 0 && this.paymentStatus === paymentStatusEnum.Processed;
     }
 }

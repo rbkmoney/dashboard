@@ -7,7 +7,7 @@ import { PaymentService } from '../../../../payment';
 export class CancelHoldService {
     constructor(private paymentService: PaymentService) {}
 
-    cancelPayment(invoiceID: string, paymentID: string, reason: string): Observable<any> {
+    cancelPayment(invoiceID: string, paymentID: string, reason: string): Observable<void> {
         return this.paymentService.cancelPayment(invoiceID, paymentID, reason);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
@@ -21,10 +21,12 @@ export interface AcceptHoldData {
     templateUrl: './accept-hold.component.html',
     providers: [AcceptHoldService]
 })
-export class AcceptHoldComponent implements OnInit {
+export class AcceptHoldComponent {
     localePath = 'sections.paymentDetails.holdDetails';
 
-    form: FormGroup = undefined;
+    form: FormGroup = this.fb.group({
+        reason: ['', [Validators.required]]
+    });
 
     isPartialAccept: boolean;
 
@@ -36,27 +38,21 @@ export class AcceptHoldComponent implements OnInit {
         private acceptHoldService: AcceptHoldService
     ) {}
 
-    ngOnInit() {
-        this.form = this.fb.group({
-            reason: ['', [Validators.required]]
-        });
-    }
-
     decline() {
         this.dialogRef.close();
     }
 
     confirm() {
         const { reason, amount } = this.form.getRawValue();
-        const params = {
+        const params: CaptureParams = {
             reason,
             amount: toMinorAmountFromString(amount),
             currency: amount ? this.data.currency : null
-        } as CaptureParams;
+        };
         this.acceptHoldService
             .capturePayment(this.data.invoiceID, this.data.paymentID, params)
             .pipe(take(1))
-            .subscribe(_ => {
+            .subscribe(() => {
                 this.dialogRef.close();
             });
     }
