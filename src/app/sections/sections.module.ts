@@ -9,6 +9,7 @@ import { InputsModule } from './inputs/inputs.module';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
+import { LAYOUT_GAP } from './constants';
 import { OnboardingModule } from './onboarding';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { OnboardingModule } from './onboarding';
         SectionsRoutingModule
     ],
     declarations: [SectionsComponent],
-    exports: [SectionsComponent]
+    exports: [SectionsComponent],
+    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }]
 })
 export class SectionsModule {}

@@ -1,0 +1,3 @@
+<dsh-details-item *ngIf="paymentTerminal" [title]="localePath + '.titles.terminal' | lc">
+    {{ 'common.paymentTerminalProvider.' + paymentTerminal.provider | lc }}
+</dsh-details-item>

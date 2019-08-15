@@ -33,6 +33,16 @@
             "instant": "Мгновенный",
             "hold": "С удержанием"
         },
+        "shortTimeUnits": {
+            "year": "г.",
+            "week": "нед.",
+            "month": "мес.",
+            "day": "д.",
+            "hour": "ч.",
+            "minute": "мин.",
+            "second": "сек.",
+            "millisecond": "мсек."
+        },
         "bankCardTokenProvider": {
             "applepay": "Apple Pay",
             "googlepay": "Google Pay",
@@ -55,6 +65,12 @@
         "paymentMethod": {
             "bankCard": "Банковская карта",
             "paymentTerminal": "Терминал"
+        },
+        "digitalWalletProvider": {
+            "DigitalWalletDetailsQIWI": "QIWI"
+        },
+        "paymentTerminalProvider": {
+            "euroset": "Евросеть"
         },
         "claimStatus": {
             "pending": "В ожидании",
@@ -221,7 +237,8 @@
             "details": {
                 "titles": {
                     "chargeAmount": "Сумма зачисления",
-                    "rrn": "RRN",
+                    "rrn": "Retrieval Reference Number",
+                    "approvalCode": "Authorization Approval Code",
                     "spid": "SPID",
                     "createdAt": "Платеж создан",
                     "amount": "Сумма списания",
@@ -233,35 +250,37 @@
             "paymentTool": {
                 "title": "Средство оплаты",
                 "titles": {
-                    "card": "Банковская карта"
+                    "card": "Банковская карта",
+                    "digitalWalletType": "Цифровой кошелек",
+                    "phoneNumber": "Номер телефона",
+                    "terminal": "Платежный терминал"
                 }
             },
             "payerDetails": {
                 "title": "Плательщик",
                 "titles": {
                     "fingerprint": "Fingerprint",
-                    "ip": "IP"
+                    "ip": "IP",
+                    "customerID": "Customer ID",
+                    "email": "Электронная почта",
+                    "phoneNumber": "Номер телефона",
+                    "invoiceID": "Идентификатор родительского инвойса",
+                    "paymentID": "Идентификатор родительского платежа"
                 }
             },
             "holdDetails": {
                 "title": "Платеж совершен с удержанием денежных средств",
-                "holdDate": "Срок удержания до <%- holdDate %>.",
-                "timeUntilHold": "Осталось <%- timeUntilHold %>.",
-                "message": "После истечения срока удержания, средства будут возвращенны плательщику. Вы можете подтверидить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.",
+                "holdDate": "Срок удержания до",
+                "message": "После истечения срока удержания, средства будут возвращены плательщику. Вы можете подтвердить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.",
                 "actions": {
                     "deny": "Отменить",
                     "accept": "Подтвердить"
-                },
-                "times": {
-                    "days": "д.",
-                    "hours": "ч.",
-                    "minutes": "мин.",
-                    "seconds": "сек."
                 }
             },
             "recurrentDetails": {
-                "title": "Платеж является родительским рекуррентным",
-                "description": "Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+                "title": "Платеж является рекуррентным",
+                "description": "Платеж проведен на основе другого (родительского) платежа.",
+                "goToParentPayment": "Перейти к родительскому платежу"
             },
             "invoiceDetails": {
                 "title": "Инвойс",
@@ -280,7 +299,7 @@
             "refunds": {
                 "title": "Возвраты",
                 "createRefund": "Совершить возврат",
-                "showMore": "Показать ещё",
+                "noRefunds": "Возвратов нет",
                 "refundItem": {
                     "titles": {
                         "refundTitle": "Возврат",
@@ -290,6 +309,10 @@
                         "error": "Ошибка"
                     }
                 }
+            },
+            "makeRecurrent": {
+                "title": "Платеж является родительским рекуррентным",
+                "description": "Успешно проведенный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
             }
         }
     }
