@@ -9,8 +9,8 @@ import { StatusModificationUnit } from '../../api/claim-management';
 @Injectable()
 export class ClaimService {
     claim$ = this.route.params.pipe(
-        filter(({ id }) => !!id),
-        map(({ id }) => Number(id)),
+        map(({ id }) => parseInt(id, 10)),
+        filter(id => Number.isInteger(id)),
         distinctUntilChanged(),
         switchMap(id => this.claimsService.getClaimByID(id)),
         shareReplay(1)
