@@ -22,7 +22,7 @@ export function toTimelineItemInfo(batch: SpecificModificationUnit[]): TimelineI
         const [firstUnit] = batch;
         const lastUnit = batch[batch.length - 1];
         const action = getUnitTimelineAction(firstUnit);
-        if (action) {
+        if (action !== undefined && action !== null) {
             return {
                 action,
                 author: Author.manager,
