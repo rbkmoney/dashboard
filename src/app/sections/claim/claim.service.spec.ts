@@ -1,24 +1,35 @@
 import { ActivatedRoute } from '@angular/router';
 import { TestScheduler } from 'rxjs/testing';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
 import { ClaimService } from './claim.service';
 import { ClaimsService } from '../../claims';
 
-const testScheduler = new TestScheduler((actual, expected) => {
+function assertDeepEqual(actual, expected) {
     expect(actual).toEqual(expected);
-});
+}
 
-describe('Timeline', () => {
-    describe('ClaimService', () => {
-        it('should load claim', () => {
-            testScheduler.run(helpers => {
-                const { cold, expectObservable } = helpers;
-                const service = new ClaimService(
-                    { getClaimByID: (..._: any[]): any => cold('-x|') } as ClaimsService,
-                    { params: cold('-a-b-c-|', { a: { id: 10 }, b: {}, c: { id: 'test' } }) as any } as ActivatedRoute
-                );
-                expectObservable(service.claim$).toBe('--x----|');
-            });
+describe('ClaimService', () => {
+    function createClaimService(claim: ColdObservable<string>, params: ColdObservable<any>) {
+        return new ClaimService(
+            { getClaimByID: (..._: any[]): any => claim } as ClaimsService,
+            { params: params as any } as ActivatedRoute
+        );
+    }
+
+    it('id should load claim', () => {
+        new TestScheduler(assertDeepEqual).run(helpers => {
+            const { cold, expectObservable, flush } = helpers;
+            const service = createClaimService(cold('-x|'), cold('-a-|', { a: { id: '10' } }));
+            expectObservable(service.claim$).toBe('--x|');
+        });
+    });
+
+    it('empty and wrong id shouldnt load claim', () => {
+        new TestScheduler(assertDeepEqual).run(helpers => {
+            const { cold, expectObservable } = helpers;
+            const service = createClaimService(cold('-x|'), cold('-a-b-|', { a: {}, b: { id: 'test' } }));
+            expectObservable(service.claim$).toBe('-----|');
         });
     });
 });
