@@ -27,7 +27,7 @@ export class IconRegistryService {
         names.forEach(name =>
             this.matIconRegistry.addSvgIcon(
                 name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/${name}.svg`)
+                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
             )
         );
         this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
