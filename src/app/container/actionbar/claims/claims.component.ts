@@ -14,6 +14,8 @@ export class ClaimsComponent {
     dicBasePath = 'actionbar.claims';
 
     claims$ = this.claimsService.getClaims();
+    isLoading$ = this.claimsService.isLoading();
+    isError$ = this.claimsService.isError();
 
     constructor(private claimsService: ClaimsService) {}
 }
