@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, delay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
 import { Claim } from '../../../api/claim-management';
@@ -23,10 +23,7 @@ export class ClaimsService {
     }
 
     getClaims(count = 5): Observable<Claim[]> {
-        const searchClaims = this.claimsService.searchClaims(count).pipe(
-            map(({ result }) => result),
-            delay(6000)
-        );
+        const searchClaims = this.claimsService.searchClaims(count).pipe(map(({ result }) => result));
         return this.searchState.wrap<Claim[]>(searchClaims);
     }
 }
