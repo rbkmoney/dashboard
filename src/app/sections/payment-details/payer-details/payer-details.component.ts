@@ -1,29 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 
-import { ClientInfo, ContactInfo, Payer } from '../../../api/capi/swagger-codegen';
+import { Payer, PaymentResourcePayer } from '../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
+
+export enum PayerType {
+    CustomerPayer = 'CustomerPayer',
+    PaymentResourcePayer = 'PaymentResourcePayer',
+    RecurrentPayer = 'RecurrentPayer'
+}
 
 @Component({
     selector: 'dsh-payer-details',
     templateUrl: './payer-details.component.html'
 })
-export class PayerDetailsComponent implements OnInit {
+export class PayerDetailsComponent {
     @Input() payer: Payer;
 
-    @Input() layoutGap = '20px';
+    PayerType = PayerType;
 
-    contactInfo: ContactInfo;
-    clientInfo: ClientInfo;
+    payerEmail: string;
 
     localePath = 'sections.paymentDetails.payerDetails';
 
-    ngOnInit() {
-        this.contactInfo = {
-            email: 'payer@mail.com'
-        };
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
-        this.clientInfo = {
-            ip: '2A04:4A00:5:966:80E8:ACEC:D40:D5D5',
-            fingerprint: 'ca35b70d7582a867e415d22d018e18c7'
-        };
+    paymentResourcePayer(): PaymentResourcePayer | null {
+        return this.payer.payerType === PayerType.PaymentResourcePayer ? (this.payer as PaymentResourcePayer) : null;
     }
 }

@@ -2,11 +2,10 @@ import { Pipe, PipeTransform, ChangeDetectorRef, OnDestroy } from '@angular/core
 import { Subscription, interval } from 'rxjs';
 import { HumanizerOptions } from 'humanize-duration';
 
-import { HumanizeDurationService, Value } from './humanize-duration.service';
+import { HumanizeConfig, HumanizeDurationService, Value } from './humanize-duration.service';
 
-export interface HumanizeDurationConfig {
+export interface HumanizeDurationConfig extends HumanizeConfig {
     interval?: number;
-    largest?: number;
 }
 
 @Pipe({ name: 'humanizedDuration', pure: false })

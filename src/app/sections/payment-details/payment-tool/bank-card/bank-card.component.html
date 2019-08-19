@@ -1,0 +1,11 @@
+<dsh-details-item [title]="localePath + '.titles.card' | lc">
+    <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
+        <div class="mat-body-1">{{ bankCard.cardNumberMask | bankCard }}</div>
+        <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems?.Visa" svgIcon="visa"></mat-icon>
+        <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems?.Mastercard" svgIcon="mastercard"></mat-icon>
+        <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems?.Nspkmir" svgIcon="mir"></mat-icon>
+        <mat-icon *ngIf="bankCard.tokenProvider === tokenProviders?.Applepay" svgIcon="apple_pay"></mat-icon>
+        <mat-icon *ngIf="bankCard.tokenProvider === tokenProviders?.Samsungpay" svgIcon="samsung_pay"></mat-icon>
+        <mat-icon *ngIf="bankCard.tokenProvider === tokenProviders?.Googlepay" svgIcon="google_pay"></mat-icon>
+    </div>
+</dsh-details-item>
