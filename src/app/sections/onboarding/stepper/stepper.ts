@@ -6,8 +6,7 @@ import { coerceBoolean } from '../../../../utils/coerce';
 import { Step, StepperItemComponent } from './stepper-item/stepper-item.component';
 
 export class Stepper {
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
     set selectedIdx(nextSelectedIdx: number) {
         if (nextSelectedIdx !== this.selectedIdx) {
@@ -18,7 +17,7 @@ export class Stepper {
 
     get selectedIdx() {
         if (this._items) {
-            return this._items.toArray().findIndex(({ item: {url} }) => this.router.url === url);
+            return this._items.toArray().findIndex(({ item: { url } }) => this.router.url === url);
         }
     }
 
