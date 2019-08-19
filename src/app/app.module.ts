@@ -19,7 +19,7 @@ import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
-import { SettingsModule, SettingsService } from './settings';
+import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
 import { LanguageService } from './locale/language';
@@ -50,12 +50,12 @@ import { LanguageService } from './locale/language';
         },
         {
             provide: LOCALE_ID,
-            deps: [SettingsService],
+            deps: [LanguageService],
             useFactory: (languageService: LanguageService) => languageService.active
         },
         {
             provide: MAT_DATE_LOCALE,
-            deps: [SettingsService],
+            deps: [LanguageService],
             useFactory: (languageService: LanguageService) => languageService.active
         },
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

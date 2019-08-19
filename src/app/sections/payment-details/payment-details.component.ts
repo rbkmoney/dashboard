@@ -1,59 +1,30 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import get from 'lodash.get';
 
-import {
-    PaymentSearchResult,
-    PaymentStatus,
-    PaymentToolDetailsBankCard,
-    PayoutToolDetailsBankCard
-} from '../../api/capi/swagger-codegen';
-import PaymentSystemEnum = PaymentToolDetailsBankCard.PaymentSystemEnum;
+import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api/capi/swagger-codegen';
+import { PaymentDetailsService } from './payment-details.service';
+import { PayerType } from './payer-details';
+import { LAYOUT_GAP } from '../constants';
 
 @Component({
-    selector: 'dsh-payment-details',
     templateUrl: './payment-details.component.html',
     styleUrls: ['./payment-details.component.scss'],
-    encapsulation: ViewEncapsulation.Emulated
+    providers: [PaymentDetailsService]
 })
 export class PaymentDetailsComponent implements OnInit {
-    @Input() payment: PaymentSearchResult;
+    payment$: Observable<PaymentSearchResult>;
 
-    payoutToolDetailsBankCard: PayoutToolDetailsBankCard;
+    PayerType = PayerType;
+    PaymentFlow = PaymentFlow.TypeEnum;
+
+    constructor(private paymentDetailsService: PaymentDetailsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnInit() {
-        this.payment = {
-            status: PaymentStatus.StatusEnum.Processed,
-            id: 'H3dg32Hd2',
-            invoiceID: 'J3hd76G63bd2G',
-            shopID: 'h83hd3s63b23f',
-            createdAt: '2019-08-03T14:46:15Z' as any,
-            amount: 1500000,
-            currency: 'RUB',
-            fee: 16500,
-            flow: {
-                type: 'PaymentFlowInstant'
-            },
-            payer: {
-                payerType: 'PaymentResourcePayer',
-                paymentResourcePayer: {},
-                clientInfo: {
-                    fingerprint: 'ca35b70d7582a867e415d22d018e18c7',
-                    ip: '2A04:4A00:5:966:80E8:ACEC:D40:D5D5'
-                },
-                contactInfo: {
-                    email: 'payer@mail.com'
-                }
-            },
-            error: {
-                code: 'Недостаточно средств'
-            },
-            statusChangedAt: '2019-07-08T14:46:15Z' as any,
-            makeRecurrent: true
-        } as PaymentSearchResult;
+        this.payment$ = this.paymentDetailsService.getPayment();
+    }
 
-        this.payoutToolDetailsBankCard = {
-            detailsType: 'PaymentToolDetailsBankCard',
-            cardNumberMask: '847837******3457',
-            paymentSystem: PaymentSystemEnum.Mastercard
-        };
+    getPaymentToolDetails(payment: PaymentSearchResult): PaymentToolDetails {
+        return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;
     }
 }

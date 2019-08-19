@@ -1,30 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Refund } from '../../../api/capi/swagger-codegen';
+import { RefundsService } from './refunds.service';
+import { LAYOUT_GAP } from '../../constants';
+import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-refunds',
     templateUrl: './refunds.component.html',
-    styleUrls: ['./refunds.component.scss']
+    styleUrls: ['./refunds.component.scss'],
+    providers: [RefundsService]
 })
 export class RefundsComponent implements OnInit {
-    @Input() refunds: Refund[];
+    @Input() invoiceID: string;
+
+    @Input() paymentID: string;
+
+    refunds$: Observable<RefundSearchResult[]>;
+
+    hasMoreRefunds$: Observable<boolean>;
 
     localePath = 'sections.paymentDetails.refunds';
 
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
+
     ngOnInit() {
-        const refund = {
-            status: Refund.StatusEnum.Succeeded,
-            id: '1',
-            createdAt: '2019-06-14T10:12:12Z' as any,
-            amount: 1200000,
-            currency: 'RUB',
-            reason: 'Почему нет? Захотел - вернул, не захотел - не вернул',
-            error: {
-                code: 'ERRORUS',
-                message: 'Бывает, такова природа жизни, понимаешь?'
-            }
-        } as Refund;
-        this.refunds = [refund, refund, refund];
+        this.refunds$ = this.refundsService.refunds();
+        this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
+        this.loadMore();
+    }
+
+    loadMore() {
+        this.refundsService.loadRefunds(this.invoiceID, this.paymentID);
     }
 }

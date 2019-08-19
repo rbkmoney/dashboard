@@ -1,38 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {
-    PaymentToolDetails,
-    PaymentToolDetailsBankCard,
-    PaymentToolDetailsDigitalWallet,
-    PaymentToolDetailsPaymentTerminal
-} from '../../../api/capi/swagger-codegen';
+import { PaymentToolDetails } from '../../../api/capi/swagger-codegen';
+
+enum PaymentToolDetailsType {
+    BankCard = 'PaymentToolDetailsBankCard',
+    Wallet = 'PaymentToolDetailsDigitalWallet',
+    Terminal = 'PaymentToolDetailsPaymentTerminal'
+}
 
 @Component({
     selector: 'dsh-payment-tool',
     templateUrl: './payment-tool.component.html'
 })
-export class PaymentToolComponent implements OnInit {
+export class PaymentToolComponent {
     @Input() paymentToolDetails: PaymentToolDetails;
 
-    bankCard: PaymentToolDetailsBankCard;
-    digitalWallet: PaymentToolDetailsDigitalWallet;
-    paymentTerminal: PaymentToolDetailsPaymentTerminal;
-
-    paymentSystems = PaymentToolDetailsBankCard.PaymentSystemEnum;
+    Type = PaymentToolDetailsType;
 
     localePath = 'sections.paymentDetails.paymentTool';
-
-    ngOnInit() {
-        switch (this.paymentToolDetails.detailsType) {
-            case 'PaymentToolDetailsBankCard':
-                this.bankCard = this.paymentToolDetails as PaymentToolDetailsBankCard;
-                break;
-            case 'PaymentToolDetailsDigitalWallet':
-                this.digitalWallet = this.paymentToolDetails as PaymentToolDetailsDigitalWallet;
-                break;
-            case 'PaymentToolDetailsPaymentTerminal':
-                this.paymentTerminal = this.paymentToolDetails as PaymentToolDetailsPaymentTerminal;
-                break;
-        }
-    }
 }

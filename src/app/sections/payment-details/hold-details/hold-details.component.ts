@@ -1,16 +1,21 @@
-import { Component, Input } from '@angular/core';
-import template from 'lodash.template';
+import { Component, Inject, Input } from '@angular/core';
+import moment from 'moment';
+
+import { PaymentFlowHold } from '../../../api/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-hold-details',
     templateUrl: './hold-details.component.html'
 })
 export class HoldDetailsComponent {
-    @Input() holdDate: string;
-
-    @Input() layoutGap = '20px';
-
-    template = template;
+    @Input() flowHold: PaymentFlowHold;
 
     localePath = 'sections.paymentDetails.holdDetails';
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    isHoldExpired(date: string): boolean {
+        return moment(date).diff(moment()) < 0;
+    }
 }
