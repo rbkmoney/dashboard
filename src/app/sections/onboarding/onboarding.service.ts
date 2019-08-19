@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
@@ -45,7 +44,7 @@ export class OnboardingService {
         this._suggestion = suggestion;
     }
 
-    constructor(private fb: FormBuilder, private router: Router) {
+    constructor(private fb: FormBuilder) {
         this.form = fb.group({
             suggestions: [''],
             type: ['', Validators.required],

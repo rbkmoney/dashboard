@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { OnboardingService } from '../onboarding.service';
 
@@ -18,5 +17,5 @@ export class LayoutComponent {
         return this.onboardingService.steps;
     }
 
-    constructor(private router: Router, private onboardingService: OnboardingService) {}
+    constructor(private onboardingService: OnboardingService) {}
 }
