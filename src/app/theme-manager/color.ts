@@ -10,6 +10,3 @@ export enum PaletteColor {
     accent = 'accent',
     warn = 'warn'
 }
-
-export type Status = keyof typeof StatusColor;
-export type Palette = keyof typeof PaletteColor;
