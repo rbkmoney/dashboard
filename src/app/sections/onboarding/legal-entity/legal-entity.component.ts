@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { OnboardingService } from '../onboarding.service';
 
 @Component({
-    templateUrl: 'legal-entity.component.html',
-    providers: []
+    templateUrl: 'legal-entity.component.html'
 })
 export class LegalEntityComponent {
     get form() {

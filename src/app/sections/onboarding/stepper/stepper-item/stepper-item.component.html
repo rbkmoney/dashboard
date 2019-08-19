@@ -2,8 +2,13 @@
     fxLayout
     fxLayoutGap="8px"
     fxFlexAlign="start center"
-    (click)="clickHandler($event)"
-    [ngClass]="{ 'dsh-stepper-item': true, selected: selected, success: item.status === 'success', warn: item.status === 'warn' }"
+    (click)="clickHandler()"
+    [ngClass]="{
+        'dsh-stepper-item': true,
+        selected: selected,
+        success: item.status === 'success',
+        warn: item.status === 'warn'
+    }"
 >
     <div class="dsh-stepper-item-icon-container">
         <mat-icon *ngIf="item.status === 'success'">done</mat-icon>

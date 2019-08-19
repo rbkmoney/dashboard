@@ -7,11 +7,7 @@ import { VerticalStepperComponent } from './vertical-stepper/vertical-stepper.co
 import { StepperItemComponent } from './stepper-item/stepper-item.component';
 
 @NgModule({
-    imports: [
-        FlexLayoutModule,
-        CommonModule,
-        MatIconModule
-    ],
+    imports: [FlexLayoutModule, CommonModule, MatIconModule],
     declarations: [VerticalStepperComponent, StepperItemComponent],
     exports: [VerticalStepperComponent]
 })

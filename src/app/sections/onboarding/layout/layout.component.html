@@ -19,12 +19,11 @@
         >
             <dsh-card>
                 <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                    <dsh-vertical-stepper
-                        (selectedIdxChange)="selectItem($event)"
-                        [steps]="items"
-                        [selectedItem]="selectedItem"
-                    ></dsh-vertical-stepper>
-                    <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
+                    <dsh-vertical-stepper [steps]="items" #menuStepper></dsh-vertical-stepper>
+                    <button dsh-button color="accent" (click)="menuStepper.next()">Отправить на рассмотрение</button>
+                    <button dsh-button color="accent" (click)="menuStepper.previous()">
+                        Отправить на рассмотрение
+                    </button>
                 </dsh-card-content>
             </dsh-card>
             <dsh-card>

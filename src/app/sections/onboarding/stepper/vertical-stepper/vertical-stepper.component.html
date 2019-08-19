@@ -1,5 +1,5 @@
 <div class="dsh-vertical-stepper" fxLayout="column" fxLayoutGap="10px">
-    <dsh-stepper-item *ngFor="let step of steps" [selected]="step === selectedItem" [item]="step">
+    <dsh-stepper-item *ngFor="let step of steps; let i = index" [selected]="isSelected(i)" [item]="step">
         {{ step.title }}
     </dsh-stepper-item>
 </div>

@@ -6,35 +6,32 @@ import { SuggestionData } from '../../dadata/model/suggestions';
 import { SuggestionType } from '../../dadata/model/type';
 import { Step } from './stepper/stepper-item/stepper-item.component';
 
-enum Type {
-    legalEntity
-}
-
-export const LEGAL_ENTITY_STEPS: Step[] = [
-    { url: '/onboarding/legal-entity', title: 'Сведения о юридическом лице', status: 'success' },
-    { url: '/onboarding/business-info', title: 'Основная деятельность' },
-    { url: '/onboarding/founders', title: 'Учредители' },
-    { url: '/onboarding/representative', title: 'Представитель' },
-    { url: '/onboarding/beneficial-owner', title: 'Бенефициарные владельцы' },
-    { url: '/onboarding/financial-position', title: 'Финансовое положение' },
-    { url: '/onboarding/tax-residency', title: 'Налоговое резиденство' },
-    { url: '/onboarding/bank-details', title: 'Банковские реквизиты' },
-    { url: '/onboarding/contact-info', title: 'Контактная информация' }
-];
-
 @Injectable()
 export class OnboardingService {
-    form: FormGroup;
+    claimID = 1;
 
-    currentStep: { type: Type; idx: number } = {
-        type: Type.legalEntity,
-        idx: 0
-    };
+    get steps(): Step[] {
+        const urlPrefix = `/onboarding/${this.claimID}`;
+        return [
+            { url: `${urlPrefix}/legal-entity`, title: 'Сведения о юридическом лице' },
+            { url: `${urlPrefix}/business-info`, title: 'Основная деятельность', status: 'success' },
+            { url: `${urlPrefix}/founders`, title: 'Учредители' },
+            { url: `${urlPrefix}/representative`, title: 'Представитель' },
+            { url: `${urlPrefix}/beneficial-owner`, title: 'Бенефициарные владельцы' },
+            { url: `${urlPrefix}/financial-position`, title: 'Финансовое положение' },
+            { url: `${urlPrefix}/tax-residency`, title: 'Налоговое резиденство' },
+            { url: `${urlPrefix}/bank-details`, title: 'Банковские реквизиты' },
+            { url: `${urlPrefix}/contact-info`, title: 'Контактная информация' }
+        ];
+    }
+
+    form: FormGroup;
 
     private _suggestion: SuggestionData<SuggestionType.party>;
     get suggestion() {
         return this._suggestion;
     }
+
     set suggestion(suggestion) {
         if (suggestion) {
             const legalEntityControls = (this.form.get('legalEntity') as FormGroup).controls;
@@ -59,7 +56,6 @@ export class OnboardingService {
             this.form.controls.type.setValue(undefined);
             this.form.controls.legalEntity = this.createLegalEntityGroup();
         });
-        this.setCurrentStep();
     }
 
     createLegalEntityGroup() {
@@ -78,40 +74,4 @@ export class OnboardingService {
             propertyInfo: ['']
         });
     }
-
-    setStep(step: Step) {
-        this.router.navigate([step.url]);
-        this.currentStep = {
-            type: Type.legalEntity,
-            idx: LEGAL_ENTITY_STEPS.findIndex(s => s === step)
-        };
-    }
-
-    setStepByOffset(steps: Step[], offset: number) {
-        const idx = steps.findIndex(({ url }) => url === this.router.url) + offset;
-        let step: Step;
-        if (idx >= steps.length) {
-            step = steps[steps.length - 1];
-        } else if (idx < 0) {
-            step = steps[0];
-        } else {
-            step = steps[idx];
-        }
-        this.setStep(step);
-    }
-
-    setCurrentStep() {
-        this.currentStep = {
-            type: Type.legalEntity,
-            idx: LEGAL_ENTITY_STEPS.findIndex(step => step.url === this.router.url)
-        };
-    }
-
-    nextStep = () => {
-        this.setStepByOffset(LEGAL_ENTITY_STEPS, 1);
-    };
-
-    prevStep = () => {
-        this.setStepByOffset(LEGAL_ENTITY_STEPS, -1);
-    };
 }

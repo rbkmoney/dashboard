@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { OnboardingService, LEGAL_ENTITY_STEPS } from '../onboarding.service';
+import { OnboardingService } from '../onboarding.service';
 
 @Component({
     selector: 'dsh-onboarding-layout',
@@ -15,20 +15,8 @@ export class LayoutComponent {
     hasNavigation = true;
 
     get items() {
-        return LEGAL_ENTITY_STEPS;
-    }
-
-    get selectedItem() {
-        return LEGAL_ENTITY_STEPS[this.onboardingService.currentStep.idx];
+        return this.onboardingService.steps;
     }
 
     constructor(private router: Router, private onboardingService: OnboardingService) {}
-
-    back() {
-        this.router.navigate(['/']);
-    }
-
-    selectItem(idx: number) {
-        this.onboardingService.setStep(LEGAL_ENTITY_STEPS[idx]);
-    }
 }
