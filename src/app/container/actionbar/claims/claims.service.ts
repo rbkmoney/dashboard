@@ -1,33 +1,45 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, delay, filter, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
 import { Claim } from '../../../api/claim-management';
-import { OperationStateWrapper } from '../../../operation-state-wrapper';
+import {
+    takeExecutionContext,
+    ExecutionLoadingEvent,
+    ExecutionReceiveEvent,
+    ExecutionErrorEvent
+} from '../../../take-execution-context';
 
 @Injectable()
-export class ClaimsService implements OnDestroy {
-    private searchState: OperationStateWrapper;
+export class ClaimsService {
+    private claimExecContext$ = this.claimsService.searchClaims(5).pipe(
+        map(({ result }) => result),
+        delay(6000),
+        takeExecutionContext(),
+        shareReplay(1)
+    );
 
-    constructor(private claimsService: ClaimsApiService) {
-        this.searchState = new OperationStateWrapper();
-    }
+    constructor(private claimsService: ClaimsApiService) {}
 
     isLoading(): Observable<boolean> {
-        return this.searchState.isLoading();
+        return this.claimExecContext$.pipe(
+            filter(({ type }) => type === 'Loading'),
+            map(({ isLoading }: ExecutionLoadingEvent) => isLoading)
+        );
     }
 
     isError(): Observable<boolean> {
-        return this.searchState.isError();
+        return this.claimExecContext$.pipe(
+            filter(({ type }) => type === 'Error'),
+            map(({ error }: ExecutionErrorEvent<any>) => !!error)
+        );
     }
 
-    getClaims(count = 5): Observable<Claim[]> {
-        const searchClaims = this.claimsService.searchClaims(count).pipe(map(({ result }) => result));
-        return this.searchState.wrap<Claim[]>(searchClaims);
-    }
-
-    ngOnDestroy() {
-        this.searchState.dispose();
+    getClaims(): Observable<Claim[]> {
+        return this.claimExecContext$.pipe(
+            filter(({ type }) => type === 'Receive'),
+            map(({ value }: ExecutionReceiveEvent<Claim[]>) => value)
+        );
     }
 }
