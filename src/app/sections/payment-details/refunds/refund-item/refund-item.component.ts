@@ -1,23 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 
-import { Refund, RefundStatus } from '../../../../api/capi/swagger-codegen';
-import { Color } from '../../../../status';
-import { StatusViewInfo } from '../../status-details-item/status-details-item.component';
+import { RefundSearchResult, RefundStatus } from '../../../../api/capi/swagger-codegen';
+import { StatusColor as Color } from '../../../../theme-manager';
+import { StatusViewInfo } from '../../status-details-item';
+import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
     selector: 'dsh-refund-item',
     templateUrl: './refund-item.component.html'
 })
-export class RefundItemComponent implements OnInit {
-    @Input() refund: Refund;
-
-    @Input() layoutGap = '20px';
+export class RefundItemComponent implements OnChanges {
+    @Input() refund: RefundSearchResult;
 
     localePath = 'sections.paymentDetails.refunds.refundItem';
 
     statusViewInfo: StatusViewInfo;
 
-    ngOnInit() {
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    ngOnChanges() {
         this.statusViewInfo = this.getStatusViewInfo(this.refund.status, `common.refundStatus`);
     }
 

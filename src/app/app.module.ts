@@ -19,9 +19,10 @@ import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
-import { SettingsModule, SettingsService } from './settings';
+import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
+import { LanguageService } from './locale/language';
 
 @NgModule({
     declarations: [AppComponent],
@@ -49,13 +50,13 @@ import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale
         },
         {
             provide: LOCALE_ID,
-            deps: [SettingsService],
-            useFactory: (settingsService: SettingsService) => settingsService.language
+            deps: [LanguageService],
+            useFactory: (languageService: LanguageService) => languageService.active
         },
         {
             provide: MAT_DATE_LOCALE,
-            deps: [SettingsService],
-            useFactory: (settingsService: SettingsService) => settingsService.language
+            deps: [LanguageService],
+            useFactory: (languageService: LanguageService) => languageService.active
         },
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },

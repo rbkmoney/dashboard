@@ -34,6 +34,7 @@ class FakeDataSource extends DataSource<TestData> {
         return this._dataChange;
     }
 
+    // tslint:disable-next-line: no-empty
     disconnect() {}
 
     addData() {

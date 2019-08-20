@@ -1,30 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api/capi/swagger-codegen';
-import { Color } from '../../../status';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { LAYOUT_GAP } from '../../constants';
+import { StatusColor as Color } from '../../../theme-manager';
 
 @Component({
     selector: 'dsh-details',
     templateUrl: './details.component.html'
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;
-
-    @Input() layoutGap = '10px';
-
-    rrn = 123456789012;
-    spid = 234232323242321;
 
     localePath = 'sections.paymentDetails.details';
 
     statusViewInfo: StatusViewInfo;
 
-    ngOnInit() {
-        this.statusViewInfo = this.getStatusViewInfo(this.payment.status, `common.paymentStatus`);
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.payment.currentValue !== changes.payment.previousValue) {
+            this.statusViewInfo = this.getStatusViewInfo(this.payment.status);
+        }
     }
 
-    getStatusViewInfo(status: PaymentStatus.StatusEnum, localePath: string): StatusViewInfo {
+    getStatusViewInfo(status: PaymentStatus.StatusEnum): StatusViewInfo {
+        const localePath = `common.paymentStatus`;
         const statusEnum = PaymentStatus.StatusEnum;
         switch (status) {
             case statusEnum.Processed:

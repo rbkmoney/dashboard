@@ -1,13 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { LinearChartConfig, LinearPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
@@ -40,7 +31,7 @@ export class LinearChartComponent implements OnChanges, OnInit {
         this.linearChartService.initChart(this.data, element, this.config);
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges() {
         this.linearChartService.updateChart(this.data);
     }
 }

@@ -5,7 +5,7 @@
 </div>
 
 <dsh-dropdown width="590px" #claimsDropdown="dshDropdown">
-    <dsh-claims></dsh-claims>
+    <dsh-claims (menuItemSelected)="closeDropdown()"></dsh-claims>
 </dsh-dropdown>
 
 <dsh-dropdown width="180px" #userDropdown="dshDropdown">

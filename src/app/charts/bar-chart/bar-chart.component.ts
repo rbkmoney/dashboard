@@ -1,13 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Selection } from 'd3-selection';
 
 import { BarChartConfig, PeriodData } from '../models/chart-data-models';
@@ -40,7 +31,7 @@ export class BarChartComponent implements OnChanges, OnInit {
         this.barChartService.initChart(this.data, element, this.config);
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges() {
         this.barChartService.updateChart(this.data);
     }
 }

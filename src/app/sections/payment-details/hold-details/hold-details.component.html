@@ -1,30 +1,29 @@
-<dsh-card>
+<dsh-card *ngIf="flowHold.heldUntil.toString() as holdDate">
     <dsh-card-title>
-        <h2 class="mat-h2">
+        <h2 class="mat-title">
             {{ localePath + '.title' | lc }}
         </h2>
     </dsh-card-title>
-    <dsh-card-content>
-        <div fxLayout="column" fxLayoutGap="20px">
-            <div class="mat-body-1">
-                {{ holdDate | date: 'd MMMM yyyy, HH:mm' | holdDatePipe }}
-                {{ holdDate | timeUntilHold | async }}
-                {{ localePath + '.message' | lc }}
-            </div>
-            <div
-                fxLayout="row"
-                fxLayout.xs="column"
-                fxLayoutAlign="space-between stretch"
-                fxLayoutGap="0"
-                [fxLayoutGap.xs]="layoutGap"
-            >
-                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
-                    {{ localePath + '.actions.deny' | lc }}
-                </button>
-                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
-                    {{ localePath + '.actions.accept' | lc }}
-                </button>
-            </div>
+    <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
+        <div class="mat-body-1">
+            {{ localePath + '.holdDate' | lc: { holdDate: holdDate } }} {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
+            {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
+            {{ localePath + '.message' | lc }}
+        </div>
+        <div
+            *ngIf="!isHoldExpired(holdDate)"
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutAlign="space-between stretch"
+            fxLayoutGap="0"
+            [fxLayoutGap.xs]="layoutGap"
+        >
+            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
+                {{ localePath + '.actions.deny' | lc }}
+            </button>
+            <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
+                {{ localePath + '.actions.accept' | lc }}
+            </button>
         </div>
     </dsh-card-content>
 </dsh-card>

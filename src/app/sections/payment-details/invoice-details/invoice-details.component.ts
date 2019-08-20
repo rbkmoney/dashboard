@@ -1,37 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
-import { Color } from '../../../status';
+import { StatusColor as Color } from '../../../theme-manager';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { InvoiceDetailsService } from './invoice-details.service';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-invoice-details',
     templateUrl: './invoice-details.component.html',
-    styleUrls: ['./invoice-details.component.scss']
+    styleUrls: ['./invoice-details.component.scss'],
+    providers: [InvoiceDetailsService]
 })
 export class InvoiceDetailsComponent implements OnInit {
-    @Input() invoice: Invoice;
+    @Input() invoiceID: string;
 
-    @Input() layoutGap = '20px';
+    invoice$: Observable<Invoice>;
 
     localePath = 'sections.paymentDetails.invoiceDetails';
 
-    statusViewInfo: StatusViewInfo;
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private invoiceDetailsService: InvoiceDetailsService) {}
 
     ngOnInit() {
-        this.invoice = {
-            status: InvoiceStatus.StatusEnum.Paid,
-            reason: 'Хочу вернуть деньги',
-            id: 'hsDw31Yeo7d',
-            amount: 12300,
-            product: 'Полный кектус, покупай скорее',
-            currency: 'RUB'
-        } as Invoice;
-
-        this.statusViewInfo = this.getStatusViewInfo(this.invoice.status, `common.invoiceStatus`);
+        this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
     }
 
-    getStatusViewInfo(status: InvoiceStatus.StatusEnum, localePath: string): StatusViewInfo {
+    getStatusViewInfo(status: InvoiceStatus.StatusEnum): StatusViewInfo {
+        const localePath = `common.invoiceStatus`;
         const statusEnum = InvoiceStatus.StatusEnum;
         switch (status) {
             case statusEnum.Paid:

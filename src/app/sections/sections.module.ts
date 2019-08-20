@@ -4,30 +4,28 @@ import { SectionsRoutingModule } from './sections-routing.module';
 import { MainModule } from './main';
 import { AnalyticsModule } from './analytics';
 import { PageNotFoundModule } from './page-not-found';
-import { OnboardingModule } from './onboarding';
 import { ButtonsModule } from './buttons';
-import { OperationsModule } from './payment-section/operations/operations.module';
 import { InputsModule } from './inputs/inputs.module';
-import { ClaimModule } from './claim';
 import { SectionsComponent } from './sections.component';
 import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
+import { LAYOUT_GAP } from './constants';
+import { OnboardingModule } from './onboarding';
 
 @NgModule({
     imports: [
-        OnboardingModule,
-        PaymentSectionModule,
-        PaymentDetailsModule,
-        SectionsRoutingModule,
         MainModule,
         AnalyticsModule,
         PageNotFoundModule,
         ButtonsModule,
-        OperationsModule,
         InputsModule,
-        ClaimModule
+        PaymentSectionModule,
+        OnboardingModule,
+        PaymentDetailsModule,
+        SectionsRoutingModule
     ],
     declarations: [SectionsComponent],
-    exports: [SectionsComponent]
+    exports: [SectionsComponent],
+    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }]
 })
 export class SectionsModule {}

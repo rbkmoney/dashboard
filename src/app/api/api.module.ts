@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { CAPIModule } from './capi/capi.module';
+import { CAPIModule } from './capi';
+import { ClaimManagementModule } from './claim-management';
 
 @NgModule({
-    imports: [CAPIModule],
-    declarations: [],
-    entryComponents: [],
-    providers: []
+    imports: [CAPIModule, ClaimManagementModule]
 })
 export class APIModule {}
