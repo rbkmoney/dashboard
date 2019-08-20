@@ -1,5 +1,5 @@
-import { Observable, of, combineLatest } from 'rxjs';
-import { delay, switchMap, map } from 'rxjs/operators';
+import { Observable, combineLatest, timer } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 const mergeBoolean = (arr: boolean[]): boolean => arr.reduce((p, c) => c || p, false);
 
@@ -9,8 +9,7 @@ export const calcDelayedLoadingState = (
     loadingDelay: number,
     ...breakers: Observable<boolean>[]
 ): Observable<boolean> =>
-    of(true).pipe(
-        delay(loadingDelay),
+    timer(loadingDelay).pipe(
         switchMap(_ => combineLatest(breakers)),
         map(calcLoadingState)
     );
