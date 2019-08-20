@@ -4,14 +4,10 @@ import { TimelineAction } from './timeline-action';
 import { getPartyModificationTimelineAction } from './get-party-modification-timeline-action';
 
 describe('toTimelineItemInfo', () => {
-    beforeEach(() => {
-        spyOn(console, 'error');
-    });
-
     it('empty modification', () => {
-        const timelineAction = getPartyModificationTimelineAction({} as any);
-        expect(console.error).toHaveBeenCalled();
-        expect(timelineAction).toBeUndefined();
+        expect(() => getPartyModificationTimelineAction({} as any)).toThrow(
+            new Error('Modification unit is incomplete')
+        );
     });
 
     it('not specific PartyModification', () => {
@@ -22,9 +18,9 @@ describe('toTimelineItemInfo', () => {
                 modificationType: 'PartyModification'
             } as any
         };
-        const timelineAction = getPartyModificationTimelineAction(modificationUnit);
-        expect(console.error).toHaveBeenCalled();
-        expect(timelineAction).toBeUndefined();
+        expect(() => getPartyModificationTimelineAction(modificationUnit)).toThrow(
+            new Error('Modification unit is incomplete')
+        );
     });
 
     it('ShopModification', () => {

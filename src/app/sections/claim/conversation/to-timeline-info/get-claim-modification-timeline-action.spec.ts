@@ -4,14 +4,10 @@ import { TimelineAction } from './timeline-action';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 
 describe('toTimelineItemInfo', () => {
-    beforeEach(() => {
-        spyOn(console, 'error');
-    });
-
     it('empty modification', () => {
-        const timelineAction = getClaimModificationTimelineAction({} as any);
-        expect(console.error).toHaveBeenCalled();
-        expect(timelineAction).toBeUndefined();
+        expect(() => getClaimModificationTimelineAction({} as any)).toThrow(
+            new Error('Modification unit is incomplete')
+        );
     });
 
     it('not specific ClaimModification', () => {
@@ -22,9 +18,9 @@ describe('toTimelineItemInfo', () => {
                 modificationType: 'ClaimModification'
             } as any
         };
-        const timelineAction = getClaimModificationTimelineAction(modificationUnit);
-        expect(console.error).toHaveBeenCalled();
-        expect(timelineAction).toBeUndefined();
+        expect(() => getClaimModificationTimelineAction(modificationUnit)).toThrow(
+            new Error('Modification unit is incomplete')
+        );
     });
 
     it('DocumentModificationUnit', () => {

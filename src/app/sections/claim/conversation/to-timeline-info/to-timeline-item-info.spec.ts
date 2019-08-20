@@ -1,16 +1,13 @@
 import { toTimelineItemInfo } from './to-timeline-item-info';
+import { SpecificModificationUnit } from './specific-modification-unit';
 
 describe('toTimelineItemInfo', () => {
-    beforeEach(() => {
-        spyOn(console, 'error');
-    });
-
     it('empty modifications', () => {
         expect(toTimelineItemInfo([])).toBeUndefined();
     });
 
-    it('not specific ClaimModification modification', () => {
-        const timelineItemInfo = toTimelineItemInfo([
+    it('not specific modification', () => {
+        const modification: SpecificModificationUnit[] = [
             {
                 modificationID: 1,
                 createdAt: ('01-01-2019' as any) as Date,
@@ -19,8 +16,7 @@ describe('toTimelineItemInfo', () => {
                     modification: {}
                 }
             }
-        ]);
-        expect(console.error).toHaveBeenCalled();
-        expect(timelineItemInfo).toBeUndefined();
+        ];
+        expect(() => toTimelineItemInfo(modification)).toThrow(new Error('Modification unit is incomplete'));
     });
 });
