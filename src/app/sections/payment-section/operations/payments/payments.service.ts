@@ -31,7 +31,7 @@ export class PaymentsService {
             .pipe(
                 tap(r => {
                     this.lastContinuationToken = r.continuationToken;
-                    this.$lastContinuationToken.next(this.lastContinuationToken)
+                    this.$lastContinuationToken.next(this.lastContinuationToken);
                 }),
                 map(r => r.result)
             );
