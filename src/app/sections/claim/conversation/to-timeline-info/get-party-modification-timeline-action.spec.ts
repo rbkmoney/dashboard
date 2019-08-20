@@ -9,7 +9,7 @@ describe('getPartyModificationTimelineAction', () => {
     ): SpecificModificationUnit<PartyModification> {
         return {
             modificationID: 1,
-            createdAt: ('2019-08-08T10:20:30Z' as any) as Date,
+            createdAt: '2019-08-08T10:20:30Z' as any,
             modification: {
                 modificationType: 'PartyModification',
                 partyModificationType
