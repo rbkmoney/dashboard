@@ -66,7 +66,7 @@
                 </table>
             </div>
 
-            <button *ngIf="lastContinuationToken" (click)="showMore()" dsh-button>{{ 'common.showMore' | lc }}</button>
+            <button *ngIf="$lastContinuationToken | async" (click)="showMore()" dsh-button>{{ 'common.showMore' | lc }}</button>
         </dsh-card-content>
     </dsh-card>
 </div>

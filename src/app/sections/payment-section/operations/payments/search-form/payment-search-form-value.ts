@@ -1,8 +1,6 @@
 import {
     BankCardPaymentSystem,
     BankCardTokenProvider,
-    PaymentFlow,
-    PaymentMethod,
     PaymentStatus,
     PaymentTerminalProvider
 } from '../../../../../api/capi/swagger-codegen';
@@ -12,8 +10,8 @@ export interface PaymentSearchFormValue extends SearchFormValue {
     limit: string;
     shopID?: string;
     paymentStatus?: PaymentStatus.StatusEnum;
-    paymentFlow?: PaymentFlow.TypeEnum;
-    paymentMethod?: PaymentMethod.MethodEnum;
+    paymentFlow?: 'hold' | 'instant';
+    paymentMethod?: 'bankCard' | 'paymentTerminal';
     paymentTerminalProvider?: PaymentTerminalProvider;
     invoiceID?: string;
     paymentID?: string;

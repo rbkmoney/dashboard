@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { InlineResponse2001, PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
+import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
+import { PaymentsService } from './payments.service';
 
 @Component({
     selector: 'dsh-payments',
@@ -14,37 +15,29 @@ export class PaymentsComponent {
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     dataSource: MatTableDataSource<PaymentSearchResult> = new MatTableDataSource(null);
     localeBaseDir = 'sections.operations.payments';
-    lastContinuationToken: string;
-    lastPaymentSearchFormValue: PaymentSearchFormValue;
     lastUpdated: Date;
+    $lastContinuationToken: Subject<string>;
 
-    kek: (keke: PaymentSearchFormValue, continuationToken?: string) => Observable<InlineResponse2001> = () =>
-        new Observable(subscriber => {
-            subscriber.next({ result: [], continuationToken: Math.random().toString() });
-            subscriber.complete();
-        });
+    constructor(private paymentService: PaymentsService) {
+        this.$lastContinuationToken = paymentService.$lastContinuationToken;
+    }
 
-    search(searchFormValue: PaymentSearchFormValue, token?: string) {
-        this.lastPaymentSearchFormValue = searchFormValue;
-        this.kek(searchFormValue, token).subscribe(r => {
-            const { continuationToken, result } = r;
-            this.lastContinuationToken = r.continuationToken ? continuationToken : null;
-            this.dataSource.data = result;
+    search(searchFormValue: PaymentSearchFormValue) {
+        this.paymentService.getPayments(searchFormValue).subscribe(r => {
+            this.dataSource.data = r;
             this.updateLastUpdated();
         });
     }
 
     showMore() {
-        this.kek(this.lastPaymentSearchFormValue, this.lastContinuationToken).subscribe(r => {
-            const { continuationToken, result } = r;
-            this.lastContinuationToken = continuationToken;
-            this.dataSource.data = this.dataSource.data.concat(result);
+        this.paymentService.getPayments().subscribe(r => {
+            this.dataSource.data = this.dataSource.data.concat(r);
             this.updateLastUpdated();
         });
     }
 
     refresh() {
-        this.search(this.lastPaymentSearchFormValue);
+        this.search(undefined);
     }
 
     private updateLastUpdated() {
