@@ -1,9 +1,9 @@
 import { SpecificModificationUnit } from './specific-modification-unit';
-import { PartyModification, ShopModificationUnit } from '../../../../api/claim-management';
+import { PartyModification } from '../../../../api/claim-management';
 import { TimelineAction } from './timeline-action';
 import { getPartyModificationTimelineAction } from './get-party-modification-timeline-action';
 
-describe('toTimelineItemInfo', () => {
+describe('getPartyModificationTimelineAction', () => {
     function createShopModificationUnit(
         partyModificationType?: PartyModification.PartyModificationTypeEnum
     ): SpecificModificationUnit<PartyModification> {
