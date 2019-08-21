@@ -25,7 +25,7 @@ export class PaymentsComponent {
     }
 
     search(searchFormValue?: PaymentSearchFormValue) {
-        this.paymentService.getPayments(searchFormValue).subscribe(r => {
+        this.paymentService.getPayments(searchFormValue, undefined, null).subscribe(r => {
             this.dataSource.data = r;
             this.updateLastUpdated();
         });

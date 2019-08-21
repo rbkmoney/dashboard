@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
@@ -8,8 +8,7 @@ import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 
 @Injectable()
 export class PaymentsService {
-    lastContinuationToken$: Subject<string> = new Subject();
-    private lastContinuationToken: string;
+    lastContinuationToken$: BehaviorSubject<string> = new BehaviorSubject(null);
     private lastPaymentSearchFormValue: PaymentSearchFormValue;
 
     constructor(private paymentSearchService: PaymentSearchService) {}
@@ -17,7 +16,7 @@ export class PaymentsService {
     getPayments(
         searchFormValue = this.lastPaymentSearchFormValue,
         limit = 20,
-        token = this.lastContinuationToken
+        token = this.lastContinuationToken$.getValue()
     ): Observable<Array<PaymentSearchResult>> {
         this.lastPaymentSearchFormValue = searchFormValue;
         return this.paymentSearchService
@@ -30,8 +29,7 @@ export class PaymentsService {
             )
             .pipe(
                 tap(({ continuationToken }) => {
-                    this.lastContinuationToken = continuationToken;
-                    this.lastContinuationToken$.next(this.lastContinuationToken);
+                    this.lastContinuationToken$.next(continuationToken);
                 }),
                 map(({ result }) => result)
             );
