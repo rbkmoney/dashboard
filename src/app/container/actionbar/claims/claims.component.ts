@@ -15,7 +15,7 @@ export class ClaimsComponent {
 
     claims$ = this.claimsService.getClaims();
     isLoading$ = this.claimsService.isLoading();
-    isError$ = this.claimsService.isError();
+    error$ = this.claimsService.getError();
 
     constructor(private claimsService: ClaimsService) {}
 }

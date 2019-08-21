@@ -14,9 +14,9 @@ export interface ExecutionReceiveEvent<T> extends ExecutionEvent {
     value: T;
 }
 
-export interface ExecutionErrorEvent<T> extends ExecutionEvent {
+export interface ExecutionErrorEvent<E> extends ExecutionEvent {
     type: 'Error';
-    error: T;
+    error: E;
 }
 
-export type ExecutionContext<T> = ExecutionLoadingEvent | ExecutionReceiveEvent<T> | ExecutionErrorEvent<any>;
+export type ExecutionContext<T, E = any> = ExecutionLoadingEvent | ExecutionReceiveEvent<T> | ExecutionErrorEvent<E>;

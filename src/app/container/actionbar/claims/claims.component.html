@@ -11,6 +11,6 @@
         >
         </dsh-claims-list-item>
     </dsh-claims-list>
-    <div *ngIf="isError$ | async" class="mat-body-1">{{ 'common.httpError' | lc }}</div>
+    <div *ngIf="error$ | async" class="mat-body-1">{{ 'common.httpError' | lc }}</div>
     <button dsh-button class="action">{{ dicBasePath + '.goToAll' | lc }}</button>
 </dsh-dropdown-content>

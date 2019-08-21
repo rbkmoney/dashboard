@@ -11,7 +11,7 @@ export class SpinnerComponent {
     @Input() animationDuration = 1000;
     @Input() size = 50;
     activeSpinner = 1;
-    spinnersCount = 12;
+    spinnersCount = 11;
     color = slateblue400;
 
     constructor() {

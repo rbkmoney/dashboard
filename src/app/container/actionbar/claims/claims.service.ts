@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, delay, filter, shareReplay } from 'rxjs/operators';
+import { map, delay, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
 import { Claim } from '../../../api/claim-management';
 import {
     takeExecutionContext,
-    ExecutionLoadingEvent,
-    ExecutionReceiveEvent,
-    ExecutionErrorEvent
+    takeLoadingContext,
+    takeErrorContext,
+    takeReceiveContext
 } from '../../../take-execution-context';
+
+type Error = any;
 
 @Injectable()
 export class ClaimsService {
@@ -23,23 +25,14 @@ export class ClaimsService {
     constructor(private claimsService: ClaimsApiService) {}
 
     isLoading(): Observable<boolean> {
-        return this.claimExecContext$.pipe(
-            filter(({ type }) => type === 'Loading'),
-            map(({ isLoading }: ExecutionLoadingEvent) => isLoading)
-        );
+        return this.claimExecContext$.pipe(takeLoadingContext());
     }
 
-    isError(): Observable<boolean> {
-        return this.claimExecContext$.pipe(
-            filter(({ type }) => type === 'Error'),
-            map(({ error }: ExecutionErrorEvent<any>) => !!error)
-        );
+    getError(): Observable<Error> {
+        return this.claimExecContext$.pipe(takeErrorContext<Error>());
     }
 
     getClaims(): Observable<Claim[]> {
-        return this.claimExecContext$.pipe(
-            filter(({ type }) => type === 'Receive'),
-            map(({ value }: ExecutionReceiveEvent<Claim[]>) => value)
-        );
+        return this.claimExecContext$.pipe(takeReceiveContext());
     }
 }
