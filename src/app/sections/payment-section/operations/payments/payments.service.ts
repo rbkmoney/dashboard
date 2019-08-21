@@ -29,11 +29,11 @@ export class PaymentsService {
                 token
             )
             .pipe(
-                tap(({continuationToken}) => {
+                tap(({ continuationToken }) => {
                     this.lastContinuationToken = continuationToken;
                     this.lastContinuationToken$.next(this.lastContinuationToken);
                 }),
-                map(({result}) => result)
+                map(({ result }) => result)
             );
     }
 }
