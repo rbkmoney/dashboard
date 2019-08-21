@@ -18,6 +18,8 @@ export class PaymentStatusColorPipe implements PipeTransform {
                 return StatusColor.warn;
             case statusEnum.Pending:
                 return StatusColor.pending;
+            case statusEnum.Refunded:
+                return StatusColor.neutral;
         }
     }
 }
