@@ -21,7 +21,7 @@ import { FormControlsModule } from '../../../../form-controls';
 import { DaterangeSelectorModule } from '../daterange-selector';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
-import { ViewUtilsModule } from '../../../../view-utils/view-utils.module';
+import { ViewUtilsModule } from '../../../../view-utils';
 
 @NgModule({
     imports: [

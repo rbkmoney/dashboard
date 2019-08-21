@@ -38,6 +38,7 @@ import { InvoiceModule } from '../../invoice';
 import { ShopModule } from '../../shop';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { PaymentDetailsService } from './payment-details.service';
 
 @NgModule({
     imports: [
@@ -83,6 +84,7 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ShopLocationUrlComponent,
         MakeRecurrentComponent,
         HeadlineComponent
-    ]
+    ],
+    providers: [PaymentDetailsService]
 })
 export class PaymentDetailsModule {}
