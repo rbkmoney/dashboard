@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, delay, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
 import { Claim } from '../../../api/claim-management';
@@ -17,7 +17,6 @@ type Error = any;
 export class ClaimsService {
     private claimExecContext$ = this.claimsService.searchClaims(5).pipe(
         map(({ result }) => result),
-        delay(6000),
         takeExecutionContext(),
         shareReplay(1)
     );
