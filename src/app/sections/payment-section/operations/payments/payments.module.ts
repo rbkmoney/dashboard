@@ -22,8 +22,8 @@ import { DaterangeSelectorModule } from '../daterange-selector';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
-import { LastUpdatedComponent } from './last-updated/last-updated.component';
 import { PaymentsService } from './payments.service';
+import { LastUpdatedModule } from './last-updated/last-updated.module';
 
 @NgModule({
     imports: [
@@ -43,9 +43,10 @@ import { PaymentsService } from './payments.service';
         FormControlsModule,
         DaterangeSelectorModule,
         StatusModule,
-        ViewUtilsModule
+        ViewUtilsModule,
+        LastUpdatedModule
     ],
     providers: [PaymentsService],
-    declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, LastUpdatedComponent]
+    declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe]
 })
 export class PaymentsModule {}

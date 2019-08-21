@@ -1,4 +1,4 @@
 <div fxLayout fxLayoutAlign="space-between center">
-    <span class="last-update">{{ 'common.lastUpdate' | lc }}: {{ lastUpdated }}</span>
+    <span class="last-update">{{ 'common.lastUpdate' | lc }}: {{ lastUpdated | humanizedDuration: {largest: 1} }} {{('common.ago' | lc)}}</span>
     <a (click)="refresh()" class="update-link">{{ 'common.update' | lc }}</a>
 </div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
@@ -14,15 +16,15 @@ import { PaymentsService } from './payments.service';
 export class PaymentsComponent {
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     dataSource: MatTableDataSource<PaymentSearchResult> = new MatTableDataSource(null);
-    localeBaseDir = 'sections.operations.payments';
-    lastUpdated: Date;
-    $lastContinuationToken: Subject<string>;
+    localeBaseDir = 'sections.operations.payments.table';
+    lastUpdated: Moment;
+    lastContinuationToken$: Subject<string>;
 
     constructor(private paymentService: PaymentsService) {
-        this.$lastContinuationToken = paymentService.$lastContinuationToken;
+        this.lastContinuationToken$ = paymentService.lastContinuationToken$;
     }
 
-    search(searchFormValue: PaymentSearchFormValue) {
+    search(searchFormValue?: PaymentSearchFormValue) {
         this.paymentService.getPayments(searchFormValue).subscribe(r => {
             this.dataSource.data = r;
             this.updateLastUpdated();
@@ -37,10 +39,10 @@ export class PaymentsComponent {
     }
 
     refresh() {
-        this.search(undefined);
+        this.search();
     }
 
     private updateLastUpdated() {
-        this.lastUpdated = new Date();
+        this.lastUpdated = moment();
     }
 }

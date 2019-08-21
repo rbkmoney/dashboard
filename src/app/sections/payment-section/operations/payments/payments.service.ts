@@ -8,7 +8,7 @@ import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 
 @Injectable()
 export class PaymentsService {
-    $lastContinuationToken: Subject<string> = new Subject();
+    lastContinuationToken$: Subject<string> = new Subject();
     private lastContinuationToken: string;
     private lastPaymentSearchFormValue: PaymentSearchFormValue;
 
@@ -29,11 +29,11 @@ export class PaymentsService {
                 token
             )
             .pipe(
-                tap(r => {
-                    this.lastContinuationToken = r.continuationToken;
-                    this.$lastContinuationToken.next(this.lastContinuationToken);
+                tap(({continuationToken}) => {
+                    this.lastContinuationToken = continuationToken;
+                    this.lastContinuationToken$.next(this.lastContinuationToken);
                 }),
-                map(r => r.result)
+                map(({result}) => result)
             );
     }
 }
