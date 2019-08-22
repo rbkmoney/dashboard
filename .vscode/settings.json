@@ -8,7 +8,7 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",
-        "Keycloak",
+        "keycloak",
         "codegen",
         "dadata",
         "downlevel",
@@ -16,7 +16,8 @@
         "esnext",
         "mastercard",
         "rbkmoney",
-        "submodule"
+        "submodule",
+        "бенефициарного"
     ],
     "cSpell.language": "en,ru"
 }

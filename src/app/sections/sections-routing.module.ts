@@ -29,6 +29,10 @@ const routes: Routes = [
         loadChildren: () => import('./claim').then(m => m.ClaimModule)
     },
     {
+        path: 'questionary',
+        loadChildren: () => import('./questionary').then(m => m.QuestionaryModule)
+    },
+    {
         path: '**',
         component: PageNotFoundComponent
     }
