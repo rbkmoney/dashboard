@@ -14,7 +14,9 @@
         "downlevel",
         "dropdown",
         "esnext",
-        "mastercard"
+        "mastercard",
+        "rbkmoney",
+        "submodule"
     ],
     "cSpell.language": "en,ru"
 }
