@@ -5,9 +5,10 @@ import { QuestionaryRoutingModule } from './questionary-routing.module';
 import { QuestionaryModule as QuestionaryApiModule } from '../../questionary';
 import { CardModule } from '../../layout/card';
 import { ButtonModule } from '../../button';
+import { DocumentModule } from '../../document/document.module';
 
 @NgModule({
-    imports: [QuestionaryRoutingModule, QuestionaryApiModule, CardModule, ButtonModule],
+    imports: [QuestionaryRoutingModule, QuestionaryApiModule, CardModule, ButtonModule, DocumentModule],
     declarations: [QuestionaryComponent],
     exports: [QuestionaryComponent]
 })
