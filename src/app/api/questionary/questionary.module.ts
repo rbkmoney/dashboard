@@ -12,4 +12,4 @@ import { QuestionaryConfigService } from './questionary-config.service';
     ],
     providers: [QuestionaryConfigService]
 })
-export class ClaimManagementModule {}
+export class QuestionaryModule {}

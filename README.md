@@ -48,6 +48,7 @@ npm run codegen
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`
     -   `<SCHEME_NAME>-config.service.ts`
+1.  Add `<SCHEME_NAME>.module.ts` to `src/app/api/api.module.ts` `imports`
 
 ## Tests
 

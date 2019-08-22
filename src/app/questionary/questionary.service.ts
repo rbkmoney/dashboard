@@ -13,11 +13,11 @@ export class QuestionaryService {
         private getQuestionaryService: GetQuestionaryService
     ) {}
 
-    saveQuestionary(params: SaveQuestionaryParams) {
-        return this.saveQuestionaryService.saveQuestionary(params);
-    }
-
     getQuestionary(questionaryId: string, version?: string) {
         return this.getQuestionaryService.getQuestionary(questionaryId, version);
+    }
+
+    saveQuestionary(params: SaveQuestionaryParams) {
+        return this.saveQuestionaryService.saveQuestionary(params);
     }
 }
