@@ -37,7 +37,6 @@ export class PaymentsService {
                 } else {
                     this.payments$.next(result);
                 }
-
             });
     }
 

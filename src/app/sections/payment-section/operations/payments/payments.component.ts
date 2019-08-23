@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Moment } from 'moment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -19,14 +19,10 @@ export class PaymentsComponent implements OnInit {
     payments$: Observable<PaymentSearchResult[]>;
     hasMorePayments$: Observable<boolean>;
 
-    constructor(private paymentService: PaymentsService) {
-    }
+    constructor(private paymentService: PaymentsService) {}
 
     ngOnInit() {
-        this.payments$ = this.paymentService.payments()
-            .pipe(
-                tap(_ => this.lastUpdated = moment())
-            );
+        this.payments$ = this.paymentService.payments().pipe(tap(_ => (this.lastUpdated = moment())));
         this.hasMorePayments$ = this.paymentService.hasMorePayments();
     }
 
