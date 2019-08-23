@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 import { PaymentSearchService } from '../../../../search';
@@ -9,17 +8,20 @@ import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 @Injectable()
 export class PaymentsService {
     lastContinuationToken$: BehaviorSubject<string> = new BehaviorSubject(null);
+
+    private payments$ = new BehaviorSubject<PaymentSearchResult[]>([]);
+    private hasMorePayments$ = new BehaviorSubject<boolean>(false);
     private lastPaymentSearchFormValue: PaymentSearchFormValue;
 
     constructor(private paymentSearchService: PaymentSearchService) {}
 
-    getPayments(
+    loadPayments(
         searchFormValue = this.lastPaymentSearchFormValue,
         limit = 20,
         token = this.lastContinuationToken$.getValue()
-    ): Observable<Array<PaymentSearchResult>> {
+    ) {
         this.lastPaymentSearchFormValue = searchFormValue;
-        return this.paymentSearchService
+        this.paymentSearchService
             .searchPayments(
                 searchFormValue.fromTime.utc().format(),
                 searchFormValue.toTime.utc().format(),
@@ -27,11 +29,23 @@ export class PaymentsService {
                 limit,
                 token
             )
-            .pipe(
-                tap(({ continuationToken }) => {
-                    this.lastContinuationToken$.next(continuationToken);
-                }),
-                map(({ result }) => result)
-            );
+            .subscribe(({ continuationToken, result }) => {
+                this.hasMorePayments$.next(!!continuationToken);
+                this.lastContinuationToken$.next(continuationToken);
+                if (token) {
+                    this.payments$.next(this.payments$.getValue().concat(result));
+                } else {
+                    this.payments$.next(result);
+                }
+
+            });
+    }
+
+    payments(): Observable<PaymentSearchResult[]> {
+        return this.payments$.asObservable();
+    }
+
+    hasMorePayments(): Observable<boolean> {
+        return this.hasMorePayments$.asObservable();
     }
 }

@@ -4,69 +4,8 @@
     <dsh-card>
         <dsh-card-content fxLayout="column" fxLayoutGap="15px">
             <dsh-last-updated (update)="refresh()" [lastUpdated]="lastUpdated"></dsh-last-updated>
-            <div class="table-container">
-                <table dshTable [dataSource]="dataSource">
-                    <ng-container dshColumnDef="amount">
-                        <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
-                            {{ localeBaseDir + '.amount' | lc }}
-                        </th>
-                        <td dshCell fxFlex="150px" *dshCellDef="let element">
-                            {{ element.amount | fromMinor | currency: element.currency }}
-                        </td>
-                    </ng-container>
-
-                    <ng-container dshColumnDef="status">
-                        <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
-                            {{ localeBaseDir + '.status' | lc }}
-                        </th>
-                        <td dshCell fxFlex="140px" *dshCellDef="let element">
-                            <dsh-status [color]="element.status | paymentStatusColor">{{
-                                'common.paymentStatus.' + element.status | lc
-                            }}</dsh-status>
-                        </td>
-                    </ng-container>
-
-                    <ng-container dshColumnDef="statusChanged">
-                        <th dshHeaderCell *dshHeaderCellDef>
-                            {{ localeBaseDir + '.statusChanged' | lc }}
-                        </th>
-                        <td dshCell *dshCellDef="let element">
-                            {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
-                        </td>
-                    </ng-container>
-
-                    <ng-container dshColumnDef="invoice">
-                        <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                            {{ localeBaseDir + '.invoice' | lc }}
-                        </th>
-                        <td dshCell *dshCellDef="let element" fxHide fxShow.gt-sm>
-                            <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                                ><span>{{ element.invoiceID }}</span>
-                                <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
-                            >
-                        </td>
-                    </ng-container>
-
-                    <ng-container dshColumnDef="attributes">
-                        <th dshHeaderCell *dshHeaderCellDef>{{ localeBaseDir + '.shop' | lc }}</th>
-                        <td dshCell *dshCellDef="let element">
-                            <span class="truncate">{{ element.shopID }}</span>
-                        </td>
-                    </ng-container>
-
-                    <ng-container dshColumnDef="actions">
-                        <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
-                        <td dshCell fxFlex="42px" *dshCellDef="let element">
-                            <button dsh-icon-button><mat-icon>more_vert</mat-icon></button>
-                        </td>
-                    </ng-container>
-
-                    <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
-                    <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
-                </table>
-            </div>
-
-            <button *ngIf="lastContinuationToken$ | async" (click)="showMore()" dsh-button>
+            <dsh-payments-table [data]="payments$ | async"></dsh-payments-table>
+            <button *ngIf="hasMorePayments$ | async" (click)="loadMore()" dsh-button>
                 {{ 'common.showMore' | lc }}
             </button>
         </dsh-card-content>

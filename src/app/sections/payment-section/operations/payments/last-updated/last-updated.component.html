@@ -1,7 +1,7 @@
 <div fxLayout fxLayoutAlign="space-between center">
-    <span class="last-update"
+    <span class="last-update mat-caption"
         >{{ 'common.lastUpdate' | lc }}: {{ lastUpdated | humanizedDuration: { largest: 1 } }}
         {{ 'common.ago' | lc }}</span
     >
-    <a (click)="refresh()" class="update-link">{{ 'common.update' | lc }}</a>
+    <a (click)="refresh()" class="update-link mat-caption">{{ 'common.update' | lc }}</a>
 </div>

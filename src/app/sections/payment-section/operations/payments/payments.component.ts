@@ -1,48 +1,44 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Moment } from 'moment';
+import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 import { PaymentsService } from './payments.service';
+import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    styleUrls: ['payments.component.scss']
+    providers: [PaymentsService]
 })
-export class PaymentsComponent {
-    displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
-    dataSource: MatTableDataSource<PaymentSearchResult> = new MatTableDataSource(null);
-    localeBaseDir = 'sections.operations.payments.table';
-    lastUpdated: Moment;
-    lastContinuationToken$: Subject<string>;
+export class PaymentsComponent implements OnInit {
+    lastUpdated: Moment = moment();
+
+    payments$: Observable<PaymentSearchResult[]>;
+    hasMorePayments$: Observable<boolean>;
 
     constructor(private paymentService: PaymentsService) {
-        this.lastContinuationToken$ = paymentService.lastContinuationToken$;
+    }
+
+    ngOnInit() {
+        this.payments$ = this.paymentService.payments()
+            .pipe(
+                tap(_ => this.lastUpdated = moment())
+            );
+        this.hasMorePayments$ = this.paymentService.hasMorePayments();
+    }
+
+    loadMore() {
+        this.paymentService.loadPayments();
     }
 
     search(searchFormValue?: PaymentSearchFormValue) {
-        this.paymentService.getPayments(searchFormValue, undefined, null).subscribe(r => {
-            this.dataSource.data = r;
-            this.updateLastUpdated();
-        });
-    }
-
-    showMore() {
-        this.paymentService.getPayments().subscribe(r => {
-            this.dataSource.data = this.dataSource.data.concat(r);
-            this.updateLastUpdated();
-        });
+        this.paymentService.loadPayments(searchFormValue, undefined, null);
     }
 
     refresh() {
-        this.search();
-    }
-
-    private updateLastUpdated() {
-        this.lastUpdated = moment();
+        this.paymentService.loadPayments(undefined, undefined, null);
     }
 }
