@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import * as moment from 'moment';
+import { Component } from '@angular/core';
 
-import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 
@@ -12,28 +8,22 @@ import { PaymentSearchFormValue } from './search-form/payment-search-form-value'
     templateUrl: 'payments.component.html',
     providers: [PaymentsService]
 })
-export class PaymentsComponent implements OnInit {
-    lastUpdated: string = moment().format();
-
-    payments$: Observable<PaymentSearchResult[]>;
-    hasMorePayments$: Observable<boolean>;
+export class PaymentsComponent {
+    payments$ = this.paymentService.payments();
+    hasMorePayments$ = this.paymentService.hasMorePayments();
+    lastUpdated$ = this.paymentService.lastUpdated$;
 
     constructor(private paymentService: PaymentsService) {}
 
-    ngOnInit() {
-        this.payments$ = this.paymentService.payments().pipe(tap(_ => (this.lastUpdated = moment().format())));
-        this.hasMorePayments$ = this.paymentService.hasMorePayments();
+    search(val: PaymentSearchFormValue) {
+        this.paymentService.search(val);
     }
 
-    loadMore() {
-        this.paymentService.loadMore();
-    }
-
-    search(searchFormValue?: PaymentSearchFormValue) {
-        this.paymentService.loadPayments(searchFormValue);
+    showMore() {
+        this.paymentService.showMore();
     }
 
     refresh() {
-        this.paymentService.loadPayments();
+        this.paymentService.refresh();
     }
 }

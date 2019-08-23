@@ -1,52 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { PaymentSearchService } from '../../../../search';
+import { PaymentSearchService, PaymentsWithToken } from '../../../../search';
 import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 
 @Injectable()
 export class PaymentsService {
     private payments$ = new BehaviorSubject<PaymentSearchResult[]>([]);
-    private lastContinuationToken: string;
     private hasMorePayments$ = new BehaviorSubject<boolean>(false);
-    private lastPaymentSearchFormValue: PaymentSearchFormValue;
-    private limit = 20;
+
+    private continuationToken: string = null;
+    private searchValue: PaymentSearchFormValue = null;
+    private paymentsAcc: PaymentSearchResult[] = [];
+
+    lastUpdated$: Observable<string> = this.payments$.pipe(
+        map(_ =>
+            moment()
+                .utc()
+                .format()
+        )
+    );
 
     constructor(private paymentSearchService: PaymentSearchService) {}
-
-    loadPayments(searchFormValue = this.lastPaymentSearchFormValue) {
-        this.lastPaymentSearchFormValue = searchFormValue;
-        this.paymentSearchService
-            .searchPayments(
-                searchFormValue.fromTime.utc().format(),
-                searchFormValue.toTime.utc().format(),
-                searchFormValue,
-                this.limit
-            )
-            .subscribe(({ continuationToken, result }) => {
-                this.hasMorePayments$.next(!!continuationToken);
-                this.lastContinuationToken = continuationToken;
-                this.payments$.next(result);
-            });
-    }
-
-    loadMore() {
-        const searchFormValue = this.lastPaymentSearchFormValue;
-        this.paymentSearchService
-            .searchPayments(
-                searchFormValue.fromTime.utc().format(),
-                searchFormValue.toTime.utc().format(),
-                searchFormValue,
-                this.limit,
-                this.lastContinuationToken
-            )
-            .subscribe(({ continuationToken, result }) => {
-                this.hasMorePayments$.next(!!continuationToken);
-                this.lastContinuationToken = continuationToken;
-                this.payments$.next(this.payments$.getValue().concat(result));
-            });
-    }
 
     payments(): Observable<PaymentSearchResult[]> {
         return this.payments$.asObservable();
@@ -54,5 +32,55 @@ export class PaymentsService {
 
     hasMorePayments(): Observable<boolean> {
         return this.hasMorePayments$.asObservable();
+    }
+
+    search(val: PaymentSearchFormValue) {
+        this.searchValue = val;
+        this.refresh();
+    }
+
+    refresh() {
+        this.paymentsAcc = [];
+        this.continuationToken = null;
+        this.showMore();
+    }
+
+    showMore() {
+        this.broadcastPayments(this.searchValue);
+    }
+
+    private broadcastPayments(val: PaymentSearchFormValue) {
+        this.reducePayments(val).subscribe(p => {
+            this.payments$.next(p);
+            this.hasMorePayments$.next(!!this.continuationToken);
+        });
+    }
+
+    private reducePayments(val: PaymentSearchFormValue): Observable<PaymentSearchResult[]> {
+        return this.reduceToken(val).pipe(
+            tap(p => (this.paymentsAcc = this.paymentsAcc.concat(p))),
+            map(_ => this.paymentsAcc)
+        );
+    }
+
+    private reduceToken(val: PaymentSearchFormValue): Observable<PaymentSearchResult[]> {
+        return this.searchPayments(val, this.continuationToken).pipe(
+            tap(({ continuationToken }) => (this.continuationToken = continuationToken)),
+            map(({ result }) => result)
+        );
+    }
+
+    private searchPayments(
+        val: PaymentSearchFormValue,
+        continuationToken: string,
+        limit = 20
+    ): Observable<PaymentsWithToken> {
+        return this.paymentSearchService.searchPayments(
+            val.fromTime.utc().format(),
+            val.toTime.utc().format(),
+            val,
+            limit,
+            continuationToken
+        );
     }
 }
