@@ -4,11 +4,13 @@ export enum Family {
     serif = 'serif'
 }
 
+const robotoDir = '/assets/fonts/Roboto/';
+
 export const fonts = [
     createFontFamily(Family.serif, {
-        normal: '/assets/fonts/Tinos regular.ttf',
-        bold: '/assets/fonts/Tinos 700.ttf',
-        italics: '/assets/fonts/Tinos italic.ttf',
-        bolditalics: '/assets/fonts/Tinos 700italic.ttf'
+        normal: `${robotoDir}Roboto-Regular.ttf`,
+        bold: `${robotoDir}Roboto-Bold.ttf`,
+        italics: `${robotoDir}Roboto-RegularItalic.ttf`,
+        bolditalics: `${robotoDir}Roboto-BoldItalic.ttf`
     })
 ];
