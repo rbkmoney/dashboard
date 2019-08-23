@@ -7,36 +7,44 @@ import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
 
 @Injectable()
 export class PaymentsService {
-    lastContinuationToken$: BehaviorSubject<string> = new BehaviorSubject(null);
-
     private payments$ = new BehaviorSubject<PaymentSearchResult[]>([]);
+    private lastContinuationToken: string;
     private hasMorePayments$ = new BehaviorSubject<boolean>(false);
     private lastPaymentSearchFormValue: PaymentSearchFormValue;
+    private limit = 20;
 
     constructor(private paymentSearchService: PaymentSearchService) {}
 
-    loadPayments(
-        searchFormValue = this.lastPaymentSearchFormValue,
-        limit = 20,
-        token = this.lastContinuationToken$.getValue()
-    ) {
+    loadPayments(searchFormValue = this.lastPaymentSearchFormValue) {
         this.lastPaymentSearchFormValue = searchFormValue;
         this.paymentSearchService
             .searchPayments(
                 searchFormValue.fromTime.utc().format(),
                 searchFormValue.toTime.utc().format(),
                 searchFormValue,
-                limit,
-                token
+                this.limit
             )
             .subscribe(({ continuationToken, result }) => {
                 this.hasMorePayments$.next(!!continuationToken);
-                this.lastContinuationToken$.next(continuationToken);
-                if (token) {
-                    this.payments$.next(this.payments$.getValue().concat(result));
-                } else {
-                    this.payments$.next(result);
-                }
+                this.lastContinuationToken = continuationToken;
+                this.payments$.next(result);
+            });
+    }
+
+    loadMore() {
+        const searchFormValue = this.lastPaymentSearchFormValue;
+        this.paymentSearchService
+            .searchPayments(
+                searchFormValue.fromTime.utc().format(),
+                searchFormValue.toTime.utc().format(),
+                searchFormValue,
+                this.limit,
+                this.lastContinuationToken
+            )
+            .subscribe(({ continuationToken, result }) => {
+                this.hasMorePayments$.next(!!continuationToken);
+                this.lastContinuationToken = continuationToken;
+                this.payments$.next(this.payments$.getValue().concat(result));
             });
     }
 

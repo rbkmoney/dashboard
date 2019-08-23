@@ -26,14 +26,14 @@ export class PaymentsComponent implements OnInit {
     }
 
     loadMore() {
-        this.paymentService.loadPayments();
+        this.paymentService.loadMore();
     }
 
     search(searchFormValue?: PaymentSearchFormValue) {
-        this.paymentService.loadPayments(searchFormValue, undefined, null);
+        this.paymentService.loadPayments(searchFormValue);
     }
 
     refresh() {
-        this.paymentService.loadPayments(undefined, undefined, null);
+        this.paymentService.loadPayments();
     }
 }
