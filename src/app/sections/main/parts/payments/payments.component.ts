@@ -30,8 +30,10 @@ export class PaymentsComponent implements OnInit {
 
     config: ContentConfig;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
+    isLoading$ = this.paymentsService.isLoading$;
+    hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
 
-    constructor(private lcService: LocaleDictionaryService, public paymentsService: PaymentsService) {}
+    constructor(private lcService: LocaleDictionaryService, private paymentsService: PaymentsService) {}
 
     ngOnInit() {
         this.config = this.toConfig(this.type);

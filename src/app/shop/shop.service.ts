@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import negate from 'lodash.negate';
 
 import { Shop, ShopsService } from '../api/capi/swagger-codegen';
@@ -30,6 +30,6 @@ export class ShopService extends SimpleCacheService<Shop[]> {
     }
 
     protected targetRequest(): Observable<Shop[]> {
-        return this.shopsService.getShops(genXRequestID()).pipe(delay(3000));
+        return this.shopsService.getShops(genXRequestID());
     }
 }
