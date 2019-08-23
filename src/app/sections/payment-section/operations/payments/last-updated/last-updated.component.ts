@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Moment } from 'moment';
 
 @Component({
     selector: 'dsh-last-updated',
@@ -7,7 +6,7 @@ import { Moment } from 'moment';
     styleUrls: ['last-updated.component.scss']
 })
 export class LastUpdatedComponent {
-    @Input() lastUpdated: Moment;
+    @Input() lastUpdated: string;
 
     @Output() update = new EventEmitter();
 

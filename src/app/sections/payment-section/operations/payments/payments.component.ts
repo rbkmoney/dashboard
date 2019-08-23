@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Moment } from 'moment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -14,7 +13,7 @@ import { PaymentSearchFormValue } from './search-form/payment-search-form-value'
     providers: [PaymentsService]
 })
 export class PaymentsComponent implements OnInit {
-    lastUpdated: Moment = moment();
+    lastUpdated: string = moment().format();
 
     payments$: Observable<PaymentSearchResult[]>;
     hasMorePayments$: Observable<boolean>;
@@ -22,7 +21,7 @@ export class PaymentsComponent implements OnInit {
     constructor(private paymentService: PaymentsService) {}
 
     ngOnInit() {
-        this.payments$ = this.paymentService.payments().pipe(tap(_ => (this.lastUpdated = moment())));
+        this.payments$ = this.paymentService.payments().pipe(tap(_ => (this.lastUpdated = moment().format())));
         this.hasMorePayments$ = this.paymentService.hasMorePayments();
     }
 
