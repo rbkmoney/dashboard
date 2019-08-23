@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Content, TDocumentHeaderFooterFunction } from 'pdfmake/build/pdfmake';
+import { Content, TDocumentHeaderFooterFunction, TableCell } from 'pdfmake/build/pdfmake';
 
 import { DocumentService, Family } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../questionary';
@@ -11,6 +11,42 @@ export class QuestionaryService {
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
     createIndividualEntityDoc() {
+        function paragraph(header: string, body: Content[][] | TableCell[][] | string[][]): Content {
+            const count = body[0].length;
+            return {
+                layout: 'header',
+                table: {
+                    widths: new Array(count).fill('*'),
+                    headerRows: 1,
+                    body: [
+                        [
+                            {
+                                colSpan: count,
+                                style: 'tableHeader',
+                                text: header
+                            },
+                            ...new Array(count - 1).fill(null)
+                        ],
+                        ...body
+                    ]
+                }
+            };
+        }
+
+        const checkSquare: Content = {
+            text: '',
+            style: {
+                font: Family.fa
+            }
+        };
+
+        const square: Content = {
+            text: '',
+            style: {
+                font: Family.fa
+            }
+        };
+
         return this.createDoc(
             [
                 {
@@ -34,44 +70,21 @@ export class QuestionaryService {
                     style: 'header',
                     margin: [0, 2, 0, 2]
                 },
-                {
-                    layout: 'header',
-                    table: {
-                        widths: ['*', '*'],
-                        headerRows: 1,
-                        body: [
-                            [
-                                {
-                                    colSpan: 2,
-                                    text: '1. Основные сведения о Клиенте',
-                                    style: 'tableHeader'
-                                },
-                                null
-                            ],
-                            ['1.1. Наименование: ', '1.2. ИНН:  '],
-                            ['1.3. Фирменное наименование: ', '1.4. СНИЛС №: ']
-                        ]
-                    }
-                },
-                {
-                    layout: 'header',
-                    table: {
-                        widths: ['*', '*', '*'],
-                        headerRows: 1,
-                        body: [
-                            [
-                                {
-                                    colSpan: 2,
-                                    text: '2. Контактная информация',
-                                    style: 'tableHeader'
-                                },
-                                null,
-                                null
-                            ],
-                            ['2.1. Телефон: ', '2.2. Сайт (Url):   ', '2.3. Email:']
-                        ]
-                    }
-                },
+                paragraph('1. Основные сведения о Клиенте', [
+                    ['1.1. Наименование: ', '1.2. ИНН:  '],
+                    ['1.3. Фирменное наименование: ', '1.4. СНИЛС №: ']
+                ]),
+                paragraph('2. Контактная информация', [['2.1. Телефон: ', '2.2. Сайт (Url):   ', '2.3. Email:']]),
+                paragraph('3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО ', [
+                    ['3.1. Цели установления отношений: ', '3.2. Характер отношений:']
+                ]),
+                paragraph('4. Планируемые операции по счету, в месяц', [
+                    [
+                        '4.1. Количество операций:',
+                        [{ text: [checkSquare, ' test'] }, { text: [checkSquare, ' test'] }],
+                        '4.2. Сумма операций: '
+                    ]
+                ]),
                 {
                     layout: 'noBorders',
                     table: {
@@ -113,7 +126,7 @@ export class QuestionaryService {
         );
     }
 
-    createDoc(content: Array<string & Content>, footer?: TDocumentHeaderFooterFunction) {
+    createDoc(content: Content[], footer?: TDocumentHeaderFooterFunction) {
         return this.documentService.createPdf(
             {
                 pageSize: 'A4' as any,
