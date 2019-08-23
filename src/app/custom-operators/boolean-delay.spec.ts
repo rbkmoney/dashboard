@@ -29,12 +29,21 @@ describe('booleanDelay', () => {
         });
     });
 
-    it('operation with multiple delays', () => {
+    it('applyToFirst disabled ', () => {
         createScheduler().run(helpers => {
             const { cold, expectObservable } = helpers;
             const operation = 'a 100ms b 100ms c|';
-            const flow = cold(operation).pipe(booleanDelay(50));
+            const flow = cold(operation).pipe(booleanDelay(50, false));
             expectObservable(flow).toBe('0 49ms 1 50ms 0 49ms 1 50ms 0|', [false, true]);
+        });
+    });
+
+    it('applyToFirst enabled', () => {
+        createScheduler().run(helpers => {
+            const { cold, expectObservable } = helpers;
+            const operation = '100ms a 100ms b|';
+            const flow = cold(operation).pipe(booleanDelay(50, true));
+            expectObservable(flow).toBe('50ms 1 49ms 0 100ms 0|', [false, true]);
         });
     });
 
@@ -42,7 +51,7 @@ describe('booleanDelay', () => {
         createScheduler().run(helpers => {
             const { cold, expectObservable } = helpers;
             const operation = 'a 20ms b 100ms c|';
-            const flow = cold(operation).pipe(booleanDelay(50));
+            const flow = cold(operation).pipe(booleanDelay(50, false));
             expectObservable(flow).toBe('0 20ms 0 49ms 1 50ms 0|', [false, true]);
         });
     });
