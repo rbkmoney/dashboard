@@ -62,14 +62,27 @@ export class QuestionaryService {
             };
         }
 
-        function inlineCheckbox(...items: (string | [string, boolean])[]) {
+        function inlineCheckbox(items: string[], checked: number = -1) {
             return {
                 text: items
-                    .reduce((prev, item) => {
-                        prev.push(Array.isArray(item) ? checkbox(item[0], item[1]) : checkbox(item), '     ');
+                    .reduce((prev, item, idx) => {
+                        prev.push(checkbox(item, checked === idx), '     ');
                         return prev;
                     }, [])
                     .slice(0, -1)
+            };
+        }
+
+        function verticalCheckbox(x: string, items: string[], active: number = -1) {
+            return {
+                layout: 'noBorders',
+                table: {
+                    widths: new Array(items.length).fill('*'),
+                    body: [
+                        [{ text: x, colSpan: items.length }],
+                        [items.map((item, idx) => checkbox(item, active === idx))]
+                    ]
+                }
             };
         }
 
@@ -153,28 +166,28 @@ export class QuestionaryService {
                         ]),
                         paragraph('9. Наличие выгодоприобретателя²', [
                             [
-                                inlineCheckbox(
+                                inlineCheckbox([
                                     'Нет',
                                     'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'
-                                )
+                                ])
                             ]
                         ]),
                         paragraph('10. Наличие бенефициарного владельца³', [
                             [
                                 [
-                                    inlineCheckbox(
+                                    inlineCheckbox([
                                         'Нет',
                                         'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)'
-                                    )
+                                    ])
                                 ]
                             ]
                         ]),
                         paragraph(
                             '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                            [[inlineCheckbox('Да', 'Нет')]]
+                            [[inlineCheckbox(['Да', 'Нет'])]]
                         ),
                         paragraph('12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства', [
-                            [inlineCheckbox('Да', 'Нет')]
+                            [inlineCheckbox(['Да', 'Нет'])]
                         ]),
                         {
                             layout: 'noBorders',
@@ -224,7 +237,7 @@ export class QuestionaryService {
                 pageSize: 'A4' as any,
                 pageMargins,
                 content,
-                footer: (...args) => ({ ...footer(args), margin: [pageMargins[0], -40, pageMargins[2], 0] }),
+                footer: (...args) => ({ ...footer(...args), margin: [pageMargins[0], -40, pageMargins[2], 0] }),
                 styles: {
                     header: {
                         alignment: 'center',
