@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { LocaleDictionaryService } from '../../../../locale';
+import { PaymentsService } from './payments.service';
+import { SpinnerType } from '../../../../spinner';
 
 export enum PaymentPartType {
     prestine = 'prestine',
@@ -18,7 +20,8 @@ interface ContentConfig {
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    styleUrls: ['payments.component.scss']
+    styleUrls: ['payments.component.scss'],
+    providers: [PaymentsService]
 })
 export class PaymentsComponent implements OnInit {
     @Input() type: PaymentPartType = PaymentPartType.prestine;
@@ -26,8 +29,11 @@ export class PaymentsComponent implements OnInit {
     @Input() testEnvironmentRouterLink = '/';
 
     config: ContentConfig;
+    spinnerType = SpinnerType.FulfillingBouncingCircle;
+    isLoading$ = this.paymentsService.isLoading$;
+    hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
 
-    constructor(private lcService: LocaleDictionaryService) {}
+    constructor(private lcService: LocaleDictionaryService, private paymentsService: PaymentsService) {}
 
     ngOnInit() {
         this.config = this.toConfig(this.type);

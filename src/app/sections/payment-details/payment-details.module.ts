@@ -35,7 +35,6 @@ import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
 import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../invoice';
-import { ShopModule } from '../../shop';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
 
@@ -54,7 +53,6 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         SearchModule,
         ViewUtilsModule,
         InvoiceModule,
-        ShopModule,
         HumanizeDurationModule
     ],
     declarations: [
