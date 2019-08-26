@@ -9,8 +9,8 @@ import { PaymentSearchFormValue } from './search-form/payment-search-form-value'
     providers: [PaymentsService]
 })
 export class PaymentsComponent {
-    payments$ = this.paymentService.payments();
-    hasMorePayments$ = this.paymentService.hasMorePayments();
+    payments$ = this.paymentService.searchResult();
+    hasMorePayments$ = this.paymentService.hasMore();
     lastUpdated$ = this.paymentService.lastUpdated$;
 
     constructor(private paymentService: PaymentsService) {}
@@ -19,8 +19,8 @@ export class PaymentsComponent {
         this.paymentService.search(val);
     }
 
-    showMore() {
-        this.paymentService.showMore();
+    fetchMore() {
+        this.paymentService.fetchMore();
     }
 
     refresh() {

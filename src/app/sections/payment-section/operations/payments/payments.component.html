@@ -4,7 +4,7 @@
         <dsh-card-content fxLayout="column" fxLayoutGap="15px">
             <dsh-last-updated (update)="refresh()" [lastUpdated]="lastUpdated$ | async"></dsh-last-updated>
             <dsh-payments-table [data]="payments$ | async"></dsh-payments-table>
-            <button *ngIf="hasMorePayments$ | async" (click)="showMore()" dsh-button>
+            <button *ngIf="hasMorePayments$ | async" (click)="fetchMore()" dsh-button>
                 {{ 'common.showMore' | lc }}
             </button>
         </dsh-card-content>
