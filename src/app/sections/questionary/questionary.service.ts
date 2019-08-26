@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Content, TDocumentHeaderFooterFunction, TableCell } from 'pdfmake/build/pdfmake';
+import { Content, TDocumentHeaderFooterFunction, TableCell, Margins } from 'pdfmake/build/pdfmake';
 import moment from 'moment';
 import { switchMap } from 'rxjs/operators';
 
@@ -209,8 +209,7 @@ export class QuestionaryService {
 ³ Бенефициарный владелец - физическое лицо, которое в конечном счете прямо или косвенно (через третьих лиц) владеет (имеет преобладающее участие более 25 процентов в капитале) клиентом - юридическим лицом либо имеет возможность контролировать действия клиента. Бенефициарным владельцем клиента - физического лица считается это лицо, за исключением случаев, если имеются основания полагать, что бенефициарным владельцем является иное физическое лицо.`
                                 }
                             ]
-                        ],
-                        margin: [40, -40, 40, 0]
+                        ]
                     })
                 );
             })
@@ -218,12 +217,14 @@ export class QuestionaryService {
     }
 
     createDoc(content: Content[], footer?: TDocumentHeaderFooterFunction) {
+        const cm = 30;
+        const pageMargins: [number, number, number, number] = [3 * cm, 2 * cm, 1.5 * cm, 2 * cm];
         return this.documentService.createPdf(
             {
                 pageSize: 'A4' as any,
-                pageMargins: [40, 60, 40, 60],
+                pageMargins,
                 content,
-                footer,
+                footer: (...args) => ({ ...footer(args), margin: [pageMargins[0], -40, pageMargins[2], 0] }),
                 styles: {
                     header: {
                         alignment: 'center',
