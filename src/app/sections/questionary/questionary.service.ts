@@ -7,6 +7,8 @@ import { DocumentService, Family } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../questionary';
 import { IndividualEntityContractor, RussianIndividualEntity } from '../../api/questionary';
 
+type FullContent = Content | Content[] | string | string[];
+
 @Injectable()
 export class QuestionaryService {
     questionary$ = this.questionaryService.getQuestionary('111');
@@ -14,10 +16,10 @@ export class QuestionaryService {
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
     createIndividualEntityDoc() {
-        function paragraph(header: string, body: Content[][] | TableCell[][] | string[][] = [[]]): Content {
+        function paragraph(header: string, body: (TableCell | FullContent)[][] = [[]]): Content {
             let count = 0;
             for (const i of body[0]) {
-                count += i.colSpan || 1;
+                count += (i as TableCell).colSpan || 1;
             }
             return {
                 layout: 'header',
@@ -41,20 +43,16 @@ export class QuestionaryService {
 
         const checkSquare: Content = {
             text: '',
-            style: {
-                font: Family.fa
-            }
+            style: 'icon'
         };
 
         const square: Content = {
             text: '',
-            style: {
-                font: Family.fa
-            }
+            style: 'icon'
         };
 
-        function checkbox(text: string, checked = false) {
-            return { text: [checked ? checkSquare : square, ' ', text] };
+        function checkbox(text: string, checked = false): TableCell {
+            return { text: [checked ? checkSquare : square, ' ', text] as any };
         }
 
         function underlined(text: string | number) {
@@ -67,7 +65,6 @@ export class QuestionaryService {
         function inlineCheckbox(...items: (string | [string, boolean])[]) {
             return {
                 text: items
-                    // .map(item => (Array.isArray(item) ? checkbox(item[0], item[1]) : checkbox(item)))
                     .reduce((prev, item) => {
                         prev.push(Array.isArray(item) ? checkbox(item[0], item[1]) : checkbox(item), '     ');
                         return prev;
@@ -89,7 +86,7 @@ export class QuestionaryService {
                                 widths: ['*', '*'],
                                 body: [
                                     [
-                                        '',
+                                        '' as any,
                                         {
                                             text: 'Приложение №',
                                             style: 'right'
@@ -102,7 +99,7 @@ export class QuestionaryService {
                             text:
                                 'ОПРОСНЫЙ ЛИСТ – ИНДИВИДУАЛЬНОГО ПРЕДПРИНИМАТЕЛЯ ИЛИ ФИЗИЧЕСКОГО ЛИЦА, ЗАНИМАЮЩЕГОСЯ В УСТАНОВЛЕННОМ ЗАКОНОДАТЕЛЬСТВОМ РФ ПОРЯДКЕ ЧАСТНОЙ ПРАКТИКОЙ',
                             style: 'header',
-                            margin: [0, 2, 0, 2]
+                            margin: [0, 2, 0, 2] as [number, number, number, number]
                         },
                         paragraph('1. Основные сведения о Клиенте', [
                             [
@@ -181,12 +178,12 @@ export class QuestionaryService {
                         ]),
                         {
                             layout: 'noBorders',
-                            margin: [0, 30, 0, 0],
+                            margin: [0, 30, 0, 0] as [number, number, number, number],
                             table: {
                                 widths: ['*', 'auto'],
                                 body: [
                                     [
-                                        'М.П.',
+                                        'М.П.' as any,
                                         {
                                             text: [
                                                 moment().format('LL'),
@@ -243,6 +240,9 @@ export class QuestionaryService {
                         decoration: 'underline',
                         decorationStyle: 'solid',
                         decorationColor: 'black'
+                    },
+                    icon: {
+                        font: Family.fa
                     }
                 },
                 defaultStyle: {
