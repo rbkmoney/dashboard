@@ -1,12 +1,12 @@
 import { Observable, Subscription, Subscriber, timer } from 'rxjs';
 
 const emitWithDelay = (ms: number, observer: Subscriber<boolean>): Subscription =>
-    timer(ms).subscribe(_ => observer.next(true));
+    timer(ms).subscribe(() => observer.next(true));
 
 export const booleanDelay = (ms: number = 500, applyToFirst = true) => <T>(source: Observable<T>) =>
     new Observable<boolean>(observer => {
         let emitterSub = emitWithDelay(ms, observer);
-        return source.subscribe({
+        const sourceSub = source.subscribe({
             next() {
                 emitterSub.unsubscribe();
                 observer.next(false);
@@ -24,4 +24,10 @@ export const booleanDelay = (ms: number = 500, applyToFirst = true) => <T>(sourc
                 observer.complete();
             }
         });
+        return {
+            unsubscribe() {
+                emitterSub.unsubscribe();
+                sourceSub.unsubscribe();
+            }
+        };
     });
