@@ -11,6 +11,7 @@ import { PaymentSectionModule } from './payment-section';
 import { PaymentDetailsModule } from './payment-details';
 import { LAYOUT_GAP } from './constants';
 import { OnboardingModule } from './onboarding';
+import { ShopModule } from '../shop/shop.module';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { OnboardingModule } from './onboarding';
         PaymentSectionModule,
         OnboardingModule,
         PaymentDetailsModule,
-        SectionsRoutingModule
+        SectionsRoutingModule,
+        ShopModule
     ],
     declarations: [SectionsComponent],
     exports: [SectionsComponent],

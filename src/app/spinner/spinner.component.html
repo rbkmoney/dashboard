@@ -1,76 +1,55 @@
 <app-spring-spinner
-    *ngIf="activeSpinner === 1"
+    *ngIf="activeSpinner === SpinnerType.Spring"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-spring-spinner>
 
-<app-breeding-rhombus-spinner
-    *ngIf="activeSpinner === 2"
-    [animationDuration]="animationDuration"
-    [size]="size"
-    [color]="color"
-></app-breeding-rhombus-spinner>
-
 <app-semipolar-spinner
-    *ngIf="activeSpinner === 3"
+    *ngIf="activeSpinner === SpinnerType.Semipolar"
     [animationDuration]="animationDuration"
     [size]="40"
     [color]="color"
 ></app-semipolar-spinner>
 
-<app-self-building-square-spinner
-    *ngIf="activeSpinner === 4"
-    [animationDuration]="animationDuration"
-    [size]="40"
-    [color]="'#695BFF'"
-></app-self-building-square-spinner>
-
 <app-fulfilling-bouncing-circle-spinner
-    *ngIf="activeSpinner === 5"
+    *ngIf="activeSpinner === SpinnerType.FulfillingBouncingCircle"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-fulfilling-bouncing-circle-spinner>
 
 <app-radar-spinner
-    *ngIf="activeSpinner === 6"
+    *ngIf="activeSpinner === SpinnerType.Radar"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-radar-spinner>
 
 <app-trinity-rings-spinner
-    *ngIf="activeSpinner === 7"
+    *ngIf="activeSpinner === SpinnerType.TrinityRings"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-trinity-rings-spinner>
 
 <app-half-circle-spinner
-    *ngIf="activeSpinner === 8"
+    *ngIf="activeSpinner === SpinnerType.HalfCircle"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-half-circle-spinner>
 
 <app-scaling-squares-spinner
-    *ngIf="activeSpinner === 9"
+    *ngIf="activeSpinner === SpinnerType.ScalingSquares"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-scaling-squares-spinner>
 
 <app-swapping-squares-spinner
-    *ngIf="activeSpinner === 10"
+    *ngIf="activeSpinner === SpinnerType.SwappingSquares"
     [animationDuration]="animationDuration"
     [size]="size"
     [color]="color"
 ></app-swapping-squares-spinner>
-
-<app-intersecting-circles-spinner
-    *ngIf="activeSpinner === 11"
-    [animationDuration]="animationDuration"
-    [size]="size"
-    [color]="color"
-></app-intersecting-circles-spinner>
