@@ -66,22 +66,19 @@ export class QuestionaryService {
             return {
                 text: items
                     .reduce((prev, item, idx) => {
-                        prev.push(checkbox(item, checked === idx), '     ');
+                        prev.push(checkbox(item, checked === idx), '    ');
                         return prev;
                     }, [])
                     .slice(0, -1)
             };
         }
 
-        function verticalCheckbox(x: string, items: string[], active: number = -1) {
+        function verticalCheckbox(title: string, items: string[], active: number = -1): Content {
             return {
                 layout: 'noBorders',
                 table: {
-                    widths: new Array(items.length).fill('*'),
-                    body: [
-                        [{ text: x, colSpan: items.length }],
-                        [items.map((item, idx) => checkbox(item, active === idx))]
-                    ]
+                    widths: ['auto', '*'],
+                    body: items.map((item, idx) => [idx === 0 ? title : '', checkbox(item, active === idx)])
                 }
             };
         }
@@ -134,14 +131,12 @@ export class QuestionaryService {
                         ),
                         paragraph('4. Планируемые операции по счету, в месяц', [
                             [
-                                '4.1. Количество операций:',
-                                [checkbox('до 10'), checkbox('10 - 50'), checkbox('свыше 50', true)],
-                                '4.2. Сумма операций: ',
-                                [
-                                    checkbox('до 500 000'),
-                                    checkbox('500 000 - 1 000 000'),
-                                    checkbox('свыше 1 000 000', true)
-                                ]
+                                verticalCheckbox('4.1. Количество операций:', ['до 10', '10 - 50', 'свыше 50']),
+                                verticalCheckbox('4.2. Сумма операций:', [
+                                    'до 500 000',
+                                    '500 000 - 1 000 000',
+                                    'свыше 1 000 000'
+                                ])
                             ]
                         ]),
                         paragraph('5. Адрес фактического осуществления (ведения) деятельности', [
@@ -151,18 +146,46 @@ export class QuestionaryService {
                         ]),
                         paragraph('6. Тип документа, подтверждающий право нахождения по фактическому адресу', [
                             [
-                                checkbox('Договор аренды'),
-                                checkbox('Договор субаренды'),
-                                checkbox('Свидетельство о праве собственности')
+                                inlineCheckbox([
+                                    'Договор аренды',
+                                    'Договор субаренды',
+                                    'Свидетельство о праве собственности'
+                                ])
                             ]
                         ]),
                         paragraph('7. Сведения о хозяйственной деятельности', [
-                            ['7.1. Наличие в штате главного бухгалтера:', '7.2. Штатная численность в организации:'],
-                            ['7.3. Бухгалтерский учет осуществляет:', '']
+                            [
+                                { text: ['7.1. Наличие в штате главного бухгалтера: ', inlineCheckbox(['Да', 'Нет'])] },
+                                '7.2. Штатная численность в организации:'
+                            ],
+                            [
+                                {
+                                    ...verticalCheckbox(
+                                        '7.3. Бухгалтерский учет осуществляет:',
+                                        [
+                                            'ИП лично',
+                                            'Организация ведущая бух. учет: ИНН: ',
+                                            'Бухгалтер – индивидуальный специалист'
+                                        ],
+                                        2
+                                    ),
+                                    colSpan: 2
+                                }
+                            ]
                         ]),
                         paragraph('8. Принадлежность физического лица к некоторым категория граждан', [
-                            ['8.1. Принадлежность к категории ПДЛ¹', ''],
-                            ['8.2. Является родственником ПДЛ', '8.3. Степень родства:']
+                            [
+                                {
+                                    text: ['8.1. Принадлежность к категории ПДЛ¹:   ', inlineCheckbox(['Да', 'Нет'])],
+                                    colSpan: 2
+                                }
+                            ],
+                            [
+                                {
+                                    text: ['8.2. Является родственником ПДЛ:   ', inlineCheckbox(['Да', 'Нет'])]
+                                },
+                                '8.3. Степень родства:'
+                            ]
                         ]),
                         paragraph('9. Наличие выгодоприобретателя²', [
                             [
