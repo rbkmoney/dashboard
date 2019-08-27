@@ -12,7 +12,7 @@ import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
     private readonly searchLimit = 20;
 
-    lastUpdated$: Observable<string> = this.searchResult().pipe(
+    lastUpdated$: Observable<string> = this.searchResult$.pipe(
         map(_ =>
             moment()
                 .utc()

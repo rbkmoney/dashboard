@@ -15,8 +15,8 @@ export class RefundsComponent implements OnChanges {
 
     localePath = 'sections.paymentDetails.refunds';
 
-    refunds$ = this.refundsService.searchResult();
-    hasMoreRefunds$ = this.refundsService.hasMore();
+    refunds$ = this.refundsService.searchResult$;
+    hasMoreRefunds$ = this.refundsService.hasMore$;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
 
