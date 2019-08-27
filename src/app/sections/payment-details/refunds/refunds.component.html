@@ -21,7 +21,7 @@
             *ngIf="hasMoreRefunds$ | async"
             class="dsh-payment-details-refunds-show-more-refunds"
             dsh-button
-            (click)="loadMore()"
+            (click)="fetchMore()"
         >
             {{ 'common.showMore' | lc }}
         </button>
