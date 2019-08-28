@@ -1,2 +1,2 @@
 export * from './partial-fetcher';
-export * from './fetch-result';
+export { FetchResult } from './model';

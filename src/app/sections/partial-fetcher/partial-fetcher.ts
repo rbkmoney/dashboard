@@ -1,44 +1,39 @@
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { FetchResult } from './fetch-result';
-import { searchResult } from './search-result';
-import { takeContinuationToken } from './take-continuation-token';
+import { combineAction } from './combine-action';
+import { FetchAction, FetchFn, FetchResult } from './model';
+import { mapToSearchResult, mapToHasMore } from './operators';
 
 export abstract class PartialFetcher<R, P> {
-    private fetchResult$ = new BehaviorSubject<FetchResult<R>>(null);
-    private searchParams$ = new BehaviorSubject<P>(null);
-    private refresh$ = new Subject<void>();
-    private fetchMore$ = new Subject<void>();
+    private action$ = new BehaviorSubject<FetchAction<P>>(null);
 
     searchResult$: Observable<R[]>;
-    hasMore$: Observable<boolean> = this.fetchResult$.pipe(
-        takeContinuationToken,
-        map(t => !!t)
-    );
+    hasMore$: Observable<boolean>;
 
     constructor() {
-        const nonEmptyParams = this.searchParams$.pipe(filter(p => !!p));
-        const contextFetch = this.fetch.bind(this);
-        this.searchResult$ = searchResult(
-            nonEmptyParams,
-            this.fetchResult$,
-            this.refresh$,
-            this.fetchMore$,
-            contextFetch
-        );
+        const contextFetch = this.fetch.bind(this) as FetchFn<P, R>;
+        const combine = combineAction(this.action$, contextFetch);
+        this.searchResult$ = combine.pipe(mapToSearchResult);
+        this.hasMore$ = combine.pipe(mapToHasMore);
     }
 
-    search(val: P) {
-        this.searchParams$.next(val);
+    search(value: P) {
+        this.action$.next({
+            type: 'search',
+            value
+        });
     }
 
     refresh() {
-        this.refresh$.next();
+        this.action$.next({
+            type: 'refresh'
+        });
     }
 
     fetchMore() {
-        this.fetchMore$.next();
+        this.action$.next({
+            type: 'fetchMore'
+        });
     }
 
     protected abstract fetch(params: P, continuationToken: string): Observable<FetchResult<R>>;
