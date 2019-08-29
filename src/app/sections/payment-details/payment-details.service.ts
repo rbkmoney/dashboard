@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../api-codegen/capi/swagger-codegen';
-import { PaymentSearchService } from '../../search';
+import { PaymentSearchService } from '../../api/search';
 
 @Injectable()
 export class PaymentDetailsService {

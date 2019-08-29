@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import negate from 'lodash.negate';
 
-import { Shop, ShopsService } from '../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../api-codegen/gen-x-request-id';
+import { Shop, ShopsService } from '../../api-codegen/capi/swagger-codegen';
+import { genXRequestID } from '../gen-x-request-id';
 
 const isTestShop = ({ id }: Shop): boolean => id === 'TEST';
 const toTestShops = (s: Shop[]): Shop[] => s.filter(isTestShop);

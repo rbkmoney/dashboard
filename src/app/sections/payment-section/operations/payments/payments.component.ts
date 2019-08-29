@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { PaymentSearchService } from '../../../../search';
+import { PaymentSearchService } from '../../../../api/search';
 
 @Component({
     selector: 'dsh-payments',

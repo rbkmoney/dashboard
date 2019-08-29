@@ -3,31 +3,32 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { PaymentSearchResult, SearchService } from '../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../api-codegen';
-import { PaymentsSearchParams } from './payments-search-params';
-import { PaymentsWithToken } from './payments-with-token';
+import { InvoiceSearchResult, SearchService } from '../../api-codegen/capi/swagger-codegen';
 import { fakeDate } from './fake-date';
+import { InvoicesSearchParams } from './invoices-search-params';
+import { InvoicesWithToken } from './invoices-with-token';
 import { Duration } from './duration';
+import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
-export class PaymentSearchService {
+export class InvoiceSearchService {
     constructor(private searchService: SearchService) {}
 
-    searchPayments(
+    searchInvoices(
         fromTime: string,
         toTime: string,
-        params: PaymentsSearchParams,
+        params: InvoicesSearchParams,
         limit: number,
         continuationToken?: string
-    ): Observable<PaymentsWithToken> {
-        return this.searchService.searchPayments(
+    ): Observable<InvoicesWithToken> {
+        return this.searchService.searchInvoices(
             genXRequestID(),
             fakeDate(fromTime),
             fakeDate(toTime),
             limit,
             undefined,
             params.shopID,
+            params.invoiceStatus,
             params.paymentStatus,
             params.paymentFlow,
             params.paymentMethod,
@@ -38,26 +39,24 @@ export class PaymentSearchService {
             params.payerIP,
             params.payerFingerprint,
             params.customerID,
-            params.first6,
-            params.last4,
-            params.rrn,
-            params.approvalCode,
             params.bankCardTokenProvider,
             params.bankCardPaymentSystem,
+            params.first6,
+            params.last4,
             params.paymentAmount,
+            params.invoiceAmount,
             params.excludedShops,
-            continuationToken,
             undefined,
+            continuationToken,
             undefined
         );
     }
 
-    searchPaymentsByDuration(
+    searchInvoicesByDuration(
         { amount, unit }: Duration,
-        params: PaymentsSearchParams,
-        limit: number,
-        continuationToken?: string
-    ): Observable<PaymentsWithToken> {
+        invoiceID: string,
+        limit: number
+    ): Observable<InvoicesWithToken> {
         const from = moment()
             .subtract(amount, unit)
             .startOf('d')
@@ -67,17 +66,10 @@ export class PaymentSearchService {
             .endOf('d')
             .utc()
             .format();
-        return this.searchPayments(from, to, params, limit, continuationToken);
+        return this.searchInvoices(from, to, { invoiceID }, limit);
     }
 
-    getPaymentByDuration(duration: Duration, invoiceID: string, paymentID: string): Observable<PaymentSearchResult> {
-        return this.searchPaymentsByDuration(
-            duration,
-            {
-                invoiceID,
-                paymentID
-            },
-            1
-        ).pipe(map(({ result }) => result[0]));
+    getInvoiceByDuration(duration: Duration, invoiceID: string): Observable<InvoiceSearchResult> {
+        return this.searchInvoicesByDuration(duration, invoiceID, 1).pipe(map(res => res.result[0]));
     }
 }
