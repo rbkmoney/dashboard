@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { Claim } from '../../../../../api/claim-management/swagger-codegen';
+import { Claim } from '../../../../../api-codegen/claim-management/swagger-codegen';
 import { ClaimsListItemService, ClaimListItem } from './claims-list-item.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 
-import { RecurrentPayer } from '../../../api/capi/swagger-codegen';
+import { RecurrentPayer } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 
 @Component({

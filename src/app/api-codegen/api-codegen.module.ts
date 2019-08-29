@@ -6,4 +6,4 @@ import { ClaimManagementModule } from './claim-management';
 @NgModule({
     imports: [CAPIModule, ClaimManagementModule]
 })
-export class APIModule {}
+export class APICodegenModule {}

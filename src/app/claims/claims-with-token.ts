@@ -1,3 +1,3 @@
-import { InlineResponse200 } from '../api/claim-management/swagger-codegen';
+import { InlineResponse200 } from '../api-codegen/claim-management/swagger-codegen';
 
 export type ClaimsWithToken = InlineResponse200;

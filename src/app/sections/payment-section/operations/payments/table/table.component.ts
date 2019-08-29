@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
-import { PaymentSearchResult } from '../../../../../api/capi/swagger-codegen';
+import { PaymentSearchResult } from '../../../../../api-codegen/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payments-table',

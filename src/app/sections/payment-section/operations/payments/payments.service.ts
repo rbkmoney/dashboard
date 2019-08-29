@@ -5,7 +5,7 @@ import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
 import { PaymentSearchService } from '../../../../search';
-import { PaymentSearchResult } from '../../../../api/capi';
+import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 
 @Injectable()

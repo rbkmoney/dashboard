@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { InvoiceSearchResult, SearchService } from '../api/capi/swagger-codegen';
-import { genXRequestID } from '../api';
+import { InvoiceSearchResult, SearchService } from '../api-codegen/capi/swagger-codegen';
+import { genXRequestID } from '../api-codegen';
 import { fakeDate } from './fake-date';
 import { InvoicesSearchParams } from './invoices-search-params';
 import { InvoicesWithToken } from './invoices-with-token';

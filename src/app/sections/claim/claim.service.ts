@@ -4,7 +4,7 @@ import { filter, map, distinctUntilChanged, switchMap, shareReplay } from 'rxjs/
 
 import { ClaimsService } from '../../claims';
 import { getClaimStatusViewInfo } from '../../view-utils';
-import { StatusModificationUnit } from '../../api/claim-management';
+import { StatusModificationUnit } from '../../api-codegen/claim-management';
 
 @Injectable()
 export class ClaimService {
