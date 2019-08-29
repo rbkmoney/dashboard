@@ -28,7 +28,7 @@ describe('FontsService', () => {
         service.fontsData$.subscribe(result => {
             expect(result).toEqual({
                 vfs: { serif_normal: 'AAA=' },
-                fonts: { serif: { normal: '/assets/regular.ttf' } }
+                fonts: { serif: { normal: 'serif_normal' } }
             });
         });
         const req = httpMock.expectOne('/assets/regular.ttf');
