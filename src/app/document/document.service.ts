@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createPdf, TDocumentDefinitions, TCreatedPdf, TableLayoutFunctions } from 'pdfmake/build/pdfmake';
 
-import { DocumentFontsService } from './font/document-fonts.service';
+import { FontsService } from './fonts';
 import { fontsConfig } from './fonts-config';
 
 @Injectable()
 export class DocumentService {
-    constructor(private documentFontService: DocumentFontsService) {
+    constructor(private documentFontService: FontsService) {
         this.documentFontService.loadFonts(fontsConfig);
     }
 

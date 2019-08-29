@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import pdfMake from 'pdfmake/build/pdfmake';
 import { forkJoin, Observable } from 'rxjs';
 import { switchMap, map, shareReplay } from 'rxjs/operators';
 
 import { blobToBase64 } from './blob-to-base64';
 import { toFonts } from './to-fonts';
 import { Font } from './font';
-
-export interface FontsData {
-    vfs: typeof pdfMake.vfs;
-    fonts: typeof pdfMake.fonts;
-}
+import { FontsData } from './fonts-data';
 
 @Injectable()
-export class DocumentFontsService {
+export class FontsService {
     fontsData$: Observable<FontsData>;
 
     constructor(private http: HttpClient) {}

@@ -1,9 +1,9 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { DocumentFontsService } from './document-fonts.service';
+import { FontsService } from './fonts.service';
 
-describe('DocumentFontsService', () => {
+describe('FontsService', () => {
     const fonts = {
         serif: {
             normal: '/assets/regular.ttf'
@@ -13,16 +13,17 @@ describe('DocumentFontsService', () => {
     function createDocumentFontsServiceService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [DocumentFontsService]
+            providers: [FontsService]
         });
         const injector = getTestBed();
-        const service: DocumentFontsService = injector.get(DocumentFontsService);
+        const service: FontsService = injector.get(FontsService);
         const httpMock: HttpTestingController = injector.get(HttpTestingController);
         return { injector, service, httpMock };
     }
 
     it('should load fonts', () => {
         const { service, httpMock } = createDocumentFontsServiceService();
+        const blob = new Blob([new Uint8Array(2)]);
         service.loadFonts(fonts);
         service.fontsData$.subscribe(result => {
             expect(result).toEqual({
@@ -31,7 +32,7 @@ describe('DocumentFontsService', () => {
             });
         });
         const req = httpMock.expectOne('/assets/regular.ttf');
-        req.flush(new Blob([new Uint8Array(2)], { type: 'blob' }));
+        req.flush(blob);
         expect(req.request.method).toBe('GET');
     });
 });
