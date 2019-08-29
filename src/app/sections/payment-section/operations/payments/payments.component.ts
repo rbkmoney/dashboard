@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
+import { PaymentSearchService } from '../../../../search';
 
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [PaymentsService]
+    providers: [PaymentsService, PaymentSearchService]
 })
 export class PaymentsComponent {
     payments$ = this.paymentService.searchResult$;

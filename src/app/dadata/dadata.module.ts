@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +11,6 @@ import { HighlightSearchPipe } from './highlight.pipe';
 
 @NgModule({
     imports: [
-        BrowserModule,
         HttpClientModule,
         MatAutocompleteModule,
         CommonModule,
