@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Invoice, InvoicesService } from '../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../api-codegen/gen-x-request-id';
+import { Invoice, InvoicesService } from '../../api-codegen/capi/swagger-codegen';
+import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class InvoiceService {

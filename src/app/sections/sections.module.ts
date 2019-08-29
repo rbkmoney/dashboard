@@ -4,7 +4,7 @@ import { SectionsRoutingModule } from './sections-routing.module';
 import { MainModule } from './main';
 import { SectionsComponent } from './sections.component';
 import { LAYOUT_GAP } from './constants';
-import { ShopModule } from '../shop';
+import { ShopModule } from '../api/shop';
 
 @NgModule({
     imports: [MainModule, SectionsRoutingModule, ShopModule],

@@ -30,11 +30,11 @@ import { SecondaryTitleDirective } from './secondary-title';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
-import { SearchModule } from '../../search';
+import { SearchModule } from '../../api/search';
 import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
 import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
-import { InvoiceModule } from '../../invoice';
+import { InvoiceModule } from '../../api/invoice';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
 

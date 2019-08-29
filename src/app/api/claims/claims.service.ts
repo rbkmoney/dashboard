@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { genXRequestID } from '../api-codegen';
-import { ClaimsService as APIClaimsService, Claim, StatusModificationUnit } from '../api-codegen/claim-management';
+import { ClaimsService as APIClaimsService, Claim, StatusModificationUnit } from '../../api-codegen/claim-management';
 import { ClaimsWithToken } from './claims-with-token';
+import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class ClaimsService {

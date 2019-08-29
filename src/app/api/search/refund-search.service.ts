@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
 
-import { RefundSearchResult, SearchService } from '../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../api-codegen';
+import { RefundSearchResult, SearchService } from '../../api-codegen/capi/swagger-codegen';
 import { RefundsWithToken } from './refunds-with-token';
 import { fakeDate } from './fake-date';
 import { Duration } from './duration';
+import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class RefundSearchService {
