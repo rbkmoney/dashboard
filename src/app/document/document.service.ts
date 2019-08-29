@@ -4,22 +4,22 @@ import { map } from 'rxjs/operators';
 import { createPdf, TDocumentDefinitions, TCreatedPdf, TableLayoutFunctions } from 'pdfmake/build/pdfmake';
 
 import { DocumentFontsService } from './font/document-fonts.service';
-import { fonts as fontsConfig } from './document-fonts-config';
+import { fontsConfig } from './fonts-config';
 
 @Injectable()
 export class DocumentService {
     constructor(private documentFontService: DocumentFontsService) {
-        this.documentFontService.init(fontsConfig);
+        this.documentFontService.loadFonts(fontsConfig);
     }
 
     createPdf(
         docDefinition: TDocumentDefinitions,
         tableLayouts?: {
             [name: string]: TableLayoutFunctions;
-        },
-        fonts?: any,
-        vfs?: any
+        }
     ): Observable<TCreatedPdf> {
-        return this.documentFontService.init$.pipe(map(() => createPdf(docDefinition, tableLayouts, fonts, vfs)));
+        return this.documentFontService.fontsData$.pipe(
+            map(({ fonts, vfs }) => createPdf(docDefinition, tableLayouts, fonts, vfs))
+        );
     }
 }

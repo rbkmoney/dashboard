@@ -24,8 +24,8 @@ describe('DocumentFontsService', () => {
 
     it('should load fonts', () => {
         const { service, httpMock } = createDocumentFontsServiceService();
-        service.init(fonts);
-        service.init$.subscribe(result => {
+        service.loadFonts(fonts);
+        service.fontsData$.subscribe(result => {
             expect(result).toEqual(true);
         });
         const req = httpMock.expectOne('/assets/regular.ttf');

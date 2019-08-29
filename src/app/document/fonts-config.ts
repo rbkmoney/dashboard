@@ -8,7 +8,7 @@ export enum Family {
 const robotoDir = '/assets/fonts/Roboto/';
 const faDir = '/assets/fonts/font-awesome5/';
 
-export const fonts = [
+export const fontsConfig = [
     createFontFamily(Family.serif, {
         normal: `${robotoDir}Roboto-Regular.ttf`,
         bold: `${robotoDir}Roboto-Bold.ttf`,
