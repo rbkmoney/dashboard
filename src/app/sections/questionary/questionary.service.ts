@@ -16,47 +16,12 @@ export class QuestionaryService {
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
     createIndividualEntityDoc() {
-        const checkSquare: Content = {
-            text: '',
-            style: 'icon'
-        };
-
-        const square: Content = {
-            text: '',
-            style: 'icon'
-        };
-
-        function checkbox(text: string, checked = false): TableCell {
-            return { text: [checked ? checkSquare : square, ' ', text] as any };
-        }
-
-        function inlineCheckbox(items: string[], checked: number = -1) {
-            return {
-                text: items
-                    .reduce((prev, item, idx) => {
-                        prev.push(checkbox(item, checked === idx), '    ');
-                        return prev;
-                    }, [])
-                    .slice(0, -1)
-            };
-        }
-
-        function verticalCheckbox(title: string, items: string[], active: number = -1): Content {
-            return {
-                layout: 'noBorders',
-                table: {
-                    widths: ['auto', '*'],
-                    body: items.map((item, idx) => [idx === 0 ? title : '', checkbox(item, active === idx)])
-                }
-            };
-        }
-
         return this.questionary$.pipe(
             switchMap(({ questionary }) => {
                 const contactInfo = questionary.data.contactInfo;
                 const contractor: IndividualEntityContractor = questionary.data.contractor;
                 const individualEntity: RussianIndividualEntity = contractor.individualEntity;
-                return this.createDoc({
+                return this.createDoc(({ form: { inlineCheckbox, verticalCheckbox } }) => ({
                     header: 'Приложение №',
                     headline:
                         'ОПРОСНЫЙ ЛИСТ – ИНДИВИДУАЛЬНОГО ПРЕДПРИНИМАТЕЛЯ ИЛИ ФИЗИЧЕСКОГО ЛИЦА, ЗАНИМАЮЩЕГОСЯ В УСТАНОВЛЕННОМ ЗАКОНОДАТЕЛЬСТВОМ РФ ПОРЯДКЕ ЧАСТНОЙ ПРАКТИКОЙ',
@@ -204,17 +169,59 @@ export class QuestionaryService {
                     footer: `¹ Публичные должностные лица, включая российские, иностранные и международные.
 ² Выгодоприобретатель - лицо, к выгоде которого действует клиент, в том числе на основании агентского договора, договоров поручения, комиссии и доверительного управления, при проведении операций с денежными средствами и иным имуществом.
 ³ Бенефициарный владелец - физическое лицо, которое в конечном счете прямо или косвенно (через третьих лиц) владеет (имеет преобладающее участие более 25 процентов в капитале) клиентом - юридическим лицом либо имеет возможность контролировать действия клиента. Бенефициарным владельцем клиента - физического лица считается это лицо, за исключением случаев, если имеются основания полагать, что бенефициарным владельцем является иное физическое лицо.`
-                });
+                }));
             })
         );
     }
 
-    createDoc(data: {
-        header: string;
-        headline: string;
-        paragraphs: { title: string; content: (TableCell | FullContent)[][] }[];
-        footer?: string;
-    }) {
+    createDoc(
+        getData: (lang: {
+            form: {
+                inlineCheckbox;
+                verticalCheckbox;
+            };
+        }) => {
+            header: string;
+            headline: string;
+            paragraphs: { title: string; content: (TableCell | FullContent)[][] }[];
+            footer?: string;
+        }
+    ) {
+        const checkSquare: Content = {
+            text: '',
+            style: 'icon'
+        };
+
+        const square: Content = {
+            text: '',
+            style: 'icon'
+        };
+
+        function checkbox(text: string, checked = false): TableCell {
+            return { text: [checked ? checkSquare : square, ' ', text] as any };
+        }
+
+        function inlineCheckbox(items: string[], checked: number = -1) {
+            return {
+                text: items
+                    .reduce((prev, item, idx) => {
+                        prev.push(checkbox(item, checked === idx), '    ');
+                        return prev;
+                    }, [])
+                    .slice(0, -1)
+            };
+        }
+
+        function verticalCheckbox(title: string, items: string[], active: number = -1): Content {
+            return {
+                layout: 'noBorders',
+                table: {
+                    widths: ['auto', '*'],
+                    body: items.map((item, idx) => [idx === 0 ? title : '', checkbox(item, active === idx)])
+                }
+            };
+        }
+
         function paragraph(header: string, body: (TableCell | FullContent)[][] = [[]]): Content {
             let count = 0;
             for (const i of body[0]) {
@@ -242,6 +249,9 @@ export class QuestionaryService {
 
         const cm = 30;
         const pageMargins: [number, number, number, number] = [3 * cm, 2 * cm, 1.5 * cm, 2 * cm];
+
+        const data = getData({ form: { verticalCheckbox, inlineCheckbox } });
+
         return this.documentService.createPdf(
             {
                 pageSize: 'A4' as any,
