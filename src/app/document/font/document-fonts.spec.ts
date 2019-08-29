@@ -2,14 +2,13 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { DocumentFontsService } from './document-fonts.service';
-import { createFontFamily } from './font-family';
 
 describe('DocumentFontsService', () => {
-    const fonts = [
-        createFontFamily('serif', {
+    const fonts = {
+        serif: {
             normal: '/assets/regular.ttf'
-        })
-    ];
+        }
+    };
 
     function createDocumentFontsServiceService() {
         TestBed.configureTestingModule({
@@ -26,7 +25,10 @@ describe('DocumentFontsService', () => {
         const { service, httpMock } = createDocumentFontsServiceService();
         service.loadFonts(fonts);
         service.fontsData$.subscribe(result => {
-            expect(result).toEqual(true);
+            expect(result).toEqual({
+                vfs: { serif_normal: 'AAA=' },
+                fonts: { serif: { normal: '/assets/regular.ttf' } }
+            });
         });
         const req = httpMock.expectOne('/assets/regular.ttf');
         req.flush(new Blob([new Uint8Array(2)], { type: 'blob' }));

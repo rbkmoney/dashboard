@@ -3,7 +3,7 @@ import { Content, TableCell, TableLayoutFunctions, Style } from 'pdfmake/build/p
 import moment from 'moment';
 import { switchMap } from 'rxjs/operators';
 
-import { DocumentService, Family } from '../../document';
+import { DocumentService, FontFamily } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../questionary';
 import { IndividualEntityContractor, RussianIndividualEntity } from '../../api/questionary';
 
@@ -341,14 +341,14 @@ export class QuestionaryService {
                 decorationColor: 'black'
             },
             icon: {
-                font: Family.fa
+                font: FontFamily.fa
             }
         };
     }
 
     getDefaultStyle(): Style {
         return {
-            font: Family.serif,
+            font: FontFamily.serif,
             fontSize: 8,
             lineHeight: 1
         };
