@@ -1,3 +1,3 @@
-import { InlineResponse2001 } from '../api/capi/swagger-codegen';
+import { InlineResponse2001 } from '../api-codegen/capi/swagger-codegen';
 
 export type PaymentsWithToken = InlineResponse2001;

@@ -1,4 +1,4 @@
-import { SearchService } from '../api/capi/swagger-codegen';
+import { SearchService } from '../api-codegen/capi/swagger-codegen';
 
 type params = Parameters<SearchService['searchInvoices']>;
 

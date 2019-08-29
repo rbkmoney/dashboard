@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Invoice } from '../../../api/capi/swagger-codegen';
+import { Invoice } from '../../../api-codegen/capi/swagger-codegen';
 import { InvoiceSearchService } from '../../../search';
 
 @Injectable()

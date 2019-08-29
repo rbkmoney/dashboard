@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnChanges } from '@angular/core';
 
-import { RefundSearchResult, RefundStatus } from '../../../../api/capi/swagger-codegen';
+import { RefundSearchResult, RefundStatus } from '../../../../api-codegen/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../../theme-manager';
 import { StatusViewInfo } from '../../status-details-item';
 import { LAYOUT_GAP } from '../../../constants';

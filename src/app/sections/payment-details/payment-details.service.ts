@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../api/capi/swagger-codegen';
+import { PaymentSearchResult } from '../../api-codegen/capi/swagger-codegen';
 import { PaymentSearchService } from '../../search';
 
 @Injectable()

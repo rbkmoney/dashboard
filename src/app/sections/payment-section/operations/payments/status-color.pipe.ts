@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
+import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({

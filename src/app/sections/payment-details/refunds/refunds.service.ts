@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RefundSearchService } from '../../../search';
-import { RefundSearchResult } from '../../../api/capi';
+import { RefundSearchResult } from '../../../api-codegen/capi';
 import { PartialFetcher, FetchResult } from '../../partial-fetcher';
 import { RefundsSearchParams } from './refunds-search-params';
 
