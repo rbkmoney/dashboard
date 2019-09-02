@@ -1,4 +1,4 @@
-import { Questionary, IndividualEntityContractor, RussianIndividualEntity } from '../../../api/questionary';
+import { Questionary, IndividualEntityContractor, RussianIndividualEntity } from '../../../api-codegen/questionary';
 
 export function getData(questionary: Questionary) {
     const contactInfo = questionary.data.contactInfo;

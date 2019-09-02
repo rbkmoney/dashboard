@@ -4,7 +4,7 @@ import {
     QuestionaryService as SaveQuestionaryService,
     QuestionaryParams as SaveQuestionaryParams,
     DefaultService as GetQuestionaryService
-} from '../api/questionary';
+} from '../../api-codegen/questionary';
 
 @Injectable()
 export class QuestionaryService {

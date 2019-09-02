@@ -1,2 +1,2 @@
 export * from './questionary.module';
-export * from './swagger-codegen';
+export * from './questionary.service';

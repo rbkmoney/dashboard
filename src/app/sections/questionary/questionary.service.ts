@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 
 import { DocumentService } from '../../document';
-import { QuestionaryService as QuestionaryApiService } from '../../questionary';
+import { QuestionaryService as QuestionaryApiService } from '../../api/questionary';
 import { createQuestionary } from './create-questionary';
 import { getData, getTemplate } from './russian-individual-entity';
 
