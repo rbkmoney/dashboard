@@ -314,8 +314,8 @@ export class QuestionaryService {
     getTableLayouts(): { [name: string]: TableLayoutFunctions } {
         return {
             header: {
-                fillColor(i, node) {
-                    return i === 0 || i === node.table.body.length ? '#203764' : undefined;
+                fillColor(idx) {
+                    return idx === 0 ? '#203764' : undefined;
                 },
                 hLineWidth() {
                     return 0;
