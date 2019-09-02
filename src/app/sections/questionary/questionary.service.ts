@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Content, TableCell, TableLayoutFunctions, Style } from 'pdfmake/build/pdfmake';
+import { Content, TableCell, TableLayoutFunctions, Style, Margins } from 'pdfmake/build/pdfmake';
 import moment from 'moment';
 import { switchMap } from 'rxjs/operators';
 
@@ -242,8 +242,8 @@ export class QuestionaryService {
             };
         }
 
-        const cm = 30;
-        const pageMargins: [number, number, number, number] = [3 * cm, 2 * cm, 1.5 * cm, 2 * cm];
+        const pageMargins = [3, 2, 1.5, 2].map(m => this.cmToInc(m)) as Margins;
+        const footerMargins = [pageMargins[0], -40, pageMargins[2], 0];
 
         const data = getData({ form: { verticalCheckbox, inlineCheckbox } });
 
@@ -270,12 +270,12 @@ export class QuestionaryService {
                     {
                         text: data.headline,
                         style: 'header',
-                        margin: [0, 2, 0, 2] as [number, number, number, number]
+                        margin: [0, 2, 0, 2] as Margins
                     },
                     ...data.paragraphs.map(p => paragraph(p.title, p.content)),
                     {
                         layout: 'noBorders',
-                        margin: [0, 30, 0, 0] as [number, number, number, number],
+                        margin: [0, 30, 0, 0] as Margins,
                         table: {
                             widths: ['*', 'auto'],
                             body: [
@@ -291,7 +291,7 @@ export class QuestionaryService {
                     }
                 ],
                 footer: () => ({
-                    margin: [pageMargins[0], -40, pageMargins[2], 0],
+                    margin: footerMargins,
                     columns: [
                         [
                             {
@@ -367,5 +367,9 @@ export class QuestionaryService {
             },
             {} as any
         );
+    }
+
+    cmToInc(cm: number) {
+        return (cm / 2.54) * 72;
     }
 }
