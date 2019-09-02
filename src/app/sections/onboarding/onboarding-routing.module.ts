@@ -6,17 +6,17 @@ import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 
 export const routes: Routes = [
     {
-        path: 'onboarding',
+        path: '',
         component: CompanySearchComponent
     },
     {
-        path: 'onboarding/:claimID/legal-entity',
+        path: ':claimID/legal-entity',
         component: LegalEntityComponent
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 export class OnboardingRoutingModule {}

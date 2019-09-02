@@ -10,7 +10,10 @@
                 svgIcon="bill"
             ></mat-icon>
             <div>
-                <h2 class="mat-title">{{ 'sections.main.payments.title' | lc }}</h2>
+                <div fxLayout fxLayoutAlign="space-between">
+                    <h2 class="mat-title">{{ 'sections.main.payments.title' | lc }}</h2>
+                    <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
+                </div>
                 <h4 class="mat-subheading-1 subheading">
                     {{ config.subheading }}
                 </h4>
@@ -23,12 +26,20 @@
             fxLayoutGap="20px"
             fxLayoutGap.xs="10px"
         >
-            <button fxFlex fxFlex.xs="none" dsh-button color="accent" [routerLink]="actionRouterLink">
+            <button fxFlex="50" fxFlex.xs="none" dsh-button color="accent" disabled [routerLink]="actionRouterLink">
                 {{ config.action }}
             </button>
-            <button fxFlex fxFlex.xs="none" dsh-stroked-button color="accent" [routerLink]="testEnvironmentRouterLink">
-                {{ 'sections.main.payments.testEnvironment' | lc }}
-            </button>
+            <div fxFlex="50" fxFlex.xs="none">
+                <button
+                    fxFlex="100"
+                    *ngIf="hasTestEnvironment$ | async"
+                    dsh-stroked-button
+                    color="accent"
+                    [routerLink]="testEnvironmentRouterLink"
+                >
+                    {{ 'sections.main.payments.testEnvironment' | lc }}
+                </button>
+            </div>
         </div>
     </div>
 </div>

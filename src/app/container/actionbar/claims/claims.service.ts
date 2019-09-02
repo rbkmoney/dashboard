@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
-import { Claim } from '../../../api/claim-management';
+import { ClaimsService as ClaimsApiService } from '../../../api/claims/claims.service';
+import { booleanDelay, takeError } from '../../../custom-operators';
 
 @Injectable()
 export class ClaimsService {
-    constructor(private claimsService: ClaimsApiService) {}
+    claims$ = this.claimsService.searchClaims(5).pipe(
+        map(({ result }) => result),
+        shareReplay(1)
+    );
+    isLoading$ = this.claims$.pipe(booleanDelay());
+    error$ = this.claims$.pipe(takeError());
 
-    getClaims(count = 5): Observable<Claim[]> {
-        return this.claimsService.searchClaims(count).pipe(map(({ result }) => result));
-    }
+    constructor(private claimsService: ClaimsApiService) {}
 }

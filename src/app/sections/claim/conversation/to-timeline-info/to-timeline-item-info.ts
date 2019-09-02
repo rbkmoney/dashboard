@@ -1,4 +1,9 @@
-import { ModificationUnit, Modification, ClaimModification, PartyModification } from '../../../../api/claim-management';
+import {
+    ModificationUnit,
+    Modification,
+    ClaimModification,
+    PartyModification
+} from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { getPartyModificationTimelineAction } from './get-party-modification-timeline-action';

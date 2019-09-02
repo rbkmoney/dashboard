@@ -8,7 +8,7 @@ import {
     FileModification,
     CommentModificationUnit,
     CommentModification
-} from '../../../../api/claim-management';
+} from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
 import { SpecificModificationUnit } from './specific-modification-unit';
 

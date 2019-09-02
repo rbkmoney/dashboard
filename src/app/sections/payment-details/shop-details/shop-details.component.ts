@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ShopDetailsService } from './shop-details.service';
-import { Shop } from '../../../api/capi/swagger-codegen';
+import { Shop } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 
 @Component({

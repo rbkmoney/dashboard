@@ -14,7 +14,7 @@ import { MatIconRegistry } from '@angular/material';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
-import { APIModule } from './api';
+import { APICodegenModule } from './api-codegen';
 import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeManagerModule } from './theme-manager';
@@ -32,7 +32,7 @@ import { icons } from './icons';
         BrowserModule,
         BrowserAnimationsModule,
         SectionsModule,
-        APIModule,
+        APICodegenModule,
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
