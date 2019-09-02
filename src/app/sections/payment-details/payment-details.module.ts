@@ -37,11 +37,7 @@ import { SecondaryTitleDirective } from './secondary-title';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
-import { SearchModule } from '../../api/search';
 import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
-import { SearchModule } from '../../search';
-import { ShopDetailsComponent } from './shop-details';
-import { ShopLocationUrlComponent } from './shop-details/shop-location-url';
 import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
@@ -49,7 +45,9 @@ import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { CreateRefundComponent } from './refunds/create-refund/create-refund.component';
 import { AccountModule } from '../../account/account.module';
-import { RefundModule } from '../../refund/refund.module';
+import { RefundModule } from '../../api/refund/refund.module';
+import { ShopModule } from '../../api/shop';
+import { SearchModule } from '../../api/search';
 
 @NgModule({
     imports: [

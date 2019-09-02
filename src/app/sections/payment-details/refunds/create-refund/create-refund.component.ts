@@ -6,9 +6,9 @@ import round from 'lodash.round';
 import { Observable } from 'rxjs';
 
 import { LAYOUT_GAP } from '../../../constants';
-import { Account, RefundParams } from '../../../../api/capi/swagger-codegen';
 import { CreateRefundService } from './create-refund.service';
 import { amountValidator } from '../../../../validators';
+import { Account, RefundParams } from '../../../../api-codegen/capi/swagger-codegen';
 
 export interface CreateRefundData {
     shopID: string;

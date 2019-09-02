@@ -22,7 +22,6 @@ import { DaterangeSelectorModule } from '../daterange-selector';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
-import { ViewUtilsModule } from '../../../../view-utils';
 import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { TableComponent } from './table/table.component';
 

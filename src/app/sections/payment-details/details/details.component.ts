@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
-import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { StatusViewInfo } from '../status-details-item';
 import { LAYOUT_GAP } from '../../constants';
 import { StatusColor as Color } from '../../../theme-manager';
 
