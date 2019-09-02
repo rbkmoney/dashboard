@@ -5,7 +5,7 @@ import {
     CommentModificationUnit,
     FileModificationUnit,
     StatusModificationUnit
-} from '../../../../api/claim-management';
+} from '../../../../api-codegen/claim-management';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { TimelineAction } from './timeline-action';
 

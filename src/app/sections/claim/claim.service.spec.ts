@@ -3,7 +3,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
 import { ClaimService } from './claim.service';
-import { ClaimsService } from '../../claims';
+import { ClaimsService } from '../../api';
 
 function assertDeepEqual(actual: any, expected: any) {
     expect(actual).toEqual(expected);

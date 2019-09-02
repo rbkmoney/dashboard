@@ -1,5 +1,5 @@
 import { toTimelineInfo } from './to-timeline-info';
-import { DocumentModificationUnit } from '../../../../api/claim-management';
+import { DocumentModificationUnit } from '../../../../api-codegen/claim-management';
 import { SpecificModificationUnit } from './specific-modification-unit';
 import { Author } from './author';
 import { TimelineAction } from './timeline-action';
