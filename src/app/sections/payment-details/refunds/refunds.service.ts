@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { RefundSearchService } from '../../../search';
-import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
+import { RefundSearchService } from '../../../api/search';
+import { RefundSearchResult } from '../../../api-codegen/capi';
+import { PartialFetcher, FetchResult } from '../../partial-fetcher';
+import { RefundsSearchParams } from './refunds-search-params';
 
 @Injectable()
+export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchParams> {
+    private readonly searchLimit = 3;
 export class RefundsService {
     private refunds$: BehaviorSubject<RefundSearchResult[]>;
 
     private hasMoreRefunds$: BehaviorSubject<boolean>;
 
+    constructor(private refundSearchService: RefundSearchService) {
+        super();
     private continuationToken: string;
 
     constructor(private refundSearchService: RefundSearchService) {}
@@ -30,11 +36,16 @@ export class RefundsService {
             });
     }
 
-    refunds(): Observable<RefundSearchResult[]> {
-        return this.refunds$.asObservable();
-    }
-
-    hasMoreRefunds(): Observable<boolean> {
-        return this.hasMoreRefunds$.asObservable();
+    protected fetch(
+        { invoiceID, paymentID }: RefundsSearchParams,
+        continuationToken: string
+    ): Observable<FetchResult<RefundSearchResult>> {
+        return this.refundSearchService.searchRefundsByDuration(
+            { amount: 1, unit: 'y' },
+            invoiceID,
+            paymentID,
+            this.searchLimit,
+            continuationToken
+        );
     }
 }

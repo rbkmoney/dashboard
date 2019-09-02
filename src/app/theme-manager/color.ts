@@ -13,3 +13,5 @@ export enum PaletteColor {
 
 export type Status = keyof typeof StatusColor;
 export type Palette = keyof typeof PaletteColor;
+
+export const slateblue400 = '#695BFF';

@@ -1,4 +1,5 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 
@@ -15,7 +16,6 @@ import { CreateRefundComponent, CreateRefundData } from './create-refund/create-
 })
 export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
-
     @Input() paymentID: string;
 
     @Input() shopID: string;
@@ -28,12 +28,20 @@ export class RefundsComponent implements OnChanges {
 
     localePath = 'sections.paymentDetails.refunds';
 
+    refunds$ = this.refundsService.searchResult$;
+    hasMoreRefunds$ = this.refundsService.hasMore$;
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
         public refundsService: RefundsService,
         private dialog: MatDialog
     ) {}
 
+    ngOnChanges({ invoiceID, paymentID }: SimpleChanges) {
+        if (invoiceID.currentValue && paymentID.currentValue) {
+            this.refundsService.search({ invoiceID: invoiceID.currentValue, paymentID: paymentID.currentValue });
+        }
     ngOnChanges(changes: SimpleChanges) {
         if (
             changes.invoiceID.currentValue !== changes.invoiceID.previousValue &&
@@ -47,8 +55,8 @@ export class RefundsComponent implements OnChanges {
         }
     }
 
-    loadMore() {
-        this.refundsService.loadRefunds(this.invoiceID, this.paymentID);
+    fetchMore() {
+        this.refundsService.fetchMore();
     }
 
     createRefundDialog() {

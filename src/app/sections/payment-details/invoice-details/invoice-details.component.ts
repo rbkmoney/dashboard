@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Invoice, InvoiceStatus } from '../../../api/capi/swagger-codegen';
+import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../theme-manager';
 import { StatusViewInfo } from '../status-details-item';
 import { InvoiceDetailsService } from './invoice-details.service';

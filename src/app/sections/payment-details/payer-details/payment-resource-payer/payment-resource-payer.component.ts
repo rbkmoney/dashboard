@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 
-import { PaymentResourcePayer } from '../../../../api/capi/swagger-codegen';
+import { PaymentResourcePayer } from '../../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../constants';
 
 @Component({

@@ -14,14 +14,14 @@
             <dsh-refund-item [refund]="refund"></dsh-refund-item>
             <div class="dsh-payment-details-refunds-divider"></div>
         </ng-container>
-        <div *ngIf="(refunds$ | async).length === 0">
+        <div *ngIf="!(hasMoreRefunds$ | async)">
             {{ localePath + '.noRefunds' | lc }}
         </div>
         <button
             *ngIf="hasMoreRefunds$ | async"
             class="dsh-payment-details-refunds-show-more-refunds"
             dsh-button
-            (click)="loadMore()"
+            (click)="fetchMore()"
         >
             {{ 'common.showMore' | lc }}
         </button>

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { PaymentToolDetails } from '../../../api/capi/swagger-codegen';
+import { PaymentToolDetails } from '../../../api-codegen/capi/swagger-codegen';
 
 enum PaymentToolDetailsType {
     BankCard = 'PaymentToolDetailsBankCard',
