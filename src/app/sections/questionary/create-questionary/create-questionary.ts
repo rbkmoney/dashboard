@@ -19,7 +19,7 @@ export function createQuestionary(
         footer?: string;
     }
 ): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
-    const pageMargins = [3, 2, 1.5, 2].map(m => cmToInc(m)) as Margins;
+    const pageMargins = [3, 2, 1.5, 2].map(cmToInc) as Margins;
     const footerMargins = [pageMargins[0], -40, pageMargins[2], 0];
     const data = getData({ form: { verticalCheckbox, inlineCheckbox } });
 
@@ -29,26 +29,18 @@ export function createQuestionary(
             pageMargins,
             content: [
                 {
-                    layout: 'noBorders',
-                    table: {
-                        widths: ['*', '*'],
-                        body: [
-                            [
-                                '' as any,
-                                {
-                                    text: data.header,
-                                    style: 'right'
-                                }
-                            ]
-                        ]
-                    }
+                    text: data.header,
+                    style: { alignment: 'right' }
                 },
                 {
                     text: data.headline,
-                    style: 'header',
+                    style: {
+                        alignment: 'center',
+                        bold: true
+                    },
                     margin: [0, 2, 0, 2] as Margins
                 },
-                ...data.paragraphs.map(p => paragraph(p.title, p.content)),
+                ...data.paragraphs.map(({ title, content }) => paragraph(title, content)),
                 {
                     layout: 'noBorders',
                     margin: [0, 30, 0, 0] as Margins,
@@ -58,8 +50,8 @@ export function createQuestionary(
                             [
                                 'М.П.' as any,
                                 {
-                                    text: [moment().format('LL'), '\n\n\n_____________________/______________/'],
-                                    style: 'right'
+                                    text: moment().format('LL') + '\n\n\n_____________________/______________/',
+                                    style: { alignment: 'right' }
                                 }
                             ]
                         ]
@@ -74,7 +66,9 @@ export function createQuestionary(
                             canvas: [{ type: 'line', x1: 0, y1: -5, x2: 100, y2: -5, lineWidth: 0.5 }]
                         },
                         {
-                            style: 'footer',
+                            style: {
+                                fontSize: 6
+                            },
                             text: data.footer
                         }
                     ]

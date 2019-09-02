@@ -1,32 +1,14 @@
-import { Style } from 'pdfmake/build/pdfmake';
+import { Style as PDFMakeStyle } from 'pdfmake/build/pdfmake';
 
 import { FontFamily } from '../../../document';
 
-export function createStyles(): { [name: string]: Style } {
-    return {
-        header: {
-            alignment: 'center',
-            bold: true
-        },
-        right: { alignment: 'right' },
-        tableHeader: {
-            color: 'white'
-        },
-        footer: {
-            fontSize: 6
-        },
-        underline: {
-            decoration: 'underline',
-            decorationStyle: 'solid',
-            decorationColor: 'black'
-        },
-        icon: {
-            font: FontFamily.fa
-        }
-    };
+export enum Style {}
+
+export function createStyles(): { [name in Style]: PDFMakeStyle } {
+    return {};
 }
 
-export function createDefaultStyle(): Style {
+export function createDefaultStyle(): PDFMakeStyle {
     return {
         font: FontFamily.serif,
         fontSize: 8,

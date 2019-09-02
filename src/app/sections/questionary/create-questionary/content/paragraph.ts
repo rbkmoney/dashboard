@@ -17,7 +17,9 @@ export function paragraph(
                 [
                     {
                         colSpan: count,
-                        style: 'tableHeader',
+                        style: {
+                            color: 'white'
+                        },
                         text: header
                     },
                     ...new Array(count - 1).fill(null)
