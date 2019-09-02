@@ -9,9 +9,10 @@ import { ButtonModule } from '../../button';
 import { PaymentsComponent } from './parts';
 import { WalletsComponent } from './parts';
 import { LocaleModule } from '../../locale';
+import { SpinnerModule } from '../../spinner';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, RouterModule, MatIconModule, ButtonModule, LocaleModule],
+    imports: [CommonModule, FlexLayoutModule, RouterModule, MatIconModule, ButtonModule, LocaleModule, SpinnerModule],
     declarations: [MainComponent, PaymentsComponent, WalletsComponent]
 })
 export class MainModule {}

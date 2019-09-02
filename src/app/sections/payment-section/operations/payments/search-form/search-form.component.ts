@@ -4,7 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
-import { BankCardPaymentSystem, BankCardTokenProvider, PaymentStatus } from '../../../../../api/capi/swagger-codegen';
+import {
+    BankCardPaymentSystem,
+    BankCardTokenProvider,
+    PaymentStatus
+} from '../../../../../api-codegen/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-search-form',

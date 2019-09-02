@@ -1,9 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { RefundsService } from './refunds.service';
 import { LAYOUT_GAP } from '../../constants';
-import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-refunds',
@@ -11,26 +9,24 @@ import { RefundSearchResult } from '../../../api/capi/swagger-codegen';
     styleUrls: ['./refunds.component.scss'],
     providers: [RefundsService]
 })
-export class RefundsComponent implements OnInit {
+export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
-
     @Input() paymentID: string;
-
-    refunds$: Observable<RefundSearchResult[]>;
-
-    hasMoreRefunds$: Observable<boolean>;
 
     localePath = 'sections.paymentDetails.refunds';
 
+    refunds$ = this.refundsService.searchResult$;
+    hasMoreRefunds$ = this.refundsService.hasMore$;
+
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
 
-    ngOnInit() {
-        this.refunds$ = this.refundsService.refunds();
-        this.hasMoreRefunds$ = this.refundsService.hasMoreRefunds();
-        this.loadMore();
+    ngOnChanges({ invoiceID, paymentID }: SimpleChanges) {
+        if (invoiceID.currentValue && paymentID.currentValue) {
+            this.refundsService.search({ invoiceID: invoiceID.currentValue, paymentID: paymentID.currentValue });
+        }
     }
 
-    loadMore() {
-        this.refundsService.loadRefunds(this.invoiceID, this.paymentID);
+    fetchMore() {
+        this.refundsService.fetchMore();
     }
 }

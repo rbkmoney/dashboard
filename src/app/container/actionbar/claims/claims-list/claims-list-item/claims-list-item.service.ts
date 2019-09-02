@@ -1,7 +1,7 @@
 import { Injectable, SimpleChange } from '@angular/core';
 
 import { ClaimStatusViewInfo, getClaimStatusViewInfo } from '../../../../../view-utils';
-import { Claim, StatusModificationUnit } from '../../../../../api/claim-management/swagger-codegen';
+import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management/swagger-codegen';
 
 export interface ClaimListItem {
     claimType: string;

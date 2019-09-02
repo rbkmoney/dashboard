@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { IconRegistryService } from './icon-registry.service';
 import { AuthModule } from './auth';
 import { initializer } from './initializer';
-import { APIModule } from './api';
+import { APICodegenModule } from './api-codegen';
 import { SectionsModule } from './sections';
 import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeManagerModule } from './theme-manager';
@@ -31,7 +31,7 @@ import { LanguageService } from './locale/language';
         BrowserModule,
         BrowserAnimationsModule,
         SectionsModule,
-        APIModule,
+        APICodegenModule,
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
