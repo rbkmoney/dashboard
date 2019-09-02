@@ -1,29 +1,10 @@
 <dsh-state-nav fxFlex="180px">
     <dsh-state-nav-item
-        routerLink="/analytics"
-        routerLinkActive
-        #analytics="routerLinkActive"
-        [selected]="analytics.isActive"
-    >
-        <mat-icon>pie_chart</mat-icon>Аналитика
-    </dsh-state-nav-item>
-    <dsh-state-nav-item
         routerLink="./operations"
         routerLinkActive
         #operations="routerLinkActive"
         [selected]="operations.isActive"
     >
         <mat-icon>table_chart</mat-icon>{{ 'sections.payment-section.nav.operations' | lc }}
-    </dsh-state-nav-item>
-    <dsh-state-nav-item
-        routerLink="/buttons"
-        routerLinkActive
-        #buttons="routerLinkActive"
-        [selected]="buttons.isActive"
-    >
-        <mat-icon>description</mat-icon>Кнопки
-    </dsh-state-nav-item>
-    <dsh-state-nav-item routerLink="/inputs" routerLinkActive #inputs="routerLinkActive" [selected]="inputs.isActive">
-        <mat-icon>description</mat-icon>Поля ввода
     </dsh-state-nav-item>
 </dsh-state-nav>

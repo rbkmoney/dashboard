@@ -72,7 +72,6 @@ export class SearchFormService {
             bankCardTokenProvider: '',
             bankCardPaymentSystem: '',
             paymentAmount: '',
-            continuationToken: '',
             rnn: ''
         });
         return form;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ShopService } from '../../../../shop/shop.service';
+import { ShopService } from '../../../../api/shop/shop.service';
 import { booleanDelay } from '../../../../custom-operators/boolean-delay';
 
 @Injectable()

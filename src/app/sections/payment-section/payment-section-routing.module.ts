@@ -5,7 +5,7 @@ import { PaymentSectionComponent } from './payment-section.component';
 
 const paymentSectionRoutes: Routes = [
     {
-        path: 'payment-section',
+        path: '',
         component: PaymentSectionComponent,
         children: [
             {

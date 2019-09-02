@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import moment from 'moment';
 
-import { PaymentFlowHold } from '../../../api/capi/swagger-codegen';
+import { PaymentFlowHold } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 
 @Component({

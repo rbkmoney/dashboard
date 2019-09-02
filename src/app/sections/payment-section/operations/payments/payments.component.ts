@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 
+import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
-
-const DATA: PaymentSearchResult[] = [];
+import { PaymentSearchService } from '../../../../api/search';
 
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    styleUrls: ['payments.component.scss']
+    providers: [PaymentsService, PaymentSearchService]
 })
 export class PaymentsComponent {
-    displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
-    dataSource = new MatTableDataSource(DATA);
-    localeBseDir = 'sections.operations.payments';
+    payments$ = this.paymentService.searchResult$;
+    hasMorePayments$ = this.paymentService.hasMore$;
+    lastUpdated$ = this.paymentService.lastUpdated$;
 
-    search(paymentSearchFormValue: PaymentSearchFormValue) {
-        console.log('Search!', paymentSearchFormValue);
+    constructor(private paymentService: PaymentsService) {}
+
+    search(val: PaymentSearchFormValue) {
+        this.paymentService.search(val);
+    }
+
+    fetchMore() {
+        this.paymentService.fetchMore();
+    }
+
+    refresh() {
+        this.paymentService.refresh();
     }
 }

@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MainComponent } from './main';
-import { PageNotFoundComponent } from './page-not-found';
-import { AnalyticsComponent } from './analytics';
-import { ButtonsComponent } from './buttons';
-import { InputsComponent } from './inputs/inputs.component';
 
 const routes: Routes = [
     {
@@ -13,20 +9,20 @@ const routes: Routes = [
         component: MainComponent
     },
     {
-        path: 'analytics',
-        component: AnalyticsComponent
-    },
-    {
-        path: 'buttons',
-        component: ButtonsComponent
-    },
-    {
-        path: 'inputs',
-        component: InputsComponent
-    },
-    {
         path: 'claim',
         loadChildren: () => import('./claim').then(m => m.ClaimModule)
+    },
+    {
+        path: 'payment-section',
+        loadChildren: () => import('./payment-section').then(m => m.PaymentSectionModule)
+    },
+    {
+        path: 'invoice',
+        loadChildren: () => import('./payment-details').then(m => m.PaymentDetailsModule)
+    },
+    {
+        path: 'onboarding',
+        loadChildren: () => import('./onboarding').then(m => m.OnboardingModule)
     },
     {
         path: 'questionary',
@@ -34,7 +30,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        component: PageNotFoundComponent
+        loadChildren: () => import('./page-not-found').then(m => m.PageNotFoundModule)
     }
 ];
 

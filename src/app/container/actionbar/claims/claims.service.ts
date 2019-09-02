@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { ClaimsService as ClaimsApiService } from '../../../claims/claims.service';
+import { ClaimsService as ClaimsApiService } from '../../../api/claims/claims.service';
 import { booleanDelay, takeError } from '../../../custom-operators';
 
 @Injectable()

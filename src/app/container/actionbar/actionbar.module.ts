@@ -14,8 +14,7 @@ import { StatusModule } from '../../status';
 import { UserComponent } from './user';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 import { ActionItemComponent } from './action-item';
-import { APIModule } from '../../api';
-import { ClaimsService } from '../../claims';
+import { ClaimsService } from '../../api/claims';
 import { LocaleModule } from '../../locale';
 import { SpinnerModule } from '../../spinner';
 
@@ -30,7 +29,6 @@ import { SpinnerModule } from '../../spinner';
         StatusModule,
         MatMenuModule,
         RouterModule,
-        APIModule,
         CommonModule,
         LocaleModule,
         SpinnerModule

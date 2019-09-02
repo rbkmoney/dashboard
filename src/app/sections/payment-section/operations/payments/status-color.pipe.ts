@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { PaymentSearchResult } from '../../../../api/capi/swagger-codegen';
+import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
@@ -12,13 +12,14 @@ export class PaymentStatusColorPipe implements PipeTransform {
         switch (status) {
             case statusEnum.Captured:
             case statusEnum.Processed:
-            case statusEnum.Refunded:
                 return StatusColor.success;
             case statusEnum.Failed:
             case statusEnum.Cancelled:
                 return StatusColor.warn;
             case statusEnum.Pending:
                 return StatusColor.pending;
+            case statusEnum.Refunded:
+                return StatusColor.neutral;
         }
     }
 }
