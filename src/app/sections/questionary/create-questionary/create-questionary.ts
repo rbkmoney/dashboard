@@ -1,29 +1,19 @@
 import moment from 'moment';
-import { TableCell, Content, Margins, TableLayoutFunctions, TDocumentDefinitions } from 'pdfmake/build/pdfmake';
+import { Margins, TableLayoutFunctions, TDocumentDefinitions } from 'pdfmake/build/pdfmake';
 
 import { cmToInc } from './cm-to-inc';
 import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
-import { verticalCheckbox, inlineCheckbox, paragraph } from './content';
-
-const formatters = {
-    form: { verticalCheckbox, inlineCheckbox }
-};
+import { paragraph } from './content';
+import { getTemplate } from './get-template';
+import { contentGenerators } from './content-generators';
 
 export function createQuestionary(
-    getData: (
-        inputFormatters: typeof formatters
-    ) => {
-        header: string;
-        headline: string;
-        paragraphs: { title: string; content: (TableCell | Content | Content[] | string | string[])[][] }[];
-        footer?: string;
-    }
+    getTemplateFn: getTemplate
 ): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
     const pageMargins = [3, 2, 1.5, 2].map(cmToInc) as Margins;
     const footerMargins = [pageMargins[0], -40, pageMargins[2], 0];
-    const data = getData(formatters);
-
+    const data = getTemplateFn(contentGenerators);
     return [
         {
             pageSize: 'A4' as any,
