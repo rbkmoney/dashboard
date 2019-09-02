@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { ConfigService } from '../../config';
 import { PaymentPartType } from './parts';
+import { routeEnv } from '../route-env';
 
 @Component({
     templateUrl: 'main.component.html',
@@ -13,7 +14,7 @@ export class MainComponent {
     hasWallets = false;
     paymentsSectionType = PaymentPartType.prestine;
     paymentsSectionActionRouterLink = '/onboarding';
-    testEnvironmentRouterLink = '/payment-section/operations';
+    testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
 
     constructor(private configService: ConfigService) {}
 }

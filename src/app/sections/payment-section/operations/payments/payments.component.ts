@@ -10,7 +10,7 @@ import { PaymentSearchService } from '../../../../api/search';
     providers: [PaymentsService, PaymentSearchService]
 })
 export class PaymentsComponent {
-    payments$ = this.paymentService.searchResult$;
+    tableData$ = this.paymentService.paymentsTableData$;
     hasMorePayments$ = this.paymentService.hasMore$;
     lastUpdated$ = this.paymentService.lastUpdated$;
 
