@@ -45,8 +45,9 @@ import { InvoiceModule } from '../../api/invoice';
 import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { CancelHoldComponent } from './hold-details/cancel-hold/cancel-hold.component';
-import { PaymentModule } from '../../payment';
+import { PaymentModule } from '../../api/payment';
 import { AcceptHoldComponent } from './hold-details/accept-hold/accept-hold.component';
+import { ShopModule } from '../../api/shop';
 
 @NgModule({
     imports: [
@@ -71,7 +72,7 @@ import { AcceptHoldComponent } from './hold-details/accept-hold/accept-hold.comp
         MatFormFieldModule,
         MatInputModule,
         PaymentModule,
-        MatCheckboxModule
+        MatCheckboxModule,
         HumanizeDurationModule
     ],
     declarations: [

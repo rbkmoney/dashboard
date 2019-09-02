@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { PaymentService } from '../../../../payment';
-import { CaptureParams } from '../../../../api/capi/swagger-codegen';
+import { PaymentService } from '../../../../api/payment';
+import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
 
 @Injectable()
 export class AcceptHoldService {

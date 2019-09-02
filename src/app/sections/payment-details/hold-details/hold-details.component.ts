@@ -2,8 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import moment from 'moment';
 
-import { PaymentFlowHold, PaymentStatus } from '../../../api/capi/swagger-codegen';
-import { PaymentFlowHold } from '../../../api-codegen/capi/swagger-codegen';
+import { PaymentFlowHold, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent } from './cancel-hold/cancel-hold.component';
 import { AcceptHoldComponent, AcceptHoldData } from './accept-hold/accept-hold.component';

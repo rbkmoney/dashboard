@@ -6,8 +6,8 @@ import round from 'lodash.round';
 
 import { LAYOUT_GAP } from '../../../constants';
 import { AcceptHoldService } from './accept-hold.service';
-import { CaptureParams } from '../../../../api/capi/swagger-codegen';
 import { toMinorAmountFromString } from '../../../../view-utils/to-minor-from-string-amount';
+import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
 
 export interface AcceptHoldData {
     invoiceID: string;
