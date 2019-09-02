@@ -6,13 +6,14 @@ import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
 import { verticalCheckbox, inlineCheckbox, paragraph } from './content';
 
+const formatters = {
+    form: { verticalCheckbox, inlineCheckbox }
+};
+
 export function createQuestionary(
-    getData: (lang: {
-        form: {
-            inlineCheckbox;
-            verticalCheckbox;
-        };
-    }) => {
+    getData: (
+        inputFormatters: typeof formatters
+    ) => {
         header: string;
         headline: string;
         paragraphs: { title: string; content: (TableCell | Content | Content[] | string | string[])[][] }[];
@@ -21,7 +22,7 @@ export function createQuestionary(
 ): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
     const pageMargins = [3, 2, 1.5, 2].map(cmToInc) as Margins;
     const footerMargins = [pageMargins[0], -40, pageMargins[2], 0];
-    const data = getData({ form: { verticalCheckbox, inlineCheckbox } });
+    const data = getData(formatters);
 
     return [
         {
