@@ -187,18 +187,13 @@ export class QuestionaryService {
             footer?: string;
         }
     ) {
-        const checkSquare: Content = {
-            text: '',
-            style: 'icon'
-        };
-
-        const square: Content = {
-            text: '',
-            style: 'icon'
-        };
+        const icons = this.getIcons({
+            checkSquare: '',
+            square: ''
+        });
 
         function checkbox(text: string, checked = false): TableCell {
-            return { text: [checked ? checkSquare : square, ' ', text] as any };
+            return { text: [checked ? icons.checkSquare : icons.square, ' ', text] as any };
         }
 
         function inlineCheckbox(items: string[], checked: number = -1) {
@@ -362,5 +357,15 @@ export class QuestionaryService {
             fontSize: 8,
             lineHeight: 1
         };
+    }
+
+    getIcons<T extends { [name: string]: string }>(icons: T): Record<keyof T, Content> {
+        return Object.entries(icons).reduce(
+            (acc, [name, text]) => {
+                acc[name] = { text, style: 'icon' };
+                return acc;
+            },
+            {} as any
+        );
     }
 }
