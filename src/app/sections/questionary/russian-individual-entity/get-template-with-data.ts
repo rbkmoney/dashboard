@@ -1,7 +1,7 @@
 import { getTemplate } from '../create-questionary';
 import { getData } from './get-data';
 
-export function getTemplate({ basic, contact }: ReturnType<typeof getData>): getTemplate {
+export function getTemplateWithData({ basic, contact }: ReturnType<typeof getData>): getTemplate {
     return ({ form: { inlineCheckbox, verticalCheckbox } }) => ({
         header: 'Приложение №',
         headline:

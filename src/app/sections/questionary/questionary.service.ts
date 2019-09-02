@@ -4,7 +4,9 @@ import { switchMap } from 'rxjs/operators';
 import { DocumentService } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../api/questionary';
 import { createQuestionary } from './create-questionary';
-import { getData, getTemplate } from './russian-individual-entity';
+import { getData, getTemplateWithData } from './russian-individual-entity';
+import { Questionary } from '../../api-codegen/questionary';
+import { getTemplate } from './create-questionary';
 
 @Injectable()
 export class QuestionaryService {
@@ -12,13 +14,15 @@ export class QuestionaryService {
 
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
-    createIndividualEntityDoc() {
+    createDoc<T>(getDataFn: (questionary: Questionary) => T, getTemplateWithDataFn: (data: T) => getTemplate) {
         return this.questionary$.pipe(
-            switchMap(({ questionary }) => {
-                const data = getData(questionary);
-                const template = getTemplate(data);
-                return this.documentService.createPdf(...createQuestionary(template));
-            })
+            switchMap(({ questionary }) =>
+                this.documentService.createPdf(...createQuestionary(getTemplateWithDataFn(getDataFn(questionary))))
+            )
         );
+    }
+
+    createRussianIndividualEntityDoc() {
+        return this.createDoc(getData, getTemplateWithData);
     }
 }

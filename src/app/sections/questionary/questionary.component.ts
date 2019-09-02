@@ -19,7 +19,7 @@ export class QuestionaryComponent {
     }
 
     downloadDocument() {
-        this.questionaryService.createIndividualEntityDoc().subscribe(doc => {
+        this.questionaryService.createRussianIndividualEntityDoc().subscribe(doc => {
             doc.download();
         });
     }
