@@ -15,12 +15,13 @@ export class QuestionaryComponent {
         this.questionary$.subscribe(x => {
             console.log(x);
         });
-        this.downloadDocument();
     }
 
-    downloadDocument() {
-        this.questionaryService.createRussianIndividualEntityDoc().subscribe(doc => {
-            doc.download();
-        });
+    downloadRussianIndividualEntityDocument() {
+        this.questionaryService.createRussianIndividualEntityDoc().subscribe(doc => doc.download());
+    }
+
+    downloadRussianLegalEntityDocument() {
+        this.questionaryService.createRussianLegalEntityDoc().subscribe(doc => doc.download());
     }
 }

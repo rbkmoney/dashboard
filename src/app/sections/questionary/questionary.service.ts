@@ -4,7 +4,14 @@ import { switchMap } from 'rxjs/operators';
 import { DocumentService } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../api/questionary';
 import { createQuestionary } from './create-questionary';
-import { getData, getTemplateWithData } from './russian-individual-entity';
+import {
+    getData as getRussianIndividualEntityData,
+    getTemplateWithData as getRussianIndividualEntityTemplateWithData
+} from './russian-individual-entity';
+import {
+    getData as getRussianLegalEntityData,
+    getTemplateWithData as getRussianLegalEntityTemplateWithData
+} from './russian-legal-entity';
 import { Questionary } from '../../api-codegen/questionary';
 import { getTemplate } from './create-questionary';
 
@@ -23,6 +30,10 @@ export class QuestionaryService {
     }
 
     createRussianIndividualEntityDoc() {
-        return this.createDoc(getData, getTemplateWithData);
+        return this.createDoc(getRussianIndividualEntityData, getRussianIndividualEntityTemplateWithData);
+    }
+
+    createRussianLegalEntityDoc() {
+        return this.createDoc(getRussianLegalEntityData, getRussianLegalEntityTemplateWithData);
     }
 }
