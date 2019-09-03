@@ -7,7 +7,7 @@ import {
     TDocumentHeaderFooterFunction
 } from 'pdfmake/build/pdfmake';
 
-import { cmToInc } from './cm-to-inc';
+import { cmToIn } from './cm-to-in';
 import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
 import { paragraph } from './content';
@@ -34,8 +34,8 @@ function createFooter({ margin, text }: { margin: Margins; text: string }): TDoc
 export function createQuestionary(
     getTemplateFn: getTemplate
 ): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
-    const pageMargins = [3, 2, 1.5, 2].map(cmToInc) as Margins;
-    const footerMargins = [pageMargins[0], -40, pageMargins[2], 0] as Margins;
+    const pageMargins = [3, 2, 1.5, 2].map(cm => cmToIn(cm)) as Margins;
+    const footerMargins = [pageMargins[0], -cmToIn(1.4), pageMargins[2], 0] as Margins;
     const data = getTemplateFn(contentGenerators);
     return [
         {
