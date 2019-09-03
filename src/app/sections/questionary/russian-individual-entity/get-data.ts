@@ -1,23 +1,36 @@
-import { Questionary, IndividualEntityContractor, RussianIndividualEntity } from '../../../api-codegen/questionary';
+import {
+    Questionary,
+    IndividualEntityContractor,
+    RussianIndividualEntity,
+    QuestionaryData
+} from '../../../api-codegen/questionary';
+import { Replace } from '../replace';
 
-export function getData(questionary: Questionary) {
-    const contactInfo = questionary.data.contactInfo;
-    const contractor: IndividualEntityContractor = questionary.data.contractor;
-    const individualEntity: RussianIndividualEntity = contractor.individualEntity;
+type RussianIndividualEntityQuestionary = Replace<
+    Questionary,
+    {
+        data: Replace<
+            QuestionaryData,
+            { contractor: Replace<IndividualEntityContractor, { individualEntity: RussianIndividualEntity }> }
+        >;
+    }
+>;
 
-    const fullName = `${individualEntity.russianPrivateEntity.personAnthroponym.secondName} ${individualEntity.russianPrivateEntity.personAnthroponym.firstName} ${individualEntity.russianPrivateEntity.personAnthroponym.middleName}`;
+export function getData({ data }: RussianIndividualEntityQuestionary) {
+    const personAnthroponym = data.contractor.individualEntity.russianPrivateEntity.personAnthroponym;
+    const fullName = `${personAnthroponym.secondName} ${personAnthroponym.firstName} ${personAnthroponym.middleName}`;
 
     return {
         basic: {
-            inn: individualEntity.inn,
+            inn: data.contractor.individualEntity.inn,
             name: `ИП ${fullName}`,
             brandName: `ИП ${fullName}`,
             snils: ''
         },
         contact: {
-            phone: contactInfo.phoneNumber,
+            phone: data.contactInfo.phoneNumber,
             url: '',
-            email: contactInfo.email
+            email: data.contactInfo.email
         }
     };
 }

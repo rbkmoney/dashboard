@@ -14,9 +14,7 @@ export class DocumentService {
 
     createPdf(
         docDefinition: TDocumentDefinitions,
-        tableLayouts?: {
-            [name: string]: TableLayoutFunctions;
-        }
+        tableLayouts?: { [name: string]: TableLayoutFunctions }
     ): Observable<TCreatedPdf> {
         return this.documentFontService.fontsData$.pipe(
             map(({ fonts, vfs }) => createPdf(docDefinition, tableLayouts, fonts, vfs))

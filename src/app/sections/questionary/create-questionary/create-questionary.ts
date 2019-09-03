@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Margins, TableLayoutFunctions, TDocumentDefinitions } from 'pdfmake/build/pdfmake';
+import { Margins, TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/build/pdfmake';
 
 import { cmToInc } from './cm-to-inc';
 import { createStyles, createDefaultStyle } from './create-styles';
@@ -16,7 +16,7 @@ export function createQuestionary(
     const data = getTemplateFn(contentGenerators);
     return [
         {
-            pageSize: 'A4' as any,
+            pageSize: 'A4' as PageSize,
             pageMargins,
             content: [
                 {
