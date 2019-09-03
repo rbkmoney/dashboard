@@ -1,5 +1,11 @@
 import moment from 'moment';
-import { Margins, TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/build/pdfmake';
+import {
+    Margins,
+    TableLayoutFunctions,
+    TDocumentDefinitions,
+    PageSize,
+    TDocumentHeaderFooterFunction
+} from 'pdfmake/build/pdfmake';
 
 import { cmToInc } from './cm-to-inc';
 import { createStyles, createDefaultStyle } from './create-styles';
@@ -8,11 +14,28 @@ import { paragraph } from './content';
 import { getTemplate } from './get-template';
 import { contentGenerators } from './content-generators';
 
+function createFooter({ margin, text }: { margin: Margins; text: string }): TDocumentHeaderFooterFunction {
+    return () => ({
+        margin,
+        columns: [
+            [
+                {
+                    canvas: [{ type: 'line', x1: 0, y1: -5, x2: 100, y2: -5, lineWidth: 0.5 }]
+                },
+                {
+                    style: { fontSize: 6 },
+                    text
+                }
+            ]
+        ]
+    });
+}
+
 export function createQuestionary(
     getTemplateFn: getTemplate
 ): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
     const pageMargins = [3, 2, 1.5, 2].map(cmToInc) as Margins;
-    const footerMargins = [pageMargins[0], -40, pageMargins[2], 0];
+    const footerMargins = [pageMargins[0], -40, pageMargins[2], 0] as Margins;
     const data = getTemplateFn(contentGenerators);
     return [
         {
@@ -49,22 +72,7 @@ export function createQuestionary(
                     }
                 }
             ],
-            footer: () => ({
-                margin: footerMargins,
-                columns: [
-                    [
-                        {
-                            canvas: [{ type: 'line', x1: 0, y1: -5, x2: 100, y2: -5, lineWidth: 0.5 }]
-                        },
-                        {
-                            style: {
-                                fontSize: 6
-                            },
-                            text: data.footer
-                        }
-                    ]
-                ]
-            }),
+            footer: createFooter({ margin: footerMargins, text: data.footer }),
             styles: createStyles(),
             defaultStyle: createDefaultStyle()
         },
