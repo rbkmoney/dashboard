@@ -16,7 +16,7 @@ import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
 import { LocaleModule } from '../../../../locale';
-import { SearchFormComponent } from './search-form/search-form.component';
+import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
 import { DaterangeSelectorModule } from '../daterange-selector';
 import { StatusModule } from '../../../../status';
