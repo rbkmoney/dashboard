@@ -1,12 +1,12 @@
 <div fxLayout fxLayoutGap="10px">
-    <dsh-action-item iconName="brightness_4" (click)="changeTheme()"></dsh-action-item>
-    <dsh-action-item iconName="subject" [dshDropdownTriggerFor]="claimsDropdown"></dsh-action-item>
+    <!-- <dsh-action-item iconName="brightness_4" (click)="changeTheme()"></dsh-action-item> -->
+    <!-- <dsh-action-item iconName="subject" [dshDropdownTriggerFor]="claimsDropdown"></dsh-action-item> -->
     <dsh-action-item iconName="person" [dshDropdownTriggerFor]="userDropdown">></dsh-action-item>
 </div>
 
-<dsh-dropdown width="590px" #claimsDropdown="dshDropdown">
+<!-- <dsh-dropdown width="590px" #claimsDropdown="dshDropdown">
     <dsh-claims (menuItemSelected)="closeDropdown()"></dsh-claims>
-</dsh-dropdown>
+</dsh-dropdown> -->
 
 <dsh-dropdown width="180px" #userDropdown="dshDropdown">
     <dsh-user></dsh-user>

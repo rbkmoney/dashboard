@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { ModificationUnit } from '../../../../api/claim-management';
+import { ModificationUnit } from '../../../../api-codegen/claim-management';
 import { TimelineItemInfo } from './timeline-item-info';
 import { toTimelineItemInfo } from './to-timeline-item-info';
 

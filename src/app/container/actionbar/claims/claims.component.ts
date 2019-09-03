@@ -13,7 +13,5 @@ export class ClaimsComponent {
 
     dicBasePath = 'actionbar.claims';
 
-    claims$ = this.claimsService.getClaims();
-
-    constructor(private claimsService: ClaimsService) {}
+    constructor(public claimsService: ClaimsService) {}
 }

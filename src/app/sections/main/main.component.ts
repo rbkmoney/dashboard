@@ -10,7 +10,7 @@ import { PaymentPartType } from './parts';
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
-    hasWallets = true;
+    hasWallets = false;
     paymentsSectionType = PaymentPartType.prestine;
     paymentsSectionActionRouterLink = '/onboarding';
     testEnvironmentRouterLink = '/payment-section/operations';
