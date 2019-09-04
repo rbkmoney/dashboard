@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material';
 import {
     MatFormFieldModule,
     MatInputModule,
@@ -24,6 +25,7 @@ import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
 import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { TableComponent } from './table/table.component';
+import { SpinnerModule } from '../../../../spinner';
 
 @NgModule({
     imports: [
@@ -44,7 +46,9 @@ import { TableComponent } from './table/table.component';
         DaterangeSelectorModule,
         StatusModule,
         ViewUtilsModule,
-        LastUpdatedModule
+        LastUpdatedModule,
+        SpinnerModule,
+        MatSnackBarModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent]
 })
