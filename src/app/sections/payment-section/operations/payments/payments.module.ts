@@ -26,6 +26,8 @@ import { ViewUtilsModule } from '../../../../view-utils';
 import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { TableComponent } from './table/table.component';
 import { SpinnerModule } from '../../../../spinner';
+import { DropdownModule } from '../../../../dropdown';
+import { StateNavModule } from '../../../../state-nav';
 
 @NgModule({
     imports: [
@@ -48,7 +50,9 @@ import { SpinnerModule } from '../../../../spinner';
         ViewUtilsModule,
         LastUpdatedModule,
         SpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        DropdownModule,
+        StateNavModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent]
 })
