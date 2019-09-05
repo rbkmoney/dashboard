@@ -10,3 +10,7 @@
 	path = schemes/claim-management/v0
 	url = git@github.com:rbkmoney/swag-claim-management.git
 	branch = release/master
+[submodule "schemes/questionary/v0"]
+	path = schemes/questionary/v0
+	url = git@github.com:rbkmoney/swag-questionary.git
+	branch = release/master
