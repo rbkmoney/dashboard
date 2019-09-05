@@ -151,7 +151,7 @@
                 },
                 "manualContractorSelector": {
                     "description": "Ничего не найдено. Можно указать сведения об организации вручную.",
-                    "individualEntity": "Индивидуальный предпрениматель",
+                    "individualEntity": "Индивидуальный предприниматель",
                     "legalEntity": "Юридическое лицо"
                 }
             }
@@ -175,7 +175,7 @@
                     "paymentStatus": "Статус платежа",
                     "paymentFlow": "Тип проведения платежа",
                     "bankCardTokenProvider": "Провайдер платежных токенов",
-                    "bankCardPaymentSystem": "Платежаня система",
+                    "bankCardPaymentSystem": "Платежная система",
                     "paymentMethod": "Метод оплаты",
                     "rnn": "RNN платежа"
                 },
@@ -184,7 +184,10 @@
                     "status": "Статус",
                     "statusChanged": "Статус изменен",
                     "invoice": "Инвойс",
-                    "shop": "Магазин"
+                    "shop": "Магазин",
+                    "actions": {
+                        "paymentDetails": "Детали платежа"
+                    }
                 }
             },
             "invoices": {

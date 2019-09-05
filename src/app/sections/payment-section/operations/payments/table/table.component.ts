@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { PaymentsTableData } from './payments-table-data';
 
@@ -13,4 +14,10 @@ export class TableComponent {
 
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     localeBaseDir = 'sections.operations.payments.table';
+
+    constructor(private router: Router) {}
+
+    goToPaymentDetails({ invoiceID, paymentID }: PaymentsTableData) {
+        this.router.navigate(['invoice', invoiceID, 'payment', paymentID]);
+    }
 }
