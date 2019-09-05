@@ -1,20 +1,4 @@
-import {
-    Questionary,
-    LegalEntityContractor,
-    RussianLegalEntity,
-    QuestionaryData
-} from '../../../api-codegen/questionary';
-import { Replace } from '../replace';
-
-type RussianLegalEntityQuestionary = Replace<
-    Questionary,
-    {
-        data: Replace<
-            QuestionaryData,
-            { contractor: Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }> }
-        >;
-    }
->;
+import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     return {

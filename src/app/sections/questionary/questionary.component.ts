@@ -9,13 +9,7 @@ import { QuestionaryService } from './questionary.service';
     providers: [QuestionaryService]
 })
 export class QuestionaryComponent {
-    questionary$ = this.questionaryService.questionary$;
-
-    constructor(private questionaryService: QuestionaryService) {
-        this.questionary$.subscribe(x => {
-            console.log(x);
-        });
-    }
+    constructor(private questionaryService: QuestionaryService) {}
 
     downloadRussianIndividualEntityDocument() {
         this.questionaryService.createRussianIndividualEntityDoc().subscribe(doc => doc.download());

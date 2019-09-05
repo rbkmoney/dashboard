@@ -1,20 +1,4 @@
-import {
-    Questionary,
-    IndividualEntityContractor,
-    RussianIndividualEntity,
-    QuestionaryData
-} from '../../../api-codegen/questionary';
-import { Replace } from '../replace';
-
-type RussianIndividualEntityQuestionary = Replace<
-    Questionary,
-    {
-        data: Replace<
-            QuestionaryData,
-            { contractor: Replace<IndividualEntityContractor, { individualEntity: RussianIndividualEntity }> }
-        >;
-    }
->;
+import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const personAnthroponym = data.contractor.individualEntity.russianPrivateEntity.personAnthroponym;
