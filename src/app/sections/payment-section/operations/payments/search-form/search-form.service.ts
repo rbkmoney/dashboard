@@ -1,22 +1,36 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { filter, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
+import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { toQueryParams } from './to-query-params';
 import { toFormValue } from './to-form-value';
 import { SearchFormValue } from '../../search-form-value';
+import { ShopService } from '../../../../../api';
+import { takeRouteParam } from '../../../../../custom-operators';
+import { mapToShopInfo, ShopInfo, filterShopsByEnv } from '../../operators';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup;
+    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+        takeRouteParam('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo
+    );
+
     private defaultValues: PaymentSearchFormValue;
 
-    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
         this.searchForm = this.initForm();
         this.defaultValues = this.searchForm.value;
         this.route.queryParams

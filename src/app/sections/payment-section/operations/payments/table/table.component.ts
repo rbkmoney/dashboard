@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
-import { PaymentSearchResult } from '../../../../../api-codegen/capi/swagger-codegen';
+import { PaymentsTableData } from './payments-table-data';
 
 @Component({
     selector: 'dsh-payments-table',
@@ -9,7 +9,7 @@ import { PaymentSearchResult } from '../../../../../api-codegen/capi/swagger-cod
     styleUrls: ['table.component.scss']
 })
 export class TableComponent {
-    @Input() data: MatTableDataSource<PaymentSearchResult>;
+    @Input() data: MatTableDataSource<PaymentsTableData>;
 
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
     localeBaseDir = 'sections.operations.payments.table';

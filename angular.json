@@ -103,7 +103,8 @@
                             }
                         ],
                         "scripts": [],
-                        "assets": ["src/favicon.ico", "src/assets"]
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "codeCoverageExclude": ["src/**/swagger-codegen/**/*"]
                     }
                 },
                 "lint": {
