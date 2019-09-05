@@ -9,9 +9,9 @@ export const initializer = (
     localeService: LocaleDictionaryService
 ) => async () => {
     await Promise.all([
-        configService.init({ configUrl: '/assets/appConfig.json' }),
+        configService.init({ configUrl: '/appConfig.json' }),
         keycloakService.init({
-            config: '/assets/authConfig.json',
+            config: '/authConfig.json',
             initOptions: {
                 onLoad: 'login-required',
                 checkLoginIframe: true

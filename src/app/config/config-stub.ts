@@ -1,6 +1,6 @@
 import { HttpTestingController } from '@angular/common/http/testing';
 
-import config from '../../assets/appConfig.json';
+import config from '../../appConfig.json';
 
 export { config };
 
