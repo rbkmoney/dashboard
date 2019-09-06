@@ -1,8 +1,9 @@
-import { getTemplate } from '../create-questionary';
+import { Data } from '../create-questionary';
 import { getData } from './get-data';
+import { inlineCheckbox, verticalCheckboxWithTitle } from '../create-questionary';
 
-export function getTemplateWithData({ basic, contact }: ReturnType<typeof getData>): getTemplate {
-    return ({ form: { inlineCheckbox, verticalCheckbox } }) => ({
+export function getTemplateWithData({ basic, contact }: ReturnType<typeof getData>): Data {
+    return {
         header: 'Приложение №',
         headline: 'ОПРОСНЫЙ ЛИСТ – ЮРИДИЧЕСКОГО ЛИЦА (НЕ ЯВЛЯЮЩЕГОСЯ КРЕДИТНОЙ ОРГАНИЗАЦИЕЙ)',
         paragraphs: [
@@ -31,8 +32,8 @@ export function getTemplateWithData({ basic, contact }: ReturnType<typeof getDat
                 title: '4. Планируемые операции, в месяц',
                 content: [
                     [
-                        verticalCheckbox('4.1. Количество операций:', ['до 10', '10 - 50', 'свыше 50']),
-                        verticalCheckbox('4.2. Сумма операций:', [
+                        verticalCheckboxWithTitle('4.1. Количество операций:', ['до 10', '10 - 50', 'свыше 50']),
+                        verticalCheckboxWithTitle('4.2. Сумма операций:', [
                             'до 500 000',
                             '500 000 - 1 000 000',
                             'свыше 1 000 000'
@@ -110,5 +111,5 @@ export function getTemplateWithData({ basic, contact }: ReturnType<typeof getDat
         footer: `¹ Публичные должностные лица, включая российские, иностранные и международные.
 ² Выгодоприобретатель - лицо, к выгоде которого действует клиент, в том числе на основании агентского договора, договоров поручения, комиссии и доверительного управления, при проведении операций с денежными средствами и иным имуществом.
 ³ Бенефициарный владелец - физическое лицо, которое в конечном счете прямо или косвенно (через третьих лиц) владеет (имеет преобладающее участие более 25 процентов в капитале) клиентом - юридическим лицом либо имеет возможность контролировать действия клиента. Бенефициарным владельцем клиента - физического лица считается это лицо, за исключением случаев, если имеются основания полагать, что бенефициарным владельцем является иное физическое лицо.`
-    });
+    };
 }

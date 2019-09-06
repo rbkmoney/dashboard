@@ -7,14 +7,14 @@ import { DocumentService } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../api/questionary';
 import { createQuestionary } from './create-questionary';
 import { Snapshot, Questionary } from '../../api-codegen/questionary';
-import { getTemplate } from './create-questionary';
+import { Data } from './create-questionary';
 import { getQuestionaryTemplate } from './get-questionary-template';
 
 @Injectable()
 export class QuestionaryService {
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
-    toDocument(getTemplateFn: (questionary: Questionary) => getTemplate): OperatorFunction<Snapshot, TCreatedPdf> {
+    toDocument(getTemplateFn: (questionary: Questionary) => Data): OperatorFunction<Snapshot, TCreatedPdf> {
         return input$ =>
             input$.pipe(
                 switchMap(({ questionary }) =>

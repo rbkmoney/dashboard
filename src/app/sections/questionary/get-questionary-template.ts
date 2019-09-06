@@ -9,11 +9,11 @@ import {
     getTemplateWithData as getRussianLegalEntityTemplateWithData,
     RussianLegalEntityQuestionary
 } from './russian-legal-entity';
-import { getTemplate } from './create-questionary';
+import { Data } from './create-questionary';
 
 const ContractorType = Contractor.ContractorTypeEnum;
 
-export function getQuestionaryTemplate(questionary: Questionary): getTemplate {
+export function getQuestionaryTemplate(questionary: Questionary): Data {
     switch (questionary.data.contractor.contractorType) {
         case ContractorType.IndividualEntity:
             return getRussianIndividualEntityTemplateWithData(

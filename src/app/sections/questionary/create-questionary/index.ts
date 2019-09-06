@@ -1,2 +1,3 @@
 export * from './create-questionary';
-export * from './get-template';
+export * from './data';
+export * from './content';
