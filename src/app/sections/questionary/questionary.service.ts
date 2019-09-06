@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { OperatorFunction } from 'rxjs';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 
@@ -17,6 +17,7 @@ export class QuestionaryService {
     toDocument(getTemplateFn: (questionary: Questionary) => Data): OperatorFunction<Snapshot, TCreatedPdf> {
         return input$ =>
             input$.pipe(
+                tap(({ questionary }) => console.log(questionary)),
                 switchMap(({ questionary }) =>
                     this.documentService.createPdf(...createQuestionary(getTemplateFn(questionary)))
                 )

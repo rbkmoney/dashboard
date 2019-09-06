@@ -1,8 +1,19 @@
 import { Data } from '../create-questionary';
 import { getData } from './get-data';
 import { verticalCheckboxWithTitle, inlineCheckboxWithTitle, inlineCheckbox } from '../create-questionary/content';
+import { MonthOperationCount, MonthOperationSum } from '../../../api-codegen/questionary';
 
-export function getTemplateWithData({ basic, contact }: ReturnType<typeof getData>): Data {
+export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
+    const monthOperationCount = [
+        MonthOperationCount.LtTen,
+        MonthOperationCount.BtwTenToFifty,
+        MonthOperationCount.GtFifty
+    ].findIndex(count => count === data.monthOperation.monthOperationCount);
+    const monthOperationSum = [
+        MonthOperationSum.LtFiveHundredThousand,
+        MonthOperationSum.BtwFiveHundredThousandToOneMillion,
+        MonthOperationSum.GtOneMillion
+    ].findIndex(sum => sum === data.monthOperation.monthOperationSum);
     return {
         header: 'Приложение №',
         headline:
@@ -11,43 +22,60 @@ export function getTemplateWithData({ basic, contact }: ReturnType<typeof getDat
             {
                 title: '1. Основные сведения о Клиенте',
                 content: [
-                    [`1.1. Наименование: ${basic.name}`, `1.2. ИНН: ${basic.inn}`],
-                    [`1.3. Фирменное наименование: ${basic.brandName}`, `1.4. СНИЛС №: ${basic.snils}`]
+                    [`1.1. Наименование: ${data.basic.name}`, `1.2. ИНН: ${data.basic.inn}`],
+                    [`1.3. Фирменное наименование: ${data.basic.brandName}`, `1.4. СНИЛС №: ${data.basic.snils}`]
                 ]
             },
             {
                 title: '2. Контактная информация',
                 content: [
                     [
-                        `2.1. Телефон: ${contact.phone}`,
-                        `2.2. Сайт (Url): ${contact.url}`,
-                        `2.3. Email: ${contact.email}`
+                        `2.1. Телефон: ${data.contact.phone}`,
+                        `2.2. Сайт (Url): ${data.contact.url}`,
+                        `2.3. Email: ${data.contact.email}`
                     ]
                 ]
             },
             {
                 title: '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
-                content: [['3.1. Цели установления отношений:', '3.2. Характер отношений:']]
+                content: [
+                    [
+                        `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
+                        `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
+                    ]
+                ]
             },
             {
                 title: '4. Планируемые операции по счету, в месяц',
                 content: [
                     [
-                        verticalCheckboxWithTitle('4.1. Количество операций:', ['до 10', '10 - 50', 'свыше 50']),
-                        verticalCheckboxWithTitle('4.2. Сумма операций:', [
-                            'до 500 000',
-                            '500 000 - 1 000 000',
-                            'свыше 1 000 000'
-                        ])
+                        verticalCheckboxWithTitle(
+                            '4.1. Количество операций:',
+                            ['до 10', '10 - 50', 'свыше 50'],
+                            monthOperationCount
+                        ),
+                        verticalCheckboxWithTitle(
+                            '4.2. Сумма операций:',
+                            ['до 500 000', '500 000 - 1 000 000', 'свыше 1 000 000'],
+                            monthOperationSum
+                        )
                     ]
                 ]
             },
             {
                 title: '5. Адрес фактического осуществления (ведения) деятельности',
                 content: [
-                    ['5.1. Страна:', '5.2. Область/Регион:', ''],
-                    ['5.3. Город:', '5.4. Улица:', '5.5. Дом:'],
-                    ['5.6. Корпус/Строение:', '5.7. Офис/Помещение:', '5.8. Площадь (кв.м.):']
+                    [`5.1. Страна: ${data.address.country}`, `5.2. Область/Регион: ${data.address.region}`, ''],
+                    [
+                        `5.3. Город: ${data.address.city}`,
+                        `5.4. Улица: ${data.address.street}`,
+                        `5.5. Дом: ${data.address.house}`
+                    ],
+                    [
+                        `5.6. Корпус/Строение: ${data.address.building}`,
+                        `5.7. Офис/Помещение: ${data.address.office}`,
+                        `5.8. Площадь (кв.м.): ${data.address.area}`
+                    ]
                 ]
             },
             {
