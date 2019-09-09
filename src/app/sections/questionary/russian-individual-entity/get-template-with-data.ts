@@ -1,6 +1,7 @@
 import { Data } from '../create-questionary';
 import { getData } from './get-data';
 import { verticalCheckboxWithTitle, inlineCheckboxWithTitle, inlineCheckbox } from '../create-questionary/content';
+import { YesNo } from '../yes-no';
 
 export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
     return {
@@ -133,7 +134,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 content: [
                     [
                         inlineCheckbox(
-                            ['Нет', 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'],
+                            [
+                                [YesNo.no, 'Нет'],
+                                [YesNo.yes, 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)']
+                            ],
                             data.benefitThirdParties
                         )
                     ]
@@ -145,8 +149,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         inlineCheckbox(
                             [
-                                'Нет',
-                                'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)'
+                                [YesNo.no, 'Нет'],
+                                [
+                                    YesNo.yes,
+                                    'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)'
+                                ]
                             ],
                             data.hasBeneficialOwner
                         )
@@ -155,11 +162,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
             },
             {
                 title: '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                content: [[inlineCheckbox(['Да', 'Нет'], data.hasRelation)]]
+                content: [[inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
             },
             {
                 title: '12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства',
-                content: [[inlineCheckbox(['Да', 'Нет'], data.taxResident)]]
+                content: [[inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.taxResident)]]
             }
         ],
         footer:

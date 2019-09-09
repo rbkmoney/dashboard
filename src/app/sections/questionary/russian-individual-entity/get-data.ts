@@ -10,6 +10,7 @@ import {
     PropertyInfoDocumentType
 } from '../../../api-codegen/questionary';
 import { getFIO } from '../select-data';
+import { YesNo } from '../yes-no';
 
 function hasChiefAccountant(accountantInfo: AccountantInfo): boolean {
     return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant;
@@ -103,9 +104,10 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             foreignRelativePerson: Number(!individualEntity.individualPersonCategories.foreignRelativePerson),
             relationDegree: '' // TODO
         },
-        benefitThirdParties: Number(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: Number(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),
-        hasRelation: Number(!additionalInfo.relationIndividualEntity),
-        taxResident: Number(!(individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident)
+        benefitThirdParties: additionalInfo.benefitThirdParties ? YesNo.yes : YesNo.no,
+        hasBeneficialOwner:
+            individualEntity.beneficialOwners && individualEntity.beneficialOwners.length ? YesNo.yes : YesNo.no,
+        hasRelation: additionalInfo.relationIndividualEntity ? YesNo.yes : YesNo.no,
+        taxResident: (individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident ? YesNo.yes : YesNo.no
     };
 }
