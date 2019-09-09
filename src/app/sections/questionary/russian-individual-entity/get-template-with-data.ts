@@ -1,19 +1,8 @@
 import { Data } from '../create-questionary';
 import { getData } from './get-data';
 import { verticalCheckboxWithTitle, inlineCheckboxWithTitle, inlineCheckbox } from '../create-questionary/content';
-import { MonthOperationCount, MonthOperationSum } from '../../../api-codegen/questionary';
 
 export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
-    const monthOperationCount = [
-        MonthOperationCount.LtTen,
-        MonthOperationCount.BtwTenToFifty,
-        MonthOperationCount.GtFifty
-    ].findIndex(count => count === data.monthOperation.monthOperationCount);
-    const monthOperationSum = [
-        MonthOperationSum.LtFiveHundredThousand,
-        MonthOperationSum.BtwFiveHundredThousandToOneMillion,
-        MonthOperationSum.GtOneMillion
-    ].findIndex(sum => sum === data.monthOperation.monthOperationSum);
     return {
         header: 'Приложение №',
         headline:
@@ -52,12 +41,12 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                         verticalCheckboxWithTitle(
                             '4.1. Количество операций:',
                             ['до 10', '10 - 50', 'свыше 50'],
-                            monthOperationCount
+                            data.monthOperation.monthOperationCount
                         ),
                         verticalCheckboxWithTitle(
                             '4.2. Сумма операций:',
                             ['до 500 000', '500 000 - 1 000 000', 'свыше 1 000 000'],
-                            monthOperationSum
+                            data.monthOperation.monthOperationSum
                         )
                     ]
                 ]
@@ -81,14 +70,23 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
             {
                 title: '6. Тип документа, подтверждающий право нахождения по фактическому адресу',
                 content: [
-                    [inlineCheckbox(['Договор аренды', 'Договор субаренды', 'Свидетельство о праве собственности'])]
+                    [
+                        inlineCheckbox(
+                            ['Договор аренды', 'Договор субаренды', 'Свидетельство о праве собственности'],
+                            data.documentType
+                        )
+                    ]
                 ]
             },
             {
                 title: '7. Сведения о хозяйственной деятельности',
                 content: [
                     [
-                        inlineCheckboxWithTitle('7.1. Наличие в штате главного бухгалтера', ['Да', 'Нет']),
+                        inlineCheckboxWithTitle(
+                            '7.1. Наличие в штате главного бухгалтера',
+                            ['Да', 'Нет'],
+                            data.business.hasAccountant
+                        ),
                         '7.2. Штатная численность в организации:'
                     ],
                     [
@@ -100,7 +98,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                                     'Организация ведущая бух. учет: ИНН: ',
                                     'Бухгалтер – индивидуальный специалист'
                                 ],
-                                2
+                                data.business.accounting
                             ),
                             colSpan: 2
                         }
@@ -112,44 +110,56 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 content: [
                     [
                         {
-                            text: ['8.1. Принадлежность к категории ПДЛ¹:   ', inlineCheckbox(['Да', 'Нет'])],
+                            ...inlineCheckboxWithTitle(
+                                '8.1. Принадлежность к категории ПДЛ¹:',
+                                ['Да', 'Нет'],
+                                data.individualPersonCategories.foreignPublicPerson
+                            ),
                             colSpan: 2
                         }
                     ],
                     [
-                        {
-                            text: ['8.2. Является родственником ПДЛ:   ', inlineCheckbox(['Да', 'Нет'])]
-                        },
-                        '8.3. Степень родства:'
+                        inlineCheckboxWithTitle(
+                            '8.2. Является родственником ПДЛ:',
+                            ['Да', 'Нет'],
+                            data.individualPersonCategories.foreignRelativePerson
+                        ),
+                        `8.3. Степень родства: ${data.individualPersonCategories.relationDegree}`
                     ]
                 ]
             },
             {
                 title: '9. Наличие выгодоприобретателя²',
                 content: [
-                    [inlineCheckbox(['Нет', 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'])]
+                    [
+                        inlineCheckbox(
+                            ['Нет', 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'],
+                            data.benefitThirdParties
+                        )
+                    ]
                 ]
             },
             {
                 title: '10. Наличие бенефициарного владельца³',
                 content: [
                     [
-                        [
-                            inlineCheckbox([
+                        inlineCheckbox(
+                            [
                                 'Нет',
                                 'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)'
-                            ])
-                        ]
+                            ],
+                            data.hasBeneficialOwner
+                        )
                     ]
                 ]
             },
             {
                 title: '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                content: [[inlineCheckbox(['Да', 'Нет'])]]
+                content: [[inlineCheckbox(['Да', 'Нет'], data.hasRelation)]]
             },
             {
                 title: '12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства',
-                content: [[inlineCheckbox(['Да', 'Нет'])]]
+                content: [[inlineCheckbox(['Да', 'Нет'], data.taxResident)]]
             }
         ],
         footer: `¹ Публичные должностные лица, включая российские, иностранные и международные.
