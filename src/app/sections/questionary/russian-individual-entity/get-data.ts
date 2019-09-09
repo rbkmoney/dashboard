@@ -1,98 +1,12 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import {
-    ShopLocationUrl,
-    MonthOperationCount as MonthOperationCountEnum,
-    MonthOperationSum as MonthOperationSumEnum,
-    IndividualResidencyInfo,
-    AccountingOrganization,
-    AccountantInfo,
-    WithoutChiefAccountant,
-    PropertyInfoDocumentType
-} from '../../../api-codegen/questionary';
+import { ShopLocationUrl, IndividualResidencyInfo, AccountingOrganization } from '../../../api-codegen/questionary';
 import { getFIO } from '../select-data';
 import { YesNo } from '../yes-no';
-
-function hasChiefAccountant(accountantInfo: AccountantInfo): YesNo {
-    return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant
-        ? YesNo.yes
-        : YesNo.no;
-}
-
-export enum AccountingType {
-    AccountingOrganization,
-    HeadAccounting,
-    IndividualAccountant
-}
-
-function accountingType(accountantInfo: AccountantInfo): AccountingType {
-    switch (accountantInfo.accountantInfoType) {
-        case AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountant:
-            switch ((accountantInfo as WithoutChiefAccountant).withoutChiefAccountantType) {
-                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.AccountingOrganization:
-                    return AccountingType.AccountingOrganization;
-                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HeadAccounting:
-                    return AccountingType.HeadAccounting;
-                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.IndividualAccountant:
-                    return AccountingType.IndividualAccountant;
-            }
-    }
-    return null;
-}
-
-export enum DocumentType {
-    LeaseContract,
-    SubleaseContract,
-    CertificateOfOwnership
-}
-
-function getDocumentType(documentType: PropertyInfoDocumentType.DocumentTypeEnum): DocumentType {
-    switch (documentType) {
-        case PropertyInfoDocumentType.DocumentTypeEnum.LeaseContract:
-            return DocumentType.LeaseContract;
-        case PropertyInfoDocumentType.DocumentTypeEnum.SubleaseContract:
-            return DocumentType.SubleaseContract;
-        case PropertyInfoDocumentType.DocumentTypeEnum.CertificateOfOwnership:
-            return DocumentType.CertificateOfOwnership;
-        case PropertyInfoDocumentType.DocumentTypeEnum.OtherPropertyInfoDocumentType: // TODO not used
-    }
-    return null;
-}
-
-export enum MonthOperationCount {
-    LtTen,
-    BtwTenToFifty,
-    GtFifty
-}
-
-export enum MonthOperationSum {
-    LtFiveHundredThousand,
-    BtwFiveHundredThousandToOneMillion,
-    GtOneMillion
-}
-
-function getMonthOperationCount(monthOperationCount: MonthOperationCountEnum): MonthOperationCount {
-    switch (monthOperationCount) {
-        case MonthOperationCountEnum.GtFifty:
-            return MonthOperationCount.GtFifty;
-        case MonthOperationCountEnum.BtwTenToFifty:
-            return MonthOperationCount.BtwTenToFifty;
-        case MonthOperationCountEnum.LtTen:
-            return MonthOperationCount.LtTen;
-    }
-    return null;
-}
-
-function getMonthOperationSum(monthOperationSum: MonthOperationSumEnum): MonthOperationSum {
-    switch (monthOperationSum) {
-        case MonthOperationSumEnum.GtOneMillion:
-            return MonthOperationSum.GtOneMillion;
-        case MonthOperationSumEnum.BtwFiveHundredThousandToOneMillion:
-            return MonthOperationSum.BtwFiveHundredThousandToOneMillion;
-        case MonthOperationSumEnum.LtFiveHundredThousand:
-            return MonthOperationSum.LtFiveHundredThousand;
-    }
-    return null;
-}
+import { getMonthOperationSum } from './get-month-operation-sum';
+import { getMonthOperationCount } from './get-month-operation-count';
+import { accountingType } from './get-accounting-type';
+import { getDocumentType } from './get-document-type';
+import { hasChiefAccountant } from './has-chief-accountant';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;

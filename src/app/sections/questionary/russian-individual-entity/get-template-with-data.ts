@@ -1,7 +1,11 @@
 import { Data } from '../create-questionary';
-import { getData, AccountingType, DocumentType, MonthOperationSum, MonthOperationCount } from './get-data';
+import { getData } from './get-data';
 import { verticalCheckboxWithTitle, inlineCheckboxWithTitle, inlineCheckbox } from '../create-questionary/content';
 import { YesNo } from '../yes-no';
+import { MonthOperationSum } from './get-month-operation-sum';
+import { MonthOperationCount } from './get-month-operation-count';
+import { DocumentType } from './get-document-type';
+import { AccountingType } from './get-accounting-type';
 
 export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
     return {
