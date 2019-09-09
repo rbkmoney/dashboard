@@ -2,16 +2,13 @@ import { TableCell, Content } from 'pdfmake/build/pdfmake';
 
 import { icons } from './icons';
 
-type Items<T extends number> = string[] | [T, string][];
+type Items<T extends number | string> = string[] | [T, string][];
 
 export function checkbox(text: string, active = false): TableCell {
     return { text: [active ? icons.checkSquare : icons.square, ' ', text] as any };
 }
 
-function toItemsWithActive<T extends number>(
-    items: Items<T>,
-    active: number = -1
-): { items: string[]; active: number } {
+function toItemsWithActive<T extends number>(items: Items<T>, active: T): { items: string[]; active: number } {
     return Array.isArray(items[0])
         ? {
               items: (items as [T, string][]).map(i => i[1]),
@@ -23,7 +20,7 @@ function toItemsWithActive<T extends number>(
           };
 }
 
-export function inlineCheckboxWithTitle<T extends number>(title: string, itemsSrc: Items<T>, activeSrc?: number) {
+export function inlineCheckboxWithTitle<T extends number>(title: string, itemsSrc: Items<T>, activeSrc?: T) {
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
     const text = items
         .reduce((prev, item, idx) => {
@@ -36,11 +33,7 @@ export function inlineCheckboxWithTitle<T extends number>(title: string, itemsSr
     };
 }
 
-export function verticalCheckboxWithTitle<T extends number>(
-    title: string,
-    itemsSrc: Items<T>,
-    activeSrc: number
-): Content {
+export function verticalCheckboxWithTitle<T extends number>(title: string, itemsSrc: Items<T>, activeSrc?: T): Content {
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
     const body = items.map(
         title
@@ -56,8 +49,8 @@ export function verticalCheckboxWithTitle<T extends number>(
     };
 }
 
-export const inlineCheckbox = <T extends number>(items: Items<T>, checked: number) =>
-    inlineCheckboxWithTitle(undefined, items, checked);
+export const inlineCheckbox = <T extends number>(items: Items<T>, active?: T) =>
+    inlineCheckboxWithTitle(undefined, items, active);
 
-export const verticalCheckbox = <T extends number>(items: Items<T>, active?: number) =>
+export const verticalCheckbox = <T extends number>(items: Items<T>, active?: T) =>
     verticalCheckboxWithTitle(undefined, items, active);

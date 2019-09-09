@@ -1,8 +1,8 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
 import {
     ShopLocationUrl,
-    MonthOperationCount,
-    MonthOperationSum,
+    MonthOperationCount as MonthOperationCountEnum,
+    MonthOperationSum as MonthOperationSumEnum,
     IndividualResidencyInfo,
     AccountingOrganization,
     AccountantInfo,
@@ -12,54 +12,91 @@ import {
 import { getFIO } from '../select-data';
 import { YesNo } from '../yes-no';
 
-function hasChiefAccountant(accountantInfo: AccountantInfo): boolean {
-    return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant;
+function hasChiefAccountant(accountantInfo: AccountantInfo): YesNo {
+    return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant
+        ? YesNo.yes
+        : YesNo.no;
 }
 
-function accountingType(accountantInfo: AccountantInfo): number {
+export enum AccountingType {
+    AccountingOrganization,
+    HeadAccounting,
+    IndividualAccountant
+}
+
+function accountingType(accountantInfo: AccountantInfo): AccountingType {
     switch (accountantInfo.accountantInfoType) {
-        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
-            return 2;
-        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
+        case AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountant:
             switch ((accountantInfo as WithoutChiefAccountant).withoutChiefAccountantType) {
                 case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.AccountingOrganization:
-                    return 1;
+                    return AccountingType.AccountingOrganization;
                 case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HeadAccounting:
-                    return 2;
+                    return AccountingType.HeadAccounting;
                 case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.IndividualAccountant:
-                    return 0;
+                    return AccountingType.IndividualAccountant;
             }
     }
+    return null;
 }
 
-function getDocumentType(documentType: PropertyInfoDocumentType.DocumentTypeEnum): number {
+export enum DocumentType {
+    LeaseContract,
+    SubleaseContract,
+    CertificateOfOwnership
+}
+
+function getDocumentType(documentType: PropertyInfoDocumentType.DocumentTypeEnum): DocumentType {
     switch (documentType) {
         case PropertyInfoDocumentType.DocumentTypeEnum.LeaseContract:
-            return 0;
+            return DocumentType.LeaseContract;
         case PropertyInfoDocumentType.DocumentTypeEnum.SubleaseContract:
-            return 1;
+            return DocumentType.SubleaseContract;
         case PropertyInfoDocumentType.DocumentTypeEnum.CertificateOfOwnership:
-            return 2;
-        case PropertyInfoDocumentType.DocumentTypeEnum.OtherPropertyInfoDocumentType:
-            return 3; // TODO not used
+            return DocumentType.CertificateOfOwnership;
+        case PropertyInfoDocumentType.DocumentTypeEnum.OtherPropertyInfoDocumentType: // TODO not used
     }
+    return null;
+}
+
+export enum MonthOperationCount {
+    LtTen,
+    BtwTenToFifty,
+    GtFifty
+}
+
+export enum MonthOperationSum {
+    LtFiveHundredThousand,
+    BtwFiveHundredThousandToOneMillion,
+    GtOneMillion
+}
+
+function getMonthOperationCount(monthOperationCount: MonthOperationCountEnum): MonthOperationCount {
+    switch (monthOperationCount) {
+        case MonthOperationCountEnum.GtFifty:
+            return MonthOperationCount.GtFifty;
+        case MonthOperationCountEnum.BtwTenToFifty:
+            return MonthOperationCount.BtwTenToFifty;
+        case MonthOperationCountEnum.LtTen:
+            return MonthOperationCount.LtTen;
+    }
+    return null;
+}
+
+function getMonthOperationSum(monthOperationSum: MonthOperationSumEnum): MonthOperationSum {
+    switch (monthOperationSum) {
+        case MonthOperationSumEnum.GtOneMillion:
+            return MonthOperationSum.GtOneMillion;
+        case MonthOperationSumEnum.BtwFiveHundredThousandToOneMillion:
+            return MonthOperationSum.BtwFiveHundredThousandToOneMillion;
+        case MonthOperationSumEnum.LtFiveHundredThousand:
+            return MonthOperationSum.LtFiveHundredThousand;
+    }
+    return null;
 }
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
     const { additionalInfo } = individualEntity;
-
-    const monthOperationCount = [
-        MonthOperationCount.LtTen,
-        MonthOperationCount.BtwTenToFifty,
-        MonthOperationCount.GtFifty
-    ].findIndex(count => count === additionalInfo.monthOperationCount);
-
-    const monthOperationSum = [
-        MonthOperationSum.LtFiveHundredThousand,
-        MonthOperationSum.BtwFiveHundredThousandToOneMillion,
-        MonthOperationSum.GtOneMillion
-    ].findIndex(sum => sum === additionalInfo.monthOperationSum);
 
     return {
         basic: {
@@ -78,8 +115,8 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             relationshipWithNko: additionalInfo.relationshipWithNko
         },
         monthOperation: {
-            monthOperationSum,
-            monthOperationCount
+            monthOperationSum: getMonthOperationSum(additionalInfo.monthOperationSum),
+            monthOperationCount: getMonthOperationCount(additionalInfo.monthOperationCount)
         },
         // TODO
         address: {
@@ -94,14 +131,16 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
         },
         documentType: getDocumentType(individualEntity.propertyInfoDocumentType.documentType),
         business: {
-            hasChiefAccountant: Number(!hasChiefAccountant(additionalInfo.accountantInfo)),
+            hasChiefAccountant: hasChiefAccountant(additionalInfo.accountantInfo),
             staffCount: additionalInfo.staffCount,
             accounting: accountingType(additionalInfo.accountantInfo),
             accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
         individualPersonCategories: {
-            foreignPublicPerson: Number(!individualEntity.individualPersonCategories.foreignPublicPerson),
-            foreignRelativePerson: Number(!individualEntity.individualPersonCategories.foreignRelativePerson),
+            foreignPublicPerson: individualEntity.individualPersonCategories.foreignPublicPerson ? YesNo.yes : YesNo.no,
+            foreignRelativePerson: individualEntity.individualPersonCategories.foreignRelativePerson
+                ? YesNo.yes
+                : YesNo.no,
             relationDegree: '' // TODO
         },
         benefitThirdParties: additionalInfo.benefitThirdParties ? YesNo.yes : YesNo.no,

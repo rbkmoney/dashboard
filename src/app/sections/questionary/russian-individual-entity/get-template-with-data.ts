@@ -1,5 +1,5 @@
 import { Data } from '../create-questionary';
-import { getData } from './get-data';
+import { getData, AccountingType, DocumentType, MonthOperationSum, MonthOperationCount } from './get-data';
 import { verticalCheckboxWithTitle, inlineCheckboxWithTitle, inlineCheckbox } from '../create-questionary/content';
 import { YesNo } from '../yes-no';
 
@@ -41,12 +41,20 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         verticalCheckboxWithTitle(
                             '4.1. Количество операций:',
-                            ['до 10', '10 - 50', 'свыше 50'],
+                            [
+                                [MonthOperationCount.LtTen, 'до 10'],
+                                [MonthOperationCount.BtwTenToFifty, '10 - 50'],
+                                [MonthOperationCount.GtFifty, 'свыше 50']
+                            ],
                             data.monthOperation.monthOperationCount
                         ),
                         verticalCheckboxWithTitle(
                             '4.2. Сумма операций:',
-                            ['до 500 000', '500 000 - 1 000 000', 'свыше 1 000 000'],
+                            [
+                                [MonthOperationSum.LtFiveHundredThousand, 'до 500 000'],
+                                [MonthOperationSum.BtwFiveHundredThousandToOneMillion, '500 000 - 1 000 000'],
+                                [MonthOperationSum.GtOneMillion, 'свыше 1 000 000']
+                            ],
                             data.monthOperation.monthOperationSum
                         )
                     ]
@@ -73,7 +81,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 content: [
                     [
                         inlineCheckbox(
-                            ['Договор аренды', 'Договор субаренды', 'Свидетельство о праве собственности'],
+                            [
+                                [DocumentType.LeaseContract, 'Договор аренды'],
+                                [DocumentType.SubleaseContract, 'Договор субаренды'],
+                                [DocumentType.CertificateOfOwnership, 'Свидетельство о праве собственности']
+                            ],
                             data.documentType
                         )
                     ]
@@ -85,19 +97,22 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         inlineCheckboxWithTitle(
                             '7.1. Наличие в штате главного бухгалтера',
-                            ['Да', 'Нет'],
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.business.hasChiefAccountant
                         ),
-                        '7.2. Штатная численность в организации:'
+                        `7.2. Штатная численность в организации: ${data.business.staffCount}`
                     ],
                     [
                         {
                             ...verticalCheckboxWithTitle(
                                 '7.3. Бухгалтерский учет осуществляет:',
                                 [
-                                    'ИП лично',
-                                    `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`,
-                                    'Бухгалтер – индивидуальный специалист'
+                                    [AccountingType.HeadAccounting, 'ИП лично'],
+                                    [
+                                        AccountingType.AccountingOrganization,
+                                        `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`
+                                    ],
+                                    [AccountingType.IndividualAccountant, 'Бухгалтер – индивидуальный специалист']
                                 ],
                                 data.business.accounting
                             ),
@@ -113,7 +128,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                         {
                             ...inlineCheckboxWithTitle(
                                 '8.1. Принадлежность к категории ПДЛ¹:',
-                                ['Да', 'Нет'],
+                                [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                                 data.individualPersonCategories.foreignPublicPerson
                             ),
                             colSpan: 2
@@ -122,7 +137,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         inlineCheckboxWithTitle(
                             '8.2. Является родственником ПДЛ:',
-                            ['Да', 'Нет'],
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.individualPersonCategories.foreignRelativePerson
                         ),
                         `8.3. Степень родства: ${data.individualPersonCategories.relationDegree}`
