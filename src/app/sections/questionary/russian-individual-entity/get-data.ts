@@ -51,7 +51,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             region: '-',
             city: '-',
             street: individualEntity.russianPrivateEntity.actualAddress,
-            house: '-',
+            number: '-',
             building: '-',
             office: '-',
             area: '-'
@@ -66,7 +66,8 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
                 ? 1
                 : additionalInfo.hasAccountant
                 ? 2
-                : -1
+                : -1,
+            accountingOrgInn: '-' // TODO
         },
         individualPersonCategories: {
             foreignPublicPerson: Number(!individualEntity.individualPersonCategories.foreignPublicPerson),
