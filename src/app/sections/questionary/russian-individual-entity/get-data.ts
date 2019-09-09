@@ -3,21 +3,56 @@ import {
     ShopLocationUrl,
     MonthOperationCount,
     MonthOperationSum,
-    IndividualResidencyInfo
+    IndividualResidencyInfo,
+    AccountingOrganization,
+    AccountantInfo,
+    WithoutChiefAccountant,
+    PropertyInfoDocumentType
 } from '../../../api-codegen/questionary';
+import { getFIO } from '../select-data';
+
+function hasChiefAccountant(accountantInfo: AccountantInfo): boolean {
+    return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant;
+}
+
+function accountingType(accountantInfo: AccountantInfo): number {
+    switch (accountantInfo.accountantInfoType) {
+        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
+            return 2;
+        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
+            switch ((accountantInfo as WithoutChiefAccountant).withoutChiefAccountantType) {
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.AccountingOrganization:
+                    return 1;
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HeadAccounting:
+                    return 2;
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.IndividualAccountant:
+                    return 0;
+            }
+    }
+}
+
+function getDocumentType(documentType: PropertyInfoDocumentType.DocumentTypeEnum): number {
+    switch (documentType) {
+        case PropertyInfoDocumentType.DocumentTypeEnum.LeaseContract:
+            return 0;
+        case PropertyInfoDocumentType.DocumentTypeEnum.SubleaseContract:
+            return 1;
+        case PropertyInfoDocumentType.DocumentTypeEnum.CertificateOfOwnership:
+            return 2;
+        case PropertyInfoDocumentType.DocumentTypeEnum.OtherPropertyInfoDocumentType:
+            return 3; // TODO not used
+    }
+}
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
     const { additionalInfo } = individualEntity;
 
-    const personAnthroponym = individualEntity.russianPrivateEntity.personAnthroponym;
-    const fullName = `${personAnthroponym.secondName} ${personAnthroponym.firstName} ${personAnthroponym.middleName}`;
-
     const monthOperationCount = [
         MonthOperationCount.LtTen,
         MonthOperationCount.BtwTenToFifty,
         MonthOperationCount.GtFifty
-    ].findIndex(count => count === additionalInfo.montOperationCount);
+    ].findIndex(count => count === additionalInfo.monthOperationCount);
 
     const monthOperationSum = [
         MonthOperationSum.LtFiveHundredThousand,
@@ -28,9 +63,9 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
     return {
         basic: {
             inn: individualEntity.inn,
-            name: `ИП ${fullName}`,
+            name: `ИП ${getFIO(individualEntity.russianPrivateEntity.personAnthroponym)}`,
             brandName: data.shopInfo.details.name,
-            snils: '' // TODO
+            snils: individualEntity.snils
         },
         contact: {
             phone: data.contactInfo.phoneNumber,
@@ -56,18 +91,12 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             office: '-',
             area: '-'
         },
-        documentType: -1, // individualEntity.propertyInfo[0], // TODO: should be number
+        documentType: getDocumentType(individualEntity.propertyInfoDocumentType.documentType),
         business: {
-            hasAccountant: Number(!additionalInfo.hasAccountant),
+            hasChiefAccountant: Number(!hasChiefAccountant(additionalInfo.accountantInfo)),
             staffCount: additionalInfo.staffCount,
-            accounting: additionalInfo.accounting
-                ? 0
-                : additionalInfo.accountingOrg
-                ? 1
-                : additionalInfo.hasAccountant
-                ? 2
-                : -1,
-            accountingOrgInn: '-' // TODO
+            accounting: accountingType(additionalInfo.accountantInfo),
+            accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
         individualPersonCategories: {
             foreignPublicPerson: Number(!individualEntity.individualPersonCategories.foreignPublicPerson),
@@ -75,8 +104,8 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             relationDegree: '' // TODO
         },
         benefitThirdParties: Number(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: Number(individualEntity.individualPersonCategories.beneficialOwner), // TODO не точно
+        hasBeneficialOwner: Number(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),
         hasRelation: Number(!additionalInfo.relationIndividualEntity),
-        taxResident: Number(!(individualEntity.residencyInfo as IndividualResidencyInfo).taxResident)
+        taxResident: Number(!(individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident)
     };
 }

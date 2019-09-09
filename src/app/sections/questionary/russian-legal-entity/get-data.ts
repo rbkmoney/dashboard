@@ -4,9 +4,31 @@ import {
     MonthOperationCount,
     MonthOperationSum,
     LegalRegistrationInfo,
-    LegalResidencyInfo
+    LegalResidencyInfo,
+    AccountantInfo,
+    WithoutChiefAccountant
 } from '../../../api-codegen/questionary';
 import { getFIO } from '../select-data';
+
+function hasChiefAccountant(accountantInfo: AccountantInfo): boolean {
+    return accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant;
+}
+
+function accountingType(accountantInfo: AccountantInfo): number {
+    switch (accountantInfo.accountantInfoType) {
+        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
+            return 2;
+        case AccountantInfo.AccountantInfoTypeEnum.WithChiefAccountant:
+            switch ((accountantInfo as WithoutChiefAccountant).withoutChiefAccountantType) {
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.AccountingOrganization:
+                    return 1;
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HeadAccounting:
+                    return 2;
+                case WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.IndividualAccountant:
+                    return 0;
+            }
+    }
+}
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { legalEntity } = data.contractor;
@@ -16,7 +38,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         MonthOperationCount.LtTen,
         MonthOperationCount.BtwTenToFifty,
         MonthOperationCount.GtFifty
-    ].findIndex(count => count === additionalInfo.montOperationCount);
+    ].findIndex(count => count === additionalInfo.monthOperationCount);
 
     const monthOperationSum = [
         MonthOperationSum.LtFiveHundredThousand,
@@ -62,15 +84,9 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         },
         documentType: -1,
         business: {
-            hasAccountant: Number(!additionalInfo.hasAccountant),
+            hasAccountant: Number(!hasChiefAccountant(additionalInfo.accountantInfo)),
             staffCount: additionalInfo.staffCount,
-            accounting: additionalInfo.accounting
-                ? 0
-                : additionalInfo.accountingOrg
-                ? 1
-                : additionalInfo.hasAccountant
-                ? 2
-                : -1,
+            accounting: accountingType(additionalInfo.accountantInfo),
             accountingOrgInn: '' // TODO
         },
         individualPersonCategories: {
@@ -79,7 +95,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             relationDegree: '' // TODO
         },
         benefitThirdParties: Number(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: -1, // TODO не точно
+        hasBeneficialOwner: Number(legalEntity.beneficialOwner && legalEntity.beneficialOwner.length),
         hasRelation: Number(!additionalInfo.relationIndividualEntity),
         residencyInfo: {
             taxResident: Number(!(legalEntity.residencyInfo as LegalResidencyInfo).taxResident),

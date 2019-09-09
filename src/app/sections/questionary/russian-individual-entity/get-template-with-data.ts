@@ -85,7 +85,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                         inlineCheckboxWithTitle(
                             '7.1. Наличие в штате главного бухгалтера',
                             ['Да', 'Нет'],
-                            data.business.hasAccountant
+                            data.business.hasChiefAccountant
                         ),
                         '7.2. Штатная численность в организации:'
                     ],
