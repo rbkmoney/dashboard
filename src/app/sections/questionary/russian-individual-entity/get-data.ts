@@ -53,9 +53,9 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
         pdl: {
-            foreignPublicPerson: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
-            foreignRelativePerson: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
-            relationDegree: '' // TODO
+            pdlCategory: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
+            pdlRelation: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
+            pdlRelationDegree: '' // TODO
         },
         benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
         hasBeneficialOwner: toYesNo(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),

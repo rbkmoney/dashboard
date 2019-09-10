@@ -132,7 +132,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                             ...inlineCheckboxWithTitle(
                                 '8.1. Принадлежность к категории ПДЛ¹:',
                                 [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                                data.pdl.foreignPublicPerson
+                                data.pdl.pdlCategory
                             ),
                             colSpan: 2
                         }
@@ -141,9 +141,9 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                         inlineCheckboxWithTitle(
                             '8.2. Является родственником ПДЛ:',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.pdl.foreignRelativePerson
+                            data.pdl.pdlRelation
                         ),
-                        `8.3. Степень родства: ${data.pdl.relationDegree}`
+                        `8.3. Степень родства: ${data.pdl.pdlRelationDegree}`
                     ]
                 ]
             },
