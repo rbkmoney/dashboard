@@ -7,8 +7,10 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
+        "anthroponym",
         "CAPI",
         "FATCA",
+        "SNILS",
         "codegen",
         "dadata",
         "downlevel",
@@ -19,7 +21,6 @@
         "pdfmake",
         "rbkmoney",
         "roboto",
-        "SNILS",
         "submodule",
         "СНИЛС",
         "бенефициарного",

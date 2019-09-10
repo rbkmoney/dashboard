@@ -1,22 +1,31 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import { ShopLocationUrl, IndividualResidencyInfo } from '../../../api-codegen/questionary';
-import { getMonthOperationCount, getMonthOperationSum, getDocumentType, getFIO, toYesNo } from '../select-data';
+import { IndividualResidencyInfo } from '../../../api-codegen/questionary';
+import {
+    getMonthOperationCount,
+    getMonthOperationSum,
+    getDocumentType,
+    toYesNo,
+    getShopLocationURL
+} from '../select-data';
 import { getBusinessInfo } from '../select-data/get-business-info';
+import { getIndividualEntityName } from './get-individual-entity-name';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
-    const { additionalInfo } = individualEntity;
+    const { additionalInfo, russianPrivateEntity } = individualEntity;
+    // TODO: удалить приведение типа после изменения в протоколе/сваге
+    const residencyInfo = individualEntity.residencyInfo as IndividualResidencyInfo;
 
     return {
         basic: {
             inn: individualEntity.inn,
-            name: `ИП ${getFIO(individualEntity.russianPrivateEntity.personAnthroponym)}`,
+            name: getIndividualEntityName(russianPrivateEntity.personAnthroponym),
             brandName: data.shopInfo.details.name,
             snils: individualEntity.snils
         },
         contact: {
             phone: data.contactInfo.phoneNumber,
-            url: (data.shopInfo.location as ShopLocationUrl).url,
+            url: getShopLocationURL(data.shopInfo.location),
             email: data.contactInfo.email
         },
         relationshipsWithNko: {
@@ -32,7 +41,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             country: '-',
             region: '-',
             city: '-',
-            street: individualEntity.russianPrivateEntity.actualAddress,
+            street: russianPrivateEntity.actualAddress,
             number: '-',
             building: '-',
             office: '-',
@@ -48,6 +57,6 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
         benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
         hasBeneficialOwner: toYesNo(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),
         hasRelation: toYesNo(additionalInfo.relationIndividualEntity),
-        taxResident: toYesNo((individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident)
+        taxResident: toYesNo(residencyInfo.usaTaxResident)
     };
 }
