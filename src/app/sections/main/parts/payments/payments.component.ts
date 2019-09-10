@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
-import { routeEnv } from '../../../route-env';
-import { PaymentPartType } from './payment-part-type';
-import { ContentConfig } from './content-config';
 
 @Component({
     selector: 'dsh-payments',
@@ -12,19 +9,17 @@ import { ContentConfig } from './content-config';
     styleUrls: ['payments.component.scss'],
     providers: [PaymentsService]
 })
-export class PaymentsComponent implements OnInit {
-    actionRouterLink = `/payment-section/env/${routeEnv['1']}/operations`;
-    testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
-    config: ContentConfig;
+export class PaymentsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
-
     isLoading$ = this.paymentsService.isLoading$;
+
+    testEnvironmentRouterLink = this.paymentsService.testEnvironmentRouterLink;
     hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
-    hasRealEnvironment$ = this.paymentsService.hasRealEnvironment$;
+
+    actionLabel$ = this.paymentsService.actionLabel$;
+    actionRouterLink$ = this.paymentsService.actionRouterLink$;
+
+    subheading$ = this.paymentsService.subheading$;
 
     constructor(private paymentsService: PaymentsService) {}
-
-    ngOnInit() {
-        this.config = this.paymentsService.toContentConfig(PaymentPartType.accepted);
-    }
 }

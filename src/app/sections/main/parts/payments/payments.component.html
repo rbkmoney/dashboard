@@ -15,7 +15,7 @@
                     <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
                 </div>
                 <h4 class="mat-subheading-1 subheading">
-                    {{ config.subheading }}
+                    {{ subheading$ | async | lc }}
                 </h4>
             </div>
         </div>
@@ -26,15 +26,8 @@
             fxLayoutGap="20px"
             fxLayoutGap.xs="10px"
         >
-            <button
-                fxFlex="50"
-                fxFlex.xs="none"
-                dsh-button
-                color="accent"
-                [disabled]="!(hasRealEnvironment$ | async)"
-                [routerLink]="actionRouterLink"
-            >
-                {{ config.action }}
+            <button fxFlex="50" fxFlex.xs="none" dsh-button color="accent" [routerLink]="actionRouterLink$ | async">
+                {{ actionLabel$ | async | lc }}
             </button>
             <div fxFlex="50" fxFlex.xs="none">
                 <button
