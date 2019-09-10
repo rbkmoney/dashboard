@@ -1,5 +1,5 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import { IndividualResidencyInfo } from '../../../api-codegen/questionary';
+import { IndividualResidencyInfo, IndividualRegistrationInfo } from '../../../api-codegen/questionary';
 import {
     getMonthOperationCount,
     getMonthOperationSum,
@@ -13,8 +13,10 @@ import { getIndividualEntityName } from './get-individual-entity-name';
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
     const { additionalInfo, russianPrivateEntity } = individualEntity;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге
+    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
     const residencyInfo = individualEntity.residencyInfo as IndividualResidencyInfo;
+    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
+    const registrationInfo = individualEntity.registrationInfo as IndividualRegistrationInfo;
 
     return {
         basic: {
@@ -41,7 +43,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             country: '-',
             region: '-',
             city: '-',
-            street: russianPrivateEntity.actualAddress,
+            street: registrationInfo.registrationPlace,
             number: '-',
             building: '-',
             office: '-',

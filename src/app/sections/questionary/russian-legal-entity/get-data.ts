@@ -13,8 +13,10 @@ import { getBusinessInfo } from '../select-data/get-business-info';
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { legalEntity } = data.contractor;
     const { additionalInfo } = legalEntity;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге
+    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
     const residencyInfo = legalEntity.residencyInfo as LegalResidencyInfo;
+    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
+    const registrationInfo = legalEntity.registrationInfo as LegalRegistrationInfo;
 
     return {
         basic: {
@@ -51,7 +53,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             country: '-',
             region: '-',
             city: '-',
-            street: (legalEntity.registrationInfo as LegalRegistrationInfo).actualAddress,
+            street: registrationInfo.registrationPlace,
             number: '-',
             building: '-',
             office: '-',
