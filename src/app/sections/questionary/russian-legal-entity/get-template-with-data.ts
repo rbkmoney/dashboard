@@ -193,25 +193,28 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 title: '13. Информация об иностранном налоговом резидентстве',
                 content: [
                     [
-                        inlineCheckboxWithTitle(
-                            '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.residencyInfo.taxResident
-                        )
+                        {
+                            text:
+                                '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
+                            colSpan: 5
+                        },
+                        inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.taxResident)
                     ],
                     [
-                        inlineCheckboxWithTitle(
-                            '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.residencyInfo.ownerResident
-                        )
+                        {
+                            text:
+                                '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
+                            colSpan: 5
+                        },
+                        inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.ownerResident)
                     ],
                     [
-                        inlineCheckboxWithTitle(
-                            '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.residencyInfo.fatca
-                        )
+                        {
+                            text:
+                                '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
+                            colSpan: 5
+                        },
+                        inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.fatca)
                     ]
                 ]
             }

@@ -20,7 +20,7 @@ function toItemsWithActive<T extends number>(items: Items<T>, active: T): { item
           };
 }
 
-export function inlineCheckboxWithTitle<T extends number>(title: string, itemsSrc: Items<T>, activeSrc?: T) {
+export function inlineCheckboxWithTitle<T extends number>(title: string, itemsSrc: Items<T>, activeSrc?: T): Content {
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
     const text = items
         .reduce((prev, item, idx) => {

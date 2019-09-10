@@ -63,7 +63,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
             {
                 title: '5. Адрес фактического осуществления (ведения) деятельности',
                 content: [
-                    [`5.1. Страна: ${data.address.country}`, `5.2. Область/Регион: ${data.address.region}`, ''],
+                    [
+                        `5.1. Страна: ${data.address.country}`,
+                        { text: `5.2. Область/Регион: ${data.address.region}`, colSpan: 2 }
+                    ],
                     [
                         `5.3. Город: ${data.address.city}`,
                         `5.4. Улица: ${data.address.street}`,
