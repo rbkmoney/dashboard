@@ -6,7 +6,7 @@ export enum AccountingType {
     IndividualAccountant
 }
 
-export function accountingType(accountantInfo: AccountantInfo): AccountingType {
+export function getAccountingType(accountantInfo: AccountantInfo): AccountingType {
     switch (accountantInfo.accountantInfoType) {
         case AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountant:
             switch ((accountantInfo as WithoutChiefAccountant).withoutChiefAccountantType) {

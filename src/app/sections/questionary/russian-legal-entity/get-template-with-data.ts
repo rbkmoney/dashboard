@@ -1,6 +1,7 @@
 import { Data, inlineCheckboxWithTitle } from '../create-questionary';
 import { getData } from './get-data';
 import { inlineCheckbox, verticalCheckboxWithTitle } from '../create-questionary';
+import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType, AccountingType } from '../select-data';
 
 export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
     return {
@@ -39,12 +40,20 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         verticalCheckboxWithTitle(
                             '4.1. Количество операций:',
-                            ['до 10', '10 - 50', 'свыше 50'],
+                            [
+                                [MonthOperationCount.LtTen, 'до 10'],
+                                [MonthOperationCount.BtwTenToFifty, '10 - 50'],
+                                [MonthOperationCount.GtFifty, 'свыше 50']
+                            ],
                             data.monthOperation.monthOperationCount
                         ),
                         verticalCheckboxWithTitle(
                             '4.2. Сумма операций:',
-                            ['до 500 000', '500 000 - 1 000 000', 'свыше 1 000 000'],
+                            [
+                                [MonthOperationSum.LtFiveHundredThousand, 'до 500 000'],
+                                [MonthOperationSum.BtwFiveHundredThousandToOneMillion, '500 000 - 1 000 000'],
+                                [MonthOperationSum.GtOneMillion, 'свыше 1 000 000']
+                            ],
                             data.monthOperation.monthOperationSum
                         )
                     ]
@@ -86,7 +95,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 content: [
                     [
                         inlineCheckbox(
-                            ['Договор аренды', 'Договор субаренды', 'Свидетельство о праве собственности'],
+                            [
+                                [DocumentType.LeaseContract, 'Договор аренды'],
+                                [DocumentType.SubleaseContract, 'Договор субаренды'],
+                                [DocumentType.CertificateOfOwnership, 'Свидетельство о праве собственности']
+                            ],
                             data.documentType
                         )
                     ]
@@ -101,9 +114,12 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                             ...verticalCheckboxWithTitle(
                                 '8.3. Бухгалтерский учет осуществляет:',
                                 [
-                                    'Руководитель организации',
-                                    `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`,
-                                    'Бухгалтер – индивидуальный специалист'
+                                    [AccountingType.HeadAccounting, 'Руководитель организации'],
+                                    [
+                                        AccountingType.AccountingOrganization,
+                                        `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`
+                                    ],
+                                    [AccountingType.IndividualAccountant, 'Бухгалтер – индивидуальный специалист']
                                 ],
                                 data.business.accounting
                             ),
@@ -133,7 +149,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         [
                             inlineCheckbox(
-                                ['Нет', 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)'],
+                                [
+                                    [YesNo.no, 'Нет'],
+                                    [YesNo.yes, 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)']
+                                ],
                                 data.benefitThirdParties
                             )
                         ]
@@ -145,7 +164,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 content: [
                     [
                         inlineCheckbox(
-                            ['Да', 'Да (обязательное заполнение приложение для Бенефициарного владельца)'],
+                            [
+                                [YesNo.no, 'Нет'],
+                                [YesNo.yes, 'Да (обязательное заполнение приложение для Бенефициарного владельца)']
+                            ],
                             data.hasBeneficialOwner
                         )
                     ]
@@ -154,7 +176,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
             {
                 title:
                     '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
-                content: [[inlineCheckbox(['Да', 'Нет'], data.hasRelation)]]
+                content: [[inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
             },
             {
                 title: '13. Информация об иностранном налоговом резидентстве',
@@ -162,21 +184,21 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         inlineCheckboxWithTitle(
                             '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
-                            ['Да', 'Нет'],
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.residencyInfo.taxResident
                         )
                     ],
                     [
                         inlineCheckboxWithTitle(
                             '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
-                            ['Да', 'Нет'],
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.residencyInfo.ownerResident
                         )
                     ],
                     [
                         inlineCheckboxWithTitle(
                             '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
-                            ['Да', 'Нет'],
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.residencyInfo.fatca
                         )
                     ]

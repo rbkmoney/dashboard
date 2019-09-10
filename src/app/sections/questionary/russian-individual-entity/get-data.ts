@@ -1,12 +1,14 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
 import { ShopLocationUrl, IndividualResidencyInfo, AccountingOrganization } from '../../../api-codegen/questionary';
-import { getFIO } from '../select-data';
-import { YesNo } from '../yes-no';
-import { getMonthOperationSum } from './get-month-operation-sum';
-import { getMonthOperationCount } from './get-month-operation-count';
-import { accountingType } from './get-accounting-type';
-import { getDocumentType } from './get-document-type';
-import { hasChiefAccountant } from './has-chief-accountant';
+import {
+    hasChiefAccountant,
+    getMonthOperationCount,
+    getMonthOperationSum,
+    getAccountingType,
+    getDocumentType,
+    getFIO,
+    toYesNo
+} from '../select-data';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
@@ -47,20 +49,17 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
         business: {
             hasChiefAccountant: hasChiefAccountant(additionalInfo.accountantInfo),
             staffCount: additionalInfo.staffCount,
-            accounting: accountingType(additionalInfo.accountantInfo),
+            accounting: getAccountingType(additionalInfo.accountantInfo),
             accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
         individualPersonCategories: {
-            foreignPublicPerson: individualEntity.individualPersonCategories.foreignPublicPerson ? YesNo.yes : YesNo.no,
-            foreignRelativePerson: individualEntity.individualPersonCategories.foreignRelativePerson
-                ? YesNo.yes
-                : YesNo.no,
+            foreignPublicPerson: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
+            foreignRelativePerson: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
             relationDegree: '' // TODO
         },
-        benefitThirdParties: additionalInfo.benefitThirdParties ? YesNo.yes : YesNo.no,
-        hasBeneficialOwner:
-            individualEntity.beneficialOwners && individualEntity.beneficialOwners.length ? YesNo.yes : YesNo.no,
-        hasRelation: additionalInfo.relationIndividualEntity ? YesNo.yes : YesNo.no,
-        taxResident: (individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident ? YesNo.yes : YesNo.no
+        benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
+        hasBeneficialOwner: toYesNo(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),
+        hasRelation: toYesNo(additionalInfo.relationIndividualEntity),
+        taxResident: toYesNo((individualEntity.residencyInfo as IndividualResidencyInfo).usaTaxResident)
     };
 }
