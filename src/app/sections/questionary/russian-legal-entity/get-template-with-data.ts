@@ -63,7 +63,12 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 title: '5. Сведения о единоличном исполнительном органе юридического лица',
                 content: [
                     [{ text: `5.1. ФИО Единоличного исполнительного органа: ${data.legalOwnerInfo.fio}`, colSpan: 2 }],
-                    [{ text: `5.2. Действует на основании: ${data.legalOwnerInfo.basedOn}`, colSpan: 2 }],
+                    [
+                        {
+                            text: `5.2. Действует на основании: ${data.legalOwnerInfo.authorityConfirmingDocument}`,
+                            colSpan: 2
+                        }
+                    ],
                     [
                         `5.3. СНИЛС №: ${data.legalOwnerInfo.snils}`,
                         `5.4. Контактная информация (телефон, email): ${data.legalOwnerInfo.contact}`

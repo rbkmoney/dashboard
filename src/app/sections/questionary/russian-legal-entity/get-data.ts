@@ -9,6 +9,8 @@ import {
     getShopLocationURL
 } from '../select-data';
 import { getBusinessInfo } from '../select-data/get-business-info';
+import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
+import { getLegalOwnerContactInfo } from './get-legal-owner-contact-info';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { legalEntity } = data.contractor;
@@ -39,14 +41,11 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         },
         legalOwnerInfo: {
             fio: getFIO(legalEntity.legalOwnerInfo.russianPrivateEntity.personAnthroponym),
-            basedOn: '-', // TODO
+            authorityConfirmingDocument: getAuthorityConfirmingDocument(
+                legalEntity.legalOwnerInfo.authorityConfirmingDocument
+            ),
             snils: legalEntity.legalOwnerInfo.snils,
-            contact: [
-                legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo.phoneNumber,
-                legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo.email
-            ]
-                .filter(i => !!i)
-                .join(', ')
+            contact: getLegalOwnerContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo)
         },
         // TODO
         address: {
