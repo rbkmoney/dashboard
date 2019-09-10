@@ -114,7 +114,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 title: '8. Сведения о хозяйственной деятельности организации',
                 content: [
                     [
-                        `8.1. Наличие в штате главного бухгалтера: ${data.business.hasChiefAccountant}`,
+                        inlineCheckboxWithTitle(
+                            '8.1. Наличие в штате главного бухгалтера',
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                            data.business.hasChiefAccountant
+                        ),
                         `8.2. Штатная численность в организации: ${data.business.staffCount}`
                     ],
                     [
@@ -142,7 +146,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         {
                             ...inlineCheckboxWithTitle(
-                                '9.1. Принадлежность к категории ПДЛ¹:',
+                                '9.1. Принадлежность к категории ПДЛ¹',
                                 [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                                 data.pdl.pdlCategory
                             ),
@@ -151,7 +155,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ],
                     [
                         inlineCheckboxWithTitle(
-                            '9.2. Является родственником ПДЛ:',
+                            '9.2. Является родственником ПДЛ',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.pdl.pdlRelation
                         ),

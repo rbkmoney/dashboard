@@ -1,24 +1,18 @@
-import { TableCell, Content } from 'pdfmake/build/pdfmake';
+import { TableCell, Content, Table } from 'pdfmake/build/pdfmake';
 
-export function paragraph(
-    header: string,
-    body: (TableCell | Content | Content[] | string | string[])[][] = [[]]
-): Content {
-    let count = 0;
-    for (const i of body[0]) {
-        count += i ? (i as TableCell).colSpan || 1 : 1;
-    }
+export function paragraph(header: string, body: (TableCell | Content | string)[][] = [[]]): Content {
+    const columnsCount = body[0].reduce((accCount, col: TableCell) => accCount + (col ? col.colSpan : 1), 0);
     const renderedBody = [
         [
             {
-                colSpan: count,
+                colSpan: columnsCount,
                 style: {
                     color: 'white'
                 },
                 text: header
             } as TableCell
         ],
-        ...(body as (TableCell[][] | Content[][]))
+        ...(body as Table['body'])
     ];
     /**
      * Магия ✨ таблиц PDFMake (TODO: исправить если что-то изменится)
@@ -35,7 +29,7 @@ export function paragraph(
     return {
         layout: 'header',
         table: {
-            widths: new Array(count).fill('*'),
+            widths: new Array(columnsCount).fill('*'),
             headerRows: 1,
             body: renderedBody
         }

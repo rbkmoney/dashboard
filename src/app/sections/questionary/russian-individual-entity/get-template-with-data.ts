@@ -130,7 +130,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     [
                         {
                             ...inlineCheckboxWithTitle(
-                                '8.1. Принадлежность к категории ПДЛ¹:',
+                                '8.1. Принадлежность к категории ПДЛ¹',
                                 [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                                 data.pdl.pdlCategory
                             ),
@@ -139,7 +139,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ],
                     [
                         inlineCheckboxWithTitle(
-                            '8.2. Является родственником ПДЛ:',
+                            '8.2. Является родственником ПДЛ',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.pdl.pdlRelation
                         ),
