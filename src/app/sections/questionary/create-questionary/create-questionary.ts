@@ -1,42 +1,26 @@
 import moment from 'moment';
-import {
-    Margins,
-    TableLayoutFunctions,
-    TDocumentDefinitions,
-    PageSize,
-    TDocumentHeaderFooterFunction
-} from 'pdfmake/build/pdfmake';
+import { TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/build/pdfmake';
 
-import { cmToIn } from './cm-to-in';
 import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
 import { paragraph } from './content';
 import { Data } from './data';
-
-function createFooter({ margin, text }: { margin: Margins; text: string }): TDocumentHeaderFooterFunction {
-    return () => ({
-        margin,
-        columns: [
-            [
-                {
-                    canvas: [{ type: 'line', x1: 0, y1: -5, x2: 100, y2: -5, lineWidth: 0.5 }]
-                },
-                {
-                    style: { fontSize: 6 },
-                    text
-                }
-            ]
-        ]
-    });
-}
+import { cmMarginsToIn } from './cm-margins-to-in';
+import { createFooter } from './create-footer';
 
 export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
-    const pageMargins = [3, 2, 1.5, 2].map(cm => cmToIn(cm)) as Margins;
-    const footerMargins = [pageMargins[0], -cmToIn(1.4), pageMargins[2], 0] as Margins;
+    const leftMarginCm = 3;
+    const topMarginCm = 2;
+    const rightMarginCm = 1.5;
+    const footerMarginCm = 2;
+
+    const pageMarginsIn = cmMarginsToIn(leftMarginCm, topMarginCm, rightMarginCm, footerMarginCm + data.footerHeight);
+    const footerMarginsIn = cmMarginsToIn(leftMarginCm, 0, rightMarginCm, 0);
+
     return [
         {
             pageSize: 'A4' as PageSize,
-            pageMargins,
+            pageMargins: pageMarginsIn,
             content: [
                 {
                     text: data.header,
@@ -48,12 +32,12 @@ export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: s
                         alignment: 'center',
                         bold: true
                     },
-                    margin: [0, 2, 0, 2] as Margins
+                    margin: cmMarginsToIn(0, 0.1, 0, 0.1)
                 },
                 ...data.paragraphs.map(({ title, content }) => paragraph(title, content)),
                 {
                     layout: 'noBorders',
-                    margin: [0, 30, 0, 0] as Margins,
+                    margin: cmMarginsToIn(0, 1.1, 0, 0),
                     table: {
                         widths: ['*', 'auto'],
                         body: [
@@ -67,8 +51,10 @@ export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: s
                         ]
                     }
                 }
+                // debug footer margins
+                // ...new Array(100).fill(null).map((_, idx) => `${idx}. debug line`)
             ],
-            footer: createFooter({ margin: footerMargins, text: data.footer }),
+            footer: createFooter({ margin: footerMarginsIn, text: data.footer }),
             styles: createStyles(),
             defaultStyle: createDefaultStyle()
         },

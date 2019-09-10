@@ -5,4 +5,5 @@ export interface Data {
     headline: string;
     paragraphs: { title: string; content: (TableCell | Content | Content[] | string | string[])[][] }[];
     footer?: string;
+    footerHeight?: number;
 }
