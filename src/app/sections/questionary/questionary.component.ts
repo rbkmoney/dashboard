@@ -12,10 +12,12 @@ export class QuestionaryComponent {
     constructor(private questionaryService: QuestionaryService) {}
 
     downloadRussianIndividualEntityDocument() {
-        this.questionaryService.createRussianIndividualEntityDoc().subscribe(doc => doc.download());
+        this.questionaryService
+            .createRussianIndividualEntityDoc()
+            .subscribe(doc => doc.download('russian-individual-entity'));
     }
 
     downloadRussianLegalEntityDocument() {
-        this.questionaryService.createRussianLegalEntityDoc().subscribe(doc => doc.download());
+        this.questionaryService.createRussianLegalEntityDoc().subscribe(doc => doc.download('russian-legal-entity'));
     }
 }
