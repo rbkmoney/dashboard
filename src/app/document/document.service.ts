@@ -8,15 +8,15 @@ import { fontsConfig } from './fonts-config';
 
 @Injectable()
 export class DocumentService {
-    constructor(private documentFontService: FontsService) {
-        this.documentFontService.loadFonts(fontsConfig);
+    constructor(private fontsService: FontsService) {
+        this.fontsService.loadFonts(fontsConfig);
     }
 
     createPdf(
         docDefinition: TDocumentDefinitions,
         tableLayouts?: { [name: string]: TableLayoutFunctions }
     ): Observable<TCreatedPdf> {
-        return this.documentFontService.fontsData$.pipe(
+        return this.fontsService.fontsData$.pipe(
             map(({ fonts, vfs }) => createPdf(docDefinition, tableLayouts, fonts, vfs))
         );
     }
