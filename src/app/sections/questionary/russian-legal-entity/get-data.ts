@@ -1,23 +1,20 @@
 import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
-import {
-    ShopLocationUrl,
-    LegalRegistrationInfo,
-    LegalResidencyInfo,
-    AccountingOrganization
-} from '../../../api-codegen/questionary';
+import { LegalRegistrationInfo, LegalResidencyInfo } from '../../../api-codegen/questionary';
 import {
     getFIO,
-    hasChiefAccountant,
-    getAccountingType,
     toYesNo,
     getMonthOperationSum,
     getMonthOperationCount,
-    getDocumentType
+    getDocumentType,
+    getShopLocationURL
 } from '../select-data';
+import { getBusinessInfo } from '../select-data/get-business-info';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { legalEntity } = data.contractor;
     const { additionalInfo } = legalEntity;
+    // TODO: удалить приведение типа после изменения в протоколе/сваге
+    const residencyInfo = legalEntity.residencyInfo as LegalResidencyInfo;
 
     return {
         basic: {
@@ -27,7 +24,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         },
         contact: {
             phone: data.contactInfo.phoneNumber,
-            url: (data.shopInfo.location as ShopLocationUrl).url,
+            url: getShopLocationURL(data.shopInfo.location),
             email: data.contactInfo.email
         },
         relationshipsWithNko: {
@@ -61,12 +58,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             area: '-'
         },
         documentType: getDocumentType(legalEntity.propertyInfoDocumentType.documentType),
-        business: {
-            hasAccountant: hasChiefAccountant(additionalInfo.accountantInfo),
-            staffCount: additionalInfo.staffCount,
-            accounting: getAccountingType(additionalInfo.accountantInfo),
-            accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
-        },
+        business: getBusinessInfo(additionalInfo),
         pdl: {
             pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),
             pdlRelation: toYesNo(legalEntity.legalOwnerInfo.pdlRelationDegree),
@@ -76,9 +68,9 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         hasBeneficialOwner: toYesNo(legalEntity.beneficialOwner && legalEntity.beneficialOwner.length),
         hasRelation: toYesNo(additionalInfo.relationIndividualEntity),
         residencyInfo: {
-            taxResident: toYesNo((legalEntity.residencyInfo as LegalResidencyInfo).taxResident),
-            ownerResident: toYesNo((legalEntity.residencyInfo as LegalResidencyInfo).ownerResident),
-            fatca: toYesNo((legalEntity.residencyInfo as LegalResidencyInfo).fatca)
+            taxResident: toYesNo(residencyInfo.taxResident),
+            ownerResident: toYesNo(residencyInfo.ownerResident),
+            fatca: toYesNo(residencyInfo.fatca)
         }
     };
 }

@@ -1,14 +1,7 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import { ShopLocationUrl, IndividualResidencyInfo, AccountingOrganization } from '../../../api-codegen/questionary';
-import {
-    hasChiefAccountant,
-    getMonthOperationCount,
-    getMonthOperationSum,
-    getAccountingType,
-    getDocumentType,
-    getFIO,
-    toYesNo
-} from '../select-data';
+import { ShopLocationUrl, IndividualResidencyInfo } from '../../../api-codegen/questionary';
+import { getMonthOperationCount, getMonthOperationSum, getDocumentType, getFIO, toYesNo } from '../select-data';
+import { getBusinessInfo } from '../select-data/get-business-info';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
@@ -46,12 +39,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             area: '-'
         },
         documentType: getDocumentType(individualEntity.propertyInfoDocumentType.documentType),
-        business: {
-            hasChiefAccountant: hasChiefAccountant(additionalInfo.accountantInfo),
-            staffCount: additionalInfo.staffCount,
-            accounting: getAccountingType(additionalInfo.accountantInfo),
-            accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
-        },
+        business: getBusinessInfo(additionalInfo),
         pdl: {
             pdlCategory: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
             pdlRelation: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),

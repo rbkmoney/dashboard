@@ -6,12 +6,7 @@ import {
 } from '../../../api-codegen/questionary';
 import { Replace } from '../replace';
 
-export type RussianLegalEntityQuestionary = Replace<
-    Questionary,
-    {
-        data: Replace<
-            QuestionaryData,
-            { contractor: Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }> }
-        >;
-    }
->;
+type RussianLegalEntityContractor = Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }>;
+type RussianLegalEntityQuestionaryData = Replace<QuestionaryData, { contractor: RussianLegalEntityContractor }>;
+
+export type RussianLegalEntityQuestionary = Replace<Questionary, { data: RussianLegalEntityQuestionaryData }>;

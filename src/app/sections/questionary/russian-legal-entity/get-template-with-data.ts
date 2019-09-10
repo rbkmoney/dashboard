@@ -109,7 +109,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 title: '8. Сведения о хозяйственной деятельности организации',
                 content: [
                     [
-                        `8.1. Наличие в штате главного бухгалтера: ${data.business.hasAccountant}`,
+                        `8.1. Наличие в штате главного бухгалтера: ${data.business.hasChiefAccountant}`,
                         `8.2. Штатная численность в организации: ${data.business.staffCount}`
                     ],
                     [
