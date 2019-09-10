@@ -12,7 +12,7 @@ function toItemsWithActive<T extends number>(items: Items<T>, active: T): { item
     return Array.isArray(items[0])
         ? {
               items: (items as [T, string][]).map(i => i[1]),
-              active: (items as [T, string][])[active][0]
+              active: active !== undefined && active !== null ? (items as [T, string][])[active][0] : null
           }
         : {
               items: items as string[],

@@ -11,7 +11,8 @@ import {
     getAccountingType,
     toYesNo,
     getMonthOperationSum,
-    getMonthOperationCount
+    getMonthOperationCount,
+    getDocumentType
 } from '../select-data';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
@@ -40,11 +41,13 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         legalOwnerInfo: {
             fio: getFIO(legalEntity.legalOwnerInfo.russianPrivateEntity.personAnthroponym),
             basedOn: '-', // TODO
-            snils: '-', // TODO
+            snils: legalEntity.legalOwnerInfo.snils,
             contact: [
                 legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo.phoneNumber,
                 legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo.email
-            ].join(', ')
+            ]
+                .filter(i => !!i)
+                .join(', ')
         },
         // TODO
         address: {
@@ -57,17 +60,17 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             office: '-',
             area: '-'
         },
-        documentType: -1,
+        documentType: getDocumentType(legalEntity.propertyInfoDocumentType.documentType),
         business: {
             hasAccountant: hasChiefAccountant(additionalInfo.accountantInfo),
             staffCount: additionalInfo.staffCount,
             accounting: getAccountingType(additionalInfo.accountantInfo),
             accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
-        individualPersonCategories: {
-            foreignPublicPerson: '', // TODO
-            foreignRelativePerson: '', // TODO
-            relationDegree: '' // TODO
+        pdl: {
+            pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),
+            pdlRelation: toYesNo(legalEntity.legalOwnerInfo.pdlRelationDegree),
+            pdlRelationDegree: legalEntity.legalOwnerInfo.pdlRelationDegree
         },
         benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
         hasBeneficialOwner: toYesNo(legalEntity.beneficialOwner && legalEntity.beneficialOwner.length),

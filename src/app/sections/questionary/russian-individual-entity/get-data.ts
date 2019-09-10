@@ -52,7 +52,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             accounting: getAccountingType(additionalInfo.accountantInfo),
             accountingOrgInn: (additionalInfo.accountantInfo as AccountingOrganization).inn
         },
-        individualPersonCategories: {
+        pdl: {
             foreignPublicPerson: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
             foreignRelativePerson: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
             relationDegree: '' // TODO
