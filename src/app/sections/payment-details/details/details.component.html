@@ -2,7 +2,7 @@
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
-            <dsh-details-item [title]="localePath + '.titles.createdAt' | lc" fxFlex="33">
+            <dsh-details-item id="createdAt" [title]="localePath + '.titles.createdAt' | lc" fxFlex="33">
                 <div class="mat-body-1">{{ payment?.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
             </dsh-details-item>
             <dsh-details-item
@@ -14,12 +14,12 @@
             </dsh-details-item>
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
-            <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
+            <dsh-details-item id="amount" [title]="localePath + '.titles.amount' | lc" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount | fromMinor | currency: payment?.currency }}
                 </div>
             </dsh-details-item>
-            <dsh-details-item [title]="localePath + '.titles.chargeAmount' | lc" fxFlex="33">
+            <dsh-details-item id="chargeAmount" [title]="localePath + '.titles.chargeAmount' | lc" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount - (payment?.fee || 0) | fromMinor | currency: payment?.currency }}
                 </div>

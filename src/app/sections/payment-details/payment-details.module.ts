@@ -27,7 +27,6 @@ import { RefundItemComponent, RefundsComponent } from './refunds';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailsItemComponent } from './status-details-item';
 import { SecondaryTitleDirective } from './secondary-title';
-import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
 import { SearchModule } from '../../api/search';
@@ -71,7 +70,6 @@ import { PaymentDetailsService } from './payment-details.service';
         RefundsComponent,
         RefundItemComponent,
         SecondaryTitleDirective,
-        CurrencySymbolPipe,
         BankCardPipe,
         PhoneNumberPipe,
         DigitalWalletComponent,

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../theme-manager';
-import { StatusViewInfo } from '../status-details-item/status-details-item.component';
+import { StatusViewInfo } from '../status-details-item';
 import { InvoiceDetailsService } from './invoice-details.service';
 import { LAYOUT_GAP } from '../../constants';
 
