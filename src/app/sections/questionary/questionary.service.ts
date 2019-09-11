@@ -6,29 +6,48 @@ import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { DocumentService } from '../../document';
 import { QuestionaryService as QuestionaryApiService } from '../../api/questionary';
 import { createQuestionary } from './create-questionary';
-import { Snapshot, Questionary } from '../../api-codegen/questionary';
-import { Data } from './create-questionary';
-import { getQuestionaryTemplate } from './get-questionary-template';
+import { Snapshot } from '../../api-codegen/questionary';
+import { getEntityQuestionaryTemplate } from './get-entity-questionary-template';
+import { getTemplateWithData, getData } from './beneficial-owner';
+import { RussianIndividualEntityQuestionary } from './russian-individual-entity';
 
 @Injectable()
 export class QuestionaryService {
     constructor(private questionaryService: QuestionaryApiService, private documentService: DocumentService) {}
 
-    toDocument(getTemplateFn: (questionary: Questionary) => Data): OperatorFunction<Snapshot, TCreatedPdf> {
+    toDocument(): OperatorFunction<Snapshot, TCreatedPdf> {
         return input$ =>
             input$.pipe(
                 tap(({ questionary }) => console.log(questionary)),
                 switchMap(({ questionary }) =>
-                    this.documentService.createPdf(...createQuestionary(getTemplateFn(questionary)))
+                    this.documentService.createPdf(...createQuestionary(getEntityQuestionaryTemplate(questionary)))
                 )
             );
     }
 
     createRussianIndividualEntityDoc() {
-        return this.questionaryService.getQuestionary('0').pipe(this.toDocument(getQuestionaryTemplate));
+        return this.questionaryService.getQuestionary('0').pipe(this.toDocument());
     }
 
     createRussianLegalEntityDoc() {
-        return this.questionaryService.getQuestionary('1').pipe(this.toDocument(getQuestionaryTemplate));
+        return this.questionaryService.getQuestionary('1').pipe(this.toDocument());
+    }
+
+    createBeneficialOwnerDoc() {
+        return this.questionaryService.getQuestionary('0').pipe(
+            tap(({ questionary }) => console.log(questionary)),
+            switchMap(({ questionary }) =>
+                this.documentService.createPdf(
+                    ...createQuestionary(
+                        getTemplateWithData(
+                            getData(
+                                (questionary as RussianIndividualEntityQuestionary).data.contractor.individualEntity
+                                    .beneficialOwners[0]
+                            )
+                        )
+                    )
+                )
+            )
+        );
     }
 }

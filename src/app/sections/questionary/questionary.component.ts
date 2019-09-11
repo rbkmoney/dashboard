@@ -20,4 +20,8 @@ export class QuestionaryComponent {
     downloadRussianLegalEntityDocument() {
         this.questionaryService.createRussianLegalEntityDoc().subscribe(doc => doc.download('russian-legal-entity'));
     }
+
+    downloadBeneficialOwnerDocument() {
+        this.questionaryService.createBeneficialOwnerDoc().subscribe(doc => doc.download('beneficial-owner'));
+    }
 }

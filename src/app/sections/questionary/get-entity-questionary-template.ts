@@ -13,7 +13,7 @@ import { Data } from './create-questionary';
 
 const ContractorType = Contractor.ContractorTypeEnum;
 
-export function getQuestionaryTemplate(questionary: Questionary): Data {
+export function getEntityQuestionaryTemplate(questionary: Questionary): Data {
     switch (questionary.data.contractor.contractorType) {
         case ContractorType.IndividualEntity:
             return getRussianIndividualEntityTemplateWithData(

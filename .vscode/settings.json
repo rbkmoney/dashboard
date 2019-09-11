@@ -7,10 +7,10 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
-        "anthroponym",
         "CAPI",
         "FATCA",
         "SNILS",
+        "anthroponym",
         "codegen",
         "dadata",
         "downlevel",
@@ -22,6 +22,7 @@
         "rbkmoney",
         "roboto",
         "submodule",
+        "ЕГРЮЛ",
         "СНИЛС",
         "бенефициарного",
         "бенефициарный"
