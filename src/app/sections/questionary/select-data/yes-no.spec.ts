@@ -10,7 +10,7 @@ describe('toYesNo', () => {
     });
 
     it('true should return yes', () => {
-        expect(toYesNo(false)).toBe(YesNo.yes);
+        expect(toYesNo(true)).toBe(YesNo.yes);
     });
 
     it('false should return no', () => {

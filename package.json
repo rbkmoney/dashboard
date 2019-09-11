@@ -2,7 +2,6 @@
   "name": "dashboard",
   "version": "0.0.0",
   "scripts": {
-    "prepush": "npm run test-silent",
     "start": "ng serve --port 8000",
     "aot": "ng serve --port 8000 --aot",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
@@ -11,7 +10,7 @@
     "lint": "ng lint",
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",
+    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
     "fix": "npm run lint-fix; npm run prettify",
