@@ -19,7 +19,8 @@ export class PaymentSearchService {
         toTime: string,
         params: PaymentsSearchParams,
         limit: number,
-        continuationToken?: string
+        continuationToken?: string,
+        excludedShops?: string[]
     ): Observable<PaymentsWithToken> {
         return this.searchService.searchPayments(
             genXRequestID(),
@@ -45,7 +46,7 @@ export class PaymentSearchService {
             params.bankCardTokenProvider,
             params.bankCardPaymentSystem,
             params.paymentAmount,
-            params.excludedShops,
+            excludedShops,
             continuationToken,
             undefined,
             undefined

@@ -29,30 +29,13 @@ describe('booleanDelay', () => {
         });
     });
 
-    it('applyToFirst disabled ', () => {
+    it('custom emit trigger', () => {
         createScheduler().run(helpers => {
             const { cold, expectObservable } = helpers;
-            const operation = 'a 100ms b 100ms c|';
-            const flow = cold(operation).pipe(booleanDelay(50, false));
-            expectObservable(flow).toBe('0 49ms 1 50ms 0 49ms 1 50ms 0|', [false, true]);
-        });
-    });
-
-    it('applyToFirst enabled', () => {
-        createScheduler().run(helpers => {
-            const { cold, expectObservable } = helpers;
-            const operation = '100ms a 100ms b|';
-            const flow = cold(operation).pipe(booleanDelay(50, true));
-            expectObservable(flow).toBe('50ms 1 49ms 0 100ms 0|', [false, true]);
-        });
-    });
-
-    it('operation with delay less than operator delay', () => {
-        createScheduler().run(helpers => {
-            const { cold, expectObservable } = helpers;
-            const operation = 'a 20ms b 100ms c|';
-            const flow = cold(operation).pipe(booleanDelay(50, false));
-            expectObservable(flow).toBe('0 20ms 0 49ms 1 50ms 0|', [false, true]);
+            const operation = '500ms a|';
+            const trigger = '200ms a|';
+            const flow = cold(operation).pipe(booleanDelay(50, cold(trigger)));
+            expectObservable(flow).toBe('250ms 1 249ms 0|', [false, true]);
         });
     });
 

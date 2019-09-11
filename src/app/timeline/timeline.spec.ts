@@ -63,7 +63,7 @@ describe('Timeline', () => {
             ).toBe('Content');
         });
 
-        it('should change class when settting color', () => {
+        it('should change class when setting color', () => {
             const fixture = createComponent(SampleTimelineComponent);
             const baseClass = fixture.debugElement.query(By.directive(TimelineItemComponent)).query(By.css('*'))
                 .nativeElement.className;

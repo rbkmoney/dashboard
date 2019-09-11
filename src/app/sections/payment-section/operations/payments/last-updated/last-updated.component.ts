@@ -7,10 +7,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class LastUpdatedComponent {
     @Input() lastUpdated: string;
-
     @Output() update = new EventEmitter();
-
-    refresh() {
-        this.update.emit();
-    }
 }

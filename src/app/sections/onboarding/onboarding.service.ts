@@ -21,7 +21,7 @@ export const LEGAL_ENTITY_STEPS: Step[] = [
     { url: '/onboarding/representative', title: 'Представитель' },
     { url: '/onboarding/beneficial-owner', title: 'Бенефициарные владельцы' },
     { url: '/onboarding/financial-position', title: 'Финансовое положение' },
-    { url: '/onboarding/tax-residency', title: 'Налоговое резиденство' },
+    { url: '/onboarding/tax-residency', title: 'Налоговое резидентство' },
     { url: '/onboarding/bank-details', title: 'Банковские реквизиты' },
     { url: '/onboarding/contact-info', title: 'Контактная информация' }
 ];

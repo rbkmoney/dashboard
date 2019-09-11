@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material';
 import {
     MatFormFieldModule,
     MatInputModule,
@@ -16,7 +17,7 @@ import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
 import { LocaleModule } from '../../../../locale';
-import { SearchFormComponent } from './search-form/search-form.component';
+import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
 import { DaterangeSelectorModule } from '../daterange-selector';
 import { StatusModule } from '../../../../status';
@@ -24,6 +25,9 @@ import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
 import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { TableComponent } from './table/table.component';
+import { SpinnerModule } from '../../../../spinner';
+import { DropdownModule } from '../../../../dropdown';
+import { StateNavModule } from '../../../../state-nav';
 
 @NgModule({
     imports: [
@@ -44,7 +48,11 @@ import { TableComponent } from './table/table.component';
         DaterangeSelectorModule,
         StatusModule,
         ViewUtilsModule,
-        LastUpdatedModule
+        LastUpdatedModule,
+        SpinnerModule,
+        MatSnackBarModule,
+        DropdownModule,
+        StateNavModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent]
 })
