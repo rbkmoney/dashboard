@@ -57,8 +57,8 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             pdlRelationDegree: '' // TODO
         },
         benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: toYesNo(individualEntity.beneficialOwners && individualEntity.beneficialOwners.length),
-        hasRelation: toYesNo(additionalInfo.relationIndividualEntity),
+        hasBeneficialOwner: toYesNo(!!individualEntity.beneficialOwners && !!individualEntity.beneficialOwners.length),
+        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
         taxResident: toYesNo(residencyInfo.usaTaxResident)
     };
 }

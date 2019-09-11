@@ -62,12 +62,12 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
         business: getBusinessInfo(additionalInfo),
         pdl: {
             pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),
-            pdlRelation: toYesNo(legalEntity.legalOwnerInfo.pdlRelationDegree),
+            pdlRelation: toYesNo(!!legalEntity.legalOwnerInfo.pdlRelationDegree),
             pdlRelationDegree: legalEntity.legalOwnerInfo.pdlRelationDegree
         },
         benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: toYesNo(legalEntity.beneficialOwner && legalEntity.beneficialOwner.length),
-        hasRelation: toYesNo(additionalInfo.relationIndividualEntity),
+        hasBeneficialOwner: toYesNo(!!legalEntity.beneficialOwner && !!legalEntity.beneficialOwner.length),
+        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
         residencyInfo: {
             taxResident: toYesNo(residencyInfo.taxResident),
             ownerResident: toYesNo(residencyInfo.ownerResident),

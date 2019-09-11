@@ -3,6 +3,6 @@ export enum YesNo {
     no
 }
 
-export function toYesNo(value: any): YesNo {
+export function toYesNo(value: boolean): YesNo {
     return value ? YesNo.yes : YesNo.no;
 }
