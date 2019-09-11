@@ -26,16 +26,23 @@
             fxLayoutGap="20px"
             fxLayoutGap.xs="10px"
         >
-            <button fxFlex="50" fxFlex.xs="none" dsh-button color="accent" [routerLink]="actionRouterLink$ | async">
-                {{ actionLabel$ | async | lc }}
+            <button
+                fxFlex="50"
+                fxFlex.xs="none"
+                dsh-button
+                color="accent"
+                [disabled]="(actionBtnContent$ | async).disabled"
+                [routerLink]="(actionBtnContent$ | async).routerLink"
+            >
+                {{ (actionBtnContent$ | async).actionLabel | lc }}
             </button>
             <div fxFlex="50" fxFlex.xs="none">
                 <button
                     fxFlex="100"
-                    *ngIf="hasTestEnvironment$ | async"
                     dsh-stroked-button
                     color="accent"
-                    [routerLink]="testEnvironmentRouterLink"
+                    [disabled]="(testEnvBtnContent$ | async).disabled"
+                    [routerLink]="(testEnvBtnContent$ | async).routerLink"
                 >
                     {{ 'sections.main.payments.testEnvironment' | lc }}
                 </button>

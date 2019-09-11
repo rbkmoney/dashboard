@@ -11,6 +11,7 @@ import { ClaimStatus } from '../../../../api/claims/claims.service';
 import { routeEnv } from '../../../route-env';
 import { toContentConf } from './to-content-conf';
 import { LocaleDictionaryService } from '../../../../locale';
+import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 
 @Injectable()
 export class PaymentsService {
@@ -19,17 +20,18 @@ export class PaymentsService {
         ClaimStatus.PendingAcceptance,
         ClaimStatus.Review
     ]);
-    isLoading$ = combineLatest(this.shopService.shops$, this.claims$).pipe(booleanDelay());
+    // isLoading$ = combineLatest(this.shopService.shops$, this.claims$).pipe(booleanDelay());
 
-    hasTestEnvironment$ = this.shopService.shops$.pipe(
-        filterTestShops,
-        map(negate(isEmpty))
-    );
-    testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
+    // hasTestEnvironment$ = this.shopService.shops$.pipe(
+    //     filterTestShops,
+    //     map(negate(isEmpty))
+    // );
+    // testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
 
     subheading$: Observable<string>;
-    actionLabel$: Observable<string>;
-    actionRouterLink$: Observable<string>;
+    actionBtnContent$: Observable<ActionBtnContent>;
+    testEnvBtnContent$: Observable<TestEnvBtnContent>;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private shopService: ShopService,
@@ -37,14 +39,16 @@ export class PaymentsService {
         private snackBar: MatSnackBar,
         private dicService: LocaleDictionaryService
     ) {
-        const contentConfig = toContentConf(this.shopService.shops$, this.claims$).pipe(
-            catchError(() => {
-                this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
-                return [];
-            })
-        );
-        this.actionLabel$ = contentConfig.pipe(map(c => c.action));
-        this.actionRouterLink$ = contentConfig.pipe(map(c => c.routerLink));
+        const contentConfig = toContentConf(this.shopService.shops$, this.claims$)
+            .pipe
+            // catchError(() => {
+            //     this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
+            //     return [];
+            // })
+            ();
+        this.actionBtnContent$ = contentConfig.pipe(map(c => c.actionBtnContent));
+        this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
+        this.isLoading$ = contentConfig.pipe(map(c => c.isLoading));
     }
 }

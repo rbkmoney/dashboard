@@ -12,13 +12,8 @@ import { SpinnerType } from '../../../../spinner';
 export class PaymentsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
     isLoading$ = this.paymentsService.isLoading$;
-
-    testEnvironmentRouterLink = this.paymentsService.testEnvironmentRouterLink;
-    hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
-
-    actionLabel$ = this.paymentsService.actionLabel$;
-    actionRouterLink$ = this.paymentsService.actionRouterLink$;
-
+    actionBtnContent$ = this.paymentsService.actionBtnContent$;
+    testEnvBtnContent$ = this.paymentsService.testEnvBtnContent$;
     subheading$ = this.paymentsService.subheading$;
 
     constructor(private paymentsService: PaymentsService) {}
