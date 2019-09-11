@@ -1,6 +1,4 @@
-import { Content } from 'pdfmake/build/pdfmake';
-
-import { FontFamily } from '../../../../document';
+import { FontFamily, Content } from '../../../document';
 
 function createIcons<T extends { [name: string]: string }>(iconsObj: T): Record<keyof T, Content> {
     return Object.entries(iconsObj).reduce(

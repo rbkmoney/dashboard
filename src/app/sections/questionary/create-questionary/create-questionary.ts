@@ -3,9 +3,8 @@ import { TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/bu
 
 import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
-import { paragraph } from './content';
 import { Data } from './data';
-import { cmMarginsToIn } from './cm-margins-to-in';
+import { cmMarginsToIn } from '../../../document/cm-margins-to-in';
 import { createFooter } from './create-footer';
 
 export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
@@ -22,19 +21,7 @@ export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: s
             pageSize: 'A4' as PageSize,
             pageMargins: pageMarginsIn,
             content: [
-                {
-                    text: data.header,
-                    style: { alignment: 'right' }
-                },
-                {
-                    text: data.headline,
-                    style: {
-                        alignment: 'center',
-                        bold: true
-                    },
-                    margin: cmMarginsToIn(0, 0.1, 0, 0.1)
-                },
-                ...data.paragraphs.map(({ title, content }) => paragraph(title, content)),
+                ...data.content,
                 {
                     layout: 'noBorders',
                     margin: cmMarginsToIn(0, 1.1, 0, 0),

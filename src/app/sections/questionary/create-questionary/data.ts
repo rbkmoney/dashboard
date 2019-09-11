@@ -1,9 +1,7 @@
-import { TableCell, Content } from 'pdfmake/build/pdfmake';
+import { Content } from '../../../document';
 
 export interface Data {
-    header: string;
-    headline: string;
-    paragraphs: { title: string; content: (TableCell | Content | Content[] | string | string[])[][] }[];
+    content: (Content | string)[];
     footer?: string;
     footerHeight?: number;
 }

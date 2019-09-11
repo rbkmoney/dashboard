@@ -4,7 +4,7 @@ import {
     RussianIndividualEntity,
     QuestionaryData
 } from '../../../api-codegen/questionary';
-import { Replace } from '../replace';
+import { Replace } from '../../../../type-utils';
 
 export type RussianIndividualEntityQuestionary = Replace<
     Questionary,
