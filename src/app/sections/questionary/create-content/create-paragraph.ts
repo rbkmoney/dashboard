@@ -1,6 +1,6 @@
 import { TableCell, Content, Table } from 'pdfmake/build/pdfmake';
 
-export function paragraph(header: string, body: (TableCell | Content | string)[][] = [[]]): Content {
+export function createParagraph(header: string, body: (TableCell | Content | string)[][] = [[]]): Content {
     const columnsCount = body[0].reduce(
         (accCount, col: TableCell) => accCount + (col && col.colSpan ? col.colSpan : 1),
         0

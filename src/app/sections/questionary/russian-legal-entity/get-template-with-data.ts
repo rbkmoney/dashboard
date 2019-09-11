@@ -1,34 +1,40 @@
-import { inlineCheckboxWithTitle, paragraph, header, headline } from '../create-content';
+import {
+    createInlineCheckboxWithTitle,
+    createParagraph,
+    createHeader,
+    createHeadline,
+    createEnding
+} from '../create-content';
 import { getData } from './get-data';
-import { inlineCheckbox, verticalCheckboxWithTitle } from '../create-content';
+import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
 import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType, AccountingType } from '../select-data';
 import { Data } from '../create-questionary';
 
 export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
     return {
         content: [
-            header('Приложение №'),
-            headline('ОПРОСНЫЙ ЛИСТ – ЮРИДИЧЕСКОГО ЛИЦА (НЕ ЯВЛЯЮЩЕГОСЯ КРЕДИТНОЙ ОРГАНИЗАЦИЕЙ)'),
-            paragraph('1. Основные сведения о Клиенте', [
+            createHeader('Приложение №'),
+            createHeadline('ОПРОСНЫЙ ЛИСТ – ЮРИДИЧЕСКОГО ЛИЦА (НЕ ЯВЛЯЮЩЕГОСЯ КРЕДИТНОЙ ОРГАНИЗАЦИЕЙ)'),
+            createParagraph('1. Основные сведения о Клиенте', [
                 [`1.1. Наименование: ${data.basic.name}`, `1.2. ИНН: ${data.basic.inn}`],
                 [{ text: `1.3. Фирменное наименование: ${data.basic.brandName}`, colSpan: 2 }]
             ]),
-            paragraph('2. Контактная информация', [
+            createParagraph('2. Контактная информация', [
                 [
                     `2.1. Телефон: ${data.contact.phone}`,
                     `2.2. Сайт (Url): ${data.contact.url}`,
                     `2.3. Email: ${data.contact.email}`
                 ]
             ]),
-            paragraph('3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО', [
+            createParagraph('3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО', [
                 [
                     `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
                     `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
                 ]
             ]),
-            paragraph('4. Планируемые операции, в месяц', [
+            createParagraph('4. Планируемые операции, в месяц', [
                 [
-                    verticalCheckboxWithTitle(
+                    createVerticalCheckboxWithTitle(
                         '4.1. Количество операций:',
                         [
                             [MonthOperationCount.LtTen, 'до 10'],
@@ -37,7 +43,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                         ],
                         data.monthOperation.monthOperationCount
                     ),
-                    verticalCheckboxWithTitle(
+                    createVerticalCheckboxWithTitle(
                         '4.2. Сумма операций:',
                         [
                             [MonthOperationSum.LtFiveHundredThousand, 'до 500 000'],
@@ -48,7 +54,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
-            paragraph('5. Сведения о единоличном исполнительном органе юридического лица', [
+            createParagraph('5. Сведения о единоличном исполнительном органе юридического лица', [
                 [{ text: `5.1. ФИО Единоличного исполнительного органа: ${data.legalOwnerInfo.fio}`, colSpan: 2 }],
                 [
                     {
@@ -61,7 +67,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     `5.4. Контактная информация (телефон, email): ${data.legalOwnerInfo.contact}`
                 ]
             ]),
-            paragraph('6. Данные о фактическом местонахождении органа управления (Руководителя)', [
+            createParagraph('6. Данные о фактическом местонахождении органа управления (Руководителя)', [
                 [
                     `6.1. Страна: ${data.address.country}`,
                     { text: `6.2. Область/Регион: ${data.address.region}`, colSpan: 2 }
@@ -78,11 +84,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 ]
             ]),
 
-            paragraph(
+            createParagraph(
                 '7. Тип документа, подтверждающий право нахождения по фактическому адресу органа управления (Руководителя)',
                 [
                     [
-                        inlineCheckbox(
+                        createInlineCheckbox(
                             [
                                 [DocumentType.LeaseContract, 'Договор аренды'],
                                 [DocumentType.SubleaseContract, 'Договор субаренды'],
@@ -93,9 +99,9 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ]
                 ]
             ),
-            paragraph('8. Сведения о хозяйственной деятельности организации', [
+            createParagraph('8. Сведения о хозяйственной деятельности организации', [
                 [
-                    inlineCheckboxWithTitle(
+                    createInlineCheckboxWithTitle(
                         '8.1. Наличие в штате главного бухгалтера',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                         data.business.hasChiefAccountant
@@ -104,7 +110,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 ],
                 [
                     {
-                        ...verticalCheckboxWithTitle(
+                        ...createVerticalCheckboxWithTitle(
                             '8.3. Бухгалтерский учет осуществляет:',
                             [
                                 [AccountingType.HeadAccounting, 'Руководитель организации'],
@@ -120,10 +126,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     }
                 ]
             ]),
-            paragraph('9. Принадлежность Единоличного исполнительного органа к некоторым категориям граждан', [
+            createParagraph('9. Принадлежность Единоличного исполнительного органа к некоторым категориям граждан', [
                 [
                     {
-                        ...inlineCheckboxWithTitle(
+                        ...createInlineCheckboxWithTitle(
                             '9.1. Принадлежность к категории ПДЛ¹',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                             data.pdl.pdlCategory
@@ -132,7 +138,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     }
                 ],
                 [
-                    inlineCheckboxWithTitle(
+                    createInlineCheckboxWithTitle(
                         '9.2. Является родственником ПДЛ',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
                         data.pdl.pdlRelation
@@ -140,10 +146,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     `9.3. Степень родства: ${data.pdl.pdlRelationDegree}`
                 ]
             ]),
-            paragraph('10. Наличие выгодоприобретателя²', [
+            createParagraph('10. Наличие выгодоприобретателя²', [
                 [
                     [
-                        inlineCheckbox(
+                        createInlineCheckbox(
                             [
                                 [YesNo.no, 'Нет'],
                                 [YesNo.yes, 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)']
@@ -153,9 +159,9 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ]
                 ]
             ]),
-            paragraph('11. Наличие бенефициарного владельца³', [
+            createParagraph('11. Наличие бенефициарного владельца³', [
                 [
-                    inlineCheckbox(
+                    createInlineCheckbox(
                         [
                             [YesNo.no, 'Нет'],
                             [YesNo.yes, 'Да (обязательное заполнение приложение для Бенефициарного владельца)']
@@ -164,18 +170,18 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
-            paragraph(
+            createParagraph(
                 '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
-                [[inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
+                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
             ),
-            paragraph('13. Информация об иностранном налоговом резидентстве', [
+            createParagraph('13. Информация об иностранном налоговом резидентстве', [
                 [
                     {
                         text:
                             '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
                         colSpan: 5
                     },
-                    inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.taxResident)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.taxResident)
                 ],
                 [
                     {
@@ -183,7 +189,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                             '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
                         colSpan: 5
                     },
-                    inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.ownerResident)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.ownerResident)
                 ],
                 [
                     {
@@ -191,9 +197,10 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                             '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
                         colSpan: 5
                     },
-                    inlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.fatca)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.fatca)
                 ]
-            ])
+            ]),
+            createEnding()
         ],
         footer: [
             '¹ Публичные должностные лица, включая российские, иностранные и международные.',

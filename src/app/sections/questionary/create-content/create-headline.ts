@@ -1,6 +1,6 @@
 import { Content, cmMarginsToIn } from '../../../document';
 
-export function headline(text: string): Content {
+export function createHeadline(text: string): Content {
     return {
         text,
         style: {

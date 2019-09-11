@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/build/pdfmake';
 
 import { createStyles, createDefaultStyle } from './create-styles';
@@ -20,27 +19,7 @@ export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: s
         {
             pageSize: 'A4' as PageSize,
             pageMargins: pageMarginsIn,
-            content: [
-                ...data.content,
-                {
-                    layout: 'noBorders',
-                    margin: cmMarginsToIn(0, 1.1, 0, 0),
-                    table: {
-                        widths: ['*', 'auto'],
-                        body: [
-                            [
-                                'М.П.' as any,
-                                {
-                                    text: moment().format('LL') + '\n\n\n_____________________/______________/',
-                                    style: { alignment: 'right' }
-                                }
-                            ]
-                        ]
-                    }
-                }
-                // debug footer margins
-                // ...new Array(100).fill(null).map((_, idx) => `${idx}. debug line`)
-            ],
+            content: data.content,
             footer: createFooter({ margin: footerMarginsIn, text: data.footer }),
             styles: createStyles(),
             defaultStyle: createDefaultStyle()
