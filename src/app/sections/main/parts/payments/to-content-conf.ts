@@ -1,5 +1,5 @@
 import { Observable, combineLatest, of, iif, BehaviorSubject } from 'rxjs';
-import { shareReplay, switchMap, map, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, map, distinctUntilChanged, shareReplay, tap } from 'rxjs/operators';
 import isEmpty from 'lodash/isEmpty';
 import negate from 'lodash/negate';
 import isEqual from 'lodash/isEqual';
@@ -7,7 +7,7 @@ import isEqual from 'lodash/isEqual';
 import { Shop } from '../../../../api-codegen/capi';
 import { Claim, StatusModificationUnit } from '../../../../api-codegen/claim-management';
 import { ContentConfig, ActionBtnContent, TestEnvBtnContent } from './content-config';
-import { filterByProp, booleanDelay } from '../../../../custom-operators';
+import { filterByProp } from '../../../../custom-operators';
 import { filterQuestionaryClaims, takeTargetClaim } from './operators';
 import { ClaimStatus, filterBattleShops, filterTestShops } from '../../../../api';
 import { routeEnv } from '../../../route-env';
@@ -24,82 +24,98 @@ const initialConf = {
     testEnvBtnContent: {
         routerLink: '/',
         disabled: true
-    },
-    isLoading: false
+    }
 };
 
-const applyActionContent = (subheadingPath, actionPath, routerLink): ActionBtnContent => ({
+const toActionBtnContent = (actionPath, routerLink): ActionBtnContent => ({
     routerLink,
     actionLabel: `${basePath}.action.${actionPath}`,
     disabled: false
 });
 
-const applyTestEnvContent = (): TestEnvBtnContent => ({
+const toTestEnvBtnContent = (): TestEnvBtnContent => ({
     routerLink: `/payment-section/env/${routeEnv['0']}/operations`,
     disabled: false
 });
 
-const applyClaimToConf = (claim: Claim | null): ActionBtnContent => {
+const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     if (claim === null) {
-        return applyActionContent('prestine', 'join', '/onboarding');
+        return toActionBtnContent('join', '/onboarding');
     }
     const s = StatusModificationUnit.StatusEnum;
     switch (claim.status) {
         case s.Pending:
-            return applyActionContent('onboardingPending', 'continue', `/onboarding/${claim.id}`);
+            return toActionBtnContent('continue', `/onboarding/${claim.id}`);
         case s.Review:
-            return applyActionContent('onboardingReview', 'claimDetails', `/claim/${claim.id}`);
+            return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
         case s.PendingAcceptance:
-            return applyActionContent('onboardingReviewed', 'claimDetails', `/claim/${claim.id}`);
+            return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
     }
     throw new Error('Unsupported claim status');
 };
 
-const getClaimsConf = (claims: Observable<Claim[]>): Observable<ActionBtnContent> => {
-    const questionaryClaims = claims.pipe(filterQuestionaryClaims);
+const claimToSubheading = (path: string, claim: Claim | null): string => {
+    if (claim === null) {
+        return `${path}.prestine`;
+    }
+    const s = StatusModificationUnit.StatusEnum;
+    switch (claim.status) {
+        case s.Pending:
+            return `${path}.onboardingPending`;
+        case s.Review:
+            return `${path}.onboardingReview`;
+        case s.PendingAcceptance:
+            return `${path}.onboardingReviewed`;
+    }
+    throw new Error('Unsupported claim status');
+};
+
+const mapToTargetClaim = (s: Observable<Claim[]>): Observable<Claim> => {
+    const questionaryClaims = s.pipe(filterQuestionaryClaims);
     const pendingClaims = questionaryClaims.pipe(filterByProp('status', ClaimStatus.Pending));
     const pendingAcceptanceClaims = questionaryClaims.pipe(filterByProp('status', ClaimStatus.PendingAcceptance));
     const reviewClaims = questionaryClaims.pipe(filterByProp('status', ClaimStatus.Review));
-    return combineLatest(pendingClaims, pendingAcceptanceClaims, reviewClaims).pipe(
-        takeTargetClaim,
-        map(claim => applyClaimToConf(claim))
-    );
+    return combineLatest(pendingClaims, pendingAcceptanceClaims, reviewClaims).pipe(takeTargetClaim);
 };
 
-const getRealEnvConf = (): Observable<ActionBtnContent> =>
-    of(applyActionContent('prestine', 'details', `/payment-section/env/${routeEnv['1']}/operations`));
-
-const toActionBtnContent = (shops: Observable<Shop[]>, claims: Observable<Claim[]>): Observable<ActionBtnContent> => {
-    const hasRealEnv = shops.pipe(
-        filterBattleShops,
-        map(negate(isEmpty))
-    );
-    return hasRealEnv.pipe(
-        switchMap(isReal => iif(() => isReal, getRealEnvConf(), getClaimsConf(claims))),
-        shareReplay(1)
-    );
+const mapToTestEnvBtnContent = (defaultContent: TestEnvBtnContent) => (
+    s: Observable<boolean>
+): Observable<TestEnvBtnContent> => {
+    return s.pipe(switchMap(isTest => iif(() => isTest, of(toTestEnvBtnContent()), of(defaultContent))));
 };
 
-const toTestEnvBtnContent = (shops: Observable<Shop[]>): Observable<TestEnvBtnContent | null> => {
-    const hasTestEnv = shops.pipe(
-        filterTestShops,
-        map(negate(isEmpty))
-    );
-    return hasTestEnv.pipe(
-        switchMap(isTest => iif(() => isTest, of(applyTestEnvContent()), of(null))),
-        shareReplay(1)
-    );
+const mapToActionBtnContent = (claim: Observable<Claim>) => (s: Observable<boolean>): Observable<ActionBtnContent> => {
+    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${routeEnv['1']}/operations`));
+    const fromClaimContent = claim.pipe(map(c => claimToActionBtnContent(c)));
+    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
+};
+
+const mapToSubheading = (claim: Observable<Claim>) => (s: Observable<boolean>): Observable<string> => {
+    const p = `${basePath}.subheading`;
+    const fromClaimContent = claim.pipe(map(c => claimToSubheading(p, c)));
+    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, of(`${p}.prestine`), fromClaimContent)));
 };
 
 export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Claim[]>): Observable<ContentConfig> => {
     const result = new BehaviorSubject<ContentConfig>(initialConf);
+    const hasRealEnv$ = shops.pipe(
+        filterBattleShops,
+        map(negate(isEmpty)),
+        shareReplay(1)
+    );
+    const targetClaim$ = claims.pipe(
+        mapToTargetClaim,
+        shareReplay(1)
+    );
+    const actionBtnContent$ = hasRealEnv$.pipe(mapToActionBtnContent(targetClaim$));
+    const subheading$ = hasRealEnv$.pipe(mapToSubheading(targetClaim$));
+    const testEnvBtnContent$ = shops.pipe(
+        filterTestShops,
+        map(negate(isEmpty)),
+        mapToTestEnvBtnContent(initialConf.testEnvBtnContent)
+    );
 
     const state$ = result.pipe(distinctUntilChanged((prev, curr) => isEqual(prev, curr)));
-
-    const actionBtnContent$ = toActionBtnContent(shops, claims);
-    const testEnvBtnContent$ = toTestEnvBtnContent(shops);
-    const isLoading$ = combineLatest(actionBtnContent$, testEnvBtnContent$).pipe(booleanDelay());
-
     combineLatest(state$, actionBtnContent$)
         .pipe(
             map(([state, actionBtnContent]) => ({
@@ -109,11 +125,11 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
         )
         .subscribe(c => result.next(c));
 
-    combineLatest(state$, isLoading$)
+    combineLatest(state$, subheading$)
         .pipe(
-            map(([state, isLoading]) => ({
+            map(([state, subheading]) => ({
                 ...state,
-                isLoading
+                subheading
             }))
         )
         .subscribe(c => result.next(c));
@@ -122,7 +138,7 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
         .pipe(
             map(([state, testEnvBtnContent]) => ({
                 ...state,
-                testEnvBtnContent: testEnvBtnContent === null ? state.testEnvBtnContent : testEnvBtnContent
+                testEnvBtnContent
             }))
         )
         .subscribe(c => result.next(c));

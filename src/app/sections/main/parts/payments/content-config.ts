@@ -10,7 +10,6 @@ export interface TestEnvBtnContent {
 }
 
 export interface ContentConfig {
-    isLoading: boolean;
     subheading: string;
     actionBtnContent: ActionBtnContent;
     testEnvBtnContent: TestEnvBtnContent;

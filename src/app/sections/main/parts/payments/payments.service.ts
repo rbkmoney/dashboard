@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { combineLatest, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import isEmpty from 'lodash/isEmpty';
-import negate from 'lodash/negate';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { ShopService, ClaimsService, filterTestShops } from '../../../../api';
-import { booleanDelay } from '../../../../custom-operators/boolean-delay';
+import { ShopService, ClaimsService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims/claims.service';
-import { routeEnv } from '../../../route-env';
 import { toContentConf } from './to-content-conf';
 import { LocaleDictionaryService } from '../../../../locale';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
+import { booleanDelay } from '../../../../custom-operators';
 
 @Injectable()
 export class PaymentsService {
@@ -20,13 +17,6 @@ export class PaymentsService {
         ClaimStatus.PendingAcceptance,
         ClaimStatus.Review
     ]);
-    // isLoading$ = combineLatest(this.shopService.shops$, this.claims$).pipe(booleanDelay());
-
-    // hasTestEnvironment$ = this.shopService.shops$.pipe(
-    //     filterTestShops,
-    //     map(negate(isEmpty))
-    // );
-    // testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
 
     subheading$: Observable<string>;
     actionBtnContent$: Observable<ActionBtnContent>;
@@ -49,6 +39,6 @@ export class PaymentsService {
         this.actionBtnContent$ = contentConfig.pipe(map(c => c.actionBtnContent));
         this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
-        this.isLoading$ = contentConfig.pipe(map(c => c.isLoading));
+        this.isLoading$ = combineLatest(this.shopService.shops$, this.claims$).pipe(booleanDelay());
     }
 }
