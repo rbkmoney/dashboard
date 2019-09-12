@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-import { cmMarginsToIn } from '../../../document';
+import { cmMarginsToIn, Content } from '../../../document';
 
-export function createEnding() {
+export function createEnding(): Content {
     return {
         layout: 'noBorders',
         margin: cmMarginsToIn(0, 1.1, 0, 0),
@@ -10,7 +10,7 @@ export function createEnding() {
             widths: ['*', 'auto'],
             body: [
                 [
-                    'М.П.' as any,
+                    'М.П.',
                     {
                         text: moment().format('LL') + '\n\n\n_____________________/______________/',
                         style: { alignment: 'right' }

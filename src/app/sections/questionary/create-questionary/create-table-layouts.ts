@@ -4,7 +4,7 @@ export enum Layout {
     header = 'header'
 }
 
-export function createTableLayouts(): { [name: string]: TableLayoutFunctions } {
+export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions } {
     return {
         [Layout.header]: {
             fillColor(idx) {

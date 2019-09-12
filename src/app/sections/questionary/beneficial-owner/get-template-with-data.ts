@@ -6,7 +6,8 @@ import {
     createHeader,
     createHeadline,
     createEnding,
-    createInlineCheckboxWithTitle
+    createInlineCheckboxWithTitle,
+    createInlineParagraph
 } from '../create-content';
 import { YesNo } from '../select-data';
 
@@ -26,6 +27,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
+            createInlineParagraph('Test', [['hello'], ['world']]),
             createVerticalParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
                 [
                     {

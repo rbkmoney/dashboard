@@ -7,6 +7,6 @@ import {
 
 import { Replace } from '../../type-utils';
 
-export type Content = string | Replace<PDFMakeContent, { style?: Style | string | string[] }>;
-export type TableCell = Content | PDFMakeTableCell;
-export type Table = Replace<PDFMakeTable, { body: TableCell[][] }>;
+export type Content = Replace<PDFMakeContent, { style?: Style | string | string[] }>;
+export type TableCell = PDFMakeTableCell;
+export type Table = Replace<PDFMakeTable, { body: (Content | PDFMakeTableCell | string)[][] }>;

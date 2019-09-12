@@ -1,6 +1,12 @@
 import { FontFamily, Content } from '../../../document';
 
-export function createIcons<T extends { [name: string]: string }>(iconsObj: T): Record<keyof T, Content> {
+interface SourceIcons {
+    [name: string]: string;
+}
+
+type Icons<T extends SourceIcons> = Record<keyof T, Content>;
+
+export function createIcons<T extends SourceIcons, R = Icons<T>>(iconsObj: T): R {
     return Object.entries(iconsObj).reduce(
         (acc, [name, text]) => {
             acc[name] = {
@@ -11,6 +17,6 @@ export function createIcons<T extends { [name: string]: string }>(iconsObj: T): 
             };
             return acc;
         },
-        {} as any
+        {} as R
     );
 }

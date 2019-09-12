@@ -1,11 +1,10 @@
-import { TableCell, Content } from 'pdfmake/build/pdfmake';
-
 import { icons } from './icons';
+import { Content } from '../../../document';
 
 type Items<T extends number | string> = string[] | [T, string][];
 
-export function createCheckbox(text: string, active = false): TableCell {
-    return { text: [active ? icons.checkSquare : icons.square, ' ', text] as any };
+export function createCheckbox(text: string, active = false): Content {
+    return { text: [active ? icons.checkSquare : icons.square, ' ', text] };
 }
 
 function toItemsWithActive<T extends number>(items: Items<T>, active: T): { items: string[]; active: number } {
@@ -45,8 +44,8 @@ export function createVerticalCheckboxWithTitle<T extends number>(
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
     const body = items.map(
         title
-            ? (item, idx) => [idx === 0 ? title : '', createCheckbox(item, active === idx)] as any
-            : (item, idx) => [createCheckbox(item, active === idx)] as any
+            ? (item, idx) => [idx === 0 ? title : '', createCheckbox(item, active === idx)]
+            : (item, idx) => [createCheckbox(item, active === idx)]
     );
     return {
         layout: 'noBorders',
