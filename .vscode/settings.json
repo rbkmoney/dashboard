@@ -8,13 +8,20 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",
-        "Keycloak",
+        "keycloak",
         "codegen",
         "dadata",
         "downlevel",
         "dropdown",
         "esnext",
-        "mastercard"
+        "mastercard",
+        "pdfmake",
+        "rbkmoney",
+        "roboto",
+        "submodule",
+        "СНИЛС",
+        "бенефициарного",
+        "бенефициарный"
     ],
     "cSpell.language": "en,ru"
 }

@@ -1,19 +1,19 @@
 <div class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="amount">
-            <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
                 {{ localeBaseDir + '.amount' | lc }}
             </th>
-            <td dshCell fxFlex="150px" *dshCellDef="let element">
+            <td dshCell fxFlex="180px" *dshCellDef="let element">
                 {{ element.amount | fromMinor | currency: element.currency }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="status">
-            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
                 {{ localeBaseDir + '.status' | lc }}
             </th>
-            <td dshCell fxFlex="140px" *dshCellDef="let element">
+            <td dshCell fxFlex="180px" *dshCellDef="let element">
                 <dsh-status [color]="element.status | paymentStatusColor">{{
                     'common.paymentStatus.' + element.status | lc
                 }}</dsh-status>
@@ -21,19 +21,19 @@
         </ng-container>
 
         <ng-container dshColumnDef="statusChanged">
-            <th dshHeaderCell *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
                 {{ localeBaseDir + '.statusChanged' | lc }}
             </th>
-            <td dshCell *dshCellDef="let element">
+            <td dshCell fxFlex="180px" *dshCellDef="let element">
                 {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="invoice">
-            <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
+            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef fxHide>
                 {{ localeBaseDir + '.invoice' | lc }}
             </th>
-            <td dshCell *dshCellDef="let element" fxHide fxShow.gt-sm>
+            <td dshCell fxFlex="140px" *dshCellDef="let element" fxHide>
                 <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
                     ><span>{{ element.invoiceID }}</span> <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
                 >
@@ -43,14 +43,25 @@
         <ng-container dshColumnDef="attributes">
             <th dshHeaderCell *dshHeaderCellDef>{{ localeBaseDir + '.shop' | lc }}</th>
             <td dshCell *dshCellDef="let element">
-                <span class="truncate">{{ element.shopID }}</span>
+                <span class="truncate">{{ element.shopName }}</span>
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let element">
-                <button dsh-icon-button><mat-icon>more_vert</mat-icon></button>
+                <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
+                    <dsh-dropdown-actions>
+                        <dsh-state-nav flat>
+                            <dsh-state-nav-item (click)="goToPaymentDetails(element)">{{
+                                localeBaseDir + '.actions.paymentDetails' | lc
+                            }}</dsh-state-nav-item>
+                        </dsh-state-nav>
+                    </dsh-dropdown-actions>
+                </dsh-dropdown>
             </td>
         </ng-container>
 

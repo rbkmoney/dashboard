@@ -27,12 +27,12 @@ export class LanguageService {
 
     private getCorrectLanguage(language: Language | string): Language {
         if (!Object.values(Language).includes(language)) {
-            return this.getRecomended();
+            return this.getRecommended();
         }
         return language as Language;
     }
 
-    private getRecomended(): Language {
+    private getRecommended(): Language {
         const language = navigator.language || (navigator as any).userLanguage;
         return Object.values(Language).includes(language) ? language : this.active || Language.ru;
     }

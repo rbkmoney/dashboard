@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 
 import { PaymentsService } from './payments.service';
-import { PaymentSearchFormValue } from './search-form/payment-search-form-value';
-import { PaymentSearchService } from '../../../../api/search';
+import { PaymentSearchFormValue } from './search-form';
+import { SpinnerType } from '../../../../spinner';
 
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [PaymentsService, PaymentSearchService]
+    providers: [PaymentsService]
 })
 export class PaymentsComponent {
-    payments$ = this.paymentService.searchResult$;
+    tableData$ = this.paymentService.paymentsTableData$;
     hasMorePayments$ = this.paymentService.hasMore$;
     lastUpdated$ = this.paymentService.lastUpdated$;
+    isLoading$ = this.paymentService.isLoading$;
+
+    spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(private paymentService: PaymentsService) {}
 

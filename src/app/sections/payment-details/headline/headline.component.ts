@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'dsh-headline',
@@ -7,4 +8,13 @@ import { Component, Input } from '@angular/core';
 })
 export class HeadlineComponent {
     @Input() paymentID: string;
+
+    constructor(private location: Location) {}
+
+    // 1 and 2 is default history length
+    isBackAvailable = window.history.length > 2;
+
+    back() {
+        this.location.back();
+    }
 }

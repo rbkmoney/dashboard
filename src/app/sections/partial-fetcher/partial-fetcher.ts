@@ -1,4 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
 
 import { combineAction } from './combine-action';
 import { FetchAction, FetchFn, FetchResult } from './model';
@@ -9,10 +10,12 @@ export abstract class PartialFetcher<R, P> {
 
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
+    doAction$: Observable<boolean> = this.action$.pipe(map(() => true));
 
-    constructor() {
+    constructor(debounceActionTime = 300) {
         const contextFetch = this.fetch.bind(this) as FetchFn<P, R>;
-        const combine = combineAction(this.action$, contextFetch);
+        const action = this.action$.pipe(debounceTime(debounceActionTime));
+        const combine = combineAction(action, contextFetch);
         this.searchResult$ = combine.pipe(mapToSearchResult);
         this.hasMore$ = combine.pipe(mapToHasMore);
     }

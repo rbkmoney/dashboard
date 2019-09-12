@@ -23,19 +23,9 @@
     fxLayoutAlign="center center"
     fxLayoutAlign.xs="start stretch"
 >
-    <dsh-payments
-        [type]="paymentsSectionType"
-        [testEnvironmentRouterLink]="testEnvironmentRouterLink"
-        [actionRouterLink]="paymentsSectionActionRouterLink"
-    ></dsh-payments>
+    <dsh-payments></dsh-payments>
     <dsh-wallets></dsh-wallets>
 </div>
 <div *ngIf="!hasWallets" class="parts-container">
-    <dsh-payments
-        [type]="paymentsSectionType"
-        [testEnvironmentRouterLink]="testEnvironmentRouterLink"
-        [actionRouterLink]="paymentsSectionActionRouterLink"
-        fxFlexOffset="80px"
-        fxFlexOffset.xs="0"
-    ></dsh-payments>
+    <dsh-payments fxFlexOffset="80px" fxFlexOffset.xs="0"></dsh-payments>
 </div>

@@ -11,7 +11,7 @@ export class ClaimsService {
         shareReplay(1)
     );
     isLoading$ = this.claims$.pipe(booleanDelay());
-    error$ = this.claims$.pipe(takeError());
+    error$ = this.claims$.pipe(takeError);
 
     constructor(private claimsService: ClaimsApiService) {}
 }
