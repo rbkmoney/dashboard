@@ -19,6 +19,31 @@ import { LAYOUT_GAP } from '../../constants';
 import { ConfigService } from '../../../config';
 import { initializer } from '../../../initializer';
 
+@Component({
+    template: '<dsh-details [payment]="dummyPayment"></dsh-details>'
+})
+class TestDetailsComponent {
+    dummyPayer: CustomerPayer = {
+        payerType: PayerType.CustomerPayer,
+        customerID: 'testCustomerID'
+    };
+
+    dummyFlow: PaymentFlowInstant = {
+        type: 'PaymentFlowInstant'
+    };
+
+    dummyPayment: PaymentSearchResult = {
+        id: '100',
+        status: PaymentStatus.StatusEnum.Pending,
+        invoiceID: 'testInvoiceID',
+        createdAt: moment().format() as any,
+        amount: 1000,
+        currency: 'RUB',
+        payer: this.dummyPayer,
+        flow: this.dummyFlow
+    };
+}
+
 describe('TestDetailsComponent', () => {
     let component: HTMLElement;
 
@@ -74,28 +99,3 @@ describe('TestDetailsComponent', () => {
         expect(chargeAmount).toBeTruthy();
     });
 });
-
-@Component({
-    template: '<dsh-details [payment]="dummyPayment"></dsh-details>'
-})
-class TestDetailsComponent {
-    dummyPayer: CustomerPayer = {
-        payerType: PayerType.CustomerPayer,
-        customerID: 'testCustomerID'
-    };
-
-    dummyFlow: PaymentFlowInstant = {
-        type: 'PaymentFlowInstant'
-    };
-
-    dummyPayment: PaymentSearchResult = {
-        id: '100',
-        status: PaymentStatus.StatusEnum.Pending,
-        invoiceID: 'testInvoiceID',
-        createdAt: moment().format() as any,
-        amount: 1000,
-        currency: 'RUB',
-        payer: this.dummyPayer,
-        flow: this.dummyFlow
-    };
-}

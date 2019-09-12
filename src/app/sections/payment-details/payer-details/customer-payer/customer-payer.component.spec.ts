@@ -9,6 +9,16 @@ import { CustomerPayerComponent } from './customer-payer.component';
 import { LocalePipe } from '../../../../locale/locale.pipe';
 import { DetailsItemComponent } from '../../details-item';
 
+@Component({
+    template: '<dsh-customer-payer [customerPayer]="customerPayer"></dsh-customer-payer>'
+})
+class TestCustomerPayerComponent {
+    customerPayer: CustomerPayer = {
+        payerType: 'CustomerPayer',
+        customerID: 'test'
+    };
+}
+
 describe('CustomerPayerComponent', () => {
     let component: HTMLElement;
 
@@ -32,13 +42,3 @@ describe('CustomerPayerComponent', () => {
         expect(component.innerHTML).toContain('test');
     });
 });
-
-@Component({
-    template: '<dsh-customer-payer [customerPayer]="customerPayer"></dsh-customer-payer>'
-})
-class TestCustomerPayerComponent {
-    customerPayer: CustomerPayer = {
-        payerType: 'CustomerPayer',
-        customerID: 'test'
-    };
-}

@@ -8,6 +8,11 @@ import { HeadlineComponent } from './headline.component';
 import { LocalePipe } from '../../../locale/locale.pipe';
 import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 
+@Component({
+    template: '<dsh-headline paymentID="test"></dsh-headline>'
+})
+class TestHeadlineComponent {}
+
 describe('HeadlineComponent', () => {
     let component: HTMLElement;
 
@@ -35,8 +40,3 @@ describe('HeadlineComponent', () => {
         expect(title.innerHTML).toContain('#test');
     });
 });
-
-@Component({
-    template: '<dsh-headline paymentID="test"></dsh-headline>'
-})
-class TestHeadlineComponent {}

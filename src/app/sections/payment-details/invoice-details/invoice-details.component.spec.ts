@@ -19,7 +19,7 @@ import { InvoiceSearchService } from '../../../api/search';
 import { LAYOUT_GAP } from '../../constants';
 
 const dummyInvoice: Invoice = {
-    id: '',
+    id: 'test',
     status: 'paid',
     createdAt: new Date(),
     shopID: 'test',
@@ -29,6 +29,11 @@ const dummyInvoice: Invoice = {
     product: 'test product',
     metadata: {}
 };
+
+@Component({
+    template: '<dsh-invoice-details invoiceID="test"></dsh-invoice-details>'
+})
+class TestInvoiceDetailsComponent {}
 
 describe('InvoiceDetailsComponent', () => {
     let component: HTMLElement;
@@ -75,8 +80,3 @@ describe('InvoiceDetailsComponent', () => {
         expect(product.innerHTML).toContain('test product');
     });
 });
-
-@Component({
-    template: '<dsh-invoice-details invoiceID="test"></dsh-invoice-details>'
-})
-class TestInvoiceDetailsComponent {}

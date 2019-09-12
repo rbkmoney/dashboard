@@ -17,6 +17,19 @@ import { HumanizeDurationService } from '../../../humanize-duration';
 import { Language, LanguageService } from '../../../locale/language';
 import { SettingsService } from '../../../settings';
 
+@Component({
+    template: '<dsh-hold-details [flowHold]="flowHold"></dsh-hold-details>'
+})
+class TestHoldDetailsComponent {
+    flowHold: PaymentFlowHold = {
+        type: 'PaymentFlowHold',
+        onHoldExpiration: 'capture',
+        heldUntil: moment()
+            .utc()
+            .format() as any
+    };
+}
+
 describe('HoldDetailsComponent', () => {
     let component: HTMLElement;
 
@@ -49,16 +62,3 @@ describe('HoldDetailsComponent', () => {
         expect(component).toBeTruthy();
     });
 });
-
-@Component({
-    template: '<dsh-hold-details [flowHold]="flowHold"></dsh-hold-details>'
-})
-class TestHoldDetailsComponent {
-    flowHold: PaymentFlowHold = {
-        type: 'PaymentFlowHold',
-        onHoldExpiration: 'capture',
-        heldUntil: moment()
-            .utc()
-            .format() as any
-    };
-}

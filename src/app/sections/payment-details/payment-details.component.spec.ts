@@ -1,13 +1,18 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import moment from 'moment';
 
-import { PaymentDetailsService } from './payment-details.service';
-import { SearchService } from '../../api-codegen/capi/swagger-codegen';
+import {
+    CustomerPayer,
+    Invoice,
+    PaymentFlowInstant,
+    PaymentSearchResult,
+    PaymentStatus
+} from '../../api-codegen/capi/swagger-codegen';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { HeadlineComponent } from './headline';
 import { DetailsComponent } from './details';
@@ -17,14 +22,19 @@ import {
     PaymentTerminalComponent,
     PaymentToolComponent
 } from './payment-tool';
-import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
+import {
+    CustomerPayerComponent,
+    PayerDetailsComponent,
+    PayerType,
+    PaymentResourcePayerComponent
+} from './payer-details';
 import { HoldDetailsComponent } from './hold-details';
 import { RecurrentDetailsComponent } from './recurrent-details';
 import { InvoiceDetailsComponent } from './invoice-details';
 import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { RefundItemComponent, RefundsComponent } from './refunds';
-import { LocaleModule } from '../../locale';
+import { LocaleDictionaryService, LocaleModule } from '../../locale';
 import { CardModule } from '../../layout/card';
 import { ViewUtilsModule } from '../../view-utils';
 import { DetailsItemComponent } from './details-item';
@@ -35,12 +45,42 @@ import { AmountPipe } from './amount.pipe';
 import { HumanizedDurationPipe } from '../../humanize-duration/humanized-duration.pipe';
 import { StatusComponent } from '../../status';
 import { LAYOUT_GAP } from '../constants';
-import { PaymentSearchService } from '../../api/search';
+import { InvoiceSearchService, PaymentSearchService, RefundSearchService } from '../../api/search';
+
+const dummyPayer: CustomerPayer = {
+    payerType: PayerType.CustomerPayer,
+    customerID: 'testCustomerID'
+};
+
+const dummyFlow: PaymentFlowInstant = {
+    type: 'PaymentFlowInstant'
+};
+
+const dummyPayment: PaymentSearchResult = {
+    id: '100',
+    status: PaymentStatus.StatusEnum.Pending,
+    invoiceID: 'testInvoiceID',
+    createdAt: moment().format() as any,
+    amount: 1000,
+    currency: 'RUB',
+    payer: dummyPayer,
+    flow: dummyFlow
+};
+
+const dummyInvoice: Invoice = {
+    id: 'test',
+    status: 'paid',
+    createdAt: new Date(),
+    shopID: 'test',
+    dueDate: new Date(),
+    amount: 1000,
+    currency: 'RUB',
+    product: 'test product',
+    metadata: {}
+};
 
 describe('PaymentDetailsComponent', () => {
-    let injector: TestBed;
-
-    let service: PaymentDetailsService;
+    let component: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -76,25 +116,57 @@ describe('PaymentDetailsComponent', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        params: of({ invoiceID: 'test', paymentID: '1' })
+                        params: {
+                            pipe: () => of(dummyPayment) //of({ invoiceID: 'test', paymentID: '1' })
+                        }
                     }
                 },
-                HttpHandler,
-                HttpClient,
-                SearchService,
-                PaymentSearchService,
-                PaymentDetailsService,
-                { provide: LAYOUT_GAP, useValue: {} }
+                // HttpHandler,
+                // HttpClient,
+                // SearchService,
+                // PaymentSearchService,
+                { provide: Location, useValue: {} },
+                { provide: PaymentSearchService, useValue: {} },
+                // { provide: PaymentDetailsService, useValue: {} },
+                // { provide: RefundsService, useValue: {} },
+                { provide: RefundSearchService, useValue: {} },
+                { provide: InvoiceSearchService, useValue: { getInvoiceByDuration: () => of(dummyInvoice) } },
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } },
+                { provide: LAYOUT_GAP, useValue: '20px' }
             ]
         });
 
-        injector = getTestBed();
-        service = injector.get(PaymentDetailsService);
+        const fixture = TestBed.createComponent(PaymentDetailsComponent);
+        fixture.detectChanges();
+        component = fixture.nativeElement.querySelector('.dsh-payment-details');
     });
 
     it('should create component', () => {
-        const component = TestBed.createComponent(PaymentDetailsComponent).componentInstance;
+        expect(component).toBeTruthy();
+    });
 
-        expect(component).toBeDefined();
+    it('should show headline', () => {
+        const headline = component.querySelector('dsh-headline');
+        expect(headline).toBeTruthy();
+    });
+
+    it('should show details', () => {
+        const details = component.querySelector('dsh-details');
+        expect(details).toBeTruthy();
+    });
+
+    it('should show payer details', () => {
+        const payerDetails = component.querySelector('dsh-payer-details');
+        expect(payerDetails).toBeTruthy();
+    });
+
+    it('should show invoice details', () => {
+        const invoiceDetails = component.querySelector('dsh-invoice-details');
+        expect(invoiceDetails).toBeTruthy();
+    });
+
+    it('should show refunds', () => {
+        const refunds = component.querySelector('dsh-refunds');
+        expect(refunds).toBeTruthy();
     });
 });

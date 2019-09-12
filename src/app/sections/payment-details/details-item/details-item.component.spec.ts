@@ -5,6 +5,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DetailsItemComponent } from './details-item.component';
 
+@Component({
+    template: '<dsh-details-item title="Test title">Test content</dsh-details-item>'
+})
+class TestDetailsItemComponent {}
+
 describe('DetailsItemComponent', () => {
     let component: HTMLElement;
 
@@ -33,8 +38,3 @@ describe('DetailsItemComponent', () => {
         expect(item).toContain('Test content');
     });
 });
-
-@Component({
-    template: '<dsh-details-item title="Test title">Test content</dsh-details-item>'
-})
-class TestDetailsItemComponent {}
