@@ -2,7 +2,7 @@ import { Data } from '../create-questionary';
 import { getData } from './get-data';
 import {
     createInlineCheckbox,
-    createParagraph,
+    createVerticalParagraph,
     createHeader,
     createHeadline,
     createEnding,
@@ -15,7 +15,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
         content: [
             createHeader('Приложение №'),
             createHeadline('АНКЕТА ФИЗИЧЕСКОГО ЛИЦА - БЕНЕФИЦИАРНОГО ВЛАДЕЛЬЦА'),
-            createParagraph('1. Бенефициарный владелец', [
+            createVerticalParagraph('1. Бенефициарный владелец', [
                 [
                     createInlineCheckbox(
                         [
@@ -26,7 +26,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
-            createParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
+            createVerticalParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
                 [
                     {
                         ...createInlineCheckboxWithTitle(

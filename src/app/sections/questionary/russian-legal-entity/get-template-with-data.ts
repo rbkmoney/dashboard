@@ -1,6 +1,6 @@
 import {
     createInlineCheckboxWithTitle,
-    createParagraph,
+    createVerticalParagraph,
     createHeader,
     createHeadline,
     createEnding
@@ -15,24 +15,27 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
         content: [
             createHeader('Приложение №'),
             createHeadline('ОПРОСНЫЙ ЛИСТ – ЮРИДИЧЕСКОГО ЛИЦА (НЕ ЯВЛЯЮЩЕГОСЯ КРЕДИТНОЙ ОРГАНИЗАЦИЕЙ)'),
-            createParagraph('1. Основные сведения о Клиенте', [
+            createVerticalParagraph('1. Основные сведения о Клиенте', [
                 [`1.1. Наименование: ${data.basic.name}`, `1.2. ИНН: ${data.basic.inn}`],
                 [{ text: `1.3. Фирменное наименование: ${data.basic.brandName}`, colSpan: 2 }]
             ]),
-            createParagraph('2. Контактная информация', [
+            createVerticalParagraph('2. Контактная информация', [
                 [
                     `2.1. Телефон: ${data.contact.phone}`,
                     `2.2. Сайт (Url): ${data.contact.url}`,
                     `2.3. Email: ${data.contact.email}`
                 ]
             ]),
-            createParagraph('3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО', [
+            createVerticalParagraph(
+                '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
-                    `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
-                    `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
+                    [
+                        `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
+                        `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
+                    ]
                 ]
-            ]),
-            createParagraph('4. Планируемые операции, в месяц', [
+            ),
+            createVerticalParagraph('4. Планируемые операции, в месяц', [
                 [
                     createVerticalCheckboxWithTitle(
                         '4.1. Количество операций:',
@@ -54,7 +57,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
-            createParagraph('5. Сведения о единоличном исполнительном органе юридического лица', [
+            createVerticalParagraph('5. Сведения о единоличном исполнительном органе юридического лица', [
                 [{ text: `5.1. ФИО Единоличного исполнительного органа: ${data.legalOwnerInfo.fio}`, colSpan: 2 }],
                 [
                     {
@@ -67,7 +70,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     `5.4. Контактная информация (телефон, email): ${data.legalOwnerInfo.contact}`
                 ]
             ]),
-            createParagraph('6. Данные о фактическом местонахождении органа управления (Руководителя)', [
+            createVerticalParagraph('6. Данные о фактическом местонахождении органа управления (Руководителя)', [
                 [
                     `6.1. Страна: ${data.address.country}`,
                     { text: `6.2. Область/Регион: ${data.address.region}`, colSpan: 2 }
@@ -84,7 +87,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                 ]
             ]),
 
-            createParagraph(
+            createVerticalParagraph(
                 '7. Тип документа, подтверждающий право нахождения по фактическому адресу органа управления (Руководителя)',
                 [
                     [
@@ -99,7 +102,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ]
                 ]
             ),
-            createParagraph('8. Сведения о хозяйственной деятельности организации', [
+            createVerticalParagraph('8. Сведения о хозяйственной деятельности организации', [
                 [
                     createInlineCheckboxWithTitle(
                         '8.1. Наличие в штате главного бухгалтера',
@@ -126,27 +129,30 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     }
                 ]
             ]),
-            createParagraph('9. Принадлежность Единоличного исполнительного органа к некоторым категориям граждан', [
+            createVerticalParagraph(
+                '9. Принадлежность Единоличного исполнительного органа к некоторым категориям граждан',
                 [
-                    {
-                        ...createInlineCheckboxWithTitle(
-                            '9.1. Принадлежность к категории ПДЛ¹',
+                    [
+                        {
+                            ...createInlineCheckboxWithTitle(
+                                '9.1. Принадлежность к категории ПДЛ¹',
+                                [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                                data.pdl.pdlCategory
+                            ),
+                            colSpan: 2
+                        }
+                    ],
+                    [
+                        createInlineCheckboxWithTitle(
+                            '9.2. Является родственником ПДЛ',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.pdl.pdlCategory
+                            data.pdl.pdlRelation
                         ),
-                        colSpan: 2
-                    }
-                ],
-                [
-                    createInlineCheckboxWithTitle(
-                        '9.2. Является родственником ПДЛ',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        data.pdl.pdlRelation
-                    ),
-                    `9.3. Степень родства: ${data.pdl.pdlRelationDegree}`
+                        `9.3. Степень родства: ${data.pdl.pdlRelationDegree}`
+                    ]
                 ]
-            ]),
-            createParagraph('10. Наличие выгодоприобретателя²', [
+            ),
+            createVerticalParagraph('10. Наличие выгодоприобретателя²', [
                 [
                     [
                         createInlineCheckbox(
@@ -159,7 +165,7 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     ]
                 ]
             ]),
-            createParagraph('11. Наличие бенефициарного владельца³', [
+            createVerticalParagraph('11. Наличие бенефициарного владельца³', [
                 [
                     createInlineCheckbox(
                         [
@@ -170,11 +176,11 @@ export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
                     )
                 ]
             ]),
-            createParagraph(
+            createVerticalParagraph(
                 '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
                 [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
             ),
-            createParagraph('13. Информация об иностранном налоговом резидентстве', [
+            createVerticalParagraph('13. Информация об иностранном налоговом резидентстве', [
                 [
                     {
                         text:
