@@ -35,9 +35,12 @@ export class PaymentsService {
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
         combineLatest(this.isLoading$, contentConfig)
             .pipe(
-                catchError(err => of(err)),
-                first()
+                first(),
+                catchError(err => {
+                    this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK');
+                    return of(err);
+                })
             )
-            .subscribe(() => this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK'));
+            .subscribe();
     }
 }
