@@ -27,7 +27,6 @@ const dummyRefund: RefundSearchResult = {
 };
 
 describe('RefundItemComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
@@ -44,7 +43,7 @@ describe('RefundItemComponent', () => {
             ],
             providers: [
                 { provide: LAYOUT_GAP, useValue: '20px' },
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } }
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }
             ]
         });
 
@@ -66,7 +65,6 @@ describe('RefundItemComponent', () => {
         const product = component.querySelector('#reason');
         expect(product.innerHTML).toContain('test reason');
     });
-
 });
 
 @Component({

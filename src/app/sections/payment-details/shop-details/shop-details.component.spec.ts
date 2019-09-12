@@ -16,7 +16,6 @@ import { ShopLocationUrlComponent } from './shop-location-url';
 import { ShopService } from '../../../api/shop';
 import { LAYOUT_GAP } from '../../constants';
 
-
 const dummyShop: Shop = {
     id: 'testID',
     createdAt: new Date(),
@@ -34,19 +33,26 @@ const dummyShop: Shop = {
 };
 
 describe('ShopDetailsComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule, MatIconModule, CardModule],
-            declarations: [DetailsItemComponent, ShopLocationUrlComponent, ShopDetailsComponent, TestShopDetailsComponent, LocalePipe],
+            declarations: [
+                DetailsItemComponent,
+                ShopLocationUrlComponent,
+                ShopDetailsComponent,
+                TestShopDetailsComponent,
+                LocalePipe
+            ],
             providers: [
                 { provide: LAYOUT_GAP, useValue: '20px' },
-                { provide: ShopService, useValue: { getShopByID: (shopID: string): Observable<Shop> => of({ ...dummyShop, id: shopID }) } },
+                {
+                    provide: ShopService,
+                    useValue: { getShopByID: (shopID: string): Observable<Shop> => of({ ...dummyShop, id: shopID }) }
+                },
                 ShopDetailsService,
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } }
-
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }
             ]
         });
 
@@ -67,7 +73,6 @@ describe('ShopDetailsComponent', () => {
         const url = component.querySelector('dsh-shop-location-url');
         expect(url).toBeTruthy();
     });
-
 });
 
 @Component({

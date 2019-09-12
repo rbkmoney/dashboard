@@ -8,18 +8,14 @@ import { HeadlineComponent } from './headline.component';
 import { LocalePipe } from '../../../locale/locale.pipe';
 import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 
-
 describe('HeadlineComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule, MatIconModule],
             declarations: [HeadlineComponent, TestHeadlineComponent, LocalePipe],
-            providers: [
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } }
-            ]
+            providers: [{ provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }]
         });
 
         const fixture = TestBed.createComponent(TestHeadlineComponent);
@@ -35,7 +31,6 @@ describe('HeadlineComponent', () => {
         const title = component.querySelector('#secondaryTitle');
         expect(title.innerHTML).toContain('#test');
     });
-
 });
 
 @Component({

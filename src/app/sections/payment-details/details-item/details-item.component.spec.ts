@@ -5,9 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DetailsItemComponent } from './details-item.component';
 
-
 describe('DetailsItemComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
@@ -34,7 +32,6 @@ describe('DetailsItemComponent', () => {
         const item = component.children[0].innerHTML;
         expect(item).toContain('Test content');
     });
-
 });
 
 @Component({

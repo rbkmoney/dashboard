@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import moment from 'moment';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 import { PaymentFlowHold } from '../../../api-codegen/capi/swagger-codegen';
@@ -13,13 +14,10 @@ import { LocalePipe } from '../../../locale/locale.pipe';
 import { HumanizedDurationPipe } from '../../../humanize-duration/humanized-duration.pipe';
 import { LAYOUT_GAP } from '../../constants';
 import { HumanizeDurationService } from '../../../humanize-duration';
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Language, LanguageService } from '../../../locale/language';
 import { SettingsService } from '../../../settings';
 
-
 describe('HoldDetailsComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
@@ -28,7 +26,7 @@ describe('HoldDetailsComponent', () => {
             declarations: [HoldDetailsComponent, TestHoldDetailsComponent, LocalePipe, HumanizedDurationPipe],
             providers: [
                 { provide: LAYOUT_GAP, useValue: '20px' },
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } },
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } },
                 HumanizeDurationService,
                 { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
                 { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -44,13 +42,12 @@ describe('HoldDetailsComponent', () => {
 
         const fixture = TestBed.createComponent(TestHoldDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement
+        component = fixture.nativeElement;
     });
 
     it('should create component', () => {
         expect(component).toBeTruthy();
     });
-
 });
 
 @Component({
@@ -60,6 +57,8 @@ class TestHoldDetailsComponent {
     flowHold: PaymentFlowHold = {
         type: 'PaymentFlowHold',
         onHoldExpiration: 'capture',
-        heldUntil: moment().utc().format() as any
+        heldUntil: moment()
+            .utc()
+            .format() as any
     };
 }

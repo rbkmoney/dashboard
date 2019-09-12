@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -10,18 +9,14 @@ import { CustomerPayerComponent } from './customer-payer.component';
 import { LocalePipe } from '../../../../locale/locale.pipe';
 import { DetailsItemComponent } from '../../details-item';
 
-
 describe('CustomerPayerComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule],
             declarations: [CustomerPayerComponent, TestCustomerPayerComponent, LocalePipe, DetailsItemComponent],
-            providers: [
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } }
-            ]
+            providers: [{ provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }]
         });
 
         const fixture = TestBed.createComponent(TestCustomerPayerComponent);
@@ -36,7 +31,6 @@ describe('CustomerPayerComponent', () => {
     it('should show customer id', () => {
         expect(component.innerHTML).toContain('test');
     });
-
 });
 
 @Component({

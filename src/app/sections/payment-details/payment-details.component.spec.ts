@@ -11,7 +11,12 @@ import { SearchService } from '../../api-codegen/capi/swagger-codegen';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { HeadlineComponent } from './headline';
 import { DetailsComponent } from './details';
-import { BankCardComponent, DigitalWalletComponent, PaymentTerminalComponent, PaymentToolComponent } from './payment-tool';
+import {
+    BankCardComponent,
+    DigitalWalletComponent,
+    PaymentTerminalComponent,
+    PaymentToolComponent
+} from './payment-tool';
 import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
 import { HoldDetailsComponent } from './hold-details';
 import { RecurrentDetailsComponent } from './recurrent-details';
@@ -40,13 +45,47 @@ describe('PaymentDetailsComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule, MatIconModule, LocaleModule, CardModule, ViewUtilsModule],
-            declarations: [BankCardPipe, PhoneNumberPipe, AmountPipe, HumanizedDurationPipe, ShopLocationUrlComponent, StatusComponent, PaymentTerminalComponent, CustomerPayerComponent, PaymentResourcePayerComponent, PaymentDetailsComponent, HeadlineComponent, MakeRecurrentComponent, BankCardComponent, DigitalWalletComponent, RefundsComponent, RefundItemComponent, DetailsComponent, PaymentToolComponent, PayerDetailsComponent, HoldDetailsComponent, RecurrentDetailsComponent, InvoiceDetailsComponent, ShopDetailsComponent, DetailsItemComponent, StatusDetailsItemComponent],
-            providers: [{
-                provide: ActivatedRoute,
-                useValue: {
-                    params: of({ invoiceID: 'test', paymentID: '1' })
-                }
-            }, HttpHandler, HttpClient, SearchService, PaymentSearchService, PaymentDetailsService, { provide: LAYOUT_GAP, useValue: {} }]
+            declarations: [
+                BankCardPipe,
+                PhoneNumberPipe,
+                AmountPipe,
+                HumanizedDurationPipe,
+                ShopLocationUrlComponent,
+                StatusComponent,
+                PaymentTerminalComponent,
+                CustomerPayerComponent,
+                PaymentResourcePayerComponent,
+                PaymentDetailsComponent,
+                HeadlineComponent,
+                MakeRecurrentComponent,
+                BankCardComponent,
+                DigitalWalletComponent,
+                RefundsComponent,
+                RefundItemComponent,
+                DetailsComponent,
+                PaymentToolComponent,
+                PayerDetailsComponent,
+                HoldDetailsComponent,
+                RecurrentDetailsComponent,
+                InvoiceDetailsComponent,
+                ShopDetailsComponent,
+                DetailsItemComponent,
+                StatusDetailsItemComponent
+            ],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        params: of({ invoiceID: 'test', paymentID: '1' })
+                    }
+                },
+                HttpHandler,
+                HttpClient,
+                SearchService,
+                PaymentSearchService,
+                PaymentDetailsService,
+                { provide: LAYOUT_GAP, useValue: {} }
+            ]
         });
 
         injector = getTestBed();
@@ -58,5 +97,4 @@ describe('PaymentDetailsComponent', () => {
 
         expect(component).toBeDefined();
     });
-
 });

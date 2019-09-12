@@ -20,7 +20,6 @@ import { ConfigService } from '../../../config';
 import { initializer } from '../../../initializer';
 
 describe('TestDetailsComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
@@ -31,9 +30,12 @@ describe('TestDetailsComponent', () => {
                 { provide: KeycloakService, useValue: { init: () => '' } },
                 { provide: ConfigService, useValue: { init: () => '' } },
                 { provide: LAYOUT_GAP, useValue: '20px' },
-                { provide: LocaleDictionaryService, useValue: { init: () => '', mapDictionaryKey: (value) => value, toLowerCase: (value) => value } },
+                {
+                    provide: LocaleDictionaryService,
+                    useValue: { init: () => '', mapDictionaryKey: value => value, toLowerCase: value => value }
+                },
                 { provide: LanguageService, useValue: { active: Language.ru } },
-                { provide: DatePipe, useValue: { transform: (value) => value } },
+                { provide: DatePipe, useValue: { transform: value => value } },
                 {
                     provide: APP_INITIALIZER,
                     useFactory: initializer,
@@ -71,7 +73,6 @@ describe('TestDetailsComponent', () => {
         const chargeAmount = component.querySelector('#chargeAmount');
         expect(chargeAmount).toBeTruthy();
     });
-
 });
 
 @Component({

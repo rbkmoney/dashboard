@@ -10,18 +10,14 @@ import { LocalePipe } from '../../../../locale/locale.pipe';
 import { ShopLocationUrl } from '../../../../api-codegen/capi/swagger-codegen';
 import { DetailsItemComponent } from '../../details-item';
 
-
 describe('ShopLocationUrlComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule, MatIconModule],
             declarations: [DetailsItemComponent, ShopLocationUrlComponent, TestShopLocationUrlComponent, LocalePipe],
-            providers: [
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } }
-            ]
+            providers: [{ provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }]
         });
 
         const fixture = TestBed.createComponent(TestShopLocationUrlComponent);
@@ -36,7 +32,6 @@ describe('ShopLocationUrlComponent', () => {
     it('should contain url', () => {
         expect(component.innerHTML).toContain('url.test');
     });
-
 });
 
 @Component({

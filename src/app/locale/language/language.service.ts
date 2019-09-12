@@ -23,6 +23,7 @@ export class LanguageService {
         registerLocaleData(angularLocaleData[language], language);
         this.settingsService.set(LanguageService.KEY, language);
         this.active = language;
+        console.log(language);
     }
 
     private getCorrectLanguage(language: Language | string): Language {

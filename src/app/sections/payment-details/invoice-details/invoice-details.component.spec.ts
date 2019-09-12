@@ -31,7 +31,6 @@ const dummyInvoice: Invoice = {
 };
 
 describe('InvoiceDetailsComponent', () => {
-
     let component: HTMLElement;
 
     beforeEach(() => {
@@ -49,8 +48,11 @@ describe('InvoiceDetailsComponent', () => {
             providers: [
                 InvoiceDetailsService,
                 { provide: LAYOUT_GAP, useValue: '20px' },
-                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: (value) => value } },
-                { provide: InvoiceSearchService, useValue: { getInvoiceByDuration: (id: string) => (of({ ...dummyInvoice, id })) } }
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } },
+                {
+                    provide: InvoiceSearchService,
+                    useValue: { getInvoiceByDuration: (id: string) => of({ ...dummyInvoice, id }) }
+                }
             ]
         });
 
@@ -72,7 +74,6 @@ describe('InvoiceDetailsComponent', () => {
         const product = component.querySelector('#product');
         expect(product.innerHTML).toContain('test product');
     });
-
 });
 
 @Component({
