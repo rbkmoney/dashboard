@@ -111,7 +111,7 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**", "**/*.json", "src/app/api-codegen/**/swagger-codegen/**"]
+                        "exclude": ["**/node_modules/**", "**/*.json", "src/**/swagger-codegen/**"]
                     }
                 }
             }
@@ -137,7 +137,7 @@
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": "e2e/tsconfig.e2e.json",
-                        "exclude": ["**/node_modules/**", "**/*.json", "src/app/api-config/**/swagger-codegen/**"]
+                        "exclude": ["**/node_modules/**", "**/*.json", "src/**/swagger-codegen/**"]
                     }
                 }
             }

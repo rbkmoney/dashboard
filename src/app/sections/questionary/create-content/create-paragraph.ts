@@ -1,4 +1,4 @@
-import { Content, Table, TableCell, cmMarginsToIn } from '../../../document';
+import { Content, Table, cmMarginsToIn } from '../../../document';
 import { Layout } from '../create-questionary';
 import { createTableBody } from './create-table-body';
 import { PRIMARY_COLOR } from '../create-questionary/colors';
