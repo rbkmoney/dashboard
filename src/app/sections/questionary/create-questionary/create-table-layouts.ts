@@ -1,27 +1,37 @@
 import { TableLayoutFunctions } from 'pdfmake/build/pdfmake';
 
-const COLOR_DEEP_BLUE = '#203764';
+import { PRIMARY_COLOR } from './colors';
 
 export enum Layout {
     noBorders = 'noBorders',
-    header = 'header'
+    noPaddings = 'noPaddings',
+    header = 'header',
+    wrapper = 'wrapper'
 }
 
+const noPaddings: TableLayoutFunctions = {
+    paddingLeft: () => 0,
+    paddingRight: () => 0,
+    paddingTop: () => 0,
+    paddingBottom: () => 0
+};
+
 const noBorders: TableLayoutFunctions = {
-    hLineWidth() {
-        return 0;
-    },
-    vLineWidth() {
-        return 0;
-    }
+    hLineWidth: () => 0,
+    vLineWidth: () => 0
 };
 
 export function createTableLayouts(): { [name in Layout]: TableLayoutFunctions } {
     return {
         [Layout.noBorders]: noBorders,
+        [Layout.noPaddings]: noPaddings,
+        [Layout.wrapper]: {
+            ...noBorders,
+            ...noPaddings
+        },
         [Layout.header]: {
             fillColor(rowIdx) {
-                return rowIdx === 0 ? COLOR_DEEP_BLUE : null;
+                return rowIdx === 0 ? PRIMARY_COLOR : null;
             },
             ...noBorders
         }

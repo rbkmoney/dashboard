@@ -1,16 +1,16 @@
-import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
 import { LegalRegistrationInfo, LegalResidencyInfo } from '../../../api-codegen/questionary';
+import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
+import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 import {
     getFIO,
     toYesNo,
     getMonthOperationSum,
     getMonthOperationCount,
     getDocumentType,
-    getShopLocationURL
+    getShopLocationURL,
+    getBusinessInfo,
+    getContactInfo
 } from '../select-data';
-import { getBusinessInfo } from '../select-data/get-business-info';
-import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
-import { getLegalOwnerContactInfo } from './get-legal-owner-contact-info';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { legalEntity } = data.contractor;
@@ -45,7 +45,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
                 legalEntity.legalOwnerInfo.authorityConfirmingDocument
             ),
             snils: legalEntity.legalOwnerInfo.snils,
-            contact: getLegalOwnerContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo)
+            contact: getContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo)
         },
         // TODO
         address: {

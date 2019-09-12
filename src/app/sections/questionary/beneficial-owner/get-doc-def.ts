@@ -27,14 +27,48 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
                     )
                 ]
             ]),
-            createInlineParagraph('Test', [['hello'], ['world']]),
+            createInlineParagraph('2. Процент владения капиталом юридического лица', [
+                [`${data.ownershipPercentage}%`]
+            ]),
+            createInlineParagraph('3. Фамилия, Имя, Отчество (при наличии)', [[data.fio]]),
+            createInlineParagraph('4. Дата рождения', [[data.birthDate]]),
+            createInlineParagraph('5. Место рождения', [[data.birthPlace]]),
+            createInlineParagraph('6. Гражданство', [[data.citizenship]]),
+            createInlineParagraph('7. ИНН (при наличии)', [[data.inn]]),
+            createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
+                [`8.1. Вид документа: ${data.identityDocument.name}`],
+                [`8.2. Серия (при наличии): ${data.identityDocument.series}`],
+                [`8.3. Номер документа: ${data.identityDocument.number}`],
+                [
+                    `8.4. Наименование органа, выдавшего документ, код подразделения (при наличии): ${data.identityDocument.issuer}`
+                ],
+                [`8.5. Дата выдачи: ${data.identityDocument.issuedAt}`]
+            ]),
+            createInlineParagraph('9. Данные миграционной карты¹', [
+                [`9.1. Номер карты: ${data.migrationCardInfo.cardNumber}`],
+                [`9.2. Дата начала срока пребывания в РФ: ${data.migrationCardInfo.beginningDate}`],
+                [`9.3. Дата окончания срока пребывания в РФ: ${data.migrationCardInfo.expirationDate}`]
+            ]),
+            createInlineParagraph(
+                '10. Данные документа, подтверждающего право иностранного гражданина или лица без гражданства на пребывание (проживание) в РФ1¹',
+                [
+                    [`10.1. Вид документа: ${data.residenceApprove.name}`],
+                    [`10.2. Серия (при наличии): ${data.residenceApprove.series}`],
+                    [`10.3. Номер документа: ${data.residenceApprove.number}`],
+                    [`10.4. Дата начала срока действия: ${data.residenceApprove.beginningDate}`],
+                    [`10.5. Дата окончания срока действия: ${data.residenceApprove.expirationDate}`]
+                ]
+            ),
+            createInlineParagraph('11. Адрес места жительства (регистрации) или места пребывания', [[data.address]]),
+            createInlineParagraph('12. СНИЛС (при наличии)', [[data.snils]]),
+            createInlineParagraph('13. Контактная информация (телефон/email)', [[data.contact]]),
             createVerticalParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
                 [
                     {
                         ...createInlineCheckboxWithTitle(
                             '14.1. Принадлежность к категории ПДЛ²',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            YesNo.yes
+                            data.pdl.pdlCategory
                         ),
                         colSpan: 2
                     }
@@ -43,7 +77,7 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
                     createInlineCheckboxWithTitle(
                         '14.2. Является родственником ПДЛ',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        YesNo.yes
+                        data.pdl.pdlRelation
                     ),
                     `14.3. Степень родства: `
                 ],
@@ -52,7 +86,7 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
                         ...createInlineCheckboxWithTitle(
                             '14.4. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            YesNo.yes
+                            data.pdl.usaTaxResident
                         ),
                         colSpan: 2
                     }
@@ -62,7 +96,7 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
                         ...createInlineCheckboxWithTitle(
                             '14.5. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            YesNo.yes
+                            data.pdl.exceptUsaTaxResident
                         ),
                         colSpan: 2
                     }

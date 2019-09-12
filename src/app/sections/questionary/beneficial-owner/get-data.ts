@@ -1,5 +1,5 @@
 import { BeneficialOwner, RussianDomesticPassport, IndividualResidencyInfo } from '../../../api-codegen/questionary';
-import { getFIO, toYesNo } from '../select-data';
+import { getFIO, toYesNo, getContactInfo } from '../select-data';
 
 export function getData(beneficialOwner: BeneficialOwner) {
     console.log(beneficialOwner);
@@ -35,6 +35,8 @@ export function getData(beneficialOwner: BeneficialOwner) {
             expirationDate: residenceApprove.expirationDate
         },
         address: russianPrivateEntity.actualAddress,
+        snils: beneficialOwner.snils,
+        contact: getContactInfo(russianPrivateEntity.contactInfo),
         pdl: {
             pdlCategory: toYesNo(beneficialOwner.pdlCategory),
             pdlRelation: toYesNo(!!beneficialOwner.pdlRelationDegree),

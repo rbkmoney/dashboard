@@ -1,12 +1,14 @@
 import {
     Content as PDFMakeContent,
-    Style,
+    Style as PDFMakeStyle,
     Table as PDFMakeTable,
     TableCell as PDFMakeTableCell
 } from 'pdfmake/build/pdfmake';
 
 import { Replace } from '../../type-utils';
 
-export type Content = Replace<PDFMakeContent, { style?: Style | string | string[] }>;
-export type TableCell = PDFMakeTableCell;
+type Style = PDFMakeStyle | string | string[];
+
+export type Content = Replace<PDFMakeContent, { style?: Style }>;
+export type TableCell = Replace<PDFMakeTableCell, { style?: Style }>;
 export type Table = Replace<PDFMakeTable, { body: (Content | PDFMakeTableCell | string)[][] }>;
