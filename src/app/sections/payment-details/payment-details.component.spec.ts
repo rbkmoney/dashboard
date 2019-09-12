@@ -117,18 +117,12 @@ describe('PaymentDetailsComponent', () => {
                     provide: ActivatedRoute,
                     useValue: {
                         params: {
-                            pipe: () => of(dummyPayment) //of({ invoiceID: 'test', paymentID: '1' })
+                            pipe: () => of(dummyPayment)
                         }
                     }
                 },
-                // HttpHandler,
-                // HttpClient,
-                // SearchService,
-                // PaymentSearchService,
                 { provide: Location, useValue: {} },
                 { provide: PaymentSearchService, useValue: {} },
-                // { provide: PaymentDetailsService, useValue: {} },
-                // { provide: RefundsService, useValue: {} },
                 { provide: RefundSearchService, useValue: {} },
                 { provide: InvoiceSearchService, useValue: { getInvoiceByDuration: () => of(dummyInvoice) } },
                 { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } },
