@@ -5,7 +5,7 @@ import { FetchResult } from '../model';
 
 const toFetchResult = <R>(acc: R[], { continuationToken, result }: FetchResult<R>): FetchResult<R> => ({
     continuationToken,
-    result: [...result, ...acc]
+    result: [...acc, ...result]
 });
 
 export const reduceFetchResult = <R>(acc: Observable<R[]>) => (

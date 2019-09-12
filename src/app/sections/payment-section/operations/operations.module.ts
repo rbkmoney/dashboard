@@ -7,9 +7,18 @@ import { LayoutModule } from '../../../layout';
 import { DshTabsModule } from '../../../layout/tabs';
 import { LocaleModule } from '../../../locale';
 import { OperationsRoutingModule } from './operations-routing.module';
+import { SearchModule } from '../../../api/search';
 
 @NgModule({
-    imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, DshTabsModule, LocaleModule],
+    imports: [
+        CommonModule,
+        OperationsRoutingModule,
+        LayoutModule,
+        FlexLayoutModule,
+        DshTabsModule,
+        LocaleModule,
+        SearchModule
+    ],
     declarations: [OperationsComponent]
 })
 export class OperationsModule {}

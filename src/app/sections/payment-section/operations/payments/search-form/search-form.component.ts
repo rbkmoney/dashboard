@@ -42,6 +42,7 @@ export class SearchFormComponent implements OnInit {
         'jcb',
         'nspkmir'
     ];
+    shopsInfo$ = this.searchFormService.shopsInfo$;
 
     constructor(private searchFormService: SearchFormService) {}
 

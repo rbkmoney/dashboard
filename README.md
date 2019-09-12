@@ -10,13 +10,15 @@
 
 ## Initialization
 
+### Install packages
+
 ```sh
-# Install packages
-
 npm ci
+```
 
-# Generate swagger API Angular modules
+### Generate Angular modules from swags
 
+```sh
 npm run codegen
 ```
 
@@ -38,13 +40,15 @@ npm run codegen
     git submodule -b <SCHEME_BRANCH> add <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
     ```
 
-1.  Add submodule directory (`schemes/<SCHEME_NAME>/<VER:VX>`) to Makefile `SWAGGER_SCHEMES_PATH`
-1.  [Generate swagger API Angular modules](#initialization)
-1.  Update `config.json` and `stub-config.json`
-1.  Add `src/api/<SCHEME_NAME>`:
+1.  Add `schemes/<SCHEME_NAME>/<VER:VX>` to `Makefile` `SWAGGER_SCHEMES_PATH` property
+1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes` property
+1.  [Generate Angular modules from swags](#Generate-Angular-modules-from-swags)
+1.  Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
+1.  Add in `src/api/<SCHEME_NAME>` files:
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`
     -   `<SCHEME_NAME>-config.service.ts`
+1.  Add `<SCHEME_NAME>.module.ts` to `src/app/api/api.module.ts` `imports`
 
 ## Tests
 

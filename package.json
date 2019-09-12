@@ -16,7 +16,8 @@
     "check": "npm run prettier -- --list-different",
     "fix": "npm run lint-fix; npm run prettify",
     "quicktype": "quicktype -s schema --just-types",
-    "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts"
+    "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
+    "coverage": "npx http-server -c-1 -o -p 9875 ./coverage"
   },
   "private": true,
   "dependencies": {
@@ -55,7 +56,7 @@
     "lodash.round": "^4.0.4",
     "lodash.template": "^4.4.0",
     "moment": "^2.24.0",
-    "pdfmake": "^0.1.56",
+    "pdfmake": "^0.1.58",
     "rxjs": "~6.5.2",
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^1.9.0",
@@ -79,7 +80,7 @@
     "@types/lodash.template": "^4.4.6",
     "@types/moment": "^2.13.0",
     "@types/node": "^11.13.10",
-    "@types/pdfmake": "^0.1.5",
+    "@types/pdfmake": "^0.1.8",
     "codelyzer": "^5.0.1",
     "husky": "^3.0.1",
     "jasmine-core": "~3.4.0",

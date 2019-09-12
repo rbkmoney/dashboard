@@ -15,7 +15,7 @@ describe('takeError', () => {
         createScheduler().run(helpers => {
             const { cold, expectObservable } = helpers;
             const operation = '-a-b-c|';
-            const flow = cold(operation).pipe(takeError());
+            const flow = cold(operation).pipe(takeError);
             expectObservable(flow).toBe('------|');
         });
     });
@@ -24,7 +24,7 @@ describe('takeError', () => {
         createScheduler().run(helpers => {
             const { cold, expectObservable } = helpers;
             const operation = '-a-#-c|';
-            const flow = cold(operation).pipe(takeError());
+            const flow = cold(operation).pipe(takeError);
             expectObservable(flow).toBe('---(0|)', ['error']);
         });
     });

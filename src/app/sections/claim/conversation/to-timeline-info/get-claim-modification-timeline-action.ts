@@ -12,6 +12,8 @@ import {
 import { TimelineAction } from './timeline-action';
 import { SpecificModificationUnit } from './specific-modification-unit';
 
+const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
+
 function getDocumentModificationTimelineAction(
     unit: SpecificModificationUnit<DocumentModificationUnit>
 ): TimelineAction {
@@ -59,7 +61,9 @@ function getCommentModificationTimelineAction(unit: SpecificModificationUnit<Com
 }
 
 export function getClaimModificationTimelineAction(unit: SpecificModificationUnit<ClaimModification>): TimelineAction {
-    const { ClaimModificationTypeEnum: ClaimModificationType } = ClaimModification;
+    if (!unit || !unit.modification || !unit.modification.claimModificationType) {
+        throw new Error('Modification unit is incomplete');
+    }
     switch (unit.modification.claimModificationType) {
         case ClaimModificationType.DocumentModificationUnit:
             return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<DocumentModificationUnit>);
@@ -70,5 +74,5 @@ export function getClaimModificationTimelineAction(unit: SpecificModificationUni
         case ClaimModificationType.CommentModificationUnit:
             return getCommentModificationTimelineAction(unit as SpecificModificationUnit<CommentModificationUnit>);
     }
-    console.error('Claim modification unidentified');
+    throw new Error('Claim modification unidentified');
 }

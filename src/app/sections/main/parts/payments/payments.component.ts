@@ -1,21 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { LocaleDictionaryService } from '../../../../locale';
 import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
-
-export enum PaymentPartType {
-    prestine = 'prestine',
-    onboardingPending = 'pending',
-    onboardingReview = 'review',
-    onboardingReviewed = 'reviewed',
-    accepted = 'accepted'
-}
-
-interface ContentConfig {
-    subheading: string;
-    action: string;
-}
+import { routeEnv } from '../../../route-env';
+import { PaymentPartType } from './payment-part-type';
+import { ContentConfig } from './content-config';
 
 @Component({
     selector: 'dsh-payments',
@@ -24,40 +13,18 @@ interface ContentConfig {
     providers: [PaymentsService]
 })
 export class PaymentsComponent implements OnInit {
-    @Input() type: PaymentPartType = PaymentPartType.prestine;
-    @Input() actionRouterLink = '/';
-    @Input() testEnvironmentRouterLink = '/';
-
+    actionRouterLink = `/payment-section/env/${routeEnv['1']}/operations`;
+    testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
     config: ContentConfig;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
+
     isLoading$ = this.paymentsService.isLoading$;
     hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
+    hasRealEnvironment$ = this.paymentsService.hasRealEnvironment$;
 
-    constructor(private lcService: LocaleDictionaryService, private paymentsService: PaymentsService) {}
+    constructor(private paymentsService: PaymentsService) {}
 
     ngOnInit() {
-        this.config = this.toConfig(this.type);
-    }
-
-    private toConfig(type: PaymentPartType, basePath = 'sections.main.payments'): ContentConfig {
-        const mapDict = path => this.lcService.mapDictionaryKey(`${basePath}.${path}`);
-        const mapSubheading = path => mapDict(`subheading.${path}`);
-        const mapAction = path => mapDict(`action.${path}`);
-        const toContentConf = (subheading, action) => ({
-            subheading: mapSubheading(subheading),
-            action: mapAction(action)
-        });
-        switch (type) {
-            case PaymentPartType.prestine:
-                return toContentConf('prestine', 'join');
-            case PaymentPartType.onboardingPending:
-                return toContentConf('onboardingPending', 'continue');
-            case PaymentPartType.onboardingReview:
-                return toContentConf('onboardingReview', 'claimDetails');
-            case PaymentPartType.onboardingReviewed:
-                return toContentConf('onboardingReviewed', 'claimDetails');
-            case PaymentPartType.accepted:
-                return toContentConf('prestine', 'details');
-        }
+        this.config = this.paymentsService.toContentConfig(PaymentPartType.accepted);
     }
 }

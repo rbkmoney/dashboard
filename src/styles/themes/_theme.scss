@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
+@import '../overrides/mat-select-panel';
+@import '../overrides/mat-datepicker';
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
@@ -27,6 +29,8 @@
         @include angular-material-theme($theme);
         @include mat-menu-override-theme($theme);
         @include mat-autocomplete-panel-override-theme($theme);
+        @include mat-select-panel-override-theme($theme);
+        @include mat-datepicker-override-theme($theme);
         @include dsh-container-theme($theme);
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);

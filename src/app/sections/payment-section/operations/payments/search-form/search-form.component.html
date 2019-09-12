@@ -15,8 +15,16 @@
         <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.shopID' | lc }}</mat-label>
-                <input matInput formControlName="shopID" />
+                <mat-select formControlName="shopID">
+                    <mat-option>
+                        {{ 'common.any' | lc }}
+                    </mat-option>
+                    <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
+
             <mat-form-field fxFlex>
                 <mat-label>{{ localeBaseDir + '.paymentStatus' | lc }}</mat-label>
                 <mat-select formControlName="paymentStatus">
