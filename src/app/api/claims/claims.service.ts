@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, delay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { ClaimsService as APIClaimsService, Claim, StatusModificationUnit } from '../../api-codegen/claim-management';
 import { ClaimsWithToken } from './claims-with-token';
@@ -23,10 +23,9 @@ export class ClaimsService {
 
     search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[], cacheSize = 1): Observable<Claim[]> {
         return this.searchClaims(1000, null, claimStatuses).pipe(
-            // noContinuationToken,
+            noContinuationToken,
             mapResult,
-            shareReplay(cacheSize),
-            delay(1000)
+            shareReplay(cacheSize)
         );
     }
 

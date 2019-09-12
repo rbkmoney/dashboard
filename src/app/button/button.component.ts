@@ -65,7 +65,7 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
         }
         this.colorManager = new ColorManager(renderer, button);
         new FocusManager(this.renderer).register(this.button);
-        this.glowAllowed = this.initGlowAvailability();
+        this.glowAllowed = !this.button.disabled && this.isGlowAvailable();
     }
 
     ngOnChanges({ color, disabled }: SimpleChanges) {
@@ -74,18 +74,12 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
             this.colorManager.remove(color.previousValue);
         }
         if (disabled && typeof disabled.currentValue === 'boolean') {
-            this.glowAllowed = !disabled.currentValue;
+            this.glowAllowed = !disabled.currentValue && this.isGlowAvailable();
         }
     }
 
-    private initGlowAvailability(): boolean {
-        return (
-            !this.platform.ANDROID &&
-            !this.platform.IOS &&
-            !this.isStrokedButton() &&
-            !this.isIconButton() &&
-            !this.button.disabled
-        );
+    private isGlowAvailable(): boolean {
+        return !this.platform.ANDROID && !this.platform.IOS && !this.isStrokedButton() && !this.isIconButton();
     }
 
     private isStrokedButton(): boolean {

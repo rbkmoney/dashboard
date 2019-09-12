@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { map, catchError, first } from 'rxjs/operators';
 
 import { ShopService, ClaimsService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims/claims.service';
@@ -12,12 +12,6 @@ import { booleanDelay } from '../../../../custom-operators';
 
 @Injectable()
 export class PaymentsService {
-    private claims$ = this.claimService.search1000Claims([
-        ClaimStatus.Pending,
-        ClaimStatus.PendingAcceptance,
-        ClaimStatus.Review
-    ]);
-
     subheading$: Observable<string>;
     actionBtnContent$: Observable<ActionBtnContent>;
     testEnvBtnContent$: Observable<TestEnvBtnContent>;
@@ -29,16 +23,21 @@ export class PaymentsService {
         private snackBar: MatSnackBar,
         private dicService: LocaleDictionaryService
     ) {
-        const contentConfig = toContentConf(this.shopService.shops$, this.claims$)
-            .pipe
-            // catchError(() => {
-            //     this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
-            //     return [];
-            // })
-            ();
+        const claims = this.claimService.search1000Claims([
+            ClaimStatus.Pending,
+            ClaimStatus.PendingAcceptance,
+            ClaimStatus.Review
+        ]);
+        const contentConfig = toContentConf(this.shopService.shops$, claims);
         this.actionBtnContent$ = contentConfig.pipe(map(c => c.actionBtnContent));
         this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
-        this.isLoading$ = combineLatest(this.shopService.shops$, this.claims$).pipe(booleanDelay());
+        this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
+        combineLatest(this.isLoading$, contentConfig)
+            .pipe(
+                catchError(err => of(err)),
+                first()
+            )
+            .subscribe(() => this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK'));
     }
 }
