@@ -1,40 +1,27 @@
-import { TableCell, Content, Table } from 'pdfmake/build/pdfmake';
+import { TableCell, Content } from '../../../document';
+import { Layout } from '../create-questionary';
+import { createTableBody } from './create-table-body';
 
-export function createVerticalParagraph(header: string, body: (TableCell | Content | string)[][] = [[]]): Content {
+export function createVerticalParagraph(header: string, body: TableCell[][] = [[]]): Content {
     const columnsCount = body[0].reduce(
-        (accCount, col: TableCell) => accCount + (col && col.colSpan ? col.colSpan : 1),
+        (accCount, col: TableCell) => accCount + (typeof col === 'object' && col.colSpan ? col.colSpan : 1),
         0
     );
-    const renderedBody = [
-        [
-            {
-                colSpan: columnsCount,
-                style: {
-                    color: 'white'
-                },
-                text: header
-            } as TableCell
-        ],
-        ...(body as Table['body'])
-    ];
-    /**
-     * Магия ✨ таблиц PDFMake (TODO: исправить если что-то изменится)
-     * В таблице первая колонка с `colSpan` свойством должна иметь после себя `colSpan - 1` пустых колонок
-     * похоже она использует их для расширения первой колонки
-     */
-    for (let i = 0; i < renderedBody.length; ++i) {
-        const row = renderedBody[i];
-        const [firstColumn, ...otherColumns] = row;
-        if (firstColumn && firstColumn.colSpan && firstColumn.colSpan > 1) {
-            renderedBody[i] = [firstColumn, ...new Array(firstColumn.colSpan - 1).fill(null), ...otherColumns];
+    const headerRow: TableCell[] = [
+        {
+            colSpan: columnsCount,
+            style: {
+                color: 'white'
+            },
+            text: header
         }
-    }
+    ];
     return {
-        layout: 'header',
+        layout: Layout.header,
         table: {
             widths: new Array(columnsCount).fill('*'),
             headerRows: 1,
-            body: renderedBody
+            body: createTableBody([headerRow, ...body])
         }
     };
 }

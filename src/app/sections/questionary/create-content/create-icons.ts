@@ -1,6 +1,6 @@
 import { FontFamily, Content } from '../../../document';
 
-function createIcons<T extends { [name: string]: string }>(iconsObj: T): Record<keyof T, Content> {
+export function createIcons<T extends { [name: string]: string }>(iconsObj: T): Record<keyof T, Content> {
     return Object.entries(iconsObj).reduce(
         (acc, [name, text]) => {
             acc[name] = {
@@ -14,8 +14,3 @@ function createIcons<T extends { [name: string]: string }>(iconsObj: T): Record<
         {} as any
     );
 }
-
-export const icons = createIcons({
-    checkSquare: '',
-    square: ''
-});

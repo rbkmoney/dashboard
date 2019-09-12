@@ -1,8 +1,12 @@
 import { TableLayoutFunctions } from 'pdfmake/build/pdfmake';
 
+export enum Layout {
+    header = 'header'
+}
+
 export function createTableLayouts(): { [name: string]: TableLayoutFunctions } {
     return {
-        header: {
+        [Layout.header]: {
             fillColor(idx) {
                 return idx === 0 ? '#203764' : undefined;
             },

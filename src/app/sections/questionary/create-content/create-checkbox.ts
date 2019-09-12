@@ -1,6 +1,6 @@
 import { TableCell, Content } from 'pdfmake/build/pdfmake';
 
-import { icons } from './create-icons';
+import { icons } from './icons';
 
 type Items<T extends number | string> = string[] | [T, string][];
 
