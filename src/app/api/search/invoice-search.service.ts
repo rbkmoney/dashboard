@@ -46,7 +46,7 @@ export class InvoiceSearchService {
             params.paymentAmount,
             params.invoiceAmount,
             params.excludedShops,
-            continuationToken,
+            continuationToken
         );
     }
 
