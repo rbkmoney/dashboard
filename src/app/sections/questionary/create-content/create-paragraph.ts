@@ -1,13 +1,11 @@
 import { Content, Table, cmMarginsToIn } from '../../../document';
 import { Layout } from '../create-questionary';
 import { createTableBody } from './create-table-body';
-import { PRIMARY_COLOR } from '../create-questionary/colors';
+import { PRIMARY_COLOR } from '../create-questionary';
+import { getColumnsCount } from './get-columns-count';
+import { createGrid } from './create-grid';
 
 const MARGIN = cmMarginsToIn(0, 0.1);
-
-function getColumnsCount(row: Table['body'][number]): number {
-    return row.reduce((accCount, col) => accCount + (typeof col === 'object' && col.colSpan ? col.colSpan : 1), 0);
-}
 
 export function createVerticalParagraph(header: string, body: Table['body'] = [[]]): Content {
     const columnsCount = getColumnsCount(body[0]);
@@ -53,12 +51,5 @@ export function createInlineParagraph(header: string, body: Table['body'] = [[]]
             body
         }
     };
-    return {
-        layout: Layout.wrapper,
-        margin: MARGIN,
-        table: {
-            widths: ['*', '*'],
-            body: [[headerTable, bodyTable]]
-        }
-    };
+    return { ...createGrid([headerTable, bodyTable]), margin: MARGIN };
 }

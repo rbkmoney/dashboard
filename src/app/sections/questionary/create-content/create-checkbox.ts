@@ -1,5 +1,6 @@
 import { icons } from './icons';
 import { Content } from '../../../document';
+import { Layout } from '../create-questionary';
 
 type Items<T extends number | string> = string[] | [T, string][];
 
@@ -36,6 +37,9 @@ export function createInlineCheckboxWithTitle<T extends number>(
     };
 }
 
+export const createInlineCheckbox = <T extends number>(items: Items<T>, active?: T) =>
+    createInlineCheckboxWithTitle(undefined, items, active);
+
 export function createVerticalCheckboxWithTitle<T extends number>(
     title: string,
     itemsSrc: Items<T>,
@@ -48,16 +52,13 @@ export function createVerticalCheckboxWithTitle<T extends number>(
             : (item, idx) => [createCheckbox(item, active === idx)]
     );
     return {
-        layout: 'noBorders',
+        layout: Layout.noBorders,
         table: {
             widths: ['auto', '*'],
             body
         }
     };
 }
-
-export const createInlineCheckbox = <T extends number>(items: Items<T>, active?: T) =>
-    createInlineCheckboxWithTitle(undefined, items, active);
 
 export const createVerticalCheckbox = <T extends number>(items: Items<T>, active?: T) =>
     createVerticalCheckboxWithTitle(undefined, items, active);
