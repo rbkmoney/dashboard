@@ -8,9 +8,9 @@ import {
 import { getData } from './get-data';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
 import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType, AccountingType } from '../select-data';
-import { Data } from '../create-questionary';
+import { DocDef } from '../create-questionary';
 
-export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
+export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {
         content: [
             createHeader('Приложение №'),

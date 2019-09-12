@@ -2,11 +2,11 @@ import { TableLayoutFunctions, TDocumentDefinitions, PageSize } from 'pdfmake/bu
 
 import { createStyles, createDefaultStyle } from './create-styles';
 import { createTableLayouts } from './create-table-layouts';
-import { Data } from './data';
+import { DocDef } from './doc-def';
 import { cmMarginsToIn } from '../../../document/cm-margins-to-in';
 import { createFooter } from './create-footer';
 
-export function createQuestionary(data: Data): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
+export function createQuestionary(data: DocDef): [TDocumentDefinitions, { [name: string]: TableLayoutFunctions }] {
     const leftMarginCm = 3;
     const topMarginCm = 2;
     const rightMarginCm = 1.5;

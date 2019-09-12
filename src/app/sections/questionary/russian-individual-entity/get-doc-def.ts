@@ -1,4 +1,4 @@
-import { Data } from '../create-questionary';
+import { DocDef } from '../create-questionary';
 import { getData } from './get-data';
 import {
     createVerticalCheckboxWithTitle,
@@ -11,7 +11,7 @@ import {
 } from '../create-content';
 import { YesNo, AccountingType, MonthOperationCount, MonthOperationSum, DocumentType } from '../select-data';
 
-export function getTemplateWithData(data: ReturnType<typeof getData>): Data {
+export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {
         content: [
             createHeader('Приложение №'),

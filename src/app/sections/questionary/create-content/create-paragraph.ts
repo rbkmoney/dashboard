@@ -28,13 +28,14 @@ export function createVerticalParagraph(header: string, body: Table['body'] = [[
 export function createInlineParagraph(header: string, body: Table['body'] = [[]]): Content {
     const headerRow: Table['body'][number] = [
         {
-            rowSpan: body.length,
-            style: { color: 'white' },
-            text: header
+            // rowSpan: body.length,
+            // style: { color: 'white' },
+            text: header,
+            fillColor: '#555555'
         }
     ];
     return {
-        layout: Layout.header,
+        layout: Layout.noBorders,
         table: {
             widths: ['*', '*'],
             headerRows: 1,

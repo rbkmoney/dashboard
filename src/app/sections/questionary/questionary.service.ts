@@ -8,7 +8,7 @@ import { QuestionaryService as QuestionaryApiService } from '../../api/questiona
 import { createQuestionary } from './create-questionary';
 import { Snapshot } from '../../api-codegen/questionary';
 import { getEntityQuestionaryTemplate } from './get-entity-questionary-template';
-import { getTemplateWithData, getData } from './beneficial-owner';
+import { getDocDef, getData } from './beneficial-owner';
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class QuestionaryService {
             switchMap(({ questionary }) =>
                 this.documentService.createPdf(
                     ...createQuestionary(
-                        getTemplateWithData(
+                        getDocDef(
                             getData(
                                 (questionary as RussianIndividualEntityQuestionary).data.contractor.individualEntity
                                     .beneficialOwners[0]
