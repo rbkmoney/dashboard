@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material';
 import { TestBed } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { HeadlineComponent } from './headline.component';
@@ -15,7 +15,10 @@ describe('HeadlineComponent', () => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FlexLayoutModule, MatIconModule],
             declarations: [HeadlineComponent, TestHeadlineComponent, LocalePipe],
-            providers: [{ provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }]
+            providers: [
+                { provide: Location, useValue: {} },
+                { provide: LocaleDictionaryService, useValue: { mapDictionaryKey: value => value } }
+            ]
         });
 
         const fixture = TestBed.createComponent(TestHeadlineComponent);
