@@ -26,6 +26,13 @@ const dummyRefund: RefundSearchResult = {
     reason: 'test reason'
 };
 
+@Component({
+    template: '<dsh-refund-item [refund]="refund"></dsh-refund-item>'
+})
+class TestRefundItemComponent {
+    refund = dummyRefund;
+}
+
 describe('RefundItemComponent', () => {
     let component: HTMLElement;
 
@@ -66,10 +73,3 @@ describe('RefundItemComponent', () => {
         expect(product.innerHTML).toContain('test reason');
     });
 });
-
-@Component({
-    template: '<dsh-refund-item [refund]="refund"></dsh-refund-item>'
-})
-class TestRefundItemComponent {
-    refund = dummyRefund;
-}

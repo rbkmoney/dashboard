@@ -30,6 +30,14 @@ const dummyRefund: RefundSearchResult = {
     reason: 'test reason'
 };
 
+@Component({
+    template: '<dsh-refunds [invoiceID]="invoiceID" [paymentID]="paymentID"></dsh-refunds>'
+})
+class TestRefundsComponent {
+    invoiceID = 'testInvoice';
+    paymentID = 'testPayment';
+}
+
 describe('RefundsComponent', () => {
     let component: HTMLElement;
 
@@ -63,15 +71,6 @@ describe('RefundsComponent', () => {
     });
 
     it('should create component', () => {
-        console.log(component);
         expect(component).toBeTruthy();
     });
 });
-
-@Component({
-    template: '<dsh-refunds [invoiceID]="invoiceID" [paymentID]="paymentID"></dsh-refunds>'
-})
-class TestRefundsComponent {
-    invoiceID = 'testInvoice';
-    paymentID = 'testPayment';
-}

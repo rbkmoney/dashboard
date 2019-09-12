@@ -32,6 +32,13 @@ const dummyShop: Shop = {
     contractID: 'testContract'
 };
 
+@Component({
+    template: '<dsh-shop-details [shopID]="shopID"></dsh-shop-details>'
+})
+class TestShopDetailsComponent {
+    shopID = 'test';
+}
+
 describe('ShopDetailsComponent', () => {
     let component: HTMLElement;
 
@@ -74,10 +81,3 @@ describe('ShopDetailsComponent', () => {
         expect(url).toBeTruthy();
     });
 });
-
-@Component({
-    template: '<dsh-shop-details [shopID]="shopID"></dsh-shop-details>'
-})
-class TestShopDetailsComponent {
-    shopID = 'test';
-}

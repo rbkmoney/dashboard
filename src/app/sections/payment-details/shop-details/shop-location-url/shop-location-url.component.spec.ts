@@ -10,6 +10,16 @@ import { LocalePipe } from '../../../../locale/locale.pipe';
 import { ShopLocationUrl } from '../../../../api-codegen/capi/swagger-codegen';
 import { DetailsItemComponent } from '../../details-item';
 
+@Component({
+    template: '<dsh-shop-location-url [shopLocationUrl]="shopLocationUrl"></dsh-shop-location-url>'
+})
+class TestShopLocationUrlComponent {
+    shopLocationUrl: ShopLocationUrl = {
+        locationType: 'ShopLocationUrl',
+        url: 'url.test'
+    };
+}
+
 describe('ShopLocationUrlComponent', () => {
     let component: HTMLElement;
 
@@ -33,13 +43,3 @@ describe('ShopLocationUrlComponent', () => {
         expect(component.innerHTML).toContain('url.test');
     });
 });
-
-@Component({
-    template: '<dsh-shop-location-url [shopLocationUrl]="shopLocationUrl"></dsh-shop-location-url>'
-})
-class TestShopLocationUrlComponent {
-    shopLocationUrl: ShopLocationUrl = {
-        locationType: 'ShopLocationUrl',
-        url: 'url.test'
-    };
-}
