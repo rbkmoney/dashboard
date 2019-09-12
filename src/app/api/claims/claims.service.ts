@@ -26,7 +26,7 @@ export class ClaimsService {
             // noContinuationToken,
             mapResult,
             shareReplay(cacheSize),
-            delay(2500)
+            delay(1000)
         );
     }
 
