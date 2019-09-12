@@ -27,18 +27,18 @@ export function createInlineCheckboxWithTitle<T extends number>(
 ): Content {
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
     const text = items
-        .reduce((prev, item, idx) => {
-            prev.push(createCheckbox(item, active === idx), '    ');
-            return prev;
-        }, [])
+        .reduce((prev, item, idx) => [...prev, createCheckbox(item, active === idx), '    '], [])
         .slice(0, -1);
-    return {
-        text: title ? [`${title}:    `, ...text] : text
-    };
+    return { text: [`${title}:    `, ...text] };
 }
 
-export const createInlineCheckbox = <T extends number>(items: Items<T>, active?: T) =>
-    createInlineCheckboxWithTitle(undefined, items, active);
+export function createInlineCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
+    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
+    const text = items
+        .reduce((prev, item, idx) => [...prev, createCheckbox(item, active === idx), '    '], [])
+        .slice(0, -1);
+    return { text };
+}
 
 export function createVerticalCheckboxWithTitle<T extends number>(
     title: string,
@@ -46,19 +46,22 @@ export function createVerticalCheckboxWithTitle<T extends number>(
     activeSrc?: T
 ): Content {
     const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
-    const body = items.map(
-        title
-            ? (item, idx) => [idx === 0 ? title : '', createCheckbox(item, active === idx)]
-            : (item, idx) => [createCheckbox(item, active === idx)]
-    );
     return {
         layout: Layout.noBorders,
         table: {
             widths: ['auto', '*'],
-            body
+            body: items.map((item, idx) => [idx === 0 ? title : null, createCheckbox(item, active === idx)])
         }
     };
 }
 
-export const createVerticalCheckbox = <T extends number>(items: Items<T>, active?: T) =>
-    createVerticalCheckboxWithTitle(undefined, items, active);
+export function createVerticalCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
+    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
+    return {
+        layout: Layout.noBorders,
+        table: {
+            widths: ['auto', '*'],
+            body: items.map((item, idx) => [createCheckbox(item, active === idx)])
+        }
+    };
+}
