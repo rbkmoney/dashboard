@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { Claim } from '../../../../../api-codegen/claim-management';
 
-export const takeTargetClaim = (s: Observable<[Claim[], Claim[], Claim[]]>): Observable<Claim | null> =>
+export const takeClaimByPriority = (s: Observable<[Claim[], Claim[], Claim[]]>): Observable<Claim | null> =>
     s.pipe(
         map(([pending, pendingAcceptance, review]) => {
             if (pending.length > 0) {
