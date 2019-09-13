@@ -7,6 +7,7 @@
     -   To get more help use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 -   [Angular Material](https://material.angular.io/)
 -   [Prettier](https://prettier.io/)
+-   [PDFMake](https://pdfmake.github.io/docs/)
 
 ## Initialization
 

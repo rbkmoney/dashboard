@@ -1,12 +1,12 @@
-import { BeneficialOwner, RussianDomesticPassport, IndividualResidencyInfo } from '../../../api-codegen/questionary';
+import { BeneficialOwner, RussianDomesticPassport } from '../../../api-codegen/questionary';
 import { getFIO, toYesNo, getContactInfo } from '../select-data';
+import { getResidencyInfo } from './get-residency-info';
 
 export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
     console.log(beneficialOwner);
     const { russianPrivateEntity, migrationCardInfo, residenceApprove } = beneficialOwner;
     const identityDocument = beneficialOwner.identityDocument as RussianDomesticPassport;
-    // TODO: определять тип
-    const residencyInfo = beneficialOwner.residencyInfo as IndividualResidencyInfo;
+    const residencyInfo = getResidencyInfo(beneficialOwner.residencyInfo);
     return {
         companyName,
         indicatedInDocuments: -1, // TODO
