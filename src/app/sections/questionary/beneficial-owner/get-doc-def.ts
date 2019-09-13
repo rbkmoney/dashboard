@@ -10,11 +10,20 @@ import {
     createHorizontalCheckbox
 } from '../create-content';
 import { YesNo } from '../select-data';
+import { createCaptionedText } from '../create-content/create-captioned-text';
+import { cmToIn } from '../../../document';
 
 export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {
         content: [
             createHeader('Приложение №'),
+            {
+                columns: [
+                    { ...createCaptionedText(data.companyName, 'Наименование вашей компании'), width: 'auto' },
+                    { ...createCaptionedText(data.inn, 'ИНН'), width: 'auto' }
+                ],
+                columnGap: cmToIn(2)
+            },
             createHeadline('АНКЕТА ФИЗИЧЕСКОГО ЛИЦА - БЕНЕФИЦИАРНОГО ВЛАДЕЛЬЦА'),
             createVerticalParagraph('1. Бенефициарный владелец', [
                 [

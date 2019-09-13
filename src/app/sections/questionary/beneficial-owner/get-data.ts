@@ -1,13 +1,14 @@
 import { BeneficialOwner, RussianDomesticPassport, IndividualResidencyInfo } from '../../../api-codegen/questionary';
 import { getFIO, toYesNo, getContactInfo } from '../select-data';
 
-export function getData(beneficialOwner: BeneficialOwner) {
+export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
     console.log(beneficialOwner);
     const { russianPrivateEntity, migrationCardInfo, residenceApprove } = beneficialOwner;
     const identityDocument = beneficialOwner.identityDocument as RussianDomesticPassport;
     // TODO: определять тип
     const residencyInfo = beneficialOwner.residencyInfo as IndividualResidencyInfo;
     return {
+        companyName,
         indicatedInDocuments: -1, // TODO
         ownershipPercentage: beneficialOwner.ownershipPercentage,
         fio: getFIO(russianPrivateEntity.personAnthroponym),

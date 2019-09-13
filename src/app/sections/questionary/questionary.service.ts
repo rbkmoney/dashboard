@@ -42,7 +42,8 @@ export class QuestionaryService {
                         getDocDef(
                             getData(
                                 (questionary as RussianIndividualEntityQuestionary).data.contractor.individualEntity
-                                    .beneficialOwners[0]
+                                    .beneficialOwners[0],
+                                'Test'
                             )
                         )
                     )
