@@ -22,6 +22,8 @@ export class QuestionaryComponent {
     }
 
     downloadBeneficialOwnerDocument() {
-        this.questionaryService.createBeneficialOwnerDoc().subscribe(doc => doc.download('beneficial-owner'));
+        this.questionaryService
+            .createBeneficialOwnerDoc()
+            .subscribe(docs => docs.forEach(doc => doc.download('beneficial-owner')));
     }
 }
