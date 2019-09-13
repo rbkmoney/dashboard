@@ -1,13 +1,13 @@
 import { DocDef } from '../create-questionary';
 import { getData } from './get-data';
 import {
-    createInlineCheckbox,
     createVerticalParagraph,
     createHeader,
     createHeadline,
     createEnding,
     createInlineCheckboxWithTitle,
-    createInlineParagraph
+    createInlineParagraph,
+    createHorizontalCheckbox
 } from '../create-content';
 import { YesNo } from '../select-data';
 
@@ -18,7 +18,7 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
             createHeadline('АНКЕТА ФИЗИЧЕСКОГО ЛИЦА - БЕНЕФИЦИАРНОГО ВЛАДЕЛЬЦА'),
             createVerticalParagraph('1. Бенефициарный владелец', [
                 [
-                    createInlineCheckbox(
+                    createHorizontalCheckbox(
                         [
                             'лицо, не указанное в учредительных документах/выписке ЕГРЮЛ/списке участников/реестре акционеров, но которое косвенно владеет более 25% в капитале компании или контролирует действия компании',
                             'лицо, указанное в учредительных документах/выписке ЕГРЮЛ/списке участников/реестре акционеров (участник/акционер), владеющее в конечном счете более 25% в капитале компании'

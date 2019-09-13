@@ -1,6 +1,7 @@
 import { icons } from './icons';
 import { Content } from '../../../document';
 import { Layout } from '../create-questionary';
+import { createGrid } from './create-grid';
 
 type Items<T extends number | string> = string[] | [T, string][];
 
@@ -38,6 +39,11 @@ export function createInlineCheckbox<T extends number>(itemsSrc: Items<T>, activ
         .reduce((prev, item, idx) => [...prev, createCheckbox(item, active === idx), '    '], [])
         .slice(0, -1);
     return { text };
+}
+
+export function createHorizontalCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
+    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
+    return createGrid(items.map((item, idx) => createCheckbox(item, active === idx)), 0.25);
 }
 
 export function createVerticalCheckboxWithTitle<T extends number>(
