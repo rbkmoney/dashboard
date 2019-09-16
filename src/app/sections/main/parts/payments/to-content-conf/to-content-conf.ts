@@ -1,5 +1,5 @@
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { map, shareReplay, tap, startWith, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map, shareReplay, tap, startWith } from 'rxjs/operators';
 import isEmpty from 'lodash/isEmpty';
 import negate from 'lodash/negate';
 
