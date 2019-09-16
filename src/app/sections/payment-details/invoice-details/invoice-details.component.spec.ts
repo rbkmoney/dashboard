@@ -66,7 +66,7 @@ describe('InvoiceDetailsComponent', () => {
 
         fixture = TestBed.createComponent(TestInvoiceDetailsComponent);
         fixture.detectChanges();
-        items = fixture.debugElement.query(By.directive(InvoiceDetailsComponent)).nativeElement;
+        items = fixture.debugElement.queryAll(By.directive(InvoiceDetailsComponent));
     });
 
     it('should create component', () => {
