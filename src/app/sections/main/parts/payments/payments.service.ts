@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest, of } from 'rxjs';
-import { map, catchError, first } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ShopService, ClaimsService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims/claims.service';
 import { toContentConf } from './to-content-conf';
 import { LocaleDictionaryService } from '../../../../locale';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
-import { booleanDelay } from '../../../../custom-operators';
+import { booleanDelay, takeError } from '../../../../custom-operators';
 
 @Injectable()
 export class PaymentsService {
@@ -34,13 +34,7 @@ export class PaymentsService {
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
         combineLatest(this.isLoading$, contentConfig)
-            .pipe(
-                first(),
-                catchError(err => {
-                    this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK');
-                    return of(err);
-                })
-            )
-            .subscribe();
+            .pipe(takeError)
+            .subscribe(() => this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK'));
     }
 }

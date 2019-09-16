@@ -1,5 +1,5 @@
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { map, shareReplay, tap, startWith, catchError } from 'rxjs/operators';
 import isEmpty from 'lodash/isEmpty';
 import negate from 'lodash/negate';
 
@@ -47,6 +47,7 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
     );
     const state = new BehaviorSubject<ContentConfig>(initialConf);
     return applyToSate(state.asObservable(), actionBtnContent$, subheading$, testEnvBtnContent$).pipe(
+        startWith(initialConf),
         tap(r => state.next(r))
     );
 };
