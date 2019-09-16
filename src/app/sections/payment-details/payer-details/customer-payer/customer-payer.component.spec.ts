@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 
 import { CustomerPayer } from '../../../../api-codegen/capi/swagger-codegen';
 import { LocaleDictionaryService } from '../../../../locale/locale-dictionary';
@@ -31,7 +32,7 @@ describe('CustomerPayerComponent', () => {
 
         const fixture = TestBed.createComponent(TestCustomerPayerComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-customer-payer');
+        component = fixture.debugElement.query(By.directive(CustomerPayerComponent)).nativeElement;
     });
 
     it('should create component', () => {

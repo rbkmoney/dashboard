@@ -13,7 +13,7 @@ export class LanguageService {
     active: Language;
 
     constructor(private settingsService: SettingsService) {
-        const language = this.settingsService.get(LanguageService.KEY);
+        const language = this.settingsService.get<Language>(LanguageService.KEY);
         const correctedLanguage = this.getCorrectLanguage(language);
         this.change(correctedLanguage);
     }
@@ -23,14 +23,13 @@ export class LanguageService {
         registerLocaleData(angularLocaleData[language], language);
         this.settingsService.set(LanguageService.KEY, language);
         this.active = language;
-        console.log(language);
     }
 
-    private getCorrectLanguage(language: Language | string): Language {
+    private getCorrectLanguage(language: Language): Language {
         if (!Object.values(Language).includes(language)) {
             return this.getRecommended();
         }
-        return language as Language;
+        return language;
     }
 
     private getRecommended(): Language {

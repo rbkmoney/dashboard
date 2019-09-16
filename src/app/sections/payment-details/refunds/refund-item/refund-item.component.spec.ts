@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { MatIconModule } from '@angular/material';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 
 import { RefundItemComponent } from './refund-item.component';
 import { RefundSearchResult, RefundStatus } from '../../../../api-codegen/capi/swagger-codegen';
@@ -14,6 +15,7 @@ import { StatusComponent } from '../../../../status';
 import { LocaleDictionaryService } from '../../../../locale/locale-dictionary';
 import { LAYOUT_GAP } from '../../../constants';
 import { FromMinorPipe } from '../../../../view-utils';
+import { getDebugItemFromArray } from '../../get-debug-item-from-array';
 
 const dummyRefund: RefundSearchResult = {
     id: '',
@@ -34,7 +36,8 @@ class TestRefundItemComponent {
 }
 
 describe('RefundItemComponent', () => {
-    let component: HTMLElement;
+    let fixture: ComponentFixture<TestRefundItemComponent>;
+    let items: DebugElement[];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -54,22 +57,23 @@ describe('RefundItemComponent', () => {
             ]
         });
 
-        const fixture = TestBed.createComponent(TestRefundItemComponent);
+        fixture = TestBed.createComponent(TestRefundItemComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-refund-item');
+        items = fixture.debugElement.queryAll(By.directive(DetailsItemComponent));
     });
 
     it('should create component', () => {
+        const component = fixture.debugElement.query(By.directive(RefundItemComponent)).nativeElement;
         expect(component).toBeTruthy();
     });
 
     it('should show amount', () => {
-        const amount = component.querySelector('#refundAmount');
-        expect(amount.innerHTML).toContain('10.00');
+        const amount = getDebugItemFromArray(items, 'amount');
+        expect(amount.nativeElement.innerHTML).toContain('10.00');
     });
 
     it('should show reason', () => {
-        const product = component.querySelector('#reason');
-        expect(product.innerHTML).toContain('test reason');
+        const product = getDebugItemFromArray(items, 'reason');
+        expect(product.nativeElement.innerHTML).toContain('test reason');
     });
 });

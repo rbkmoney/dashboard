@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { MatIconModule } from '@angular/material';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 
 import { ShopDetailsComponent } from './shop-details.component';
@@ -40,7 +41,8 @@ class TestShopDetailsComponent {
 }
 
 describe('ShopDetailsComponent', () => {
-    let component: HTMLElement;
+    let fixture: ComponentFixture<TestShopDetailsComponent>;
+    let component: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -63,21 +65,22 @@ describe('ShopDetailsComponent', () => {
             ]
         });
 
-        const fixture = TestBed.createComponent(TestShopDetailsComponent);
+        fixture = TestBed.createComponent(TestShopDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-shop-details');
+        component = fixture.debugElement.query(By.directive(ShopDetailsComponent));
     });
 
     it('should create component', () => {
-        expect(component).toBeTruthy();
+        expect(component.nativeElement).toBeTruthy();
     });
 
     it('should contain shop name', () => {
-        expect(component.innerHTML).toContain('TestShop');
+        const name = component.query(By.directive(DetailsItemComponent)).nativeElement;
+        expect(name.innerHTML).toContain('TestShop');
     });
 
     it('should show url', () => {
-        const url = component.querySelector('dsh-shop-location-url');
+        const url = component.query(By.directive(ShopLocationUrlComponent)).nativeElement;
         expect(url).toBeTruthy();
     });
 });

@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { MatIconModule } from '@angular/material';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
+import { StatusDetailsItemComponent } from '../status-details-item';
 import { LocalePipe } from '../../../locale/locale.pipe';
-import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 import { InvoiceDetailsComponent } from './invoice-details.component';
 import { InvoiceDetailsService } from './invoice-details.service';
 import { Invoice } from '../../../api-codegen/capi/swagger-codegen';
 import { CardModule } from '../../../layout/card';
-import { StatusDetailsItemComponent } from '../status-details-item';
+import { LocaleDictionaryService } from '../../../locale/locale-dictionary';
 import { DetailsItemComponent } from '../details-item';
 import { FromMinorPipe } from '../../../view-utils';
 import { StatusComponent } from '../../../status';
 import { InvoiceSearchService } from '../../../api/search';
 import { LAYOUT_GAP } from '../../constants';
+import { getDebugItemFromArray } from '../get-debug-item-from-array';
 
 const dummyInvoice: Invoice = {
     id: 'test',
@@ -36,7 +38,8 @@ const dummyInvoice: Invoice = {
 class TestInvoiceDetailsComponent {}
 
 describe('InvoiceDetailsComponent', () => {
-    let component: HTMLElement;
+    let fixture: ComponentFixture<TestInvoiceDetailsComponent>;
+    let items: DebugElement[];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -61,22 +64,23 @@ describe('InvoiceDetailsComponent', () => {
             ]
         });
 
-        const fixture = TestBed.createComponent(TestInvoiceDetailsComponent);
+        fixture = TestBed.createComponent(TestInvoiceDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-invoice-details');
+        items = fixture.debugElement.query(By.directive(InvoiceDetailsComponent)).nativeElement;
     });
 
     it('should create component', () => {
+        const component = fixture.debugElement.query(By.directive(InvoiceDetailsComponent)).nativeElement;
         expect(component).toBeTruthy();
     });
 
     it('should show amount', () => {
-        const amount = component.querySelector('#amount');
-        expect(amount.innerHTML).toContain('10.00');
+        const amount = getDebugItemFromArray(items, 'amount');
+        expect(amount.nativeElement.innerHTML).toContain('10.00');
     });
 
     it('should show product', () => {
-        const product = component.querySelector('#product');
-        expect(product.innerHTML).toContain('test product');
+        const product = getDebugItemFromArray(items, 'product');
+        expect(product.nativeElement.innerHTML).toContain('test product');
     });
 });

@@ -1,23 +1,28 @@
-import { APP_INITIALIZER, Component } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { APP_INITIALIZER, Component, DebugElement } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { KeycloakService } from 'keycloak-angular';
-import moment from 'moment';
 
 import { PayerType } from '../payer-details';
-import { CustomerPayer, PaymentFlowInstant, PaymentSearchResult } from '../../../api-codegen/capi/swagger-codegen';
-import { PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
+import {
+    CustomerPayer,
+    PaymentFlowInstant,
+    PaymentSearchResult,
+    PaymentStatus
+} from '../../../api-codegen/capi/swagger-codegen';
 import { StatusModule } from '../../../status';
 import { ViewUtilsModule } from '../../../view-utils';
 import { Language, LanguageService, LocaleDictionaryService, LocaleModule } from '../../../locale';
-import { CardModule } from '../../../layout/card';
+import { CardComponent, CardModule } from '../../../layout/card';
 import { DetailsComponent } from './details.component';
 import { DetailsItemComponent } from '../details-item';
 import { StatusDetailsItemComponent } from '../status-details-item';
 import { LAYOUT_GAP } from '../../constants';
 import { ConfigService } from '../../../config';
 import { initializer } from '../../../initializer';
+import { getDebugItemFromArray } from '../get-debug-item-from-array';
 
 @Component({
     template: '<dsh-details [payment]="dummyPayment"></dsh-details>'
@@ -36,7 +41,7 @@ class TestDetailsComponent {
         id: '100',
         status: PaymentStatus.StatusEnum.Pending,
         invoiceID: 'testInvoiceID',
-        createdAt: moment().format() as any,
+        createdAt: '2007-01-01T12:12:12Z' as any,
         amount: 1000,
         currency: 'RUB',
         payer: this.dummyPayer,
@@ -45,7 +50,8 @@ class TestDetailsComponent {
 }
 
 describe('TestDetailsComponent', () => {
-    let component: HTMLElement;
+    let fixture: ComponentFixture<TestDetailsComponent>;
+    let items: DebugElement[];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -60,7 +66,6 @@ describe('TestDetailsComponent', () => {
                     useValue: { init: () => '', mapDictionaryKey: value => value, toLowerCase: value => value }
                 },
                 { provide: LanguageService, useValue: { active: Language.ru } },
-                { provide: DatePipe, useValue: { transform: value => value } },
                 {
                     provide: APP_INITIALIZER,
                     useFactory: initializer,
@@ -70,32 +75,33 @@ describe('TestDetailsComponent', () => {
             ]
         });
 
-        const fixture = TestBed.createComponent(TestDetailsComponent);
+        fixture = TestBed.createComponent(TestDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-card');
+        items = fixture.debugElement.queryAll(By.directive(DetailsItemComponent));
     });
 
     it('should create component', () => {
+        const component = fixture.debugElement.query(By.directive(CardComponent)).nativeElement;
         expect(component).toBeTruthy();
     });
 
     it('should show status', () => {
-        const status = component.querySelector('dsh-details-status-item');
+        const status = fixture.debugElement.query(By.directive(StatusDetailsItemComponent)).nativeElement;
         expect(status).toBeTruthy();
     });
 
     it('should show createdAt', () => {
-        const createdAt = component.querySelector('#createdAt');
-        expect(createdAt).toBeTruthy();
+        const createdAt = getDebugItemFromArray(items, 'createdAt');
+        expect(createdAt.nativeElement.innerHTML).toContain('01 January 2007, 15:12');
     });
 
     it('should show amount', () => {
-        const amount = component.querySelector('#amount');
-        expect(amount).toBeTruthy();
+        const amount = getDebugItemFromArray(items, 'amount');
+        expect(amount.nativeElement.innerHTML).toContain('10.00');
     });
 
     it('should show chargeAmount', () => {
-        const chargeAmount = component.querySelector('#chargeAmount');
-        expect(chargeAmount).toBeTruthy();
+        const chargeAmount = getDebugItemFromArray(items, 'chargeAmount');
+        expect(chargeAmount.nativeElement.innerHTML).toContain('10.00');
     });
 });

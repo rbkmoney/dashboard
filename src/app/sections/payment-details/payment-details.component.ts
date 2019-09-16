@@ -18,7 +18,7 @@ export class PaymentDetailsComponent implements OnInit {
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(public paymentDetailsService: PaymentDetailsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
+    constructor(private paymentDetailsService: PaymentDetailsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnInit() {
         this.payment$ = this.paymentDetailsService.getPayment();

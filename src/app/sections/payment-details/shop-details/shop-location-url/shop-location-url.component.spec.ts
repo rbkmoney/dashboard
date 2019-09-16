@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 
 import { ShopLocationUrlComponent } from './shop-location-url.component';
 import { LocaleDictionaryService } from '../../../../locale/locale-dictionary';
@@ -32,7 +33,7 @@ describe('ShopLocationUrlComponent', () => {
 
         const fixture = TestBed.createComponent(TestShopLocationUrlComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-shop-location-url');
+        component = fixture.debugElement.query(By.directive(ShopLocationUrlComponent)).nativeElement;
     });
 
     it('should create component', () => {

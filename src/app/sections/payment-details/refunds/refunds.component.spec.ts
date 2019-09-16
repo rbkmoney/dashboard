@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
 import { LAYOUT_GAP } from '../../constants';
@@ -20,7 +21,7 @@ import { RefundSearchService } from '../../../api/search';
 import { RefundsService } from './refunds.service';
 
 const dummyRefund: RefundSearchResult = {
-    id: '',
+    id: 'test',
     paymentID: 'testPayment',
     invoiceID: 'testInvoice',
     status: RefundStatus.StatusEnum.Succeeded,
@@ -67,7 +68,7 @@ describe('RefundsComponent', () => {
 
         const fixture = TestBed.createComponent(TestRefundsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-refunds');
+        component = fixture.debugElement.query(By.directive(RefundsComponent)).nativeElement;
     });
 
     it('should create component', () => {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { By } from '@angular/platform-browser';
 
 import { DetailsItemComponent } from './details-item.component';
 
@@ -21,7 +22,7 @@ describe('DetailsItemComponent', () => {
 
         const fixture = TestBed.createComponent(TestDetailsItemComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('dsh-details-item');
+        component = fixture.debugElement.query(By.directive(DetailsItemComponent)).nativeElement;
     });
 
     it('should create component', () => {

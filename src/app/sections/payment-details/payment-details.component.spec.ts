@@ -1,8 +1,10 @@
 import { CommonModule, Location } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import moment from 'moment';
 
@@ -80,7 +82,8 @@ const dummyInvoice: Invoice = {
 };
 
 describe('PaymentDetailsComponent', () => {
-    let component: HTMLElement;
+    let fixture: ComponentFixture<PaymentDetailsComponent>;
+    let component: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -130,37 +133,37 @@ describe('PaymentDetailsComponent', () => {
             ]
         });
 
-        const fixture = TestBed.createComponent(PaymentDetailsComponent);
+        fixture = TestBed.createComponent(PaymentDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement.querySelector('.dsh-payment-details');
+        component = fixture.debugElement.query(By.css('.dsh-payment-details'));
     });
 
     it('should create component', () => {
-        expect(component).toBeTruthy();
+        expect(component.nativeElement).toBeTruthy();
     });
 
     it('should show headline', () => {
-        const headline = component.querySelector('dsh-headline');
+        const headline = component.query(By.directive(HeadlineComponent)).nativeElement;
         expect(headline).toBeTruthy();
     });
 
     it('should show details', () => {
-        const details = component.querySelector('dsh-details');
+        const details = component.query(By.directive(DetailsComponent)).nativeElement;
         expect(details).toBeTruthy();
     });
 
     it('should show payer details', () => {
-        const payerDetails = component.querySelector('dsh-payer-details');
+        const payerDetails = component.query(By.directive(PayerDetailsComponent)).nativeElement;
         expect(payerDetails).toBeTruthy();
     });
 
     it('should show invoice details', () => {
-        const invoiceDetails = component.querySelector('dsh-invoice-details');
+        const invoiceDetails = component.query(By.directive(InvoiceDetailsComponent)).nativeElement;
         expect(invoiceDetails).toBeTruthy();
     });
 
     it('should show refunds', () => {
-        const refunds = component.querySelector('dsh-refunds');
+        const refunds = component.query(By.directive(RefundsComponent)).nativeElement;
         expect(refunds).toBeTruthy();
     });
 });

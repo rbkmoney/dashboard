@@ -12,8 +12,8 @@ export class SettingsService {
         }
     }
 
-    get(key: string): string {
-        return localStorage.getItem(this.getKeyName(key));
+    get<T extends string = string>(key: string): T {
+        return localStorage.getItem(this.getKeyName(key)) as T;
     }
 
     private getKeyName(name: string) {

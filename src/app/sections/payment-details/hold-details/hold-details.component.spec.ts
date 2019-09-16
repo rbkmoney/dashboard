@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { By } from '@angular/platform-browser';
 import moment from 'moment';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -55,7 +56,7 @@ describe('HoldDetailsComponent', () => {
 
         const fixture = TestBed.createComponent(TestHoldDetailsComponent);
         fixture.detectChanges();
-        component = fixture.nativeElement;
+        component = fixture.debugElement.query(By.directive(HoldDetailsComponent)).nativeElement;
     });
 
     it('should create component', () => {
