@@ -1,7 +1,7 @@
 <div class="mat-headline headline" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
     <mat-icon *ngIf="isBackAvailable" class="back" (click)="back()">arrow_back</mat-icon>
     <div>
-        {{ 'sections.paymentDetails.title' | lc }}
+        {{ 'sections.paymentDetails.title' | transloco }}
         <span dshSecondaryTitle>#{{ paymentID }}</span>
     </div>
 </div>

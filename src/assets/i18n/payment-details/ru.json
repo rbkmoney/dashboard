@@ -1,0 +1,86 @@
+{
+    "title": "Детали платежа",
+    "statusDetailItem": {
+        "status": "Статус"
+    },
+    "details": {
+        "titles": {
+            "chargeAmount": "Сумма зачисления",
+            "rrn": "Retrieval Reference Number",
+            "approvalCode": "Authorization Approval Code",
+            "spid": "SPID",
+            "createdAt": "Платеж создан",
+            "amount": "Сумма списания",
+            "error": "Ошибка проведения платежа",
+            "statusChangedAt": "Статус изменен",
+            "fee": "Комиссия"
+        }
+    },
+    "paymentTool": {
+        "title": "Средство оплаты",
+        "titles": {
+            "card": "Банковская карта",
+            "digitalWalletType": "Цифровой кошелек",
+            "phoneNumber": "Номер телефона",
+            "terminal": "Платежный терминал"
+        }
+    },
+    "payerDetails": {
+        "title": "Плательщик",
+        "titles": {
+            "fingerprint": "Fingerprint",
+            "ip": "IP",
+            "customerID": "Customer ID",
+            "email": "Электронная почта",
+            "phoneNumber": "Номер телефона",
+            "invoiceID": "Идентификатор родительского инвойса",
+            "paymentID": "Идентификатор родительского платежа"
+        }
+    },
+    "holdDetails": {
+        "title": "Платеж совершен с удержанием денежных средств",
+        "holdDate": "Срок удержания до",
+        "message": "После истечения срока удержания, средства будут возвращены плательщику. Вы можете подтвердить (зачисление в вашу пользу) или отменить (возврат плательщику) удержание.",
+        "actions": {
+            "deny": "Отменить",
+            "accept": "Подтвердить"
+        }
+    },
+    "recurrentDetails": {
+        "title": "Платеж является рекуррентным",
+        "description": "Платеж проведен на основе другого (родительского) платежа.",
+        "goToParentPayment": "Перейти к родительскому платежу"
+    },
+    "invoiceDetails": {
+        "title": "Инвойс",
+        "titles": {
+            "product": "Продукт",
+            "amount": "Стоимость"
+        }
+    },
+    "shopDetails": {
+        "title": "Магазин",
+        "titles": {
+            "name": "Название",
+            "url": "URL"
+        }
+    },
+    "refunds": {
+        "title": "Возвраты",
+        "createRefund": "Совершить возврат",
+        "noRefunds": "Возвратов нет",
+        "refundItem": {
+            "titles": {
+                "refundTitle": "Возврат",
+                "amount": "Сумма",
+                "createdAt": "Совершен",
+                "reason": "Причина",
+                "error": "Ошибка"
+            }
+        }
+    },
+    "makeRecurrent": {
+        "title": "Платеж является родительским рекуррентным",
+        "description": "Успешно проведенный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+    }
+}

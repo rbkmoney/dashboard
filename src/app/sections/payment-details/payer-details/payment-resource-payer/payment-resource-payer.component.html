@@ -1,8 +1,12 @@
 <div fxLayout="row" fxLayout.xs="column" [fxLayoutGap.xs]="layoutGap">
-    <dsh-details-item [title]="localePath + '.titles.fingerprint' | lc" fxFlex>
+    <dsh-details-item [title]="localePath + '.titles.fingerprint' | transloco" fxFlex>
         {{ paymentResourcePayer.clientInfo?.fingerprint }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="paymentResourcePayer.clientInfo?.ip" [title]="localePath + '.titles.ip' | lc" fxFlex>
+    <dsh-details-item
+        *ngIf="paymentResourcePayer.clientInfo?.ip"
+        [title]="localePath + '.titles.ip' | transloco"
+        fxFlex
+    >
         {{ paymentResourcePayer.clientInfo.ip }}
     </dsh-details-item>
 </div>

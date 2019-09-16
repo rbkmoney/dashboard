@@ -3,7 +3,7 @@
         <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
             <!-- <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon> -->
             <div>
-                {{ localePath + '.title' | lc }}
+                {{ localePath + '.title' | transloco }}
                 <span dshSecondaryTitle>#{{ invoice?.id }}</span>
             </div>
         </div>
@@ -11,11 +11,11 @@
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-status-item [info]="getStatusViewInfo(invoice.status)" fxFlex="33"></dsh-details-status-item>
-            <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
+            <dsh-details-item [title]="localePath + '.titles.amount' | transloco" fxFlex="33">
                 {{ invoice?.amount | fromMinor | currency: invoice?.currency }}
             </dsh-details-item>
         </div>
-        <dsh-details-item [title]="localePath + '.titles.product' | lc">
+        <dsh-details-item [title]="localePath + '.titles.product' | transloco">
             {{ invoice?.product }}
         </dsh-details-item>
     </dsh-card-content>

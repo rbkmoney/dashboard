@@ -3,9 +3,10 @@ import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
+import { RefundItemComponent, RefundsComponent } from './refunds';
 import { LayoutModule } from '../../layout';
-import { PaymentDetailsComponent } from './payment-details.component';
 import { StatusModule } from '../../status';
 import { LocaleModule } from '../../locale';
 import { DetailsComponent } from './details';
@@ -23,7 +24,7 @@ import { HoldDetailsComponent } from './hold-details';
 import { ButtonModule } from '../../button';
 import { RecurrentDetailsComponent } from './recurrent-details';
 import { InvoiceDetailsComponent } from './invoice-details';
-import { RefundItemComponent, RefundsComponent } from './refunds';
+import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailsItemComponent } from './status-details-item';
 import { SecondaryTitleDirective } from './secondary-title';
@@ -53,7 +54,8 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         SearchModule,
         ViewUtilsModule,
         InvoiceModule,
-        HumanizeDurationModule
+        HumanizeDurationModule,
+        TranslocoModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -81,6 +83,9 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ShopLocationUrlComponent,
         MakeRecurrentComponent,
         HeadlineComponent
+    ],
+    providers: [
+        // { provide: TRANSLOCO_SCOPE, useValue: 'payment-details' }
     ]
 })
 export class PaymentDetailsModule {}

@@ -2,10 +2,10 @@
     <dsh-card-title>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
-                {{ localePath + '.title' | lc }}
+                {{ localePath + '.title' | transloco }}
             </div>
             <button disabled fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent">
-                {{ localePath + '.createRefund' | lc }}
+                {{ localePath + '.createRefund' | transloco }}
             </button>
         </div>
     </dsh-card-title>
@@ -15,7 +15,7 @@
             <div class="dsh-payment-details-refunds-divider"></div>
         </ng-container>
         <div *ngIf="!(hasMoreRefunds$ | async)">
-            {{ localePath + '.noRefunds' | lc }}
+            {{ localePath + '.noRefunds' | transloco }}
         </div>
         <button
             *ngIf="hasMoreRefunds$ | async"
@@ -23,7 +23,7 @@
             dsh-button
             (click)="fetchMore()"
         >
-            {{ 'common.showMore' | lc }}
+            {{ 'common.showMore' | transloco }}
         </button>
     </dsh-card-content>
 </dsh-card>

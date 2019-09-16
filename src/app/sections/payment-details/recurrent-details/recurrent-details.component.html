@@ -1,9 +1,9 @@
 <dsh-card>
     <dsh-card-title>
-        <h2 class="mat-title">{{ localePath + '.title' | lc }}</h2>
+        <h2 class="mat-title">{{ localePath + '.title' | transloco }}</h2>
     </dsh-card-title>
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
-        <p class="mat-body-1">{{ localePath + '.description' | lc }}</p>
-        <button disabled dsh-stroked-button color="accent">{{ localePath + '.goToParentPayment' | lc }}</button>
+        <p class="mat-body-1">{{ localePath + '.description' | transloco }}</p>
+        <button disabled dsh-stroked-button color="accent">{{ localePath + '.goToParentPayment' | transloco }}</button>
     </dsh-card-content>
 </dsh-card>

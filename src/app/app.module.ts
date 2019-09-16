@@ -1,22 +1,23 @@
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-    MomentDateAdapter,
-    MAT_MOMENT_DATE_FORMATS
+    MAT_MOMENT_DATE_FORMATS,
+    MomentDateAdapter
 } from '@angular/material-moment-adapter';
 import { MatIconRegistry } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth';
+import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { initializer } from './initializer';
 import { APICodegenModule } from './api-codegen';
 import { SectionsModule } from './sections';
-import { KeycloakService, KeycloakAngularModule } from './auth';
 import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule } from './settings';
@@ -24,6 +25,8 @@ import { ContainerModule } from './container';
 import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
 import { LanguageService } from './locale/language';
 import { icons } from './icons';
+import { environment } from '../environments/environment';
+import { translocoLoader } from './transloco.loader';
 
 @NgModule({
     declarations: [AppComponent],
@@ -39,7 +42,9 @@ import { icons } from './icons';
         ContainerModule,
         SettingsModule,
         LocaleDictionaryModule,
-        KeycloakAngularModule
+        KeycloakAngularModule,
+        HttpClientModule,
+        TranslocoModule
     ],
     providers: [
         {
@@ -62,7 +67,18 @@ import { icons } from './icons';
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
         { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
-        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+        {
+            provide: TRANSLOCO_CONFIG,
+            useValue: {
+                listenToLangChange: false,
+                defaultLang: 'ru',
+                fallbackLang: 'ru',
+                prodMode: environment.production,
+                scopeStrategy: 'shared'
+            } as TranslocoConfig
+        },
+        translocoLoader
     ],
     bootstrap: [AppComponent]
 })

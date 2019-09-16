@@ -14,6 +14,8 @@ export class DetailsComponent implements OnChanges {
 
     localePath = 'sections.paymentDetails.details';
 
+    console = console;
+
     statusViewInfo: StatusViewInfo;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}

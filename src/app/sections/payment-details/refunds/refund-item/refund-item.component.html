@@ -1,21 +1,21 @@
 <div fxLayout="column" [fxLayoutGap]="layoutGap">
     <div class="mat-subheading-1">
-        {{ localePath + '.titles.refundTitle' | lc }}
+        {{ localePath + '.titles.refundTitle' | transloco }}
         <span dshSecondaryTitle>#{{ refund?.id }}</span>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
         <dsh-details-status-item [info]="statusViewInfo" fxFlex="33"></dsh-details-status-item>
-        <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
+        <dsh-details-item [title]="localePath + '.titles.amount' | transloco" fxFlex="33">
             <div class="mat-body-1">{{ refund?.amount | fromMinor | currency: refund?.currency }}</div>
         </dsh-details-item>
-        <dsh-details-item [title]="localePath + '.titles.createdAt' | lc" fxFlex="33">
+        <dsh-details-item [title]="localePath + '.titles.createdAt' | transloco" fxFlex="33">
             <div class="mat-body-1">{{ refund?.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
         </dsh-details-item>
     </div>
-    <dsh-details-item *ngIf="refund?.reason" [title]="localePath + '.titles.reason' | lc">
+    <dsh-details-item *ngIf="refund?.reason" [title]="localePath + '.titles.reason' | transloco">
         <div class="mat-body-1">{{ refund?.reason }}</div>
     </dsh-details-item>
-    <dsh-details-item *ngIf="refund?.error" [title]="localePath + '.titles.error' | lc">
+    <dsh-details-item *ngIf="refund?.error" [title]="localePath + '.titles.error' | transloco">
         <div class="mat-body-1">{{ refund?.error.message }}</div>
     </dsh-details-item>
 </div>
