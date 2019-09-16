@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-    templateUrl: 'leave-onboarding-dialog.component.html',
-    styleUrls: ['leave-onboarding-dialog.component.scss']
+    templateUrl: 'leave-onboarding-dialog.component.html'
 })
 export class LeaveOnboardingDialogComponent {
     dicBasePath = 'sections.onboarding.companySearch.leaveOnboardingDialog';

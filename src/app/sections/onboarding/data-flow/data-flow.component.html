@@ -6,22 +6,15 @@
                 <dsh-card-title>{{ title }}</dsh-card-title>
             </dsh-card-header>
             <dsh-card-content fxLayout="column" fxLayoutGap="25px">
-                <ng-content></ng-content>
+                <router-outlet></router-outlet>
             </dsh-card-content>
         </dsh-card>
-        <div
-            fxLayout="column"
-            fxFlex="320px"
-            fxFlex.lt-md="260px"
-            fxLayoutGap="20px"
-            fxHide.lt-sm="true"
-            *ngIf="hasNavigation"
-        >
+        <div fxLayout="column" fxFlex="320px" fxFlex.lt-md="260px" fxLayoutGap="20px" fxHide.lt-sm="true">
             <dsh-card>
                 <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                    <dsh-state-nav (selectedIdxChange)="selectItem($event)" flat>
-                        <dsh-state-nav-item *ngFor="let item of items" [selected]="item === selectedItem">
-                            {{ item.title }}
+                    <dsh-state-nav flat>
+                        <dsh-state-nav-item [selected]="'true'">
+                            Основные сведения
                         </dsh-state-nav-item>
                     </dsh-state-nav>
                     <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>

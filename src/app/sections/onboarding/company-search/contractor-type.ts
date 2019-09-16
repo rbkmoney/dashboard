@@ -1,4 +1,4 @@
-export enum ContractorTypeSelect {
+export enum ContractorType {
     IndividualEntity = 'IndividualEntity',
     LegalEntity = 'LegalEntity'
 }

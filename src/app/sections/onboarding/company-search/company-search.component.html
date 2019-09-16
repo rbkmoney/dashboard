@@ -29,7 +29,9 @@
             <button dsh-stroked-button color="accent" (click)="back()">
                 {{ 'common.back' | lc }}
             </button>
-            <button dsh-button color="accent" (click)="next()">{{ 'common.next' | lc }}</button>
+            <button dsh-button color="accent" (click)="next()" [disabled]="!contractorType">
+                {{ 'common.next' | lc }}
+            </button>
         </div>
     </dsh-card>
 </div>

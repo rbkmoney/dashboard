@@ -1,48 +1,47 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 
 import { CompanyDetails } from './company-details';
 import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
 import { SuggestionData } from '../../../dadata/model/suggestions';
 import { SuggestionType } from '../../../dadata/model/type';
-import { ContractorTypeSelect } from './manual-contractor-selector';
+import { LocaleDictionaryService } from '../../../locale';
+import { CompanySearchService } from './company-search.service';
+import { ContractorType } from './contractor-type';
 
 @Component({
-    selector: 'dsh-company-search',
     templateUrl: 'company-search.component.html',
-    styleUrls: ['company-search.component.scss']
+    styleUrls: ['company-search.component.scss'],
+    providers: [CompanySearchService]
 })
-export class CompanySearchComponent implements OnInit, OnDestroy {
+export class CompanySearchComponent implements OnInit {
     dicBasePath = 'sections.onboarding.companySearch';
     form: FormGroup;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;
 
-    private dialogSub: Subscription = Subscription.EMPTY;
+    private contractorType: ContractorType;
 
     constructor(
         private dialog: MatDialog,
         private router: Router,
         private fb: FormBuilder,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private dicService: LocaleDictionaryService,
+        private companySearchService: CompanySearchService
     ) {}
 
     ngOnInit() {
         this.form = this.fb.group({
-            searchStr: ['']
+            searchStr: ''
         });
     }
 
-    ngOnDestroy() {
-        this.dialogSub.unsubscribe();
-    }
-
     back() {
-        this.dialogSub = this.dialog
+        this.dialog
             .open(LeaveOnboardingDialogComponent, {
                 width: '450px'
             })
@@ -52,27 +51,28 @@ export class CompanySearchComponent implements OnInit, OnDestroy {
     }
 
     next() {
-        this.router.navigate(['onboarding', 1, 'legal-entity']);
+        this.companySearchService
+            .createInitialClaim(this.contractorType)
+            .subscribe(id => this.router.navigate(['onboarding', id, 'basic-info']));
     }
 
     updateSuggestion(suggestion: SuggestionData<SuggestionType.party>) {
         this.manualContractorSelector = false;
+        this.contractorType = this.companySearchService.suggestionToContractorType(suggestion);
         this.companyDetails = this.toCompanyDetails(suggestion);
     }
 
-    searchSuggestionError(e: any) {
+    searchSuggestionError() {
         this.manualContractorSelector = true;
-        this.snackBar.open(`Запрос закончился ошибкой (${e.status})`, 'OK', {
-            duration: 5000
-        });
+        this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
     }
 
     suggestionNotFound() {
         this.manualContractorSelector = true;
     }
 
-    manualSelectContractorType(type: ContractorTypeSelect) {
-        console.log(type);
+    manualSelectContractorType(type: ContractorType) {
+        this.contractorType = type;
     }
 
     // TODO temporary solution
