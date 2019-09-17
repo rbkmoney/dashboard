@@ -1,1 +1,36 @@
-<div class="dsh-basic-info">TEST</div>
+<form [formGroup]="form" fxLayout="column">
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ basePath + '.name' | lc }}</mat-label>
+            <input matInput formControlName="name" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ basePath + '.inn' | lc }}</mat-label>
+            <input matInput formControlName="inn" required />
+        </mat-form-field>
+    </div>
+    <mat-form-field fxFlex>
+        <mat-label>{{ basePath + '.registrationPlace' | lc }}</mat-label>
+        <input matInput formControlName="registrationPlace" required />
+    </mat-form-field>
+    <h4 class="mat-subheading-1">{{ basePath + '.shopInfo' | lc }}</h4>
+    <mat-form-field fxFlex>
+        <mat-label>{{ basePath + '.shopUrl' | lc }}</mat-label>
+        <input matInput formControlName="shopUrl" required />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <mat-label>{{ basePath + '.shopName' | lc }}</mat-label>
+        <input matInput formControlName="shopName" required />
+    </mat-form-field>
+    <h4 class="mat-subheading-1">{{ basePath + '.contactInfo' | lc }}</h4>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ basePath + '.email' | lc }}</mat-label>
+            <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ basePath + '.phoneNumber' | lc }}</mat-label>
+            <input matInput formControlName="phoneNumber" required />
+        </mat-form-field>
+    </div>
+</form>

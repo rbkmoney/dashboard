@@ -1,31 +1,16 @@
-<div fxLayout="column">
-    <h1 class="mat-headline">Заявка на подключение</h1>
+<div class="container" fxLayout="column">
+    <h1 class="mat-headline">{{ 'sections.onboarding.headline' | lc }}</h1>
     <div fxLayout fxLayoutGap="20px">
-        <dsh-card fxFlex>
-            <dsh-card-header>
-                <dsh-card-title>{{ title }}</dsh-card-title>
-            </dsh-card-header>
-            <dsh-card-content fxLayout="column" fxLayoutGap="25px">
+        <dsh-card fxFlex fxLayout="column" fxLayoutGap="10px">
+            <h2 class="mat-title">{{ title }}</h2>
+            <dsh-card-content>
                 <router-outlet></router-outlet>
             </dsh-card-content>
+            <dsh-step-navigation></dsh-step-navigation>
         </dsh-card>
-        <div fxLayout="column" fxFlex="320px" fxFlex.lt-md="260px" fxLayoutGap="20px" fxHide.lt-sm="true">
-            <dsh-card>
-                <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-                    <dsh-state-nav flat>
-                        <dsh-state-nav-item [selected]="'true'">
-                            Основные сведения
-                        </dsh-state-nav-item>
-                    </dsh-state-nav>
-                    <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
-                </dsh-card-content>
-            </dsh-card>
-            <dsh-card>
-                <dsh-card-header><dsh-card-title>Возникли вопросы?</dsh-card-title></dsh-card-header>
-                <dsh-card-content>
-                    Напишите нам на почту help@rbk.money и оставьте свой телефон для связи.
-                </dsh-card-content>
-            </dsh-card>
+        <div fxLayout="column" fxFlex="320px" fxLayoutGap="20px" fxHide.lt-sm="true">
+            <dsh-step-card></dsh-step-card>
+            <dsh-help-card></dsh-help-card>
         </div>
     </div>
 </div>

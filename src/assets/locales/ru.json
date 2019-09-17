@@ -155,6 +155,23 @@
                     "individualEntity": "Индивидуальный предприниматель",
                     "legalEntity": "Юридическое лицо"
                 }
+            },
+            "dataFlow": {
+                "basicInfo": {
+                    "name": "Наименование",
+                    "inn": " ИНН",
+                    "registrationPlace": "Адрес регистрации",
+                    "shopInfo": "Данные сайта (магазина):",
+                    "shopUrl": "URL адрес",
+                    "shopName": "Название",
+                    "contactInfo": "Контактная информация:",
+                    "email": "Email",
+                    "phoneNumber": "Номер телефона"
+                },
+                "helpCard": {
+                    "title": "Возникли вопросы?",
+                    "content": "Напишите нам на почту help@rbk.money и оставьте свой телефон для связи."
+                }
             }
         },
         "operations": {
