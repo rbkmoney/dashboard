@@ -14,6 +14,8 @@ import { LocaleModule } from '../../../locale';
 import { HelpCardComponent } from './help-card';
 import { StepCardComponent } from './step-card';
 import { StepNavigationComponent } from './step-navigation';
+import { StepLabelPipe } from './step-card';
+import { RussianPrivateEntityComponent } from './russian-private-entity';
 
 @NgModule({
     imports: [
@@ -28,6 +30,14 @@ import { StepNavigationComponent } from './step-navigation';
         MatInputModule,
         LocaleModule
     ],
-    declarations: [DataFlowComponent, BasicInfoComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent]
+    declarations: [
+        DataFlowComponent,
+        BasicInfoComponent,
+        RussianPrivateEntityComponent,
+        HelpCardComponent,
+        StepCardComponent,
+        StepNavigationComponent,
+        StepLabelPipe
+    ]
 })
 export class DataFlowModule {}

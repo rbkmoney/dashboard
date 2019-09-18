@@ -1,10 +1,12 @@
 <dsh-card>
     <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-        <dsh-state-nav flat>
-            <dsh-state-nav-item [selected]="'true'">
-                Основные сведения
+        <dsh-state-nav (selectedIdxChange)="selectStepFlowIndex($event)" flat>
+            <dsh-state-nav-item *ngFor="let step of stepFlow" [selected]="step === activeStep">
+                {{ step | stepLabel | lc }}
             </dsh-state-nav-item>
         </dsh-state-nav>
-        <button dsh-button color="accent" style="width:100%" disabled>Отправить на рассмотрение</button>
+        <button fxFlex dsh-button color="accent" [disabled]="actionDisabled" (click)="doAction.emit()">
+            {{ 'sections.onboarding.dataFlow.stepCard.actionLabel' | lc }}
+        </button>
     </dsh-card-content>
 </dsh-card>

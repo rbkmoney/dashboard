@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BasicInfoComponent } from './basic-info';
 import { DataFlowComponent } from './data-flow.component';
+import { StepName } from './step-flows';
+import { RussianPrivateEntityComponent } from './russian-private-entity';
 
 export const routes: Routes = [
     {
@@ -10,8 +12,12 @@ export const routes: Routes = [
         component: DataFlowComponent,
         children: [
             {
-                path: 'basic-info',
+                path: StepName.BasicInfo,
                 component: BasicInfoComponent
+            },
+            {
+                path: StepName.RussianPrivateEntity,
+                component: RussianPrivateEntityComponent
             }
         ]
     }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { DataFlowService } from './data-flow.service';
+import { StepName } from './step-flows';
 
 @Component({
     selector: 'dsh-data-flow',
@@ -11,5 +12,12 @@ import { DataFlowService } from './data-flow.service';
 export class DataFlowComponent {
     title = 'Основные сведения';
 
+    stepFlow$ = this.dataFlowService.stepFlow$;
+    activeStep$ = this.dataFlowService.activeStep$;
+
     constructor(private dataFlowService: DataFlowService) {}
+
+    stepSelected(step: StepName) {
+        this.dataFlowService.navigate(step);
+    }
 }

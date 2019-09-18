@@ -168,6 +168,16 @@
                     "email": "Email",
                     "phoneNumber": "Номер телефона"
                 },
+                "stepCard": {
+                    "basicInfo": "Основные сведения",
+                    "financialAndEconomicActivity": "Хозяйственная деятельность",
+                    "beneficialOwners": "Бенефициарные владельцы",
+                    "documentsUpload": "Загрузка документов",
+                    "planningOperationsAndPayoutTool": "Банковские реквизиты",
+                    "russianLegalOwner": "Сведения о юридическом лице",
+                    "russianPrivateEntity": "Сведения о физическом лице",
+                    "actionLabel": "Отправить на рассмотрение"
+                },
                 "helpCard": {
                     "title": "Возникли вопросы?",
                     "content": "Напишите нам на почту help@rbk.money и оставьте свой телефон для связи."
