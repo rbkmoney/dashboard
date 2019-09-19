@@ -16,6 +16,7 @@ import { StepCardComponent } from './step-card';
 import { StepNavigationComponent } from './step-navigation';
 import { StepLabelPipe } from './step-card';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
+import { QuestionaryModule } from '../../../api';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { RussianPrivateEntityComponent } from './russian-private-entity';
         FormsModule,
         ReactiveFormsModule,
         MatInputModule,
-        LocaleModule
+        LocaleModule,
+        QuestionaryModule
     ],
     declarations: [
         DataFlowComponent,

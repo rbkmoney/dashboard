@@ -2,22 +2,25 @@ import { Component } from '@angular/core';
 
 import { DataFlowService } from './data-flow.service';
 import { StepName } from './step-flows';
+import { StepFlowService } from './step-flow.service';
+import { QuestionaryService } from './questionary.service';
+import { ValidityService } from './validity.service';
 
 @Component({
     selector: 'dsh-data-flow',
     templateUrl: 'data-flow.component.html',
     styleUrls: ['data-flow.component.scss'],
-    providers: [DataFlowService]
+    providers: [DataFlowService, StepFlowService, QuestionaryService, ValidityService]
 })
 export class DataFlowComponent {
     title = 'Основные сведения';
 
-    stepFlow$ = this.dataFlowService.stepFlow$;
-    activeStep$ = this.dataFlowService.activeStep$;
+    stepFlow$ = this.stepFlowService.stepFlow$;
+    activeStep$ = this.stepFlowService.activeStep$;
 
-    constructor(private dataFlowService: DataFlowService) {}
+    constructor(private stepFlowService: StepFlowService) {}
 
     stepSelected(step: StepName) {
-        this.dataFlowService.navigate(step);
+        this.stepFlowService.navigate(step);
     }
 }

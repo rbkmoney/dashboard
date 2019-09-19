@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+import { BasicInfoService } from './basic-info.service';
 
 @Component({
     selector: 'dsh-basic-info',
     templateUrl: 'basic-info.component.html',
-    styleUrls: ['basic-info.component.scss']
+    styleUrls: ['basic-info.component.scss'],
+    providers: [BasicInfoService]
 })
-export class BasicInfoComponent {
+export class BasicInfoComponent implements OnInit {
     layoutGap = '20px';
     basePath = 'sections.onboarding.dataFlow.basicInfo';
 
-    form: FormGroup = this.fb.group({
-        name: ['', Validators.required],
-        inn: ['', Validators.required],
-        registrationPlace: ['', Validators.required],
-        shopUrl: ['', Validators.required],
-        shopName: ['', Validators.required],
-        email: ['', Validators.required],
-        phoneNumber: ['', Validators.required]
-    });
+    form: FormGroup = this.basicInfoService.form;
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private basicInfoService: BasicInfoService) {}
+
+    ngOnInit() {
+        this.basicInfoService.initFormValue();
+        this.basicInfoService.startFormValuePersistent();
+        this.basicInfoService.startFormValidityReporting();
+    }
 }
