@@ -83,9 +83,6 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ShopLocationUrlComponent,
         MakeRecurrentComponent,
         HeadlineComponent
-    ],
-    providers: [
-        // { provide: TRANSLOCO_SCOPE, useValue: 'payment-details' }
     ]
 })
 export class PaymentDetailsModule {}

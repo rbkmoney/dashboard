@@ -28,6 +28,7 @@ import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { DropdownModule } from '../../../../dropdown';
 import { StateNavModule } from '../../../../state-nav';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import { StateNavModule } from '../../../../state-nav';
         SpinnerModule,
         MatSnackBarModule,
         DropdownModule,
-        StateNavModule
+        StateNavModule,
+        TranslocoModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent]
 })

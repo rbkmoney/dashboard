@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "operations": "Операции"
+  },
+  "operations": {
+    "headline": "Операции",
+    "tabs": {
+      "payments": "Платежи",
+      "refunds": "Возвраты",
+      "invoices": "Инвойсы"
+    }
+  }
+}

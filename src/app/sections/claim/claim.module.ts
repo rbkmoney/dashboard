@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
@@ -25,7 +26,8 @@ import { StatusModule } from '../../status';
         ClaimsModule,
         ClaimRoutingModule,
         ConversationModule,
-        StatusModule
+        StatusModule,
+        TranslocoModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })

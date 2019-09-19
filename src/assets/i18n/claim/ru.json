@@ -1,0 +1,37 @@
+{
+  "conversation": {
+    "label": "Обсуждения",
+    "leaveTheComment": "Оставьте комментарий",
+    "toLeaveTheComment": "Оставить комментарий",
+    "lastChanges": "Последние изменения {{ date }} назад",
+    "ago": "назад",
+    "to-timeline-info": {
+      "action": {
+        "claimCreated": "создана анкета",
+        "pending": "переведена в ожидание",
+        "pendingAcceptance": "переведена в ожидание ваших действий",
+        "review": "рассматривается",
+        "revoked": "отозвана",
+        "denied": "отклонена",
+        "accepted": "одобрена",
+        "documentAdded": "добавлен документ",
+        "commentAdded": "добавлен комментарий",
+        "changesAdded": "добавлены изменения"
+      },
+      "author": {
+        "manager": "Менеджером",
+        "you": "Вами"
+      }
+    }
+  },
+  "changes": {
+    "label": "Изменения"
+  },
+  "documents": {
+    "label": "Документы"
+  },
+  "details": "Детали заявки",
+  "placeBefore": "Отправить на рассмотрение",
+  "recall": "Отозвать",
+  "request": "Заявка на подключение"
+}

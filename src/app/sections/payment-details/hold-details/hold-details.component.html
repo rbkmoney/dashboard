@@ -7,7 +7,7 @@
     </dsh-card-title>
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-body-1">
-            {{ t?.holdDate | translocoParams: { holdDate: holdDate } }}
+            {{ t?.holdDate }}
             {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
             {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
             {{ t?.message }}

@@ -1,17 +1,20 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
+<div *transloco="let t; scope: 'claim'"
+     fxLayout="row"
+     fxLayoutAlign="space-between center"
+     class="last-changes">
     {{
-        'sections.claim.conversation.lastChanges' | lc: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
+        t.claim.conversation.lastChanges | translocoParams: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
     }}
-    <a>{{ 'common.update' | lc }}</a>
+    <a>{{ t.update }}</a>
 </div>
 
-<div fxLayout="column" fxLayoutGap="20px">
+<div *transloco="let t; scope: 'claim'; read: 'claim.conversation'" fxLayout="column" fxLayoutGap="20px">
     <dsh-timeline>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
             <dsh-timeline-item-title>
                 <b class="mat-body-2">{{ item.author | timelineItemAuthorDicPath | lc }}</b>
                 {{ item.action | timelineActionDicPath | lc }}
-                {{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ 'sections.claim.conversation.ago' | lc }}
+                {{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ t.ago }}
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge>
                 <dsh-timeline-action-icon [action]="item.action"></dsh-timeline-action-icon>
@@ -23,11 +26,11 @@
     </dsh-timeline>
     <div class="comment" fxLayout="column">
         <mat-form-field>
-            <textarea matInput [placeholder]="'sections.claim.conversation.leaveTheComment' | lc"></textarea>
+            <textarea matInput [placeholder]="t.leaveTheComment"></textarea>
         </mat-form-field>
         <div>
             <button dsh-stroked-button class="action">
-                {{ 'sections.claim.conversation.toLeaveTheComment' | lc }}
+                {{ t.toLeaveTheComment }}
             </button>
         </div>
     </div>

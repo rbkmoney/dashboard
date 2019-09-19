@@ -1,9 +1,9 @@
-<h1 class="mat-headline">{{ 'sections.claim.details' | lc }} #{{ claimID$ | async }}</h1>
+<h1 *transloco="let t; scope: 'claim'; read: 'claim'" class="mat-headline">{{ t?.details }} #{{ claimID$ | async }}</h1>
 
-<dsh-card>
+<dsh-card *transloco="let t; scope: 'claim'; read: 'claim'">
     <dsh-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between">
-            <h2 class="mat-title">{{ 'sections.claim.request' | lc }}</h2>
+            <h2 class="mat-title">{{ t.request }}</h2>
             <dsh-status [color]="(claimStatusViewInfo$ | async)?.color" class="mat-title" mark="false">
                 {{ (claimStatusViewInfo$ | async)?.statusDicPath | lc }}
             </dsh-status>
@@ -17,7 +17,7 @@
                 #rla="routerLinkActive"
                 [active]="rla.isActive"
             >
-                {{ link.label | lc }}
+                {{ t[link.path].label }}
             </a>
         </nav>
         <div>
@@ -25,7 +25,7 @@
         </div>
     </dsh-card-content>
     <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between">
-        <button dsh-stroked-button color="warn">{{ 'sections.claim.recall' | lc }}</button>
-        <button dsh-button color="accent">{{ 'sections.claim.placeBefore' | lc }}</button>
+        <button dsh-stroked-button color="warn">{{ t.recall }}</button>
+        <button dsh-button color="accent">{{ t.placeBefore }}</button>
     </dsh-card-actions>
 </dsh-card>

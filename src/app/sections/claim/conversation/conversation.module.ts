@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { TimelineModule } from '../../../timeline';
 import { ConversationComponent } from './conversation.component';
@@ -26,7 +27,8 @@ import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.p
         ExpandPanelModule,
         LocaleModule,
         CommonModule,
-        HumanizeDurationModule
+        HumanizeDurationModule,
+        TranslocoModule
     ],
     declarations: [
         ConversationComponent,

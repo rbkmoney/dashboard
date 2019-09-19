@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { OperationsComponent } from './operations.component';
 import { LayoutModule } from '../../../layout';
@@ -17,7 +18,8 @@ import { SearchModule } from '../../../api/search';
         FlexLayoutModule,
         DshTabsModule,
         LocaleModule,
-        SearchModule
+        SearchModule,
+        TranslocoModule
     ],
     declarations: [OperationsComponent]
 })

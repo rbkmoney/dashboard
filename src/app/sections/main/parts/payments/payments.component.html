@@ -1,4 +1,4 @@
-<div class="dsh-main-parts-surface">
+<div *transloco="let t; scope: 'main'; read: 'main.payments'" class="dsh-main-parts-surface">
     <div fxLayout="column" fxLayoutAlign="space-between stretch">
         <div fxLayout fxLayoutGap="30px">
             <mat-icon
@@ -11,7 +11,7 @@
             ></mat-icon>
             <div>
                 <div fxLayout fxLayoutAlign="space-between">
-                    <h2 class="mat-title">{{ 'sections.main.payments.title' | lc }}</h2>
+                    <h2 class="mat-title">{{ t.title }}</h2>
                     <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
                 </div>
                 <h4 class="mat-subheading-1 subheading">
@@ -44,7 +44,7 @@
                     color="accent"
                     [routerLink]="testEnvironmentRouterLink"
                 >
-                    {{ 'sections.main.payments.testEnvironment' | lc }}
+                    {{ t.testEnvironment }}
                 </button>
             </div>
         </div>
