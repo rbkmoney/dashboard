@@ -16,6 +16,4 @@ export class PaymentToolComponent {
     @Input() paymentToolDetails: PaymentToolDetails;
 
     Type = PaymentToolDetailsType;
-
-    localePath = 'sections.paymentDetails.paymentTool';
 }

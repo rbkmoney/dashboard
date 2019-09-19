@@ -1,3 +1,5 @@
-<dsh-details-item *ngIf="info" [title]="'sections.paymentDetails.statusDetailItem.status' | transloco">
-    <dsh-status [color]="info?.color">{{ info?.text | transloco }}</dsh-status>
-</dsh-details-item>
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.statusDetailItem'">
+    <dsh-details-item  *ngIf="text" [title]="t?.status">
+        <dsh-status [color]="color">{{ text }}</dsh-status>
+    </dsh-details-item>
+</ng-container>

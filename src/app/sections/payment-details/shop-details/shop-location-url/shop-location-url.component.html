@@ -1,3 +1,5 @@
-<dsh-details-item [title]="localePath + '.titles.url' | transloco">
+<dsh-details-item
+        *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.shopDetails'"
+        [title]="t?.url">
     {{ shopLocationUrl.url }}
 </dsh-details-item>

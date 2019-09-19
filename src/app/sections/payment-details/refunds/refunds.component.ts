@@ -13,8 +13,6 @@ export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
 
-    localePath = 'sections.paymentDetails.refunds';
-
     refunds$ = this.refundsService.searchResult$;
     hasMoreRefunds$ = this.refundsService.hasMore$;
 

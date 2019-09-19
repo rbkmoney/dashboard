@@ -8,6 +8,4 @@ import { PaymentTerminalDetails } from '../../../../api-codegen/capi/swagger-cod
 })
 export class PaymentTerminalComponent {
     @Input() paymentTerminal: PaymentTerminalDetails;
-
-    localePath = 'sections.paymentDetails.paymentTool';
 }

@@ -1,8 +1,8 @@
-<dsh-card>
+<dsh-card *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.makeRecurrent'">
     <dsh-card-title>
-        <h2 class="mat-title">{{ localePath + '.title' | transloco }}</h2>
+        <h2 class="mat-title">{{ t?.title }}</h2>
     </dsh-card-title>
     <dsh-card-content>
-        <p class="mat-body-1">{{ localePath + '.description' | transloco }}</p>
+        <p class="mat-body-1">{{ t?.description }}</p>
     </dsh-card-content>
 </dsh-card>

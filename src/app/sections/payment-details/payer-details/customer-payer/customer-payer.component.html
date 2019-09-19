@@ -1,3 +1,5 @@
-<dsh-details-item [title]="localePath + '.titles.customerID' | transloco">
+<dsh-details-item
+        *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.payerDetails'"
+        [title]="t?.customerID">
     {{ customerPayer.customerID }}
 </dsh-details-item>

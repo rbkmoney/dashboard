@@ -1,15 +1,16 @@
 <dsh-card *ngIf="flowHold.heldUntil.toString() as holdDate">
+    <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
     <dsh-card-title>
         <h2 class="mat-title">
-            {{ localePath + '.title' | transloco }}
+            {{ t?.title }}
         </h2>
     </dsh-card-title>
     <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-body-1">
-            {{ localePath + '.holdDate' | transloco: { holdDate: holdDate } }}
+            {{ t?.holdDate | translocoParams: { holdDate: holdDate } }}
             {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
             {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
-            {{ localePath + '.message' | transloco }}
+            {{ t?.message }}
         </div>
         <div
             *ngIf="!isHoldExpired(holdDate)"
@@ -20,11 +21,12 @@
             [fxLayoutGap.xs]="layoutGap"
         >
             <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
-                {{ localePath + '.actions.deny' | transloco }}
+                {{ t?.actions?.deny }}
             </button>
             <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
-                {{ localePath + '.actions.accept' | transloco }}
+                {{ t?.actions?.accept }}
             </button>
         </div>
     </dsh-card-content>
+    </ng-container>
 </dsh-card>

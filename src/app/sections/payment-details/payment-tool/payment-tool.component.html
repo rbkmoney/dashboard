@@ -1,7 +1,7 @@
-<dsh-card>
+<dsh-card *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.paymentTool'">
     <dsh-card-title>
         <h2 class="mat-title">
-            {{ localePath + '.title' | transloco }}
+            {{ t?.title }}
         </h2>
     </dsh-card-title>
     <dsh-card-content>
