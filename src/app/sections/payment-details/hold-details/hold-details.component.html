@@ -1,32 +1,32 @@
 <dsh-card *ngIf="flowHold.heldUntil.toString() as holdDate">
     <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
-    <dsh-card-title>
-        <h2 class="mat-title">
-            {{ t?.title }}
-        </h2>
-    </dsh-card-title>
-    <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
-        <div class="mat-body-1">
-            {{ t?.holdDate }}
-            {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
-            {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
-            {{ t?.message }}
-        </div>
-        <div
-            *ngIf="!isHoldExpired(holdDate)"
-            fxLayout="row"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between stretch"
-            fxLayoutGap="0"
-            [fxLayoutGap.xs]="layoutGap"
-        >
-            <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
-                {{ t?.actions?.deny }}
-            </button>
-            <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
-                {{ t?.actions?.accept }}
-            </button>
-        </div>
-    </dsh-card-content>
+        <dsh-card-title>
+            <h2 class="mat-title">
+                {{ t?.title }}
+            </h2>
+        </dsh-card-title>
+        <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
+            <div class="mat-body-1">
+                {{ t?.holdDate }}
+                {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
+                {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
+                {{ t?.message }}
+            </div>
+            <div
+                *ngIf="!isHoldExpired(holdDate)"
+                fxLayout="row"
+                fxLayout.xs="column"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap="0"
+                [fxLayoutGap.xs]="layoutGap"
+            >
+                <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
+                    {{ t?.actions?.deny }}
+                </button>
+                <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
+                    {{ t?.actions?.accept }}
+                </button>
+            </div>
+        </dsh-card-content>
     </ng-container>
 </dsh-card>

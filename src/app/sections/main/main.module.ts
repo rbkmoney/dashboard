@@ -13,7 +13,16 @@ import { LocaleModule } from '../../locale';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, RouterModule, MatIconModule, ButtonModule, LocaleModule, SpinnerModule, TranslocoModule],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        RouterModule,
+        MatIconModule,
+        ButtonModule,
+        LocaleModule,
+        SpinnerModule,
+        TranslocoModule
+    ],
     declarations: [MainComponent, PaymentsComponent, WalletsComponent]
 })
 export class MainModule {}

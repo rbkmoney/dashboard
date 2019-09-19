@@ -13,10 +13,11 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
                 <ng-container *transloco="let c; read: 'invoiceStatus'">
                     <dsh-details-status-item
-                            *ngIf="getStatusViewInfo(invoice.status) as statusInfo"
-                            [color]="statusInfo.color"
-                            [text]="c[statusInfo.text]"
-                            fxFlex="33"></dsh-details-status-item>
+                        *ngIf="getStatusViewInfo(invoice.status) as statusInfo"
+                        [color]="statusInfo.color"
+                        [text]="c[statusInfo.text]"
+                        fxFlex="33"
+                    ></dsh-details-status-item>
                 </ng-container>
                 <dsh-details-item [title]="t?.amount" fxFlex="33">
                     {{ invoice?.amount | fromMinor | currency: invoice?.currency }}

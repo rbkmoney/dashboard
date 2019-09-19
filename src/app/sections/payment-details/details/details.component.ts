@@ -52,5 +52,4 @@ export class DetailsComponent implements OnChanges {
                 break;
         }
     }
-
 }

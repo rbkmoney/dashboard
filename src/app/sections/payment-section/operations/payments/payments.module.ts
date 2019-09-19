@@ -10,16 +10,17 @@ import {
     MatDatepickerModule,
     MatSelectModule
 } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
 
+import { DaterangeSelectorModule } from '../daterange-selector';
 import { PaymentsRoutingModule } from './payments-routing.module';
-import { PaymentsComponent } from './payments.component';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
 import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
-import { DaterangeSelectorModule } from '../daterange-selector';
+import { PaymentsComponent } from './payments.component';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
@@ -28,7 +29,6 @@ import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { DropdownModule } from '../../../../dropdown';
 import { StateNavModule } from '../../../../state-nav';
-import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
     imports: [

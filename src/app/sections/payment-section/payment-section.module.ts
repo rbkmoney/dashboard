@@ -11,7 +11,15 @@ import { StateNavModule } from '../../state-nav';
 import { LocaleModule } from '../../locale';
 
 @NgModule({
-    imports: [CommonModule, PaymentSectionRoutingModule, StateNavModule, MatIconModule, FlexLayoutModule, LocaleModule, TranslocoModule],
+    imports: [
+        CommonModule,
+        PaymentSectionRoutingModule,
+        StateNavModule,
+        MatIconModule,
+        FlexLayoutModule,
+        LocaleModule,
+        TranslocoModule
+    ],
     declarations: [PaymentSectionComponent, NavComponent],
     exports: [PaymentSectionComponent]
 })

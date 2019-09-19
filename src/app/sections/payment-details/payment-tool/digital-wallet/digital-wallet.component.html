@@ -1,9 +1,11 @@
-<div *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.paymentTool'"
-     fxLayout="row"
-     fxLayout.xs="column"
-     fxLayoutGap="20px">
-    <dsh-details-item *transloco="let c; " [title]="t?.digitalWalletType" fxFlex>
-        {{ c?.digitalWalletProvider[qiwi.digitalWalletDetailsType] }}
+<div
+    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.paymentTool'"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutGap="20px"
+>
+    <dsh-details-item *transloco="let c" [title]="t?.digitalWalletType" fxFlex>
+        {{ (c?.digitalWalletProvider)[qiwi.digitalWalletDetailsType] }}
     </dsh-details-item>
     <dsh-details-item [title]="t?.phoneNumber" fxFlex>
         {{ qiwi.phoneNumberMask | phoneNumber }}

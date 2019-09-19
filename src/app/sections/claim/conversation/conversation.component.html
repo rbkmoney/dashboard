@@ -1,9 +1,7 @@
-<div *transloco="let t; scope: 'claim'"
-     fxLayout="row"
-     fxLayoutAlign="space-between center"
-     class="last-changes">
+<div *transloco="let t; scope: 'claim'" fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
     {{
-        t.claim.conversation.lastChanges | translocoParams: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
+        t.claim.conversation.lastChanges
+            | translocoParams: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
     }}
     <a>{{ t.update }}</a>
 </div>

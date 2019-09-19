@@ -1,5 +1,6 @@
 <dsh-details-item
-        *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.payerDetails'"
-        [title]="t?.customerID">
+    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.payerDetails'"
+    [title]="t?.customerID"
+>
     {{ customerPayer.customerID }}
 </dsh-details-item>

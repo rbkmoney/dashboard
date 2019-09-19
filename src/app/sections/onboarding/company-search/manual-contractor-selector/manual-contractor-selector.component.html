@@ -1,4 +1,7 @@
-<div *transloco="let t; scope: 'onboarding' read: 'onboarding.companySearch.manualContractorSelector'" class="container">
+<div
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'"
+    class="container"
+>
     <p class="mat-body-1">{{ t.description }}</p>
     <mat-radio-group
         (change)="selected($event)"

@@ -1,8 +1,10 @@
-<div *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'"
-     class="mat-headline headline"
-     fxLayout="row"
-     fxLayoutGap="10px"
-     fxLayoutAlign="start center">
+<div
+    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'"
+    class="mat-headline headline"
+    fxLayout="row"
+    fxLayoutGap="10px"
+    fxLayoutAlign="start center"
+>
     <mat-icon *ngIf="isBackAvailable" class="back" (click)="back()">arrow_back</mat-icon>
     <div>
         {{ t?.title }}

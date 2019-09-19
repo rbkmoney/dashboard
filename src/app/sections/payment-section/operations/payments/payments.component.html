@@ -1,10 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
     <dsh-card>
-        <dsh-card-content
-                *transloco="let t"
-                fxLayout="column"
-                fxLayoutGap="15px">
+        <dsh-card-content *transloco="let t" fxLayout="column" fxLayoutGap="15px">
             <dsh-last-updated
                 *ngIf="!(isLoading$ | async)"
                 (update)="refresh()"
@@ -13,7 +10,7 @@
             <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
             <dsh-payments-table [data]="tableData$ | async"></dsh-payments-table>
             <button *ngIf="hasMorePayments$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? (t.loading) : (t.showMore) }}
+                {{ (isLoading$ | async) ? t.loading : t.showMore }}
             </button>
         </dsh-card-content>
     </dsh-card>
