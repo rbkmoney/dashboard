@@ -12,7 +12,8 @@ import {
     mapToCombineResult,
     mapToContinuationToken,
     filterAction,
-    filterEmpty
+    filterEmpty,
+    removeEmptyProperties
 } from './operators';
 
 export const combineAction = <R, P>(
@@ -25,6 +26,7 @@ export const combineAction = <R, P>(
     const search = nonEmptyAction.pipe(
         filterAction('search'),
         mapToSearchParams,
+        removeEmptyProperties,
         emit(params),
         takeFetchParams(params),
         fetch(fetchFn)
