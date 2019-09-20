@@ -47,6 +47,7 @@ export class SearchFormService {
     formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
             filter(() => this.searchForm.status === 'VALID'),
+            map(values => Object.keys(values).reduce((acc, cur) => (values[cur] ? { ...acc, [cur]: values[cur] } : acc), {} as PaymentSearchFormValue)),
             debounceTime(valueDebounceTime)
         );
     }

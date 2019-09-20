@@ -10,4 +10,3 @@ export * from './filter-empty';
 export * from './map-to-continuation-token';
 export * from './map-to-search-result';
 export * from './map-to-has-more';
-export * from './remove-empty-properties';
