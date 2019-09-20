@@ -10,9 +10,15 @@ const toBasicInfo = (
     data: QuestionaryData
 ): {
     [key: string]: any;
-} => ({});
+} => {
+    console.log(data);
+    return {};
+};
 
-const basicInfoFormValToQuestionaryData = (val: { [key: string]: any }): QuestionaryData => ({});
+const basicInfoFormValToQuestionaryData = (val: { [key: string]: any }): QuestionaryData => {
+    console.log(val);
+    return {};
+};
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {

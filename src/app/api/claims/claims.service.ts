@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { ClaimsService as APIClaimsService, Claim, StatusModificationUnit } from '../../api-codegen/claim-management';
-import { ClaimsWithToken } from './claims-with-token';
+import {
+    ClaimsService as APIClaimsService,
+    Claim,
+    StatusModificationUnit,
+    ClaimChangeset
+} from '../../api-codegen/claim-management';
+import { ClaimsWithToken } from './models';
 import { genXRequestID } from '../gen-x-request-id';
 import { noContinuationToken, mapResult } from '../../custom-operators';
 
@@ -31,5 +36,9 @@ export class ClaimsService {
 
     getClaimByID(claimID: number): Observable<Claim> {
         return this.claimsService.getClaimByID(genXRequestID(), claimID);
+    }
+
+    createClaim(claimChangeset: ClaimChangeset): Observable<Claim> {
+        return this.claimsService.createClaim(genXRequestID(), claimChangeset);
     }
 }

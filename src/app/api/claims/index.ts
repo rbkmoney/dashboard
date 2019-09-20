@@ -1,4 +1,5 @@
 export * from './claims.module';
 export * from './claims.service';
-export * from './claims-with-token';
+export * from './models';
 export * from './operators';
+export * from './creators';

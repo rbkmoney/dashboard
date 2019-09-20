@@ -6,5 +6,7 @@ export class ValidityService {
     isActiveStepValid$: Observable<boolean> = of(false);
     isFlowValid$: Observable<boolean> = of(false);
 
-    setUpValidity(isValid: boolean) {}
+    setUpValidity(isValid: boolean) {
+        console.log(isValid);
+    }
 }
