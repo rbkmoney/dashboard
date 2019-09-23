@@ -35,7 +35,7 @@ export class PaymentsService {
         this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
-        this.transloco.selectTranslation(language.active).subscribe(t => {
+        this.transloco.selectTranslation(this.language.active).subscribe(t => {
             combineLatest(this.isLoading$, contentConfig)
                 .pipe(takeError)
                 .subscribe(() => this.snackBar.open(t.commonError, 'OK'));
