@@ -2,8 +2,8 @@
     <div fxFlex="60">
         {{ listItem.claimType }}
     </div>
-    <dsh-status fxFlex="40" [color]="listItem.statusViewInfo.color">{{
-        listItem.statusViewInfo.statusDicPath | lc
+    <dsh-status *transloco="let c; read: 'claimStatus'" fxFlex="40" [color]="listItem.statusViewInfo.color">{{
+        c[listItem.statusViewInfo.status]
     }}</dsh-status>
     <button dsh-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
@@ -11,7 +11,12 @@
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/claim', claim.id, 'conversation']" (click)="menuItemSelected.emit()">
-        {{ 'actionbar.claims.details' | lc }}
+    <button
+        *transloco="let t; scope: 'actionbar'; read: 'actionbar.claims'"
+        mat-menu-item
+        [routerLink]="['/claim', claim.id, 'conversation']"
+        (click)="menuItemSelected.emit()"
+    >
+        {{ t.details }}
     </button>
 </mat-menu>

@@ -3,11 +3,10 @@ import { map } from 'rxjs/operators';
 import isEmpty from 'lodash/isEmpty';
 import negate from 'lodash/negate';
 
-import { ShopService, filterTestShops, filterBattleShops } from '../../../../api/shop';
-import { booleanDelay } from '../../../../custom-operators/boolean-delay';
+import { filterBattleShops, filterTestShops, ShopService } from '../../../../api/shop';
+import { booleanDelay } from '../../../../custom-operators';
 import { PaymentPartType } from './payment-part-type';
 import { ContentConfig } from './content-config';
-import { LocaleDictionaryService } from '../../../../locale';
 
 @Injectable()
 export class PaymentsService {
@@ -23,12 +22,11 @@ export class PaymentsService {
 
     isLoading$ = this.shopService.shops$.pipe(booleanDelay());
 
-    constructor(private shopService: ShopService, private lcService: LocaleDictionaryService) {}
+    constructor(private shopService: ShopService) {}
 
-    toContentConfig(type: PaymentPartType, basePath = 'sections.main.payments'): ContentConfig {
-        const mapDict = path => this.lcService.mapDictionaryKey(`${basePath}.${path}`);
-        const mapSubheading = path => mapDict(`subheading.${path}`);
-        const mapAction = path => mapDict(`action.${path}`);
+    toContentConfig(type: PaymentPartType, t: any): ContentConfig {
+        const mapSubheading = path => t.payments.subheading[path];
+        const mapAction = path => t.payments.action[path];
         const toContentConf = (subheading, action) => ({
             subheading: mapSubheading(subheading),
             action: mapAction(action)

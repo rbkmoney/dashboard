@@ -11,7 +11,6 @@ import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
 import { TimelineActionDicPathPipe } from './timeline-action-dic-path.pipe';
 import { ExpandPanelModule } from '../../../expand-panel';
-import { LocaleModule } from '../../../locale';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.pipe';
 
@@ -25,7 +24,6 @@ import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.p
         TimelineModule,
         MatIconModule,
         ExpandPanelModule,
-        LocaleModule,
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule

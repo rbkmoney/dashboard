@@ -5,10 +5,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { LastUpdatedComponent } from './last-updated.component';
 import { HumanizeDurationModule } from '../../../../../humanize-duration';
-import { LocaleModule } from '../../../../../locale';
 
 @NgModule({
-    imports: [CommonModule, HumanizeDurationModule, LocaleModule, FlexLayoutModule, TranslocoModule],
+    imports: [CommonModule, HumanizeDurationModule, FlexLayoutModule, TranslocoModule],
     exports: [LastUpdatedComponent],
     declarations: [LastUpdatedComponent]
 })

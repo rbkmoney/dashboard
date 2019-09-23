@@ -22,11 +22,10 @@ import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
-import { LocaleDictionaryModule, LocaleDictionaryService } from './locale/locale-dictionary';
-import { LanguageService } from './locale/language';
 import { icons } from './icons';
 import { environment } from '../environments/environment';
 import { translocoLoader } from './transloco.loader';
+import { LanguageService } from './language';
 
 @NgModule({
     declarations: [AppComponent],
@@ -41,16 +40,16 @@ import { translocoLoader } from './transloco.loader';
         ConfigModule,
         ContainerModule,
         SettingsModule,
-        LocaleDictionaryModule,
         KeycloakAngularModule,
         HttpClientModule,
         TranslocoModule
     ],
     providers: [
+        LanguageService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LocaleDictionaryService],
+            deps: [ConfigService, KeycloakService],
             multi: true
         },
         {

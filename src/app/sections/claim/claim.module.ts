@@ -5,7 +5,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
-import { LocaleModule } from '../../locale';
 import { DshTabsModule } from '../../layout/tabs';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
@@ -22,7 +21,6 @@ import { StatusModule } from '../../status';
         DshTabsModule,
         ButtonModule,
         FlexLayoutModule,
-        LocaleModule,
         ClaimsModule,
         ClaimRoutingModule,
         ConversationModule,

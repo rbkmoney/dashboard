@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
@@ -22,9 +23,11 @@ export class PaymentsComponent implements OnInit {
     hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
     hasRealEnvironment$ = this.paymentsService.hasRealEnvironment$;
 
-    constructor(private paymentsService: PaymentsService) {}
+    constructor(private paymentsService: PaymentsService, private transloco: TranslocoService) {}
 
     ngOnInit() {
-        this.config = this.paymentsService.toContentConfig(PaymentPartType.accepted);
+        this.transloco.selectTranslation('main/ru').subscribe(t => {
+            this.config = this.paymentsService.toContentConfig(PaymentPartType.accepted, t);
+        });
     }
 }

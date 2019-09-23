@@ -5,7 +5,7 @@
         "toLeaveTheComment": "Оставить комментарий",
         "lastChanges": "Последние изменения {{ date }} назад",
         "ago": "назад",
-        "to-timeline-info": {
+        "toTimelineInfo": {
             "action": {
                 "claimCreated": "создана анкета",
                 "pending": "переведена в ожидание",

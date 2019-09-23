@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { registerLocaleData } from '@angular/common';
 
-import { SettingsService } from '../../settings';
+import { SettingsService } from '../settings';
 import { Language } from './language';
 import { angularLocaleData } from './angular-locale-data';
 

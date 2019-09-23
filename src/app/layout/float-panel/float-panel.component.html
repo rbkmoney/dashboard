@@ -15,8 +15,8 @@
                     <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
                         <mat-icon>expand_more</mat-icon>
                     </button>
-                    <button dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
-                        {{ 'common.showMore' | lc }}
+                    <button *transloco="let t" dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
+                        {{ t.showMore }}
                     </button>
                 </div>
             </div>

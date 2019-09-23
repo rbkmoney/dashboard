@@ -8,7 +8,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { RefundItemComponent, RefundsComponent } from './refunds';
 import { LayoutModule } from '../../layout';
 import { StatusModule } from '../../status';
-import { LocaleModule } from '../../locale';
 import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
 import { DetailsItemComponent } from './details-item';
@@ -44,7 +43,6 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         LayoutModule,
         StatusModule,
         MatIconModule,
-        LocaleModule,
         FlexLayoutModule,
         RouterModule,
         CardModule,

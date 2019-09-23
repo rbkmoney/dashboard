@@ -1,13 +1,7 @@
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
-import { LocaleDictionaryService } from './locale/locale-dictionary';
-import { Language } from './locale';
 
-export const initializer = (
-    configService: ConfigService,
-    keycloakService: KeycloakService,
-    localeService: LocaleDictionaryService
-) => async () => {
+export const initializer = (configService: ConfigService, keycloakService: KeycloakService) => async () => {
     await Promise.all([
         configService.init({ configUrl: '/appConfig.json' }),
         keycloakService.init({
@@ -19,7 +13,6 @@ export const initializer = (
             enableBearerInterceptor: true,
             bearerExcludedUrls: ['/assets'],
             bearerPrefix: 'Bearer'
-        }),
-        localeService.init({ [Language.ru]: '/assets/locales/ru.json' })
+        })
     ]);
 };

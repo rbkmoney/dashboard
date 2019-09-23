@@ -9,7 +9,6 @@ import { MainComponent } from './main.component';
 import { ButtonModule } from '../../button';
 import { PaymentsComponent } from './parts';
 import { WalletsComponent } from './parts';
-import { LocaleModule } from '../../locale';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { SpinnerModule } from '../../spinner';
         RouterModule,
         MatIconModule,
         ButtonModule,
-        LocaleModule,
         SpinnerModule,
         TranslocoModule
     ],

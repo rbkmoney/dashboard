@@ -10,8 +10,8 @@
     <dsh-timeline>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
             <dsh-timeline-item-title>
-                <b class="mat-body-2">{{ item.author | timelineItemAuthorDicPath | lc }}</b>
-                {{ item.action | timelineActionDicPath | lc }}
+                <b class="mat-body-2">{{ t.toTimelineInfo.author[item.author] }}</b>
+                {{ t.toTimelineInfo.action[item.action | timelineActionDicPath] }}
                 {{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ t.ago }}
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge>

@@ -6,7 +6,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FloatPanelModule } from './float-panel.module';
 import { FloatPanelComponent } from './float-panel.component';
-import { LocaleDictionaryModule } from '../../locale';
 import { SettingsModule } from '../../settings';
 
 @Component({
@@ -37,13 +36,7 @@ describe('FloatPanelComponent', () => {
         declarations: any[] = []
     ): ComponentFixture<T> {
         TestBed.configureTestingModule({
-            imports: [
-                FloatPanelModule,
-                NoopAnimationsModule,
-                LocaleDictionaryModule,
-                HttpClientTestingModule,
-                SettingsModule
-            ],
+            imports: [FloatPanelModule, NoopAnimationsModule, HttpClientTestingModule, SettingsModule],
             declarations: [component, ...declarations],
             providers
         }).compileComponents();
