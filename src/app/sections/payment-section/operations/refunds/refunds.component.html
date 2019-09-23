@@ -1,1 +1,17 @@
-<div>Refunds</div>
+<div fxLayout="column" fxLayoutGap="20px">
+    <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
+    <dsh-card>
+        <dsh-card-content fxLayout="column" fxLayoutGap="15px">
+            <dsh-last-updated
+                *ngIf="!(isLoading$ | async)"
+                (update)="refresh()"
+                [lastUpdated]="lastUpdated$ | async"
+            ></dsh-last-updated>
+            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
+            <dsh-refunds-table [data]="tableData$ | async"></dsh-refunds-table>
+            <button *ngIf="hasMoreRefunds$ | async" (click)="fetchMore()" dsh-button>
+                {{ (isLoading$ | async) ? ('common.loading' | lc) : ('common.showMore' | lc) }}
+            </button>
+        </dsh-card-content>
+    </dsh-card>
+</div>

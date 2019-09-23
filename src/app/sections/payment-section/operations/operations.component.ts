@@ -11,11 +11,11 @@ export class OperationsComponent {
         {
             path: 'payments',
             label: `${this.dictionaryBasePath}.tabs.payments`
+        },
+        {
+            path: 'refunds',
+            label: `${this.dictionaryBasePath}.tabs.refunds`
         }
-        // {
-        //     path: 'refunds',
-        //     label: `${this.dictionaryBasePath}.tabs.refunds`
-        // },
         // {
         //     path: 'invoices',
         //     label: `${this.dictionaryBasePath}.tabs.invoices`
