@@ -19,9 +19,7 @@ const claimToSubheading = (claim: Claim | null): string => {
     throw new Error('Unsupported claim status');
 };
 
-export const mapToSubheading = (claim: Observable<Claim>) => (
-    s: Observable<boolean>
-): Observable<string> => {
+export const mapToSubheading = (claim: Observable<Claim>) => (s: Observable<boolean>): Observable<string> => {
     const fromClaimContent = claim.pipe(map(c => claimToSubheading(c)));
     return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, of('pristine'), fromClaimContent)));
 };
