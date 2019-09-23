@@ -15,7 +15,7 @@
                     <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
                 </div>
                 <h4 class="mat-subheading-1 subheading">
-                    {{ config.subheading }}
+                    {{ subheading$ | async | lc }}
                 </h4>
             </div>
         </div>
@@ -31,18 +31,18 @@
                 fxFlex.xs="none"
                 dsh-button
                 color="accent"
-                [disabled]="!(hasRealEnvironment$ | async)"
-                [routerLink]="actionRouterLink"
+                [disabled]="(actionBtnContent$ | async).disabled"
+                [routerLink]="(actionBtnContent$ | async).routerLink"
             >
-                {{ config.action }}
+                {{ (actionBtnContent$ | async).actionLabel | lc }}
             </button>
             <div fxFlex="50" fxFlex.xs="none">
                 <button
                     fxFlex="100"
-                    *ngIf="hasTestEnvironment$ | async"
                     dsh-stroked-button
                     color="accent"
-                    [routerLink]="testEnvironmentRouterLink"
+                    [disabled]="(testEnvBtnContent$ | async).disabled"
+                    [routerLink]="(testEnvBtnContent$ | async).routerLink"
                 >
                     {{ t.testEnvironment }}
                 </button>

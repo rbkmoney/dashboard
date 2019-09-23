@@ -1,11 +1,9 @@
+import { Component } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
-import { routeEnv } from '../../../route-env';
-import { PaymentPartType } from './payment-part-type';
-import { ContentConfig } from './content-config';
 
 @Component({
     selector: 'dsh-payments',
@@ -13,15 +11,12 @@ import { ContentConfig } from './content-config';
     styleUrls: ['payments.component.scss'],
     providers: [PaymentsService]
 })
-export class PaymentsComponent implements OnInit {
-    actionRouterLink = `/payment-section/env/${routeEnv['1']}/operations`;
-    testEnvironmentRouterLink = `/payment-section/env/${routeEnv['0']}/operations`;
-    config: ContentConfig;
+export class PaymentsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
-
     isLoading$ = this.paymentsService.isLoading$;
-    hasTestEnvironment$ = this.paymentsService.hasTestEnvironment$;
-    hasRealEnvironment$ = this.paymentsService.hasRealEnvironment$;
+    actionBtnContent$ = this.paymentsService.actionBtnContent$;
+    testEnvBtnContent$ = this.paymentsService.testEnvBtnContent$;
+    subheading$ = this.paymentsService.subheading$;
 
     constructor(private paymentsService: PaymentsService, private transloco: TranslocoService) {}
 
