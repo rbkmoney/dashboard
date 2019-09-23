@@ -12,8 +12,7 @@ import { toFormValue } from './to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { takeRouteParam } from '../../../../../custom-operators';
-import { mapToShopInfo, ShopInfo, filterShopsByEnv } from '../../operators';
-import { removeEmptyProperties } from '../../operators/remove-empty-properties';
+import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
 
 @Injectable()
 export class SearchFormService {
