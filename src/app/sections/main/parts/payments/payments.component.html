@@ -15,7 +15,7 @@
                     <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
                 </div>
                 <h4 class="mat-subheading-1 subheading">
-                    {{ subheading$ | async | lc }}
+                    {{ t.subheading[subheading$ | async] }}
                 </h4>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 [disabled]="(actionBtnContent$ | async).disabled"
                 [routerLink]="(actionBtnContent$ | async).routerLink"
             >
-                {{ (actionBtnContent$ | async).actionLabel | lc }}
+                {{ t.action[(actionBtnContent$ | async).actionLabel] }}
             </button>
             <div fxFlex="50" fxFlex.xs="none">
                 <button

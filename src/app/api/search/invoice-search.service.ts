@@ -43,6 +43,7 @@ export class InvoiceSearchService {
             params.bankCardPaymentSystem,
             params.first6,
             params.last4,
+            params.rrn,
             params.paymentAmount,
             params.invoiceAmount,
             params.excludedShops,

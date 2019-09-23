@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
@@ -18,11 +16,5 @@ export class PaymentsComponent {
     testEnvBtnContent$ = this.paymentsService.testEnvBtnContent$;
     subheading$ = this.paymentsService.subheading$;
 
-    constructor(private paymentsService: PaymentsService, private transloco: TranslocoService) {}
-
-    ngOnInit() {
-        this.transloco.selectTranslation('main/ru').subscribe(t => {
-            this.config = this.paymentsService.toContentConfig(PaymentPartType.accepted, t);
-        });
-    }
+    constructor(private paymentsService: PaymentsService) {}
 }

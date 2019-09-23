@@ -8,19 +8,16 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { MainComponent } from './main.component';
 import { ButtonModule } from '../../button';
-import { PaymentsComponent } from './parts';
-import { WalletsComponent } from './parts';
+import { PaymentsComponent, WalletsComponent } from './parts';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
-
     imports: [
         CommonModule,
         FlexLayoutModule,
         RouterModule,
         MatIconModule,
         ButtonModule,
-        LocaleModule,
         SpinnerModule,
         MatSnackBarModule,
         TranslocoModule

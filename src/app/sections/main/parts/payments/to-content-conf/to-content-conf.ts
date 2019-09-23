@@ -16,9 +16,9 @@ import { applyToSate } from './apply-to-state';
 const basePath = 'sections.main.payments';
 
 const initialConf = {
-    subheading: `${basePath}.subheading.prestine`,
+    subheading: `prestine`,
     actionBtnContent: {
-        actionLabel: `${basePath}.action.details`,
+        actionLabel: `details`,
         routerLink: '/',
         disabled: true
     },
