@@ -8,7 +8,6 @@ import { RefundSearchService } from '../../../../api/search';
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 import { RefundsTableData } from './table';
-import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
 import { booleanDelay } from '../../../../custom-operators';
 import { LocaleDictionaryService } from '../../../../locale';
@@ -19,7 +18,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    refundsTableData$: Observable<RefundsTableData[]> = combineLatest(this.searchResult$, this.shopService.shops$).pipe(
+    refundsTableData$: Observable<RefundsTableData[]> = this.searchResult$.pipe(
         catchError(() => {
             this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
             return [];
@@ -33,7 +32,6 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
 
     constructor(
         private refundSearchService: RefundSearchService,
-        private shopService: ShopService,
         private snackBar: MatSnackBar,
         private dicService: LocaleDictionaryService
     ) {
