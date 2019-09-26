@@ -21,9 +21,6 @@ export class TimelineActionDicPathPipe implements PipeTransform {
             [TimelineAction.commentAdded]: 'commentAdded',
             [TimelineAction.changesAdded]: 'changesAdded'
         } as const)[action];
-        return (
-            timelineActionDicPathPart &&
-            `sections.claim.conversation.to-timeline-info.action.${timelineActionDicPathPart}`
-        );
+        return timelineActionDicPathPart && `${timelineActionDicPathPart}`;
     }
 }

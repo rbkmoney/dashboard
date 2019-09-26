@@ -8,7 +8,5 @@ import { CompanyDetails } from './company-details';
     styleUrls: ['company-details.component.scss']
 })
 export class CompanyDetailsComponent {
-    dicBasePath = 'sections.onboarding.companySearch.companyDetails';
-
     @Input() details: CompanyDetails;
 }

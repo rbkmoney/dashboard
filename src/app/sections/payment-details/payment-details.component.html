@@ -2,8 +2,8 @@
     <dsh-headline [paymentID]="payment?.id"></dsh-headline>
     <dsh-details [payment]="payment"></dsh-details>
     <dsh-payment-tool
-        *ngIf="getPaymentToolDetails(payment)"
-        [paymentToolDetails]="getPaymentToolDetails(payment)"
+        *ngIf="getPaymentToolDetails(payment) as paymentToolDetails"
+        [paymentToolDetails]="paymentToolDetails"
     ></dsh-payment-tool>
     <dsh-payer-details
         *ngIf="payment?.payer?.payerType !== PayerType.RecurrentPayer"

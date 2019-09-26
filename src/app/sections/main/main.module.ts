@@ -4,12 +4,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { MainComponent } from './main.component';
 import { ButtonModule } from '../../button';
-import { PaymentsComponent } from './parts';
-import { WalletsComponent } from './parts';
-import { LocaleModule } from '../../locale';
+import { PaymentsComponent, WalletsComponent } from './parts';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
@@ -19,9 +18,9 @@ import { SpinnerModule } from '../../spinner';
         RouterModule,
         MatIconModule,
         ButtonModule,
-        LocaleModule,
         SpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        TranslocoModule
     ],
     declarations: [MainComponent, PaymentsComponent, WalletsComponent]
 })

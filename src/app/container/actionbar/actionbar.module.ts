@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { ActionbarComponent } from './actionbar.component';
 import { DropdownModule } from '../../dropdown';
@@ -15,7 +16,6 @@ import { UserComponent } from './user';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 import { ActionItemComponent } from './action-item';
 import { ClaimsService } from '../../api/claims';
-import { LocaleModule } from '../../locale';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
@@ -30,8 +30,8 @@ import { SpinnerModule } from '../../spinner';
         MatMenuModule,
         RouterModule,
         CommonModule,
-        LocaleModule,
-        SpinnerModule
+        SpinnerModule,
+        TranslocoModule
     ],
     declarations: [
         ActionbarComponent,

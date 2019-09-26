@@ -1,0 +1,41 @@
+{
+    "title": "Операции",
+    "payments": {
+        "title": "Платежи",
+        "filter": {
+            "shopID": "Магазин",
+            "fromTime": "Начало периода",
+            "toTime": "Конец периода",
+            "payerEmail": "Email плательщика",
+            "paymentID": "Идентификатор платежа",
+            "invoiceID": "Идентификатор инвойса",
+            "paymentAmount": "Сумма платежа",
+            "first6": "BIN банка-эмитента карты",
+            "last4": "Последние цифры номера карты",
+            "payerFingerprint": "Fingerprint плательщика",
+            "payerIP": "IP-адрес плательщика",
+            "paymentStatus": "Статус платежа",
+            "paymentFlow": "Тип проведения платежа",
+            "bankCardTokenProvider": "Провайдер платежных токенов",
+            "bankCardPaymentSystem": "Платежная система",
+            "paymentMethod": "Метод оплаты",
+            "rnn": "RNN платежа"
+        },
+        "table": {
+            "amount": "Сумма списания",
+            "status": "Статус",
+            "statusChanged": "Статус изменен",
+            "invoice": "Инвойс",
+            "shop": "Магазин",
+            "actions": {
+                "paymentDetails": "Детали платежа"
+            }
+        }
+    },
+    "invoices": {
+        "title": "Инвойсы"
+    },
+    "refunds": {
+        "title": "Возвраты"
+    }
+}

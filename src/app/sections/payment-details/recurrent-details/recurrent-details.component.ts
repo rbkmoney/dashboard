@@ -10,7 +10,5 @@ import { LAYOUT_GAP } from '../../constants';
 export class RecurrentDetailsComponent {
     @Input() recurrentPayer: RecurrentPayer;
 
-    localePath = 'sections.paymentDetails.recurrentDetails';
-
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

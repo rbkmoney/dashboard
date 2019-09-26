@@ -1,0 +1,87 @@
+{
+    "showMore": "Показать еще",
+    "collapse": "Свернуть",
+    "resetSearchParams": "Сбросить параметры поиска",
+    "back": "Назад",
+    "next": "Далее",
+    "ago": "назад",
+    "today": "Сегодня",
+    "week": "Неделя",
+    "month": "Месяц",
+    "any": "Любой",
+    "update": "Обновить",
+    "lastUpdate": "Последнее обновление",
+    "httpError": "Произошла ошибка в процессе получения данных",
+    "commonError": "Что-то пошло не так",
+    "loading": "Загрузка...",
+    "paymentStatus": {
+        "pending": "Запущен",
+        "processed": "Обработан",
+        "captured": "Подтвержден",
+        "cancelled": "Отменен",
+        "refunded": "Возвращен",
+        "failed": "Неуспешен"
+    },
+    "invoiceStatus": {
+        "paid": "Оплачен",
+        "unpaid": "Не оплачен",
+        "fulfilled": "Погашен",
+        "cancelled": "Отменен"
+    },
+    "refundStatus": {
+        "succeeded": "Успешен",
+        "pending": "Запущен",
+        "failed": "Неуспешен"
+    },
+    "paymentFlow": {
+        "instant": "Мгновенный",
+        "hold": "С удержанием"
+    },
+    "shortTimeUnits": {
+        "year": "г.",
+        "week": "нед.",
+        "month": "мес.",
+        "day": "д.",
+        "hour": "ч.",
+        "minute": "мин.",
+        "second": "сек.",
+        "millisecond": "мсек."
+    },
+    "bankCardTokenProvider": {
+        "applepay": "Apple Pay",
+        "googlepay": "Google Pay",
+        "samsungpay": "Samsung Pay"
+    },
+    "bankCardPaymentSystem": {
+        "visa": "Visa",
+        "mastercard": "Mastercard",
+        "visaelectron": "Visa Electron",
+        "maestro": "Maestro",
+        "forbrugsforeningen": "Forbrugsforeningen",
+        "dankort": "Dankort",
+        "amex": "American Express",
+        "dinersclub": "Diners Club International",
+        "discover": "Discover Card",
+        "unionpay": "UnionPay",
+        "jcb": "JCB",
+        "nspkmir": "MIR"
+    },
+    "paymentMethod": {
+        "bankCard": "Банковская карта",
+        "paymentTerminal": "Терминал"
+    },
+    "digitalWalletProvider": {
+        "DigitalWalletDetailsQIWI": "QIWI"
+    },
+    "paymentTerminalProvider": {
+        "euroset": "Евросеть"
+    },
+    "claimStatus": {
+        "pending": "В ожидании",
+        "pendingAcceptance": "Требуются ваши действия",
+        "review": "На рассмотрении",
+        "revoked": "Отозвана",
+        "denied": "Отклонена",
+        "accepted": "Одобрена"
+    }
+}

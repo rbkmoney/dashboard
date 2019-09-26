@@ -15,7 +15,7 @@ export class LegendTooltipService {
     getLegendItem() {
         const item = this.tooltip.append('div').attr('class', 'legend-tooltip-item');
         item.append('svg').attr('class', 'legend-tooltip-item-color');
-        item.append('text').attr('class', 'legend-tooltip-item-text');
+        item.append('text').attr('class', 'legend-tooltip-item-status');
         item.append('text').attr('class', 'legend-tooltip-item-value-before');
         item.append('text').attr('class', 'legend-tooltip-item-value');
         return item;
@@ -39,7 +39,7 @@ export class LegendTooltipService {
                 .attr('ry', 3)
                 .attr('fill', v.color);
 
-            item.select('.legend-tooltip-item-text').text(v.name);
+            item.select('.legend-tooltip-item-status').text(v.name);
 
             if (v.value) {
                 item.select('.legend-tooltip-item-value-before').text('–');

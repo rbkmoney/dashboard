@@ -16,8 +16,6 @@ export class DigitalWalletComponent implements OnChanges {
 
     qiwi: DigitalWalletDetailsQIWI;
 
-    localePath = 'sections.paymentDetails.paymentTool';
-
     ngOnChanges(changes: SimpleChanges) {
         if (changes.digitalWallet.previousValue !== changes.digitalWallet.currentValue) {
             switch (this.digitalWallet.digitalWalletDetailsType) {
