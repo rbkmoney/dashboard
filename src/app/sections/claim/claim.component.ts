@@ -12,16 +12,13 @@ import { ClaimService } from './claim.service';
 export class ClaimComponent {
     links = [
         {
-            path: 'conversation',
-            label: 'sections.claim.conversation.label'
+            path: 'conversation'
         },
         {
-            path: 'changes',
-            label: 'sections.claim.changes.label'
+            path: 'changes'
         },
         {
-            path: 'documents',
-            label: 'sections.claim.documents.label'
+            path: 'documents'
         }
     ];
 

@@ -1,7 +1,6 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
-import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 import { LAYOUT_GAP } from '../../constants';
 import { StatusColor as Color } from '../../../theme-manager';
 
@@ -12,34 +11,45 @@ import { StatusColor as Color } from '../../../theme-manager';
 export class DetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;
 
-    localePath = 'sections.paymentDetails.details';
+    color: Color;
 
-    statusViewInfo: StatusViewInfo;
+    status: string;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.payment.currentValue !== changes.payment.previousValue) {
-            this.statusViewInfo = this.getStatusViewInfo(this.payment.status);
+            this.setInfo(this.payment.status);
         }
     }
 
-    getStatusViewInfo(status: PaymentStatus.StatusEnum): StatusViewInfo {
-        const localePath = `common.paymentStatus`;
+    setInfo(status: PaymentStatus.StatusEnum) {
         const statusEnum = PaymentStatus.StatusEnum;
         switch (status) {
             case statusEnum.Processed:
-                return { color: Color.success, text: `${localePath}.processed` };
+                this.color = Color.success;
+                this.status = 'processed';
+                break;
             case statusEnum.Failed:
-                return { color: Color.warn, text: `${localePath}.failed` };
+                this.color = Color.warn;
+                this.status = 'failed';
+                break;
             case statusEnum.Refunded:
-                return { color: Color.success, text: `${localePath}.refunded` };
+                this.color = Color.neutral;
+                this.status = 'refunded';
+                break;
             case statusEnum.Cancelled:
-                return { color: Color.warn, text: `${localePath}.cancelled` };
+                this.color = Color.warn;
+                this.status = 'cancelled';
+                break;
             case statusEnum.Captured:
-                return { color: Color.pending, text: `${localePath}.captured` };
+                this.color = Color.pending;
+                this.status = 'captured';
+                break;
             case statusEnum.Pending:
-                return { color: Color.pending, text: `${localePath}.pending` };
+                this.color = Color.pending;
+                this.status = 'pending';
+                break;
         }
     }
 }

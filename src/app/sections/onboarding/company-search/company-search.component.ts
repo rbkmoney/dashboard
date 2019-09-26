@@ -15,7 +15,6 @@ import { ContractorType } from './contractor-type';
     providers: [CompanySearchService]
 })
 export class CompanySearchComponent {
-    dicBasePath = 'sections.onboarding.companySearch';
     form: FormGroup = this.companySearchService.form;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;

@@ -1,5 +1,9 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-headline">{{ dictionaryBasePath + '.headline' | lc }}</h1>
+<div
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.operations'"
+>
+    <h1 class="mat-headline">{{ t.headline }}</h1>
     <nav dsh-tab-nav-bar>
         <a
             dsh-tab-link
@@ -9,7 +13,7 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ link.label | lc }}
+            {{ t.tabs[link.path] }}
         </a>
     </nav>
     <div>

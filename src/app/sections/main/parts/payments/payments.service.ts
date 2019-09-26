@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { ShopService, ClaimsService } from '../../../../api';
-import { ClaimStatus } from '../../../../api/claims/claims.service';
+import { ClaimsService, ShopService } from '../../../../api';
+import { ClaimStatus } from '../../../../api/claims';
 import { toContentConf } from './to-content-conf';
-import { LocaleDictionaryService } from '../../../../locale';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { booleanDelay, takeError } from '../../../../custom-operators';
+import { LanguageService } from '../../../../language';
 
 @Injectable()
 export class PaymentsService {
@@ -21,7 +22,8 @@ export class PaymentsService {
         private shopService: ShopService,
         private claimService: ClaimsService,
         private snackBar: MatSnackBar,
-        private dicService: LocaleDictionaryService
+        private transloco: TranslocoService,
+        private language: LanguageService
     ) {
         const claims = this.claimService.search1000Claims([
             ClaimStatus.Pending,
@@ -33,8 +35,10 @@ export class PaymentsService {
         this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
-        combineLatest(this.isLoading$, contentConfig)
-            .pipe(takeError)
-            .subscribe(() => this.snackBar.open(this.dicService.mapDictionaryKey('common.commonError'), 'OK'));
+        this.transloco.selectTranslation(this.language.active).subscribe(t => {
+            combineLatest(this.isLoading$, contentConfig)
+                .pipe(takeError)
+                .subscribe(() => this.snackBar.open(t.commonError, 'OK'));
+        });
     }
 }

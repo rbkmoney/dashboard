@@ -8,6 +8,4 @@ import { ShopLocationUrl } from '../../../../api-codegen/capi/swagger-codegen';
 })
 export class ShopLocationUrlComponent {
     @Input() shopLocationUrl: ShopLocationUrl;
-
-    localePath = 'sections.paymentDetails.shopDetails';
 }

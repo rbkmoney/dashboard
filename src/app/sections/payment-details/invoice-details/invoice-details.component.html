@@ -1,22 +1,31 @@
 <dsh-card *ngIf="invoice$ | async as invoice">
-    <dsh-card-title>
-        <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
-            <!-- <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon> -->
-            <div>
-                {{ localePath + '.title' | lc }}
-                <span dshSecondaryTitle>#{{ invoice?.id }}</span>
+    <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
+        <dsh-card-title>
+            <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
+                <!-- <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon> -->
+                <div>
+                    {{ t?.title }}
+                    <span dshSecondaryTitle>#{{ invoice?.id }}</span>
+                </div>
             </div>
-        </div>
-    </dsh-card-title>
-    <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
-            <dsh-details-status-item [info]="getStatusViewInfo(invoice.status)" fxFlex="33"></dsh-details-status-item>
-            <dsh-details-item [title]="localePath + '.titles.amount' | lc" fxFlex="33">
-                {{ invoice?.amount | fromMinor | currency: invoice?.currency }}
+        </dsh-card-title>
+        <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+                <ng-container *transloco="let c; read: 'invoiceStatus'">
+                    <dsh-details-status-item
+                        *ngIf="getStatusViewInfo(invoice.status) as statusInfo"
+                        [color]="statusInfo.color"
+                        [text]="c[statusInfo.text]"
+                        fxFlex="33"
+                    ></dsh-details-status-item>
+                </ng-container>
+                <dsh-details-item [title]="t?.amount" fxFlex="33">
+                    {{ invoice?.amount | fromMinor | currency: invoice?.currency }}
+                </dsh-details-item>
+            </div>
+            <dsh-details-item [title]="t?.product">
+                {{ invoice?.product }}
             </dsh-details-item>
-        </div>
-        <dsh-details-item [title]="localePath + '.titles.product' | lc">
-            {{ invoice?.product }}
-        </dsh-details-item>
-    </dsh-card-content>
+        </dsh-card-content>
+    </ng-container>
 </dsh-card>

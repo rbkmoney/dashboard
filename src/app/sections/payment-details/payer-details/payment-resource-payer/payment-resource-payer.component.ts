@@ -10,7 +10,5 @@ import { LAYOUT_GAP } from '../../../constants';
 export class PaymentResourcePayerComponent {
     @Input() paymentResourcePayer: PaymentResourcePayer;
 
-    localePath = 'sections.paymentDetails.payerDetails';
-
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

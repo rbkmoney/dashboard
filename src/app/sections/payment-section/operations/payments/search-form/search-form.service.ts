@@ -12,7 +12,7 @@ import { toFormValue } from './to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { takeRouteParam } from '../../../../../custom-operators';
-import { mapToShopInfo, ShopInfo, filterShopsByEnv } from '../../operators';
+import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
 
 @Injectable()
 export class SearchFormService {
@@ -47,6 +47,7 @@ export class SearchFormService {
     formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
             filter(() => this.searchForm.status === 'VALID'),
+            removeEmptyProperties,
             debounceTime(valueDebounceTime)
         );
     }

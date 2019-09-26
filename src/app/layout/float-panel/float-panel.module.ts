@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { FloatPanelComponent } from './float-panel.component';
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
@@ -9,10 +10,9 @@ import { FloatPanelActionsTemplateComponent } from './templates/float-panel-acti
 import { ButtonModule } from '../../button';
 import { ResizedModule } from '../../resized';
 import { CardModule } from '../card';
-import { LocaleModule } from '../../locale';
 
 @NgModule({
-    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, LocaleModule],
+    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, TranslocoModule],
     declarations: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
     exports: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent]
 })

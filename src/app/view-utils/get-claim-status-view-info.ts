@@ -4,7 +4,7 @@ import { StatusModificationUnit } from '../api-codegen/claim-management';
 type ClaimStatus = StatusModificationUnit.StatusEnum;
 
 export interface ClaimStatusViewInfo {
-    statusDicPath: string;
+    status: string;
     color: StatusColor;
 }
 
@@ -20,6 +20,6 @@ function statusMapToColor(status: ClaimStatus): StatusColor {
 }
 
 export const getClaimStatusViewInfo = (status: ClaimStatus): ClaimStatusViewInfo => ({
-    statusDicPath: `common.claimStatus.${status}`,
+    status: `${status}`,
     color: statusMapToColor(status)
 });

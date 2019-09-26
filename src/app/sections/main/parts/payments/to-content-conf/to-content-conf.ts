@@ -13,12 +13,10 @@ import { mapToTestEnvBtnContent } from './map-to-test-env-btn-content';
 import { mapToTargetClaim } from './map-to-target-claim';
 import { applyToSate } from './apply-to-state';
 
-const basePath = 'sections.main.payments';
-
 const initialConf = {
-    subheading: `${basePath}.subheading.prestine`,
+    subheading: `pristine`,
     actionBtnContent: {
-        actionLabel: `${basePath}.action.details`,
+        actionLabel: `details`,
         routerLink: '/',
         disabled: true
     },
@@ -38,8 +36,8 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
         mapToTargetClaim,
         shareReplay(1)
     );
-    const actionBtnContent$ = hasRealEnv$.pipe(mapToActionBtnContent(basePath, targetClaim$));
-    const subheading$ = hasRealEnv$.pipe(mapToSubheading(basePath, targetClaim$));
+    const actionBtnContent$ = hasRealEnv$.pipe(mapToActionBtnContent(targetClaim$));
+    const subheading$ = hasRealEnv$.pipe(mapToSubheading(targetClaim$));
     const testEnvBtnContent$ = shops.pipe(
         filterTestShops,
         map(negate(isEmpty)),

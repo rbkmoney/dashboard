@@ -1,10 +1,10 @@
-<dsh-state-nav fxFlex="180px">
+<dsh-state-nav fxFlex="180px" *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'">
     <dsh-state-nav-item
         routerLink="./operations"
         routerLinkActive
         #operations="routerLinkActive"
         [selected]="operations.isActive"
     >
-        <mat-icon>table_chart</mat-icon>{{ 'sections.payment-section.nav.operations' | lc }}
+        <mat-icon>table_chart</mat-icon>{{ t.operations }}
     </dsh-state-nav-item>
 </dsh-state-nav>
