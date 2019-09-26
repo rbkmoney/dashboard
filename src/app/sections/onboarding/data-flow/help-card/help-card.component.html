@@ -1,6 +1,6 @@
-<dsh-card>
-    <h2 class="mat-title">{{ basePath + '.title' | lc }}</h2>
+<dsh-card *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.helpCard'">
+    <h2 class="mat-title">{{ t.title }}</h2>
     <dsh-card-content>
-        {{ basePath + '.content' | lc }}
+        {{ t.content }}
     </dsh-card-content>
 </dsh-card>

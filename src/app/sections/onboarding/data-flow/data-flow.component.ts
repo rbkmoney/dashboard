@@ -13,8 +13,6 @@ import { ValidityService } from './validity.service';
     providers: [DataFlowService, StepFlowService, QuestionaryService, ValidityService]
 })
 export class DataFlowComponent {
-    title = 'Основные сведения';
-
     stepFlow$ = this.stepFlowService.stepFlow$;
     activeStep$ = this.stepFlowService.activeStep$;
 

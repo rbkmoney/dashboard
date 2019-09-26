@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { CompanyDetails } from './company-details';
 import { SuggestionData } from '../../../dadata/model/suggestions';
 import { SuggestionType } from '../../../dadata/model/type';
-import { LocaleDictionaryService } from '../../../locale';
 import { CompanySearchService } from './company-search.service';
 import { ContractorType } from './contractor-type';
 
@@ -23,9 +23,9 @@ export class CompanySearchComponent {
 
     constructor(
         private snackBar: MatSnackBar,
-        private dicService: LocaleDictionaryService,
-        private companySearchService: CompanySearchService
-    ) { }
+        private companySearchService: CompanySearchService,
+        private transloco: TranslocoService
+    ) {}
 
     back() {
         this.companySearchService.showLeaveOnboardingDialog().subscribe(() => this.companySearchService.leave());
@@ -49,7 +49,7 @@ export class CompanySearchComponent {
 
     searchSuggestionError() {
         this.manualContractorSelector = true;
-        this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
+        this.snackBar.open(this.transloco.translate('httpError'), 'OK');
     }
 
     suggestionNotFound() {

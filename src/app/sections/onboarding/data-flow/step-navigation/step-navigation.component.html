@@ -1,8 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="space-between center">
+<div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let t">
     <button fxFlex="100px" dsh-stroked-button color="accent" (click)="back()">
-        {{ 'common.back' | lc }}
+        {{ t.back }}
     </button>
     <button fxFlex="100px" dsh-button color="accent" (click)="next()">
-        {{ 'common.next' | lc }}
+        {{ t.next }}
     </button>
 </div>

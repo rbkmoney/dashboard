@@ -1,12 +1,12 @@
-<dsh-card>
+<dsh-card *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.stepCard'">
     <dsh-card-content fxLayout="column" fxLayoutGap="20px">
         <dsh-state-nav (selectedIdxChange)="selectStepFlowIndex($event)" flat>
             <dsh-state-nav-item *ngFor="let step of stepFlow" [selected]="step === activeStep">
-                {{ step | stepLabel | lc }}
+                {{ step | stepLabel: 'stepCard' }}
             </dsh-state-nav-item>
         </dsh-state-nav>
         <button fxFlex dsh-button color="accent" [disabled]="actionDisabled" (click)="doAction.emit()">
-            {{ 'sections.onboarding.dataFlow.stepCard.actionLabel' | lc }}
+            {{ t.actionLabel }}
         </button>
     </dsh-card-content>
 </dsh-card>

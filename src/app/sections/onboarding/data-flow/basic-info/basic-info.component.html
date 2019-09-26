@@ -1,35 +1,39 @@
-<form [formGroup]="form" fxLayout="column">
+<form
+    [formGroup]="form"
+    fxLayout="column"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.basicInfo'"
+>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
-            <mat-label>{{ basePath + '.name' | lc }}</mat-label>
+            <mat-label>{{ t.name }}</mat-label>
             <input matInput formControlName="name" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ basePath + '.inn' | lc }}</mat-label>
+            <mat-label>{{ t.inn }}</mat-label>
             <input matInput formControlName="inn" required />
         </mat-form-field>
     </div>
     <mat-form-field fxFlex>
-        <mat-label>{{ basePath + '.registrationPlace' | lc }}</mat-label>
+        <mat-label>{{ t.registrationPlace }}</mat-label>
         <input matInput formControlName="registrationPlace" required />
     </mat-form-field>
-    <h4 class="mat-subheading-1">{{ basePath + '.shopInfo' | lc }}</h4>
+    <h4 class="mat-subheading-1">{{ t.shopInfo }}</h4>
     <mat-form-field fxFlex>
-        <mat-label>{{ basePath + '.shopUrl' | lc }}</mat-label>
+        <mat-label>{{ t.shopUrl }}</mat-label>
         <input matInput formControlName="shopUrl" required />
     </mat-form-field>
     <mat-form-field fxFlex>
-        <mat-label>{{ basePath + '.shopName' | lc }}</mat-label>
+        <mat-label>{{ t.shopName }}</mat-label>
         <input matInput formControlName="shopName" required />
     </mat-form-field>
-    <h4 class="mat-subheading-1">{{ basePath + '.contactInfo' | lc }}</h4>
+    <h4 class="mat-subheading-1">{{ t.contactInfo }}</h4>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
-            <mat-label>{{ basePath + '.email' | lc }}</mat-label>
+            <mat-label>{{ t.email }}</mat-label>
             <input matInput formControlName="email" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ basePath + '.phoneNumber' | lc }}</mat-label>
+            <mat-label>{{ t.phoneNumber }}</mat-label>
             <input matInput formControlName="phoneNumber" required />
         </mat-form-field>
     </div>

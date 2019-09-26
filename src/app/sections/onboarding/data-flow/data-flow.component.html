@@ -1,8 +1,8 @@
-<div class="container" fxLayout="column">
-    <h1 class="mat-headline">{{ 'sections.onboarding.headline' | lc }}</h1>
+<div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'">
+    <h1 class="mat-headline">{{ t.headline }}</h1>
     <div fxLayout fxLayoutGap="20px">
         <dsh-card fxFlex fxLayout="column" fxLayoutGap="10px">
-            <h2 class="mat-title">{{ title }}</h2>
+            <h2 class="mat-title">{{ activeStep$ | async | stepLabel: 'stepTitle' }}</h2>
             <dsh-card-content>
                 <router-outlet></router-outlet>
             </dsh-card-content>
