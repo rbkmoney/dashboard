@@ -10,13 +10,13 @@ import {
     MatDatepickerModule,
     MatSelectModule
 } from '@angular/material';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
-import { LocaleModule } from '../../../../locale';
 import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
 import { DaterangeSelectorModule } from '../daterange-selector';
@@ -40,7 +40,6 @@ import { StateNavModule } from '../../../../state-nav';
         MatInputModule,
         TableModule,
         MatIconModule,
-        LocaleModule,
         ReactiveFormsModule,
         MatDatepickerModule,
         MatSelectModule,
@@ -52,8 +51,10 @@ import { StateNavModule } from '../../../../state-nav';
         SpinnerModule,
         MatSnackBarModule,
         DropdownModule,
+        TranslocoModule,
         StateNavModule
     ],
-    declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent]
+    declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class RefundsModule {}

@@ -23,12 +23,12 @@ import { PaymentsComponent } from './payments.component';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
 import { ViewUtilsModule } from '../../../../view-utils';
-import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { DropdownModule } from '../../../../dropdown';
 import { StateNavModule } from '../../../../state-nav';
 import { LanguageModule } from '../../../../language';
+import { LastUpdatedModule } from '../last-updated/last-updated.module';
 
 @NgModule({
     imports: [

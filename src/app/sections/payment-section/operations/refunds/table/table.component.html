@@ -1,8 +1,8 @@
-<div class="table-container">
+<div *transloco="let t; scope: 'operations'; read: 'operations.refunds.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="amount">
             <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
-                {{ localeBaseDir + '.amount' | lc }}
+                {{ t.amount }}
             </th>
             <td dshCell fxFlex="150px" *dshCellDef="let refund">
                 {{ refund.amount | fromMinor | currency: refund.currency }}
@@ -11,18 +11,18 @@
 
         <ng-container dshColumnDef="status">
             <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
-                {{ localeBaseDir + '.status' | lc }}
+                {{ t.status }}
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let refund">
-                <dsh-status [color]="refund.status | refundStatusColor">{{
-                    'common.refundStatus.' + refund.status | lc
+                <dsh-status *transloco="let c" [color]="refund.status | refundStatusColor">{{
+                    c.refundStatus[refund.status]
                 }}</dsh-status>
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
             <th dshHeaderCell *dshHeaderCellDef>
-                {{ localeBaseDir + '.createdAt' | lc }}
+                {{ t.createdAt }}
             </th>
             <td dshCell *dshCellDef="let refund">
                 {{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
@@ -31,28 +31,30 @@
 
         <ng-container dshColumnDef="invoiceID">
             <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                {{ localeBaseDir + '.invoiceID' | lc }}
+                {{ t.invoiceID }}
             </th>
             <td dshCell *dshCellDef="let refund" fxHide fxShow.gt-sm>
                 <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ refund.invoiceID }}</span> <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
-                >
+                    ><span>{{ refund.invoiceID }}</span>
+                    <mat-icon class="arrow-forward">arrow_forward</mat-icon>
+                </a>
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="paymentID">
             <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                {{ localeBaseDir + '.paymentID' | lc }}
+                {{ t.paymentID }}
             </th>
             <td dshCell *dshCellDef="let refund" fxHide fxShow.gt-sm>
                 <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ refund.paymentID }}</span> <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
-                >
+                    ><span>{{ refund.paymentID }}</span>
+                    <mat-icon class="arrow-forward">arrow_forward</mat-icon>
+                </a>
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="reason">
-            <th dshHeaderCell *dshHeaderCellDef>{{ localeBaseDir + '.reason' | lc }}</th>
+            <th dshHeaderCell *dshHeaderCellDef>{{ t.reason }}</th>
             <td dshCell *dshCellDef="let refund">
                 <span class="truncate">{{ refund.reason }}</span>
             </td>
@@ -61,7 +63,9 @@
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let refund">
-                <button dsh-icon-button><mat-icon>more_vert</mat-icon></button>
+                <button dsh-icon-button>
+                    <mat-icon>more_vert</mat-icon>
+                </button>
             </td>
         </ng-container>
 

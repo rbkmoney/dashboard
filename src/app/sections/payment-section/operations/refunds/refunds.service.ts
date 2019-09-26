@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { RefundsSearchFormValue } from './search-form';
 import { RefundSearchService } from '../../../../api/search';
@@ -10,7 +11,6 @@ import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 import { RefundsTableData } from './table';
 import { mapToTimestamp } from '../operators';
 import { booleanDelay } from '../../../../custom-operators';
-import { LocaleDictionaryService } from '../../../../locale';
 
 @Injectable()
 export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchFormValue> {
@@ -20,7 +20,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
 
     refundsTableData$: Observable<RefundsTableData[]> = this.searchResult$.pipe(
         catchError(() => {
-            this.snackBar.open(this.dicService.mapDictionaryKey('common.httpError'), 'OK');
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
     );
@@ -33,7 +33,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     constructor(
         private refundSearchService: RefundSearchService,
         private snackBar: MatSnackBar,
-        private dicService: LocaleDictionaryService
+        private transloco: TranslocoService
     ) {
         super();
     }
