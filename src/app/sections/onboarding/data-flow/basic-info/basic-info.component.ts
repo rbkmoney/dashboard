@@ -6,7 +6,6 @@ import { BasicInfoService } from './basic-info.service';
 @Component({
     selector: 'dsh-basic-info',
     templateUrl: 'basic-info.component.html',
-    styleUrls: ['basic-info.component.scss'],
     providers: [BasicInfoService]
 })
 export class BasicInfoComponent implements OnInit {

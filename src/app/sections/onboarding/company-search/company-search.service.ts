@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { filter, map, switchMap, catchError } from 'rxjs/operators';
 import get from 'lodash.get';
 import * as uuid from 'uuid/v4';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { ContractorType } from './contractor-type';
 import { SuggestionData } from '../../../dadata/model/suggestions';
@@ -25,7 +26,9 @@ export class CompanySearchService {
         private router: Router,
         private fb: FormBuilder,
         private claimsService: ClaimsService,
-        private questionaryService: QuestionaryService
+        private questionaryService: QuestionaryService,
+        private transloco: TranslocoService,
+        private snackBar: MatSnackBar
     ) {}
 
     suggestionToContractorType(suggestion: SuggestionData<SuggestionType.party>): ContractorType | null {
@@ -45,11 +48,14 @@ export class CompanySearchService {
 
     createInitialClaim(type: ContractorType): Observable<number> {
         const questionaryID = uuid();
-        const modificationUnit = createDocumentModificationUnit(1, questionaryID);
-        const data = toQuestionaryData(type);
-        return this.questionaryService.saveQuestionary(questionaryID, data).pipe(
-            switchMap(() => this.claimsService.createClaim([modificationUnit])),
-            map(c => c.id)
+        const changeset = [createDocumentModificationUnit(1, questionaryID)];
+        return this.questionaryService.saveQuestionary(questionaryID, toQuestionaryData(type)).pipe(
+            switchMap(() => this.claimsService.createClaim(changeset)),
+            map(c => c.id),
+            catchError(err => {
+                this.snackBar.open(this.transloco.translate('commonError'), 'OK');
+                return throwError(err);
+            })
         );
     }
 

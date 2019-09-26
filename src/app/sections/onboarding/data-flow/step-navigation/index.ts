@@ -1,2 +1,1 @@
-
-export * from './step-navigation.component'
+export * from './step-navigation.component';

@@ -1,2 +1,1 @@
-
-export * from './help-card.component'
+export * from './help-card.component';
