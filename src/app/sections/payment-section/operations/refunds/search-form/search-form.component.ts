@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormValue } from '../../search-form-value';
 import { RefundStatus } from '../../../../../api-codegen/capi/swagger-codegen';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
+import { LAYOUT_GAP } from '../../../../constants';
 
 @Component({
     selector: 'dsh-search-form',
@@ -13,7 +14,6 @@ import { RefundsSearchFormValue } from './refunds-search-form-value';
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
-    @Input() layoutGap = '20px';
 
     @Output() formValueChanges: EventEmitter<RefundsSearchFormValue> = new EventEmitter<RefundsSearchFormValue>();
 
@@ -22,7 +22,7 @@ export class SearchFormComponent implements OnInit {
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = ['pending', 'succeeded', 'failed'];
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
