@@ -13,7 +13,6 @@ export class TableComponent {
     @Input() data: MatTableDataSource<PaymentsTableData>;
 
     displayedColumns: string[] = ['amount', 'status', 'statusChanged', 'invoice', 'attributes', 'actions'];
-    localeBaseDir = 'sections.operations.payments.table';
 
     constructor(private router: Router) {}
 

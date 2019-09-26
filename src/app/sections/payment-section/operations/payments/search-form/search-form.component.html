@@ -1,164 +1,171 @@
-<dsh-float-panel [formGroup]="searchForm" novalidate [(expanded)]="expanded">
-    <div
-        fxLayout
-        fxLayout.lt-md="column"
-        [fxLayoutGap]="layoutGap"
-        fxLayoutAlign="space-between center"
-        fxLayoutAlign.lt-md="space-between stretch"
-    >
-        <dsh-daterange-selector
-            fxFlex.gt-sm
-            [value]="searchForm.value"
-            (selectDaterange)="selectDaterange($event)"
-            (selectMore)="expanded = true"
-        ></dsh-daterange-selector>
-        <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
-            <mat-form-field fxFlex>
-                <mat-label>{{ localeBaseDir + '.shopID' | lc }}</mat-label>
-                <mat-select formControlName="shopID">
-                    <mat-option>
-                        {{ 'common.any' | lc }}
-                    </mat-option>
-                    <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
-                        {{ item.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+<dsh-float-panel
+    *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'"
+    [formGroup]="searchForm"
+    novalidate
+    [(expanded)]="expanded"
+>
+    <ng-container *transloco="let c">
+        <div
+            fxLayout
+            fxLayout.lt-md="column"
+            [fxLayoutGap]="layoutGap"
+            fxLayoutAlign="space-between center"
+            fxLayoutAlign.lt-md="space-between stretch"
+        >
+            <dsh-daterange-selector
+                fxFlex.gt-sm
+                [value]="searchForm.value"
+                (selectDaterange)="selectDaterange($event)"
+                (selectMore)="expanded = true"
+            ></dsh-daterange-selector>
+            <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ t.shopID }}</mat-label>
+                    <mat-select formControlName="shopID">
+                        <mat-option>
+                            {{ c.any }}
+                        </mat-option>
+                        <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
+                            {{ item.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field fxFlex>
-                <mat-label>{{ localeBaseDir + '.paymentStatus' | lc }}</mat-label>
-                <mat-select formControlName="paymentStatus">
-                    <mat-option>
-                        {{ 'common.any' | lc }}
-                    </mat-option>
-                    <mat-option *ngFor="let status of statuses" [value]="status">
-                        {{ 'common.paymentStatus.' + status | lc }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </dsh-justify-wrapper>
-    </div>
-    <dsh-float-panel-actions>
-        <button dsh-button (click)="reset()">
-            {{ 'common.resetSearchParams' | lc }}
-        </button>
-    </dsh-float-panel-actions>
-    <dsh-float-panel-more>
-        <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.fromTime' | lc }}</mat-label>
-                    <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
-                    <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
-                    <mat-datepicker #fromTime></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.toTime' | lc }}</mat-label>
-                    <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
-                    <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
-                    <mat-datepicker #toTime></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.payerEmail' | lc }}</mat-label>
-                    <input matInput type="email" formControlName="payerEmail" />
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentFlow' | lc }}</mat-label>
-                    <mat-select formControlName="paymentFlow">
+                    <mat-label>{{ t.paymentStatus }}</mat-label>
+                    <mat-select formControlName="paymentStatus">
                         <mat-option>
-                            {{ 'common.any' | lc }}
+                            {{ c.any }}
                         </mat-option>
-                        <mat-option *ngFor="let flow of flows" [value]="flow">
-                            {{ 'common.paymentFlow.' + flow | lc }}
+                        <mat-option *ngFor="let status of statuses" [value]="status">
+                            {{ c.paymentStatus[status] }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            </div>
+            </dsh-justify-wrapper>
         </div>
-        <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.rnn' | lc }}</mat-label>
-                    <input matInput formControlName="rnn" />
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.invoiceID' | lc }}</mat-label>
-                    <input matInput formControlName="invoiceID" />
-                </mat-form-field>
+        <dsh-float-panel-actions>
+            <button dsh-button (click)="reset()">
+                {{ c.resetSearchParams }}
+            </button>
+        </dsh-float-panel-actions>
+        <dsh-float-panel-more>
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.fromTime }}</mat-label>
+                        <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
+                        <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
+                        <mat-datepicker #fromTime></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.toTime }}</mat-label>
+                        <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
+                        <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
+                        <mat-datepicker #toTime></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.payerEmail }}</mat-label>
+                        <input matInput type="email" formControlName="payerEmail" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.paymentFlow }}</mat-label>
+                        <mat-select formControlName="paymentFlow">
+                            <mat-option>
+                                {{ c.any }}
+                            </mat-option>
+                            <mat-option *ngFor="let flow of flows" [value]="flow">
+                                {{ c.paymentFlow[flow] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.bankCardTokenProvider' | lc }}</mat-label>
-                    <mat-select formControlName="bankCardTokenProvider">
-                        <mat-option>
-                            {{ 'common.any' | lc }}
-                        </mat-option>
-                        <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
-                            {{ 'common.bankCardTokenProvider.' + tokenProvider | lc }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentMethod' | lc }}</mat-label>
-                    <mat-select formControlName="paymentMethod">
-                        <mat-option>
-                            {{ 'common.any' | lc }}
-                        </mat-option>
-                        <mat-option *ngFor="let method of methods" [value]="method">
-                            {{ 'common.paymentMethod.' + method | lc }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.rnn }}</mat-label>
+                        <input matInput formControlName="rnn" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.invoiceID }}</mat-label>
+                        <input matInput formControlName="invoiceID" />
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap.gt-xs]="layoutGap">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.bankCardTokenProvider }}</mat-label>
+                        <mat-select formControlName="bankCardTokenProvider">
+                            <mat-option>
+                                {{ c.any }}
+                            </mat-option>
+                            <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
+                                {{ c.bankCardTokenProvider[tokenProvider] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.paymentMethod }}</mat-label>
+                        <mat-select formControlName="paymentMethod">
+                            <mat-option>
+                                {{ c.any }}
+                            </mat-option>
+                            <mat-option *ngFor="let method of methods" [value]="method">
+                                {{ c.paymentMethod[method] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
-        <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentAmount' | lc }}</mat-label>
-                    <input matInput type="number" formControlName="paymentAmount" />
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.bankCardPaymentSystem' | lc }}</mat-label>
-                    <mat-select formControlName="bankCardPaymentSystem">
-                        <mat-option>
-                            {{ 'common.any' | lc }}
-                        </mat-option>
-                        <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
-                            {{ 'common.bankCardPaymentSystem.' + method | lc }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.paymentAmount }}</mat-label>
+                        <input matInput type="number" formControlName="paymentAmount" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.bankCardPaymentSystem }}</mat-label>
+                        <mat-select formControlName="bankCardPaymentSystem">
+                            <mat-option>
+                                {{ c.any }}
+                            </mat-option>
+                            <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
+                                {{ c.bankCardPaymentSystem[method] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.last4 }}</mat-label>
+                        <dsh-card-last-digits-input formControlName="last4"></dsh-card-last-digits-input>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.first6 }}</mat-label>
+                        <dsh-card-bin-input formControlName="first6"></dsh-card-bin-input>
+                    </mat-form-field>
+                </div>
             </div>
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.last4' | lc }}</mat-label>
-                    <dsh-card-last-digits-input formControlName="last4"></dsh-card-last-digits-input>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.first6' | lc }}</mat-label>
-                    <dsh-card-bin-input formControlName="first6"></dsh-card-bin-input>
-                </mat-form-field>
+            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.paymentID }}</mat-label>
+                        <input matInput formControlName="paymentID" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.payerIP }}</mat-label>
+                        <input matInput formControlName="payerIP" />
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.payerFingerprint }}</mat-label>
+                        <input matInput formControlName="payerFingerprint" />
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
-        <div fxLayout fxLayout.lt-md="column" [fxLayoutGap.gt-sm]="layoutGap">
-            <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.paymentID' | lc }}</mat-label>
-                    <input matInput formControlName="paymentID" />
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.payerIP' | lc }}</mat-label>
-                    <input matInput formControlName="payerIP" />
-                </mat-form-field>
-            </div>
-            <div fxFlex.gt-sm>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ localeBaseDir + '.payerFingerprint' | lc }}</mat-label>
-                    <input matInput formControlName="payerFingerprint" />
-                </mat-form-field>
-            </div>
-        </div>
-    </dsh-float-panel-more>
+        </dsh-float-panel-more>
+    </ng-container>
 </dsh-float-panel>

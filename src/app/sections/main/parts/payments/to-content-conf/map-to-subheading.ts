@@ -3,26 +3,23 @@ import { switchMap, map } from 'rxjs/operators';
 
 import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
 
-const claimToSubheading = (path: string, claim: Claim | null): string => {
+const claimToSubheading = (claim: Claim | null): string => {
     if (claim === null) {
-        return `${path}.prestine`;
+        return 'pristine';
     }
     const s = StatusModificationUnit.StatusEnum;
     switch (claim.status) {
         case s.Pending:
-            return `${path}.onboardingPending`;
+            return 'onboardingPending';
         case s.Review:
-            return `${path}.onboardingReview`;
+            return 'onboardingReview';
         case s.PendingAcceptance:
-            return `${path}.onboardingReviewed`;
+            return 'onboardingReviewed';
     }
     throw new Error('Unsupported claim status');
 };
 
-export const mapToSubheading = (basePath: string, claim: Observable<Claim>) => (
-    s: Observable<boolean>
-): Observable<string> => {
-    const p = `${basePath}.subheading`;
-    const fromClaimContent = claim.pipe(map(c => claimToSubheading(p, c)));
-    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, of(`${p}.prestine`), fromClaimContent)));
+export const mapToSubheading = (claim: Observable<Claim>) => (s: Observable<boolean>): Observable<string> => {
+    const fromClaimContent = claim.pipe(map(c => claimToSubheading(c)));
+    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, of('pristine'), fromClaimContent)));
 };

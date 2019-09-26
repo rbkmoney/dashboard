@@ -43,7 +43,7 @@ describe('DshStateNav', () => {
         return fixture.debugElement.queryAll(By.directive(StateNavItemComponent));
     }
 
-    it('should render with text-content', () => {
+    it('should render with status-content', () => {
         const fixture = createComponent(SimpleStateNavComponent);
         const item: HTMLElement = getAllItems(fixture)[1].nativeElement;
         expect(item.textContent).toBe('second');

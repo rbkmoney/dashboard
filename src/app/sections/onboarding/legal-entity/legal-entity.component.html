@@ -61,9 +61,9 @@
             </mat-hint>
         </mat-form-field>
     </form>
-    <div fxLayout="row" fxLayoutAlign="space-between">
-        <button dsh-stroked-button routerLink="/onboarding">{{ 'common.back' | lc }}</button>
+    <div *transloco="let t" fxLayout="row" fxLayoutAlign="space-between">
+        <button dsh-stroked-button routerLink="/onboarding">{{ t?.back }}</button>
         <div></div>
-        <button dsh-button color="accent">{{ 'common.next' | lc }}</button>
+        <button dsh-button color="accent">{{ t?.next }}</button>
     </div>
 </dsh-onboarding-layout>

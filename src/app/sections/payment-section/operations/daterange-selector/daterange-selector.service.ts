@@ -15,17 +15,17 @@ export class DaterangeSelectorService {
             {
                 value: 'today',
                 checked: false,
-                dicPath: 'common.today'
+                dicPath: 'today'
             },
             {
                 value: 'week',
                 checked: false,
-                dicPath: 'common.week'
+                dicPath: 'week'
             },
             {
                 value: 'month',
                 checked: false,
-                dicPath: 'common.month'
+                dicPath: 'month'
             },
             {
                 value: 'more',

@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatRadioModule, MatSelectModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { LayoutModule } from '../../../layout';
 import { DaDataModule } from '../../../dadata';
 import { ButtonModule } from '../../../button';
-import { LocaleModule } from '../../../locale';
 import { CompanySearchComponent } from './company-search.component';
 import { CompanyDetailsComponent } from './company-details';
 import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
@@ -27,9 +27,9 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         RouterModule,
         MatSelectModule,
         ButtonModule,
-        LocaleModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        TranslocoModule
     ],
     declarations: [
         CompanySearchComponent,

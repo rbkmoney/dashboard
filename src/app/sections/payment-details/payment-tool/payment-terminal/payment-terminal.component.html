@@ -1,3 +1,5 @@
-<dsh-details-item *ngIf="paymentTerminal" [title]="localePath + '.titles.terminal' | lc">
-    {{ 'common.paymentTerminalProvider.' + paymentTerminal.provider | lc }}
-</dsh-details-item>
+<ng-container *transloco="let t; scope: 'payment-details'">
+    <dsh-details-item *ngIf="paymentTerminal" [title]="t?.paymentDetails?.paymentTool?.terminal">
+        {{ (t?.paymentTerminalProvider)[paymentTerminal.provider] }}
+    </dsh-details-item>
+</ng-container>

@@ -8,6 +8,4 @@ import { CustomerPayer } from '../../../../api-codegen/capi/swagger-codegen';
 })
 export class CustomerPayerComponent {
     @Input() customerPayer: CustomerPayer;
-
-    localePath = 'sections.paymentDetails.payerDetails';
 }

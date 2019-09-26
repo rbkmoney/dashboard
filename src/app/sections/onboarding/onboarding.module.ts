@@ -12,13 +12,12 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material';
 
 import { LayoutModule } from '../../layout';
-import { DaDataModule } from '../../dadata/dadata.module';
+import { DaDataModule } from '../../dadata';
 import { OnboardingService } from './onboarding.service';
 import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 import { LayoutComponent } from './layout/layout.component';
-import { StateNavModule } from '../../state-nav/state-nav.module';
+import { StateNavModule } from '../../state-nav';
 import { ButtonModule } from '../../button';
-import { LocaleModule } from '../../locale/locale.module';
 import { OnboardingRoutingModule } from './onboarding-routing.module';
 import { CompanySearchModule } from './company-search';
 
@@ -40,7 +39,6 @@ import { CompanySearchModule } from './company-search';
         MatDatepickerModule,
         StateNavModule,
         ButtonModule,
-        LocaleModule,
         MatDialogModule
     ],
     declarations: [LegalEntityComponent, LayoutComponent],

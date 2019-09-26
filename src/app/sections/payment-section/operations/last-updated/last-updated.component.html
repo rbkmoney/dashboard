@@ -1,7 +1,6 @@
-<div fxLayout fxLayoutAlign="space-between center" dir="rtl">
-    <a (click)="update.emit()" class="update-link mat-caption">{{ 'common.update' | lc }}</a>
+<div *transloco="let t" fxLayout fxLayoutAlign="space-between center" dir="rtl">
+    <a (click)="update.emit()" class="update-link mat-caption">{{ t.update }}</a>
     <span *ngIf="lastUpdated" class="last-update mat-caption"
-        >{{ 'common.lastUpdate' | lc }}: {{ lastUpdated | humanizedDuration: { largest: 1 } }}
-        {{ 'common.ago' | lc }}</span
+        >{{ t.lastUpdate }}: {{ lastUpdated | humanizedDuration: { largest: 1 } }} {{ t.ago }}</span
     >
 </div>

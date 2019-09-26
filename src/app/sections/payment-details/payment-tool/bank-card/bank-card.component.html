@@ -1,4 +1,4 @@
-<dsh-details-item [title]="localePath + '.titles.card' | lc">
+<dsh-details-item *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.paymentTool'" [title]="t?.card">
     <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
         <div class="mat-body-1">{{ bankCard.cardNumberMask | bankCard }}</div>
         <mat-icon *ngIf="bankCard.paymentSystem === paymentSystems?.Visa" svgIcon="visa"></mat-icon>
