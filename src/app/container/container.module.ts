@@ -6,19 +6,10 @@ import { CommonModule } from '@angular/common';
 
 import { ContainerComponent } from './container.component';
 import { ToolbarModule } from './toolbar';
-import { LocaleModule } from '../locale/locale.module';
 import { WelcomeImageModule } from './welcome-image';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        LocaleModule,
-        ToolbarModule,
-        RouterModule,
-        FlexLayoutModule,
-        MatIconModule,
-        WelcomeImageModule
-    ],
+    imports: [CommonModule, ToolbarModule, RouterModule, FlexLayoutModule, MatIconModule, WelcomeImageModule],
     declarations: [ContainerComponent],
     exports: [ContainerComponent]
 })

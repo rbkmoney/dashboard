@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { LanguageService } from '../locale/language';
-import { LocaleDictionaryService } from '../locale/locale-dictionary';
+import { LanguageService } from '../language';
 
 export type Value = number | string | moment.Moment | Date;
 
@@ -18,8 +18,6 @@ export class HumanizeDurationService {
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
 
-    private localePath = 'common.shortTimeUnits';
-
     private get duration() {
         return humanizeDuration.humanizer({
             language: this.languageService.active,
@@ -29,8 +27,7 @@ export class HumanizeDurationService {
     }
 
     get shortEnglishHumanizer(): humanizeDuration.HumanizerOptions {
-        const getLocalizedUnitFn = (unit: string) => () =>
-            this.localeDictionaryService.mapDictionaryKey(`${this.localePath}.${unit}`);
+        const getLocalizedUnitFn = (unit: string) => () => this.transloco.translate(`shortTimeUnits.${unit}`);
         return {
             language: 'short',
             languages: {
@@ -48,7 +45,7 @@ export class HumanizeDurationService {
         };
     }
 
-    constructor(private languageService: LanguageService, private localeDictionaryService: LocaleDictionaryService) {}
+    constructor(private languageService: LanguageService, private transloco: TranslocoService) {}
 
     getDiffMs(value: Value): number {
         return Math.abs(this.isDiff(value) ? value : moment().diff(moment(value)));

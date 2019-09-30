@@ -12,5 +12,7 @@ export interface StatusViewInfo {
     templateUrl: './status-details-item.component.html'
 })
 export class StatusDetailsItemComponent {
-    @Input() info: StatusViewInfo;
+    @Input() color: Color;
+
+    @Input() text: string;
 }

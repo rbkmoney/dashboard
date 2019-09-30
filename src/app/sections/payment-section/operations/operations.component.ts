@@ -6,19 +6,15 @@ import { filter } from 'rxjs/operators';
     templateUrl: 'operations.component.html'
 })
 export class OperationsComponent {
-    dictionaryBasePath = 'sections.payment-section.operations';
     links = [
         {
-            path: 'payments',
-            label: `${this.dictionaryBasePath}.tabs.payments`
+            path: 'payments'
         }
         // {
-        //     path: 'refunds',
-        //     label: `${this.dictionaryBasePath}.tabs.refunds`
+        //     path: 'refunds'
         // },
         // {
-        //     path: 'invoices',
-        //     label: `${this.dictionaryBasePath}.tabs.invoices`
+        //     path: 'invoices'
         // }
     ];
 

@@ -15,8 +15,6 @@ export class ShopDetailsComponent implements OnInit {
 
     shop$: Observable<Shop>;
 
-    localePath = 'sections.paymentDetails.shopDetails';
-
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
 
     ngOnInit() {

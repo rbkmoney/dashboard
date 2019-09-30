@@ -20,8 +20,6 @@ export class PayerDetailsComponent {
 
     payerEmail: string;
 
-    localePath = 'sections.paymentDetails.payerDetails';
-
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     paymentResourcePayer(): PaymentResourcePayer | null {

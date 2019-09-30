@@ -19,7 +19,8 @@ export interface InvoicesSearchParams {
     bankCardPaymentSystem?: params[18];
     first6?: params[19];
     last4?: params[20];
-    paymentAmount?: params[21];
-    invoiceAmount?: params[22];
-    excludedShops?: params[23];
+    rrn?: params[21];
+    paymentAmount?: params[22];
+    invoiceAmount?: params[23];
+    excludedShops?: params[24];
 }

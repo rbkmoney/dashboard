@@ -11,8 +11,6 @@ import { LAYOUT_GAP } from '../../constants';
 export class HoldDetailsComponent {
     @Input() flowHold: PaymentFlowHold;
 
-    localePath = 'sections.paymentDetails.holdDetails';
-
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     isHoldExpired(date: string): boolean {

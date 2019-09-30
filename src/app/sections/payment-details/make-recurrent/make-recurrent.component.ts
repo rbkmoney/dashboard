@@ -4,6 +4,4 @@ import { Component } from '@angular/core';
     selector: 'dsh-make-recurrent',
     templateUrl: './make-recurrent.component.html'
 })
-export class MakeRecurrentComponent {
-    localePath = 'sections.paymentDetails.makeRecurrent';
-}
+export class MakeRecurrentComponent {}

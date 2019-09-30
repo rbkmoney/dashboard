@@ -21,7 +21,6 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
-    localeBaseDir = 'sections.operations.payments.filter';
     searchForm: FormGroup;
     expanded = false;
     statuses: PaymentStatus.StatusEnum[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];

@@ -11,6 +11,4 @@ export class BankCardComponent {
 
     paymentSystems = PaymentToolDetailsBankCard.PaymentSystemEnum;
     tokenProviders = PaymentToolDetailsBankCard.TokenProviderEnum;
-
-    localePath = 'sections.paymentDetails.paymentTool';
 }
