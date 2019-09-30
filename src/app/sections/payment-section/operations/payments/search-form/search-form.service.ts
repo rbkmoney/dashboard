@@ -47,7 +47,7 @@ export class SearchFormService {
     formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
             filter(() => this.searchForm.status === 'VALID'),
-            removeEmptyProperties,
+            map(params => removeEmptyProperties<PaymentSearchFormValue>(params)),
             debounceTime(valueDebounceTime)
         );
     }

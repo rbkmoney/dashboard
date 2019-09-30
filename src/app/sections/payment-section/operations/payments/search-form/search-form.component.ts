@@ -9,6 +9,7 @@ import {
     BankCardTokenProvider,
     PaymentStatus
 } from '../../../../../api-codegen/capi/swagger-codegen';
+import { removeEmptyProperties } from '../../operators';
 
 @Component({
     selector: 'dsh-search-form',
@@ -47,7 +48,7 @@ export class SearchFormComponent implements OnInit {
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
-        this.formValueChanges.emit(this.searchForm.value);
+        this.formValueChanges.emit(removeEmptyProperties(this.searchForm.value));
         this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
     }
 
