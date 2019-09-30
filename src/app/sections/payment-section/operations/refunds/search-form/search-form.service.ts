@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, debounceTime } from 'rxjs/operators';
+import { filter, map, debounceTime, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
@@ -34,6 +34,7 @@ export class SearchFormService {
 
     formValueChanges(valueDebounceTime: number): Observable<RefundsSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
+            startWith(this.defaultValues),
             filter(() => this.searchForm.status === 'VALID'),
             removeEmptyProperties,
             debounceTime(valueDebounceTime)

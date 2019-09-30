@@ -17,7 +17,6 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<RefundsSearchFormValue> = new EventEmitter<RefundsSearchFormValue>();
 
-    localeBaseDir = 'sections.operations.refunds.filter';
     searchForm: FormGroup;
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = ['pending', 'succeeded', 'failed'];
@@ -26,7 +25,6 @@ export class SearchFormComponent implements OnInit {
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
-        this.formValueChanges.emit(this.searchForm.value);
         this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
     }
 

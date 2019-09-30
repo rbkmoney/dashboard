@@ -21,35 +21,11 @@
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
-            <th dshHeaderCell *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
                 {{ t.createdAt }}
             </th>
-            <td dshCell *dshCellDef="let refund">
+            <td dshCell fxFlex="180px" *dshCellDef="let refund">
                 {{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
-            </td>
-        </ng-container>
-
-        <ng-container dshColumnDef="invoiceID">
-            <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                {{ t.invoiceID }}
-            </th>
-            <td dshCell *dshCellDef="let refund" fxHide fxShow.gt-sm>
-                <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ refund.invoiceID }}</span>
-                    <mat-icon class="arrow-forward">arrow_forward</mat-icon>
-                </a>
-            </td>
-        </ng-container>
-
-        <ng-container dshColumnDef="paymentID">
-            <th dshHeaderCell *dshHeaderCellDef fxHide fxShow.gt-sm>
-                {{ t.paymentID }}
-            </th>
-            <td dshCell *dshCellDef="let refund" fxHide fxShow.gt-sm>
-                <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ refund.paymentID }}</span>
-                    <mat-icon class="arrow-forward">arrow_forward</mat-icon>
-                </a>
             </td>
         </ng-container>
 
@@ -63,9 +39,21 @@
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let refund">
-                <button dsh-icon-button>
+                <button dsh-icon-button [dshDropdownTriggerFor]="actionsDropdown">
                     <mat-icon>more_vert</mat-icon>
                 </button>
+                <dsh-dropdown #actionsDropdown="dshDropdown">
+                    <dsh-dropdown-actions>
+                        <dsh-state-nav flat>
+                            <dsh-state-nav-item (click)="goToPaymentDetails(refund)">{{
+                                t.actions.paymentDetails
+                            }}</dsh-state-nav-item>
+                            <!--                            <dsh-state-nav-item>{{-->
+                            <!--                                t.actions.paymentDetails-->
+                            <!--                                }}</dsh-state-nav-item>-->
+                        </dsh-state-nav>
+                    </dsh-dropdown-actions>
+                </dsh-dropdown>
             </td>
         </ng-container>
 

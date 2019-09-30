@@ -48,12 +48,13 @@
         },
         "table": {
             "amount": "Сумма возврата",
-            "id": "Идентификатор возврата",
             "createdAt": "Создан",
             "reason": "Причина возврата",
             "status": "Статус",
-            "invoiceID": "Инвойс",
-            "paymentID": "Платеж"
+            "actions": {
+                "paymentDetails": "Детали платежа",
+                "invoiceDetails": "Детали инвойса"
+            }
         }
     }
 }
