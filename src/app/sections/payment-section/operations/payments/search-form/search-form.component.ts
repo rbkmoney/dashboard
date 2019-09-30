@@ -9,8 +9,6 @@ import {
     BankCardTokenProvider,
     PaymentStatus
 } from '../../../../../api-codegen/capi/swagger-codegen';
-import { removeEmptyProperties } from '../../operators';
-import { startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'dsh-search-form',
