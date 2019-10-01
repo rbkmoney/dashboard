@@ -55,6 +55,6 @@ export class SearchFormComponent implements OnInit {
     }
 
     reset() {
-        this.formValueChanges.emit(this.searchFormService.reset());
+        this.searchFormService.reset();
     }
 }

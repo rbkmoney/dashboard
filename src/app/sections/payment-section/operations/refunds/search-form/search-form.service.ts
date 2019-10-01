@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 
-import { PaymentSearchFormValue } from './payment-search-form-value';
-import { toQueryParams } from '../../to-query-params';
-import { toFormValue } from '../../to-form-value';
+import { RefundsSearchFormValue } from './refunds-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
-import { ShopService } from '../../../../../api';
+import { removeEmptyProperties, ShopInfo, filterShopsByEnv, mapToShopInfo } from '../../operators';
+import { toFormValue } from '../../to-form-value';
+import { toQueryParams } from '../../to-query-params';
 import { takeRouteParam } from '../../../../../custom-operators';
-import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
+import { ShopService } from '../../../../../api/shop';
 
 @Injectable()
 export class SearchFormService {
@@ -23,7 +23,7 @@ export class SearchFormService {
         mapToShopInfo
     );
 
-    private defaultValues: PaymentSearchFormValue;
+    private defaultValues: RefundsSearchFormValue;
 
     constructor(
         private fb: FormBuilder,
@@ -36,15 +36,15 @@ export class SearchFormService {
         this.route.queryParams
             .pipe(
                 filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<PaymentSearchFormValue>(queryParams))
+                map(queryParams => toFormValue<RefundsSearchFormValue>(queryParams))
             )
             .subscribe(formValue => this.searchForm.patchValue(formValue));
         this.searchForm.valueChanges
-            .pipe(map(formValues => toQueryParams<PaymentSearchFormValue>(formValues)))
+            .pipe(map(formValues => toQueryParams<RefundsSearchFormValue>(formValues)))
             .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
     }
 
-    formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
+    formValueChanges(valueDebounceTime: number): Observable<RefundsSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
             startWith(this.defaultValues),
             filter(() => this.searchForm.status === 'VALID'),
@@ -71,23 +71,12 @@ export class SearchFormService {
                 .startOf('day'),
             toTime: moment().endOf('day'),
             limit: [defaultLimit, Validators.required],
-            shopID: '',
-            paymentStatus: '',
-            paymentFlow: '',
-            paymentMethod: '',
-            paymentTerminalProvider: '',
+            offset: '',
             invoiceID: '',
             paymentID: '',
-            payerEmail: '',
-            payerIP: '',
-            payerFingerprint: '',
-            customerID: '',
-            first6: '',
-            last4: '',
-            bankCardTokenProvider: '',
-            bankCardPaymentSystem: '',
-            paymentAmount: '',
-            rnn: ''
+            refundID: '',
+            refundStatus: '',
+            shopID: ''
         });
         return form;
     }

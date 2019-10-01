@@ -9,10 +9,10 @@ export class OperationsComponent {
     links = [
         {
             path: 'payments'
+        },
+        {
+            path: 'refunds'
         }
-        // {
-        //     path: 'refunds'
-        // },
         // {
         //     path: 'invoices'
         // }

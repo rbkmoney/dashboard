@@ -36,6 +36,25 @@
         "title": "Инвойсы"
     },
     "refunds": {
-        "title": "Возвраты"
+        "title": "Возвраты",
+        "filter": {
+            "shopID": "Магазин",
+            "fromTime": "Начало периода",
+            "toTime": "Конец периода",
+            "paymentID": "Идентификатор платежа",
+            "invoiceID": "Идентификатор инвойса",
+            "refundStatus": "Статус возврата",
+            "refundID": "Идентификатор возврата"
+        },
+        "table": {
+            "amount": "Сумма возврата",
+            "createdAt": "Создан",
+            "reason": "Причина возврата",
+            "status": "Статус",
+            "actions": {
+                "paymentDetails": "Детали платежа",
+                "invoiceDetails": "Детали инвойса"
+            }
+        }
     }
 }
