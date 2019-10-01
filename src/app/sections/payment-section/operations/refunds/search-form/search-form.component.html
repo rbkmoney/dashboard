@@ -93,12 +93,14 @@
                 fxLayoutGap.sm="0"
                 fxLayoutGap.xs="0"
             >
-                <div fxFlex fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
-                    <mat-form-field fxFlex>
+                <div fxFlex.gt-sm="50" fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
+                    <mat-form-field fxFlex="100" fxFlex.gt-sm="50">
                         <mat-label>{{ t.paymentID }}</mat-label>
                         <input matInput formControlName="paymentID" />
                     </mat-form-field>
+                    <div fxHide.lt-md fxFlex.gt-sm="50"></div>
                 </div>
+                <div fxFlex.gt-sm="50" fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0"></div>
             </div>
         </dsh-float-panel-more>
     </ng-container>
