@@ -20,6 +20,7 @@ export class SearchFormComponent implements OnInit {
     searchForm: FormGroup;
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = ['pending', 'succeeded', 'failed'];
+    shopsInfo$ = this.searchFormService.shopsInfo$;
 
     constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
@@ -33,6 +34,6 @@ export class SearchFormComponent implements OnInit {
     }
 
     reset() {
-        this.formValueChanges.emit(this.searchFormService.reset());
+        this.searchFormService.reset();
     }
 }

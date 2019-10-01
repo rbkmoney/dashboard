@@ -53,9 +53,8 @@ export class SearchFormService {
         );
     }
 
-    reset(): PaymentSearchFormValue {
+    reset() {
         this.searchForm.reset(this.defaultValues);
-        return this.defaultValues;
     }
 
     applySearchFormValue(v: SearchFormValue) {

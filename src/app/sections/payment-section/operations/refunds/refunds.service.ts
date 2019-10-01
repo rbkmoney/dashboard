@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
+import { ActivatedRoute } from '@angular/router';
 
 import { RefundsSearchFormValue } from './search-form';
 import { RefundSearchService } from '../../../../api/search';
@@ -11,6 +12,8 @@ import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 import { RefundsTableData } from './table';
 import { mapToTimestamp } from '../operators';
 import { booleanDelay } from '../../../../custom-operators';
+import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { ShopService } from '../../../../api/shop';
 
 @Injectable()
 export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchFormValue> {
@@ -31,8 +34,10 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     );
 
     constructor(
+        private route: ActivatedRoute,
         private refundSearchService: RefundSearchService,
         private snackBar: MatSnackBar,
+        private shopService: ShopService,
         private transloco: TranslocoService
     ) {
         super();
@@ -42,13 +47,21 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         params: RefundsSearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
-        return this.refundSearchService.searchRefunds(
-            params.fromTime.utc().format(),
-            params.toTime.utc().format(),
-            params.invoiceID,
-            params.paymentID,
-            this.searchLimit,
-            continuationToken
+        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
+            switchMap(excludedShops =>
+                this.refundSearchService.searchRefunds(
+                    params.fromTime.utc().format(),
+                    params.toTime.utc().format(),
+                    params.invoiceID,
+                    params.paymentID,
+                    this.searchLimit,
+                    params.shopID,
+                    params.refundID,
+                    params.refundStatus,
+                    excludedShops,
+                    continuationToken
+                )
+            )
         );
     }
 }

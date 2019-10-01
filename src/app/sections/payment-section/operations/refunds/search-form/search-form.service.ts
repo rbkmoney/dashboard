@@ -8,17 +8,29 @@ import * as moment from 'moment';
 
 import { RefundsSearchFormValue } from './refunds-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
-import { removeEmptyProperties } from '../../operators';
+import { removeEmptyProperties, ShopInfo, filterShopsByEnv, mapToShopInfo } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
+import { takeRouteParam } from '../../../../../custom-operators';
+import { ShopService } from '../../../../../api/shop';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup;
+    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+        takeRouteParam('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo
+    );
 
     private defaultValues: RefundsSearchFormValue;
 
-    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
         this.searchForm = this.initForm();
         this.defaultValues = this.searchForm.value;
         this.route.queryParams
@@ -41,9 +53,8 @@ export class SearchFormService {
         );
     }
 
-    reset(): RefundsSearchFormValue {
+    reset() {
         this.searchForm.reset(this.defaultValues);
-        return this.defaultValues;
     }
 
     applySearchFormValue(v: SearchFormValue) {
@@ -65,7 +76,7 @@ export class SearchFormService {
             paymentID: '',
             refundID: '',
             refundStatus: '',
-            excludedShops: ''
+            shopID: ''
         });
         return form;
     }
