@@ -18,8 +18,7 @@ export class CompanySearchComponent {
     form: FormGroup = this.companySearchService.form;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;
-
-    private contractorType: ContractorType;
+    contractorType: ContractorType;
 
     constructor(
         private snackBar: MatSnackBar,

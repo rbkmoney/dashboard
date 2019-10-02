@@ -9,7 +9,7 @@
                     formControlName="searchStr"
                     type="party"
                     (optionSelected)="updateSuggestion($event)"
-                    (errorOccurred)="searchSuggestionError($event)"
+                    (errorOccurred)="searchSuggestionError()"
                     (suggestionNotFound)="suggestionNotFound()"
                     #daDadataAutocomplete
                 ></dsh-dadata-autocomplete>

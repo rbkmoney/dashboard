@@ -4,4 +4,12 @@ import { Component } from '@angular/core';
     selector: 'dsh-step-navigation',
     templateUrl: 'step-navigation.component.html'
 })
-export class StepNavigationComponent {}
+export class StepNavigationComponent {
+    back() {
+        console.log('StepNavigationComponent back');
+    }
+
+    next() {
+        console.log('StepNavigationComponent next');
+    }
+}
