@@ -18,5 +18,41 @@
             "individualEntity": "Индивидуальный предприниматель",
             "legalEntity": "Юридическое лицо"
         }
+    },
+    "dataFlow": {
+        "basicInfo": {
+            "name": "Наименование",
+            "inn": " ИНН",
+            "registrationPlace": "Адрес регистрации",
+            "shopInfo": "Данные сайта (магазина):",
+            "shopUrl": "URL адрес",
+            "shopName": "Название",
+            "contactInfo": "Контактная информация:",
+            "email": "Email",
+            "phoneNumber": "Номер телефона"
+        },
+        "stepCard": {
+            "basicInfo": "Основные сведения",
+            "financialAndEconomicActivity": "Хозяйственная деятельность",
+            "beneficialOwners": "Бенефициарные владельцы",
+            "documentsUpload": "Загрузка документов",
+            "planningOperationsAndPayoutTool": "Банковские реквизиты",
+            "russianLegalOwner": "Сведения о юридическом лице",
+            "russianPrivateEntity": "Сведения о физическом лице",
+            "actionLabel": "Отправить на рассмотрение"
+        },
+        "stepTitle": {
+            "basicInfo": "Основные сведения",
+            "financialAndEconomicActivity": "Сведения о хозяйственной деятельности",
+            "beneficialOwners": "Сведения о бенефициарных владельцах (физлица)",
+            "documentsUpload": "Загрузка документов",
+            "planningOperationsAndPayoutTool": "Планируемые операции и банковские реквизиты",
+            "russianLegalOwner": "Сведения о юридическом лице",
+            "russianPrivateEntity": "Сведения о физическом лице"
+        },
+        "helpCard": {
+            "title": "Возникли вопросы?",
+            "content": "Напишите нам на почту help@rbk.money и оставьте свой телефон для связи."
+        }
     }
 }

@@ -1,0 +1,45 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
+
+import { DataFlowComponent } from './data-flow.component';
+import { BasicInfoComponent } from './basic-info';
+import { DataFlowRoutingModule } from './data-flow-routing.module';
+import { LayoutModule } from '../../../layout';
+import { StateNavModule } from '../../../state-nav';
+import { ButtonModule } from '../../../button';
+import { HelpCardComponent } from './help-card';
+import { StepCardComponent } from './step-card';
+import { StepNavigationComponent } from './step-navigation';
+import { RussianPrivateEntityComponent } from './russian-private-entity';
+import { QuestionaryModule } from '../../../api';
+import { StepLabelPipe } from './step-label.pipe';
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        DataFlowRoutingModule,
+        LayoutModule,
+        StateNavModule,
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        QuestionaryModule,
+        TranslocoModule
+    ],
+    declarations: [
+        DataFlowComponent,
+        BasicInfoComponent,
+        RussianPrivateEntityComponent,
+        HelpCardComponent,
+        StepCardComponent,
+        StepNavigationComponent,
+        StepLabelPipe
+    ]
+})
+export class DataFlowModule {}
