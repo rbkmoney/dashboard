@@ -1,4 +1,5 @@
 import { Claim } from '../../../api-codegen/claim-management';
-import { findDocumentModificationUnit } from './find-document-modification-unit';
+import { filterDocumentModificationUnit } from './filter-document-modification-unit';
 
-export const hasDocumentModificationUnit = ({ changeset }: Claim): boolean => !!findDocumentModificationUnit(changeset);
+export const hasDocumentModificationUnit = ({ changeset }: Claim): boolean =>
+    filterDocumentModificationUnit(changeset).length > 0;

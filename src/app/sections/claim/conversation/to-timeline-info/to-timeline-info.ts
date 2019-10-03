@@ -1,12 +1,7 @@
-import * as moment from 'moment';
-
 import { ModificationUnit } from '../../../../api-codegen/claim-management';
 import { TimelineItemInfo } from './timeline-item-info';
 import { toTimelineItemInfo } from './to-timeline-item-info';
-
-function sortUnits(units: ModificationUnit[]): ModificationUnit[] {
-    return units.sort(({ createdAt: a }, { createdAt: b }) => moment(a).diff(moment(b)));
-}
+import { sortUnits } from '../../../../api';
 
 function toModificationUnitBatches(units: ModificationUnit[]): ModificationUnit[][] {
     return units.map(u => [u]);
