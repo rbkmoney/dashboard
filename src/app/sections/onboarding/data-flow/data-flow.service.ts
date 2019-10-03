@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
-import { switchMap, shareReplay, map, tap } from 'rxjs/operators';
+import { switchMap, shareReplay, map } from 'rxjs/operators';
 
 import { takeRouteParam, takeError, handleNull, booleanDelay } from '../../../custom-operators';
 import {
@@ -46,7 +46,8 @@ export class DataFlowService {
         );
         this.initializeError$ = this.questionary$.pipe(
             takeError,
-            tap(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'))
+            shareReplay(1)
         );
+        this.initializeError$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 }
