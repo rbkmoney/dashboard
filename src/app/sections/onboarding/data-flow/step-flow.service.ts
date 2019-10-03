@@ -6,7 +6,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { StepName, IndividualEntityStepFlow } from './step-flows';
 import { DataFlowService } from './data-flow.service';
 
-const getBaseUrl = (url: string, nesting = 3): string[] => url.split('/').splice(0, nesting);
+const toBaseUrl = (url: string, nesting = 3): string[] => url.split('/').splice(0, nesting);
 
 const getInitialStep = (url: string): StepName => {
     const source = url.split('/');
@@ -22,17 +22,17 @@ export class StepFlowService {
     stepFlow$: Observable<StepName[]>;
     activeStep$: Observable<StepName>;
 
-    private baseUrl = getBaseUrl(this.router.url);
     private navigate$: Subject<StepName> = new Subject();
 
     constructor(private router: Router, private dataFlowService: DataFlowService) {
-        this.stepFlow$ = this.dataFlowService.claim$.pipe(
+        this.stepFlow$ = this.dataFlowService.questionary$.pipe(
             map(() => IndividualEntityStepFlow) // TODO implement here
         );
 
+        const baseUrl = toBaseUrl(this.router.url);
         this.activeStep$ = this.navigate$.pipe(
             startWith(getInitialStep(this.router.url)),
-            switchMap(step => this.router.navigate([...this.baseUrl, step]).then(() => step))
+            switchMap(step => this.router.navigate([...baseUrl, step]).then(() => step))
         );
     }
 

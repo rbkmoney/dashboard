@@ -9,7 +9,6 @@ import { ClaimStatus } from '../../../../api/claims';
 import { toContentConf } from './to-content-conf';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { booleanDelay, takeError } from '../../../../custom-operators';
-import { LanguageService } from '../../../../language';
 
 @Injectable()
 export class PaymentsService {
@@ -22,8 +21,7 @@ export class PaymentsService {
         private shopService: ShopService,
         private claimService: ClaimsService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService,
-        private language: LanguageService
+        private transloco: TranslocoService
     ) {
         const claims = this.claimService.search1000Claims([
             ClaimStatus.Pending,
@@ -35,10 +33,8 @@ export class PaymentsService {
         this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
         this.subheading$ = contentConfig.pipe(map(c => c.subheading));
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
-        this.transloco.selectTranslation(this.language.active).subscribe(t => {
-            combineLatest(this.isLoading$, contentConfig)
-                .pipe(takeError)
-                .subscribe(() => this.snackBar.open(t.commonError, 'OK'));
-        });
+        combineLatest(this.isLoading$, contentConfig)
+            .pipe(takeError)
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 }
