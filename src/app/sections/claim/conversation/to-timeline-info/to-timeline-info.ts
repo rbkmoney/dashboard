@@ -1,7 +1,7 @@
 import { ModificationUnit } from '../../../../api-codegen/claim-management';
 import { TimelineItemInfo } from './timeline-item-info';
 import { toTimelineItemInfo } from './to-timeline-item-info';
-import { sortUnits } from '../../../../api';
+import { sortUnits } from '../../../../api/claims/utils';
 
 function toModificationUnitBatches(units: ModificationUnit[]): ModificationUnit[][] {
     return units.map(u => [u]);
