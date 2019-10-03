@@ -10,7 +10,7 @@ import {
     CommentModification
 } from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 
 const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
 

@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
-import { switchMap, shareReplay } from 'rxjs/operators';
 
 import { Questionary, QuestionaryData } from '../../../api-codegen/questionary';
-import {
-    QuestionaryService as QuestionaryApiService,
-    takeDocumentModificationUnit,
-    mapDocumentID,
-    mapQuestionary
-} from '../../../api';
 import { DataFlowService } from './data-flow.service';
 
 @Injectable()
@@ -18,15 +11,8 @@ export class QuestionaryService {
     questionaryData$: Observable<QuestionaryData | null> = this.state$.asObservable();
     questionary$: Observable<Questionary>;
 
-    constructor(private questionaryApiService: QuestionaryApiService, private dataFlowService: DataFlowService) {
-        this.questionary$ = this.dataFlowService.claim$.pipe(
-            takeDocumentModificationUnit,
-            mapDocumentID,
-            shareReplay(1),
-            // TODO need to add filter null operator
-            switchMap(id => this.questionaryApiService.getQuestionary(id)),
-            mapQuestionary
-        );
+    constructor(private dataFlowService: DataFlowService) {
+        this.questionary$ = this.dataFlowService.questionary$;
     }
 
     add(data: QuestionaryData) {
