@@ -1,4 +1,4 @@
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 import { PartyModification } from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
 import { getPartyModificationTimelineAction } from './get-party-modification-timeline-action';

@@ -7,15 +7,5 @@ const isDocumentModification = (m: ClaimModification): m is DocumentModification
     return (m as DocumentModificationUnit).claimModificationType === DocumentModificationUnitType;
 };
 
-export const isDocumentModificationUnit = (m: Modification): m is DocumentModificationUnit => {
-    if (!isClaimModification(m)) {
-        return false;
-    }
-    if (!isDocumentModification(m)) {
-        return false;
-    }
-    if (!isDocumentCreated(m.modification)) {
-        return false;
-    }
-    return true;
-};
+export const isDocumentModificationUnit = (m: Modification): m is DocumentModificationUnit =>
+    isClaimModification(m) && isDocumentModification(m) && isDocumentCreated(m.modification);
