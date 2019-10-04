@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { InvoiceSearchResult, SearchService } from '../../api-codegen/capi/swagger-codegen';
+import { Invoice, SearchService } from '../../api-codegen/aapi/swagger-codegen';
 import { fakeDate } from './fake-date';
 import { InvoicesSearchParams } from './invoices-search-params';
 import { InvoicesWithToken } from './invoices-with-token';
@@ -68,7 +68,7 @@ export class InvoiceSearchService {
         return this.searchInvoices(from, to, { invoiceID }, limit);
     }
 
-    getInvoiceByDuration(duration: Duration, invoiceID: string): Observable<InvoiceSearchResult> {
+    getInvoiceByDuration(duration: Duration, invoiceID: string): Observable<Invoice> {
         return this.searchInvoicesByDuration(duration, invoiceID, 1).pipe(map(res => res.result[0]));
     }
 }

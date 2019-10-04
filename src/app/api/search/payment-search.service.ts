@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { PaymentSearchResult, SearchService } from '../../api-codegen/capi/swagger-codegen';
+import { PaymentSearchResult, SearchService } from '../../api-codegen/aapi/swagger-codegen';
 import { PaymentsSearchParams } from './payments-search-params';
 import { PaymentsWithToken } from './payments-with-token';
 import { fakeDate } from './fake-date';

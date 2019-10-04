@@ -4,8 +4,9 @@ import { ConfigService } from '../../config';
 import { Configuration } from './swagger-codegen';
 
 @Injectable()
-export class QuestionaryConfigService extends Configuration {
+export class AapiConfigService extends Configuration {
     constructor({ api }: ConfigService) {
-        super({ apiKeys: {}, basePath: api.questionaryEndpoint });
+        const apiVersion = 'v1';
+        super({ apiKeys: {}, basePath: `${api.aapiEndpoint}/${apiVersion}` });
     }
 }
