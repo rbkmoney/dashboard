@@ -3,7 +3,7 @@
         "capiEndpoint": "http://localhost:9900",
         "claimManagementEndpoint": "http://localhost:9902",
         "questionaryEndpoint": "http://localhost:9903",
-        "questionaryAggrProxyEndpoint": "https://api.rbk.money/dark-api/v1/proxy"
+        "aggrProxyEndpoint": "https://api.rbk.money/dark-api/v1/proxy"
     },
     "daData": {
         "token": "Token 513f29a0891d00336496240b5cee89afe8fafde7",

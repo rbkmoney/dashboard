@@ -4,8 +4,8 @@ import { ConfigService } from '../../config/config.service';
 import { Configuration } from './swagger-codegen';
 
 @Injectable()
-export class QuestionaryAggrProxyConfigService extends Configuration {
+export class AggrProxyConfigService extends Configuration {
     constructor({ api }: ConfigService) {
-        super({ apiKeys: {}, basePath: api.questionaryAggrProxyEndpoint });
+        super({ apiKeys: {}, basePath: api.aggrProxyEndpoint });
     }
 }

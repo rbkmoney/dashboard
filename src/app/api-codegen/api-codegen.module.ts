@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { CAPIModule } from './capi';
 import { ClaimManagementModule } from './claim-management';
 import { QuestionaryModule } from './questionary';
-import { QuestionaryAggrProxyModule } from './questionary-aggr-proxy';
+import { AggrProxyModule } from './aggr-proxy';
 
 @NgModule({
-    imports: [CAPIModule, ClaimManagementModule, QuestionaryModule, QuestionaryAggrProxyModule]
+    imports: [CAPIModule, ClaimManagementModule, QuestionaryModule, AggrProxyModule]
 })
 export class APICodegenModule {}
