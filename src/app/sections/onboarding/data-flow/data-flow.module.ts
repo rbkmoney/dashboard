@@ -17,6 +17,7 @@ import { StepNavigationComponent } from './step-navigation';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
 import { QuestionaryModule } from '../../../api';
 import { StepLabelPipe } from './step-label.pipe';
+import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { StepLabelPipe } from './step-label.pipe';
         ReactiveFormsModule,
         MatInputModule,
         QuestionaryModule,
-        TranslocoModule
+        TranslocoModule,
+        SpinnerModule
     ],
     declarations: [
         DataFlowComponent,

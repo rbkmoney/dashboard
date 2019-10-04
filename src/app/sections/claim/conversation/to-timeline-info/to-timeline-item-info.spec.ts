@@ -1,5 +1,5 @@
 import { toTimelineItemInfo } from './to-timeline-item-info';
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 
 describe('toTimelineItemInfo', () => {
     it('empty modifications', () => {

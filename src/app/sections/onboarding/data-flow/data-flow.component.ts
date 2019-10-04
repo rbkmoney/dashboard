@@ -16,7 +16,10 @@ export class DataFlowComponent {
     stepFlow$ = this.stepFlowService.stepFlow$;
     activeStep$ = this.stepFlowService.activeStep$;
 
-    constructor(private stepFlowService: StepFlowService) {}
+    initialized$ = this.dataFlowService.initialized$;
+    initializeError$ = this.dataFlowService.initializeError$;
+
+    constructor(private stepFlowService: StepFlowService, private dataFlowService: DataFlowService) {}
 
     stepSelected(step: StepName) {
         this.stepFlowService.navigate(step);

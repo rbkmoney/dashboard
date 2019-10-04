@@ -1,4 +1,4 @@
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 import {
     ClaimModification,
     DocumentModificationUnit,
