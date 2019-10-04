@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { DataFlowService } from './data-flow.service';
-import { StepName } from './step-flows';
-import { StepFlowService } from './step-flow.service';
+import { StepName } from './step-flow';
+import { StepFlowService } from './step-flow';
 import { QuestionaryService } from './questionary.service';
 import { ValidityService } from './validity.service';
 
