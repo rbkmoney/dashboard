@@ -13,26 +13,24 @@ import { StepName } from './step-name';
 
 @Injectable()
 export class StepFlowService {
-    stepFlow$: Observable<StepName[]>;
-    activeStep$: Observable<StepName>;
-
     private navigate$: Subject<StepName> = new Subject();
 
+    stepFlow$: Observable<StepName[]> = this.dataFlowService.questionary$.pipe(
+        mapToStepFlow,
+        handleNull('Step flow initialization failed'),
+        shareReplay(1)
+    );
+
+    activeStep$: Observable<StepName> = this.navigate$.pipe(
+        startWith(toInitialStep(this.router.url)),
+        handleNull('Active step calculation failed'),
+        shareReplay(1)
+    );
+
     constructor(private router: Router, private dataFlowService: DataFlowService, private snackBar: MatSnackBar) {
-        this.stepFlow$ = this.dataFlowService.questionary$.pipe(
-            mapToStepFlow,
-            handleNull('Step flow initialization failed'),
-            shareReplay(1)
-        );
-        const navigationState$ = this.navigate$.pipe(
-            startWith(toInitialStep(this.router.url)),
-            handleNull('Active step calculation failed'),
-            shareReplay(1)
-        );
-        navigationState$
+        this.activeStep$
             .pipe(mapToNavigateCommands(this.router.url))
             .subscribe(commands => this.router.navigate(commands));
-        this.activeStep$ = navigationState$;
         combineLatest(this.stepFlow$, this.activeStep$)
             .pipe(takeError)
             .subscribe(err => this.snackBar.open(err, 'OK'));
