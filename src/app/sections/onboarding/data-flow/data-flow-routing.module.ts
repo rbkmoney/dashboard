@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BasicInfoComponent } from './basic-info';
 import { DataFlowComponent } from './data-flow.component';
-import { StepName } from './step-flows';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
+import { StepName } from './step-flow';
 
 export const routes: Routes = [
     {

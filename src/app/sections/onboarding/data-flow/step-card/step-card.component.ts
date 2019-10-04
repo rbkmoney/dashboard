@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
-import { StepName } from '../step-flows';
+import { StepName } from '../step-flow';
 
 @Component({
     selector: 'dsh-step-card',
