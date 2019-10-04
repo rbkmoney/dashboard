@@ -18,6 +18,6 @@ export const mapToStepFlow = (s: Observable<Questionary>): Observable<StepName[]
                 case t.PrivateEntity:
                     return IndividualEntityStepFlow;
             }
-            throw new Error(`Unsupported ContractorType: ${contractorType}`);
+            return null;
         })
     );
