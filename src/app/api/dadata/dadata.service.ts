@@ -21,6 +21,15 @@ import {
 
 const DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
 
+const endpointByRequestType = {
+    [DaDataRequestType.AddressQuery]: DaDataEndpoint.SuggestAddress,
+    [DaDataRequestType.BankQuery]: DaDataEndpoint.SuggestBank,
+    [DaDataRequestType.FioQuery]: DaDataEndpoint.SuggestFio,
+    [DaDataRequestType.FmsUnitQuery]: DaDataEndpoint.SuggestFmsUnit,
+    [DaDataRequestType.OkvedQuery]: DaDataEndpoint.Okved2,
+    [DaDataRequestType.PartyQuery]: DaDataEndpoint.SuggestParty
+};
+
 @Injectable()
 export class DaDataService {
     constructor(private daDataService: DaDataApiService) {}
@@ -50,16 +59,8 @@ export class DaDataService {
     }
 
     private request(daDataRequestType: DaDataRequest.DaDataRequestTypeEnum, request: DaDataRequest) {
-        const endpointByRequestType = {
-            [DaDataRequestType.AddressQuery]: DaDataEndpoint.SuggestAddress,
-            [DaDataRequestType.BankQuery]: DaDataEndpoint.SuggestBank,
-            [DaDataRequestType.FioQuery]: DaDataEndpoint.SuggestFio,
-            [DaDataRequestType.FmsUnitQuery]: DaDataEndpoint.SuggestFmsUnit,
-            [DaDataRequestType.OkvedQuery]: DaDataEndpoint.Okved2,
-            [DaDataRequestType.PartyQuery]: DaDataEndpoint.SuggestParty
-        }[daDataRequestType];
         return this.daDataService.requestDaData({
-            endpoint: endpointByRequestType,
+            endpoint: endpointByRequestType[daDataRequestType],
             request: { daDataRequestType, ...request }
         });
     }
