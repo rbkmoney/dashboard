@@ -16,7 +16,7 @@ import {
     DoCheck
 } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ErrorStateMatcher, CanUpdateErrorStateCtor, mixinErrorState } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { ControlValueAccessor, FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -27,6 +27,8 @@ import { map, startWith, takeUntil, switchMap, debounce, tap } from 'rxjs/operat
 
 import { DaDataRequest, PartyContent } from '../api-codegen/aggr-proxy';
 import { DaDataService, Suggestion } from '../api';
+import { MatInputMixinBase } from './input-base';
+import { type } from './type';
 
 interface Option {
     header: string;
@@ -34,15 +36,16 @@ interface Option {
     value: Suggestion;
 }
 
-class InputBase {
-    constructor(
-        public _defaultErrorStateMatcher: ErrorStateMatcher,
-        public _parentForm: NgForm,
-        public _parentFormGroup: FormGroupDirective,
-        public ngControl: NgControl
-    ) {}
-}
-const MatInputMixinBase: CanUpdateErrorStateCtor & typeof InputBase = mixinErrorState(InputBase);
+const ReqType = DaDataRequest.DaDataRequestTypeEnum;
+
+const requestTypeByType: { [name in typeof type[number]]: DaDataRequest.DaDataRequestTypeEnum } = {
+    address: ReqType.AddressQuery,
+    bank: ReqType.BankQuery,
+    fio: ReqType.FioQuery,
+    fmsUnit: ReqType.FmsUnitQuery,
+    okved: ReqType.OkvedQuery,
+    party: ReqType.PartyQuery
+};
 
 @Component({
     providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
@@ -63,7 +66,7 @@ export class DaDataAutocompleteComponent extends MatInputMixinBase
     @Output() errorOccurred = new EventEmitter<any>();
     @Output() suggestionNotFound = new EventEmitter();
 
-    @Input() type: DaDataRequest.DaDataRequestTypeEnum;
+    @Input() type: typeof type[number];
     @Input() count = 10;
 
     @Input()
@@ -164,7 +167,10 @@ export class DaDataAutocompleteComponent extends MatInputMixinBase
                 tap(() => (this.isOptionsLoading = true)),
                 debounce(() => interval(300)),
                 switchMap(() =>
-                    this.daDataService.suggest(this.type, { query: this.formControl.value, count: this.count })
+                    this.daDataService.suggest(requestTypeByType[this.type], {
+                        query: this.formControl.value,
+                        count: this.count
+                    })
                 )
             )
             .subscribe(
@@ -272,10 +278,9 @@ export class DaDataAutocompleteComponent extends MatInputMixinBase
     }
 
     private getOptionParts(suggestion: Suggestion): Option {
-        const Type = DaDataRequest.DaDataRequestTypeEnum;
         let description: string;
         switch (this.type) {
-            case Type.PartyQuery:
+            case 'party':
                 const { inn, ogrn, address } = suggestion as PartyContent;
                 const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
                 description = [innOGRN, address.value].filter(v => !!v).join(' ');
