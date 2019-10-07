@@ -9,11 +9,10 @@ import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { ContractorType } from './contractor-type';
-import { SuggestionData } from '../../../dadata/model/suggestions';
-import { SuggestionType } from '../../../dadata/model/type';
 import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
 import { toQuestionaryData } from './to-questionary-data';
 import { ClaimsService, QuestionaryService, createDocumentModificationUnit } from '../../../api';
+import { PartyContent, OrgType } from '../../../api-codegen/aggr-proxy';
 
 @Injectable()
 export class CompanySearchService {
@@ -31,15 +30,14 @@ export class CompanySearchService {
         private snackBar: MatSnackBar
     ) {}
 
-    suggestionToContractorType(suggestion: SuggestionData<SuggestionType.party>): ContractorType | null {
-        const suggestionType = get(suggestion, ['data', 'type']);
-        if (!suggestionType) {
+    suggestionToContractorType({ orgType }: PartyContent): ContractorType | null {
+        if (!orgType) {
             return null;
         }
-        switch (suggestionType) {
-            case 'LEGAL':
+        switch (orgType) {
+            case OrgType.Legal:
                 return ContractorType.LegalEntity;
-            case 'INDIVIDUAL':
+            case OrgType.Individual:
                 return ContractorType.IndividualEntity;
             default:
                 return null;

@@ -4,10 +4,9 @@ import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { CompanyDetails } from './company-details';
-import { SuggestionData } from '../../../dadata/model/suggestions';
-import { SuggestionType } from '../../../dadata/model/type';
 import { CompanySearchService } from './company-search.service';
 import { ContractorType } from './contractor-type';
+import { PartyContent } from '../../../api-codegen/aggr-proxy';
 
 @Component({
     templateUrl: 'company-search.component.html',
@@ -36,7 +35,7 @@ export class CompanySearchComponent {
             .subscribe(id => this.companySearchService.goToOnboardingFlow(id));
     }
 
-    updateSuggestion(suggestion: SuggestionData<SuggestionType.party>) {
+    updateSuggestion(suggestion: PartyContent) {
         this.contractorType = this.companySearchService.suggestionToContractorType(suggestion);
         if (!this.contractorType) {
             this.manualContractorSelector = true;
@@ -60,10 +59,7 @@ export class CompanySearchComponent {
     }
 
     // TODO temporary solution
-    private toCompanyDetails({
-        value,
-        data: { address, ogrn, inn, kpp }
-    }: SuggestionData<SuggestionType.party>): CompanyDetails {
+    private toCompanyDetails({ value, address, ogrn, inn, kpp }: PartyContent): CompanyDetails {
         return {
             name: value,
             address: address.value,

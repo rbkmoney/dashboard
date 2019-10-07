@@ -16,7 +16,8 @@ import {
     AddressResponse,
     FmsUnitResponse,
     OkvedResponse,
-    BankResponse
+    BankResponse,
+    DaDataResponse
 } from '../../api-codegen/aggr-proxy';
 
 const DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
@@ -30,38 +31,50 @@ const endpointByRequestType = {
     [DaDataRequestType.PartyQuery]: DaDataEndpoint.SuggestParty
 };
 
+export interface Suggestion {
+    value?: string;
+    unrestrictedValue?: string;
+}
+
+interface Response extends DaDataResponse {
+    suggestions?: Suggestion[];
+}
+
 @Injectable()
 export class DaDataService {
     constructor(private daDataService: DaDataApiService) {}
 
-    suggestParty(query: PartyQuery): Observable<PartyResponse> {
-        return this.request(DaDataRequestType.PartyQuery, query);
-    }
-
-    suggestFio(query: FioQuery): Observable<FioResponse> {
-        return this.request(DaDataRequestType.FioQuery, query);
-    }
-
-    suggestAddress(query: AddressQuery): Observable<AddressResponse> {
-        return this.request(DaDataRequestType.AddressQuery, query);
-    }
-
-    suggestFmsUnit(query: FmsUnitQuery): Observable<FmsUnitResponse> {
-        return this.request(DaDataRequestType.FmsUnitQuery, query);
-    }
-
-    suggestOkved(query: OkvedQuery): Observable<OkvedResponse> {
-        return this.request(DaDataRequestType.OkvedQuery, query);
-    }
-
-    suggestBank(query: BankQuery): Observable<BankResponse> {
-        return this.request(DaDataRequestType.BankQuery, query);
-    }
-
-    private request(daDataRequestType: DaDataRequest.DaDataRequestTypeEnum, request: DaDataRequest) {
+    suggest<Req extends { query?: string; count?: number }>(
+        daDataRequestType: DaDataRequest.DaDataRequestTypeEnum,
+        request: Req
+    ) {
         return this.daDataService.requestDaData({
             endpoint: endpointByRequestType[daDataRequestType],
             request: { daDataRequestType, ...request }
-        });
+        }) as Observable<Response>;
+    }
+
+    suggestParty(query: PartyQuery): Observable<PartyResponse> {
+        return this.suggest(DaDataRequestType.PartyQuery, query);
+    }
+
+    suggestFio(query: FioQuery): Observable<FioResponse> {
+        return this.suggest(DaDataRequestType.FioQuery, query);
+    }
+
+    suggestAddress(query: AddressQuery): Observable<AddressResponse> {
+        return this.suggest(DaDataRequestType.AddressQuery, query);
+    }
+
+    suggestFmsUnit(query: FmsUnitQuery): Observable<FmsUnitResponse> {
+        return this.suggest(DaDataRequestType.FmsUnitQuery, query);
+    }
+
+    suggestOkved(query: OkvedQuery): Observable<OkvedResponse> {
+        return this.suggest(DaDataRequestType.OkvedQuery, query);
+    }
+
+    suggestBank(query: BankQuery): Observable<BankResponse> {
+        return this.suggest(DaDataRequestType.BankQuery, query);
     }
 }

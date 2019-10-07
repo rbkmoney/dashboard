@@ -1,3 +1,4 @@
+import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/autocomplete-origin';
 import {
     AfterViewInit,
     Component,
@@ -14,25 +15,23 @@ import {
     EventEmitter,
     DoCheck
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher, CanUpdateErrorStateCtor, mixinErrorState } from '@angular/material';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatAutocompleteOrigin } from '@angular/material/autocomplete/typings/autocomplete-origin';
+import { ControlValueAccessor, FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subject, interval, Subscription } from 'rxjs';
 import { map, startWith, takeUntil, switchMap, debounce, tap } from 'rxjs/operators';
 
-import { DaDataService } from './dadata.service';
-import { SuggestionType } from './model/type';
-import { SuggestionData } from './model/suggestions';
+import { DaDataRequest, PartyContent } from '../api-codegen/aggr-proxy';
+import { DaDataService, Suggestion } from '../api';
 
-interface Option<T extends SuggestionType> {
+interface Option {
     header: string;
     description: string;
-    value: SuggestionData<T>;
+    value: Suggestion;
 }
 
 class InputBase {
@@ -51,20 +50,20 @@ const MatInputMixinBase: CanUpdateErrorStateCtor & typeof InputBase = mixinError
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html'
 })
-export class DaDataAutocompleteComponent<T extends SuggestionType = any> extends MatInputMixinBase
+export class DaDataAutocompleteComponent extends MatInputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit, DoCheck {
     static currentId = 0;
     static prefix = 'dsh-dadata-autocomplete';
 
-    suggestions$: Observable<SuggestionData<T>[]>;
-    options: Option<T>[];
+    suggestions$: Observable<Suggestion[]>;
+    options: Option[];
     isOptionsLoading = false;
 
-    @Output() optionSelected = new EventEmitter<SuggestionData<T>>();
+    @Output() optionSelected = new EventEmitter<Suggestion>();
     @Output() errorOccurred = new EventEmitter<any>();
     @Output() suggestionNotFound = new EventEmitter();
 
-    @Input() type: T;
+    @Input() type: DaDataRequest.DaDataRequestTypeEnum;
     @Input() count = 10;
 
     @Input()
@@ -165,11 +164,11 @@ export class DaDataAutocompleteComponent<T extends SuggestionType = any> extends
                 tap(() => (this.isOptionsLoading = true)),
                 debounce(() => interval(300)),
                 switchMap(() =>
-                    this.daDataService.getSuggestions(this.type, this.formControl.value, { count: this.count })
+                    this.daDataService.suggest(this.type, { query: this.formControl.value, count: this.count })
                 )
             )
             .subscribe(
-                suggestions => {
+                ({ suggestions }) => {
                     if (suggestions.length === 0) {
                         this.suggestionNotFound.emit();
                     }
@@ -272,22 +271,20 @@ export class DaDataAutocompleteComponent<T extends SuggestionType = any> extends
             .pipe(startWith(false));
     }
 
-    private getOptionParts(suggestion: SuggestionData<T>): Option<T> {
+    private getOptionParts(suggestion: Suggestion): Option {
+        const Type = DaDataRequest.DaDataRequestTypeEnum;
+        let description: string;
         switch (this.type) {
-            case SuggestionType.party:
-                const { data } = suggestion as SuggestionData<SuggestionType.party>;
-                const innOGRN = data.inn && data.ogrn ? data.inn + '/' + data.ogrn : data.inn || data.ogrn || '';
-                return {
-                    header: suggestion.value,
-                    description: (innOGRN ? innOGRN + ' ' : '') + data.address.value,
-                    value: suggestion
-                };
-            default:
-                return {
-                    header: suggestion.value,
-                    description: '',
-                    value: suggestion
-                };
+            case Type.PartyQuery:
+                const { inn, ogrn, address } = suggestion as PartyContent;
+                const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
+                description = [innOGRN, address.value].filter(v => !!v).join(' ');
+                break;
         }
+        return {
+            header: suggestion.value || '',
+            description: description || '',
+            value: suggestion
+        };
     }
 }
