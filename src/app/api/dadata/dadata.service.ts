@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import {
     DaDataService as DaDataApiService,
-    DaDataEndpoint,
     DaDataRequest,
     PartyQuery,
     FioQuery,
@@ -19,21 +18,14 @@ import {
     BankResponse,
     DaDataResponse
 } from '../../api-codegen/aggr-proxy';
+import { Suggestion } from './suggestion';
 
 const DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
+type DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
 
-const endpointByRequestType = {
-    [DaDataRequestType.AddressQuery]: DaDataEndpoint.SuggestAddress,
-    [DaDataRequestType.BankQuery]: DaDataEndpoint.SuggestBank,
-    [DaDataRequestType.FioQuery]: DaDataEndpoint.SuggestFio,
-    [DaDataRequestType.FmsUnitQuery]: DaDataEndpoint.SuggestFmsUnit,
-    [DaDataRequestType.OkvedQuery]: DaDataEndpoint.Okved2,
-    [DaDataRequestType.PartyQuery]: DaDataEndpoint.SuggestParty
-};
-
-export interface Suggestion {
-    value?: string;
-    unrestrictedValue?: string;
+interface Request {
+    query?: string;
+    count?: number;
 }
 
 interface Response extends DaDataResponse {
@@ -44,14 +36,10 @@ interface Response extends DaDataResponse {
 export class DaDataService {
     constructor(private daDataService: DaDataApiService) {}
 
-    suggest<Req extends { query?: string; count?: number }>(
-        daDataRequestType: DaDataRequest.DaDataRequestTypeEnum,
-        request: Req
-    ) {
+    suggest<Q extends Request, S extends Response>(daDataRequestType: DaDataRequestType, request: Q) {
         return this.daDataService.requestDaData({
-            endpoint: endpointByRequestType[daDataRequestType],
             request: { daDataRequestType, ...request }
-        }) as Observable<Response>;
+        }) as Observable<S>;
     }
 
     suggestParty(query: PartyQuery): Observable<PartyResponse> {
