@@ -6,6 +6,6 @@
         "capi": "schemes/swag/v3/swagger.yaml",
         "claim-management": "schemes/claim-management/v0/swagger.json",
         "questionary": "schemes/questionary/v0/swagger.json",
-        "aapi": "schemes/swag-analytics/v1/swagger.json"
+        "anapi": "schemes/swag-analytics/v1/swagger.json"
     }
 }

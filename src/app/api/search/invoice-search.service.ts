@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { Invoice, SearchService } from '../../api-codegen/aapi/swagger-codegen';
+import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { fakeDate } from './fake-date';
 import { InvoicesSearchParams } from './invoices-search-params';
 import { InvoicesWithToken } from './invoices-with-token';

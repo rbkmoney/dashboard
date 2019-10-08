@@ -3,7 +3,7 @@
         "capiEndpoint": "http://localhost:9900",
         "claimManagementEndpoint": "http://localhost:9902",
         "questionaryEndpoint": "http://localhost:9903",
-        "aapiEndpoint": "http://localhost:9904"
+        "anapiEndpoint": "http://localhost:9904"
     },
     "daData": {
         "token": "Token 513f29a0891d00336496240b5cee89afe8fafde7",
