@@ -1,4 +1,23 @@
-<div class="dsh-reports" *transloco="let t; scope: 'payment-section'; read: 'paymentSection.reports'">
+<div
+    class="dsh-reports"
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.reports'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
     <h1 class="mat-headline">{{ t.headline }}</h1>
-    <ng-content></ng-content>
+    <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex class="mat-body-1">
+            {{ t.generateReport.description }}
+        </div>
+        <div>
+            <button dsh-stroked-button color="accent">
+                {{ t.generateReport.button }}
+            </button>
+        </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="20px">
+        <dsh-card>
+            <dsh-card-content fxLayout="column" fxLayoutGap="15px"> </dsh-card-content>
+        </dsh-card>
+    </div>
 </div>
