@@ -7,7 +7,7 @@ import { RefundsWithToken } from './refunds-with-token';
 import { fakeDate } from './fake-date';
 import { Duration } from './duration';
 import { genXRequestID } from '../gen-x-request-id';
-import { SearchService, Refund, RefundSearchResult } from '../../api-codegen/capi/swagger-codegen';
+import { SearchService, Refund, RefundSearchResult } from '../../api-codegen/anapi/swagger-codegen';
 
 @Injectable()
 export class RefundSearchService {
