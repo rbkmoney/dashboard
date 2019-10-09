@@ -8,7 +8,8 @@ import {
     tokenProviders as tokenProvidersConsts,
     paymentMethods as paymentMethodsConsts,
     bankCardPaymentSystems as bankCardPaymentSystemsConsts,
-    paymentFlows as paymentFlowsConsts
+    paymentFlows as paymentFlowsConsts,
+    paymentStatuses as paymentStatusesConsts
 } from '../../constants';
 
 @Component({
@@ -29,12 +30,14 @@ export class SearchFormComponent implements OnInit {
     paymentMethods;
     bankCardPaymentSystems;
     paymentFlows;
+    paymentStatuses;
 
     constructor(private searchFormService: SearchFormService) {
         this.tokenProviders = tokenProvidersConsts;
         this.paymentMethods = paymentMethodsConsts;
         this.bankCardPaymentSystems = bankCardPaymentSystemsConsts;
         this.paymentFlows = paymentFlowsConsts;
+        this.paymentStatuses = paymentStatusesConsts;
     }
 
     ngOnInit() {

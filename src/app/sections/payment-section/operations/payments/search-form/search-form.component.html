@@ -37,7 +37,7 @@
                         <mat-option>
                             {{ c.any }}
                         </mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status">
+                        <mat-option *ngFor="let status of paymentStatuses" [value]="status">
                             {{ c.paymentStatus[status] }}
                         </mat-option>
                     </mat-select>
