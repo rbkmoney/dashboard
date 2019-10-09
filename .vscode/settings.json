@@ -8,6 +8,8 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",
+        "OGRN",
+        "OKVED",
         "codegen",
         "dadata",
         "downlevel",
