@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { filter, map, switchMap, catchError } from 'rxjs/operators';
-import get from 'lodash.get';
 import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
 
