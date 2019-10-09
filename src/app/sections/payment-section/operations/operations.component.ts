@@ -12,10 +12,10 @@ export class OperationsComponent {
         },
         {
             path: 'refunds'
+        },
+        {
+            path: 'invoices'
         }
-        // {
-        //     path: 'invoices'
-        // }
     ];
 
     constructor(private router: Router) {
