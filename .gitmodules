@@ -18,3 +18,7 @@
 	path = schemes/questionary-aggr-proxy/v0
 	url = git@github.com:rbkmoney/swag-questionary-aggr-proxy-public.git
 	branch = gh-pages
+[submodule "schemes/swag-analytics/v1"]
+	path = schemes/swag-analytics/v1
+	url = git@github.com:rbkmoney/swag-analytics.git
+	branch = release/master
