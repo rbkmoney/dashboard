@@ -1,3 +1,9 @@
 {
-    "title": "Отчеты"
+    "title": "Отчеты",
+    "columns": {
+        "formationType": "Тип формирования",
+        "createdAt": "Создан",
+        "status": "Статус",
+        "period": "Период"
+    }
 }
