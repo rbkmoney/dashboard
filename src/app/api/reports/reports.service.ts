@@ -40,7 +40,7 @@ export class ReportsService {
     }
 
     getReports({ fromTime, toTime, reportTypes, partyID, shopID }: GetReportsReq) {
-        return this.reportsService.getReports(
+        return this.reportsService.searchReports(
             genXRequestID(),
             fromTime as any,
             toTime as any,
