@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
 
-@NgModule({})
+import { ReportsService } from './reports.service';
+
+@NgModule({
+    providers: [ReportsService]
+})
 export class ReportsModule {}

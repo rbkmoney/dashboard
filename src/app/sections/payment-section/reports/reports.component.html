@@ -19,7 +19,7 @@
     <div fxLayout="column" fxLayoutGap="20px">
         <dsh-card>
             <dsh-card-content fxLayout="column" fxLayoutGap="15px">
-                <dsh-reports-table></dsh-reports-table>
+                <dsh-reports-table [reports]="reports$ | async"></dsh-reports-table>
             </dsh-card-content>
         </dsh-card>
     </div>

@@ -11,7 +11,7 @@ interface CreateReportReq {
     shopID?: string;
 }
 
-interface GetReportsReq {
+interface SearchReportsReq {
     fromTime: string;
     toTime: string;
     reportTypes: Report.ReportTypeEnum[];
@@ -39,11 +39,11 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    getReports({ fromTime, toTime, reportTypes, partyID, shopID }: GetReportsReq) {
+    searchReports({ fromTime, toTime, reportTypes, partyID, shopID }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
-            fromTime as any,
-            toTime as any,
+            new Date(fromTime),
+            new Date(toTime),
             reportTypes,
             partyID,
             undefined,

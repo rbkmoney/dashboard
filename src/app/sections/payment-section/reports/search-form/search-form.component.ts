@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 
-import { SearchFormService } from './search-form.service';
-
 @Component({
     selector: 'dsh-reports-search-form',
-    templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    templateUrl: 'search-form.component.html'
 })
 export class SearchFormComponent {}

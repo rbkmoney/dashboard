@@ -3,6 +3,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { ReportsComponent } from './reports.component';
 import { ReportsRoutingModule } from './reports-routing.module';
@@ -13,6 +14,9 @@ import { TableComponent } from './table';
 import { TableModule } from '../../../table';
 import { StateNavModule } from '../../../state-nav';
 import { DropdownModule } from '../../../dropdown';
+import { ReportsService } from './reports.service';
+import { ReportsModule as ReportsApiModule } from '../../../api';
+import { StatusModule } from '../../../status';
 
 @NgModule({
     imports: [
@@ -29,9 +33,13 @@ import { DropdownModule } from '../../../dropdown';
         StateNavModule,
         DropdownModule,
         MatIconModule,
-        TableModule
+        TableModule,
+        ReportsApiModule,
+        CommonModule,
+        StatusModule
     ],
     declarations: [ReportsComponent, SearchFormComponent, TableComponent],
-    exports: [ReportsComponent]
+    exports: [ReportsComponent],
+    providers: [ReportsService]
 })
 export class ReportsModule {}

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+
+import { Report } from '../../../../api-codegen/anapi';
+import { StatusColor } from '../../../../theme-manager';
 
 @Component({
     selector: 'dsh-reports-table',
@@ -7,13 +9,12 @@ import { MatTableDataSource } from '@angular/material';
     styleUrls: ['table.component.scss']
 })
 export class TableComponent {
-    @Input() data: MatTableDataSource<{
-        formationType: string;
-        createdAt: string;
-        status: string;
-        period: string;
-        actions: string;
-    }> = [{ formationType: 'aa', createdAt: 'aa', status: 'aa', period: 'aa', actions: 'aa' }] as any;
+    @Input() reports: Report[] = [];
+
+    mapStatusToStatusColor = {
+        [Report.StatusEnum.Pending]: StatusColor.pending,
+        [Report.StatusEnum.Created]: StatusColor.success
+    };
 
     displayedColumns: string[] = ['formationType', 'createdAt', 'status', 'period', 'actions'];
 }

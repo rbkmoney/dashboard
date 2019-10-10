@@ -1,5 +1,5 @@
 <div *transloco="let t; scope: 'reports'; read: 'reports.columns'" class="table-container">
-    <table dshTable [dataSource]="data">
+    <table dshTable [dataSource]="reports">
         <ng-container dshColumnDef="formationType">
             <th dshHeaderCell *dshHeaderCellDef>
                 {{ t.formationType }}
@@ -13,7 +13,7 @@
                 {{ t.createdAt }}
             </th>
             <td dshCell *dshCellDef="let e">
-                {{ e.createdAt }}
+                {{ e.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
             </td>
         </ng-container>
         <ng-container dshColumnDef="status">
@@ -21,7 +21,12 @@
                 {{ t.status }}
             </th>
             <td dshCell *dshCellDef="let e">
-                {{ e.status }}
+                <dsh-status
+                    *transloco="let s; scope: 'reports'; read: 'reports.status'"
+                    [color]="mapStatusToStatusColor[e.status]"
+                >
+                    {{ s[e.status] }}
+                </dsh-status>
             </td>
         </ng-container>
         <ng-container dshColumnDef="period">
@@ -29,7 +34,7 @@
                 {{ t.period }}
             </th>
             <td dshCell *dshCellDef="let e">
-                {{ e.period }}
+                {{ e.fromTime | date: 'dd MMMM yyyy' }} - {{ e.toTime | date: 'dd MMMM yyyy' }}
             </td>
         </ng-container>
         <ng-container dshColumnDef="actions">
