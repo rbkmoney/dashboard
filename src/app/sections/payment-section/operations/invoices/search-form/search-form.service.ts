@@ -65,7 +65,7 @@ export class SearchFormService {
     }
 
     private initForm(defaultLimit = 20): FormGroup {
-        const form = this.fb.group({
+        return this.fb.group({
             fromTime: moment()
                 .subtract(1, 'month')
                 .startOf('day'),
@@ -90,6 +90,5 @@ export class SearchFormService {
             bankCardPaymentSystem: '',
             paymentAmount: ''
         });
-        return form;
     }
 }
