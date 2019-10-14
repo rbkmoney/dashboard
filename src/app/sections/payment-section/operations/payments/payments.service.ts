@@ -27,7 +27,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         this.searchResult$,
         this.shopService.shops$
     ).pipe(
-        toTableData(paymentToTableData),
+        toTableData<PaymentSearchResult, PaymentsTableData>(paymentToTableData),
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];

@@ -27,7 +27,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         this.searchResult$,
         this.shopService.shops$
     ).pipe(
-        toTableData(invoiceToTableData),
+        toTableData<Invoice, InvoicesTableData>(invoiceToTableData),
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
