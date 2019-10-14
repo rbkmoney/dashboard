@@ -9,6 +9,7 @@ export type Value = number | string | moment.Moment | Date;
 
 export interface HumanizeConfig extends humanizeDuration.HumanizerOptions {
     isShort?: boolean;
+    isAgoSuffixRequired?: boolean;
 }
 
 @Injectable()
@@ -17,6 +18,7 @@ export class HumanizeDurationService {
     static MIN_HUMANIZE_DURATION_UPDATE_MS = 1000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
+    static LESS_THAN_FEW_SECONDS = 3000;
 
     private get duration() {
         return humanizeDuration.humanizer({
@@ -56,16 +58,31 @@ export class HumanizeDurationService {
         if (isNaN(diffMs)) {
             return null;
         } else if (config.isShort) {
-            return this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
+            return config.isAgoSuffixRequired
+                ? `${this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer })} ${this.transloco.translate(
+                      'ago'
+                  )}`
+                : this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
         } else if (config.largest === 1) {
-            return moment.duration(diffMs).humanize();
+            if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
+                return this.transloco.translate('justNow');
+            }
+
+            return config.isAgoSuffixRequired
+                ? `${moment.duration(diffMs).humanize()} ${this.transloco.translate('ago')}`
+                : moment.duration(diffMs).humanize();
         }
-        return this.duration(diffMs, config);
+        return config.isAgoSuffixRequired
+            ? `${this.duration(diffMs, config)} ${this.transloco.translate('ago')}`
+            : this.duration(diffMs, config);
     }
 
     getOptimalUpdateInterval(value: Value, { largest }: HumanizeConfig): number {
         if (largest === 1) {
             const diffMs = this.getDiffMs(value);
+            if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
+                return HumanizeDurationService.MIN_HUMANIZE_DURATION_UPDATE_MS;
+            }
             if (diffMs < HumanizeDurationService.HOUR_MS) {
                 return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS;
             }
