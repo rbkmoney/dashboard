@@ -1,13 +1,11 @@
 <div *transloco="let t; scope: 'operations'; read: 'operations.invoices.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="invoiceID">
-            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef fxHide>
+            <th dshHeaderCell fxFlex="160px" *dshHeaderCellDef>
                 {{ t.invoiceID }}
             </th>
-            <td dshCell fxFlex="140px" *dshCellDef="let element" fxHide>
-                <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ element.id }}</span> <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
-                >
+            <td dshCell fxFlex="160px" *dshCellDef="let element">
+                {{ element.invoiceID }}
             </td>
         </ng-container>
 
