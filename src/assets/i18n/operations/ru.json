@@ -53,6 +53,16 @@
             "bankCardTokenProvider": "Провайдер платежных токенов",
             "bankCardPaymentSystem": "Платежаня система",
             "paymentMethod": "Метод оплаты"
+        },
+        "table": {
+            "amount": "Сумма списания",
+            "status": "Статус",
+            "createdAt": "Создан",
+            "invoiceID": "Идентификатор инвойса",
+            "shop": "Магазин",
+            "actions": {
+                "invoiceDetails": "Детали инвойса"
+            }
         }
     },
     "refunds": {
