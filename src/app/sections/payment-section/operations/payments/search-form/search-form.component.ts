@@ -5,10 +5,12 @@ import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import {
-    BankCardPaymentSystem,
-    BankCardTokenProvider,
-    PaymentStatus
-} from '../../../../../api-codegen/capi/swagger-codegen';
+    tokenProviders as tokenProvidersConsts,
+    paymentMethods as paymentMethodsConsts,
+    bankCardPaymentSystems as bankCardPaymentSystemsConsts,
+    paymentFlows as paymentFlowsConsts,
+    paymentStatuses as paymentStatusesConsts
+} from '../../constants';
 
 @Component({
     selector: 'dsh-search-form',
@@ -23,27 +25,20 @@ export class SearchFormComponent implements OnInit {
 
     searchForm: FormGroup;
     expanded = false;
-    statuses: PaymentStatus.StatusEnum[] = ['pending', 'processed', 'captured', 'cancelled', 'refunded', 'failed'];
-    flows = ['instant', 'hold'] as const;
-    methods = ['bankCard', 'paymentTerminal'] as const;
-    tokenProviders: BankCardTokenProvider[] = ['applepay', 'googlepay', 'samsungpay'];
-    bankCardPaymentSystems: BankCardPaymentSystem[] = [
-        'visa',
-        'mastercard',
-        'visaelectron',
-        'maestro',
-        'forbrugsforeningen',
-        'dankort',
-        'amex',
-        'dinersclub',
-        'discover',
-        'unionpay',
-        'jcb',
-        'nspkmir'
-    ];
     shopsInfo$ = this.searchFormService.shopsInfo$;
+    tokenProviders;
+    paymentMethods;
+    bankCardPaymentSystems;
+    paymentFlows;
+    paymentStatuses;
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService) {
+        this.tokenProviders = tokenProvidersConsts;
+        this.paymentMethods = paymentMethodsConsts;
+        this.bankCardPaymentSystems = bankCardPaymentSystemsConsts;
+        this.paymentFlows = paymentFlowsConsts;
+        this.paymentStatuses = paymentStatusesConsts;
+    }
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
@@ -55,6 +50,6 @@ export class SearchFormComponent implements OnInit {
     }
 
     reset() {
-        this.formValueChanges.emit(this.searchFormService.reset());
+        this.searchFormService.reset();
     }
 }

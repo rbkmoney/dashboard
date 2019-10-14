@@ -1,6 +1,6 @@
 import { toTimelineInfo } from './to-timeline-info';
 import { DocumentModificationUnit } from '../../../../api-codegen/claim-management';
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 import { Author } from './author';
 import { TimelineAction } from './timeline-action';
 import { TimelineItemInfo } from './timeline-item-info';

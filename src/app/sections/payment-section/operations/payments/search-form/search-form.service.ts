@@ -7,8 +7,8 @@ import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './payment-search-form-value';
-import { toQueryParams } from './to-query-params';
-import { toFormValue } from './to-form-value';
+import { toQueryParams } from '../../to-query-params';
+import { toFormValue } from '../../to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { takeRouteParam } from '../../../../../custom-operators';
@@ -53,9 +53,8 @@ export class SearchFormService {
         );
     }
 
-    reset(): PaymentSearchFormValue {
+    reset() {
         this.searchForm.reset(this.defaultValues);
-        return this.defaultValues;
     }
 
     applySearchFormValue(v: SearchFormValue) {

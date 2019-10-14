@@ -37,7 +37,7 @@
                         <mat-option>
                             {{ c.any }}
                         </mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status">
+                        <mat-option *ngFor="let status of paymentStatuses" [value]="status">
                             {{ c.paymentStatus[status] }}
                         </mat-option>
                     </mat-select>
@@ -76,7 +76,7 @@
                             <mat-option>
                                 {{ c.any }}
                             </mat-option>
-                            <mat-option *ngFor="let flow of flows" [value]="flow">
+                            <mat-option *ngFor="let flow of paymentFlows" [value]="flow">
                                 {{ c.paymentFlow[flow] }}
                             </mat-option>
                         </mat-select>
@@ -112,7 +112,7 @@
                             <mat-option>
                                 {{ c.any }}
                             </mat-option>
-                            <mat-option *ngFor="let method of methods" [value]="method">
+                            <mat-option *ngFor="let method of paymentMethods" [value]="method">
                                 {{ c.paymentMethod[method] }}
                             </mat-option>
                         </mat-select>

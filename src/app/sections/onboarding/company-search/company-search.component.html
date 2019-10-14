@@ -9,7 +9,7 @@
                     formControlName="searchStr"
                     type="party"
                     (optionSelected)="updateSuggestion($event)"
-                    (errorOccurred)="searchSuggestionError($event)"
+                    (errorOccurred)="searchSuggestionError()"
                     (suggestionNotFound)="suggestionNotFound()"
                     #daDadataAutocomplete
                 ></dsh-dadata-autocomplete>
@@ -29,7 +29,7 @@
             <button dsh-stroked-button color="accent" (click)="back()">
                 {{ t.back }}
             </button>
-            <button dsh-button color="accent" (click)="next()">{{ t.next }}</button>
+            <button dsh-button color="accent" (click)="next()" [disabled]="!contractorType">{{ t.next }}</button>
         </div>
     </dsh-card>
 </div>

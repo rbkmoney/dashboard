@@ -1,5 +1,5 @@
 import { PartyModification } from '../../../../api-codegen/claim-management';
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { SpecificModificationUnit } from '../../../../api/claims/utils';
 import { TimelineAction } from './timeline-action';
 
 const PartyModificationType = PartyModification.PartyModificationTypeEnum;

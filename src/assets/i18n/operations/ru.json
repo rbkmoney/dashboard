@@ -33,9 +33,48 @@
         }
     },
     "invoices": {
-        "title": "Инвойсы"
+        "title": "Инвойсы",
+        "filter": {
+            "shopID": "Магазин",
+            "fromTime": "Начало периода",
+            "toTime": "Конец периода",
+            "payerEmail": "Email плательщика",
+            "paymentID": "Идентификатор платежа",
+            "invoiceID": "Идентификатор инвойса",
+            "invoiceAmount": "Сумма инвойса",
+            "first6": "BIN банка-эмитента карты",
+            "last4": "Последние цифры номера карты",
+            "payerFingerprint": "Fingerprint плательщика",
+            "customerID": "Идентификатор плательщика",
+            "payerIP": "IP-адрес плательщика",
+            "invoiceStatus": "Статус инвойса",
+            "paymentStatus": "Статус платежа",
+            "paymentFlow": "Тип проведения платежа",
+            "bankCardTokenProvider": "Провайдер платежных токенов",
+            "bankCardPaymentSystem": "Платежаня система",
+            "paymentMethod": "Метод оплаты"
+        }
     },
     "refunds": {
-        "title": "Возвраты"
+        "title": "Возвраты",
+        "filter": {
+            "shopID": "Магазин",
+            "fromTime": "Начало периода",
+            "toTime": "Конец периода",
+            "paymentID": "Идентификатор платежа",
+            "invoiceID": "Идентификатор инвойса",
+            "refundStatus": "Статус возврата",
+            "refundID": "Идентификатор возврата"
+        },
+        "table": {
+            "amount": "Сумма возврата",
+            "createdAt": "Создан",
+            "reason": "Причина возврата",
+            "status": "Статус",
+            "actions": {
+                "paymentDetails": "Детали платежа",
+                "invoiceDetails": "Детали инвойса"
+            }
+        }
     }
 }

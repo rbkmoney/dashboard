@@ -1,0 +1,23 @@
+<div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'">
+    <h1 class="mat-headline">{{ t.onboarding.headline }}</h1>
+    <div *ngIf="!(initialized$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <div fxLayout fxLayoutGap="20px" *ngIf="(initialized$ | async) && !(initializeError$ | async)">
+        <dsh-card fxFlex fxLayout="column" fxLayoutGap="10px">
+            <h2 class="mat-title">{{ activeStep$ | async | stepLabel: 'stepTitle' }}</h2>
+            <dsh-card-content>
+                <router-outlet></router-outlet>
+            </dsh-card-content>
+            <dsh-step-navigation></dsh-step-navigation>
+        </dsh-card>
+        <div fxLayout="column" fxFlex="320px" fxLayoutGap="20px" fxHide.lt-sm="true">
+            <dsh-step-card
+                [stepFlow]="stepFlow$ | async"
+                [activeStep]="activeStep$ | async"
+                (stepSelected)="stepSelected($event)"
+            ></dsh-step-card>
+            <dsh-help-card></dsh-help-card>
+        </div>
+    </div>
+</div>

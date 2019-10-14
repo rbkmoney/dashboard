@@ -5,9 +5,9 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { DaDataService } from './dadata.service';
 import { DaDataAutocompleteComponent } from './dadata.component';
 import { HighlightSearchPipe } from './highlight.pipe';
+import { DaDataModule as DaDataApiModule } from '../api';
 
 @NgModule({
     imports: [
@@ -17,11 +17,10 @@ import { HighlightSearchPipe } from './highlight.pipe';
         FormsModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatAutocompleteModule
+        DaDataApiModule
     ],
     declarations: [DaDataAutocompleteComponent, HighlightSearchPipe],
     entryComponents: [DaDataAutocompleteComponent],
-    providers: [DaDataService],
     exports: [DaDataAutocompleteComponent]
 })
 export class DaDataModule {}
