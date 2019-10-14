@@ -48,10 +48,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         super();
     }
 
-    protected fetch(
-        params: InvoiceSearchFormValue,
-        continuationToken: string
-    ): Observable<FetchResult<Invoice>> {
+    protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.invoiceSearchService.searchInvoices(

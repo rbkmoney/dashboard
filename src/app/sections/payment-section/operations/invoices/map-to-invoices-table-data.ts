@@ -19,8 +19,7 @@ const invoiceToTableData = (
     invoiceID: id,
     shopName: toShopName(s, shopID)
 });
-const invoicesToTableData = (searchResult: Invoice[], s: Shop[]) =>
-    searchResult.map(r => invoiceToTableData(r, s));
+const invoicesToTableData = (searchResult: Invoice[], s: Shop[]) => searchResult.map(r => invoiceToTableData(r, s));
 
 export const mapToInvoicesTableData = (s: Observable<[Invoice[], Shop[]]>) =>
     s.pipe(map(([searchResult, shops]) => invoicesToTableData(searchResult, shops)));
