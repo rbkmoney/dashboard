@@ -24,7 +24,6 @@ export class LanguageService {
     async change(language: Language) {
         registerLocaleData(angularLocaleData[language], language);
         if (language !== Language.en) {
-            console.log(language);
             await import(`moment/locale/${language}`);
         }
         moment.locale(language);
