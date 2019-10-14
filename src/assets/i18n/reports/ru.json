@@ -4,7 +4,11 @@
         "formationType": "Тип формирования",
         "createdAt": "Создан",
         "status": "Статус",
-        "period": "Период"
+        "period": "Период",
+        "actions": {
+            "downloadAllDocuments": "Загрузить все документы ({{count}})",
+            "details": "Детали отчета"
+        }
     },
     "status": {
         "created": "Сформирован",
