@@ -14,8 +14,7 @@ import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { booleanDelay } from '../../../../custom-operators';
-import { toTableData } from '../operators/to-table-data';
-import { paymentToTableData } from './map-to-payments-table-data';
+import { mapToPaymentsTableData } from './map-to-payments-table-data';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
@@ -27,7 +26,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         this.searchResult$,
         this.shopService.shops$
     ).pipe(
-        toTableData<PaymentSearchResult, PaymentsTableData>(paymentToTableData),
+        mapToPaymentsTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
