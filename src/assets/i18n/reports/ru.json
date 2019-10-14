@@ -1,7 +1,7 @@
 {
     "title": "Отчеты",
     "columns": {
-        "formationType": "Тип формирования",
+        "type": "Тип формирования",
         "createdAt": "Создан",
         "status": "Статус",
         "period": "Период",
@@ -9,6 +9,16 @@
             "downloadAllDocuments": "Загрузить все документы ({{count}})",
             "details": "Детали отчета"
         }
+    },
+    "type": {
+        "provisionOfService": "Автоматический",
+        "paymentRegistry": "Ручной"
+    },
+    "filter": {
+        "shopID": "Магазин",
+        "formationType": "Тип формирования",
+        "fromTime": "Начало периода",
+        "toTime": "Конец периода"
     },
     "status": {
         "created": "Сформирован",

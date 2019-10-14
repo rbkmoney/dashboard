@@ -1,11 +1,11 @@
 <div *transloco="let t; scope: 'reports'; read: 'reports.columns'" class="table-container">
     <table dshTable [dataSource]="reports">
-        <ng-container dshColumnDef="formationType">
+        <ng-container dshColumnDef="formationType" *transloco="let type; scope: 'reports'; read: 'reports.type'">
             <th dshHeaderCell *dshHeaderCellDef>
-                {{ t.formationType }}
+                {{ t.type }}
             </th>
             <td dshCell *dshCellDef="let e">
-                {{ e.formationType }}
+                {{ type[e.reportType] }}
             </td>
         </ng-container>
         <ng-container dshColumnDef="createdAt">

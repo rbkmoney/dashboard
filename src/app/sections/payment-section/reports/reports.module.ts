@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule } from '@angular/material';
+import {
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatIconModule,
+    MatInputModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +23,7 @@ import { DropdownModule } from '../../../dropdown';
 import { ReportsService } from './reports.service';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
+import { DaterangeSelectorModule } from '../operations/daterange-selector';
 
 @NgModule({
     imports: [
@@ -36,7 +43,9 @@ import { StatusModule } from '../../../status';
         TableModule,
         ReportsApiModule,
         CommonModule,
-        StatusModule
+        StatusModule,
+        DaterangeSelectorModule,
+        MatInputModule
     ],
     declarations: [ReportsComponent, SearchFormComponent, TableComponent],
     exports: [ReportsComponent],
