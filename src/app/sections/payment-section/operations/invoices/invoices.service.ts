@@ -5,28 +5,28 @@ import { Observable, combineLatest } from 'rxjs';
 import { switchMap, catchError, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { PaymentSearchFormValue } from './search-form';
-import { PaymentSearchService } from '../../../../api/search';
-import { PaymentSearchResult } from '../../../../api-codegen/capi';
+import { InvoiceSearchFormValue } from './search-form';
+import { InvoiceSearchService } from '../../../../api/search';
+import { Invoice } from '../../../../api-codegen/anapi';
 import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
-import { PaymentsTableData } from './table';
+import { InvoicesTableData } from './table';
 import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { booleanDelay } from '../../../../custom-operators';
-import { mapToPaymentsTableData } from './map-to-payments-table-data';
+import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 
 @Injectable()
-export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
+export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormValue> {
     private readonly searchLimit = 20;
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest(
+    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest(
         this.searchResult$,
         this.shopService.shops$
     ).pipe(
-        mapToPaymentsTableData,
+        mapToInvoicesTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
@@ -40,7 +40,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
 
     constructor(
         private route: ActivatedRoute,
-        private paymentSearchService: PaymentSearchService,
+        private invoiceSearchService: InvoiceSearchService,
         private shopService: ShopService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
@@ -48,13 +48,10 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         super();
     }
 
-    protected fetch(
-        params: PaymentSearchFormValue,
-        continuationToken: string
-    ): Observable<FetchResult<PaymentSearchResult>> {
+    protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
-                this.paymentSearchService.searchPayments(
+                this.invoiceSearchService.searchInvoices(
                     params.fromTime.utc().format(),
                     params.toTime.utc().format(),
                     params,

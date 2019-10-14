@@ -3,18 +3,17 @@ import {
     BankCardTokenProvider,
     PaymentStatus,
     PaymentTerminalProvider
-} from '../../../../../api-codegen/capi/swagger-codegen';
+} from '../../../../../api-codegen/anapi/swagger-codegen';
 import { SearchFormValue } from '../../search-form-value';
-import { PaymentFlow } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { PaymentMethod } from '../../../../../api-codegen/capi/swagger-codegen';
+import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 
 export interface InvoiceSearchFormValue extends SearchFormValue {
-    invoiceStatus?: string;
+    invoiceStatus?: Invoice.StatusEnum;
     invoiceAmount?: number;
     shopID?: string;
     paymentStatus?: PaymentStatus.StatusEnum;
-    paymentFlow?: PaymentFlow.TypeEnum;
-    paymentMethod?: PaymentMethod.MethodEnum;
+    paymentFlow?: 'instant' | 'hold';
+    paymentMethod?: 'bankCard' | 'paymentTerminal';
     paymentTerminalProvider?: PaymentTerminalProvider;
     invoiceID?: string;
     paymentID?: string;
