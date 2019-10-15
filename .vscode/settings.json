@@ -9,6 +9,7 @@
     "cSpell.words": [
         "CAPI",
         "actionbar",
+        "anapi",
         "codegen",
         "dadata",
         "datepicker",
@@ -16,6 +17,7 @@
         "downlevel",
         "dropdown",
         "esnext",
+        "isempty",
         "keycloak",
         "mastercard",
         "ngneat",

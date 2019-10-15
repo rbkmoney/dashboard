@@ -7,14 +7,13 @@ import { takeRouteParam } from '../../../../custom-operators';
 import { filterShopsByEnv, mapToShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
+import { SearchFormValue } from '../../operations/search-form-value';
 
 @Component({
     selector: 'dsh-reports-search-form',
     templateUrl: 'search-form.component.html'
 })
 export class SearchFormComponent {
-    expanded = false;
-
     form: FormGroup;
 
     shopsInfo$ = this.route.params.pipe(
@@ -44,5 +43,7 @@ export class SearchFormComponent {
         this.init();
     }
 
-    selectDaterange() {}
+    selectDaterange(v: SearchFormValue) {
+        this.form.patchValue(v);
+    }
 }
