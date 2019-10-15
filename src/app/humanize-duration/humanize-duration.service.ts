@@ -3,7 +3,7 @@ import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { LanguageService } from '../language';
+import { Language, LanguageService } from '../language';
 
 export type Value = number | string | moment.Moment | Date;
 
@@ -22,7 +22,7 @@ export class HumanizeDurationService {
 
     private get duration() {
         return humanizeDuration.humanizer({
-            language: this.languageService.active,
+            language: this.languageService.active || Language.en,
             round: true,
             delimiter: ' '
         });
@@ -55,22 +55,18 @@ export class HumanizeDurationService {
 
     getDuration(value: Value, config: HumanizeConfig = {}): string {
         const diffMs = this.getDiffMs(value);
+        let duration = this.duration(diffMs, config);
         if (isNaN(diffMs)) {
             return null;
         } else if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
             return this.transloco.translate('justNow');
         } else if (config.isShort) {
-            return config.hasAgoEnding
-                ? `${this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer })} ${this.transloco.translate(
-                      'ago'
-                  )}`
-                : this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
+            duration = this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
         } else if (config.largest === 1) {
-            const duration = moment.duration(diffMs).humanize();
-            return config.hasAgoEnding ? `${duration} ${this.transloco.translate('ago')}` : duration;
+            duration = moment.duration(diffMs).humanize();
         }
-        const defaultDuration = this.duration(diffMs, config);
-        return config.hasAgoEnding ? `${defaultDuration} ${this.transloco.translate('ago')}` : defaultDuration;
+        duration = duration === 'минута' ? 'минуту' : duration;
+        return config.hasAgoEnding ? `${duration} ${this.transloco.translate('ago')}` : duration;
     }
 
     getOptimalUpdateInterval(value: Value, { largest }: HumanizeConfig): number {
