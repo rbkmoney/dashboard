@@ -66,13 +66,11 @@ export class HumanizeDurationService {
                   )}`
                 : this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
         } else if (config.largest === 1) {
-            return config.hasAgoEnding
-                ? `${moment.duration(diffMs).humanize()} ${this.transloco.translate('ago')}`
-                : moment.duration(diffMs).humanize();
+            const duration = moment.duration(diffMs).humanize();
+            return config.hasAgoEnding ? `${duration} ${this.transloco.translate('ago')}` : duration;
         }
-        return config.hasAgoEnding
-            ? `${this.duration(diffMs, config)} ${this.transloco.translate('ago')}`
-            : this.duration(diffMs, config);
+        const defaultDuration = this.duration(diffMs, config);
+        return config.hasAgoEnding ? `${defaultDuration} ${this.transloco.translate('ago')}` : defaultDuration;
     }
 
     getOptimalUpdateInterval(value: Value, { largest }: HumanizeConfig): number {
