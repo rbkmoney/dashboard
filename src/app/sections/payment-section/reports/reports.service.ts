@@ -1,41 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import moment from 'moment';
-import { map } from 'rxjs/operators';
+import { timer, ReplaySubject } from 'rxjs';
+import { map, switchMap, shareReplay, debounce } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService } from '../../../api';
-import { Report } from '../../../api-codegen/anapi';
-
-interface SearchParams {
-    fromTime: string;
-    toTime: string;
-    reportTypes: Report.ReportTypeEnum[];
-    partyID: string;
-    shopID?: string;
-}
+import { SearchParams } from './search-params';
 
 @Injectable()
 export class ReportsService {
-    reports$: Observable<Report[]> = of([]);
-    continuationToken$: Observable<string> = of();
+    private params$ = new ReplaySubject<SearchParams>();
+    private reportsWithToken$ = this.params$.pipe(
+        debounce(() => timer(1000)),
+        switchMap(params => this.reportsService.searchReports(params)),
+        shareReplay(1)
+    );
+    reports$ = this.reportsWithToken$.pipe(map(({ result }) => result));
+    continuationToken$ = this.reportsWithToken$.pipe(map(({ continuationToken }) => continuationToken));
 
-    constructor(private reportsService: ReportsApiService) {
-        this.loadReports();
-    }
+    constructor(private reportsService: ReportsApiService) {}
 
-    loadReports() {
-        const reportsWithToken$ = this.reportsService.searchReports({
-            fromTime: moment()
-                .utc()
-                .format(),
-            toTime: moment()
-                .utc()
-                .format(),
-            reportTypes: [],
-            partyID: '',
-            shopID: ''
-        });
-        this.reports$ = reportsWithToken$.pipe(map(({ result }) => result));
-        this.continuationToken$ = reportsWithToken$.pipe(map(({ continuationToken }) => continuationToken));
+    search(params: SearchParams) {
+        this.params$.next(params);
     }
 }

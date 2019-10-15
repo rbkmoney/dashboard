@@ -25,12 +25,12 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.filter.formationType }}</mat-label>
-                    <mat-select formControlName="shopID">
+                    <mat-label>{{ t.filter.type }}</mat-label>
+                    <mat-select formControlName="reportType">
                         <mat-option>
                             {{ c.any }}
                         </mat-option>
-                        <mat-option *ngFor="let type of formationTypes" [value]="type">
+                        <mat-option *ngFor="let type of reportTypes" [value]="type">
                             {{ t.type[type] }}
                         </mat-option>
                     </mat-select>

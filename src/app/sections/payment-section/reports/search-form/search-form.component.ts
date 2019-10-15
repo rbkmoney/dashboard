@@ -8,6 +8,8 @@ import { filterShopsByEnv, mapToShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
 import { SearchFormValue } from '../../operations/search-form-value';
+import { ReportsService } from '../reports.service';
+import { toSearchParams } from './to-search-params';
 
 @Component({
     selector: 'dsh-reports-search-form',
@@ -22,9 +24,14 @@ export class SearchFormComponent {
         mapToShopInfo
     );
 
-    formationTypes = Object.values(Report.ReportTypeEnum);
+    reportTypes = Object.values(Report.ReportTypeEnum);
 
-    constructor(private fb: FormBuilder, private shopService: ShopService, private route: ActivatedRoute) {
+    constructor(
+        private fb: FormBuilder,
+        private shopService: ShopService,
+        private route: ActivatedRoute,
+        private reportsService: ReportsService
+    ) {
         this.init();
     }
 
@@ -34,9 +41,11 @@ export class SearchFormComponent {
                 .subtract(1, 'month')
                 .startOf('day'),
             toTime: moment().endOf('day'),
-            shopID: null,
-            formationType: null
+            shopID: '',
+            reportType: ''
         });
+        this.reportsService.search(toSearchParams(this.form.value));
+        this.form.valueChanges.subscribe(value => this.reportsService.search(toSearchParams(value)));
     }
 
     reset() {
