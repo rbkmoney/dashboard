@@ -12,9 +12,9 @@ import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 import { PaymentsTableData } from './table';
 import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
-import { mapToPaymentsTableData } from './map-to-payments-table-data';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { booleanDelay } from '../../../../custom-operators';
+import { mapToPaymentsTableData } from './map-to-payments-table-data';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {

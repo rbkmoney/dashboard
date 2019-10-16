@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
     name: 'highlight'
@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class HighlightSearchPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {}
 
-    transform(value: string, args: string): any {
+    transform(value: string, args: string): SafeHtml {
         if (!args) {
             return value;
         }

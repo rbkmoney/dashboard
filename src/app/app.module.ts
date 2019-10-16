@@ -49,7 +49,7 @@ import { LanguageService } from './language';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService],
+            deps: [ConfigService, KeycloakService, LanguageService],
             multi: true
         },
         {

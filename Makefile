@@ -1,5 +1,5 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/swag-analytics/v1
+SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1
 SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
