@@ -23,6 +23,7 @@ import { DropdownModule } from '../../../dropdown';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
+import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { DaterangeSelectorModule } from '../operations/daterange-selector';
         CommonModule,
         StatusModule,
         DaterangeSelectorModule,
-        MatInputModule
+        MatInputModule,
+        LastUpdatedModule
     ],
     declarations: [ReportsComponent, SearchFormComponent, TableComponent],
     exports: [ReportsComponent]

@@ -17,6 +17,7 @@ interface SearchReportsReq {
     reportTypes: Report.ReportTypeEnum[];
     partyID: string;
     shopID?: string;
+    continuationToken?: string;
 }
 
 @Injectable()
@@ -39,7 +40,7 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    searchReports({ fromTime, toTime, reportTypes, partyID, shopID }: SearchReportsReq) {
+    searchReports({ fromTime, toTime, reportTypes, partyID, shopID, continuationToken }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
             new Date(fromTime),
@@ -47,7 +48,8 @@ export class ReportsService {
             reportTypes,
             partyID,
             undefined,
-            shopID
+            shopID,
+            continuationToken
         );
     }
 

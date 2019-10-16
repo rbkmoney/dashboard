@@ -9,7 +9,7 @@ import { ReportsService } from './reports.service';
     providers: [ReportsService]
 })
 export class ReportsComponent {
-    reports$ = this.reportsService.reports$;
+    reports$ = this.reportsService.searchResult$;
 
     constructor(private reportsService: ReportsService) {}
 }

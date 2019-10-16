@@ -1,22 +1,15 @@
 import { Injectable } from '@angular/core';
-import { timer, ReplaySubject } from 'rxjs';
-import { map, switchMap, shareReplay, debounce, pluck } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import { ReportsService as ReportsApiService, ShopService } from '../../../api';
 import { SearchParams } from './search-params';
 import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
+import { PartialFetcher } from '../../partial-fetcher';
+import { Report } from '../../../api-codegen/anapi';
 
 @Injectable()
-export class ReportsService {
-    private params$ = new ReplaySubject<SearchParams>();
-    private reportsWithToken$ = this.params$.pipe(
-        debounce(() => timer(1000)),
-        switchMap(params => this.reportsService.searchReports(params)),
-        shareReplay(1)
-    );
-    reports$ = this.reportsWithToken$.pipe(map(({ result }) => result));
-    continuationToken$ = this.reportsWithToken$.pipe(map(({ continuationToken }) => continuationToken));
+export class ReportsService extends PartialFetcher<Report, SearchParams> {
     shopsInfo$ = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
@@ -27,9 +20,11 @@ export class ReportsService {
         private reportsService: ReportsApiService,
         private route: ActivatedRoute,
         private shopService: ShopService
-    ) {}
+    ) {
+        super();
+    }
 
-    search(params: SearchParams) {
-        this.params$.next(params);
+    protected fetch(params: SearchParams, continuationToken: string) {
+        return this.reportsService.searchReports({ ...params, continuationToken });
     }
 }
