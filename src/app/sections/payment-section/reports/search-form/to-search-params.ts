@@ -1,15 +1,6 @@
-import moment from 'moment';
-
 import { SearchParams } from '../search-params';
 import { Report } from '../../../../api-codegen/anapi';
-
-interface FormParams {
-    fromTime: moment.Moment;
-    toTime: moment.Moment;
-    reportType: Report.ReportTypeEnum;
-    partyID: string;
-    shopID?: string;
-}
+import { FormParams } from './form-params';
 
 export function toSearchParams({ reportType, fromTime, toTime, ...params }: FormParams): SearchParams {
     return {

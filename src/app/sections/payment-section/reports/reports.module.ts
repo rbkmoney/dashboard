@@ -20,7 +20,6 @@ import { TableComponent } from './table';
 import { TableModule } from '../../../table';
 import { StateNavModule } from '../../../state-nav';
 import { DropdownModule } from '../../../dropdown';
-import { ReportsService } from './reports.service';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
@@ -48,7 +47,6 @@ import { DaterangeSelectorModule } from '../operations/daterange-selector';
         MatInputModule
     ],
     declarations: [ReportsComponent, SearchFormComponent, TableComponent],
-    exports: [ReportsComponent],
-    providers: [ReportsService]
+    exports: [ReportsComponent]
 })
 export class ReportsModule {}
