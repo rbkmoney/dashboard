@@ -10,6 +10,7 @@
     $accent-text: map-get($accent, contrast);
     $warn: map-get($theme, warn);
     $warn-text: map-get($warn, contrast);
+    $success: map-get($theme, success);
 
     .dsh-state-nav {
         &-item {
@@ -17,10 +18,14 @@
 
             // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
-                color: mat-color($accent, 300);
+                .icon-container {
+                    color: mat-color($accent, 300);
+                }
             }
             &.warn {
-                color: mat-color($warn, 300);
+                .icon-container {
+                    color: mat-color($warn, 300);
+                }
             }
             &.selected {
                 color: mat-color($primary, 400);

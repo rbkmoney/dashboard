@@ -11,7 +11,7 @@ export enum Color {
 @Component({
     selector: 'dsh-state-nav-item',
     templateUrl: 'state-nav-item.component.html',
-    styleUrls: ['state-nav-item.comonent.scss']
+    styleUrls: ['state-nav-item.component.scss']
 })
 export class StateNavItemComponent {
     @Input()
@@ -19,7 +19,7 @@ export class StateNavItemComponent {
     selected = false;
 
     @Input()
-    color: Color | keyof typeof Color;
+    status: Color | keyof typeof Color;
 
     attemptToSelect$ = new Subject<boolean>();
 
