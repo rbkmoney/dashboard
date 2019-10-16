@@ -1,24 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { ReportsService as ReportsApiService, Report } from '../../api-codegen/anapi';
-import { genXRequestID } from '../gen-x-request-id';
-
-interface CreateReportReq {
-    fromTime: string;
-    toTime: string;
-    reportType: Report.ReportTypeEnum;
-    partyID: string;
-    shopID?: string;
-}
-
-interface SearchReportsReq {
-    fromTime: string;
-    toTime: string;
-    reportTypes: Report.ReportTypeEnum[];
-    partyID: string;
-    shopID?: string;
-    continuationToken?: string;
-}
+import { ReportsService as ReportsApiService } from '../../api-codegen/anapi';
+import { genXRequestID } from '../utils/gen-x-request-id';
+import { CreateReportReq } from './create-reports';
+import { SearchReportsReq } from './search-reports';
+import { toDateLike } from '../utils';
 
 @Injectable()
 export class ReportsService {
@@ -27,8 +13,8 @@ export class ReportsService {
     createReport({ fromTime, toTime, reportType, partyID, shopID }: CreateReportReq) {
         return this.reportsService.createReport(
             genXRequestID(),
-            fromTime as any,
-            toTime as any,
+            toDateLike(fromTime),
+            toDateLike(toTime),
             reportType,
             partyID,
             undefined,

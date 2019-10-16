@@ -9,7 +9,7 @@ import {
     ClaimChangeset
 } from '../../api-codegen/claim-management';
 import { ClaimsWithToken } from './models';
-import { genXRequestID } from '../gen-x-request-id';
+import { genXRequestID } from '../utils';
 import { noContinuationToken, mapResult } from '../../custom-operators';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;

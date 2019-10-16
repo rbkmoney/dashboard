@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { Shop, ShopsService } from '../../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../gen-x-request-id';
+import { genXRequestID } from '../utils';
 
 @Injectable()
 export class ShopService {

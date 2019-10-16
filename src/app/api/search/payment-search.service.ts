@@ -6,9 +6,8 @@ import * as moment from 'moment';
 import { PaymentSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { PaymentsSearchParams } from './payments-search-params';
 import { PaymentsWithToken } from './payments-with-token';
-import { fakeDate } from './fake-date';
+import { toDateLike, genXRequestID } from '../utils';
 import { Duration } from './duration';
-import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class PaymentSearchService {
@@ -24,8 +23,8 @@ export class PaymentSearchService {
     ): Observable<PaymentsWithToken> {
         return this.searchService.searchPayments(
             genXRequestID(),
-            fakeDate(fromTime),
-            fakeDate(toTime),
+            toDateLike(fromTime),
+            toDateLike(toTime),
             limit,
             undefined,
             params.shopID,
