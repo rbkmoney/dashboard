@@ -44,8 +44,12 @@ export class SearchFormComponent {
             shopID: '',
             reportType: ''
         });
-        this.reportsService.search(toSearchParams(this.form.value));
-        this.form.valueChanges.subscribe(value => this.reportsService.search(toSearchParams(value)));
+        this.search();
+        this.form.valueChanges.subscribe(v => this.search(v));
+    }
+
+    search(value = this.form.value) {
+        this.reportsService.search(toSearchParams(value));
     }
 
     reset() {
