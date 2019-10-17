@@ -9,8 +9,8 @@ import { Color } from './state-nav-item';
     template: `
         <dsh-state-nav (selectedIdxChange)="selectItem($event)" [autoselect]="autoselect">
             <dsh-state-nav-item selected>first</dsh-state-nav-item>
-            <dsh-state-nav-item color="warn">second</dsh-state-nav-item>
-            <dsh-state-nav-item color="success">third</dsh-state-nav-item>
+            <dsh-state-nav-item status="warn">second</dsh-state-nav-item>
+            <dsh-state-nav-item status="success">third</dsh-state-nav-item>
             <dsh-state-nav-item>last</dsh-state-nav-item>
         </dsh-state-nav>
     `
@@ -67,7 +67,7 @@ describe('DshStateNav', () => {
         it('should be validation=warn', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.color).toBe(Color.warn);
+            expect(item.status).toBe(Color.warn);
         });
 
         it('should has warn class', () => {
@@ -79,7 +79,7 @@ describe('DshStateNav', () => {
         it('should be validation=success', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
-            expect(item.color).toBe(Color.success);
+            expect(item.status).toBe(Color.success);
         });
 
         it('should has success class', () => {
@@ -91,7 +91,7 @@ describe('DshStateNav', () => {
         it('should be without validation', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[3].componentInstance;
-            expect(item.color).toBeUndefined();
+            expect(item.status).toBeUndefined();
         });
     });
 
