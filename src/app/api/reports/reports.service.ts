@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { ReportsService as ReportsApiService } from '../../api-codegen/anapi';
-import { genXRequestID } from '../utils/gen-x-request-id';
 import { CreateReportReq } from './create-reports';
 import { SearchReportsReq } from './search-reports';
-import { toDateLike } from '../utils';
+import { toDateLike, genXRequestID } from '../utils';
 
 @Injectable()
 export class ReportsService {
@@ -29,8 +28,8 @@ export class ReportsService {
     searchReports({ fromTime, toTime, reportTypes, partyID, shopID, continuationToken }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
-            new Date(fromTime),
-            new Date(toTime),
+            toDateLike(fromTime),
+            toDateLike(toTime),
             reportTypes,
             partyID,
             undefined,
