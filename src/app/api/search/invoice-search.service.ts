@@ -4,11 +4,10 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
-import { fakeDate } from './fake-date';
+import { toDateLike, genXRequestID } from '../utils';
 import { InvoicesSearchParams } from './invoices-search-params';
 import { InvoicesWithToken } from './invoices-with-token';
 import { Duration } from './duration';
-import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class InvoiceSearchService {
@@ -24,8 +23,8 @@ export class InvoiceSearchService {
     ): Observable<InvoicesWithToken> {
         return this.searchService.searchInvoices(
             genXRequestID(),
-            fakeDate(fromTime),
-            fakeDate(toTime),
+            toDateLike(fromTime),
+            toDateLike(toTime),
             limit,
             undefined,
             params.shopID,

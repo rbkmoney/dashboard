@@ -4,9 +4,8 @@ import { map } from 'rxjs/operators';
 import moment from 'moment';
 
 import { RefundsWithToken } from './refunds-with-token';
-import { fakeDate } from './fake-date';
+import { toDateLike, genXRequestID } from '../utils';
 import { Duration } from './duration';
-import { genXRequestID } from '../gen-x-request-id';
 import { SearchService, Refund, RefundSearchResult } from '../../api-codegen/anapi/swagger-codegen';
 
 @Injectable()
@@ -27,8 +26,8 @@ export class RefundSearchService {
     ): Observable<RefundsWithToken> {
         return this.searchService.searchRefunds(
             genXRequestID(),
-            fakeDate(fromTime),
-            fakeDate(toTime),
+            toDateLike(fromTime),
+            toDateLike(toTime),
             limit,
             undefined,
             shopID,
