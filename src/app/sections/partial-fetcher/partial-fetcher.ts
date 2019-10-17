@@ -1,23 +1,36 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, debounceTime } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, shareReplay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { combineAction } from './combine-action';
-import { FetchAction, FetchFn, FetchResult } from './model';
-import { mapToSearchResult, mapToHasMore } from './operators';
+import { FetchAction } from './fetch-action';
+import { scanSearchResult, scanAction } from './operators';
+import { FetchFn } from './fetch-fn';
+import { progress } from './progress';
 
 export abstract class PartialFetcher<R, P> {
-    private action$ = new BehaviorSubject<FetchAction<P>>(null);
+    private action$ = new ReplaySubject<FetchAction<P>>();
 
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
-    doAction$: Observable<boolean> = this.action$.pipe(map(() => true));
+    doAction$: Observable<boolean>;
 
     constructor(debounceActionTime = 300) {
-        const contextFetch = this.fetch.bind(this) as FetchFn<P, R>;
-        const action = this.action$.pipe(debounceTime(debounceActionTime));
-        const combine = combineAction(action, contextFetch);
-        this.searchResult$ = combine.pipe(mapToSearchResult);
-        this.hasMore$ = combine.pipe(mapToHasMore);
+        const actionWithParams$ = this.action$.pipe(
+            scanAction,
+            debounceTime(debounceActionTime),
+            shareReplay(1)
+        );
+        const fetchFn: FetchFn<P, R> = this.fetch.bind(this);
+        const searchResultWithToken$ = actionWithParams$.pipe(
+            scanSearchResult(fetchFn),
+            shareReplay(1)
+        );
+        this.doAction$ = progress(actionWithParams$, searchResultWithToken$).pipe(
+            map(p => !!p),
+            distinctUntilChanged(),
+            shareReplay(1)
+        );
+        this.searchResult$ = searchResultWithToken$.pipe(map(({ result }) => result));
+        this.hasMore$ = searchResultWithToken$.pipe(map(({ continuationToken }) => !!continuationToken));
     }
 
     search(value: P) {
@@ -29,7 +42,7 @@ export abstract class PartialFetcher<R, P> {
 
     refresh() {
         this.action$.next({
-            type: 'refresh'
+            type: 'search'
         });
     }
 
@@ -39,5 +52,5 @@ export abstract class PartialFetcher<R, P> {
         });
     }
 
-    protected abstract fetch(params: P, continuationToken: string): Observable<FetchResult<R>>;
+    protected abstract fetch(...args: Parameters<FetchFn<P, R>>): ReturnType<FetchFn<P, R>>;
 }
