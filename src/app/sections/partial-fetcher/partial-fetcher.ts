@@ -1,5 +1,5 @@
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, shareReplay, debounceTime } from 'rxjs/operators';
 
 import { FetchAction } from './fetch-action';
 import { scanSearchResult, scanAction } from './operators';
@@ -24,11 +24,7 @@ export abstract class PartialFetcher<R, P> {
             scanSearchResult(fetchFn),
             shareReplay(1)
         );
-        this.doAction$ = progress(actionWithParams$, searchResultWithToken$).pipe(
-            map(p => !!p),
-            distinctUntilChanged(),
-            shareReplay(1)
-        );
+        this.doAction$ = progress(actionWithParams$, searchResultWithToken$).pipe(shareReplay(1));
         this.searchResult$ = searchResultWithToken$.pipe(map(({ result }) => result));
         this.hasMore$ = searchResultWithToken$.pipe(map(({ continuationToken }) => !!continuationToken));
     }

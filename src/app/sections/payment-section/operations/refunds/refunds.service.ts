@@ -11,7 +11,7 @@ import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
 import { RefundsTableData } from './table';
 import { mapToTimestamp } from '../operators';
-import { booleanDelay } from '../../../../custom-operators';
+import { booleanDebounceTime } from '../../../../custom-operators';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { ShopService } from '../../../../api/shop';
 
@@ -28,8 +28,8 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         })
     );
 
-    isLoading$: Observable<boolean> = this.searchResult$.pipe(
-        booleanDelay(500, this.doAction$),
+    isLoading$: Observable<boolean> = this.doAction$.pipe(
+        booleanDebounceTime(500),
         shareReplay(1)
     );
 

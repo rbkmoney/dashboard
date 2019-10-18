@@ -13,7 +13,7 @@ import { PaymentsTableData } from './table';
 import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { booleanDelay } from '../../../../custom-operators';
+import { booleanDebounceTime } from '../../../../custom-operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
 
 @Injectable()
@@ -33,8 +33,8 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         })
     );
 
-    isLoading$: Observable<boolean> = this.searchResult$.pipe(
-        booleanDelay(500, this.doAction$),
+    isLoading$: Observable<boolean> = this.doAction$.pipe(
+        booleanDebounceTime(500),
         shareReplay(1)
     );
 

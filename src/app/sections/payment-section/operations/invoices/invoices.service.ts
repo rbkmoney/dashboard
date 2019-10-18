@@ -13,7 +13,7 @@ import { InvoicesTableData } from './table';
 import { ShopService } from '../../../../api/shop';
 import { mapToTimestamp } from '../operators';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { booleanDelay } from '../../../../custom-operators';
+import { booleanDebounceTime } from '../../../../custom-operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 
 @Injectable()
@@ -33,8 +33,8 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    isLoading$: Observable<boolean> = this.searchResult$.pipe(
-        booleanDelay(500, this.doAction$),
+    isLoading$: Observable<boolean> = this.doAction$.pipe(
+        booleanDebounceTime(500),
         shareReplay(1)
     );
 
