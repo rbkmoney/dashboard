@@ -25,6 +25,7 @@ import { StatusModule } from '../../../status';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { SpinnerModule } from '../../../spinner';
+import { ActionsComponent } from './table/actions';
 
 @NgModule({
     imports: [
@@ -50,7 +51,7 @@ import { SpinnerModule } from '../../../spinner';
         LastUpdatedModule,
         SpinnerModule
     ],
-    declarations: [ReportsComponent, SearchFormComponent, TableComponent],
+    declarations: [ReportsComponent, SearchFormComponent, TableComponent, ActionsComponent],
     exports: [ReportsComponent]
 })
 export class ReportsModule {}

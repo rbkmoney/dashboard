@@ -40,21 +40,7 @@
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell *dshHeaderCellDef fxFlex="42px"></th>
             <td dshCell *dshCellDef="let e" fxFlex="42px">
-                <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
-                    <dsh-dropdown-actions>
-                        <dsh-state-nav flat>
-                            <dsh-state-nav-item (click)="downloadReports(e)">
-                                {{
-                                    t.actions.downloadAllDocuments | translocoParams: { count: (e.files || []).length }
-                                }}
-                            </dsh-state-nav-item>
-                            <dsh-state-nav-item>{{ t.actions.details }}</dsh-state-nav-item>
-                        </dsh-state-nav>
-                    </dsh-dropdown-actions>
-                </dsh-dropdown>
+                <dsh-actions [report]="e"></dsh-actions>
             </td>
         </ng-container>
 

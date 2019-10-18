@@ -1,0 +1,15 @@
+<ng-container *transloco="let t; scope: 'reports'; read: 'reports.columns.actions'">
+    <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
+        <dsh-dropdown-actions>
+            <dsh-state-nav flat>
+                <dsh-state-nav-item (click)="downloadReports()">
+                    {{ t.downloadAllDocuments | translocoParams: { count: (report?.files || []).length } }}
+                </dsh-state-nav-item>
+                <dsh-state-nav-item>{{ t.details }}</dsh-state-nav-item>
+            </dsh-state-nav>
+        </dsh-dropdown-actions>
+    </dsh-dropdown>
+</ng-container>
