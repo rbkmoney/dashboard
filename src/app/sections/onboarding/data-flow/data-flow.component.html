@@ -5,7 +5,10 @@
     </div>
     <div fxLayout fxLayoutGap="20px" *ngIf="(initialized$ | async) && !(initializeError$ | async)">
         <dsh-card fxFlex fxLayout="column" fxLayoutGap="10px">
-            <h2 class="mat-title">{{ activeStep$ | async | stepLabel: 'stepTitle' }}</h2>
+            <div fxLayout fxLayoutAlign="space-between">
+                <h2 class="mat-title">{{ activeStep$ | async | stepLabel: 'stepTitle' }}</h2>
+                <dsh-spinner *ngIf="isSaving$ | async" [type]="spinnerType" size="30"></dsh-spinner>
+            </div>
             <dsh-card-content>
                 <router-outlet></router-outlet>
             </dsh-card-content>

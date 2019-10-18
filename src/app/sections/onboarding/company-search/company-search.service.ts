@@ -3,15 +3,14 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
-import { filter, map, switchMap, catchError } from 'rxjs/operators';
+import { filter, switchMap, catchError, pluck } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ContractorType } from './contractor-type';
 import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
-import { toQuestionaryData } from './to-questionary-data';
 import { ClaimsService, QuestionaryService, createDocumentModificationUnit } from '../../../api';
 import { PartyContent, OrgType } from '../../../api-codegen/aggr-proxy';
+import { QuestionaryData } from '../../../api-codegen/questionary';
 
 @Injectable()
 export class CompanySearchService {
@@ -29,26 +28,25 @@ export class CompanySearchService {
         private snackBar: MatSnackBar
     ) {}
 
-    suggestionToContractorType({ orgType }: PartyContent): ContractorType | null {
+    isKnownOrgType({ orgType }: PartyContent): boolean {
         if (!orgType) {
-            return null;
+            return false;
         }
         switch (orgType) {
             case OrgType.Legal:
-                return ContractorType.LegalEntity;
             case OrgType.Individual:
-                return ContractorType.IndividualEntity;
+                return true;
             default:
-                return null;
+                return false;
         }
     }
 
-    createInitialClaim(type: ContractorType): Observable<number> {
+    createInitialClaim(data: QuestionaryData): Observable<number> {
         const questionaryID = uuid();
         const changeset = [createDocumentModificationUnit(1, questionaryID)];
-        return this.questionaryService.saveQuestionary(questionaryID, toQuestionaryData(type)).pipe(
+        return this.questionaryService.saveQuestionary(questionaryID, data).pipe(
             switchMap(() => this.claimsService.createClaim(changeset)),
-            map(c => c.id),
+            pluck('id'),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 return throwError(err);

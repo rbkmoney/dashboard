@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { CompanyDetails } from './company-details';
 import { CompanySearchService } from './company-search.service';
-import { ContractorType } from './contractor-type';
 import { PartyContent } from '../../../api-codegen/aggr-proxy';
+import { QuestionaryData, Contractor } from '../../../api-codegen/questionary';
+import { partyContentToQuestionaryData, contractorTypeToQuestionaryData } from './to-questionary-data';
 
 @Component({
     templateUrl: 'company-search.component.html',
@@ -17,13 +16,12 @@ export class CompanySearchComponent {
     form: FormGroup = this.companySearchService.form;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;
-    contractorType: ContractorType;
+    isKnownOrgType: boolean;
+    content: PartyContent;
 
-    constructor(
-        private snackBar: MatSnackBar,
-        private companySearchService: CompanySearchService,
-        private transloco: TranslocoService
-    ) {}
+    private data: QuestionaryData;
+
+    constructor(private companySearchService: CompanySearchService) {}
 
     back() {
         this.companySearchService.showLeaveOnboardingDialog().subscribe(() => this.companySearchService.leave());
@@ -31,41 +29,33 @@ export class CompanySearchComponent {
 
     next() {
         this.companySearchService
-            .createInitialClaim(this.contractorType)
+            .createInitialClaim(this.data)
             .subscribe(id => this.companySearchService.goToOnboardingFlow(id));
     }
 
-    updateSuggestion(suggestion: PartyContent) {
-        this.contractorType = this.companySearchService.suggestionToContractorType(suggestion);
-        if (!this.contractorType) {
-            this.manualContractorSelector = true;
-        } else {
+    updateSuggestion(content: PartyContent) {
+        this.isKnownOrgType = this.companySearchService.isKnownOrgType(content);
+        if (this.isKnownOrgType) {
             this.manualContractorSelector = false;
-            this.companyDetails = this.toCompanyDetails(suggestion);
+            this.data = partyContentToQuestionaryData(content);
+            this.content = content;
+        } else {
+            this.manualContractorSelector = true;
+            this.data = null;
         }
     }
 
     searchSuggestionError() {
         this.manualContractorSelector = true;
-        this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+        this.data = null;
     }
 
     suggestionNotFound() {
         this.manualContractorSelector = true;
+        this.data = null;
     }
 
-    manualSelectContractorType(type: ContractorType) {
-        this.contractorType = type;
-    }
-
-    // TODO temporary solution
-    private toCompanyDetails({ value, address, ogrn, inn, kpp }: PartyContent): CompanyDetails {
-        return {
-            name: value,
-            address: address.value,
-            ogrn,
-            inn,
-            kpp
-        };
+    manualContractorTypeSelected(t: Contractor.ContractorTypeEnum) {
+        this.data = contractorTypeToQuestionaryData(t);
     }
 }

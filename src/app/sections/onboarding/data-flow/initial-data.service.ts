@@ -6,18 +6,12 @@ import { Observable } from 'rxjs';
 import { switchMap, shareReplay, map } from 'rxjs/operators';
 
 import { takeRouteParam, takeError, handleNull, booleanDelay } from '../../../custom-operators';
-import {
-    ClaimsService,
-    takeDocumentModificationUnit,
-    mapDocumentID,
-    mapQuestionary,
-    QuestionaryService
-} from '../../../api';
-import { Questionary } from '../../../api-codegen/questionary';
+import { ClaimsService, takeDocumentModificationUnit, mapDocumentID, QuestionaryService } from '../../../api';
+import { Snapshot } from '../../../api-codegen/questionary';
 
 @Injectable()
-export class DataFlowService {
-    questionary$: Observable<Questionary>;
+export class InitialDataService {
+    initialSnapshot$: Observable<Snapshot>;
     initialized$: Observable<boolean>;
     initializeError$: Observable<any>;
 
@@ -32,19 +26,18 @@ export class DataFlowService {
             takeRouteParam('claimID'),
             switchMap(claimID => this.claimService.getClaimByID(claimID))
         );
-        this.questionary$ = targetClaim$.pipe(
+        this.initialSnapshot$ = targetClaim$.pipe(
             takeDocumentModificationUnit,
             handleNull('Modification unit is null'),
             mapDocumentID,
             switchMap(id => this.questionaryService.getQuestionary(id)),
-            mapQuestionary,
             shareReplay(1)
         );
-        this.initialized$ = this.questionary$.pipe(
+        this.initialized$ = this.initialSnapshot$.pipe(
             booleanDelay(),
             map(r => !r)
         );
-        this.initializeError$ = this.questionary$.pipe(
+        this.initializeError$ = this.initialSnapshot$.pipe(
             takeError,
             shareReplay(1)
         );
