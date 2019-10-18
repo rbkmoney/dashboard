@@ -24,6 +24,7 @@ import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
+import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { LastUpdatedModule } from '../operations/last-updated/last-updated.modul
         StatusModule,
         DaterangeSelectorModule,
         MatInputModule,
-        LastUpdatedModule
+        LastUpdatedModule,
+        SpinnerModule
     ],
     declarations: [ReportsComponent, SearchFormComponent, TableComponent],
     exports: [ReportsComponent]
