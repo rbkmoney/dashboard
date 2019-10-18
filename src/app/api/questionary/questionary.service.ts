@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, pluck } from 'rxjs/operators';
 
 import {
     QuestionaryService as SaveQuestionaryService,
-    DefaultService as GetQuestionaryService,
+    GetQuestionaryService,
     Snapshot,
     Version,
     QuestionaryData
@@ -25,7 +25,7 @@ export class QuestionaryService {
 
     saveQuestionary(id: string, data: QuestionaryData, version?: Version): Observable<Version> {
         return from(this.keycloakService.loadUserProfile()).pipe(
-            map(profile => profile.id),
+            pluck('email'),
             switchMap(ownerId =>
                 this.saveQuestionaryService.saveQuestionary({
                     id,

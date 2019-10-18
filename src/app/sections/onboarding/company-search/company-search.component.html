@@ -16,20 +16,18 @@
             </mat-form-field>
         </form>
         <div class="info-block">
-            <dsh-company-details
-                *ngIf="companyDetails && !manualContractorSelector"
-                [details]="companyDetails"
-            ></dsh-company-details>
+            <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content">
+            </dsh-company-details>
             <dsh-manual-contractor-selector
                 *ngIf="manualContractorSelector"
-                (selectContractorType)="manualSelectContractorType($event)"
+                (contractorTypeSelected)="manualContractorTypeSelected($event)"
             ></dsh-manual-contractor-selector>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <button dsh-stroked-button color="accent" (click)="back()">
                 {{ t.back }}
             </button>
-            <button dsh-button color="accent" (click)="next()" [disabled]="!contractorType">{{ t.next }}</button>
+            <button dsh-button color="accent" [disabled]="!data" (click)="next()">{{ t.next }}</button>
         </div>
     </dsh-card>
 </div>

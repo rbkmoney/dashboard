@@ -1,15 +1,24 @@
 import { Component } from '@angular/core';
 
+import { StepNavigationService } from './step-navigation.service';
+import { StepFlowService } from '../step-flow';
+
 @Component({
     selector: 'dsh-step-navigation',
-    templateUrl: 'step-navigation.component.html'
+    templateUrl: 'step-navigation.component.html',
+    providers: [StepNavigationService]
 })
 export class StepNavigationComponent {
+    hasNextStep$ = this.stepFlowService.hasNextStep$;
+    hasPreviousStep$ = this.stepFlowService.hasPreviousStep$;
+
+    constructor(private stepNavigationService: StepNavigationService, private stepFlowService: StepFlowService) {}
+
     back() {
-        console.log('StepNavigationComponent back');
+        this.stepNavigationService.back();
     }
 
-    next() {
-        console.log('StepNavigationComponent next');
+    forward() {
+        this.stepNavigationService.forward();
     }
 }

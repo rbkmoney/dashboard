@@ -1,8 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let t">
-    <button fxFlex="100px" dsh-stroked-button color="accent" (click)="back()">
-        {{ t.back }}
-    </button>
-    <button fxFlex="100px" dsh-button color="accent" (click)="next()">
-        {{ t.next }}
-    </button>
+    <div>
+        <button *ngIf="hasPreviousStep$ | async" fxFlex="100px" dsh-stroked-button color="accent" (click)="back()">
+            {{ t.back }}
+        </button>
+    </div>
+    <div>
+        <button *ngIf="hasNextStep$ | async" fxFlex="100px" dsh-button color="accent" (click)="forward()">
+            {{ t.next }}
+        </button>
+    </div>
 </div>
