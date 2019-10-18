@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CompanyDetails } from './company-details';
 import { PartyContent } from '../../../../api-codegen/aggr-proxy';
+import { toCompanyDetails } from './to-company-details';
 
 @Component({
     selector: 'dsh-company-details',
@@ -15,17 +16,7 @@ export class CompanyDetailsComponent implements OnChanges {
 
     ngOnChanges({ content }: SimpleChanges) {
         if (content && content.currentValue) {
-            this.details = this.toCompanyDetails(content.currentValue);
+            this.details = toCompanyDetails(content.currentValue);
         }
-    }
-
-    private toCompanyDetails({ value, address, ogrn, inn, kpp }: PartyContent): CompanyDetails {
-        return {
-            name: value,
-            address: address.value,
-            ogrn,
-            inn,
-            kpp
-        };
     }
 }

@@ -29,16 +29,7 @@ export class CompanySearchService {
     ) {}
 
     isKnownOrgType({ orgType }: PartyContent): boolean {
-        if (!orgType) {
-            return false;
-        }
-        switch (orgType) {
-            case OrgType.Legal:
-            case OrgType.Individual:
-                return true;
-            default:
-                return false;
-        }
+        return Object.values(OrgType).includes(orgType);
     }
 
     createInitialClaim(data: QuestionaryData): Observable<number> {
