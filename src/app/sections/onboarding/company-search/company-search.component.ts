@@ -19,7 +19,7 @@ export class CompanySearchComponent {
     isKnownOrgType: boolean;
     content: PartyContent;
 
-    private data: QuestionaryData;
+    data: QuestionaryData;
 
     constructor(private companySearchService: CompanySearchService) {}
 
