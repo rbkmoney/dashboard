@@ -7,25 +7,25 @@ import { FetchFn } from '../fetch-fn';
 
 export const scanSearchResult = <P, R>(fn: FetchFn<P, R>) => (s: Observable<FetchAction<P>>) =>
     s.pipe(
-        scan(
+        scan<FetchAction<P>, Observable<FetchResult<R>>>(
             (result$, action) =>
                 result$.pipe(
-                    switchMap(result => {
+                    switchMap(({ result, continuationToken }) => {
                         switch (action.type) {
                             case 'search':
-                                return fn(action.value, null);
+                                return fn(action.value);
                             case 'fetchMore':
-                                return fn(action.value, result.continuationToken).pipe(
+                                return fn(action.value, continuationToken).pipe(
                                     map(r => ({
-                                        result: [...result.result, ...r.result],
-                                        continuationToken: result.continuationToken
+                                        result: result.concat(r.result),
+                                        continuationToken
                                     }))
                                 );
                         }
                     }),
                     shareReplay(1)
                 ),
-            of({ result: [] } as FetchResult<R>)
+            of({ result: [] })
         ),
         switchMap(r$ => r$)
     );
