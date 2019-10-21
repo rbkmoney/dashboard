@@ -10,7 +10,6 @@ import { CreateReportDialogComponent } from './create-report-dialog';
 @Component({
     selector: 'dsh-reports',
     templateUrl: 'reports.component.html',
-    styleUrls: ['reports.component.scss'],
     providers: [ReportsService]
 })
 export class ReportsComponent {
