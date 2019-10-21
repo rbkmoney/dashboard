@@ -1,17 +1,12 @@
-<div
-    class="dsh-reports"
-    *transloco="let r; scope: 'payment-section'; read: 'paymentSection.reports'"
-    fxLayout="column"
-    fxLayoutGap="20px"
->
-    <h1 class="mat-headline">{{ r.headline }}</h1>
+<div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="20px">
+    <h1 class="mat-headline">{{ r.title }}</h1>
     <div fxLayout="row" fxLayoutGap="20px">
         <div fxFlex class="mat-body-1">
-            {{ r.generateReport.description }}
+            {{ r.create.description }}
         </div>
         <div>
-            <button dsh-stroked-button color="accent">
-                {{ r.generateReport.button }}
+            <button dsh-stroked-button color="accent" (click)="create()">
+                {{ r.create.button }}
             </button>
         </div>
     </div>

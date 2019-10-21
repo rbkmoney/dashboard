@@ -6,7 +6,8 @@ import {
     MatDatepickerModule,
     MatSelectModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -26,6 +27,7 @@ import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { SpinnerModule } from '../../../spinner';
 import { ActionsComponent } from './table/actions';
+import { CreateReportDialogComponent } from './create-report-dialog';
 
 @NgModule({
     imports: [
@@ -49,9 +51,17 @@ import { ActionsComponent } from './table/actions';
         DaterangeSelectorModule,
         MatInputModule,
         LastUpdatedModule,
-        SpinnerModule
+        SpinnerModule,
+        MatDialogModule
     ],
-    declarations: [ReportsComponent, SearchFormComponent, TableComponent, ActionsComponent],
-    exports: [ReportsComponent]
+    declarations: [
+        ReportsComponent,
+        SearchFormComponent,
+        TableComponent,
+        ActionsComponent,
+        CreateReportDialogComponent
+    ],
+    exports: [ReportsComponent],
+    entryComponents: [CreateReportDialogComponent]
 })
 export class ReportsModule {}

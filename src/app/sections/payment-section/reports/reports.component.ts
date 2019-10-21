@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, filter } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 
 import { ReportsService } from './reports.service';
 import { booleanDebounceTime } from '../../../custom-operators';
 import { mapToTimestamp } from '../operations/operators';
+import { CreateReportDialogComponent } from './create-report-dialog';
 
 @Component({
     selector: 'dsh-reports',
@@ -26,5 +28,17 @@ export class ReportsComponent {
     fetchMore = () => this.reportsService.fetchMore();
     refresh = () => this.reportsService.refresh();
 
-    constructor(private reportsService: ReportsService) {}
+    constructor(private reportsService: ReportsService, private dialog: MatDialog) {}
+
+    create() {
+        return this.dialog
+            .open(CreateReportDialogComponent, {
+                width: '560px'
+            })
+            .afterClosed()
+            .pipe(filter(r => r === 'create'))
+            .subscribe(() => {
+                this.refresh();
+            });
+    }
 }

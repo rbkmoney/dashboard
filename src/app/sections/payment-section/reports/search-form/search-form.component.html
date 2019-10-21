@@ -1,5 +1,5 @@
-<dsh-float-panel *transloco="let t; scope: 'reports'; read: 'reports'" [formGroup]="form">
-    <ng-container *transloco="let c">
+<dsh-float-panel *transloco="let r; scope: 'reports'; read: 'reports'" [formGroup]="form">
+    <ng-container *transloco="let t">
         <div
             fxLayout
             fxLayout.lt-md="column"
@@ -14,10 +14,10 @@
             ></dsh-daterange-selector>
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.filter.shopID }}</mat-label>
+                    <mat-label>{{ r.filter.shopID }}</mat-label>
                     <mat-select formControlName="shopID">
                         <mat-option>
-                            {{ c.any }}
+                            {{ t.any }}
                         </mat-option>
                         <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
                             {{ item.name }}
@@ -25,13 +25,13 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.filter.type }}</mat-label>
+                    <mat-label>{{ r.filter.type }}</mat-label>
                     <mat-select formControlName="reportType">
                         <mat-option>
-                            {{ c.any }}
+                            {{ t.any }}
                         </mat-option>
                         <mat-option *ngFor="let type of reportTypes" [value]="type">
-                            {{ t.type[type] }}
+                            {{ r.type[type] }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -41,13 +41,13 @@
             <div fxLayout fxLayout.lt-md="column" fxLayoutGap.gt-sm="20px">
                 <div fxFlex.gt-sm fxLayout fxLayout.xs="column" fxLayoutGap.gt-xs="20px">
                     <mat-form-field fxFlex>
-                        <mat-label>{{ t.filter.fromTime }}</mat-label>
+                        <mat-label>{{ t.period.fromTime }}</mat-label>
                         <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
                         <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
                         <mat-datepicker #fromTime></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex>
-                        <mat-label>{{ t.filter.toTime }}</mat-label>
+                        <mat-label>{{ t.period.toTime }}</mat-label>
                         <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
                         <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
                         <mat-datepicker #toTime></mat-datepicker>
@@ -57,7 +57,7 @@
         </dsh-float-panel-more>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
-                {{ c.resetSearchParams }}
+                {{ t.resetSearchParams }}
             </button>
         </dsh-float-panel-actions>
     </ng-container>
