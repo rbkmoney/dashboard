@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StepName } from '../step-flow';
-import { ValidityService } from '../validity.service';
+import { ValidityService } from '../validity';
 
 @Component({
     selector: 'dsh-step-card',
@@ -19,7 +19,7 @@ export class StepCardComponent {
 
     constructor(private validityService: ValidityService) {}
 
-    getStepStatus(step: StepName): Observable<'success' | null> {
+    getStepStatus(step: StepName): Observable<string | null> {
         return this.validityService.isValid(step).pipe(map(isValid => (isValid ? 'success' : null)));
     }
 
