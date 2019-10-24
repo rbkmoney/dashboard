@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { pluck } from 'rxjs/operators';
 
 import { InitialDataService } from './initial-data.service';
 import { StepName } from './step-flow';
@@ -8,7 +9,6 @@ import { QuestionaryStateService } from './questionary-state.service';
 import { SaveQuestionaryService } from './save-questionary';
 import { SpinnerType } from '../../../spinner';
 import { InitializeFormsService } from './forms';
-import { pluck } from 'rxjs/operators';
 
 @Component({
     selector: 'dsh-data-flow',
