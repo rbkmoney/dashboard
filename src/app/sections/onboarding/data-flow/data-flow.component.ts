@@ -7,8 +7,8 @@ import { StepFlowService } from './step-flow';
 import { QuestionaryStateService } from './questionary-state.service';
 import { SaveQuestionaryService } from './save-questionary';
 import { SpinnerType } from '../../../spinner';
-import { takeRouteParam } from '../../../custom-operators';
 import { InitializeFormsService } from './forms';
+import { pluck } from 'rxjs/operators';
 
 @Component({
     selector: 'dsh-data-flow',
@@ -40,9 +40,7 @@ export class DataFlowComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .pipe(takeRouteParam('claimID'))
-            .subscribe(claimID => this.initialDataService.initialize(claimID));
+        this.route.params.pipe(pluck('claimID')).subscribe(claimID => this.initialDataService.initialize(claimID));
         this.initializeFormsService.initializeForms();
     }
 }
