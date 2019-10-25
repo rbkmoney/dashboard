@@ -60,7 +60,7 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
         // attributes, add the correct corresponding class.
         for (const attr of BUTTON_HOST_ATTRIBUTES) {
             if (this.hasHostAttributes(attr)) {
-                button.classList.add(attr);
+                renderer.addClass(button, attr);
             }
         }
         this.colorManager = new ColorManager(renderer, button);
