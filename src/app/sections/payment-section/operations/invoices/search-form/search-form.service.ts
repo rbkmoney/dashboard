@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, debounceTime, startWith } from 'rxjs/operators';
+import { filter, map, debounceTime, startWith, pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
@@ -11,14 +11,13 @@ import { toQueryParams } from '../../to-query-params';
 import { toFormValue } from '../../to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
-import { takeRouteParam } from '../../../../../custom-operators';
 import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup;
     shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
-        takeRouteParam('envID'),
+        pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo
     );

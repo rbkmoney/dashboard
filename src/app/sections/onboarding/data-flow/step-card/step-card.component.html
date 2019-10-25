@@ -1,7 +1,13 @@
 <dsh-card *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.stepCard'">
     <dsh-card-content fxLayout="column" fxLayoutGap="20px">
         <dsh-state-nav (selectedIdxChange)="selectStepFlowIndex($event)">
-            <dsh-state-nav-item *ngFor="let step of stepFlow" [selected]="step === activeStep" status="success">
+            <dsh-state-nav-item
+                *ngFor="let step of stepFlow"
+                [selected]="step === activeStep"
+                withIcon
+                icon="checkmark"
+                [status]="getStepStatus(step) | async"
+            >
                 {{ step | stepLabel: 'stepCard' }}
             </dsh-state-nav-item>
         </dsh-state-nav>

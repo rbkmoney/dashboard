@@ -3,12 +3,14 @@ import { Subscription, combineLatest } from 'rxjs';
 import { debounceTime, first, map } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
-import { ValidityService } from '../validity.service';
+import { ValidityService } from '../validity';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { FormValue } from './form-value';
+import { StepName } from '../step-flow';
 
 export abstract class QuestionaryFormService {
-    form: FormGroup = this.getForm();
+    readonly form: FormGroup = this.getForm();
+    readonly stepName: StepName = this.getStepName();
 
     private data$ = this.questionarySateService.questionaryData$.pipe(first());
 
@@ -23,7 +25,7 @@ export abstract class QuestionaryFormService {
     }
 
     startFormValuePersistent(debounceMs = 1000): Subscription {
-        return combineLatest(this.data$, this.form.valueChanges)
+        return combineLatest(this.data$, this.form.valueChanges) // TODO this.data$ is actual?
             .pipe(
                 debounceTime(debounceMs),
                 map(([d, v]) => {
@@ -44,7 +46,7 @@ export abstract class QuestionaryFormService {
                 debounceTime(debounceMs),
                 map(v => v === 'VALID')
             )
-            .subscribe(isValid => this.validityService.setUpValidity(isValid));
+            .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
     protected abstract getForm(): FormGroup;
@@ -52,4 +54,6 @@ export abstract class QuestionaryFormService {
     protected abstract toFormValue(data: QuestionaryData): FormValue;
 
     protected abstract applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData;
+
+    protected abstract getStepName(): StepName;
 }
