@@ -3,11 +3,12 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import get from 'lodash.get';
 
 import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity.service';
+import { ValidityService } from '../../validity';
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { FormValue } from '../form-value';
+import { StepName } from '../../step-flow';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
@@ -46,5 +47,9 @@ export class BasicInfoService extends QuestionaryFormService {
 
     protected applyToQuestionaryData(d: QuestionaryData, v: FormValue): QuestionaryData {
         return applyToQuestionaryData(d, v);
+    }
+
+    protected getStepName(): StepName {
+        return StepName.BasicInfo;
     }
 }
