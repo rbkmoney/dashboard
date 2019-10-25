@@ -39,7 +39,14 @@ $icon-width: 24px;
 
 .icon {
     &-container {
+        display: none;
         width: $icon-width;
         height: $icon-height;
+    }
+}
+
+.withIcon {
+    .icon-container {
+        display: block;
     }
 }

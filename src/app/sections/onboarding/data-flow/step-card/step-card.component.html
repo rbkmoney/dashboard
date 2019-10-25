@@ -4,6 +4,8 @@
             <dsh-state-nav-item
                 *ngFor="let step of stepFlow"
                 [selected]="step === activeStep"
+                withIcon
+                icon="checkmark"
                 [status]="getStepStatus(step) | async"
             >
                 {{ step | stepLabel: 'stepCard' }}
