@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-expansion-theme($theme) {
+  $gray: map-get($theme, gray);
+
+  .expansion {
+    .divider {
+      background-color: map-get($gray, 200);
+    }
+  }
+}

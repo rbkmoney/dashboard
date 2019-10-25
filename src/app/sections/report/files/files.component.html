@@ -1,0 +1,38 @@
+<dsh-card *transloco="let t; scope: 'report'; read: 'report.files'">
+    <dsh-card-header fxLayout="row" fxLayoutAlign="space-between center">
+        <dsh-card-title>
+            <h2 class="mat-title">
+                {{ t.title }}
+            </h2>
+        </dsh-card-title>
+        <div>
+            31231321
+        </div>
+    </dsh-card-header>
+    <dsh-card-content>
+        <dsh-expansion>
+            <dsh-expansion-item *ngFor="let file of files">
+                <dsh-expansion-item-header>
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div>
+                            {{ file.filename }}
+                        </div>
+                        <div>
+                            <button dsh-icon-button>
+                                <mat-icon>save_alt</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </dsh-expansion-item-header>
+                <dsh-expansion-item-content fxLayout="column" [fxLayoutGap]="layoutGap">
+                    <dsh-details-item [title]="t.MD5_title">
+                        {{ file.signatures.md5 }}
+                    </dsh-details-item>
+                    <dsh-details-item [title]="t.SHA256_title">
+                        {{ file.signatures.sha256 }}
+                    </dsh-details-item>
+                </dsh-expansion-item-content>
+            </dsh-expansion-item>
+        </dsh-expansion>
+    </dsh-card-content>
+</dsh-card>

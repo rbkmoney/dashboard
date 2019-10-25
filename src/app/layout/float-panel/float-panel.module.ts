@@ -11,9 +11,15 @@ import { ButtonModule } from '../../button';
 import { ResizedModule } from '../../resized';
 import { CardModule } from '../card';
 
+const EXPORTED_DECLARATIONS = [
+    FloatPanelComponent,
+    FloatPanelMoreTemplateComponent,
+    FloatPanelActionsTemplateComponent
+];
+
 @NgModule({
     imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, TranslocoModule],
-    declarations: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent],
-    exports: [FloatPanelComponent, FloatPanelMoreTemplateComponent, FloatPanelActionsTemplateComponent]
+    declarations: EXPORTED_DECLARATIONS,
+    exports: EXPORTED_DECLARATIONS
 })
 export class FloatPanelModule {}

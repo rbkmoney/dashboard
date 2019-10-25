@@ -34,6 +34,10 @@
         "pending": "Запущен",
         "failed": "Неуспешен"
     },
+    "reportStatus": {
+        "pending": "В процессе",
+        "processed": "Готов"
+    },
     "paymentFlow": {
         "instant": "Мгновенный",
         "hold": "С удержанием"

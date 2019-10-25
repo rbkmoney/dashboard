@@ -1,5 +1,12 @@
 <div *ngIf="payment$ | async as payment" class="dsh-payment-details" fxLayout="column" [fxLayoutGap]="layoutGap">
-    <dsh-headline [paymentID]="payment?.id"></dsh-headline>
+    <dsh-headline>
+        <div *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'">
+            {{ t.title }}
+            <span dshSecondaryTitle>
+                {{ payment ? '#' + payment?.id : '' }}
+            </span>
+        </div>
+    </dsh-headline>
     <dsh-details [payment]="payment"></dsh-details>
     <dsh-payment-tool
         *ngIf="getPaymentToolDetails(payment) as paymentToolDetails"

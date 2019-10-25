@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 
 @import 'refunds/refunds-theme';
-@import 'details-item/details-item-theme';
-@import 'secondary-title/secondary-title-theme';
+@import '../../details-item/details-item-theme';
+@import '../../headline/secondary-title/secondary-title-theme';
 
 @mixin dsh-payment-details-theme($theme) {
     $gray: map-get($theme, gray);
