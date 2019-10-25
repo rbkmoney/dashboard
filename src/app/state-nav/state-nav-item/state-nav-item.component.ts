@@ -30,7 +30,7 @@ export class StateNavItemComponent {
 
     private item: HTMLElement;
 
-    constructor(elementRef: ElementRef, private renderer: Renderer2) {
+    constructor(elementRef: ElementRef, renderer: Renderer2) {
         const item = elementRef.nativeElement as HTMLElement;
         this.item = item;
 
