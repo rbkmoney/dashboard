@@ -6,7 +6,7 @@
                 [selected]="step === activeStep"
                 withIcon
                 icon="checkmark"
-                status="success"
+                [status]="getStepStatus(step) | async"
             >
                 {{ step | stepLabel: 'stepCard' }}
             </dsh-state-nav-item>

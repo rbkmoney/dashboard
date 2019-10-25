@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { first, pluck } from 'rxjs/operators';
+import { first, pluck, filter } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { InitialDataService } from './initial-data.service';
@@ -10,7 +10,7 @@ import { SaveQuestionaryService } from './save-questionary';
 export class QuestionaryStateService {
     private state$: BehaviorSubject<QuestionaryData> = new BehaviorSubject<QuestionaryData>(null);
 
-    questionaryData$: Observable<QuestionaryData | null> = this.state$.asObservable();
+    questionaryData$: Observable<QuestionaryData | null> = this.state$.pipe(filter(v => v !== null));
 
     constructor(private dataFlowService: InitialDataService, private questionarySaveService: SaveQuestionaryService) {
         this.dataFlowService.initialSnapshot$
