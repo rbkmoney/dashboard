@@ -14,7 +14,9 @@
         routerLinkActive
         #reports="routerLinkActive"
         [selected]="reports.isActive"
+        withIcon
+        icon="description"
     >
-        <mat-icon>description</mat-icon>{{ t.reports }}
+        {{ t.reports }}
     </dsh-state-nav-item>
 </dsh-state-nav>
