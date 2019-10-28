@@ -9,12 +9,11 @@ import { toDateLike, genXRequestID } from '../utils';
 export class ReportsService {
     constructor(private reportsService: ReportsApiService) {}
 
-    createReport({ fromTime, toTime, reportType, partyID, shopID }: CreateReportReq) {
+    createReport({ fromTime, toTime, partyID, shopID }: CreateReportReq) {
         return this.reportsService.createReport(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
-            reportType,
             partyID,
             undefined,
             shopID

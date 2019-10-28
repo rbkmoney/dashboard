@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BasicInfoComponent } from './basic-info';
+import { BasicInfoComponent, RussianLegalOwnerComponent, RussianPrivateEntityComponent } from './forms';
 import { DataFlowComponent } from './data-flow.component';
-import { RussianPrivateEntityComponent } from './russian-private-entity';
 import { StepName } from './step-flow';
 
 export const routes: Routes = [
@@ -18,6 +17,10 @@ export const routes: Routes = [
             {
                 path: StepName.RussianPrivateEntity,
                 component: RussianPrivateEntityComponent
+            },
+            {
+                path: StepName.RussianLegalOwner,
+                component: RussianLegalOwnerComponent
             }
         ]
     }

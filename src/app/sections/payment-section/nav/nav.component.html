@@ -4,8 +4,10 @@
         routerLinkActive
         #operations="routerLinkActive"
         [selected]="operations.isActive"
+        withIcon
+        icon="table_chart"
     >
-        <mat-icon>table_chart</mat-icon>{{ t.operations }}
+        {{ t.operations }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="./reports"
