@@ -17,7 +17,8 @@
     "fix": "npm run lint-fix; npm run prettify",
     "quicktype": "quicktype -s schema --just-types",
     "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
-    "coverage": "npx http-server -c-1 -o -p 9875 ./coverage"
+    "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
+    "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts"
   },
   "private": true,
   "dependencies": {
@@ -83,6 +84,7 @@
     "@types/moment": "^2.13.0",
     "@types/node": "^11.13.10",
     "@types/pdfmake": "^0.1.8",
+    "@types/prettier": "^1.18.3",
     "@types/uuid": "^3.4.5",
     "codelyzer": "^5.0.1",
     "husky": "^3.0.1",
