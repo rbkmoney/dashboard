@@ -34,9 +34,10 @@
                 {{ t.invoice }}
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let element" fxHide>
-                <a class="link-with-arrow" fxFlex fxLayoutAlign="start center"
-                    ><span>{{ element.invoiceID }}</span> <mat-icon class="arrow-forward">arrow_forward</mat-icon></a
-                >
+                <a class="link-with-arrow" fxFlex fxLayoutAlign="start center">
+                    <span>{{ element.invoiceID }}</span>
+                    <mat-icon class="arrow-forward" svgIcon="arrow_forward"></mat-icon>
+                </a>
             </td>
         </ng-container>
 
@@ -51,7 +52,7 @@
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let element">
                 <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
-                    <mat-icon>more_vert</mat-icon>
+                    <mat-icon svgIcon="more_vert"></mat-icon>
                 </button>
                 <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
                     <dsh-dropdown-actions>

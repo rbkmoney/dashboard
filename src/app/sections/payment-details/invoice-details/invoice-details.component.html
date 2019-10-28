@@ -2,7 +2,7 @@
     <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
         <dsh-card-title>
             <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
-                <!-- <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon> -->
+                <!-- <mat-icon class="dsh-forward-icon" routerLink="/" svgIcon="arrow_back"></mat-icon> -->
                 <div>
                     {{ t?.title }}
                     <span dshSecondaryTitle>#{{ invoice?.id }}</span>

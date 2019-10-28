@@ -13,7 +13,7 @@
                 </div>
                 <div *ngIf="!expanded" class="dsh-float-panel-actions" fxLayout fxLayoutAlign="center center">
                     <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
-                        <mat-icon svgIcon="arrow_down"></mat-icon>
+                        <mat-icon svgIcon="keyboard_arrow_down"></mat-icon>
                     </button>
                     <button *transloco="let t" dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
                         {{ t.showMore }}
@@ -35,7 +35,7 @@
                             <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
                         </div>
                         <button dsh-icon-button (click)="expandToggle()">
-                            <mat-icon svgIcon="arrow_up"></mat-icon>
+                            <mat-icon svgIcon="keyboard_arrow_up"></mat-icon>
                         </button>
                     </div>
                 </div>
