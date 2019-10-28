@@ -5,7 +5,7 @@
     fxLayoutGap="10px"
     fxLayoutAlign="start center"
 >
-    <mat-icon *ngIf="isBackAvailable" class="back" (click)="back()">arrow_back</mat-icon>
+    <mat-icon *ngIf="isBackAvailable" class="back" (click)="back()" svgIcon="arrow_back"></mat-icon>
     <div>
         {{ t?.title }}
         <span dshSecondaryTitle>#{{ paymentID }}</span>
