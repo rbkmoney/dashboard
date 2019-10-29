@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 
@@ -34,6 +34,7 @@ import { ExpandPanelModule } from '../../expand-panel';
         ButtonModule,
         ExpandPanelModule
     ],
-    declarations: [ReportComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent]
+    declarations: [ReportComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class ReportModule {}

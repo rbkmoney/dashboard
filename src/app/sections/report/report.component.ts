@@ -1,8 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Inject } from '@angular/core';
 
 import { LAYOUT_GAP } from '../constants';
-import { Report } from '../../api-codegen/anapi/swagger-codegen';
 import { ReportService } from './report.service';
 
 @Component({
@@ -11,12 +9,8 @@ import { ReportService } from './report.service';
     selector: 'dsh-report-details',
     styleUrls: ['report.component.scss']
 })
-export class ReportComponent implements OnInit {
-    report$: Observable<Report>;
+export class ReportComponent {
+    report$ = this.reportService.report$;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private reportService: ReportService) {}
-
-    ngOnInit(): void {
-        this.report$ = this.reportService.getReport();
-    }
 }

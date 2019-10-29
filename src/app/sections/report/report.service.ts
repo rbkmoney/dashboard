@@ -1,20 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { Report, ReportLink } from '../../api-codegen/anapi/swagger-codegen';
+import { ReportLink } from '../../api-codegen/anapi/swagger-codegen';
 import { ReportsService } from '../../api/reports';
 
 @Injectable()
 export class ReportService {
-    constructor(private route: ActivatedRoute, private reportSearchService: ReportsService) {}
+    report$ = this.route.params.pipe(
+        switchMap(({ reportID }) => this.reportSearchService.getReport(reportID)),
+        catchError(() => this.catchError())
+    );
 
-    getReport(): Observable<Report> {
-        return this.route.params.pipe(switchMap(({ reportID }) => this.reportSearchService.getReport(reportID)));
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private reportSearchService: ReportsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     downloadReport(reportID: number, fileID: string): Observable<ReportLink> {
-        return this.reportSearchService.downloadFile(reportID, fileID);
+        return this.reportSearchService.downloadFile(reportID, fileID).pipe(catchError(() => this.catchError()));
+    }
+
+    private catchError() {
+        this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+        return [];
     }
 }

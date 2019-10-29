@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { RefundItemComponent, RefundsComponent } from './refunds';
 import { LayoutModule } from '../../layout';
@@ -79,6 +79,7 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         PaymentResourcePayerComponent,
         ShopLocationUrlComponent,
         MakeRecurrentComponent
-    ]
+    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}

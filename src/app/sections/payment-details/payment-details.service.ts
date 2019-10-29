@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { PaymentSearchResult } from '../../api-codegen/capi/swagger-codegen';
 import { PaymentSearchService } from '../../api/search';
 
 @Injectable()
 export class PaymentDetailsService {
-    constructor(private paymentSearchService: PaymentSearchService, private route: ActivatedRoute) {}
+    payment$ = this.route.params.pipe(
+        switchMap(({ invoiceID, paymentID }) =>
+            this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
+        ),
+        catchError(() => {
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+            return [];
+        })
+    );
 
-    getPayment(): Observable<PaymentSearchResult> {
-        return this.route.params.pipe(
-            switchMap(({ invoiceID, paymentID }) =>
-                this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
-            )
-        );
-    }
+    constructor(
+        private paymentSearchService: PaymentSearchService,
+        private route: ActivatedRoute,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 }

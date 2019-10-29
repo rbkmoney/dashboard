@@ -1,12 +1,14 @@
-<div *ngIf="report$ | async as report" class="dsh-report-details" fxLayout="column" [fxLayoutGap]="layoutGap">
-    <dsh-headline>
-        <div *transloco="let t; scope: 'report'; read: 'report'">
-            {{ t.title }}
-            <span dshSecondaryTitle>
-                {{ report ? '#' + report?.id : '' }}
-            </span>
-        </div>
-    </dsh-headline>
-    <dsh-details [report]="report"></dsh-details>
-    <dsh-files [files]="report.files" [reportID]="report.id"></dsh-files>
-</div>
+<ng-container *transloco="let t; scope: 'report'; read: 'report'">
+    <div *ngIf="report$ | async as report" class="dsh-report-details" fxLayout="column" [fxLayoutGap]="layoutGap">
+        <dsh-headline>
+            <div>
+                {{ t.title }}
+                <span dshSecondaryTitle>
+                    {{ report ? '#' + report?.id : '' }}
+                </span>
+            </div>
+        </dsh-headline>
+        <dsh-details [report]="report"></dsh-details>
+        <dsh-files [files]="report.files" [reportID]="report.id"></dsh-files>
+    </div>
+</ng-container>
