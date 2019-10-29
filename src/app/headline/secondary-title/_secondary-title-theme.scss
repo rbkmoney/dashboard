@@ -1,6 +1,6 @@
-@import '../../../../node_modules/@angular/material/theming';
+@import '~@angular/material/theming';
 
-@mixin dsh-payment-details-secondary-title-theme($theme) {
+@mixin dsh-details-secondary-title-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
     $gray: map-get($theme, gray);

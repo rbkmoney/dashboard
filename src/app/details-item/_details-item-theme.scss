@@ -1,6 +1,6 @@
 @import '../../../node_modules/@angular/material/theming';
 
-@mixin dsh-payment-details-item-theme($theme) {
+@mixin dsh-details-item-theme($theme) {
     $gray: map-get($theme, gray);
 
     .title {
