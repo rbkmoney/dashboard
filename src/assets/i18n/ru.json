@@ -23,6 +23,10 @@
         "refunded": "Возвращен",
         "failed": "Неуспешен"
     },
+    "reportType": {
+        "paymentRegistry": "Ручной",
+        "provisionOfService": "Автоматический"
+    },
     "invoiceStatus": {
         "paid": "Оплачен",
         "unpaid": "Не оплачен",

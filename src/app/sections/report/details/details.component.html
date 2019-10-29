@@ -1,21 +1,21 @@
 <dsh-card>
     <dsh-card-content
-        *transloco="let t; scope: 'report'; read: 'report.details'"
-        fxLayout="column"
-        [fxLayoutGap]="layoutGap"
+            *transloco="let t; scope: 'report'; read: 'report.details'"
+            fxLayout="column"
+            [fxLayoutGap]="layoutGap"
     >
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-status-item
-                *transloco="let c; read: 'reportStatus'"
-                [color]="color"
-                [text]="c[status]"
-                fxFlex="33"
+                    *transloco="let c; read: 'reportStatus'"
+                    [color]="color"
+                    [text]="c[status]"
+                    fxFlex="33"
             ></dsh-details-status-item>
-            <!--            <dsh-details-item [title]="t.type" fxFlex="33">-->
-            <!--                <div class="mat-body-1">-->
-            <!--                    {{report.reportType}}-->
-            <!--                </div>-->
-            <!--            </dsh-details-item>-->
+            <dsh-details-item [title]="t.type" fxFlex="33">
+                <div class="mat-body-1" *transloco="let c; read: 'reportType'">
+                    {{c[report.reportType]}}
+                </div>
+            </dsh-details-item>
             <dsh-details-item [title]="t.createdAt" fxFlex="33">
                 <div class="mat-body-1">
                     {{ report.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
