@@ -4,9 +4,7 @@
     [ngClass]="{ selected: selected, success: status === 'success', warn: status === 'warn' }"
 >
     <div class="icon-container" fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon *ngIf="icon">
-            {{ icon }}
-        </mat-icon>
+        <mat-icon *ngIf="icon" [svgIcon]="icon"></mat-icon>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center">
         <ng-content></ng-content>
