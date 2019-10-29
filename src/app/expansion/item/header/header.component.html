@@ -3,6 +3,6 @@
         <ng-content></ng-content>
     </div>
     <button dsh-icon-button (click)="toggle()">
-        <mat-icon>{{ opened ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+        <mat-icon svgIcon="keyboard_arrow_down" [ngClass]="{'opened': opened}"></mat-icon>
     </button>
 </div>
