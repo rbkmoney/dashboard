@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'dsh-expansion-item-content',
-    templateUrl: 'content.component.html'
+    templateUrl: 'content.component.html',
+    styleUrls: ['content.component.scss']
 })
-export class ContentComponent {}
+export class ContentComponent {
+    @Input() opened: boolean;
+}

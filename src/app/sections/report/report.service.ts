@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { Report } from '../../api-codegen/anapi/swagger-codegen';
+import { Report, ReportLink } from '../../api-codegen/anapi/swagger-codegen';
 import { ReportsService } from '../../api/reports';
 
 @Injectable()
@@ -12,5 +12,9 @@ export class ReportService {
 
     getReport(): Observable<Report> {
         return this.route.params.pipe(switchMap(({ reportID }) => this.reportSearchService.getReport(reportID)));
+    }
+
+    downloadReport(reportID: number, fileID: string): Observable<ReportLink> {
+        return this.reportSearchService.downloadFile(reportID, fileID);
     }
 }

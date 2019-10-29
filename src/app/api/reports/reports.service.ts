@@ -37,7 +37,7 @@ export class ReportsService {
         );
     }
 
-    downloadFile(reportID: number, filedID: string) {
-        return this.reportsService.downloadFile(genXRequestID(), reportID, filedID);
+    downloadFile(reportID: number, fileID: string) {
+        return this.reportsService.downloadFile(genXRequestID(), reportID, fileID);
     }
 }

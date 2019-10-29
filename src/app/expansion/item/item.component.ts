@@ -1,8 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ContentChild } from '@angular/core';
+
+import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
 
 @Component({
     selector: 'dsh-expansion-item',
     templateUrl: 'item.component.html',
     styleUrls: ['item.component.scss']
 })
-export class ItemComponent {}
+export class ItemComponent implements AfterViewInit {
+    @ContentChild(HeaderComponent, { static: false }) header;
+    @ContentChild(ContentComponent, { static: false }) content;
+
+    ngAfterViewInit(): void {
+        this.header.toggleEvent.subscribe(opened => {
+            this.content.opened = opened;
+        });
+    }
+}
