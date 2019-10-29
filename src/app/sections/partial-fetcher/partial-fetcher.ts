@@ -7,7 +7,7 @@ import { FetchFn } from './fetch-fn';
 import { progress } from './progress';
 
 export abstract class PartialFetcher<R, P> {
-    private action$ = new ReplaySubject<FetchAction<P>>();
+    private action$ = new ReplaySubject<FetchAction<P>>(1);
 
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
@@ -30,22 +30,15 @@ export abstract class PartialFetcher<R, P> {
     }
 
     search(value: P) {
-        this.action$.next({
-            type: 'search',
-            value
-        });
+        this.action$.next({ type: 'search', value });
     }
 
     refresh() {
-        this.action$.next({
-            type: 'search'
-        });
+        this.action$.next({ type: 'search' });
     }
 
     fetchMore() {
-        this.action$.next({
-            type: 'fetchMore'
-        });
+        this.action$.next({ type: 'fetchMore' });
     }
 
     protected abstract fetch(...args: Parameters<FetchFn<P, R>>): ReturnType<FetchFn<P, R>>;
