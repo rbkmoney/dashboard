@@ -1,5 +1,5 @@
-import { Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay, debounceTime } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, shareReplay, debounceTime, pluck } from 'rxjs/operators';
 
 import { FetchAction } from './fetch-action';
 import { scanSearchResult, scanAction } from './operators';
@@ -7,26 +7,31 @@ import { FetchFn } from './fetch-fn';
 import { progress } from './progress';
 
 export abstract class PartialFetcher<R, P> {
-    private action$ = new ReplaySubject<FetchAction<P>>(1);
+    private action$ = new Subject<FetchAction<P>>();
 
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
     doAction$: Observable<boolean>;
 
     constructor(debounceActionTime = 300) {
-        const actionWithParams$ = this.action$.pipe(
-            scanAction,
-            debounceTime(debounceActionTime),
-            shareReplay(1)
-        );
+        let actionWithParams$ = this.action$.pipe(scanAction);
+        if (debounceActionTime) actionWithParams$ = actionWithParams$.pipe(debounceTime(debounceActionTime));
+        actionWithParams$ = actionWithParams$.pipe(shareReplay(1));
         const fetchFn: FetchFn<P, R> = this.fetch.bind(this);
         const searchResultWithToken$ = actionWithParams$.pipe(
             scanSearchResult(fetchFn),
             shareReplay(1)
         );
+        searchResultWithToken$.subscribe();
+        this.searchResult$ = searchResultWithToken$.pipe(
+            pluck('result'),
+            shareReplay(1)
+        );
+        this.hasMore$ = searchResultWithToken$.pipe(
+            map(({ continuationToken }) => !!continuationToken),
+            shareReplay(1)
+        );
         this.doAction$ = progress(actionWithParams$, searchResultWithToken$).pipe(shareReplay(1));
-        this.searchResult$ = searchResultWithToken$.pipe(map(({ result }) => result));
-        this.hasMore$ = searchResultWithToken$.pipe(map(({ continuationToken }) => !!continuationToken));
     }
 
     search(value: P) {
