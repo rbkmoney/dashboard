@@ -1,0 +1,33 @@
+<form
+    fxLayout="column"
+    fxLayoutGap="10px"
+    [formGroup]="form"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.authorityConfirmingDocument'"
+>
+    <mat-form-field>
+        <mat-label>{{ t.typeSelector }}</mat-label>
+        <mat-select (selectionChange)="authorityConfirmingDocumentTypeSelectionChange($event)" required>
+            <mat-option *ngFor="let documentType of authorityConfirmingDocumentTypes" [value]="documentType">
+                {{ documentType }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="customDocumentInfoVisible" fxLayout="column" fxLayoutGap="10px">
+        <mat-form-field fxFlex>
+            <mat-label>type</mat-label>
+            <input matInput formControlName="type" required />
+        </mat-form-field>
+        <div fxLayout [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex>
+                <mat-label>date</mat-label>
+                <input matInput formControlName="date" [matDatepicker]="dateDatepicker" required />
+                <mat-datepicker-toggle matSuffix [for]="dateDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #dateDatepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>number</mat-label>
+                <input matInput formControlName="number" required />
+            </mat-form-field>
+        </div>
+    </div>
+</form>

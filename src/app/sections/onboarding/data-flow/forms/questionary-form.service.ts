@@ -1,6 +1,6 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Subscription, combineLatest } from 'rxjs';
-import { debounceTime, first, map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
+import { Subscription, combineLatest, AsyncSubject } from 'rxjs';
+import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { ValidityService } from '../validity';
@@ -9,23 +9,24 @@ import { FormValue } from './form-value';
 import { StepName } from '../step-flow';
 
 export abstract class QuestionaryFormService {
-    readonly form: FormGroup = this.getForm();
+    readonly form$ = new AsyncSubject<FormGroup>();
     readonly stepName: StepName = this.getStepName();
 
     private data$ = this.questionarySateService.questionaryData$.pipe(first());
 
     constructor(
-        protected fb: FormBuilder,
         protected questionarySateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {}
 
     initFormValue(): Subscription {
-        return this.data$.pipe(map(d => this.toFormValue(d))).subscribe(v => this.form.patchValue(v));
+        return combineLatest(this.data$.pipe(map(d => this.toFormValue(d))), this.form$).subscribe(([v, form]) =>
+            form.patchValue(v)
+        );
     }
 
     startFormValuePersistent(debounceMs = 1000): Subscription {
-        return combineLatest(this.data$, this.form.valueChanges) // TODO this.data$ is actual?
+        return combineLatest(this.data$, this.form$.pipe(switchMap(form => form.valueChanges))) // TODO this.data$ is actual?
             .pipe(
                 debounceTime(debounceMs),
                 map(([d, v]) => {
@@ -41,15 +42,14 @@ export abstract class QuestionaryFormService {
     }
 
     startFormValidityReporting(debounceMs = 300): Subscription {
-        return this.form.statusChanges
+        return this.form$
             .pipe(
+                switchMap(form => form.statusChanges),
                 debounceTime(debounceMs),
                 map(v => v === 'VALID')
             )
             .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
     }
-
-    protected abstract getForm(): FormGroup;
 
     protected abstract toFormValue(data: QuestionaryData): FormValue;
 
