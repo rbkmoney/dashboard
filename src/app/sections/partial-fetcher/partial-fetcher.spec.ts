@@ -49,7 +49,7 @@ describe('PartialFetch', () => {
             );
             partialFetched.search(null);
             partialFetched.fetchMore();
-            expectObservable(partialFetched.searchResult$).toBe('----0', [[undefined, 'token']]);
+            expectObservable(partialFetched.searchResult$).toBe('--0-1', [[undefined], [undefined, 'token']]);
         });
     });
 
@@ -62,7 +62,11 @@ describe('PartialFetch', () => {
             partialFetched.search('params');
             partialFetched.fetchMore();
             partialFetched.refresh();
-            expectObservable(partialFetched.searchResult$).toBe('------0', [['params']]);
+            expectObservable(partialFetched.searchResult$).toBe('--0-1-2', [
+                ['params'],
+                ['params', 'params'],
+                ['params']
+            ]);
         });
     });
 });
