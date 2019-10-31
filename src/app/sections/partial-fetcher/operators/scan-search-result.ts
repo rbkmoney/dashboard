@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { FetchResult } from '../fetch-result';
 import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
-import { obscan } from '../../../../utils';
+import { switchScan } from '../../../../utils';
 
 export const scanSearchResult = <P, R>(fn: FetchFn<P, R>) => (s: Observable<FetchAction<P>>) =>
     s.pipe(
-        obscan<FetchAction<P>, FetchResult<R>>(
+        switchScan<FetchAction<P>, FetchResult<R>>(
             ({ result, continuationToken }, action) => {
                 switch (action.type) {
                     case 'search':

@@ -1,7 +1,7 @@
 import { Observable, isObservable, of } from 'rxjs';
 import { scan, switchMap, shareReplay } from 'rxjs/operators';
 
-export const obscan = <T, P>(
+export const switchScan = <T, P>(
     accumulator: (acc: P, value: T, index: number) => Observable<P>,
     seed: Observable<P> | P
 ) => (s: Observable<T>) => {
