@@ -4,6 +4,5 @@ export interface CreateReportReq {
     fromTime: string;
     toTime: string;
     reportType: Report.ReportTypeEnum;
-    partyID: string;
     shopID?: string;
 }

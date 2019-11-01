@@ -32,9 +32,7 @@ export class CreateReportDialogComponent {
             .createReport({
                 reportType: 'paymentRegistry',
                 fromTime: this.form.value.fromTime.utc().format(),
-                toTime: this.form.value.toTime.utc().format(),
-                partyID: '',
-                shopID: ''
+                toTime: this.form.value.toTime.utc().format()
             })
             .subscribe(() => {
                 this.dialogRef.close('create');
