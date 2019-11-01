@@ -119,6 +119,7 @@ export class DropdownTriggerDirective implements OnDestroy {
                 .flexibleConnectedTo(this.origin)
                 .withPush(true)
                 .withDefaultOffsetX(0)
+                .withLockedPosition()
                 .withPositions([
                     {
                         originX: 'center',
