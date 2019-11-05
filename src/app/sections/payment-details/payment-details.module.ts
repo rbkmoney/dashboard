@@ -34,7 +34,6 @@ import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
 import { HumanizeDurationModule } from '../../humanize-duration';
-import { HeadlineModule } from '../../headline';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,
-        HeadlineModule,
         DetailsItemModule
     ],
     declarations: [

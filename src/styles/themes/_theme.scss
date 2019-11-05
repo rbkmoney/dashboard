@@ -25,7 +25,7 @@
 @import '../../app/dadata/dadata-theme';
 @import '../../app/expansion/expansion-theme';
 @import '../../app/details-item/details-item-theme';
-@import '../../app/headline/secondary-title/secondary-title-theme';
+@import '../../app/layout/headline/secondary-title/secondary-title-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {

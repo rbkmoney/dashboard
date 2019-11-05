@@ -4,10 +4,10 @@ import { LAYOUT_GAP } from '../constants';
 import { ReportService } from './report.service';
 
 @Component({
-    providers: [ReportService],
-    templateUrl: 'report.component.html',
     selector: 'dsh-report-details',
-    styleUrls: ['report.component.scss']
+    templateUrl: 'report.component.html',
+    styleUrls: ['report.component.scss'],
+    providers: [ReportService]
 })
 export class ReportComponent {
     report$ = this.reportService.report$;

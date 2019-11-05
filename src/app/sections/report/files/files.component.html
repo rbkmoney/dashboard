@@ -4,9 +4,8 @@
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ t.title }}
             </div>
-            <button fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent">
-                {{ t.downloadAll }}
-            </button>
+            <dsh-spinner *ngIf="(isLoading$ | async) && !(downloadableFile$ | async)" size="36"
+                         [type]="spinnerType"></dsh-spinner>
         </div>
     </dsh-card-title>
     <dsh-card-content>
@@ -14,22 +13,29 @@
             <dsh-expansion-item *ngFor="let file of files">
                 <dsh-expansion-item-header>
                     <div fxLayout="row" fxLayoutAlign="space-between center">
-                        <div>
+                        <div class="file-name">
                             {{ file.filename }}
                         </div>
                         <div>
-                            <button dsh-icon-button (click)="downloadFile(file.id)">
+                            <button
+                                    *ngIf="!(isLoading$ | async) || ((isLoading$ | async) && (downloadableFile$ | async) !== file.id)"
+                                    [disabled]="isLoading$ | async"
+                                    dsh-icon-button
+                                    (click)="downloadFile(file.id)"
+                            >
                                 <mat-icon svgIcon="save"></mat-icon>
                             </button>
+                            <dsh-spinner *ngIf="(isLoading$ | async) && ((downloadableFile$ | async) === file.id)"
+                                         size="24" [type]="spinnerType"></dsh-spinner>
                         </div>
                     </div>
                 </dsh-expansion-item-header>
                 <dsh-expansion-item-content>
                     <div fxLayout="column" [fxLayoutGap]="layoutGap">
-                        <dsh-details-item [title]="t.MD5_title">
+                        <dsh-details-item [title]="t.md5Title">
                             {{ file.signatures.md5 }}
                         </dsh-details-item>
-                        <dsh-details-item [title]="t.SHA256_title">
+                        <dsh-details-item [title]="t.sha256Title">
                             {{ file.signatures.sha256 }}
                         </dsh-details-item>
                     </div>

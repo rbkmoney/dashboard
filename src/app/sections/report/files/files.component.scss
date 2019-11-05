@@ -1,4 +1,10 @@
+@import '../../../../styles/utils/typography';
+
+.file-name {
+    word-break: break-word;
+}
+
 dsh-card-title {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }

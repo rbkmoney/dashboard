@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material';
 
 import { ReportComponent } from './report.component';
 import { ReportRoutingModule } from './report-routing.module';
-import { HeadlineModule } from '../../headline';
 import { DetailsComponent } from './details/details.component';
-import { ReportsModule } from '../../api/reports';
+import { ReportsModule, ReportsService } from '../../api/reports';
 import { LayoutModule } from '../../layout';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { StatusDetailsItemComponent } from './details/status-details-item';
@@ -17,6 +16,7 @@ import { ExpansionModule } from '../../expansion/expansion.module';
 import { FilesComponent } from './files/files.component';
 import { ButtonModule } from '../../button';
 import { ExpandPanelModule } from '../../expand-panel';
+import { SpinnerModule } from '../../spinner';
 
 @NgModule({
     imports: [
@@ -25,16 +25,16 @@ import { ExpandPanelModule } from '../../expand-panel';
         TranslocoModule,
         MatIconModule,
         ReportRoutingModule,
-        HeadlineModule,
         ReportsModule,
         LayoutModule,
         DetailsItemModule,
         StatusModule,
         ExpansionModule,
         ButtonModule,
-        ExpandPanelModule
+        ExpandPanelModule,
+        SpinnerModule
     ],
     declarations: [ReportComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }, ReportsService]
 })
 export class ReportModule {}
