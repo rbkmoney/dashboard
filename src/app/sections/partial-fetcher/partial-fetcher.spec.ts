@@ -5,7 +5,6 @@ import { PartialFetcher } from './partial-fetcher';
 import { FetchResult } from './fetch-result';
 
 function assertDeepEqual(actual: any, expected: any) {
-    console.log(JSON.stringify({ actual, expected }, null, 2));
     expect(actual).toEqual(expected);
 }
 
