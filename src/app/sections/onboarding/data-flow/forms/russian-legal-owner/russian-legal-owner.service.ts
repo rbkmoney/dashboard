@@ -4,7 +4,12 @@ import get from 'lodash.get';
 import isEmpty from 'lodash/isEmpty';
 
 import { QuestionaryFormService } from '../questionary-form.service';
-import { QuestionaryData, IdentityDocument } from '../../../../../api-codegen/questionary';
+import {
+    QuestionaryData,
+    IdentityDocument,
+    LegalOwnerInfo,
+    AuthorityConfirmingDocument
+} from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { QuestionaryStateService } from '../../questionary-state.service';
@@ -39,7 +44,10 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
             innfl: get(legalOwnerInfo, ['inn'], null),
             russianDomesticPassport: this.toDomesticPassportFormValue(get(legalOwnerInfo, ['identityDocument'])),
             pdlInfo: this.toPdlInfoFormValue(legalOwnerInfo),
-            termOfOffice: get(legalOwnerInfo, ['termOfOffice'], null)
+            termOfOffice: get(legalOwnerInfo, ['termOfOffice'], null),
+            authorityConfirmingDocument: this.toAuthorityConfirmingDocument(
+                get(legalOwnerInfo, ['authorityConfirmingDocument'])
+            )
         };
     }
 
@@ -60,7 +68,7 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
         };
     }
 
-    private toPdlInfoFormValue(legalOwnerInfo): FormValue {
+    private toPdlInfoFormValue(legalOwnerInfo: LegalOwnerInfo): FormValue {
         const pdlRelationDegree = get(legalOwnerInfo, ['pdlRelationDegree'], null);
         if (!isEmpty(pdlRelationDegree)) {
             this.pdlInfoService.setPdlRelationDegreeVisible(true);
@@ -68,6 +76,14 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
         return {
             pdlCategory: get(legalOwnerInfo, ['pdlCategory'], false),
             pdlRelationDegree
+        };
+    }
+
+    private toAuthorityConfirmingDocument(authorityConfirmingDocument: AuthorityConfirmingDocument): FormValue {
+        return {
+            type: get(authorityConfirmingDocument, ['type'], null),
+            date: get(authorityConfirmingDocument, ['date'], null),
+            number: get(authorityConfirmingDocument, ['number'], null)
         };
     }
 

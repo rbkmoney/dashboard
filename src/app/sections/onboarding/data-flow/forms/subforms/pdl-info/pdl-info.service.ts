@@ -6,9 +6,9 @@ import { BehaviorSubject } from 'rxjs';
 export class PdlInfoService {
     private pdlRelationDegreeVisible$ = new BehaviorSubject(false);
 
-    constructor(private fb: FormBuilder) {}
+    isPdlRelationDegreeVisible$ = this.pdlRelationDegreeVisible$.asObservable();
 
-    isPdlRelationDegreeVisible$ = this.pdlRelationDegreeVisible$;
+    constructor(private fb: FormBuilder) {}
 
     setPdlRelationDegreeVisible(isVisible: boolean) {
         this.pdlRelationDegreeVisible$.next(isVisible);

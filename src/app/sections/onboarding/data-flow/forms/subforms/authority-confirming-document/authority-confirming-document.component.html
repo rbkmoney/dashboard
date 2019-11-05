@@ -6,13 +6,17 @@
 >
     <mat-form-field>
         <mat-label>{{ t.typeSelector }}</mat-label>
-        <mat-select (selectionChange)="authorityConfirmingDocumentTypeSelectionChange($event)" required>
+        <mat-select
+            [value]="'custom'"
+            (selectionChange)="authorityConfirmingDocumentTypeSelectionChange($event)"
+            required
+        >
             <mat-option *ngFor="let documentType of authorityConfirmingDocumentTypes" [value]="documentType">
                 {{ documentType }}
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <div *ngIf="customDocumentInfoVisible" fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="isCustomDocumentInfoVisible$ | async" fxLayout="column" fxLayoutGap="10px">
         <mat-form-field fxFlex>
             <mat-label>type</mat-label>
             <input matInput formControlName="type" required />
@@ -26,7 +30,7 @@
             </mat-form-field>
             <mat-form-field fxFlex>
                 <mat-label>number</mat-label>
-                <input matInput formControlName="number" required />
+                <input matInput formControlName="number" />
             </mat-form-field>
         </div>
     </div>

@@ -1,14 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatSelectChange } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+
+import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';
 
 @Component({
     selector: 'dsh-authority-confirming-document',
     templateUrl: 'authority-confirming-document.component.html'
 })
-export class AuthorityConfirmingDocumentComponent {
-    @Input() form;
-
+export class AuthorityConfirmingDocumentComponent implements OnChanges {
     layoutGap = '20px';
+
+    @Input() form: FormGroup;
+
+    constructor(private authorityConfirmingDocumentService: AuthorityConfirmingDocumentService) {}
 
     authorityConfirmingDocumentTypes = [
         'solePartyDecision',
@@ -16,13 +21,16 @@ export class AuthorityConfirmingDocumentComponent {
         'meetingOfParticipants',
         'custom'
     ];
-    customDocumentInfoVisible = false;
+    isCustomDocumentInfoVisible$ = this.authorityConfirmingDocumentService.isCustomDocumentInfoVisible$;
+
+    ngOnChanges({ form }: SimpleChanges): void {
+        if (form && form.currentValue) {
+            const type = form.currentValue.value.type;
+            this.authorityConfirmingDocumentService.setCustomDocumentInfoVisible(true);
+        }
+    }
 
     authorityConfirmingDocumentTypeSelectionChange({ value }: MatSelectChange) {
-        if (value === 'custom') {
-            this.customDocumentInfoVisible = true;
-        } else {
-            this.customDocumentInfoVisible = false;
-        }
+        this.authorityConfirmingDocumentService.authorityConfirmingDocumentTypeSelectionChange(this.form, value);
     }
 }

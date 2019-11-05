@@ -6,7 +6,8 @@ import {
     LegalOwnerInfo,
     RussianLegalEntity,
     IdentityDocument,
-    RussianDomesticPassport
+    RussianDomesticPassport,
+    AuthorityConfirmingDocument
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -24,6 +25,18 @@ const applyToIdentityDocument = (
     };
 };
 
+const applyToAuthorityConfirmingDocument = (
+    authorityConfirmingDocument: AuthorityConfirmingDocument,
+    { type, date, number }: FormValue
+): AuthorityConfirmingDocument => {
+    return {
+        ...authorityConfirmingDocument,
+        type,
+        number,
+        date
+    };
+};
+
 const applyToContractor = (
     t: LegalEntityContractor,
     {
@@ -35,13 +48,13 @@ const applyToContractor = (
         headPosition,
         russianDomesticPassport,
         pdlInfo: { pdlCategory, pdlRelationDegree },
-        termOfOffice
+        termOfOffice,
+        authorityConfirmingDocument
     }: FormValue
 ): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
     const legalOwnerInfo = get(t, ['legalEntity', 'legalOwnerInfo']);
     const russianPrivateEntity = get(legalOwnerInfo, ['russianPrivateEntity']);
-    const identityDocument = get(legalOwnerInfo, ['identityDocument']);
     console.warn('Questionary field is missing: LegalOwnerInfo.headPosition', headPosition);
     return {
         ...t,
@@ -59,8 +72,15 @@ const applyToContractor = (
                     residenceAddress
                 },
                 inn: innfl,
-                identityDocument: applyToIdentityDocument(identityDocument, russianDomesticPassport),
-                termOfOffice
+                identityDocument: applyToIdentityDocument(
+                    get(legalOwnerInfo, ['identityDocument']),
+                    russianDomesticPassport
+                ),
+                termOfOffice,
+                authorityConfirmingDocument: applyToAuthorityConfirmingDocument(
+                    get(legalOwnerInfo, ['authorityConfirmingDocument']),
+                    authorityConfirmingDocument
+                )
             } as LegalOwnerInfo
         } as RussianLegalEntity
     };
