@@ -7,7 +7,8 @@ import {
     MatSelectModule,
     MatIconModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -52,7 +53,8 @@ import { CreateReportDialogComponent } from './create-report-dialog';
         MatInputModule,
         LastUpdatedModule,
         SpinnerModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     declarations: [
         ReportsComponent,

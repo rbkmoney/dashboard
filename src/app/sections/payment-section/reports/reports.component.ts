@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { shareReplay, filter } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { ReportsService } from './reports.service';
 import { booleanDebounceTime } from '../../../custom-operators';
@@ -27,7 +28,12 @@ export class ReportsComponent {
     fetchMore = () => this.reportsService.fetchMore();
     refresh = () => this.reportsService.refresh();
 
-    constructor(private reportsService: ReportsService, private dialog: MatDialog) {}
+    constructor(
+        private reportsService: ReportsService,
+        private dialog: MatDialog,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     create() {
         return this.dialog
@@ -37,6 +43,10 @@ export class ReportsComponent {
             .afterClosed()
             .pipe(filter(r => r === 'create'))
             .subscribe(() => {
+                this.snackBar.open(
+                    this.transloco.translate('create.success', null, 'reports|scoped'),
+                    this.transloco.translate('ok')
+                );
                 this.refresh();
             });
     }
