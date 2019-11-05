@@ -1,4 +1,4 @@
-<dsh-float-panel *transloco="let r; scope: 'reports'; read: 'reports'" [formGroup]="form">
+<dsh-float-panel *transloco="let r; scope: 'reports'; read: 'reports'" [formGroup]="form" [(expanded)]="expanded">
     <ng-container *transloco="let t">
         <div
             fxLayout
@@ -11,6 +11,7 @@
                 fxFlex.gt-sm
                 [value]="form.value"
                 (selectDaterange)="selectDaterange($event)"
+                (selectMore)="expanded = true"
             ></dsh-daterange-selector>
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>

@@ -18,6 +18,8 @@ export class SearchFormComponent {
 
     reportTypes = Object.values(Report.ReportTypeEnum);
 
+    expanded = false;
+
     constructor(private searchFormService: SearchFormService, private reportsService: ReportsService) {}
 
     selectDaterange(v: SearchFormValue) {
