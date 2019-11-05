@@ -8,7 +8,6 @@ import { ReportsService } from '../../../api/reports';
 @Injectable()
 export class FilesService {
     isLoading$ = new Subject<boolean>();
-    downloadableFile$ = new Subject();
 
     constructor(
         private reportSearchService: ReportsService,
@@ -17,26 +16,17 @@ export class FilesService {
     ) {}
 
     downloadReport(fileID: string, reportID: number) {
-        this.setLoadingState(true, fileID);
+        this.isLoading$.next(true);
         this.reportSearchService.downloadFile(reportID, fileID).subscribe(
-            () => {
-                // TODO: download file logic from another
+            fileLink => {
+                console.log(fileLink.url);
+                // TODO: download file logic from another PR
                 // this.isLoading$.next(false);
             },
             _ => {
                 this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                // this.setLoadingState(false);
+                this.isLoading$.next(false);
             }
         );
-    }
-
-    downloadAll() {
-        // TODO: download file logic from another
-        this.setLoadingState(true);
-    }
-
-    private setLoadingState(isLoading: boolean, fileID?: string) {
-        this.isLoading$.next(isLoading);
-        this.downloadableFile$.next(fileID);
     }
 }

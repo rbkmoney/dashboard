@@ -4,8 +4,6 @@
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ t.title }}
             </div>
-            <dsh-spinner *ngIf="(isLoading$ | async) && !(downloadableFile$ | async)" size="36"
-                         [type]="spinnerType"></dsh-spinner>
         </div>
     </dsh-card-title>
     <dsh-card-content>
@@ -16,18 +14,9 @@
                         <div class="file-name">
                             {{ file.filename }}
                         </div>
-                        <div>
-                            <button
-                                    *ngIf="!(isLoading$ | async) || ((isLoading$ | async) && (downloadableFile$ | async) !== file.id)"
-                                    [disabled]="isLoading$ | async"
-                                    dsh-icon-button
-                                    (click)="downloadFile(file.id)"
-                            >
-                                <mat-icon svgIcon="save"></mat-icon>
-                            </button>
-                            <dsh-spinner *ngIf="(isLoading$ | async) && ((downloadableFile$ | async) === file.id)"
-                                         size="24" [type]="spinnerType"></dsh-spinner>
-                        </div>
+                        <button dsh-icon-button (click)="downloadFile(file.id)" [disabled]="isLoading$ | async">
+                            <mat-icon svgIcon="save"></mat-icon>
+                        </button>
                     </div>
                 </dsh-expansion-item-header>
                 <dsh-expansion-item-content>

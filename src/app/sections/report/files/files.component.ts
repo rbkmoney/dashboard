@@ -16,16 +16,11 @@ export class FilesComponent {
     @Input() reportID: number;
 
     isLoading$ = this.filesService.isLoading$;
-    downloadableFile$ = this.filesService.downloadableFile$;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private filesService: FilesService) {}
 
     downloadFile(fileID: string) {
         this.filesService.downloadReport(fileID, this.reportID);
-    }
-
-    downloadAll() {
-        this.filesService.downloadAll();
     }
 }
