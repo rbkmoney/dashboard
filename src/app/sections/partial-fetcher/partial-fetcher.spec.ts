@@ -82,26 +82,6 @@ describe('PartialFetch', () => {
         });
     });
 
-    it('should reload with old params', () => {
-        createScheduler().run(({ cold, expectObservable }) => {
-            const partialFetched = new PartialFetched(
-                params => cold('--x|', { x: { result: [params], continuationToken: 'token' } as FetchResult<any> }),
-                0
-            );
-            partialFetched.search('params');
-            partialFetched.fetchMore();
-            partialFetched.refresh();
-            expectObservable(partialFetched.searchResult$).toBe('--0-1-2', [
-                ['params'],
-                ['params', 'params'],
-                ['params']
-            ]);
-            expectObservable(partialFetched.errors$).toBe('');
-            expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
-            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
-        });
-    });
-
     describe('throw error', () => {
         it('should return error with delay', () => {
             createScheduler().run(({ cold, expectObservable }) => {
