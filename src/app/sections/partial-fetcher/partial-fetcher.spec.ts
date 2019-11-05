@@ -5,6 +5,7 @@ import { PartialFetcher } from './partial-fetcher';
 import { FetchResult } from './fetch-result';
 
 function assertDeepEqual(actual: any, expected: any) {
+    console.log(JSON.stringify({ actual, expected }, null, 2));
     expect(actual).toEqual(expected);
 }
 
@@ -28,6 +29,9 @@ describe('PartialFetch', () => {
             const result: FetchResult<any> = { result: ['test'] };
             const partialFetched = new PartialFetched(() => cold('--x|', { x: result }), 100);
             expectObservable(partialFetched.searchResult$).toBe('');
+            expectObservable(partialFetched.errors$).toBe('');
+            expectObservable(partialFetched.doAction$).toBe('0', [false]);
+            expectObservable(partialFetched.hasMore$).toBe('0', [false]);
         });
     });
 
@@ -37,6 +41,9 @@ describe('PartialFetch', () => {
             const partialFetched = new PartialFetched(() => cold('--x|', { x: result }), 100);
             partialFetched.search(null);
             expectObservable(partialFetched.searchResult$).toBe('100ms --0', [['test']]);
+            expectObservable(partialFetched.errors$).toBe('');
+            expectObservable(partialFetched.doAction$).toBe('0 99ms 1 -2', [false, true, false]);
+            expectObservable(partialFetched.hasMore$).toBe('0', [false]);
         });
     });
 
@@ -50,6 +57,9 @@ describe('PartialFetch', () => {
             partialFetched.search(null);
             partialFetched.fetchMore();
             expectObservable(partialFetched.searchResult$).toBe('--0-1', [[undefined], [undefined, 'token']]);
+            expectObservable(partialFetched.errors$).toBe('');
+            expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
+            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
         });
     });
 
@@ -67,6 +77,54 @@ describe('PartialFetch', () => {
                 ['params', 'params'],
                 ['params']
             ]);
+            expectObservable(partialFetched.errors$).toBe('');
+            expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
+            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
+        });
+    });
+
+    it('should reload with old params', () => {
+        createScheduler().run(({ cold, expectObservable }) => {
+            const partialFetched = new PartialFetched(
+                params => cold('--x|', { x: { result: [params], continuationToken: 'token' } as FetchResult<any> }),
+                0
+            );
+            partialFetched.search('params');
+            partialFetched.fetchMore();
+            partialFetched.refresh();
+            expectObservable(partialFetched.searchResult$).toBe('--0-1-2', [
+                ['params'],
+                ['params', 'params'],
+                ['params']
+            ]);
+            expectObservable(partialFetched.errors$).toBe('');
+            expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
+            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
+        });
+    });
+
+    describe('throw error', () => {
+        it('should return error with delay', () => {
+            createScheduler().run(({ cold, expectObservable }) => {
+                const partialFetched = new PartialFetched(() => cold('--#|'), 100);
+                partialFetched.search(null);
+                expectObservable(partialFetched.searchResult$).toBe('100ms --0', [[]]);
+                expectObservable(partialFetched.errors$).toBe('100ms --0', ['error']);
+                expectObservable(partialFetched.doAction$).toBe('0 99ms 1 -2', [false, true, false]);
+                expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+            });
+        });
+
+        it('should fetch after error', () => {
+            createScheduler().run(({ cold, expectObservable }) => {
+                const partialFetched = new PartialFetched(() => cold('--#|'), 0);
+                partialFetched.search(null);
+                partialFetched.fetchMore();
+                expectObservable(partialFetched.searchResult$).toBe('--0-1', [[], []]);
+                expectObservable(partialFetched.errors$).toBe('--0-1', ['error', 'error']);
+                expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
+                expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+            });
         });
     });
 });
