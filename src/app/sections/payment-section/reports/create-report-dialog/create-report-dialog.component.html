@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
-    <ng-container *transloco="let r; scope: 'reports'; read: 'reports.create.dialog'">
-        <h3 class="mat-title">{{ r.title }}</h3>
+    <ng-container *transloco="let r; scope: 'reports'; read: 'reports'">
+        <h3 class="mat-title">{{ r.create.dialog.title }}</h3>
         <div mat-dialog-actions fxLayout fxLayoutGap="20px" fxLayoutGap.xs="10px" [formGroup]="form">
             <div fxLayout fxLayoutGap="20px" fxFill>
                 <mat-form-field fxFlex>
@@ -16,12 +16,23 @@
                     <mat-datepicker #toTime></mat-datepicker>
                 </mat-form-field>
             </div>
+            <mat-form-field fxFill>
+                <mat-label>{{ r.filter.shopID }}</mat-label>
+                <mat-select formControlName="shopID">
+                    <mat-option>
+                        {{ t.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                        {{ shopInfo.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFill>
                 <button dsh-button (click)="cancel()">
                     {{ t.cancel }}
                 </button>
                 <button dsh-button cdkFocusInitial (click)="create()" color="accent">
-                    {{ r.create }}
+                    {{ r.create.dialog.create }}
                 </button>
             </div>
         </div>

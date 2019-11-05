@@ -38,7 +38,10 @@ export class ReportsComponent {
     create() {
         return this.dialog
             .open(CreateReportDialogComponent, {
-                width: '560px'
+                width: '560px',
+                data: {
+                    shopsInfo$: this.reportsService.shopsInfo$
+                }
             })
             .afterClosed()
             .pipe(filter(r => r === 'create'))

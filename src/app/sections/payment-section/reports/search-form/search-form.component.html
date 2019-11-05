@@ -20,8 +20,8 @@
                         <mat-option>
                             {{ t.any }}
                         </mat-option>
-                        <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
-                            {{ item.name }}
+                        <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                            {{ shopInfo.name }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
