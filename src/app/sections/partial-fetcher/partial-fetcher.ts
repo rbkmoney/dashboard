@@ -7,7 +7,8 @@ import {
     switchMap,
     share,
     startWith,
-    distinctUntilChanged
+    distinctUntilChanged,
+    tap
 } from 'rxjs/operators';
 
 import { FetchAction } from './fetch-action';
@@ -51,10 +52,13 @@ export abstract class PartialFetcher<R, P> {
         );
         this.errors$ = searchResultWithToken$.pipe(
             switchMap(({ error }) => (error ? of(error) : empty())),
+            tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );
 
-        ([this.searchResult$, this.hasMore$, this.doAction$] as Observable<any>[]).map(s$ => s$.subscribe());
+        ([this.searchResult$, this.hasMore$, this.doAction$, this.errors$] as Observable<any>[]).map(s$ => {
+            s$.subscribe();
+        });
     }
 
     search(value: P) {
