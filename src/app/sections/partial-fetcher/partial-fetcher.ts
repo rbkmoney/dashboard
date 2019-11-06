@@ -68,16 +68,11 @@ export abstract class PartialFetcher<R, P> {
     protected abstract fetch(...args: Parameters<FetchFn<P, R>>): ReturnType<FetchFn<P, R>>;
 
     private getActionWithParams(debounceActionTime: number): Observable<FetchAction<P>> {
-        return debounceActionTime
-            ? this.action$.pipe(
-                  scanAction,
-                  debounceTime(debounceActionTime),
-                  share()
-              )
-            : this.action$.pipe(
-                  scanAction,
-                  share()
-              );
+        return this.action$.pipe(
+            scanAction,
+            debounceActionTime ? debounceTime(debounceActionTime) : tap(),
+            share()
+        );
     }
 
     private getFetchResult(actionWithParams$: Observable<FetchAction<P>>): Observable<FetchResult<R>> {
