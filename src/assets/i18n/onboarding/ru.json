@@ -41,9 +41,7 @@
             "headPosition": "Должность",
             "innfl": "ИННФЛ (при наличии)",
             "termOfOffice": "Срок полномочий",
-            "termOfOfficeHint": "Пример: 5 лет",
-
-            "authorityConfirmingDocumentType": "Действует на основании"
+            "termOfOfficeHint": "Пример: 5 лет"
         },
         "russianDomesticPassport": {
             "description": "Данные паспорта гражданина РФ",
@@ -59,7 +57,16 @@
             "pdlRelationDegree": "Степень родства"
         },
         "authorityConfirmingDocument": {
-            "typeSelector": "Действует на основании"
+            "typeSelector": "Действует на основании",
+            "documentTypes": {
+                "solePartyDecision": "Решение единственного участника",
+                "meetingOfShareholders": "Протокол общего собрания участников",
+                "meetingOfParticipants": "Протокол общего собрания акционеров",
+                "custom": "Иное"
+            },
+            "customDocumentType": "Тип документа",
+            "date": "Дата",
+            "number": "Номер документа (при наличии)"
         },
         "stepCard": {
             "basicInfo": "Основные сведения",

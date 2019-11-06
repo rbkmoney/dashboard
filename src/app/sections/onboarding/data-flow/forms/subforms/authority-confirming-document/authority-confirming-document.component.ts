@@ -21,7 +21,7 @@ export class AuthorityConfirmingDocumentComponent implements OnChanges {
 
     ngOnChanges({ form }: SimpleChanges) {
         if (form && form.currentValue) {
-            this.documentService.applyFormValue(form.currentValue);
+            this.documentService.applyFormValue(form.currentValue.value);
         }
     }
 

@@ -1,21 +1,15 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import get from 'lodash.get';
-import isEmpty from 'lodash/isEmpty';
 
 import { QuestionaryFormService } from '../questionary-form.service';
-import {
-    QuestionaryData,
-    IdentityDocument,
-    LegalOwnerInfo,
-    AuthorityConfirmingDocument
-} from '../../../../../api-codegen/questionary';
+import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { RussianDomesticPassportService, PdlInfoService, AuthorityConfirmingDocumentService } from '../subforms';
+import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class RussianLegalOwnerService extends QuestionaryFormService {
@@ -33,22 +27,7 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
-        const legalOwnerInfo = get(d, ['contractor', 'legalEntity', 'legalOwnerInfo']);
-        const russianPrivateEntity = get(legalOwnerInfo, ['russianPrivateEntity']);
-        return {
-            birthDate: get(russianPrivateEntity, ['birthDate'], null),
-            birthPlace: get(russianPrivateEntity, ['birthPlace'], null),
-            residenceAddress: get(russianPrivateEntity, ['residenceAddress'], null),
-            snils: get(legalOwnerInfo, ['snils'], null),
-            headPosition: get(legalOwnerInfo, ['headPosition'], null),
-            innfl: get(legalOwnerInfo, ['inn'], null),
-            russianDomesticPassport: this.toDomesticPassportFormValue(get(legalOwnerInfo, ['identityDocument'])),
-            pdlInfo: this.toPdlInfoFormValue(legalOwnerInfo),
-            termOfOffice: get(legalOwnerInfo, ['termOfOffice'], null),
-            authorityConfirmingDocument: this.toAuthorityConfirmingDocument(
-                get(legalOwnerInfo, ['authorityConfirmingDocument'])
-            )
-        };
+        return toFormValue(d);
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -57,34 +36,6 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
 
     protected getStepName(): StepName {
         return StepName.RussianLegalOwner;
-    }
-
-    private toDomesticPassportFormValue(identityDocument: IdentityDocument): FormValue {
-        return {
-            seriesNumber: get(identityDocument, ['seriesNumber'], null),
-            issuer: get(identityDocument, ['issuer'], null),
-            issuerCode: get(identityDocument, ['issuerCode'], null),
-            issuedAt: get(identityDocument, ['issuedAt'], null)
-        };
-    }
-
-    private toPdlInfoFormValue(legalOwnerInfo: LegalOwnerInfo): FormValue {
-        const pdlRelationDegree = get(legalOwnerInfo, ['pdlRelationDegree'], null);
-        if (!isEmpty(pdlRelationDegree)) {
-            this.pdlInfoService.setPdlRelationDegreeVisible(true);
-        }
-        return {
-            pdlCategory: get(legalOwnerInfo, ['pdlCategory'], false),
-            pdlRelationDegree
-        };
-    }
-
-    private toAuthorityConfirmingDocument(authorityConfirmingDocument: AuthorityConfirmingDocument): FormValue {
-        return {
-            type: get(authorityConfirmingDocument, ['type'], null),
-            date: get(authorityConfirmingDocument, ['date'], null),
-            number: get(authorityConfirmingDocument, ['number'], null)
-        };
     }
 
     private initForm(): FormGroup {

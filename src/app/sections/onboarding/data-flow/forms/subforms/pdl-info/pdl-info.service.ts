@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import isEmpty from 'lodash/isEmpty';
+
+import { FormValue } from '../../form-value';
 
 @Injectable()
 export class PdlInfoService {
@@ -10,8 +13,8 @@ export class PdlInfoService {
 
     constructor(private fb: FormBuilder) {}
 
-    setPdlRelationDegreeVisible(isVisible: boolean) {
-        this.pdlRelationDegreeVisible$.next(isVisible);
+    applyFormValue({ pdlRelationDegree }: FormValue) {
+        this.pdlRelationDegreeVisible$.next(!isEmpty(pdlRelationDegree));
     }
 
     pdlRelationDegreeChange(form: FormGroup, checked: boolean) {
