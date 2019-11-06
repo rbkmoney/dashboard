@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { FetchResult } from '../fetch-result';
 import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
-import { concatFirstScan } from '../../../../utils';
+import { concatFirstScan } from '../../../custom-operators';
 
 export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
     s: Observable<FetchAction<P>>
