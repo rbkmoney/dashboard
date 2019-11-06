@@ -29,7 +29,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     );
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(500),
+        booleanDebounceTime(),
         shareReplay(1)
     );
 

@@ -6,7 +6,6 @@
         "status": "Статус",
         "period": "Период",
         "actions": {
-            "downloadAllDocuments": "Загрузить все документы ({{count}})",
             "details": "Детали отчета"
         }
     },

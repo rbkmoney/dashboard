@@ -34,7 +34,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
     );
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(500),
+        booleanDebounceTime(),
         shareReplay(1)
     );
 

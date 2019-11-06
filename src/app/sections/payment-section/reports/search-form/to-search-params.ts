@@ -7,7 +7,6 @@ export function toSearchParams({ reportType, fromTime, toTime, ...params }: Form
         ...params,
         reportTypes: reportType ? [reportType] : Object.values(Report.ReportTypeEnum),
         fromTime: fromTime.utc().format(),
-        toTime: toTime.utc().format(),
-        partyID: ''
+        toTime: toTime.utc().format()
     };
 }

@@ -16,7 +16,7 @@ import { CreateReportDialogComponent } from './create-report-dialog';
 export class ReportsComponent {
     reports$ = this.reportsService.searchResult$;
     isLoading$ = this.reportsService.doAction$.pipe(
-        booleanDebounceTime(500),
+        booleanDebounceTime(),
         shareReplay(1)
     );
     hasMore$ = this.reportsService.hasMore$;
@@ -25,15 +25,20 @@ export class ReportsComponent {
         shareReplay(1)
     );
 
-    fetchMore = () => this.reportsService.fetchMore();
-    refresh = () => this.reportsService.refresh();
-
     constructor(
         private reportsService: ReportsService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
+
+    fetchMore() {
+        this.reportsService.fetchMore();
+    }
+
+    refresh() {
+        this.reportsService.refresh();
+    }
 
     create() {
         return this.dialog

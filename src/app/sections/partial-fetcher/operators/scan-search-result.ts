@@ -6,7 +6,9 @@ import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
 import { concatFirstScan } from '../../../../utils';
 
-export const scanSearchResult = <P, R>(fn: FetchFn<P, R>) => (s: Observable<FetchAction<P>>) =>
+export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
+    s: Observable<FetchAction<P>>
+): Observable<FetchResult<R>> =>
     s.pipe(
         concatFirstScan<FetchAction<P>, FetchResult<R>>(
             ({ result, continuationToken }, action) => {
