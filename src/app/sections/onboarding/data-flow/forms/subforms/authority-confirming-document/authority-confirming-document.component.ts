@@ -13,24 +13,19 @@ export class AuthorityConfirmingDocumentComponent implements OnChanges {
 
     @Input() form: FormGroup;
 
-    constructor(private authorityConfirmingDocumentService: AuthorityConfirmingDocumentService) {}
+    constructor(private documentService: AuthorityConfirmingDocumentService) {}
 
-    authorityConfirmingDocumentTypes = [
-        'solePartyDecision',
-        'meetingOfShareholders',
-        'meetingOfParticipants',
-        'custom'
-    ];
-    isCustomDocumentInfoVisible$ = this.authorityConfirmingDocumentService.isCustomDocumentInfoVisible$;
+    selectOptionTypes = this.documentService.selectOptionTypes;
+    selectValue$ = this.documentService.selectValue$;
+    isCustomDocumentInfoVisible$ = this.documentService.isCustomDocumentInfoVisible$;
 
-    ngOnChanges({ form }: SimpleChanges): void {
+    ngOnChanges({ form }: SimpleChanges) {
         if (form && form.currentValue) {
-            const type = form.currentValue.value.type;
-            this.authorityConfirmingDocumentService.setCustomDocumentInfoVisible(true);
+            this.documentService.applyFormValue(form.currentValue);
         }
     }
 
-    authorityConfirmingDocumentTypeSelectionChange({ value }: MatSelectChange) {
-        this.authorityConfirmingDocumentService.authorityConfirmingDocumentTypeSelectionChange(this.form, value);
+    documentTypeSelectionChange({ value }: MatSelectChange) {
+        this.documentService.documentTypeSelectionChange(this.form, value);
     }
 }

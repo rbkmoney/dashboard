@@ -29,6 +29,7 @@ const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
     { type, date, number }: FormValue
 ): AuthorityConfirmingDocument => {
+    console.log(type, date, number);
     return {
         ...authorityConfirmingDocument,
         type,

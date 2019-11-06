@@ -6,13 +6,9 @@
 >
     <mat-form-field>
         <mat-label>{{ t.typeSelector }}</mat-label>
-        <mat-select
-            [value]="'custom'"
-            (selectionChange)="authorityConfirmingDocumentTypeSelectionChange($event)"
-            required
-        >
-            <mat-option *ngFor="let documentType of authorityConfirmingDocumentTypes" [value]="documentType">
-                {{ documentType }}
+        <mat-select [value]="selectValue$ | async" (selectionChange)="documentTypeSelectionChange($event)" required>
+            <mat-option *ngFor="let option of selectOptionTypes" [value]="option">
+                {{ option }}
             </mat-option>
         </mat-select>
     </mat-form-field>
