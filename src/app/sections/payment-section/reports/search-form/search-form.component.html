@@ -1,0 +1,65 @@
+<dsh-float-panel *transloco="let r; scope: 'reports'; read: 'reports'" [formGroup]="form" [(expanded)]="expanded">
+    <ng-container *transloco="let t">
+        <div
+            fxLayout
+            fxLayout.lt-md="column"
+            fxLayoutGap="20px"
+            fxLayoutAlign="space-between center"
+            fxLayoutAlign.lt-md="space-between stretch"
+        >
+            <dsh-daterange-selector
+                fxFlex.gt-sm
+                [value]="form.value"
+                (selectDaterange)="selectDaterange($event)"
+                (selectMore)="expanded = true"
+            ></dsh-daterange-selector>
+            <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20px">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ r.filter.shopID }}</mat-label>
+                    <mat-select formControlName="shopID">
+                        <mat-option>
+                            {{ t.any }}
+                        </mat-option>
+                        <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                            {{ shopInfo.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ r.filter.type }}</mat-label>
+                    <mat-select formControlName="reportType">
+                        <mat-option>
+                            {{ t.any }}
+                        </mat-option>
+                        <mat-option *ngFor="let type of reportTypes" [value]="type">
+                            {{ r.type[type] }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </dsh-justify-wrapper>
+        </div>
+        <dsh-float-panel-more>
+            <div fxLayout fxLayout.lt-md="column" fxLayoutGap.gt-sm="20px">
+                <div fxFlex.gt-sm fxLayout fxLayout.xs="column" fxLayoutGap.gt-xs="20px">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.period.fromTime }}</mat-label>
+                        <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
+                        <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
+                        <mat-datepicker #fromTime></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ t.period.toTime }}</mat-label>
+                        <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
+                        <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
+                        <mat-datepicker #toTime></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </dsh-float-panel-more>
+        <dsh-float-panel-actions>
+            <button dsh-button (click)="reset()">
+                {{ t.resetSearchParams }}
+            </button>
+        </dsh-float-panel-actions>
+    </ng-container>
+</dsh-float-panel>
