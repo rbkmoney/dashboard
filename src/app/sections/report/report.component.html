@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'report'; read: 'report'">
-    <div *ngIf="!(reportCompleted | async)" fxLayout fxLayoutAlign="center center">
+    <div *ngIf="!(reportInitialized$ | async)" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>
     <ng-container *ngIf="!(reportError$ | async)">

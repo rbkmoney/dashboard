@@ -13,7 +13,7 @@ import { ReportService } from './report.service';
 export class ReportComponent implements OnInit {
     report$ = this.reportService.report$;
     reportError$ = this.reportService.reportError$;
-    reportCompleted = this.reportService.reportCompleted$;
+    reportInitialized$ = this.reportService.reportInitialized$;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,

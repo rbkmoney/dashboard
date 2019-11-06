@@ -17,7 +17,7 @@ export class ReportService {
         switchMap(reportID => this.reportSearchService.getReport(reportID)),
         shareReplay(1)
     );
-    reportCompleted$: Observable<boolean> = this.report$.pipe(
+    reportInitialized$: Observable<boolean> = this.report$.pipe(
         booleanDelay(500),
         map(r => !r)
     );
