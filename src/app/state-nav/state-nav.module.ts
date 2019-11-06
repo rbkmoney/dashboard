@@ -6,10 +6,12 @@ import { MatIconModule } from '@angular/material';
 import { StateNavComponent } from './state-nav.component';
 import { StateNavItemComponent } from './state-nav-item';
 
+const EXPORTED_DECLARATIONS = [StateNavComponent, StateNavItemComponent];
+
 @NgModule({
     imports: [FlexModule, CommonModule, MatIconModule],
-    declarations: [StateNavComponent, StateNavItemComponent],
+    declarations: EXPORTED_DECLARATIONS,
     entryComponents: [],
-    exports: [StateNavComponent, StateNavItemComponent]
+    exports: EXPORTED_DECLARATIONS
 })
 export class StateNavModule {}

@@ -8,10 +8,17 @@ import { DropdownTriggerDirective } from './dropdown-trigger.directive';
 import { DropdownActionsComponent } from './dropdown-actions';
 import { DropdownContentComponent } from './dropdown-content';
 
+const EXPORTED_DECLARATIONS = [
+    DropdownComponent,
+    DropdownTriggerDirective,
+    DropdownActionsComponent,
+    DropdownContentComponent
+];
+
 @NgModule({
     imports: [CommonModule, OverlayModule, PortalModule, PortalModule],
-    exports: [DropdownComponent, DropdownTriggerDirective, DropdownActionsComponent, DropdownContentComponent],
-    declarations: [DropdownComponent, DropdownTriggerDirective, DropdownActionsComponent, DropdownContentComponent],
+    exports: EXPORTED_DECLARATIONS,
+    declarations: EXPORTED_DECLARATIONS,
     entryComponents: [DropdownComponent]
 })
 export class DropdownModule {}

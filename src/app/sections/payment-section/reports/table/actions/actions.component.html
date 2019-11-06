@@ -5,7 +5,7 @@
     <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
         <dsh-dropdown-actions>
             <dsh-state-nav flat>
-                <dsh-state-nav-item>{{ t.details }}</dsh-state-nav-item>
+                <dsh-state-nav-item (click)="goToReportDetails(report.id)">{{ t.details }}</dsh-state-nav-item>
             </dsh-state-nav>
         </dsh-dropdown-actions>
     </dsh-dropdown>

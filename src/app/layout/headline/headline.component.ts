@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -7,8 +7,6 @@ import { Location } from '@angular/common';
     styleUrls: ['headline.component.scss']
 })
 export class HeadlineComponent {
-    @Input() paymentID: string;
-
     constructor(private location: Location) {}
 
     // 1 and 2 is default history length

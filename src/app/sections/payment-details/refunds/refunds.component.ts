@@ -1,4 +1,7 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { RefundsService } from './refunds.service';
 import { LAYOUT_GAP } from '../../constants';
@@ -13,10 +16,20 @@ export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
 
-    refunds$ = this.refundsService.searchResult$;
+    refunds$ = this.refundsService.searchResult$.pipe(
+        catchError(() => {
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+            return [];
+        })
+    );
     hasMoreRefunds$ = this.refundsService.hasMore$;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, public refundsService: RefundsService) {}
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        public refundsService: RefundsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     ngOnChanges({ invoiceID, paymentID }: SimpleChanges) {
         if (invoiceID.currentValue && paymentID.currentValue) {
