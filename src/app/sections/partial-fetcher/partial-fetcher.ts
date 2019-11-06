@@ -1,4 +1,4 @@
-import { Observable, Subject, of, empty } from 'rxjs';
+import { Observable, Subject, of, empty, merge } from 'rxjs';
 import {
     map,
     shareReplay,
@@ -28,7 +28,6 @@ export abstract class PartialFetcher<R, P> {
     constructor(debounceActionTime: number = 300) {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
-        fetchResult$.subscribe();
 
         this.searchResult$ = fetchResult$.pipe(
             pluck('result'),
@@ -50,6 +49,8 @@ export abstract class PartialFetcher<R, P> {
             tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );
+
+        merge(this.searchResult$, this.hasMore$, this.doAction$, this.errors$).subscribe();
     }
 
     search(value: P) {
