@@ -1,0 +1,30 @@
+<div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="20px">
+    <h1 class="mat-headline">{{ r.title }}</h1>
+    <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex class="mat-body-1">
+            {{ r.create.description }}
+        </div>
+        <div>
+            <button dsh-stroked-button color="accent" (click)="create()">
+                {{ r.create.button }}
+            </button>
+        </div>
+    </div>
+    <dsh-reports-search-form></dsh-reports-search-form>
+    <div fxLayout="column" fxLayoutGap="20px" *transloco="let t">
+        <dsh-card>
+            <dsh-card-content fxLayout="column" fxLayoutGap="15px">
+                <dsh-last-updated
+                    *ngIf="!(isLoading$ | async)"
+                    (update)="refresh()"
+                    [lastUpdated]="lastUpdated$ | async"
+                ></dsh-last-updated>
+                <dsh-spinner *ngIf="isLoading$ | async" size="20"></dsh-spinner>
+                <dsh-reports-table [reports]="reports$ | async"></dsh-reports-table>
+                <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
+                    {{ (isLoading$ | async) ? t.loading : t.showMore }}
+                </button>
+            </dsh-card-content>
+        </dsh-card>
+    </div>
+</div>
