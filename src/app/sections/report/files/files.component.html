@@ -14,7 +14,7 @@
                         <div class="file-name">
                             {{ file.filename }}
                         </div>
-                        <button dsh-icon-button (click)="downloadFile(file.id)" [disabled]="isLoading$ | async">
+                        <button dsh-icon-button (click)="downloadFile(file.id)" [disabled]="isLoading">
                             <mat-icon svgIcon="save"></mat-icon>
                         </button>
                     </div>

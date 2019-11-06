@@ -19,7 +19,7 @@ export class FilesComponent {
     @Input() files: FileMeta[];
     @Input() reportID: number;
 
-    isLoading$: Subject<boolean> = new Subject();
+    isLoading = false;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(
@@ -30,18 +30,18 @@ export class FilesComponent {
     ) {}
 
     downloadFile(fileID: string) {
-        this.isLoading$.next(true);
+        this.isLoading = true;
         this.filesService
             .downloadFile(this.reportID, fileID)
             .pipe(
                 catchError(() => {
-                    this.isLoading$.next(false);
+                    this.isLoading = false;
                     this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                     return [];
                 })
             )
             .subscribe(fileLink => {
-                this.isLoading$.next(false);
+                this.isLoading = false;
                 download(fileLink.url);
             });
     }
