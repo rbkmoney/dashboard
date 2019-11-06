@@ -44,6 +44,7 @@ export class ReportsComponent {
         return this.dialog
             .open(CreateReportDialogComponent, {
                 width: '560px',
+                disableClose: true,
                 data: {
                     shopsInfo$: this.reportsService.shopsInfo$
                 }

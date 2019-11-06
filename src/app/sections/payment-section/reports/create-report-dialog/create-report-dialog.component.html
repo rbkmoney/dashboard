@@ -1,7 +1,7 @@
 <ng-container *transloco="let t">
     <ng-container *transloco="let r; scope: 'reports'; read: 'reports'">
         <h3 class="mat-title">{{ r.create.dialog.title }}</h3>
-        <div mat-dialog-actions fxLayout fxLayoutGap="20px" fxLayoutGap.xs="10px" [formGroup]="form">
+        <div fxLayout="column" fxLayoutGap.xs="10px" [formGroup]="form">
             <div fxLayout fxLayoutGap="20px" fxFill>
                 <mat-form-field fxFlex>
                     <mat-label>{{ t.period.fromTime }}</mat-label>
