@@ -12,10 +12,10 @@ export abstract class QuestionaryFormService {
     readonly form$ = new AsyncSubject<FormGroup>();
     readonly stepName: StepName = this.getStepName();
 
-    private data$ = this.questionarySateService.questionaryData$.pipe(first());
+    private data$ = this.questionaryStateService.questionaryData$.pipe(first());
 
     constructor(
-        protected questionarySateService: QuestionaryStateService,
+        protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {}
 
@@ -38,7 +38,7 @@ export abstract class QuestionaryFormService {
                     }
                 })
             )
-            .subscribe(d => this.questionarySateService.add(d));
+            .subscribe(d => this.questionaryStateService.add(d));
     }
 
     startFormValidityReporting(debounceMs = 300): Subscription {
