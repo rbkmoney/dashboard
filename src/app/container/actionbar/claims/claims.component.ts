@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 
 import { ClaimsService } from './claims.service';
 
@@ -11,7 +11,11 @@ import { ClaimsService } from './claims.service';
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();
 
+    claims$ = this.claimsService.claims$;
+    isLoading$ = this.claimsService.isLoading$;
+    error$ = this.claimsService.error$;
+
     dicBasePath = 'actionbar.claims';
 
-    constructor(public claimsService: ClaimsService) {}
+    constructor(private claimsService: ClaimsService) {}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
+import { shareReplay, pluck } from 'rxjs/operators';
 
 import { ClaimsService as ClaimsApiService } from '../../../api/claims/claims.service';
 import { booleanDelay, takeError } from '../../../custom-operators';
@@ -7,7 +7,7 @@ import { booleanDelay, takeError } from '../../../custom-operators';
 @Injectable()
 export class ClaimsService {
     claims$ = this.claimsService.searchClaims(5).pipe(
-        map(({ result }) => result),
+        pluck('result'),
         shareReplay(1)
     );
     isLoading$ = this.claims$.pipe(booleanDelay());
