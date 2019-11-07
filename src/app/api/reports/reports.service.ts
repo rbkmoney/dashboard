@@ -9,12 +9,11 @@ import { toDateLike, genXRequestID } from '../utils';
 export class ReportsService {
     constructor(private reportsService: ReportsApiService) { }
 
-    createReport({ fromTime, toTime, partyID, shopID }: CreateReportReq) {
+    createReport({ fromTime, toTime, shopID }: CreateReportReq) {
         return this.reportsService.createReport(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
-            partyID,
             undefined,
             shopID
         );
@@ -24,20 +23,19 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    searchReports({ fromTime, toTime, reportTypes, partyID, shopID, continuationToken }: SearchReportsReq) {
+    searchReports({ fromTime, toTime, reportTypes, shopID, continuationToken }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             reportTypes,
-            partyID,
             undefined,
             shopID,
             continuationToken
         );
     }
 
-    downloadFile(reportID: number, filedID: string) {
-        return this.reportsService.downloadFile(genXRequestID(), reportID, filedID);
+    downloadFile(reportID: number, fileID: string) {
+        return this.reportsService.downloadFile(genXRequestID(), reportID, fileID);
     }
 }

@@ -1,0 +1,40 @@
+<ng-container *transloco="let t">
+    <ng-container *transloco="let r; scope: 'reports'; read: 'reports'">
+        <h3 class="mat-title">{{ r.create.dialog.title }}</h3>
+        <div fxLayout="column" fxLayoutGap.xs="10px" [formGroup]="form">
+            <div fxLayout fxLayoutGap="20px" fxFill>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ t.period.fromTime }}</mat-label>
+                    <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
+                    <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
+                    <mat-datepicker #fromTime></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-label>{{ t.period.toTime }}</mat-label>
+                    <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
+                    <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
+                    <mat-datepicker #toTime></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <mat-form-field fxFill>
+                <mat-label>{{ r.filter.shopID }}</mat-label>
+                <mat-select formControlName="shopID">
+                    <mat-option>
+                        {{ t.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                        {{ shopInfo.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFill>
+                <button dsh-button (click)="cancel()">
+                    {{ t.cancel }}
+                </button>
+                <button dsh-button cdkFocusInitial (click)="create()" color="accent">
+                    {{ r.create.dialog.create }}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

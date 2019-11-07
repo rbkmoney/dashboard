@@ -15,28 +15,26 @@ import { DshInkBarDirective } from './ink-bar.directive';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 import { TabLinkDirective, TabNavComponent } from './tab-nav-bar';
 
+const EXPORTED_DECLARATIONS = [
+    DshTabGroupComponent,
+    DshTabComponent,
+    DshTabHeaderComponent,
+    DshTabBodyComponent,
+    TabNavComponent,
+    TabLinkDirective
+];
+
 @NgModule({
     imports: [CommonModule, MatCommonModule, PortalModule, MatRippleModule, ObserversModule, A11yModule],
-    exports: [
-        DshTabGroupComponent,
-        DshTabComponent,
-        DshTabHeaderComponent,
-        DshTabBodyComponent,
-        TabNavComponent,
-        TabLinkDirective
-    ],
+    exports: EXPORTED_DECLARATIONS,
     declarations: [
+        ...EXPORTED_DECLARATIONS,
         DshTabGroupComponent,
-        DshTabComponent,
-        DshTabHeaderComponent,
-        DshTabBodyComponent,
         DshTabBodyPortalDirective,
         DshTabLabelDirective,
         DshTabContentDirective,
         DshInkBarDirective,
-        DshTabLabelWrapperDirective,
-        TabNavComponent,
-        TabLinkDirective
+        DshTabLabelWrapperDirective
     ]
 })
 export class DshTabsModule {}

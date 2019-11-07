@@ -1,6 +1,7 @@
 {
     "nav": {
-        "operations": "Операции"
+        "operations": "Операции",
+        "reports": "Отчеты"
     },
     "operations": {
         "headline": "Операции",

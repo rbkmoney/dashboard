@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; scope: 'report'; read: 'report'">
+    <div *ngIf="!(reportInitialized$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <ng-container *ngIf="!(reportError$ | async)">
+        <div *ngIf="report$ | async as report" class="dsh-report-details" fxLayout="column" [fxLayoutGap]="layoutGap">
+            <dsh-headline>
+                <div>
+                    {{ t.title }}
+                    <span dshSecondaryTitle>
+                        {{ report ? '#' + report?.id : '' }}
+                    </span>
+                </div>
+            </dsh-headline>
+            <dsh-details [report]="report"></dsh-details>
+            <dsh-files [files]="report.files" [reportID]="report.id"></dsh-files>
+        </div>
+    </ng-container>
+</ng-container>

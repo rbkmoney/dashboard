@@ -3,14 +3,13 @@ import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { RefundItemComponent, RefundsComponent } from './refunds';
 import { LayoutModule } from '../../layout';
 import { StatusModule } from '../../status';
 import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
-import { DetailsItemComponent } from './details-item';
 import {
     BankCardComponent,
     DigitalWalletComponent,
@@ -26,7 +25,6 @@ import { InvoiceDetailsComponent } from './invoice-details';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { StatusDetailsItemComponent } from './status-details-item';
-import { SecondaryTitleDirective } from './secondary-title';
 import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
@@ -35,8 +33,8 @@ import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
 import { ViewUtilsModule } from '../../view-utils';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
-import { HeadlineComponent } from './headline';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { DetailsItemModule } from '../../details-item/details-item.module';
 
 @NgModule({
     imports: [
@@ -53,12 +51,12 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ViewUtilsModule,
         InvoiceModule,
         HumanizeDurationModule,
-        TranslocoModule
+        TranslocoModule,
+        DetailsItemModule
     ],
     declarations: [
         PaymentDetailsComponent,
         DetailsComponent,
-        DetailsItemComponent,
         StatusDetailsItemComponent,
         PaymentToolComponent,
         AmountPipe,
@@ -69,7 +67,6 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         ShopDetailsComponent,
         RefundsComponent,
         RefundItemComponent,
-        SecondaryTitleDirective,
         CurrencySymbolPipe,
         BankCardPipe,
         PhoneNumberPipe,
@@ -79,8 +76,8 @@ import { HumanizeDurationModule } from '../../humanize-duration';
         CustomerPayerComponent,
         PaymentResourcePayerComponent,
         ShopLocationUrlComponent,
-        MakeRecurrentComponent,
-        HeadlineComponent
-    ]
+        MakeRecurrentComponent
+    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}

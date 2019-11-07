@@ -5,6 +5,7 @@
     "back": "Назад",
     "next": "Далее",
     "ago": "назад",
+    "cancel": "Отмена",
     "justNow": "только что",
     "today": "Сегодня",
     "week": "Неделя",
@@ -15,6 +16,11 @@
     "httpError": "Произошла ошибка в процессе получения данных",
     "commonError": "Что-то пошло не так",
     "loading": "Загрузка...",
+    "ok": "OK",
+    "period": {
+        "fromTime": "Начало периода",
+        "toTime": "Конец периода"
+    },
     "paymentStatus": {
         "pending": "Запущен",
         "processed": "Обработан",
@@ -22,6 +28,10 @@
         "cancelled": "Отменен",
         "refunded": "Возвращен",
         "failed": "Неуспешен"
+    },
+    "reportType": {
+        "paymentRegistry": "Ручной",
+        "provisionOfService": "Автоматический"
     },
     "invoiceStatus": {
         "paid": "Оплачен",
@@ -33,6 +43,10 @@
         "succeeded": "Успешен",
         "pending": "Запущен",
         "failed": "Неуспешен"
+    },
+    "reportStatus": {
+        "pending": "В процессе",
+        "processed": "Готов"
     },
     "paymentFlow": {
         "instant": "Мгновенный",

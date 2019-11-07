@@ -11,10 +11,12 @@ import { LinearChartComponent } from './linear-chart/linear-chart.component';
 import { LegendTooltipService } from './legend-tooltip/legend-tooltip.service';
 import { LegendComponent } from './legend/legend.component';
 
+const EXPORTED_DECLARATIONS = [DonutChartComponent, BarChartComponent, LinearChartComponent, LegendComponent];
+
 @NgModule({
-    declarations: [DonutChartComponent, BarChartComponent, LinearChartComponent, LegendComponent],
+    declarations: EXPORTED_DECLARATIONS,
     imports: [CommonModule, LayoutModule],
-    exports: [DonutChartComponent, BarChartComponent, LinearChartComponent, LegendComponent],
+    exports: EXPORTED_DECLARATIONS,
     providers: [ChartsService, DonutChartService, LegendTooltipService]
 })
 export class ChartsModule {}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { ApiModule, Configuration } from './swagger-codegen';
 import { AnapiConfigService } from './anapi-config.service';
+import { ReportsService } from './reports.service';
 
 @NgModule({
     imports: [
@@ -10,6 +11,6 @@ import { AnapiConfigService } from './anapi-config.service';
             providers: [{ provide: Configuration, useClass: AnapiConfigService }]
         }
     ],
-    providers: [AnapiConfigService]
+    providers: [AnapiConfigService, ReportsService]
 })
 export class AnapiModule {}
