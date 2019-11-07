@@ -7,7 +7,7 @@ import { toDateLike, genXRequestID } from '../utils';
 
 @Injectable()
 export class ReportsService {
-    constructor(private reportsService: ReportsApiService) { }
+    constructor(private reportsService: ReportsApiService) {}
 
     createReport({ fromTime, toTime, shopID }: CreateReportReq) {
         return this.reportsService.createReport(
