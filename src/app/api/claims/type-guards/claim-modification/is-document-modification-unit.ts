@@ -1,4 +1,4 @@
-import { ClaimModification, DocumentModificationUnit, Modification } from '../../../api-codegen/claim-management';
+import { ClaimModification, DocumentModificationUnit, Modification } from '../../../../api-codegen/claim-management';
 import { isClaimModification } from './is-claim-modification';
 import { isDocumentCreated } from './is-document-created';
 

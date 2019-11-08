@@ -2,9 +2,10 @@ import { Injectable, SimpleChange } from '@angular/core';
 
 import { ClaimStatusViewInfo, getClaimStatusViewInfo } from '../../../../../view-utils';
 import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management/swagger-codegen';
+import { getClaimType, ClaimType } from './get-claim-type';
 
 export interface ClaimListItem {
-    claimType: string;
+    claimType: ClaimType;
     statusViewInfo: ClaimStatusViewInfo;
 }
 
@@ -16,7 +17,7 @@ export class ClaimsListItemService {
 
     toClaimListItem(claim: Claim): ClaimListItem {
         return {
-            claimType: 'Заявка на подключение', // TODO implement this later
+            claimType: getClaimType(claim.changeset),
             statusViewInfo: getClaimStatusViewInfo(claim.status as StatusModificationUnit.StatusEnum)
         };
     }

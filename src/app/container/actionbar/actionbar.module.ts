@@ -13,7 +13,7 @@ import { StateNavModule } from '../../state-nav';
 import { ButtonModule } from '../../button';
 import { StatusModule } from '../../status';
 import { UserComponent } from './user';
-import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
+import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent, ClaimTypeLabelPipe } from './claims';
 import { ActionItemComponent } from './action-item';
 import { ClaimsService } from '../../api/claims';
 import { SpinnerModule } from '../../spinner';
@@ -39,7 +39,8 @@ import { SpinnerModule } from '../../spinner';
         ClaimsListComponent,
         ClaimsListItemComponent,
         UserComponent,
-        ClaimsComponent
+        ClaimsComponent,
+        ClaimTypeLabelPipe
     ],
     providers: [ClaimsService],
     exports: [ActionbarComponent]
