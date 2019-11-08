@@ -9,7 +9,6 @@ import { InvoiceDetailsService } from './invoice-details.service';
 import { LAYOUT_GAP } from '../../constants';
 
 @Component({
-    selector: 'dsh-invoice-details',
     templateUrl: './invoice-details.component.html',
     styleUrls: ['./invoice-details.component.scss'],
     providers: [InvoiceDetailsService]

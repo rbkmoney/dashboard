@@ -5,7 +5,6 @@ import { InvoiceDetailsRoutingModule } from './invoice-details-routing.module';
 
 @NgModule({
     imports: [InvoiceDetailsRoutingModule],
-    declarations: [InvoiceDetailsComponent],
-    exports: [InvoiceDetailsComponent]
+    declarations: [InvoiceDetailsComponent]
 })
 export class InvoiceDetailsModule {}
