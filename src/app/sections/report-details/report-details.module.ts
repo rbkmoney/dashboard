@@ -4,7 +4,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 
-import { ReportComponent } from './report.component';
+import { ReportDetailsComponent } from './report-details.component';
 import { ReportRoutingModule } from './report-routing.module';
 import { DetailsComponent } from './details/details.component';
 import { ReportsModule, ReportsService } from '../../api/reports';
@@ -34,7 +34,7 @@ import { SpinnerModule } from '../../spinner';
         ExpandPanelModule,
         SpinnerModule
     ],
-    declarations: [ReportComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
+    declarations: [ReportDetailsComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }, ReportsService]
 })
-export class ReportModule {}
+export class ReportDetailsModule {}
