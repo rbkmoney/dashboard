@@ -17,12 +17,16 @@ const routes: Routes = [
         loadChildren: () => import('./payment-section').then(m => m.PaymentSectionModule)
     },
     {
-        path: 'invoice',
+        path: 'invoice/:invoiceID/payment',
         loadChildren: () => import('./payment-details').then(m => m.PaymentDetailsModule)
     },
     {
+        path: 'invoice',
+        loadChildren: () => import('./invoice-details').then(m => m.InvoiceDetailsModule)
+    },
+    {
         path: 'report',
-        loadChildren: () => import('./report').then(m => m.ReportModule)
+        loadChildren: () => import('./report-details').then(m => m.ReportModule)
     },
     {
         path: 'onboarding',
