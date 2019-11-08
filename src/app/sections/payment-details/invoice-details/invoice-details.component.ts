@@ -1,5 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../theme-manager';
@@ -18,7 +19,11 @@ export class InvoiceDetailsComponent implements OnInit {
 
     invoice$: Observable<Invoice>;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private invoiceDetailsService: InvoiceDetailsService) {}
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        private invoiceDetailsService: InvoiceDetailsService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
@@ -36,5 +41,9 @@ export class InvoiceDetailsComponent implements OnInit {
             case statusEnum.Unpaid:
                 return { color: Color.pending, text: 'unpaid' };
         }
+    }
+
+    goToInvoiceDetails({ id }: Invoice) {
+        this.router.navigate(['invoice', id]);
     }
 }
