@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'dsh-invoice-details',
     templateUrl: 'invoice-details.component.html'
 })
 export class InvoiceDetailsComponent {
