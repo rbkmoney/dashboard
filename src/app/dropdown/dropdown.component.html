@@ -3,7 +3,7 @@
         <div [@openClose]="state" (@openClose.done)="animationDone$.next($event)">
             <div class="dsh-dropdown-triangle" [style.left]="triangleLeftOffset"></div>
             <div class="dsh-dropdown">
-                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplateRef"></ng-container>
             </div>
         </div>
     </div>

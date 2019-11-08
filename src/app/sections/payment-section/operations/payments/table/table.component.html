@@ -55,13 +55,15 @@
                     <mat-icon svgIcon="more_vert"></mat-icon>
                 </button>
                 <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
-                    <dsh-dropdown-actions>
-                        <dsh-state-nav flat>
-                            <dsh-state-nav-item (click)="goToPaymentDetails(element)">{{
-                                t.actions.paymentDetails
-                            }}</dsh-state-nav-item>
-                        </dsh-state-nav>
-                    </dsh-dropdown-actions>
+                    <ng-template>
+                        <dsh-dropdown-actions>
+                            <dsh-state-nav flat>
+                                <dsh-state-nav-item (click)="goToPaymentDetails(element)">{{
+                                    t.actions.paymentDetails
+                                }}</dsh-state-nav-item>
+                            </dsh-state-nav>
+                        </dsh-dropdown-actions>
+                    </ng-template>
                 </dsh-dropdown>
             </td>
         </ng-container>
