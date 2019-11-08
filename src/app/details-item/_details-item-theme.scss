@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-details-item-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .title {
+        color: map-get($gray, 500);
+    }
+    .content {
+        word-wrap: break-word;
+    }
+}

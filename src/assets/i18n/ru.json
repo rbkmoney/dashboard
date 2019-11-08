@@ -29,6 +29,10 @@
         "refunded": "Возвращен",
         "failed": "Неуспешен"
     },
+    "reportType": {
+        "paymentRegistry": "Ручной",
+        "provisionOfService": "Автоматический"
+    },
     "invoiceStatus": {
         "paid": "Оплачен",
         "unpaid": "Не оплачен",
@@ -39,6 +43,10 @@
         "succeeded": "Успешен",
         "pending": "Запущен",
         "failed": "Неуспешен"
+    },
+    "reportStatus": {
+        "pending": "В процессе",
+        "processed": "Готов"
     },
     "paymentFlow": {
         "instant": "Мгновенный",

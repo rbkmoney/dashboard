@@ -9,9 +9,17 @@ import {
     CardActionsComponent
 } from './card.component';
 
+const EXPORTED_DECLARATIONS = [
+    CardComponent,
+    CardContentComponent,
+    CardTitleDirective,
+    CardHeaderComponent,
+    CardActionsComponent
+];
+
 @NgModule({
     imports: [CommonModule],
-    declarations: [CardComponent, CardContentComponent, CardTitleDirective, CardHeaderComponent, CardActionsComponent],
-    exports: [CardComponent, CardContentComponent, CardTitleDirective, CardHeaderComponent, CardActionsComponent]
+    declarations: EXPORTED_DECLARATIONS,
+    exports: EXPORTED_DECLARATIONS
 })
 export class CardModule {}

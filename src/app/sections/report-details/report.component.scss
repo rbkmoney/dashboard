@@ -1,0 +1,10 @@
+$dsh-report-details-max-width: 660px;
+$dsh-report-details-top-padding: 20px;
+
+.dsh {
+    &-report-details {
+        margin: 0 auto;
+        max-width: $dsh-report-details-max-width;
+        padding-top: $dsh-report-details-top-padding;
+    }
+}

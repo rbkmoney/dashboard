@@ -23,6 +23,9 @@
 @import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
+@import '../../app/expansion/expansion-theme';
+@import '../../app/details-item/details-item-theme';
+@import '../../app/layout/headline/secondary-title/secondary-title-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -51,5 +54,8 @@
         @include dsh-expand-panel-theme($theme);
         @include dsh-dadata-autocomplete-theme($theme);
         @include dsh-payment-details-theme($theme);
+        @include dsh-expansion-theme($theme);
+        @include dsh-details-item-theme($theme);
+        @include dsh-details-secondary-title-theme($theme);
     }
 }
