@@ -1,0 +1,60 @@
+<dsh-card>
+    <dsh-card-content
+        *transloco="let t; scope: 'invoice'; read: 'invoice.details'"
+        fxLayout="column"
+        [fxLayoutGap]="layoutGap"
+    >
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+            <dsh-details-status-item
+                *transloco="let c; read: 'invoiceStatus'"
+                [color]="color"
+                [text]="c[status]"
+                fxFlex="33"
+            ></dsh-details-status-item>
+            <dsh-details-item [title]="t.amount" fxFlex="33">
+                <div class="mat-body-1">
+                    {{ invoice.amount | currency: invoice.currency }}
+                </div>
+            </dsh-details-item>
+            <dsh-details-item *ngIf="invoice.invoiceTemplateID" [title]="t.invoiceTemplate" fxFlex="33">
+                <div class="mat-body-1">
+                    {{ invoice.invoiceTemplateID }}
+                </div>
+            </dsh-details-item>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+            <dsh-details-item [title]="t.createdAt" fxFlex="33">
+                <div class="mat-body-1">
+                    {{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+                </div>
+            </dsh-details-item>
+            <dsh-details-item [title]="t.dueDate" fxFlex="33">
+                <div class="mat-body-1">
+                    {{ invoice.dueDate | date: 'dd MMMM yyyy, HH:mm' }}
+                </div>
+            </dsh-details-item>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+            <dsh-details-item [title]="t.product" fxFlex="100">
+                <div class="mat-body-1">
+                    {{ invoice.product }}
+                </div>
+            </dsh-details-item>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+            <dsh-details-item [title]="t.description" fxFlex="100">
+                <div class="mat-body-1">
+                    {{ invoice.description }}
+                </div>
+            </dsh-details-item>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap" *ngIf="invoice.reason">
+            <dsh-details-item [title]="t.reason" fxFlex="100">
+                <div class="mat-body-1">
+                    {{ invoice.reason }}
+                </div>
+            </dsh-details-item>
+        </div>
+    </dsh-card-content>
+</dsh-card>
