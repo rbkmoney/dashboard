@@ -4,9 +4,9 @@ import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { first, switchMap, shareReplay, map } from 'rxjs/operators';
 
-import { InvoiceSearchService } from '../../api/search';
 import { booleanDelay, takeError } from '../../custom-operators';
 import { Invoice } from '../../api-codegen/anapi/swagger-codegen';
+import { InvoiceService } from '../../api/invoice';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -14,7 +14,7 @@ export class InvoiceDetailsService {
 
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
-        switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 1, unit: 'y' }, invoiceID)),
+        switchMap(invoiceID => this.invoiceService.getInvoiceByDuration({ amount: 1, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
     invoiceInitialized$: Observable<boolean> = this.invoice$.pipe(
@@ -27,7 +27,7 @@ export class InvoiceDetailsService {
     );
 
     constructor(
-        private invoiceSearchService: InvoiceSearchService,
+        private invoiceService: InvoiceService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
