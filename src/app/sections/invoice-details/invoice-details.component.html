@@ -1,3 +1,5 @@
 <div class="dsh-invoice-details">
-    InvoiceDetailsComponent
+    <ng-container *ngIf="invoice$ | async as invoice">
+        <dsh-shop-details [shopID]="invoice.shopID"></dsh-shop-details>
+    </ng-container>
 </div>
