@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ReportComponent } from './report.component';
+import { ReportDetailsComponent } from './report-details.component';
 
 const reportDetailsRoutes: Routes = [
     {
         path: ':reportID',
-        component: ReportComponent
+        component: ReportDetailsComponent
     }
 ];
 
