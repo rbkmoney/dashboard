@@ -43,6 +43,19 @@
             "termOfOffice": "Срок полномочий",
             "termOfOfficeHint": "Пример: 5 лет"
         },
+        "financialAndEconomicActivity": {
+            "staffCount": "Штатная численность организации",
+            "withoutAccountant": "Главный бухгалтер отсутствует",
+            "accountantTypeSelector": "Бухгалтерский учет осуществляет",
+            "accountantTypes": {
+                "HeadAccounting": "Руководитель организации",
+                "AccountingOrganization": "Организация ведущая бухгалтерский учет",
+                "IndividualAccountant": "Бухгалтер - индивидуальный специалист"
+            },
+            "accountantOrgInn": "ИНН организации, ведущей бухгалтерский учет",
+            "hasBeneficiaryParty": "Наличие выгодоприобретателя (необходимо будет заполнить анкету выгодоприобретателя)",
+            "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве"
+        },
         "russianDomesticPassport": {
             "description": "Данные паспорта гражданина РФ",
             "seriesNumber": "Серия и номер",

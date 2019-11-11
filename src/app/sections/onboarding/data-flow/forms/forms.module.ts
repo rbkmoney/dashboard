@@ -15,6 +15,10 @@ import {
     AuthorityConfirmingDocumentComponent,
     AuthorityConfirmingDocumentService
 } from './subforms/authority-confirming-document';
+import {
+    FinancialAndEconomicActivityComponent,
+    FinancialAndEconomicActivityService
+} from './financial-and-economic-activity';
 
 @NgModule({
     imports: [
@@ -34,7 +38,8 @@ import {
         RussianLegalOwnerComponent,
         RussianDomesticPassportComponent,
         PdlInfoComponent,
-        AuthorityConfirmingDocumentComponent
+        AuthorityConfirmingDocumentComponent,
+        FinancialAndEconomicActivityComponent
     ],
     providers: [
         InitializeFormsService,
@@ -42,7 +47,8 @@ import {
         RussianLegalOwnerService,
         RussianDomesticPassportService,
         PdlInfoService,
-        AuthorityConfirmingDocumentService
+        AuthorityConfirmingDocumentService,
+        FinancialAndEconomicActivityService
     ]
 })
 export class OnboardingFormsModule {}
