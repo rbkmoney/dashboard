@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 import { Subscription, combineLatest, AsyncSubject } from 'rxjs';
-import { debounceTime, first, map, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, first, map, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { ValidityService } from '../validity';
