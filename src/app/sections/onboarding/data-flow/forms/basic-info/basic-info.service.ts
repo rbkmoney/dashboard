@@ -17,19 +17,9 @@ export class BasicInfoService extends QuestionaryFormService {
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {
-        super(fb, questionaryStateService, validityService);
-    }
-
-    protected getForm(): FormGroup {
-        return this.fb.group({
-            name: ['', Validators.required],
-            inn: ['', Validators.required],
-            registrationPlace: ['', Validators.required],
-            shopUrl: ['', Validators.required],
-            shopName: ['', Validators.required],
-            email: ['', Validators.required],
-            phoneNumber: ['', Validators.required]
-        });
+        super(questionaryStateService, validityService);
+        this.form$.next(this.initForm());
+        this.form$.complete();
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
@@ -51,5 +41,17 @@ export class BasicInfoService extends QuestionaryFormService {
 
     protected getStepName(): StepName {
         return StepName.BasicInfo;
+    }
+
+    private initForm(): FormGroup {
+        return this.fb.group({
+            name: ['', Validators.required],
+            inn: ['', Validators.required],
+            registrationPlace: ['', Validators.required],
+            shopUrl: ['', Validators.required],
+            shopName: ['', Validators.required],
+            email: ['', Validators.required],
+            phoneNumber: ['', Validators.required]
+        });
     }
 }

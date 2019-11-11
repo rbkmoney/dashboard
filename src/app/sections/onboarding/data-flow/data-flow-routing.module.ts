@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BasicInfoComponent, RussianLegalOwnerComponent, RussianPrivateEntityComponent } from './forms';
+import {
+    BasicInfoComponent,
+    RussianLegalOwnerComponent,
+    RussianPrivateEntityComponent,
+    FinancialAndEconomicActivityComponent
+} from './forms';
 import { DataFlowComponent } from './data-flow.component';
 import { StepName } from './step-flow';
 
@@ -21,6 +26,10 @@ export const routes: Routes = [
             {
                 path: StepName.RussianLegalOwner,
                 component: RussianLegalOwnerComponent
+            },
+            {
+                path: StepName.FinancialAndEconomicActivity,
+                component: FinancialAndEconomicActivityComponent
             }
         ]
     }

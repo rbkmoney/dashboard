@@ -1,5 +1,5 @@
 <form
-    [formGroup]="form"
+    [formGroup]="form$ | async"
     fxLayout="column"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.basicInfo'"
 >

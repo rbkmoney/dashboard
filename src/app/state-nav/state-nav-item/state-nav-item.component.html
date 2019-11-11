@@ -3,8 +3,8 @@
     (click)="clickHandler()"
     [ngClass]="{ selected: selected, success: status === 'success', warn: status === 'warn' }"
 >
-    <div class="icon-container" fxLayout="row" fxLayoutAlign="start center" *ngIf="icon">
-        <mat-icon *ngIf="icon" [svgIcon]="icon"></mat-icon>
+    <div *ngIf="icon" class="dsh-state-nav-icon-container" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon *ngIf="iconVisible" [svgIcon]="icon"></mat-icon>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center">
         <ng-content></ng-content>

@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { BasicInfoService } from './basic-info.service';
@@ -10,9 +9,8 @@ import { BasicInfoService } from './basic-info.service';
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {
     layoutGap = '20px';
-    basePath = 'sections.onboarding.dataFlow.basicInfo';
 
-    form: FormGroup = this.basicInfoService.form;
+    form$ = this.basicInfoService.form$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 

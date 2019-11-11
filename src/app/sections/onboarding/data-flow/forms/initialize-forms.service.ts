@@ -1,14 +1,24 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BasicInfoService } from './basic-info';
 import { QuestionaryFormService } from './questionary-form.service';
+import { RussianLegalOwnerService } from './russian-legal-owner';
+import { FinancialAndEconomicActivityService } from './financial-and-economic-activity';
 
 @Injectable()
-export class InitializeFormsService implements OnDestroy {
+export class InitializeFormsService {
     private initializeContainer: QuestionaryFormService[];
 
-    constructor(private basicInfoService: BasicInfoService) {
-        this.initializeContainer = [this.basicInfoService];
+    constructor(
+        private basicInfoService: BasicInfoService,
+        private russianLegalOwnerService: RussianLegalOwnerService,
+        private financialAndEconomicActivityService: FinancialAndEconomicActivityService
+    ) {
+        this.initializeContainer = [
+            this.basicInfoService,
+            this.russianLegalOwnerService,
+            this.financialAndEconomicActivityService
+        ];
     }
 
     initializeForms() {
@@ -16,9 +26,5 @@ export class InitializeFormsService implements OnDestroy {
             service.initFormValue();
             service.startFormValidityReporting();
         }
-    }
-
-    ngOnDestroy() {
-        console.log('InitializeFormsService ngOnDestroy');
     }
 }

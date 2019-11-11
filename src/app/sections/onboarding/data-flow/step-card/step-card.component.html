@@ -5,8 +5,9 @@
                 *ngFor="let step of stepFlow"
                 [selected]="step === activeStep"
                 withIcon
-                icon="checkmark"
+                icon="check"
                 [status]="getStepStatus(step) | async"
+                [iconVisible]="isStepValid(step) | async"
             >
                 {{ step | stepLabel: 'stepCard' }}
             </dsh-state-nav-item>

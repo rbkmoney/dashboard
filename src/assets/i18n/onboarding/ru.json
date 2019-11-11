@@ -24,12 +24,62 @@
             "name": "Наименование",
             "inn": " ИНН",
             "registrationPlace": "Адрес регистрации",
-            "shopInfo": "Данные сайта (магазина):",
+            "shopInfo": "Данные сайта (магазина)",
             "shopUrl": "URL адрес",
             "shopName": "Название",
-            "contactInfo": "Контактная информация:",
+            "contactInfo": "Контактная информация",
             "email": "Email",
             "phoneNumber": "Номер телефона"
+        },
+        "russianLegalOwner": {
+            "legalOwnerDescription": "Ген. директор, президент, председатель правления и т.п.",
+            "fio": "ФИО",
+            "birthDate": "Дата рождения",
+            "birthPlace": "Место рождения",
+            "residenceAddress": "Адрес места жительства (регистрации) или места пребывания",
+            "snils": "СНИЛС",
+            "headPosition": "Должность",
+            "innfl": "ИННФЛ (при наличии)",
+            "termOfOffice": "Срок полномочий",
+            "termOfOfficeHint": "Пример: 5 лет"
+        },
+        "financialAndEconomicActivity": {
+            "staffCount": "Штатная численность организации",
+            "withoutAccountant": "Главный бухгалтер отсутствует",
+            "accountantTypeSelector": "Бухгалтерский учет осуществляет",
+            "accountantTypes": {
+                "HeadAccounting": "Руководитель организации",
+                "AccountingOrganization": "Организация ведущая бухгалтерский учет",
+                "IndividualAccountant": "Бухгалтер - индивидуальный специалист"
+            },
+            "accountantOrgInn": "ИНН организации, ведущей бухгалтерский учет",
+            "hasBeneficiaryParty": "Наличие выгодоприобретателя (необходимо будет заполнить анкету выгодоприобретателя)",
+            "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве"
+        },
+        "russianDomesticPassport": {
+            "description": "Данные паспорта гражданина РФ",
+            "seriesNumber": "Серия и номер",
+            "issuerCode": "Код подразделения",
+            "issuer": "Кем выдан",
+            "issuedAt": "Дата выдачи"
+        },
+        "pdlInfo": {
+            "pdlCategoryDescription": "Принадлежность к некоторым категориям граждан",
+            "pdlCategory": "Принадлежность к категории публичных должностных лиц (включая российские, иностранные и международные)",
+            "pdlRelationDegreeCheckbox": "Родственник публичных должностных лиц (включая российские, иностранные и международные)",
+            "pdlRelationDegree": "Степень родства"
+        },
+        "authorityConfirmingDocument": {
+            "typeSelector": "Действует на основании",
+            "documentTypes": {
+                "solePartyDecision": "Решение единственного участника",
+                "meetingOfShareholders": "Протокол общего собрания участников",
+                "meetingOfParticipants": "Протокол общего собрания акционеров",
+                "custom": "Иное"
+            },
+            "customDocumentType": "Тип документа",
+            "date": "Дата",
+            "number": "Номер документа (при наличии)"
         },
         "stepCard": {
             "basicInfo": "Основные сведения",
