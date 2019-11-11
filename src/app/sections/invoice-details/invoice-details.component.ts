@@ -22,6 +22,5 @@ export class InvoiceDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(({ invoiceID }) => this.invoiceDetailsService.initialize(invoiceID));
-        this.invoice$.subscribe(invoice => console.log(invoice));
     }
 }
