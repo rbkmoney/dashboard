@@ -1,0 +1,8 @@
+$dsh-document-upload-padding: 20px 0 0 0;
+$dsh-document-upload-max-width: 1080px;
+
+.container {
+    padding: $dsh-document-upload-padding;
+    max-width: $dsh-document-upload-max-width;
+    margin: 0 auto;
+}
