@@ -14,7 +14,7 @@
                         {{ item.cost | currency: currency }}
                     </div>
                 </dsh-details-item>
-                <dsh-details-item *ngIf="item && !item.cost" [title]="t.cost" fxFlex="33">
+                <dsh-details-item *ngIf="!item.cost" [title]="t.cost" fxFlex="33">
                     <div class="mat-body-1">
                         {{ item.price * item.quantity | currency: currency }}
                     </div>
