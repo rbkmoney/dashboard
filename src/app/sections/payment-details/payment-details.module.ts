@@ -30,7 +30,7 @@ import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
 import { SearchModule } from '../../api/search';
 import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
-import { ViewUtilsModule } from '../../view-utils';
+import { FromMinorModule } from '../../from-minor';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
 import { HumanizeDurationModule } from '../../humanize-duration';
@@ -48,7 +48,7 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         CommonModule,
         PaymentDetailsRoutingModule,
         SearchModule,
-        ViewUtilsModule,
+        FromMinorModule,
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,

@@ -1,6 +1,6 @@
 import { Injectable, SimpleChange } from '@angular/core';
 
-import { ClaimStatusViewInfo, getClaimStatusViewInfo } from '../../../../../view-utils';
+import { ClaimStatusViewInfo, getClaimStatusViewInfo } from '../../../../../from-minor';
 import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management/swagger-codegen';
 import { getClaimType, ClaimType } from './get-claim-type';
 
