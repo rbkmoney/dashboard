@@ -1,0 +1,29 @@
+<div
+    fxLayout="column"
+    *transloco="let t; scope: 'invoice'; read: 'invoice.details.payments.payment'"
+    class="dsh-invoice-payments-item"
+>
+    <div class="mat-subheading-1 title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <span>
+            {{ t?.title }}
+        </span>
+        <span dshSecondaryTitle>#{{ payment.id }}</span>
+        <mat-icon class="dsh-forward-icon go-to-payment" (click)="goToPaymentDetails()">arrow_forward</mat-icon>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+        <dsh-details-status-item
+            *transloco="let c; read: 'refundStatus'"
+            [color]="color"
+            [text]="c[status]"
+            fxFlex="33"
+        ></dsh-details-status-item>
+        <dsh-details-item [title]="t?.amount" fxFlex="33">
+            <div class="mat-body-1">{{ payment.amount | fromMinor | currency: payment.currency }}</div>
+        </dsh-details-item>
+        <dsh-details-item [title]="t?.createdAt" fxFlex="33">
+            <div class="mat-body-1">
+                {{ payment.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+            </div>
+        </dsh-details-item>
+    </div>
+</div>
