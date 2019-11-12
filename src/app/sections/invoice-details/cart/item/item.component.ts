@@ -1,6 +1,6 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
 
-import { InvoiceLine } from '../../../../api-codegen/anapi/swagger-codegen';
+import { InvoiceLine, InvoiceLineTaxVAT } from '../../../../api-codegen/anapi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
@@ -8,12 +8,20 @@ import { LAYOUT_GAP } from '../../../constants';
     templateUrl: 'item.component.html',
     styleUrls: ['item.component.scss']
 })
-export class ItemComponent {
+export class ItemComponent implements OnChanges {
     @Input()
     item: InvoiceLine;
 
     @Input()
     currency: string;
 
+    tax: InvoiceLineTaxVAT;
+
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.item.previousValue !== changes.item.currentValue) {
+            this.tax = changes.item.currentValue.taxMode as InvoiceLineTaxVAT;
+        }
+    }
 }

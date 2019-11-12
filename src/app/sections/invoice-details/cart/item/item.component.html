@@ -24,9 +24,9 @@
                         {{ item.quantity }}
                     </div>
                 </dsh-details-item>
-                <dsh-details-item *ngIf="item.taxMode" [title]="t.taxMode" fxFlex="33">
+                <dsh-details-item *ngIf="tax" [title]="t.taxMode" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ item.taxMode }}
+                        {{ tax.rate }}
                     </div>
                 </dsh-details-item>
             </div>
