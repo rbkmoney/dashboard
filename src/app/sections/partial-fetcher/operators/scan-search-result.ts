@@ -6,6 +6,19 @@ import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
 import { concatFirstScan } from '../../../custom-operators';
 
+export const handleFetchResultError = <R>(result: R[] = [], continuationToken?: string) => (
+    s: Observable<FetchResult<R>>
+): Observable<FetchResult<R>> =>
+    s.pipe(
+        catchError(error =>
+            of({
+                result,
+                continuationToken,
+                error
+            } as FetchResult<R>)
+        )
+    );
+
 export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
     s: Observable<FetchAction<P>>
 ): Observable<FetchResult<R>> =>
@@ -14,27 +27,14 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
             ({ result, continuationToken }, action) => {
                 switch (action.type) {
                     case 'search':
-                        return fn(action.value).pipe(
-                            catchError(error =>
-                                of({
-                                    result: [],
-                                    error
-                                })
-                            )
-                        );
+                        return fn(action.value).pipe(handleFetchResultError());
                     case 'fetchMore':
                         return fn(action.value, continuationToken).pipe(
                             map(r => ({
                                 result: result.concat(r.result),
-                                continuationToken
+                                continuationToken: r.continuationToken
                             })),
-                            catchError(error =>
-                                of({
-                                    result,
-                                    continuationToken,
-                                    error
-                                })
-                            )
+                            handleFetchResultError(result, continuationToken)
                         );
                 }
             },
