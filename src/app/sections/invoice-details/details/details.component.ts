@@ -28,7 +28,7 @@ export class DetailsComponent implements OnChanges {
         switch (status) {
             case statusEnum.Paid:
                 this.color = Color.success;
-                this.status = 'pain';
+                this.status = 'paid';
                 break;
             case statusEnum.Fulfilled:
                 this.color = Color.success;
