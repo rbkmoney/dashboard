@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, map, distinctUntilChanged, switchMap, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService } from '../../api/claims';
-import { getClaimStatusViewInfo } from '../../from-minor';
+import { getClaimStatusViewInfo } from '../../view-utils';
 import { StatusModificationUnit } from '../../api-codegen/claim-management';
 
 @Injectable()
