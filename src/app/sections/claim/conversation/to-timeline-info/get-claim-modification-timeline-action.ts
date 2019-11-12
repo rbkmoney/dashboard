@@ -1,34 +1,25 @@
+import get from 'lodash.get';
 import {
     ClaimModification,
     DocumentModificationUnit,
-    DocumentModification,
     StatusModificationUnit,
-    StatusModification,
     FileModificationUnit,
-    FileModification,
-    CommentModificationUnit,
-    CommentModification
+    CommentModificationUnit
 } from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
 import { SpecificModificationUnit } from '../../../../api/claims/utils';
 
-const ClaimModificationType = ClaimModification.ClaimModificationTypeEnum;
-
-function getDocumentModificationTimelineAction(
-    unit: SpecificModificationUnit<DocumentModificationUnit>
-): TimelineAction {
-    switch (unit.modification.modification.documentModificationType) {
-        case DocumentModification.DocumentModificationTypeEnum.DocumentCreated:
+function getDocumentModificationTimelineAction(unit: DocumentModificationUnit): TimelineAction {
+    switch (unit.documentModification.documentModificationType) {
+        case 'DocumentCreated':
             return TimelineAction.claimCreated;
     }
 }
 
-function getStatusModificationTimelineAction({
-    modification: { status, modification }
-}: SpecificModificationUnit<StatusModificationUnit>): TimelineAction {
+function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction {
     const Status = StatusModificationUnit.StatusEnum;
-    switch (modification.statusModificationType) {
-        case StatusModification.StatusModificationTypeEnum.StatusChanged:
+    switch (unit.statusModification.statusModificationType) {
+        case 'StatusChanged':
             switch (status) {
                 case Status.Accepted:
                     return TimelineAction.statusAccepted;
@@ -46,33 +37,34 @@ function getStatusModificationTimelineAction({
     }
 }
 
-function getFileModificationTimelineAction(unit: SpecificModificationUnit<FileModificationUnit>): TimelineAction {
-    switch (unit.modification.modification.fileModificationType) {
-        case FileModification.FileModificationTypeEnum.FileCreated:
+function getFileModificationTimelineAction(unit: FileModificationUnit): TimelineAction {
+    switch (unit.fileModification.fileModificationType) {
+        case 'FileCreated':
             return TimelineAction.documentsAdded;
     }
 }
 
-function getCommentModificationTimelineAction(unit: SpecificModificationUnit<CommentModificationUnit>): TimelineAction {
-    switch (unit.modification.modification.commentModificationType) {
-        case CommentModification.CommentModificationTypeEnum.CommentCreated:
+function getCommentModificationTimelineAction(unit: CommentModificationUnit): TimelineAction {
+    switch (unit.commentModification.commentModificationType) {
+        case 'CommentCreated':
             return TimelineAction.commentAdded;
     }
 }
 
 export function getClaimModificationTimelineAction(unit: SpecificModificationUnit<ClaimModification>): TimelineAction {
-    if (!unit || !unit.modification || !unit.modification.claimModificationType) {
+    const modification = get(unit, ['modification', 'claimModificationType']);
+    if (!modification) {
         throw new Error('Modification unit is incomplete');
     }
-    switch (unit.modification.claimModificationType) {
-        case ClaimModificationType.DocumentModificationUnit:
-            return getDocumentModificationTimelineAction(unit as SpecificModificationUnit<DocumentModificationUnit>);
-        case ClaimModificationType.StatusModificationUnit:
-            return getStatusModificationTimelineAction(unit as SpecificModificationUnit<StatusModificationUnit>);
-        case ClaimModificationType.FileModificationUnit:
-            return getFileModificationTimelineAction(unit as SpecificModificationUnit<FileModificationUnit>);
-        case ClaimModificationType.CommentModificationUnit:
-            return getCommentModificationTimelineAction(unit as SpecificModificationUnit<CommentModificationUnit>);
+    switch (modification.claimModificationType) {
+        case 'DocumentModificationUnit':
+            return getDocumentModificationTimelineAction(modification as DocumentModificationUnit);
+        case 'StatusModificationUnit':
+            return getStatusModificationTimelineAction(modification as StatusModificationUnit);
+        case 'FileModificationUnit':
+            return getFileModificationTimelineAction(modification as FileModificationUnit);
+        case 'CommentModificationUnit':
+            return getCommentModificationTimelineAction(modification as CommentModificationUnit);
     }
     throw new Error('Claim modification unidentified');
 }
