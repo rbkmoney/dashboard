@@ -19,9 +19,7 @@ export class ItemComponent implements OnChanges {
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.item.previousValue !== changes.item.currentValue) {
-            this.tax = changes.item.currentValue.taxMode as InvoiceLineTaxVAT;
-        }
+    ngOnChanges({ item }: SimpleChanges): void {
+        this.tax = item.currentValue.taxMode as InvoiceLineTaxVAT;
     }
 }
