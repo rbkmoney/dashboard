@@ -58,7 +58,6 @@
     "refunds": {
         "title": "Возвраты",
         "createRefund": "Совершить возврат",
-        "noRefunds": "Возвратов нет",
         "refundItem": {
             "title": "Возврат",
             "amount": "Сумма",
