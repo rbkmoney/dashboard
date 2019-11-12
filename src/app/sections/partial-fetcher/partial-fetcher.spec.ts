@@ -50,12 +50,21 @@ describe('PartialFetch', () => {
         createScheduler().run(({ cold, expectObservable }) => {
             const partialFetched = new PartialFetched(
                 (_params, token) =>
-                    cold('--x|', { x: { result: [token], continuationToken: 'token' } } as FetchResult<any>),
+                    cold('--x|', {
+                        x: { result: [token], continuationToken: token ? token + '0' : 'token' }
+                    } as FetchResult<any>),
                 0
             );
-            partialFetched.search(null);
+            partialFetched.search('token');
             partialFetched.fetchMore();
-            expectObservable(partialFetched.searchResult$).toBe('--0-1', [[undefined], [undefined, 'token']]);
+            partialFetched.fetchMore();
+            partialFetched.fetchMore();
+            expectObservable(partialFetched.searchResult$).toBe('--0-1-2-3', [
+                [undefined],
+                [undefined, 'token'],
+                [undefined, 'token', 'token0'],
+                [undefined, 'token', 'token0', 'token00']
+            ]);
             expectObservable(partialFetched.errors$).toBe('');
             expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
             expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
