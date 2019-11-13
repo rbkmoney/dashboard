@@ -20,7 +20,7 @@ function getStatusModificationTimelineAction(unit: StatusModificationUnit): Time
     const Status = StatusModificationUnit.StatusEnum;
     switch (unit.statusModification.statusModificationType) {
         case 'StatusChanged':
-            switch (status) {
+            switch (unit.status) {
                 case Status.Accepted:
                     return TimelineAction.statusAccepted;
                 case Status.Denied:

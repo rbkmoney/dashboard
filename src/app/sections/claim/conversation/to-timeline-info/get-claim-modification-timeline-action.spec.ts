@@ -1,27 +1,16 @@
 import { SpecificModificationUnit } from '../../../../api/claims/utils';
-import {
-    ClaimModification,
-    DocumentModificationUnit,
-    CommentModificationUnit,
-    FileModificationUnit,
-    StatusModificationUnit
-} from '../../../../api-codegen/claim-management';
+import { ClaimModification, StatusModificationUnit } from '../../../../api-codegen/claim-management';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { TimelineAction } from './timeline-action';
 
 describe('getClaimModificationTimelineAction', () => {
-    function createClaimModificationUnit(
-        claimModificationType?: ClaimModification.ClaimModificationTypeEnum
-    ): SpecificModificationUnit<ClaimModification> {
-        return {
-            modificationID: 1,
-            createdAt: '2019-08-08T10:20:30Z' as any,
-            modification: {
-                modificationType: 'ClaimModification',
-                claimModificationType
-            }
-        };
-    }
+    const partialClaimModification = {
+        modificationID: 1,
+        createdAt: '2019-08-08T10:20:30Z' as any,
+        modification: {
+            modificationType: 'ClaimModification'
+        }
+    };
 
     it('empty modification should return error', () => {
         expect(() => getClaimModificationTimelineAction({} as any)).toThrow(
@@ -29,108 +18,113 @@ describe('getClaimModificationTimelineAction', () => {
         );
     });
 
-    it('not specific ClaimModification should return error', () => {
-        const modificationUnit = createClaimModificationUnit();
-        expect(() => getClaimModificationTimelineAction(modificationUnit)).toThrow(
-            new Error('Modification unit is incomplete')
-        );
-    });
-
     it('wrong ClaimModification should return error', () => {
-        const modificationUnit = createClaimModificationUnit(
-            'TestWrongModification123' as ClaimModification.ClaimModificationTypeEnum
-        );
-        expect(() => getClaimModificationTimelineAction(modificationUnit)).toThrow(
-            new Error('Claim modification unidentified')
-        );
+        const unit = {
+            ...partialClaimModification,
+            modification: {
+                ...partialClaimModification.modification,
+                claimModificationType: {
+                    claimModificationType: 'UnidentifiedModificationUnit'
+                }
+            }
+        } as SpecificModificationUnit<any>;
+        expect(() => getClaimModificationTimelineAction(unit)).toThrow(new Error('Claim modification unidentified'));
     });
 
     it('should be claimCreated action', () => {
-        const modificationUnit = createClaimModificationUnit('DocumentModificationUnit');
-        const documentModificationUnit: SpecificModificationUnit<DocumentModificationUnit> = {
-            ...modificationUnit,
+        const unit = {
+            ...partialClaimModification,
             modification: {
-                ...modificationUnit.modification,
-                id: '1',
-                modification: { documentModificationType: 'DocumentCreated' }
+                ...partialClaimModification.modification,
+                claimModificationType: {
+                    claimModificationType: 'DocumentModificationUnit',
+                    documentId: '1',
+                    documentModification: {
+                        documentModificationType: 'DocumentCreated'
+                    }
+                }
             }
-        };
-        expect(getClaimModificationTimelineAction(documentModificationUnit)).toBe(TimelineAction.claimCreated);
+        } as SpecificModificationUnit<ClaimModification>;
+        expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.claimCreated);
     });
 
     it('should be commentAdded action', () => {
-        const modificationUnit = createClaimModificationUnit('CommentModificationUnit');
-        const commentModificationUnit: SpecificModificationUnit<CommentModificationUnit> = {
-            ...modificationUnit,
+        const unit = {
+            ...partialClaimModification,
             modification: {
-                ...modificationUnit.modification,
-                id: '1',
-                modification: { commentModificationType: 'CommentCreated' }
+                ...partialClaimModification.modification,
+                claimModificationType: {
+                    claimModificationType: 'CommentModificationUnit',
+                    commentId: '1',
+                    commentModification: {
+                        commentModificationType: 'CommentCreated'
+                    }
+                }
             }
-        };
-        expect(getClaimModificationTimelineAction(commentModificationUnit)).toBe(TimelineAction.commentAdded);
+        } as SpecificModificationUnit<ClaimModification>;
+        expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.commentAdded);
     });
 
     it('should be documentsAdded action', () => {
-        const modificationUnit = createClaimModificationUnit('FileModificationUnit');
-        const fileModificationUnit: SpecificModificationUnit<FileModificationUnit> = {
-            ...modificationUnit,
+        const unit = {
+            ...partialClaimModification,
             modification: {
-                ...modificationUnit.modification,
-                id: '1',
-                modification: {
-                    fileModificationType: 'FileCreated'
+                ...partialClaimModification.modification,
+                claimModificationType: {
+                    claimModificationType: 'FileModificationUnit',
+                    commentId: '1',
+                    fileModification: {
+                        fileModificationType: 'FileCreated'
+                    }
                 }
             }
-        };
-        expect(getClaimModificationTimelineAction(fileModificationUnit)).toBe(TimelineAction.documentsAdded);
+        } as SpecificModificationUnit<ClaimModification>;
+        expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.documentsAdded);
     });
 
     describe('should be status action', () => {
-        function createStatusModificationUnit(
-            status?: StatusModificationUnit.StatusEnum
-        ): SpecificModificationUnit<StatusModificationUnit> {
-            const modificationUnit = createClaimModificationUnit('StatusModificationUnit');
-            return {
-                ...modificationUnit,
+        const applyStatus = (partialClaimModification: any, status: StatusModificationUnit.StatusEnum) =>
+            ({
+                ...partialClaimModification,
                 modification: {
-                    ...modificationUnit.modification,
-                    id: '1',
-                    status,
-                    modification: {
-                        statusModificationType: 'StatusChanged'
+                    ...partialClaimModification.modification,
+                    claimModificationType: {
+                        claimModificationType: 'StatusModificationUnit',
+                        status,
+                        statusModification: {
+                            statusModificationType: 'StatusChanged'
+                        }
                     }
                 }
-            };
-        }
+            } as SpecificModificationUnit<ClaimModification>);
 
         it('accepted', () => {
-            const modificationUnit = createStatusModificationUnit('accepted');
+            const modificationUnit = applyStatus(partialClaimModification, 'accepted');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusAccepted);
         });
 
         it('denied', () => {
-            const modificationUnit = createStatusModificationUnit('denied');
+            const modificationUnit = applyStatus(partialClaimModification, 'denied');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusDenied);
         });
 
         it('pending', () => {
-            const modificationUnit = createStatusModificationUnit('pending');
+            const modificationUnit = applyStatus(partialClaimModification, 'pending');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusPending);
         });
 
         it('pendingAcceptance', () => {
-            const modificationUnit = createStatusModificationUnit('pendingAcceptance');
+            const modificationUnit = applyStatus(partialClaimModification, 'pendingAcceptance');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusPendingAcceptance);
         });
 
         it('review', () => {
-            const modificationUnit = createStatusModificationUnit('review');
+            const modificationUnit = applyStatus(partialClaimModification, 'review');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusReview);
         });
 
         it('revoked', () => {
-            const modificationUnit = createStatusModificationUnit('revoked');
+            const modificationUnit = applyStatus(partialClaimModification, 'revoked');
             expect(getClaimModificationTimelineAction(modificationUnit)).toBe(TimelineAction.statusRevoked);
         });
     });
