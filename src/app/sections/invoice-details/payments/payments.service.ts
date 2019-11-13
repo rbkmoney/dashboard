@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { PartialFetcher, FetchResult } from '../../partial-fetcher';
@@ -11,7 +10,7 @@ import { PaymentSearchService } from '../../../api/search';
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
     private readonly searchLimit = 3;
 
-    constructor(private route: ActivatedRoute, private paymentSearchService: PaymentSearchService) {
+    constructor(private paymentSearchService: PaymentSearchService) {
         super();
     }
 

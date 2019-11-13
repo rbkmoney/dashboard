@@ -1,9 +1,17 @@
 <dsh-card *ngIf="refunds$ | async as refunds">
-    <ng-container fxLayout="column"
-                  *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds'"
-                  [fxLayoutGap]="layoutGap">
+    <ng-container
+        fxLayout="column"
+        *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds'"
+        [fxLayoutGap]="layoutGap"
+    >
         <dsh-card-title>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
+            <div
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap="0"
+                fxLayoutGap.xs="10px"
+            >
                 <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                     {{ t?.title }}
                 </div>
@@ -18,10 +26,10 @@
                 <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
             <button
-                    *ngIf="hasMoreRefunds$ | async"
-                    class="dsh-payment-details-refunds-show-more-refunds"
-                    dsh-button
-                    (click)="fetchMore()"
+                *ngIf="hasMoreRefunds$ | async"
+                class="dsh-payment-details-refunds-show-more-refunds"
+                dsh-button
+                (click)="fetchMore()"
             >
                 <ng-container *transloco="let c">
                     {{ c?.showMore }}
