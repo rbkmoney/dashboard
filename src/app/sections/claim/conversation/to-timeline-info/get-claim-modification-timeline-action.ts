@@ -1,4 +1,5 @@
 import get from 'lodash.get';
+
 import {
     ClaimModification,
     DocumentModificationUnit,

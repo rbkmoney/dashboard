@@ -83,11 +83,11 @@ describe('getClaimModificationTimelineAction', () => {
     });
 
     describe('should be status action', () => {
-        const applyStatus = (partialClaimModification: any, status: StatusModificationUnit.StatusEnum) =>
+        const applyStatus = (target: any, status: StatusModificationUnit.StatusEnum) =>
             ({
-                ...partialClaimModification,
+                ...target,
                 modification: {
-                    ...partialClaimModification.modification,
+                    ...target.modification,
                     claimModificationType: {
                         claimModificationType: 'StatusModificationUnit',
                         status,
