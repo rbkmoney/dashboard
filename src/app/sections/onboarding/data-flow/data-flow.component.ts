@@ -42,5 +42,6 @@ export class DataFlowComponent implements OnInit {
     ngOnInit() {
         this.route.params.pipe(pluck('claimID')).subscribe(claimID => this.initialDataService.initialize(claimID));
         this.initializeFormsService.initializeForms();
+        this.stepFlowService.preserveDefault();
     }
 }

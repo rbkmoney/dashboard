@@ -1,6 +1,7 @@
-import { ClaimChangeset, DocumentModificationUnit } from '../../../api-codegen/claim-management';
-import { isDocumentModificationUnit } from '../type-guards';
-import { SpecificModificationUnit } from './specific-modification-unit';
+import { ClaimChangeset, ModificationUnit } from '../../../api-codegen/claim-management';
+import { isDocumentModificationUnit, isClaimModification } from '../type-guards';
 
-export const filterDocumentModificationUnit = (c: ClaimChangeset) =>
-    c.filter(i => isDocumentModificationUnit(i.modification)) as SpecificModificationUnit<DocumentModificationUnit>[];
+export const filterDocumentModificationUnit = (c: ClaimChangeset): ModificationUnit[] =>
+    c.filter(
+        i => isClaimModification(i.modification) && isDocumentModificationUnit(i.modification.claimModificationType)
+    );
