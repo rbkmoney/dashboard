@@ -10,6 +10,7 @@ import { ButtonModule } from '../../../button';
 import { SpinnerModule } from '../../../spinner';
 import { InitialDataService } from './initial-data.service';
 import { DocumentItemComponent } from './document-item/document-item.component';
+import { FileUploaderModule } from '../../../file-uploader';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { DocumentItemComponent } from './document-item/document-item.component';
         LayoutModule,
         ButtonModule,
         TranslocoModule,
-        SpinnerModule
+        SpinnerModule,
+        FileUploaderModule
     ],
     declarations: [DocumentUploadComponent, DocumentItemComponent],
     providers: [InitialDataService]

@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-document-item-theme($theme) {
+    $accent: map-get($theme, accent);
+
+    .document-item-container {
+        background-color: mat-color($accent, 50);
+    }
+}

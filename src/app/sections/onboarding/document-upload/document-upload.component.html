@@ -9,7 +9,7 @@
             <dsh-card-title class="mat-title">{{ t.documentUpload.title }}</dsh-card-title>
             <dsh-card-content fxFlex fxLayout="column" fxLayoutGap="20px">
                 <div fxFlex fxLayout="column" fxLayoutGap="10px">
-                    <div class="mat-body-2">{{ t.onboarding.documentUpload.requiredDocs }}:</div>
+                    <div class="mat-body-2">{{ t.documentUpload.requiredDocs }}:</div>
                     <div class="mat-body-1">
                         - {{ t.documentUpload.passport }};<br>
                         - {{ t.documentUpload.registration }}.
@@ -21,11 +21,12 @@
                         <dsh-document-item [fileName]="doc"></dsh-document-item>
                     </ng-container>
                 </div>
+                <dsh-file-uploader></dsh-file-uploader>
             </dsh-card-content>
-            <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
+            <div class="card-actions" fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
                 <button dsh-button>{{ c.cancel }}</button>
                 <button dsh-button color="accent">{{ c.done }}</button>
-            </dsh-card-actions>
+            </div>
         </dsh-card>
     </div>
 </div>

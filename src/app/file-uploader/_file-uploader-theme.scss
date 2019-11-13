@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-file-uploader-theme($theme) {
+    $primary: map-get($theme, primary);
+    $gray: map-get($theme, gray);
+
+    .dsh-file-uploader {
+
+        &-container {
+            border-color: mat-color($gray, 200);
+
+            &-dragover {
+                border-color: mat-color($primary, 400);
+                transition: ease 1s;
+            }
+        }
+
+        &-choose-files {
+            color: mat-color($primary, 400);
+        }
+
+    }
+}

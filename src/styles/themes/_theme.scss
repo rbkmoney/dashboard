@@ -26,6 +26,8 @@
 @import '../../app/expansion/expansion-theme';
 @import '../../app/details-item/details-item-theme';
 @import '../../app/layout/headline/secondary-title/secondary-title-theme';
+@import '../../app/sections/onboarding/document-upload/document-item/document-item-theme';
+@import '../../app/file-uploader/file-uploader-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -57,5 +59,7 @@
         @include dsh-expansion-theme($theme);
         @include dsh-details-item-theme($theme);
         @include dsh-details-secondary-title-theme($theme);
+        @include dsh-document-item-theme($theme);
+        @include dsh-file-uploader-theme($theme);
     }
 }
