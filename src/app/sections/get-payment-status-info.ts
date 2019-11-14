@@ -18,7 +18,7 @@ export const getPaymentStatusInfo = (status: PaymentStatus.StatusEnum): PaymentS
         case statusEnum.Cancelled:
             return { color: Color.warn, status: 'cancelled' };
         case statusEnum.Captured:
-            return { color: Color.pending, status: 'captured' };
+            return { color: Color.success, status: 'captured' };
         case statusEnum.Pending:
             return { color: Color.pending, status: 'pending' };
     }
