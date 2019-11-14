@@ -4,9 +4,18 @@ import {
     QuestionaryData,
     IdentityDocument,
     LegalOwnerInfo,
-    AuthorityConfirmingDocument
+    AuthorityConfirmingDocument,
+    RussianPrivateEntity
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
+
+const toPrivateEntityInfo = (e: RussianPrivateEntity, i: LegalOwnerInfo): FormValue => ({
+    birthDate: get(e, ['birthDate'], null),
+    birthPlace: get(e, ['birthPlace'], null),
+    residenceAddress: get(e, ['residenceAddress'], null),
+    snils: get(i, ['snils'], null),
+    innfl: get(i, ['inn'], null)
+});
 
 const toAuthorityConfirmingDocument = (d: AuthorityConfirmingDocument): FormValue => ({
     type: get(d, ['type'], null),
@@ -30,15 +39,11 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
     const legalOwnerInfo = get(d, ['contractor', 'legalEntity', 'legalOwnerInfo']);
     const russianPrivateEntity = get(legalOwnerInfo, ['russianPrivateEntity']);
     return {
-        birthDate: get(russianPrivateEntity, ['birthDate'], null),
-        birthPlace: get(russianPrivateEntity, ['birthPlace'], null),
-        residenceAddress: get(russianPrivateEntity, ['residenceAddress'], null),
-        snils: get(legalOwnerInfo, ['snils'], null),
+        privateEntityInfo: toPrivateEntityInfo(russianPrivateEntity, legalOwnerInfo),
         headPosition: get(legalOwnerInfo, ['headPosition'], null),
-        innfl: get(legalOwnerInfo, ['inn'], null),
+        termOfOffice: get(legalOwnerInfo, ['termOfOffice'], null),
         russianDomesticPassport: toDomesticPassportFormValue(get(legalOwnerInfo, ['identityDocument'])),
         pdlInfo: toPdlInfoFormValue(legalOwnerInfo),
-        termOfOffice: get(legalOwnerInfo, ['termOfOffice'], null),
         authorityConfirmingDocument: toAuthorityConfirmingDocument(get(legalOwnerInfo, ['authorityConfirmingDocument']))
     };
 };

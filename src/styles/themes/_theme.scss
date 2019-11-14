@@ -29,6 +29,8 @@
 @import '../../app/sections/invoice-details/cart/cart-theme.component';
 @import '../../app/sections/onboarding/document-upload/document-item/document-item-theme';
 @import '../../app/file-uploader/file-uploader-theme';
+@import '../../app/sections/invoice-details/cart/cart-theme';
+@import '../../app/sections/invoice-details/payments/payments-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -42,6 +44,7 @@
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
         @include dsh-invoice-cart-theme($theme);
+        @include dsh-invoice-payments-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);

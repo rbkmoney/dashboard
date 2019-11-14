@@ -20,6 +20,9 @@ export class AuthorityConfirmingDocumentService {
     constructor(private fb: FormBuilder) {}
 
     applyFormValue({ type }: FormValue) {
+        if (type === null) {
+            return;
+        }
         const isKnownType = documentTypes.includes(type);
         this.selectedOption$.next(isKnownType ? type : customDocumentType);
         this.customDocumentInfoVisible$.next(!isKnownType);
