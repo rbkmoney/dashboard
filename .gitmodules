@@ -22,3 +22,7 @@
 	path = schemes/swag-analytics/v1
 	url = git@github.com:rbkmoney/swag-analytics.git
 	branch = release/master
+[submodule "schemes/messages/v0"]
+	path = schemes/messages/v0
+	url = git@github.com:rbkmoney/swag-messages.git
+	branch = release/master

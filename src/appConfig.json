@@ -3,7 +3,8 @@
         "capiEndpoint": "http://localhost:9900",
         "claimManagementEndpoint": "http://localhost:9902",
         "anapiEndpoint": "http://localhost:9904",
-        "dapiEndpoint": "https://api.rbk.money/dark-api/v1"
+        "dapiEndpoint": "https://api.rbk.money/dark-api/v1",
+        "messagesEndpoint": "https://api.rbk.money/messages/v1"
     },
     "konturFocus": {
         "apiV3Url": "https://focus-api.kontur.ru/api3"
