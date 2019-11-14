@@ -1,10 +1,10 @@
 <dsh-card *ngIf="payments$ | async as payments">
     <ng-container *transloco="let t; scope: 'invoice'; read: 'invoice.details.payments'">
-        <dsh-card-title>
+        <dsh-card-title fxLayout="row" fxLayoutGap="10px">
             <div class="mat-title">{{ t?.title }}</div>
+            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" fxLayoutGap="10px">
-            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType"></dsh-spinner>
             <div fxLayout="column" [fxLayoutGap]="layoutGap">
                 <dsh-payment *ngFor="let payment of payments" [payment]="payment"></dsh-payment>
             </div>

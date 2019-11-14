@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { first, switchMap, shareReplay } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { Invoice } from '../../../api-codegen/capi/swagger-codegen';
 import { InvoiceSearchService } from '../../../api/search';
-import { first, switchMap, shareReplay } from 'rxjs/operators';
 import { takeError } from '../../../custom-operators';
-import { MatSnackBar } from '@angular/material';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -22,8 +22,11 @@ export class InvoiceDetailsService {
         shareReplay(1)
     );
 
-    constructor(private invoiceSearchService: InvoiceSearchService, private snackBar: MatSnackBar,
-                private transloco: TranslocoService) {
+    constructor(
+        private invoiceSearchService: InvoiceSearchService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {
         this.invoiceError$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 

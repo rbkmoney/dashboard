@@ -1,5 +1,4 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
@@ -26,7 +25,7 @@ export class InvoiceDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.invoiceDetailsService.initialize(this.invoiceID)
+        this.invoiceDetailsService.initialize(this.invoiceID);
     }
 
     getStatusViewInfo(status: InvoiceStatus.StatusEnum): StatusViewInfo {
