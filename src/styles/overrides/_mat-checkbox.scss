@@ -1,0 +1,5 @@
+@mixin mat-checkbox-override() {
+    .mat-checkbox-layout {
+        white-space: normal !important;
+    }
+}

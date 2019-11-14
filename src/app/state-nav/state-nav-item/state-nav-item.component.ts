@@ -26,6 +26,10 @@ export class StateNavItemComponent {
     @Input()
     icon: string;
 
+    @Input()
+    @coerceBoolean
+    iconVisible = true;
+
     attemptToSelect$ = new Subject<boolean>();
 
     private item: HTMLElement;

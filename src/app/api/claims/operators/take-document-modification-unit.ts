@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Claim, DocumentModificationUnit } from '../../../api-codegen/claim-management';
+import { Claim, DocumentModificationUnit, ClaimModification } from '../../../api-codegen/claim-management';
 import { filterDocumentModificationUnit, sortUnitsByCreatedAtAsc } from '../utils';
 
 export const takeDocumentModificationUnit = (s: Observable<Claim>): Observable<DocumentModificationUnit | null> =>
@@ -16,6 +16,6 @@ export const takeDocumentModificationUnit = (s: Observable<Claim>): Observable<D
             }
             const sorted = sortUnitsByCreatedAtAsc(units);
             const target = sorted[sorted.length - 1];
-            return target.modification;
+            return (target.modification as ClaimModification).claimModificationType as DocumentModificationUnit;
         })
     );

@@ -26,6 +26,7 @@
 @import '../../app/expansion/expansion-theme';
 @import '../../app/details-item/details-item-theme';
 @import '../../app/layout/headline/secondary-title/secondary-title-theme';
+@import '../../app/sections/invoice-details/cart/cart-theme.component';
 @import '../../app/sections/onboarding/document-upload/document-item/document-item-theme';
 @import '../../app/file-uploader/file-uploader-theme';
 
@@ -40,6 +41,7 @@
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
+        @include dsh-invoice-cart-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);

@@ -1,0 +1,35 @@
+<ng-container *ngIf="item">
+    <ng-container *transloco="let t; scope: 'invoice'; read: 'invoice.details.cart'">
+        <div fxLayout="column" [fxLayoutGap]="layoutGap" class="dsh-invoice-cart-item">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item [title]="t.product" fxFlex="100">
+                    <div class="mat-body-1">
+                        {{ item.product }}
+                    </div>
+                </dsh-details-item>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+                <dsh-details-item *ngIf="item.cost" [title]="t.cost" fxFlex="33">
+                    <div class="mat-body-1">
+                        {{ item.cost | currency: currency }}
+                    </div>
+                </dsh-details-item>
+                <dsh-details-item *ngIf="!item.cost" [title]="t.cost" fxFlex="33">
+                    <div class="mat-body-1">
+                        {{ item.price * item.quantity | currency: currency }}
+                    </div>
+                </dsh-details-item>
+                <dsh-details-item [title]="t.quantity" fxFlex="33">
+                    <div class="mat-body-1">
+                        {{ item.quantity }}
+                    </div>
+                </dsh-details-item>
+                <dsh-details-item *ngIf="tax" [title]="t.taxMode" fxFlex="33">
+                    <div class="mat-body-1">
+                        {{ tax.rate }}
+                    </div>
+                </dsh-details-item>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

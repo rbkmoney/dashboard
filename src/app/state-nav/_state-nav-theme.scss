@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../styles/utils/fill';
 
 @mixin dsh-state-nav-theme($theme) {
     $foreground: map-get($theme, foreground);
@@ -18,13 +19,13 @@
 
             // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
-                .icon-container {
-                    color: mat-color($accent, 300);
+                mat-icon {
+                    @include fill(mat-color($accent, 300));
                 }
             }
             &.warn {
-                .icon-container {
-                    color: mat-color($warn, 300);
+                mat-icon {
+                    @include fill(mat-color($warn, 300));
                 }
             }
             &.selected {
