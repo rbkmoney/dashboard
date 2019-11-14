@@ -1,0 +1,36 @@
+<form
+    [formGroup]="form"
+    fxLayout="column"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.privateEntityInfo'"
+>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.fio }}</mat-label>
+            <input matInput formControlName="fio" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.birthDate }}</mat-label>
+            <input matInput formControlName="birthDate" [matDatepicker]="birthDateDatepicker" required />
+            <mat-datepicker-toggle matSuffix [for]="birthDateDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #birthDateDatepicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.birthPlace }}</mat-label>
+        <input matInput formControlName="birthPlace" required />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.residenceAddress }}</mat-label>
+        <input matInput formControlName="residenceAddress" required />
+    </mat-form-field>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.snils }}</mat-label>
+            <input matInput formControlName="snils" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.innfl }}</mat-label>
+            <input matInput formControlName="innfl" />
+        </mat-form-field>
+    </div>
+</form>
