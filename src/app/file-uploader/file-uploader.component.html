@@ -2,7 +2,7 @@
      [(files)]="files"
      (dragenter)="setDragover(true)"
      (dragleave)="setDragover(false)"
-     (fileChange)="showFiles()"
+     (filesChange)="uploadFiles($event)"
      class="dsh-file-uploader-container"
      [class.dsh-file-uploader-container-dragover]="isDragover"
      fxFlex
@@ -10,6 +10,6 @@
 >
     <div *transloco="let t">
         {{t.forDownload}}
-        <span ngfSelect [(files)]="files" (fileChange)="showFiles()" class="dsh-file-uploader-choose-files">{{t.choose}}</span>.
+        <span ngfSelect [(files)]="files" (filesChange)="uploadFiles($event)" class="dsh-file-uploader-choose-files">{{t.choose}}</span>.
     </div>
 </div>

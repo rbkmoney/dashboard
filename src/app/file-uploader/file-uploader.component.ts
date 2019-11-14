@@ -1,5 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
+import { FileService } from '../api';
+
 @Component({
     selector: 'dsh-file-uploader',
     templateUrl: 'file-uploader.component.html',
@@ -11,8 +13,16 @@ export class FileUploaderComponent {
 
     files = [];
 
-    showFiles() {
-        console.log(this.files);
+    constructor(private fileService: FileService) {}
+
+    uploadFiles(files: File[]) {
+        console.log(files);
+        files.forEach((file) => {
+            this.fileService.uploadFile(file).subscribe((uploadedFile) => {
+                console.log(uploadedFile);
+            });
+        });
+        this.files = [];
     }
 
     setDragover(value: boolean) {

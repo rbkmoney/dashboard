@@ -17,10 +17,7 @@ export class InitialDataService {
         takeDocumentModificationUnit,
         handleNull('Modification unit is null'),
         mapDocumentID,
-        switchMap(() => {
-            console.log('KEKEKEKE');
-            return this.getKekFiles()
-        }),
+        switchMap(() => this.getKekFiles()),
         // switchMap(id => this.questionaryService.getQuestionary(id)),
         shareReplay(1)
     );
