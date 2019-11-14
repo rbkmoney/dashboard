@@ -4,14 +4,19 @@
             <div class="mat-title">{{ t?.title }}</div>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" fxLayoutGap="10px">
+            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType"></dsh-spinner>
             <div fxLayout="column" [fxLayoutGap]="layoutGap">
                 <dsh-payment *ngFor="let payment of payments" [payment]="payment"></dsh-payment>
+            </div>
+            <div *ngIf="!(hasMore$ | async)">
+                {{ t?.noPayments }}
             </div>
             <button
                 *ngIf="hasMore$ | async"
                 class="dsh-invoice-details-payments-show-more"
                 dsh-button
                 (click)="fetchMore()"
+                [disabled]="isLoading$ | async"
             >
                 <ng-container *transloco="let c">
                     {{ c?.showMore }}

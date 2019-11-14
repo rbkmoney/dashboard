@@ -3,6 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/cor
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';
 import { LAYOUT_GAP } from '../../constants';
+import { SpinnerType } from '../../../spinner';
 
 @Component({
     selector: 'dsh-payments',
@@ -13,6 +14,9 @@ import { LAYOUT_GAP } from '../../constants';
 export class PaymentsComponent implements OnChanges {
     payments$ = this.paymentsService.searchResult$;
     hasMore$ = this.paymentsService.hasMore$;
+    isLoading$ = this.paymentsService.isLoading$;
+
+    spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     @Input()
     invoiceID: string;

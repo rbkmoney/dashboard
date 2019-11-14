@@ -17,7 +17,7 @@ import { LAYOUT_GAP } from '../../constants';
 export class InvoiceDetailsComponent implements OnInit {
     @Input() invoiceID: string;
 
-    invoice$: Observable<Invoice>;
+    invoice$ = this.invoiceDetailsService.invoice$;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
@@ -26,7 +26,7 @@ export class InvoiceDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.invoice$ = this.invoiceDetailsService.getInvoiceByID(this.invoiceID);
+        this.invoiceDetailsService.initialize(this.invoiceID)
     }
 
     getStatusViewInfo(status: InvoiceStatus.StatusEnum): StatusViewInfo {

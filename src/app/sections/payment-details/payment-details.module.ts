@@ -35,6 +35,7 @@ import { InvoiceModule } from '../../api/invoice';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
+import { SpinnerModule } from '../../spinner';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { ShopDetailsModule } from '../shop-details/shop-details.module';
         TranslocoModule,
         DetailsItemModule,
         ShopDetailsModule,
-        PaymentDetailsRoutingModule
+        PaymentDetailsRoutingModule,
+        SpinnerModule
     ],
     declarations: [
         PaymentDetailsComponent,

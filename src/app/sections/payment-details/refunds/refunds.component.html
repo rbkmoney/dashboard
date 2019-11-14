@@ -1,7 +1,7 @@
 <dsh-card *ngIf="refunds$ | async as refunds">
     <ng-container
-        fxLayout="column"
         *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds'"
+        fxLayout="column"
         [fxLayoutGap]="layoutGap"
     >
         <dsh-card-title>
@@ -25,6 +25,9 @@
                 <dsh-refund-item [refund]="refund"></dsh-refund-item>
                 <div class="dsh-payment-details-refunds-divider"></div>
             </ng-container>
+            <div *ngIf="!(hasMoreRefunds$ | async)">
+                {{ t?.noRefunds }}
+            </div>
             <button
                 *ngIf="hasMoreRefunds$ | async"
                 class="dsh-payment-details-refunds-show-more-refunds"
