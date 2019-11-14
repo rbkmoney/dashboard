@@ -5,7 +5,8 @@ import { RussianLegalOwnerService } from './russian-legal-owner.service';
 
 @Component({
     selector: 'dsh-russian-legal-owner',
-    templateUrl: 'russian-legal-owner.component.html'
+    templateUrl: 'russian-legal-owner.component.html',
+    styleUrls: ['russian-legal-owner.component.scss']
 })
 export class RussianLegalOwnerComponent implements OnInit, OnDestroy {
     layoutGap = '20px';

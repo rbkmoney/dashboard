@@ -1,26 +1,25 @@
 import { toTimelineInfo } from './to-timeline-info';
-import { DocumentModificationUnit } from '../../../../api-codegen/claim-management';
-import { SpecificModificationUnit } from '../../../../api/claims/utils';
+import { ModificationUnit, ClaimModification } from '../../../../api-codegen/claim-management';
 import { Author } from './author';
 import { TimelineAction } from './timeline-action';
 import { TimelineItemInfo } from './timeline-item-info';
 
 describe('toTimelineInfo', () => {
-    function createModificationUnit(
-        createdAt: string
-    ): [SpecificModificationUnit<DocumentModificationUnit>, TimelineItemInfo] {
+    function createModificationUnit(createdAt: string): [ModificationUnit, TimelineItemInfo] {
         return [
             {
                 modificationID: 1,
                 createdAt: createdAt as any,
                 modification: {
                     modificationType: 'ClaimModification',
-                    claimModificationType: 'DocumentModificationUnit',
-                    id: '1',
-                    modification: {
-                        documentModificationType: 'DocumentCreated'
+                    claimModificationType: {
+                        claimModificationType: 'DocumentModificationUnit',
+                        documentId: '1',
+                        documentModification: {
+                            documentModificationType: 'DocumentCreated'
+                        }
                     }
-                }
+                } as ClaimModification
             },
             {
                 action: TimelineAction.claimCreated,

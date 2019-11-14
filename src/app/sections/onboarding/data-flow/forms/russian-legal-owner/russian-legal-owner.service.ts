@@ -8,7 +8,12 @@ import { StepName } from '../../step-flow';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
-import { RussianDomesticPassportService, PdlInfoService, AuthorityConfirmingDocumentService } from '../subforms';
+import {
+    RussianDomesticPassportService,
+    PdlInfoService,
+    AuthorityConfirmingDocumentService,
+    PrivateEntityInfoService
+} from '../subforms';
 import { toFormValue } from './to-form-value';
 
 @Injectable()
@@ -19,7 +24,8 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
         private fb: FormBuilder,
         private russianDomesticPassportService: RussianDomesticPassportService,
         private pdlInfoService: PdlInfoService,
-        private authorityConfirmingDocumentService: AuthorityConfirmingDocumentService
+        private authorityConfirmingDocumentService: AuthorityConfirmingDocumentService,
+        private privateEntityInfoService: PrivateEntityInfoService
     ) {
         super(questionaryStateService, validityService);
         this.form$.next(this.initForm());
@@ -40,16 +46,11 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
 
     private initForm(): FormGroup {
         return this.fb.group({
-            fio: ['', Validators.required],
-            birthDate: ['', Validators.required],
-            birthPlace: ['', Validators.required],
-            residenceAddress: ['', Validators.required],
-            snils: ['', Validators.required],
+            privateEntityInfo: this.privateEntityInfoService.getForm(),
             headPosition: ['', Validators.required],
-            innfl: [''],
+            termOfOffice: ['', Validators.required],
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
-            termOfOffice: ['', Validators.required],
             authorityConfirmingDocument: this.authorityConfirmingDocumentService.getForm()
         });
     }

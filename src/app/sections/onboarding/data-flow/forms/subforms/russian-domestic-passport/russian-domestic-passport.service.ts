@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 @Injectable()
 export class RussianDomesticPassportService {
@@ -10,7 +11,12 @@ export class RussianDomesticPassportService {
             seriesNumber: ['', Validators.required],
             issuer: ['', Validators.required],
             issuerCode: ['', Validators.required],
-            issuedAt: ['', Validators.required]
+            issuedAt: [
+                moment()
+                    .utc()
+                    .format(),
+                Validators.required
+            ]
         });
     }
 }
