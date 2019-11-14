@@ -8,7 +8,7 @@
             <div fxLayout="column" [fxLayoutGap]="layoutGap">
                 <dsh-payment *ngFor="let payment of payments" [payment]="payment"></dsh-payment>
             </div>
-            <div *ngIf="!(hasMore$ | async)">
+            <div *ngIf="payments.length === 0">
                 {{ t?.noPayments }}
             </div>
             <button
