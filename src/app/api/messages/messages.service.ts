@@ -11,7 +11,7 @@ import {
 export class MessagesService {
     constructor(private conversationsService: ConversationsService) {}
 
-    getConversations(conversationId: ConversationID[], conversationStatus: ConversationStatus) {
+    getConversations(conversationId: ConversationID[], conversationStatus?: ConversationStatus) {
         return this.conversationsService.getConversations(conversationId, conversationStatus);
     }
 
