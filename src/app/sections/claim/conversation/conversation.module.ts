@@ -34,6 +34,6 @@ import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.p
         TimelineActionIconComponent,
         TimelineItemAuthorDicPathPipe
     ],
-    exports: [ConversationComponent]
+    exports: [ConversationComponent, TimelineActionDicPathPipe]
 })
 export class ConversationModule {}

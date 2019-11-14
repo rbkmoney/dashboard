@@ -3,6 +3,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 import { StatusColor as Color } from '../../../theme-manager';
+import { getPaymentStatusInfo } from '../../get-payment-status-info';
 
 @Component({
     selector: 'dsh-details',
@@ -23,33 +24,9 @@ export class DetailsComponent implements OnChanges {
         }
     }
 
-    setInfo(status: PaymentStatus.StatusEnum) {
-        const statusEnum = PaymentStatus.StatusEnum;
-        switch (status) {
-            case statusEnum.Processed:
-                this.color = Color.success;
-                this.status = 'processed';
-                break;
-            case statusEnum.Failed:
-                this.color = Color.warn;
-                this.status = 'failed';
-                break;
-            case statusEnum.Refunded:
-                this.color = Color.neutral;
-                this.status = 'refunded';
-                break;
-            case statusEnum.Cancelled:
-                this.color = Color.warn;
-                this.status = 'cancelled';
-                break;
-            case statusEnum.Captured:
-                this.color = Color.pending;
-                this.status = 'captured';
-                break;
-            case statusEnum.Pending:
-                this.color = Color.pending;
-                this.status = 'pending';
-                break;
-        }
+    setInfo(paymentStatus: PaymentStatus.StatusEnum) {
+        const { color, status } = getPaymentStatusInfo(paymentStatus);
+        this.color = color;
+        this.status = status;
     }
 }
