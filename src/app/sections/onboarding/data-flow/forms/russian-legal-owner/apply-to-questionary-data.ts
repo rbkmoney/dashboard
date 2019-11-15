@@ -40,15 +40,11 @@ const applyToAuthorityConfirmingDocument = (
 const applyToContractor = (
     t: LegalEntityContractor,
     {
-        birthDate,
-        birthPlace,
-        residenceAddress,
-        snils,
-        innfl,
+        privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl },
         headPosition,
+        termOfOffice,
         russianDomesticPassport,
         pdlInfo: { pdlCategory, pdlRelationDegree },
-        termOfOffice,
         authorityConfirmingDocument
     }: FormValue
 ): LegalEntityContractor => {

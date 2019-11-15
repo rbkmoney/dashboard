@@ -17,6 +17,16 @@
             "cost": "Цена",
             "quantity": "Количество",
             "taxMode": "Ставка налога"
+        },
+        "payments": {
+            "title": "Платежи",
+            "noPayments": "Платежей нет",
+            "payment": {
+                "title": "Платеж",
+                "status": "Статус",
+                "amount": "Сумма списания",
+                "createdAt": "Платеж создан"
+            }
         }
     }
 }

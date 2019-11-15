@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject, combineLatest } from 'rxjs';
-import { shareReplay, startWith, pluck } from 'rxjs/operators';
+import { shareReplay, pluck, startWith } from 'rxjs/operators';
 
-import { toInitialStep } from './to-initial-step';
 import { StepName } from './step-name';
 import { InitialDataService } from '../initial-data.service';
 import { handleNull, takeError } from '../../../../custom-operators';
@@ -14,11 +13,13 @@ import { mapToStepFlow } from './map-to-step-flow';
 import { mapDirectionToStep } from './map-direction-to-step';
 import { mapToHasNext } from './map-to-has-next';
 import { mapToHasPrevious } from './map-to-has-previous';
+import { urlToStep } from './url-to-step';
 
 @Injectable()
 export class StepFlowService {
     private navigate$: Subject<StepName> = new Subject();
     private goByDirection$: Subject<'forward' | 'back'> = new Subject();
+    private readonly defaultStep = StepName.BasicInfo;
 
     stepFlow$: Observable<StepName[]> = this.dataFlowService.initialSnapshot$.pipe(
         pluck('questionary'),
@@ -28,8 +29,7 @@ export class StepFlowService {
     );
 
     activeStep$: Observable<StepName> = this.navigate$.pipe(
-        startWith(toInitialStep(this.router.url)),
-        handleNull('Active step calculation failed'),
+        startWith(urlToStep(this.router.url, this.defaultStep)),
         shareReplay(1)
     );
 
@@ -66,5 +66,12 @@ export class StepFlowService {
 
     go(direction: 'forward' | 'back') {
         this.goByDirection$.next(direction);
+    }
+
+    preserveDefault() {
+        if (urlToStep(this.router.url, null) !== null) {
+            return;
+        }
+        this.router.navigate([this.router.url, this.defaultStep]);
     }
 }

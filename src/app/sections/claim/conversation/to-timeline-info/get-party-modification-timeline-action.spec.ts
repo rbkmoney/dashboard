@@ -1,18 +1,20 @@
 import { SpecificModificationUnit } from '../../../../api/claims/utils';
-import { PartyModification } from '../../../../api-codegen/claim-management';
+import { PartyModification, PartyModificationType } from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './timeline-action';
 import { getPartyModificationTimelineAction } from './get-party-modification-timeline-action';
 
 describe('getPartyModificationTimelineAction', () => {
     function createShopModificationUnit(
-        partyModificationType?: PartyModification.PartyModificationTypeEnum
+        partyModificationType?: PartyModificationType.PartyModificationTypeEnum
     ): SpecificModificationUnit<PartyModification> {
         return {
             modificationID: 1,
             createdAt: '2019-08-08T10:20:30Z' as any,
             modification: {
                 modificationType: 'PartyModification',
-                partyModificationType
+                partyModificationType: {
+                    partyModificationType
+                }
             }
         };
     }
@@ -23,16 +25,9 @@ describe('getPartyModificationTimelineAction', () => {
         );
     });
 
-    it('not specific PartyModification should return error', () => {
-        const modificationUnit = createShopModificationUnit();
-        expect(() => getPartyModificationTimelineAction(modificationUnit)).toThrow(
-            new Error('Modification unit is incomplete')
-        );
-    });
-
     it('wrong PartyModification should return error', () => {
         const modificationUnit = createShopModificationUnit(
-            'TestWrongModification123' as PartyModification.PartyModificationTypeEnum
+            'TestWrongModification123' as PartyModificationType.PartyModificationTypeEnum
         );
         expect(() => getPartyModificationTimelineAction(modificationUnit)).toThrow(
             new Error('Party modification unidentified')

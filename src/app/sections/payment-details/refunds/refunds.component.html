@@ -13,12 +13,12 @@
             </button>
         </div>
     </dsh-card-title>
-    <dsh-card-content fxLayout="column">
+    <dsh-card-content fxLayout="column" *ngIf="refunds$ | async">
         <ng-container *ngFor="let refund of refunds$ | async">
             <dsh-refund-item [refund]="refund"></dsh-refund-item>
             <div class="dsh-payment-details-refunds-divider"></div>
         </ng-container>
-        <div *ngIf="!(hasMoreRefunds$ | async)">
+        <div *ngIf="(refunds$ | async).length === 0">
             {{ t?.noRefunds }}
         </div>
         <button

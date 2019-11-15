@@ -9,12 +9,16 @@ import { BasicInfoService, BasicInfoComponent } from './basic-info';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
 import { RussianLegalOwnerComponent, RussianLegalOwnerService } from './russian-legal-owner';
 import { InitializeFormsService } from './initialize-forms.service';
-import { RussianDomesticPassportComponent, RussianDomesticPassportService } from './subforms';
-import { PdlInfoComponent, PdlInfoService } from './subforms/pdl-info';
 import {
+    RussianDomesticPassportComponent,
+    RussianDomesticPassportService,
     AuthorityConfirmingDocumentComponent,
-    AuthorityConfirmingDocumentService
-} from './subforms/authority-confirming-document';
+    AuthorityConfirmingDocumentService,
+    PdlInfoComponent,
+    PdlInfoService,
+    PrivateEntityInfoComponent,
+    PrivateEntityInfoService
+} from './subforms';
 import {
     FinancialAndEconomicActivityComponent,
     FinancialAndEconomicActivityService
@@ -39,7 +43,8 @@ import {
         RussianDomesticPassportComponent,
         PdlInfoComponent,
         AuthorityConfirmingDocumentComponent,
-        FinancialAndEconomicActivityComponent
+        FinancialAndEconomicActivityComponent,
+        PrivateEntityInfoComponent
     ],
     providers: [
         InitializeFormsService,
@@ -48,7 +53,8 @@ import {
         RussianDomesticPassportService,
         PdlInfoService,
         AuthorityConfirmingDocumentService,
-        FinancialAndEconomicActivityService
+        FinancialAndEconomicActivityService,
+        PrivateEntityInfoService
     ]
 })
 export class OnboardingFormsModule {}
