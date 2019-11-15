@@ -37,16 +37,7 @@ $icon-width: 24px;
     }
 }
 
-.icon {
-    &-container {
-        display: none;
-        width: $icon-width;
-        height: $icon-height;
-    }
-}
-
-.withIcon {
-    .icon-container {
-        display: block;
-    }
+.dsh-state-nav-icon-container {
+    width: $icon-width;
+    height: $icon-height;
 }

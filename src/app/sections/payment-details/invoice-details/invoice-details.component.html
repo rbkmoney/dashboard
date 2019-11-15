@@ -1,5 +1,8 @@
-<dsh-card *ngIf="invoice$ | async as invoice">
-    <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
+<dsh-card *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
+    <div *ngIf="!(invoice$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <ng-container *ngIf="invoice$ | async as invoice">
         <dsh-card-title>
             <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
                 <div>

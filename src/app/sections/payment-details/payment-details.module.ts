@@ -29,12 +29,13 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
 import { SearchModule } from '../../api/search';
-import { ShopDetailsComponent, ShopLocationUrlComponent } from './shop-details';
 import { FromMinorModule } from '../../from-minor';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { DetailsItemModule } from '../../details-item/details-item.module';
+import { ShopDetailsModule } from '../shop-details/shop-details.module';
+import { SpinnerModule } from '../../spinner';
 
 @NgModule({
     imports: [
@@ -46,13 +47,15 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         CardModule,
         ButtonModule,
         CommonModule,
-        PaymentDetailsRoutingModule,
         SearchModule,
         FromMinorModule,
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,
-        DetailsItemModule
+        DetailsItemModule,
+        ShopDetailsModule,
+        PaymentDetailsRoutingModule,
+        SpinnerModule
     ],
     declarations: [
         PaymentDetailsComponent,
@@ -64,7 +67,6 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         HoldDetailsComponent,
         RecurrentDetailsComponent,
         InvoiceDetailsComponent,
-        ShopDetailsComponent,
         RefundsComponent,
         RefundItemComponent,
         CurrencySymbolPipe,
@@ -75,7 +77,6 @@ import { DetailsItemModule } from '../../details-item/details-item.module';
         PaymentTerminalComponent,
         CustomerPayerComponent,
         PaymentResourcePayerComponent,
-        ShopLocationUrlComponent,
         MakeRecurrentComponent
     ],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

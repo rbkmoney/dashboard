@@ -9,7 +9,7 @@ import { Report } from '../../api-codegen/anapi/swagger-codegen';
 import { booleanDelay, takeError } from '../../custom-operators';
 
 @Injectable()
-export class ReportService {
+export class ReportDetailsService {
     private initialize$: Subject<number> = new Subject();
 
     report$: Observable<Report> = this.initialize$.pipe(

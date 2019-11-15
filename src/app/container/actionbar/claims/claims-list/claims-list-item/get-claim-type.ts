@@ -10,8 +10,8 @@ export function getClaimType(changeset: ClaimChangeset): ClaimType {
         for (const { modification } of changeset) {
             if (
                 isClaimModification(modification) &&
-                isDocumentModificationUnit(modification) &&
-                isDocumentCreated(modification.modification)
+                isDocumentModificationUnit(modification.claimModificationType) &&
+                isDocumentCreated(modification.claimModificationType.documentModification)
             ) {
                 return ClaimType.documentCreated;
             }

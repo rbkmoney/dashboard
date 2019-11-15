@@ -20,7 +20,11 @@ export class StepCardComponent {
     constructor(private validityService: ValidityService) {}
 
     getStepStatus(step: StepName): Observable<string | null> {
-        return this.validityService.isValid(step).pipe(map(isValid => (isValid ? 'success' : null)));
+        return this.isStepValid(step).pipe(map(isValid => (isValid ? 'success' : null)));
+    }
+
+    isStepValid(step: StepName): Observable<boolean> {
+        return this.validityService.isValid(step);
     }
 
     selectStepFlowIndex(index: number) {

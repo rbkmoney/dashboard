@@ -2,22 +2,21 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { LAYOUT_GAP } from '../constants';
-import { ReportService } from './report.service';
+import { ReportDetailsService } from './report-details.service';
 
 @Component({
-    selector: 'dsh-report-details',
-    templateUrl: 'report.component.html',
-    styleUrls: ['report.component.scss'],
-    providers: [ReportService]
+    templateUrl: 'report-details.component.html',
+    styleUrls: ['report-details.component.scss'],
+    providers: [ReportDetailsService]
 })
-export class ReportComponent implements OnInit {
+export class ReportDetailsComponent implements OnInit {
     report$ = this.reportService.report$;
     reportError$ = this.reportService.reportError$;
     reportInitialized$ = this.reportService.reportInitialized$;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
-        private reportService: ReportService,
+        private reportService: ReportDetailsService,
         private route: ActivatedRoute
     ) {}
 

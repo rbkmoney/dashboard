@@ -26,7 +26,7 @@ const routes: Routes = [
     },
     {
         path: 'report',
-        loadChildren: () => import('./report-details').then(m => m.ReportModule)
+        loadChildren: () => import('./report-details').then(m => m.ReportDetailsModule)
     },
     {
         path: 'onboarding',

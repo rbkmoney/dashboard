@@ -1,11 +1,8 @@
-import { ClaimModification, DocumentModificationUnit, Modification } from '../../../../api-codegen/claim-management';
-import { isClaimModification } from './is-claim-modification';
+import { DocumentModificationUnit, ClaimModificationType } from '../../../../api-codegen/claim-management';
 import { isDocumentCreated } from './is-document-created';
 
-const isDocumentModification = (m: ClaimModification): m is DocumentModificationUnit => {
-    const DocumentModificationUnitType = ClaimModification.ClaimModificationTypeEnum.DocumentModificationUnit;
-    return (m as DocumentModificationUnit).claimModificationType === DocumentModificationUnitType;
-};
+const isDocumentModification = (m: ClaimModificationType): m is DocumentModificationUnit =>
+    m.claimModificationType === 'DocumentModificationUnit';
 
-export const isDocumentModificationUnit = (m: Modification): m is DocumentModificationUnit =>
-    isClaimModification(m) && isDocumentModification(m) && isDocumentCreated(m.modification);
+export const isDocumentModificationUnit = (m: ClaimModificationType): m is DocumentModificationUnit =>
+    isDocumentModification(m) && isDocumentCreated(m.documentModification);

@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-invoice-payments-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-invoice-payments-item {
+        border-bottom-color: mat-color($gray, 200);
+    }
+}

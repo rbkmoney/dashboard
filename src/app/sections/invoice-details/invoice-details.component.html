@@ -1,3 +1,26 @@
-<div>
-    InvoiceDetailsComponent
-</div>
+<ng-container *transloco="let t; scope: 'invoice'; read: 'invoice'">
+    <div *ngIf="!(invoiceInitialized$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <ng-container *ngIf="!(invoiceError$ | async)">
+        <div
+            *ngIf="invoice$ | async as invoice"
+            class="dsh-invoice-details"
+            fxLayout="column"
+            [fxLayoutGap]="layoutGap"
+        >
+            <dsh-headline>
+                <div>
+                    {{ t.title }}
+                    <span dshSecondaryTitle>
+                        {{ invoice ? '#' + invoice?.id : '' }}
+                    </span>
+                </div>
+            </dsh-headline>
+            <dsh-details [invoice]="invoice"></dsh-details>
+            <dsh-cart *ngIf="invoice.cart" [invoiceCart]="invoice.cart" [currency]="invoice.currency"></dsh-cart>
+            <dsh-shop-details [shopID]="invoice.shopID"></dsh-shop-details>
+            <dsh-payments [shopID]="invoice.shopID" [invoiceID]="invoice.id"></dsh-payments>
+        </div>
+    </ng-container>
+</ng-container>
