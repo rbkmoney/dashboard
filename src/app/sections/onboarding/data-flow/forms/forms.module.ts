@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatInputModule, MatDatepickerModule, MatCheckboxModule, MatSelectModule } from '@angular/material';
+import {
+    MatInputModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatDividerModule
+} from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
 
@@ -23,6 +29,8 @@ import {
     FinancialAndEconomicActivityComponent,
     FinancialAndEconomicActivityService
 } from './financial-and-economic-activity';
+import { BeneficialOwnersService, BeneficialOwnersComponent } from './beneficial-owners';
+import { ButtonModule } from '../../../../button';
 
 @NgModule({
     imports: [
@@ -34,7 +42,9 @@ import {
         MatDatepickerModule,
         MatCheckboxModule,
         TranslocoModule,
-        MatSelectModule
+        MatSelectModule,
+        ButtonModule,
+        MatDividerModule
     ],
     declarations: [
         BasicInfoComponent,
@@ -44,7 +54,8 @@ import {
         PdlInfoComponent,
         AuthorityConfirmingDocumentComponent,
         FinancialAndEconomicActivityComponent,
-        PrivateEntityInfoComponent
+        PrivateEntityInfoComponent,
+        BeneficialOwnersComponent
     ],
     providers: [
         InitializeFormsService,
@@ -54,7 +65,8 @@ import {
         PdlInfoService,
         AuthorityConfirmingDocumentService,
         FinancialAndEconomicActivityService,
-        PrivateEntityInfoService
+        PrivateEntityInfoService,
+        BeneficialOwnersService
     ]
 })
 export class OnboardingFormsModule {}
