@@ -6,7 +6,8 @@ import {
     MatDatepickerModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatRadioModule
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
@@ -31,6 +32,10 @@ import {
 } from './financial-and-economic-activity';
 import { BeneficialOwnersService, BeneficialOwnersComponent } from './beneficial-owners';
 import { ButtonModule } from '../../../../button';
+import {
+    PlanningOperationsAndPayoutToolComponent,
+    PlanningOperationsAndPayoutToolService
+} from './planning-operations-and-payout-tool';
 
 @NgModule({
     imports: [
@@ -44,7 +49,8 @@ import { ButtonModule } from '../../../../button';
         TranslocoModule,
         MatSelectModule,
         ButtonModule,
-        MatDividerModule
+        MatDividerModule,
+        MatRadioModule
     ],
     declarations: [
         BasicInfoComponent,
@@ -55,7 +61,8 @@ import { ButtonModule } from '../../../../button';
         AuthorityConfirmingDocumentComponent,
         FinancialAndEconomicActivityComponent,
         PrivateEntityInfoComponent,
-        BeneficialOwnersComponent
+        BeneficialOwnersComponent,
+        PlanningOperationsAndPayoutToolComponent
     ],
     providers: [
         InitializeFormsService,
@@ -66,7 +73,8 @@ import { ButtonModule } from '../../../../button';
         AuthorityConfirmingDocumentService,
         FinancialAndEconomicActivityService,
         PrivateEntityInfoService,
-        BeneficialOwnersService
+        BeneficialOwnersService,
+        PlanningOperationsAndPayoutToolService
     ]
 })
 export class OnboardingFormsModule {}

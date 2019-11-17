@@ -1,0 +1,49 @@
+<form
+    [formGroup]="form$ | async"
+    fxLayout="column"
+    fxLayoutGap="30px"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.planningOperationsAndPayoutTool'"
+>
+    <div fxLayout="column" fxLayoutGap="30px">
+        <div fxLayout="column" fxLayoutGap="15px">
+            <label>{{ t.monthOperationCountLabel }}</label>
+            <mat-radio-group formControlName="monthOperationCount" fxLayout fxLayoutGap="30px" required>
+                <mat-radio-button
+                    *ngFor="let monthOperationCount of monthOperationCounts"
+                    [value]="monthOperationCount"
+                >
+                    {{ t.monthOperationCountTypes[monthOperationCount] }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div fxLayout="column" fxLayoutGap="15px">
+            <label>{{ t.monthOperationSumLabel }}</label>
+            <mat-radio-group formControlName="monthOperationSum" fxLayout fxLayoutGap="30px" required>
+                <mat-radio-button *ngFor="let monthOperationSum of monthOperationSums" [value]="monthOperationSum">
+                    {{ t.monthOperationSumTypes[monthOperationSum] }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <form fxLayout="column" [formGroup]="(form$ | async).get('bankAccount')">
+        <label class="bankAccountLabel">{{ t.payoutToolLabel }}</label>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.bankName }}</mat-label>
+            <input matInput formControlName="bankName" required />
+        </mat-form-field>
+        <div fxLayout [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.bankBik }}</mat-label>
+                <input matInput formControlName="bankBik" required />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.bankPostAccount }}</mat-label>
+                <input matInput formControlName="bankPostAccount" required />
+            </mat-form-field>
+        </div>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.account }}</mat-label>
+            <input matInput formControlName="account" required />
+        </mat-form-field>
+    </form>
+</form>

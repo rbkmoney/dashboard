@@ -6,7 +6,8 @@ import {
     RussianLegalOwnerComponent,
     RussianPrivateEntityComponent,
     FinancialAndEconomicActivityComponent,
-    BeneficialOwnersComponent
+    BeneficialOwnersComponent,
+    PlanningOperationsAndPayoutToolComponent
 } from './forms';
 import { DataFlowComponent } from './data-flow.component';
 import { StepName } from './step-flow';
@@ -35,6 +36,10 @@ export const routes: Routes = [
             {
                 path: StepName.BeneficialOwners,
                 component: BeneficialOwnersComponent
+            },
+            {
+                path: StepName.PlanningOperationsAndPayoutTool,
+                component: PlanningOperationsAndPayoutToolComponent
             }
         ]
     }

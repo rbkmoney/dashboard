@@ -6,3 +6,4 @@ export * from './forms.module';
 export * from './initialize-forms.service';
 export * from './financial-and-economic-activity/financial-and-economic-activity.component';
 export * from './beneficial-owners/beneficial-owners.component';
+export * from './planning-operations-and-payout-tool/planning-operations-and-payout-tool.component';

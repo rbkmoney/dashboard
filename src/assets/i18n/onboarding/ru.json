@@ -101,11 +101,29 @@
             "date": "Дата",
             "number": "Номер документа (при наличии)"
         },
+        "planningOperationsAndPayoutTool": {
+            "monthOperationCountLabel": "Планируемое количество операций в месяц",
+            "monthOperationCountTypes": {
+                "LtTen": "до 10",
+                "BtwTenToFifty": "10 - 50",
+                "GtFifty": "свыше 50"
+            },
+            "monthOperationSumLabel": "Планируемая сумма операций в месяц",
+            "monthOperationSumTypes": {
+                "LtFiveHundredThousand": "до 500 000",
+                "BtwFiveHundredThousandToOneMillion": "500 000 - 1 000 000",
+                "GtOneMillion": "свыше 1 000 000"
+            },
+            "payoutToolLabel": "Средство вывода",
+            "account": "Расчетный счет",
+            "bankName": "Наименование банка",
+            "bankPostAccount": "Корреспондентский счет",
+            "bankBik": "БИК"
+        },
         "stepCard": {
             "basicInfo": "Основные сведения",
             "financialAndEconomicActivity": "Хозяйственная деятельность",
             "beneficialOwners": "Бенефициарные владельцы",
-            "documentsUpload": "Загрузка документов",
             "planningOperationsAndPayoutTool": "Банковские реквизиты",
             "russianLegalOwner": "Сведения о юридическом лице",
             "russianPrivateEntity": "Сведения о физическом лице",
