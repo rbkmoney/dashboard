@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { SpecificModificationUnit } from './specific-modification-unit';
-import { SpecificClaimModification } from './specific-claim-modification';
+import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 
 export const createDocumentModificationUnit = (
     modificationID: number,
@@ -10,7 +10,7 @@ export const createDocumentModificationUnit = (
     createdAt = moment()
         .utc()
         .format() as any
-): SpecificModificationUnit<SpecificClaimModification<DocumentModificationUnit>> => ({
+): SpecificModificationUnit<SpecificClaimModificationUnit<DocumentModificationUnit>> => ({
     modificationID,
     createdAt,
     modification: {
