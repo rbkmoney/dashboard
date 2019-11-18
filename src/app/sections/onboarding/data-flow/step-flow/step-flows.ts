@@ -5,8 +5,7 @@ const BasicStepFlow = [
     null,
     StepName.FinancialAndEconomicActivity,
     StepName.BeneficialOwners,
-    StepName.PlanningOperationsAndPayoutTool,
-    StepName.DocumentsUpload
+    StepName.PlanningOperationsAndPayoutTool
 ];
 
 const insertStepToBasicFlow = (step: StepName): StepName[] => BasicStepFlow.map(s => (s === null ? step : s));
