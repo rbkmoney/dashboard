@@ -36,6 +36,7 @@ import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
+import { IndividualResidencyInfoComponent, IndividualResidencyInfoService } from './subforms/individual-residency-info';
 
 @NgModule({
     imports: [
@@ -62,7 +63,8 @@ import {
         FinancialAndEconomicActivityComponent,
         PrivateEntityInfoComponent,
         BeneficialOwnersComponent,
-        PlanningOperationsAndPayoutToolComponent
+        PlanningOperationsAndPayoutToolComponent,
+        IndividualResidencyInfoComponent
     ],
     providers: [
         InitializeFormsService,
@@ -74,7 +76,8 @@ import {
         FinancialAndEconomicActivityService,
         PrivateEntityInfoService,
         BeneficialOwnersService,
-        PlanningOperationsAndPayoutToolService
+        PlanningOperationsAndPayoutToolService,
+        IndividualResidencyInfoService
     ]
 })
 export class OnboardingFormsModule {}

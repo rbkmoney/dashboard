@@ -18,8 +18,7 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
             pdlInfo: { pdlCategory, pdlRelationDegree },
             privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl },
             russianDomesticPassport: { seriesNumber, issuer, issuerCode, issuedAt },
-            usaTaxResident,
-            exceptUsaTaxResident
+            individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
         }) => {
             console.warn('Questionary field is missing: RussianDomesticPassport.seriesNumber', seriesNumber);
             return {

@@ -12,6 +12,7 @@ import { toFormValue } from './to-form-value';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { RussianDomesticPassportService } from '../subforms/russian-domestic-passport';
 import { PdlInfoService } from '../subforms/pdl-info';
+import { IndividualResidencyInfoService } from '../subforms/individual-residency-info';
 
 @Injectable()
 export class RussianPrivateEntityService extends QuestionaryFormService {
@@ -21,7 +22,8 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
         private fb: FormBuilder,
         private privateEntityInfoService: PrivateEntityInfoService,
         private russianDomesticPassportService: RussianDomesticPassportService,
-        private pdlInfoService: PdlInfoService
+        private pdlInfoService: PdlInfoService,
+        private individualResidencyInfoService: IndividualResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
         this.form$.next(this.initForm());
@@ -44,7 +46,8 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
         return this.fb.group({
             russianPrivateEntity: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
-            pdlInfo: this.pdlInfoService.getForm()
+            pdlInfo: this.pdlInfoService.getForm(),
+            individualResidencyInfo: this.individualResidencyInfoService.getForm()
         });
     }
 }

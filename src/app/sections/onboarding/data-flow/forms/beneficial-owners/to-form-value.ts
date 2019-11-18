@@ -39,8 +39,10 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
                     pdlCategory: get(owner, ['pdlCategory'], false),
                     pdlRelationDegree: get(owner, ['pdlRelationDegree'], null)
                 },
-                usaTaxResident: get(owner, ['residencyInfo', 'taxResident'], false),
-                exceptUsaTaxResident: get(owner, ['residencyInfo', 'ownerResident'], false)
+                individualResidencyInfo: {
+                    usaTaxResident: get(owner, ['residencyInfo', 'taxResident'], false),
+                    exceptUsaTaxResident: get(owner, ['residencyInfo', 'ownerResident'], false)
+                }
             };
         })
     };
