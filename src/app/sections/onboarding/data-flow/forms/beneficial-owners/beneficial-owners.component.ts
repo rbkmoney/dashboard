@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { FormArray } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BeneficialOwnersService } from './beneficial-owners.service';
 
@@ -14,7 +15,9 @@ export class BeneficialOwnersComponent implements OnInit, OnDestroy {
 
     form$ = this.beneficialOwnersService.form$;
 
-    beneficialOwners$ = this.beneficialOwnersService.form$.pipe(map(form => form.controls.beneficialOwners));
+    beneficialOwners$: Observable<FormArray> = this.beneficialOwnersService.form$.pipe(
+        map(form => form.controls.beneficialOwners as FormArray)
+    );
 
     isNoOwners$ = this.beneficialOwnersService.isNoOwners$;
 
