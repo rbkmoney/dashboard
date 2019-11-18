@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { ClaimsService, ShopService } from '../../../../api';
@@ -29,9 +29,9 @@ export class PaymentsService {
             ClaimStatus.Review
         ]);
         const contentConfig = toContentConf(this.shopService.shops$, claims);
-        this.actionBtnContent$ = contentConfig.pipe(map(c => c.actionBtnContent));
-        this.testEnvBtnContent$ = contentConfig.pipe(map(c => c.testEnvBtnContent));
-        this.subheading$ = contentConfig.pipe(map(c => c.subheading));
+        this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
+        this.testEnvBtnContent$ = contentConfig.pipe(pluck('testEnvBtnContent'));
+        this.subheading$ = contentConfig.pipe(pluck('subheading'));
         this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
         combineLatest(this.isLoading$, contentConfig)
             .pipe(takeError)

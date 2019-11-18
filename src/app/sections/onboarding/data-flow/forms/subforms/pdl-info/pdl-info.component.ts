@@ -6,7 +6,8 @@ import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-pdl-info',
-    templateUrl: 'pdl-info.component.html'
+    templateUrl: 'pdl-info.component.html',
+    styleUrls: ['pdl-info.component.scss']
 })
 export class PdlInfoComponent implements OnChanges {
     @Input() form;
