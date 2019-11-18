@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ClaimType } from './get-claim-type';
+import { ClaimType } from '../../../../../view-utils';
 
 @Pipe({
     name: 'claimTypeLabel'

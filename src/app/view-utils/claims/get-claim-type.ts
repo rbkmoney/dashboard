@@ -1,5 +1,5 @@
-import { ClaimChangeset } from '../../../../../api-codegen/claim-management';
-import { isClaimModification, isDocumentModificationUnit, isDocumentCreated } from '../../../../../api';
+import { ClaimChangeset } from '../../api-codegen/claim-management';
+import { isClaimModification, isDocumentModificationUnit, isDocumentCreated } from '../../api';
 
 export enum ClaimType {
     documentCreated
