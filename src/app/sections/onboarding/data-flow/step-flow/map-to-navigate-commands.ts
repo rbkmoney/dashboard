@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { StepName } from './step-name';
 import { toBaseUrl } from '../to-base-url';

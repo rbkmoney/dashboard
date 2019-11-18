@@ -33,15 +33,7 @@
         },
         "russianLegalOwner": {
             "legalOwnerDescription": "Ген. директор, президент, председатель правления и т.п.",
-
-            "fio": "ФИО",
-            "birthDate": "Дата рождения",
-            "birthPlace": "Место рождения",
-            "residenceAddress": "Адрес места жительства (регистрации) или места пребывания",
-            "snils": "СНИЛС",
             "headPosition": "Должность",
-            "innfl": "ИННФЛ (при наличии)",
-
             "termOfOffice": "Срок полномочий",
             "termOfOfficeHint": "Пример: 5 лет"
         },
@@ -73,7 +65,6 @@
             "birthPlace": "Место рождения",
             "residenceAddress": "Адрес места жительства (регистрации) или места пребывания",
             "snils": "СНИЛС",
-            "headPosition": "Должность",
             "innfl": "ИННФЛ (при наличии)"
         },
         "russianDomesticPassport": {
