@@ -1,20 +1,19 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Claim, ClaimModification, FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
-import { filterFileModificationUnit } from '../utils';
+import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
+import { isChangesetFileModificationUnit } from '../type-guards';
+import { SpecificClaimModificationUnit, SpecificModificationUnit } from '../utils';
+import { FileModificationUnit } from '../../../api-codegen/dark-api/swagger-codegen';
 
-export const takeFileModificationsUnit = (s: Observable<Claim>): Observable<FileModificationUnit[]> =>
+export const takeFileModificationsUnit = (
+    s: Observable<Claim>
+): Observable<SpecificModificationUnit<SpecificClaimModificationUnit<FileModificationUnit>>[]> =>
     s.pipe(
         map(c => {
             if (!c || !c.changeset) {
-                return null;
+                return [];
             }
-            const fileModificationUnits: FileModificationUnit[] = [];
-            filterFileModificationUnit(c.changeset).forEach(unit =>
-                fileModificationUnits.push((unit.modification as ClaimModification)
-                    .claimModificationType as FileModificationUnit)
-            );
-            return fileModificationUnits;
+            return c.changeset.filter(isChangesetFileModificationUnit);
         })
     );

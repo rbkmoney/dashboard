@@ -22,7 +22,11 @@ export class InitialDataService {
         handleNull('Modification unit is null'),
         switchMap(modifications =>
             modifications.length > 0
-                ? forkJoin(modifications.map(modification => this.filesService.getFileInfo(modification.fileId)))
+                ? forkJoin(
+                      modifications.map(modification =>
+                          this.filesService.getFileInfo(modification.modification.claimModificationType.id)
+                      )
+                  )
                 : of([])
         ),
         shareReplay(1)
