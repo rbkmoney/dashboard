@@ -17,11 +17,7 @@
             <dsh-step-navigation></dsh-step-navigation>
         </dsh-card>
         <div fxLayout="column" fxFlex="320px" fxLayoutGap="20px" fxHide.lt-sm="true">
-            <dsh-step-card
-                [stepFlow]="stepFlow$ | async"
-                [activeStep]="activeStep$ | async"
-                (stepSelected)="stepSelected($event)"
-            ></dsh-step-card>
+            <dsh-step-card></dsh-step-card>
             <dsh-help-card></dsh-help-card>
         </div>
     </div>
