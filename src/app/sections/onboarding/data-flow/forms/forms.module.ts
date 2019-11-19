@@ -37,6 +37,7 @@ import {
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
 import { IndividualResidencyInfoComponent, IndividualResidencyInfoService } from './subforms/individual-residency-info';
+import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
 
 @NgModule({
     imports: [
@@ -77,7 +78,8 @@ import { IndividualResidencyInfoComponent, IndividualResidencyInfoService } from
         PrivateEntityInfoService,
         BeneficialOwnersService,
         PlanningOperationsAndPayoutToolService,
-        IndividualResidencyInfoService
+        IndividualResidencyInfoService,
+        RussianPrivateEntityService
     ]
 })
 export class OnboardingFormsModule {}

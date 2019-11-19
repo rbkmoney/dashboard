@@ -1,7 +1,13 @@
 import get from 'lodash.get';
 
-import { QuestionaryData, IndividualEntityContractor } from '../../../../../api-codegen/questionary/swagger-codegen';
+import {
+    QuestionaryData,
+    IndividualEntityContractor,
+    IndividualEntity, RussianIndividualEntity, ResidencyInfo, IdentityDocument
+} from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
+import { RussianPrivateEntity } from '../../../../../api-codegen/capi/swagger-codegen';
+import IdentityDocumentTypeEnum = IdentityDocument.IdentityDocumentTypeEnum;
 
 const applyToContractor = (
     t: IndividualEntityContractor,
@@ -21,6 +27,7 @@ const applyToContractor = (
         ...t,
         individualEntity: {
             ...individualEntity,
+            individualEntityType: IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity,
             russianIndividualEntity: {
                 ...russianIndividualEntity,
                 snils,
@@ -30,17 +37,19 @@ const applyToContractor = (
                     birthDate,
                     birthPlace,
                     residenceAddress
-                },
+                } as RussianPrivateEntity,
                 identityDocument: {
                     ...identityDocument,
+                    identityDocumentType: IdentityDocument.IdentityDocumentTypeEnum.RussianDomesticPassport,
                     russianDomesticPassport
-                },
+                } as IdentityDocument,
                 residencyInfo: {
                     ...residencyInfo,
+                    residencyInfoType: ResidencyInfo.ResidencyInfoTypeEnum.IndividualResidencyInfo,
                     individualResidencyInfo
-                }
-            }
-        }
+                } as ResidencyInfo
+            } as RussianIndividualEntity
+        } as IndividualEntity
     };
 };
 
