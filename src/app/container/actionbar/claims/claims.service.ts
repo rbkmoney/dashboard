@@ -7,11 +7,10 @@ import { filterViewClaims } from './claims-list/claims-list-item/filter-view-cla
 
 @Injectable()
 export class ClaimsService {
-    claims$ = this.claimsService.searchClaims(50).pipe(
+    claims$ = this.claimsService.searchClaims(5).pipe(
         pluck('result'),
-        shareReplay(1),
         map(filterViewClaims),
-        map(claims => claims.slice(0, 5))
+        shareReplay(1)
     );
     isLoading$ = this.claims$.pipe(booleanDelay());
     error$ = this.claims$.pipe(takeError);
