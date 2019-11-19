@@ -18,9 +18,6 @@ export class StepLabelPipe implements PipeTransform {
             case StepName.BeneficialOwners:
                 path = 'beneficialOwners';
                 break;
-            case StepName.DocumentsUpload:
-                path = 'documentsUpload';
-                break;
             case StepName.FinancialAndEconomicActivity:
                 path = 'financialAndEconomicActivity';
                 break;

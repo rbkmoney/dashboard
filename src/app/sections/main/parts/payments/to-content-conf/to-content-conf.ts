@@ -46,6 +46,7 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
     const state = new BehaviorSubject<ContentConfig>(initialConf);
     return applyToSate(state.asObservable(), actionBtnContent$, subheading$, testEnvBtnContent$).pipe(
         startWith(initialConf),
-        tap(r => state.next(r))
+        tap(r => state.next(r)),
+        shareReplay(1)
     );
 };
