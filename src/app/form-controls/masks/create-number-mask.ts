@@ -1,6 +1,5 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-const dollarSign = '$';
 const emptyString = '';
 const comma = ',';
 const period = '.';
@@ -12,7 +11,7 @@ const digitRegExp = /\d/;
 const caretTrap = '[]';
 
 export function createNumberMask({
-    prefix = dollarSign,
+    prefix = emptyString,
     suffix = emptyString,
     includeThousandsSeparator = true,
     thousandsSeparatorSymbol = comma,
