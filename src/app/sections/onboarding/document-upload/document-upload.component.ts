@@ -19,9 +19,6 @@ export class DocumentUploadComponent implements OnInit {
     initialFiles$ = this.initialDataService.initialFiles$;
     initialized$ = this.initialDataService.initialized$;
     initializeError$ = this.initialDataService.initializeError$;
-    // isSaving$ = this.saveQuestionaryService.isSaving$;
-
-    console = console;
 
     constructor(
         private route: ActivatedRoute,
