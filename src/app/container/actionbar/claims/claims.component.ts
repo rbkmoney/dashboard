@@ -14,6 +14,7 @@ export class ClaimsComponent {
     claims$ = this.claimsService.claims$;
     isLoading$ = this.claimsService.isLoading$;
     error$ = this.claimsService.error$;
+    noClaims$ = this.claimsService.noClaims$;
 
     dicBasePath = 'actionbar.claims';
 

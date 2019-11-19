@@ -12,5 +12,8 @@
         </dsh-claims-list-item>
     </dsh-claims-list>
     <div *ngIf="error$ | async" class="mat-body-1">{{ t.httpError }}</div>
+    <div *ngIf="noClaims$ | async" class="mat-body-1">
+        {{ t.actionbar.claims.noClaims }}
+    </div>
     <!-- <button dsh-button class="action">{{ t.actionbar.claims.goToAll }}</button> -->
 </dsh-dropdown-content>

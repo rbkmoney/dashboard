@@ -12,6 +12,7 @@ export class ClaimsService {
         map(filterViewClaims),
         shareReplay(1)
     );
+    noClaims$ = this.claims$.pipe(map(c => c.length === 0));
     isLoading$ = this.claims$.pipe(booleanDelay());
     error$ = this.claims$.pipe(takeError);
 
