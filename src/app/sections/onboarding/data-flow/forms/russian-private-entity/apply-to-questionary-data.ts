@@ -8,7 +8,7 @@ const applyToContractor = (
     {
         russianPrivateEntity: { fio, birthDate, birthPlace, residenceAddress, snils },
         russianDomesticPassport,
-        pdlInfo: { pdlCategory, pdlRelationDegree },
+        // pdlInfo: { pdlCategory, pdlRelationDegree },
         individualResidencyInfo
     }: FormValue
 ): IndividualEntityContractor => {

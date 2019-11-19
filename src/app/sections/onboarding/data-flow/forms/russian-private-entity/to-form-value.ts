@@ -1,6 +1,7 @@
+import get from 'lodash.get';
+
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-import get from "../index";
 
 export const toFormValue = (d: QuestionaryData): FormValue => {
     const russianIndividualEntity = get(d, ['contractor', 'individualEntity', 'russianIndividualEntity'], {});
