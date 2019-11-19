@@ -29,7 +29,7 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
 import { SearchModule } from '../../api/search';
-import { ViewUtilsModule } from '../../view-utils';
+import { FromMinorModule } from '../../from-minor';
 import { MakeRecurrentComponent } from './make-recurrent';
 import { InvoiceModule } from '../../api/invoice';
 import { HumanizeDurationModule } from '../../humanize-duration';
@@ -48,7 +48,7 @@ import { SpinnerModule } from '../../spinner';
         ButtonModule,
         CommonModule,
         SearchModule,
-        ViewUtilsModule,
+        FromMinorModule,
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,
