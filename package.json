@@ -4,6 +4,7 @@
   "scripts": {
     "prepush": "npm run test-silent",
     "start": "ng serve --port 8000",
+    "prod": "ng serve --port 8000 --configuration=production-api",
     "aot": "ng serve --port 8000 --aot",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
     "test": "ng test",

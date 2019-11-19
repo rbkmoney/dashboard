@@ -1,13 +1,3 @@
-import { environment } from '../../../environments/environment';
-import * as stubKeycloak from './index.stub';
-import * as realKeycloak from './index.real';
-
-const { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService } = (environment.fakeKeycloak
-    ? stubKeycloak
-    : realKeycloak) as any;
-
-type KeycloakAngularModule = realKeycloak.KeycloakAngularModule;
-type KeycloakAuthGuard = realKeycloak.KeycloakAuthGuard;
-type KeycloakService = realKeycloak.KeycloakService;
-
-export { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService };
+export * from './keycloak.module';
+export * from './keycloak.service';
+export * from './keycloak-auth-guard.service';

@@ -43,7 +43,7 @@
                                 },
                                 {
                                     "replace": "src/app/auth/keycloak/index.ts",
-                                    "with": "src/app/auth/keycloak/index.real.ts"
+                                    "with": "src/app/auth/keycloak/index.prod.ts"
                                 }
                             ],
                             "optimization": true,
@@ -62,6 +62,22 @@
                                     "maximumError": "5mb"
                                 }
                             ]
+                        },
+                        "production-api": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/app/auth/keycloak/index.ts",
+                                    "with": "src/app/auth/keycloak/index.prod.ts"
+                                },
+                                {
+                                    "replace": "src/authConfig.json",
+                                    "with": "src/authConfig.prod-api.json"
+                                },
+                                {
+                                    "replace": "src/appConfig.json",
+                                    "with": "src/appConfig.prod-api.json"
+                                }
+                            ]
                         }
                     }
                 },
@@ -73,6 +89,9 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "dashboard:build:production"
+                        },
+                        "production-api": {
+                            "browserTarget": "dashboard:build:production-api"
                         }
                     }
                 },
