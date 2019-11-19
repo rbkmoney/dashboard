@@ -5,7 +5,6 @@
     $gray: map-get($theme, gray);
 
     .dsh-file-uploader {
-
         &-container {
             border-color: mat-color($gray, 200);
 
@@ -18,6 +17,5 @@
         &-choose-files {
             color: mat-color($primary, 400);
         }
-
     }
 }

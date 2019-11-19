@@ -5,5 +5,5 @@ import { FilesService as BaseFilesService } from './swagger-codegen/api/files.se
 
 @Injectable()
 export class FilesService extends BaseFilesService {
-    defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+    defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 }

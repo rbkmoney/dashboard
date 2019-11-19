@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
 import { ApiModule, Configuration } from './swagger-codegen';
-import { DarkApiConfigService } from './dark-api-config.service';
 import { FilesService } from './files.service';
-
+import { DarkApiConfigService } from './dark-api-config.service';
+import { KeycloakService } from '../../auth/keycloak/keycloak.service';
 
 @NgModule({
     imports: [
@@ -12,6 +12,6 @@ import { FilesService } from './files.service';
             providers: [{ provide: Configuration, useClass: DarkApiConfigService }]
         }
     ],
-    providers: [DarkApiConfigService, FilesService]
+    providers: [DarkApiConfigService, FilesService, KeycloakService]
 })
 export class DarkApiModule {}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
@@ -11,6 +12,7 @@ import { SpinnerModule } from '../../../spinner';
 import { InitialDataService } from './initial-data.service';
 import { DocumentItemComponent } from './document-item/document-item.component';
 import { FileUploaderModule } from '../../../file-uploader';
+import { LeaveDialogComponent } from './leave-dialog';
 
 @NgModule({
     imports: [
@@ -21,9 +23,11 @@ import { FileUploaderModule } from '../../../file-uploader';
         ButtonModule,
         TranslocoModule,
         SpinnerModule,
-        FileUploaderModule
+        FileUploaderModule,
+        MatDialogModule
     ],
-    declarations: [DocumentUploadComponent, DocumentItemComponent],
-    providers: [InitialDataService]
+    declarations: [DocumentUploadComponent, DocumentItemComponent, LeaveDialogComponent],
+    providers: [InitialDataService],
+    entryComponents: [LeaveDialogComponent]
 })
 export class DocumentUploadModule {}

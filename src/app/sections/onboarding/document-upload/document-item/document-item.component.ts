@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { FileData } from '../../../../api-codegen/dark-api/swagger-codegen';
 
 @Component({
     selector: 'dsh-document-item',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['document-item.component.scss']
 })
 export class DocumentItemComponent {
-    @Input() fileName: string;
+    @Input() file: FileData;
 }

@@ -1,6 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-import { FileService } from '../api';
+import { FilesService } from '../api';
 
 @Component({
     selector: 'dsh-file-uploader',
@@ -13,14 +14,15 @@ export class FileUploaderComponent {
 
     files = [];
 
-    constructor(private fileService: FileService) {}
+    isUploading$ = new BehaviorSubject<boolean>(false);
+
+    constructor(private filesService: FilesService) {}
 
     uploadFiles(files: File[]) {
-        console.log(files);
-        files.forEach((file) => {
-            this.fileService.uploadFile(file).subscribe((uploadedFile) => {
-                console.log(uploadedFile);
-            });
+        this.isUploading$.next(true);
+        this.filesService.uploadFiles(files).subscribe(uploadedFiles => {
+            console.log(uploadedFiles);
+            this.isUploading$.next(false);
         });
         this.files = [];
     }

@@ -5,16 +5,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ngfModule } from 'angular-file';
 
 import { FileUploaderComponent } from './file-uploader.component';
-import { FileModule } from '../api/file';
+import { FilesModule } from '../api';
 
 @NgModule({
-    imports: [
-        TranslocoModule,
-        FlexModule,
-        ngfModule,
-        CommonModule,
-        FileModule
-    ],
+    imports: [TranslocoModule, FlexModule, ngfModule, CommonModule, FilesModule],
     exports: [FileUploaderComponent],
     declarations: [FileUploaderComponent]
 })

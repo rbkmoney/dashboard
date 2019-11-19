@@ -5,4 +5,4 @@ export * from './search';
 export * from './questionary';
 export * from './reports';
 export * from './dadata';
-export * from './file';
+export * from './files';

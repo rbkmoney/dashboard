@@ -1,0 +1,8 @@
+<div fxFlex="560px" *transloco="let t; scope: 'onboarding'; read: 'onboarding.documentUpload'">
+    <h2 class="mat-dialog-title">{{ t.cancelDocumentUploadTitle }}</h2>
+    <mat-dialog-content class="mat-body-1">{{ t.cancelDocumentUploadDescription }}</mat-dialog-content>
+    <div class="leave-dialog-actions" fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
+        <button fxFlex="150px" dsh-button (click)="cancel()">{{ c.cancel }}</button>
+        <button fxFlex="150px" dsh-button (click)="continue()">{{ c.continue }}</button>
+    </div>
+</div>

@@ -1,41 +1,44 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, of, Subject } from 'rxjs';
-import { first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { booleanDelay, handleNull, takeError } from '../../../custom-operators';
-import { ClaimsService, mapDocumentID, takeDocumentModificationUnit } from '../../../api';
+import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
+import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 
 @Injectable()
 export class InitialDataService {
+    claimID: number;
+
     private initialize$: Subject<number> = new Subject();
 
-    initialDocs$: Observable<string[]> = this.initialize$.pipe(
+    initialFiles$: Observable<FileData[]> = this.initialize$.pipe(
         first(),
+        tap(claimID => (this.claimID = claimID)),
         switchMap(claimID => this.claimService.getClaimByID(claimID)),
-        takeDocumentModificationUnit,
+        takeFileModificationsUnit,
         handleNull('Modification unit is null'),
-        mapDocumentID,
-        switchMap(() => this.getKekFiles()),
-        // switchMap(id => this.questionaryService.getQuestionary(id)),
+        switchMap(modifications =>
+            modifications.length > 0
+                ? forkJoin(modifications.map(modification => this.filesService.getFileInfo(modification.fileId)))
+                : of([])
+        ),
         shareReplay(1)
     );
-    initialized$: Observable<boolean> = this.initialDocs$.pipe(
+    initialized$: Observable<boolean> = this.initialFiles$.pipe(
         booleanDelay(),
         map(r => !r)
     );
-    initializeError$: Observable<any> = this.initialDocs$.pipe(
+    initializeError$: Observable<any> = this.initialFiles$.pipe(
         takeError,
         shareReplay(1)
     );
 
-    private getKekFiles(): Observable<string[]> {
-        return of(['kek.pdf', 'omegalul.pdf']);
-    };
-
     constructor(
         private claimService: ClaimsService,
+        private filesService: FilesService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
