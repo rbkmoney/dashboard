@@ -28,10 +28,8 @@ const applyToContractor = (
     const residencyInfo = get(russianIndividualEntity, ['residencyInfo']);
     return {
         ...t,
-        contractorType: Contractor.ContractorTypeEnum.IndividualEntityContractor,
         individualEntity: {
             ...individualEntity,
-            individualEntityType: IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity,
             russianIndividualEntity: {
                 ...russianIndividualEntity,
                 ...pdlInfo,
@@ -45,12 +43,10 @@ const applyToContractor = (
                 } as RussianPrivateEntity,
                 identityDocument: {
                     ...identityDocument,
-                    identityDocumentType: IdentityDocument.IdentityDocumentTypeEnum.RussianDomesticPassport,
                     russianDomesticPassport
                 } as IdentityDocument,
                 residencyInfo: {
                     ...residencyInfo,
-                    residencyInfoType: ResidencyInfo.ResidencyInfoTypeEnum.IndividualResidencyInfo,
                     individualResidencyInfo
                 } as ResidencyInfo
             } as RussianIndividualEntity
