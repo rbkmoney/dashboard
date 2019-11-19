@@ -9,6 +9,8 @@
     ></dsh-russian-domestic-passport>
     <div>
         <dsh-pdl-info [form]="(form$ | async).get('pdlInfo')"></dsh-pdl-info>
-        <dsh-individual-residency-info [form]="(form$ | async).get('individualResidencyInfo')"></dsh-individual-residency-info>
+        <dsh-individual-residency-info
+            [form]="(form$ | async).get('individualResidencyInfo')"
+        ></dsh-individual-residency-info>
     </div>
 </div>
