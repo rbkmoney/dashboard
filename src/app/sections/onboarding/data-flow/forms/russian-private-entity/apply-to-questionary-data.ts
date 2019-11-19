@@ -6,7 +6,8 @@ import {
     IndividualEntity,
     RussianIndividualEntity,
     ResidencyInfo,
-    IdentityDocument
+    IdentityDocument,
+    Contractor
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
 import { RussianPrivateEntity } from '../../../../../api-codegen/capi/swagger-codegen';
@@ -27,6 +28,7 @@ const applyToContractor = (
     const residencyInfo = get(russianIndividualEntity, ['residencyInfo']);
     return {
         ...t,
+        contractorType: Contractor.ContractorTypeEnum.IndividualEntityContractor,
         individualEntity: {
             ...individualEntity,
             individualEntityType: IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity,
