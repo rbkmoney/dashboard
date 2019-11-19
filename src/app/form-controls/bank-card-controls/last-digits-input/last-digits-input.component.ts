@@ -8,7 +8,7 @@ import { CustomFormControl } from '../../custom-form-control';
 @Component({
     selector: 'dsh-card-last-digits-input',
     templateUrl: 'last-digits-input.component.html',
-    styleUrls: ['../card-controls.scss', 'last-digits-input.component.scss'],
+    styleUrls: ['../card-controls.scss'],
     providers: [
         { provide: MatFormFieldControl, useExisting: LastDigitsInputComponent },
         {
