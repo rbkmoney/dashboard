@@ -1,8 +1,8 @@
 {
     "api": {
-        "capiEndpoint": "http://localhost:9900",
-        "claimManagementEndpoint": "http://localhost:9902",
-        "anapiEndpoint": "http://localhost:9904",
+        "capiEndpoint": "https://api.rbk.money",
+        "claimManagementEndpoint": "https://api.rbk.money/dark-api/v1",
+        "anapiEndpoint": "https://api.rbk.money/analytics",
         "dapiEndpoint": "https://api.rbk.money/dark-api/v1"
     },
     "konturFocus": {

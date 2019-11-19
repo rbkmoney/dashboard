@@ -20,14 +20,20 @@ export class ClaimsService {
 
     searchClaims(
         limit: number,
-        continuationToken?: string,
-        claimStatuses?: StatusModificationUnit.StatusEnum[]
+        claimStatuses?: StatusModificationUnit.StatusEnum[],
+        continuationToken?: string
     ): Observable<ClaimsWithToken> {
-        return this.claimsService.searchClaims(genXRequestID(), limit, undefined, continuationToken, claimStatuses);
+        return this.claimsService.searchClaims(
+            genXRequestID(),
+            limit,
+            undefined,
+            continuationToken,
+            claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
+        );
     }
 
     search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[], cacheSize = 1): Observable<Claim[]> {
-        return this.searchClaims(1000, null, claimStatuses).pipe(
+        return this.searchClaims(1000, claimStatuses).pipe(
             noContinuationToken,
             mapResult,
             shareReplay(cacheSize)

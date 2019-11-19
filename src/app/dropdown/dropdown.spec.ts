@@ -10,7 +10,7 @@ import { DropdownTriggerDirective } from './dropdown-trigger.directive';
     template: `
         <button id="another">Another button</button>
         <button id="toggle" [dshDropdownTriggerFor]="dropdown"><span id="toggle-content">Toggle</span></button>
-        <dsh-dropdown width="400px" #dropdown="dshDropdown">Text</dsh-dropdown>
+        <dsh-dropdown width="400px" #dropdown="dshDropdown"><ng-template>Text</ng-template></dsh-dropdown>
     `
 })
 class SimpleDropdownComponent {
