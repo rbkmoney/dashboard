@@ -5,8 +5,7 @@ import { RussianPrivateEntityService } from './russian-private-entity.service';
 
 @Component({
     templateUrl: 'russian-private-entity.component.html',
-    styleUrls: ['russian-private-entity.component.scss'],
-    providers: [RussianPrivateEntityService]
+    styleUrls: ['russian-private-entity.component.scss']
 })
 export class RussianPrivateEntityComponent implements OnInit, OnDestroy {
     form$ = this.russianPrivateEntityService.form$;
