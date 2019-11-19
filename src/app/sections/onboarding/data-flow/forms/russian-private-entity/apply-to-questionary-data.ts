@@ -3,18 +3,20 @@ import get from 'lodash.get';
 import {
     QuestionaryData,
     IndividualEntityContractor,
-    IndividualEntity, RussianIndividualEntity, ResidencyInfo, IdentityDocument
+    IndividualEntity,
+    RussianIndividualEntity,
+    ResidencyInfo,
+    IdentityDocument
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
 import { RussianPrivateEntity } from '../../../../../api-codegen/capi/swagger-codegen';
-import IdentityDocumentTypeEnum = IdentityDocument.IdentityDocumentTypeEnum;
 
 const applyToContractor = (
     t: IndividualEntityContractor,
     {
         russianPrivateEntity: { fio, birthDate, birthPlace, residenceAddress, snils },
         russianDomesticPassport,
-        // pdlInfo: { pdlCategory, pdlRelationDegree },
+        pdlInfo,
         individualResidencyInfo
     }: FormValue
 ): IndividualEntityContractor => {
@@ -30,6 +32,7 @@ const applyToContractor = (
             individualEntityType: IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity,
             russianIndividualEntity: {
                 ...russianIndividualEntity,
+                ...pdlInfo,
                 snils,
                 russianPrivateEntity: {
                     ...russianPrivateEntity,

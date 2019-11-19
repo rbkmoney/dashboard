@@ -13,7 +13,6 @@ export class RussianPrivateEntityComponent implements OnInit, OnDestroy {
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
-
     constructor(private russianPrivateEntityService: RussianPrivateEntityService) {}
 
     ngOnInit() {

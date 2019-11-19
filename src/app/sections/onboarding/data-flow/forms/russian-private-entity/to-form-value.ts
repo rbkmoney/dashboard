@@ -14,6 +14,10 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
             ...russianPrivateEntity,
             snils: russianIndividualEntity.snils
         },
+        pdlInfo: {
+            pdlCategory: russianIndividualEntity.pdlCategory,
+            pdlRelationDegree: russianIndividualEntity.pdlRelationDegree
+        },
         russianDomesticPassport,
         individualResidencyInfo
     };
