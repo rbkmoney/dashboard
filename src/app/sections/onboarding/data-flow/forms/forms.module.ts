@@ -11,6 +11,7 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { BasicInfoService, BasicInfoComponent } from './basic-info';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
@@ -50,7 +51,8 @@ import {
         MatSelectModule,
         ButtonModule,
         MatDividerModule,
-        MatRadioModule
+        MatRadioModule,
+        TextMaskModule
     ],
     declarations: [
         BasicInfoComponent,

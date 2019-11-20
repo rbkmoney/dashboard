@@ -7,7 +7,7 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.seriesNumber }}</mat-label>
-            <input matInput formControlName="seriesNumber" required />
+            <input matInput formControlName="seriesNumber" required [textMask]="seriesNumberMask" />
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.issuerCode }}</mat-label>

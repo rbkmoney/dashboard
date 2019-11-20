@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.dsh-card-input-element {
+.dsh-custom-input-with-mask-element {
     border: none;
     background: none;
     padding: 0;
@@ -10,20 +10,20 @@
     font: inherit;
 }
 
-.dsh-card-input-element::placeholder {
+.dsh-custom-input-with-mask-element::placeholder {
     opacity: 0;
 }
 
-:host.floating .dsh-card-input-element::placeholder {
+:host.floating .dsh-custom-input-with-mask-element::placeholder {
     opacity: 1;
 }
 
-.dsh-card-input-spacer {
+.dsh-custom-input-with-mask-spacer {
     opacity: 0;
     user-select: none;
     transition: opacity 200ms;
 }
 
-:host.floating .dsh-card-input-spacer {
+:host.floating .dsh-custom-input-with-mask-spacer {
     opacity: 1;
 }
