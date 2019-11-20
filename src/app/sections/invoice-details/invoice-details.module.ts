@@ -19,7 +19,7 @@ import { ItemComponent } from './cart/item/item.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { PaymentComponent } from './payments/payment/payment.component';
 import { ButtonModule } from '../../button';
-import { ViewUtilsModule } from '../../view-utils';
+import { FromMinorModule } from '../../from-minor';
 
 @NgModule({
     imports: [
@@ -33,7 +33,7 @@ import { ViewUtilsModule } from '../../view-utils';
         StatusModule,
         InvoiceDetailsRoutingModule,
         ButtonModule,
-        ViewUtilsModule,
+        FromMinorModule,
         MatIconModule
     ],
     declarations: [

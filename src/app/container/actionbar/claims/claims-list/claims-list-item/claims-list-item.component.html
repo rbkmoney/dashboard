@@ -1,6 +1,6 @@
 <div fxLayout fxLayoutGap="10px" fxLayoutAlign="space-between center" class="item">
     <div fxFlex="60">
-        {{ listItem.claimType }}
+        {{ listItem.claimType | claimTypeLabel }}
     </div>
     <dsh-status *transloco="let c; read: 'claimStatus'" fxFlex="40" [color]="listItem.statusViewInfo.color">{{
         c[listItem.statusViewInfo.status]

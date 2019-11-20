@@ -6,4 +6,4 @@ import { FromMinorPipe } from './from-minor.pipe';
     declarations: [FromMinorPipe],
     exports: [FromMinorPipe]
 })
-export class ViewUtilsModule {}
+export class FromMinorModule {}

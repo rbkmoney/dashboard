@@ -91,6 +91,9 @@
     "paymentTerminalProvider": {
         "euroset": "Евросеть"
     },
+    "claimType": {
+        "documentCreated": "Заявка на подключение"
+    },
     "claimStatus": {
         "pending": "В ожидании",
         "pendingAcceptance": "Требуются ваши действия",
