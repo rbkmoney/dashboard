@@ -10,9 +10,9 @@ import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
 import { SpinnerModule } from '../../../spinner';
 import { InitialDataService } from './initial-data.service';
-import { DocumentItemComponent } from './document-item/document-item.component';
 import { FileUploaderModule } from '../../../file-uploader';
 import { LeaveDialogComponent } from './leave-dialog';
+import { FileItemModule } from '../../../file-item';
 
 @NgModule({
     imports: [
@@ -24,9 +24,10 @@ import { LeaveDialogComponent } from './leave-dialog';
         TranslocoModule,
         SpinnerModule,
         FileUploaderModule,
-        MatDialogModule
+        MatDialogModule,
+        FileItemModule
     ],
-    declarations: [DocumentUploadComponent, DocumentItemComponent, LeaveDialogComponent],
+    declarations: [DocumentUploadComponent, LeaveDialogComponent],
     providers: [InitialDataService],
     entryComponents: [LeaveDialogComponent]
 })
