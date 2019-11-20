@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 
@@ -9,7 +8,7 @@ import { genXRequestID } from '../utils';
 
 @Injectable()
 export class FilesService {
-    constructor(private filesService: ApiFilesService, private http: HttpClient) {}
+    constructor(private filesService: ApiFilesService) {}
 
     uploadFiles(files: File[]): Observable<any> {
         return forkJoin(
