@@ -1,4 +1,4 @@
 <div class="file-item-container" fxFlex fxLayoutAlign="space-between stretch">
     <div class="mat-body-1">{{ file.fileName }}</div>
-    <mat-icon class="file-item-save-icon" svgIcon="save"></mat-icon>
+    <mat-icon class="file-item-save-icon" svgIcon="save" (click)="downloadFile()"></mat-icon>
 </div>

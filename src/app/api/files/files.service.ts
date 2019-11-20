@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { FileData, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
+import { FileData, FileDownload, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
 import { FilesService as ApiFilesService } from '../../api-codegen/dark-api';
 import { genXRequestID } from '../utils';
 
@@ -26,7 +26,7 @@ export class FilesService {
         return this.filesService.getFileInfo(genXRequestID(), fileID);
     }
 
-    downloadFile(fileID: string) {
+    downloadFile(fileID: string): Observable<FileDownload> {
         return this.filesService.downloadFile(genXRequestID(), fileID);
     }
 
