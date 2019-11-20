@@ -1,2 +1,2 @@
 export * from './currency-mask';
-export * from './series-number-mask';
+export * from './create-number-mask';

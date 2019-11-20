@@ -37,6 +37,7 @@ import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
+import { FormControlsModule } from '../../../../form-controls';
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import {
         ButtonModule,
         MatDividerModule,
         MatRadioModule,
-        TextMaskModule
+        TextMaskModule,
+        FormControlsModule
     ],
     declarations: [
         BasicInfoComponent,
