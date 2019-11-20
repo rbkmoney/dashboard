@@ -44,7 +44,7 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
 
     private initForm(): FormGroup {
         return this.fb.group({
-            russianPrivateEntity: this.privateEntityInfoService.getForm(),
+            privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
             individualResidencyInfo: this.individualResidencyInfoService.getForm()

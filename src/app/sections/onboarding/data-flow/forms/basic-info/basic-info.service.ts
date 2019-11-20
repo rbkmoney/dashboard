@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import get from 'lodash.get';
 
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
@@ -9,6 +8,7 @@ import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
@@ -23,16 +23,7 @@ export class BasicInfoService extends QuestionaryFormService {
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
-        const legalEntity = get(d, ['contractor', 'legalEntity']);
-        return {
-            name: get(legalEntity, ['name'], null),
-            inn: get(legalEntity, ['inn'], null),
-            registrationPlace: get(legalEntity, ['registrationInfo', 'registrationAddress'], null),
-            shopUrl: get(d, ['shopInfo', 'location', 'url'], null),
-            shopName: get(d, ['shopInfo', 'details', 'name'], null),
-            email: get(d, ['contactInfo', 'email'], null),
-            phoneNumber: get(d, ['contactInfo', 'phoneNumber'], null)
-        };
+        return toFormValue(d);
     }
 
     protected applyToQuestionaryData(d: QuestionaryData, v: FormValue): QuestionaryData {

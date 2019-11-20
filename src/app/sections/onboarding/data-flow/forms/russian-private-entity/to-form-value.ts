@@ -1,24 +1,22 @@
 import get from 'lodash.get';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import { QuestionaryData, RussianPrivateEntity, RussianIndividualEntity } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
+import { toRussianDomesticPassport, toResidencyInfo } from '../subforms';
+
+const toPrivateEntityInfo = (e: RussianPrivateEntity, i: RussianIndividualEntity): FormValue => ({
+    birthDate: get(e, ['birthDate'], null),
+    birthPlace: get(e, ['birthPlace'], null),
+    residenceAddress: get(e, ['residenceAddress'], null),
+    snils: get(i, ['snils'], null)
+});
 
 export const toFormValue = (d: QuestionaryData): FormValue => {
-    const russianIndividualEntity = get(d, ['contractor', 'individualEntity', 'russianIndividualEntity'], {});
-    const russianPrivateEntity = get(russianIndividualEntity, ['russianPrivateEntity'], {});
-    const russianDomesticPassport = get(russianIndividualEntity, ['identityDocument', 'russianDomesticPassport'], {});
-    const individualResidencyInfo = get(russianIndividualEntity, ['residencyInfo', 'individualResidencyInfo'], {});
-
+    const individualEntity = get(d, ['contractor', 'individualEntity']);
+    const russianPrivateEntity = get(individualEntity, ['russianPrivateEntity']);
     return {
-        russianPrivateEntity: {
-            ...russianPrivateEntity,
-            snils: russianIndividualEntity.snils
-        },
-        pdlInfo: {
-            pdlCategory: russianIndividualEntity.pdlCategory,
-            pdlRelationDegree: russianIndividualEntity.pdlRelationDegree
-        },
-        russianDomesticPassport,
-        individualResidencyInfo
+        privateEntityInfo: toPrivateEntityInfo(russianPrivateEntity, individualEntity),
+        russianDomesticPassport: toRussianDomesticPassport(get(individualEntity, ['identityDocument'])),
+        individualResidencyInfo: toResidencyInfo(get(individualEntity, ['residencyInfo']))
     };
 };

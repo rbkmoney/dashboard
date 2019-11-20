@@ -4,7 +4,10 @@ import {
     QuestionaryData,
     LegalEntityContractor,
     RussianLegalEntity,
-    BeneficialOwner
+    BeneficialOwner,
+    IndividualEntityContractor,
+    RussianIndividualEntity,
+    IndividualResidencyInfo
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -39,17 +42,19 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
                     issuedAt
                 },
                 residencyInfo: {
-                    residencyInfoType: 'LegalResidencyInfo',
-                    taxResident: usaTaxResident,
-                    ownerResident: exceptUsaTaxResident,
-                    fatca: false
-                }
+                    residencyInfoType: 'IndividualResidencyInfo',
+                    usaTaxResident,
+                    exceptUsaTaxResident
+                } as IndividualResidencyInfo
             };
         }
     );
 };
 
-const applyToContractor = (t: LegalEntityContractor, { beneficialOwners }: FormValue): LegalEntityContractor => {
+const applyToLegalEntityContractor = (
+    t: LegalEntityContractor,
+    { beneficialOwners }: FormValue
+): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
     return {
         ...t,
@@ -58,6 +63,29 @@ const applyToContractor = (t: LegalEntityContractor, { beneficialOwners }: FormV
             beneficialOwner: applyToBeneficialOwners(beneficialOwners)
         } as RussianLegalEntity
     };
+};
+
+const applyToIndividualEntityContractor = (
+    t: IndividualEntityContractor,
+    { beneficialOwners }: FormValue
+): IndividualEntityContractor => {
+    const individualEntity = get(t, ['individualEntity']);
+    return {
+        ...t,
+        individualEntity: {
+            ...individualEntity,
+            beneficialOwners: applyToBeneficialOwners(beneficialOwners)
+        } as RussianIndividualEntity
+    };
+};
+
+const applyToContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
+    switch (t.contractorType) {
+        case 'LegalEntityContractor':
+            return applyToLegalEntityContractor(t, v);
+        case 'IndividualEntityContractor':
+            return applyToIndividualEntityContractor(t, v);
+    }
 };
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({

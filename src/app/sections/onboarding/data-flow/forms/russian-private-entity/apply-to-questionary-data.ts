@@ -3,58 +3,67 @@ import get from 'lodash.get';
 import {
     QuestionaryData,
     IndividualEntityContractor,
-    IndividualEntity,
     RussianIndividualEntity,
-    ResidencyInfo,
     IdentityDocument,
-    Contractor
+    IndividualResidencyInfo,
+    RussianDomesticPassport
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
 import { RussianPrivateEntity } from '../../../../../api-codegen/capi/swagger-codegen';
 
+const applyToIdentityDocument = (
+    identityDocument: IdentityDocument,
+    { seriesNumber, issuer, issuerCode, issuedAt }: FormValue
+): RussianDomesticPassport => {
+    console.warn('Questionary field is missing: RussianDomesticPassport.seriesNumber', seriesNumber);
+    return {
+        ...identityDocument,
+        identityDocumentType: 'RussianDomesticPassport',
+        issuer,
+        issuerCode,
+        issuedAt
+    };
+};
+
 const applyToContractor = (
     t: IndividualEntityContractor,
     {
-        russianPrivateEntity: { fio, birthDate, birthPlace, residenceAddress, snils },
+        privateEntityInfo: { fio, birthDate, birthPlace, residenceAddress, snils },
         russianDomesticPassport,
-        pdlInfo,
-        individualResidencyInfo
+        pdlInfo: { pdlCategory, pdlRelationDegree },
+        individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
     }: FormValue
 ): IndividualEntityContractor => {
+    console.warn('Questionary field is missing: RussianIndividualEntity.pdlCategory', pdlCategory);
+    console.warn('Questionary field is missing: RussianIndividualEntity.pdlRelationDegree', pdlRelationDegree);
+    console.warn('Questionary field is missing: RussianPrivateEntity.fio', fio);
     const individualEntity = get(t, ['individualEntity']);
-    const russianIndividualEntity = get(individualEntity, ['russianIndividualEntity']);
-    const russianPrivateEntity = get(russianIndividualEntity, ['russianPrivateEntity']);
-    const identityDocument = get(russianIndividualEntity, ['identityDocument']);
-    const residencyInfo = get(russianIndividualEntity, ['residencyInfo']);
+    const russianPrivateEntity = get(individualEntity, ['russianPrivateEntity']);
+    const residencyInfo = get(individualEntity, ['residencyInfo']);
     return {
         ...t,
-        contractorType: Contractor.ContractorTypeEnum.IndividualEntityContractor,
+        contractorType: 'IndividualEntityContractor',
         individualEntity: {
             ...individualEntity,
-            individualEntityType: IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity,
-            russianIndividualEntity: {
-                ...russianIndividualEntity,
-                ...pdlInfo,
-                snils,
-                russianPrivateEntity: {
-                    ...russianPrivateEntity,
-                    fio,
-                    birthDate,
-                    birthPlace,
-                    residenceAddress
-                } as RussianPrivateEntity,
-                identityDocument: {
-                    ...identityDocument,
-                    identityDocumentType: IdentityDocument.IdentityDocumentTypeEnum.RussianDomesticPassport,
-                    russianDomesticPassport
-                } as IdentityDocument,
-                residencyInfo: {
-                    ...residencyInfo,
-                    residencyInfoType: ResidencyInfo.ResidencyInfoTypeEnum.IndividualResidencyInfo,
-                    individualResidencyInfo
-                } as ResidencyInfo
-            } as RussianIndividualEntity
-        } as IndividualEntity
+            individualEntityType: 'RussianIndividualEntity',
+            snils,
+            russianPrivateEntity: {
+                ...russianPrivateEntity,
+                birthDate,
+                birthPlace,
+                residenceAddress
+            } as RussianPrivateEntity,
+            identityDocument: applyToIdentityDocument(
+                get(individualEntity, ['identityDocument']),
+                russianDomesticPassport
+            ),
+            residencyInfo: {
+                ...residencyInfo,
+                residencyInfoType: 'IndividualResidencyInfo',
+                usaTaxResident,
+                exceptUsaTaxResident
+            } as IndividualResidencyInfo
+        } as RussianIndividualEntity
     };
 };
 
