@@ -1,4 +1,4 @@
-import { Component, forwardRef, HostBinding, NgModule } from '@angular/core';
+import { Component, forwardRef, NgModule } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskConfig, TextMaskModule } from 'angular2-text-mask';
@@ -64,9 +64,7 @@ export function createCustomInputWithMask({
         ]
     })
     class InputComponent extends CustomFormControl {
-        static nextId = 0;
         readonly mask = mask;
-        @HostBinding('id') id = `${selector}-${InputComponent.nextId++}`;
     }
 
     @NgModule({

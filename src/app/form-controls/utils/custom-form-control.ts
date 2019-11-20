@@ -4,6 +4,7 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import uuid from 'uuid';
 
 export class CustomFormControl implements MatFormFieldControl<any>, OnInit, OnDestroy, DoCheck, ControlValueAccessor {
     @HostBinding('class.floating')
@@ -11,15 +12,14 @@ export class CustomFormControl implements MatFormFieldControl<any>, OnInit, OnDe
         return this.focused || !this.empty;
     }
 
-    @HostBinding('attr.aria-describedby')
-    describedBy = '';
+    @HostBinding('attr.aria-describedby') describedBy = '';
 
     formControl: FormControl;
     stateChanges = new Subject<void>();
     focused = false;
     ngControl = null;
-    id = null;
-    errorState = false;
+    @HostBinding('id') id = `custom-form-control-${uuid()}`;
+    @HostBinding('attr.aria-invalid') errorState = false;
 
     get empty() {
         return !this._value;
