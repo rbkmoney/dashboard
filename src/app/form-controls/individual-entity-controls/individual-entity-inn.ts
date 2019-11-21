@@ -10,7 +10,7 @@ export const individualEntityInnMask: TextMaskConfig = {
 export const individualEntityInnValidator = maskToValidator(individualEntityInnMask);
 
 export const individualEntityInnInput = createCustomInputWithMask({
-    selector: 'dsh-individual-entity-input',
+    selector: 'dsh-individual-entity-inn-input',
     mask: individualEntityInnMask,
     placeholder: new Array(12).fill('0').join('')
 });
