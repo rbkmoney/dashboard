@@ -51,7 +51,7 @@ export class BasicInfoService extends QuestionaryFormService {
             registrationPlace: ['', Validators.required],
             shopUrl: ['', Validators.required],
             shopName: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
             phoneNumber: ['', Validators.required]
         });
     }
