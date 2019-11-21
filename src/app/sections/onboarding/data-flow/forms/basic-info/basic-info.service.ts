@@ -9,6 +9,7 @@ import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { individualEntityInnValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
@@ -46,7 +47,7 @@ export class BasicInfoService extends QuestionaryFormService {
     private initForm(): FormGroup {
         return this.fb.group({
             name: ['', Validators.required],
-            inn: ['', Validators.required],
+            inn: ['', [Validators.required, individualEntityInnValidator]],
             registrationPlace: ['', Validators.required],
             shopUrl: ['', Validators.required],
             shopName: ['', Validators.required],

@@ -45,7 +45,7 @@ export function createCustomInputWithMask({
             ${prefix ? `<span class="${BASE_CSS_CLASS}-spacer">${prefix}</span>` : ''}
             <input
                 class="${BASE_CSS_CLASS}-element"
-                ${size ? `size="${size}"` : ''}
+                ${prefix && postfix && size ? `size="${size}"` : ''}
                 [formControl]="formControl"
                 (change)="writeValue($event.target.value)"
                 placeholder="${placeholder}"
