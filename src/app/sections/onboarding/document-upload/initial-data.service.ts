@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
-import { booleanDelay, handleNull, takeError } from '../../../custom-operators';
+import { booleanDelay, takeError } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 
@@ -19,7 +19,6 @@ export class InitialDataService {
         tap(claimID => (this.claimID = claimID)),
         switchMap(claimID => this.claimService.getClaimByID(claimID)),
         takeFileModificationsUnit,
-        handleNull('Modification unit is null'),
         switchMap(modifications =>
             modifications.length > 0
                 ? forkJoin(

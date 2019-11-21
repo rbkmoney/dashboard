@@ -9,10 +9,10 @@ import { DshTabsModule } from '../../layout/tabs';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ChangesComponent } from './changes';
-import { DocumentsComponent } from './documents';
 import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
+import { DocumentsModule } from './documents';
 
 @NgModule({
     imports: [
@@ -25,8 +25,9 @@ import { StatusModule } from '../../status';
         ClaimRoutingModule,
         ConversationModule,
         StatusModule,
-        TranslocoModule
+        TranslocoModule,
+        DocumentsModule
     ],
-    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
+    declarations: [ClaimComponent, ChangesComponent]
 })
 export class ClaimModule {}

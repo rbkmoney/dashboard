@@ -1,3 +1,20 @@
-<div class="dsh-documents">
-    <ng-content></ng-content>
+<div
+    class="dsh-documents"
+    *transloco="let t; scope: 'claim'; read: 'claim.documents'"
+    fxFlex
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div *ngIf="docs$ | async as docs">
+        <div *ngIf="docs.length > 0; else noDocs">
+            {{ t.docs }}
+            <ng-container *ngFor="let doc of docs">
+                <dsh-file-item [file]="doc"></dsh-file-item>
+            </ng-container>
+        </div>
+        <ng-template #noDocs
+            ><div>{{ t.noDocs }}</div></ng-template
+        >
+    </div>
+    <dsh-file-uploader></dsh-file-uploader>
 </div>
