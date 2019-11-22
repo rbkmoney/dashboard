@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { FinancialAndEconomicActivityService } from './financial-and-economic-activity.service';
 
 @Component({
-    selector: 'dsh-financial-and-economic-activity',
     templateUrl: 'financial-and-economic-activity.component.html'
 })
 export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy {
@@ -20,6 +19,7 @@ export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy 
     accountantOptionTypes = this.activityService.accountantOptionTypes;
     isAccountantInfoVisible$ = this.activityService.isAccountantInfoVisible$;
     isAccountantOrgInnVisible$ = this.activityService.isAccountantOrgInnVisible$;
+    isResidencyInfoVisible$ = this.activityService.isResidencyInfoVisible$;
 
     withoutAccountantChange({ checked }: MatCheckboxChange) {
         this.activityService.withoutAccountantChange(checked);

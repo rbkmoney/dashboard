@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import get from 'lodash.get';
 
 import { QuestionaryFormService } from '../questionary-form.service';
 import { QuestionaryStateService } from '../../questionary-state.service';
@@ -10,6 +11,7 @@ import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
+import { LegalResidencyInfoService } from '../subforms';
 
 type WithoutChiefAccountantType = WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
 
@@ -23,16 +25,20 @@ const accountantTypes: WithoutChiefAccountantType[] = [
 export class FinancialAndEconomicActivityService extends QuestionaryFormService {
     private accountantInfoVisible$ = new BehaviorSubject(false);
     private accountantOrgInnVisible$ = new BehaviorSubject(false);
+    private residencyInfoVisible$ = new BehaviorSubject(false);
+
     private form: FormGroup;
 
     readonly accountantOptionTypes = accountantTypes;
     isAccountantInfoVisible$ = this.accountantInfoVisible$.asObservable();
     isAccountantOrgInnVisible$ = this.accountantOrgInnVisible$.asObservable();
+    isResidencyInfoVisible$ = this.residencyInfoVisible$.asObservable();
 
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
-        protected validityService: ValidityService
+        protected validityService: ValidityService,
+        private legalResidencyInfoService: LegalResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
         this.form = this.initForm();
@@ -59,6 +65,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         const formValue = toFormValue(data);
         this.withoutAccountantChange(formValue.withoutAccountant);
         this.accountantTypeChange(formValue.accountantType);
+        this.residencyInfoChange(data);
         return formValue;
     }
 
@@ -70,6 +77,19 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         return StepName.FinancialAndEconomicActivity;
     }
 
+    private residencyInfoChange(data: QuestionaryData) {
+        const contractorType = get(data, ['contractor', 'contractorType']);
+        switch (contractorType) {
+            case 'IndividualEntityContractor':
+                this.residencyInfoVisible$.next(false);
+                this.form.removeControl('residencyInfo');
+                break;
+            case 'LegalEntityContractor':
+                this.residencyInfoVisible$.next(true);
+                break;
+        }
+    }
+
     private initForm(): FormGroup {
         return this.fb.group({
             staffCount: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^\d+$/)]],
@@ -77,7 +97,8 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
             accountantType: [''],
             accountantOrgInn: [''],
             hasBeneficiaryParty: [false, Validators.required],
-            hasLiquidationProcess: [false, Validators.required]
+            hasLiquidationProcess: [false, Validators.required],
+            residencyInfo: this.legalResidencyInfoService.getForm()
         });
     }
 }

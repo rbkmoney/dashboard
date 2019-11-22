@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { BasicInfoService } from './basic-info.service';
 
 @Component({
-    selector: 'dsh-basic-info',
     templateUrl: 'basic-info.component.html'
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {

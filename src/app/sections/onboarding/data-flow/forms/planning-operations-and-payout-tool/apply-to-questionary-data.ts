@@ -5,42 +5,63 @@ import {
     LegalEntityContractor,
     BankAccount,
     RussianBankAccount,
-    RussianLegalEntity
+    RussianLegalEntity,
+    IndividualEntityContractor,
+    RussianIndividualEntity,
+    Contractor,
+    AdditionalInfo
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
-const applyToContractor = (
-    t: LegalEntityContractor,
+const applyToAdditionalInfo = (
+    i: AdditionalInfo,
     { monthOperationCount, monthOperationSum }: FormValue
-): LegalEntityContractor => {
+): AdditionalInfo => ({
+    ...i,
+    monthOperationCount,
+    monthOperationSum
+});
+
+const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
-    const additionalInfo = get(t, ['legalEntity', 'additionalInfo']);
     return {
         ...t,
         legalEntity: {
             ...legalEntity,
-            additionalInfo: {
-                ...additionalInfo,
-                monthOperationCount,
-                monthOperationSum
-            }
+            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v)
         } as RussianLegalEntity
     };
 };
 
-const applyToBankAccount = (
-    b: BankAccount,
-    { account, bankName, bankPostAccount, bankBik }: FormValue
-): BankAccount => {
+const applyToIndividualEntityContractor = (t: IndividualEntityContractor, v: FormValue): IndividualEntityContractor => {
+    const individualEntity = get(t, ['individualEntity']);
     return {
+        ...t,
+        individualEntity: {
+            ...individualEntity,
+            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v)
+        } as RussianIndividualEntity
+    };
+};
+
+const applyToContractor = (t: Contractor, v: FormValue): LegalEntityContractor => {
+    switch (t.contractorType) {
+        case 'LegalEntityContractor':
+            return applyToLegalEntityContractor(t, v);
+        case 'IndividualEntityContractor':
+            return applyToIndividualEntityContractor(t, v);
+    }
+};
+
+const applyToBankAccount = (b: BankAccount, { account, bankName, bankPostAccount, bankBik }: FormValue): BankAccount =>
+    ({
         ...b,
         bankAccountType: 'RussianBankAccount',
         account,
         bankName,
         bankPostAccount,
         bankBik
-    } as RussianBankAccount;
-};
+    } as RussianBankAccount);
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
