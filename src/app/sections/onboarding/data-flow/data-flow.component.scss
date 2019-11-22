@@ -1,8 +1,13 @@
 $dsh-data-flow-padding: 20px 0 0 0;
 $dsh-data-flow-max-width: 1080px;
+$dsh-onboarding-form-container-padding: 0 0 20px 0;
 
 .container {
     padding: $dsh-data-flow-padding;
     max-width: $dsh-data-flow-max-width;
     margin: 0 auto;
+}
+
+.onboarding-form-container {
+    padding: $dsh-onboarding-form-container-padding;
 }

@@ -10,7 +10,8 @@ import {
     IndividualEntityContractor,
     RussianIndividualEntity,
     AdditionalInfo,
-    Contractor
+    Contractor,
+    LegalResidencyInfo
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -65,13 +66,24 @@ const applyToAdditionalInfo = (
     )
 });
 
+const applyToResidencyInfo = (
+    i: LegalResidencyInfo,
+    { residencyInfo: { taxResident, fatca } }: FormValue
+): LegalResidencyInfo => ({
+    ...i,
+    residencyInfoType: 'LegalResidencyInfo',
+    taxResident,
+    fatca
+});
+
 const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
     return {
         ...t,
         legalEntity: {
             ...legalEntity,
-            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v)
+            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v),
+            residencyInfo: applyToResidencyInfo(get(legalEntity, ['residencyInfo']), v)
         } as RussianLegalEntity
     };
 };

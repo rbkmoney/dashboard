@@ -33,5 +33,9 @@
         </div>
         <mat-checkbox formControlName="hasBeneficiaryParty">{{ t.hasBeneficiaryParty }}</mat-checkbox>
         <mat-checkbox formControlName="hasLiquidationProcess">{{ t.hasLiquidationProcess }}</mat-checkbox>
+        <dsh-legal-residency-info
+            *ngIf="isResidencyInfoVisible$ | async"
+            [form]="(form$ | async).get('residencyInfo')"
+        ></dsh-legal-residency-info>
     </div>
 </form>

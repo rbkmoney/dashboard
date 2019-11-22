@@ -24,7 +24,9 @@ import {
     PdlInfoComponent,
     PdlInfoService,
     PrivateEntityInfoComponent,
-    PrivateEntityInfoService
+    PrivateEntityInfoService,
+    LegalResidencyInfoComponent,
+    LegalResidencyInfoService
 } from './subforms';
 import {
     FinancialAndEconomicActivityComponent,
@@ -65,7 +67,8 @@ import { RussianPrivateEntityService } from './russian-private-entity/russian-pr
         PrivateEntityInfoComponent,
         BeneficialOwnersComponent,
         PlanningOperationsAndPayoutToolComponent,
-        IndividualResidencyInfoComponent
+        IndividualResidencyInfoComponent,
+        LegalResidencyInfoComponent
     ],
     providers: [
         InitializeFormsService,
@@ -79,7 +82,8 @@ import { RussianPrivateEntityService } from './russian-private-entity/russian-pr
         BeneficialOwnersService,
         PlanningOperationsAndPayoutToolService,
         IndividualResidencyInfoService,
-        RussianPrivateEntityService
+        RussianPrivateEntityService,
+        LegalResidencyInfoService
     ]
 })
 export class OnboardingFormsModule {}

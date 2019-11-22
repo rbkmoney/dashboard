@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { RussianLegalOwnerService } from './russian-legal-owner.service';
 
 @Component({
-    selector: 'dsh-russian-legal-owner',
     templateUrl: 'russian-legal-owner.component.html'
 })
 export class RussianLegalOwnerComponent implements OnInit, OnDestroy {

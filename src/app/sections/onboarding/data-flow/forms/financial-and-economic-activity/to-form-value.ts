@@ -15,12 +15,23 @@ const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => {
     };
 };
 
+const fromLegalEntity = (l: LegalEntity): FormValue => {
+    const residencyInfo = get(l, ['residencyInfo']);
+    return {
+        ...fromEntity(l),
+        residencyInfo: {
+            taxResident: get(residencyInfo, ['taxResident'], null),
+            fatca: get(residencyInfo, ['fatca'], null)
+        }
+    };
+};
+
 const fromContractor = (c: Contractor): FormValue => {
     switch (get(c, ['contractorType'])) {
         case 'IndividualEntityContractor':
             return fromEntity(get(c, ['individualEntity']));
         case 'LegalEntityContractor':
-            return fromEntity(get(c, ['legalEntity']));
+            return fromLegalEntity(get(c, ['legalEntity']));
     }
 };
 
