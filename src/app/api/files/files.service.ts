@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { pluck, tap } from 'rxjs/operators';
 
 import { FileData, FileDownload, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
 import { FilesService as ApiFilesService } from '../../api-codegen/dark-api';
 import { genXRequestID } from '../utils';
+import { switchForward } from '../../custom-operators/switch-forward';
 
 @Injectable()
 export class FilesService {
@@ -15,8 +16,8 @@ export class FilesService {
         return forkJoin(
             files.map(file =>
                 this.getUploadLink().pipe(
-                    map(uploadData => uploadData.url),
-                    switchMap(url => this.uploadFileToUrl(file, url))
+                    switchForward(uploadData => this.uploadFileToUrl(file, uploadData.url)),
+                    pluck('forward')
                 )
             )
         );
@@ -32,7 +33,12 @@ export class FilesService {
 
     private uploadFileToUrl(file: File, url: string): Observable<any> {
         console.log(url);
-        return this.http.put(url, file, { headers: { 'Content-Disposition': `attachment;filename=${file.name}` } });
+        return this.http.put(url, file, {
+            headers: {
+                'Content-Disposition': `attachment;filename=${file.name}`,
+                'Content-Type': ''
+            }
+        });
     }
 
     private getUploadLink(): Observable<FileUploadData> {

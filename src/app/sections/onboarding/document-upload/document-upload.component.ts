@@ -1,38 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { pluck } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
-import { InitialDataService } from './initial-data.service';
 import { SpinnerType } from '../../../spinner';
 import { LeaveDialogComponent } from './leave-dialog';
+import { DocumentUploadService } from './document-upload.service';
 
 @Component({
     selector: 'dsh-document-upload',
     templateUrl: 'document-upload.component.html',
-    styleUrls: ['document-upload.component.scss']
+    styleUrls: ['document-upload.component.scss'],
+    providers: [DocumentUploadService]
 })
-export class DocumentUploadComponent implements OnInit {
+export class DocumentUploadComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     claimID: number;
-    initialFiles$ = this.initialDataService.initialFiles$;
-    initialized$ = this.initialDataService.initialized$;
-    initializeError$ = this.initialDataService.initializeError$;
+    files$ = this.documentUploadService.files$;
+    hasFiles$ = this.documentUploadService.hasFiles$;
+    errors$ = this.documentUploadService.errors$;
+
+    console = console;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog,
-        private initialDataService: InitialDataService
+        private documentUploadService: DocumentUploadService
     ) {}
-
-    ngOnInit() {
-        this.route.params.pipe(pluck('claimID')).subscribe(claimID => {
-            this.claimID = claimID;
-            this.initialDataService.initialize(claimID);
-        });
-    }
 
     cancel() {
         this.dialog.open(LeaveDialogComponent);

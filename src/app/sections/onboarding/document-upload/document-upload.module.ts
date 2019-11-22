@@ -9,7 +9,6 @@ import { DocumentUploadComponent } from './document-upload.component';
 import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
 import { SpinnerModule } from '../../../spinner';
-import { InitialDataService } from './initial-data.service';
 import { FileUploaderModule } from '../../../file-uploader';
 import { LeaveDialogComponent } from './leave-dialog';
 import { FileItemModule } from '../../../file-item';
@@ -28,7 +27,6 @@ import { FileItemModule } from '../../../file-item';
         FileItemModule
     ],
     declarations: [DocumentUploadComponent, LeaveDialogComponent],
-    providers: [InitialDataService],
     entryComponents: [LeaveDialogComponent]
 })
 export class DocumentUploadModule {}
