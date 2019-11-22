@@ -12,10 +12,17 @@ function spacesToNbsp(str: string): string {
     return typeof str === 'string' ? str.replace(/ /g, '&nbsp;') : str;
 }
 
+function attrMapToStr(attrMap: any[][]): string {
+    return attrMap
+        .filter(([, v]) => v !== '')
+        .map(([k, v]) => `${k}="${v}"`)
+        .join(' ');
+}
+
 export function createCustomInputWithMask({
     selector,
     mask,
-    placeholder,
+    placeholder = '',
     sizeFromPlaceholder = true,
     size,
     prefix,
@@ -39,16 +46,21 @@ export function createCustomInputWithMask({
     prefix = spacesToNbsp(prefix);
     postfix = spacesToNbsp(postfix);
 
+    const hasSize = (prefix || postfix) && size;
+    const inputAttrs = [
+        ['class', `${BASE_CSS_CLASS}-element${hasSize ? '' : ` ${BASE_CSS_CLASS}-element-full-size`}`],
+        ['size', hasSize ? size : ''],
+        ['placeholder', placeholder]
+    ];
+
     @Component({
         selector,
         template: `
             ${prefix ? `<span class="${BASE_CSS_CLASS}-spacer">${prefix}</span>` : ''}
             <input
-                class="${BASE_CSS_CLASS}-element"
-                ${prefix && postfix && size ? `size="${size}"` : ''}
+                ${attrMapToStr(inputAttrs)}
                 [formControl]="formControl"
                 (change)="writeValue($event.target.value)"
-                placeholder="${placeholder}"
                 [textMask]="mask"
             />
             ${postfix ? `<span class="${BASE_CSS_CLASS}-spacer">${postfix}</span>` : ''}

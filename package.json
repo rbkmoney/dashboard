@@ -49,6 +49,7 @@
     "humanize-duration": "^3.19.0",
     "keycloak-angular": "^7.0.1",
     "keycloak-js": "^4.8.3",
+    "libphonenumber-js": "^1.7.27",
     "lodash.get": "^4.4.2",
     "lodash.isempty": "^4.4.0",
     "lodash.isnil": "^4.0.0",

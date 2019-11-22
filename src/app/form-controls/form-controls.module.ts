@@ -3,8 +3,14 @@ import { NgModule } from '@angular/core';
 import { BankCardControlsModule } from './bank-card-controls';
 import { IndividualEntityControlsModule } from './individual-entity-controls';
 import { LegalEntityControlsModule } from './legal-entity-controls';
+import { ContactControlsModule } from './contact-controls';
 
-const EXPORTED_DECLARATIONS = [BankCardControlsModule, IndividualEntityControlsModule, LegalEntityControlsModule];
+const EXPORTED_DECLARATIONS = [
+    BankCardControlsModule,
+    IndividualEntityControlsModule,
+    LegalEntityControlsModule,
+    ContactControlsModule
+];
 
 @NgModule({
     imports: EXPORTED_DECLARATIONS,

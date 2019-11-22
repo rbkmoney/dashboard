@@ -9,7 +9,7 @@ import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
-import { individualEntityInnValidator } from '../../../../../form-controls';
+import { individualEntityInnValidator, phoneNumberValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
@@ -52,7 +52,7 @@ export class BasicInfoService extends QuestionaryFormService {
             shopUrl: ['', Validators.required],
             shopName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            phoneNumber: ['', Validators.required]
+            phoneNumber: ['', [Validators.required, phoneNumberValidator]]
         });
     }
 }
