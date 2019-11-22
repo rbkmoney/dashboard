@@ -89,8 +89,11 @@ export class CustomFormControl implements MatFormFieldControl<any>, OnInit, OnDe
 
     ngDoCheck(): void {
         if (this.ngControl) {
-            this.errorState = this.ngControl.invalid; // Old: this.ngControl.invalid && this.ngControl.touched;
-            this.stateChanges.next();
+            const newState = this.ngControl.invalid;
+            if (newState !== this.errorState) {
+                this.errorState = newState;
+                this.stateChanges.next();
+            }
         }
     }
 
