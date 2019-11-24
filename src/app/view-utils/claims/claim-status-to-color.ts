@@ -12,12 +12,4 @@ const statusMapToColor: { [status in ClaimStatus]: StatusColor } = {
     accepted: StatusColor.success
 };
 
-export interface ClaimStatusViewInfo {
-    status: string;
-    color: StatusColor;
-}
-
-export const getClaimStatusViewInfo = (status: ClaimStatus): ClaimStatusViewInfo => ({
-    status: `${status}`,
-    color: statusMapToColor[status]
-});
+export const claimStatusToColor = (status: ClaimStatus): StatusColor => statusMapToColor[status];

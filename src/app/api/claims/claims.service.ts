@@ -47,4 +47,8 @@ export class ClaimsService {
     createClaim(claimChangeset: ClaimChangeset): Observable<Claim> {
         return this.claimsService.createClaim(genXRequestID(), claimChangeset);
     }
+
+    revokeClaimByID(claimID: number, claimRevision: number): Observable<void> {
+        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision);
+    }
 }

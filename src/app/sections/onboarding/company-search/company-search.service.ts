@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { filter, switchMap, catchError, pluck } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
 import { ClaimsService, QuestionaryService, createDocumentModificationUnit } from '../../../api';
 import { PartyContent, OrgType } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
+import { ConfirmActionDialog } from '../../../confirm-action-dialog';
 
 @Injectable()
 export class CompanySearchService {
+    private leaveOnboarding$ = new Subject();
+
     form: FormGroup = this.fb.group({
         searchStr: ''
     });
@@ -26,7 +28,18 @@ export class CompanySearchService {
         private questionaryService: QuestionaryService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
-    ) {}
+    ) {
+        this.leaveOnboarding$
+            .pipe(
+                switchMap(() =>
+                    this.dialog
+                        .open(ConfirmActionDialog)
+                        .afterClosed()
+                        .pipe(filter(r => r === 'confirm'))
+                )
+            )
+            .subscribe(() => this.router.navigate(['/']));
+    }
 
     isKnownOrgType({ orgType }: PartyContent): boolean {
         return Object.values(OrgType).includes(orgType);
@@ -49,16 +62,7 @@ export class CompanySearchService {
         this.router.navigate(['onboarding', claimID, 'basic-info']);
     }
 
-    showLeaveOnboardingDialog(): Observable<void> {
-        return this.dialog
-            .open(LeaveOnboardingDialogComponent, {
-                width: '450px'
-            })
-            .afterClosed()
-            .pipe(filter(r => r === 'decline'));
-    }
-
-    leave() {
-        this.router.navigate(['/']);
+    leaveOnboarding() {
+        this.leaveOnboarding$.next();
     }
 }
