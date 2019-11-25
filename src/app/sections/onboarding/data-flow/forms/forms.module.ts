@@ -25,7 +25,11 @@ import {
     PdlInfoComponent,
     PdlInfoService,
     PrivateEntityInfoComponent,
-    PrivateEntityInfoService
+    PrivateEntityInfoService,
+    LegalResidencyInfoComponent,
+    LegalResidencyInfoService,
+    IndividualResidencyInfoComponent,
+    IndividualResidencyInfoService
 } from './subforms';
 import {
     FinancialAndEconomicActivityComponent,
@@ -38,6 +42,7 @@ import {
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
 import { FormControlsModule } from '../../../../form-controls';
+import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
 
 @NgModule({
     imports: [
@@ -66,7 +71,9 @@ import { FormControlsModule } from '../../../../form-controls';
         FinancialAndEconomicActivityComponent,
         PrivateEntityInfoComponent,
         BeneficialOwnersComponent,
-        PlanningOperationsAndPayoutToolComponent
+        PlanningOperationsAndPayoutToolComponent,
+        IndividualResidencyInfoComponent,
+        LegalResidencyInfoComponent
     ],
     providers: [
         InitializeFormsService,
@@ -78,7 +85,10 @@ import { FormControlsModule } from '../../../../form-controls';
         FinancialAndEconomicActivityService,
         PrivateEntityInfoService,
         BeneficialOwnersService,
-        PlanningOperationsAndPayoutToolService
+        PlanningOperationsAndPayoutToolService,
+        IndividualResidencyInfoService,
+        RussianPrivateEntityService,
+        LegalResidencyInfoService
     ]
 })
 export class OnboardingFormsModule {}

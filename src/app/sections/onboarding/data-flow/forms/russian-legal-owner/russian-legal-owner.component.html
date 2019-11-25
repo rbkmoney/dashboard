@@ -5,7 +5,10 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianLegalOwner'"
 >
     <div class="mat-subheading-1">{{ t.legalOwnerDescription }}</div>
-    <dsh-private-entity-info [form]="(form$ | async).get('privateEntityInfo')"></dsh-private-entity-info>
+    <dsh-private-entity-info
+        [form]="(form$ | async).get('privateEntityInfo')"
+        [additionalFields]="['innfl']"
+    ></dsh-private-entity-info>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.headPosition }}</mat-label>

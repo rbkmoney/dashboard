@@ -28,9 +28,11 @@
             <mat-label>{{ t.snils }}</mat-label>
             <dsh-snils-input formControlName="snils" required></dsh-snils-input>
         </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t.innfl }}</mat-label>
-            <dsh-individual-entity-inn-input formControlName="innfl"></dsh-individual-entity-inn-input>
-        </mat-form-field>
+        <div fxFlex fxLayout>
+            <mat-form-field fxFlex *ngIf="isAdditionalFieldActive('innfl')">
+                <mat-label>{{ t.innfl }}</mat-label>
+                <dsh-individual-entity-inn-input formControlName="innfl"></dsh-individual-entity-inn-input>
+            </mat-form-field>
+        </div>
     </div>
 </form>
