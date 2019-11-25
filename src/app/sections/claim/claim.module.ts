@@ -13,6 +13,8 @@ import { DocumentsComponent } from './documents';
 import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
+import { SpinnerModule } from '../../spinner';
+import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 
 @NgModule({
     imports: [
@@ -25,7 +27,9 @@ import { StatusModule } from '../../status';
         ClaimRoutingModule,
         ConversationModule,
         StatusModule,
-        TranslocoModule
+        TranslocoModule,
+        SpinnerModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })

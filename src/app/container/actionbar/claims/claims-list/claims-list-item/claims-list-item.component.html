@@ -1,9 +1,9 @@
 <div fxLayout fxLayoutGap="10px" fxLayoutAlign="space-between center" class="item">
-    <div fxFlex="60">
-        {{ listItem.claimType | claimTypeLabel }}
+    <div *transloco="let claimType; read: 'claimType'" fxFlex="60">
+        {{ claimType[type] }}
     </div>
-    <dsh-status *transloco="let c; read: 'claimStatus'" fxFlex="40" [color]="listItem.statusViewInfo.color">{{
-        c[listItem.statusViewInfo.status]
+    <dsh-status *transloco="let claimStatus; read: 'claimStatus'" fxFlex="40" [color]="statusColor">{{
+        claimStatus[claim.status]
     }}</dsh-status>
     <button dsh-icon-button [matMenuTriggerFor]="menu">
         <mat-icon svgIcon="more_vert"></mat-icon>
