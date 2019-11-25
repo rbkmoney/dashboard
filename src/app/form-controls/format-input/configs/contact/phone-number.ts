@@ -2,7 +2,7 @@ import { TextMaskConfig } from 'angular2-text-mask';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { ValidatorFn } from '@angular/forms';
 
-import { createCustomInputWithMask } from '../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 const DIGIT_REG_EXP = /\d/;
 
@@ -51,7 +51,6 @@ export const phoneNumberValidator: ValidatorFn = control => {
     return null;
 };
 
-export const phoneNumberInput = createCustomInputWithMask({
-    selector: 'dsh-phone-number-input',
+export const phoneNumberConfig: FormatInputConfig = {
     mask: phoneNumberMask
-});
+};

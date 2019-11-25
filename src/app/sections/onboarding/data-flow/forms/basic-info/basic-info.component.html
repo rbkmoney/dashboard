@@ -10,7 +10,7 @@
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.inn }}</mat-label>
-            <dsh-individual-entity-inn-input formControlName="inn" required></dsh-individual-entity-inn-input>
+            <dsh-format-input format="individualEntityInn" formControlName="inn" required></dsh-format-input>
         </mat-form-field>
     </div>
     <mat-form-field fxFlex>
@@ -34,7 +34,7 @@
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.phoneNumber }}</mat-label>
-            <dsh-phone-number-input formControlName="phoneNumber" required></dsh-phone-number-input>
+            <dsh-format-input format="phoneNumber" formControlName="phoneNumber" required></dsh-format-input>
         </mat-form-field>
     </div>
 </form>

@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const seriesNumberMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
@@ -9,8 +10,7 @@ export const seriesNumberMask: TextMaskConfig = {
 
 export const seriesNumberValidator = maskToValidator(seriesNumberMask);
 
-export const seriesNumberInput = createCustomInputWithMask({
-    selector: 'dsh-series-number-input',
+export const seriesNumberConfig: FormatInputConfig = {
     mask: seriesNumberMask,
     placeholder: '0000 000000'
-});
+};

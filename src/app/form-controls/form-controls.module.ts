@@ -1,16 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { BankCardControlsModule } from './bank-card-controls';
-import { IndividualEntityControlsModule } from './individual-entity-controls';
-import { LegalEntityControlsModule } from './legal-entity-controls';
-import { ContactControlsModule } from './contact-controls';
+import { FormatInputModule } from './format-input';
 
-const EXPORTED_DECLARATIONS = [
-    BankCardControlsModule,
-    IndividualEntityControlsModule,
-    LegalEntityControlsModule,
-    ContactControlsModule
-];
+const EXPORTED_DECLARATIONS = [FormatInputModule];
 
 @NgModule({
     imports: EXPORTED_DECLARATIONS,

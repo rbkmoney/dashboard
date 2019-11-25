@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { createCustomInputWithMask, maskToValidator } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const lastDigitsMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, /\d/],
@@ -9,9 +10,8 @@ export const lastDigitsMask: TextMaskConfig = {
 
 export const lastDigitsValidator = maskToValidator(lastDigitsMask);
 
-export const lastDigitsInput = createCustomInputWithMask({
-    selector: 'dsh-last-digits-input',
+export const lastDigitsConfig: FormatInputConfig = {
     mask: lastDigitsMask,
     placeholder: '0000',
     prefix: '**** **** **** '
-});
+};

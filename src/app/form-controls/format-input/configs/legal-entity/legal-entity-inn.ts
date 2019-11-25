@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { FormatInputConfig } from '../format-input-config';
+import { maskToValidator } from '../../../utils';
 
 export const legalEntityInnMask: TextMaskConfig = {
     mask: new Array(10).fill(/\d/),
@@ -9,8 +10,7 @@ export const legalEntityInnMask: TextMaskConfig = {
 
 export const legalEntityInnValidator = maskToValidator(legalEntityInnMask);
 
-export const legalEntityInnInput = createCustomInputWithMask({
-    selector: 'dsh-legal-entity-inn-input',
+export const legalEntityInnConfig: FormatInputConfig = {
     mask: legalEntityInnMask,
     placeholder: new Array(10).fill('0').join('')
-});
+};

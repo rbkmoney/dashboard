@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const individualEntityInnMask: TextMaskConfig = {
     mask: new Array(12).fill(/\d/),
@@ -9,8 +10,7 @@ export const individualEntityInnMask: TextMaskConfig = {
 
 export const individualEntityInnValidator = maskToValidator(individualEntityInnMask);
 
-export const individualEntityInnInput = createCustomInputWithMask({
-    selector: 'dsh-individual-entity-inn-input',
+export const individualEntityInnConfig: FormatInputConfig = {
     mask: individualEntityInnMask,
     placeholder: new Array(12).fill('0').join('')
-});
+};

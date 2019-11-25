@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const snilsMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/],
@@ -9,8 +10,7 @@ export const snilsMask: TextMaskConfig = {
 
 export const snilsValidator = maskToValidator(snilsMask);
 
-export const snilsInput = createCustomInputWithMask({
-    selector: 'dsh-snils-input',
+export const snilsConfig: FormatInputConfig = {
     mask: snilsMask,
     placeholder: '000-000-000-00'
-});
+};

@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const binMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/],
@@ -9,9 +10,8 @@ export const binMask: TextMaskConfig = {
 
 export const binValidator = maskToValidator(binMask);
 
-export const binInput = createCustomInputWithMask({
-    selector: 'dsh-bin-input',
+export const binConfig: FormatInputConfig = {
     mask: binMask,
     placeholder: '0000 00',
     postfix: '** **** ****'
-});
+};

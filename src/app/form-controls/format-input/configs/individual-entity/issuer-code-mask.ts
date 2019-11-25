@@ -1,6 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { maskToValidator, createCustomInputWithMask } from '../utils';
+import { maskToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const issuerCodeMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
@@ -9,8 +10,7 @@ export const issuerCodeMask: TextMaskConfig = {
 
 export const issuerCodeValidator = maskToValidator(issuerCodeMask);
 
-export const issuerCodeInput = createCustomInputWithMask({
-    selector: 'dsh-issuer-code-input',
+export const issuerCodeConfig: FormatInputConfig = {
     mask: issuerCodeMask,
     placeholder: '000-000'
-});
+};
