@@ -10,7 +10,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { ClaimsService, QuestionaryService, createDocumentModificationUnit } from '../../../api';
 import { PartyContent, OrgType } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { ConfirmActionDialog } from '../../../confirm-action-dialog';
+import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
 
 @Injectable()
 export class CompanySearchService {
@@ -33,7 +33,7 @@ export class CompanySearchService {
             .pipe(
                 switchMap(() =>
                     this.dialog
-                        .open(ConfirmActionDialog)
+                        .open(ConfirmActionDialogComponent)
                         .afterClosed()
                         .pipe(filter(r => r === 'confirm'))
                 )

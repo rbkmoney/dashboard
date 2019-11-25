@@ -4,7 +4,7 @@ import { switchMap, catchError, first, filter, tap, map } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ConfirmActionDialog } from '../../confirm-action-dialog';
+import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { ReceiveClaimService } from './receive-claim.service';
 import { ClaimsService } from '../../api/claims';
 
@@ -55,7 +55,7 @@ export class RevokeClaimService {
 
     private openConfirmDialog() {
         return this.dialog
-            .open(ConfirmActionDialog)
+            .open(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(
                 tap(dialogResult => dialogResult === 'cancel' && this.inProcessState.next(false)),

@@ -4,13 +4,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ButtonModule } from '../button';
-import { ConfirmActionDialog } from './confirm-action-dialog.component';
+import { ConfirmActionDialogComponent } from './confirm-action-dialog.component';
 
 @NgModule({
     imports: [MatDialogModule, TranslocoModule, ButtonModule, FlexLayoutModule],
-    declarations: [ConfirmActionDialog],
-    exports: [ConfirmActionDialog],
-    entryComponents: [ConfirmActionDialog],
+    declarations: [ConfirmActionDialogComponent],
+    exports: [ConfirmActionDialogComponent],
+    entryComponents: [ConfirmActionDialogComponent],
     providers: [
         {
             provide: MAT_DIALOG_DEFAULT_OPTIONS,
