@@ -17,7 +17,7 @@ export class CustomFormControl implements MatFormFieldControl<any>, OnInit, OnDe
     formControl: FormControl;
     stateChanges = new Subject<void>();
     focused = false;
-    ngControl = null;
+    ngControl: NgControl = null;
     @HostBinding('id') id = `custom-form-control-${uuid()}`;
     @HostBinding('attr.aria-invalid') errorState = false;
 
