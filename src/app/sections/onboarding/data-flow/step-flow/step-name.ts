@@ -3,7 +3,7 @@ export enum StepName {
     FinancialAndEconomicActivity = 'financial-and-economic-activity',
     BeneficialOwners = 'beneficial-owners',
     PlanningOperationsAndPayoutTool = 'planning-operations-and-payout-tool',
-    DocumentsUpload = 'documents-upload',
     RussianPrivateEntity = 'russian-private-entity',
-    RussianLegalOwner = 'russian-legal-owner'
+    RussianLegalOwner = 'russian-legal-owner',
+    RussianIndividualEntity = 'russian-individual-entity'
 }

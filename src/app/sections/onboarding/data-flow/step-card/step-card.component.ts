@@ -1,23 +1,26 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { StepName } from '../step-flow';
+import { StepName, StepFlowService } from '../step-flow';
 import { ValidityService } from '../validity';
+import { StepCardService } from './step-card.service';
 
 @Component({
     selector: 'dsh-step-card',
-    templateUrl: 'step-card.component.html'
+    templateUrl: 'step-card.component.html',
+    providers: [StepCardService]
 })
 export class StepCardComponent {
-    @Input() stepFlow: StepName[];
-    @Input() activeStep: StepName;
-    @Output() stepSelected = new EventEmitter<StepName>();
+    stepFlow$ = this.stepFlowService.stepFlow$;
+    activeStep$ = this.stepFlowService.activeStep$;
+    isFlowValid$ = this.validityService.isFlowValid$;
 
-    @Input() actionDisabled = true;
-    @Output() doAction = new EventEmitter<void>();
-
-    constructor(private validityService: ValidityService) {}
+    constructor(
+        private validityService: ValidityService,
+        private stepFlowService: StepFlowService,
+        private stepCardService: StepCardService
+    ) {}
 
     getStepStatus(step: StepName): Observable<string | null> {
         return this.isStepValid(step).pipe(map(isValid => (isValid ? 'success' : null)));
@@ -27,7 +30,11 @@ export class StepCardComponent {
         return this.validityService.isValid(step);
     }
 
+    finishFormFlow() {
+        this.stepCardService.finishFormFlow();
+    }
+
     selectStepFlowIndex(index: number) {
-        this.stepSelected.emit(this.stepFlow[index]);
+        this.stepCardService.selectStepFlowIndex(index);
     }
 }

@@ -6,7 +6,7 @@
         "companyDetails": {
             "name": "Наименование",
             "address": "Адрес",
-            "ogrnInnKpp": "ОГРН / ИНН / КПП"
+            "inn": "ИНН"
         },
         "leaveOnboardingDialog": {
             "subheading": "Отменить заполнение заявки и вернуться обратно?",
@@ -33,15 +33,7 @@
         },
         "russianLegalOwner": {
             "legalOwnerDescription": "Ген. директор, президент, председатель правления и т.п.",
-
-            "fio": "ФИО",
-            "birthDate": "Дата рождения",
-            "birthPlace": "Место рождения",
-            "residenceAddress": "Адрес места жительства (регистрации) или места пребывания",
-            "snils": "СНИЛС",
             "headPosition": "Должность",
-            "innfl": "ИННФЛ (при наличии)",
-
             "termOfOffice": "Срок полномочий",
             "termOfOfficeHint": "Пример: 5 лет"
         },
@@ -58,13 +50,19 @@
             "hasBeneficiaryParty": "Наличие выгодоприобретателя (необходимо будет заполнить анкету выгодоприобретателя)",
             "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве"
         },
+        "beneficialOwners": {
+            "owner": "Владелец",
+            "addOwner": "Добавить нового владельца",
+            "removeOwner": "Удалить владельца",
+            "noOwners": "Бенефициарные владельцы отсутствуют",
+            "ownershipPercentage": "Процент владения капиталом юридического лица"
+        },
         "privateEntityInfo": {
             "fio": "ФИО",
             "birthDate": "Дата рождения",
             "birthPlace": "Место рождения",
             "residenceAddress": "Адрес места жительства (регистрации) или места пребывания",
             "snils": "СНИЛС",
-            "headPosition": "Должность",
             "innfl": "ИННФЛ (при наличии)"
         },
         "russianDomesticPassport": {
@@ -92,11 +90,37 @@
             "date": "Дата",
             "number": "Номер документа (при наличии)"
         },
+        "planningOperationsAndPayoutTool": {
+            "monthOperationCountLabel": "Планируемое количество операций в месяц",
+            "monthOperationCountTypes": {
+                "LtTen": "до 10",
+                "BtwTenToFifty": "10 - 50",
+                "GtFifty": "свыше 50"
+            },
+            "monthOperationSumLabel": "Планируемая сумма операций в месяц",
+            "monthOperationSumTypes": {
+                "LtFiveHundredThousand": "до 500 000",
+                "BtwFiveHundredThousandToOneMillion": "500 000 - 1 000 000",
+                "GtOneMillion": "свыше 1 000 000"
+            },
+            "payoutToolLabel": "Средство вывода",
+            "account": "Расчетный счет",
+            "bankName": "Наименование банка",
+            "bankPostAccount": "Корреспондентский счет",
+            "bankBik": "БИК"
+        },
+        "individualResidencyInfo": {
+            "usaTaxResident": "Налогоплательщик / налоговый резидент США",
+            "exceptUsaTaxResident": "Налогоплательщик / налоговый резидент иного иностранного государства (кроме США)"
+        },
+        "legalResidencyInfo": {
+            "taxResident": "Организация налоговый резидент США или иного иностранного государства",
+            "fatca": "Организация является Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 18.06.2014"
+        },
         "stepCard": {
             "basicInfo": "Основные сведения",
             "financialAndEconomicActivity": "Хозяйственная деятельность",
             "beneficialOwners": "Бенефициарные владельцы",
-            "documentsUpload": "Загрузка документов",
             "planningOperationsAndPayoutTool": "Банковские реквизиты",
             "russianLegalOwner": "Сведения о юридическом лице",
             "russianPrivateEntity": "Сведения о физическом лице",

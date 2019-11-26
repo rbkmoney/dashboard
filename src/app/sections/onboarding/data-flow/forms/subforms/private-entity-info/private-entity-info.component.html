@@ -28,9 +28,11 @@
             <mat-label>{{ t.snils }}</mat-label>
             <input matInput formControlName="snils" required />
         </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t.innfl }}</mat-label>
-            <input matInput formControlName="innfl" />
-        </mat-form-field>
+        <div fxFlex fxLayout>
+            <mat-form-field fxFlex *ngIf="isAdditionalFieldActive('innfl')">
+                <mat-label>{{ t.innfl }}</mat-label>
+                <input matInput formControlName="innfl" />
+            </mat-form-field>
+        </div>
     </div>
 </form>

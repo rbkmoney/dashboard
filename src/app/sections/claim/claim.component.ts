@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { pluck, map } from 'rxjs/operators';
 
-import { ClaimService } from './claim.service';
+import { ReceiveClaimService } from './receive-claim.service';
+import { claimStatusToColor, getClaimType } from '../../view-utils';
+import { RevokeClaimService } from './revoke-claim.service';
 
 @Component({
-    selector: 'dsh-claim',
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss'],
-    providers: [ClaimService]
+    providers: [ReceiveClaimService, RevokeClaimService]
 })
-export class ClaimComponent {
+export class ClaimComponent implements OnInit {
     links = [
         {
             path: 'conversation'
@@ -22,8 +23,25 @@ export class ClaimComponent {
         }
     ];
 
-    claimID$ = this.claimService.claim$.pipe(map(({ id }) => id));
-    claimStatusViewInfo$ = this.claimService.claimStatusViewInfo$;
+    claimID$ = this.receiveClaimService.claim$.pipe(pluck('id'));
+    claimStatus$ = this.receiveClaimService.claim$.pipe(pluck('status'));
+    claimStatusColor$ = this.claimStatus$.pipe(map(claimStatusToColor));
+    claimType$ = this.receiveClaimService.claim$.pipe(
+        pluck('changeset'),
+        map(getClaimType)
+    );
+    claimReceived$ = this.receiveClaimService.claimReceived$;
+    error$ = this.receiveClaimService.error$;
+    revokeInProcess$ = this.revokeClaimService.inProcess$;
+    revokeAvailable$ = this.revokeClaimService.revokeAvailable$;
 
-    constructor(private claimService: ClaimService) {}
+    ngOnInit() {
+        this.receiveClaimService.receiveClaim();
+    }
+
+    revokeClaim() {
+        this.revokeClaimService.revokeClaim();
+    }
+
+    constructor(private receiveClaimService: ReceiveClaimService, private revokeClaimService: RevokeClaimService) {}
 }

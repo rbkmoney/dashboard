@@ -22,7 +22,7 @@ import { FormControlsModule } from '../../../../form-controls';
 import { PaymentsComponent } from './payments.component';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
-import { ViewUtilsModule } from '../../../../view-utils';
+import { FromMinorModule } from '../../../../from-minor';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { DropdownModule } from '../../../../dropdown';
@@ -47,7 +47,7 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         FormControlsModule,
         DaterangeSelectorModule,
         StatusModule,
-        ViewUtilsModule,
+        FromMinorModule,
         LastUpdatedModule,
         SpinnerModule,
         MatSnackBarModule,

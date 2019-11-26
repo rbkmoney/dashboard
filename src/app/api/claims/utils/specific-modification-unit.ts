@@ -1,9 +1,7 @@
 import { Modification, ModificationUnit } from '../../../api-codegen/claim-management';
+import { Replace } from '../../../../type-utils';
 
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-type SpecificUnion<T, K> = Omit<T, keyof K> & K;
-
-export type SpecificModificationUnit<M extends Modification = Modification> = SpecificUnion<
+export type SpecificModificationUnit<M extends Modification = Modification> = Replace<
     ModificationUnit,
     { modification: M }
 >;

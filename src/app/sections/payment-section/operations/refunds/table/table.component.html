@@ -43,13 +43,15 @@
                     <mat-icon svgIcon="more_vert"></mat-icon>
                 </button>
                 <dsh-dropdown #actionsDropdown="dshDropdown">
-                    <dsh-dropdown-actions>
-                        <dsh-state-nav flat>
-                            <dsh-state-nav-item (click)="goToPaymentDetails(refund)">{{
-                                t.actions.paymentDetails
-                            }}</dsh-state-nav-item>
-                        </dsh-state-nav>
-                    </dsh-dropdown-actions>
+                    <ng-template>
+                        <dsh-dropdown-actions>
+                            <dsh-state-nav flat>
+                                <dsh-state-nav-item (click)="goToPaymentDetails(refund)">{{
+                                    t.actions.paymentDetails
+                                }}</dsh-state-nav-item>
+                            </dsh-state-nav>
+                        </dsh-dropdown-actions>
+                    </ng-template>
                 </dsh-dropdown>
             </td>
         </ng-container>
