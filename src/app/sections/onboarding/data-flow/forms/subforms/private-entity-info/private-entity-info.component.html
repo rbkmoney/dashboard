@@ -26,12 +26,12 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.snils }}</mat-label>
-            <input matInput formControlName="snils" required />
+            <dsh-format-input format="snils" formControlName="snils" required></dsh-format-input>
         </mat-form-field>
         <div fxFlex fxLayout>
             <mat-form-field fxFlex *ngIf="isAdditionalFieldActive('innfl')">
                 <mat-label>{{ t.innfl }}</mat-label>
-                <input matInput formControlName="innfl" />
+                <dsh-format-input format="individualEntityInn" formControlName="innfl"></dsh-format-input>
             </mat-form-field>
         </div>
     </div>

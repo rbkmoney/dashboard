@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.dsh-card-input-element {
+.dsh-format-input-element {
     border: none;
     background: none;
     padding: 0;
@@ -10,20 +10,24 @@
     font: inherit;
 }
 
-.dsh-card-input-element::placeholder {
+.dsh-format-input-element-full-size {
+    width: 100%;
+}
+
+.dsh-format-input-element::placeholder {
     opacity: 0;
 }
 
-:host.floating .dsh-card-input-element::placeholder {
+:host.floating .dsh-format-input-element::placeholder {
     opacity: 1;
 }
 
-.dsh-card-input-spacer {
+.dsh-format-input-spacer {
     opacity: 0;
     user-select: none;
     transition: opacity 200ms;
 }
 
-:host.floating .dsh-card-input-spacer {
+:host.floating .dsh-format-input-spacer {
     opacity: 1;
 }
