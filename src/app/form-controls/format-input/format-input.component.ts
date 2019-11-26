@@ -43,13 +43,13 @@ export class FormatInputComponent extends CustomFormControl {
         const estimatedSize = sizeFromPlaceholder && !size && placeholder ? placeholder.length : size;
 
         this.size = (prefix || postfix) && estimatedSize ? String(estimatedSize) : null;
-        this.placeholder = this.spaceToNbsp(placeholder);
-        this.prefix = this.spaceToNbsp(prefix);
-        this.postfix = this.spaceToNbsp(postfix);
+        this.placeholder = this.prepareText(placeholder);
+        this.prefix = this.prepareText(prefix);
+        this.postfix = this.prepareText(postfix);
         this.mask = mask;
     }
 
-    spaceToNbsp(str: string): string {
-        return typeof str === 'string' ? str.replace(/ /g, '\xa0') : str;
+    prepareText(str: string): string {
+        return (typeof str === 'string' ? str.replace(/ /g, '\xa0') : str) || '';
     }
 }
