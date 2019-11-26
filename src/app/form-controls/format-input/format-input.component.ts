@@ -1,5 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import { TextMaskConfig } from 'angular2-text-mask';
 
@@ -10,14 +9,7 @@ import { CustomFormControl } from '../utils';
     selector: 'dsh-format-input',
     templateUrl: 'format-input.component.html',
     styleUrls: ['format-input.component.scss'],
-    providers: [
-        { provide: MatFormFieldControl, useExisting: FormatInputComponent },
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => FormatInputComponent),
-            multi: true
-        }
-    ]
+    providers: [{ provide: MatFormFieldControl, useExisting: FormatInputComponent }]
 })
 export class FormatInputComponent extends CustomFormControl {
     mask: TextMaskConfig;
