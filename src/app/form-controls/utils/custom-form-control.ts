@@ -18,30 +18,57 @@ import {
 import uuid from 'uuid';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { takeUntil } from 'rxjs/operators';
+import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
 export class CustomFormControl extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit, DoCheck {
-    static prefix = 'dsh-custom-form-control';
+    protected _uid = `custom-input-${uuid()}`;
+    protected _previousNativeValue: any;
+    /** The aria-describedby attribute on the input for improved a11y. */
+    @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
+
+    /** Whether the component is being rendered on the server. */
+    _isServer = !this._platform.isBrowser;
+
+    readonly stateChanges: Subject<void> = new Subject<void>();
+
+    controlType = 'text';
+
+    autofilled = false;
 
     @Input()
     get disabled(): boolean {
+        if (this.ngControl && this.ngControl.disabled !== null) {
+            return this.ngControl.disabled;
+        }
         return this._disabled;
     }
     set disabled(value: boolean) {
         this._disabled = coerceBooleanProperty(value);
-        this.stateChanges.next();
+
+        // Browsers may not fire the blur event if the input is disabled too quickly.
+        // Reset from here to ensure that the element doesn't become stuck.
+        if (this.focused) {
+            this.focused = false;
+            this.stateChanges.next();
+        }
     }
+    protected _disabled = false;
+
+    @HostBinding('attr.id')
+    @Input()
+    get id(): string {
+        return this._id;
+    }
+    set id(value: string) {
+        this._id = value || this._uid;
+    }
+    protected _id: string;
 
     @Input()
-    get placeholder(): string {
-        return this._placeholder;
-    }
-    set placeholder(value: string) {
-        this._placeholder = value;
-        this.stateChanges.next();
-    }
+    placeholder: string;
 
     @Input()
     get required(): boolean {
@@ -49,8 +76,10 @@ export class CustomFormControl extends InputMixinBase
     }
     set required(value: boolean) {
         this._required = coerceBooleanProperty(value);
-        this.stateChanges.next();
     }
+    protected _required = false;
+
+    protected type = 'text';
 
     @Input()
     get value(): string {
@@ -61,9 +90,6 @@ export class CustomFormControl extends InputMixinBase
         this.stateChanges.next();
     }
 
-    @HostBinding('attr.aria-describedby') describedBy = '';
-    @HostBinding() id = `${CustomFormControl.prefix}-${uuid()}`;
-
     @HostBinding('class.floating')
     get shouldLabelFloat(): boolean {
         return this.focused || !this.empty;
@@ -72,10 +98,6 @@ export class CustomFormControl extends InputMixinBase
     get inputElement(): HTMLInputElement {
         return this.elementRef.nativeElement.querySelector('input');
     }
-
-    autofilled = false;
-
-    controlType = 'text';
 
     get empty(): boolean {
         return !this.formControl.value;
@@ -90,13 +112,9 @@ export class CustomFormControl extends InputMixinBase
     }
 
     formControl = new FormControl();
-    stateChanges: Subject<void> = new Subject();
     autocompleteOrigin: MatAutocompleteOrigin;
 
-    private _disabled = false;
     private _focused = false;
-    private _placeholder = '';
-    private _required = false;
     private destroy: Subject<void> = new Subject();
     private autofillSub = Subscription.EMPTY;
     private _onTouched: () => void;
@@ -104,6 +122,7 @@ export class CustomFormControl extends InputMixinBase
     constructor(
         private focusMonitor: FocusMonitor,
         private elementRef: ElementRef<HTMLElement>,
+        protected _platform: Platform,
         @Optional() @Self() public ngControl: NgControl,
         private autofillMonitor: AutofillMonitor,
         defaultErrorStateMatcher: ErrorStateMatcher,
@@ -173,7 +192,7 @@ export class CustomFormControl extends InputMixinBase
     }
 
     setDescribedByIds(ids: string[]): void {
-        this.describedBy = ids.join(' ');
+        this._ariaDescribedby = ids.join(' ');
     }
 
     setDisabledState(shouldDisable: boolean): void {
