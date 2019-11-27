@@ -9,20 +9,21 @@ import { Observable, interval } from 'rxjs';
 import { switchMap, debounce, tap } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 
-import { DaDataRequest, PartyContent } from '../api-codegen/aggr-proxy';
-import { DaDataService, Suggestion } from '../api';
+import { DaDataRequest, PartyContent, AddressQuery } from '../api-codegen/aggr-proxy';
+import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
 import { type } from './type';
 import { CustomFormControl } from '../form-controls';
 
-interface Option {
+interface Option<S extends Suggestion> {
     header: string;
     description: string;
-    value: Suggestion;
+    value: S;
 }
 
 const ReqType = DaDataRequest.DaDataRequestTypeEnum;
+type ReqType = DaDataRequest.DaDataRequestTypeEnum;
 
-const requestTypeByType: { [name in typeof type[number]]: DaDataRequest.DaDataRequestTypeEnum } = {
+const requestTypeByType: { [name in typeof type[number]]: ReqType } = {
     address: ReqType.AddressQuery,
     bank: ReqType.BankQuery,
     fio: ReqType.FioQuery,
@@ -37,17 +38,21 @@ const requestTypeByType: { [name in typeof type[number]]: DaDataRequest.DaDataRe
     templateUrl: 'dadata.component.html',
     providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }]
 })
-export class DaDataAutocompleteComponent extends CustomFormControl {
-    suggestions$: Observable<Suggestion[]>;
-    options: Option[];
+export class DaDataAutocompleteComponent<
+    T extends typeof type[number],
+    C = ContentByRequestType[typeof requestTypeByType[T]]
+> extends CustomFormControl {
+    suggestions$: Observable<C[]>;
+    options: Option<C>[];
     isOptionsLoading = false;
 
-    @Output() optionSelected = new EventEmitter<Suggestion>();
+    @Output() optionSelected = new EventEmitter<C>();
     @Output() errorOccurred = new EventEmitter<any>();
     @Output() suggestionNotFound = new EventEmitter();
 
-    @Input() type: typeof type[number];
+    @Input() type: T;
     @Input() count = 10;
+    @Input() params: ParamsByRequestType[typeof requestTypeByType[T]];
 
     constructor(
         focusMonitor: FocusMonitor,
@@ -74,19 +79,32 @@ export class DaDataAutocompleteComponent extends CustomFormControl {
             .pipe(
                 tap(() => (this.isOptionsLoading = true)),
                 debounce(() => interval(300)),
-                switchMap(() =>
-                    this.daDataService.suggest(requestTypeByType[this.type], {
-                        query: this.formControl.value,
+                switchMap(() => {
+                    const params: ParamsByRequestType[typeof requestTypeByType[T]] = {
+                        query: this.formControl.value as string,
                         count: this.count
-                    })
-                )
+                    };
+                    switch (this.type) {
+                        // TODO: wait API fixes
+                        case 'address':
+                            const addressParams = params as AddressQuery;
+                            addressParams.restrictValue = false;
+                            addressParams.fromBound = 'Area';
+                            addressParams.toBound = 'House';
+                            break;
+                    }
+                    return this.daDataService.suggest(requestTypeByType[this.type], {
+                        ...params,
+                        ...(this.params || {})
+                    });
+                })
             )
             .subscribe(
-                ({ suggestions }) => {
+                suggestions => {
                     if (suggestions.length === 0) {
                         this.suggestionNotFound.emit();
                     }
-                    this.options = suggestions.map(s => this.getOptionParts(s));
+                    this.options = (suggestions as C[]).map(s => this.getOptionParts(s));
                     this.isOptionsLoading = false;
                 },
                 error => {
@@ -101,7 +119,7 @@ export class DaDataAutocompleteComponent extends CustomFormControl {
         this.optionSelected.next(this.options[idx].value);
     }
 
-    private getOptionParts(suggestion: Suggestion): Option {
+    private getOptionParts(suggestion: C): Option<C> {
         let description: string;
         switch (this.type) {
             case 'party':
@@ -111,7 +129,7 @@ export class DaDataAutocompleteComponent extends CustomFormControl {
                 break;
         }
         return {
-            header: suggestion.value || '',
+            header: (suggestion as any).value || '',
             description: description || '',
             value: suggestion
         };
