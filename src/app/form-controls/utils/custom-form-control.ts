@@ -1,7 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatFormFieldControl, ErrorStateMatcher, MatAutocompleteOrigin } from '@angular/material';
 import { ControlValueAccessor, FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     DoCheck,
@@ -13,24 +13,24 @@ import {
     AfterViewInit,
     Optional,
     Self,
-    HostListener
+    HostListener,
+    OnChanges
 } from '@angular/core';
 import uuid from 'uuid';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import { takeUntil } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
 export class CustomFormControl extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, OnInit, DoCheck {
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, DoCheck, OnChanges {
     protected _uid = `custom-input-${uuid()}`;
     protected _previousNativeValue: any;
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
     /** Whether the component is being rendered on the server. */
-    _isServer = !this._platform.isBrowser;
+    _isServer = !this.platform.isBrowser;
 
     readonly stateChanges: Subject<void> = new Subject<void>();
 
@@ -90,13 +90,14 @@ export class CustomFormControl extends InputMixinBase
         this.stateChanges.next();
     }
 
-    @HostBinding('class.floating')
     get shouldLabelFloat(): boolean {
         return this.focused || !this.empty;
     }
 
-    get inputElement(): HTMLInputElement {
-        return this.elementRef.nativeElement.querySelector('input');
+    _inputRef = new ElementRef<HTMLInputElement>(null);
+    get inputRef() {
+        this._inputRef.nativeElement = this.elementRef.nativeElement.querySelector('input');
+        return this._inputRef;
     }
 
     get empty(): boolean {
@@ -115,14 +116,12 @@ export class CustomFormControl extends InputMixinBase
     autocompleteOrigin: MatAutocompleteOrigin;
 
     private _focused = false;
-    private destroy: Subject<void> = new Subject();
-    private autofillSub = Subscription.EMPTY;
     private _onTouched: () => void;
 
     constructor(
         private focusMonitor: FocusMonitor,
         private elementRef: ElementRef<HTMLElement>,
-        protected _platform: Platform,
+        private platform: Platform,
         @Optional() @Self() public ngControl: NgControl,
         private autofillMonitor: AutofillMonitor,
         defaultErrorStateMatcher: ErrorStateMatcher,
@@ -138,6 +137,10 @@ export class CustomFormControl extends InputMixinBase
         }
     }
 
+    ngOnChanges() {
+        this.stateChanges.next();
+    }
+
     ngDoCheck() {
         if (this.ngControl) {
             // We need to re-evaluate this on every change detection cycle, because there are some
@@ -147,28 +150,29 @@ export class CustomFormControl extends InputMixinBase
         }
     }
 
-    ngOnInit() {
-        this.updateAutocompleteOrigin();
-    }
-
     ngAfterViewInit(): void {
+        if (this.platform.isBrowser) {
+            this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
+                this.autofilled = event.isAutofilled;
+                this.stateChanges.next();
+            });
+        }
         this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
             this.focused = !!focusOrigin;
         });
     }
 
-    ngOnDestroy(): void {
-        this.destroy.next();
-        this.destroy.complete();
+    ngOnDestroy() {
         this.stateChanges.complete();
-        this.autofillSub.unsubscribe();
-        this.focusMonitor.stopMonitoring(this.elementRef.nativeElement);
-        this.autofillMonitor.stopMonitoring(this.inputElement);
+
+        if (this.platform.isBrowser) {
+            this.autofillMonitor.stopMonitoring(this.inputRef);
+        }
     }
 
     onContainerClick(event: MouseEvent): void {
         if ((event.target as Element).tagName.toLowerCase() !== 'input') {
-            this.focusMonitor.focusVia(this.inputElement, 'mouse');
+            this.focusMonitor.focusVia(this.inputRef, 'mouse');
         }
     }
 
@@ -177,14 +181,8 @@ export class CustomFormControl extends InputMixinBase
         this._onTouched();
     }
 
-    updateAutocompleteOrigin() {
-        this.autocompleteOrigin = {
-            elementRef: new ElementRef(this.elementRef.nativeElement.parentElement.parentElement)
-        };
-    }
-
     registerOnChange(onChange: (value: string) => void): void {
-        this.formControl.valueChanges.pipe(takeUntil(this.destroy)).subscribe(onChange);
+        this.formControl.valueChanges.subscribe(onChange);
     }
 
     registerOnTouched(onTouched: () => void): void {
