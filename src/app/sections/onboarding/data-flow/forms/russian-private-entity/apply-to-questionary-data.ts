@@ -4,26 +4,11 @@ import {
     QuestionaryData,
     IndividualEntityContractor,
     RussianIndividualEntity,
-    IdentityDocument,
     IndividualResidencyInfo,
-    RussianDomesticPassport
+    RussianPrivateEntity
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
-import { RussianPrivateEntity } from '../../../../../api-codegen/capi/swagger-codegen';
-
-const applyToIdentityDocument = (
-    identityDocument: IdentityDocument,
-    { seriesNumber, issuer, issuerCode, issuedAt }: FormValue
-): RussianDomesticPassport => {
-    console.warn('Questionary field is missing: RussianDomesticPassport.seriesNumber', seriesNumber);
-    return {
-        ...identityDocument,
-        identityDocumentType: 'RussianDomesticPassport',
-        issuer,
-        issuerCode,
-        issuedAt
-    };
-};
+import { applyToIdentityDocument } from '../subforms';
 
 const applyToContractor = (
     t: IndividualEntityContractor,
@@ -34,9 +19,6 @@ const applyToContractor = (
         individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
     }: FormValue
 ): IndividualEntityContractor => {
-    console.warn('Questionary field is missing: RussianIndividualEntity.pdlCategory', pdlCategory);
-    console.warn('Questionary field is missing: RussianIndividualEntity.pdlRelationDegree', pdlRelationDegree);
-    console.warn('Questionary field is missing: RussianPrivateEntity.fio', fio);
     const individualEntity = get(t, ['individualEntity']);
     const russianPrivateEntity = get(individualEntity, ['russianPrivateEntity']);
     const residencyInfo = get(individualEntity, ['residencyInfo']);
@@ -51,7 +33,8 @@ const applyToContractor = (
                 ...russianPrivateEntity,
                 birthDate,
                 birthPlace,
-                residenceAddress
+                residenceAddress,
+                fio
             } as RussianPrivateEntity,
             identityDocument: applyToIdentityDocument(
                 get(individualEntity, ['identityDocument']),
@@ -62,7 +45,9 @@ const applyToContractor = (
                 residencyInfoType: 'IndividualResidencyInfo',
                 usaTaxResident,
                 exceptUsaTaxResident
-            } as IndividualResidencyInfo
+            } as IndividualResidencyInfo,
+            pdlCategory,
+            pdlRelationDegree
         } as RussianIndividualEntity
     };
 };

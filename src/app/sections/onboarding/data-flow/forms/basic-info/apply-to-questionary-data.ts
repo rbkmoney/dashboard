@@ -37,14 +37,13 @@ const applyToIndividualEntityContractor = (
     i: IndividualEntityContractor,
     { name, inn, registrationPlace }: FormValue
 ): IndividualEntityContractor => {
-    console.warn('Need to implement RussianIndividualEntity.name', name);
     const individualEntity = get(i, ['individualEntity']);
     const registrationInfo = get(i, ['individualEntity', 'registrationInfo']);
     return {
         ...i,
         individualEntity: {
             ...individualEntity,
-            // name,
+            name,
             inn,
             registrationInfo: {
                 ...registrationInfo,

@@ -7,7 +7,8 @@ import {
     BeneficialOwner,
     IndividualEntityContractor,
     RussianIndividualEntity,
-    IndividualResidencyInfo
+    IndividualResidencyInfo,
+    Contractor
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -19,47 +20,47 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
         ({
             ownershipPercentage,
             pdlInfo: { pdlCategory, pdlRelationDegree },
-            privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl },
+            privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl, fio },
             russianDomesticPassport: { seriesNumber, issuer, issuerCode, issuedAt },
             individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
-        }) => {
-            console.warn('Questionary field is missing: RussianDomesticPassport.seriesNumber', seriesNumber);
-            return {
-                ownershipPercentage,
-                pdlCategory,
-                pdlRelationDegree,
-                russianPrivateEntity: {
-                    birthDate,
-                    birthPlace,
-                    residenceAddress
-                },
-                snils,
-                inn: innfl,
-                identityDocument: {
-                    identityDocumentType: 'RussianDomesticPassport',
-                    issuer,
-                    issuerCode,
-                    issuedAt
-                },
-                residencyInfo: {
-                    residencyInfoType: 'IndividualResidencyInfo',
-                    usaTaxResident,
-                    exceptUsaTaxResident
-                } as IndividualResidencyInfo
-            };
-        }
+        }) => ({
+            ownershipPercentage,
+            pdlCategory,
+            pdlRelationDegree,
+            russianPrivateEntity: {
+                birthDate,
+                birthPlace,
+                residenceAddress,
+                fio
+            },
+            snils,
+            inn: innfl,
+            identityDocument: {
+                identityDocumentType: 'RussianDomesticPassport',
+                issuer,
+                issuerCode,
+                issuedAt,
+                seriesNumber
+            },
+            residencyInfo: {
+                residencyInfoType: 'IndividualResidencyInfo',
+                usaTaxResident,
+                exceptUsaTaxResident
+            } as IndividualResidencyInfo
+        })
     );
 };
 
 const applyToLegalEntityContractor = (
     t: LegalEntityContractor,
-    { beneficialOwners }: FormValue
+    { noOwners, beneficialOwners }: FormValue
 ): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
     return {
         ...t,
         legalEntity: {
             ...legalEntity,
+            hasBeneficialOwners: !noOwners,
             beneficialOwner: applyToBeneficialOwners(beneficialOwners)
         } as RussianLegalEntity
     };
@@ -67,19 +68,20 @@ const applyToLegalEntityContractor = (
 
 const applyToIndividualEntityContractor = (
     t: IndividualEntityContractor,
-    { beneficialOwners }: FormValue
+    { noOwners, beneficialOwners }: FormValue
 ): IndividualEntityContractor => {
     const individualEntity = get(t, ['individualEntity']);
     return {
         ...t,
         individualEntity: {
             ...individualEntity,
+            hasBeneficialOwners: !noOwners,
             beneficialOwners: applyToBeneficialOwners(beneficialOwners)
         } as RussianIndividualEntity
     };
 };
 
-const applyToContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
+const applyToContractor = (t: Contractor, v: FormValue): Contractor => {
     switch (t.contractorType) {
         case 'LegalEntityContractor':
             return applyToLegalEntityContractor(t, v);

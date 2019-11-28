@@ -16,7 +16,7 @@ import { IndividualResidencyInfoService } from '../subforms/individual-residency
 @Injectable()
 export class BeneficialOwnersService extends QuestionaryFormService {
     private form: FormGroup;
-    private noOwners$ = new BehaviorSubject(false);
+    private beneficialOwnersVisible$ = new BehaviorSubject(true);
 
     constructor(
         protected fb: FormBuilder,
@@ -30,10 +30,11 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         super(questionaryStateService, validityService);
     }
 
-    isNoOwners$ = this.noOwners$.asObservable();
+    isBeneficialOwnersVisible$ = this.beneficialOwnersVisible$.asObservable();
 
-    setNoOwners(noOwners: boolean) {
-        this.noOwners$.next(noOwners);
+    noOwnersChange(noOwners: boolean) {
+        this.beneficialOwnersVisible$.next(!noOwners);
+        noOwners ? this.clearOwners() : this.addOwner();
     }
 
     clearOwners() {
@@ -54,6 +55,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
     protected toFormValue(data: QuestionaryData): FormValue {
         const formValue = toFormValue(data);
         this.form = this.initForm(formValue.beneficialOwners.length);
+        this.noOwnersChange(formValue.noOwners);
         this.form$.next(this.form);
         this.form$.complete();
         return formValue;
@@ -70,6 +72,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
     private initForm(ownersCount: number): FormGroup {
         const minOwners = 1;
         return this.fb.group({
+            noOwners: [false, Validators.required],
             beneficialOwners: this.fb.array(
                 new Array(ownersCount === 0 ? minOwners : ownersCount).fill(null).map(() => this.initBeneficialOwner())
             )
@@ -78,7 +81,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
 
     private initBeneficialOwner() {
         return this.fb.group({
-            ownershipPercentage: ['', Validators.required],
+            ownershipPercentage: ['', [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]],
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),

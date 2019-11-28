@@ -9,8 +9,8 @@ export class PrivateEntityInfoService {
 
     getForm(): FormGroup {
         return this.fb.group({
-            fio: ['', Validators.required], // TODO need to backend implementation
-            birthDate: ['', Validators.required],
+            fio: ['', Validators.required],
+            birthDate: [null, Validators.required],
             birthPlace: ['', Validators.required],
             residenceAddress: ['', Validators.required],
             snils: ['', [Validators.required, snilsValidator]],

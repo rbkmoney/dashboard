@@ -5,65 +5,59 @@ import {
     RussianLegalEntity,
     LegalEntityContractor,
     AccountantInfo,
-    WithoutChiefAccountant,
-    AccountingOrganization,
     IndividualEntityContractor,
     RussianIndividualEntity,
     AdditionalInfo,
     Contractor,
-    LegalResidencyInfo
+    LegalResidencyInfo,
+    WithoutChiefAccountingOrganization
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
-const toAccountingOrganization = (i: WithoutChiefAccountant, accountantOrgInn: string): AccountingOrganization => ({
-    ...i,
-    inn: accountantOrgInn
-});
-
-const applyToWithoutChiefAccountant = (
-    i: WithoutChiefAccountant,
-    accountantType: string,
+const applyToWithoutAccountant = (
+    accountantInfoType: AccountantInfo.AccountantInfoTypeEnum,
     accountantOrgInn: string
-): WithoutChiefAccountant => {
+) => {
     const result = {
-        ...i,
-        withoutChiefAccountantType: accountantType
-    } as WithoutChiefAccountant;
-    if (accountantType === 'AccountingOrganization') {
-        return toAccountingOrganization(result, accountantOrgInn);
+        accountantInfoType
+    };
+    if (accountantInfoType === 'WithoutChiefAccountingOrganization') {
+        return {
+            ...result,
+            inn: accountantOrgInn
+        } as WithoutChiefAccountingOrganization;
     }
     return result;
 };
 
 const applyToAccountantInfo = (
-    i: AccountantInfo,
     withoutAccountant: boolean,
-    accountantType: string,
+    accountantType: AccountantInfo.AccountantInfoTypeEnum,
     accountantOrgInn: string
-): AccountantInfo => {
-    const result = {
-        ...i,
-        accountantInfoType: withoutAccountant ? 'WithoutChiefAccountant' : 'WithChiefAccountant'
-    } as AccountantInfo;
-    if (withoutAccountant) {
-        return applyToWithoutChiefAccountant(result as WithoutChiefAccountant, accountantType, accountantOrgInn);
-    }
-    return result;
-};
+): AccountantInfo =>
+    withoutAccountant
+        ? applyToWithoutAccountant(accountantType, accountantOrgInn)
+        : {
+              accountantInfoType: 'WithChiefAccountant'
+          };
 
 const applyToAdditionalInfo = (
     i: AdditionalInfo,
-    { staffCount, withoutAccountant, accountantType, accountantOrgInn }: FormValue
+    {
+        staffCount,
+        withoutAccountant,
+        accountantType,
+        accountantOrgInn,
+        hasBeneficiary,
+        hasLiquidationProcess
+    }: FormValue
 ): AdditionalInfo => ({
     ...i,
     staffCount,
     benefitThirdParties: false,
-    accountantInfo: applyToAccountantInfo(
-        get(i, ['accountantInfo']),
-        withoutAccountant,
-        accountantType,
-        accountantOrgInn
-    )
+    hasBeneficiary,
+    hasLiquidationProcess,
+    accountantInfo: applyToAccountantInfo(withoutAccountant, accountantType, accountantOrgInn)
 });
 
 const applyToResidencyInfo = (
