@@ -6,7 +6,7 @@ import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Observable, interval } from 'rxjs';
-import { switchMap, debounce, tap } from 'rxjs/operators';
+import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -14,6 +14,7 @@ import { DaDataRequest, PartyContent, AddressQuery, FmsUnitQuery, BankContent } 
 import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
 import { type } from './type';
 import { CustomFormControl } from '../form-controls';
+import { progress, takeError } from '../custom-operators';
 
 interface Option<S extends Suggestion> {
     header: string;
@@ -43,9 +44,18 @@ export class DaDataAutocompleteComponent<
     T extends typeof type[number],
     C = ContentByRequestType[typeof requestTypeByType[T]]
 > extends CustomFormControl {
-    suggestions$: Observable<C[]>;
-    options: Option<C>[];
-    isOptionsLoading = false;
+    suggestions$: Observable<C[]> = this.formControl.valueChanges.pipe(
+        debounce(() => interval(300)),
+        switchMap(this.loadSuggestions.bind(this)),
+        shareReplay(1)
+    );
+    options$: Observable<Option<C>[]> = this.suggestions$.pipe(
+        map(suggestions => suggestions.map(s => this.getOption(s))),
+        shareReplay(1)
+    );
+    isOptionsLoading$: Observable<boolean> = progress(this.formControl.valueChanges, this.suggestions$).pipe(
+        shareReplay(1)
+    );
 
     @Output() optionSelected = new EventEmitter<C>();
     @Output() errorOccurred = new EventEmitter<any>();
@@ -76,33 +86,18 @@ export class DaDataAutocompleteComponent<
             parentForm,
             parentFormGroup
         );
-        this.formControl.valueChanges
-            .pipe(
-                tap(() => (this.isOptionsLoading = true)),
-                debounce(() => interval(300)),
-                switchMap(this.getParams.bind(this))
-            )
-            .subscribe(
-                suggestions => {
-                    if (suggestions.length === 0) {
-                        this.suggestionNotFound.emit();
-                    }
-                    this.options = (suggestions as C[]).map(s => this.getOption(s));
-                    this.isOptionsLoading = false;
-                },
-                error => {
-                    console.error(error);
-                    this.errorOccurred.next(error);
-                }
-            );
+        this.isOptionsLoading$.subscribe();
+        this.options$.subscribe();
+        this.suggestions$.pipe(filter(s => !s)).subscribe(() => this.suggestionNotFound.next());
+        this.suggestions$.pipe(takeError).subscribe(error => this.errorOccurred.next(error));
     }
 
     optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
         const idx = e.source.options.toArray().findIndex(option => option === e.option);
-        this.optionSelected.next(this.options[idx].value);
+        this.options$.pipe(take(1)).subscribe(options => this.optionSelected.next(options[idx].value));
     }
 
-    private getParams() {
+    private loadSuggestions() {
         const params: ParamsByRequestType[typeof requestTypeByType[T]] = { query: this.formControl.value as string };
         return this.daDataService.suggest(requestTypeByType[this.type], this.withSpecificParams(params));
     }
