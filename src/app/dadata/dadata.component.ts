@@ -8,9 +8,15 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Observable, interval } from 'rxjs';
 import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
-import { TranslocoService } from '@ngneat/transloco';
 
-import { DaDataRequest, PartyContent, AddressQuery, FmsUnitQuery, BankContent } from '../api-codegen/aggr-proxy';
+import {
+    DaDataRequest,
+    PartyContent,
+    AddressQuery,
+    FmsUnitQuery,
+    BankContent,
+    FmsUnitContent
+} from '../api-codegen/aggr-proxy';
 import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
 import { type } from './type';
 import { CustomFormControl } from '../form-controls';
@@ -73,8 +79,7 @@ export class DaDataAutocompleteComponent<
         defaultErrorStateMatcher: ErrorStateMatcher,
         @Optional() parentForm: NgForm,
         @Optional() parentFormGroup: FormGroupDirective,
-        private daDataService: DaDataService,
-        private transloco: TranslocoService
+        private daDataService: DaDataService
     ) {
         super(
             focusMonitor,
@@ -102,9 +107,7 @@ export class DaDataAutocompleteComponent<
         return this.daDataService.suggest(requestTypeByType[this.type], this.withSpecificParams(params));
     }
 
-    private withSpecificParams(
-        params: ParamsByRequestType[typeof requestTypeByType[T]]
-    ): ParamsByRequestType[typeof requestTypeByType[T]] {
+    private withSpecificParams(params: ParamsByRequestType[typeof requestTypeByType[T]]) {
         switch (this.type) {
             // TODO: wait API fixes
             case 'address':
@@ -132,23 +135,18 @@ export class DaDataAutocompleteComponent<
 
     private getDescription(suggestion: C): string {
         switch (this.type) {
-            case 'bank':
-                const { bic, correspondentAccount } = suggestion as BankContent;
-                return [
-                    bic && `${this.transloco.translate('bank.bic', null, 'dadata|scoped')}: ${bic || ''}`,
-                    correspondentAccount &&
-                        `${this.transloco.translate(
-                            'bank.correspondentAccount',
-                            null,
-                            'dadata|scoped'
-                        )}: ${correspondentAccount || ''}`
-                ]
-                    .filter(v => !!v)
-                    .join(' ');
-            case 'party':
+            case 'bank': {
+                const { bic, address } = suggestion as BankContent;
+                return [bic, address.value].filter(v => !!v).join(' ');
+            }
+            case 'party': {
                 const { inn, ogrn, address } = suggestion as PartyContent;
                 const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
                 return [innOGRN, address.value].filter(v => !!v).join(' ');
+            }
+            case 'fmsUnit':
+                const { code } = suggestion as FmsUnitContent;
+                return code;
             default:
                 return '';
         }
