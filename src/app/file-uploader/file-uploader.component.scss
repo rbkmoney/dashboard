@@ -1,15 +1,12 @@
 .dsh-file-uploader {
     &-container {
-        padding: 15px 0;
         border: 2px dashed;
+        padding: 15px 0;
         box-sizing: border-box;
         border-radius: 4px;
 
         &-dragover {
-            padding: 15px 0;
             border: 2px solid;
-            box-sizing: border-box;
-            border-radius: 4px;
             transition: ease 1s;
         }
     }

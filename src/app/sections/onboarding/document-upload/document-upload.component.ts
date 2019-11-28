@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { first } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { SpinnerType } from '../../../spinner';
 import { LeaveDialogComponent } from './leave-dialog';
@@ -15,12 +17,10 @@ import { DocumentUploadService } from './document-upload.service';
 export class DocumentUploadComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    claimID: number;
-    files$ = this.documentUploadService.files$;
+    filesData$ = this.documentUploadService.filesData$;
+    claim$ = this.documentUploadService.claim$;
     hasFiles$ = this.documentUploadService.hasFiles$;
     errors$ = this.documentUploadService.errors$;
-
-    console = console;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,10 +30,14 @@ export class DocumentUploadComponent {
     ) {}
 
     cancel() {
-        this.dialog.open(LeaveDialogComponent);
+        this.dialog.open(LeaveDialogComponent, { width: '450px' });
     }
 
     done() {
-        this.router.navigate(['claim', this.claimID]);
+        this.claim$.pipe(first()).subscribe(({ id }) => this.router.navigate(['claim', id]));
+    }
+
+    updateClaim(uploadedFiles: string[]) {
+        this.documentUploadService.updateClaim(uploadedFiles).subscribe((ids) => console.log(ids));
     }
 }

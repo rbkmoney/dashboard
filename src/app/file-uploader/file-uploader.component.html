@@ -9,7 +9,7 @@
     fxFlex
     fxLayoutAlign="center"
 >
-    <div *transloco="let t; scope: 'onboarding'; read: 'onboarding.documentUpload'">
+    <div *transloco="let t; scope: 'file-uploader'; read: 'fileUploader'">
         <div *ngIf="!(isUploading$ | async); else uploading">
             {{ t.forUpload }}
             <span

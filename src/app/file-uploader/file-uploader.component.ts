@@ -1,34 +1,38 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { FilesService } from '../api';
+import { FileUploaderService } from './file-uploader.service';
 
 @Component({
     selector: 'dsh-file-uploader',
     templateUrl: 'file-uploader.component.html',
-    styleUrls: ['file-uploader.component.scss']
+    styleUrls: ['file-uploader.component.scss'],
+    providers: [FileUploaderService]
 })
 export class FileUploaderComponent {
+
+    @Output()
+    uploadedFilesIds = new EventEmitter<string[]>();
+
     @HostBinding('class.dsh-file-uploader-container')
     isDragover = false;
 
-    files = [];
-
     isUploading$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private filesService: FilesService) {}
+    files = [];
+
+    constructor(private fileUploaderService: FileUploaderService) {}
 
     uploadFiles(files: File[]) {
         this.isUploading$.next(true);
-        this.filesService.uploadFiles(files).subscribe(uploadedFiles => {
-            console.log(uploadedFiles);
+        this.fileUploaderService.uploadFiles(files).subscribe(uploadedFiles => {
             this.isUploading$.next(false);
+            this.uploadedFilesIds.emit(uploadedFiles);
         });
         this.files = [];
     }
 
     setDragover(value: boolean) {
-        console.log(value);
         this.isDragover = value;
     }
 }

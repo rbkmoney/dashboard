@@ -12,11 +12,13 @@ import { SpinnerModule } from '../../../spinner';
 import { FileUploaderModule } from '../../../file-uploader';
 import { LeaveDialogComponent } from './leave-dialog';
 import { FileItemModule } from '../../../file-item';
+import { DocumentUploadRoutingModule } from './document-upload-routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FlexLayoutModule,
+        DocumentUploadRoutingModule,
         MatIconModule,
         LayoutModule,
         ButtonModule,
