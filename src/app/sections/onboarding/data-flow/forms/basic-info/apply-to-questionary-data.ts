@@ -48,7 +48,7 @@ const applyToIndividualEntityContractor = (
             registrationInfo: {
                 ...registrationInfo,
                 registrationInfoType: 'IndividualRegistrationInfo',
-                registrationAddress: registrationPlace
+                registrationPlace
             }
         } as RussianIndividualEntity
     };
