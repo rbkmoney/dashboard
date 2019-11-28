@@ -9,7 +9,6 @@ import {
     HostBinding,
     Input,
     OnDestroy,
-    OnInit,
     AfterViewInit,
     Optional,
     Self,
@@ -88,6 +87,10 @@ export class CustomFormControl extends InputMixinBase
     set value(value: string) {
         this.formControl.setValue(value);
         this.stateChanges.next();
+    }
+
+    get details() {
+        return this.getDetails(this.value);
     }
 
     get shouldLabelFloat(): boolean {
@@ -205,5 +208,9 @@ export class CustomFormControl extends InputMixinBase
 
     writeValue(value: string): void {
         this.formControl.setValue(value, { emitEvent: false });
+    }
+
+    getDetails(value: string) {
+        return value;
     }
 }

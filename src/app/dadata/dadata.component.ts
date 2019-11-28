@@ -1,15 +1,16 @@
+import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Observable, interval } from 'rxjs';
 import { switchMap, debounce, tap } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { DaDataRequest, PartyContent, AddressQuery } from '../api-codegen/aggr-proxy';
+import { DaDataRequest, PartyContent, AddressQuery, FmsUnitQuery, BankContent } from '../api-codegen/aggr-proxy';
 import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
 import { type } from './type';
 import { CustomFormControl } from '../form-controls';
@@ -51,7 +52,6 @@ export class DaDataAutocompleteComponent<
     @Output() suggestionNotFound = new EventEmitter();
 
     @Input() type: T;
-    @Input() count = 10;
     @Input() params: ParamsByRequestType[typeof requestTypeByType[T]];
 
     constructor(
@@ -63,7 +63,8 @@ export class DaDataAutocompleteComponent<
         defaultErrorStateMatcher: ErrorStateMatcher,
         @Optional() parentForm: NgForm,
         @Optional() parentFormGroup: FormGroupDirective,
-        private daDataService: DaDataService
+        private daDataService: DaDataService,
+        private transloco: TranslocoService
     ) {
         super(
             focusMonitor,
@@ -79,32 +80,14 @@ export class DaDataAutocompleteComponent<
             .pipe(
                 tap(() => (this.isOptionsLoading = true)),
                 debounce(() => interval(300)),
-                switchMap(() => {
-                    const params: ParamsByRequestType[typeof requestTypeByType[T]] = {
-                        query: this.formControl.value as string,
-                        count: this.count
-                    };
-                    switch (this.type) {
-                        // TODO: wait API fixes
-                        case 'address':
-                            const addressParams = params as AddressQuery;
-                            addressParams.restrictValue = false;
-                            addressParams.fromBound = 'Area';
-                            addressParams.toBound = 'House';
-                            break;
-                    }
-                    return this.daDataService.suggest(requestTypeByType[this.type], {
-                        ...params,
-                        ...(this.params || {})
-                    });
-                })
+                switchMap(this.getParams.bind(this))
             )
             .subscribe(
                 suggestions => {
                     if (suggestions.length === 0) {
                         this.suggestionNotFound.emit();
                     }
-                    this.options = (suggestions as C[]).map(s => this.getOptionParts(s));
+                    this.options = (suggestions as C[]).map(s => this.getOption(s));
                     this.isOptionsLoading = false;
                 },
                 error => {
@@ -119,19 +102,60 @@ export class DaDataAutocompleteComponent<
         this.optionSelected.next(this.options[idx].value);
     }
 
-    private getOptionParts(suggestion: C): Option<C> {
-        let description: string;
+    private getParams() {
+        const params: ParamsByRequestType[typeof requestTypeByType[T]] = { query: this.formControl.value as string };
+        return this.daDataService.suggest(requestTypeByType[this.type], this.withSpecificParams(params));
+    }
+
+    private withSpecificParams(
+        params: ParamsByRequestType[typeof requestTypeByType[T]]
+    ): ParamsByRequestType[typeof requestTypeByType[T]] {
         switch (this.type) {
+            // TODO: wait API fixes
+            case 'address':
+                const addressParams = params as AddressQuery;
+                addressParams.restrictValue = false;
+                addressParams.fromBound = 'Area';
+                addressParams.toBound = 'House';
+                return addressParams;
+            case 'fmsUnit':
+                const fmsUnitParams = params as FmsUnitQuery;
+                fmsUnitParams.queryType = 'FullTextSearch';
+                return fmsUnitParams;
+            default:
+                return params;
+        }
+    }
+
+    private getOption(suggestion: C): Option<C> {
+        return {
+            header: (suggestion as any).value || '',
+            description: this.getDescription(suggestion),
+            value: suggestion
+        };
+    }
+
+    private getDescription(suggestion: C): string {
+        switch (this.type) {
+            case 'bank':
+                const { bic, correspondentAccount } = suggestion as BankContent;
+                return [
+                    bic && `${this.transloco.translate('bank.bic', null, 'dadata|scoped')}: ${bic || ''}`,
+                    correspondentAccount &&
+                        `${this.transloco.translate(
+                            'bank.correspondentAccount',
+                            null,
+                            'dadata|scoped'
+                        )}: ${correspondentAccount || ''}`
+                ]
+                    .filter(v => !!v)
+                    .join(' ');
             case 'party':
                 const { inn, ogrn, address } = suggestion as PartyContent;
                 const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
-                description = [innOGRN, address.value].filter(v => !!v).join(' ');
-                break;
+                return [innOGRN, address.value].filter(v => !!v).join(' ');
+            default:
+                return '';
         }
-        return {
-            header: (suggestion as any).value || '',
-            description: description || '',
-            value: suggestion
-        };
     }
 }

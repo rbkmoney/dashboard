@@ -1,0 +1,6 @@
+{
+    "bank": {
+        "correspondentAccount": "Корреспондентский счет",
+        "bic": "БИК"
+    }
+}
