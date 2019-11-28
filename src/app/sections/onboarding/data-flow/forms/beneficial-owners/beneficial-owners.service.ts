@@ -8,10 +8,14 @@ import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
-import { PrivateEntityInfoService, RussianDomesticPassportService, PdlInfoService } from '../subforms';
+import {
+    PrivateEntityInfoService,
+    RussianDomesticPassportService,
+    PdlInfoService,
+    IndividualResidencyInfoService
+} from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
-import { IndividualResidencyInfoService } from '../subforms/individual-residency-info';
 
 @Injectable()
 export class BeneficialOwnersService extends QuestionaryFormService {
@@ -32,17 +36,19 @@ export class BeneficialOwnersService extends QuestionaryFormService {
 
     isBeneficialOwnersVisible$ = this.beneficialOwnersVisible$.asObservable();
 
-    noOwnersChange(noOwners: boolean) {
+    noOwnersChange(noOwners: boolean, ownerCount = 1) {
         this.beneficialOwnersVisible$.next(!noOwners);
-        noOwners ? this.clearOwners() : this.addOwner();
+        noOwners ? this.clearOwners() : this.addOwner(ownerCount);
     }
 
     clearOwners() {
         (this.form.controls.beneficialOwners as FormArray).clear();
     }
 
-    addOwner() {
-        (this.form.controls.beneficialOwners as FormArray).push(this.initBeneficialOwner());
+    addOwner(ownerCount = 1) {
+        for (let i = 0; i < ownerCount; i++) {
+            (this.form.controls.beneficialOwners as FormArray).push(this.initBeneficialOwner());
+        }
     }
 
     removeOwner(index: number) {
@@ -54,8 +60,9 @@ export class BeneficialOwnersService extends QuestionaryFormService {
 
     protected toFormValue(data: QuestionaryData): FormValue {
         const formValue = toFormValue(data);
-        this.form = this.initForm(formValue.beneficialOwners.length);
-        this.noOwnersChange(formValue.noOwners);
+        this.form = this.initForm();
+        const ownersCount = formValue.beneficialOwners.length;
+        this.noOwnersChange(ownersCount === 0, ownersCount);
         this.form$.next(this.form);
         this.form$.complete();
         return formValue;
@@ -69,19 +76,19 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         return StepName.BeneficialOwners;
     }
 
-    private initForm(ownersCount: number): FormGroup {
-        const minOwners = 1;
+    private initForm(): FormGroup {
         return this.fb.group({
             noOwners: [false, Validators.required],
-            beneficialOwners: this.fb.array(
-                new Array(ownersCount === 0 ? minOwners : ownersCount).fill(null).map(() => this.initBeneficialOwner())
-            )
+            beneficialOwners: this.fb.array([])
         });
     }
 
     private initBeneficialOwner() {
         return this.fb.group({
-            ownershipPercentage: ['', [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]],
+            ownershipPercentage: [
+                1,
+                [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/^\d+$/)]
+            ],
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
