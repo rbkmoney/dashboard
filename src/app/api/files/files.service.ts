@@ -33,7 +33,6 @@ export class FilesService {
     }
 
     private uploadFileToUrl(file: File, url: string): Observable<any> {
-        console.log(url);
         return this.http.put(url, file, {
             headers: {
                 'Content-Disposition': `attachment;filename=${file.name}`,
