@@ -6,7 +6,12 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.name }}</mat-label>
-            <dsh-dadata-autocomplete formControlName="name" type="party" required></dsh-dadata-autocomplete>
+            <dsh-dadata-autocomplete
+                formControlName="name"
+                type="party"
+                (optionSelected)="partySelected($event)"
+                required
+            ></dsh-dadata-autocomplete>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.inn }}</mat-label>

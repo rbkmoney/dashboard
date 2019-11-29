@@ -13,14 +13,21 @@ import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
+    private form: FormGroup;
+
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form$.next(this.initForm());
+        this.form = this.initForm();
+        this.form$.next(this.form);
         this.form$.complete();
+    }
+
+    patchForm(value: { [key: string]: any }) {
+        this.form.patchValue(value);
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
