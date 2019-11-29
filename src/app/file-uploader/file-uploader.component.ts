@@ -1,7 +1,10 @@
-import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, HostBinding, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { first } from 'rxjs/operators';
 
 import { FileUploaderService } from './file-uploader.service';
+import { takeError } from '../custom-operators';
 
 @Component({
     selector: 'dsh-file-uploader',
@@ -10,25 +13,30 @@ import { FileUploaderService } from './file-uploader.service';
     providers: [FileUploaderService]
 })
 export class FileUploaderComponent {
-
     @Output()
-    uploadedFilesIds = new EventEmitter<string[]>();
+    uploadedFilesIds$ = this.fileUploaderService.uploadedFilesIds$;
 
     @HostBinding('class.dsh-file-uploader-container')
     isDragover = false;
 
-    isUploading$ = new BehaviorSubject<boolean>(false);
+    isUploading$ = this.fileUploaderService.isUploading$;
 
     files = [];
 
-    constructor(private fileUploaderService: FileUploaderService) {}
+    constructor(
+        private fileUploaderService: FileUploaderService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     uploadFiles(files: File[]) {
-        this.isUploading$.next(true);
-        this.fileUploaderService.uploadFiles(files).subscribe(uploadedFiles => {
-            this.isUploading$.next(false);
-            this.uploadedFilesIds.emit(uploadedFiles);
-        });
+        this.fileUploaderService
+            .uploadFiles(files)
+            .pipe(
+                first(),
+                takeError
+            )
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
         this.files = [];
     }
 

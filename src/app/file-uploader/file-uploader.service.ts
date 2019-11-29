@@ -1,16 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FilesService } from '../api/files';
 
 @Injectable()
 export class FileUploaderService {
+    uploadedFilesIds$ = new EventEmitter<string[]>();
 
-    constructor(
-        private filesService: FilesService
-    ) {}
+    isUploading$ = new BehaviorSubject<boolean>(false);
 
-    uploadFiles(files: File[]): Observable<string[]> {
-        return this.filesService.uploadFiles(files);
+    constructor(private filesService: FilesService) {}
+
+    uploadFiles(files: File[]): Observable<void> {
+        this.isUploading$.next(true);
+        return this.filesService.uploadFiles(files).pipe(
+            map(uploadedFiles => {
+                this.isUploading$.next(false);
+                this.uploadedFilesIds$.emit(uploadedFiles);
+            })
+        );
     }
 }

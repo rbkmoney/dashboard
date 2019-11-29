@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { FileData } from '../api-codegen/dark-api/swagger-codegen';
@@ -15,19 +14,16 @@ import { takeError } from '../custom-operators';
 export class FileItemComponent {
     @Input() file: FileData;
 
-    private fileDownload$: Observable<void>;
-
-    private error$ = this.fileDownload$.pipe(takeError);
-
     constructor(
         private fileItemService: FileItemService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
-    ) {
-        this.error$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-    }
+    ) {}
 
     downloadFile() {
-        this.fileDownload$ = this.fileItemService.downloadFile(this.file.fileId);
+        this.fileItemService
+            .downloadFile(this.file.fileId)
+            .pipe(takeError)
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 }

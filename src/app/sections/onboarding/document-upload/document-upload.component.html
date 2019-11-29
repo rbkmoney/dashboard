@@ -10,7 +10,7 @@
                 <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
                     <div class="mat-body-2">{{ t.documentUpload.requiredDocs }}:</div>
                     <div class="mat-body-1">
-                        - {{ t.documentUpload.passport }};<br/>
+                        - {{ t.documentUpload.passport }};<br />
                         - {{ t.documentUpload.registration }}.
                     </div>
                 </div>
@@ -19,9 +19,11 @@
                     <div *ngIf="hasFiles$ | async as f; else noFiles">
                         <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>
                     </div>
-                    <ng-template #noFiles><div>{{ t.documentUpload.noDocs }}</div></ng-template>
+                    <ng-template #noFiles
+                        ><div>{{ t.documentUpload.noDocs }}</div></ng-template
+                    >
                 </div>
-                <dsh-file-uploader (uploadedFilesIds)="updateClaim($event)"></dsh-file-uploader>
+                <dsh-file-uploader (uploadedFilesIds$)="updateClaim($event)"></dsh-file-uploader>
                 <div fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
                     <button fxFlex="100px" dsh-button (click)="cancel()">{{ c.cancel }}</button>
                     <button fxFlex="100px" dsh-button color="accent" (click)="done()">{{ c.done }}</button>

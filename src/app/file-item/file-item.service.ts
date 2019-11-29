@@ -10,11 +10,11 @@ import { download } from '../../utils/download';
 export class FileItemService {
     constructor(private filesService: FilesService) {}
 
-    private getFileDownloadUrl(fileID: string): Observable<FileDownload> {
-        return this.filesService.downloadFile(fileID);
-    }
-
     downloadFile(fileID: string): Observable<void> {
         return this.getFileDownloadUrl(fileID).pipe(map(({ url }) => download(url)));
+    }
+
+    private getFileDownloadUrl(fileID: string): Observable<FileDownload> {
+        return this.filesService.downloadFile(fileID);
     }
 }

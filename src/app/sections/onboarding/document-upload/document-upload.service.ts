@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, forkJoin, merge, Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { takeError } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
@@ -13,8 +13,6 @@ import { createFileModificationUnit } from '../../../api/claims/utils/create-fil
 
 @Injectable()
 export class DocumentUploadService {
-    filesData$ = new BehaviorSubject<FileData[]>([{ fileName: 'kek.pdf', fileId: '308d8263-4fd8-4fa4-b502-801fe0c616d6' } as FileData]);
-
     claim$: Observable<Claim> = this.route.params.pipe(
         switchMap(({ claimID }) => this.claimService.getClaimByID(claimID)),
         shareReplay(1)
@@ -30,19 +28,21 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    private initialFilesInfo$: Observable<FileData[]> = this.fileModificationUnits$.pipe(
+    private initialFilesIds$: Observable<string[]> = this.fileModificationUnits$.pipe(
         filter(value => !!value),
-        map(units => units.map((unit) => unit.id)),
-        switchMap(ids => forkJoin(ids.map((id) => this.filesService.getFileInfo(id)))),
-        tap((files) => this.filesData$.next(files)),
+        map(units => units.map(unit => unit.id)),
         shareReplay(1)
     );
 
+    private fileIds$ = new BehaviorSubject<string[]>([]);
+
+    filesData$ = merge(this.fileIds$, this.initialFilesIds$).pipe(map(ids => this.getFilesInfo(ids)));
+
     private fileModificationsError$: Observable<any> = this.fileModificationUnits$.pipe(takeError);
 
-    private filesInfoError$: Observable<any> = this.initialFilesInfo$.pipe(takeError);
+    private filesDataError$: Observable<any> = this.filesData$.pipe(takeError);
 
-    errors$: Observable<any> = merge(this.filesInfoError$, this.fileModificationsError$).pipe(shareReplay(1));
+    errors$: Observable<any> = merge(this.filesDataError$, this.fileModificationsError$).pipe(shareReplay(1));
 
     constructor(
         private route: ActivatedRoute,
@@ -55,22 +55,24 @@ export class DocumentUploadService {
     }
 
     updateClaim(uploadedFiles: string[]) {
-        const updatedClaim$ = this.claim$.pipe(
+        return this.claim$.pipe(
             switchMap(({ id, revision, changeset }) => {
-                const lastId = changeset[changeset.length - 1].modificationID;
-                return this.claimService.updateClaimByID(id, revision, this.fileIdsToFileModifications(uploadedFiles, lastId))
-            })
-        );
-        updatedClaim$.pipe(takeError).subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-        return updatedClaim$.pipe(
-            map((files) => this.filesData$.next([...this.filesData$.value, ...files]))
+                const lastId = changeset[changeset.length - 1].modificationID || 1;
+                return this.claimService.updateClaimByID(
+                    id,
+                    revision,
+                    this.fileIdsToFileModifications(uploadedFiles, lastId)
+                );
+            }),
+            map(filesIds => this.fileIds$.next([...this.fileIds$.value, ...filesIds]))
         );
     }
 
     private fileIdsToFileModifications(fileIds: string[], lastId: number): Modification[] {
-        return fileIds.map((id, index) =>
-            createFileModificationUnit(lastId + index + 1, id).modification
-        );
+        return fileIds.map((id, index) => createFileModificationUnit(lastId + index + 1, id).modification);
     }
 
+    private getFilesInfo(ids: string[]): Observable<FileData[]> {
+        return forkJoin(ids.map(id => this.filesService.getFileInfo(id)));
+    }
 }

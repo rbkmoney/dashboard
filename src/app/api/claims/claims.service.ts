@@ -6,7 +6,8 @@ import {
     ClaimsService as APIClaimsService,
     Claim,
     StatusModificationUnit,
-    ClaimChangeset, Modification
+    ClaimChangeset,
+    Modification
 } from '../../api-codegen/claim-management';
 import { ClaimsWithToken } from './models';
 import { genXRequestID } from '../utils';

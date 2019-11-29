@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { SpinnerType } from '../../../spinner';
 import { LeaveDialogComponent } from './leave-dialog';
@@ -26,7 +27,9 @@ export class DocumentUploadComponent {
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog,
-        private documentUploadService: DocumentUploadService
+        private documentUploadService: DocumentUploadService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
     ) {}
 
     cancel() {
@@ -38,6 +41,11 @@ export class DocumentUploadComponent {
     }
 
     updateClaim(uploadedFiles: string[]) {
-        this.documentUploadService.updateClaim(uploadedFiles).subscribe((ids) => console.log(ids));
+        this.documentUploadService
+            .updateClaim(uploadedFiles)
+            .subscribe(
+                ids => console.log(ids),
+                () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+            );
     }
 }
