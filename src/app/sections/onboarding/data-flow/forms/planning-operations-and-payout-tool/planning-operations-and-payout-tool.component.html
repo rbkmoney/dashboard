@@ -29,7 +29,12 @@
         <label class="bankAccountLabel">{{ t.payoutToolLabel }}</label>
         <mat-form-field fxFlex>
             <mat-label>{{ t.bankName }}</mat-label>
-            <dsh-dadata-autocomplete formControlName="bankName" type="bank" required></dsh-dadata-autocomplete>
+            <dsh-dadata-autocomplete
+                formControlName="bankName"
+                type="bank"
+                (optionSelected)="bankSelected($event)"
+                required
+            ></dsh-dadata-autocomplete>
         </mat-form-field>
         <div fxLayout [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>
