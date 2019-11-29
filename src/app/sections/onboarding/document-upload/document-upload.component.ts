@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { SpinnerType } from '../../../spinner';
 import { LeaveDialogComponent } from './leave-dialog';
 import { DocumentUploadService } from './document-upload.service';
 import { takeError } from '../../../custom-operators';
@@ -17,8 +16,6 @@ import { takeError } from '../../../custom-operators';
     providers: [DocumentUploadService]
 })
 export class DocumentUploadComponent {
-    spinnerType = SpinnerType.FulfillingBouncingCircle;
-
     filesData$ = this.documentUploadService.filesData$;
     claim$ = this.documentUploadService.claim$;
     hasFiles$ = this.documentUploadService.hasFiles$;

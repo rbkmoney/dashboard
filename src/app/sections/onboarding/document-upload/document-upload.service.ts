@@ -23,20 +23,25 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    hasFiles$: Observable<boolean> = this.fileModificationUnits$.pipe(
-        map(modifications => !!modifications),
-        shareReplay(1)
-    );
-
     private initialFilesIds$: Observable<string[]> = this.fileModificationUnits$.pipe(
         filter(value => !!value),
         map(units => units.map(unit => unit.id)),
         shareReplay(1)
     );
 
-    private fileIds$ = new BehaviorSubject<string[]>([]);
+    private uploadedFileIds$ = new BehaviorSubject<string[]>([]);
 
-    filesData$ = merge(this.fileIds$, this.initialFilesIds$).pipe(map(ids => this.getFilesInfo(ids)));
+    private fileIds$ = merge(this.uploadedFileIds$, this.initialFilesIds$).pipe(shareReplay(1));
+
+    hasFiles$: Observable<boolean> = this.fileIds$.pipe(
+        map(modifications => modifications.length > 0),
+        shareReplay(1)
+    );
+
+    filesData$: Observable<FileData[]> = this.fileIds$.pipe(
+        switchMap(ids => this.getFilesInfo(ids)),
+        shareReplay(1)
+    );
 
     private fileModificationsError$: Observable<any> = this.fileModificationUnits$.pipe(takeError);
 
@@ -54,17 +59,17 @@ export class DocumentUploadService {
         this.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    updateClaim(uploadedFiles: string[]) {
+    updateClaim(uploadedFilesIds: string[]) {
         return this.claim$.pipe(
             switchMap(({ id, revision, changeset }) => {
-                const lastId = changeset[changeset.length - 1].modificationID || 1;
+                const lastModificationId = changeset[changeset.length - 1].modificationID || 1;
                 return this.claimService.updateClaimByID(
                     id,
                     revision,
-                    this.fileIdsToFileModifications(uploadedFiles, lastId)
+                    this.fileIdsToFileModifications(uploadedFilesIds, lastModificationId)
                 );
             }),
-            map(filesIds => this.fileIds$.next([...this.fileIds$.value, ...filesIds]))
+            map(ids => this.uploadedFileIds$.next([...this.uploadedFileIds$.value, ...ids]))
         );
     }
 
