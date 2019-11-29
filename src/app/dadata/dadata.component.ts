@@ -1,13 +1,14 @@
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { ErrorStateMatcher } from '@angular/material';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Observable, interval } from 'rxjs';
 import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
+import get from 'lodash.get';
 
 import {
     DaDataRequest,
@@ -137,12 +138,12 @@ export class DaDataAutocompleteComponent<
         switch (this.type) {
             case 'bank': {
                 const { bic, address } = suggestion as BankContent;
-                return [bic, address.value].filter(v => !!v).join(' ');
+                return [bic, get(address, ['value'])].filter(v => !!v).join(' ');
             }
             case 'party': {
                 const { inn, ogrn, address } = suggestion as PartyContent;
                 const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
-                return [innOGRN, address.value].filter(v => !!v).join(' ');
+                return [innOGRN, get(address, ['value'])].filter(v => !!v).join(' ');
             }
             case 'fmsUnit':
                 const { code } = suggestion as FmsUnitContent;
