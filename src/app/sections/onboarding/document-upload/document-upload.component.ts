@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { SpinnerType } from '../../../spinner';
 import { LeaveDialogComponent } from './leave-dialog';
 import { DocumentUploadService } from './document-upload.service';
+import { takeError } from '../../../custom-operators';
 
 @Component({
     selector: 'dsh-document-upload',
@@ -24,7 +25,6 @@ export class DocumentUploadComponent {
     errors$ = this.documentUploadService.errors$;
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog,
         private documentUploadService: DocumentUploadService,
@@ -43,9 +43,10 @@ export class DocumentUploadComponent {
     updateClaim(uploadedFiles: string[]) {
         this.documentUploadService
             .updateClaim(uploadedFiles)
-            .subscribe(
-                ids => console.log(ids),
-                () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
-            );
+            .pipe(
+                first(),
+                takeError
+            )
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 }
