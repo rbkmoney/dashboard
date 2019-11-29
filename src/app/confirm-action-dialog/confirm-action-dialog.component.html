@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; read: 'confirmActionDialog'">
+    <h2 class="mat-subheading-2">{{ t.subheading }}</h2>
+    <div
+        mat-dialog-actions
+        class="dialog-actions"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between stretch"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="10px"
+    >
+        <button fxFlex fxFlex.xs="none" dsh-button (click)="cancel()">
+            {{ t.cancel }}
+        </button>
+        <button fxFlex fxFlex.xs="none" dsh-button (click)="confirm()">
+            {{ t.confirm }}
+        </button>
+    </div>
+</ng-container>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment';
+
+import { seriesNumberValidator, issuerCodeValidator } from '../../../../../../form-controls';
 
 @Injectable()
 export class RussianDomesticPassportService {
@@ -8,15 +9,10 @@ export class RussianDomesticPassportService {
 
     getForm(): FormGroup {
         return this.fb.group({
-            seriesNumber: ['', Validators.required],
+            seriesNumber: ['', [Validators.required, seriesNumberValidator]],
             issuer: ['', Validators.required],
-            issuerCode: ['', Validators.required],
-            issuedAt: [
-                moment()
-                    .utc()
-                    .format(),
-                Validators.required
-            ]
+            issuerCode: ['', [Validators.required, issuerCodeValidator]],
+            issuedAt: [null, Validators.required]
         });
     }
 }

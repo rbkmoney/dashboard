@@ -52,4 +52,8 @@ export class ClaimsService {
     updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<any> {
         return this.claimsService.updateClaimByID(genXRequestID(), claimID, claimRevision, changeset);
     }
+
+    revokeClaimByID(claimID: number, claimRevision: number): Observable<void> {
+        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision);
+    }
 }

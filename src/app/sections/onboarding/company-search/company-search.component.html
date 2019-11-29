@@ -24,7 +24,7 @@
             ></dsh-manual-contractor-selector>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-            <button dsh-stroked-button color="accent" (click)="back()">
+            <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
                 {{ t.back }}
             </button>
             <button dsh-button color="accent" [disabled]="!data" (click)="next()">{{ t.next }}</button>

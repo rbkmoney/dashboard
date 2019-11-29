@@ -23,8 +23,8 @@ export class CompanySearchComponent {
 
     constructor(private companySearchService: CompanySearchService) {}
 
-    back() {
-        this.companySearchService.showLeaveOnboardingDialog().subscribe(() => this.companySearchService.leave());
+    leaveOnboarding() {
+        this.companySearchService.leaveOnboarding();
     }
 
     next() {

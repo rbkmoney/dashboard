@@ -1,38 +1,44 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import get from 'lodash.get';
 
 import { QuestionaryFormService } from '../questionary-form.service';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
-import { QuestionaryData, WithoutChiefAccountant } from '../../../../../api-codegen/questionary';
+import { QuestionaryData, AccountantInfo } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
+import { LegalResidencyInfoService } from '../subforms';
 
-type WithoutChiefAccountantType = WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
+type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const accountantTypes: WithoutChiefAccountantType[] = [
-    'HeadAccounting',
-    'IndividualAccountant',
-    'AccountingOrganization'
+const accountantTypes: AccountantInfoType[] = [
+    'WithoutChiefHeadAccounting',
+    'WithoutChiefIndividualAccountant',
+    'WithoutChiefAccountingOrganization'
 ];
 
 @Injectable()
 export class FinancialAndEconomicActivityService extends QuestionaryFormService {
     private accountantInfoVisible$ = new BehaviorSubject(false);
     private accountantOrgInnVisible$ = new BehaviorSubject(false);
+    private residencyInfoVisible$ = new BehaviorSubject(false);
+
     private form: FormGroup;
 
     readonly accountantOptionTypes = accountantTypes;
     isAccountantInfoVisible$ = this.accountantInfoVisible$.asObservable();
     isAccountantOrgInnVisible$ = this.accountantOrgInnVisible$.asObservable();
+    isResidencyInfoVisible$ = this.residencyInfoVisible$.asObservable();
 
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
-        protected validityService: ValidityService
+        protected validityService: ValidityService,
+        private legalResidencyInfoService: LegalResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
         this.form = this.initForm();
@@ -46,8 +52,8 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         this.form.setControl('accountantType', this.fb.control('', withoutAccountant ? Validators.required : null));
     }
 
-    accountantTypeChange(accountantOptionType: WithoutChiefAccountantType) {
-        const isAccountingOrganization = accountantOptionType === 'AccountingOrganization';
+    accountantTypeChange(accountantOptionType: AccountantInfoType) {
+        const isAccountingOrganization = accountantOptionType === 'WithoutChiefAccountingOrganization';
         this.accountantOrgInnVisible$.next(isAccountingOrganization);
         this.form.setControl(
             'accountantOrgInn',
@@ -59,6 +65,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         const formValue = toFormValue(data);
         this.withoutAccountantChange(formValue.withoutAccountant);
         this.accountantTypeChange(formValue.accountantType);
+        this.residencyInfoChange(data);
         return formValue;
     }
 
@@ -70,14 +77,28 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         return StepName.FinancialAndEconomicActivity;
     }
 
+    private residencyInfoChange(data: QuestionaryData) {
+        const contractorType = get(data, ['contractor', 'contractorType']);
+        switch (contractorType) {
+            case 'IndividualEntityContractor':
+                this.residencyInfoVisible$.next(false);
+                this.form.removeControl('residencyInfo');
+                break;
+            case 'LegalEntityContractor':
+                this.residencyInfoVisible$.next(true);
+                break;
+        }
+    }
+
     private initForm(): FormGroup {
         return this.fb.group({
             staffCount: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^\d+$/)]],
             withoutAccountant: [false, Validators.required],
-            accountantType: [''],
+            accountantType: ['WithChiefAccountant'],
             accountantOrgInn: [''],
-            hasBeneficiaryParty: [false, Validators.required],
-            hasLiquidationProcess: [false, Validators.required]
+            hasBeneficiary: [false, Validators.required],
+            hasLiquidationProcess: [false, Validators.required],
+            residencyInfo: this.legalResidencyInfoService.getForm()
         });
     }
 }

@@ -11,6 +11,7 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { BasicInfoService, BasicInfoComponent } from './basic-info';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
@@ -24,7 +25,11 @@ import {
     PdlInfoComponent,
     PdlInfoService,
     PrivateEntityInfoComponent,
-    PrivateEntityInfoService
+    PrivateEntityInfoService,
+    LegalResidencyInfoComponent,
+    LegalResidencyInfoService,
+    IndividualResidencyInfoComponent,
+    IndividualResidencyInfoService
 } from './subforms';
 import {
     FinancialAndEconomicActivityComponent,
@@ -36,6 +41,8 @@ import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
+import { FormControlsModule } from '../../../../form-controls';
+import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
 
 @NgModule({
     imports: [
@@ -50,7 +57,9 @@ import {
         MatSelectModule,
         ButtonModule,
         MatDividerModule,
-        MatRadioModule
+        MatRadioModule,
+        TextMaskModule,
+        FormControlsModule
     ],
     declarations: [
         BasicInfoComponent,
@@ -62,7 +71,9 @@ import {
         FinancialAndEconomicActivityComponent,
         PrivateEntityInfoComponent,
         BeneficialOwnersComponent,
-        PlanningOperationsAndPayoutToolComponent
+        PlanningOperationsAndPayoutToolComponent,
+        IndividualResidencyInfoComponent,
+        LegalResidencyInfoComponent
     ],
     providers: [
         InitializeFormsService,
@@ -74,7 +85,10 @@ import {
         FinancialAndEconomicActivityService,
         PrivateEntityInfoService,
         BeneficialOwnersService,
-        PlanningOperationsAndPayoutToolService
+        PlanningOperationsAndPayoutToolService,
+        IndividualResidencyInfoService,
+        RussianPrivateEntityService,
+        LegalResidencyInfoService
     ]
 })
 export class OnboardingFormsModule {}

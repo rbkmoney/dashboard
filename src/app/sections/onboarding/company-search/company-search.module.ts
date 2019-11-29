@@ -11,9 +11,9 @@ import { DaDataModule } from '../../../dadata';
 import { ButtonModule } from '../../../button';
 import { CompanySearchComponent } from './company-search.component';
 import { CompanyDetailsComponent } from './company-details';
-import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
 import { CompanyDetailItemComponent } from './company-detail-item';
 import { ManualContractorSelectorComponent } from './manual-contractor-selector';
+import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 
 @NgModule({
     imports: [
@@ -29,16 +29,15 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         ButtonModule,
         MatDialogModule,
         MatSnackBarModule,
-        TranslocoModule
+        TranslocoModule,
+        ConfirmActionDialogModule
     ],
     declarations: [
         CompanySearchComponent,
         CompanyDetailsComponent,
-        LeaveOnboardingDialogComponent,
         CompanyDetailItemComponent,
         ManualContractorSelectorComponent
     ],
-    exports: [CompanySearchComponent],
-    entryComponents: [LeaveOnboardingDialogComponent]
+    exports: [CompanySearchComponent]
 })
 export class CompanySearchModule {}

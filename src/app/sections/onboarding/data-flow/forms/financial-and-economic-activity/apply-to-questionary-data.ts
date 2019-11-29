@@ -5,70 +5,101 @@ import {
     RussianLegalEntity,
     LegalEntityContractor,
     AccountantInfo,
-    WithoutChiefAccountant,
-    AccountingOrganization
+    IndividualEntityContractor,
+    RussianIndividualEntity,
+    AdditionalInfo,
+    Contractor,
+    LegalResidencyInfo,
+    WithoutChiefAccountingOrganization
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
-const toAccountingOrganization = (i: WithoutChiefAccountant, accountantOrgInn: string): AccountingOrganization => ({
-    ...i,
-    inn: accountantOrgInn
-});
-
-const applyToWithoutChiefAccountant = (
-    i: WithoutChiefAccountant,
-    accountantType: string,
+const applyToWithoutAccountant = (
+    accountantInfoType: AccountantInfo.AccountantInfoTypeEnum,
     accountantOrgInn: string
-): WithoutChiefAccountant => {
+) => {
     const result = {
-        ...i,
-        withoutChiefAccountantType: accountantType
-    } as WithoutChiefAccountant;
-    if (accountantType === 'AccountingOrganization') {
-        return toAccountingOrganization(result, accountantOrgInn);
+        accountantInfoType
+    };
+    if (accountantInfoType === 'WithoutChiefAccountingOrganization') {
+        return {
+            ...result,
+            inn: accountantOrgInn
+        } as WithoutChiefAccountingOrganization;
     }
     return result;
 };
 
 const applyToAccountantInfo = (
-    i: AccountantInfo,
     withoutAccountant: boolean,
-    accountantType: string,
+    accountantType: AccountantInfo.AccountantInfoTypeEnum,
     accountantOrgInn: string
-): AccountantInfo => {
-    const result = {
-        ...i,
-        accountantInfoType: withoutAccountant ? 'WithoutChiefAccountant' : 'WithChiefAccountant'
-    } as AccountantInfo;
-    if (withoutAccountant) {
-        return applyToWithoutChiefAccountant(result as WithoutChiefAccountant, accountantType, accountantOrgInn);
-    }
-    return result;
-};
+): AccountantInfo =>
+    withoutAccountant
+        ? applyToWithoutAccountant(accountantType, accountantOrgInn)
+        : {
+              accountantInfoType: 'WithChiefAccountant'
+          };
 
-const applyToContractor = (
-    t: LegalEntityContractor,
-    { staffCount, withoutAccountant, accountantType, accountantOrgInn }: FormValue
-): LegalEntityContractor => {
+const applyToAdditionalInfo = (
+    i: AdditionalInfo,
+    {
+        staffCount,
+        withoutAccountant,
+        accountantType,
+        accountantOrgInn,
+        hasBeneficiary,
+        hasLiquidationProcess
+    }: FormValue
+): AdditionalInfo => ({
+    ...i,
+    staffCount,
+    benefitThirdParties: false,
+    hasBeneficiary,
+    hasLiquidationProcess,
+    accountantInfo: applyToAccountantInfo(withoutAccountant, accountantType, accountantOrgInn)
+});
+
+const applyToResidencyInfo = (
+    i: LegalResidencyInfo,
+    { residencyInfo: { taxResident, fatca } }: FormValue
+): LegalResidencyInfo => ({
+    ...i,
+    residencyInfoType: 'LegalResidencyInfo',
+    taxResident,
+    fatca
+});
+
+const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
-    const additionalInfo = get(t, ['legalEntity', 'additionalInfo']);
     return {
         ...t,
         legalEntity: {
             ...legalEntity,
-            additionalInfo: {
-                ...additionalInfo,
-                staffCount,
-                benefitThirdParties: false,
-                accountantInfo: applyToAccountantInfo(
-                    get(additionalInfo, ['accountantInfo']),
-                    withoutAccountant,
-                    accountantType,
-                    accountantOrgInn
-                )
-            }
+            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v),
+            residencyInfo: applyToResidencyInfo(get(legalEntity, ['residencyInfo']), v)
         } as RussianLegalEntity
     };
+};
+
+const applyToIndividualEntityContractor = (t: IndividualEntityContractor, v: FormValue): IndividualEntityContractor => {
+    const individualEntity = get(t, ['individualEntity']);
+    return {
+        ...t,
+        individualEntity: {
+            ...individualEntity,
+            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v)
+        } as RussianIndividualEntity
+    };
+};
+
+const applyToContractor = (t: Contractor, v: FormValue): LegalEntityContractor => {
+    switch (t.contractorType) {
+        case 'LegalEntityContractor':
+            return applyToLegalEntityContractor(t, v);
+        case 'IndividualEntityContractor':
+            return applyToIndividualEntityContractor(t, v);
+    }
 };
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({

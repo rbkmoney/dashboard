@@ -2,7 +2,7 @@ import { ClaimChangeset } from '../../api-codegen/claim-management';
 import { isClaimModification, isDocumentModificationUnit, isDocumentCreated } from '../../api';
 
 export enum ClaimType {
-    documentCreated
+    questionary = 'questionary'
 }
 
 export function getClaimType(changeset: ClaimChangeset): ClaimType {
@@ -13,7 +13,7 @@ export function getClaimType(changeset: ClaimChangeset): ClaimType {
                 isDocumentModificationUnit(modification.claimModificationType) &&
                 isDocumentCreated(modification.claimModificationType.documentModification)
             ) {
-                return ClaimType.documentCreated;
+                return ClaimType.questionary;
             }
         }
     }
