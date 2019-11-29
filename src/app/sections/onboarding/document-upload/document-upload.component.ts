@@ -33,7 +33,14 @@ export class DocumentUploadComponent {
     ) {}
 
     cancel() {
-        this.dialog.open(LeaveDialogComponent, { width: '450px' });
+        this.dialog
+            .open(LeaveDialogComponent, { width: '450px' })
+            .afterClosed()
+            .pipe(first())
+            .subscribe(
+                result =>
+                    result && this.claim$.pipe(first()).subscribe(({ id }) => this.router.navigate(['onboarding', id]))
+            );
     }
 
     done() {

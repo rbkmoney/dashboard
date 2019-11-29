@@ -3,16 +3,17 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'dsh-leave-dialog',
-    templateUrl: 'leave-dialog.component.html'
+    templateUrl: 'leave-dialog.component.html',
+    styleUrls: ['leave-dialog.component.scss']
 })
 export class LeaveDialogComponent {
     constructor(private dialogRef: MatDialogRef<LeaveDialogComponent>) {}
 
     cancel() {
-        this.dialogRef.close();
+        this.dialogRef.close(false);
     }
 
-    continue() {
-        this.dialogRef.close();
+    confirm() {
+        this.dialogRef.close(true);
     }
 }
