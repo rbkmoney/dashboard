@@ -4,9 +4,9 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
     <section class="checkbox-section">
-        <mat-checkbox [checked]="isNoOwners$ | async" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
+        <mat-checkbox formControlName="noOwners" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
     </section>
-    <div *ngIf="!(isNoOwners$ | async)" formArrayName="beneficialOwners">
+    <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
         <div
             class="beneficial-owner-container"
             *ngFor="let beneficialOwner of (beneficialOwners$ | async).controls; let i = index"
