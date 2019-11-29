@@ -5,16 +5,23 @@ import { FormValue } from '../form-value';
 
 const fromEntity = (i: IndividualEntity | LegalEntity): FormValue => ({
     name: get(i, ['name'], null),
-    inn: get(i, ['inn'], null),
-    registrationPlace: get(i, ['registrationInfo', 'registrationAddress'], null)
+    inn: get(i, ['inn'], null)
 });
 
 const fromContractor = (c: Contractor): FormValue => {
     switch (get(c, ['contractorType'])) {
         case 'IndividualEntityContractor':
-            return fromEntity(get(c, ['individualEntity']));
+            const individualEntity = get(c, ['individualEntity']);
+            return {
+                ...fromEntity(individualEntity),
+                registrationPlace: get(individualEntity, ['registrationInfo', 'registrationPlace'], null)
+            };
         case 'LegalEntityContractor':
-            return fromEntity(get(c, ['legalEntity']));
+            const legalEntity = get(c, ['legalEntity']);
+            return {
+                ...fromEntity(legalEntity),
+                registrationPlace: get(legalEntity, ['registrationInfo', 'registrationAddress'], null)
+            };
     }
 };
 

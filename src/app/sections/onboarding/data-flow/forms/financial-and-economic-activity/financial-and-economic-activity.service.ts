@@ -6,19 +6,19 @@ import get from 'lodash.get';
 import { QuestionaryFormService } from '../questionary-form.service';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
-import { QuestionaryData, WithoutChiefAccountant } from '../../../../../api-codegen/questionary';
+import { QuestionaryData, AccountantInfo } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
 import { LegalResidencyInfoService } from '../subforms';
 
-type WithoutChiefAccountantType = WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
+type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const accountantTypes: WithoutChiefAccountantType[] = [
-    'HeadAccounting',
-    'IndividualAccountant',
-    'AccountingOrganization'
+const accountantTypes: AccountantInfoType[] = [
+    'WithoutChiefHeadAccounting',
+    'WithoutChiefIndividualAccountant',
+    'WithoutChiefAccountingOrganization'
 ];
 
 @Injectable()
@@ -52,8 +52,8 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         this.form.setControl('accountantType', this.fb.control('', withoutAccountant ? Validators.required : null));
     }
 
-    accountantTypeChange(accountantOptionType: WithoutChiefAccountantType) {
-        const isAccountingOrganization = accountantOptionType === 'AccountingOrganization';
+    accountantTypeChange(accountantOptionType: AccountantInfoType) {
+        const isAccountingOrganization = accountantOptionType === 'WithoutChiefAccountingOrganization';
         this.accountantOrgInnVisible$.next(isAccountingOrganization);
         this.form.setControl(
             'accountantOrgInn',
@@ -94,9 +94,9 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         return this.fb.group({
             staffCount: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^\d+$/)]],
             withoutAccountant: [false, Validators.required],
-            accountantType: [''],
+            accountantType: ['WithChiefAccountant'],
             accountantOrgInn: [''],
-            hasBeneficiaryParty: [false, Validators.required],
+            hasBeneficiary: [false, Validators.required],
             hasLiquidationProcess: [false, Validators.required],
             residencyInfo: this.legalResidencyInfoService.getForm()
         });

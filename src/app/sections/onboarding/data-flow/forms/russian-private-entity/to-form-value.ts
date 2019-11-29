@@ -1,22 +1,15 @@
 import get from 'lodash.get';
 
-import { QuestionaryData, RussianPrivateEntity, RussianIndividualEntity } from '../../../../../api-codegen/questionary';
+import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-import { toRussianDomesticPassport, toResidencyInfo } from '../subforms';
-
-const toPrivateEntityInfo = (e: RussianPrivateEntity, i: RussianIndividualEntity): FormValue => ({
-    birthDate: get(e, ['birthDate'], null),
-    birthPlace: get(e, ['birthPlace'], null),
-    residenceAddress: get(e, ['residenceAddress'], null),
-    snils: get(i, ['snils'], null)
-});
+import { toRussianDomesticPassport, toResidencyInfo, toPrivateEntityInfo, toPdlInfo } from '../subforms';
 
 export const toFormValue = (d: QuestionaryData): FormValue => {
-    const individualEntity = get(d, ['contractor', 'individualEntity']);
-    const russianPrivateEntity = get(individualEntity, ['russianPrivateEntity']);
+    const e = get(d, ['contractor', 'individualEntity']);
     return {
-        privateEntityInfo: toPrivateEntityInfo(russianPrivateEntity, individualEntity),
-        russianDomesticPassport: toRussianDomesticPassport(get(individualEntity, ['identityDocument'])),
-        individualResidencyInfo: toResidencyInfo(get(individualEntity, ['residencyInfo']))
+        privateEntityInfo: toPrivateEntityInfo(e),
+        russianDomesticPassport: toRussianDomesticPassport(get(e, ['identityDocument'])),
+        individualResidencyInfo: toResidencyInfo(get(e, ['residencyInfo'])),
+        pdlInfo: toPdlInfo(e)
     };
 };

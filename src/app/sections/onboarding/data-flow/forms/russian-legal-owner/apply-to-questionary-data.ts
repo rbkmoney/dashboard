@@ -5,42 +5,25 @@ import {
     LegalEntityContractor,
     LegalOwnerInfo,
     RussianLegalEntity,
-    IdentityDocument,
-    RussianDomesticPassport,
     AuthorityConfirmingDocument
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-
-const applyToIdentityDocument = (
-    identityDocument: IdentityDocument,
-    { seriesNumber, issuer, issuerCode, issuedAt }: FormValue
-): RussianDomesticPassport => {
-    console.warn('Questionary field is missing: RussianDomesticPassport.seriesNumber', seriesNumber);
-    return {
-        ...identityDocument,
-        identityDocumentType: IdentityDocument.IdentityDocumentTypeEnum.RussianDomesticPassport,
-        issuer,
-        issuerCode,
-        issuedAt
-    };
-};
+import { applyToIdentityDocument } from '../subforms';
 
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
     { type, date, number }: FormValue
-): AuthorityConfirmingDocument => {
-    return {
-        ...authorityConfirmingDocument,
-        type,
-        number,
-        date
-    };
-};
+): AuthorityConfirmingDocument => ({
+    ...authorityConfirmingDocument,
+    type,
+    number,
+    date
+});
 
 const applyToContractor = (
     t: LegalEntityContractor,
     {
-        privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl },
+        privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl, fio },
         headPosition,
         termOfOffice,
         russianDomesticPassport,
@@ -51,7 +34,6 @@ const applyToContractor = (
     const legalEntity = get(t, ['legalEntity']);
     const legalOwnerInfo = get(t, ['legalEntity', 'legalOwnerInfo']);
     const russianPrivateEntity = get(legalOwnerInfo, ['russianPrivateEntity']);
-    console.warn('Questionary field is missing: LegalOwnerInfo.headPosition', headPosition);
     return {
         ...t,
         legalEntity: {
@@ -65,7 +47,8 @@ const applyToContractor = (
                     ...russianPrivateEntity,
                     birthDate,
                     birthPlace,
-                    residenceAddress
+                    residenceAddress,
+                    fio
                 },
                 inn: innfl,
                 identityDocument: applyToIdentityDocument(
@@ -76,7 +59,8 @@ const applyToContractor = (
                 authorityConfirmingDocument: applyToAuthorityConfirmingDocument(
                     get(legalOwnerInfo, ['authorityConfirmingDocument']),
                     authorityConfirmingDocument
-                )
+                ),
+                headPosition
             } as LegalOwnerInfo
         } as RussianLegalEntity
     };
