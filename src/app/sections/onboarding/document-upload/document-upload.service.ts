@@ -58,12 +58,11 @@ export class DocumentUploadService {
                 switchForward(ids =>
                     this.claim$.pipe(
                         first(),
-                        switchMap(({ id, revision, changeset }) => {
-                            const lastModificationId = changeset[changeset.length - 1].modificationID || 1;
+                        switchMap(({ id, revision }) => {
                             return this.claimService.updateClaimByID(
                                 id,
                                 revision,
-                                this.fileIdsToFileModifications(ids, lastModificationId)
+                                this.fileIdsToFileModifications(ids)
                             );
                         })
                     )
@@ -81,8 +80,8 @@ export class DocumentUploadService {
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    private fileIdsToFileModifications(fileIds: string[], lastId: number): Modification[] {
-        return fileIds.map((id, index) => createFileModificationUnit(lastId + index + 1, id).modification);
+    private fileIdsToFileModifications(fileIds: string[]): Modification[] {
+        return fileIds.map(id => createFileModificationUnit(id));
     }
 
     private getFilesInfo(ids: string[]): Observable<FileData[]> {
