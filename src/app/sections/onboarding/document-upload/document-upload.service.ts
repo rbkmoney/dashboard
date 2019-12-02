@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { BehaviorSubject, forkJoin, merge, Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { filter, first, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { takeError } from '../../../custom-operators';
+import { booleanDelay, takeError } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { Claim, Modification } from '../../../api-codegen/claim-management/swagger-codegen';
-import { createFileModificationUnit } from '../../../api/claims/utils/create-file-modification-unit';
+import { createFileModificationUnit } from '../../../api/claims/utils';
+import { progress } from '../../partial-fetcher/progress';
 
 @Injectable()
 export class DocumentUploadService {
@@ -18,29 +19,21 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    private initialFilesIds$: Observable<string[]> = this.claim$.pipe(
-        takeFileModificationsUnit,
-        filter(value => !!value),
-        map(units => units.map(unit => unit.id)),
-        shareReplay(1)
-    );
+    private filesIds$ = new BehaviorSubject<string[]>([]);
 
-    private uploadedFileIds$ = new BehaviorSubject<string[]>([]);
-
-    private fileIds$ = merge(this.uploadedFileIds$, this.initialFilesIds$).pipe(shareReplay(1));
-
-    hasFiles$: Observable<boolean> = this.fileIds$.pipe(
+    hasFiles$: Observable<boolean> = this.filesIds$.pipe(
         map(modifications => modifications.length > 0),
         shareReplay(1)
     );
 
-    filesData$: Observable<FileData[]> = this.fileIds$.pipe(
+    filesData$: Observable<FileData[]> = this.filesIds$.pipe(
         switchMap(ids => this.getFilesInfo(ids)),
         shareReplay(1)
     );
 
-    error$: Observable<any> = this.filesData$.pipe(
-        takeError,
+    isLoading$ = progress(this.filesIds$, this.filesData$).pipe(
+        startWith(false),
+        booleanDelay(),
         shareReplay(1)
     );
 
@@ -51,21 +44,36 @@ export class DocumentUploadService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.error$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+        this.claim$
+            .pipe(
+                takeFileModificationsUnit,
+                filter(value => !!value),
+                map(units => units.map(unit => unit.id))
+            )
+            .subscribe(ids => this.filesIds$.next(ids));
+        this.filesData$
+            .pipe(
+                takeError,
+                shareReplay(1)
+            )
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    updateClaim(uploadedFilesIds: string[]) {
-        return this.claim$.pipe(
-            switchMap(({ id, revision, changeset }) => {
-                const lastModificationId = changeset[changeset.length - 1].modificationID || 1;
-                return this.claimService.updateClaimByID(
-                    id,
-                    revision,
-                    this.fileIdsToFileModifications(uploadedFilesIds, lastModificationId)
-                );
-            }),
-            map(() => this.uploadedFileIds$.next([...this.uploadedFileIds$.value, ...uploadedFilesIds]))
-        );
+    updateClaim(uploadedFilesIds: string[]): void {
+        this.filesIds$.next([...this.filesIds$.value, ...uploadedFilesIds]);
+        this.claim$
+            .pipe(
+                first(),
+                switchMap(({ id, revision, changeset }) => {
+                    const lastModificationId = changeset[changeset.length - 1].modificationID || 1;
+                    return this.claimService.updateClaimByID(
+                        id,
+                        revision,
+                        this.fileIdsToFileModifications(uploadedFilesIds, lastModificationId)
+                    );
+                })
+            )
+            .subscribe(() => true, () => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
     private fileIdsToFileModifications(fileIds: string[], lastId: number): Modification[] {
@@ -73,6 +81,6 @@ export class DocumentUploadService {
     }
 
     private getFilesInfo(ids: string[]): Observable<FileData[]> {
-        return forkJoin(ids.map(id => this.filesService.getFileInfo(id)));
+        return ids.length ? forkJoin(ids.map(id => this.filesService.getFileInfo(id))) : of([]);
     }
 }
