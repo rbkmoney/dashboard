@@ -14,14 +14,6 @@
     width: 100%;
 }
 
-.dsh-format-input-element::placeholder {
-    opacity: 0;
-}
-
-:host.floating .dsh-format-input-element::placeholder {
-    opacity: 1;
-}
-
 .dsh-format-input-spacer {
     opacity: 0;
     user-select: none;
