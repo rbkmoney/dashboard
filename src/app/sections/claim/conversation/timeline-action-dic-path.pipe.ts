@@ -11,13 +11,13 @@ export class TimelineActionDicPathPipe implements PipeTransform {
     getTimelineActionDicPath(action: TimelineAction): string {
         const timelineActionDicPathPart = ({
             [TimelineAction.statusPending]: 'pending',
-            [TimelineAction.statusPendingAcceptance]: 'pendingAcceptance',
+            // [TimelineAction.statusPendingAcceptance]: 'pendingAcceptance',
             [TimelineAction.statusReview]: 'review',
             [TimelineAction.statusRevoked]: 'revoked',
             [TimelineAction.statusDenied]: 'denied',
             [TimelineAction.statusAccepted]: 'accepted',
             [TimelineAction.claimCreated]: 'claimCreated',
-            [TimelineAction.documentsAdded]: 'documentAdded',
+            [TimelineAction.filesAdded]: 'documentAdded',
             [TimelineAction.commentAdded]: 'commentAdded',
             [TimelineAction.changesAdded]: 'changesAdded'
         } as const)[action];

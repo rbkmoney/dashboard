@@ -13,9 +13,11 @@ import { TimelineActionDicPathPipe } from './timeline-action-dic-path.pipe';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.pipe';
+import { ConversationRoutingModule } from './conversation-routing.module';
 
 @NgModule({
     imports: [
+        ConversationRoutingModule,
         LayoutModule,
         ButtonModule,
         FlexLayoutModule,
@@ -34,6 +36,6 @@ import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.p
         TimelineActionIconComponent,
         TimelineItemAuthorDicPathPipe
     ],
-    exports: [ConversationComponent, TimelineActionDicPathPipe]
+    exports: [TimelineActionDicPathPipe]
 })
 export class ConversationModule {}

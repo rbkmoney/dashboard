@@ -13,13 +13,12 @@ export class TimelineActionIconComponent {
     getTimelineActionIconName(action: TimelineAction) {
         return ({
             [TimelineAction.statusPending]: 'smile',
-            [TimelineAction.statusPendingAcceptance]: 'smile',
             [TimelineAction.statusReview]: 'smile',
             [TimelineAction.statusRevoked]: '',
             [TimelineAction.statusDenied]: '',
             [TimelineAction.statusAccepted]: 'smile',
             [TimelineAction.claimCreated]: 'add',
-            [TimelineAction.documentsAdded]: 'attach',
+            [TimelineAction.filesAdded]: 'attach',
             [TimelineAction.commentAdded]: 'mode_comment',
             [TimelineAction.changesAdded]: 'create'
         } as const)[action];
