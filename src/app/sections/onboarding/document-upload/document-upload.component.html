@@ -25,7 +25,7 @@
                         ><div>{{ t.documentUpload.noDocs }}</div></ng-template
                     >
                 </div>
-                <dsh-file-uploader (uploadedFilesIds$)="updateClaim($event)"></dsh-file-uploader>
+                <dsh-file-uploader (uploadedFilesIds$)="updateClaim$.next($event)"></dsh-file-uploader>
                 <div fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
                     <button fxFlex="100px" dsh-button (click)="cancel()">{{ c.cancel }}</button>
                     <button fxFlex="100px" dsh-button color="accent" (click)="done()">{{ c.done }}</button>

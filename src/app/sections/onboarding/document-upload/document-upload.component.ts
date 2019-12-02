@@ -18,6 +18,7 @@ export class DocumentUploadComponent {
 
     filesData$ = this.documentUploadService.filesData$;
     claim$ = this.documentUploadService.claim$;
+    updateClaim$ = this.documentUploadService.updateClaim$;
     hasFiles$ = this.documentUploadService.hasFiles$;
     isLoading$ = this.documentUploadService.isLoading$;
 
@@ -40,9 +41,5 @@ export class DocumentUploadComponent {
 
     done() {
         this.claim$.pipe(first()).subscribe(({ id }) => this.router.navigate(['claim', id]));
-    }
-
-    updateClaim(uploadedFiles: string[]) {
-        this.documentUploadService.updateClaim(uploadedFiles);
     }
 }
