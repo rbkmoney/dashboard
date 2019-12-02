@@ -7,7 +7,7 @@ import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { takeError } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
-import { FileData, FileModificationUnit } from '../../../api-codegen/dark-api/swagger-codegen';
+import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { Claim, Modification } from '../../../api-codegen/claim-management/swagger-codegen';
 import { createFileModificationUnit } from '../../../api/claims/utils/create-file-modification-unit';
 
@@ -18,12 +18,8 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    private fileModificationUnits$: Observable<FileModificationUnit[] | null> = this.claim$.pipe(
+    private initialFilesIds$: Observable<string[]> = this.claim$.pipe(
         takeFileModificationsUnit,
-        shareReplay(1)
-    );
-
-    private initialFilesIds$: Observable<string[]> = this.fileModificationUnits$.pipe(
         filter(value => !!value),
         map(units => units.map(unit => unit.id)),
         shareReplay(1)
@@ -43,11 +39,10 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    private fileModificationsError$: Observable<any> = this.fileModificationUnits$.pipe(takeError);
-
-    private filesDataError$: Observable<any> = this.filesData$.pipe(takeError);
-
-    errors$: Observable<any> = merge(this.filesDataError$, this.fileModificationsError$).pipe(shareReplay(1));
+    error$: Observable<any> = this.filesData$.pipe(
+        takeError,
+        shareReplay(1)
+    );
 
     constructor(
         private route: ActivatedRoute,
@@ -56,7 +51,7 @@ export class DocumentUploadService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+        this.error$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
     updateClaim(uploadedFilesIds: string[]) {

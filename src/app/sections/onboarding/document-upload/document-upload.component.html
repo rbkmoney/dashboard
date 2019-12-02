@@ -3,7 +3,7 @@
     <div *ngIf="(hasFiles$ | async) === undefined" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>
-    <div fxLayout fxLayoutGap="20px" *ngIf="(hasFiles$ | async) !== undefined && !(errors$ | async)">
+    <div fxLayout fxLayoutGap="20px" *ngIf="(hasFiles$ | async) !== undefined && !(error$ | async)">
         <dsh-card fxFlex fxLayout="column">
             <dsh-card-title class="mat-title">{{ t.documentUpload.title }}</dsh-card-title>
             <dsh-card-content fxFlex="initial" fxLayout="column" fxLayoutGap="20px">

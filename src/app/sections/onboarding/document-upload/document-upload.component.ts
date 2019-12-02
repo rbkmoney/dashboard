@@ -19,7 +19,7 @@ export class DocumentUploadComponent {
     filesData$ = this.documentUploadService.filesData$;
     claim$ = this.documentUploadService.claim$;
     hasFiles$ = this.documentUploadService.hasFiles$;
-    errors$ = this.documentUploadService.errors$;
+    error$ = this.documentUploadService.error$;
 
     constructor(
         private router: Router,
