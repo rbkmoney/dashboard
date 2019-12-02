@@ -49,7 +49,7 @@ export class ClaimsService {
         return this.claimsService.createClaim(genXRequestID(), claimChangeset);
     }
 
-    updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<any> {
+    updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<void> {
         return this.claimsService.updateClaimByID(genXRequestID(), claimID, claimRevision, changeset);
     }
 

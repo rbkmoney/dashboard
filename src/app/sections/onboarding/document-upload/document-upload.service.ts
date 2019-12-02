@@ -69,7 +69,7 @@ export class DocumentUploadService {
                     this.fileIdsToFileModifications(uploadedFilesIds, lastModificationId)
                 );
             }),
-            map(ids => this.uploadedFileIds$.next([...this.uploadedFileIds$.value, ...ids]))
+            map(() => this.uploadedFileIds$.next([...this.uploadedFileIds$.value, ...uploadedFilesIds]))
         );
     }
 

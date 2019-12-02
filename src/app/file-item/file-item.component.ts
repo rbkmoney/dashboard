@@ -3,8 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { FileData } from '../api-codegen/dark-api/swagger-codegen';
-import { FileItemService } from './file-item.service';
-import { takeError } from '../custom-operators';
+import { download } from '../../utils';
+import { FilesService } from '../api/files';
 
 @Component({
     selector: 'dsh-file-item',
@@ -15,15 +15,17 @@ export class FileItemComponent {
     @Input() file: FileData;
 
     constructor(
-        private fileItemService: FileItemService,
+        private filesService: FilesService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
 
     downloadFile() {
-        this.fileItemService
-            .downloadFile(this.file.fileId)
-            .pipe(takeError)
-            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+        this.filesService.downloadFile(this.file.fileId).subscribe(
+            ({ url }) => {
+                download(url);
+            },
+            () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+        );
     }
 }

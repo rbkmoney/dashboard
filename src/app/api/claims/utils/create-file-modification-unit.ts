@@ -7,12 +7,12 @@ import { FileModificationUnit } from '../../../api-codegen/claim-management/swag
 export const createFileModificationUnit = (
     modificationID: number,
     fileId: string,
-    createdAt = moment()
+    createdAt: string = moment()
         .utc()
-        .format() as any
+        .format()
 ): SpecificModificationUnit<SpecificClaimModificationUnit<FileModificationUnit>> => ({
     modificationID,
-    createdAt,
+    createdAt: createdAt as any,
     modification: {
         modificationType: 'ClaimModification',
         claimModificationType: {

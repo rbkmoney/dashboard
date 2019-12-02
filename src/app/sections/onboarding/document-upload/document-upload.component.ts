@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { LeaveDialogComponent } from './leave-dialog';
@@ -47,10 +47,7 @@ export class DocumentUploadComponent {
     updateClaim(uploadedFiles: string[]) {
         this.documentUploadService
             .updateClaim(uploadedFiles)
-            .pipe(
-                first(),
-                takeError
-            )
+            .pipe(takeError)
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 }
