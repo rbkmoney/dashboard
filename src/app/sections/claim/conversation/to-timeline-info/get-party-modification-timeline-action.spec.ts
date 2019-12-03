@@ -16,7 +16,7 @@ describe('getPartyModificationTimelineAction', () => {
                     partyModificationType
                 }
             }
-        };
+        } as any;
     }
 
     it('empty modification should return error', () => {
