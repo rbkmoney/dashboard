@@ -7,3 +7,4 @@ export * from './handle-null';
 export * from './switch-scan';
 export * from './concat-first-scan';
 export * from './switch-forward';
+export * from './progress';

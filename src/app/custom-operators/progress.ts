@@ -1,5 +1,5 @@
 import { Observable, of, merge } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, startWith } from 'rxjs/operators';
 
 export const progress = (start$: Observable<any>, end$: Observable<any>): Observable<boolean> =>
     merge(
@@ -8,4 +8,4 @@ export const progress = (start$: Observable<any>, end$: Observable<any>): Observ
             catchError(() => of(false)),
             map(() => false)
         )
-    );
+    ).pipe(startWith(false));
