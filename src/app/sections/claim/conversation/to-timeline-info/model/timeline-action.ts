@@ -1,5 +1,4 @@
 export enum TimelineAction {
-    claimCreated = 'claimCreated',
     changesAdded = 'changesAdded',
     filesAdded = 'filesAdded',
     commentAdded = 'commentAdded',

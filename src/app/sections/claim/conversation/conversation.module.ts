@@ -6,13 +6,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { TimelineModule } from '../../../timeline';
 import { ConversationComponent } from './conversation.component';
-import { TimelineActionIconComponent } from './timeline-action-icon';
 import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
+import { ActionIconPipe } from './action-icon.pipe';
 
 @NgModule({
     imports: [
@@ -29,6 +29,6 @@ import { ActionColorPipe } from './action-color.pipe';
         HumanizeDurationModule,
         TranslocoModule
     ],
-    declarations: [ConversationComponent, TimelineActionIconComponent, ActionColorPipe]
+    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe]
 })
 export class ConversationModule {}

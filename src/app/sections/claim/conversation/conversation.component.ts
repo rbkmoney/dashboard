@@ -9,6 +9,7 @@ import { ConversationService } from './conversation.service';
 })
 export class ConversationComponent {
     timelineInfo$ = this.conversationService.timelineInfo$;
+    claimCreatedAt$ = this.conversationService.claimCreatedAt$;
 
     constructor(private conversationService: ConversationService) {}
 }

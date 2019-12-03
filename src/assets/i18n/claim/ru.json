@@ -5,12 +5,12 @@
         "toLeaveTheComment": "Оставить комментарий",
         "ago": "назад",
         "timeline": {
+            "claimCreated": "Заявка создана",
             "userInfo": {
                 "internal_user": "Менеджером",
                 "external_user": "Вами"
             },
             "action": {
-                "claimCreated": "создана заявка",
                 "changesAdded": "добавлены изменения",
                 "filesAdded": "добавлены документы",
                 "commentAdded": "добавлен комментарий",
