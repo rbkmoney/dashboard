@@ -5,9 +5,9 @@
         "toLeaveTheComment": "Оставить комментарий",
         "ago": "назад",
         "timeline": {
-            "author": {
-                "internal": "Менеджером",
-                "external": "Вами"
+            "userInfo": {
+                "internal_user": "Менеджером",
+                "external_user": "Вами"
             },
             "action": {
                 "claimCreated": "создана заявка",

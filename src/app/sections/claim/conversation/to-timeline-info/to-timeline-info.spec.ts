@@ -119,7 +119,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'changesAdded',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -134,7 +134,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'filesAdded',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -149,7 +149,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'statusReview',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -164,7 +164,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'statusAccepted',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -179,7 +179,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'statusDenied',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -194,7 +194,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'statusRevoked',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -209,7 +209,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'statusPending',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -232,7 +232,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'commentAdded',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification]
             } as TimelineItemInfo
@@ -250,7 +250,7 @@ describe('toTimelineInfo', () => {
         const expected = [
             {
                 action: 'filesAdded',
-                author: 'manager',
+                userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification, units[1].modification]
             } as TimelineItemInfo

@@ -1,5 +1,5 @@
 import { ModificationUnit, ClaimModification, Modification } from '../../../../api-codegen/claim-management';
-import { TimelineItemInfo, Author, TimelineAction } from './model';
+import { TimelineItemInfo, TimelineAction } from './model';
 import { sortUnitsByCreatedAtAsc } from '../../../../api/claims/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 
@@ -12,7 +12,8 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
     }
 };
 
-const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean => x.action === y.action && x.author === y.author;
+const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
+    x.action === y.action && x.userInfo.userType === y.userInfo.userType;
 
 const updateLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): TimelineItemInfo[] =>
     acc.map((accItem, accItemIndex) =>
@@ -26,7 +27,7 @@ const updateLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): 
 
 const acceptTimelineItem = (
     acc: TimelineItemInfo[],
-    { createdAt, modification }: ModificationUnit
+    { createdAt, modification, userInfo }: ModificationUnit
 ): TimelineItemInfo[] => {
     const action = getUnitTimelineAction(modification);
     if (action === null) {
@@ -34,7 +35,7 @@ const acceptTimelineItem = (
     }
     const item = {
         action,
-        author: Author.manager,
+        userInfo,
         createdAt: createdAt as any,
         modifications: [modification]
     };

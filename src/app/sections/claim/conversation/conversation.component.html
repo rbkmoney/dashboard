@@ -2,7 +2,7 @@
     <dsh-timeline>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
             <dsh-timeline-item-title>
-                <b>Вами</b>
+                <b>{{ t.timeline.userInfo[item.userInfo.userType] }}</b>
                 {{ t.timeline.action[item.action] }}
                 <span *transloco="let root"
                     >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span

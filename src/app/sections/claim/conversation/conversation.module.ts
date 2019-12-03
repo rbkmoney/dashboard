@@ -9,10 +9,8 @@ import { ConversationComponent } from './conversation.component';
 import { TimelineActionIconComponent } from './timeline-action-icon';
 import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
-import { TimelineActionDicPathPipe } from './timeline-action-dic-path.pipe';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { TimelineItemAuthorDicPathPipe } from './timeline-item-author-dic-path.pipe';
 import { ConversationRoutingModule } from './conversation-routing.module';
 
 @NgModule({
@@ -30,12 +28,6 @@ import { ConversationRoutingModule } from './conversation-routing.module';
         HumanizeDurationModule,
         TranslocoModule
     ],
-    declarations: [
-        ConversationComponent,
-        TimelineActionDicPathPipe,
-        TimelineActionIconComponent,
-        TimelineItemAuthorDicPathPipe
-    ],
-    exports: [TimelineActionDicPathPipe]
+    declarations: [ConversationComponent, TimelineActionIconComponent]
 })
 export class ConversationModule {}

@@ -1,10 +1,9 @@
 import { TimelineAction } from './timeline-action';
-import { Author } from './author';
-import { Modification } from '../../../../../api-codegen/claim-management';
+import { Modification, UserInfo } from '../../../../../api-codegen/claim-management';
 
 export interface TimelineItemInfo {
     action: TimelineAction;
-    author: Author;
+    userInfo: UserInfo;
     createdAt: string;
     modifications?: Modification[];
 }
