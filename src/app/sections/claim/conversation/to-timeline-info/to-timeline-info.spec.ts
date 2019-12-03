@@ -20,7 +20,7 @@ describe('toTimelineInfo', () => {
                         }
                     }
                 } as ClaimModification
-            },
+            } as any,
             {
                 action: TimelineAction.claimCreated,
                 author: Author.manager,

@@ -49,7 +49,7 @@ export class DocumentUploadService {
             .pipe(
                 takeFileModificationsUnit,
                 filter(value => !!value),
-                map(units => units.map(unit => unit.id))
+                map(units => units.map(unit => unit.fileId))
             )
             .subscribe(ids => this.filesIds$.next(ids));
         this.updateClaim$
