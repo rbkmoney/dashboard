@@ -14,7 +14,7 @@ describe('toTimelineItemInfo', () => {
                 modification: {
                     modificationType: 'ClaimModification'
                 }
-            }
+            } as any
         ];
         expect(() => toTimelineItemInfo(modification)).toThrow(new Error('Modification unit is incomplete'));
     });
