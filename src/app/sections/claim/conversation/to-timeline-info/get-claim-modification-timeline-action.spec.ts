@@ -44,7 +44,7 @@ describe('getClaimModificationTimelineAction', () => {
                     }
                 }
             }
-        } as SpecificModificationUnit<ClaimModification>;
+        } as any;
         expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.claimCreated);
     });
 
@@ -61,7 +61,7 @@ describe('getClaimModificationTimelineAction', () => {
                     }
                 }
             }
-        } as SpecificModificationUnit<ClaimModification>;
+        } as any;
         expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.commentAdded);
     });
 
@@ -78,7 +78,7 @@ describe('getClaimModificationTimelineAction', () => {
                     }
                 }
             }
-        } as SpecificModificationUnit<ClaimModification>;
+        } as any;
         expect(getClaimModificationTimelineAction(unit)).toBe(TimelineAction.documentsAdded);
     });
 
