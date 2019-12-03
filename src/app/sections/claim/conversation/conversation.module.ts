@@ -12,6 +12,7 @@ import { ButtonModule } from '../../../button';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { ConversationRoutingModule } from './conversation-routing.module';
+import { ActionColorPipe } from './action-color.pipe';
 
 @NgModule({
     imports: [
@@ -28,6 +29,6 @@ import { ConversationRoutingModule } from './conversation-routing.module';
         HumanizeDurationModule,
         TranslocoModule
     ],
-    declarations: [ConversationComponent, TimelineActionIconComponent]
+    declarations: [ConversationComponent, TimelineActionIconComponent, ActionColorPipe]
 })
 export class ConversationModule {}

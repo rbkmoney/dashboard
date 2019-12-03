@@ -15,7 +15,7 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
 const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
     x.action === y.action && x.userInfo.userType === y.userInfo.userType;
 
-const updateLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): TimelineItemInfo[] =>
+const concatLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): TimelineItemInfo[] =>
     acc.map((accItem, accItemIndex) =>
         accItemIndex === acc.length - 1
             ? {
@@ -25,6 +25,17 @@ const updateLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): 
             : accItem
     );
 
+const toTimelineInfoModifications = (action: TimelineAction, modification: Modification): Modification[] => {
+    switch (action) {
+        case 'changesAdded':
+        case 'filesAdded':
+        case 'commentAdded':
+            return [modification];
+        default:
+            return [];
+    }
+};
+
 const acceptTimelineItem = (
     acc: TimelineItemInfo[],
     { createdAt, modification, userInfo }: ModificationUnit
@@ -33,19 +44,20 @@ const acceptTimelineItem = (
     if (action === null) {
         return acc;
     }
-    const item = {
+    const modifications = toTimelineInfoModifications(action, modification);
+    const result = {
         action,
         userInfo,
         createdAt: createdAt as any,
-        modifications: [modification]
+        modifications
     };
-    if (acc.length !== 0) {
+    if (acc.length !== 0 && modifications.length !== 0) {
         const lastItem = acc[acc.length - 1];
-        if (isSame(item, lastItem)) {
-            return updateLastItem(acc, item);
+        if (isSame(result, lastItem)) {
+            return concatLastItem(acc, result);
         }
     }
-    return acc.concat(item);
+    return acc.concat(result);
 };
 
 export const toTimelineInfo = (units: ModificationUnit[]): TimelineItemInfo[] => {

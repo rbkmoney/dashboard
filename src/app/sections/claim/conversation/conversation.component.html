@@ -1,6 +1,6 @@
 <div *transloco="let t; scope: 'claim'; read: 'claim.conversation'" fxLayout="column" fxLayoutGap="20px">
     <dsh-timeline>
-        <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
+        <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.action | actionColor">
             <dsh-timeline-item-title>
                 <b>{{ t.timeline.userInfo[item.userInfo.userType] }}</b>
                 {{ t.timeline.action[item.action] }}
@@ -11,8 +11,10 @@
             <dsh-timeline-item-badge>
                 <dsh-timeline-action-icon [action]="item.action"></dsh-timeline-action-icon>
             </dsh-timeline-item-badge>
-            <dsh-timeline-item-content>
-                <!-- TODO: описание -->
+            <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
+                <div *ngFor="let modification of item.modifications">
+                    {{ modification.modificationType }}
+                </div>
             </dsh-timeline-item-content>
         </dsh-timeline-item>
     </dsh-timeline>

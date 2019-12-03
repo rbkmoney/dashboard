@@ -5,5 +5,5 @@ export interface TimelineItemInfo {
     action: TimelineAction;
     userInfo: UserInfo;
     createdAt: string;
-    modifications?: Modification[];
+    modifications: Modification[];
 }
