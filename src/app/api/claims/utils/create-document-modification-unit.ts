@@ -7,12 +7,12 @@ import { SpecificClaimModificationUnit } from './specific-claim-modification-uni
 export const createDocumentModificationUnit = (
     modificationID: number,
     documentId: string,
-    createdAt = moment()
+    createdAt: string = moment()
         .utc()
-        .format() as any
+        .format()
 ): SpecificModificationUnit<SpecificClaimModificationUnit<DocumentModificationUnit>> => ({
     modificationID,
-    createdAt,
+    createdAt: createdAt as any,
     modification: {
         modificationType: 'ClaimModification',
         claimModificationType: {

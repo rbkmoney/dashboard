@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CompanySearchComponent } from './company-search';
-import { DocumentUploadComponent } from './document-upload';
 
 export const routes: Routes = [
     {
@@ -11,7 +10,7 @@ export const routes: Routes = [
     },
     {
         path: ':claimID/document-upload',
-        component: DocumentUploadComponent
+        loadChildren: () => import('./document-upload').then(m => m.DocumentUploadModule)
     },
     {
         path: ':claimID',

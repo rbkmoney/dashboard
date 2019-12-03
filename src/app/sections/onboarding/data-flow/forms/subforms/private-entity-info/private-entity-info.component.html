@@ -6,7 +6,7 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.fio }}</mat-label>
-            <input matInput formControlName="fio" required />
+            <dsh-dadata-autocomplete formControlName="fio" type="fio" required></dsh-dadata-autocomplete>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.birthDate }}</mat-label>
@@ -17,20 +17,27 @@
     </div>
     <mat-form-field fxFlex>
         <mat-label>{{ t.birthPlace }}</mat-label>
-        <input matInput formControlName="birthPlace" required />
+        <dsh-dadata-autocomplete
+            formControlName="birthPlace"
+            type="address"
+            [params]="{ fromBound: 'Region', toBound: 'Settlement' }"
+            required
+        ></dsh-dadata-autocomplete>
     </mat-form-field>
     <mat-form-field fxFlex>
         <mat-label>{{ t.residenceAddress }}</mat-label>
-        <input matInput formControlName="residenceAddress" required />
+        <dsh-dadata-autocomplete formControlName="residenceAddress" type="address" required></dsh-dadata-autocomplete>
     </mat-form-field>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.snils }}</mat-label>
-            <input matInput formControlName="snils" required />
+            <dsh-format-input format="snils" formControlName="snils" required></dsh-format-input>
         </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t.innfl }}</mat-label>
-            <input matInput formControlName="innfl" />
-        </mat-form-field>
+        <div fxFlex fxLayout>
+            <mat-form-field fxFlex *ngIf="isAdditionalFieldActive('innfl')">
+                <mat-label>{{ t.innfl }}</mat-label>
+                <dsh-format-input format="individualEntityInn" formControlName="innfl"></dsh-format-input>
+            </mat-form-field>
+        </div>
     </div>
 </form>

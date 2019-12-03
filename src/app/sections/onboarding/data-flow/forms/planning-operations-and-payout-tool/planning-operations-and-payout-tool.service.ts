@@ -12,13 +12,16 @@ import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
+    form: FormGroup;
+
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form$.next(this.initForm());
+        this.form = this.initForm();
+        this.form$.next(this.form);
         this.form$.complete();
     }
 
@@ -29,6 +32,10 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
         'BtwFiveHundredThousandToOneMillion',
         'GtOneMillion'
     ];
+
+    patchBankAccountForm(value: { [key: string]: any }) {
+        this.form.get('bankAccount').patchValue(value);
+    }
 
     protected toFormValue(data: QuestionaryData): FormValue {
         return toFormValue(data);

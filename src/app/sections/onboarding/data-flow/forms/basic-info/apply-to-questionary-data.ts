@@ -6,11 +6,13 @@ import {
     QuestionaryData,
     ShopInfo,
     ContactInfo,
-    ShopLocation
+    ShopLocation,
+    IndividualEntityContractor,
+    RussianIndividualEntity
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
-const applyToContractor = (
+const applyToLegalEntityContractor = (
     t: LegalEntityContractor,
     { name, inn, registrationPlace }: FormValue
 ): LegalEntityContractor => {
@@ -24,10 +26,41 @@ const applyToContractor = (
             inn,
             registrationInfo: {
                 ...registrationInfo,
+                registrationInfoType: 'LegalRegistrationInfo',
                 registrationAddress: registrationPlace
             }
         } as RussianLegalEntity
     };
+};
+
+const applyToIndividualEntityContractor = (
+    i: IndividualEntityContractor,
+    { name, inn, registrationPlace }: FormValue
+): IndividualEntityContractor => {
+    const individualEntity = get(i, ['individualEntity']);
+    const registrationInfo = get(i, ['individualEntity', 'registrationInfo']);
+    return {
+        ...i,
+        individualEntity: {
+            ...individualEntity,
+            name,
+            inn,
+            registrationInfo: {
+                ...registrationInfo,
+                registrationInfoType: 'IndividualRegistrationInfo',
+                registrationPlace
+            }
+        } as RussianIndividualEntity
+    };
+};
+
+const applyToContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
+    switch (t.contractorType) {
+        case 'LegalEntityContractor':
+            return applyToLegalEntityContractor(t, v);
+        case 'IndividualEntityContractor':
+            return applyToIndividualEntityContractor(t, v);
+    }
 };
 
 const applyToShopInfo = (t: ShopInfo, { shopUrl, shopName }: FormValue): ShopInfo => {
@@ -37,7 +70,7 @@ const applyToShopInfo = (t: ShopInfo, { shopUrl, shopName }: FormValue): ShopInf
         ...t,
         location: {
             ...location,
-            locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
+            locationType: 'ShopLocationUrl',
             url: shopUrl || ''
         } as ShopLocation,
         details: {

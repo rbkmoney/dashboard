@@ -1,19 +1,36 @@
 import get from 'lodash.get';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import {
+    QuestionaryData,
+    BankAccount,
+    Contractor,
+    LegalEntity,
+    IndividualEntity
+} from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
-export const toFormValue = (d: QuestionaryData): FormValue => {
-    const additionalInfo = get(d, ['contractor', 'legalEntity', 'additionalInfo'], null);
-    const bankAccount = get(d, ['bankAccount'], null);
-    return {
-        monthOperationCount: get(additionalInfo, ['monthOperationCount'], null),
-        monthOperationSum: get(additionalInfo, ['monthOperationSum'], null),
-        bankAccount: {
-            account: get(bankAccount, ['account'], null),
-            bankName: get(bankAccount, ['bankName'], null),
-            bankPostAccount: get(bankAccount, ['bankPostAccount'], null),
-            bankBik: get(bankAccount, ['bankBik'], null)
-        }
-    };
+const fromBankAccount = (b: BankAccount) => ({
+    account: get(b, ['account'], null),
+    bankName: get(b, ['bankName'], null),
+    bankPostAccount: get(b, ['bankPostAccount'], null),
+    bankBik: get(b, ['bankBik'], null)
+});
+
+const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => ({
+    monthOperationCount: get(l, ['additionalInfo', 'monthOperationCount'], null),
+    monthOperationSum: get(l, ['additionalInfo', 'monthOperationSum'], null)
+});
+
+const fromContractor = (c: Contractor): FormValue => {
+    switch (get(c, ['contractorType'])) {
+        case 'IndividualEntityContractor':
+            return fromEntity(get(c, ['individualEntity']));
+        case 'LegalEntityContractor':
+            return fromEntity(get(c, ['legalEntity']));
+    }
 };
+
+export const toFormValue = (d: QuestionaryData): FormValue => ({
+    ...fromContractor(get(d, ['contractor'])),
+    bankAccount: fromBankAccount(get(d, ['bankAccount']))
+});

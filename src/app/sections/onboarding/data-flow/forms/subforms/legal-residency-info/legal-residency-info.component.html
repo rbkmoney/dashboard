@@ -1,0 +1,9 @@
+<form
+    [formGroup]="form"
+    fxLayout="column"
+    [fxLayoutGap]="layoutGap"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.legalResidencyInfo'"
+>
+    <mat-checkbox formControlName="taxResident">{{ t.taxResident }}</mat-checkbox>
+    <mat-checkbox formControlName="fatca">{{ t.fatca }}</mat-checkbox>
+</form>

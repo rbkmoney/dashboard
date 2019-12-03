@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import * as moment from 'moment';
 
 import { FormValue } from '../../form-value';
 
@@ -32,28 +31,15 @@ export class AuthorityConfirmingDocumentService {
         const isCustomType = value === customDocumentType;
         this.customDocumentInfoVisible$.next(isCustomType);
         form.patchValue({
-            type: isCustomType ? '' : value,
-            number: ''
+            type: isCustomType ? '' : value
         });
-        form.setControl(
-            'date',
-            this.fb.control(
-                moment()
-                    .utc()
-                    .format(),
-                isCustomType ? Validators.required : null
-            )
-        );
+        form.setControl('date', this.fb.control(null, isCustomType ? Validators.required : null));
     }
 
     getForm(): FormGroup {
         return this.fb.group({
             type: ['', Validators.required],
-            date: [
-                moment()
-                    .utc()
-                    .format()
-            ],
+            date: [null],
             number: ['']
         });
     }

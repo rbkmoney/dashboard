@@ -1,11 +1,3 @@
-<div *transloco="let t; scope: 'claim'" fxLayout="row" fxLayoutAlign="space-between center" class="last-changes">
-    {{
-        t.claim.conversation.lastChanges
-            | translocoParams: { date: updatedAt$ | async | humanizedDuration: { largest: 1 } }
-    }}
-    <a>{{ t.update }}</a>
-</div>
-
 <div *transloco="let t; scope: 'claim'; read: 'claim.conversation'" fxLayout="column" fxLayoutGap="20px">
     <dsh-timeline>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
@@ -27,7 +19,7 @@
             <textarea matInput [placeholder]="t.leaveTheComment"></textarea>
         </mat-form-field>
         <div>
-            <button dsh-stroked-button class="action">
+            <button dsh-button class="action">
                 {{ t.toLeaveTheComment }}
             </button>
         </div>

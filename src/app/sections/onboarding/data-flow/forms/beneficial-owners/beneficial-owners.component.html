@@ -4,9 +4,9 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
     <section class="checkbox-section">
-        <mat-checkbox [checked]="isNoOwners$ | async" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
+        <mat-checkbox formControlName="noOwners" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
     </section>
-    <div *ngIf="!(isNoOwners$ | async)" formArrayName="beneficialOwners">
+    <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
         <div
             class="beneficial-owner-container"
             *ngFor="let beneficialOwner of (beneficialOwners$ | async).controls; let i = index"
@@ -24,9 +24,10 @@
                 [form]="beneficialOwner.get('russianDomesticPassport')"
             ></dsh-russian-domestic-passport>
             <dsh-pdl-info [form]="beneficialOwner.get('pdlInfo')"></dsh-pdl-info>
-            <section class="checkbox-section" fxLayout="column" [fxLayoutGap]="layoutGap">
-                <mat-checkbox formControlName="usaTaxResident">{{ t.usaTaxResident }}</mat-checkbox>
-                <mat-checkbox formControlName="exceptUsaTaxResident">{{ t.exceptUsaTaxResident }}</mat-checkbox>
+            <section class="checkbox-section">
+                <dsh-individual-residency-info
+                    [form]="beneficialOwner.get('individualResidencyInfo')"
+                ></dsh-individual-residency-info>
             </section>
             <div class="beneficial-owner-actions" *ngIf="i !== 0" fxLayout="row" fxLayoutAlign="end">
                 <button dsh-stroked-button color="warn" (click)="removeOwner(i)">

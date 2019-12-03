@@ -1,23 +1,19 @@
 <div
     ngfDrop
-    [(files)]="files"
     (dragenter)="setDragover(true)"
     (dragleave)="setDragover(false)"
-    (filesChange)="uploadFiles($event)"
+    (filesChange)="startUploading$.next($event)"
     class="dsh-file-uploader-container"
     [class.dsh-file-uploader-container-dragover]="isDragover"
     fxFlex
     fxLayoutAlign="center"
 >
-    <div *transloco="let t; scope: 'onboarding'; read: 'onboarding.documentUpload'">
+    <div *transloco="let t; scope: 'file-uploader'; read: 'fileUploader'">
         <div *ngIf="!(isUploading$ | async); else uploading">
             {{ t.forUpload }}
-            <span
-                ngfSelect
-                [(files)]="files"
-                (filesChange)="uploadFiles($event)"
-                class="dsh-file-uploader-choose-files"
-                >{{ t.choose }}</span
+            <span ngfSelect (filesChange)="startUploading$.next($event)" class="dsh-file-uploader-choose-files">{{
+                t.choose
+            }}</span
             >.
         </div>
         <ng-template #uploading>{{ t.uploading }}</ng-template>

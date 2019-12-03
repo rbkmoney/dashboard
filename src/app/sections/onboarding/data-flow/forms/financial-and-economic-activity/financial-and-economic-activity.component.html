@@ -31,7 +31,11 @@
                 <input matInput formControlName="accountantOrgInn" required />
             </mat-form-field>
         </div>
-        <mat-checkbox formControlName="hasBeneficiaryParty">{{ t.hasBeneficiaryParty }}</mat-checkbox>
+        <mat-checkbox formControlName="hasBeneficiary">{{ t.hasBeneficiary }}</mat-checkbox>
         <mat-checkbox formControlName="hasLiquidationProcess">{{ t.hasLiquidationProcess }}</mat-checkbox>
+        <dsh-legal-residency-info
+            *ngIf="isResidencyInfoVisible$ | async"
+            [form]="(form$ | async).get('residencyInfo')"
+        ></dsh-legal-residency-info>
     </div>
 </form>

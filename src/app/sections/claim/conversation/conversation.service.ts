@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { toTimelineInfo } from './to-timeline-info';
-import { ClaimService } from '../claim.service';
+import { ReceiveClaimService } from '../receive-claim.service';
 
 @Injectable()
 export class ConversationService {
@@ -11,5 +11,5 @@ export class ConversationService {
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimService) {}
+    constructor(private claimService: ReceiveClaimService) {}
 }
