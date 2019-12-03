@@ -27,8 +27,7 @@ import { DocumentsModule } from './documents';
         ClaimRoutingModule,
         ConversationModule,
         StatusModule,
-        TranslocoModule,
-        DocumentsModule
+        DocumentsModule,
         TranslocoModule,
         SpinnerModule,
         ConfirmActionDialogModule

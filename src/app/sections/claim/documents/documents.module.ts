@@ -10,7 +10,7 @@ import { LayoutModule } from '../../../layout';
 import { FileItemModule } from '../../../file-item';
 import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
-import { ClaimService } from '../claim.service';
+import { ReceiveClaimService } from '../receive-claim.service';
 
 @NgModule({
     imports: [
@@ -27,6 +27,6 @@ import { ClaimService } from '../claim.service';
     ],
     declarations: [DocumentsComponent],
     exports: [DocumentsComponent],
-    providers: [FilesService, ClaimService]
+    providers: [FilesService, ReceiveClaimService]
 })
 export class DocumentsModule {}
