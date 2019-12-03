@@ -43,6 +43,7 @@ import {
 } from './planning-operations-and-payout-tool';
 import { FormControlsModule } from '../../../../form-controls';
 import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
+import { DaDataModule } from '../../../../dadata';
 
 @NgModule({
     imports: [
@@ -59,7 +60,8 @@ import { RussianPrivateEntityService } from './russian-private-entity/russian-pr
         MatDividerModule,
         MatRadioModule,
         TextMaskModule,
-        FormControlsModule
+        FormControlsModule,
+        DaDataModule
     ],
     declarations: [
         BasicInfoComponent,

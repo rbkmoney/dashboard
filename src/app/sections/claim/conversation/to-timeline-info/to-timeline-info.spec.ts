@@ -1,20 +1,29 @@
 import { toTimelineInfo } from './to-timeline-info';
 import {
-    ClaimChangeset,
     ClaimModification,
     ModificationUnit,
     StatusModificationUnit,
-    Modification
+    Modification,
+    UserInfo
 } from '../../../../api-codegen/claim-management/swagger-codegen';
 import { TimelineItemInfo } from './model';
+
+const genUserInfo = (userType: UserInfo.UserTypeEnum): UserInfo => ({
+    userId: '',
+    email: '',
+    username: '',
+    userType
+});
 
 const genPartialModification = (
     modificationID: number,
     createdAt: string,
-    modificationType: Modification.ModificationTypeEnum
+    modificationType: Modification.ModificationTypeEnum,
+    userType: UserInfo.UserTypeEnum = 'external_user'
 ) => ({
     modificationID,
     createdAt: createdAt as any,
+    userInfo: genUserInfo(userType),
     modification: {
         modificationType
     }
