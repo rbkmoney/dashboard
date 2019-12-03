@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
+import { Claim, FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 import { isChangesetFileModificationUnit } from '../type-guards';
-import { FileModificationUnit } from '../../../api-codegen/dark-api/swagger-codegen';
 
 export const takeFileModificationsUnit = (s: Observable<Claim>): Observable<FileModificationUnit[] | null> =>
     s.pipe(
