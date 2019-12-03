@@ -3,18 +3,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
-import { TimelineModule } from '.';
+import { TimelineModule } from './timeline.module';
 import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
 import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title';
-import { TimelineItemComponent } from './timeline-item';
 import { StatusColor } from '../theme-manager';
 
 @Component({
     template: `
         <dsh-timeline>
-            <dsh-timeline-item [color]="color">
-                <dsh-timeline-item-badge>Badge</dsh-timeline-item-badge>
+            <dsh-timeline-item>
+                <dsh-timeline-item-badge [color]="color">Badge</dsh-timeline-item-badge>
                 <dsh-timeline-item-title>Title</dsh-timeline-item-title>
                 <dsh-timeline-item-content>Content</dsh-timeline-item-content>
             </dsh-timeline-item>
@@ -64,14 +63,15 @@ describe('Timeline', () => {
         });
 
         it('should change class when setting color', () => {
+            const getClassName = <T>(fixture: ComponentFixture<T>, type = TimelineItemBadgeComponent): string =>
+                fixture.debugElement.query(By.directive(type)).query(By.css('*')).nativeElement.className;
             const fixture = createComponent(SampleTimelineComponent);
-            const baseClass = fixture.debugElement.query(By.directive(TimelineItemComponent)).query(By.css('*'))
-                .nativeElement.className;
+            const sourceBadgeClass = getClassName(fixture);
+            expect(sourceBadgeClass).toEqual('dsh-timeline-item-badge');
             fixture.componentInstance.color = StatusColor.warn;
             fixture.detectChanges();
-            const newClass = fixture.debugElement.query(By.directive(TimelineItemComponent)).query(By.css('*'))
-                .nativeElement.className;
-            expect(baseClass).not.toBe(newClass);
+            const badgeClassAfterSetColor = getClassName(fixture);
+            expect(badgeClassAfterSetColor).toEqual('dsh-timeline-item-badge dsh-timeline-item-badge-warn');
         });
     });
 });
