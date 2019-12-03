@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { FilesService } from '../api/files';
-import { progress } from '../sections/partial-fetcher/progress';
+import { progress } from '../custom-operators';
 
 @Component({
     selector: 'dsh-file-uploader',

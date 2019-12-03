@@ -5,12 +5,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { filter, first, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { booleanDelay, switchForward, takeError } from '../../../custom-operators';
+import { booleanDelay, progress, switchForward, takeError } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { Claim, Modification } from '../../../api-codegen/claim-management/swagger-codegen';
 import { createFileModificationUnit } from '../../../api/claims/utils';
-import { progress } from '../../partial-fetcher/progress';
 
 @Injectable()
 export class DocumentUploadService {
