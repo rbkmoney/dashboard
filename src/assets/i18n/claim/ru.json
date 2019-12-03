@@ -3,24 +3,22 @@
         "label": "Обсуждение",
         "leaveTheComment": "Оставьте комментарий",
         "toLeaveTheComment": "Оставить комментарий",
-        "lastChanges": "Последние изменения {{ date }} назад",
         "ago": "назад",
-        "toTimelineInfo": {
-            "action": {
-                "claimCreated": "создана анкета",
-                "pending": "переведена в ожидание",
-                "pendingAcceptance": "переведена в ожидание ваших действий",
-                "review": "рассматривается",
-                "revoked": "отозвана",
-                "denied": "отклонена",
-                "accepted": "одобрена",
-                "documentAdded": "добавлен документ",
-                "commentAdded": "добавлен комментарий",
-                "changesAdded": "добавлены изменения"
-            },
+        "timeline": {
             "author": {
-                "manager": "Менеджером",
-                "you": "Вами"
+                "internal": "Менеджером",
+                "external": "Вами"
+            },
+            "action": {
+                "claimCreated": "создана заявка",
+                "changesAdded": "добавлены изменения",
+                "filesAdded": "добавлены документы",
+                "commentAdded": "добавлен комментарий",
+                "statusReview": "заявка отправлена на рассмотрение",
+                "statusPending": "рассмотрена заявка",
+                "statusDenied": "отклонена заявка",
+                "statusRevoked": "отозвана заявка",
+                "statusAccepted": "одобрена заявка"
             }
         }
     },

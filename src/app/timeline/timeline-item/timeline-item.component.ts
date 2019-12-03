@@ -8,5 +8,5 @@ import { StatusColor } from '../../theme-manager/color';
     styleUrls: ['timeline-item.component.scss']
 })
 export class TimelineItemComponent {
-    @Input() color: StatusColor;
+    @Input() color: StatusColor = StatusColor.success;
 }

@@ -7,20 +7,19 @@ import { TimelineAction } from '../to-timeline-info';
     templateUrl: 'timeline-action-icon.component.html'
 })
 export class TimelineActionIconComponent {
-    @Input()
-    action: TimelineAction;
+    @Input() action: TimelineAction;
 
     getTimelineActionIconName(action: TimelineAction) {
         return ({
-            [TimelineAction.statusPending]: 'smile',
-            [TimelineAction.statusReview]: 'smile',
-            [TimelineAction.statusRevoked]: '',
-            [TimelineAction.statusDenied]: '',
+            [TimelineAction.statusPending]: 'visibility',
+            [TimelineAction.statusReview]: 'forward',
+            [TimelineAction.statusRevoked]: 'circle_slash',
+            [TimelineAction.statusDenied]: 'circle_slash',
             [TimelineAction.statusAccepted]: 'smile',
-            [TimelineAction.claimCreated]: 'add',
+            [TimelineAction.claimCreated]: 'create',
             [TimelineAction.filesAdded]: 'attach',
             [TimelineAction.commentAdded]: 'mode_comment',
-            [TimelineAction.changesAdded]: 'create'
+            [TimelineAction.changesAdded]: 'add'
         } as const)[action];
     }
 }

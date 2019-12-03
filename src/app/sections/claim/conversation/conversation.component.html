@@ -2,9 +2,11 @@
     <dsh-timeline>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async" [color]="item.color">
             <dsh-timeline-item-title>
-                <b class="mat-body-2">{{ t.toTimelineInfo.author[item.author] }}</b>
-                {{ t.toTimelineInfo.action[item.action | timelineActionDicPath] }}
-                {{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ t.ago }}
+                <b>Вами</b>
+                {{ t.timeline.action[item.action] }}
+                <span *transloco="let root"
+                    >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
+                >
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge>
                 <dsh-timeline-action-icon [action]="item.action"></dsh-timeline-action-icon>
@@ -14,7 +16,7 @@
             </dsh-timeline-item-content>
         </dsh-timeline-item>
     </dsh-timeline>
-    <div class="comment" fxLayout="column">
+    <div fxLayout="column">
         <mat-form-field>
             <textarea matInput [placeholder]="t.leaveTheComment"></textarea>
         </mat-form-field>
