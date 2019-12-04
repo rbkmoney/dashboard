@@ -63,8 +63,8 @@ describe('Timeline', () => {
         });
 
         it('should change class when setting color', () => {
-            const getClassName = <T>(fixture: ComponentFixture<T>, type = TimelineItemBadgeComponent): string =>
-                fixture.debugElement.query(By.directive(type)).query(By.css('*')).nativeElement.className;
+            const getClassName = <T>(f: ComponentFixture<T>, type = TimelineItemBadgeComponent): string =>
+                f.debugElement.query(By.directive(type)).query(By.css('*')).nativeElement.className;
             const fixture = createComponent(SampleTimelineComponent);
             const sourceBadgeClass = getClassName(fixture);
             expect(sourceBadgeClass).toEqual('dsh-timeline-item-badge');
