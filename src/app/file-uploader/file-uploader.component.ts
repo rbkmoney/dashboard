@@ -2,7 +2,7 @@ import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { merge, Subject } from 'rxjs';
-import { delay, map, switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 import { FilesService } from '../api/files';
 import { progress } from '../custom-operators';
@@ -30,8 +30,7 @@ export class FileUploaderComponent {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        // switchMap(files => this.filesService.uploadFiles(files))
-        this.startUploading$.pipe(tap((e) => console.log('COUNT', e)), delay(1000), map(() => ['1'])).subscribe(
+        this.startUploading$.pipe(switchMap(files => this.filesService.uploadFiles(files))).subscribe(
             value => value.length && this.uploadedFilesIds$.emit(value),
             () => {
                 this.uploadingError$.next(null);

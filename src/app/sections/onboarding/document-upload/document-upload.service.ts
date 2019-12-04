@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { concat, forkJoin, Observable, of, Subject } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { concat, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDebounceTime, concatFirstScan, progress } from '../../../custom-operators';
+import { concatFirstScan, progress } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { Claim, Modification } from '../../../api-codegen/claim-management/swagger-codegen';
@@ -24,9 +24,7 @@ export class DocumentUploadService {
 
     updateClaim$ = new Subject<string[]>();
 
-    isClaimUpdating$: Observable<boolean>;
-
-    isFilesLoading$: Observable<boolean>;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private route: ActivatedRoute,
@@ -36,7 +34,6 @@ export class DocumentUploadService {
         private transloco: TranslocoService
     ) {
         const initialIds$ = this.claim$.pipe(
-            tap((e) => console.log('TAP', e)),
             first(),
             takeFileModificationsUnit,
             filter(value => !!value),
@@ -44,22 +41,21 @@ export class DocumentUploadService {
             shareReplay(1)
         );
         const updatedFilesIds$ = this.updateClaim$.pipe(
-            tap((e) => console.log('start', e)),
             concatFirstScan(
-                (accIds, ids) => this.claim$.pipe(
-                    tap((e) => console.log('R', e)),
-                    switchMap(({ id, revision }) => {
-                        return this.claimService.updateClaimByID(
-                            id,
-                            revision,
-                            this.fileIdsToFileModifications(ids)
-                        ).pipe(catchError(() => of([])));
-                    }),
-                    map(() => [...accIds, ...ids])
-                ),
+                (accIds, ids) =>
+                    this.claim$.pipe(
+                        switchMap(({ id, revision }) => {
+                            return this.claimService.updateClaimByID(
+                                id,
+                                revision,
+                                this.fileIdsToFileModifications(ids)
+                            );
+                        }),
+                        catchError(() => of([])),
+                        map(() => [...accIds, ...ids])
+                    ),
                 initialIds$
             ),
-            distinctUntilChanged(),
             shareReplay(1)
         );
         const filesIds$ = concat(initialIds$, updatedFilesIds$).pipe(shareReplay(1));
@@ -71,21 +67,17 @@ export class DocumentUploadService {
             shareReplay(1)
         );
         this.filesData$ = filesIds$.pipe(
-            switchMap(ids => this.getFilesInfo(ids).pipe(catchError(() => of([])))),
-            tap((kek) => console.log('FILES DAT TAP' , kek)),
+            switchMap(ids => this.getFilesInfo(ids)),
             shareReplay(1)
         );
-        this.isClaimUpdating$ = progress(this.updateClaim$, updatedFilesIds$).pipe(
-            booleanDebounceTime(),
-            shareReplay(1)
-        );
-        this.isFilesLoading$ = progress(filesIds$, this.filesData$).pipe(shareReplay(1));
+        const isClaimUpdating$ = progress(this.updateClaim$, updatedFilesIds$).pipe(shareReplay(1));
+        const isFilesLoading$ = progress(filesIds$, this.filesData$).pipe(shareReplay(1));
+        this.isLoading$ = merge(isClaimUpdating$, isFilesLoading$);
         this.filesData$.subscribe({
             error: () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         });
         this.hasFiles$.subscribe();
-        this.isFilesLoading$.subscribe();
-        this.isClaimUpdating$.subscribe();
+        this.isLoading$.subscribe();
     }
 
     private fileIdsToFileModifications(fileIds: string[]): Modification[] {
@@ -93,6 +85,6 @@ export class DocumentUploadService {
     }
 
     private getFilesInfo(ids: string[]): Observable<FileData[]> {
-        return ids.length ? forkJoin(ids.map(id => this.filesService.getFileInfo(id))).pipe(tap(x => console.log('forkJoin', x))) : of([]).pipe(tap(x => console.log('of', x)));
+        return ids.length ? forkJoin(ids.map(id => this.filesService.getFileInfo(id))) : of([]);
     }
 }

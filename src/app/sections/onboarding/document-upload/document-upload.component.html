@@ -4,7 +4,7 @@
         <dsh-card fxFlex fxLayout="column">
             <dsh-card-title class="mat-title" fxLayout="row" fxLayoutAlign="space-between">
                 {{ t.documentUpload.title }}
-                <div *ngIf="isClaimUpdating$ | async" fxLayout fxLayoutAlign="center center">
+                <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
                     <dsh-spinner [type]="spinnerType" size="30"></dsh-spinner>
                 </div>
             </dsh-card-title>
@@ -18,22 +18,12 @@
                 </div>
                 <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
                     <div class="mat-body-2">{{ t.documentUpload.uploadedDocs }}:</div>
-                    <div *ngIf="hasFiles$ | async; else noFiles" fxLayout="column" fxLayoutGap="10px">
-                        <div *ngIf="((filesData$ | async) || []).length; else emptyFilesData">
-                            <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>
-                        </div>
-                        <ng-template #emptyFilesData>
-                            <div
-                                *ngIf="isFilesLoading$ | async; else filesNotUploaded"
-                                fxLayout
-                                fxLayoutAlign="center center"
-                            >
-                                <dsh-spinner [type]="spinnerType" size="30"></dsh-spinner>
-                            </div>
-                            <ng-template #filesNotUploaded>
-                                <div>{{ t.documentUpload.filesNotUploaded }}</div>
-                            </ng-template>
-                        </ng-template>
+                    <div
+                        *ngIf="(hasFiles$ | async) && (filesData$ | async) && (filesData$ | async).length; else noFiles"
+                        fxLayout="column"
+                        fxLayoutGap="10px"
+                    >
+                        <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>
                     </div>
                     <ng-template #noFiles>
                         <div>{{ t.documentUpload.noDocs }}</div>
@@ -41,8 +31,12 @@
                 </div>
                 <dsh-file-uploader (uploadedFilesIds$)="updateClaim$.next($event)"></dsh-file-uploader>
                 <div fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
-                    <button fxFlex="100px" dsh-button (click)="cancel()">{{ c.cancel }}</button>
-                    <button fxFlex="100px" dsh-button color="accent" (click)="done()">{{ c.done }}</button>
+                    <button [disabled]="isLoading$ | async" fxFlex="100px" dsh-button (click)="cancel()">
+                        {{ c.cancel }}
+                    </button>
+                    <button [disabled]="isLoading$ | async" fxFlex="100px" dsh-button color="accent" (click)="done()">
+                        {{ c.done }}
+                    </button>
                 </div>
             </dsh-card-content>
         </dsh-card>
