@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
-import { filter, first, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { concat, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay, progress, switchForward, takeError } from '../../../custom-operators';
+import { concatFirstScan, progress } from '../../../custom-operators';
 import { ClaimsService, FilesService, takeFileModificationsUnit } from '../../../api';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { Claim, Modification } from '../../../api-codegen/claim-management/swagger-codegen';
@@ -18,25 +18,13 @@ export class DocumentUploadService {
         shareReplay(1)
     );
 
-    private filesIds$ = new BehaviorSubject<string[]>([]);
+    hasFiles$: Observable<boolean>;
 
-    hasFiles$: Observable<boolean> = this.filesIds$.pipe(
-        map(modifications => modifications.length > 0),
-        shareReplay(1)
-    );
-
-    filesData$: Observable<FileData[]> = this.filesIds$.pipe(
-        switchMap(ids => this.getFilesInfo(ids)),
-        shareReplay(1)
-    );
+    filesData$: Observable<FileData[]>;
 
     updateClaim$ = new Subject<string[]>();
 
-    isLoading$ = progress(this.filesIds$, this.filesData$).pipe(
-        startWith(false),
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean>;
 
     constructor(
         private route: ActivatedRoute,
@@ -45,38 +33,51 @@ export class DocumentUploadService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.claim$
-            .pipe(
-                takeFileModificationsUnit,
-                filter(value => !!value),
-                map(units => units.map(unit => unit.fileId))
-            )
-            .subscribe(ids => this.filesIds$.next(ids));
-        this.updateClaim$
-            .pipe(
-                switchForward(ids =>
+        const initialIds$ = this.claim$.pipe(
+            first(),
+            takeFileModificationsUnit,
+            filter(value => !!value),
+            map(units => units.map(unit => unit.fileId)),
+            shareReplay(1)
+        );
+        const updatedFilesIds$ = this.updateClaim$.pipe(
+            concatFirstScan(
+                (accIds, ids) =>
                     this.claim$.pipe(
-                        first(),
                         switchMap(({ id, revision }) => {
                             return this.claimService.updateClaimByID(
                                 id,
                                 revision,
                                 this.fileIdsToFileModifications(ids)
                             );
-                        })
-                    )
-                )
-            )
-            .subscribe(
-                ({ forward }) => this.filesIds$.next([...this.filesIds$.value, ...forward]),
-                () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
-            );
-        this.filesData$
-            .pipe(
-                takeError,
-                shareReplay(1)
-            )
-            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+                        }),
+                        catchError(() => of([])),
+                        map(() => [...accIds, ...ids])
+                    ),
+                initialIds$
+            ),
+            shareReplay(1)
+        );
+        const filesIds$ = concat(initialIds$, updatedFilesIds$).pipe(shareReplay(1));
+        filesIds$.subscribe({
+            error: () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+        });
+        this.hasFiles$ = filesIds$.pipe(
+            map(modifications => modifications.length > 0),
+            shareReplay(1)
+        );
+        this.filesData$ = filesIds$.pipe(
+            switchMap(ids => this.getFilesInfo(ids)),
+            shareReplay(1)
+        );
+        const isClaimUpdating$ = progress(this.updateClaim$, updatedFilesIds$).pipe(shareReplay(1));
+        const isFilesLoading$ = progress(filesIds$, this.filesData$).pipe(shareReplay(1));
+        this.isLoading$ = merge(isClaimUpdating$, isFilesLoading$);
+        this.filesData$.subscribe({
+            error: () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+        });
+        this.hasFiles$.subscribe();
+        this.isLoading$.subscribe();
     }
 
     private fileIdsToFileModifications(fileIds: string[]): Modification[] {
