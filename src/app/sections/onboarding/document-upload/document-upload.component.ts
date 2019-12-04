@@ -20,7 +20,8 @@ export class DocumentUploadComponent {
     claim$ = this.documentUploadService.claim$;
     updateClaim$ = this.documentUploadService.updateClaim$;
     hasFiles$ = this.documentUploadService.hasFiles$;
-    isLoading$ = this.documentUploadService.isLoading$;
+    isClaimUpdating$ = this.documentUploadService.isClaimUpdating$;
+    isFilesLoading$ = this.documentUploadService.isFilesLoading$;
 
     constructor(
         private router: Router,
