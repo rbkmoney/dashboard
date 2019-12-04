@@ -35,7 +35,6 @@ export class FormatInputComponent extends CustomFormControl {
 
         this.size = (prefix || postfix) && estimatedSize ? String(estimatedSize) : null;
         this.placeholder = this.prepareText(placeholder);
-        console.log(placeholder, this.placeholder);
         this.prefix = this.prepareText(prefix);
         this.postfix = this.prepareText(postfix);
         this.mask = mask;
