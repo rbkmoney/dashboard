@@ -30,11 +30,7 @@ function getLegalOwnerInfo(heads: Head[]): LegalOwnerInfo {
     };
 }
 
-export function createLegalEntityContractor({
-    contractor,
-    inn,
-    ogrn
-}: ReqResponseLegalEntity): RussianLegalEntityContractor {
+export function createLegalEntityContractor({ contractor, inn }: ReqResponseLegalEntity): RussianLegalEntityContractor {
     const legalOwnerInfo = getLegalOwnerInfo(contractor.heads);
     return {
         contractorType: 'LegalEntityContractor',
@@ -44,7 +40,6 @@ export function createLegalEntityContractor({
             inn,
             registrationInfo: {
                 registrationInfoType: 'LegalRegistrationInfo',
-                ogrn,
                 registrationDate: moment(contractor.registrationDate)
                     .utc()
                     .format(),

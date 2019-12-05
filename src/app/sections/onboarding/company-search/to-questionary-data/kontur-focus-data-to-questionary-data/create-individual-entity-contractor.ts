@@ -16,8 +16,7 @@ type RussianIndividualEntityContractor = Replace<
 
 export function createIndividualEntityContractor({
     contractor,
-    inn,
-    ogrn
+    inn
 }: ReqResponseIndividualEntity): RussianIndividualEntityContractor {
     return {
         contractorType: 'IndividualEntityContractor',
@@ -27,7 +26,6 @@ export function createIndividualEntityContractor({
             inn,
             registrationInfo: {
                 registrationInfoType: 'IndividualRegistrationInfo',
-                ogrnip: ogrn,
                 registrationDate: moment(contractor.registrationDate)
                     .utc()
                     .format()

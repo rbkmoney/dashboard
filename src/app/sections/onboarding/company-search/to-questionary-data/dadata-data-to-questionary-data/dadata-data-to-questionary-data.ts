@@ -1,13 +1,14 @@
 import { PartyContent, OrgType } from '../../../../../api-codegen/aggr-proxy';
 import { QuestionaryData, Contractor } from '../../../../../api-codegen/questionary';
-import { toLegalEntityContractor, toIndividualEntityContractor } from './to-contractor';
+import { createLegalEntityContractor } from './create-legal-entity-contractor';
+import { createIndividualEntityContractor } from './create-individual-entity-contractor';
 
 const createContractor = (partyContent: PartyContent): Contractor | null => {
     switch (partyContent.orgType) {
         case OrgType.Legal:
-            return toLegalEntityContractor(partyContent);
+            return createLegalEntityContractor(partyContent);
         case OrgType.Individual:
-            return toIndividualEntityContractor(partyContent);
+            return createIndividualEntityContractor(partyContent);
         default:
             return null;
     }
