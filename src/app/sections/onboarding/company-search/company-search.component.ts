@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { take, shareReplay, map, switchMap } from 'rxjs/operators';
+import { take, shareReplay, map, switchMap, catchError } from 'rxjs/operators';
 
 import { CompanyDetails } from './company-details';
 import { CompanySearchService } from './company-search.service';
@@ -80,6 +80,10 @@ export class CompanySearchComponent {
     private setDataByPartyContent(content: PartyContent) {
         this.content = content;
         this.data$ = this.companySearchService.loadKonturFocusData(content.inn).pipe(
+            catchError(e => {
+                console.error('Kontur.Focus API error', e);
+                return of(null);
+            }),
             map(data => (data ? konturFocusDataToQuestionaryData(data) : partyContentToQuestionaryData(content))),
             shareReplay(1)
         );
