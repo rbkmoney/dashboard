@@ -8,7 +8,7 @@ import { CompanySearchService } from './company-search.service';
 import { PartyContent } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData, Contractor } from '../../../api-codegen/questionary';
 import {
-    partyContentToQuestionaryData,
+    dadataDataToQuestionaryData,
     contractorTypeToQuestionaryData,
     konturFocusDataToQuestionaryData
 } from './to-questionary-data';
@@ -84,7 +84,7 @@ export class CompanySearchComponent {
                 console.error('Kontur.Focus API error', e);
                 return of(null);
             }),
-            map(data => (data ? konturFocusDataToQuestionaryData(data) : partyContentToQuestionaryData(content))),
+            map(data => (data ? konturFocusDataToQuestionaryData(data) : dadataDataToQuestionaryData(content))),
             shareReplay(1)
         );
     }
