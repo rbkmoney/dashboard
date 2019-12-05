@@ -4,8 +4,9 @@ import { CardModule } from './card';
 import { FloatPanelModule } from './float-panel';
 import { JustifyWrapperModule } from './justify-wrapper';
 import { HeadlineModule } from './headline';
+import { PanelModule } from './panel';
 
-const EXPORTED_IMPORTS = [CardModule, FloatPanelModule, JustifyWrapperModule, HeadlineModule];
+const EXPORTED_IMPORTS = [CardModule, FloatPanelModule, JustifyWrapperModule, HeadlineModule, PanelModule];
 
 @NgModule({
     imports: EXPORTED_IMPORTS,
