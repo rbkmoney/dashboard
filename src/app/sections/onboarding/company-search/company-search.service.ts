@@ -7,8 +7,8 @@ import { filter, switchMap, catchError, pluck } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ClaimsService, QuestionaryService, createDocumentModificationUnit } from '../../../api';
-import { PartyContent, OrgType } from '../../../api-codegen/aggr-proxy';
+import { ClaimsService, QuestionaryService, createDocumentModificationUnit, KonturFocusService } from '../../../api';
+import { PartyContent, OrgType, ReqResponse } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
 
@@ -27,7 +27,8 @@ export class CompanySearchService {
         private claimsService: ClaimsService,
         private questionaryService: QuestionaryService,
         private transloco: TranslocoService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private konturFocusService: KonturFocusService
     ) {
         this.leaveOnboarding$
             .pipe(
@@ -64,5 +65,13 @@ export class CompanySearchService {
 
     leaveOnboarding() {
         this.leaveOnboarding$.next();
+    }
+
+    loadKonturFocusData(inn: string): Observable<ReqResponse> {
+        return this.konturFocusService
+            .request('ReqQuery', {
+                inn: [inn]
+            })
+            .pipe(pluck(0));
     }
 }

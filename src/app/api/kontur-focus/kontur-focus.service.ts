@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import {
     KonturFocusService as KonturFocusApiService,
@@ -44,7 +45,9 @@ export class KonturFocusService {
     request<T extends RequestType>(
         konturFocusRequestType: T,
         requestParams: Partial<Omit<ParamsByRequestType[T], 'konturFocusRequestType'>>
-    ): Observable<ResponsesByRequestType[T]> {
-        return this.konturFocusService.requestKonturFocus({ request: { konturFocusRequestType, ...requestParams } });
+    ): Observable<ResponsesByRequestType[T]['responses']> {
+        return this.konturFocusService
+            .requestKonturFocus({ request: { konturFocusRequestType, ...requestParams } })
+            .pipe(pluck('responses'));
     }
 }
