@@ -28,6 +28,7 @@
 @import '../../app/layout/headline/secondary-title/secondary-title-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
+@import '../../app/layout/panel/panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -61,5 +62,6 @@
         @include dsh-expansion-theme($theme);
         @include dsh-details-item-theme($theme);
         @include dsh-details-secondary-title-theme($theme);
+        @include dsh-panel-theme($theme);
     }
 }
