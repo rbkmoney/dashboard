@@ -15,6 +15,10 @@ const operationsRoutes: Routes = [
             {
                 path: 'refunds',
                 loadChildren: () => import('./refunds/refunds.module').then(mod => mod.RefundsModule)
+            },
+            {
+                path: 'invoices',
+                loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesModule)
             }
         ]
     }

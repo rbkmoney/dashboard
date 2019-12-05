@@ -1,90 +1,61 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { CompanyDetails } from './company-details';
-import { LeaveOnboardingDialogComponent } from './leave-onboarding-dialog';
-import { SuggestionData } from '../../../dadata/model/suggestions';
-import { SuggestionType } from '../../../dadata/model/type';
-import { ContractorTypeSelect } from './manual-contractor-selector';
+import { CompanySearchService } from './company-search.service';
+import { PartyContent } from '../../../api-codegen/aggr-proxy';
+import { QuestionaryData, Contractor } from '../../../api-codegen/questionary';
+import { partyContentToQuestionaryData, contractorTypeToQuestionaryData } from './to-questionary-data';
 
 @Component({
-    selector: 'dsh-company-search',
     templateUrl: 'company-search.component.html',
-    styleUrls: ['company-search.component.scss']
+    styleUrls: ['company-search.component.scss'],
+    providers: [CompanySearchService]
 })
-export class CompanySearchComponent implements OnInit, OnDestroy {
-    form: FormGroup;
+export class CompanySearchComponent {
+    form: FormGroup = this.companySearchService.form;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;
+    isKnownOrgType: boolean;
+    content: PartyContent;
 
-    private dialogSub: Subscription = Subscription.EMPTY;
+    data: QuestionaryData;
 
-    constructor(
-        private dialog: MatDialog,
-        private router: Router,
-        private fb: FormBuilder,
-        private snackBar: MatSnackBar
-    ) {}
+    constructor(private companySearchService: CompanySearchService) {}
 
-    ngOnInit() {
-        this.form = this.fb.group({
-            searchStr: ['']
-        });
-    }
-
-    ngOnDestroy() {
-        this.dialogSub.unsubscribe();
-    }
-
-    back() {
-        this.dialogSub = this.dialog
-            .open(LeaveOnboardingDialogComponent, {
-                width: '450px'
-            })
-            .afterClosed()
-            .pipe(filter(r => r === 'decline'))
-            .subscribe(() => this.router.navigate(['/']));
+    leaveOnboarding() {
+        this.companySearchService.leaveOnboarding();
     }
 
     next() {
-        this.router.navigate(['onboarding', 1, 'legal-entity']);
+        this.companySearchService
+            .createInitialClaim(this.data)
+            .subscribe(id => this.companySearchService.goToOnboardingFlow(id));
     }
 
-    updateSuggestion(suggestion: SuggestionData<SuggestionType.party>) {
-        this.manualContractorSelector = false;
-        this.companyDetails = this.toCompanyDetails(suggestion);
+    updateSuggestion(content: PartyContent) {
+        this.isKnownOrgType = this.companySearchService.isKnownOrgType(content);
+        if (this.isKnownOrgType) {
+            this.manualContractorSelector = false;
+            this.data = partyContentToQuestionaryData(content);
+            this.content = content;
+        } else {
+            this.manualContractorSelector = true;
+            this.data = null;
+        }
     }
 
-    searchSuggestionError(e: any) {
+    searchSuggestionError() {
         this.manualContractorSelector = true;
-        this.snackBar.open(`Запрос закончился ошибкой (${e.status})`, 'OK', {
-            duration: 5000
-        });
+        this.data = null;
     }
 
     suggestionNotFound() {
         this.manualContractorSelector = true;
+        this.data = null;
     }
 
-    manualSelectContractorType(type: ContractorTypeSelect) {
-        console.log(type);
-    }
-
-    // TODO temporary solution
-    private toCompanyDetails({
-        value,
-        data: { address, ogrn, inn, kpp }
-    }: SuggestionData<SuggestionType.party>): CompanyDetails {
-        return {
-            name: value,
-            address: address.value,
-            ogrn,
-            inn,
-            kpp
-        };
+    manualContractorTypeSelected(t: Contractor.ContractorTypeEnum) {
+        this.data = contractorTypeToQuestionaryData(t);
     }
 }

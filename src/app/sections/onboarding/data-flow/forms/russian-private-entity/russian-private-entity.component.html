@@ -1,0 +1,16 @@
+<div
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianPrivateEntity'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-private-entity-info [form]="(form$ | async).get('privateEntityInfo')"></dsh-private-entity-info>
+    <dsh-russian-domestic-passport
+        [form]="(form$ | async).get('russianDomesticPassport')"
+    ></dsh-russian-domestic-passport>
+    <div>
+        <dsh-pdl-info [form]="(form$ | async).get('pdlInfo')"></dsh-pdl-info>
+        <dsh-individual-residency-info
+            [form]="(form$ | async).get('individualResidencyInfo')"
+        ></dsh-individual-residency-info>
+    </div>
+</div>

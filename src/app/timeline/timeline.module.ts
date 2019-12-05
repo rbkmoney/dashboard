@@ -8,21 +8,17 @@ import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title'
 import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
 import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 
+const EXPORTED_DECLARATIONS = [
+    TimelineComponent,
+    TimelineItemComponent,
+    TimelineItemTitleComponent,
+    TimelineItemBadgeComponent,
+    TimelineItemContentComponent
+];
+
 @NgModule({
     imports: [FlexLayoutModule, CommonModule],
-    declarations: [
-        TimelineComponent,
-        TimelineItemComponent,
-        TimelineItemTitleComponent,
-        TimelineItemBadgeComponent,
-        TimelineItemContentComponent
-    ],
-    exports: [
-        TimelineComponent,
-        TimelineItemComponent,
-        TimelineItemTitleComponent,
-        TimelineItemBadgeComponent,
-        TimelineItemContentComponent
-    ]
+    declarations: EXPORTED_DECLARATIONS,
+    exports: EXPORTED_DECLARATIONS
 })
 export class TimelineModule {}

@@ -1,0 +1,29 @@
+<form
+    [formGroup]="form"
+    fxLayout="column"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianDomesticPassport'"
+>
+    <div class="mat-subheading-1">{{ t.description }}</div>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.seriesNumber }}</mat-label>
+            <dsh-format-input format="seriesNumber" formControlName="seriesNumber" required></dsh-format-input>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.issuerCode }}</mat-label>
+            <dsh-format-input format="issuerCode" formControlName="issuerCode" required></dsh-format-input>
+        </mat-form-field>
+    </div>
+    <div fxLayout>
+        <mat-form-field fxFlex="48.5%">
+            <mat-label>{{ t.issuedAt }}</mat-label>
+            <input matInput formControlName="issuedAt" [matDatepicker]="issuedAtDatepicker" required />
+            <mat-datepicker-toggle matSuffix [for]="issuedAtDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #issuedAtDatepicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.issuer }}</mat-label>
+        <dsh-dadata-autocomplete formControlName="issuer" type="fmsUnit" required></dsh-dadata-autocomplete>
+    </mat-form-field>
+</form>

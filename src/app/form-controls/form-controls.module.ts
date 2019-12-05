@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { TextMaskModule } from 'angular2-text-mask';
 
-import { BinInputModule, LastDigitsInputModule } from './bank-card-controls';
+import { FormatInputModule } from './format-input';
+
+const EXPORTED_DECLARATIONS = [FormatInputModule];
 
 @NgModule({
-    imports: [BinInputModule, LastDigitsInputModule, TextMaskModule],
-    exports: [BinInputModule, LastDigitsInputModule, TextMaskModule]
+    imports: EXPORTED_DECLARATIONS,
+    exports: EXPORTED_DECLARATIONS
 })
 export class FormControlsModule {}

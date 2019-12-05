@@ -1,26 +1,23 @@
 {
     "conversation": {
-        "label": "Обсуждения",
+        "label": "Обсуждение",
         "leaveTheComment": "Оставьте комментарий",
         "toLeaveTheComment": "Оставить комментарий",
-        "lastChanges": "Последние изменения {{ date }} назад",
-        "ago": "назад",
-        "toTimelineInfo": {
-            "action": {
-                "claimCreated": "создана анкета",
-                "pending": "переведена в ожидание",
-                "pendingAcceptance": "переведена в ожидание ваших действий",
-                "review": "рассматривается",
-                "revoked": "отозвана",
-                "denied": "отклонена",
-                "accepted": "одобрена",
-                "documentAdded": "добавлен документ",
-                "commentAdded": "добавлен комментарий",
-                "changesAdded": "добавлены изменения"
+        "timeline": {
+            "claimCreated": "Заявка создана",
+            "userInfo": {
+                "internal_user": "Менеджером",
+                "external_user": "Вами"
             },
-            "author": {
-                "manager": "Менеджером",
-                "you": "Вами"
+            "action": {
+                "changesAdded": "добавлены изменения",
+                "filesAdded": "добавлены документы",
+                "commentAdded": "добавлен комментарий",
+                "statusReview": "заявка отправлена на рассмотрение",
+                "statusPending": "рассмотрена заявка",
+                "statusDenied": "отклонена заявка",
+                "statusRevoked": "отозвана заявка",
+                "statusAccepted": "одобрена заявка"
             }
         }
     },
@@ -32,6 +29,7 @@
     },
     "details": "Детали заявки",
     "placeBefore": "Отправить на рассмотрение",
-    "recall": "Отозвать",
-    "request": "Заявка на подключение"
+    "revokeClaim": "Отозвать",
+    "request": "Заявка на подключение",
+    "revoked": "Заявка успешно отозвана"
 }

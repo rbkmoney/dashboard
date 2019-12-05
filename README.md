@@ -25,7 +25,22 @@ npm run codegen
 
 ## Development server
 
-1. Run `npm start`
+-   API (Production API default)
+
+    -   With mocks:
+
+        Change `./src/appConfig.json` API endpoints
+
+1. Start
+
+    - Real Keycloak: `npm start`
+
+    - Stub Keycloak
+
+        1. Change `./src/authConfig.json` / `"auth-server-url"`:
+
+        1. `npm run stub`
+
 1. Navigate to `http://localhost:8000/`
 
 ## Production build

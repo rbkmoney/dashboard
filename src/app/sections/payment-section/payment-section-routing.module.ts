@@ -11,6 +11,10 @@ const paymentSectionRoutes: Routes = [
             {
                 path: 'operations',
                 loadChildren: () => import('./operations/operations.module').then(mod => mod.OperationsModule)
+            },
+            {
+                path: 'reports',
+                loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
             }
         ]
     }

@@ -1,0 +1,30 @@
+<form
+    [formGroup]="form$ | async"
+    fxLayout="column"
+    fxLayoutGap="10px"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianLegalOwner'"
+>
+    <div class="mat-subheading-1">{{ t.legalOwnerDescription }}</div>
+    <dsh-private-entity-info
+        [form]="(form$ | async).get('privateEntityInfo')"
+        [additionalFields]="['innfl']"
+    ></dsh-private-entity-info>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.headPosition }}</mat-label>
+            <input matInput formControlName="headPosition" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.termOfOffice }}</mat-label>
+            <input matInput formControlName="termOfOffice" required />
+            <mat-hint>{{ t.termOfOfficeHint }}</mat-hint>
+        </mat-form-field>
+    </div>
+    <dsh-authority-confirming-document
+        [form]="(form$ | async).get('authorityConfirmingDocument')"
+    ></dsh-authority-confirming-document>
+    <dsh-russian-domestic-passport
+        [form]="(form$ | async).get('russianDomesticPassport')"
+    ></dsh-russian-domestic-passport>
+    <dsh-pdl-info [form]="(form$ | async).get('pdlInfo')"></dsh-pdl-info>
+</form>

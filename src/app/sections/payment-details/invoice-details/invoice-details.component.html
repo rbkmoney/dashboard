@@ -1,12 +1,15 @@
-<dsh-card *ngIf="invoice$ | async as invoice">
-    <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
+<dsh-card *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
+    <div *ngIf="!(invoice$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <ng-container *ngIf="invoice$ | async as invoice">
         <dsh-card-title>
             <div class="mat-title" fxLayout fxLayoutGap="10px" fxLayoutAlign="start center">
-                <!-- <mat-icon class="dsh-forward-icon" routerLink="/">arrow_back</mat-icon> -->
                 <div>
                     {{ t?.title }}
                     <span dshSecondaryTitle>#{{ invoice?.id }}</span>
                 </div>
+                <mat-icon class="dsh-forward-icon" (click)="goToInvoiceDetails(invoice)">arrow_forward</mat-icon>
             </div>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">

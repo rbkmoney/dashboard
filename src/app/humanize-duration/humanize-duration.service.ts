@@ -3,12 +3,13 @@ import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { LanguageService } from '../language';
+import { Language, LanguageService } from '../language';
 
 export type Value = number | string | moment.Moment | Date;
 
 export interface HumanizeConfig extends humanizeDuration.HumanizerOptions {
     isShort?: boolean;
+    hasAgoEnding?: boolean;
 }
 
 @Injectable()
@@ -17,10 +18,11 @@ export class HumanizeDurationService {
     static MIN_HUMANIZE_DURATION_UPDATE_MS = 1000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
+    static LESS_THAN_FEW_SECONDS = 3000;
 
     private get duration() {
         return humanizeDuration.humanizer({
-            language: this.languageService.active,
+            language: this.languageService.active || Language.en,
             round: true,
             delimiter: ' '
         });
@@ -53,19 +55,26 @@ export class HumanizeDurationService {
 
     getDuration(value: Value, config: HumanizeConfig = {}): string {
         const diffMs = this.getDiffMs(value);
+        let duration = this.duration(diffMs, config);
         if (isNaN(diffMs)) {
             return null;
+        } else if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
+            return this.transloco.translate('justNow');
         } else if (config.isShort) {
-            return this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
+            duration = this.duration(diffMs, { ...config, ...this.shortEnglishHumanizer });
         } else if (config.largest === 1) {
-            return moment.duration(diffMs).humanize();
+            duration = moment.duration(diffMs).humanize();
         }
-        return this.duration(diffMs, config);
+        duration = duration === 'минута' ? 'минуту' : duration;
+        return config.hasAgoEnding ? `${duration} ${this.transloco.translate('ago')}` : duration;
     }
 
     getOptimalUpdateInterval(value: Value, { largest }: HumanizeConfig): number {
+        const diffMs = this.getDiffMs(value);
+        if (diffMs < HumanizeDurationService.LESS_THAN_FEW_SECONDS) {
+            return HumanizeDurationService.MIN_HUMANIZE_DURATION_UPDATE_MS;
+        }
         if (largest === 1) {
-            const diffMs = this.getDiffMs(value);
             if (diffMs < HumanizeDurationService.HOUR_MS) {
                 return HumanizeDurationService.MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS;
             }

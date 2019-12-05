@@ -14,3 +14,15 @@
 	path = schemes/questionary/v0
 	url = git@github.com:rbkmoney/swag-questionary.git
 	branch = release/master
+[submodule "schemes/swag-analytics/v1"]
+	path = schemes/swag-analytics/v1
+	url = git@github.com:rbkmoney/swag-analytics.git
+	branch = release/master
+[submodule "schemes/dark-api/v0"]
+	path = schemes/dark-api/v0
+	url = git@github.com:rbkmoney/swag-dark-api.git
+	branch = release/master
+[submodule "schemes/questionary-aggr-proxy/v0"]
+	path = schemes/questionary-aggr-proxy/v0
+	url = git@github.com:rbkmoney/swag-questionary-aggr-proxy.git
+	branch = release/master

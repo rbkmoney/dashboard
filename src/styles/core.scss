@@ -21,10 +21,12 @@
 @import './overrides/mat-snack-bar';
 @import './overrides/mat-radio-button';
 @import './overrides/mat-form-field';
+@import './overrides/mat-checkbox';
 @import '../app/timeline/timeline-theme';
 @import '../app/expand-panel/expand-panel-theme';
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
+@import '../app/layout/panel/panel-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -33,6 +35,7 @@
     @include mat-dialog-override();
     @include mat-snack-bar-override();
     @include mat-form-field-infix-override();
+    @include mat-checkbox-override();
 }
 
 @mixin dsh-typography($config) {
@@ -50,6 +53,7 @@
     @include dsh-dadata-autocomplete-typography($config);
     @include mat-radio-button-override-typography($config);
     @include dsh-payment-details-typography($config);
+    @include dsh-panel-typography($config);
 }
 
 @include dsh-overrides();

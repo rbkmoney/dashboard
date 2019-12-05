@@ -1,2 +1,8 @@
-.dsh-claim {
+$dsh-claim-details-padding: 20px 0 0 0;
+$dsh-claim-details-max-width: 800px;
+
+.container {
+    padding: $dsh-claim-details-padding;
+    max-width: $dsh-claim-details-max-width;
+    margin: 0 auto;
 }

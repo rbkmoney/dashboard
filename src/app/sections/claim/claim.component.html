@@ -1,38 +1,54 @@
-<ng-container *transloco="let t; scope: 'claim'; read: 'claim'">
-    <h1 class="mat-headline">{{ t?.details }} #{{ claimID$ | async }}</h1>
-
-    <dsh-card>
-        <dsh-card-content>
+<div *transloco="let t; scope: 'claim'; read: 'claim'" class="container">
+    <div *ngIf="!(claimReceived$ | async) && !(error$ | async)" fxLayout fxLayoutAlign="center center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+    <div *ngIf="(claimReceived$ | async) && !(error$ | async)" fxLayout="column" fxLayoutGap="20px">
+        <h1 class="mat-headline">{{ t?.details }} #{{ claimID$ | async }}</h1>
+        <dsh-card>
             <div fxLayout="row" fxLayoutAlign="space-between">
-                <h2 class="mat-title">{{ t.request }}</h2>
+                <h2 *transloco="let claimType; read: 'claimType'" class="mat-title">
+                    {{ claimType[claimType$ | async] }}
+                </h2>
                 <dsh-status
-                    *transloco="let statuses; read: 'claimStatus'"
-                    [color]="(claimStatusViewInfo$ | async)?.color"
+                    *transloco="let claimStatus; read: 'claimStatus'"
+                    [color]="claimStatusColor$ | async"
                     class="mat-title"
                     mark="false"
                 >
-                    {{ statuses[((claimStatusViewInfo$ | async)?.status)] }}
+                    {{ claimStatus[claimStatus$ | async] }}
                 </dsh-status>
             </div>
-            <nav dsh-tab-nav-bar>
-                <a
-                    dsh-tab-link
-                    *ngFor="let link of links"
-                    [routerLink]="link.path"
-                    routerLinkActive
-                    #rla="routerLinkActive"
-                    [active]="rla.isActive"
-                >
-                    {{ t[link.path].label }}
-                </a>
-            </nav>
-            <div>
-                <router-outlet></router-outlet>
+            <div fxLayout="column" fxLayoutGap="20px">
+                <nav dsh-tab-nav-bar>
+                    <a
+                        dsh-tab-link
+                        *ngFor="let link of links"
+                        [routerLink]="link.path"
+                        routerLinkActive
+                        #rla="routerLinkActive"
+                        [active]="rla.isActive"
+                    >
+                        {{ t[link.path].label }}
+                    </a>
+                </nav>
+                <div class="router-outlet-container">
+                    <router-outlet></router-outlet>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <div>
+                        <button
+                            *ngIf="revokeAvailable$ | async"
+                            dsh-stroked-button
+                            color="warn"
+                            [disabled]="revokeInProcess$ | async"
+                            (click)="revokeClaim()"
+                        >
+                            {{ t.revokeClaim }}
+                        </button>
+                    </div>
+                    <button dsh-button color="accent" disabled>{{ t.placeBefore }}</button>
+                </div>
             </div>
-        </dsh-card-content>
-        <dsh-card-actions fxLayout="row" fxLayoutAlign="space-between">
-            <button dsh-stroked-button color="warn">{{ t.recall }}</button>
-            <button dsh-button color="accent">{{ t.placeBefore }}</button>
-        </dsh-card-actions>
-    </dsh-card>
-</ng-container>
+        </dsh-card>
+    </div>
+</div>

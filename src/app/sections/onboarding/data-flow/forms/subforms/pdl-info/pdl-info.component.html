@@ -1,0 +1,18 @@
+<form
+    [formGroup]="form"
+    fxLayout="column"
+    [fxLayoutGap]="layoutGap"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.pdlInfo'"
+>
+    <div class="mat-subheading-1">{{ t.pdlCategoryDescription }}</div>
+    <section class="checkbox-section" fxLayout="column" [fxLayoutGap]="layoutGap">
+        <mat-checkbox formControlName="pdlCategory">{{ t.pdlCategory }}</mat-checkbox>
+        <mat-checkbox [checked]="isPdlRelationDegreeVisible$ | async" (change)="pdlRelationDegreeChange($event)">{{
+            t.pdlRelationDegreeCheckbox
+        }}</mat-checkbox>
+        <mat-form-field *ngIf="isPdlRelationDegreeVisible$ | async" fxFlex>
+            <mat-label>{{ t.pdlRelationDegree }}</mat-label>
+            <input matInput formControlName="pdlRelationDegree" />
+        </mat-form-field>
+    </section>
+</form>

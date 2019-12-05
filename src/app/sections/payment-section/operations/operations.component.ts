@@ -9,13 +9,13 @@ export class OperationsComponent {
     links = [
         {
             path: 'payments'
+        },
+        {
+            path: 'refunds'
+        },
+        {
+            path: 'invoices'
         }
-        // {
-        //     path: 'refunds'
-        // },
-        // {
-        //     path: 'invoices'
-        // }
     ];
 
     constructor(private router: Router) {

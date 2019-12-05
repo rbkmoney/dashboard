@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, debounceTime } from 'rxjs/operators';
+import { filter, map, debounceTime, startWith, pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 
 import { PaymentSearchFormValue } from './payment-search-form-value';
-import { toQueryParams } from './to-query-params';
-import { toFormValue } from './to-form-value';
+import { toQueryParams } from '../../to-query-params';
+import { toFormValue } from '../../to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
-import { takeRouteParam } from '../../../../../custom-operators';
 import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
+import { binValidator, lastDigitsValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup;
     shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
-        takeRouteParam('envID'),
+        pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo
     );
@@ -46,15 +46,15 @@ export class SearchFormService {
 
     formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
         return this.searchForm.valueChanges.pipe(
+            startWith(this.defaultValues),
             filter(() => this.searchForm.status === 'VALID'),
             removeEmptyProperties,
             debounceTime(valueDebounceTime)
         );
     }
 
-    reset(): PaymentSearchFormValue {
+    reset() {
         this.searchForm.reset(this.defaultValues);
-        return this.defaultValues;
     }
 
     applySearchFormValue(v: SearchFormValue) {
@@ -82,8 +82,8 @@ export class SearchFormService {
             payerIP: '',
             payerFingerprint: '',
             customerID: '',
-            first6: '',
-            last4: '',
+            first6: ['', binValidator],
+            last4: ['', lastDigitsValidator],
             bankCardTokenProvider: '',
             bankCardPaymentSystem: '',
             paymentAmount: '',

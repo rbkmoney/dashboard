@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { ClaimsService as APIClaimsService, Claim, StatusModificationUnit } from '../../api-codegen/claim-management';
-import { ClaimsWithToken } from './claims-with-token';
-import { genXRequestID } from '../gen-x-request-id';
+import {
+    ClaimsService as APIClaimsService,
+    Claim,
+    StatusModificationUnit,
+    Modification
+} from '../../api-codegen/claim-management';
+import { ClaimsWithToken } from './models';
+import { genXRequestID } from '../utils';
 import { noContinuationToken, mapResult } from '../../custom-operators';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;
@@ -15,14 +20,20 @@ export class ClaimsService {
 
     searchClaims(
         limit: number,
-        continuationToken?: string,
-        claimStatuses?: StatusModificationUnit.StatusEnum[]
+        claimStatuses?: StatusModificationUnit.StatusEnum[],
+        continuationToken?: string
     ): Observable<ClaimsWithToken> {
-        return this.claimsService.searchClaims(genXRequestID(), limit, undefined, continuationToken, claimStatuses);
+        return this.claimsService.searchClaims(
+            genXRequestID(),
+            limit,
+            undefined,
+            continuationToken,
+            claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
+        );
     }
 
     search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[], cacheSize = 1): Observable<Claim[]> {
-        return this.searchClaims(1000, null, claimStatuses).pipe(
+        return this.searchClaims(1000, claimStatuses).pipe(
             noContinuationToken,
             mapResult,
             shareReplay(cacheSize)
@@ -31,5 +42,13 @@ export class ClaimsService {
 
     getClaimByID(claimID: number): Observable<Claim> {
         return this.claimsService.getClaimByID(genXRequestID(), claimID);
+    }
+
+    createClaim(changeset: Modification[]): Observable<Claim> {
+        return this.claimsService.createClaim(genXRequestID(), changeset);
+    }
+
+    revokeClaimByID(claimID: number, claimRevision: number): Observable<void> {
+        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision);
     }
 }

@@ -1,12 +1,9 @@
 {
     "api": {
-        "capiEndpoint": "http://localhost:9900",
-        "claimManagementEndpoint": "http://localhost:9902",
-        "questionaryEndpoint": "http://localhost:9903"
-    },
-    "daData": {
-        "token": "Token 513f29a0891d00336496240b5cee89afe8fafde7",
-        "suggestionsApiUrl": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest"
+        "capiEndpoint": "https://api.rbk.money",
+        "claimManagementEndpoint": "https://api.rbk.money/dark-api/v1",
+        "anapiEndpoint": "https://api.rbk.money/analytics",
+        "dapiEndpoint": "https://api.rbk.money/dark-api/v1"
     },
     "konturFocus": {
         "apiV3Url": "https://focus-api.kontur.ru/api3"

@@ -22,7 +22,7 @@ import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
 import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
-import { icons } from './icons';
+import icons from './icons.json';
 import { environment } from '../environments/environment';
 import { translocoLoader } from './transloco.loader';
 import { LanguageService } from './language';
@@ -49,7 +49,7 @@ import { LanguageService } from './language';
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService],
+            deps: [ConfigService, KeycloakService, LanguageService],
             multi: true
         },
         {
@@ -90,7 +90,7 @@ export class AppModule {
         for (const name of icons) {
             this.matIconRegistry.addSvgIcon(
                 name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/${name}.svg`)
+                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
             );
         }
         this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');

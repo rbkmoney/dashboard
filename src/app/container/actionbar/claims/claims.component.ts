@@ -11,7 +11,12 @@ import { ClaimsService } from './claims.service';
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();
 
+    claims$ = this.claimsService.claims$;
+    isLoading$ = this.claimsService.isLoading$;
+    error$ = this.claimsService.error$;
+    noClaims$ = this.claimsService.noClaims$;
+
     dicBasePath = 'actionbar.claims';
 
-    constructor(public claimsService: ClaimsService) {}
+    constructor(private claimsService: ClaimsService) {}
 }

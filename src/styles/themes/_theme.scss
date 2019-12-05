@@ -23,6 +23,12 @@
 @import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
+@import '../../app/expansion/expansion-theme';
+@import '../../app/details-item/details-item-theme';
+@import '../../app/layout/headline/secondary-title/secondary-title-theme';
+@import '../../app/sections/invoice-details/cart/cart-theme';
+@import '../../app/sections/invoice-details/payments/payments-theme';
+@import '../../app/layout/panel/panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -35,6 +41,8 @@
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
         @include dsh-table-theme($theme);
+        @include dsh-invoice-cart-theme($theme);
+        @include dsh-invoice-payments-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
         @include dsh-linear-chart-theme($theme);
@@ -51,5 +59,9 @@
         @include dsh-expand-panel-theme($theme);
         @include dsh-dadata-autocomplete-theme($theme);
         @include dsh-payment-details-theme($theme);
+        @include dsh-expansion-theme($theme);
+        @include dsh-details-item-theme($theme);
+        @include dsh-details-secondary-title-theme($theme);
+        @include dsh-panel-theme($theme);
     }
 }

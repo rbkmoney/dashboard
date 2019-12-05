@@ -5,15 +5,22 @@
     "back": "Назад",
     "next": "Далее",
     "ago": "назад",
+    "cancel": "Отмена",
+    "justNow": "только что",
     "today": "Сегодня",
     "week": "Неделя",
     "month": "Месяц",
     "any": "Любой",
     "update": "Обновить",
     "lastUpdate": "Последнее обновление",
-    "httpError": "Произошла ошибка в процессе получения данных",
+    "httpError": "Произошла ошибка в процессе передачи / получения данных",
     "commonError": "Что-то пошло не так",
     "loading": "Загрузка...",
+    "ok": "OK",
+    "period": {
+        "fromTime": "Начало периода",
+        "toTime": "Конец периода"
+    },
     "paymentStatus": {
         "pending": "Запущен",
         "processed": "Обработан",
@@ -21,6 +28,10 @@
         "cancelled": "Отменен",
         "refunded": "Возвращен",
         "failed": "Неуспешен"
+    },
+    "reportType": {
+        "paymentRegistry": "Ручной",
+        "provisionOfService": "Автоматический"
     },
     "invoiceStatus": {
         "paid": "Оплачен",
@@ -32,6 +43,10 @@
         "succeeded": "Успешен",
         "pending": "Запущен",
         "failed": "Неуспешен"
+    },
+    "reportStatus": {
+        "pending": "В процессе",
+        "processed": "Готов"
     },
     "paymentFlow": {
         "instant": "Мгновенный",
@@ -76,6 +91,9 @@
     "paymentTerminalProvider": {
         "euroset": "Евросеть"
     },
+    "claimType": {
+        "questionary": "Заявка на подключение"
+    },
     "claimStatus": {
         "pending": "В ожидании",
         "pendingAcceptance": "Требуются ваши действия",
@@ -83,5 +101,10 @@
         "revoked": "Отозвана",
         "denied": "Отклонена",
         "accepted": "Одобрена"
+    },
+    "confirmActionDialog": {
+        "subheading": "Подтвердите действие",
+        "cancel": "Отмена",
+        "confirm": "Подтвердить"
     }
 }

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --port 8000",
+    "stub": "ng serve --port 8000 --configuration=stub-keycloak",
     "aot": "ng serve --port 8000 --aot",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
     "test": "ng test",
@@ -16,7 +17,8 @@
     "fix": "npm run lint-fix; npm run prettify",
     "quicktype": "quicktype -s schema --just-types",
     "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
-    "coverage": "npx http-server -c-1 -o -p 9875 ./coverage"
+    "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
+    "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +35,6 @@
     "@angular/platform-browser-dynamic": "~8.0.2",
     "@angular/router": "~8.0.2",
     "@ngneat/transloco": "^1.7.9",
-    "@types/lodash.negate": "^3.0.6",
     "acorn": "^6.1.1",
     "angular-epic-spinners": "^2.0.0",
     "angular2-text-mask": "^9.0.0",
@@ -45,8 +46,10 @@
     "d3-transition": "^1.1.3",
     "hammerjs": "^2.0.8",
     "humanize-duration": "^3.19.0",
+    "is-url-superb": "^3.0.0",
     "keycloak-angular": "^7.0.1",
     "keycloak-js": "^4.8.3",
+    "libphonenumber-js": "^1.7.27",
     "lodash.get": "^4.4.2",
     "lodash.isempty": "^4.4.0",
     "lodash.isnil": "^4.0.0",
@@ -60,6 +63,7 @@
     "rxjs": "~6.5.2",
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^1.9.0",
+    "uuid": "^3.3.3",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
@@ -75,12 +79,15 @@
     "@types/lodash.isempty": "^4.4.6",
     "@types/lodash.isnil": "^4.0.6",
     "@types/lodash.mapvalues": "^4.6.6",
+    "@types/lodash.negate": "^3.0.6",
     "@types/lodash.random": "^3.2.6",
     "@types/lodash.round": "^4.0.6",
     "@types/lodash.template": "^4.4.6",
     "@types/moment": "^2.13.0",
     "@types/node": "^11.13.10",
     "@types/pdfmake": "^0.1.8",
+    "@types/prettier": "^1.18.3",
+    "@types/uuid": "^3.4.5",
     "codelyzer": "^5.0.1",
     "husky": "^3.0.1",
     "jasmine-core": "~3.4.0",

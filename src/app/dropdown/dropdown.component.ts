@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, EventEmitter, Output, TemplateRef } from '@angular/core';
+import { Component, Input, ViewChild, EventEmitter, Output, TemplateRef, ContentChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { openCloseAnimation, State } from './open-close-animation';
@@ -21,6 +21,8 @@ export class DropdownComponent {
     @Output() backdropClick? = new EventEmitter<MouseEvent>();
 
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
+    @ContentChild(TemplateRef, { static: true }) contentTemplateRef: TemplateRef<any>;
+
     state = State.closed;
     triangleLeftOffset: string;
     animationDone$ = new Subject();

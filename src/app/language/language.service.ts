@@ -13,15 +13,20 @@ export class LanguageService {
 
     active: Language;
 
-    constructor(private settingsService: SettingsService, private transloco: TranslocoService) {
+    constructor(private settingsService: SettingsService, private transloco: TranslocoService) {}
+
+    async init() {
         const language = this.settingsService.get(LanguageService.KEY);
         const correctedLanguage = this.getCorrectLanguage(language);
-        this.change(correctedLanguage);
+        await this.change(correctedLanguage);
     }
 
-    change(language: Language) {
-        moment.locale(language);
+    async change(language: Language) {
         registerLocaleData(angularLocaleData[language], language);
+        if (language !== Language.en) {
+            await import(`moment/locale/${language}`);
+        }
+        moment.locale(language);
         this.settingsService.set(LanguageService.KEY, language);
         this.transloco.setActiveLang(language);
         this.active = language;

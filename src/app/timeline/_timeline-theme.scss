@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import './timeline-item/timeline-item-badge/timeline-item-badge-theme';
 
 @mixin dsh-timeline-theme($theme) {
     $neutral: map-get($theme, neutral);
@@ -15,32 +16,11 @@
         }
     }
 
-    .dsh-timeline-item {
-        &-badge {
-            background-color: $line-color;
-        }
-
-        &-success {
-            .dsh-timeline-item-badge {
-                background-color: $success-base;
-                color: map-get($background, card);
-            }
-        }
-
-        &-pending {
-            .dsh-timeline-item-badge {
-                background-color: $pending-base;
-                color: map-get($background, card);
-            }
-        }
-
-        &-warn {
-            .dsh-timeline-item-badge {
-                background-color: $warn-base;
-                color: map-get($background, card);
-            }
-        }
+    .dsh-timeline-item-badge {
+        background-color: $line-color;
     }
+
+    @include dsh-timeline-item-badge-theme($theme);
 }
 
 @mixin dsh-timeline-typography($config) {

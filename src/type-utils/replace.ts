@@ -1,1 +1,3 @@
-export type Replace<T, K> = Pick<T, Exclude<keyof T, keyof K>> & K;
+import { Omit } from './omit';
+
+export type Replace<T, K> = Omit<T, keyof K> & K;

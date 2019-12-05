@@ -3,4 +3,4 @@
         <div *ngIf="item.dicPath; else moreBlock">{{ t[item.dicPath] }}</div>
     </dsh-button-toggle>
 </dsh-button-toggle-group>
-<ng-template #moreBlock> <mat-icon>more_horiz</mat-icon> </ng-template>
+<ng-template #moreBlock><mat-icon svgIcon="more_horiz"></mat-icon></ng-template>

@@ -9,27 +9,25 @@
                     formControlName="searchStr"
                     type="party"
                     (optionSelected)="updateSuggestion($event)"
-                    (errorOccurred)="searchSuggestionError($event)"
+                    (errorOccurred)="searchSuggestionError()"
                     (suggestionNotFound)="suggestionNotFound()"
                     #daDadataAutocomplete
                 ></dsh-dadata-autocomplete>
             </mat-form-field>
         </form>
         <div class="info-block">
-            <dsh-company-details
-                *ngIf="companyDetails && !manualContractorSelector"
-                [details]="companyDetails"
-            ></dsh-company-details>
+            <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content">
+            </dsh-company-details>
             <dsh-manual-contractor-selector
                 *ngIf="manualContractorSelector"
-                (selectContractorType)="manualSelectContractorType($event)"
+                (contractorTypeSelected)="manualContractorTypeSelected($event)"
             ></dsh-manual-contractor-selector>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-            <button dsh-stroked-button color="accent" (click)="back()">
+            <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
                 {{ t.back }}
             </button>
-            <button dsh-button color="accent" (click)="next()">{{ t.next }}</button>
+            <button dsh-button color="accent" [disabled]="!data" (click)="next()">{{ t.next }}</button>
         </div>
     </dsh-card>
 </div>

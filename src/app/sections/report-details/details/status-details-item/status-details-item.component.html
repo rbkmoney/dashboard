@@ -1,0 +1,5 @@
+<ng-container *transloco="let t; scope: 'report'; read: 'report.statusDetailItem'">
+    <dsh-details-item *ngIf="text" [title]="t?.status">
+        <dsh-status [color]="color">{{ text }}</dsh-status>
+    </dsh-details-item>
+</ng-container>

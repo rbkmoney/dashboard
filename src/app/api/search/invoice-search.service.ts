@@ -3,12 +3,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { InvoiceSearchResult, SearchService } from '../../api-codegen/capi/swagger-codegen';
-import { fakeDate } from './fake-date';
+import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { toDateLike, genXRequestID } from '../utils';
 import { InvoicesSearchParams } from './invoices-search-params';
 import { InvoicesWithToken } from './invoices-with-token';
 import { Duration } from './duration';
-import { genXRequestID } from '../gen-x-request-id';
 
 @Injectable()
 export class InvoiceSearchService {
@@ -19,12 +18,13 @@ export class InvoiceSearchService {
         toTime: string,
         params: InvoicesSearchParams,
         limit: number,
-        continuationToken?: string
+        continuationToken?: string,
+        excludedShops?: string[]
     ): Observable<InvoicesWithToken> {
         return this.searchService.searchInvoices(
             genXRequestID(),
-            fakeDate(fromTime),
-            fakeDate(toTime),
+            toDateLike(fromTime),
+            toDateLike(toTime),
             limit,
             undefined,
             params.shopID,
@@ -46,7 +46,7 @@ export class InvoiceSearchService {
             params.rrn,
             params.paymentAmount,
             params.invoiceAmount,
-            params.excludedShops,
+            excludedShops,
             continuationToken
         );
     }
@@ -68,7 +68,7 @@ export class InvoiceSearchService {
         return this.searchInvoices(from, to, { invoiceID }, limit);
     }
 
-    getInvoiceByDuration(duration: Duration, invoiceID: string): Observable<InvoiceSearchResult> {
+    getInvoiceByDuration(duration: Duration, invoiceID: string): Observable<Invoice> {
         return this.searchInvoicesByDuration(duration, invoiceID, 1).pipe(map(res => res.result[0]));
     }
 }

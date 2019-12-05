@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CompanySearchComponent } from './company-search';
-import { LegalEntityComponent } from './legal-entity/legal-entity.component';
 
 export const routes: Routes = [
     {
@@ -10,8 +9,8 @@ export const routes: Routes = [
         component: CompanySearchComponent
     },
     {
-        path: ':claimID/legal-entity',
-        component: LegalEntityComponent
+        path: ':claimID',
+        loadChildren: () => import('./data-flow').then(m => m.DataFlowModule)
     }
 ];
 

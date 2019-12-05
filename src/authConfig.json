@@ -1,6 +1,6 @@
 {
     "realm": "external",
-    "auth-server-url": "http://auth.rbk.test:8080/auth/",
+    "auth-server-url": "https://auth.rbk.money/auth/",
     "ssl-required": "external",
     "resource": "koffing",
     "public-client": true

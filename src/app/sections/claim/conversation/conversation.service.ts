@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, pluck } from 'rxjs/operators';
 
 import { toTimelineInfo } from './to-timeline-info';
-import { ClaimService } from '../claim.service';
+import { ReceiveClaimService } from '../receive-claim.service';
 
 @Injectable()
 export class ConversationService {
     timelineInfo$ = this.claimService.claim$.pipe(
-        map(({ changeset }) => toTimelineInfo(changeset)),
+        pluck('changeset'),
+        map(toTimelineInfo),
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimService) {}
+    claimCreatedAt$ = this.claimService.claim$.pipe(
+        pluck('createdAt'),
+        shareReplay(1)
+    );
+
+    constructor(private claimService: ReceiveClaimService) {}
 }

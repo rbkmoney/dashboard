@@ -1,0 +1,45 @@
+<form
+    [formGroup]="form$ | async"
+    fxLayout="column"
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.basicInfo'"
+>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.name }}</mat-label>
+            <dsh-dadata-autocomplete
+                formControlName="name"
+                type="party"
+                (optionSelected)="partySelected($event)"
+                required
+            ></dsh-dadata-autocomplete>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.inn }}</mat-label>
+            <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
+        </mat-form-field>
+    </div>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.registrationPlace }}</mat-label>
+        <dsh-dadata-autocomplete formControlName="registrationPlace" type="address" required></dsh-dadata-autocomplete>
+    </mat-form-field>
+    <h4 class="mat-subheading-1">{{ t.shopInfo }}</h4>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.shopUrl }}</mat-label>
+        <input matInput formControlName="shopUrl" required />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.shopName }}</mat-label>
+        <input matInput formControlName="shopName" required />
+    </mat-form-field>
+    <h4 class="mat-subheading-1">{{ t.contactInfo }}</h4>
+    <div fxLayout [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.email }}</mat-label>
+            <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.phoneNumber }}</mat-label>
+            <dsh-format-input format="phoneNumber" formControlName="phoneNumber" required></dsh-format-input>
+        </mat-form-field>
+    </div>
+</form>

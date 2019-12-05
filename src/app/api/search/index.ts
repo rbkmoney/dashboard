@@ -1,4 +1,3 @@
-export * from './fake-date';
 export * from './payment-search.service';
 export * from './payments-search-params';
 export * from './payments-with-token';

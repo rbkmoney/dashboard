@@ -8,8 +8,12 @@
         [ngClass]="{ 'dsh-expand-panel-header-expandable': expandable }"
     >
         <div><ng-content></ng-content></div>
-        <mat-icon class="arrow" [ngClass]="{ 'arrow-expanded': expanded }" *ngIf="expandable">
-            keyboard_arrow_down
+        <mat-icon
+            class="arrow"
+            [ngClass]="{ 'arrow-expanded': expanded }"
+            *ngIf="expandable"
+            svgIcon="keyboard_arrow_down"
+        >
         </mat-icon>
     </div>
     <div class="dsh-expand-panel-content" *ngIf="expandable && expanded" [@expand]="expandTrigger">

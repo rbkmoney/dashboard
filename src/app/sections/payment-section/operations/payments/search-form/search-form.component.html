@@ -37,7 +37,7 @@
                         <mat-option>
                             {{ c.any }}
                         </mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status">
+                        <mat-option *ngFor="let status of paymentStatuses" [value]="status">
                             {{ c.paymentStatus[status] }}
                         </mat-option>
                     </mat-select>
@@ -76,7 +76,7 @@
                             <mat-option>
                                 {{ c.any }}
                             </mat-option>
-                            <mat-option *ngFor="let flow of flows" [value]="flow">
+                            <mat-option *ngFor="let flow of paymentFlows" [value]="flow">
                                 {{ c.paymentFlow[flow] }}
                             </mat-option>
                         </mat-select>
@@ -112,7 +112,7 @@
                             <mat-option>
                                 {{ c.any }}
                             </mat-option>
-                            <mat-option *ngFor="let method of methods" [value]="method">
+                            <mat-option *ngFor="let method of paymentMethods" [value]="method">
                                 {{ c.paymentMethod[method] }}
                             </mat-option>
                         </mat-select>
@@ -140,11 +140,11 @@
                 <div fxFlex.gt-sm fxLayout fxLayout.xs="column" [fxLayoutGap]="layoutGap" fxLayoutGap.xs="0">
                     <mat-form-field fxFlex>
                         <mat-label>{{ t.last4 }}</mat-label>
-                        <dsh-card-last-digits-input formControlName="last4"></dsh-card-last-digits-input>
+                        <dsh-format-input format="lastDigits" formControlName="last4"></dsh-format-input>
                     </mat-form-field>
                     <mat-form-field fxFlex>
                         <mat-label>{{ t.first6 }}</mat-label>
-                        <dsh-card-bin-input formControlName="first6"></dsh-card-bin-input>
+                        <dsh-format-input format="bin" formControlName="first6"></dsh-format-input>
                     </mat-form-field>
                 </div>
             </div>
