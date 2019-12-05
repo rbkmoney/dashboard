@@ -1,5 +1,5 @@
 import { BeneficialOwner, RussianDomesticPassport } from '../../../api-codegen/questionary';
-import { getFIO, toYesNo, getContactInfo } from '../select-data';
+import { toYesNo, getContactInfo } from '../select-data';
 import { getResidencyInfo } from './get-residency-info';
 
 export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
@@ -11,15 +11,14 @@ export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
         companyName,
         indicatedInDocuments: -1, // TODO
         ownershipPercentage: beneficialOwner.ownershipPercentage,
-        fio: getFIO(russianPrivateEntity.personAnthroponym),
+        fio: russianPrivateEntity.fio,
         birthDate: russianPrivateEntity.birthDate,
         birthPlace: russianPrivateEntity.birthPlace,
         citizenship: russianPrivateEntity.citizenship,
         inn: beneficialOwner.inn,
         identityDocument: {
             name: 'Паспорт РФ',
-            series: identityDocument.series,
-            number: identityDocument.number,
+            seriesNumber: identityDocument.seriesNumber,
             issuer: [identityDocument.issuer, identityDocument.issuerCode].filter(i => !!i).join(', '),
             issuedAt: identityDocument.issuedAt
         },

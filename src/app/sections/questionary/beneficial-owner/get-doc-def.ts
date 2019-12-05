@@ -46,12 +46,11 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
             createInlineParagraph('7. ИНН (при наличии)', [[data.inn]]),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
                 [`8.1. Вид документа: ${data.identityDocument.name}`],
-                [`8.2. Серия (при наличии): ${data.identityDocument.series}`],
-                [`8.3. Номер документа: ${data.identityDocument.number}`],
+                [`8.2. Серия и номер: ${data.identityDocument.seriesNumber}`],
                 [
-                    `8.4. Наименование органа, выдавшего документ, код подразделения (при наличии): ${data.identityDocument.issuer}`
+                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${data.identityDocument.issuer}`
                 ],
-                [`8.5. Дата выдачи: ${data.identityDocument.issuedAt}`]
+                [`8.4. Дата выдачи: ${data.identityDocument.issuedAt}`]
             ]),
             createInlineParagraph('9. Данные миграционной карты¹', [
                 [`9.1. Номер карты: ${data.migrationCardInfo.cardNumber}`],

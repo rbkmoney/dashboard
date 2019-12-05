@@ -7,8 +7,9 @@ import {
 } from '../create-content';
 import { getData } from './get-data';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType, AccountingType } from '../select-data';
+import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType } from '../select-data';
 import { DocDef } from '../create-questionary';
+import { AccountantInfo } from '../../../api-codegen/questionary';
 
 export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {
@@ -116,12 +117,18 @@ export function getDocDef(data: ReturnType<typeof getData>): DocDef {
                         ...createVerticalCheckboxWithTitle(
                             '8.3. Бухгалтерский учет осуществляет:',
                             [
-                                [AccountingType.HeadAccounting, 'Руководитель организации'],
                                 [
-                                    AccountingType.AccountingOrganization,
+                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting,
+                                    'Руководитель организации'
+                                ],
+                                [
+                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
                                     `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`
                                 ],
-                                [AccountingType.IndividualAccountant, 'Бухгалтер – индивидуальный специалист']
+                                [
+                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
+                                    'Бухгалтер – индивидуальный специалист'
+                                ]
                             ],
                             data.business.accounting
                         ),

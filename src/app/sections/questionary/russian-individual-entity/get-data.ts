@@ -21,7 +21,7 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
     return {
         basic: {
             inn: individualEntity.inn,
-            name: getIndividualEntityName(russianPrivateEntity.personAnthroponym),
+            name: getIndividualEntityName(russianPrivateEntity.fio),
             brandName: data.shopInfo.details.name,
             snils: individualEntity.snils
         },

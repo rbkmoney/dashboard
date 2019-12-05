@@ -15,5 +15,5 @@ export type RussianLegalEntityQuestionary = Replace<Questionary, { data: Russian
 export function isRussianLegalEntityQuestionary(
     questionary: Questionary
 ): questionary is RussianLegalEntityQuestionary {
-    return questionary.data.contractor.contractorType === Contractor.ContractorTypeEnum.LegalEntity;
+    return questionary.data.contractor.contractorType === Contractor.ContractorTypeEnum.LegalEntityContractor;
 }

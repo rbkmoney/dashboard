@@ -1,25 +1,24 @@
-import { getAccountingType, AccountingType } from './get-accounting-type';
 import { hasChiefAccountant } from './has-chief-accountant';
-import { AccountingOrganization, AdditionalInfo } from '../../../api-codegen/questionary';
+import { AdditionalInfo, AccountantInfo, WithoutChiefAccountingOrganization } from '../../../api-codegen/questionary';
 import { YesNo } from './yes-no';
 
 export interface BusinessInfo {
     hasChiefAccountant: YesNo;
     staffCount: number;
-    accounting: AccountingType;
+    accounting: AccountantInfo.AccountantInfoTypeEnum;
     accountingOrgInn?: string;
 }
 
 export function getBusinessInfo(additionalInfo: AdditionalInfo): BusinessInfo {
     const { accountantInfo } = additionalInfo;
-    const accounting = getAccountingType(accountantInfo);
+    const accounting = accountantInfo.accountantInfoType;
     const businessInfo: BusinessInfo = {
         hasChiefAccountant: hasChiefAccountant(accountantInfo),
         staffCount: additionalInfo.staffCount,
         accounting
     };
-    if (accounting === AccountingType.AccountingOrganization) {
-        businessInfo.accountingOrgInn = (accountantInfo as AccountingOrganization).inn;
+    if (accounting === AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization) {
+        businessInfo.accountingOrgInn = (accountantInfo as WithoutChiefAccountingOrganization).inn;
     }
     return businessInfo;
 }

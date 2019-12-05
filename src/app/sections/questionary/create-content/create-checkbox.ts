@@ -3,50 +3,58 @@ import { Content } from '../../../document';
 import { Layout } from '../create-questionary';
 import { createGrid } from './create-grid';
 
-type Items<T extends number | string> = string[] | [T, string][];
+type Items<T extends any> = string[] | [T, string][];
+
+function itemsIsKeyValue<T extends any>(srcItems: Items<T>): srcItems is [T, string][] {
+    return Array.isArray(srcItems[0]);
+}
+
+function itemsToMap<T extends any>(srcItems: Items<T>): Map<T, string> {
+    return itemsIsKeyValue(srcItems)
+        ? new Map(srcItems)
+        : new Map<T, string>(srcItems.map((i, idx) => [idx, i] as any));
+}
+
+function itemsWithActive<T extends any>(
+    itemsSrc: Items<T>,
+    activeKey?: T
+): { key: T; value: string; isActive: boolean }[] {
+    const items = itemsToMap(itemsSrc);
+    return Array.from(items).map(([key, value]) => ({
+        key,
+        value,
+        isActive: activeKey === key
+    }));
+}
 
 export function createCheckbox(text: string, active = false): Content {
     return { text: [active ? icons.checkSquare : icons.square, ' ', text] };
 }
 
-function toItemsWithActive<T extends number>(items: Items<T>, active: T): { items: string[]; active: number } {
-    return Array.isArray(items[0])
-        ? {
-              items: (items as [T, string][]).map(i => i[1]),
-              active: active !== undefined && active !== null ? (items as [T, string][])[active][0] : null
-          }
-        : {
-              items: items as string[],
-              active
-          };
-}
-
-export function createInlineCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
-    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
-    const text = items
-        .reduce((prev, item, idx) => [...prev, createCheckbox(item, active === idx), '    '], [])
+export function createInlineCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
+    const text = itemsWithActive(itemsSrc, activeKey)
+        .reduce((acc, { value, isActive }) => [...acc, createCheckbox(value, isActive), '    '], [])
         .slice(0, -1);
     return { text };
 }
 
-export function createInlineCheckboxWithTitle<T extends number>(title: string, items: Items<T>, active?: T): Content {
-    const inlineCheckbox = createInlineCheckbox(items, active);
+export function createInlineCheckboxWithTitle<T extends any>(title: string, items: Items<T>, activeKey?: T): Content {
+    const inlineCheckbox = createInlineCheckbox(items, activeKey);
     return { ...inlineCheckbox, text: [`${title}:    `, ...inlineCheckbox.text] };
 }
 
-export function createVerticalCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
-    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
+export function createVerticalCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
     return {
         layout: Layout.noBorders,
         table: {
             widths: ['*'],
-            body: items.map((item, idx) => [createCheckbox(item, active === idx)])
+            body: itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => [createCheckbox(value, isActive)])
         }
     };
 }
 
-export function createVerticalCheckboxWithTitle<T extends number>(title: string, items: Items<T>, active?: T): Content {
-    const verticalCheckbox = createVerticalCheckbox(items, active);
+export function createVerticalCheckboxWithTitle<T extends any>(title: string, items: Items<T>, activeKey?: T): Content {
+    const verticalCheckbox = createVerticalCheckbox(items, activeKey);
     const { table } = verticalCheckbox;
     return {
         ...verticalCheckbox,
@@ -58,7 +66,9 @@ export function createVerticalCheckboxWithTitle<T extends number>(title: string,
     };
 }
 
-export function createHorizontalCheckbox<T extends number>(itemsSrc: Items<T>, activeSrc?: T): Content {
-    const { items, active } = toItemsWithActive(itemsSrc, activeSrc);
-    return createGrid(items.map((item, idx) => createCheckbox(item, active === idx)), 0.25);
+export function createHorizontalCheckbox<T extends any>(itemsSrc: Items<T>, activeKey?: T): Content {
+    return createGrid(
+        itemsWithActive(itemsSrc, activeKey).map(({ value, isActive }) => createCheckbox(value, isActive)),
+        0.25
+    );
 }

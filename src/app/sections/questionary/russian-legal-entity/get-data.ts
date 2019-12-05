@@ -2,7 +2,6 @@ import { LegalRegistrationInfo, LegalResidencyInfo } from '../../../api-codegen/
 import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 import {
-    getFIO,
     toYesNo,
     getMonthOperationSum,
     getMonthOperationCount,
@@ -40,7 +39,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             monthOperationCount: getMonthOperationCount(additionalInfo.monthOperationCount)
         },
         legalOwnerInfo: {
-            fio: getFIO(legalEntity.legalOwnerInfo.russianPrivateEntity.personAnthroponym),
+            fio: legalEntity.legalOwnerInfo.russianPrivateEntity.fio,
             authorityConfirmingDocument: getAuthorityConfirmingDocument(
                 legalEntity.legalOwnerInfo.authorityConfirmingDocument
             ),
