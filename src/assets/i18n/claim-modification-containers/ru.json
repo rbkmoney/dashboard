@@ -1,0 +1,15 @@
+{
+    "changeContainerTypes": {
+        "documentModification": "Сведения об организации"
+    },
+    "shopInfo": {
+        "title": "Сведения о магазине",
+        "name": "Название",
+        "url": "URL адрес"
+    },
+    "contactInfo": {
+        "title": "Контактная информация",
+        "email": "Email",
+        "phoneNumber": "Телефон"
+    }
+}

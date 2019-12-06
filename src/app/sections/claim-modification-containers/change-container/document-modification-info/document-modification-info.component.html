@@ -1,0 +1,8 @@
+<div *transloco="let t">
+    <div *ngIf="isLoading$ | async">{{ t.loading }}</div>
+    <div *ngIf="isError$ | async">{{ t.httpError }}</div>
+    <div *ngIf="questionary$ | async" fxLayout="column" fxLayoutGap="20px">
+        <dsh-shop-info [shopInfo]="shopInfo$ | async"></dsh-shop-info>
+        <dsh-contact-info [contactInfo]="contactInfo$ | async"></dsh-contact-info>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div
+    *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.shopInfo'"
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <div class="mat-body-2">{{ t.title }}</div>
+    <dsh-details-item *ngIf="shopInfo?.details?.name" [title]="t.name">
+        {{ shopInfo?.details?.name }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="shopInfo?.location?.url" [title]="t.url">
+        {{ shopInfo?.location?.url }}
+    </dsh-details-item>
+</div>
