@@ -10,11 +10,12 @@ import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ChangesComponent } from './changes';
 import { DocumentsComponent } from './documents';
-import { ClaimsModule } from '../../api/claims';
+import { ClaimsModule } from '../../api';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
 import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
+import { QuestionaryDocumentModule } from './questionary-document';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
         StatusModule,
         TranslocoModule,
         SpinnerModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
+        QuestionaryDocumentModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })
