@@ -1,12 +1,9 @@
-import { Questionary } from '../../../api-codegen/questionary';
-import { DocDef } from './create-questionary';
-import { getDocDef, getData } from './beneficial-owner';
+import { Questionary, BeneficialOwner } from '../../../api-codegen/questionary';
 import { isRussianIndividualEntityQuestionary } from './russian-individual-entity';
 import { isRussianLegalEntityQuestionary } from './russian-legal-entity';
 
-export function getBeneficialOwnerQuestionaryDocDef(questionary: Questionary): DocDef[] {
-    const companyName = questionary.data.shopInfo.details.name;
-    let beneficialOwners = [];
+export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] {
+    let beneficialOwners: BeneficialOwner[] = [];
     if (isRussianIndividualEntityQuestionary(questionary)) {
         beneficialOwners = questionary.data.contractor.individualEntity.beneficialOwners;
     } else if (isRussianLegalEntityQuestionary(questionary)) {
@@ -15,5 +12,5 @@ export function getBeneficialOwnerQuestionaryDocDef(questionary: Questionary): D
         console.error('Unknown questionary');
         return;
     }
-    return beneficialOwners.map(beneficialOwner => getDocDef(getData(beneficialOwner, companyName)));
+    return beneficialOwners;
 }

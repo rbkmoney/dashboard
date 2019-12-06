@@ -10,7 +10,7 @@ import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ChangesComponent } from './changes';
 import { DocumentsComponent } from './documents';
-import { ClaimsModule } from '../../api';
+import { ClaimsModule, QuestionaryModule } from '../../api';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
@@ -31,7 +31,8 @@ import { QuestionaryDocumentModule } from './questionary-document';
         TranslocoModule,
         SpinnerModule,
         ConfirmActionDialogModule,
-        QuestionaryDocumentModule
+        QuestionaryDocumentModule,
+        QuestionaryModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
 })
