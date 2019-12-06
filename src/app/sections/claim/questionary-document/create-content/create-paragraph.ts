@@ -7,7 +7,12 @@ import { createGrid } from './create-grid';
 
 const MARGIN = cmMarginsToIn(0, 0.1);
 
+function prepareBody(body: Table['body']): Table['body'] {
+    return body.map(i => i.map(j => j || ''));
+}
+
 export function createVerticalParagraph(header: string, body: Table['body'] = [[]]): Content {
+    body = prepareBody(body);
     const columnsCount = getColumnsCount(body[0]);
     const headerRow: Table['body'][number] = [
         {
@@ -27,6 +32,7 @@ export function createVerticalParagraph(header: string, body: Table['body'] = [[
 }
 
 export function createInlineParagraph(header: string, body: Table['body'] = [[]]): Content {
+    body = prepareBody(body);
     const headerTable: Content = {
         layout: Layout.noBorders,
         table: {

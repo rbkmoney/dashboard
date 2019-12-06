@@ -11,7 +11,9 @@ import {
 } from '../select-data';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
-    const { residencyInfo, registrationInfo, contractor } = data;
+    const { contractor } = data;
+    const residencyInfo = data.residencyInfo || ({} as any);
+    const registrationInfo = data.registrationInfo || ({} as any);
     const { legalEntity } = contractor;
     const { additionalInfo } = legalEntity;
 
@@ -40,7 +42,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
                 legalEntity.legalOwnerInfo.authorityConfirmingDocument
             ),
             snils: legalEntity.legalOwnerInfo.snils,
-            contact: getContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo)
+            contact: getContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo || {})
         },
         // TODO
         address: {
@@ -53,7 +55,7 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             office: '-',
             area: '-'
         },
-        documentType: getDocumentType(legalEntity.propertyInfoDocumentType.documentType),
+        documentType: getDocumentType((legalEntity.propertyInfoDocumentType || ({} as any)).documentType),
         business: getBusinessInfo(additionalInfo),
         pdl: {
             pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),

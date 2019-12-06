@@ -2,9 +2,10 @@ import { BeneficialOwner, RussianDomesticPassport } from '../../../../api-codege
 import { toYesNo, getContactInfo } from '../select-data';
 import { getResidencyInfo } from './get-residency-info';
 
-export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
-    console.log(beneficialOwner);
-    const { russianPrivateEntity, migrationCardInfo, residenceApprove } = beneficialOwner;
+export function getData(beneficialOwner: BeneficialOwner, companyName: string, companyInn: number) {
+    const { russianPrivateEntity } = beneficialOwner;
+    const migrationCardInfo = beneficialOwner.migrationCardInfo || {};
+    const residenceApprove = beneficialOwner.residenceApprove || {};
     const identityDocument = beneficialOwner.identityDocument as RussianDomesticPassport;
     const residencyInfo = getResidencyInfo(beneficialOwner.residencyInfo);
     return {
@@ -15,7 +16,7 @@ export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
         birthDate: russianPrivateEntity.birthDate,
         birthPlace: russianPrivateEntity.birthPlace,
         citizenship: russianPrivateEntity.citizenship,
-        inn: beneficialOwner.inn,
+        inn: String(companyInn),
         identityDocument: {
             name: 'Паспорт РФ',
             seriesNumber: identityDocument.seriesNumber,
@@ -36,7 +37,7 @@ export function getData(beneficialOwner: BeneficialOwner, companyName: string) {
         },
         address: russianPrivateEntity.actualAddress,
         snils: beneficialOwner.snils,
-        contact: getContactInfo(russianPrivateEntity.contactInfo),
+        contact: getContactInfo(russianPrivateEntity.contactInfo || {}),
         pdl: {
             pdlCategory: toYesNo(beneficialOwner.pdlCategory),
             pdlRelation: toYesNo(!!beneficialOwner.pdlRelationDegree),
