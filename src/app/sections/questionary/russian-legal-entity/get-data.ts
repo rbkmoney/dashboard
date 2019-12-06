@@ -1,4 +1,3 @@
-import { LegalRegistrationInfo, LegalResidencyInfo } from '../../../api-codegen/questionary';
 import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 import {
@@ -12,12 +11,9 @@ import {
 } from '../select-data';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
-    const { legalEntity } = data.contractor;
+    const { residencyInfo, registrationInfo, contractor } = data;
+    const { legalEntity } = contractor;
     const { additionalInfo } = legalEntity;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
-    const residencyInfo = legalEntity.residencyInfo as LegalResidencyInfo;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
-    const registrationInfo = legalEntity.registrationInfo as LegalRegistrationInfo;
 
     return {
         basic: {

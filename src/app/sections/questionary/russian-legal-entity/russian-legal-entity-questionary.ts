@@ -3,14 +3,24 @@ import {
     LegalEntityContractor,
     RussianLegalEntity,
     QuestionaryData,
-    Contractor
+    Contractor,
+    LegalResidencyInfo,
+    LegalRegistrationInfo
 } from '../../../api-codegen/questionary';
 import { Replace } from '../../../../type-utils';
 
 type RussianLegalEntityContractor = Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }>;
 type RussianLegalEntityQuestionaryData = Replace<QuestionaryData, { contractor: RussianLegalEntityContractor }>;
 
-export type RussianLegalEntityQuestionary = Replace<Questionary, { data: RussianLegalEntityQuestionaryData }>;
+export type RussianLegalEntityQuestionary = Replace<
+    Questionary,
+    {
+        data: Replace<
+            RussianLegalEntityQuestionaryData,
+            { residencyInfo: LegalResidencyInfo; registrationInfo: LegalRegistrationInfo }
+        >;
+    }
+>;
 
 export function isRussianLegalEntityQuestionary(
     questionary: Questionary

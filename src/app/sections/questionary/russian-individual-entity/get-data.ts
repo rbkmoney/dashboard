@@ -1,5 +1,4 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import { IndividualResidencyInfo, IndividualRegistrationInfo } from '../../../api-codegen/questionary';
 import {
     getMonthOperationCount,
     getMonthOperationSum,
@@ -12,11 +11,7 @@ import { getIndividualEntityName } from './get-individual-entity-name';
 
 export function getData({ data }: RussianIndividualEntityQuestionary) {
     const { individualEntity } = data.contractor;
-    const { additionalInfo, russianPrivateEntity } = individualEntity;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
-    const residencyInfo = individualEntity.residencyInfo as IndividualResidencyInfo;
-    // TODO: удалить приведение типа после изменения в протоколе/сваге или перенести в тип
-    const registrationInfo = individualEntity.registrationInfo as IndividualRegistrationInfo;
+    const { additionalInfo, russianPrivateEntity, residencyInfo, registrationInfo } = individualEntity;
 
     return {
         basic: {

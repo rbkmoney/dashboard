@@ -3,13 +3,23 @@ import {
     IndividualEntityContractor,
     RussianIndividualEntity,
     QuestionaryData,
-    Contractor
+    Contractor,
+    IndividualResidencyInfo,
+    IndividualRegistrationInfo
 } from '../../../api-codegen/questionary';
 import { Replace } from '../../../../type-utils';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,
-    { individualEntity: RussianIndividualEntity }
+    {
+        individualEntity: Replace<
+            RussianIndividualEntity,
+            {
+                residencyInfo: IndividualResidencyInfo;
+                registrationInfo: IndividualRegistrationInfo;
+            }
+        >;
+    }
 >;
 type RussianIndividualEntityQuestionaryData = Replace<
     QuestionaryData,
