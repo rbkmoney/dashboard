@@ -5,13 +5,83 @@ import {
     createHeadline,
     createEnding
 } from '../create-content';
-import { getData } from './get-data';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import { YesNo, DocumentType } from '../select-data';
+import {
+    YesNo,
+    DocumentType,
+    getShopLocationURL,
+    getContactInfo,
+    getDocumentType,
+    getBusinessInfo,
+    toYesNo
+} from '../select-data';
 import { DocDef } from '../create-questionary';
 import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
+import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
+import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 
-export function getDocDef(data: ReturnType<typeof getData>): DocDef {
+export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
+    const { contractor } = q.data;
+    const residencyInfo = q.data.residencyInfo || ({} as any);
+    const registrationInfo = q.data.registrationInfo || ({} as any);
+    const { legalEntity } = contractor;
+    const { additionalInfo } = legalEntity;
+
+    const data = {
+        basic: {
+            inn: q.data.contractor.legalEntity.inn,
+            name: q.data.shopInfo.details.name,
+            brandName: q.data.contractor.legalEntity.name
+        },
+        contact: {
+            phone: q.data.contactInfo.phoneNumber,
+            url: getShopLocationURL(q.data.shopInfo.location),
+            email: q.data.contactInfo.email
+        },
+        relationshipsWithNko: {
+            nkoRelationTarget: additionalInfo.nkoRelationTarget,
+            relationshipWithNko: additionalInfo.relationshipWithNko
+        },
+        monthOperation: {
+            monthOperationSum: additionalInfo.monthOperationSum,
+            monthOperationCount: additionalInfo.monthOperationCount
+        },
+        legalOwnerInfo: {
+            fio: legalEntity.legalOwnerInfo.russianPrivateEntity.fio,
+            authorityConfirmingDocument: getAuthorityConfirmingDocument(
+                legalEntity.legalOwnerInfo.authorityConfirmingDocument
+            ),
+            snils: legalEntity.legalOwnerInfo.snils,
+            contact: getContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo || {})
+        },
+        // TODO
+        address: {
+            country: '-',
+            region: '-',
+            city: '-',
+            street: registrationInfo.registrationPlace,
+            number: '-',
+            building: '-',
+            office: '-',
+            area: '-'
+        },
+        documentType: getDocumentType((legalEntity.propertyInfoDocumentType || ({} as any)).documentType),
+        business: getBusinessInfo(additionalInfo),
+        pdl: {
+            pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),
+            pdlRelation: toYesNo(!!legalEntity.legalOwnerInfo.pdlRelationDegree),
+            pdlRelationDegree: legalEntity.legalOwnerInfo.pdlRelationDegree
+        },
+        benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
+        hasBeneficialOwner: toYesNo(!!legalEntity.beneficialOwner && !!legalEntity.beneficialOwner.length),
+        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
+        residencyInfo: {
+            taxResident: toYesNo(residencyInfo.taxResident),
+            ownerResident: toYesNo(residencyInfo.ownerResident),
+            fatca: toYesNo(residencyInfo.fatca)
+        }
+    };
+
     return {
         content: [
             createHeader('Приложение №'),

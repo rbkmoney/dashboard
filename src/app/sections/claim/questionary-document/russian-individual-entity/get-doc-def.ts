@@ -1,5 +1,4 @@
 import { DocDef } from '../create-questionary';
-import { getData } from './get-data';
 import {
     createVerticalCheckboxWithTitle,
     createInlineCheckboxWithTitle,
@@ -9,10 +8,59 @@ import {
     createHeadline,
     createEnding
 } from '../create-content';
-import { YesNo, DocumentType } from '../select-data';
+import { YesNo, DocumentType, getShopLocationURL, getDocumentType, getBusinessInfo, toYesNo } from '../select-data';
 import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
+import { RussianIndividualEntityQuestionary } from '.';
+import { getIndividualEntityName } from './get-individual-entity-name';
 
-export function getDocDef(data: ReturnType<typeof getData>): DocDef {
+export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
+    const { individualEntity } = q.data.contractor;
+    const { additionalInfo, russianPrivateEntity, residencyInfo, registrationInfo } = individualEntity;
+
+    const data = {
+        basic: {
+            inn: individualEntity.inn,
+            name: getIndividualEntityName(russianPrivateEntity.fio),
+            brandName: q.data.shopInfo.details.name,
+            snils: individualEntity.snils
+        },
+        contact: {
+            phone: q.data.contactInfo.phoneNumber,
+            url: getShopLocationURL(q.data.shopInfo.location),
+            email: q.data.contactInfo.email
+        },
+        relationshipsWithNko: {
+            nkoRelationTarget: additionalInfo.nkoRelationTarget,
+            relationshipWithNko: additionalInfo.relationshipWithNko
+        },
+        monthOperation: {
+            monthOperationSum: additionalInfo.monthOperationSum,
+            monthOperationCount: additionalInfo.monthOperationCount
+        },
+        // TODO
+        address: {
+            country: '-',
+            region: '-',
+            city: '-',
+            street: registrationInfo.registrationPlace,
+            number: '-',
+            building: '-',
+            office: '-',
+            area: '-'
+        },
+        documentType: getDocumentType(individualEntity.propertyInfoDocumentType.documentType),
+        business: getBusinessInfo(additionalInfo),
+        pdl: {
+            pdlCategory: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
+            pdlRelation: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
+            pdlRelationDegree: '' // TODO
+        },
+        benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
+        hasBeneficialOwner: toYesNo(!!individualEntity.beneficialOwners && !!individualEntity.beneficialOwners.length),
+        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
+        taxResident: toYesNo(residencyInfo.usaTaxResident)
+    };
+
     return {
         content: [
             createHeader('Приложение №'),
