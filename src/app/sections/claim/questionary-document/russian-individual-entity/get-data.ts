@@ -1,11 +1,5 @@
 import { RussianIndividualEntityQuestionary } from './russian-individual-entity-questionary';
-import {
-    getMonthOperationCount,
-    getMonthOperationSum,
-    getDocumentType,
-    toYesNo,
-    getShopLocationURL
-} from '../select-data';
+import { getDocumentType, toYesNo, getShopLocationURL } from '../select-data';
 import { getBusinessInfo } from '../select-data/get-business-info';
 import { getIndividualEntityName } from './get-individual-entity-name';
 
@@ -30,8 +24,8 @@ export function getData({ data }: RussianIndividualEntityQuestionary) {
             relationshipWithNko: additionalInfo.relationshipWithNko
         },
         monthOperation: {
-            monthOperationSum: getMonthOperationSum(additionalInfo.monthOperationSum),
-            monthOperationCount: getMonthOperationCount(additionalInfo.monthOperationCount)
+            monthOperationSum: additionalInfo.monthOperationSum,
+            monthOperationCount: additionalInfo.monthOperationCount
         },
         // TODO
         address: {

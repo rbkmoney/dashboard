@@ -7,9 +7,9 @@ import {
 } from '../create-content';
 import { getData } from './get-data';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType } from '../select-data';
+import { YesNo, DocumentType } from '../select-data';
 import { DocDef } from '../create-questionary';
-import { AccountantInfo } from '../../../../api-codegen/questionary';
+import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
 
 export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {

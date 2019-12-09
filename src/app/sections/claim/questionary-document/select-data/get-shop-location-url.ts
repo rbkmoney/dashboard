@@ -1,8 +1,12 @@
 import { ShopLocation, ShopLocationUrl } from '../../../../api-codegen/questionary';
 
+function isShopLocationUrl(shopLocation: ShopLocation): shopLocation is ShopLocationUrl {
+    return shopLocation.locationType === ShopLocation.LocationTypeEnum.ShopLocationUrl;
+}
+
 export function getShopLocationURL(shopLocation: ShopLocation): string {
-    if (shopLocation.locationType === ShopLocation.LocationTypeEnum.ShopLocationUrl) {
-        return (shopLocation as ShopLocationUrl).url;
+    if (isShopLocationUrl(shopLocation)) {
+        return shopLocation.url;
     }
     return null;
 }

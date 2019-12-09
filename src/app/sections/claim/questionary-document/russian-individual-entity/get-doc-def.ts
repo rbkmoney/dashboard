@@ -9,8 +9,8 @@ import {
     createHeadline,
     createEnding
 } from '../create-content';
-import { YesNo, MonthOperationCount, MonthOperationSum, DocumentType } from '../select-data';
-import { AccountantInfo } from '../../../../api-codegen/questionary';
+import { YesNo, DocumentType } from '../select-data';
+import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
 
 export function getDocDef(data: ReturnType<typeof getData>): DocDef {
     return {

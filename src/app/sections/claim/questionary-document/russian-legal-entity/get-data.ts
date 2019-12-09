@@ -1,14 +1,6 @@
 import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
-import {
-    toYesNo,
-    getMonthOperationSum,
-    getMonthOperationCount,
-    getDocumentType,
-    getShopLocationURL,
-    getBusinessInfo,
-    getContactInfo
-} from '../select-data';
+import { toYesNo, getDocumentType, getShopLocationURL, getBusinessInfo, getContactInfo } from '../select-data';
 
 export function getData({ data }: RussianLegalEntityQuestionary) {
     const { contractor } = data;
@@ -33,8 +25,8 @@ export function getData({ data }: RussianLegalEntityQuestionary) {
             relationshipWithNko: additionalInfo.relationshipWithNko
         },
         monthOperation: {
-            monthOperationSum: getMonthOperationSum(additionalInfo.monthOperationSum),
-            monthOperationCount: getMonthOperationCount(additionalInfo.monthOperationCount)
+            monthOperationSum: additionalInfo.monthOperationSum,
+            monthOperationCount: additionalInfo.monthOperationCount
         },
         legalOwnerInfo: {
             fio: legalEntity.legalOwnerInfo.russianPrivateEntity.fio,
