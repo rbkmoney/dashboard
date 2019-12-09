@@ -4,9 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FileItemComponent } from './file-item.component';
+import { PanelModule } from '../layout/panel';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, MatIconModule],
+    imports: [CommonModule, FlexLayoutModule, MatIconModule, PanelModule],
     declarations: [FileItemComponent],
     exports: [FileItemComponent]
 })

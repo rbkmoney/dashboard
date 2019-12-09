@@ -1,4 +1,8 @@
-<div class="file-item-container" fxFlex fxLayoutAlign="space-between stretch">
-    <div class="mat-body-1">{{ file.fileName }}</div>
-    <mat-icon class="file-item-save-icon" svgIcon="save" (click)="downloadFile()"></mat-icon>
-</div>
+<dsh-panel color="accent">
+    <dsh-panel-header>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <div>{{ file.fileName }}</div>
+            <dsh-panel-header-icon icon="save" (click)="downloadFile()"></dsh-panel-header-icon>
+        </div>
+    </dsh-panel-header>
+</dsh-panel>

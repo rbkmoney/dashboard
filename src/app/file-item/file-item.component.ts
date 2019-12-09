@@ -8,8 +8,7 @@ import { FilesService } from '../api/files';
 
 @Component({
     selector: 'dsh-file-item',
-    templateUrl: 'file-item.component.html',
-    styleUrls: ['file-item.component.scss']
+    templateUrl: 'file-item.component.html'
 })
 export class FileItemComponent {
     @Input() file: FileData;
@@ -21,11 +20,11 @@ export class FileItemComponent {
     ) {}
 
     downloadFile() {
-        this.filesService.downloadFile(this.file.fileId).subscribe(
-            ({ url }) => {
-                download(url);
-            },
-            () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
-        );
+        this.filesService
+            .downloadFile(this.file.fileId)
+            .subscribe(
+                ({ url }) => download(url),
+                () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+            );
     }
 }

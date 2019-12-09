@@ -26,7 +26,6 @@
 @import '../../app/expansion/expansion-theme';
 @import '../../app/details-item/details-item-theme';
 @import '../../app/layout/headline/secondary-title/secondary-title-theme';
-@import '../../app/file-item/file-item-theme';
 @import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
@@ -64,7 +63,6 @@
         @include dsh-expansion-theme($theme);
         @include dsh-details-item-theme($theme);
         @include dsh-details-secondary-title-theme($theme);
-        @include dsh-file-item-theme($theme);
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
     }

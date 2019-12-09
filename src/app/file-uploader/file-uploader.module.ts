@@ -6,10 +6,12 @@ import { ngfModule } from 'angular-file';
 
 import { FileUploaderComponent } from './file-uploader.component';
 import { FilesModule } from '../api';
+import { FileUploaderService } from './file-uploader.service';
 
 @NgModule({
     imports: [TranslocoModule, FlexModule, ngfModule, CommonModule, FilesModule],
     exports: [FileUploaderComponent],
-    declarations: [FileUploaderComponent]
+    declarations: [FileUploaderComponent],
+    providers: [FileUploaderService]
 })
 export class FileUploaderModule {}
