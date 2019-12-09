@@ -2,7 +2,18 @@
     <div *ngIf="isLoading$ | async">{{ t.loading }}</div>
     <div *ngIf="isError$ | async">{{ t.httpError }}</div>
     <div *ngIf="questionary$ | async" fxLayout="column" fxLayoutGap="20px">
-        <dsh-shop-info [shopInfo]="shopInfo$ | async"></dsh-shop-info>
-        <dsh-contact-info [contactInfo]="contactInfo$ | async"></dsh-contact-info>
+        <dsh-contractor-info
+            *ngIf="isNotEmpty(contractor$ | async)"
+            [contractor]="contractor$ | async"
+        ></dsh-contractor-info>
+        <dsh-shop-info *ngIf="isNotEmpty(shopInfo$ | async)" [shopInfo]="shopInfo$ | async"></dsh-shop-info>
+        <dsh-contact-info
+            *ngIf="isNotEmpty(contactInfo$ | async)"
+            [contactInfo]="contactInfo$ | async"
+        ></dsh-contact-info>
+        <dsh-bank-account-info
+            *ngIf="isNotEmpty(bankAccount$ | async)"
+            [bankAccount]="bankAccount$ | async"
+        ></dsh-bank-account-info>
     </div>
 </div>

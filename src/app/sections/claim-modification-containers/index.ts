@@ -1,1 +1,1 @@
-export * from './claim-modification-containers.module';
+export * from './change-container';

@@ -1,2 +1,1 @@
-
-export * from './shop-info.component'
+export * from './shop-info.component';

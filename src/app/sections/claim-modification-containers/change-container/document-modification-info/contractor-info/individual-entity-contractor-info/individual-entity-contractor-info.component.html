@@ -1,0 +1,30 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.individualEntityContractor'
+    "
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-details-item *ngIf="individualEntity?.name" [title]="t.nameInn">
+        {{ individualEntity?.name }} ({{ individualEntity?.inn }})
+    </dsh-details-item>
+    <dsh-details-item *ngIf="individualEntity?.registrationInfo?.registrationPlace" [title]="t.registrationPlace">
+        {{ individualEntity?.registrationInfo?.registrationPlace }}
+    </dsh-details-item>
+    <dsh-russian-private-entity
+        [russianPrivateEntity]="individualEntity?.russianPrivateEntity"
+    ></dsh-russian-private-entity>
+    <dsh-identity-document [identityDocument]="individualEntity?.identityDocument"></dsh-identity-document>
+    <div fxLayout="row" *ngIf="individualEntity?.pdlCategory || individualEntity?.pdlRelationDegree">
+        <dsh-details-item fxFlex="50" *ngIf="individualEntity?.pdlCategory" [title]="t.pdlCategory">
+            {{ t.pdlCategoryFlag }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex="50" *ngIf="individualEntity?.pdlRelationDegree" [title]="t.pdlRelationDegree">
+            {{ individualEntity?.pdlRelationDegree }}
+        </dsh-details-item>
+    </div>
+    <mat-divider></mat-divider>
+    <dsh-additional-info [additionalInfo]="individualEntity?.additionalInfo"></dsh-additional-info>
+</div>

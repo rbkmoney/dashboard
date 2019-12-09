@@ -1,2 +1,1 @@
-export * from './change-container.component';
-export * from './document-modification-info';
+export * from './change-container.module';

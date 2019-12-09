@@ -1,7 +1,7 @@
 <div
     *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.contactInfo'"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutGap="20px"
 >
     <div class="mat-body-2">{{ t.title }}</div>
     <div fxLayout="row">
@@ -12,4 +12,5 @@
             {{ contactInfo?.phoneNumber }}
         </dsh-details-item>
     </div>
+    <mat-divider></mat-divider>
 </div>

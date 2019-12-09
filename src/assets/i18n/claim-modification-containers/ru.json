@@ -11,5 +11,81 @@
         "title": "Контактная информация",
         "email": "Email",
         "phoneNumber": "Телефон"
+    },
+    "bankAccount": {
+        "title": "Банковские реквизиты для вывода денежных средств",
+        "bankInfo": "Наименование банка (БИК / Корр. счет)",
+        "account": "Расчетный счет"
+    },
+    "contractorInfo": {
+        "title": "Основные сведения"
+    },
+    "legalEntityContractor": {
+        "nameInn": "Наименование (ИНН)",
+        "registrationAddress": "Адрес регистрации"
+    },
+    "legalOwnerInfo": {
+        "legalOwnerTitle": "Сведения о юридическом лице",
+        "snils": "СНИЛС",
+        "innfl": "ИННФЛ",
+        "headPosition": "Должность",
+        "termOfOffice": "Срок полномочий",
+        "pdlCategory": "Принадлежность к категории ПДЛ",
+        "pdlCategoryFlag": "Да",
+        "pdlRelationDegree": "Степень родства ПДЛ"
+    },
+    "russianPrivateEntity": {
+        "fio": "ФИО",
+        "birthDate": "Дата рождения",
+        "birthPlace": "Место рождения",
+        "residenceAddress": "Адрес места жительства (регистрации) или места пребывания"
+    },
+    "identityDocument": {
+        "seriesNumber": "Серия и номер",
+        "issuerCode": "Код подразделения",
+        "issuer": "Кем выдан",
+        "issuedAt": "Дата выдачи"
+    },
+    "authorityConfirmingDocument": {
+        "label": "Действует на основании",
+        "documentTypes": {
+            "solePartyDecision": "Решение единственного участника",
+            "meetingOfShareholders": "Протокол общего собрания участников",
+            "meetingOfParticipants": "Протокол общего собрания акционеров"
+        }
+    },
+    "additionalInfo": {
+        "financialAndEconomicActivityTitle": "Хозяйственная деятельность",
+        "staffCount": "Штатная численность организации",
+        "accountantTypeLabel": "Бухгалтерский учет осуществляет",
+        "accountantTypes": {
+            "WithoutChiefHeadAccounting": "Руководитель организации",
+            "WithoutChiefAccountingOrganization": "Организация ведущая бухгалтерский учет",
+            "WithoutChiefIndividualAccountant": "Бухгалтер - индивидуальный специалист"
+        },
+        "accountantOrgInn": "ИНН организации, ведущей бухгалтерский учет",
+        "trueFlag": "Да",
+        "hasBeneficiary": "Наличие выгодоприобретателя",
+        "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве",
+        "planingOperationsTitle": "Планируемый объем операций",
+        "monthOperationCountLabel": "Планируемое количество операций в месяц",
+        "monthOperationCountTypes": {
+            "LtTen": "до 10",
+            "BtwTenToFifty": "10 - 50",
+            "GtFifty": "свыше 50"
+        },
+        "monthOperationSumLabel": "Планируемая сумма операций в месяц",
+        "monthOperationSumTypes": {
+            "LtFiveHundredThousand": "до 500 000",
+            "BtwFiveHundredThousandToOneMillion": "500 000 - 1 000 000",
+            "GtOneMillion": "свыше 1 000 000"
+        }
+    },
+    "individualEntityContractor": {
+        "nameInn": "Наименование (ИНН)",
+        "registrationPlace": "Адрес регистрации",
+        "pdlCategory": "Принадлежность к категории ПДЛ",
+        "pdlCategoryFlag": "Да",
+        "pdlRelationDegree": "Степень родства ПДЛ"
     }
 }
