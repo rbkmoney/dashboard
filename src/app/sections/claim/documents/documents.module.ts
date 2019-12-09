@@ -11,6 +11,7 @@ import { FileItemModule } from '../../../file-item';
 import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
 import { ReceiveClaimService } from '../receive-claim.service';
+import { ClaimFilesModule } from '../../../claim-files';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { ReceiveClaimService } from '../receive-claim.service';
         CommonModule,
         FileItemModule,
         TranslocoModule,
-        FileUploaderModule
+        FileUploaderModule,
+        ClaimFilesModule
     ],
     declarations: [DocumentsComponent],
     exports: [DocumentsComponent],

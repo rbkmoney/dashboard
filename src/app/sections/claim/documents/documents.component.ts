@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { DocumentsService } from './documents.service';
 
@@ -9,7 +10,12 @@ import { DocumentsService } from './documents.service';
     providers: [DocumentsService]
 })
 export class DocumentsComponent {
-    docs$ = this.documentsService.docs$;
+    claim$ = this.documentsService.claim$;
+    updateClaim$ = new Subject<string[]>();
 
     constructor(private documentsService: DocumentsService) {}
+
+    updateClaim(ids: string[]) {
+        this.updateClaim$.next(ids);
+    }
 }

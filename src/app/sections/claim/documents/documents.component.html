@@ -5,16 +5,10 @@
     fxLayout="column"
     fxLayoutGap="20px"
 >
-    <div *ngIf="docs$ | async as docs">
-        <div *ngIf="docs.length > 0; else noDocs">
-            {{ t.docs }}
-            <ng-container *ngFor="let doc of docs">
-                <dsh-file-item [file]="doc"></dsh-file-item>
-            </ng-container>
-        </div>
-        <ng-template #noDocs
-            ><div>{{ t.noDocs }}</div></ng-template
-        >
-    </div>
-    <dsh-file-uploader></dsh-file-uploader>
+    <dsh-claim-files
+        *ngIf="claim$ | async as claim"
+        [claim]="claim$"
+        [updateClaim]="updateClaim$ | async"
+    ></dsh-claim-files>
+    <dsh-file-uploader (filesUploaded)="updateClaim($event)"></dsh-file-uploader>
 </div>
