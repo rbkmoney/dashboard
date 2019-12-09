@@ -52,7 +52,6 @@ export class ClaimFilesService {
             ),
             shareReplay(1)
         );
-        updatedFilesIds$.subscribe();
         const filesIds$ = concat(initialIds$, updatedFilesIds$).pipe(shareReplay(1));
         this.filesData$ = filesIds$.pipe(
             switchMap(ids => this.getFilesInfo(ids)),
@@ -70,6 +69,7 @@ export class ClaimFilesService {
         merge(filesIds$, this.filesData$).subscribe({
             error: () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         });
+        updatedFilesIds$.subscribe();
         this.hasFiles$.subscribe();
         this.isLoading$.subscribe();
     }

@@ -4,22 +4,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay } from '../../../custom-operators';
+import { progress } from '../../../custom-operators';
 import { ClaimsService } from '../../../api';
 import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
 import { LeaveDialogComponent } from './leave-dialog';
 
 @Injectable()
 export class DocumentUploadService {
-    claim$: Observable<Claim> = this.route.params.pipe(
+    routeParams$ = this.route.params;
+
+    claim$: Observable<Claim> = this.routeParams$.pipe(
         switchMap(({ claimID }) => this.claimService.getClaimByID(claimID)),
         shareReplay(1)
     );
 
-    isLoading$: Observable<boolean> = this.claim$.pipe(
-        booleanDelay(0),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = progress(this.routeParams$, this.claim$).pipe(shareReplay(1));
 
     constructor(
         private router: Router,
