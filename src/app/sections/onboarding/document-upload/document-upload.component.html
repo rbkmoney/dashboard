@@ -1,44 +1,41 @@
-<div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'; read: 'onboarding'">
-    <h1 class="mat-headline">{{ t.headline }}</h1>
-    <div fxLayout fxLayoutGap="20px" *ngIf="(hasFiles$ | async) !== undefined">
-        <dsh-card fxFlex fxLayout="column">
-            <dsh-card-title class="mat-title" fxLayout="row" fxLayoutAlign="space-between">
-                {{ t.documentUpload.title }}
-                <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
-                    <dsh-spinner [type]="spinnerType" size="30"></dsh-spinner>
-                </div>
-            </dsh-card-title>
-            <dsh-card-content fxFlex="initial" fxLayout="column" fxLayoutGap="20px">
-                <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
-                    <div class="mat-body-2">{{ t.documentUpload.requiredDocs }}:</div>
-                    <div class="mat-body-1">
-                        - {{ t.documentUpload.passport }};<br />
-                        - {{ t.documentUpload.registration }}.
-                    </div>
-                </div>
-                <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
-                    <div class="mat-body-2">{{ t.documentUpload.uploadedDocs }}:</div>
-                    <div
-                        *ngIf="(hasFiles$ | async) && (filesData$ | async) && (filesData$ | async).length; else noFiles"
-                        fxLayout="column"
-                        fxLayoutGap="10px"
-                    >
-                        <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>
-                    </div>
-                    <ng-template #noFiles>
-                        <div>{{ t.documentUpload.noDocs }}</div>
-                    </ng-template>
-                </div>
-                <dsh-file-uploader (uploadedFilesIds$)="updateClaim$.next($event)"></dsh-file-uploader>
-                <div fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
-                    <button [disabled]="isLoading$ | async" fxFlex="100px" dsh-button (click)="cancel()">
-                        {{ c.cancel }}
-                    </button>
-                    <button [disabled]="isLoading$ | async" fxFlex="100px" dsh-button color="accent" (click)="done()">
-                        {{ c.done }}
-                    </button>
-                </div>
-            </dsh-card-content>
-        </dsh-card>
-    </div>
+<div *ngIf="isLoading$ | async; else content" fxLayout fxLayoutAlign="center center">
+    <dsh-spinner [type]="spinnerType" size="30"></dsh-spinner>
 </div>
+<ng-template #content>
+    <div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'; read: 'onboarding'">
+        <h1 class="mat-headline">{{ t.headline }}</h1>
+        <div fxLayout fxLayoutGap="20px">
+            <dsh-card fxFlex fxLayout="column">
+                <dsh-card-title class="mat-title" fxLayout="row" fxLayoutAlign="space-between">
+                    {{ t.documentUpload.title }}
+                </dsh-card-title>
+                <dsh-card-content fxFlex="initial" fxLayout="column" fxLayoutGap="20px">
+                    <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
+                        <div class="mat-body-2">{{ t.documentUpload.requiredDocs }}:</div>
+                        <div class="mat-body-1">
+                            - {{ t.documentUpload.passport }};<br />
+                            - {{ t.documentUpload.registration }}.
+                        </div>
+                    </div>
+                    <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
+                        <div class="mat-body-2">{{ t.documentUpload.uploadedDocs }}:</div>
+                        <dsh-claim-files
+                            *ngIf="claim$ | async as claim"
+                            [claim]="claim$"
+                            [updateClaim]="updateClaim$ | async"
+                        ></dsh-claim-files>
+                    </div>
+                    <dsh-file-uploader (filesUploaded)="updateClaim($event)"></dsh-file-uploader>
+                    <div fxLayout="row" fxLayoutAlign="space-between" *transloco="let c">
+                        <button fxFlex="100px" dsh-button (click)="cancel()">
+                            {{ c.cancel }}
+                        </button>
+                        <button fxFlex="100px" dsh-button color="accent" (click)="done()">
+                            {{ c.done }}
+                        </button>
+                    </div>
+                </dsh-card-content>
+            </dsh-card>
+        </div>
+    </div>
+</ng-template>

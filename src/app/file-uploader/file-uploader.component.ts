@@ -1,11 +1,6 @@
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslocoService } from '@ngneat/transloco';
-import { merge, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
-import { FilesService } from '../api/files';
-import { progress } from '../custom-operators';
+import { FileUploaderService } from './file-uploader.service';
 
 @Component({
     selector: 'dsh-file-uploader',
@@ -14,33 +9,23 @@ import { progress } from '../custom-operators';
 })
 export class FileUploaderComponent {
     @Output()
-    uploadedFilesIds$ = new EventEmitter<string[]>();
+    filesUploaded = new EventEmitter<string[]>();
 
     @HostBinding('class.dsh-file-uploader-container')
     isDragover = false;
 
-    startUploading$ = new Subject<File[]>();
+    startUploading$ = this.fileUploaderService.startUploading$;
+    isUploading$ = this.fileUploaderService.isUploading$;
 
-    private uploadingError$ = new Subject<null>();
-
-    isUploading$ = progress(this.startUploading$, merge(this.uploadedFilesIds$, this.uploadingError$));
-
-    constructor(
-        private filesService: FilesService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {
-        this.startUploading$.pipe(switchMap(files => this.filesService.uploadFiles(files))).subscribe(
-            value => value.length && this.uploadedFilesIds$.emit(value),
-            () => {
-                this.uploadingError$.next(null);
-                this.snackBar.open(this.transloco.translate('commonError'), 'OK');
-            }
-        );
-        this.uploadingError$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+    constructor(private fileUploaderService: FileUploaderService) {
+        this.fileUploaderService.filesUploaded$.subscribe(value => this.filesUploaded.emit(value));
     }
 
     setDragover(value: boolean) {
         this.isDragover = value;
+    }
+
+    startUploading(files: File[]) {
+        this.startUploading$.next(files);
     }
 }

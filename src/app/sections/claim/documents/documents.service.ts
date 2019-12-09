@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { takeFileModificationsUnit } from '../../../api/claims/operators';
 import { FilesService } from '../../../api/files';
-import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { ReceiveClaimService } from '../receive-claim.service';
 
 @Injectable()
 export class DocumentsService {
-    docs$: Observable<FileData[]> = this.receiveClaimService.claim$.pipe(
+    claim$ = this.receiveClaimService.claim$.pipe(
         takeFileModificationsUnit,
         filter(value => !!value),
         switchMap(modifications =>
             modifications.length > 0
-                ? forkJoin(
-                      modifications.map(modification =>
-                          this.filesService.getFileInfo(modification.id)
-                      )
-                  )
+                ? forkJoin(modifications.map(modification => this.filesService.getFileInfo(modification.fileId)))
                 : of([])
         ),
         shareReplay(1)

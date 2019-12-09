@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { LeaveDialogComponent } from './leave-dialog';
 import { DocumentUploadService } from './document-upload.service';
 import { SpinnerType } from '../../../spinner';
 
@@ -16,30 +13,21 @@ import { SpinnerType } from '../../../spinner';
 export class DocumentUploadComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    filesData$ = this.documentUploadService.filesData$;
     claim$ = this.documentUploadService.claim$;
-    updateClaim$ = this.documentUploadService.updateClaim$;
-    hasFiles$ = this.documentUploadService.hasFiles$;
     isLoading$ = this.documentUploadService.isLoading$;
+    updateClaim$ = new Subject<string[]>();
 
-    constructor(
-        private router: Router,
-        private dialog: MatDialog,
-        private documentUploadService: DocumentUploadService
-    ) {}
+    constructor(private documentUploadService: DocumentUploadService) {}
+
+    updateClaim(ids: string[]) {
+        this.updateClaim$.next(ids);
+    }
 
     cancel() {
-        this.dialog
-            .open(LeaveDialogComponent, { width: '450px' })
-            .afterClosed()
-            .pipe(first())
-            .subscribe(
-                result =>
-                    result && this.claim$.pipe(first()).subscribe(({ id }) => this.router.navigate(['onboarding', id]))
-            );
+        this.documentUploadService.cancel();
     }
 
     done() {
-        this.claim$.pipe(first()).subscribe(({ id }) => this.router.navigate(['claim', id]));
+        this.documentUploadService.done();
     }
 }
