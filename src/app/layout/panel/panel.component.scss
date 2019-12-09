@@ -1,0 +1,31 @@
+$dsh-panel-header-icon-size: 18px !default;
+$dsh-panel-header-height: 36px !default;
+$dsh-panel-padding: 8px 10px !default;
+$dsh-panel-border-radius: 4px !default;
+
+%dsh-panel-section-base {
+    display: block;
+}
+
+.dsh-panel-content {
+    @extend %dsh-panel-section-base;
+    padding: $dsh-panel-padding;
+}
+
+.dsh-panel-header-icon {
+    @extend %dsh-panel-section-base;
+    height: $dsh-panel-header-icon-size;
+    width: $dsh-panel-header-icon-size;
+}
+
+.dsh-panel-header {
+    @extend %dsh-panel-section-base;
+    &-content {
+        padding: $dsh-panel-padding;
+    }
+    height: $dsh-panel-header-height;
+}
+
+.dsh-panel {
+    border-radius: $dsh-panel-border-radius;
+}

@@ -7,11 +7,11 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.seriesNumber }}</mat-label>
-            <input matInput formControlName="seriesNumber" required />
+            <dsh-format-input format="seriesNumber" formControlName="seriesNumber" required></dsh-format-input>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.issuerCode }}</mat-label>
-            <input matInput formControlName="issuerCode" required />
+            <dsh-format-input format="issuerCode" formControlName="issuerCode" required></dsh-format-input>
         </mat-form-field>
     </div>
     <div fxLayout>
@@ -24,6 +24,6 @@
     </div>
     <mat-form-field fxFlex>
         <mat-label>{{ t.issuer }}</mat-label>
-        <input matInput formControlName="issuer" required />
+        <dsh-dadata-autocomplete formControlName="issuer" type="fmsUnit" required></dsh-dadata-autocomplete>
     </mat-form-field>
 </form>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
     DaDataService as DaDataApiService,
@@ -15,54 +16,56 @@ import {
     AddressResponse,
     FmsUnitResponse,
     OkvedResponse,
-    BankResponse,
-    DaDataResponse
+    BankResponse
 } from '../../api-codegen/aggr-proxy';
-import { Suggestion } from './suggestion';
+import { Omit } from '../../../type-utils';
 
-const DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
-type DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
+const RequestType = DaDataRequest.DaDataRequestTypeEnum;
+type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
-interface Request {
-    query?: string;
-    count?: number;
-}
+type ByRequestType<P extends { [name in RequestType]: any }> = { [name in RequestType]: P[name] };
 
-interface Response extends DaDataResponse {
-    suggestions?: Suggestion[];
-}
+type FullParamsByRequestType = ByRequestType<{
+    AddressQuery: AddressQuery;
+    BankQuery: BankQuery;
+    FioQuery: FioQuery;
+    FmsUnitQuery: FmsUnitQuery;
+    OkvedQuery: OkvedQuery;
+    PartyQuery: PartyQuery;
+}>;
+
+export type ParamsByRequestType = {
+    [name in RequestType]: Omit<FullParamsByRequestType[name], 'daDataRequestType'>;
+};
+
+export type ResponseByRequestType = ByRequestType<{
+    AddressQuery: AddressResponse;
+    BankQuery: BankResponse;
+    FioQuery: FioResponse;
+    FmsUnitQuery: FmsUnitResponse;
+    OkvedQuery: OkvedResponse;
+    PartyQuery: PartyResponse;
+}>;
+
+export type SuggestionsByRequestType = {
+    [name in RequestType]: ResponseByRequestType[name]['suggestions'];
+};
+
+export type ContentByRequestType = {
+    [name in RequestType]: SuggestionsByRequestType[name][number];
+};
 
 @Injectable()
 export class DaDataService {
     constructor(private daDataService: DaDataApiService) {}
 
-    suggest<Q extends Request, S extends Response>(daDataRequestType: DaDataRequestType, request: Q) {
-        return this.daDataService.requestDaData({
-            request: { daDataRequestType, ...request }
-        }) as Observable<S>;
-    }
-
-    suggestParty(query: PartyQuery): Observable<PartyResponse> {
-        return this.suggest(DaDataRequestType.PartyQuery, query);
-    }
-
-    suggestFio(query: FioQuery): Observable<FioResponse> {
-        return this.suggest(DaDataRequestType.FioQuery, query);
-    }
-
-    suggestAddress(query: AddressQuery): Observable<AddressResponse> {
-        return this.suggest(DaDataRequestType.AddressQuery, query);
-    }
-
-    suggestFmsUnit(query: FmsUnitQuery): Observable<FmsUnitResponse> {
-        return this.suggest(DaDataRequestType.FmsUnitQuery, query);
-    }
-
-    suggestOkved(query: OkvedQuery): Observable<OkvedResponse> {
-        return this.suggest(DaDataRequestType.OkvedQuery, query);
-    }
-
-    suggestBank(query: BankQuery): Observable<BankResponse> {
-        return this.suggest(DaDataRequestType.BankQuery, query);
+    suggest<T extends RequestType>(
+        daDataRequestType: T,
+        params: ParamsByRequestType[T]
+    ): Observable<SuggestionsByRequestType[T]> {
+        const request = this.daDataService.requestDaData({
+            request: { daDataRequestType, ...params }
+        }) as Observable<ResponseByRequestType[T]>;
+        return request.pipe(map(({ suggestions }) => suggestions));
     }
 }

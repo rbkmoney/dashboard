@@ -6,12 +6,14 @@ import { FormValue } from '../form-value';
 const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => {
     const additionalInfo = get(l, ['additionalInfo']);
     const accountantInfo = get(additionalInfo, ['accountantInfo']);
+    const accountantInfoType = get(accountantInfo, ['accountantInfoType'], 'WithChiefAccountant');
     return {
         staffCount: get(additionalInfo, ['staffCount'], null),
-        withoutAccountant: get(accountantInfo, ['accountantInfoType']) === 'WithoutChiefAccountant',
-        accountantType: get(accountantInfo, ['withoutChiefAccountantType'], null),
-        hasBeneficiaryParty: false, // TODO need backend implementation
-        hasLiquidationProcess: false // TODO need backend implementation
+        hasBeneficiary: get(additionalInfo, ['hasBeneficiary'], false),
+        hasLiquidationProcess: get(additionalInfo, ['hasLiquidationProcess'], false),
+        withoutAccountant: accountantInfoType !== 'WithChiefAccountant',
+        accountantType: accountantInfoType,
+        accountantOrgInn: get(accountantInfo, ['inn'], null)
     };
 };
 

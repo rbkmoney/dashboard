@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ClaimComponent } from './claim.component';
-import { ConversationComponent } from './conversation';
 import { DocumentsComponent } from './documents';
 import { ChangesComponent } from './changes';
 
@@ -13,7 +12,7 @@ const claimRoutes: Routes = [
         children: [
             {
                 path: 'conversation',
-                component: ConversationComponent
+                loadChildren: () => import('./conversation/conversation.module').then(mod => mod.ConversationModule)
             },
             {
                 path: 'documents',

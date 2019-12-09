@@ -14,7 +14,7 @@ import {
 import { FetchAction } from './fetch-action';
 import { scanFetchResult, scanAction } from './operators';
 import { FetchFn } from './fetch-fn';
-import { progress } from './progress';
+import { progress } from '../../custom-operators';
 import { FetchResult } from './fetch-result';
 
 export abstract class PartialFetcher<R, P> {
@@ -40,7 +40,6 @@ export abstract class PartialFetcher<R, P> {
             shareReplay(1)
         );
         this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(
-            startWith(false),
             distinctUntilChanged(),
             shareReplay(1)
         );

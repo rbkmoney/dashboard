@@ -19,15 +19,14 @@ export class BeneficialOwnersComponent implements OnInit, OnDestroy {
         map(form => form.controls.beneficialOwners as FormArray)
     );
 
-    isNoOwners$ = this.beneficialOwnersService.isNoOwners$;
+    isBeneficialOwnersVisible$ = this.beneficialOwnersService.isBeneficialOwnersVisible$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
     constructor(private beneficialOwnersService: BeneficialOwnersService) {}
 
     noOwnersChange({ checked }: MatCheckboxChange) {
-        checked ? this.beneficialOwnersService.clearOwners() : this.beneficialOwnersService.addOwner();
-        this.beneficialOwnersService.setNoOwners(checked);
+        this.beneficialOwnersService.noOwnersChange(checked);
     }
 
     addOwner() {

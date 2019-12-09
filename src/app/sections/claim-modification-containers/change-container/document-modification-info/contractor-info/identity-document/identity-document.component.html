@@ -1,0 +1,20 @@
+<div
+    *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.identityDocument'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div fxLayout="row">
+        <dsh-details-item fxFlex="50" *ngIf="identityDocument?.seriesNumber" [title]="t.seriesNumber">
+            {{ identityDocument?.seriesNumber }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex="50" *ngIf="identityDocument?.issuerCode" [title]="t.issuerCode">
+            {{ identityDocument?.issuerCode }}
+        </dsh-details-item>
+    </div>
+    <dsh-details-item *ngIf="identityDocument?.issuedAt" [title]="t.issuedAt">
+        {{ identityDocument?.issuedAt | date }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="identityDocument?.issuer" [title]="t.issuer">
+        {{ identityDocument?.issuer }}
+    </dsh-details-item>
+</div>

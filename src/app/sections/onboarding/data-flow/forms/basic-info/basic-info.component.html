@@ -6,16 +6,21 @@
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.name }}</mat-label>
-            <input matInput formControlName="name" required />
+            <dsh-dadata-autocomplete
+                formControlName="name"
+                type="party"
+                (optionSelected)="partySelected($event)"
+                required
+            ></dsh-dadata-autocomplete>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.inn }}</mat-label>
-            <input matInput formControlName="inn" required />
+            <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
         </mat-form-field>
     </div>
     <mat-form-field fxFlex>
         <mat-label>{{ t.registrationPlace }}</mat-label>
-        <input matInput formControlName="registrationPlace" required />
+        <dsh-dadata-autocomplete formControlName="registrationPlace" type="address" required></dsh-dadata-autocomplete>
     </mat-form-field>
     <h4 class="mat-subheading-1">{{ t.shopInfo }}</h4>
     <mat-form-field fxFlex>
@@ -34,7 +39,7 @@
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.phoneNumber }}</mat-label>
-            <input matInput formControlName="phoneNumber" required />
+            <dsh-format-input format="phoneNumber" formControlName="phoneNumber" required></dsh-format-input>
         </mat-form-field>
     </div>
 </form>

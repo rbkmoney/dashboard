@@ -8,18 +8,26 @@ import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { phoneNumberValidator, urlValidator, individualOrLegalEntityInnValidator } from '../../../../../form-controls';
 import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class BasicInfoService extends QuestionaryFormService {
+    private form: FormGroup;
+
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form$.next(this.initForm());
+        this.form = this.initForm();
+        this.form$.next(this.form);
         this.form$.complete();
+    }
+
+    patchForm(value: { [key: string]: any }) {
+        this.form.patchValue(value);
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
@@ -37,12 +45,12 @@ export class BasicInfoService extends QuestionaryFormService {
     private initForm(): FormGroup {
         return this.fb.group({
             name: ['', Validators.required],
-            inn: ['', Validators.required],
+            inn: ['', [Validators.required, individualOrLegalEntityInnValidator]],
             registrationPlace: ['', Validators.required],
-            shopUrl: ['', Validators.required],
+            shopUrl: ['', [Validators.required, urlValidator]],
             shopName: ['', Validators.required],
-            email: ['', Validators.required],
-            phoneNumber: ['', Validators.required]
+            email: ['', [Validators.required, Validators.email]],
+            phoneNumber: ['', [Validators.required, phoneNumberValidator]]
         });
     }
 }

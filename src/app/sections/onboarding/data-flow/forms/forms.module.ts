@@ -11,6 +11,7 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { BasicInfoService, BasicInfoComponent } from './basic-info';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
@@ -26,7 +27,9 @@ import {
     PrivateEntityInfoComponent,
     PrivateEntityInfoService,
     LegalResidencyInfoComponent,
-    LegalResidencyInfoService
+    LegalResidencyInfoService,
+    IndividualResidencyInfoComponent,
+    IndividualResidencyInfoService
 } from './subforms';
 import {
     FinancialAndEconomicActivityComponent,
@@ -38,8 +41,9 @@ import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
-import { IndividualResidencyInfoComponent, IndividualResidencyInfoService } from './subforms/individual-residency-info';
+import { FormControlsModule } from '../../../../form-controls';
 import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
+import { DaDataModule } from '../../../../dadata';
 
 @NgModule({
     imports: [
@@ -54,7 +58,10 @@ import { RussianPrivateEntityService } from './russian-private-entity/russian-pr
         MatSelectModule,
         ButtonModule,
         MatDividerModule,
-        MatRadioModule
+        MatRadioModule,
+        TextMaskModule,
+        FormControlsModule,
+        DaDataModule
     ],
     declarations: [
         BasicInfoComponent,

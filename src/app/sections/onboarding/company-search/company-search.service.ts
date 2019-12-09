@@ -47,7 +47,7 @@ export class CompanySearchService {
 
     createInitialClaim(data: QuestionaryData): Observable<number> {
         const questionaryID = uuid();
-        const changeset = [createDocumentModificationUnit(1, questionaryID)];
+        const changeset = [createDocumentModificationUnit(questionaryID)];
         return this.questionaryService.saveQuestionary(questionaryID, data).pipe(
             switchMap(() => this.claimsService.createClaim(changeset)),
             pluck('id'),
