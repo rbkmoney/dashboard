@@ -14,7 +14,6 @@ $dsh-panel-border-radius: 4px !default;
 
 .dsh-panel-header-icon {
     @extend %dsh-panel-section-base;
-    cursor: pointer;
     height: $dsh-panel-header-icon-size;
     width: $dsh-panel-header-icon-size;
 }

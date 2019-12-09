@@ -23,8 +23,26 @@
                 <mat-icon [svgIcon]="item.action | actionIcon"></mat-icon>
             </dsh-timeline-item-badge>
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
-                <div *ngFor="let modification of item.modifications">
-                    {{ modification.modificationType }}
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <div *ngFor="let modification of item.modifications">
+                        <dsh-change-container
+                            *ngIf="isDocumentModificationUnit(modification)"
+                            [unit]="modification.claimModificationType"
+                        ></dsh-change-container>
+                    </div>
+                    <!-- <dsh-panel *ngFor="let modification of item.modifications">
+                        <dsh-panel-header>
+                            <div fxLayout="row" fxLayoutAlign="space-between">
+                                <div>
+                                    {{ modification.modificationType }}
+                                </div>
+                                <dsh-panel-header-icon icon="save"></dsh-panel-header-icon>
+                            </div>
+                        </dsh-panel-header>
+                        <dsh-panel-content>
+                            {{ modification.modificationType }}
+                        </dsh-panel-content>
+                    </dsh-panel> -->
                 </div>
             </dsh-timeline-item-content>
         </dsh-timeline-item>
