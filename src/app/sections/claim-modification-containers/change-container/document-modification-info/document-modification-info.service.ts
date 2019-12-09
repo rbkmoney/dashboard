@@ -13,8 +13,7 @@ export class DocumentModificationInfoService {
 
     questionary$: Observable<QuestionaryData> = this.receiveQuestionary$.pipe(
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
-        pluck('questionary'),
-        pluck('data'),
+        pluck('questionary', 'data'),
         shareReplay(1)
     );
 

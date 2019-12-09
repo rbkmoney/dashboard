@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { pluck } from 'rxjs/operators';
+import { pluck, map } from 'rxjs/operators';
 import isEmpty from 'lodash.isempty';
+import negate from 'lodash.negate';
 
 import { DocumentModificationUnit } from '../../../../api-codegen/claim-management';
 import { DocumentModificationInfoService } from './document-modification-info.service';
@@ -17,15 +18,15 @@ export class DocumentModificationInfoComponent implements OnChanges {
     isLoading$ = this.documentModificationInfoService.isLoading$;
     isError$ = this.documentModificationInfoService.isError$;
     contractor$ = this.questionary$.pipe(pluck('contractor'));
+    isNotEmptyContractor$ = this.contractor$.pipe(map(negate(isEmpty)));
     shopInfo$ = this.questionary$.pipe(pluck('shopInfo'));
+    isNotEmptyShopInfo$ = this.shopInfo$.pipe(map(negate(isEmpty)));
     contactInfo$ = this.questionary$.pipe(pluck('contactInfo'));
+    isNotEmptyContactInfo$ = this.contactInfo$.pipe(map(negate(isEmpty)));
     bankAccount$ = this.questionary$.pipe(pluck('bankAccount'));
+    isNotEmptyBankAccount$ = this.bankAccount$.pipe(map(negate(isEmpty)));
 
     constructor(private documentModificationInfoService: DocumentModificationInfoService) {}
-
-    isNotEmpty(value: any): boolean {
-        return !isEmpty(value);
-    }
 
     ngOnChanges({ unit }: SimpleChanges): void {
         this.documentModificationInfoService.receiveQuestionary(unit.currentValue);

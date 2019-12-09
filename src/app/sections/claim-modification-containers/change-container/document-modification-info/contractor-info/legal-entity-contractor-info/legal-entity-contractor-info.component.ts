@@ -1,6 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import get from 'lodash.get';
 
-import { LegalEntityContractor, LegalEntity } from '../../../../../../api-codegen/questionary';
+import {
+    LegalEntityContractor,
+    RussianLegalEntity,
+    LegalRegistrationInfo
+} from '../../../../../../api-codegen/questionary';
 
 @Component({
     selector: 'dsh-legal-entity-contractor-info',
@@ -9,11 +14,13 @@ import { LegalEntityContractor, LegalEntity } from '../../../../../../api-codege
 export class LegalEntityContractorInfoComponent implements OnChanges {
     @Input() legalEntityContractor: LegalEntityContractor;
 
-    legalEntity: LegalEntity;
+    legalEntity: RussianLegalEntity;
+    registrationInfo: LegalRegistrationInfo;
 
     ngOnChanges({ legalEntityContractor }: SimpleChanges) {
         if (legalEntityContractor.currentValue) {
             this.legalEntity = legalEntityContractor.currentValue.legalEntity;
+            this.registrationInfo = get(this.legalEntity, ['registrationInfo']);
         }
     }
 }

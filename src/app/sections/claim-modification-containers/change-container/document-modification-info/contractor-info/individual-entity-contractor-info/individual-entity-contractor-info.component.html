@@ -10,8 +10,8 @@
     <dsh-details-item *ngIf="individualEntity?.name" [title]="t.nameInn">
         {{ individualEntity?.name }} ({{ individualEntity?.inn }})
     </dsh-details-item>
-    <dsh-details-item *ngIf="individualEntity?.registrationInfo?.registrationPlace" [title]="t.registrationPlace">
-        {{ individualEntity?.registrationInfo?.registrationPlace }}
+    <dsh-details-item *ngIf="registrationInfo?.registrationPlace" [title]="t.registrationPlace">
+        {{ registrationInfo?.registrationPlace }}
     </dsh-details-item>
     <dsh-russian-private-entity
         [russianPrivateEntity]="individualEntity?.russianPrivateEntity"

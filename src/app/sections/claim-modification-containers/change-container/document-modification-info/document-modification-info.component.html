@@ -3,16 +3,16 @@
     <div *ngIf="isError$ | async">{{ t.httpError }}</div>
     <div *ngIf="questionary$ | async" fxLayout="column" fxLayoutGap="20px">
         <dsh-contractor-info
-            *ngIf="isNotEmpty(contractor$ | async)"
+            *ngIf="isNotEmptyContractor$ | async"
             [contractor]="contractor$ | async"
         ></dsh-contractor-info>
-        <dsh-shop-info *ngIf="isNotEmpty(shopInfo$ | async)" [shopInfo]="shopInfo$ | async"></dsh-shop-info>
+        <dsh-shop-info *ngIf="isNotEmptyShopInfo$ | async" [shopInfo]="shopInfo$ | async"></dsh-shop-info>
         <dsh-contact-info
-            *ngIf="isNotEmpty(contactInfo$ | async)"
+            *ngIf="isNotEmptyContactInfo$ | async"
             [contactInfo]="contactInfo$ | async"
         ></dsh-contact-info>
         <dsh-bank-account-info
-            *ngIf="isNotEmpty(bankAccount$ | async)"
+            *ngIf="isNotEmptyBankAccount$ | async"
             [bankAccount]="bankAccount$ | async"
         ></dsh-bank-account-info>
     </div>

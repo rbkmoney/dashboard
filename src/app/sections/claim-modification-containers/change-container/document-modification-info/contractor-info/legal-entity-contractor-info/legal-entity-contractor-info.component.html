@@ -10,8 +10,8 @@
     <dsh-details-item *ngIf="legalEntity?.name" [title]="t.nameInn">
         {{ legalEntity?.name }} ({{ legalEntity?.inn }})
     </dsh-details-item>
-    <dsh-details-item *ngIf="legalEntity?.registrationInfo?.registrationAddress" [title]="t.registrationAddress">
-        {{ legalEntity?.registrationInfo?.registrationAddress }}
+    <dsh-details-item *ngIf="registrationInfo?.registrationAddress" [title]="t.registrationAddress">
+        {{ registrationInfo?.registrationAddress }}
     </dsh-details-item>
     <mat-divider></mat-divider>
     <dsh-legal-owner-info [legalOwnerInfo]="legalEntity?.legalOwnerInfo"></dsh-legal-owner-info>

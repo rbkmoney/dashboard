@@ -7,16 +7,12 @@
     <dsh-details-item *ngIf="additionalInfo?.staffCount" [title]="t.staffCount">
         {{ additionalInfo?.staffCount }}
     </dsh-details-item>
-    <div fxLayout="row" *ngIf="additionalInfo?.accountantInfo?.accountantInfoType !== 'WithChiefAccountant'">
-        <dsh-details-item
-            fxFlex="50"
-            *ngIf="additionalInfo?.accountantInfo?.accountantInfoType"
-            [title]="t.accountantTypeLabel"
-        >
-            {{ t.accountantTypes[(additionalInfo?.accountantInfo?.accountantInfoType)] }}
+    <div fxLayout="row" *ngIf="accountantInfo?.accountantInfoType !== 'WithChiefAccountant'">
+        <dsh-details-item fxFlex="50" *ngIf="accountantInfo?.accountantInfoType" [title]="t.accountantTypeLabel">
+            {{ t.accountantTypes[(accountantInfo?.accountantInfoType)] }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="50" *ngIf="additionalInfo?.accountantInfo?.inn" [title]="t.accountantOrgInn">
-            {{ additionalInfo?.accountantInfo?.inn }}
+        <dsh-details-item fxFlex="50" *ngIf="accountantInfo?.inn" [title]="t.accountantOrgInn">
+            {{ accountantInfo?.inn }}
         </dsh-details-item>
     </div>
     <div fxLayout="row">
