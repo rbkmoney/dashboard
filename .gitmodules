@@ -28,3 +28,4 @@
 [submodule "schemes/questionary-aggr-proxy/v0"]
 	path = schemes/questionary-aggr-proxy/v0
 	url = git@github.com:rbkmoney/swag-questionary-aggr-proxy.git
+	branch = release/master
