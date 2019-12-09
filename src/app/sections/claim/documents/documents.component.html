@@ -1,26 +1,3 @@
-<!--<div-->
-<!--        class="dsh-documents"-->
-<!--        *transloco="let t; scope: 'claim'; read: 'claim.documents'"-->
-<!--        fxFlex-->
-<!--        fxLayout="column"-->
-<!--        fxLayoutGap="20px"-->
-<!--&gt;-->
-<!--    <div *ngIf="docs$ | async as docs">-->
-<!--        {{ t.docs }}-->
-<!--        <div *ngIf="!(isLoading$ | async); else isLoading">-->
-<!--            <div-->
-<!--                    *ngIf="(hasFiles$ | async) && (filesData$ | async) && (filesData$ | async).length; else noFiles"-->
-<!--                    fxLayout="column"-->
-<!--                    fxLayoutGap="10px"-->
-<!--            >-->
-<!--                <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>-->
-<!--            </div>-->
-<!--            <ng-template #noFiles>-->
-<!--                <div>{{ t.noDocs }}</div>-->
-<!--            </ng-template>-->
-<!--        </div>-->
-<!--        <ng-template #isLoading>-->
-<!--        </ng-template>-->
-<!--    </div>-->
-<!--    <dsh-file-uploader></dsh-file-uploader>-->
-<!--</div>-->
+<div class="dsh-documents">
+    <ng-content></ng-content>
+</div>
