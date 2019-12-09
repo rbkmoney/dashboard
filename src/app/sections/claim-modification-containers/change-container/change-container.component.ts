@@ -7,6 +7,7 @@ import {
     ContractModificationUnit,
     ShopModificationUnit
 } from '../../../api-codegen/claim-management';
+import { ChangeContainerType } from './change-container-type';
 
 @Component({
     selector: 'dsh-change-container',
@@ -22,11 +23,11 @@ export class ChangeContainerComponent implements OnChanges {
 
     opened = false;
 
-    changeContainerType: 'documentModification';
+    changeContainerType: ChangeContainerType;
 
     ngOnChanges({ unit }: SimpleChanges): void {
         if (get(unit.currentValue, ['claimModificationType']) === 'DocumentModificationUnit') {
-            this.changeContainerType = 'documentModification';
+            this.changeContainerType = ChangeContainerType.documentModification;
         }
     }
 }
