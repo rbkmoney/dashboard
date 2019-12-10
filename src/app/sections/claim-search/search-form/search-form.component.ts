@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SearchFormService } from './search-form.service';
-import { SearchFormValue } from '../../payment-section/operations/search-form-value';
 import { ClaimSearchFormValue } from './claim-search-form-value';
+import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 
 @Component({
     selector: 'dsh-search-form',
@@ -17,7 +17,7 @@ export class SearchFormComponent implements OnInit {
     @Output() formValueChanges: EventEmitter<ClaimSearchFormValue> = new EventEmitter<ClaimSearchFormValue>();
 
     searchForm: FormGroup;
-    statuses: string[] = ['pending', 'review', 'pendingAcceptance', 'accepted', 'denied', 'revoked'];
+    statuses: StatusModificationUnit.StatusEnum[] = ['pending', 'review', 'pendingAcceptance', 'accepted', 'denied', 'revoked'];
 
     constructor(private searchFormService: SearchFormService) {
     }
