@@ -38,12 +38,10 @@ export class ClaimFilesService {
                 (accIds, ids) =>
                     claim$.pipe(
                         switchMap(({ id }) => this.claimService.getClaimByID(id)),
-                        switchMap(({ id, revision }) => {
-                            return ids
-                                ? this.claimService.updateClaimByID(id, revision, this.fileIdsToFileModifications(ids))
-                                : of([]);
-                        }),
-                        map(() => [...accIds, ...(ids || [])])
+                        switchMap(({ id, revision }) =>
+                            this.claimService.updateClaimByID(id, revision, this.fileIdsToFileModifications(ids))
+                        ),
+                        map(() => [...accIds, ...ids])
                     ),
                 initialIds$
             ),
@@ -78,8 +76,6 @@ export class ClaimFilesService {
     }
 
     private getFilesInfo(ids: string[]): Observable<FileData[]> {
-        return ids.length
-            ? forkJoin(ids.map(id => this.filesService.getFileInfo(id).pipe(catchError(() => of(null)))))
-            : of([]);
+        return forkJoin(ids.map(id => this.filesService.getFileInfo(id).pipe(catchError(() => of(null)))));
     }
 }
