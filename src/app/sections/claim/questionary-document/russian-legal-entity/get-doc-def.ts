@@ -6,103 +6,83 @@ import {
     createEnding
 } from '../create-content';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import {
-    YesNo,
-    DocumentType,
-    getShopLocationURL,
-    getContactInfo,
-    getDocumentType,
-    getBusinessInfo,
-    toYesNo
-} from '../select-data';
+import { YesNo, getShopLocationURL, getContactInfo, getBusinessInfo, toYesNo } from '../select-data';
 import { DocDef } from '../create-questionary';
-import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
+import {
+    AccountantInfo,
+    MonthOperationCount,
+    MonthOperationSum,
+    PropertyInfoDocumentType
+} from '../../../../api-codegen/questionary';
 import { RussianLegalEntityQuestionary } from '../../../../api';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 
-export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
-    const { contractor } = q.data;
-    const residencyInfo = q.data.residencyInfo || ({} as any);
-    const registrationInfo = q.data.registrationInfo || ({} as any);
-    const { legalEntity } = contractor;
-    const { additionalInfo } = legalEntity;
+const DocumentType = PropertyInfoDocumentType.DocumentTypeEnum;
 
-    const data = {
-        basic: {
-            inn: q.data.contractor.legalEntity.inn,
-            name: q.data.shopInfo.details.name,
-            brandName: q.data.contractor.legalEntity.name
+const EMPTY = '-';
+
+export function getDocDef({
+    data: {
+        contractor: {
+            legalEntity: {
+                additionalInfo,
+                additionalInfo: {
+                    relationIndividualEntity,
+                    benefitThirdParties,
+                    nkoRelationTarget,
+                    relationshipWithNko,
+                    monthOperationSum,
+                    monthOperationCount
+                },
+                inn,
+                name: brandName,
+                legalOwnerInfo: {
+                    pdlRelationDegree,
+                    pdlCategory,
+                    snils,
+                    russianPrivateEntity: { fio },
+                    authorityConfirmingDocument
+                },
+                propertyInfoDocumentType: { documentType } = {} as any,
+                beneficialOwner
+            }
         },
-        contact: {
-            phone: q.data.contactInfo.phoneNumber,
-            url: getShopLocationURL(q.data.shopInfo.location),
-            email: q.data.contactInfo.email
+        residencyInfo: { taxResident, fatca, ownerResident } = {} as any,
+        registrationInfo: { registrationPlace } = {} as any,
+        shopInfo: {
+            details: { name },
+            location
         },
-        relationshipsWithNko: {
-            nkoRelationTarget: additionalInfo.nkoRelationTarget,
-            relationshipWithNko: additionalInfo.relationshipWithNko
-        },
-        monthOperation: {
-            monthOperationSum: additionalInfo.monthOperationSum,
-            monthOperationCount: additionalInfo.monthOperationCount
-        },
-        legalOwnerInfo: {
-            fio: legalEntity.legalOwnerInfo.russianPrivateEntity.fio,
-            authorityConfirmingDocument: getAuthorityConfirmingDocument(
-                legalEntity.legalOwnerInfo.authorityConfirmingDocument
-            ),
-            snils: legalEntity.legalOwnerInfo.snils,
-            contact: getContactInfo(legalEntity.legalOwnerInfo.russianPrivateEntity.contactInfo || {})
-        },
-        // TODO
-        address: {
-            country: '-',
-            region: '-',
-            city: '-',
-            street: registrationInfo.registrationPlace,
-            number: '-',
-            building: '-',
-            office: '-',
-            area: '-'
-        },
-        documentType: getDocumentType((legalEntity.propertyInfoDocumentType || ({} as any)).documentType),
-        business: getBusinessInfo(additionalInfo),
-        pdl: {
-            pdlCategory: toYesNo(legalEntity.legalOwnerInfo.pdlCategory),
-            pdlRelation: toYesNo(!!legalEntity.legalOwnerInfo.pdlRelationDegree),
-            pdlRelationDegree: legalEntity.legalOwnerInfo.pdlRelationDegree
-        },
-        benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: toYesNo(!!legalEntity.beneficialOwner && !!legalEntity.beneficialOwner.length),
-        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
-        residencyInfo: {
-            taxResident: toYesNo(residencyInfo.taxResident),
-            ownerResident: toYesNo(residencyInfo.ownerResident),
-            fatca: toYesNo(residencyInfo.fatca)
-        }
-    };
+        contactInfo: { phoneNumber, email }
+    }
+}: RussianLegalEntityQuestionary): DocDef {
+    const url = getShopLocationURL(location);
+    const contact = getContactInfo({}); // TODO: russianPrivateEntity.contactInfo ?
+    const authorityConfirmingDocumentInfo = getAuthorityConfirmingDocument(authorityConfirmingDocument);
+    const { hasChiefAccountant, staffCount, accounting, accountingOrgInn } = getBusinessInfo(additionalInfo);
+    const hasBeneficialOwner = Array.isArray(beneficialOwner) && !!beneficialOwner.length;
 
     return {
         content: [
             createHeader('Приложение №'),
             createHeadline('ОПРОСНЫЙ ЛИСТ – ЮРИДИЧЕСКОГО ЛИЦА (НЕ ЯВЛЯЮЩЕГОСЯ КРЕДИТНОЙ ОРГАНИЗАЦИЕЙ)'),
             createVerticalParagraph('1. Основные сведения о Клиенте', [
-                [`1.1. Наименование: ${data.basic.name}`, `1.2. ИНН: ${data.basic.inn}`],
-                [{ text: `1.3. Фирменное наименование: ${data.basic.brandName}`, colSpan: 2 }]
+                [`1.1. Наименование: ${name || EMPTY}`, `1.2. ИНН: ${inn || EMPTY}`],
+                [{ text: `1.3. Фирменное наименование: ${brandName || EMPTY}`, colSpan: 2 }]
             ]),
             createVerticalParagraph('2. Контактная информация', [
                 [
-                    `2.1. Телефон: ${data.contact.phone}`,
-                    `2.2. Сайт (Url): ${data.contact.url}`,
-                    `2.3. Email: ${data.contact.email}`
+                    `2.1. Телефон: ${phoneNumber || EMPTY}`,
+                    `2.2. Сайт (Url): ${url || EMPTY}`,
+                    `2.3. Email: ${email || EMPTY}`
                 ]
             ]),
             createVerticalParagraph(
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
-                        `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
+                        `3.1. Цели установления отношений: ${nkoRelationTarget || EMPTY}`,
+                        `3.2. Характер отношений: ${relationshipWithNko || EMPTY}`
                     ]
                 ]
             ),
@@ -115,7 +95,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             [MonthOperationCount.BtwTenToFifty, '10 - 50'],
                             [MonthOperationCount.GtFifty, 'свыше 50']
                         ],
-                        data.monthOperation.monthOperationCount
+                        monthOperationCount
                     ),
                     createVerticalCheckboxWithTitle(
                         '4.2. Сумма операций:',
@@ -124,40 +104,24 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             [MonthOperationSum.BtwFiveHundredThousandToOneMillion, '500 000 - 1 000 000'],
                             [MonthOperationSum.GtOneMillion, 'свыше 1 000 000']
                         ],
-                        data.monthOperation.monthOperationSum
+                        monthOperationSum
                     )
                 ]
             ]),
             createVerticalParagraph('5. Сведения о единоличном исполнительном органе юридического лица', [
-                [{ text: `5.1. ФИО Единоличного исполнительного органа: ${data.legalOwnerInfo.fio}`, colSpan: 2 }],
+                [{ text: `5.1. ФИО Единоличного исполнительного органа: ${fio || EMPTY}`, colSpan: 2 }],
                 [
                     {
-                        text: `5.2. Действует на основании: ${data.legalOwnerInfo.authorityConfirmingDocument}`,
+                        text: `5.2. Действует на основании: ${authorityConfirmingDocumentInfo || EMPTY}`,
                         colSpan: 2
                     }
                 ],
-                [
-                    `5.3. СНИЛС №: ${data.legalOwnerInfo.snils}`,
-                    `5.4. Контактная информация (телефон, email): ${data.legalOwnerInfo.contact}`
-                ]
+                [`5.3. СНИЛС №: ${snils || EMPTY}`, `5.4. Контактная информация (телефон, email): ${contact || EMPTY}`]
             ]),
-            createVerticalParagraph('6. Данные о фактическом местонахождении органа управления (Руководителя)', [
-                [
-                    `6.1. Страна: ${data.address.country}`,
-                    { text: `6.2. Область/Регион: ${data.address.region}`, colSpan: 2 }
-                ],
-                [
-                    `6.3. Город: ${data.address.city}`,
-                    `6.4. Улица: ${data.address.street}`,
-                    `6.5. Дом: ${data.address.number}`
-                ],
-                [
-                    `6.6. Корпус/Строение: ${data.address.building}`,
-                    `6.7. Офис/Помещение: ${data.address.office}`,
-                    `6.8. Площадь (кв.м.): ${data.address.area}`
-                ]
-            ]),
-
+            createVerticalParagraph(
+                '6. Данные о фактическом местонахождении органа управления (Руководителя)',
+                registrationPlace || EMPTY
+            ),
             createVerticalParagraph(
                 '7. Тип документа, подтверждающий право нахождения по фактическому адресу органа управления (Руководителя)',
                 [
@@ -168,7 +132,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                                 [DocumentType.SubleaseContract, 'Договор субаренды'],
                                 [DocumentType.CertificateOfOwnership, 'Свидетельство о праве собственности']
                             ],
-                            data.documentType
+                            documentType
                         )
                     ]
                 ]
@@ -178,54 +142,48 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                     createInlineCheckboxWithTitle(
                         '8.1. Наличие в штате главного бухгалтера',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        data.business.hasChiefAccountant
+                        hasChiefAccountant
                     ),
-                    `8.2. Штатная численность в организации: ${data.business.staffCount}`
+                    `8.2. Штатная численность в организации: ${staffCount || EMPTY}`
                 ],
                 [
-                    {
-                        ...createVerticalCheckboxWithTitle(
-                            '8.3. Бухгалтерский учет осуществляет:',
+                    createVerticalCheckboxWithTitle(
+                        '8.3. Бухгалтерский учет осуществляет:',
+                        [
                             [
-                                [
-                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting,
-                                    'Руководитель организации'
-                                ],
-                                [
-                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
-                                    `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`
-                                ],
-                                [
-                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
-                                    'Бухгалтер – индивидуальный специалист'
-                                ]
+                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting,
+                                'Руководитель организации'
                             ],
-                            data.business.accounting
-                        ),
-                        colSpan: 2
-                    }
+                            [
+                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
+                                `Организация ведущая бух. учет: ИНН: ${accountingOrgInn || EMPTY}`
+                            ],
+                            [
+                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
+                                'Бухгалтер – индивидуальный специалист'
+                            ]
+                        ],
+                        accounting
+                    )
                 ]
             ]),
             createVerticalParagraph(
                 '9. Принадлежность Единоличного исполнительного органа к некоторым категориям граждан',
                 [
                     [
-                        {
-                            ...createInlineCheckboxWithTitle(
-                                '9.1. Принадлежность к категории ПДЛ¹',
-                                [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                                data.pdl.pdlCategory
-                            ),
-                            colSpan: 2
-                        }
+                        createInlineCheckboxWithTitle(
+                            '9.1. Принадлежность к категории ПДЛ¹',
+                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                            toYesNo(pdlCategory)
+                        )
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '9.2. Является родственником ПДЛ',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.pdl.pdlRelation
+                            toYesNo(!!pdlRelationDegree)
                         ),
-                        `9.3. Степень родства: ${data.pdl.pdlRelationDegree}`
+                        `9.3. Степень родства: ${pdlRelationDegree || EMPTY}`
                     ]
                 ]
             ),
@@ -237,7 +195,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                                 [YesNo.no, 'Нет'],
                                 [YesNo.yes, 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)']
                             ],
-                            data.benefitThirdParties
+                            toYesNo(benefitThirdParties)
                         )
                     ]
                 ]
@@ -249,13 +207,13 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             [YesNo.no, 'Нет'],
                             [YesNo.yes, 'Да (обязательное заполнение приложение для Бенефициарного владельца)']
                         ],
-                        data.hasBeneficialOwner
+                        toYesNo(hasBeneficialOwner)
                     )
                 ]
             ]),
             createVerticalParagraph(
                 '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
-                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
+                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(!!relationIndividualEntity))]]
             ),
             createVerticalParagraph('13. Информация об иностранном налоговом резидентстве', [
                 [
@@ -264,7 +222,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.taxResident)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(taxResident))
                 ],
                 [
                     {
@@ -272,7 +230,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.ownerResident)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(ownerResident))
                 ],
                 [
                     {
@@ -280,7 +238,7 @@ export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {
                             '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.residencyInfo.fatca)
+                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(fatca))
                 ]
             ]),
             createEnding()

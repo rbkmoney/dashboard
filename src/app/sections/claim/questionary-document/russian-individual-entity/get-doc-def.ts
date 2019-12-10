@@ -8,10 +8,19 @@ import {
     createHeadline,
     createEnding
 } from '../create-content';
-import { YesNo, DocumentType, getShopLocationURL, getDocumentType, getBusinessInfo, toYesNo } from '../select-data';
-import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
+import { YesNo, getShopLocationURL, getBusinessInfo, toYesNo } from '../select-data';
+import {
+    AccountantInfo,
+    MonthOperationCount,
+    MonthOperationSum,
+    PropertyInfoDocumentType
+} from '../../../../api-codegen/questionary';
 import { getIndividualEntityName } from './get-individual-entity-name';
 import { RussianIndividualEntityQuestionary } from '../../../../api';
+
+const DocumentType = PropertyInfoDocumentType.DocumentTypeEnum;
+
+const EMPTY = '-';
 
 export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
     const { individualEntity } = q.data.contractor;
@@ -48,7 +57,7 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
             office: '-',
             area: '-'
         },
-        documentType: getDocumentType(individualEntity.propertyInfoDocumentType.documentType),
+        documentType: individualEntity.propertyInfoDocumentType.documentType,
         business: getBusinessInfo(additionalInfo),
         pdl: {
             pdlCategory: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),

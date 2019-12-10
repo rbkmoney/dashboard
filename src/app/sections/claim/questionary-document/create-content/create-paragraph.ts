@@ -7,7 +7,8 @@ import { createGrid } from './create-grid';
 
 const MARGIN = cmMarginsToIn(0, 0.1);
 
-function prepareBody(body: Table['body']): Table['body'] {
+function prepareBody(body: Table['body'] | string): Table['body'] {
+    body = typeof body === 'string' ? [[body]] : body;
     return body.map(i => i.map(j => j || ''));
 }
 
@@ -31,10 +32,14 @@ function getColumnsCountByBody(body: Table['body']): number {
 
 export function createVerticalParagraph(
     header: string,
-    body: Table['body'] = [[]],
-    columnsCount: number = getColumnsCountByBody(body)
+    body: Table['body'] | string = [[]],
+    columnsCount?: number
 ): Content {
-    body = setBodyColSpans(prepareBody(body), columnsCount);
+    body = prepareBody(body);
+    if (!columnsCount) {
+        columnsCount = getColumnsCountByBody(body);
+    }
+    body = setBodyColSpans(body, columnsCount);
     const headerRow: Table['body'][number] = [
         {
             colSpan: columnsCount,
@@ -53,7 +58,7 @@ export function createVerticalParagraph(
 }
 
 export function createInlineParagraph(header: string, body: Table['body'] | string = [[]]): Content {
-    body = prepareBody(typeof body === 'string' ? [[body]] : body);
+    body = prepareBody(body);
     const headerTable: Content = {
         layout: Layout.noBorders,
         table: {
