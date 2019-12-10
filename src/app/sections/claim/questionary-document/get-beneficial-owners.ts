@@ -1,8 +1,7 @@
 import { Questionary, BeneficialOwner } from '../../../api-codegen/questionary';
-import { isRussianIndividualEntityQuestionary } from './russian-individual-entity';
-import { isRussianLegalEntityQuestionary } from './russian-legal-entity';
+import { isRussianIndividualEntityQuestionary, isRussianLegalEntityQuestionary } from '../../../api';
 
-export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] {
+export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[] | null {
     let beneficialOwners: BeneficialOwner[] = [];
     if (isRussianIndividualEntityQuestionary(questionary)) {
         beneficialOwners = questionary.data.contractor.individualEntity.beneficialOwners;
@@ -10,7 +9,7 @@ export function getBeneficialOwners(questionary: Questionary): BeneficialOwner[]
         beneficialOwners = questionary.data.contractor.legalEntity.beneficialOwner;
     } else {
         console.error('Unknown questionary');
-        return;
+        return null;
     }
     return beneficialOwners;
 }

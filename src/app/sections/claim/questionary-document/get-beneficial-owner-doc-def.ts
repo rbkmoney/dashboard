@@ -5,7 +5,7 @@ import { getDocDef } from './beneficial-owner';
 export function getBeneficialOwnerDocDef(
     beneficialOwner: BeneficialOwner,
     companyName: string,
-    companyInn: number
+    companyInn: string
 ): DocDef {
     return getDocDef(beneficialOwner, companyName, companyInn);
 }

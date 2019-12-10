@@ -6,8 +6,8 @@ import {
     Contractor,
     IndividualResidencyInfo,
     IndividualRegistrationInfo
-} from '../../../../api-codegen/questionary';
-import { Replace } from '../../../../../type-utils';
+} from '../../../api-codegen/questionary';
+import { Replace } from '../../../../type-utils';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,

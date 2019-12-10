@@ -10,8 +10,8 @@ import {
 } from '../create-content';
 import { YesNo, DocumentType, getShopLocationURL, getDocumentType, getBusinessInfo, toYesNo } from '../select-data';
 import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
-import { RussianIndividualEntityQuestionary } from '.';
 import { getIndividualEntityName } from './get-individual-entity-name';
+import { RussianIndividualEntityQuestionary } from '../../../../api';
 
 export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
     const { individualEntity } = q.data.contractor;

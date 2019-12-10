@@ -5,5 +5,6 @@ export * from './create-header';
 export * from './create-headline';
 export * from './create-ending';
 export * from './create-grid';
+export * from './create-captioned-text';
 
 export * from './icons';

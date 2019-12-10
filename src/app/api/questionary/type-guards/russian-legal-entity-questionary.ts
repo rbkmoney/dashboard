@@ -6,8 +6,8 @@ import {
     Contractor,
     LegalResidencyInfo,
     LegalRegistrationInfo
-} from '../../../../api-codegen/questionary';
-import { Replace } from '../../../../../type-utils';
+} from '../../../api-codegen/questionary';
+import { Replace } from '../../../../type-utils';
 
 type RussianLegalEntityContractor = Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }>;
 type RussianLegalEntityQuestionaryData = Replace<QuestionaryData, { contractor: RussianLegalEntityContractor }>;

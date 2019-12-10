@@ -1,10 +1,8 @@
 import { Questionary } from '../../../api-codegen/questionary';
-import {
-    getDocDef as getRussianIndividualEntityDocDef,
-    isRussianIndividualEntityQuestionary
-} from './russian-individual-entity';
-import { getDocDef as getRussianLegalEntityDocDef, isRussianLegalEntityQuestionary } from './russian-legal-entity';
+import { getDocDef as getRussianIndividualEntityDocDef } from './russian-individual-entity';
+import { getDocDef as getRussianLegalEntityDocDef } from './russian-legal-entity';
 import { DocDef } from './create-questionary';
+import { isRussianLegalEntityQuestionary, isRussianIndividualEntityQuestionary } from '../../../api';
 
 export function getEntityQuestionaryDocDef(questionary: Questionary): DocDef {
     if (isRussianIndividualEntityQuestionary(questionary)) {
@@ -13,4 +11,5 @@ export function getEntityQuestionaryDocDef(questionary: Questionary): DocDef {
         return getRussianLegalEntityDocDef(questionary);
     }
     console.error('Unknown questionary');
+    return null;
 }

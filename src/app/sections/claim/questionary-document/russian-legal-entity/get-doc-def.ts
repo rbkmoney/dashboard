@@ -17,7 +17,7 @@ import {
 } from '../select-data';
 import { DocDef } from '../create-questionary';
 import { AccountantInfo, MonthOperationCount, MonthOperationSum } from '../../../../api-codegen/questionary';
-import { RussianLegalEntityQuestionary } from './russian-legal-entity-questionary';
+import { RussianLegalEntityQuestionary } from '../../../../api';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
 
 export function getDocDef(q: RussianLegalEntityQuestionary): DocDef {

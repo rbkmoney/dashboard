@@ -8,29 +8,22 @@ import {
     createInlineParagraph,
     createHorizontalCheckbox
 } from '../create-content';
-import { YesNo, getContactInfo, toYesNo } from '../select-data';
-import { createCaptionedText } from '../create-content/create-captioned-text';
-import { cmToIn } from '../../../../document';
-import { BeneficialOwner, RussianDomesticPassport } from '../../../../api-codegen/questionary';
+import { YesNo, getContactInfo, toYesNo, getIdentityDocument } from '../select-data';
+import { BeneficialOwner } from '../../../../api-codegen/questionary';
 import { getResidencyInfo } from './get-residency-info';
+import { createCompanyHeader } from './create-company-header';
 
-export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string, companyInn: number): DocDef {
+export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string, companyInn: string): DocDef {
     const { russianPrivateEntity } = beneficialOwner;
     const migrationCardInfo = beneficialOwner.migrationCardInfo || {};
     const residenceApprove = beneficialOwner.residenceApprove || {};
-    const identityDocument = beneficialOwner.identityDocument as RussianDomesticPassport;
+    const identityDocument = getIdentityDocument(beneficialOwner.identityDocument);
     const residencyInfo = getResidencyInfo(beneficialOwner.residencyInfo);
     const { ownershipPercentage, inn, snils } = beneficialOwner;
     const { fio, birthDate, birthPlace, citizenship, actualAddress: address } = russianPrivateEntity;
     const contactInfo = getContactInfo(russianPrivateEntity.contactInfo || {});
 
     const data = {
-        identityDocument: {
-            name: 'Паспорт РФ',
-            seriesNumber: identityDocument.seriesNumber,
-            issuer: [identityDocument.issuer, identityDocument.issuerCode].filter(i => !!i).join(', '),
-            issuedAt: identityDocument.issuedAt
-        },
         migrationCardInfo: {
             cardNumber: migrationCardInfo.cardNumber,
             beginningDate: migrationCardInfo.beginningDate,
@@ -55,13 +48,7 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
     return {
         content: [
             createHeader('Приложение №'),
-            {
-                columns: [
-                    { ...createCaptionedText(companyName, 'Наименование вашей компании'), width: 'auto' },
-                    { ...createCaptionedText(String(companyInn), 'ИНН'), width: 'auto' }
-                ],
-                columnGap: cmToIn(2)
-            },
+            createCompanyHeader(companyName, companyInn),
             createHeadline('АНКЕТА ФИЗИЧЕСКОГО ЛИЦА - БЕНЕФИЦИАРНОГО ВЛАДЕЛЬЦА'),
             createVerticalParagraph('1. Бенефициарный владелец', [
                 [
@@ -81,12 +68,12 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
             createInlineParagraph('6. Гражданство', [[citizenship]]),
             createInlineParagraph('7. ИНН (при наличии)', [[inn]]),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
-                [`8.1. Вид документа: ${data.identityDocument.name}`],
-                [`8.2. Серия и номер: ${data.identityDocument.seriesNumber}`],
+                [`8.1. Вид документа: ${identityDocument.name}`],
+                [`8.2. Серия и номер: ${identityDocument.seriesNumber}`],
                 [
-                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${data.identityDocument.issuer}`
+                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${identityDocument.issuer}`
                 ],
-                [`8.4. Дата выдачи: ${data.identityDocument.issuedAt}`]
+                [`8.4. Дата выдачи: ${identityDocument.issuedAt}`]
             ]),
             createInlineParagraph('9. Данные миграционной карты¹', [
                 [`9.1. Номер карты: ${data.migrationCardInfo.cardNumber}`],
