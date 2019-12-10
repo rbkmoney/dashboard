@@ -11,9 +11,30 @@ function prepareBody(body: Table['body']): Table['body'] {
     return body.map(i => i.map(j => j || ''));
 }
 
-export function createVerticalParagraph(header: string, body: Table['body'] = [[]]): Content {
-    body = prepareBody(body);
-    const columnsCount = getColumnsCount(body[0]);
+function setBodyColSpans(body: Table['body'], columnsCount: number): Table['body'] {
+    return body.map(row => {
+        const rowColumnsCount = row.reduce((sum, col) => sum + (typeof col === 'object' ? col.colSpan || 1 : 1), 0);
+        if (rowColumnsCount === columnsCount) {
+            return row;
+        }
+        const lastCol = row[row.length - 1];
+        const resultLastCol =
+            typeof lastCol === 'object' ? { ...lastCol, colSpan: lastCol.colSpan || 1 } : { text: lastCol, colSpan: 1 };
+        resultLastCol.colSpan += columnsCount - rowColumnsCount;
+        return [...row.slice(0, -1), resultLastCol];
+    });
+}
+
+function getColumnsCountByBody(body: Table['body']): number {
+    return body.reduce((maxCount, row) => Math.max(maxCount, getColumnsCount(row)), 1);
+}
+
+export function createVerticalParagraph(
+    header: string,
+    body: Table['body'] = [[]],
+    columnsCount: number = getColumnsCountByBody(body)
+): Content {
+    body = setBodyColSpans(prepareBody(body), columnsCount);
     const headerRow: Table['body'][number] = [
         {
             colSpan: columnsCount,
@@ -31,8 +52,8 @@ export function createVerticalParagraph(header: string, body: Table['body'] = [[
     };
 }
 
-export function createInlineParagraph(header: string, body: Table['body'] = [[]]): Content {
-    body = prepareBody(body);
+export function createInlineParagraph(header: string, body: Table['body'] | string = [[]]): Content {
+    body = prepareBody(typeof body === 'string' ? [[body]] : body);
     const headerTable: Content = {
         layout: Layout.noBorders,
         table: {

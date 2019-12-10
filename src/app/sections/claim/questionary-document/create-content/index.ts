@@ -8,3 +8,5 @@ export * from './create-grid';
 export * from './create-captioned-text';
 
 export * from './icons';
+
+export * from './text';

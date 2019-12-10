@@ -6,3 +6,5 @@ export * from './get-contact-info';
 export * from './get-business-info';
 export * from './get-identity-document';
 export * from './get-company-info';
+export * from './get-date';
+export * from './get-percent';
