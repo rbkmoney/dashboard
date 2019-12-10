@@ -22,53 +22,41 @@ const DocumentType = PropertyInfoDocumentType.DocumentTypeEnum;
 
 const EMPTY = '-';
 
-export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
-    const { individualEntity } = q.data.contractor;
-    const { additionalInfo, russianPrivateEntity, residencyInfo, registrationInfo } = individualEntity;
-
-    const data = {
-        basic: {
-            inn: individualEntity.inn,
-            name: getIndividualEntityName(russianPrivateEntity.fio),
-            brandName: q.data.shopInfo.details.name,
-            snils: individualEntity.snils
+export function getDocDef({
+    data: {
+        contractor: {
+            individualEntity: {
+                additionalInfo,
+                additionalInfo: {
+                    nkoRelationTarget,
+                    relationshipWithNko,
+                    monthOperationSum,
+                    monthOperationCount,
+                    benefitThirdParties,
+                    relationIndividualEntity
+                },
+                russianPrivateEntity: { fio },
+                registrationInfo: { registrationPlace },
+                inn,
+                snils,
+                propertyInfoDocumentType: { documentType },
+                individualPersonCategories: { foreignPublicPerson, foreignRelativePerson },
+                beneficialOwners,
+                residencyInfo: { usaTaxResident }
+            }
         },
-        contact: {
-            phone: q.data.contactInfo.phoneNumber,
-            url: getShopLocationURL(q.data.shopInfo.location),
-            email: q.data.contactInfo.email
+        shopInfo: {
+            details: { name: brandName },
+            location
         },
-        relationshipsWithNko: {
-            nkoRelationTarget: additionalInfo.nkoRelationTarget,
-            relationshipWithNko: additionalInfo.relationshipWithNko
-        },
-        monthOperation: {
-            monthOperationSum: additionalInfo.monthOperationSum,
-            monthOperationCount: additionalInfo.monthOperationCount
-        },
-        // TODO
-        address: {
-            country: '-',
-            region: '-',
-            city: '-',
-            street: registrationInfo.registrationPlace,
-            number: '-',
-            building: '-',
-            office: '-',
-            area: '-'
-        },
-        documentType: individualEntity.propertyInfoDocumentType.documentType,
-        business: getBusinessInfo(additionalInfo),
-        pdl: {
-            pdlCategory: toYesNo(individualEntity.individualPersonCategories.foreignPublicPerson),
-            pdlRelation: toYesNo(individualEntity.individualPersonCategories.foreignRelativePerson),
-            pdlRelationDegree: '' // TODO
-        },
-        benefitThirdParties: toYesNo(additionalInfo.benefitThirdParties),
-        hasBeneficialOwner: toYesNo(!!individualEntity.beneficialOwners && !!individualEntity.beneficialOwners.length),
-        hasRelation: toYesNo(!!additionalInfo.relationIndividualEntity),
-        taxResident: toYesNo(residencyInfo.usaTaxResident)
-    };
+        contactInfo: { phoneNumber, email }
+    }
+}: RussianIndividualEntityQuestionary): DocDef {
+    const name = getIndividualEntityName(fio);
+    const url = getShopLocationURL(location);
+    const { hasChiefAccountant, staffCount, accountingOrgInn, accounting } = getBusinessInfo(additionalInfo);
+    const pdlRelationDegree = ''; // TODO
+    const hasBeneficialOwner = Array.isArray(beneficialOwners) && !!beneficialOwners.length;
 
     return {
         content: [
@@ -77,22 +65,22 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                 'ОПРОСНЫЙ ЛИСТ – ИНДИВИДУАЛЬНОГО ПРЕДПРИНИМАТЕЛЯ ИЛИ ФИЗИЧЕСКОГО ЛИЦА, ЗАНИМАЮЩЕГОСЯ В УСТАНОВЛЕННОМ ЗАКОНОДАТЕЛЬСТВОМ РФ ПОРЯДКЕ ЧАСТНОЙ ПРАКТИКОЙ'
             ),
             createVerticalParagraph('1. Основные сведения о Клиенте', [
-                [`1.1. Наименование: ${data.basic.name}`, `1.2. ИНН: ${data.basic.inn}`],
-                [`1.3. Фирменное наименование: ${data.basic.brandName}`, `1.4. СНИЛС №: ${data.basic.snils}`]
+                [`1.1. Наименование: ${name || EMPTY}`, `1.2. ИНН: ${inn || EMPTY}`],
+                [`1.3. Фирменное наименование: ${brandName || EMPTY}`, `1.4. СНИЛС №: ${snils || EMPTY}`]
             ]),
             createVerticalParagraph('2. Контактная информация', [
                 [
-                    `2.1. Телефон: ${data.contact.phone}`,
-                    `2.2. Сайт (Url): ${data.contact.url}`,
-                    `2.3. Email: ${data.contact.email}`
+                    `2.1. Телефон: ${phoneNumber || EMPTY}`,
+                    `2.2. Сайт (Url): ${url || EMPTY}`,
+                    `2.3. Email: ${email || EMPTY}`
                 ]
             ]),
             createVerticalParagraph(
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${data.relationshipsWithNko.nkoRelationTarget}`,
-                        `3.2. Характер отношений: ${data.relationshipsWithNko.relationshipWithNko}`
+                        `3.1. Цели установления отношений: ${nkoRelationTarget || EMPTY}`,
+                        `3.2. Характер отношений: ${relationshipWithNko || EMPTY}`
                     ]
                 ]
             ),
@@ -105,7 +93,7 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                             [MonthOperationCount.BtwTenToFifty, '10 - 50'],
                             [MonthOperationCount.GtFifty, 'свыше 50']
                         ],
-                        data.monthOperation.monthOperationCount
+                        monthOperationCount
                     ),
                     createVerticalCheckboxWithTitle(
                         '4.2. Сумма операций:',
@@ -114,26 +102,14 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                             [MonthOperationSum.BtwFiveHundredThousandToOneMillion, '500 000 - 1 000 000'],
                             [MonthOperationSum.GtOneMillion, 'свыше 1 000 000']
                         ],
-                        data.monthOperation.monthOperationSum
+                        monthOperationSum
                     )
                 ]
             ]),
-            createVerticalParagraph('5. Адрес фактического осуществления (ведения) деятельности', [
-                [
-                    `5.1. Страна: ${data.address.country}`,
-                    { text: `5.2. Область/Регион: ${data.address.region}`, colSpan: 2 }
-                ],
-                [
-                    `5.3. Город: ${data.address.city}`,
-                    `5.4. Улица: ${data.address.street}`,
-                    `5.5. Дом: ${data.address.number}`
-                ],
-                [
-                    `5.6. Корпус/Строение: ${data.address.building}`,
-                    `5.7. Офис/Помещение: ${data.address.office}`,
-                    `5.8. Площадь (кв.м.): ${data.address.area}`
-                ]
-            ]),
+            createVerticalParagraph(
+                '5. Адрес фактического осуществления (ведения) деятельности',
+                registrationPlace || EMPTY
+            ),
             createVerticalParagraph('6. Тип документа, подтверждающий право нахождения по фактическому адресу', [
                 [
                     createInlineCheckbox(
@@ -142,7 +118,7 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                             [DocumentType.SubleaseContract, 'Договор субаренды'],
                             [DocumentType.CertificateOfOwnership, 'Свидетельство о праве собственности']
                         ],
-                        data.documentType
+                        documentType
                     )
                 ]
             ]),
@@ -151,9 +127,9 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                     createInlineCheckboxWithTitle(
                         '7.1. Наличие в штате главного бухгалтера',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        data.business.hasChiefAccountant
+                        hasChiefAccountant
                     ),
-                    `7.2. Штатная численность в организации: ${data.business.staffCount}`
+                    `7.2. Штатная численность в организации: ${staffCount || EMPTY}`
                 ],
                 [
                     {
@@ -163,14 +139,14 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                                 [AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting, 'ИП лично'],
                                 [
                                     AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
-                                    `Организация ведущая бух. учет: ИНН: ${data.business.accountingOrgInn}`
+                                    `Организация ведущая бух. учет: ИНН: ${accountingOrgInn || EMPTY}`
                                 ],
                                 [
                                     AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
                                     'Бухгалтер – индивидуальный специалист'
                                 ]
                             ],
-                            data.business.accounting
+                            accounting
                         ),
                         colSpan: 2
                     }
@@ -182,7 +158,7 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                         ...createInlineCheckboxWithTitle(
                             '8.1. Принадлежность к категории ПДЛ¹',
                             [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                            data.pdl.pdlCategory
+                            toYesNo(foreignPublicPerson)
                         ),
                         colSpan: 2
                     }
@@ -191,9 +167,9 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                     createInlineCheckboxWithTitle(
                         '8.2. Является родственником ПДЛ',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        data.pdl.pdlRelation
+                        toYesNo(foreignRelativePerson)
                     ),
-                    `8.3. Степень родства: ${data.pdl.pdlRelationDegree}`
+                    `8.3. Степень родства: ${pdlRelationDegree || EMPTY}`
                 ]
             ]),
             createVerticalParagraph('9. Наличие выгодоприобретателя²', [
@@ -203,7 +179,7 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                             [YesNo.no, 'Нет'],
                             [YesNo.yes, 'Да (обязательное заполнение анкеты Выгодоприобретателя по форме НКО)']
                         ],
-                        data.benefitThirdParties
+                        toYesNo(benefitThirdParties)
                     )
                 ]
             ]),
@@ -217,16 +193,16 @@ export function getDocDef(q: RussianIndividualEntityQuestionary): DocDef {
                                 'Да (обязательное заполнение приложение для Бенефициарного владельца по форме НКО)'
                             ]
                         ],
-                        data.hasBeneficialOwner
+                        toYesNo(hasBeneficialOwner)
                     )
                 ]
             ]),
             createVerticalParagraph(
                 '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.hasRelation)]]
+                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(!!relationIndividualEntity))]]
             ),
             createVerticalParagraph('12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства', [
-                [createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], data.taxResident)]
+                [createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(usaTaxResident))]
             ]),
             createEnding()
         ],
