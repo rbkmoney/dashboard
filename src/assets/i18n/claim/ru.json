@@ -1,8 +1,7 @@
 {
     "conversation": {
         "label": "Обсуждение",
-        "leaveTheComment": "Оставьте комментарий",
-        "toLeaveTheComment": "Оставить комментарий",
+        "sendComment": "Оставьте комментарий",
         "timeline": {
             "claimCreated": "Заявка создана",
             "userInfo": {

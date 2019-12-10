@@ -1,0 +1,16 @@
+<div
+    *transloco="let t; scope: 'claim'; read: 'claim.conversation'"
+    fxLayout="row"
+    fxLayoutGap="10px"
+    xLayoutAlign="space-between center"
+>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.sendComment }}</mat-label>
+        <input matInput type="text" autocomplete="off" />
+    </mat-form-field>
+    <div fxFlex="40px" class="send-comment-action">
+        <button dsh-icon-button color="accent">
+            <mat-icon svgIcon="send_white"></mat-icon>
+        </button>
+    </div>
+</div>

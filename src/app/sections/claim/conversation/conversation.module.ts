@@ -14,6 +14,7 @@ import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
 import { ChangeContainerModule } from '../../claim-modification-containers';
+import { SendCommentBlockComponent } from './send-comment';
 
 @NgModule({
     imports: [
@@ -31,6 +32,6 @@ import { ChangeContainerModule } from '../../claim-modification-containers';
         TranslocoModule,
         ChangeContainerModule
     ],
-    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe]
+    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentBlockComponent]
 })
 export class ConversationModule {}
