@@ -33,7 +33,10 @@ export class ClaimFilesComponent implements OnChanges {
             this.hasFiles$ = this.claimFilesService.hasFiles$;
             this.isLoading$ = this.claimFilesService.isLoading$;
         }
-        if (changes.updateClaim && changes.updateClaim.currentValue !== changes.updateClaim.previousValue) {
+        if (
+            changes.updateClaim.currentValue &&
+            changes.updateClaim.currentValue !== changes.updateClaim.previousValue
+        ) {
             this.claimFilesService.updateClaim(changes.updateClaim.currentValue);
         }
     }

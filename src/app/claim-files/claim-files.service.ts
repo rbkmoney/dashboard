@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { concat, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { Claim, Modification } from '../api-codegen/claim-management/swagger-codegen';
@@ -34,25 +34,22 @@ export class ClaimFilesService {
             map(units => units.map(unit => unit.fileId)),
             shareReplay(1)
         );
-        const updatedFilesIds$ = this.updateClaim$.pipe(
+        const filesIds$ = this.updateClaim$.pipe(
             concatFirstScan(
                 (accIds, ids) =>
                     claim$.pipe(
+                        switchMap(({ id }) => this.claimService.getClaimByID(id)),
                         switchMap(({ id, revision }) => {
-                            return this.claimService.updateClaimByID(
-                                id,
-                                revision,
-                                this.fileIdsToFileModifications(ids)
-                            );
+                            return ids
+                                ? this.claimService.updateClaimByID(id, revision, this.fileIdsToFileModifications(ids))
+                                : of([]);
                         }),
-                        catchError(() => of([])),
                         map(() => [...accIds, ...(ids || [])])
                     ),
                 initialIds$
             ),
             shareReplay(1)
         );
-        const filesIds$ = concat(initialIds$, updatedFilesIds$).pipe(shareReplay(1));
         this.filesData$ = filesIds$.pipe(
             switchMap(ids => this.getFilesInfo(ids)),
             tap(files => files.includes(null) && this.snackBar.open(this.transloco.translate('commonError'), 'OK')),
@@ -63,13 +60,12 @@ export class ClaimFilesService {
             map(data => data && data.length > 0),
             shareReplay(1)
         );
-        const isClaimUpdating$ = progress(this.updateClaim$, updatedFilesIds$).pipe(shareReplay(1));
+        const isClaimUpdating$ = progress(this.updateClaim$, filesIds$).pipe(shareReplay(1));
         const isFilesLoading$ = progress(filesIds$, this.filesData$).pipe(shareReplay(1));
         this.isLoading$ = merge(isClaimUpdating$, isFilesLoading$);
         merge(filesIds$, this.filesData$).subscribe({
             error: () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         });
-        updatedFilesIds$.subscribe();
         this.hasFiles$.subscribe();
         this.isLoading$.subscribe();
     }
