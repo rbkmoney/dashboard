@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { Claim, Modification } from '../api-codegen/claim-management/swagger-codegen';
 import { FileData } from '../api-codegen/dark-api/swagger-codegen';
@@ -30,7 +30,6 @@ export class ClaimFilesService {
     initialize(claim$: Observable<Claim>) {
         const initialIds$ = claim$.pipe(
             takeFileModificationsUnit,
-            filter(value => !!value),
             map(units => units.map(unit => unit.fileId)),
             shareReplay(1)
         );

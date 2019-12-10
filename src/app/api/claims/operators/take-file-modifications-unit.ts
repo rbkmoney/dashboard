@@ -8,11 +8,11 @@ export const takeFileModificationsUnit = (s: Observable<Claim>): Observable<File
     s.pipe(
         map(c => {
             if (!c || !c.changeset) {
-                return null;
+                return [];
             }
             const units = c.changeset.filter(isChangesetFileModificationUnit);
             if (units.length === 0) {
-                return null;
+                return [];
             }
             return units.map(unit => unit.modification.claimModificationType);
         })
