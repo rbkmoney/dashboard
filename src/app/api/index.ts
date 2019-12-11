@@ -6,3 +6,4 @@ export * from './questionary';
 export * from './reports';
 export * from './dadata';
 export * from './files';
+export * from './messages';

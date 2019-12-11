@@ -1,0 +1,20 @@
+<div
+    *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.russianPrivateEntity'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div fxLayout="row">
+        <dsh-details-item fxFlex="50" *ngIf="russianPrivateEntity?.fio" [title]="t.fio">
+            {{ russianPrivateEntity?.fio }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex="50" *ngIf="russianPrivateEntity?.birthDate" [title]="t.birthDate">
+            {{ russianPrivateEntity?.birthDate | date }}
+        </dsh-details-item>
+    </div>
+    <dsh-details-item *ngIf="russianPrivateEntity?.birthPlace" [title]="t.birthPlace">
+        {{ russianPrivateEntity?.birthPlace }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="russianPrivateEntity?.residenceAddress" [title]="t.residenceAddress">
+        {{ russianPrivateEntity?.residenceAddress }}
+    </dsh-details-item>
+</div>

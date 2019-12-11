@@ -1,0 +1,18 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.authorityConfirmingDocument'
+    "
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <dsh-details-item *ngIf="authorityConfirmingDocument?.type" [title]="t.label">
+        <div *ngIf="isKnownDocumentType(authorityConfirmingDocument.type)">
+            {{ t.documentTypes[authorityConfirmingDocument.type] }}
+        </div>
+        <div *ngIf="!isKnownDocumentType(authorityConfirmingDocument.type)">
+            {{ authorityConfirmingDocument.type }}
+        </div>
+    </dsh-details-item>
+</div>

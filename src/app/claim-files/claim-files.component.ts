@@ -1,10 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { ClaimFilesService } from './claim-files.service';
 import { SpinnerType } from '../spinner';
-import { Claim } from '../api-codegen/claim-management/swagger-codegen';
-import { FileData } from '../api-codegen/dark-api/swagger-codegen';
+import { ClaimFilesService } from './claim-files.service';
+import { LAYOUT_GAP } from '../sections/constants';
 
 @Component({
     selector: 'dsh-claim-files',
@@ -12,29 +10,21 @@ import { FileData } from '../api-codegen/dark-api/swagger-codegen';
     providers: [ClaimFilesService]
 })
 export class ClaimFilesComponent implements OnChanges {
-    @Input()
-    claim: Observable<Claim>;
-
-    @Input()
-    updateClaim: string[];
-
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    filesData$: Observable<FileData[]>;
-    hasFiles$: Observable<boolean>;
-    isLoading$: Observable<boolean>;
+    @Input()
+    claimID: number;
 
-    constructor(private claimFilesService: ClaimFilesService) {}
+    modifications$ = this.claimFilesService.modifications$;
+    hasFiles$ = this.claimFilesService.hasFiles$;
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private claimFilesService: ClaimFilesService) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.claim && changes.claim.currentValue !== changes.claim.previousValue) {
-            this.claimFilesService.initialize(changes.claim.currentValue);
-            this.filesData$ = this.claimFilesService.filesData$;
-            this.hasFiles$ = this.claimFilesService.hasFiles$;
-            this.isLoading$ = this.claimFilesService.isLoading$;
-        }
-        if (changes.updateClaim && changes.updateClaim.currentValue !== changes.updateClaim.previousValue) {
-            this.claimFilesService.updateClaim(changes.updateClaim.currentValue);
-        }
+        this.claimFilesService.receiveClaim(changes.claimID.currentValue);
+    }
+
+    updateClaim(uploadedFilesIds: string[]) {
+        this.claimFilesService.updateClaim(this.claimID, uploadedFilesIds);
     }
 }

@@ -1,0 +1,16 @@
+<div
+    *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.contactInfo'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div class="mat-body-2">{{ t.title }}</div>
+    <div fxLayout="row">
+        <dsh-details-item fxFlex="50" *ngIf="contactInfo?.email" [title]="t.email">
+            {{ contactInfo?.email }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex="50" *ngIf="contactInfo?.phoneNumber" [title]="t.phoneNumber">
+            {{ contactInfo?.phoneNumber }}
+        </dsh-details-item>
+    </div>
+    <mat-divider></mat-divider>
+</div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
 
 import { DocumentUploadService } from './document-upload.service';
 import { SpinnerType } from '../../../spinner';
@@ -15,13 +14,8 @@ export class DocumentUploadComponent {
 
     claim$ = this.documentUploadService.claim$;
     isLoading$ = this.documentUploadService.isLoading$;
-    updateClaim$ = new Subject<string[]>();
 
     constructor(private documentUploadService: DocumentUploadService) {}
-
-    updateClaim(ids: string[]) {
-        this.updateClaim$.next(ids);
-    }
 
     cancel() {
         this.documentUploadService.cancel();

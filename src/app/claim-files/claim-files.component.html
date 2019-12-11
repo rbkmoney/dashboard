@@ -1,13 +1,12 @@
-<div *ngIf="!(isLoading$ | async); else isLoading">
+<div fxLayout="column" [fxLayoutGap]="layoutGap">
     <div *ngIf="hasFiles$ | async; else noFiles" fxLayout="column" fxLayoutGap="10px">
-        <dsh-file-item *ngFor="let file of filesData$ | async" [file]="file"></dsh-file-item>
+        <dsh-file-container
+            *ngFor="let modification of modifications$ | async"
+            [fileModification]="modification"
+        ></dsh-file-container>
     </div>
     <ng-template #noFiles>
         <div *transloco="let c">{{ c.noDocs }}</div>
     </ng-template>
+    <dsh-file-uploader (uploadedFilesIds)="updateClaim($event)"></dsh-file-uploader>
 </div>
-<ng-template #isLoading>
-    <div fxLayout fxLayoutAlign="center center">
-        <dsh-spinner [type]="spinnerType" size="30"></dsh-spinner>
-    </div>
-</ng-template>

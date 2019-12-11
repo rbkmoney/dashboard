@@ -9,7 +9,7 @@ import { FileUploaderService } from './file-uploader.service';
 })
 export class FileUploaderComponent {
     @Output()
-    filesUploaded = new EventEmitter<string[]>();
+    uploadedFilesIds = new EventEmitter<string[]>();
 
     @HostBinding('class.dsh-file-uploader-container')
     isDragover = false;
@@ -18,7 +18,7 @@ export class FileUploaderComponent {
     isUploading$ = this.fileUploaderService.isUploading$;
 
     constructor(private fileUploaderService: FileUploaderService) {
-        this.fileUploaderService.filesUploaded$.subscribe(value => this.filesUploaded.emit(value));
+        this.fileUploaderService.filesUploaded$.subscribe(value => this.uploadedFilesIds.emit(value));
     }
 
     setDragover(value: boolean) {
