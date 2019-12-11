@@ -40,7 +40,6 @@
                             *ngIf="revokeAvailable$ | async"
                             dsh-stroked-button
                             color="warn"
-                            [disabled]="revokeInProcess$ | async"
                             (click)="revokeClaim()"
                         >
                             {{ t.revokeClaim }}

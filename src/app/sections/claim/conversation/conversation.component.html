@@ -29,10 +29,14 @@
                             *ngIf="isDocumentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
                         ></dsh-change-container>
+                        <dsh-comment-container
+                            *ngIf="isCommentModificationUnit(modification)"
+                            [unit]="modification.claimModificationType"
+                        ></dsh-comment-container>
                     </div>
                 </div>
             </dsh-timeline-item-content>
         </dsh-timeline-item>
     </dsh-timeline>
-    <dsh-send-comment></dsh-send-comment>
+    <dsh-send-comment (conversationSaved)="commentSaved($event)"></dsh-send-comment>
 </div>

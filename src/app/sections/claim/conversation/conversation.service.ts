@@ -3,6 +3,8 @@ import { map, shareReplay, pluck } from 'rxjs/operators';
 
 import { toTimelineInfo } from './to-timeline-info';
 import { ReceiveClaimService } from '../receive-claim.service';
+import { ConversationID } from '../../../api-codegen/messages';
+import { UpdateClaimService } from '../update-claim.service';
 
 @Injectable()
 export class ConversationService {
@@ -17,5 +19,9 @@ export class ConversationService {
         shareReplay(1)
     );
 
-    constructor(private claimService: ReceiveClaimService) {}
+    constructor(private claimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
+
+    commentSaved(id: ConversationID) {
+        this.updateClaimService.updateByConversation(id);
+    }
 }
