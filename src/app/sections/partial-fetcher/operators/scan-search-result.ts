@@ -38,7 +38,6 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
                         );
                 }
             },
-            { result: [] },
-            false
+            { result: [] }
         )
     );
