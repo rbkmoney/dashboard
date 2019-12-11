@@ -56,7 +56,7 @@ npm run codegen
     ```
 
 1.  Add `schemes/<SCHEME_NAME>/<VER:VX>` to `Makefile` `SWAGGER_SCHEMES_PATH` property
-1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes` property
+1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes`/`schemes3` property
 1.  [Generate Angular modules from swags](#Generate-Angular-modules-from-swags)
 1.  Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
 1.  Add in `src/api/<SCHEME_NAME>` files:
