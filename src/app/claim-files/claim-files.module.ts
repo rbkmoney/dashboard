@@ -3,16 +3,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ClaimFilesService } from './claim-files.service';
 import { ClaimFilesComponent } from './claim-files.component';
-import { FileItemModule } from '../file-item';
+import { FileContainerModule } from '../sections/claim-modification-containers/file-container';
 import { SpinnerModule } from '../spinner';
 import { ClaimsService } from '../api/claims';
+import { FileUploaderModule } from '../file-uploader';
 
 @NgModule({
     declarations: [ClaimFilesComponent],
     exports: [ClaimFilesComponent],
-    imports: [CommonModule, FlexLayoutModule, FileItemModule, SpinnerModule, TranslocoModule],
-    providers: [ClaimFilesService, ClaimsService]
+    imports: [CommonModule, FlexLayoutModule, FileContainerModule, SpinnerModule, TranslocoModule, FileUploaderModule],
+    providers: [ClaimsService]
 })
 export class ClaimFilesModule {}
