@@ -1,0 +1,19 @@
+<div *transloco="let t">
+    <div *ngIf="isLoading$ | async">{{ t.loading }}</div>
+    <div *ngIf="isError$ | async">{{ t.httpError }}</div>
+    <div *ngIf="questionary$ | async" fxLayout="column" fxLayoutGap="20px">
+        <dsh-contractor-info
+            *ngIf="isNotEmptyContractor$ | async"
+            [contractor]="contractor$ | async"
+        ></dsh-contractor-info>
+        <dsh-shop-info *ngIf="isNotEmptyShopInfo$ | async" [shopInfo]="shopInfo$ | async"></dsh-shop-info>
+        <dsh-contact-info
+            *ngIf="isNotEmptyContactInfo$ | async"
+            [contactInfo]="contactInfo$ | async"
+        ></dsh-contact-info>
+        <dsh-bank-account-info
+            *ngIf="isNotEmptyBankAccount$ | async"
+            [bankAccount]="bankAccount$ | async"
+        ></dsh-bank-account-info>
+    </div>
+</div>

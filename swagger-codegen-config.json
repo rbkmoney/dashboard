@@ -1,5 +1,6 @@
 {
     "cli": "http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.9/swagger-codegen-cli-2.4.9.jar",
+    "cli3": "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/codegen/v3/swagger-codegen-cli/3.0.13-SNAPSHOT/swagger-codegen-cli-3.0.13-20191015.162315-7.jar",
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "swagger-codegen",
     "schemes": {
@@ -8,5 +9,8 @@
         "questionary": "schemes/questionary/v0/swagger.json",
         "aggr-proxy": "schemes/questionary-aggr-proxy/v0/swagger.json",
         "anapi": "schemes/swag-analytics/v1/swagger.json"
+    },
+    "schemes3": {
+        "messages": "schemes/messages/v0/swagger.json"
     }
 }

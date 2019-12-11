@@ -1,12 +1,12 @@
 import { toYesNo, YesNo } from './yes-no';
 
 describe('toYesNo', () => {
-    it('null should return no', () => {
-        expect(toYesNo(null)).toBe(YesNo.no);
+    it('null should return -1', () => {
+        expect(toYesNo(null)).toBe(-1);
     });
 
-    it('undefined should return no', () => {
-        expect(toYesNo(undefined)).toBe(YesNo.no);
+    it('undefined should return -1', () => {
+        expect(toYesNo(undefined)).toBe(-1);
     });
 
     it('true should return yes', () => {

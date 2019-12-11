@@ -13,6 +13,7 @@ import { HumanizeDurationModule } from '../../../humanize-duration';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
+import { ChangeContainerModule } from '../../claim-modification-containers';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { ActionIconPipe } from './action-icon.pipe';
         ExpandPanelModule,
         CommonModule,
         HumanizeDurationModule,
-        TranslocoModule
+        TranslocoModule,
+        ChangeContainerModule
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe]
 })

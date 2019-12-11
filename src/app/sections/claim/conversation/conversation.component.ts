@@ -4,9 +4,15 @@ import { Observable } from 'rxjs';
 
 import { ConversationService } from './conversation.service';
 import { QuestionaryDocumentService } from '../questionary-document';
-import { takeDocumentModificationUnit, QuestionaryService } from '../../../api';
+import {
+    takeDocumentModificationUnit,
+    QuestionaryService,
+    isClaimModification,
+    isDocumentModificationUnit
+} from '../../../api';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { Questionary } from '../../../api-codegen/questionary';
+import { Modification } from '../../../api-codegen/claim-management';
 
 @Component({
     templateUrl: 'conversation.component.html',
@@ -44,5 +50,9 @@ export class ConversationComponent {
 
     downloadBeneficialOwnerDocument() {
         this.beneficialOwnersDocuments$.subscribe(docs => docs.forEach(doc => doc.download('beneficial-owner')));
+    }
+
+    isDocumentModificationUnit(m: Modification): boolean {
+        return isClaimModification(m) && isDocumentModificationUnit(m.claimModificationType);
     }
 }
