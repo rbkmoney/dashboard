@@ -9,6 +9,14 @@ import { DarkApiModule } from './dark-api';
 import { MessagesModule } from './messages';
 
 @NgModule({
-    imports: [CAPIModule, ClaimManagementModule, QuestionaryModule, AnapiModule, AggrProxyModule, DarkApiModule, MessagesModule]
+    imports: [
+        CAPIModule,
+        ClaimManagementModule,
+        QuestionaryModule,
+        AnapiModule,
+        AggrProxyModule,
+        DarkApiModule,
+        MessagesModule
+    ]
 })
 export class APICodegenModule {}
