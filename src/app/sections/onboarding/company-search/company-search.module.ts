@@ -14,11 +14,13 @@ import { CompanyDetailsComponent } from './company-details';
 import { CompanyDetailItemComponent } from './company-detail-item';
 import { ManualContractorSelectorComponent } from './manual-contractor-selector';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
+import { KonturFocusModule } from '../../../api';
 
 @NgModule({
     imports: [
         LayoutModule,
         DaDataModule,
+        KonturFocusModule,
         FormsModule,
         ReactiveFormsModule,
         FlexLayoutModule,

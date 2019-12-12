@@ -16,7 +16,7 @@ export class DocumentModificationInfoComponent implements OnChanges {
 
     questionary$ = this.documentModificationInfoService.questionary$;
     isLoading$ = this.documentModificationInfoService.isLoading$;
-    isError$ = this.documentModificationInfoService.isError$;
+    error$ = this.documentModificationInfoService.error$;
     contractor$ = this.questionary$.pipe(pluck('contractor'));
     isNotEmptyContractor$ = this.contractor$.pipe(map(negate(isEmpty)));
     shopInfo$ = this.questionary$.pipe(pluck('shopInfo'));
