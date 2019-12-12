@@ -27,7 +27,7 @@
             <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
                 {{ t.back }}
             </button>
-            <button dsh-button color="accent" [disabled]="!data" (click)="next()">{{ t.next }}</button>
+            <button dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">{{ t.next }}</button>
         </div>
     </dsh-card>
 </div>
