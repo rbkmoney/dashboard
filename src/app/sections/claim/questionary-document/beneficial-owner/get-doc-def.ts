@@ -10,26 +10,27 @@ import {
 } from '../create-content';
 import { YesNo, getContactInfo, toYesNo, getIdentityDocument, getDate, getPercent } from '../select-data';
 import { BeneficialOwner } from '../../../../api-codegen/questionary';
-import { getResidencyInfo } from './get-residency-info';
+import { getIndividualResidencyInfo } from './get-individual-residency-info';
 import { createCompanyHeader } from './create-company-header';
 
 const EMPTY = '-';
 
 export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string, companyInn: string): DocDef {
     const {
-        russianPrivateEntity,
+        russianPrivateEntity = {},
         migrationCardInfo = {},
         residenceApprove = {},
         ownershipPercentage,
         inn,
-        snils
+        snils,
+        pdlRelationDegree,
+        pdlCategory
     } = beneficialOwner;
-    const identityDocument = getIdentityDocument(beneficialOwner.identityDocument);
-    const residencyInfo = getResidencyInfo(beneficialOwner.residencyInfo);
+    const { birthDate, fio, birthPlace, citizenship, actualAddress } = russianPrivateEntity;
 
-    const { fio, birthPlace, citizenship, actualAddress: address } = russianPrivateEntity;
-    const contactInfo = getContactInfo(russianPrivateEntity.contactInfo || {});
-    const birthDate = russianPrivateEntity.birthDate;
+    const identityDocument = getIdentityDocument(beneficialOwner.identityDocument);
+    const { usaTaxResident, exceptUsaTaxResident } = getIndividualResidencyInfo(beneficialOwner.residencyInfo);
+    const contactInfo = getContactInfo(russianPrivateEntity.contactInfo);
 
     return {
         content: [
@@ -80,7 +81,10 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
                     [`10.5. Дата окончания срока действия: ${getDate(residenceApprove.expirationDate) || EMPTY}`]
                 ]
             ),
-            createInlineParagraph('11. Адрес места жительства (регистрации) или места пребывания', address || EMPTY),
+            createInlineParagraph(
+                '11. Адрес места жительства (регистрации) или места пребывания',
+                actualAddress || EMPTY
+            ),
             createInlineParagraph('12. СНИЛС (при наличии)', snils || EMPTY),
             createInlineParagraph('13. Контактная информация (телефон/email)', contactInfo || EMPTY),
             createVerticalParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
@@ -88,29 +92,29 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
                     createInlineCheckboxWithTitle(
                         '14.1. Принадлежность к категории ПДЛ²',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        toYesNo(beneficialOwner.pdlCategory)
+                        toYesNo(pdlCategory)
                     )
                 ],
                 [
                     createInlineCheckboxWithTitle(
                         '14.2. Является родственником ПДЛ',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        toYesNo(!!beneficialOwner.pdlRelationDegree)
+                        toYesNo(!!pdlRelationDegree)
                     ),
-                    `14.3. Степень родства: ${beneficialOwner.pdlRelationDegree || EMPTY}`
+                    `14.3. Степень родства: ${pdlRelationDegree || EMPTY}`
                 ],
                 [
                     createInlineCheckboxWithTitle(
                         '14.4. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        toYesNo(residencyInfo.usaTaxResident)
+                        toYesNo(usaTaxResident)
                     )
                 ],
                 [
                     createInlineCheckboxWithTitle(
                         '14.5. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?',
                         [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
-                        toYesNo(residencyInfo.exceptUsaTaxResident)
+                        toYesNo(exceptUsaTaxResident)
                     )
                 ]
             ]),

@@ -33,27 +33,24 @@ export function getDocDef({
                     relationshipWithNko,
                     monthOperationSum,
                     monthOperationCount
-                },
+                } = {},
                 inn,
                 name: brandName,
                 legalOwnerInfo: {
                     pdlRelationDegree,
                     pdlCategory,
                     snils,
-                    russianPrivateEntity: { fio },
+                    russianPrivateEntity: { fio } = {},
                     authorityConfirmingDocument
-                },
+                } = {},
                 propertyInfoDocumentType: { documentType } = {} as any,
                 beneficialOwner
-            }
-        },
+            } = {} as any
+        } = {} as any,
         residencyInfo: { taxResident, fatca, ownerResident } = {} as any,
         registrationInfo: { registrationPlace } = {} as any,
-        shopInfo: {
-            details: { name },
-            location
-        },
-        contactInfo: { phoneNumber, email }
+        shopInfo: { details: { name } = {}, location } = {},
+        contactInfo: { phoneNumber, email } = {}
     }
 }: RussianLegalEntityQuestionary): DocDef {
     const url = getShopLocationURL(location);

@@ -13,5 +13,6 @@ export function getIdentityDocument(
                 issuedAt
             };
     }
+    console.error('Unknown identity document');
     return null;
 }

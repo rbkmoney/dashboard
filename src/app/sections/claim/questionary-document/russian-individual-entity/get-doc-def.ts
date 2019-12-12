@@ -34,22 +34,19 @@ export function getDocDef({
                     monthOperationCount,
                     benefitThirdParties,
                     relationIndividualEntity
-                },
-                russianPrivateEntity: { fio },
-                registrationInfo: { registrationPlace },
+                } = {},
+                russianPrivateEntity: { fio } = {},
+                registrationInfo: { registrationPlace } = {} as any,
                 inn,
                 snils,
-                propertyInfoDocumentType: { documentType },
-                individualPersonCategories: { foreignPublicPerson, foreignRelativePerson },
+                propertyInfoDocumentType: { documentType } = {} as any,
+                individualPersonCategories: { foreignPublicPerson, foreignRelativePerson } = {},
                 beneficialOwners,
-                residencyInfo: { usaTaxResident }
-            }
-        },
-        shopInfo: {
-            details: { name: brandName },
-            location
-        },
-        contactInfo: { phoneNumber, email }
+                residencyInfo: { usaTaxResident } = {} as any
+            } = {} as any
+        } = {} as any,
+        shopInfo: { details: { name: brandName } = {}, location } = {},
+        contactInfo: { phoneNumber, email } = {}
     }
 }: RussianIndividualEntityQuestionary): DocDef {
     const name = getIndividualEntityName(fio);
