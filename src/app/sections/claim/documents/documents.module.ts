@@ -7,7 +7,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { DocumentsComponent } from './documents.component';
 import { ButtonModule } from '../../../button';
 import { LayoutModule } from '../../../layout';
-import { FileItemModule } from '../../../file-item';
 import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
 import { ReceiveClaimService } from '../receive-claim.service';
@@ -22,7 +21,6 @@ import { ClaimFilesModule } from '../../../claim-files';
         MatInputModule,
         MatIconModule,
         CommonModule,
-        FileItemModule,
         TranslocoModule,
         FileUploaderModule,
         ClaimFilesModule
