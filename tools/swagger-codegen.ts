@@ -1,26 +1,10 @@
 import * as fs from 'fs';
-import * as http from 'http';
-import * as https from 'https';
 import { exec } from 'child_process';
 import * as path from 'path';
 
 import * as config from '../swagger-codegen-config.json';
 
 const ROOT_DIR = path.join(__dirname, '..');
-const TMP_DIR = 'tmp';
-
-function loadFile(url: string, filePath: string) {
-    return new Promise((res, rej) => {
-        const httpx = url.startsWith('https') ? https : http;
-        const request = httpx.get(url, response => {
-            fs.mkdirSync(path.join(filePath, '..'), { recursive: true });
-            const file = fs.createWriteStream(filePath);
-            const stream = response.pipe(file);
-            stream.on('finish', () => res());
-        });
-        request.on('error', err => rej(err));
-    });
-}
 
 function deleteFolderRecursive(deletedDir: string) {
     if (fs.existsSync(deletedDir)) {
@@ -64,20 +48,15 @@ function swaggerCodegenAngular(cliPath: string, inputPath: string, outputDirPath
 async function swaggerCodegenAngularCli({
     name,
     codegenPath,
-    cliPath,
     swags,
     outputDir
 }: {
     name: string;
     codegenPath: string;
-    cliPath: string;
     swags: { [name: string]: string };
     outputDir: string;
 }) {
     const log = (text: string) => console.log(`[${name}]: ${text}`);
-    log('loading...');
-    await loadFile(cliPath, codegenPath);
-    log('loaded');
     log('generate...');
     await Promise.all(
         Object.entries(swags).map(([swagName, swagPath]) =>
@@ -92,15 +71,13 @@ async function swaggerCodegenAngularCli({
     await Promise.all([
         swaggerCodegenAngularCli({
             name: 'Swagger Codegen 3',
-            codegenPath: path.join(TMP_DIR, 'codegen-3'),
-            cliPath: config.cli3,
+            codegenPath: path.join(config.rootDir, config.cli3),
             swags: config.schemes3,
             outputDir
         }),
         swaggerCodegenAngularCli({
             name: 'Swagger Codegen 2',
-            codegenPath: path.join(TMP_DIR, 'codegen-2'),
-            cliPath: config.cli,
+            codegenPath: path.join(config.rootDir, config.cli),
             swags: config.schemes,
             outputDir
         })

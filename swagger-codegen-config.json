@@ -1,6 +1,7 @@
 {
-    "cli": "http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.9/swagger-codegen-cli-2.4.9.jar",
-    "cli3": "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/codegen/v3/swagger-codegen-cli/3.0.13-SNAPSHOT/swagger-codegen-cli-3.0.13-20191015.162315-7.jar",
+    "rootDir": "swagger-codegen",
+    "cli": "swagger-codegen-cli-2.4.9.jar",
+    "cli3": "swagger-codegen-cli-3.0.13-20191015.162315-7.jar",
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "swagger-codegen",
     "schemes": {
