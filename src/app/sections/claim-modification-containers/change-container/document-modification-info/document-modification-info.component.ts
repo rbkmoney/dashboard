@@ -14,7 +14,7 @@ import { DocumentModificationInfoService } from './document-modification-info.se
 export class DocumentModificationInfoComponent implements OnChanges {
     @Input() unit: DocumentModificationUnit;
 
-    questionary$ = this.documentModificationInfoService.questionary$;
+    questionary$ = this.documentModificationInfoService.questionaryData$;
     isLoading$ = this.documentModificationInfoService.isLoading$;
     isError$ = this.documentModificationInfoService.isError$;
     contractor$ = this.questionary$.pipe(pluck('contractor'));
@@ -26,9 +26,23 @@ export class DocumentModificationInfoComponent implements OnChanges {
     bankAccount$ = this.questionary$.pipe(pluck('bankAccount'));
     isNotEmptyBankAccount$ = this.bankAccount$.pipe(map(negate(isEmpty)));
 
+    hasBeneficialOwnerDocuments$ = this.documentModificationInfoService.beneficialOwnersDocuments$.pipe(
+        map(b => Array.isArray(b) && b.length)
+    );
+
     constructor(private documentModificationInfoService: DocumentModificationInfoService) {}
 
     ngOnChanges({ unit }: SimpleChanges): void {
         this.documentModificationInfoService.receiveQuestionary(unit.currentValue);
+    }
+
+    downloadDocument() {
+        this.documentModificationInfoService.document$.subscribe(doc => doc.download('russian-individual-entity'));
+    }
+
+    downloadBeneficialOwnerDocument() {
+        this.documentModificationInfoService.beneficialOwnersDocuments$.subscribe(docs =>
+            docs.forEach(doc => doc.download('beneficial-owner'))
+        );
     }
 }

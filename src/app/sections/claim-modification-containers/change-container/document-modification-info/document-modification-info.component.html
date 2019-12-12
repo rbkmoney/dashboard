@@ -15,5 +15,15 @@
             *ngIf="isNotEmptyBankAccount$ | async"
             [bankAccount]="bankAccount$ | async"
         ></dsh-bank-account-info>
+        <div fxLayout="row" fxLayoutGap="10px" style="float: left">
+            <button dsh-button (click)="downloadDocument()">Скачать анкету</button>
+            <button
+                dsh-button
+                (click)="downloadBeneficialOwnerDocument()"
+                [disabled]="!(hasBeneficialOwnerDocuments$ | async)"
+            >
+                Скачать анкету бенефициарного владельца
+            </button>
+        </div>
     </div>
 </div>

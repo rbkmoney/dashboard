@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
-import { shareReplay, pluck, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 import { ConversationService } from './conversation.service';
-import { QuestionaryDocumentService } from '../questionary-document';
-import {
-    takeDocumentModificationUnit,
-    QuestionaryService,
-    isClaimModification,
-    isDocumentModificationUnit
-} from '../../../api';
-import { ReceiveClaimService } from '../receive-claim.service';
-import { Questionary } from '../../../api-codegen/questionary';
+import { isClaimModification, isDocumentModificationUnit } from '../../../api';
 import { Modification } from '../../../api-codegen/claim-management';
 
 @Component({
@@ -22,35 +12,8 @@ import { Modification } from '../../../api-codegen/claim-management';
 export class ConversationComponent {
     timelineInfo$ = this.conversationService.timelineInfo$;
     claimCreatedAt$ = this.conversationService.claimCreatedAt$;
-    questionary$: Observable<Questionary> = this.claimService.claim$.pipe(
-        takeDocumentModificationUnit,
-        switchMap(({ documentId }) => this.questionaryService.getQuestionary(documentId)),
-        pluck('questionary'),
-        shareReplay(1)
-    );
-    document$ = this.questionary$.pipe(
-        switchMap(questionary => this.questionaryDocumentService.createDoc(questionary)),
-        shareReplay(1)
-    );
-    beneficialOwnersDocuments$ = this.questionary$.pipe(
-        switchMap(questionary => this.questionaryDocumentService.createBeneficialOwnerDocs(questionary)),
-        shareReplay(1)
-    );
 
-    constructor(
-        private conversationService: ConversationService,
-        private questionaryDocumentService: QuestionaryDocumentService,
-        private claimService: ReceiveClaimService,
-        private questionaryService: QuestionaryService
-    ) {}
-
-    downloadDocument() {
-        this.document$.subscribe(doc => doc.download('russian-individual-entity'));
-    }
-
-    downloadBeneficialOwnerDocument() {
-        this.beneficialOwnersDocuments$.subscribe(docs => docs.forEach(doc => doc.download('beneficial-owner')));
-    }
+    constructor(private conversationService: ConversationService) {}
 
     isDocumentModificationUnit(m: Modification): boolean {
         return isClaimModification(m) && isDocumentModificationUnit(m.claimModificationType);

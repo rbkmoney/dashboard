@@ -52,17 +52,6 @@
             <textarea matInput [placeholder]="t.leaveTheComment"></textarea>
         </mat-form-field>
         <div>
-            <div fxLayout="row" fxLayoutGap="10px" style="float: left">
-                <button dsh-button color="primary" (click)="downloadDocument()">Скачать анкету</button>
-                <button
-                    dsh-button
-                    color="accent"
-                    (click)="downloadBeneficialOwnerDocument()"
-                    [disabled]="!(beneficialOwnersDocuments$ | async)?.length"
-                >
-                    Скачать анкету бенефициарного владельца
-                </button>
-            </div>
             <button dsh-button class="action">
                 {{ t.toLeaveTheComment }}
             </button>

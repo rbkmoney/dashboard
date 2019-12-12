@@ -15,7 +15,6 @@ import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
 import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
-import { QuestionaryDocumentModule } from './questionary-document';
 
 @NgModule({
     imports: [
@@ -31,7 +30,6 @@ import { QuestionaryDocumentModule } from './questionary-document';
         TranslocoModule,
         SpinnerModule,
         ConfirmActionDialogModule,
-        QuestionaryDocumentModule,
         QuestionaryModule
     ],
     declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
