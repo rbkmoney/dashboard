@@ -15,7 +15,6 @@
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
     "fix": "npm run lint-fix; npm run prettify",
-    "quicktype": "quicktype -s schema --just-types",
     "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts"
@@ -100,7 +99,6 @@
     "ngx-build-plus": "^8.1.1",
     "prettier": "~1.18.2",
     "protractor": "~5.4.2",
-    "quicktype": "^15.0.187",
     "ts-node": "~7.0.0",
     "tslint": "~5.16.0",
     "typescript": "~3.4.5",
