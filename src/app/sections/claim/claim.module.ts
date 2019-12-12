@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatInputModule } from '@angular/material';
 
 import { LayoutModule } from '../../layout';
 import { ButtonModule } from '../../button';
@@ -14,7 +16,7 @@ import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
-import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
+import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
 
 @NgModule({
     imports: [
@@ -29,8 +31,11 @@ import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
         StatusModule,
         TranslocoModule,
         SpinnerModule,
-        ConfirmActionDialogModule
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatInputModule
     ],
-    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent]
+    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent, RevokeClaimDialogComponent],
+    entryComponents: [RevokeClaimDialogComponent]
 })
 export class ClaimModule {}

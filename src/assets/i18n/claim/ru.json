@@ -1,8 +1,7 @@
 {
     "conversation": {
         "label": "Обсуждение",
-        "leaveTheComment": "Оставьте комментарий",
-        "toLeaveTheComment": "Оставить комментарий",
+        "sendComment": "Оставьте комментарий",
         "timeline": {
             "claimCreated": "Заявка создана",
             "userInfo": {
@@ -12,7 +11,7 @@
             "action": {
                 "changesAdded": "добавлены изменения",
                 "filesAdded": "добавлены документы",
-                "commentAdded": "добавлен комментарий",
+                "commentAdded": "добавлены комментарий",
                 "statusReview": "заявка отправлена на рассмотрение",
                 "statusPending": "рассмотрена заявка",
                 "statusDenied": "отклонена заявка",
@@ -31,5 +30,11 @@
     "placeBefore": "Отправить на рассмотрение",
     "revokeClaim": "Отозвать",
     "request": "Заявка на подключение",
-    "revoked": "Заявка успешно отозвана"
+    "revoked": "Заявка успешно отозвана",
+    "revokeClaimDialog": {
+        "subheading": "Отзыв заявки",
+        "reason": "Укажите причину",
+        "back": "Назад",
+        "revoke": "Отозвать"
+    }
 }

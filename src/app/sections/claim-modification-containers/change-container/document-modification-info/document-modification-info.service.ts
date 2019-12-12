@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, pluck, shareReplay, map } from 'rxjs/operators';
+import { switchMap, pluck, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryService } from '../../../../api';
 import { QuestionaryData } from '../../../../api-codegen/questionary';
@@ -22,9 +22,8 @@ export class DocumentModificationInfoService {
         shareReplay(1)
     );
 
-    isError$ = this.questionary$.pipe(
+    error$ = this.questionary$.pipe(
         takeError,
-        map(err => !!err),
         shareReplay(1)
     );
 

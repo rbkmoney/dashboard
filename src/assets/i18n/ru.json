@@ -106,5 +106,9 @@
         "subheading": "Подтвердите действие",
         "cancel": "Отмена",
         "confirm": "Подтвердить"
+    },
+    "errors": {
+        "saveConversationsFailed": "Не удалось сохранить комментарий",
+        "revokeClaimByIDFailed": "Не удалось отозвать заявку"
     }
 }
