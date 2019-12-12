@@ -1,3 +1,10 @@
-<div class="dsh-timeline-item-badge">
+<div
+    [ngClass]="{
+        'dsh-timeline-item-badge': true,
+        'dsh-timeline-item-badge-success': color === 'success',
+        'dsh-timeline-item-badge-warn': color === 'warn',
+        'dsh-timeline-item-badge-pending': color === 'pending'
+    }"
+>
     <ng-content></ng-content>
 </div>

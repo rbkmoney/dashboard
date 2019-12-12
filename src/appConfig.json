@@ -3,7 +3,8 @@
         "capiEndpoint": "https://api.rbk.money",
         "claimManagementEndpoint": "https://api.rbk.money/dark-api/v1",
         "anapiEndpoint": "https://api.rbk.money/analytics",
-        "dapiEndpoint": "https://api.rbk.money/dark-api/v1"
+        "dapiEndpoint": "https://api.rbk.money/dark-api/v1",
+        "messagesEndpoint": "https://api.rbk.money/messages/v1"
     },
     "ext": {
         "docsEndpoint": "https://rbkmoney.github.io/docs",

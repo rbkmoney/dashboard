@@ -1,0 +1,16 @@
+<div
+    *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers.contractorInfo'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div class="mat-body-2">{{ t.title }}</div>
+    <dsh-legal-entity-contractor-info
+        *ngIf="contractor.contractorType === 'LegalEntityContractor'"
+        [legalEntityContractor]="contractor"
+    ></dsh-legal-entity-contractor-info>
+    <dsh-individual-entity-contractor-info
+        *ngIf="contractor.contractorType === 'IndividualEntityContractor'"
+        [individualEntityContractor]="contractor"
+    ></dsh-individual-entity-contractor-info>
+    <mat-divider></mat-divider>
+</div>
