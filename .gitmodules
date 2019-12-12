@@ -21,6 +21,7 @@
 [submodule "schemes/messages/v0"]
 	path = schemes/messages/v0
 	url = git@github.com:rbkmoney/swag-messages.git
+	branch = release/master
 [submodule "schemes/dark-api/v0"]
 	path = schemes/dark-api/v0
 	url = git@github.com:rbkmoney/swag-dark-api.git
