@@ -22,9 +22,8 @@ export class DocumentModificationInfoService {
         shareReplay(1)
     );
 
-    isError$ = this.questionary$.pipe(
+    error$ = this.questionary$.pipe(
         takeError,
-        map(err => !!err),
         shareReplay(1)
     );
 

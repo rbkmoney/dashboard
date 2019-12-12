@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject, of, forkJoin, BehaviorSubject, Observable, merge } from 'rxjs';
-import { switchMap, filter, catchError, tap, pluck, delay } from 'rxjs/operators';
+import { switchMap, filter, catchError, tap, pluck } from 'rxjs/operators';
 import uuid from 'uuid';
 import get from 'lodash.get';
 
@@ -33,7 +33,6 @@ export class SendCommentService {
                     const params = createSingleMessageConversationParams(conversationId, text);
                     return forkJoin(
                         of(conversationId),
-                        // of(params).pipe(delay(1000))
                         this.messagesService.saveConversations(params).pipe(
                             catchError(ex => {
                                 console.error(ex);

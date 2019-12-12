@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { switchMap, shareReplay, map, pluck } from 'rxjs/operators';
 
 import { CommentModificationUnit } from '../../../api-codegen/claim-management';
 import { MessagesService } from '../../../api';
-import { switchMap, shareReplay, map, pluck } from 'rxjs/operators';
 import { booleanDelay, takeError } from '../../../custom-operators';
 
 @Injectable()
@@ -24,9 +24,8 @@ export class CommentContainerService {
         shareReplay(1)
     );
 
-    isError$ = this.comment$.pipe(
+    error$ = this.comment$.pipe(
         takeError,
-        map(err => !!err),
         shareReplay(1)
     );
 

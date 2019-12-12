@@ -6,7 +6,6 @@ import { CommentContainerService } from './comment-container.service';
 @Component({
     selector: 'dsh-comment-container',
     templateUrl: 'comment-container.component.html',
-    styleUrls: ['comment-container.component.scss'],
     providers: [CommentContainerService]
 })
 export class CommentContainerComponent implements OnChanges {
@@ -14,7 +13,7 @@ export class CommentContainerComponent implements OnChanges {
 
     comment$ = this.commentContainerService.comment$;
     isLoading$ = this.commentContainerService.isLoading$;
-    isError$ = this.commentContainerService.isError$;
+    error$ = this.commentContainerService.error$;
 
     constructor(private commentContainerService: CommentContainerService) {}
 
