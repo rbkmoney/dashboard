@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     {
         path: 'claims',
-        loadChildren: () => import('./claim-search').then(m => m.ClaimSearchModule)
+        loadChildren: () => import('./claims').then(m => m.ClaimsModule)
     },
     {
         path: 'claim',

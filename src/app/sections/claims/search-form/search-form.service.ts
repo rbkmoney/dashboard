@@ -56,12 +56,8 @@ export class SearchFormService {
 
     private initForm(): FormGroup {
         return this.fb.group({
-            claimID: '',
-            claimStatus: '',
-            fromTime: moment()
-                .subtract(1, 'month')
-                .startOf('day'),
-            toTime: moment().endOf('day')
+            // claimID: '',
+            claimStatus: null
         });
     }
 }
