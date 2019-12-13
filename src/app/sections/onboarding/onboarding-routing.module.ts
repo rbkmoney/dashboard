@@ -9,6 +9,10 @@ export const routes: Routes = [
         component: CompanySearchComponent
     },
     {
+        path: ':claimID/document-upload',
+        loadChildren: () => import('./document-upload').then(m => m.DocumentUploadModule)
+    },
+    {
         path: ':claimID',
         loadChildren: () => import('./data-flow').then(m => m.DataFlowModule)
     }

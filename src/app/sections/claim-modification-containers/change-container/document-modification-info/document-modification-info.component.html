@@ -1,6 +1,6 @@
 <div *transloco="let t">
     <div *ngIf="isLoading$ | async">{{ t.loading }}</div>
-    <div *ngIf="isError$ | async">{{ t.httpError }}</div>
+    <div *ngIf="error$ | async">{{ t.httpError }}</div>
     <div *ngIf="questionary$ | async" fxLayout="column" fxLayoutGap="20px">
         <dsh-contractor-info
             *ngIf="isNotEmptyContractor$ | async"

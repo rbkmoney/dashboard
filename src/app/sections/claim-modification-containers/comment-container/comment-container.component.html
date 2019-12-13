@@ -1,0 +1,9 @@
+<dsh-panel *transloco="let t; scope: 'claim-modification-containers'; read: 'claimModificationContainers'">
+    <dsh-panel-header>
+        {{ comment$ | async }}
+        <div *transloco="let common">
+            <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
+            <div *ngIf="error$ | async">{{ common.httpError }}</div>
+        </div>
+    </dsh-panel-header>
+</dsh-panel>

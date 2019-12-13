@@ -1,0 +1,14 @@
+<dsh-panel *transloco="let c" color="accent">
+    <dsh-panel-header>
+        <div *ngIf="isLoading$ | async">{{ c.loading }}</div>
+        <div *ngIf="error$ | async">{{ c.httpError }}</div>
+        <div *ngIf="fileInfo$ | async as fileInfo" fxLayout="row" fxLayoutAlign="space-between">
+            <div>{{ fileInfo.fileName }}</div>
+            <dsh-panel-header-icon
+                class="save-icon"
+                icon="save"
+                (click)="downloadFile(fileInfo.fileId)"
+            ></dsh-panel-header-icon>
+        </div>
+    </dsh-panel-header>
+</dsh-panel>

@@ -17,7 +17,7 @@ export class DocumentModificationInfoComponent implements OnChanges {
 
     questionary$ = this.documentModificationInfoService.questionaryData$;
     isLoading$ = this.documentModificationInfoService.isLoading$;
-    isError$ = this.documentModificationInfoService.isError$;
+    error$ = this.documentModificationInfoService.error$;
     contractor$ = this.questionary$.pipe(pluck('contractor'));
     isNotEmptyContractor$ = this.contractor$.pipe(map(negate(isEmpty)));
     shopInfo$ = this.questionary$.pipe(pluck('shopInfo'));
@@ -32,7 +32,9 @@ export class DocumentModificationInfoComponent implements OnChanges {
     constructor(private documentModificationInfoService: DocumentModificationInfoService) {}
 
     ngOnChanges({ unit }: SimpleChanges): void {
-        this.documentModificationInfoService.receiveQuestionary(unit.currentValue);
+        if (unit.firstChange || unit.currentValue.documentId !== unit.previousValue.documentId) {
+            this.documentModificationInfoService.receiveQuestionary(unit.currentValue.documentId);
+        }
     }
 
     downloadDocument() {

@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../styles/utils/fill';
 
 @mixin glow-effect($color, $color-adjustment) {
     background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);
@@ -17,18 +18,6 @@
 @mixin focused-background($color) {
     &.focused {
         background: $color;
-    }
-}
-
-@mixin icon-focused-background($color, $transparent) {
-    &.focused {
-        background: rgba($color, $transparent);
-    }
-}
-
-@mixin transparent-hover() {
-    &:hover {
-        background: transparent;
     }
 }
 
@@ -131,15 +120,22 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include focused-background(rgba(mat-color($primary, 300), 0.2));
+                @include button(map-get($background, card), mat-color($primary, 400));
+                @include focused-background(mat-color($primary, 300));
             }
 
             &.dsh-accent {
-                @include focused-background(rgba(mat-color($accent, 200), 0.2));
+                @include button(map-get($background, card), mat-color($accent, 300));
+                @include focused-background(mat-color($accent, 200));
             }
 
             &.dsh-warn {
-                @include focused-background(rgba(mat-color($warn, 300), 0.2));
+                @include button(map-get($background, card), mat-color($warn, 400));
+                @include focused-background(mat-color($warn, 300));
+            }
+
+            &:disabled {
+                background: map-get($foreground, disabled-button);
             }
         }
     }

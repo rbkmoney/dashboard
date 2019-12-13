@@ -4,19 +4,18 @@ import { pluck, map } from 'rxjs/operators';
 import { ReceiveClaimService } from './receive-claim.service';
 import { claimStatusToColor, getClaimType } from '../../view-utils';
 import { RevokeClaimService } from './revoke-claim.service';
+import { UpdateClaimService } from './update-claim.service';
+import { RouteParamClaimService } from './route-param-claim.service';
 
 @Component({
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss'],
-    providers: [ReceiveClaimService, RevokeClaimService]
+    providers: [RouteParamClaimService, ReceiveClaimService, RevokeClaimService, UpdateClaimService]
 })
 export class ClaimComponent implements OnInit {
     links = [
         {
             path: 'conversation'
-        },
-        {
-            path: 'changes'
         },
         {
             path: 'documents'
@@ -32,7 +31,6 @@ export class ClaimComponent implements OnInit {
     );
     claimReceived$ = this.receiveClaimService.claimReceived$;
     error$ = this.receiveClaimService.error$;
-    revokeInProcess$ = this.revokeClaimService.inProcess$;
     revokeAvailable$ = this.revokeClaimService.revokeAvailable$;
 
     ngOnInit() {

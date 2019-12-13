@@ -1,46 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Subject, combineLatest, forkJoin, of, BehaviorSubject } from 'rxjs';
-import { switchMap, catchError, first, filter, tap, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { switchMap, filter, map } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { ReceiveClaimService } from './receive-claim.service';
-import { ClaimsService } from '../../api/claims';
+import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
+import { RouteParamClaimService } from './route-param-claim.service';
 
 @Injectable()
 export class RevokeClaimService {
-    private inProcessState = new BehaviorSubject(false);
     private revokeClaim$ = new Subject();
 
-    inProcess$ = this.inProcessState.asObservable();
     revokeAvailable$ = this.receiveClaimService.claim$.pipe(
         map(({ status }) => status !== 'revoked' && status !== 'denied' && status !== 'accepted')
     );
 
     constructor(
+        private routeParamClaimService: RouteParamClaimService,
         private receiveClaimService: ReceiveClaimService,
-        private claimsApiService: ClaimsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private dialog: MatDialog
     ) {
-        combineLatest(this.receiveClaimService.claim$.pipe(first()), this.revokeClaim$)
+        this.revokeClaim$
             .pipe(
-                switchMap(([claim]) => forkJoin(of(claim), this.openConfirmDialog())),
-                switchMap(([{ id, revision }]) =>
-                    this.claimsApiService.revokeClaimByID(id, revision).pipe(
-                        catchError(ex => {
-                            console.error(ex);
-                            this.inProcessState.next(false);
-                            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                            return of();
-                        })
-                    )
-                )
+                switchMap(() => this.routeParamClaimService.claim$),
+                switchMap(({ id, revision }) => this.openRevokeClaimDialog(id, revision))
             )
             .subscribe(() => {
-                this.inProcessState.next(false);
                 this.receiveClaimService.receiveClaim();
                 this.snackBar.open(this.transloco.translate('revoked', null, 'claim|scoped'), 'OK', {
                     duration: 2000
@@ -50,16 +38,16 @@ export class RevokeClaimService {
 
     revokeClaim() {
         this.revokeClaim$.next();
-        this.inProcessState.next(true);
     }
 
-    private openConfirmDialog() {
+    private openRevokeClaimDialog(claimId: number, revision: number) {
         return this.dialog
-            .open(ConfirmActionDialogComponent)
+            .open(RevokeClaimDialogComponent, {
+                disableClose: true,
+                width: '500px',
+                data: { claimId, revision }
+            })
             .afterClosed()
-            .pipe(
-                tap(dialogResult => dialogResult === 'cancel' && this.inProcessState.next(false)),
-                filter(r => r === 'confirm')
-            );
+            .pipe(filter(r => r === 'revoked'));
     }
 }

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ClaimComponent } from './claim.component';
-import { DocumentsComponent } from './documents';
-import { ChangesComponent } from './changes';
 
 const claimRoutes: Routes = [
     {
@@ -16,11 +14,7 @@ const claimRoutes: Routes = [
             },
             {
                 path: 'documents',
-                component: DocumentsComponent
-            },
-            {
-                path: 'changes',
-                component: ChangesComponent
+                loadChildren: () => import('./documents/documents.module').then(mod => mod.DocumentsModule)
             }
         ]
     }

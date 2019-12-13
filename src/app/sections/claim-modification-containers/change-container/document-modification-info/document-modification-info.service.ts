@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, pluck, shareReplay, map } from 'rxjs/operators';
+import { switchMap, pluck, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryService } from '../../../../api';
 import { QuestionaryData, Questionary } from '../../../../api-codegen/questionary';
-import { DocumentModificationUnit } from '../../../../api-codegen/claim-management';
 import { booleanDelay, takeError } from '../../../../custom-operators';
 import { QuestionaryDocumentService } from '../../../../questionary-document';
 
@@ -35,9 +34,8 @@ export class DocumentModificationInfoService {
         shareReplay(1)
     );
 
-    isError$ = this.questionaryData$.pipe(
+    error$ = this.questionary$.pipe(
         takeError,
-        map(err => !!err),
         shareReplay(1)
     );
 
@@ -48,7 +46,7 @@ export class DocumentModificationInfoService {
         this.questionaryData$.subscribe();
     }
 
-    receiveQuestionary({ documentId }: DocumentModificationUnit) {
+    receiveQuestionary(documentId: string) {
         this.receiveQuestionary$.next(documentId);
     }
 }

@@ -29,32 +29,18 @@
                             *ngIf="isDocumentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
                         ></dsh-change-container>
+                        <dsh-comment-container
+                            *ngIf="isCommentModificationUnit(modification)"
+                            [unit]="modification.claimModificationType"
+                        ></dsh-comment-container>
+                        <dsh-file-container
+                            *ngIf="isFileModificationUnit(modification)"
+                            [unit]="modification.claimModificationType"
+                        ></dsh-file-container>
                     </div>
-                    <!-- <dsh-panel *ngFor="let modification of item.modifications">
-                        <dsh-panel-header>
-                            <div fxLayout="row" fxLayoutAlign="space-between">
-                                <div>
-                                    {{ modification.modificationType }}
-                                </div>
-                                <dsh-panel-header-icon icon="save"></dsh-panel-header-icon>
-                            </div>
-                        </dsh-panel-header>
-                        <dsh-panel-content>
-                            {{ modification.modificationType }}
-                        </dsh-panel-content>
-                    </dsh-panel> -->
                 </div>
             </dsh-timeline-item-content>
         </dsh-timeline-item>
     </dsh-timeline>
-    <div fxLayout="column">
-        <mat-form-field>
-            <textarea matInput [placeholder]="t.leaveTheComment"></textarea>
-        </mat-form-field>
-        <div>
-            <button dsh-button class="action">
-                {{ t.toLeaveTheComment }}
-            </button>
-        </div>
-    </div>
+    <dsh-send-comment (conversationSaved)="commentSaved($event)"></dsh-send-comment>
 </div>
