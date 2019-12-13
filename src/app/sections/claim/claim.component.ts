@@ -18,9 +18,6 @@ export class ClaimComponent implements OnInit {
             path: 'conversation'
         },
         {
-            path: 'changes'
-        },
-        {
             path: 'documents'
         }
     ];

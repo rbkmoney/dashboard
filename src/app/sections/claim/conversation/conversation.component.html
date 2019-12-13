@@ -33,6 +33,10 @@
                             *ngIf="isCommentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
                         ></dsh-comment-container>
+                        <dsh-file-container
+                            *ngIf="isFileModificationUnit(modification)"
+                            [unit]="modification.claimModificationType"
+                        ></dsh-file-container>
                     </div>
                 </div>
             </dsh-timeline-item-content>

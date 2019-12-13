@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { FilesService } from '../../../api/files';
@@ -23,9 +23,8 @@ export class FileContainerService {
         shareReplay(1)
     );
 
-    isError$ = this.fileInfo$.pipe(
+    error$ = this.fileInfo$.pipe(
         takeError,
-        map(err => !!err),
         shareReplay(1)
     );
 

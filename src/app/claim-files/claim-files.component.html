@@ -2,7 +2,7 @@
     <div *ngIf="hasFiles$ | async; else noFiles" fxLayout="column" fxLayoutGap="10px">
         <dsh-file-container
             *ngFor="let modification of modifications$ | async"
-            [fileModification]="modification"
+            [unit]="modification"
         ></dsh-file-container>
     </div>
     <ng-template #noFiles>

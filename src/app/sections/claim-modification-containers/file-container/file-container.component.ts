@@ -10,16 +10,18 @@ import { FileContainerService } from './file-container.service';
     providers: [FileContainerService]
 })
 export class FileContainerComponent implements OnChanges {
-    @Input() fileModification: FileModificationUnit;
+    @Input() unit: FileModificationUnit;
 
     fileInfo$ = this.fileContainerService.fileInfo$;
     isLoading$ = this.fileContainerService.isLoading$;
-    isError$ = this.fileContainerService.isError$;
+    error$ = this.fileContainerService.error$;
 
     constructor(private fileContainerService: FileContainerService) {}
 
-    ngOnChanges({ fileModification }: SimpleChanges) {
-        this.fileContainerService.getFileInfo(fileModification.currentValue.fileId);
+    ngOnChanges({ unit }: SimpleChanges) {
+        if (unit.firstChange || unit.currentValue.fileId !== unit.previousValue.fileId) {
+            this.fileContainerService.getFileInfo(unit.currentValue.fileId);
+        }
     }
 
     downloadFile(fileID: string) {

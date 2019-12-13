@@ -29,6 +29,8 @@ export class DocumentModificationInfoComponent implements OnChanges {
     constructor(private documentModificationInfoService: DocumentModificationInfoService) {}
 
     ngOnChanges({ unit }: SimpleChanges): void {
-        this.documentModificationInfoService.receiveQuestionary(unit.currentValue);
+        if (unit.firstChange || unit.currentValue.documentId !== unit.previousValue.documentId) {
+            this.documentModificationInfoService.receiveQuestionary(unit.currentValue.documentId);
+        }
     }
 }

@@ -11,9 +11,11 @@ import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { ClaimFilesModule } from '../../../claim-files';
+import { DocumentsRoutingModule } from './documents-routing.module';
 
 @NgModule({
     imports: [
+        DocumentsRoutingModule,
         LayoutModule,
         ButtonModule,
         FlexLayoutModule,
@@ -26,7 +28,6 @@ import { ClaimFilesModule } from '../../../claim-files';
         ClaimFilesModule
     ],
     declarations: [DocumentsComponent],
-    exports: [DocumentsComponent],
     providers: [FilesService, ReceiveClaimService]
 })
 export class DocumentsModule {}
