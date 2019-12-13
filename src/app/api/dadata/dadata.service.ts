@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 import {
     DaDataService as DaDataApiService,
@@ -16,36 +16,43 @@ import {
     AddressResponse,
     FmsUnitResponse,
     OkvedResponse,
-    BankResponse
+    BankResponse,
+    DaDataResponse
 } from '../../api-codegen/aggr-proxy';
-import { Omit } from '../../../type-utils';
+import { Omit, Mapping } from '../../../type-utils';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
-type ByRequestType<P extends { [name in RequestType]: any }> = { [name in RequestType]: P[name] };
+type FullParamsByRequestType = Mapping<
+    RequestType,
+    DaDataRequest,
+    {
+        AddressQuery: AddressQuery;
+        BankQuery: BankQuery;
+        FioQuery: FioQuery;
+        FmsUnitQuery: FmsUnitQuery;
+        OkvedQuery: OkvedQuery;
+        PartyQuery: PartyQuery;
+    }
+>;
 
-type FullParamsByRequestType = ByRequestType<{
-    AddressQuery: AddressQuery;
-    BankQuery: BankQuery;
-    FioQuery: FioQuery;
-    FmsUnitQuery: FmsUnitQuery;
-    OkvedQuery: OkvedQuery;
-    PartyQuery: PartyQuery;
-}>;
+export type ResponseByRequestType = Mapping<
+    RequestType,
+    DaDataResponse,
+    {
+        AddressQuery: AddressResponse;
+        BankQuery: BankResponse;
+        FioQuery: FioResponse;
+        FmsUnitQuery: FmsUnitResponse;
+        OkvedQuery: OkvedResponse;
+        PartyQuery: PartyResponse;
+    }
+>;
 
 export type ParamsByRequestType = {
     [name in RequestType]: Omit<FullParamsByRequestType[name], 'daDataRequestType'>;
 };
-
-export type ResponseByRequestType = ByRequestType<{
-    AddressQuery: AddressResponse;
-    BankQuery: BankResponse;
-    FioQuery: FioResponse;
-    FmsUnitQuery: FmsUnitResponse;
-    OkvedQuery: OkvedResponse;
-    PartyQuery: PartyResponse;
-}>;
 
 export type SuggestionsByRequestType = {
     [name in RequestType]: ResponseByRequestType[name]['suggestions'];
@@ -63,9 +70,8 @@ export class DaDataService {
         daDataRequestType: T,
         params: ParamsByRequestType[T]
     ): Observable<SuggestionsByRequestType[T]> {
-        const request = this.daDataService.requestDaData({
-            request: { daDataRequestType, ...params }
-        }) as Observable<ResponseByRequestType[T]>;
-        return request.pipe(map(({ suggestions }) => suggestions));
+        const requestParams = { request: { daDataRequestType, ...params } };
+        const request = this.daDataService.requestDaData(requestParams) as Observable<ResponseByRequestType[T]>;
+        return request.pipe(pluck('suggestions'));
     }
 }
