@@ -3,7 +3,7 @@
         {{ comment$ | async }}
         <div *transloco="let common">
             <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
-            <div *ngIf="error$ | async">{{ common.error }}</div>
+            <div *ngIf="error$ | async">{{ common.httpError }}</div>
         </div>
     </dsh-panel-header>
 </dsh-panel>

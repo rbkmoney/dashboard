@@ -1,3 +1,6 @@
-<div class="dsh-documents">
-    <ng-content></ng-content>
+<div *transloco="let t; scope: 'claim'; read: 'claim.documents'" fxFlex fxLayout="column">
+    <div fxFlex="initial" fxLayout="column" fxLayoutGap="10px">
+        <div class="mat-body-2">{{ t.docs }}:</div>
+        <dsh-claim-files *ngIf="claim$ | async as claim" [claimID]="claim.id"></dsh-claim-files>
+    </div>
 </div>

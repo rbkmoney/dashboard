@@ -18,6 +18,8 @@ export class CommentContainerComponent implements OnChanges {
     constructor(private commentContainerService: CommentContainerService) {}
 
     ngOnChanges({ unit }: SimpleChanges) {
-        this.commentContainerService.receiveConversation(unit.currentValue);
+        if (unit.firstChange || unit.currentValue.commentId !== unit.previousValue.commentId) {
+            this.commentContainerService.receiveConversation(unit.currentValue.commentId);
+        }
     }
 }

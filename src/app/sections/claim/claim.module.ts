@@ -10,12 +10,11 @@ import { ButtonModule } from '../../button';
 import { DshTabsModule } from '../../layout/tabs';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
-import { ChangesComponent } from './changes';
-import { DocumentsComponent } from './documents';
 import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
+import { DocumentsModule } from './documents';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
 
 @NgModule({
@@ -29,13 +28,14 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ClaimRoutingModule,
         ConversationModule,
         StatusModule,
+        DocumentsModule,
         TranslocoModule,
         SpinnerModule,
         ReactiveFormsModule,
         MatDialogModule,
         MatInputModule
     ],
-    declarations: [ClaimComponent, ChangesComponent, DocumentsComponent, RevokeClaimDialogComponent],
+    declarations: [ClaimComponent, RevokeClaimDialogComponent],
     entryComponents: [RevokeClaimDialogComponent]
 })
 export class ClaimModule {}
