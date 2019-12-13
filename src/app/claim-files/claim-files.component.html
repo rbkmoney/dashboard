@@ -6,7 +6,7 @@
         ></dsh-file-container>
     </div>
     <ng-template #noFiles>
-        <div *transloco="let c">{{ c.noDocs }}</div>
+        <div class="mat-body-1" *transloco="let c">{{ c.noDocs }}</div>
     </ng-template>
     <dsh-file-uploader (uploadedFilesIds)="updateClaim($event)"></dsh-file-uploader>
 </div>

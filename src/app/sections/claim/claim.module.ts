@@ -11,11 +11,12 @@ import { DshTabsModule } from '../../layout/tabs';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ChangesComponent } from './changes';
-import { DocumentsComponent } from './documents';
 import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
+import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
+import { DocumentsModule } from './documents';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ClaimRoutingModule,
         ConversationModule,
         StatusModule,
+        DocumentsModule,
         TranslocoModule,
         SpinnerModule,
         ReactiveFormsModule,

@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 
+import { DocumentsService } from './documents.service';
+
 @Component({
     selector: 'dsh-documents',
     templateUrl: 'documents.component.html',
-    styleUrls: ['documents.component.scss']
+    providers: [DocumentsService]
 })
-export class DocumentsComponent {}
+export class DocumentsComponent {
+    claim$ = this.documentsService.claim$;
+
+    constructor(private documentsService: DocumentsService) {}
+}
