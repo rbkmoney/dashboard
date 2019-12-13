@@ -14,9 +14,13 @@ import { HumanizeDurationModule } from '../../../humanize-duration';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
-import { ChangeContainerModule, CommentContainerModule } from '../../claim-modification-containers';
+import {
+    ChangeContainerModule,
+    CommentContainerModule,
+    FileContainerModule
+} from '../../claim-modification-containers';
 import { SendCommentComponent } from './send-comment';
-import { MessagesModule } from '../../../api';
+import { MessagesModule, FilesModule } from '../../../api';
 
 @NgModule({
     imports: [
@@ -34,8 +38,10 @@ import { MessagesModule } from '../../../api';
         TranslocoModule,
         ChangeContainerModule,
         CommentContainerModule,
+        FileContainerModule,
         ReactiveFormsModule,
-        MessagesModule
+        MessagesModule,
+        FilesModule
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
 })

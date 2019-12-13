@@ -1,0 +1,12 @@
+<div fxLayout="column" [fxLayoutGap]="layoutGap">
+    <div *ngIf="hasFiles$ | async; else noFiles" fxLayout="column" fxLayoutGap="10px">
+        <dsh-file-container
+            *ngFor="let modification of modifications$ | async"
+            [unit]="modification"
+        ></dsh-file-container>
+    </div>
+    <ng-template #noFiles>
+        <div class="mat-body-1" *transloco="let c">{{ c.noDocs }}</div>
+    </ng-template>
+    <dsh-file-uploader (uploadedFilesIds)="updateClaim($event)"></dsh-file-uploader>
+</div>

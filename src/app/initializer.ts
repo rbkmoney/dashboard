@@ -16,7 +16,7 @@ export const initializer = (
                 checkLoginIframe: true
             },
             enableBearerInterceptor: true,
-            bearerExcludedUrls: ['/assets'],
+            bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
             bearerPrefix: 'Bearer'
         }),
         languageService.init()
