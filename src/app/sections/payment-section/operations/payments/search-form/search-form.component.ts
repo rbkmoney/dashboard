@@ -26,19 +26,13 @@ export class SearchFormComponent implements OnInit {
     searchForm: FormGroup;
     expanded = false;
     shopsInfo$ = this.searchFormService.shopsInfo$;
-    tokenProviders;
-    paymentMethods;
-    bankCardPaymentSystems;
-    paymentFlows;
-    paymentStatuses;
+    tokenProviders = tokenProvidersConsts;
+    paymentMethods = paymentMethodsConsts;
+    bankCardPaymentSystems = bankCardPaymentSystemsConsts;
+    paymentFlows = paymentFlowsConsts;
+    paymentStatuses = paymentStatusesConsts;
 
-    constructor(private searchFormService: SearchFormService) {
-        this.tokenProviders = tokenProvidersConsts;
-        this.paymentMethods = paymentMethodsConsts;
-        this.bankCardPaymentSystems = bankCardPaymentSystemsConsts;
-        this.paymentFlows = paymentFlowsConsts;
-        this.paymentStatuses = paymentStatusesConsts;
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
