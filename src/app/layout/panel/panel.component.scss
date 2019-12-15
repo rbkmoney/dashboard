@@ -23,7 +23,7 @@ $dsh-panel-border-radius: 4px !default;
     &-content {
         padding: $dsh-panel-padding;
     }
-    height: $dsh-panel-header-height;
+    min-height: $dsh-panel-header-height;
 }
 
 .dsh-panel {

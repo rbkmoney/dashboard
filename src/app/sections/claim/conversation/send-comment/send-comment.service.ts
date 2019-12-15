@@ -23,7 +23,7 @@ export class SendCommentService {
 
     constructor(private fb: FormBuilder, private messagesService: MessagesService) {
         this.form = this.fb.group({
-            comment: ['', [Validators.required, Validators.maxLength(1000)]]
+            comment: ['', [Validators.maxLength(1000)]]
         });
         this.sendComment$
             .pipe(
@@ -52,6 +52,9 @@ export class SendCommentService {
     }
 
     sendComment(comment: string) {
+        if (comment.length === 0) {
+            return;
+        }
         this.sendComment$.next(comment);
     }
 }

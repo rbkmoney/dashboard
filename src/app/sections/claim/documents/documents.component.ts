@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { DocumentsService } from './documents.service';
-import { ReceiveClaimService } from '../receive-claim.service';
 
 @Component({
     selector: 'dsh-documents',
@@ -9,7 +8,12 @@ import { ReceiveClaimService } from '../receive-claim.service';
     providers: [DocumentsService]
 })
 export class DocumentsComponent {
-    claim$ = this.receiveClaimService.claim$;
+    fileUnits$ = this.documentsService.fileUnits$;
+    isQuestionaryClaim$ = this.documentsService.isQuestionaryClaim$;
 
-    constructor(private receiveClaimService: ReceiveClaimService) {}
+    constructor(private documentsService: DocumentsService) {}
+
+    filesUploaded(fileIds: string[]) {
+        this.documentsService.filesUploaded(fileIds);
+    }
 }

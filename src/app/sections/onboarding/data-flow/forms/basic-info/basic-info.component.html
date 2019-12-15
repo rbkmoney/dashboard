@@ -26,11 +26,11 @@
     <label class="mat-body-2">{{ t.shopInfo }}</label>
     <mat-form-field fxFlex>
         <mat-label>{{ t.shopUrl }}</mat-label>
-        <input matInput formControlName="shopUrl" required />
+        <input type="text" autocomplete="off" matInput formControlName="shopUrl" required />
     </mat-form-field>
     <mat-form-field fxFlex>
         <mat-label>{{ t.shopName }}</mat-label>
-        <input matInput formControlName="shopName" required />
+        <input type="text" autocomplete="off" matInput formControlName="shopName" required />
     </mat-form-field>
     <label class="mat-body-2">{{ t.contactInfo }}</label>
     <div fxLayout [fxLayoutGap]="layoutGap">
