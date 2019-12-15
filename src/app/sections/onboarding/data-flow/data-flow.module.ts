@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
+import { MatDialogModule } from '@angular/material';
 
 import { DataFlowComponent } from './data-flow.component';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
@@ -20,6 +21,7 @@ import { InitialDataService } from './initial-data.service';
 import { StepFlowService } from './step-flow';
 import { ValidityService } from './validity';
 import { SaveQuestionaryService } from './save-questionary';
+import { FinishOnboardingDialogComponent } from './finish-onboarding-dialog';
 
 @NgModule({
     imports: [
@@ -32,9 +34,18 @@ import { SaveQuestionaryService } from './save-questionary';
         QuestionaryModule,
         TranslocoModule,
         SpinnerModule,
-        OnboardingFormsModule
+        OnboardingFormsModule,
+        MatDialogModule
     ],
-    declarations: [DataFlowComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent, StepLabelPipe],
-    providers: [InitialDataService, StepFlowService, ValidityService, SaveQuestionaryService, QuestionaryStateService]
+    declarations: [
+        DataFlowComponent,
+        HelpCardComponent,
+        StepCardComponent,
+        StepNavigationComponent,
+        StepLabelPipe,
+        FinishOnboardingDialogComponent
+    ],
+    providers: [InitialDataService, StepFlowService, ValidityService, SaveQuestionaryService, QuestionaryStateService],
+    entryComponents: [FinishOnboardingDialogComponent]
 })
 export class DataFlowModule {}

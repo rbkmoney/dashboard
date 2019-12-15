@@ -8,18 +8,18 @@ import { UpdateClaimService } from '../update-claim.service';
 
 @Injectable()
 export class ConversationService {
-    timelineInfo$ = this.claimService.claim$.pipe(
+    timelineInfo$ = this.receiveClaimService.claim$.pipe(
         pluck('changeset'),
         map(toTimelineInfo),
         shareReplay(1)
     );
 
-    claimCreatedAt$ = this.claimService.claim$.pipe(
+    claimCreatedAt$ = this.receiveClaimService.claim$.pipe(
         pluck('createdAt'),
         shareReplay(1)
     );
 
-    constructor(private claimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
+    constructor(private receiveClaimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
 
     commentSaved(id: ConversationID) {
         this.updateClaimService.updateByConversation(id);

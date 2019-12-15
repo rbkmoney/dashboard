@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { tap } from 'rxjs/operators';
 
 import { DocumentsService } from './documents.service';
 import { ReceiveClaimService } from '../receive-claim.service';
@@ -10,7 +9,7 @@ import { ReceiveClaimService } from '../receive-claim.service';
     providers: [DocumentsService]
 })
 export class DocumentsComponent {
-    claim$ = this.receiveClaimService.claim$.pipe(tap(r => console.log(r)));
+    claim$ = this.receiveClaimService.claim$;
 
     constructor(private receiveClaimService: ReceiveClaimService) {}
 }
