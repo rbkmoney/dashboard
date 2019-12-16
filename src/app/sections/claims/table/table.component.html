@@ -1,28 +1,28 @@
-<div *transloco="let t; scope: 'claim-search'; read: 'claimSearch.table'" class="table-container">
+<div *transloco="let t; scope: 'claims'; read: 'claims.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="claimID">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
                 {{ t.id }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="120px" *dshCellDef="let element">
                 {{ element.claimID }}
             </td>
         </ng-container>
 
         <ng-container *transloco="let c" dshColumnDef="claimType">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell *dshHeaderCellDef>
                 {{ t.type }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell *dshCellDef="let element">
                 {{ c.claimType[element.changeset | changesetToType] }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="claimStatus">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="220px" *dshHeaderCellDef>
                 {{ t.status }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="220px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
                     c.claimStatus[element.status]
                 }}</dsh-status>
@@ -41,10 +41,10 @@
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let element">
-                <button dsh-icon-button [dshDropdownTriggerFor]="claimDetailsDropdown">
+                <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
                     <mat-icon svgIcon="more_vert"></mat-icon>
                 </button>
-                <dsh-dropdown #claimDetailsDropdown="dshDropdown">
+                <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
                     <ng-template>
                         <dsh-dropdown-actions>
                             <dsh-state-nav flat>

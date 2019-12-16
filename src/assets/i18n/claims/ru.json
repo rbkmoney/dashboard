@@ -1,0 +1,13 @@
+{
+    "claimID": "ID заявки",
+    "claimStatus": "Статус заявки",
+    "table": {
+        "id": "ID заявки",
+        "type": "Тип",
+        "updatedAt": "Дата изменения",
+        "status": "Статус",
+        "actions": {
+            "claimDetails": "Детали заявки"
+        }
+    }
+}

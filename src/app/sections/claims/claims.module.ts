@@ -28,12 +28,29 @@ import { ClaimsService } from '../../api/claims';
 import { SpinnerModule } from '../../spinner';
 
 @NgModule({
-    imports: [ClaimsRoutingModule, CardModule, FlexModule, MatOptionModule, TranslocoModule, CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, JustifyWrapperModule, FloatPanelModule, MatInputModule, TableModule, StatusModule, MatIconModule, DropdownModule, StateNavModule, ButtonModule, SpinnerModule],
+    imports: [
+        ClaimsRoutingModule,
+        CardModule,
+        FlexModule,
+        MatOptionModule,
+        TranslocoModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        JustifyWrapperModule,
+        FloatPanelModule,
+        MatInputModule,
+        TableModule,
+        StatusModule,
+        MatIconModule,
+        DropdownModule,
+        StateNavModule,
+        ButtonModule,
+        SpinnerModule
+    ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
     exports: [ClaimsComponent],
-    providers: [
-        { provide: LAYOUT_GAP, useValue: '20px' },
-        ClaimsService
-    ]
+    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService]
 })
 export class ClaimsModule {}

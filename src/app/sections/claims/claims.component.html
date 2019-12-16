@@ -5,13 +5,18 @@
         </dsh-card-content>
     </dsh-card>
     <dsh-card>
-        <dsh-card-content *transloco="let c" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+        <dsh-card-content *transloco="let c" fxLayout="column" fxLayoutGap="10px">
             <dsh-claims-table [data]="tableData$ | async"></dsh-claims-table>
-            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
+            <dsh-spinner
+                *ngIf="isLoading$ | async"
+                [type]="spinnerType"
+                fxFlex
+                fxLayoutAlign="center center"
+                size="20"
+            ></dsh-spinner>
             <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
                 {{ (isLoading$ | async) ? c.loading : c.showMore }}
             </button>
         </dsh-card-content>
     </dsh-card>
 </div>
-

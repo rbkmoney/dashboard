@@ -12,7 +12,7 @@ import { ClaimsTableData } from './claims-table-data';
 export class TableComponent {
     @Input() data: MatTableDataSource<ClaimsTableData>;
 
-    displayedColumns: string[] = ['claimID', 'claimType', 'claimStatus', 'updatedAt'];
+    displayedColumns: string[] = ['claimID', 'claimType', 'claimStatus', 'updatedAt', 'actions'];
 
     constructor(private router: Router) {}
 

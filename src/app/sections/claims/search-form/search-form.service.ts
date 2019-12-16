@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, filter, startWith } from 'rxjs/operators';
+import { debounceTime, filter, map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
+import isEmpty from 'lodash.isempty';
+import mapValues from 'lodash.mapvalues';
 
 import { ClaimSearchFormValue } from './claim-search-form-value';
-import { SearchFormValue } from '../../payment-section/operations/search-form-value';
 import { removeEmptyProperties } from '../../payment-section/operations/operators';
-
 
 @Injectable()
 export class SearchFormService {
@@ -16,22 +15,15 @@ export class SearchFormService {
 
     private defaultValues: ClaimSearchFormValue;
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.searchForm = this.initForm();
+        this.route.queryParams
+            .pipe(filter(queryParams => !isEmpty(queryParams)))
+            .subscribe(formValue => this.searchForm.patchValue(formValue));
+        this.searchForm.valueChanges
+            .pipe(map(formValues => mapValues(formValues, value => (isEmpty(value) ? null : value))))
+            .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
         this.defaultValues = this.searchForm.value;
-        // this.route.queryParams
-        //     .pipe(
-        //         filter(queryParams => !isEmpty(queryParams)),
-        //         map(queryParams => toFormValue<ClaimSearchFormValue>(queryParams))
-        //     )
-        //     .subscribe(formValue => this.searchForm.patchValue(formValue));
-        // this.searchForm.valueChanges
-        //     .pipe(map(formValues => toQueryParams<ClaimSearchFormValue>(formValues)))
-        //     .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
     }
 
     formValueChanges(valueDebounceTime: number): Observable<ClaimSearchFormValue> {
@@ -43,20 +35,9 @@ export class SearchFormService {
         );
     }
 
-    reset() {
-        this.searchForm.reset(this.defaultValues);
-    }
-
-    applySearchFormValue(v: SearchFormValue) {
-        if (!v || !this.searchForm) {
-            return;
-        }
-        this.searchForm.patchValue(v);
-    }
-
     private initForm(): FormGroup {
         return this.fb.group({
-            // claimID: '',
+            claimID: '',
             claimStatus: null
         });
     }

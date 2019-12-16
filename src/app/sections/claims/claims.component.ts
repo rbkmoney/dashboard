@@ -17,10 +17,7 @@ export class ClaimsComponent {
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private claimsService: ClaimsService
-    ) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private claimsService: ClaimsService) {}
 
     search(val: ClaimSearchFormValue) {
         this.claimsService.search(val);

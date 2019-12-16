@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { combineLatest, Observable } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
@@ -15,11 +14,9 @@ import { booleanDebounceTime } from '../../custom-operators';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
-    private readonly searchLimit = 1;
+    private readonly searchLimit = 20;
 
-    claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(
-        this.searchResult$
-    ).pipe(
+    claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(this.searchResult$).pipe(
         mapToClaimsTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
@@ -33,7 +30,6 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
     );
 
     constructor(
-        private route: ActivatedRoute,
         private claimsService: ApiClaimsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
@@ -41,14 +37,7 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
         super();
     }
 
-    protected fetch(
-        params: ClaimSearchFormValue,
-        continuationToken: string
-    ): Observable<FetchResult<Claim>> {
-        return this.claimsService.searchClaims(
-            this.searchLimit,
-            params.claimStatuses,
-            continuationToken
-        );
+    protected fetch(params: ClaimSearchFormValue, continuationToken: string): Observable<FetchResult<Claim>> {
+        return this.claimsService.searchClaims(this.searchLimit, params.claimStatus, params.claimID, continuationToken);
     }
 }

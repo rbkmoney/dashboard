@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ClaimsService } from './claims.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'dsh-claims',
@@ -17,10 +17,7 @@ export class ClaimsComponent {
     error$ = this.claimsService.error$;
     noClaims$ = this.claimsService.noClaims$;
 
-    constructor(
-        private router: Router,
-        private claimsService: ClaimsService
-    ) {}
+    constructor(private router: Router, private claimsService: ClaimsService) {}
 
     navigateToClaims() {
         this.router.navigate(['claims']);

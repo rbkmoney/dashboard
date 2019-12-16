@@ -21,6 +21,7 @@ export class ClaimsService {
     searchClaims(
         limit: number,
         claimStatuses?: StatusModificationUnit.StatusEnum[],
+        claimID?: number,
         continuationToken?: string
     ): Observable<ClaimsWithToken> {
         return this.claimsService.searchClaims(
@@ -28,6 +29,7 @@ export class ClaimsService {
             limit,
             undefined,
             continuationToken,
+            claimID,
             claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
         );
     }
