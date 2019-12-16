@@ -9,6 +9,7 @@ import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
+import { bikValidator, bankPostAccountValidator, bankAccountValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
@@ -52,10 +53,10 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
             monthOperationCount: ['', Validators.required],
             monthOperationSum: ['', Validators.required],
             bankAccount: this.fb.group({
-                account: ['', Validators.required],
+                account: ['', [Validators.required, bankAccountValidator]],
                 bankName: ['', Validators.required],
-                bankPostAccount: ['', Validators.required],
-                bankBik: ['', Validators.required]
+                bankPostAccount: ['', [Validators.required, bankPostAccountValidator]],
+                bankBik: ['', [Validators.required, bikValidator]]
             })
         });
     }

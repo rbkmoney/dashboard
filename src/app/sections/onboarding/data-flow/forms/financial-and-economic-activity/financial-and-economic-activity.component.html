@@ -29,7 +29,11 @@
             </mat-form-field>
             <mat-form-field fxFlex *ngIf="isAccountantOrgInnVisible$ | async">
                 <mat-label>{{ t.accountantOrgInn }}</mat-label>
-                <input matInput formControlName="accountantOrgInn" required />
+                <dsh-format-input
+                    format="legalEntityInn"
+                    formControlName="accountantOrgInn"
+                    required
+                ></dsh-format-input>
             </mat-form-field>
         </div>
         <mat-checkbox formControlName="hasBeneficiary">{{ t.hasBeneficiary }}</mat-checkbox>

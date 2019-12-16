@@ -39,16 +39,21 @@
         <div fxLayout [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>
                 <mat-label>{{ t.bankBik }}</mat-label>
-                <input matInput formControlName="bankBik" required />
+                <dsh-format-input format="bik" formControlName="bankBik" required></dsh-format-input>
             </mat-form-field>
             <mat-form-field fxFlex>
                 <mat-label>{{ t.bankPostAccount }}</mat-label>
-                <input matInput formControlName="bankPostAccount" required />
+                <dsh-format-input
+                    format="bankPostAccount"
+                    matInput
+                    formControlName="bankPostAccount"
+                    required
+                ></dsh-format-input>
             </mat-form-field>
         </div>
         <mat-form-field fxFlex>
             <mat-label>{{ t.account }}</mat-label>
-            <input matInput formControlName="account" required />
+            <dsh-format-input format="bankAccount" formControlName="account" required></dsh-format-input>
         </mat-form-field>
     </form>
 </form>
