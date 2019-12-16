@@ -24,7 +24,7 @@ export class PdlInfoService {
 
     getForm(): FormGroup {
         return this.fb.group({
-            pdlCategory: [false, Validators.required],
+            pdlCategory: [false],
             pdlRelationDegree: ['']
         });
     }
