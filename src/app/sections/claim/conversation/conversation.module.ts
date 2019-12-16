@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TimelineModule } from '../../../timeline';
 import { ConversationComponent } from './conversation.component';
@@ -13,7 +14,13 @@ import { HumanizeDurationModule } from '../../../humanize-duration';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
-import { ChangeContainerModule } from '../../claim-modification-containers';
+import {
+    ChangeContainerModule,
+    CommentContainerModule,
+    FileContainerModule
+} from '../../claim-modification-containers';
+import { SendCommentComponent } from './send-comment';
+import { MessagesModule, FilesModule } from '../../../api';
 
 @NgModule({
     imports: [
@@ -29,8 +36,13 @@ import { ChangeContainerModule } from '../../claim-modification-containers';
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,
-        ChangeContainerModule
+        ChangeContainerModule,
+        CommentContainerModule,
+        FileContainerModule,
+        ReactiveFormsModule,
+        MessagesModule,
+        FilesModule
     ],
-    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe]
+    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
 })
 export class ConversationModule {}

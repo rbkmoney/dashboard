@@ -1,17 +1,21 @@
-$padding: 20px;
+$dsh-beneficial-owner-form-padding: 0 0 20px 0;
 
 .checkbox-section {
-    padding-bottom: $padding;
+    padding: $dsh-beneficial-owner-form-padding;
 }
 
 .beneficial-owner-actions {
-    padding-bottom: $padding;
+    padding: $dsh-beneficial-owner-form-padding;
 }
 
 .owner-count {
-    padding-bottom: $padding;
+    padding: $dsh-beneficial-owner-form-padding;
 }
 
 .beneficial-owner-container {
-    padding-bottom: $padding;
+    padding: $dsh-beneficial-owner-form-padding;
+}
+
+.beneficial-owner-description {
+    padding: $dsh-beneficial-owner-form-padding;
 }

@@ -6,6 +6,10 @@
     "next": "Далее",
     "ago": "назад",
     "cancel": "Отмена",
+    "done": "Готово",
+    "continue": "Продолжить",
+    "confirm": "Подтвердить",
+    "return": "Вернуться",
     "justNow": "только что",
     "today": "Сегодня",
     "week": "Неделя",
@@ -17,6 +21,7 @@
     "commonError": "Что-то пошло не так",
     "loading": "Загрузка...",
     "ok": "OK",
+    "noDocs": "Нет прикрепленных документов",
     "period": {
         "fromTime": "Начало периода",
         "toTime": "Конец периода"
@@ -106,5 +111,11 @@
         "subheading": "Подтвердите действие",
         "cancel": "Отмена",
         "confirm": "Подтвердить"
+    },
+    "errors": {
+        "saveConversationsFailed": "Не удалось сохранить комментарий",
+        "revokeClaimByIDFailed": "Не удалось отозвать заявку",
+        "requestReviewClaimByIDFailed": "Не удалось отправить заявку на рассмотрение",
+        "updateClaimByIDFailed": " Не удалось обновить заявку"
     }
 }

@@ -1,7 +1,7 @@
 /**
  * https://github.com/sindresorhus/multi-download/blob/master/index.js
  */
-export function download(url: string, name?: string) {
+export function download(url: string, name?: string): void {
     const a = document.createElement('a');
     a.download = name;
     a.href = url;

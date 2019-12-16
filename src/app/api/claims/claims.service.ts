@@ -6,7 +6,8 @@ import {
     ClaimsService as APIClaimsService,
     Claim,
     StatusModificationUnit,
-    Modification
+    Modification,
+    Reason
 } from '../../api-codegen/claim-management';
 import { ClaimsWithToken } from './models';
 import { genXRequestID } from '../utils';
@@ -50,7 +51,15 @@ export class ClaimsService {
         return this.claimsService.createClaim(genXRequestID(), changeset);
     }
 
-    revokeClaimByID(claimID: number, claimRevision: number): Observable<void> {
-        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision);
+    updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<void> {
+        return this.claimsService.updateClaimByID(genXRequestID(), claimID, claimRevision, changeset);
+    }
+
+    revokeClaimByID(claimID: number, claimRevision: number, reason: Reason): Observable<void> {
+        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision, undefined, reason);
+    }
+
+    requestReviewClaimByID(claimID: number, claimRevision: number): Observable<void> {
+        return this.claimsService.requestReviewClaimByID(genXRequestID(), claimID, claimRevision);
     }
 }

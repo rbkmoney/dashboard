@@ -1,28 +1,10 @@
 import * as fs from 'fs';
-import * as http from 'http';
-import * as https from 'https';
 import { exec } from 'child_process';
 import * as path from 'path';
 
 import * as config from '../swagger-codegen-config.json';
 
-const SWAGGER_CODEGEN_CLI_FILENAME = 'swagger-codegen-cli.jar';
 const ROOT_DIR = path.join(__dirname, '..');
-const TMP_DIR = 'tmp';
-const SWAGGER_CODEGEN_CLI_PATH = path.join(TMP_DIR, SWAGGER_CODEGEN_CLI_FILENAME);
-
-function loadFile(url: string, filePath: string) {
-    return new Promise((res, rej) => {
-        const httpx = url.startsWith('https') ? https : http;
-        const request = httpx.get(url, response => {
-            fs.mkdirSync(path.join(filePath, '..'), { recursive: true });
-            const file = fs.createWriteStream(filePath);
-            const stream = response.pipe(file);
-            stream.on('finish', () => res());
-        });
-        request.on('error', err => rej(err));
-    });
-}
 
 function deleteFolderRecursive(deletedDir: string) {
     if (fs.existsSync(deletedDir)) {
@@ -34,11 +16,7 @@ function deleteFolderRecursive(deletedDir: string) {
     }
 }
 
-function codegenAngular(cli: string, inputPath: string, outputDir: string) {
-    deleteFolderRecursive(outputDir);
-    console.log(`${outputDir} deleted`);
-    const cmd = `java -jar ${cli} generate -l typescript-angular --additional-properties ngVersion=7 -i ${inputPath} -o ${outputDir}`;
-    console.log(`> ${cmd}`);
+function execWithLog(cmd: string) {
     return new Promise((res, rej) =>
         exec(
             cmd,
@@ -59,12 +37,49 @@ function codegenAngular(cli: string, inputPath: string, outputDir: string) {
     );
 }
 
-(async () => {
-    await loadFile(config.cli, SWAGGER_CODEGEN_CLI_PATH);
-    console.log('Swagger Codegen CLI loaded');
+function swaggerCodegenAngular(cliPath: string, inputPath: string, outputDirPath: string) {
+    deleteFolderRecursive(outputDirPath);
+    console.log(`${outputDirPath} deleted`);
+    const cmd = `java -jar ${cliPath} generate -l typescript-angular --additional-properties ngVersion=7 -i ${inputPath} -o ${outputDirPath}`;
+    console.log(`> ${cmd}`);
+    return execWithLog(cmd);
+}
+
+async function swaggerCodegenAngularCli({
+    name,
+    codegenPath,
+    swags,
+    outputDir
+}: {
+    name: string;
+    codegenPath: string;
+    swags: { [name: string]: string };
+    outputDir: string;
+}) {
+    const log = (text: string) => console.log(`[${name}]: ${text}`);
+    log('generate...');
     await Promise.all(
-        Object.entries(config.schemes).map(([name, swagPath]) =>
-            codegenAngular(SWAGGER_CODEGEN_CLI_PATH, swagPath, path.join(config.outputRootDir, name, config.outputDir))
+        Object.entries(swags).map(([swagName, swagPath]) =>
+            swaggerCodegenAngular(codegenPath, swagPath, path.join(config.outputRootDir, swagName, outputDir))
         )
     );
+    log('generated');
+}
+
+(async () => {
+    const { outputDir } = config;
+    await Promise.all([
+        swaggerCodegenAngularCli({
+            name: 'Swagger Codegen 3',
+            codegenPath: path.join(config.rootDir, config.cli3),
+            swags: config.schemes3,
+            outputDir
+        }),
+        swaggerCodegenAngularCli({
+            name: 'Swagger Codegen 2',
+            codegenPath: path.join(config.rootDir, config.cli),
+            swags: config.schemes,
+            outputDir
+        })
+    ]);
 })();

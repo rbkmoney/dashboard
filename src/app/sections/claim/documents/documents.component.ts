@@ -1,8 +1,19 @@
 import { Component } from '@angular/core';
 
+import { DocumentsService } from './documents.service';
+
 @Component({
     selector: 'dsh-documents',
     templateUrl: 'documents.component.html',
-    styleUrls: ['documents.component.scss']
+    providers: [DocumentsService]
 })
-export class DocumentsComponent {}
+export class DocumentsComponent {
+    fileUnits$ = this.documentsService.fileUnits$;
+    isQuestionaryClaim$ = this.documentsService.isQuestionaryClaim$;
+
+    constructor(private documentsService: DocumentsService) {}
+
+    filesUploaded(fileIds: string[]) {
+        this.documentsService.filesUploaded(fileIds);
+    }
+}

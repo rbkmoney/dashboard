@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { switchMap, pluck, map, filter, shareReplay } from 'rxjs/operators';
+import { switchMap, map, filter, shareReplay, pluck } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ClaimsService } from '../../api/claims';
 import { Claim } from '../../api-codegen/claim-management';
 import { booleanDelay } from '../../custom-operators';
+import { RouteParamClaimService } from './route-param-claim.service';
+import { getClaimType, ClaimType } from '../../view-utils';
 
 @Injectable()
 export class ReceiveClaimService {
@@ -17,6 +17,12 @@ export class ReceiveClaimService {
 
     claim$: Observable<Claim> = this.claimState$.pipe(
         filter(s => !!s),
+        shareReplay(1)
+    );
+
+    claimType$: Observable<ClaimType> = this.claim$.pipe(
+        pluck('changeset'),
+        map(getClaimType),
         shareReplay(1)
     );
 
@@ -32,23 +38,17 @@ export class ReceiveClaimService {
     }
 
     constructor(
-        private claimsService: ClaimsService,
-        private route: ActivatedRoute,
+        private routeParamClaimService: RouteParamClaimService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.receiveClaim$
-            .pipe(
-                switchMap(() => this.route.params.pipe(pluck('claimId'))),
-                switchMap(id => this.claimsService.getClaimByID(id))
-            )
-            .subscribe(
-                claim => this.claimState$.next(claim),
-                err => {
-                    console.error(err);
-                    this.snackBar.open(this.transloco.translate('commonError'), 'OK');
-                    this.receiveClaimError$.next(true);
-                }
-            );
+        this.receiveClaim$.pipe(switchMap(() => this.routeParamClaimService.claim$)).subscribe(
+            claim => this.claimState$.next(claim),
+            err => {
+                console.error(err);
+                this.snackBar.open(this.transloco.translate('commonError'), 'OK');
+                this.receiveClaimError$.next(true);
+            }
+        );
     }
 }

@@ -1,5 +1,5 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1
+SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0
 SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
@@ -63,15 +63,4 @@ test:
 swagger:
 	npm run codegen
 
-KONTUR_FOCUS_MODEL_DIR = src/app/kontur-focus/gen-model
-KONTUR_FOCUS_API = req req/mon monList analytics contacts egrDetails egrDetails/mon licences buh fssp govPurchasesOfParticipant govPurchasesOfCustomer stat
-kontur-focus-clean:
-	rm -rf $(KONTUR_FOCUS_MODEL_DIR)
-kontur-focus-compile:
-	$(foreach req,$(KONTUR_FOCUS_API),\
-	mkdir -p $(shell dirname $(KONTUR_FOCUS_MODEL_DIR)/$(req).ts);\
-	npm run quicktype -- https://focus-api.kontur.ru/api3/$(req)/schema -o $(KONTUR_FOCUS_MODEL_DIR)/$(req).ts;\
-	)
-kontur-focus: kontur-focus-clean kontur-focus-compile
-
-compile: swagger kontur-focus
+compile: swagger

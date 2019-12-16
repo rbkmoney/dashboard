@@ -1,3 +1,9 @@
-.bankAccountLabel {
-    padding-bottom: 20px;
+$dsh-planning-operations-form-padding: 0 0 20px 0;
+
+.bank-account-label {
+    padding: $dsh-planning-operations-form-padding;
+}
+
+.radio-group-container {
+    padding: $dsh-planning-operations-form-padding;
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, Subject } from 'rxjs';
-import { switchMap, shareReplay, map, first, pluck } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { switchMap, shareReplay, map, first, pluck, filter } from 'rxjs/operators';
 
 import { takeError, handleNull, booleanDelay } from '../../../custom-operators';
 import { ClaimsService, takeDocumentModificationUnit, QuestionaryService } from '../../../api';
@@ -10,6 +10,7 @@ import { Snapshot } from '../../../api-codegen/questionary';
 
 @Injectable()
 export class InitialDataService {
+    private claimIDState$: Subject<number> = new BehaviorSubject(null);
     private initialize$: Subject<number> = new Subject();
 
     initialSnapshot$: Observable<Snapshot> = this.initialize$.pipe(
@@ -29,6 +30,10 @@ export class InitialDataService {
         takeError,
         shareReplay(1)
     );
+    claimID$ = this.claimIDState$.pipe(
+        filter(id => !!id),
+        shareReplay(1)
+    );
 
     constructor(
         private claimService: ClaimsService,
@@ -40,6 +45,7 @@ export class InitialDataService {
     }
 
     initialize(claimID: number) {
+        this.claimIDState$.next(claimID);
         this.initialize$.next(claimID);
     }
 }

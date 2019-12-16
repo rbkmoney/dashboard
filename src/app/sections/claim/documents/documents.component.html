@@ -1,3 +1,13 @@
-<div class="dsh-documents">
-    <ng-content></ng-content>
+<div *transloco="let t; scope: 'claim'; read: 'claim.documents'" fxLayout="column" fxLayoutGap="20px">
+    <div *ngIf="isQuestionaryClaim$ | async" fxLayout="column" fxLayoutGap="10px">
+        <div class="mat-body-2">{{ t.questionaryClaim.description }}</div>
+        <div class="mat-body-1">- {{ t.questionaryClaim.passport }};</div>
+        <div class="mat-body-1">- {{ t.questionaryClaim.registrationDocument }}.</div>
+    </div>
+    <div class="mat-body-2">{{ t.docs }}:</div>
+    <div *ngIf="(fileUnits$ | async).length === 0" class="mat-body-1">{{ t.noDocs }}</div>
+    <div fxLayout="column" fxLayoutGap="10px">
+        <dsh-file-container *ngFor="let unit of fileUnits$ | async" [unit]="unit"></dsh-file-container>
+    </div>
+    <dsh-file-uploader (filesUploaded)="filesUploaded($event)"></dsh-file-uploader>
 </div>

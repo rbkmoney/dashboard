@@ -1,9 +1,10 @@
 <form
     [formGroup]="form"
     fxLayout="column"
+    fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianDomesticPassport'"
 >
-    <div class="mat-subheading-1">{{ t.description }}</div>
+    <div class="mat-body-2">{{ t.description }}</div>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
             <mat-label>{{ t.seriesNumber }}</mat-label>
