@@ -25,7 +25,7 @@ export abstract class QuestionaryFormService {
         );
     }
 
-    startFormValuePersistent(debounceMs = 1000): Subscription {
+    startFormValuePersistent(debounceMs = 300): Subscription {
         return combineLatest(this.data$, this.form$.pipe(switchMap(form => form.valueChanges))) // TODO this.data$ is actual?
             .pipe(
                 debounceTime(debounceMs),

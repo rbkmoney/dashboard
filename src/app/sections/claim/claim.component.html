@@ -45,7 +45,17 @@
                             {{ t.revokeClaim }}
                         </button>
                     </div>
-                    <button dsh-button color="accent" disabled>{{ t.placeBefore }}</button>
+                    <div>
+                        <button
+                            *ngIf="reviewAvailable$ | async"
+                            [disabled]="reviewInProgress$ | async"
+                            dsh-button
+                            color="accent"
+                            (click)="reviewClaim()"
+                        >
+                            {{ t.reviewClaim }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </dsh-card>

@@ -20,9 +20,9 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
         case s.Pending:
             return toActionBtnContent('continue', `/onboarding/${claim.id}`);
         case s.Review:
-            return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
+            return toActionBtnContent('claimDetails', `/claim/${claim.id}/conversation`);
         case s.PendingAcceptance:
-            return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
+            return toActionBtnContent('claimDetails', `/claim/${claim.id}/conversation`);
     }
     throw new Error('Unsupported claim status');
 };

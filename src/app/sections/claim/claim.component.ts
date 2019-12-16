@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { pluck, map } from 'rxjs/operators';
 
 import { ReceiveClaimService } from './receive-claim.service';
-import { claimStatusToColor, getClaimType } from '../../view-utils';
+import { claimStatusToColor } from '../../view-utils';
 import { RevokeClaimService } from './revoke-claim.service';
-import { UpdateClaimService } from './update-claim.service';
+import { UpdateClaimService } from './update-claim';
 import { RouteParamClaimService } from './route-param-claim.service';
+import { ReviewClaimService } from './review-claim.service';
 
 @Component({
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss'],
-    providers: [RouteParamClaimService, ReceiveClaimService, RevokeClaimService, UpdateClaimService]
+    providers: [RouteParamClaimService, ReceiveClaimService, RevokeClaimService, UpdateClaimService, ReviewClaimService]
 })
 export class ClaimComponent implements OnInit {
     links = [
@@ -25,13 +26,12 @@ export class ClaimComponent implements OnInit {
     claimID$ = this.receiveClaimService.claim$.pipe(pluck('id'));
     claimStatus$ = this.receiveClaimService.claim$.pipe(pluck('status'));
     claimStatusColor$ = this.claimStatus$.pipe(map(claimStatusToColor));
-    claimType$ = this.receiveClaimService.claim$.pipe(
-        pluck('changeset'),
-        map(getClaimType)
-    );
+    claimType$ = this.receiveClaimService.claimType$;
     claimReceived$ = this.receiveClaimService.claimReceived$;
     error$ = this.receiveClaimService.error$;
     revokeAvailable$ = this.revokeClaimService.revokeAvailable$;
+    reviewAvailable$ = this.reviewClaimService.reviewAvailable$;
+    reviewInProgress$ = this.reviewClaimService.inProgress$;
 
     ngOnInit() {
         this.receiveClaimService.receiveClaim();
@@ -41,5 +41,13 @@ export class ClaimComponent implements OnInit {
         this.revokeClaimService.revokeClaim();
     }
 
-    constructor(private receiveClaimService: ReceiveClaimService, private revokeClaimService: RevokeClaimService) {}
+    reviewClaim() {
+        this.reviewClaimService.reviewClaim();
+    }
+
+    constructor(
+        private receiveClaimService: ReceiveClaimService,
+        private revokeClaimService: RevokeClaimService,
+        private reviewClaimService: ReviewClaimService
+    ) {}
 }

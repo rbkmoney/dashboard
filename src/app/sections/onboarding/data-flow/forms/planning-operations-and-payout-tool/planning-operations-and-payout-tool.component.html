@@ -1,12 +1,12 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
-    fxLayoutGap="30px"
+    fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.planningOperationsAndPayoutTool'"
 >
-    <div fxLayout="column" fxLayoutGap="30px">
+    <div class="radio-group-container" fxLayout="column" fxLayoutGap="30px">
         <div fxLayout="column" fxLayoutGap="15px">
-            <label>{{ t.monthOperationCountLabel }}</label>
+            <label class="mat-body-1">{{ t.monthOperationCountLabel }}</label>
             <mat-radio-group formControlName="monthOperationCount" fxLayout fxLayoutGap="30px" required>
                 <mat-radio-button
                     *ngFor="let monthOperationCount of monthOperationCounts"
@@ -17,7 +17,7 @@
             </mat-radio-group>
         </div>
         <div fxLayout="column" fxLayoutGap="15px">
-            <label>{{ t.monthOperationSumLabel }}</label>
+            <label class="mat-body-1">{{ t.monthOperationSumLabel }}</label>
             <mat-radio-group formControlName="monthOperationSum" fxLayout fxLayoutGap="30px" required>
                 <mat-radio-button *ngFor="let monthOperationSum of monthOperationSums" [value]="monthOperationSum">
                     {{ t.monthOperationSumTypes[monthOperationSum] }}
@@ -25,8 +25,8 @@
             </mat-radio-group>
         </div>
     </div>
-    <form fxLayout="column" [formGroup]="(form$ | async).get('bankAccount')">
-        <label class="bankAccountLabel">{{ t.payoutToolLabel }}</label>
+    <form fxLayout="column" fxLayoutGap="10px" [formGroup]="(form$ | async).get('bankAccount')">
+        <label class="bank-account-label mat-body-2">{{ t.payoutToolLabel }}</label>
         <mat-form-field fxFlex>
             <mat-label>{{ t.bankName }}</mat-label>
             <dsh-dadata-autocomplete

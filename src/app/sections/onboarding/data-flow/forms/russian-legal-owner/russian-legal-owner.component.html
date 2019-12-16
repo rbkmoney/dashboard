@@ -4,7 +4,7 @@
     fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianLegalOwner'"
 >
-    <div class="mat-subheading-1">{{ t.legalOwnerDescription }}</div>
+    <label class="mat-body-2">{{ t.legalOwnerDescription }}</label>
     <dsh-private-entity-info
         [form]="(form$ | async).get('privateEntityInfo')"
         [additionalFields]="['innfl']"
