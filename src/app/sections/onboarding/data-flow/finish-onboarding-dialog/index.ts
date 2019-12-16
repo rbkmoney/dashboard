@@ -1,2 +1,1 @@
-
-export * from './finish-onboarding-dialog.component'
+export * from './finish-onboarding-dialog.component';

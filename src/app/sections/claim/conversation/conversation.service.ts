@@ -4,7 +4,7 @@ import { map, shareReplay, pluck } from 'rxjs/operators';
 import { toTimelineInfo } from './to-timeline-info';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { ConversationID } from '../../../api-codegen/messages';
-import { UpdateClaimService } from '../update-claim.service';
+import { UpdateClaimService } from '../update-claim';
 
 @Injectable()
 export class ConversationService {

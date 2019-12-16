@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ReceiveClaimService } from '../receive-claim.service';
-import { UpdateClaimService } from '../update-claim.service';
+import { UpdateClaimService } from '../update-claim';
 import { FileModificationUnit } from '../../../api-codegen/claim-management';
 import { takeFileModificationsUnit } from '../../../api';
 

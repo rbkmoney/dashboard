@@ -4,7 +4,7 @@ import { pluck, map } from 'rxjs/operators';
 import { ReceiveClaimService } from './receive-claim.service';
 import { claimStatusToColor } from '../../view-utils';
 import { RevokeClaimService } from './revoke-claim.service';
-import { UpdateClaimService } from './update-claim.service';
+import { UpdateClaimService } from './update-claim';
 import { RouteParamClaimService } from './route-param-claim.service';
 import { ReviewClaimService } from './review-claim.service';
 

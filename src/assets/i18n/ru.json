@@ -115,6 +115,7 @@
     "errors": {
         "saveConversationsFailed": "Не удалось сохранить комментарий",
         "revokeClaimByIDFailed": "Не удалось отозвать заявку",
-        "requestReviewClaimByIDFailed": "Не удалось отправить заявку на рассмотрение"
+        "requestReviewClaimByIDFailed": "Не удалось отправить заявку на рассмотрение",
+        "updateClaimByIDFailed": " Не удалось обновить заявку"
     }
 }

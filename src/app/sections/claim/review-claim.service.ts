@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subject, Observable, BehaviorSubject, of } from 'rxjs';
+import { switchMap, map, shareReplay, filter, pluck, catchError, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '../../api';
 import { RouteParamClaimService } from './route-param-claim.service';
 import { ReceiveClaimService } from './receive-claim.service';
-import { switchMap, map, shareReplay, filter, pluck, catchError, tap } from 'rxjs/operators';
 import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { UIError } from '../ui-error';
 import { progress } from '../../custom-operators';
