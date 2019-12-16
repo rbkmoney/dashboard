@@ -1,6 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
-
-import { LAYOUT_GAP } from '../../../../../constants';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'dsh-legal-residency-info',
@@ -8,6 +6,4 @@ import { LAYOUT_GAP } from '../../../../../constants';
 })
 export class LegalResidencyInfoComponent {
     @Input() form;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

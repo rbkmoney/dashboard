@@ -30,7 +30,10 @@ export class InitialDataService {
         takeError,
         shareReplay(1)
     );
-    claimID$ = this.claimIDState$.pipe(filter(id => !!id));
+    claimID$ = this.claimIDState$.pipe(
+        filter(id => !!id),
+        shareReplay(1)
+    );
 
     constructor(
         private claimService: ClaimsService,

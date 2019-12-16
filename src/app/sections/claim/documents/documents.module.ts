@@ -10,8 +10,8 @@ import { LayoutModule } from '../../../layout';
 import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
 import { ReceiveClaimService } from '../receive-claim.service';
-import { ClaimFilesModule } from '../../../claim-files';
 import { DocumentsRoutingModule } from './documents-routing.module';
+import { FileContainerModule } from '../../claim-modification-containers';
 
 @NgModule({
     imports: [
@@ -25,7 +25,7 @@ import { DocumentsRoutingModule } from './documents-routing.module';
         CommonModule,
         TranslocoModule,
         FileUploaderModule,
-        ClaimFilesModule
+        FileContainerModule
     ],
     declarations: [DocumentsComponent],
     providers: [FilesService, ReceiveClaimService]

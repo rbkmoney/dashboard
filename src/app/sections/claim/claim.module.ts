@@ -16,6 +16,7 @@ import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
 import { DocumentsModule } from './documents';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
+import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         QuestionaryModule,
         ReactiveFormsModule,
         MatDialogModule,
-        MatInputModule
+        MatInputModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ClaimComponent, RevokeClaimDialogComponent],
     entryComponents: [RevokeClaimDialogComponent]

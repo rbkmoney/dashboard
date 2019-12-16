@@ -1,18 +1,22 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
+    fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
+    <label class="mat-caption beneficial-owner-description">{{ t.beneficialOwnerDescription }}</label>
     <section class="checkbox-section">
         <mat-checkbox formControlName="noOwners" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
     </section>
     <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
         <div
+            fxLayout="column"
+            fxLayoutGap="10px"
             class="beneficial-owner-container"
             *ngFor="let beneficialOwner of (beneficialOwners$ | async).controls; let i = index"
             [formGroupName]="i"
         >
-            <div class="owner-count">{{ t.owner }} #{{ i + 1 }}</div>
+            <div class="owner-count mat-body-2">{{ t.owner }} #{{ i + 1 }}</div>
             <div fxLayout>
                 <mat-form-field fxFlex="48.5%">
                     <mat-label>{{ t.ownershipPercentage }}</mat-label>

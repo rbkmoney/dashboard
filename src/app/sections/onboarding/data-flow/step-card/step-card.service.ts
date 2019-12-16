@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 
 import { StepFlowService } from '../step-flow';
 import { QuestionaryStateService } from '../questionary-state.service';
-import { toBaseUrl } from '../to-base-url';
 import { ClaimsService } from '../../../../api';
 import { InitialDataService } from '../initial-data.service';
+import { FinishOnboardingDialogComponent } from '../finish-onboarding-dialog';
 
 @Injectable()
 export class StepCardService {
@@ -19,7 +20,8 @@ export class StepCardService {
         private questionaryStateService: QuestionaryStateService,
         private router: Router,
         private claimsService: ClaimsService,
-        private initialDataService: InitialDataService
+        private initialDataService: InitialDataService,
+        private dialog: MatDialog
     ) {
         combineLatest(this.selectStepFlowIndex$, this.stepFlowService.stepFlow$)
             .pipe(map(([i, stepFlow]) => stepFlow[i]))
@@ -31,9 +33,18 @@ export class StepCardService {
             .pipe(
                 switchMap(() => this.initialDataService.claimID$),
                 switchMap(claimID => this.claimsService.getClaimByID(claimID)),
-                switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision))
+                switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
+                switchMap(() =>
+                    this.dialog
+                        .open(FinishOnboardingDialogComponent, {
+                            disableClose: true,
+                            width: '600px'
+                        })
+                        .afterClosed()
+                ),
+                switchMap(() => this.initialDataService.claimID$)
             )
-            .subscribe(() => this.router.navigate([...toBaseUrl(this.router.url), 'document-upload']));
+            .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
     }
 
     finishFormFlow() {
