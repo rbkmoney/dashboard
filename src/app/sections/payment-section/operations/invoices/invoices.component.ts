@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { InvoicesService } from './invoices.service';
 import { InvoiceSearchFormValue } from './search-form';
@@ -17,7 +19,13 @@ export class InvoicesComponent {
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    constructor(private invoicesService: InvoicesService) {}
+    constructor(
+        private invoicesService: InvoicesService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {
+        this.invoicesService.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+    }
 
     search(val: InvoiceSearchFormValue) {
         this.invoicesService.search(val);
