@@ -8,7 +8,8 @@ import {
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
 } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
@@ -25,7 +26,6 @@ import { InvoiceStatusColorPipe } from './status-color.pipe';
 import { FromMinorModule } from '../../../../from-minor';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
-import { DropdownModule } from '../../../../dropdown';
 import { StateNavModule } from '../../../../state-nav';
 import { LanguageModule } from '../../../../language';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
@@ -51,10 +51,10 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         LastUpdatedModule,
         SpinnerModule,
         MatSnackBarModule,
-        DropdownModule,
         StateNavModule,
         TranslocoModule,
-        LanguageModule
+        LanguageModule,
+        MatMenuModule
     ],
     declarations: [InvoicesComponent, SearchFormComponent, InvoiceStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
