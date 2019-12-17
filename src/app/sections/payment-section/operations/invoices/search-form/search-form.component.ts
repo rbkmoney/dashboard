@@ -25,26 +25,19 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<InvoiceSearchFormValue> = new EventEmitter<InvoiceSearchFormValue>();
 
-    searchForm: FormGroup;
+    searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    statuses: Invoice.StatusEnum[] = ['unpaid', 'cancelled', 'paid', 'fulfilled'];
+    statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
     shopsInfo$ = this.searchFormService.shopsInfo$;
-    paymentStatuses;
-    tokenProviders;
-    paymentMethods;
-    bankCardPaymentSystems;
-    paymentFlows;
+    paymentStatuses = paymentStatusesConsts;
+    tokenProviders = tokenProvidersConsts;
+    paymentMethods = paymentMethodsConsts;
+    bankCardPaymentSystems = bankCardPaymentSystemsConsts;
+    paymentFlows = paymentFlowsConsts;
 
-    constructor(private searchFormService: SearchFormService) {
-        this.paymentStatuses = paymentStatusesConsts;
-        this.tokenProviders = tokenProvidersConsts;
-        this.paymentMethods = paymentMethodsConsts;
-        this.bankCardPaymentSystems = bankCardPaymentSystemsConsts;
-        this.paymentFlows = paymentFlowsConsts;
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        this.searchForm = this.searchFormService.searchForm;
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));

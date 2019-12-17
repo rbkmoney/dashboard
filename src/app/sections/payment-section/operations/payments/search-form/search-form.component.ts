@@ -24,7 +24,7 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
-    searchForm: FormGroup;
+    searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     shopsInfo$ = this.searchFormService.shopsInfo$;
     tokenProviders = tokenProvidersConsts;
@@ -36,7 +36,6 @@ export class SearchFormComponent implements OnInit {
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        this.searchForm = this.searchFormService.searchForm;
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
