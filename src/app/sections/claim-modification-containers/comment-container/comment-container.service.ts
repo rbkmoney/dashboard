@@ -10,7 +10,7 @@ export class CommentContainerService {
     private receiveConversation$: Subject<string> = new Subject();
 
     comment$ = this.receiveConversation$.pipe(
-        switchMap(conversationId => this.messageService.getConversations([conversationId], 'ACTUAL' as any)),
+        switchMap(conversationId => this.messageService.getConversations([conversationId])),
         map(({ conversations }) =>
             conversations.reduce((acc, { messages }) => (messages.length > 0 ? messages[0] : acc), { text: '' })
         ),

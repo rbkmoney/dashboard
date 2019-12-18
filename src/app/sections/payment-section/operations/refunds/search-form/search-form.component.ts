@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { SearchFormValue } from '../../search-form-value';
@@ -17,16 +18,17 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<RefundsSearchFormValue> = new EventEmitter<RefundsSearchFormValue>();
 
-    searchForm: FormGroup;
+    searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    statuses: RefundStatus.StatusEnum[] = ['pending', 'succeeded', 'failed'];
+    statuses: RefundStatus.StatusEnum[] = Object.values(RefundStatus.StatusEnum);
     shopsInfo$ = this.searchFormService.shopsInfo$;
 
     constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnInit() {
-        this.searchForm = this.searchFormService.searchForm;
-        this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
+        this.searchFormService.formValueChanges$
+            .pipe(debounceTime(this.valueDebounceTime))
+            .subscribe(v => this.formValueChanges.emit(v));
     }
 
     selectDaterange(v: SearchFormValue) {
