@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { ClaimsService as ApiClaimsService } from '../../api/claims/claims.service';
@@ -10,19 +10,18 @@ import { ClaimsTableData } from './table';
 import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
 import { FetchResult, PartialFetcher } from '../partial-fetcher';
 import { mapToClaimsTableData } from './map-to-claims-table-data';
-import { booleanDebounceTime } from '../../custom-operators';
+import { booleanDebounceTime, takeError } from '../../custom-operators';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
     private readonly searchLimit = 20;
 
     claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(this.searchResult$).pipe(
-        mapToClaimsTableData,
-        catchError(() => {
-            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-            return [];
-        })
+        map(([searchResult]) => searchResult),
+        mapToClaimsTableData
     );
+
+    error$ = this.claimsTableData$.pipe(takeError);
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(
         booleanDebounceTime(),
@@ -35,6 +34,10 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
         private transloco: TranslocoService
     ) {
         super();
+        this.error$.subscribe(() => {
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+            return [];
+        });
     }
 
     protected fetch(params: ClaimSearchFormValue, continuationToken: string): Observable<FetchResult<Claim>> {

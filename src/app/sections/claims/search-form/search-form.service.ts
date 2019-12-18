@@ -7,7 +7,6 @@ import isEmpty from 'lodash.isempty';
 import mapValues from 'lodash.mapvalues';
 
 import { ClaimSearchFormValue } from './claim-search-form-value';
-import { removeEmptyProperties } from '../../payment-section/operations/operators';
 
 @Injectable()
 export class SearchFormService {
@@ -30,14 +29,13 @@ export class SearchFormService {
         return this.searchForm.valueChanges.pipe(
             startWith(this.defaultValues),
             filter(() => this.searchForm.status === 'VALID'),
-            removeEmptyProperties,
             debounceTime(valueDebounceTime)
         );
     }
 
     private initForm(): FormGroup {
         return this.fb.group({
-            claimID: '',
+            claimID: null,
             claimStatus: null
         });
     }

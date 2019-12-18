@@ -3,6 +3,6 @@ import { ClaimChangeset, StatusModificationUnit } from '../../../api-codegen/cla
 export interface ClaimsTableData {
     claimID: number;
     changeset: ClaimChangeset;
-    status: StatusModificationUnit.StatusEnum[];
+    status: StatusModificationUnit.StatusEnum;
     updatedAt: string;
 }

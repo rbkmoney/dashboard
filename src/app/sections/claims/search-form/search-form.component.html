@@ -1,5 +1,5 @@
 <div
-    *transloco="let t; scope: 'claim-search'; read: 'claimSearch'"
+    *transloco="let t; scope: 'claims'; read: 'claims'"
     [formGroup]="searchForm"
     fxLayout="row"
     [fxLayoutGap]="layoutGap"
@@ -15,7 +15,7 @@
         </mat-form-field>
         <mat-form-field fxFlex="150px">
             <mat-label>{{ t.claimID }}</mat-label>
-            <input matInput type="text" formControlName="claimID" />
+            <input matInput type="number" formControlName="claimID" />
         </mat-form-field>
     </dsh-justify-wrapper>
 </div>

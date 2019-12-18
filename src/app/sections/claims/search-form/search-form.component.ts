@@ -17,19 +17,15 @@ export class SearchFormComponent implements OnInit {
     @Output() formValueChanges: EventEmitter<ClaimSearchFormValue> = new EventEmitter<ClaimSearchFormValue>();
 
     searchForm: FormGroup;
-    statuses: StatusModificationUnit.StatusEnum[] = [
-        'pending',
-        'review',
-        'pendingAcceptance',
-        'accepted',
-        'denied',
-        'revoked'
-    ];
+    statuses = Object.values(StatusModificationUnit.StatusEnum);
 
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
         this.searchForm = this.searchFormService.searchForm;
-        this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
+        this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => {
+            console.log('VVVVVV', v);
+            this.formValueChanges.emit(v);
+        });
     }
 }
