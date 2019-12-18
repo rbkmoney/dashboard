@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { RefundsService } from './refunds.service';
 import { RefundsSearchFormValue } from './search-form';
@@ -17,7 +19,13 @@ export class RefundsComponent {
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    constructor(private refundsService: RefundsService) {}
+    constructor(
+        private refundsService: RefundsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {
+        this.refundsService.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+    }
 
     search(val: RefundsSearchFormValue) {
         this.refundsService.search(val);
