@@ -2,10 +2,12 @@ import { bankCardConfigs } from './bank-card';
 import { contactConfigs } from './contact';
 import { individualEntityConfigs } from './individual-entity';
 import { legalEntityConfigs } from './legal-entity';
-import { individualOrLegalEntityInnConfig } from './individual-or-legal-entity-inn';
+import { commonConfigs } from './common';
+import { bankConfigs } from './bank';
 
 export const configs = {
-    individualOrLegalEntityInn: individualOrLegalEntityInnConfig,
+    ...commonConfigs,
+    ...bankConfigs,
     ...bankCardConfigs,
     ...contactConfigs,
     ...individualEntityConfigs,
