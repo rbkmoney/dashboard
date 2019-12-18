@@ -20,7 +20,7 @@ export class SearchFormService {
             .pipe(filter(queryParams => !isEmpty(queryParams)))
             .subscribe(formValue => this.searchForm.patchValue(formValue));
         this.searchForm.valueChanges
-            .pipe(map(formValues => mapValues(formValues, value => (isEmpty(value) ? null : value))))
+            .pipe(map(formValues => mapValues(formValues, value => value)))
             .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
         this.defaultValues = this.searchForm.value;
     }
