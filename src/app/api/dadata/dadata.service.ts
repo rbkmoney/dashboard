@@ -19,7 +19,7 @@ import {
     BankResponse,
     DaDataResponse
 } from '../../api-codegen/aggr-proxy';
-import { Omit, Mapping } from '../../../type-utils';
+import { Mapping } from '../../../type-utils';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
