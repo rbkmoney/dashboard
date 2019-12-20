@@ -111,15 +111,8 @@ export class DaDataAutocompleteComponent<
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
         switch (this.type) {
-            // TODO: wait API fixes
-            case 'address':
-                const addressParams = ({ ...params } as any) as AddressQuery;
-                addressParams.restrictValue = false;
-                addressParams.fromBound = 'Area';
-                addressParams.toBound = 'House';
-                return addressParams as any;
             case 'fmsUnit':
-                const fmsUnitParams = ({ ...params } as any) as FmsUnitQuery;
+                const fmsUnitParams = { ...params } as FmsUnitQuery;
                 fmsUnitParams.queryType = 'FullTextSearch';
                 return fmsUnitParams as any;
             default:
