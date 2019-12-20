@@ -10,14 +10,7 @@ import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operat
 import { Platform } from '@angular/cdk/platform';
 import get from 'lodash.get';
 
-import {
-    DaDataRequest,
-    PartyContent,
-    AddressQuery,
-    FmsUnitQuery,
-    BankContent,
-    FmsUnitContent
-} from '../api-codegen/aggr-proxy';
+import { DaDataRequest, PartyContent, FmsUnitQuery, BankContent, FmsUnitContent } from '../api-codegen/aggr-proxy';
 import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
 import { Type } from './type';
 import { CustomFormControl } from '../form-controls';
