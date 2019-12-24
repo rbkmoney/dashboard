@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { TranslocoService } from '@ngneat/transloco';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { shareReplay, pluck, startWith } from 'rxjs/operators';
 
 import { StepName } from './step-name';
 import { InitialDataService } from '../initial-data.service';
-import { handleNull, takeError } from '../../../../custom-operators';
+import { handleNull } from '../../../../custom-operators';
 import { mapToNavigateCommands } from './map-to-navigate-commands';
 import { mapToStepFlow } from './map-to-step-flow';
 import { mapDirectionToStep } from './map-direction-to-step';
@@ -21,7 +19,7 @@ export class StepFlowService {
     private goByDirection$: Subject<'forward' | 'back'> = new Subject();
     private readonly defaultStep = StepName.BasicInfo;
 
-    stepFlow$: Observable<StepName[]> = this.dataFlowService.initialSnapshot$.pipe(
+    stepFlow$: Observable<StepName[]> = this.initialDataService.initialSnapshot$.pipe(
         pluck('questionary'),
         mapToStepFlow,
         handleNull('Step flow initialization failed'),
@@ -43,21 +41,13 @@ export class StepFlowService {
         shareReplay(1)
     );
 
-    constructor(
-        private router: Router,
-        private dataFlowService: InitialDataService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {
+    constructor(private router: Router, private initialDataService: InitialDataService) {
         this.navigate$
             .pipe(mapToNavigateCommands(this.router.url))
             .subscribe(commands => this.router.navigate(commands));
         this.goByDirection$
             .pipe(mapDirectionToStep(this.stepFlow$, this.activeStep$))
             .subscribe(step => this.navigate$.next(step));
-        combineLatest(this.stepFlow$, this.activeStep$)
-            .pipe(takeError)
-            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
     navigate(step: StepName) {

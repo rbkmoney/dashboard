@@ -11,7 +11,12 @@ export class StepNavigationService {
 
     constructor(private questionaryStateService: QuestionaryStateService, private stepFlowService: StepFlowService) {
         this.goByDirection$
-            .pipe(tap(() => this.questionaryStateService.save()))
+            .pipe(
+                tap(() => {
+                    console.log('goByDirection$');
+                    this.questionaryStateService.save();
+                })
+            )
             .subscribe(direction => this.stepFlowService.go(direction));
     }
 

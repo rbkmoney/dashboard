@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { Subscription, combineLatest, AsyncSubject } from 'rxjs';
-import { debounceTime, first, map, switchMap } from 'rxjs/operators';
+import { Subscription, AsyncSubject, zip } from 'rxjs';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { ValidityService } from '../validity';
@@ -12,7 +12,7 @@ export abstract class QuestionaryFormService {
     readonly form$ = new AsyncSubject<FormGroup>();
     readonly stepName: StepName = this.getStepName();
 
-    private data$ = this.questionaryStateService.questionaryData$.pipe(first());
+    private data$ = this.questionaryStateService.questionaryData$;
 
     constructor(
         protected questionaryStateService: QuestionaryStateService,
@@ -20,13 +20,12 @@ export abstract class QuestionaryFormService {
     ) {}
 
     initFormValue(): Subscription {
-        return combineLatest(this.data$.pipe(map(d => this.toFormValue(d))), this.form$).subscribe(([v, form]) =>
-            form.patchValue(v)
-        );
+        const formValue$ = this.data$.pipe(map(d => this.toFormValue(d)));
+        return zip(formValue$, this.form$).subscribe(([v, form]) => form.patchValue(v));
     }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
-        return combineLatest(this.data$, this.form$.pipe(switchMap(form => form.valueChanges))) // TODO this.data$ is actual?
+        return zip(this.data$, this.form$.pipe(switchMap(form => form.valueChanges)))
             .pipe(
                 debounceTime(debounceMs),
                 map(([d, v]) => {

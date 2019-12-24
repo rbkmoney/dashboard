@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { switchMap, shareReplay, map, first, pluck, filter } from 'rxjs/operators';
+import { switchMap, shareReplay, map, pluck, filter } from 'rxjs/operators';
 
 import { takeError, handleNull, booleanDelay } from '../../../custom-operators';
 import { ClaimsService, takeDocumentModificationUnit, QuestionaryService } from '../../../api';
@@ -14,7 +12,6 @@ export class InitialDataService {
     private initialize$: Subject<number> = new Subject();
 
     initialSnapshot$: Observable<Snapshot> = this.initialize$.pipe(
-        first(),
         switchMap(claimID => this.claimService.getClaimByID(claimID)),
         takeDocumentModificationUnit,
         handleNull('Modification unit is null'),
@@ -35,14 +32,7 @@ export class InitialDataService {
         shareReplay(1)
     );
 
-    constructor(
-        private claimService: ClaimsService,
-        private questionaryService: QuestionaryService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {
-        this.initializeError$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-    }
+    constructor(private claimService: ClaimsService, private questionaryService: QuestionaryService) {}
 
     initialize(claimID: number) {
         this.claimIDState$.next(claimID);

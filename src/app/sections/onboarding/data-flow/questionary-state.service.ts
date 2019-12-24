@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { first, pluck, filter } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { pluck, filter, shareReplay, tap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { InitialDataService } from './initial-data.service';
@@ -10,13 +10,22 @@ import { SaveQuestionaryService } from './save-questionary';
 export class QuestionaryStateService {
     private state$: BehaviorSubject<QuestionaryData> = new BehaviorSubject<QuestionaryData>(null);
 
-    questionaryData$: Observable<QuestionaryData | null> = this.state$.pipe(filter(v => v !== null));
+    questionaryData$: Observable<QuestionaryData> = this.state$.pipe(
+        tap(r => console.log('questionaryData$', r)),
+        filter(v => v !== null),
+        shareReplay(1)
+    );
 
-    constructor(private dataFlowService: InitialDataService, private questionarySaveService: SaveQuestionaryService) {
-        this.dataFlowService.initialSnapshot$
+    constructor(
+        private initialDataService: InitialDataService,
+        private questionarySaveService: SaveQuestionaryService
+    ) {}
+
+    init(): Subscription {
+        return this.initialDataService.initialSnapshot$
             .pipe(
                 pluck('questionary', 'data'),
-                first()
+                tap(r => console.log('initialSnapshot$', r))
             )
             .subscribe(data => this.state$.next(data));
     }

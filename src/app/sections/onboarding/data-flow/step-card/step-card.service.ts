@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
+import { Subject, of, Subscription, zip } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { StepFlowService } from '../step-flow';
 import { QuestionaryStateService } from '../questionary-state.service';
@@ -15,6 +15,8 @@ export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
     private finishFormFlow$: Subject<void> = new Subject();
 
+    private subs: Subscription[];
+
     constructor(
         private stepFlowService: StepFlowService,
         private questionaryStateService: QuestionaryStateService,
@@ -23,13 +25,17 @@ export class StepCardService {
         private initialDataService: InitialDataService,
         private dialog: MatDialog
     ) {
-        combineLatest(this.selectStepFlowIndex$, this.stepFlowService.stepFlow$)
-            .pipe(map(([i, stepFlow]) => stepFlow[i]))
+        const selectStepFlowIndexSub = this.selectStepFlowIndex$
+            .pipe(
+                switchMap(i => zip(of(i), this.stepFlowService.stepFlow$)),
+                map(([i, stepFlow]) => stepFlow[i])
+            )
             .subscribe(step => {
                 this.questionaryStateService.save();
                 this.stepFlowService.navigate(step);
             });
-        this.finishFormFlow$
+
+        const finishFormFlowSub = this.finishFormFlow$
             .pipe(
                 switchMap(() => this.initialDataService.claimID$),
                 switchMap(claimID => this.claimsService.getClaimByID(claimID)),
@@ -45,14 +51,22 @@ export class StepCardService {
                 switchMap(() => this.initialDataService.claimID$)
             )
             .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
+        this.subs = [selectStepFlowIndexSub, finishFormFlowSub];
     }
 
     finishFormFlow() {
         this.questionaryStateService.save();
         this.finishFormFlow$.next();
+        this.finishFormFlow$.complete();
     }
 
     selectStepFlowIndex(index: number) {
         this.selectStepFlowIndex$.next(index);
+    }
+
+    unsubscribe() {
+        for (const sub of this.subs) {
+            sub.unsubscribe();
+        }
     }
 }
