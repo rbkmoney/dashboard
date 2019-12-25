@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import get from 'lodash.get';
 
-import { Questionary, Contractor, QuestionaryData } from '../../../../api-codegen/questionary';
+import { Contractor, QuestionaryData } from '../../../../api-codegen/questionary';
 import { LegalEntityStepFlow, IndividualEntityStepFlow } from './step-flows';
 import { StepName } from './step-name';
 
