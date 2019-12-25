@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { Subject, of, Subscription, zip } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Subject, of, zip } from 'rxjs';
+import { map, switchMap, pluck } from 'rxjs/operators';
 
 import { StepFlowService } from '../step-flow';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { ClaimsService } from '../../../../api';
-import { InitialDataService } from '../initial-data.service';
 import { FinishOnboardingDialogComponent } from '../finish-onboarding-dialog';
 
 @Injectable()
@@ -15,17 +14,15 @@ export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
     private finishFormFlow$: Subject<void> = new Subject();
 
-    private subs: Subscription[];
-
     constructor(
         private stepFlowService: StepFlowService,
         private questionaryStateService: QuestionaryStateService,
         private router: Router,
         private claimsService: ClaimsService,
-        private initialDataService: InitialDataService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private route: ActivatedRoute
     ) {
-        const selectStepFlowIndexSub = this.selectStepFlowIndex$
+        this.selectStepFlowIndex$
             .pipe(
                 switchMap(i => zip(of(i), this.stepFlowService.stepFlow$)),
                 map(([i, stepFlow]) => stepFlow[i])
@@ -35,9 +32,9 @@ export class StepCardService {
                 this.stepFlowService.navigate(step);
             });
 
-        const finishFormFlowSub = this.finishFormFlow$
+        this.finishFormFlow$
             .pipe(
-                switchMap(() => this.initialDataService.claimID$),
+                switchMap(() => this.route.params.pipe(pluck('claimID'))),
                 switchMap(claimID => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
                 switchMap(() =>
@@ -48,10 +45,9 @@ export class StepCardService {
                         })
                         .afterClosed()
                 ),
-                switchMap(() => this.initialDataService.claimID$)
+                switchMap(() => this.route.params.pipe(pluck('claimID')))
             )
             .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
-        this.subs = [selectStepFlowIndexSub, finishFormFlowSub];
     }
 
     finishFormFlow() {
@@ -62,11 +58,5 @@ export class StepCardService {
 
     selectStepFlowIndex(index: number) {
         this.selectStepFlowIndex$.next(index);
-    }
-
-    unsubscribe() {
-        for (const sub of this.subs) {
-            sub.unsubscribe();
-        }
     }
 }

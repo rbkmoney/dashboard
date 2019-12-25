@@ -12,20 +12,19 @@ export abstract class QuestionaryFormService {
     readonly form$ = new AsyncSubject<FormGroup>();
     readonly stepName: StepName = this.getStepName();
 
-    private data$ = this.questionaryStateService.questionaryData$;
-
     constructor(
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {}
 
     initFormValue(): Subscription {
-        const formValue$ = this.data$.pipe(map(d => this.toFormValue(d)));
+        const formValue$ = this.questionaryStateService.questionaryData$.pipe(map(d => this.toFormValue(d)));
         return zip(formValue$, this.form$).subscribe(([v, form]) => form.patchValue(v));
     }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
-        return zip(this.data$, this.form$.pipe(switchMap(form => form.valueChanges)))
+        const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
+        return zip(this.questionaryStateService.questionaryData$, formValueChanges$)
             .pipe(
                 debounceTime(debounceMs),
                 map(([d, v]) => {

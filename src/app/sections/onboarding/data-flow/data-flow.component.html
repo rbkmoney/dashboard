@@ -8,7 +8,6 @@
             <div class="onboarding-form-container" fxLayout="column" fxLayoutGap="10px">
                 <div fxLayout fxLayoutAlign="space-between">
                     <h2 class="mat-title">{{ activeStep$ | async | stepLabel: 'stepTitle' }}</h2>
-                    <!-- <dsh-spinner *ngIf="isSaving$ | async" [type]="spinnerType" size="30"></dsh-spinner> -->
                 </div>
                 <dsh-card-content>
                     <router-outlet></router-outlet>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { StepCardService } from './step-card.service';
     templateUrl: 'step-card.component.html',
     providers: [StepCardService]
 })
-export class StepCardComponent implements OnDestroy {
+export class StepCardComponent {
     stepFlow$ = this.stepFlowService.stepFlow$;
     activeStep$ = this.stepFlowService.activeStep$;
     isFlowValid$ = this.validityService.isFlowValid$;
@@ -36,9 +36,5 @@ export class StepCardComponent implements OnDestroy {
 
     selectStepFlowIndex(index: number) {
         this.stepCardService.selectStepFlowIndex(index);
-    }
-
-    ngOnDestroy() {
-        this.stepCardService.unsubscribe();
     }
 }
