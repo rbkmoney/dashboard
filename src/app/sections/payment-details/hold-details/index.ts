@@ -1,1 +1,1 @@
-export * from './hold-details.component';
+export * from './hold-details.module';

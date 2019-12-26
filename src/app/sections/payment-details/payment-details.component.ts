@@ -17,7 +17,7 @@ export class PaymentDetailsComponent {
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(private paymentDetailsService: PaymentDetailsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private paymentDetailsService: PaymentDetailsService) {}
 
     getPaymentToolDetails(payment: PaymentSearchResult): PaymentToolDetails {
         return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;

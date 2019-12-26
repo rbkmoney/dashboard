@@ -15,6 +15,8 @@ import { LAYOUT_GAP } from '../../constants';
 export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
+    @Input() shopID: string;
+    @Input() maxRefundAmount: number;
 
     refunds$ = this.refundsService.searchResult$.pipe(
         catchError(() => {
@@ -35,6 +37,10 @@ export class RefundsComponent implements OnChanges {
         if (invoiceID.currentValue && paymentID.currentValue) {
             this.refundsService.search({ invoiceID: invoiceID.currentValue, paymentID: paymentID.currentValue });
         }
+    }
+
+    createRefund() {
+        this.refundsService.createRefund(this.shopID, this.invoiceID, this.paymentID, this.maxRefundAmount);
     }
 
     fetchMore() {

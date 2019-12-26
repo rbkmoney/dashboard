@@ -45,6 +45,7 @@ import { FromMinorModule } from '../../from-minor';
         PaymentsComponent,
         PaymentComponent
     ],
+    exports: [StatusDetailsItemComponent],
     providers: [InvoiceSearchService, PaymentSearchService]
 })
 export class InvoiceDetailsModule {}

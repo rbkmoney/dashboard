@@ -1,10 +1,15 @@
-<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'">
-    <div *ngIf="payment$ | async as payment" class="dsh-payment-details" fxLayout="column" [fxLayoutGap]="layoutGap">
+<ng-container *ngIf="payment$ | async as payment; else noPayment">
+    <div
+        *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'"
+        class="dsh-payment-details"
+        fxLayout="column"
+        [fxLayoutGap]="layoutGap"
+    >
         <dsh-headline>
             <div>
                 {{ t.title }}
                 <span dshSecondaryTitle>
-                    {{ payment ? '#' + payment?.id : '' }}
+                    {{ '#' + payment.id }}
                 </span>
             </div>
         </dsh-headline>
@@ -14,20 +19,28 @@
             [paymentToolDetails]="paymentToolDetails"
         ></dsh-payment-tool>
         <dsh-payer-details
-            *ngIf="payment?.payer?.payerType !== PayerType.RecurrentPayer"
+            *ngIf="payment.payer?.payerType !== PayerType.RecurrentPayer"
             [payer]="payment.payer"
         ></dsh-payer-details>
         <dsh-hold-details
-            *ngIf="payment?.flow?.type === PaymentFlow.PaymentFlowHold"
+            *ngIf="payment.flow?.type === PaymentFlow.PaymentFlowHold"
             [flowHold]="payment.flow"
         ></dsh-hold-details>
-        <dsh-make-recurrent *ngIf="payment?.makeRecurrent"></dsh-make-recurrent>
+        <dsh-make-recurrent *ngIf="payment.makeRecurrent"></dsh-make-recurrent>
         <dsh-recurrent-details
-            *ngIf="payment?.payer?.payerType === PayerType.RecurrentPayer"
+            *ngIf="payment.payer?.payerType === PayerType.RecurrentPayer"
             [recurrentPayer]="payment.payer"
         ></dsh-recurrent-details>
-        <dsh-invoice-details *ngIf="payment?.invoiceID" [invoiceID]="payment.invoiceID"></dsh-invoice-details>
-        <dsh-shop-details *ngIf="payment?.shopID" [shopID]="payment.shopID"></dsh-shop-details>
-        <dsh-refunds [invoiceID]="payment.invoiceID" [paymentID]="payment.id"></dsh-refunds>
+        <dsh-invoice-details *ngIf="payment.invoiceID" [invoiceID]="payment.invoiceID"></dsh-invoice-details>
+        <dsh-shop-details *ngIf="payment.shopID" [shopID]="payment.shopID"></dsh-shop-details>
+        <dsh-refunds
+            [invoiceID]="payment.invoiceID"
+            [paymentID]="payment.id"
+            [shopID]="payment.shopID"
+            [maxRefundAmount]="payment.amount"
+        ></dsh-refunds>
     </div>
 </ng-container>
+<ng-template #noPayment>
+    <dsh-spinner></dsh-spinner>
+</ng-template>
