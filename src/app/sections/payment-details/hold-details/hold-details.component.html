@@ -7,24 +7,29 @@
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
             <div class="mat-body-1">
-                {{ t?.holdDate }}
-                {{ holdDate | date: 'd MMMM yyyy, HH:mm' }}
-                {{ isHoldExpired(holdDate) ? '' : '(' + (holdDate | humanizedDuration: { isShort: true }) + ').' }}
-                {{ t?.message }}
+                {{ t.holdDate }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
+                }}{{ isHoldActive(holdDate) ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')' : '' }}.
+                <ng-container *ngIf="isHoldActive(holdDate); else expiredHold">
+                    {{ t[getActiveHoldText()] }}
+                    {{ t.activeHoldTutorial }}
+                </ng-container>
+                <ng-template #expiredHold>
+                    {{ t[getExpiredHoldText()] }}
+                </ng-template>
             </div>
             <div
-                *ngIf="!isHoldExpired(holdDate)"
+                *ngIf="isHoldActive(holdDate)"
                 fxLayout="row"
                 fxLayout.xs="column"
                 fxLayoutAlign="space-between stretch"
                 fxLayoutGap="0"
                 [fxLayoutGap.xs]="layoutGap"
             >
-                <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn">
-                    {{ t?.actions?.deny }}
+                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn" (click)="cancelHoldDialog()">
+                    {{ t.actions.deny }}
                 </button>
-                <button disabled fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent">
-                    {{ t?.actions?.accept }}
+                <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent" (click)="acceptHoldDialog()">
+                    {{ t.actions.accept }}
                 </button>
             </div>
         </dsh-card-content>

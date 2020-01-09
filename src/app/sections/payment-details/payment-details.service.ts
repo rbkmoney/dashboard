@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { PaymentSearchService } from '../../api/search';
+import { progress } from '../../custom-operators';
 
 @Injectable()
 export class PaymentDetailsService {
-    payment$ = this.route.params.pipe(
+    params$ = this.route.params;
+
+    payment$ = this.params$.pipe(
         switchMap(({ invoiceID, paymentID }) =>
             this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
         ),
@@ -17,6 +20,8 @@ export class PaymentDetailsService {
             return [];
         })
     );
+
+    isLoading$ = progress(this.params$, this.payment$);
 
     constructor(
         private paymentSearchService: PaymentSearchService,

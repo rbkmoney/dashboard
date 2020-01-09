@@ -1,0 +1,26 @@
+<div *ngIf="form" fxLayout="column">
+    <div *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
+        <h2 class="mat-title">{{ t.acceptTitle }}</h2>
+        <form fxLayout="column" [formGroup]="form">
+            <mat-form-field>
+                <mat-label>{{ t.reason }}</mat-label>
+                <input matInput type="text" formControlName="reason" required />
+            </mat-form-field>
+            <div style="padding-bottom: 20px">
+                <mat-checkbox [checked]="isPartialAccept" (change)="onCheckboxChange(!isPartialAccept)">{{
+                    t.partialAccept
+                }}</mat-checkbox>
+            </div>
+            <mat-form-field *ngIf="isPartialAccept">
+                <mat-label>{{ t.amount }}</mat-label>
+                <input matInput type="text" formControlName="amount" required />
+            </mat-form-field>
+        </form>
+    </div>
+    <div *transloco="let c" [fxLayoutGap]="layoutGap">
+        <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c.cancel }}</button>
+        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+            {{ c.confirm }}
+        </button>
+    </div>
+</div>

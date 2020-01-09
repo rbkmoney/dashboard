@@ -13,6 +13,7 @@ import { LAYOUT_GAP } from '../constants';
 })
 export class PaymentDetailsComponent {
     payment$ = this.paymentDetailsService.payment$;
+    isLoading$ = this.paymentDetailsService.isLoading$;
 
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
