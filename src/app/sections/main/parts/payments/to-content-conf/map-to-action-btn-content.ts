@@ -18,7 +18,11 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     const s = StatusModificationUnit.StatusEnum;
     switch (claim.status) {
         case s.Pending:
-            return toActionBtnContent('continue', `/onboarding/${claim.id}`);
+            const documentID = 'ddfb9965-26b5-435e-ad3a-de446e0e0653';
+            return toActionBtnContent(
+                'continue',
+                `/onboarding/claim/${claim.id}/document/${documentID}/step/basic-info`
+            );
         case s.Review:
             return toActionBtnContent('claimDetails', `/claim/${claim.id}/conversation`);
         case s.PendingAcceptance:

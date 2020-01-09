@@ -17,7 +17,7 @@ import { StepLabelPipe } from './step-label.pipe';
 import { SpinnerModule } from '../../../spinner';
 import { OnboardingFormsModule } from './forms';
 import { QuestionaryStateService } from './questionary-state.service';
-import { InitialDataService } from './initial-data.service';
+import { SnapshotService } from './initial-data.service';
 import { StepFlowService } from './step-flow';
 import { ValidityService } from './validity';
 import { SaveQuestionaryService } from './save-questionary';
@@ -45,7 +45,7 @@ import { FinishOnboardingDialogComponent } from './finish-onboarding-dialog';
         StepLabelPipe,
         FinishOnboardingDialogComponent
     ],
-    providers: [InitialDataService, StepFlowService, ValidityService, SaveQuestionaryService, QuestionaryStateService],
+    providers: [SnapshotService, StepFlowService, ValidityService, SaveQuestionaryService, QuestionaryStateService],
     entryComponents: [FinishOnboardingDialogComponent]
 })
 export class DataFlowModule {}

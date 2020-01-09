@@ -22,6 +22,7 @@ export class StepCardService {
         private dialog: MatDialog,
         private route: ActivatedRoute
     ) {
+        const claimID$ = this.route.params.pipe(pluck('claimID'));
         this.selectStepFlowIndex$
             .pipe(
                 switchMap(i => zip(of(i), this.stepFlowService.stepFlow$)),
@@ -34,7 +35,7 @@ export class StepCardService {
 
         this.finishFormFlow$
             .pipe(
-                switchMap(() => this.route.params.pipe(pluck('claimID'))),
+                switchMap(() => claimID$),
                 switchMap(claimID => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
                 switchMap(() =>
@@ -45,7 +46,7 @@ export class StepCardService {
                         })
                         .afterClosed()
                 ),
-                switchMap(() => this.route.params.pipe(pluck('claimID')))
+                switchMap(() => claimID$)
             )
             .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
     }

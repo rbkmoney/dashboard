@@ -4,7 +4,7 @@ import { switchMap, catchError, distinctUntilChanged } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
-import { InitialDataService } from '../initial-data.service';
+import { SnapshotService } from '../initial-data.service';
 import { QuestionaryService } from '../../../../api';
 
 @Injectable()
@@ -14,8 +14,8 @@ export class SaveQuestionaryService {
 
     saveError$: Observable<boolean> = this.error$.asObservable();
 
-    constructor(private initialDataService: InitialDataService, private questionaryService: QuestionaryService) {
-        const actualQuestionary$ = this.initialDataService.initialSnapshot$.pipe(
+    constructor(private initialDataService: SnapshotService, private questionaryService: QuestionaryService) {
+        const actualQuestionary$ = this.initialDataService.snapshot$.pipe(
             switchMap(({ questionary: { id } }) => this.questionaryService.getQuestionary(id))
         );
         this.save$

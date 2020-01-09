@@ -1,37 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, shareReplay, map, pluck } from 'rxjs/operators';
+import { switchMap, shareReplay } from 'rxjs/operators';
 
-import { takeError, handleNull, booleanDelay } from '../../../custom-operators';
-import { ClaimsService, takeDocumentModificationUnit, QuestionaryService } from '../../../api';
+import { takeError, booleanDelay } from '../../../custom-operators';
+import { QuestionaryService } from '../../../api';
 import { Snapshot } from '../../../api-codegen/questionary';
 
 @Injectable()
-export class InitialDataService {
-    private setClaimID$: Subject<number> = new Subject();
+export class SnapshotService {
+    private receiveSnapshot$: Subject<string> = new Subject();
 
-    initialSnapshot$: Observable<Snapshot> = this.setClaimID$.pipe(
-        switchMap(claimID => this.claimService.getClaimByID(claimID)),
-        takeDocumentModificationUnit,
-        handleNull('Modification unit is null'),
-        pluck('documentId'),
+    snapshot$: Observable<Snapshot> = this.receiveSnapshot$.pipe(
         switchMap(id => this.questionaryService.getQuestionary(id)),
         shareReplay(1)
     );
-    initialized$: Observable<boolean> = this.initialSnapshot$.pipe(
+
+    isLoading$: Observable<boolean> = this.snapshot$.pipe(
         booleanDelay(),
-        map(r => !r)
+        shareReplay(1)
     );
-    initializeError$: Observable<any> = this.initialSnapshot$.pipe(
+
+    error$: Observable<any> = this.snapshot$.pipe(
         takeError,
         shareReplay(1)
     );
 
-    constructor(private claimService: ClaimsService, private questionaryService: QuestionaryService) {
-        this.setClaimID$.subscribe();
+    constructor(private questionaryService: QuestionaryService) {
+        this.receiveSnapshot$.subscribe();
     }
 
-    setClaimID(claimID: number) {
-        this.setClaimID$.next(claimID);
+    receive(documentID: string) {
+        this.receiveSnapshot$.next(documentID);
     }
 }

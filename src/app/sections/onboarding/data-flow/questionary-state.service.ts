@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { pluck, filter, distinctUntilChanged } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { pluck, filter, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
 
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { InitialDataService } from './initial-data.service';
+import { SnapshotService } from './initial-data.service';
 import { SaveQuestionaryService } from './save-questionary';
+import { QuestionaryService } from '../../../api';
 
 @Injectable()
 export class QuestionaryStateService {
     private state$: BehaviorSubject<QuestionaryData> = new BehaviorSubject<QuestionaryData>(null);
+    private init$: Subject<string> = new Subject();
 
     questionaryData$: Observable<QuestionaryData> = this.state$.pipe(
         distinctUntilChanged(isEqual),
@@ -17,12 +19,12 @@ export class QuestionaryStateService {
     );
 
     constructor(
-        private initialDataService: InitialDataService,
-        private questionarySaveService: SaveQuestionaryService
+        private initialDataService: SnapshotService,
+        private questionarySaveService: SaveQuestionaryService,
+        private questionaryService: QuestionaryService
     ) {
-        this.initialDataService.initialSnapshot$
-            .pipe(pluck('questionary', 'data'))
-            .subscribe(data => this.state$.next(data));
+        this.initialDataService.snapshot$.pipe(pluck('questionary', 'data')).subscribe(data => this.state$.next(data));
+        this.init$.pipe(switchMap(id => this.questionaryService.getQuestionary(id))).subscribe();
     }
 
     add(data: QuestionaryData) {
@@ -34,6 +36,11 @@ export class QuestionaryStateService {
         if (value) {
             this.questionarySaveService.save(value);
         }
+    }
+
+    init(documentID: string) {
+        console.log(documentID);
+        this.init$.next();
     }
 
     resetState() {
