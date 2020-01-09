@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
@@ -23,26 +24,21 @@ export class SearchFormComponent implements OnInit {
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
-    searchForm: FormGroup;
+    searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     shopsInfo$ = this.searchFormService.shopsInfo$;
-    tokenProviders;
-    paymentMethods;
-    bankCardPaymentSystems;
-    paymentFlows;
-    paymentStatuses;
+    tokenProviders = tokenProvidersConsts;
+    paymentMethods = paymentMethodsConsts;
+    bankCardPaymentSystems = bankCardPaymentSystemsConsts;
+    paymentFlows = paymentFlowsConsts;
+    paymentStatuses = paymentStatusesConsts;
 
-    constructor(private searchFormService: SearchFormService) {
-        this.tokenProviders = tokenProvidersConsts;
-        this.paymentMethods = paymentMethodsConsts;
-        this.bankCardPaymentSystems = bankCardPaymentSystemsConsts;
-        this.paymentFlows = paymentFlowsConsts;
-        this.paymentStatuses = paymentStatusesConsts;
-    }
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        this.searchForm = this.searchFormService.searchForm;
-        this.searchFormService.formValueChanges(this.valueDebounceTime).subscribe(v => this.formValueChanges.emit(v));
+        this.searchFormService.formValueChanges$
+            .pipe(debounceTime(this.valueDebounceTime))
+            .subscribe(v => this.formValueChanges.emit(v));
     }
 
     selectDaterange(v: SearchFormValue) {

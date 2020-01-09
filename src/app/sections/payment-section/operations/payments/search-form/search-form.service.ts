@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, debounceTime, startWith, pluck } from 'rxjs/operators';
+import { filter, map, startWith, pluck, shareReplay, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
@@ -16,14 +16,20 @@ import { binValidator, lastDigitsValidator } from '../../../../../form-controls'
 
 @Injectable()
 export class SearchFormService {
-    searchForm: FormGroup;
+    searchForm: FormGroup = this.initForm();
     shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo
+        mapToShopInfo,
+        shareReplay(1)
     );
-
-    private defaultValues: PaymentSearchFormValue;
+    private defaultValues: PaymentSearchFormValue = this.searchForm.value;
+    formValueChanges$: Observable<PaymentSearchFormValue> = this.searchForm.valueChanges.pipe(
+        startWith(this.defaultValues),
+        filter(() => this.searchForm.status === 'VALID'),
+        removeEmptyProperties,
+        shareReplay(1)
+    );
 
     constructor(
         private fb: FormBuilder,
@@ -31,26 +37,10 @@ export class SearchFormService {
         private route: ActivatedRoute,
         private shopService: ShopService
     ) {
-        this.searchForm = this.initForm();
-        this.defaultValues = this.searchForm.value;
-        this.route.queryParams
-            .pipe(
-                filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<PaymentSearchFormValue>(queryParams))
-            )
-            .subscribe(formValue => this.searchForm.patchValue(formValue));
-        this.searchForm.valueChanges
-            .pipe(map(formValues => toQueryParams<PaymentSearchFormValue>(formValues)))
-            .subscribe(queryParams => this.router.navigate([location.pathname], { queryParams }));
-    }
-
-    formValueChanges(valueDebounceTime: number): Observable<PaymentSearchFormValue> {
-        return this.searchForm.valueChanges.pipe(
-            startWith(this.defaultValues),
-            filter(() => this.searchForm.status === 'VALID'),
-            removeEmptyProperties,
-            debounceTime(valueDebounceTime)
+        this.formValueChanges$.subscribe(formValues =>
+            this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
+        this.pathFormByQueryParams();
     }
 
     reset() {
@@ -62,6 +52,16 @@ export class SearchFormService {
             return;
         }
         this.searchForm.patchValue(v);
+    }
+
+    private pathFormByQueryParams() {
+        this.route.queryParams
+            .pipe(
+                take(1),
+                filter(queryParams => !isEmpty(queryParams)),
+                map(queryParams => toFormValue<PaymentSearchFormValue>(queryParams))
+            )
+            .subscribe(formValue => this.searchForm.patchValue(formValue));
     }
 
     private initForm(defaultLimit = 20): FormGroup {

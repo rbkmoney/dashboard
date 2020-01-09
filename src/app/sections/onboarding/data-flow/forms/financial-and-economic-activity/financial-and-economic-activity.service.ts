@@ -12,6 +12,7 @@ import { StepName } from '../../step-flow';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
 import { LegalResidencyInfoService } from '../subforms';
+import { legalEntityInnValidator } from '../../../../../form-controls';
 
 type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
@@ -57,7 +58,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         this.accountantOrgInnVisible$.next(isAccountingOrganization);
         this.form.setControl(
             'accountantOrgInn',
-            this.fb.control('', isAccountingOrganization ? Validators.required : null)
+            this.fb.control('', isAccountingOrganization ? [Validators.required, legalEntityInnValidator] : null)
         );
     }
 
