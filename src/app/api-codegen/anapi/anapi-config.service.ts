@@ -5,8 +5,7 @@ import { Configuration } from './swagger-codegen';
 
 @Injectable()
 export class AnapiConfigService extends Configuration {
-    constructor({ api }: ConfigService) {
-        const apiVersion = 'v1';
-        super({ apiKeys: {}, basePath: `${api.anapiEndpoint}/${apiVersion}` });
+    constructor({ apiEndpoint }: ConfigService) {
+        super({ apiKeys: {}, basePath: `${apiEndpoint}/analytics/v1` });
     }
 }
