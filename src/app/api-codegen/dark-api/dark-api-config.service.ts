@@ -6,10 +6,10 @@ import { Configuration } from './swagger-codegen';
 
 @Injectable()
 export class DarkApiConfigService extends Configuration {
-    constructor(keycloakService: KeycloakService, { api }: ConfigService) {
+    constructor(keycloakService: KeycloakService, { apiEndpoint }: ConfigService) {
         super({
             apiKeys: { Authorization: `Bearer ${keycloakService.getKeycloakInstance().token}` },
-            basePath: api.dapiEndpoint
+            basePath: `${apiEndpoint}/dark-api/v1`
         });
     }
 }
