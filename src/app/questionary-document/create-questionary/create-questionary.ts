@@ -20,7 +20,7 @@ export function createQuestionary(data: DocDef): [TDocumentDefinitions, { [name:
             pageSize: 'A4' as PageSize,
             pageMargins: pageMarginsIn,
             content: data.content,
-            footer: createFooter({ margin: footerMarginsIn, text: data.footer }),
+            footer: createFooter({ margin: footerMarginsIn, text: data.footer, content: data.prefooter }),
             styles: createStyles(),
             defaultStyle: createDefaultStyle()
         },

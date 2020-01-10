@@ -131,13 +131,13 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
                         toYesNo(exceptUsaTaxResident)
                     )
                 ]
-            ]),
-            createEnding()
+            ])
         ],
+        prefooter: createEnding(),
         footer: [
             '¹ Заполняется только для иностранных граждан и лиц без гражданства, находящихся на территории РФ в случае, если необходимость наличия у них данного документа предусмотрена законодательством РФ',
             '² Публичные должностные лица, включая российские, иностранные и международные.'
         ].join('\n'),
-        footerHeight: 1
+        footerHeight: 3.1
     };
 }

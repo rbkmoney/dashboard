@@ -54,8 +54,8 @@ export function getDocDef(questionary: RussianIndividualEntityQuestionary): DocD
     } = toOptional(additionalInfo);
     const { fio } = toOptional(russianPrivateEntity);
     const { registrationPlace } = toOptional(registrationInfo);
-    const { documentType } = propertyInfoDocumentType;
-    const { foreignPublicPerson, foreignRelativePerson } = individualPersonCategories;
+    const { documentType } = toOptional(propertyInfoDocumentType);
+    const { foreignPublicPerson, foreignRelativePerson } = toOptional(individualPersonCategories);
     const { usaTaxResident } = toOptional(residencyInfo);
 
     const name = getIndividualEntityName(fio);
@@ -209,14 +209,14 @@ export function getDocDef(questionary: RussianIndividualEntityQuestionary): DocD
             ),
             createVerticalParagraph('12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства', [
                 [createInlineCheckbox(simpleYesNo, toYesNo(usaTaxResident))]
-            ]),
-            createEnding()
+            ])
         ],
+        prefooter: createEnding(),
         footer: [
             '¹ Публичные должностные лица, включая российские, иностранные и международные.',
             '² Выгодоприобретатель - лицо, к выгоде которого действует клиент, в том числе на основании агентского договора, договоров поручения, комиссии и доверительного управления, при проведении операций с денежными средствами и иным имуществом.',
             '³ Бенефициарный владелец - физическое лицо, которое в конечном счете прямо или косвенно (через третьих лиц) владеет (имеет преобладающее участие более 25 процентов в капитале) клиентом - юридическим лицом либо имеет возможность контролировать действия клиента. Бенефициарным владельцем клиента - физического лица считается это лицо, за исключением случаев, если имеются основания полагать, что бенефициарным владельцем является иное физическое лицо.'
         ].join('\n'),
-        footerHeight: 1.5
+        footerHeight: 3.6
     };
 }

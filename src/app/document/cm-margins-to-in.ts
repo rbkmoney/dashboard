@@ -2,6 +2,9 @@ import { Margins } from 'pdfmake/build/pdfmake';
 
 import { cmToIn } from './cm-to-in';
 
+/**
+ * left, top, right, bottom
+ */
 export function cmMarginsToIn(
     ...marginsCm: [number] | [number, number] | [number, number, number, number] | number[]
 ): Margins {
