@@ -1,44 +1,68 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { pluck, filter, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
+import { filter, distinctUntilChanged, switchMap, pluck, catchError, first } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
 
-import { QuestionaryData } from '../../../api-codegen/questionary';
-import { SnapshotService } from './initial-data.service';
-import { SaveQuestionaryService } from './save-questionary';
+import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
 import { QuestionaryService } from '../../../api';
 
 @Injectable()
 export class QuestionaryStateService {
-    private state$: BehaviorSubject<QuestionaryData> = new BehaviorSubject<QuestionaryData>(null);
-    private init$: Subject<string> = new Subject();
+    private snapshot$: BehaviorSubject<Snapshot> = new BehaviorSubject<Snapshot>(null);
+    private initSnapshot$: Subject<string> = new Subject();
+    private save$: Subject<void> = new Subject();
 
-    questionaryData$: Observable<QuestionaryData> = this.state$.pipe(
-        distinctUntilChanged(isEqual),
-        filter(v => v !== null)
+    questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
+        filter(v => v !== null),
+        pluck('questionary', 'data'),
+        distinctUntilChanged(isEqual)
     );
 
-    constructor(
-        private initialDataService: SnapshotService,
-        private questionarySaveService: SaveQuestionaryService,
-        private questionaryService: QuestionaryService
-    ) {
-        this.initialDataService.snapshot$.pipe(pluck('questionary', 'data')).subscribe(data => this.state$.next(data));
-        this.init$.pipe(switchMap(id => this.questionaryService.getQuestionary(id))).subscribe();
+    constructor(private questionaryService: QuestionaryService) {
+        this.initSnapshot$
+            .pipe(switchMap(documentID => this.questionaryService.getQuestionary(documentID)))
+            .subscribe(snapshot => this.snapshot$.next(snapshot));
+        this.save$
+            .pipe(
+                switchMap(() => this.snapshot$.pipe(first())),
+                distinctUntilChanged((x, y) => isEqual(x.questionary.data, y.questionary.data)),
+                switchMap(({ questionary: { id, data }, version }) =>
+                    this.questionaryService.saveQuestionary(id, data, version).pipe(
+                        catchError(err => {
+                            console.error(err);
+                            return of(version);
+                        })
+                    )
+                )
+            )
+            .subscribe(version => {
+                this.snapshot$.next({
+                    ...this.snapshot$.getValue(),
+                    version
+                });
+            });
     }
 
     add(data: QuestionaryData) {
-        this.state$.next(data);
+        const s = this.snapshot$.getValue();
+        this.snapshot$.next({
+            ...s,
+            questionary: {
+                ...s.questionary,
+                data
+            }
+        });
     }
 
     save() {
-        const value = this.state$.getValue();
-        if (value) {
-            this.questionarySaveService.save(value);
-        }
+        this.save$.next();
     }
 
-    resetState() {
-        this.state$.next(null);
+    reset() {
+        this.snapshot$.next(null);
+    }
+
+    init(documentID: string) {
+        this.initSnapshot$.next(documentID);
     }
 }
