@@ -1,3 +1,5 @@
+import isEmpty from 'lodash.isempty';
+
 import {
     createInlineCheckboxWithTitle,
     createVerticalParagraph,
@@ -6,7 +8,7 @@ import {
     createEnding
 } from '../create-content';
 import { createInlineCheckbox, createVerticalCheckboxWithTitle } from '../create-content';
-import { YesNo, getShopLocationURL, getContactInfo, getBusinessInfo, toYesNo } from '../select-data';
+import { YesNo, getShopLocationURL, getContactInfo, getBusinessInfo, toYesNo, simpleYesNo } from '../select-data';
 import { DocDef } from '../create-questionary';
 import {
     AccountantInfo,
@@ -16,48 +18,49 @@ import {
 } from '../../api-codegen/questionary';
 import { RussianLegalEntityQuestionary } from '../../api';
 import { getAuthorityConfirmingDocument } from './get-authority-confirming-document';
+import { toOptional } from '../../../utils';
 
 const DocumentType = PropertyInfoDocumentType.DocumentTypeEnum;
+const AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const EMPTY = '-';
+const EMPTY = '';
 
-export function getDocDef({
-    data: {
-        contractor: {
-            legalEntity: {
-                additionalInfo,
-                additionalInfo: {
-                    relationIndividualEntity,
-                    benefitThirdParties,
-                    nkoRelationTarget,
-                    relationshipWithNko,
-                    monthOperationSum,
-                    monthOperationCount
-                } = {},
-                inn,
-                name: brandName,
-                legalOwnerInfo: {
-                    pdlRelationDegree,
-                    pdlCategory,
-                    snils,
-                    russianPrivateEntity: { fio } = {},
-                    authorityConfirmingDocument
-                } = {},
-                propertyInfoDocumentType: { documentType } = {} as any,
-                beneficialOwner
-            } = {} as any
-        } = {} as any,
-        residencyInfo: { taxResident, fatca, ownerResident } = {} as any,
-        registrationInfo: { registrationPlace } = {} as any,
-        shopInfo: { details: { name } = {}, location } = {},
-        contactInfo: { phoneNumber, email } = {}
-    }
-}: RussianLegalEntityQuestionary): DocDef {
+export function getDocDef(questionary: RussianLegalEntityQuestionary): DocDef {
+    const { data } = toOptional(questionary);
+    const { contractor, residencyInfo, shopInfo, contactInfo, registrationInfo } = toOptional(data);
+    const { registrationPlace } = toOptional(registrationInfo);
+    const { location, details } = toOptional(shopInfo);
+    const { name } = toOptional(details);
+    const { phoneNumber, email } = toOptional(contactInfo);
+    const { legalEntity } = toOptional(contractor);
+    const {
+        additionalInfo,
+        inn,
+        name: brandName,
+        legalOwnerInfo,
+        beneficialOwner,
+        propertyInfoDocumentType
+    } = toOptional(legalEntity);
+    const { taxResident, fatca, ownerResident } = toOptional(residencyInfo);
+    const {
+        relationIndividualEntity,
+        benefitThirdParties,
+        nkoRelationTarget,
+        relationshipWithNko,
+        monthOperationSum,
+        monthOperationCount
+    } = toOptional(additionalInfo);
+    const { pdlRelationDegree, pdlCategory, snils, authorityConfirmingDocument, russianPrivateEntity } = toOptional(
+        legalOwnerInfo
+    );
+    const { fio, contactInfo: privateEntityContactInfo } = toOptional(russianPrivateEntity);
+    const { documentType } = toOptional(propertyInfoDocumentType);
+
     const url = getShopLocationURL(location);
-    const contact = getContactInfo({}); // TODO: russianPrivateEntity.contactInfo ?
+    const contact = getContactInfo(privateEntityContactInfo);
     const authorityConfirmingDocumentInfo = getAuthorityConfirmingDocument(authorityConfirmingDocument);
     const { hasChiefAccountant, staffCount, accounting, accountingOrgInn } = getBusinessInfo(additionalInfo);
-    const hasBeneficialOwner = Array.isArray(beneficialOwner) && !!beneficialOwner.length;
+    const hasBeneficialOwner = !isEmpty(beneficialOwner);
 
     return {
         content: [
@@ -138,7 +141,7 @@ export function getDocDef({
                 [
                     createInlineCheckboxWithTitle(
                         '8.1. Наличие в штате главного бухгалтера',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         hasChiefAccountant
                     ),
                     `8.2. Штатная численность в организации: ${staffCount || EMPTY}`
@@ -147,16 +150,13 @@ export function getDocDef({
                     createVerticalCheckboxWithTitle(
                         '8.3. Бухгалтерский учет осуществляет:',
                         [
+                            [AccountantInfoType.WithoutChiefHeadAccounting, 'Руководитель организации'],
                             [
-                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting,
-                                'Руководитель организации'
-                            ],
-                            [
-                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
+                                AccountantInfoType.WithoutChiefAccountingOrganization,
                                 `Организация ведущая бух. учет: ИНН: ${accountingOrgInn || EMPTY}`
                             ],
                             [
-                                AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
+                                AccountantInfoType.WithoutChiefIndividualAccountant,
                                 'Бухгалтер – индивидуальный специалист'
                             ]
                         ],
@@ -170,14 +170,14 @@ export function getDocDef({
                     [
                         createInlineCheckboxWithTitle(
                             '9.1. Принадлежность к категории ПДЛ¹',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                            simpleYesNo,
                             toYesNo(pdlCategory)
                         )
                     ],
                     [
                         createInlineCheckboxWithTitle(
                             '9.2. Является родственником ПДЛ',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                            simpleYesNo,
                             toYesNo(!!pdlRelationDegree)
                         ),
                         `9.3. Степень родства: ${pdlRelationDegree || EMPTY}`
@@ -210,7 +210,7 @@ export function getDocDef({
             ]),
             createVerticalParagraph(
                 '12. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве, в отношении Вашей компании',
-                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(!!relationIndividualEntity))]]
+                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relationIndividualEntity))]]
             ),
             createVerticalParagraph('13. Информация об иностранном налоговом резидентстве', [
                 [
@@ -219,7 +219,7 @@ export function getDocDef({
                             '13.1. Является ли Ваша организация налоговым резидентом США или иного иностранного государства?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(taxResident))
+                    createInlineCheckbox(simpleYesNo, toYesNo(taxResident))
                 ],
                 [
                     {
@@ -227,7 +227,7 @@ export function getDocDef({
                             '13.2. Является ли Бенефициарный владелец Вашей организации с долей владения 10% и более налоговым резидентом иностранного государства?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(ownerResident))
+                    createInlineCheckbox(simpleYesNo, toYesNo(ownerResident))
                 ],
                 [
                     {
@@ -235,7 +235,7 @@ export function getDocDef({
                             '13.3. Является ли Ваша организация Финансовым Институтом в соответствии с FATCA и 173-ФЗ от 28.06.2014?',
                         colSpan: 5
                     },
-                    createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(fatca))
+                    createInlineCheckbox(simpleYesNo, toYesNo(fatca))
                 ]
             ]),
             createEnding()

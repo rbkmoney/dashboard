@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import isEmpty from 'lodash.isempty';
 
 import { DocumentService } from '../document';
 import { createQuestionary } from './create-questionary';
@@ -30,7 +31,7 @@ export class QuestionaryDocumentService {
     createBeneficialOwnerDocs(questionary: Questionary): Observable<TCreatedPdf[]> {
         const beneficialOwners = getBeneficialOwners(questionary);
         const { companyName, companyInn } = getCompanyInfo(questionary);
-        if (Array.isArray(beneficialOwners) && beneficialOwners.length) {
+        if (!isEmpty(beneficialOwners)) {
             const beneficialOwnersDocs = beneficialOwners.map(beneficialOwner =>
                 this.createBeneficialOwnerDoc(beneficialOwner, companyName, companyInn)
             );

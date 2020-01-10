@@ -1,7 +1,7 @@
-import get from 'lodash.get';
-
 import { ContactInfo } from '../../api-codegen/questionary';
+import { toOptional } from '../../../utils';
 
 export function getContactInfo(contactInfo: ContactInfo): string {
-    return [get(contactInfo, 'phoneNumber'), get(contactInfo, 'email')].filter(i => !!i).join(', ');
+    const { phoneNumber, email } = toOptional(contactInfo);
+    return [phoneNumber, email].filter(i => i).join(', ');
 }

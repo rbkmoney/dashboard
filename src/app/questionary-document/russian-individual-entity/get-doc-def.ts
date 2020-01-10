@@ -1,3 +1,5 @@
+import isEmpty from 'lodash.isempty';
+
 import { DocDef } from '../create-questionary';
 import {
     createVerticalCheckboxWithTitle,
@@ -8,7 +10,7 @@ import {
     createHeadline,
     createEnding
 } from '../create-content';
-import { YesNo, getShopLocationURL, getBusinessInfo, toYesNo } from '../select-data';
+import { YesNo, getShopLocationURL, getBusinessInfo, toYesNo, simpleYesNo } from '../select-data';
 import {
     AccountantInfo,
     MonthOperationCount,
@@ -17,43 +19,50 @@ import {
 } from '../../api-codegen/questionary';
 import { getIndividualEntityName } from './get-individual-entity-name';
 import { RussianIndividualEntityQuestionary } from '../../api';
+import { toOptional } from '../../../utils';
 
 const DocumentType = PropertyInfoDocumentType.DocumentTypeEnum;
+const AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const EMPTY = '-';
+const EMPTY = '';
 
-export function getDocDef({
-    data: {
-        contractor: {
-            individualEntity: {
-                additionalInfo,
-                additionalInfo: {
-                    nkoRelationTarget,
-                    relationshipWithNko,
-                    monthOperationSum,
-                    monthOperationCount,
-                    benefitThirdParties,
-                    relationIndividualEntity
-                } = {},
-                russianPrivateEntity: { fio } = {},
-                registrationInfo: { registrationPlace } = {} as any,
-                inn,
-                snils,
-                propertyInfoDocumentType: { documentType } = {} as any,
-                individualPersonCategories: { foreignPublicPerson, foreignRelativePerson } = {},
-                beneficialOwners,
-                residencyInfo: { usaTaxResident } = {} as any
-            } = {} as any
-        } = {} as any,
-        shopInfo: { details: { name: brandName } = {}, location } = {},
-        contactInfo: { phoneNumber, email } = {}
-    }
-}: RussianIndividualEntityQuestionary): DocDef {
+export function getDocDef(questionary: RussianIndividualEntityQuestionary): DocDef {
+    const { data } = toOptional(questionary);
+    const { contractor, shopInfo, contactInfo } = toOptional(data);
+    const { individualEntity } = toOptional(contractor);
+    const { location, details } = toOptional(shopInfo);
+    const { name: brandName } = toOptional(details);
+    const { phoneNumber, email } = toOptional(contactInfo);
+    const {
+        additionalInfo,
+        russianPrivateEntity,
+        registrationInfo,
+        inn,
+        snils,
+        propertyInfoDocumentType,
+        individualPersonCategories,
+        beneficialOwners,
+        residencyInfo
+    } = toOptional(individualEntity);
+    const {
+        nkoRelationTarget,
+        relationshipWithNko,
+        monthOperationSum,
+        monthOperationCount,
+        benefitThirdParties,
+        relationIndividualEntity
+    } = toOptional(additionalInfo);
+    const { fio } = toOptional(russianPrivateEntity);
+    const { registrationPlace } = toOptional(registrationInfo);
+    const { documentType } = propertyInfoDocumentType;
+    const { foreignPublicPerson, foreignRelativePerson } = individualPersonCategories;
+    const { usaTaxResident } = toOptional(residencyInfo);
+
     const name = getIndividualEntityName(fio);
     const url = getShopLocationURL(location);
     const { hasChiefAccountant, staffCount, accountingOrgInn, accounting } = getBusinessInfo(additionalInfo);
-    const pdlRelationDegree = ''; // TODO
-    const hasBeneficialOwner = Array.isArray(beneficialOwners) && !!beneficialOwners.length;
+    const pdlRelationDegree = EMPTY; // TODO
+    const hasBeneficialOwner = !isEmpty(beneficialOwners);
 
     return {
         content: [
@@ -123,7 +132,7 @@ export function getDocDef({
                 [
                     createInlineCheckboxWithTitle(
                         '7.1. Наличие в штате главного бухгалтера',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         hasChiefAccountant
                     ),
                     `7.2. Штатная численность в организации: ${staffCount || EMPTY}`
@@ -133,13 +142,13 @@ export function getDocDef({
                         ...createVerticalCheckboxWithTitle(
                             '7.3. Бухгалтерский учет осуществляет:',
                             [
-                                [AccountantInfo.AccountantInfoTypeEnum.WithoutChiefHeadAccounting, 'ИП лично'],
+                                [AccountantInfoType.WithoutChiefHeadAccounting, 'ИП лично'],
                                 [
-                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization,
+                                    AccountantInfoType.WithoutChiefAccountingOrganization,
                                     `Организация ведущая бух. учет: ИНН: ${accountingOrgInn || EMPTY}`
                                 ],
                                 [
-                                    AccountantInfo.AccountantInfoTypeEnum.WithoutChiefIndividualAccountant,
+                                    AccountantInfoType.WithoutChiefIndividualAccountant,
                                     'Бухгалтер – индивидуальный специалист'
                                 ]
                             ],
@@ -154,7 +163,7 @@ export function getDocDef({
                     {
                         ...createInlineCheckboxWithTitle(
                             '8.1. Принадлежность к категории ПДЛ¹',
-                            [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                            simpleYesNo,
                             toYesNo(foreignPublicPerson)
                         ),
                         colSpan: 2
@@ -163,7 +172,7 @@ export function getDocDef({
                 [
                     createInlineCheckboxWithTitle(
                         '8.2. Является родственником ПДЛ',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         toYesNo(foreignRelativePerson)
                     ),
                     `8.3. Степень родства: ${pdlRelationDegree || EMPTY}`
@@ -196,10 +205,10 @@ export function getDocDef({
             ]),
             createVerticalParagraph(
                 '11. Имеются ли решения о ликвидации или о любой процедуре, применяемой в деле о банкротстве',
-                [[createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(!!relationIndividualEntity))]]
+                [[createInlineCheckbox(simpleYesNo, toYesNo(!!relationIndividualEntity))]]
             ),
             createVerticalParagraph('12. Являетесь ли Вы налоговым резидентом США или иного иностранного государства', [
-                [createInlineCheckbox([[YesNo.yes, 'Да'], [YesNo.no, 'Нет']], toYesNo(usaTaxResident))]
+                [createInlineCheckbox(simpleYesNo, toYesNo(usaTaxResident))]
             ]),
             createEnding()
         ],

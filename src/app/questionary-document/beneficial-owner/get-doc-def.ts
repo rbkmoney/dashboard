@@ -8,29 +8,34 @@ import {
     createInlineParagraph,
     createHorizontalCheckbox
 } from '../create-content';
-import { YesNo, getContactInfo, toYesNo, getIdentityDocument, getDate, getPercent } from '../select-data';
+import { getContactInfo, toYesNo, getIdentityDocument, getDate, getPercent, simpleYesNo } from '../select-data';
 import { BeneficialOwner } from '../../api-codegen/questionary';
 import { getIndividualResidencyInfo } from './get-individual-residency-info';
 import { createCompanyHeader } from './create-company-header';
+import { toOptional } from '../../../utils';
 
-const EMPTY = '-';
+const EMPTY = '';
 
 export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string, companyInn: string): DocDef {
     const {
-        russianPrivateEntity = {},
-        migrationCardInfo = {},
-        residenceApprove = {},
+        russianPrivateEntity,
+        migrationCardInfo,
+        residenceApprove,
         ownershipPercentage,
         inn,
         snils,
         pdlRelationDegree,
-        pdlCategory
-    } = beneficialOwner;
-    const { birthDate, fio, birthPlace, citizenship, actualAddress } = russianPrivateEntity;
+        pdlCategory,
+        residencyInfo,
+        identityDocument
+    } = toOptional(beneficialOwner);
+    const { birthDate, fio, birthPlace, citizenship, actualAddress, contactInfo } = toOptional(russianPrivateEntity);
+    const optionalMigrationCardInfo = toOptional(migrationCardInfo);
+    const optionalResidenceApprove = toOptional(residenceApprove);
 
-    const identityDocument = getIdentityDocument(beneficialOwner.identityDocument);
-    const { usaTaxResident, exceptUsaTaxResident } = getIndividualResidencyInfo(beneficialOwner.residencyInfo);
-    const contactInfo = getContactInfo(russianPrivateEntity.contactInfo);
+    const identityDocumentInfo = getIdentityDocument(identityDocument);
+    const { usaTaxResident, exceptUsaTaxResident } = getIndividualResidencyInfo(residencyInfo);
+    const contact = getContactInfo(contactInfo);
 
     return {
         content: [
@@ -58,27 +63,36 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
             createInlineParagraph('6. Гражданство', citizenship || EMPTY),
             createInlineParagraph('7. ИНН (при наличии)', inn || EMPTY),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
-                [`8.1. Вид документа: ${identityDocument.name || EMPTY}`],
-                [`8.2. Серия и номер: ${identityDocument.seriesNumber || EMPTY}`],
+                [`8.1. Вид документа: ${identityDocumentInfo.name || EMPTY}`],
+                [`8.2. Серия и номер: ${identityDocumentInfo.seriesNumber || EMPTY}`],
                 [
-                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${identityDocument.issuer ||
+                    `8.3. Наименование органа, выдавшего документ, код подразделения (при наличии): ${identityDocumentInfo.issuer ||
                         EMPTY}`
                 ],
-                [`8.4. Дата выдачи: ${getDate(identityDocument.issuedAt) || EMPTY}`]
+                [`8.4. Дата выдачи: ${getDate(identityDocumentInfo.issuedAt) || EMPTY}`]
             ]),
             createInlineParagraph('9. Данные миграционной карты¹', [
-                [`9.1. Номер карты: ${migrationCardInfo.cardNumber || EMPTY}`],
-                [`9.2. Дата начала срока пребывания в РФ: ${getDate(migrationCardInfo.beginningDate) || EMPTY}`],
-                [`9.3. Дата окончания срока пребывания в РФ: ${getDate(migrationCardInfo.expirationDate) || EMPTY}`]
+                [`9.1. Номер карты: ${optionalMigrationCardInfo.cardNumber || EMPTY}`],
+                [
+                    `9.2. Дата начала срока пребывания в РФ: ${getDate(optionalMigrationCardInfo.beginningDate) ||
+                        EMPTY}`
+                ],
+                [
+                    `9.3. Дата окончания срока пребывания в РФ: ${getDate(optionalMigrationCardInfo.expirationDate) ||
+                        EMPTY}`
+                ]
             ]),
             createInlineParagraph(
                 '10. Данные документа, подтверждающего право иностранного гражданина или лица без гражданства на пребывание (проживание) в РФ1¹',
                 [
-                    [`10.1. Вид документа: ${residenceApprove.name || EMPTY}`],
-                    [`10.2. Серия (при наличии): ${residenceApprove.series || EMPTY}`],
-                    [`10.3. Номер документа: ${residenceApprove.number || EMPTY}`],
-                    [`10.4. Дата начала срока действия: ${getDate(residenceApprove.beginningDate) || EMPTY}`],
-                    [`10.5. Дата окончания срока действия: ${getDate(residenceApprove.expirationDate) || EMPTY}`]
+                    [`10.1. Вид документа: ${optionalResidenceApprove.name || EMPTY}`],
+                    [`10.2. Серия (при наличии): ${optionalResidenceApprove.series || EMPTY}`],
+                    [`10.3. Номер документа: ${optionalResidenceApprove.number || EMPTY}`],
+                    [`10.4. Дата начала срока действия: ${getDate(optionalResidenceApprove.beginningDate) || EMPTY}`],
+                    [
+                        `10.5. Дата окончания срока действия: ${getDate(optionalResidenceApprove.expirationDate) ||
+                            EMPTY}`
+                    ]
                 ]
             ),
             createInlineParagraph(
@@ -86,19 +100,19 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
                 actualAddress || EMPTY
             ),
             createInlineParagraph('12. СНИЛС (при наличии)', snils || EMPTY),
-            createInlineParagraph('13. Контактная информация (телефон/email)', contactInfo || EMPTY),
+            createInlineParagraph('13. Контактная информация (телефон/email)', contact || EMPTY),
             createVerticalParagraph('14. Принадлежность физического лица к некоторым категориям лиц', [
                 [
                     createInlineCheckboxWithTitle(
                         '14.1. Принадлежность к категории ПДЛ²',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         toYesNo(pdlCategory)
                     )
                 ],
                 [
                     createInlineCheckboxWithTitle(
                         '14.2. Является родственником ПДЛ',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         toYesNo(!!pdlRelationDegree)
                     ),
                     `14.3. Степень родства: ${pdlRelationDegree || EMPTY}`
@@ -106,14 +120,14 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
                 [
                     createInlineCheckboxWithTitle(
                         '14.4. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         toYesNo(usaTaxResident)
                     )
                 ],
                 [
                     createInlineCheckboxWithTitle(
                         '14.5. Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?',
-                        [[YesNo.yes, 'Да'], [YesNo.no, 'Нет']],
+                        simpleYesNo,
                         toYesNo(exceptUsaTaxResident)
                     )
                 ]

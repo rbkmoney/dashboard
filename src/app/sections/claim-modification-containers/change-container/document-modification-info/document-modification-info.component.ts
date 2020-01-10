@@ -38,10 +38,10 @@ export class DocumentModificationInfoComponent implements OnChanges {
     }
 
     downloadDocument() {
-        this.documentModificationInfoService.document$.subscribe(doc => doc.download('russian-individual-entity'));
+        this.documentModificationInfoService.document$.subscribe(doc => doc.download('russian-entity-questionary'));
     }
 
     downloadBeneficialOwnerDocument(beneficialOwnerDocument: TCreatedPdf) {
-        beneficialOwnerDocument.download('beneficial-owner');
+        beneficialOwnerDocument.download('beneficial-owner-questionary');
     }
 }

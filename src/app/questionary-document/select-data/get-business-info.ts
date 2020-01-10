@@ -1,6 +1,9 @@
+import get from 'lodash.get';
+
 import { hasChiefAccountant } from './has-chief-accountant';
 import { AdditionalInfo, AccountantInfo, WithoutChiefAccountingOrganization } from '../../api-codegen/questionary';
 import { YesNo } from './yes-no';
+import { toOptional } from '../../../utils';
 
 export interface BusinessInfo {
     hasChiefAccountant: YesNo;
@@ -9,16 +12,21 @@ export interface BusinessInfo {
     accountingOrgInn?: string;
 }
 
+function isWithoutChiefAccountingOrganization(
+    accountantInfo: AccountantInfo
+): accountantInfo is WithoutChiefAccountingOrganization {
+    return (
+        accountantInfo &&
+        accountantInfo.accountantInfoType === AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization
+    );
+}
+
 export function getBusinessInfo(additionalInfo: AdditionalInfo): BusinessInfo {
-    const { accountantInfo } = additionalInfo;
-    const accounting = accountantInfo.accountantInfoType;
-    const businessInfo: BusinessInfo = {
+    const { accountantInfo, staffCount } = toOptional(additionalInfo);
+    return {
         hasChiefAccountant: hasChiefAccountant(accountantInfo),
-        staffCount: additionalInfo.staffCount,
-        accounting
+        staffCount,
+        accounting: toOptional(accountantInfo).accountantInfoType,
+        accountingOrgInn: isWithoutChiefAccountingOrganization(accountantInfo) ? toOptional(accountantInfo).inn : null
     };
-    if (accounting === AccountantInfo.AccountantInfoTypeEnum.WithoutChiefAccountingOrganization) {
-        businessInfo.accountingOrgInn = (accountantInfo as WithoutChiefAccountingOrganization).inn;
-    }
-    return businessInfo;
 }
