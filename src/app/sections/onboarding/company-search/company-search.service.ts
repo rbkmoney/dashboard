@@ -47,10 +47,10 @@ export class CompanySearchService {
     }
 
     createInitialClaim(data: QuestionaryData): Observable<{ claimID: number; documentID: string }> {
-        const documentID = uuid();
-        const changeset = [createDocumentModificationUnit(documentID)];
-        return this.questionaryService.saveQuestionary(documentID, data).pipe(
-            switchMap(() => forkJoin(of(documentID), this.claimsService.createClaim(changeset))),
+        const initialDocumentID = uuid();
+        const changeset = [createDocumentModificationUnit(initialDocumentID)];
+        return this.questionaryService.saveQuestionary(initialDocumentID, data).pipe(
+            switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');

@@ -38,11 +38,6 @@ export class QuestionaryStateService {
         }
     }
 
-    init(documentID: string) {
-        console.log(documentID);
-        this.init$.next();
-    }
-
     resetState() {
         this.state$.next(null);
     }
