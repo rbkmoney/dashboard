@@ -61,15 +61,15 @@
     "lodash.template": "^4.4.0",
     "moment": "^2.24.0",
     "pdfmake": "^0.1.58",
-    "rxjs": "~6.5.3",
+    "rxjs": "~6.5.4",
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^1.9.0",
     "uuid": "^3.3.3",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.20",
-    "@angular/cli": "~8.3.20",
+    "@angular-devkit/build-angular": "~0.803.22",
+    "@angular/cli": "~8.3.22",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@types/d3": "^5.7.0",
