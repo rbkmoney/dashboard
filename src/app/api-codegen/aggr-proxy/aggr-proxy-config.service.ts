@@ -5,7 +5,7 @@ import { Configuration } from './swagger-codegen';
 
 @Injectable()
 export class AggrProxyConfigService extends Configuration {
-    constructor({ api }: ConfigService) {
-        super({ apiKeys: {}, basePath: api.dapiEndpoint });
+    constructor({ apiEndpoint }: ConfigService) {
+        super({ apiKeys: {}, basePath: `${apiEndpoint}/dark-api/v1` });
     }
 }
