@@ -55,7 +55,7 @@ export class HoldDetailsComponent implements OnInit {
         });
     }
 
-    acceptHoldDialog() {
+    confirmHoldDialog() {
         const data: ConfirmHoldData = {
             invoiceID: this.payment.invoiceID,
             paymentID: this.payment.id,

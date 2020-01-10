@@ -45,8 +45,8 @@ export class ConfirmHoldComponent {
         const { reason, amount } = this.form.getRawValue();
         const params: CaptureParams = {
             reason,
-            amount: toMinorAmountFromString(amount),
-            currency: amount ? this.data.currency : null
+            amount: amount && toMinorAmountFromString(amount),
+            currency: amount && this.data.currency
         };
         this.acceptHoldService
             .capturePayment(this.data.invoiceID, this.data.paymentID, params)
