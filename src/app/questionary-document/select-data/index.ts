@@ -7,3 +7,4 @@ export * from './get-identity-document';
 export * from './get-company-info';
 export * from './get-date';
 export * from './get-percent';
+export * from './simple-yes-no';
