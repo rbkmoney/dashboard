@@ -9,16 +9,28 @@ import {
 } from '../../../api-codegen/questionary';
 import { Replace } from '../../../../type-utils';
 
-type RussianLegalEntityContractor = Replace<LegalEntityContractor, { legalEntity: RussianLegalEntity }>;
-type RussianLegalEntityQuestionaryData = Replace<QuestionaryData, { contractor: RussianLegalEntityContractor }>;
-
+type RussianLegalEntityContractor = Replace<
+    LegalEntityContractor,
+    {
+        legalEntity: Replace<
+            RussianLegalEntity,
+            {
+                residencyInfo: LegalResidencyInfo;
+                registrationInfo: LegalRegistrationInfo;
+            }
+        >;
+    }
+>;
+type RussianLegalEntityQuestionaryData = Replace<
+    QuestionaryData,
+    {
+        contractor: RussianLegalEntityContractor;
+    }
+>;
 export type RussianLegalEntityQuestionary = Replace<
     Questionary,
     {
-        data: Replace<
-            RussianLegalEntityQuestionaryData,
-            { residencyInfo: LegalResidencyInfo; registrationInfo: LegalRegistrationInfo }
-        >;
+        data: RussianLegalEntityQuestionaryData;
     }
 >;
 

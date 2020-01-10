@@ -27,8 +27,7 @@ const EMPTY = '';
 
 export function getDocDef(questionary: RussianLegalEntityQuestionary): DocDef {
     const { data } = toOptional(questionary);
-    const { contractor, residencyInfo, shopInfo, contactInfo, registrationInfo } = toOptional(data);
-    const { registrationPlace } = toOptional(registrationInfo);
+    const { contractor, shopInfo, contactInfo } = toOptional(data);
     const { location, details } = toOptional(shopInfo);
     const { name } = toOptional(details);
     const { phoneNumber, email } = toOptional(contactInfo);
@@ -39,8 +38,11 @@ export function getDocDef(questionary: RussianLegalEntityQuestionary): DocDef {
         name: brandName,
         legalOwnerInfo,
         beneficialOwner,
-        propertyInfoDocumentType
+        propertyInfoDocumentType,
+        registrationInfo,
+        residencyInfo
     } = toOptional(legalEntity);
+    const { registrationPlace } = toOptional(registrationInfo);
     const { taxResident, fatca, ownerResident } = toOptional(residencyInfo);
     const {
         relationIndividualEntity,
