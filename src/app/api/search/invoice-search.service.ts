@@ -21,6 +21,7 @@ export class InvoiceSearchService {
         continuationToken?: string,
         excludedShops?: string[]
     ): Observable<InvoicesWithToken> {
+        type x = typeof SearchService[];
         return this.searchService.searchInvoices(
             genXRequestID(),
             toDateLike(fromTime),
@@ -29,23 +30,9 @@ export class InvoiceSearchService {
             undefined,
             params.shopID,
             params.invoiceStatus,
-            params.paymentStatus,
-            params.paymentFlow,
-            params.paymentMethod,
-            params.paymentTerminalProvider,
             params.invoiceID,
-            params.paymentID,
-            params.payerEmail,
-            params.payerIP,
-            params.payerFingerprint,
-            params.customerID,
-            params.bankCardTokenProvider,
-            params.bankCardPaymentSystem,
-            params.first6,
-            params.last4,
-            params.rrn,
-            params.paymentAmount,
-            params.invoiceAmount,
+            params.invoiceAmountFrom,
+            params.invoiceAmountTo,
             excludedShops,
             continuationToken
         );
