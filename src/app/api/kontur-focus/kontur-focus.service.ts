@@ -13,7 +13,7 @@ import {
     ReqResponses,
     LicencesResponses
 } from '../../api-codegen/aggr-proxy';
-import { Mapping, Omit } from '../../../type-utils';
+import { Mapping } from '../../../type-utils';
 
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
