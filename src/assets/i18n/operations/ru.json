@@ -19,7 +19,7 @@
             "bankCardTokenProvider": "Провайдер платежных токенов",
             "bankCardPaymentSystem": "Платежная система",
             "paymentMethod": "Метод оплаты",
-            "rnn": "RNN платежа"
+            "rrn": "RRN платежа"
         },
         "table": {
             "amount": "Сумма списания",
