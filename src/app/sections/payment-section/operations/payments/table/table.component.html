@@ -39,20 +39,14 @@
         <ng-container dshColumnDef="actions">
             <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
             <td dshCell fxFlex="42px" *dshCellDef="let element">
-                <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
+                <button dsh-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon svgIcon="more_vert"></mat-icon>
                 </button>
-                <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
-                    <ng-template>
-                        <dsh-dropdown-actions>
-                            <dsh-state-nav flat>
-                                <dsh-state-nav-item (click)="goToPaymentDetails(element)">{{
-                                    t.actions.paymentDetails
-                                }}</dsh-state-nav-item>
-                            </dsh-state-nav>
-                        </dsh-dropdown-actions>
-                    </ng-template>
-                </dsh-dropdown>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToPaymentDetails(element)">
+                        {{ t.actions.paymentDetails }}
+                    </button>
+                </mat-menu>
             </td>
         </ng-container>
 

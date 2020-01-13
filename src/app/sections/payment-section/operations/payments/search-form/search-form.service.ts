@@ -87,7 +87,7 @@ export class SearchFormService {
             bankCardTokenProvider: '',
             bankCardPaymentSystem: '',
             paymentAmount: '',
-            rnn: ''
+            rrn: ''
         });
         return form;
     }
