@@ -8,7 +8,8 @@ import {
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +22,6 @@ import { SearchFormComponent } from './search-form';
 import { TableComponent } from './table';
 import { TableModule } from '../../../table';
 import { StateNavModule } from '../../../state-nav';
-import { DropdownModule } from '../../../dropdown';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
@@ -43,7 +43,6 @@ import { CreateReportDialogComponent } from './create-report-dialog';
         ReactiveFormsModule,
         TableModule,
         StateNavModule,
-        DropdownModule,
         MatIconModule,
         TableModule,
         ReportsApiModule,
@@ -54,7 +53,8 @@ import { CreateReportDialogComponent } from './create-report-dialog';
         LastUpdatedModule,
         SpinnerModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatMenuModule
     ],
     declarations: [
         ReportsComponent,

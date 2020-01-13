@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule, MatMenuModule } from '@angular/material';
 import {
     MatFormFieldModule,
     MatInputModule,
@@ -26,7 +26,6 @@ import { FromMinorModule } from '../../../../from-minor';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
-import { DropdownModule } from '../../../../dropdown';
 import { StateNavModule } from '../../../../state-nav';
 
 @NgModule({
@@ -50,9 +49,9 @@ import { StateNavModule } from '../../../../state-nav';
         LastUpdatedModule,
         SpinnerModule,
         MatSnackBarModule,
-        DropdownModule,
         TranslocoModule,
-        StateNavModule
+        StateNavModule,
+        MatMenuModule
     ],
     declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
