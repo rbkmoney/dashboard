@@ -25,8 +25,6 @@ export class DataFlowComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.initializeFormsService.initializeForms();
-        this.stepFlowService.initialize();
-        this.stepFlowService.preserveDefault();
         this.route.params
             .pipe(pluck('documentID'))
             .subscribe(documentID => this.questionaryStateService.init(documentID));
@@ -34,7 +32,6 @@ export class DataFlowComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.initializeFormsService.unsubscribeForms();
-        this.stepFlowService.unsubscribe();
         this.questionaryStateService.reset();
     }
 }

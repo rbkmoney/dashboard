@@ -8,7 +8,7 @@ import { QuestionaryService } from '../../../api';
 
 @Injectable()
 export class QuestionaryStateService {
-    private snapshot$: BehaviorSubject<Snapshot> = new BehaviorSubject<Snapshot>(null);
+    private snapshot$: BehaviorSubject<Snapshot | null> = new BehaviorSubject<Snapshot>(null);
     private initSnapshot$: Subject<string> = new Subject();
     private save$: Subject<void> = new Subject();
 

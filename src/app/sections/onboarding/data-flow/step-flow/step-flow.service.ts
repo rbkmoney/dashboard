@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { shareReplay, startWith } from 'rxjs/operators';
 
 import { StepName } from './step-name';
@@ -18,7 +18,6 @@ export class StepFlowService {
     private navigate$: Subject<StepName> = new Subject();
     private goByDirection$: Subject<'forward' | 'back'> = new Subject();
     private readonly defaultStep = StepName.BasicInfo;
-    private subs: Subscription[];
 
     stepFlow$: Observable<StepName[]> = this.questionaryStateService.questionaryData$.pipe(
         mapToStepFlow,
@@ -27,7 +26,7 @@ export class StepFlowService {
     );
 
     activeStep$: Observable<StepName> = this.navigate$.pipe(
-        startWith(urlToStep(this.router.url, this.defaultStep)),
+        startWith(urlToStep(this.router.url, this.defaultStep)), // TODO fix it
         shareReplay(1)
     );
 
@@ -41,22 +40,13 @@ export class StepFlowService {
         shareReplay(1)
     );
 
-    constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {}
-
-    initialize() {
-        const navigateSub = this.navigate$
+    constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {
+        this.navigate$
             .pipe(mapToNavigateCommands(this.router.url))
             .subscribe(commands => this.router.navigate(commands));
-        const goByDirectionSub = this.goByDirection$
+        this.goByDirection$
             .pipe(mapDirectionToStep(this.stepFlow$, this.activeStep$))
             .subscribe(step => this.navigate$.next(step));
-        this.subs = [navigateSub, goByDirectionSub];
-    }
-
-    unsubscribe() {
-        for (const sub of this.subs) {
-            sub.unsubscribe();
-        }
     }
 
     navigate(step: StepName) {
@@ -65,12 +55,5 @@ export class StepFlowService {
 
     go(direction: 'forward' | 'back') {
         this.goByDirection$.next(direction);
-    }
-
-    preserveDefault() {
-        if (urlToStep(this.router.url, null) !== null) {
-            return;
-        }
-        this.router.navigate([this.router.url, this.defaultStep]);
     }
 }
