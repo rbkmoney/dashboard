@@ -60,7 +60,7 @@ export function getDocDef(beneficialOwner: BeneficialOwner, companyName: string,
             createInlineParagraph('3. Фамилия, Имя, Отчество (при наличии)', fio || EMPTY),
             createInlineParagraph('4. Дата рождения', getDate(birthDate) || EMPTY),
             createInlineParagraph('5. Место рождения', birthPlace || EMPTY),
-            createInlineParagraph('6. Гражданство', citizenship || EMPTY),
+            createInlineParagraph('6. Гражданство', citizenship || 'РФ'), // TODO: move to questionary input
             createInlineParagraph('7. ИНН (при наличии)', inn || EMPTY),
             createInlineParagraph('8. Реквизиты документа, удостоверяющего личность', [
                 [`8.1. Вид документа: ${identityDocumentInfo.name || EMPTY}`],

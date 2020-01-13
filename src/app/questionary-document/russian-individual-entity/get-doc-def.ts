@@ -85,8 +85,8 @@ export function getDocDef(questionary: RussianIndividualEntityQuestionary): DocD
                 '3. Сведения о целях установления и предполагаемом характере деловых отношений с НКО',
                 [
                     [
-                        `3.1. Цели установления отношений: ${nkoRelationTarget || EMPTY}`,
-                        `3.2. Характер отношений: ${relationshipWithNko || EMPTY}`
+                        `3.1. Цели установления отношений: ${nkoRelationTarget || 'подключение интернет-эквайринга'}`,
+                        `3.2. Характер отношений: ${relationshipWithNko || 'долгосрочный'}`
                     ]
                 ]
             ),
