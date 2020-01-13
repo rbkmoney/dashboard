@@ -1,5 +1,3 @@
-import get from 'lodash.get';
-
 import { hasChiefAccountant } from './has-chief-accountant';
 import { AdditionalInfo, AccountantInfo, WithoutChiefAccountingOrganization } from '../../api-codegen/questionary';
 import { YesNo } from './yes-no';
