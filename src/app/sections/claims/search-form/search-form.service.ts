@@ -21,9 +21,13 @@ export class SearchFormService {
     );
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
-        this.formValueChanges$.subscribe(formValues =>
-            this.router.navigate([location.pathname], { queryParams: formValues })
-        );
+        this.formValueChanges$.subscribe(formValues => {
+            const { claimStatus } = formValues;
+            if (claimStatus && !claimStatus.length) {
+                formValues.claimStatus = null;
+            }
+            this.router.navigate([location.pathname], { queryParams: formValues });
+        });
         this.pathFormByQueryParams();
     }
 
@@ -41,6 +45,13 @@ export class SearchFormService {
                 filter(queryParams => !isEmpty(queryParams)),
                 removeEmptyProperties
             )
-            .subscribe(formValue => this.searchForm.patchValue(formValue || {}));
+            .subscribe(formValue => {
+                const value: any = {};
+                Object.assign(value, formValue);
+                if (value.claimStatus && !Array.isArray(value.claimStatus)) {
+                    value.claimStatus = [value.claimStatus];
+                }
+                this.searchForm.patchValue(value);
+            });
     }
 }

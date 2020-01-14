@@ -11,10 +11,13 @@ import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
 import { FetchResult, PartialFetcher } from '../partial-fetcher';
 import { mapToClaimsTableData } from './map-to-claims-table-data';
 import { booleanDebounceTime, takeError } from '../../custom-operators';
+import { mapToTimestamp } from '../payment-section/operations/operators';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
     private readonly searchLimit = 20;
+
+    lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
     claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(this.searchResult$).pipe(
         map(([searchResult]) => searchResult),

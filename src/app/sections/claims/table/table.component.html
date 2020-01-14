@@ -1,10 +1,10 @@
 <div *transloco="let t; scope: 'claims'; read: 'claims.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="claimID">
-            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="90px" *dshHeaderCellDef>
                 {{ t.id }}
             </th>
-            <td dshCell fxFlex="120px" *dshCellDef="let element">
+            <td dshCell fxFlex="90px" *dshCellDef="let element">
                 {{ element.claimID }}
             </td>
         </ng-container>
@@ -19,10 +19,10 @@
         </ng-container>
 
         <ng-container dshColumnDef="claimStatus">
-            <th dshHeaderCell fxFlex="220px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
                 {{ t.status }}
             </th>
-            <td dshCell fxFlex="220px" *dshCellDef="let element">
+            <td dshCell fxFlex="120px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
                     c.claimStatus[element.status]
                 }}</dsh-status>

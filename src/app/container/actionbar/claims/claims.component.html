@@ -1,5 +1,9 @@
-<dsh-dropdown-content *transloco="let t; scope: 'actionbar'" fxLayout="column" fxLayoutGap="10px">
-    <h1 class="mat-title">{{ t.actionbar.claims.title }}</h1>
+<dsh-dropdown-content
+    *transloco="let t; scope: 'actionbar'; read: 'actionbar.claims'"
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <h1 class="mat-title">{{ t.title }}</h1>
     <div class="loading-container" *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>
@@ -13,7 +17,7 @@
     </dsh-claims-list>
     <div *ngIf="error$ | async" class="mat-body-1">{{ t.httpError }}</div>
     <div *ngIf="noClaims$ | async" class="mat-body-1">
-        {{ t.actionbar.claims.noClaims }}
+        {{ t.noClaims }}
     </div>
-    <button dsh-button class="action" (click)="navigateToClaims()">{{ t.actionbar.claims.goToAll }}</button>
+    <button dsh-button class="action" (click)="navigateToClaims()">{{ t.goToAll }}</button>
 </dsh-dropdown-content>

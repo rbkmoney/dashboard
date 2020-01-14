@@ -18,7 +18,8 @@ export class SearchFormComponent implements OnInit {
     @Output() formValueChanges: EventEmitter<ClaimSearchFormValue> = new EventEmitter<ClaimSearchFormValue>();
 
     searchForm: FormGroup;
-    statuses = Object.values(StatusModificationUnit.StatusEnum);
+
+    statuses = Object.values(StatusModificationUnit.StatusEnum).filter(i => i !== 'pendingAcceptance');
 
     constructor(private searchFormService: SearchFormService) {}
 

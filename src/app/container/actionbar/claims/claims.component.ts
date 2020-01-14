@@ -12,6 +12,8 @@ import { ClaimsService } from './claims.service';
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();
 
+    @Output() navigatedToAllClaims = new EventEmitter();
+
     claims$ = this.claimsService.claims$;
     isLoading$ = this.claimsService.isLoading$;
     error$ = this.claimsService.error$;
@@ -20,6 +22,7 @@ export class ClaimsComponent {
     constructor(private router: Router, private claimsService: ClaimsService) {}
 
     navigateToClaims() {
+        this.navigatedToAllClaims.next();
         this.router.navigate(['claims']);
     }
 }

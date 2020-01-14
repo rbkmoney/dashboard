@@ -15,7 +15,6 @@ export class ClaimStatusColorPipe implements PipeTransform {
             case statusEnum.Denied:
                 return StatusColor.warn;
             case statusEnum.Pending:
-            case statusEnum.PendingAcceptance:
             case statusEnum.Review:
                 return StatusColor.pending;
             case statusEnum.Revoked:

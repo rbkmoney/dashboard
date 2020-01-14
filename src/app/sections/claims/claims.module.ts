@@ -26,6 +26,8 @@ import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsComponent } from './claims.component';
 import { ClaimsService } from '../../api/claims';
 import { SpinnerModule } from '../../spinner';
+import { HeadlineModule } from '../../layout/headline';
+import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 
 @NgModule({
     imports: [
@@ -47,7 +49,9 @@ import { SpinnerModule } from '../../spinner';
         DropdownModule,
         StateNavModule,
         ButtonModule,
-        SpinnerModule
+        SpinnerModule,
+        HeadlineModule,
+        LastUpdatedModule
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
     exports: [ClaimsComponent],

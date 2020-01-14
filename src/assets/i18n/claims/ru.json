@@ -1,4 +1,5 @@
 {
+    "title": "Заявки",
     "claimID": "ID заявки",
     "claimStatus": "Статус заявки",
     "table": {

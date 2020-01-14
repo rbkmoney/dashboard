@@ -8,11 +8,13 @@ import { SpinnerType } from '../../spinner';
 @Component({
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
+    styleUrls: ['claims.component.scss'],
     providers: [ClaimsService]
 })
 export class ClaimsComponent {
     tableData$ = this.claimsService.claimsTableData$;
     isLoading$ = this.claimsService.isLoading$;
+    lastUpdated$ = this.claimsService.lastUpdated$;
     hasMore$ = this.claimsService.hasMore$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
@@ -25,5 +27,9 @@ export class ClaimsComponent {
 
     fetchMore() {
         this.claimsService.fetchMore();
+    }
+
+    refresh() {
+        this.claimsService.refresh();
     }
 }
