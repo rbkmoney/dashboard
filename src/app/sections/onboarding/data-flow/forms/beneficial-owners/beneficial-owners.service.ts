@@ -32,6 +32,9 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         private individualResidencyInfoService: IndividualResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
+        this.form = this.initForm();
+        this.form$.next(this.form);
+        this.form$.complete();
     }
 
     isBeneficialOwnersVisible$ = this.beneficialOwnersVisible$.asObservable();
@@ -60,11 +63,8 @@ export class BeneficialOwnersService extends QuestionaryFormService {
 
     protected toFormValue(data: QuestionaryData): FormValue {
         const formValue = toFormValue(data);
-        this.form = this.initForm();
         const ownersCount = formValue.beneficialOwners.length;
         this.noOwnersChange(ownersCount === 0, ownersCount);
-        this.form$.next(this.form);
-        this.form$.complete();
         return formValue;
     }
 
