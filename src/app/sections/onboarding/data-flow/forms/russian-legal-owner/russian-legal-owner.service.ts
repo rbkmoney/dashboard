@@ -28,12 +28,12 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
         private privateEntityInfoService: PrivateEntityInfoService
     ) {
         super(questionaryStateService, validityService);
-        this.form$.next(this.initForm());
-        this.form$.complete();
     }
 
-    protected toFormValue(d: QuestionaryData): FormValue {
-        return toFormValue(d);
+    protected toForm(data: QuestionaryData): FormGroup {
+        const form = this.constructForm();
+        form.patchValue(toFormValue(data));
+        return form;
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -44,7 +44,7 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
         return StepName.RussianLegalOwner;
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             headPosition: ['', Validators.required],

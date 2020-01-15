@@ -33,13 +33,13 @@ export class InitializeFormsService {
         ];
     }
 
-    initializeForms() {
+    init() {
         for (const service of this.initializeContainer) {
-            this.subs = [...this.subs, service.initFormValue(), service.startFormValidityReporting()];
+            this.subs = [...this.subs, service.initForm(), service.startFormValidityReporting()];
         }
     }
 
-    unsubscribeForms() {
+    unsubscribe() {
         for (const sub of this.subs) {
             sub.unsubscribe();
         }

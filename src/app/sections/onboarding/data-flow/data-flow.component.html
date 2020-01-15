@@ -1,9 +1,9 @@
 <div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'">
     <h1 class="mat-headline">{{ t.onboarding.headline }}</h1>
-    <!-- <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
+    <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
-    </div> -->
-    <div fxLayout fxLayoutGap="20px" *ngIf="questionaryData$">
+    </div>
+    <div fxLayout fxLayoutGap="20px" *ngIf="questionaryData$ | async">
         <dsh-card fxFlex fxLayout="column" fxLayoutAlign="space-between stretch">
             <div class="onboarding-form-container" fxLayout="column" fxLayoutGap="10px">
                 <div fxLayout fxLayoutAlign="space-between">

@@ -13,8 +13,8 @@ import { QuestionaryStateService } from './questionary-state.service';
 })
 export class DataFlowComponent implements OnInit, OnDestroy {
     activeStep$ = this.stepFlowService.activeStep$;
-
     questionaryData$ = this.questionaryStateService.questionaryData$;
+    isLoading$ = this.questionaryStateService.isLoading$;
 
     constructor(
         private route: ActivatedRoute,
@@ -24,14 +24,14 @@ export class DataFlowComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.initializeFormsService.initializeForms();
+        this.initializeFormsService.init();
         this.route.params
             .pipe(pluck('documentID'))
             .subscribe(documentID => this.questionaryStateService.init(documentID));
     }
 
     ngOnDestroy() {
-        this.initializeFormsService.unsubscribeForms();
+        this.initializeFormsService.unsubscribe();
         this.questionaryStateService.reset();
     }
 }

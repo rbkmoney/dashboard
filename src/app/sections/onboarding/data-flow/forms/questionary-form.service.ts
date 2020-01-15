@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { Subscription, AsyncSubject, zip } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { Subscription, zip } from 'rxjs';
+import { debounceTime, map, switchMap, filter, first, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { ValidityService } from '../validity';
@@ -9,7 +9,11 @@ import { FormValue } from './form-value';
 import { StepName } from '../step-flow';
 
 export abstract class QuestionaryFormService {
-    readonly form$ = new AsyncSubject<FormGroup>();
+    readonly form$ = this.questionaryStateService.questionaryData$.pipe(
+        first(),
+        map(data => this.toForm(data)),
+        shareReplay(1)
+    );
     readonly stepName: StepName = this.getStepName();
 
     constructor(
@@ -17,9 +21,8 @@ export abstract class QuestionaryFormService {
         protected validityService: ValidityService
     ) {}
 
-    initFormValue(): Subscription {
-        const formValue$ = this.questionaryStateService.questionaryData$.pipe(map(d => this.toFormValue(d)));
-        return zip(formValue$, this.form$).subscribe(([v, form]) => form.patchValue(v));
+    initForm(): Subscription {
+        return this.form$.subscribe(form => this.validityService.setUpValidity(this.stepName, form.valid));
     }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
@@ -49,7 +52,7 @@ export abstract class QuestionaryFormService {
             .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
-    protected abstract toFormValue(data: QuestionaryData): FormValue;
+    protected abstract toForm(data: QuestionaryData): FormGroup;
 
     protected abstract applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData;
 

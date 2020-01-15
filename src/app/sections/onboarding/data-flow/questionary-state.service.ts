@@ -5,6 +5,7 @@ import isEqual from 'lodash.isequal';
 
 import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
 import { QuestionaryService } from '../../../api';
+import { booleanDelay } from '../../../custom-operators';
 
 @Injectable()
 export class QuestionaryStateService {
@@ -17,6 +18,8 @@ export class QuestionaryStateService {
         pluck('questionary', 'data'),
         distinctUntilChanged(isEqual)
     );
+
+    isLoading$ = this.questionaryData$.pipe(booleanDelay());
 
     constructor(private questionaryService: QuestionaryService) {
         this.initSnapshot$
