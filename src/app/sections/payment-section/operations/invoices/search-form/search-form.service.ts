@@ -81,8 +81,6 @@ export class SearchFormService {
             invoiceID: '',
             paymentID: '',
             payerEmail: '',
-            payerIP: '',
-            payerFingerprint: '',
             customerID: '',
             first6: ['', binValidator],
             last4: ['', lastDigitsValidator],
