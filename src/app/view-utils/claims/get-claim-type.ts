@@ -1,5 +1,5 @@
 import { ClaimChangeset } from '../../api-codegen/claim-management';
-import { isClaimModification, isDocumentModificationUnit, isDocumentCreated } from '../../api';
+import { isClaimModification, isDocumentCreated, isDocumentModificationUnit } from '../../api';
 
 export enum ClaimType {
     questionary = 'questionary'
