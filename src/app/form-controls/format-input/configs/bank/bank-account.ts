@@ -14,5 +14,5 @@ export const bankAccountValidator = maskToValidator(bankAccountMask);
 
 export const bankAccountConfig: FormatInputConfig = {
     mask: bankAccountMask,
-    placeholder: new Array(BANK_ACCOUNT_LENGTH).fill('0').join('')
+    placeholder: '0'.repeat(BANK_ACCOUNT_LENGTH)
 };
