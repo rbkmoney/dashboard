@@ -72,7 +72,6 @@ export class SearchFormService {
             limit: [defaultLimit, Validators.required],
             offset: '',
             invoiceID: '',
-            paymentID: '',
             refundID: '',
             refundStatus: '',
             shopID: ''

@@ -93,6 +93,7 @@ export class CustomFormControl extends InputMixinBase
         return this.getDetails(this.value);
     }
 
+    @HostBinding('class.floating')
     get shouldLabelFloat(): boolean {
         return this.focused || !this.empty;
     }
