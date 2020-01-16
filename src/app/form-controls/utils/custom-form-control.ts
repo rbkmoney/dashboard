@@ -23,13 +23,8 @@ import { InputMixinBase } from './input-base';
 
 export class CustomFormControl extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, DoCheck, OnChanges {
-    protected _uid = `custom-input-${uuid()}`;
-    protected _previousNativeValue: any;
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
-
-    /** Whether the component is being rendered on the server. */
-    _isServer = !this.platform.isBrowser;
 
     readonly stateChanges: Subject<void> = new Subject<void>();
 
@@ -62,7 +57,7 @@ export class CustomFormControl extends InputMixinBase
         return this._id;
     }
     set id(value: string) {
-        this._id = value || this._uid;
+        this._id = value || `custom-input-${uuid()}`;
     }
     protected _id: string;
 
