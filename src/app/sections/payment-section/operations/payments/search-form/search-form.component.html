@@ -110,15 +110,15 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field *ngIf="isBankCard$ | async">
                     <mat-label>{{ t.first6 }}</mat-label>
                     <dsh-format-input format="bin" formControlName="first6"></dsh-format-input>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field *ngIf="isBankCard$ | async">
                     <mat-label>{{ t.last4 }}</mat-label>
                     <dsh-format-input format="lastDigits" formControlName="last4"></dsh-format-input>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field *ngIf="isBankCard$ | async">
                     <mat-label>{{ t.bankCardTokenProvider }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
@@ -129,7 +129,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field *ngIf="isBankCard$ | async">
                     <mat-label>{{ t.bankCardPaymentSystem }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
