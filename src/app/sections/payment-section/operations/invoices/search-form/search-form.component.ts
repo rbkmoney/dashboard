@@ -30,18 +30,6 @@ export class SearchFormComponent implements OnInit {
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
     shopsInfo$ = this.searchFormService.shopsInfo$;
-    paymentStatuses = paymentStatusesConsts;
-    tokenProviders = tokenProvidersConsts;
-    paymentMethods = paymentMethodsConsts;
-    bankCardPaymentSystems = bankCardPaymentSystemsConsts;
-    paymentFlows = paymentFlowsConsts;
-
-    isBankCard$: Observable<boolean> = this.searchFormService.formValueChanges$.pipe(
-        pluck('paymentMethod'),
-        map(v => v === paymentMethodsConsts[0]),
-        distinctUntilChanged(),
-        shareReplay(1)
-    );
 
     constructor(private searchFormService: SearchFormService) {}
 
