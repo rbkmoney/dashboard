@@ -1,19 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime, pluck, map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
-import {
-    paymentStatuses as paymentStatusesConsts,
-    tokenProviders as tokenProvidersConsts,
-    paymentMethods as paymentMethodsConsts,
-    bankCardPaymentSystems as bankCardPaymentSystemsConsts,
-    paymentFlows as paymentFlowsConsts
-} from '../../constants';
 
 @Component({
     selector: 'dsh-search-form',

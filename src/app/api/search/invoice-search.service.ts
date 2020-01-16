@@ -21,7 +21,6 @@ export class InvoiceSearchService {
         continuationToken?: string,
         excludedShops?: string[]
     ): Observable<InvoicesWithToken> {
-        type x = typeof SearchService[];
         return this.searchService.searchInvoices(
             genXRequestID(),
             toDateLike(fromTime),
