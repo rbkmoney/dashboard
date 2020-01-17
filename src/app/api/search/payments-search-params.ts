@@ -1,24 +1,27 @@
-import { SearchService } from '../../api-codegen/capi/swagger-codegen';
+import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { MapTuple } from '../../../type-utils';
 
-type params = Parameters<SearchService['searchPayments']>;
-
-export interface PaymentsSearchParams {
-    shopID?: params[5];
-    paymentStatus?: params[6];
-    paymentFlow?: params[7];
-    paymentMethod?: params[8];
-    paymentTerminalProvider?: params[9];
-    invoiceID?: params[10];
-    paymentID?: params[11];
-    payerEmail?: params[12];
-    payerIP?: params[13];
-    payerFingerprint?: params[14];
-    customerID?: params[15];
-    first6?: params[16];
-    last4?: params[17];
-    rrn?: params[18];
-    approvalCode?: params[19];
-    bankCardTokenProvider?: params[20];
-    bankCardPaymentSystem?: params[21];
-    paymentAmount?: params[22];
-}
+export type PaymentsSearchParams = MapTuple<
+    Parameters<SearchService['searchPayments']>,
+    {
+        shopID?: 5;
+        paymentStatus?: 6;
+        paymentFlow?: 7;
+        paymentMethod?: 8;
+        paymentTerminalProvider?: 9;
+        invoiceID?: 10;
+        paymentID?: 11;
+        payerEmail?: 12;
+        payerIP?: 13;
+        payerFingerprint?: 14;
+        customerID?: 15;
+        first6?: 16;
+        last4?: 17;
+        rrn?: 18;
+        approvalCode?: 19;
+        bankCardTokenProvider?: 20;
+        bankCardPaymentSystem?: 21;
+        paymentAmountFrom?: 22;
+        paymentAmountTo?: 23;
+    }
+>;

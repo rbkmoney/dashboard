@@ -21,15 +21,10 @@ import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
-export class CustomFormControl extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy, DoCheck, OnChanges {
-    protected _uid = `custom-input-${uuid()}`;
-    protected _previousNativeValue: any;
+export class CustomFormControl<T extends any = string> extends InputMixinBase
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
-
-    /** Whether the component is being rendered on the server. */
-    _isServer = !this.platform.isBrowser;
 
     readonly stateChanges: Subject<void> = new Subject<void>();
 
@@ -62,7 +57,7 @@ export class CustomFormControl extends InputMixinBase
         return this._id;
     }
     set id(value: string) {
-        this._id = value || this._uid;
+        this._id = value || `custom-input-${uuid()}`;
     }
     protected _id: string;
 
@@ -81,10 +76,10 @@ export class CustomFormControl extends InputMixinBase
     protected type = 'text';
 
     @Input()
-    get value(): string {
+    get value(): T {
         return this.formControl.value;
     }
-    set value(value: string) {
+    set value(value: T) {
         this.formControl.setValue(value);
         this.stateChanges.next();
     }
@@ -93,6 +88,7 @@ export class CustomFormControl extends InputMixinBase
         return this.getDetails(this.value);
     }
 
+    @HostBinding('class.floating')
     get shouldLabelFloat(): boolean {
         return this.focused || !this.empty;
     }
@@ -184,8 +180,8 @@ export class CustomFormControl extends InputMixinBase
         this._onTouched();
     }
 
-    registerOnChange(onChange: (value: string) => void): void {
-        this.formControl.valueChanges.subscribe(onChange);
+    registerOnChange(onChange: (value: T) => void): void {
+        this.formControl.valueChanges.subscribe(v => onChange(this.getValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {
@@ -210,7 +206,11 @@ export class CustomFormControl extends InputMixinBase
         this.formControl.setValue(value, { emitEvent: false });
     }
 
-    getDetails(value: string) {
+    getDetails(value: T) {
+        return value;
+    }
+
+    getValue(value = this.value): T {
         return value;
     }
 }

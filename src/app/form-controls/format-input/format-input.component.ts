@@ -16,6 +16,7 @@ export class FormatInputComponent extends CustomFormControl {
     prefix = '';
     postfix = '';
     size: string = null;
+    getValue: (v: any) => any;
 
     private _format: Type;
     @Input()
@@ -29,7 +30,7 @@ export class FormatInputComponent extends CustomFormControl {
 
     setType(type: Type) {
         const c = configs[type];
-        const { placeholder, prefix, postfix, size, mask } = c;
+        const { placeholder, prefix, postfix, size, mask, getValue } = c;
         const sizeFromPlaceholder = c.sizeFromPlaceholder === undefined ? true : c.sizeFromPlaceholder;
         const estimatedSize = sizeFromPlaceholder && !size && placeholder ? placeholder.length : size;
 
@@ -38,6 +39,9 @@ export class FormatInputComponent extends CustomFormControl {
         this.prefix = this.prepareText(prefix);
         this.postfix = this.prepareText(postfix);
         this.mask = mask;
+        if (getValue) {
+            this.getValue = getValue;
+        }
     }
 
     prepareText(str: string): string {
