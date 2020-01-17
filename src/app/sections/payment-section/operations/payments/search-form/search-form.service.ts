@@ -77,16 +77,14 @@ export class SearchFormService {
             paymentMethod: '',
             paymentTerminalProvider: '',
             invoiceID: '',
-            paymentID: '',
             payerEmail: '',
-            payerIP: '',
-            payerFingerprint: '',
             customerID: '',
             first6: ['', binValidator],
             last4: ['', lastDigitsValidator],
             bankCardTokenProvider: '',
             bankCardPaymentSystem: '',
-            paymentAmount: '',
+            paymentAmountFrom: '',
+            paymentAmountTo: '',
             rrn: ''
         });
         return form;

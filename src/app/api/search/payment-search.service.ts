@@ -44,11 +44,10 @@ export class PaymentSearchService {
             params.approvalCode,
             params.bankCardTokenProvider,
             params.bankCardPaymentSystem,
-            params.paymentAmount,
+            params.paymentAmountFrom,
+            params.paymentAmountTo,
             excludedShops,
-            continuationToken,
-            undefined,
-            undefined
+            continuationToken
         );
     }
 

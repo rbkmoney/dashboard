@@ -12,7 +12,6 @@ import { toFormValue } from '../../to-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
-import { lastDigitsValidator, binValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class SearchFormService {
@@ -72,23 +71,8 @@ export class SearchFormService {
             toTime: moment().endOf('day'),
             limit: [defaultLimit, Validators.required],
             invoiceStatus: '',
-            invoiceAmount: '',
             shopID: '',
-            paymentStatus: '',
-            paymentFlow: '',
-            paymentMethod: '',
-            paymentTerminalProvider: '',
-            invoiceID: '',
-            paymentID: '',
-            payerEmail: '',
-            payerIP: '',
-            payerFingerprint: '',
-            customerID: '',
-            first6: ['', binValidator],
-            last4: ['', lastDigitsValidator],
-            bankCardTokenProvider: '',
-            bankCardPaymentSystem: '',
-            paymentAmount: ''
+            invoiceID: ''
         });
     }
 }

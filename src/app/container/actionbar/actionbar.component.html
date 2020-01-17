@@ -5,7 +5,9 @@
 </div>
 
 <dsh-dropdown width="590px" #claimsDropdown="dshDropdown">
-    <ng-template><dsh-claims (menuItemSelected)="closeDropdown()"></dsh-claims></ng-template>
+    <ng-template>
+        <dsh-claims (menuItemSelected)="closeDropdown()" (navigatedToAllClaims)="closeDropdown()"></dsh-claims>
+    </ng-template>
 </dsh-dropdown>
 
 <dsh-dropdown width="180px" #userDropdown="dshDropdown">
