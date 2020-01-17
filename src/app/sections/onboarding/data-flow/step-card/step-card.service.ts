@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { Subject, of, zip } from 'rxjs';
-import { map, switchMap, pluck } from 'rxjs/operators';
+import { Subject, of, zip, Observable, combineLatest } from 'rxjs';
+import { map, switchMap, pluck, shareReplay } from 'rxjs/operators';
 
 import { StepFlowService } from '../step-flow';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { ClaimsService } from '../../../../api';
 import { FinishOnboardingDialogComponent } from '../finish-onboarding-dialog';
+import { ValidityService } from '../validity';
+import { StepNavInfo, toStepNavInfo } from './to-step-nav-info';
 
 @Injectable()
 export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
     private finishFormFlow$: Subject<void> = new Subject();
+
+    stepNavInfo$: Observable<StepNavInfo[]> = combineLatest(
+        this.validityService.validitySteps$,
+        this.stepFlowService.activeStep$
+    ).pipe(
+        toStepNavInfo,
+        shareReplay(1)
+    );
 
     constructor(
         private stepFlowService: StepFlowService,
@@ -20,7 +30,8 @@ export class StepCardService {
         private router: Router,
         private claimsService: ClaimsService,
         private dialog: MatDialog,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private validityService: ValidityService
     ) {
         const claimID$ = this.route.params.pipe(pluck('claimID'));
         this.selectStepFlowIndex$
