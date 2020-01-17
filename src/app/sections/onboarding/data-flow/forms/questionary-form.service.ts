@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 import { Subscription, zip } from 'rxjs';
-import { debounceTime, map, switchMap, filter, first, shareReplay } from 'rxjs/operators';
+import { debounceTime, map, switchMap, first, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { ValidityService } from '../validity';
