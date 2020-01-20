@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Subject, of, zip, Observable, combineLatest } from 'rxjs';
-import { map, switchMap, pluck, shareReplay } from 'rxjs/operators';
+import { map, switchMap, pluck, shareReplay, switchMapTo } from 'rxjs/operators';
 
 import { StepFlowService } from '../step-flow';
 import { QuestionaryStateService } from '../questionary-state.service';
@@ -46,7 +46,7 @@ export class StepCardService {
 
         this.finishFormFlow$
             .pipe(
-                switchMap(() => claimID$),
+                switchMapTo(claimID$),
                 switchMap(claimID => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
                 switchMap(() =>
@@ -57,7 +57,7 @@ export class StepCardService {
                         })
                         .afterClosed()
                 ),
-                switchMap(() => claimID$)
+                switchMapTo(claimID$)
             )
             .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
     }

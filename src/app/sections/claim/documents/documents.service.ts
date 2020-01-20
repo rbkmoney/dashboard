@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 
 import { ReceiveClaimService } from '../receive-claim.service';
 import { UpdateClaimService } from '../update-claim';
@@ -10,6 +10,7 @@ import { takeFileModificationUnits } from '../../../api';
 @Injectable()
 export class DocumentsService {
     fileUnits$: Observable<FileModificationUnit[]> = this.receiveClaimService.claim$.pipe(
+        pluck('changeset'),
         map(takeFileModificationUnits)
     );
 

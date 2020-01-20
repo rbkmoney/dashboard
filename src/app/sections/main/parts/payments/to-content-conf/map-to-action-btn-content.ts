@@ -1,7 +1,8 @@
 import { Observable, of, iif } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
+import last from 'lodash.last';
 
-import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
+import { Claim, StatusModificationUnit, ClaimChangeset } from '../../../../../api-codegen/claim-management';
 import { routeEnv } from '../../../../route-env';
 import { ActionBtnContent } from '../content-config';
 import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
@@ -12,7 +13,7 @@ const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnC
     disabled: false
 });
 
-const getDocumentID = (claim: Claim) => takeDocumentModificationUnits(claim).reduce((_, unit) => unit.documentId, '');
+const getDocumentID = (changeset: ClaimChangeset) => last(takeDocumentModificationUnits(changeset)).documentId;
 
 const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     if (claim === null) {
@@ -23,7 +24,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
         case s.Pending:
             return toActionBtnContent(
                 'continue',
-                `/onboarding/claim/${claim.id}/document/${getDocumentID(claim)}/step/basic-info`
+                `/onboarding/claim/${claim.id}/document/${getDocumentID(claim.changeset)}/step/basic-info`
             );
         case s.Review:
             return toActionBtnContent('claimDetails', `/claim/${claim.id}/conversation`);

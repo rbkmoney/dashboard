@@ -7,7 +7,7 @@ import { ValiditySteps } from '../validity/validity-steps';
 export interface StepNavInfo {
     step: StepName;
     iconVisible: boolean;
-    navStatus: string | null;
+    navStatus: 'success' | null;
     navItemSelected: boolean;
 }
 
