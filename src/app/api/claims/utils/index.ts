@@ -5,3 +5,4 @@ export * from './specific-modification-unit';
 export * from './specific-claim-modification-unit';
 export * from './create-comment-modification-unit';
 export * from './take-document-modification-units';
+export * from './take-file-modification-units';

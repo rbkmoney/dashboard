@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs/operators';
 
 import { StepFlowService } from './step-flow';
-import { InitializeFormsService } from './forms';
 import { QuestionaryStateService } from './questionary-state.service';
+import { DataFlowService } from './data-flow.service';
 
 @Component({
     selector: 'dsh-data-flow',
     templateUrl: 'data-flow.component.html',
-    styleUrls: ['data-flow.component.scss']
+    styleUrls: ['data-flow.component.scss'],
+    providers: [DataFlowService]
 })
 export class DataFlowComponent implements OnInit, OnDestroy {
     activeStep$ = this.stepFlowService.activeStep$;
@@ -17,21 +16,16 @@ export class DataFlowComponent implements OnInit, OnDestroy {
     isLoading$ = this.questionaryStateService.isLoading$;
 
     constructor(
-        private route: ActivatedRoute,
         private stepFlowService: StepFlowService,
-        private initializeFormsService: InitializeFormsService,
-        private questionaryStateService: QuestionaryStateService
+        private questionaryStateService: QuestionaryStateService,
+        private dataFlowService: DataFlowService
     ) {}
 
     ngOnInit() {
-        this.initializeFormsService.init();
-        this.route.params
-            .pipe(pluck('documentID'))
-            .subscribe(documentID => this.questionaryStateService.init(documentID));
+        this.dataFlowService.init();
     }
 
     ngOnDestroy() {
-        this.initializeFormsService.unsubscribe();
-        this.questionaryStateService.reset();
+        this.dataFlowService.destroy();
     }
 }

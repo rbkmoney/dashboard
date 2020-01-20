@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { shareReplay, startWith } from 'rxjs/operators';
+import { Observable, Subject, Subscription, merge } from 'rxjs';
+import { shareReplay, startWith, tap } from 'rxjs/operators';
 
 import { StepName } from './step-name';
 import { handleNull } from '../../../../custom-operators';
@@ -18,6 +18,7 @@ export class StepFlowService {
     private navigate$: Subject<StepName> = new Subject();
     private goByDirection$: Subject<'forward' | 'back'> = new Subject();
     private readonly defaultStep = StepName.BasicInfo;
+    private sub: Subscription = Subscription.EMPTY;
 
     stepFlow$: Observable<StepName[]> = this.questionaryStateService.questionaryData$.pipe(
         mapToStepFlow,
@@ -26,7 +27,7 @@ export class StepFlowService {
     );
 
     activeStep$: Observable<StepName> = this.navigate$.pipe(
-        startWith(urlToStep(this.router.url, this.defaultStep)), // TODO fix it
+        startWith(urlToStep(this.router.url, this.defaultStep)),
         shareReplay(1)
     );
 
@@ -40,13 +41,22 @@ export class StepFlowService {
         shareReplay(1)
     );
 
-    constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {
-        this.navigate$
-            .pipe(mapToNavigateCommands(this.router.url))
-            .subscribe(commands => this.router.navigate(commands));
-        this.goByDirection$
-            .pipe(mapDirectionToStep(this.stepFlow$, this.activeStep$))
-            .subscribe(step => this.navigate$.next(step));
+    constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {}
+
+    subscribe() {
+        const navigate$ = this.navigate$.pipe(
+            mapToNavigateCommands(this.router.url),
+            tap(commands => this.router.navigate(commands))
+        );
+        const goByDirection$ = this.goByDirection$.pipe(
+            mapDirectionToStep(this.stepFlow$, this.activeStep$),
+            tap(step => this.navigate$.next(step))
+        );
+        this.sub = merge(navigate$, goByDirection$).subscribe();
+    }
+
+    unsubscribe() {
+        this.sub.unsubscribe();
     }
 
     navigate(step: StepName) {

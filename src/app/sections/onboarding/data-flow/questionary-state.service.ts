@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { filter, distinctUntilChanged, switchMap, pluck, catchError, first } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, of, Subscription, merge } from 'rxjs';
+import { filter, distinctUntilChanged, switchMap, pluck, catchError, first, tap } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
 
 import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
@@ -12,6 +12,7 @@ export class QuestionaryStateService {
     private snapshot$: BehaviorSubject<Snapshot | null> = new BehaviorSubject<Snapshot>(null);
     private initSnapshot$: Subject<string> = new Subject();
     private save$: Subject<void> = new Subject();
+    private sub: Subscription = Subscription.EMPTY;
 
     questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
         filter(v => v !== null),
@@ -21,29 +22,36 @@ export class QuestionaryStateService {
 
     isLoading$ = this.questionaryData$.pipe(booleanDelay());
 
-    constructor(private questionaryService: QuestionaryService) {
-        this.initSnapshot$
-            .pipe(switchMap(documentID => this.questionaryService.getQuestionary(documentID)))
-            .subscribe(snapshot => this.snapshot$.next(snapshot));
-        this.save$
-            .pipe(
-                switchMap(() => this.snapshot$.pipe(first())),
-                distinctUntilChanged((x, y) => isEqual(x.questionary.data, y.questionary.data)),
-                switchMap(({ questionary: { id, data }, version }) =>
-                    this.questionaryService.saveQuestionary(id, data, version).pipe(
-                        catchError(err => {
-                            console.error(err);
-                            return of(version);
-                        })
-                    )
+    constructor(private questionaryService: QuestionaryService) {}
+
+    subscribe() {
+        const initSnapshot$ = this.initSnapshot$.pipe(
+            switchMap(documentID => this.questionaryService.getQuestionary(documentID)),
+            tap(snapshot => this.snapshot$.next(snapshot))
+        );
+        const save$ = this.save$.pipe(
+            switchMap(() => this.snapshot$.pipe(first())),
+            distinctUntilChanged((x, y) => isEqual(x.questionary.data, y.questionary.data)),
+            switchMap(({ questionary: { id, data }, version }) =>
+                this.questionaryService.saveQuestionary(id, data, version).pipe(
+                    catchError(err => {
+                        console.error(err);
+                        return of(version);
+                    })
                 )
-            )
-            .subscribe(version => {
+            ),
+            tap(version => {
                 this.snapshot$.next({
                     ...this.snapshot$.getValue(),
                     version
                 });
-            });
+            })
+        );
+        this.sub = merge(initSnapshot$, save$).subscribe();
+    }
+
+    unsubscribe() {
+        this.sub.unsubscribe();
     }
 
     add(data: QuestionaryData) {
@@ -65,7 +73,7 @@ export class QuestionaryStateService {
         this.snapshot$.next(null);
     }
 
-    init(documentID: string) {
+    receiveSnapshot(documentID: string) {
         this.initSnapshot$.next(documentID);
     }
 }

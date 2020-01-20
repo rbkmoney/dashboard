@@ -33,7 +33,7 @@ export class InitializeFormsService {
         ];
     }
 
-    init() {
+    subscribe() {
         for (const service of this.initializeContainer) {
             this.subs = [...this.subs, service.initForm(), service.startFormValidityReporting()];
         }
