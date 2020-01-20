@@ -4,15 +4,17 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { QuestionaryFormService } from '../questionary-form.service';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { ValidityService } from '../../validity';
-import { PrivateEntityInfoService } from '../subforms/private-entity-info';
 import { StepName } from '../../step-flow';
 import { QuestionaryData } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
 import { toFormValue } from './to-form-value';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
-import { RussianDomesticPassportService } from '../subforms/russian-domestic-passport';
-import { PdlInfoService } from '../subforms/pdl-info';
-import { IndividualResidencyInfoService } from '../subforms/individual-residency-info';
+import {
+    PdlInfoService,
+    RussianDomesticPassportService,
+    IndividualResidencyInfoService,
+    PrivateEntityInfoService
+} from '../subforms';
 
 @Injectable()
 export class RussianPrivateEntityService extends QuestionaryFormService {
@@ -26,12 +28,16 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
         private individualResidencyInfoService: IndividualResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
-        this.form$.next(this.initForm());
-        this.form$.complete();
     }
 
     protected toFormValue(d: QuestionaryData): FormValue {
         return toFormValue(d);
+    }
+
+    protected toForm(data: QuestionaryData): FormGroup {
+        const form = this.constructForm();
+        form.patchValue(toFormValue(data));
+        return form;
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -42,7 +48,7 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
         return StepName.RussianPrivateEntity;
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),

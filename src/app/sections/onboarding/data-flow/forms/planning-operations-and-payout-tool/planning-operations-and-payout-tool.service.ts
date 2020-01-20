@@ -13,7 +13,7 @@ import { bikValidator, bankPostAccountValidator, bankAccountValidator } from '..
 
 @Injectable()
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
-    form: FormGroup;
+    private form: FormGroup;
 
     constructor(
         protected fb: FormBuilder,
@@ -21,9 +21,6 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form = this.initForm();
-        this.form$.next(this.form);
-        this.form$.complete();
     }
 
     readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
@@ -38,17 +35,21 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
         this.form.get('bankAccount').patchValue(value);
     }
 
-    protected toFormValue(data: QuestionaryData): FormValue {
-        return toFormValue(data);
+    protected toForm(data: QuestionaryData): FormGroup {
+        this.form = this.constructForm();
+        this.form.patchValue(toFormValue(data));
+        return this.form;
     }
+
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
         return applyToQuestionaryData(data, formValue);
     }
+
     protected getStepName(): StepName {
         return StepName.PlanningOperationsAndPayoutTool;
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             monthOperationCount: ['', Validators.required],
             monthOperationSum: ['', Validators.required],

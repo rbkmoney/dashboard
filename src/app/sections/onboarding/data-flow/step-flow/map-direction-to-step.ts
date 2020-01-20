@@ -1,5 +1,5 @@
-import { Observable, combineLatest, of } from 'rxjs';
-import { switchMap, map, first } from 'rxjs/operators';
+import { Observable, of, zip } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 import { StepName } from './step-name';
 
@@ -7,7 +7,7 @@ export const mapDirectionToStep = (stepFlow$: Observable<StepName[]>, activeStep
     s: Observable<'forward' | 'back'>
 ): Observable<StepName> =>
     s.pipe(
-        switchMap(direction => combineLatest(activeStep$, stepFlow$, of(direction)).pipe(first())),
+        switchMap(direction => zip(activeStep$, stepFlow$, of(direction))),
         map(([activeStep, stepFlow, direction]) => {
             const currentPosition = stepFlow.indexOf(activeStep);
             let result;

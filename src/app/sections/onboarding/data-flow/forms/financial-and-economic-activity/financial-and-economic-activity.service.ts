@@ -42,9 +42,6 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         private legalResidencyInfoService: LegalResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
-        this.form = this.initForm();
-        this.form$.next(this.form);
-        this.form$.complete();
     }
 
     withoutAccountantChange(withoutAccountant: boolean) {
@@ -62,12 +59,14 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         );
     }
 
-    protected toFormValue(data: QuestionaryData): FormValue {
+    protected toForm(data: QuestionaryData): FormGroup {
         const formValue = toFormValue(data);
+        this.form = this.constructForm();
         this.withoutAccountantChange(formValue.withoutAccountant);
         this.accountantTypeChange(formValue.accountantType);
         this.residencyInfoChange(data);
-        return formValue;
+        this.form.patchValue(formValue);
+        return this.form;
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -91,7 +90,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         }
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             staffCount: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^\d+$/)]],
             withoutAccountant: [false, Validators.required],
