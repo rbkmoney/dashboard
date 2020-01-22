@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { BasicInfoService } from './basic-info';
 import { QuestionaryFormService } from './questionary-form.service';
@@ -11,6 +12,8 @@ import { RussianPrivateEntityService } from './russian-private-entity/russian-pr
 @Injectable()
 export class InitializeFormsService {
     private initializeContainer: QuestionaryFormService[];
+
+    private subs: Subscription[] = [];
 
     constructor(
         private basicInfoService: BasicInfoService,
@@ -30,10 +33,15 @@ export class InitializeFormsService {
         ];
     }
 
-    initializeForms() {
+    subscribe() {
         for (const service of this.initializeContainer) {
-            service.initFormValue();
-            service.startFormValidityReporting();
+            this.subs = [...this.subs, service.initForm(), service.startFormValidityReporting()];
+        }
+    }
+
+    unsubscribe() {
+        for (const sub of this.subs) {
+            sub.unsubscribe();
         }
     }
 }

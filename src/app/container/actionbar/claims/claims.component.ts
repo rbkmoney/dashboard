@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ClaimsService } from './claims.service';
 
@@ -11,12 +12,17 @@ import { ClaimsService } from './claims.service';
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();
 
+    @Output() navigatedToAllClaims = new EventEmitter();
+
     claims$ = this.claimsService.claims$;
     isLoading$ = this.claimsService.isLoading$;
     error$ = this.claimsService.error$;
     noClaims$ = this.claimsService.noClaims$;
 
-    dicBasePath = 'actionbar.claims';
+    constructor(private router: Router, private claimsService: ClaimsService) {}
 
-    constructor(private claimsService: ClaimsService) {}
+    navigateToClaims() {
+        this.navigatedToAllClaims.next();
+        this.router.navigate(['claims']);
+    }
 }

@@ -6,13 +6,6 @@ import { SearchFormService } from './search-form.service';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormValue } from '../../search-form-value';
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
-import {
-    paymentStatuses as paymentStatusesConsts,
-    tokenProviders as tokenProvidersConsts,
-    paymentMethods as paymentMethodsConsts,
-    bankCardPaymentSystems as bankCardPaymentSystemsConsts,
-    paymentFlows as paymentFlowsConsts
-} from '../../constants';
 
 @Component({
     selector: 'dsh-search-form',
@@ -29,11 +22,6 @@ export class SearchFormComponent implements OnInit {
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
     shopsInfo$ = this.searchFormService.shopsInfo$;
-    paymentStatuses = paymentStatusesConsts;
-    tokenProviders = tokenProvidersConsts;
-    paymentMethods = paymentMethodsConsts;
-    bankCardPaymentSystems = bankCardPaymentSystemsConsts;
-    paymentFlows = paymentFlowsConsts;
 
     constructor(private searchFormService: SearchFormService) {}
 

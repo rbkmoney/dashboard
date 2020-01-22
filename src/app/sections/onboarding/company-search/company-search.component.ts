@@ -39,7 +39,7 @@ export class CompanySearchComponent {
                 switchMap(data => this.companySearchService.createInitialClaim(data)),
                 take(1)
             )
-            .subscribe(id => this.companySearchService.goToOnboardingFlow(id));
+            .subscribe(({ claimID, documentID }) => this.companySearchService.goToOnboardingFlow(claimID, documentID));
     }
 
     updateSuggestion(content: PartyContent) {

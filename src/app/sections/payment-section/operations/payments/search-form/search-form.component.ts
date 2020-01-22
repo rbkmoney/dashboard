@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, pluck, map, shareReplay, distinctUntilChanged } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
@@ -32,6 +33,13 @@ export class SearchFormComponent implements OnInit {
     bankCardPaymentSystems = bankCardPaymentSystemsConsts;
     paymentFlows = paymentFlowsConsts;
     paymentStatuses = paymentStatusesConsts;
+
+    isBankCard$: Observable<boolean> = this.searchFormService.formValueChanges$.pipe(
+        pluck('paymentMethod'),
+        map(v => v === paymentMethodsConsts[0]),
+        distinctUntilChanged(),
+        shareReplay(1)
+    );
 
     constructor(private searchFormService: SearchFormService) {}
 

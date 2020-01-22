@@ -21,17 +21,16 @@ export class BasicInfoService extends QuestionaryFormService {
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form = this.initForm();
-        this.form$.next(this.form);
-        this.form$.complete();
     }
 
     patchForm(value: { [key: string]: any }) {
         this.form.patchValue(value);
     }
 
-    protected toFormValue(d: QuestionaryData): FormValue {
-        return toFormValue(d);
+    protected toForm(data: QuestionaryData): FormGroup {
+        this.form = this.constructForm();
+        this.form.patchValue(toFormValue(data));
+        return this.form;
     }
 
     protected applyToQuestionaryData(d: QuestionaryData, v: FormValue): QuestionaryData {
@@ -42,7 +41,7 @@ export class BasicInfoService extends QuestionaryFormService {
         return StepName.BasicInfo;
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             name: ['', Validators.required],
             inn: ['', [Validators.required, individualOrLegalEntityInnValidator]],

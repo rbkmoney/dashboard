@@ -14,7 +14,7 @@ import { StepName } from './step-flow';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'step',
         component: DataFlowComponent,
         children: [
             {

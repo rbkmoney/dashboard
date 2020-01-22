@@ -1,0 +1,21 @@
+<div
+    *transloco="let t; scope: 'claims'; read: 'claims'"
+    [formGroup]="searchForm"
+    fxLayout="row"
+    [fxLayoutGap]="layoutGap"
+>
+    <dsh-justify-wrapper fxLayout="row" [fxLayoutGap]="layoutGap">
+        <mat-form-field fxFlex="350px">
+            <mat-label>{{ t.claimStatus }}</mat-label>
+            <mat-select multiple *transloco="let c" formControlName="claimStatus">
+                <mat-option *ngFor="let status of statuses" [value]="status">
+                    {{ c.claimStatus[status] }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="150px">
+            <mat-label>{{ t.claimID }}</mat-label>
+            <input matInput type="number" formControlName="claimID" />
+        </mat-form-field>
+    </dsh-justify-wrapper>
+</div>

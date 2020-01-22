@@ -9,6 +9,10 @@ const routes: Routes = [
         component: MainComponent
     },
     {
+        path: 'claims',
+        loadChildren: () => import('./claims').then(m => m.ClaimsModule)
+    },
+    {
         path: 'claim',
         loadChildren: () => import('./claim').then(m => m.ClaimModule)
     },

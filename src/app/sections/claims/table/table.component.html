@@ -1,0 +1,64 @@
+<div *transloco="let t; scope: 'claims'; read: 'claims.table'" class="table-container">
+    <table dshTable [dataSource]="data">
+        <ng-container dshColumnDef="claimID">
+            <th dshHeaderCell fxFlex="100px" *dshHeaderCellDef>
+                {{ t.id }}
+            </th>
+            <td dshCell fxFlex="100px" *dshCellDef="let element">
+                {{ element.claimID }}
+            </td>
+        </ng-container>
+
+        <ng-container *transloco="let c" dshColumnDef="claimType">
+            <th dshHeaderCell *dshHeaderCellDef>
+                {{ t.type }}
+            </th>
+            <td dshCell *dshCellDef="let element">
+                {{ c.claimType[element.changeset | changesetToType] }}
+            </td>
+        </ng-container>
+
+        <ng-container dshColumnDef="claimStatus">
+            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
+                {{ t.status }}
+            </th>
+            <td dshCell fxFlex="140px" *dshCellDef="let element">
+                <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
+                    c.claimStatus[element.status]
+                }}</dsh-status>
+            </td>
+        </ng-container>
+
+        <ng-container dshColumnDef="updatedAt">
+            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+                {{ t.updatedAt }}
+            </th>
+            <td dshCell fxFlex="180px" *dshCellDef="let element">
+                {{ element.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}
+            </td>
+        </ng-container>
+
+        <ng-container dshColumnDef="actions">
+            <th dshHeaderCell fxFlex="42px" *dshHeaderCellDef></th>
+            <td dshCell fxFlex="42px" *dshCellDef="let element">
+                <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
+                    <mat-icon svgIcon="more_vert"></mat-icon>
+                </button>
+                <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
+                    <ng-template>
+                        <dsh-dropdown-actions>
+                            <dsh-state-nav flat>
+                                <dsh-state-nav-item (click)="goToClaimDetails(element)">{{
+                                    t.actions.claimDetails
+                                }}</dsh-state-nav-item>
+                            </dsh-state-nav>
+                        </dsh-dropdown-actions>
+                    </ng-template>
+                </dsh-dropdown>
+            </td>
+        </ng-container>
+
+        <tr dsh-header-row *dshHeaderRowDef="displayedColumns"></tr>
+        <tr dsh-row *dshRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>
