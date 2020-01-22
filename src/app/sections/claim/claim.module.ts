@@ -10,7 +10,7 @@ import { ButtonModule } from '../../button';
 import { DshTabsModule } from '../../layout/tabs';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
-import { ClaimsModule } from '../../api/claims';
+import { ClaimsModule, QuestionaryModule } from '../../api';
 import { ConversationModule } from './conversation';
 import { StatusModule } from '../../status';
 import { SpinnerModule } from '../../spinner';
@@ -32,6 +32,7 @@ import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
         DocumentsModule,
         TranslocoModule,
         SpinnerModule,
+        QuestionaryModule,
         ReactiveFormsModule,
         MatDialogModule,
         MatInputModule,

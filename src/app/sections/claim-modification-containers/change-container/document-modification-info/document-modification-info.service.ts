@@ -3,20 +3,33 @@ import { Observable, Subject } from 'rxjs';
 import { switchMap, pluck, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryService } from '../../../../api';
-import { QuestionaryData } from '../../../../api-codegen/questionary';
+import { QuestionaryData, Questionary } from '../../../../api-codegen/questionary';
 import { booleanDelay, takeError } from '../../../../custom-operators';
+import { QuestionaryDocumentService } from '../../../../questionary-document';
 
 @Injectable()
 export class DocumentModificationInfoService {
     private receiveQuestionary$: Subject<string> = new Subject();
 
-    questionary$: Observable<QuestionaryData> = this.receiveQuestionary$.pipe(
+    questionary$: Observable<Questionary> = this.receiveQuestionary$.pipe(
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
-        pluck('questionary', 'data'),
+        pluck('questionary'),
         shareReplay(1)
     );
 
-    isLoading$ = this.questionary$.pipe(
+    questionaryData$: Observable<QuestionaryData> = this.questionary$.pipe(pluck('data'));
+
+    document$ = this.questionary$.pipe(
+        switchMap(questionary => this.questionaryDocumentService.createDoc(questionary)),
+        shareReplay(1)
+    );
+
+    beneficialOwnersDocuments$ = this.questionary$.pipe(
+        switchMap(questionary => this.questionaryDocumentService.createBeneficialOwnerDocs(questionary)),
+        shareReplay(1)
+    );
+
+    isLoading$ = this.questionaryData$.pipe(
         booleanDelay(),
         shareReplay(1)
     );
@@ -26,8 +39,11 @@ export class DocumentModificationInfoService {
         shareReplay(1)
     );
 
-    constructor(private questionaryService: QuestionaryService) {
-        this.questionary$.subscribe();
+    constructor(
+        private questionaryService: QuestionaryService,
+        private questionaryDocumentService: QuestionaryDocumentService
+    ) {
+        this.questionaryData$.subscribe();
     }
 
     receiveQuestionary(documentId: string) {

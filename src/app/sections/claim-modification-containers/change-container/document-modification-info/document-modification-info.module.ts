@@ -20,9 +20,20 @@ import {
     AuthorityConfirmingDocumentComponent
 } from './contractor-info';
 import { QuestionaryModule } from '../../../../api';
+import { QuestionaryDocumentModule } from '../../../../questionary-document';
+import { ButtonModule } from '../../../../button';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, TranslocoModule, QuestionaryModule, DetailsItemModule, MatDividerModule],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        TranslocoModule,
+        QuestionaryModule,
+        DetailsItemModule,
+        MatDividerModule,
+        QuestionaryDocumentModule,
+        ButtonModule
+    ],
     declarations: [
         DocumentModificationInfoComponent,
         ShopInfoComponent,

@@ -15,5 +15,20 @@
             *ngIf="isNotEmptyBankAccount$ | async"
             [bankAccount]="bankAccount$ | async"
         ></dsh-bank-account-info>
+        <div
+            fxLayout="row wrap"
+            fxLayoutGap="10px"
+            style="float: left"
+            *transloco="let c; scope: 'claim-modification-containers'; read: 'claimModificationContainers.download'"
+        >
+            <button dsh-button (click)="downloadDocument()">{{ c.questionaryDocument }}</button>
+            <button
+                dsh-button
+                *ngFor="let beneficialOwnerDocument of beneficialOwnersDocuments$ | async; index as i"
+                (click)="downloadBeneficialOwnerDocument(beneficialOwnerDocument)"
+            >
+                {{ c.beneficialOwnerDocument | translocoParams: { id: i + 1 } }}
+            </button>
+        </div>
     </div>
 </div>

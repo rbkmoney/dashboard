@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 
 import { DocumentService } from './document.service';
-import { DocumentFontsService } from './font/document-fonts.service';
+import { FontsService } from './fonts';
 
 @NgModule({
-    imports: [],
-    declarations: [],
-    entryComponents: [],
-    providers: [DocumentService, DocumentFontsService]
+    providers: [DocumentService, FontsService]
 })
 export class DocumentModule {}
