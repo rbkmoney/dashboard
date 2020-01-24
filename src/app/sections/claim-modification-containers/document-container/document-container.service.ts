@@ -13,23 +13,15 @@ import {
     LegalOwnerInfo,
     RussianIndividualEntity,
     RussianLegalEntity,
-    AdditionalInfo,
-    RegistrationInfo,
     ContactInfo
 } from '../../../api-codegen/questionary';
-
-export interface OrgInfo {
-    additionalInfo: AdditionalInfo;
-    name: string;
-    inn: string;
-    registrationInfo: RegistrationInfo;
-}
+import { OrgInfo } from './panels';
 
 @Injectable()
 export class DocumentContainerService {
-    private init$: Subject<DocumentModificationUnit> = new ReplaySubject(1);
+    private unitChange$: Subject<DocumentModificationUnit> = new ReplaySubject(1);
 
-    private questionaryData$: Observable<QuestionaryData> = this.init$.pipe(
+    private questionaryData$: Observable<QuestionaryData> = this.unitChange$.pipe(
         pluck('documentId'),
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
         pluck('questionary', 'data'),
@@ -76,10 +68,10 @@ export class DocumentContainerService {
     );
 
     constructor(private questionaryService: QuestionaryService) {
-        this.init$.subscribe();
+        this.unitChange$.subscribe();
     }
 
-    init(unit: DocumentModificationUnit) {
-        this.init$.next(unit);
+    unitChange(unit: DocumentModificationUnit) {
+        this.unitChange$.next(unit);
     }
 }

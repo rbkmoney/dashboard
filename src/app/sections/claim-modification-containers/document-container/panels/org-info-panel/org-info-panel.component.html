@@ -1,0 +1,21 @@
+<dsh-document-container-panel
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.orgInfoPanel'
+    "
+    [title]="'Сведения об организации'"
+>
+    <div fxLayout="column" fxLayoutGap="20px">
+        <dsh-details-item *ngIf="orgInfo?.name" [title]="t.nameInn">
+            {{ orgInfo?.name }} ({{ orgInfo?.inn }})
+        </dsh-details-item>
+        <dsh-details-item *ngIf="orgInfo?.registrationInfo?.registrationAddress" [title]="t.registrationAddress">
+            {{ orgInfo?.registrationInfo?.registrationAddress }}
+        </dsh-details-item>
+        <mat-divider></mat-divider>
+        <dsh-additional-info-sub-container
+            [additionalInfo]="orgInfo?.additionalInfo"
+        ></dsh-additional-info-sub-container>
+    </div>
+</dsh-document-container-panel>

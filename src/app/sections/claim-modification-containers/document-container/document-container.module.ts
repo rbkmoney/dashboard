@@ -6,19 +6,23 @@ import { MatDividerModule } from '@angular/material';
 
 import { DocumentContainerComponent } from './document-container.component';
 import { PanelModule } from '../../../layout/panel';
-import { ShopInfoSubContainerComponent } from './shop-info-sub-container';
 import { DetailsItemModule } from '../../../details-item';
 import { QuestionaryModule } from '../../../api';
-import { DocumentContainerPanelComponent } from './document-container-panel';
-import { BankAccountSubContainerComponent } from './bank-account-sub-container';
-import { RussianPrivateEntitySubContainerComponent } from './russian-private-entity-sub-container';
-import { AuthorityConfirmingDocumentSubContainerComponent } from './authority-confirming-document-sub-container';
-import { IdentityDocumentSubContainerComponent } from './identity-document-sub-container';
-import { LegalOwnerSubContainerComponent } from './legal-owner-sub-container';
-import { IndividualEntitySubContainerComponent } from './individual-entity-sub-container';
-import { OrgInfoSubContainerComponent } from './org-info-sub-container';
-import { AdditionalInfoSubContainerComponent } from './additional-info-sub-container';
-import { ContactInfoSubContainerComponent } from './contact-info-sub-container';
+import {
+    RussianPrivateEntitySubContainerComponent,
+    AuthorityConfirmingDocumentSubContainerComponent,
+    IdentityDocumentSubContainerComponent,
+    AdditionalInfoSubContainerComponent
+} from './sub-containers';
+import {
+    ContactInfoPanelComponent,
+    IndividualEntityPanelComponent,
+    OrgInfoPanelComponent,
+    LegalOwnerPanelComponent,
+    BankAccountPanelComponent,
+    DocumentContainerPanelComponent,
+    ShopInfoPanelComponent
+} from './panels';
 
 @NgModule({
     imports: [
@@ -32,17 +36,17 @@ import { ContactInfoSubContainerComponent } from './contact-info-sub-container';
     ],
     declarations: [
         DocumentContainerComponent,
-        ShopInfoSubContainerComponent,
+        ShopInfoPanelComponent,
         DocumentContainerPanelComponent,
-        BankAccountSubContainerComponent,
-        IndividualEntitySubContainerComponent,
+        BankAccountPanelComponent,
+        IndividualEntityPanelComponent,
         RussianPrivateEntitySubContainerComponent,
         AuthorityConfirmingDocumentSubContainerComponent,
         IdentityDocumentSubContainerComponent,
-        OrgInfoSubContainerComponent,
-        LegalOwnerSubContainerComponent,
+        OrgInfoPanelComponent,
+        LegalOwnerPanelComponent,
         AdditionalInfoSubContainerComponent,
-        ContactInfoSubContainerComponent
+        ContactInfoPanelComponent
     ],
     exports: [DocumentContainerComponent]
 })

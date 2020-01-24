@@ -22,6 +22,6 @@ export class DocumentContainerComponent implements OnChanges {
     constructor(private documentContainerService: DocumentContainerService) {}
 
     ngOnChanges({ unit }: SimpleChanges) {
-        this.documentContainerService.init(unit.currentValue);
+        this.documentContainerService.unitChange(unit.currentValue);
     }
 }

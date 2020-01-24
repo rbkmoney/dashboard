@@ -1,0 +1,17 @@
+<dsh-document-container-panel
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.bankAccountPanel'
+    "
+    [title]="t.title"
+>
+    <div fxLayout="column" fxLayoutGap="20px">
+        <dsh-details-item *ngIf="bankAccount?.bankName" [title]="t.bankInfo">
+            {{ bankAccount?.bankName }} ({{ bankAccount?.bankBik }} / {{ bankAccount?.bankPostAccount }})
+        </dsh-details-item>
+        <dsh-details-item *ngIf="bankAccount?.account" [title]="t.account">
+            {{ bankAccount?.account }}
+        </dsh-details-item>
+    </div>
+</dsh-document-container-panel>
