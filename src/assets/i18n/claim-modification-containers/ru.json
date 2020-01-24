@@ -1,4 +1,9 @@
 {
+    "orgInfo": {
+        "title": "Сведения об организации",
+        "nameInn": "Наименование (ИНН)",
+        "registrationAddress": "Адрес регистрации"
+    },
     "changeContainerTypes": {
         "documentModification": "Сведения об организации"
     },
@@ -18,7 +23,10 @@
         "account": "Расчетный счет"
     },
     "contractorInfo": {
-        "title": "Основные сведения"
+        "title": "Основные сведения",
+        "legalEntityTitle": "Сведения о юридическом лице",
+        "individualEntityTitle": "Сведения о физическом лице",
+        "unknown": "Неизвестный"
     },
     "legalEntityContractor": {
         "nameInn": "Наименование (ИНН)",

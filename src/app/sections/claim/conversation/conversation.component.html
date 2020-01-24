@@ -25,10 +25,10 @@
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
                 <div fxLayout="column" fxLayoutGap="10px">
                     <div *ngFor="let modification of item.modifications">
-                        <dsh-change-container
+                        <dsh-document-container
                             *ngIf="isDocumentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
-                        ></dsh-change-container>
+                        ></dsh-document-container>
                         <dsh-comment-container
                             *ngIf="isCommentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"

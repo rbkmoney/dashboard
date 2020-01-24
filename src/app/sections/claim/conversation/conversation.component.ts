@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { ConversationService } from './conversation.service';
 import { Modification } from '../../../api-codegen/claim-management';
@@ -13,7 +13,8 @@ import { ConversationID } from '../../../api-codegen/messages';
 @Component({
     templateUrl: 'conversation.component.html',
     styleUrls: ['conversation.component.scss'],
-    providers: [ConversationService]
+    providers: [ConversationService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConversationComponent {
     timelineInfo$ = this.conversationService.timelineInfo$;

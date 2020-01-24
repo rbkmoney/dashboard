@@ -1,0 +1,26 @@
+<dsh-document-container-panel [title]="'Сведения о физическом лице'">
+    <div
+        *transloco="
+            let t;
+            scope: 'claim-modification-containers';
+            read: 'claimModificationContainers.individualEntityContractor'
+        "
+        fxLayout="column"
+        fxLayoutGap="20px"
+    >
+        <dsh-russian-private-entity-sub-container
+            [russianPrivateEntity]="individualEntity?.russianPrivateEntity"
+        ></dsh-russian-private-entity-sub-container>
+        <dsh-identity-document-sub-container
+            [identityDocument]="individualEntity?.identityDocument"
+        ></dsh-identity-document-sub-container>
+        <div fxLayout="row" *ngIf="individualEntity?.pdlCategory || individualEntity?.pdlRelationDegree">
+            <dsh-details-item fxFlex="50" *ngIf="individualEntity?.pdlCategory" [title]="t.pdlCategory">
+                {{ t.pdlCategoryFlag }}
+            </dsh-details-item>
+            <dsh-details-item fxFlex="50" *ngIf="individualEntity?.pdlRelationDegree" [title]="t.pdlRelationDegree">
+                {{ individualEntity?.pdlRelationDegree }}
+            </dsh-details-item>
+        </div>
+    </div>
+</dsh-document-container-panel>

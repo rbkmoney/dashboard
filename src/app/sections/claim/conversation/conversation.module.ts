@@ -15,9 +15,9 @@ import { ConversationRoutingModule } from './conversation-routing.module';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
 import {
-    ChangeContainerModule,
     CommentContainerModule,
-    FileContainerModule
+    FileContainerModule,
+    DocumentContainerModule
 } from '../../claim-modification-containers';
 import { SendCommentComponent } from './send-comment';
 import { MessagesModule, FilesModule } from '../../../api';
@@ -36,12 +36,12 @@ import { MessagesModule, FilesModule } from '../../../api';
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,
-        ChangeContainerModule,
         CommentContainerModule,
         FileContainerModule,
         ReactiveFormsModule,
         MessagesModule,
-        FilesModule
+        FilesModule,
+        DocumentContainerModule
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
 })

@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <dsh-shop-info-sub-container *ngIf="shopInfo$ | async" [shopInfo]="shopInfo$ | async"></dsh-shop-info-sub-container>
+    <dsh-bank-account-sub-container
+        *ngIf="bankAccount$ | async"
+        [bankAccount]="bankAccount$ | async"
+    ></dsh-bank-account-sub-container>
+    <dsh-legal-owner-sub-container
+        *ngIf="legalOwnerInfo$ | async"
+        [legalOwnerInfo]="legalOwnerInfo$ | async"
+    ></dsh-legal-owner-sub-container>
+    <dsh-individual-entity-sub-container
+        *ngIf="individualEntity$ | async"
+        [individualEntity]="individualEntity$ | async"
+    >
+    </dsh-individual-entity-sub-container>
+    <dsh-org-info *ngIf="orgInfo$ | async" [orgInfo]="orgInfo$ | async"></dsh-org-info>
+    <dsh-contact-info-sub-container
+        *ngIf="contactInfo$ | async"
+        [contactInfo]="contactInfo$ | async"
+    ></dsh-contact-info-sub-container>
+</div>

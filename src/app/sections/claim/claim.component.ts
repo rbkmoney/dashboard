@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { pluck, map } from 'rxjs/operators';
 
 import { ReceiveClaimService } from './receive-claim.service';
@@ -11,7 +11,14 @@ import { ReviewClaimService } from './review-claim.service';
 @Component({
     templateUrl: 'claim.component.html',
     styleUrls: ['claim.component.scss'],
-    providers: [RouteParamClaimService, ReceiveClaimService, RevokeClaimService, UpdateClaimService, ReviewClaimService]
+    providers: [
+        RouteParamClaimService,
+        ReceiveClaimService,
+        RevokeClaimService,
+        UpdateClaimService,
+        ReviewClaimService
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClaimComponent implements OnInit {
     links = [
