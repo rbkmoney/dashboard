@@ -10,7 +10,7 @@
     <dsh-details-item *ngIf="shopInfo?.details?.name" [title]="t.name">
         {{ shopInfo?.details?.name }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="shopInfo?.location?.url" [title]="t.url">
-        {{ shopInfo?.location?.url }}
+    <dsh-details-item *ngIf="url" [title]="t.url">
+        {{ url }}
     </dsh-details-item>
 </div>

@@ -1,4 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import get from 'lodash.get';
 
 import { ShopInfo } from '../../../../api-codegen/questionary';
 
@@ -7,6 +8,12 @@ import { ShopInfo } from '../../../../api-codegen/questionary';
     templateUrl: 'shop-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShopInfoComponent {
+export class ShopInfoComponent implements OnChanges {
     @Input() shopInfo: ShopInfo;
+
+    url: string;
+
+    ngOnChanges({ shopInfo }: SimpleChanges): void {
+        this.url = get(shopInfo, ['currentValue', 'location', 'url']);
+    }
 }
