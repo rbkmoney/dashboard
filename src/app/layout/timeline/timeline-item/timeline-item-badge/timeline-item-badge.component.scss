@@ -1,0 +1,20 @@
+@import '../timeline-item.scss';
+
+.dsh-timeline-item-badge {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    height: $size;
+    width: $size;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 10;
+
+    mat-icon {
+        height: $icons-size;
+        width: $icons-size;
+        font-size: $icons-size;
+    }
+}

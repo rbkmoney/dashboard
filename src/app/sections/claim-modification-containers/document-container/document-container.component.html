@@ -1,0 +1,35 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.panelNames'
+    "
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <ng-container *transloco="let common">
+        <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
+        <div *ngIf="error$ | async">{{ common.httpError }}</div>
+    </ng-container>
+    <dsh-document-container-panel
+        *ngFor="let infoItem of panelInfo$ | async"
+        [title]="t[infoItem.type]"
+        [expand]="expandAll"
+    >
+        <dsh-org-info *ngIf="infoItem.type === 'orgInfo'" [orgInfo]="infoItem.item"></dsh-org-info>
+        <dsh-legal-owner-info
+            *ngIf="infoItem.type === 'legalOwnerInfo'"
+            [legalOwnerInfo]="infoItem.item"
+        ></dsh-legal-owner-info>
+        <dsh-individual-entity-info
+            *ngIf="infoItem.type === 'individualEntityInfo'"
+            [individualEntity]="infoItem.item"
+        ></dsh-individual-entity-info>
+        <dsh-shop-info *ngIf="infoItem.type === 'shopInfo'" [shopInfo]="infoItem.item"></dsh-shop-info>
+        <dsh-bank-account-info
+            *ngIf="infoItem.type === 'bankAccountInfo'"
+            [bankAccount]="infoItem.item"
+        ></dsh-bank-account-info>
+        <dsh-contact-info *ngIf="infoItem.type === 'contactInfo'" [contactInfo]="infoItem.item"></dsh-contact-info>
+    </dsh-document-container-panel>
+</div>

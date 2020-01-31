@@ -1,0 +1,20 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.orgInfo'
+    "
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-details-item *ngIf="orgInfo?.name" [title]="t.nameInn">
+        {{ orgInfo?.name }} ({{ orgInfo?.inn }})
+    </dsh-details-item>
+    <dsh-details-item *ngIf="registrationAddress" [title]="t.registrationAddress">
+        {{ registrationAddress }}
+    </dsh-details-item>
+    <dsh-additional-info
+        *ngIf="orgInfo?.additionalInfo"
+        [additionalInfo]="orgInfo?.additionalInfo"
+    ></dsh-additional-info>
+</div>

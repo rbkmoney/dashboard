@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin mat-divider-override-theme($theme) {
+    $neutral: map-get($theme, neutral);
+
+    .mat-divider {
+        border-top-color: mat-color($neutral, 200) !important;
+    }
+}

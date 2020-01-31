@@ -13,11 +13,25 @@
         </dsh-timeline-item>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async">
             <dsh-timeline-item-title>
-                <b>{{ t.timeline.userInfo[item.userInfo.userType] }}</b>
-                {{ t.timeline.action[item.action] }}
-                <span *transloco="let root"
-                    >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
-                >
+                <div fxFlex fxLayout="row" fxLayoutAlign="space-between end">
+                    <div>
+                        <span class="mat-body-2">{{ t.timeline.userInfo[item.userInfo.userType] }}</span>
+                        {{ t.timeline.action[item.action] }}
+                        <span *transloco="let root"
+                            >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
+                        >
+                    </div>
+                    <mat-icon
+                        *ngIf="item.action === 'changesAdded'"
+                        class="title-action-icon"
+                        svgIcon="more_horiz"
+                        [matMenuTriggerFor]="menu"
+                    ></mat-icon>
+                </div>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="editDocument(item)">Изменить</button>
+                    <button mat-menu-item (click)="expandAll = !expandAll">Раскрыть / скрыть детали</button>
+                </mat-menu>
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge [color]="item.action | actionColor">
                 <mat-icon [svgIcon]="item.action | actionIcon"></mat-icon>
@@ -25,10 +39,11 @@
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
                 <div fxLayout="column" fxLayoutGap="10px">
                     <div *ngFor="let modification of item.modifications">
-                        <dsh-change-container
+                        <dsh-document-container
                             *ngIf="isDocumentModificationUnit(modification)"
+                            [expandAll]="expandAll"
                             [unit]="modification.claimModificationType"
-                        ></dsh-change-container>
+                        ></dsh-document-container>
                         <dsh-comment-container
                             *ngIf="isCommentModificationUnit(modification)"
                             [unit]="modification.claimModificationType"

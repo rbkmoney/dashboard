@@ -3,6 +3,7 @@
 @import '../overrides/mat-autocomplete-panel';
 @import '../overrides/mat-select-panel';
 @import '../overrides/mat-datepicker';
+@import '../overrides/mat-divider';
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
@@ -19,7 +20,7 @@
 @import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
-@import '../../app/timeline/timeline-theme';
+@import '../../app/layout/timeline/timeline-theme';
 @import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
@@ -38,6 +39,7 @@
         @include mat-autocomplete-panel-override-theme($theme);
         @include mat-select-panel-override-theme($theme);
         @include mat-datepicker-override-theme($theme);
+        @include mat-divider-override-theme($theme);
         @include dsh-container-theme($theme);
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
