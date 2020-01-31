@@ -8,7 +8,7 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
         case 'ClaimModification':
             return getClaimModificationTimelineAction((modification as ClaimModification).claimModificationType);
         case 'PartyModification':
-            return TimelineAction.changesAdded;
+            return null;
     }
 };
 
