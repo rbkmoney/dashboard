@@ -1,2 +1,1 @@
-
-export * from './document-container-panel.component'
+export * from './document-container-panel.component';
