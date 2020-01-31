@@ -1,17 +1,22 @@
 {
     "documentContainer": {
-        "shopInfoPanel": {
-            "title": "Сведения о магазине",
+        "panelNames": {
+            "orgInfo": "Сведения об организации",
+            "shopInfo": "Сведения о магазине",
+            "legalOwnerInfo": "Сведения о юридическом лице",
+            "individualEntityInfo": "Сведения о физическом лице",
+            "bankAccountInfo": "Банковские реквизиты для вывода денежных средств",
+            "contactInfo": "Контактная информация"
+        },
+        "orgInfo": {
+            "nameInn": "Наименование (ИНН)",
+            "registrationAddress": "Адрес регистрации"
+        },
+        "shopInfo": {
             "name": "Название",
             "url": "URL адрес"
         },
-        "bankAccountPanel": {
-            "title": "Банковские реквизиты для вывода денежных средств",
-            "bankInfo": "Наименование банка (БИК / Корр. счет)",
-            "account": "Расчетный счет"
-        },
-        "legalOwnerPanel": {
-            "title": "Сведения о юридическом лице",
+        "legalOwnerInfo": {
             "snils": "СНИЛС",
             "innfl": "ИННФЛ",
             "headPosition": "Должность",
@@ -20,28 +25,22 @@
             "pdlCategoryFlag": "Да",
             "pdlRelationDegree": "Степень родства ПДЛ"
         },
-        "individualEntityPanel": {
-            "title": "Сведения о физическом лице",
+        "individualEntityInfo": {
             "nameInn": "Наименование (ИНН)",
             "registrationPlace": "Адрес регистрации",
             "pdlCategory": "Принадлежность к категории ПДЛ",
             "pdlCategoryFlag": "Да",
             "pdlRelationDegree": "Степень родства ПДЛ"
         },
-        "orgInfoPanel": {
-            "title": "Сведения об организации",
-            "nameInn": "Наименование (ИНН)",
-            "registrationAddress": "Адрес регистрации"
+        "bankAccountInfo": {
+            "bankInfo": "Наименование банка (БИК / Корр. счет)",
+            "account": "Расчетный счет"
         },
         "contactInfo": {
-            "title": "Контактная информация",
             "email": "Email",
             "phoneNumber": "Телефон"
-        }
-    },
-    "subContainers": {
+        },
         "additionalInfo": {
-            "financialAndEconomicActivityTitle": "Хозяйственная деятельность",
             "staffCount": "Штатная численность организации",
             "accountantTypeLabel": "Бухгалтерский учет осуществляет",
             "accountantTypes": {
@@ -53,7 +52,6 @@
             "trueFlag": "Да",
             "hasBeneficiary": "Наличие выгодоприобретателя",
             "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве",
-            "planingOperationsTitle": "Планируемый объем операций",
             "monthOperationCountLabel": "Планируемое количество операций в месяц",
             "monthOperationCountTypes": {
                 "LtTen": "до 10",
@@ -67,7 +65,7 @@
                 "GtOneMillion": "свыше 1 000 000"
             }
         },
-        "authorityConfirmingDocument": {
+        "authorityConfirmingDocumentInfo": {
             "label": "Действует на основании",
             "documentTypes": {
                 "solePartyDecision": "Решение единственного участника",
@@ -75,13 +73,13 @@
                 "meetingOfParticipants": "Протокол общего собрания акционеров"
             }
         },
-        "identityDocument": {
+        "identityDocumentInfo": {
             "seriesNumber": "Серия и номер",
             "issuerCode": "Код подразделения",
             "issuer": "Кем выдан",
             "issuedAt": "Дата выдачи"
         },
-        "russianPrivateEntity": {
+        "russianPrivateEntityInfo": {
             "fio": "ФИО",
             "birthDate": "Дата рождения",
             "birthPlace": "Место рождения",

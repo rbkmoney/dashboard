@@ -11,17 +11,17 @@ import { DocumentContainerService } from './document-container.service';
 })
 export class DocumentContainerComponent implements OnChanges {
     @Input() unit: DocumentModificationUnit;
+    @Input() expandAll = false;
 
-    shopInfo$ = this.documentContainerService.shopInfo$;
-    bankAccount$ = this.documentContainerService.bankAccount$;
-    legalOwnerInfo$ = this.documentContainerService.legalOwnerInfo$;
-    individualEntity$ = this.documentContainerService.individualEntity$;
-    orgInfo$ = this.documentContainerService.orgInfo$;
-    contactInfo$ = this.documentContainerService.contactInfo$;
+    isLoading$ = this.documentContainerService.isLoading$;
+    error$ = this.documentContainerService.error$;
+    panelInfo$ = this.documentContainerService.panelInfo$;
 
     constructor(private documentContainerService: DocumentContainerService) {}
 
     ngOnChanges({ unit }: SimpleChanges) {
-        this.documentContainerService.unitChange(unit.currentValue);
+        if (unit && unit.currentValue) {
+            this.documentContainerService.unitChange(unit.currentValue);
+        }
     }
 }

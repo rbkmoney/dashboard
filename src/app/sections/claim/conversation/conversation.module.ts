@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { TimelineModule } from '../../../timeline';
 import { ConversationComponent } from './conversation.component';
 import { LayoutModule } from '../../../layout';
 import { ButtonModule } from '../../../button';
@@ -21,6 +20,7 @@ import {
 } from '../../claim-modification-containers';
 import { SendCommentComponent } from './send-comment';
 import { MessagesModule, FilesModule } from '../../../api';
+import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 
 @NgModule({
     imports: [
@@ -30,7 +30,6 @@ import { MessagesModule, FilesModule } from '../../../api';
         FlexLayoutModule,
         MatFormFieldModule,
         MatInputModule,
-        TimelineModule,
         MatIconModule,
         ExpandPanelModule,
         CommonModule,
@@ -41,7 +40,9 @@ import { MessagesModule, FilesModule } from '../../../api';
         ReactiveFormsModule,
         MessagesModule,
         FilesModule,
-        DocumentContainerModule
+        DocumentContainerModule,
+        MatMenuModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
 })

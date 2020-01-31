@@ -1,0 +1,13 @@
+<dsh-panel class="dsh-document-container-panel" color="primary">
+    <dsh-panel-header (click)="expand = !expand">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            {{ title }}
+            <dsh-panel-header-icon
+                [icon]="expand ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+            ></dsh-panel-header-icon>
+        </div>
+    </dsh-panel-header>
+    <dsh-panel-content *ngIf="expand">
+        <ng-content></ng-content>
+    </dsh-panel-content>
+</dsh-panel>

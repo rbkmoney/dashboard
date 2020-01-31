@@ -1,0 +1,16 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.shopInfo'
+    "
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-details-item *ngIf="shopInfo?.details?.name" [title]="t.name">
+        {{ shopInfo?.details?.name }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="shopInfo?.location?.url" [title]="t.url">
+        {{ shopInfo?.location?.url }}
+    </dsh-details-item>
+</div>

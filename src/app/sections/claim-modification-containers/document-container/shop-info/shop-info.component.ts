@@ -1,0 +1,12 @@
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+
+import { ShopInfo } from '../../../../api-codegen/questionary';
+
+@Component({
+    selector: 'dsh-shop-info',
+    templateUrl: 'shop-info.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ShopInfoComponent {
+    @Input() shopInfo: ShopInfo;
+}

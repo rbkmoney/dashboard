@@ -1,21 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, ReplaySubject, merge } from 'rxjs';
-import { switchMap, pluck, shareReplay, filter, map } from 'rxjs/operators';
-import isEmpty from 'lodash.isempty';
-import negate from 'lodash.negate';
+import { Subject, Observable, ReplaySubject } from 'rxjs';
+import { switchMap, pluck, shareReplay } from 'rxjs/operators';
 
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryService } from '../../../api';
-import {
-    QuestionaryData,
-    ShopInfo,
-    BankAccount,
-    LegalOwnerInfo,
-    RussianIndividualEntity,
-    RussianLegalEntity,
-    ContactInfo
-} from '../../../api-codegen/questionary';
-import { OrgInfo } from './panels';
+import { QuestionaryData } from '../../../api-codegen/questionary';
+import { booleanDelay, takeError } from '../../../custom-operators';
+import { toPanelInfo, PanelInfo } from './to-panel-info';
+import { shareReplayConf } from '../../../custom-operators';
 
 @Injectable()
 export class DocumentContainerService {
@@ -25,51 +17,25 @@ export class DocumentContainerService {
         pluck('documentId'),
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
         pluck('questionary', 'data'),
-        shareReplay(1)
+        shareReplay(shareReplayConf)
     );
 
-    private legalEntity$: Observable<RussianLegalEntity> = this.questionaryData$.pipe(
-        pluck('contractor', 'legalEntity'),
-        filter(negate(isEmpty))
+    panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(
+        toPanelInfo,
+        shareReplay(shareReplayConf)
     );
 
-    shopInfo$: Observable<ShopInfo> = this.questionaryData$.pipe(
-        pluck('shopInfo'),
-        filter(negate(isEmpty))
+    isLoading$: Observable<boolean> = this.questionaryData$.pipe(
+        booleanDelay(),
+        shareReplay(shareReplayConf)
     );
 
-    bankAccount$: Observable<BankAccount> = this.questionaryData$.pipe(
-        pluck('bankAccount'),
-        filter(negate(isEmpty))
+    error$: Observable<any> = this.questionaryData$.pipe(
+        takeError,
+        shareReplay(shareReplayConf)
     );
 
-    legalOwnerInfo$: Observable<LegalOwnerInfo> = this.legalEntity$.pipe(
-        pluck('legalOwnerInfo'),
-        filter(negate(isEmpty))
-    );
-
-    individualEntity$: Observable<RussianIndividualEntity> = this.questionaryData$.pipe(
-        pluck('contractor', 'individualEntity'),
-        filter(negate(isEmpty))
-    );
-
-    orgInfo$: Observable<OrgInfo> = merge(this.legalEntity$, this.individualEntity$).pipe(
-        map(({ additionalInfo, name, inn, registrationInfo }) => ({
-            additionalInfo,
-            name,
-            inn,
-            registrationInfo
-        }))
-    );
-
-    contactInfo$: Observable<ContactInfo> = this.questionaryData$.pipe(
-        pluck('contactInfo'),
-        filter(negate(isEmpty))
-    );
-
-    constructor(private questionaryService: QuestionaryService) {
-        this.unitChange$.subscribe();
-    }
+    constructor(private questionaryService: QuestionaryService) {}
 
     unitChange(unit: DocumentModificationUnit) {
         this.unitChange$.next(unit);

@@ -1,12 +1,35 @@
-<div fxLayout="column" fxLayoutGap="10px">
-    <dsh-org-info-panel *ngIf="orgInfo$ | async" [orgInfo]="orgInfo$ | async"></dsh-org-info-panel>
-    <dsh-legal-owner-panel
-        *ngIf="legalOwnerInfo$ | async"
-        [legalOwnerInfo]="legalOwnerInfo$ | async"
-    ></dsh-legal-owner-panel>
-    <dsh-individual-entity-panel *ngIf="individualEntity$ | async" [individualEntity]="individualEntity$ | async">
-    </dsh-individual-entity-panel>
-    <dsh-shop-info-panel *ngIf="shopInfo$ | async" [shopInfo]="shopInfo$ | async"></dsh-shop-info-panel>
-    <dsh-bank-account-panel *ngIf="bankAccount$ | async" [bankAccount]="bankAccount$ | async"></dsh-bank-account-panel>
-    <dsh-contact-info-panel *ngIf="contactInfo$ | async" [contactInfo]="contactInfo$ | async"></dsh-contact-info-panel>
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.panelNames'
+    "
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <ng-container *transloco="let common">
+        <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
+        <div *ngIf="error$ | async">{{ common.httpError }}</div>
+    </ng-container>
+    <dsh-document-container-panel
+        *ngFor="let infoItem of panelInfo$ | async"
+        [title]="t[infoItem.type]"
+        [expand]="expandAll"
+    >
+        <dsh-org-info *ngIf="infoItem.type === 'orgInfo'" [orgInfo]="infoItem.item"></dsh-org-info>
+        <dsh-legal-owner-info
+            *ngIf="infoItem.type === 'legalOwnerInfo'"
+            [legalOwnerInfo]="infoItem.item"
+        ></dsh-legal-owner-info>
+        <dsh-individual-entity-info
+            *ngIf="infoItem.type === 'individualEntityInfo'"
+            [individualEntity]="infoItem.item"
+        ></dsh-individual-entity-info>
+        <dsh-shop-info *ngIf="infoItem.type === 'shopInfo'" [shopInfo]="infoItem.item"></dsh-shop-info>
+        <dsh-bank-account-info
+            *ngIf="infoItem.type === 'bankAccountInfo'"
+            [bankAccount]="infoItem.item"
+        ></dsh-bank-account-info>
+        <dsh-contact-info *ngIf="infoItem.type === 'contactInfo'" [contactInfo]="infoItem.item"></dsh-contact-info>
+    </dsh-document-container-panel>
 </div>

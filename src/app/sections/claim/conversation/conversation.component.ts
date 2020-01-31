@@ -9,18 +9,22 @@ import {
     isFileModificationUnit
 } from '../../../api';
 import { ConversationID } from '../../../api-codegen/messages';
+import { TimelineItemInfo } from './to-timeline-info';
+import { EditDocumentService } from './edit-document.service';
 
 @Component({
     templateUrl: 'conversation.component.html',
     styleUrls: ['conversation.component.scss'],
-    providers: [ConversationService],
+    providers: [ConversationService, EditDocumentService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConversationComponent {
     timelineInfo$ = this.conversationService.timelineInfo$;
     claimCreatedAt$ = this.conversationService.claimCreatedAt$;
 
-    constructor(private conversationService: ConversationService) {}
+    expandAll = false;
+
+    constructor(private conversationService: ConversationService, private editDocumentService: EditDocumentService) {}
 
     isDocumentModificationUnit(m: Modification): boolean {
         return isClaimModification(m) && isDocumentModificationUnit(m.claimModificationType);
@@ -36,5 +40,9 @@ export class ConversationComponent {
 
     commentSaved(id: ConversationID) {
         this.conversationService.commentSaved(id);
+    }
+
+    editDocument(info: TimelineItemInfo) {
+        this.editDocumentService.goToOnboarding(info);
     }
 }
