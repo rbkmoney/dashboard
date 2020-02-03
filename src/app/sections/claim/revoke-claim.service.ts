@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { switchMap, filter, map } from 'rxjs/operators';
+import { switchMap, filter, map, first } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -25,7 +25,7 @@ export class RevokeClaimService {
     ) {
         this.revokeClaim$
             .pipe(
-                switchMap(() => this.routeParamClaimService.claim$),
+                switchMap(() => this.routeParamClaimService.claim$.pipe(first())),
                 switchMap(({ id, revision }) => this.openRevokeClaimDialog(id, revision))
             )
             .subscribe(() => {
