@@ -11,7 +11,7 @@
                 <mat-icon svgIcon="create"></mat-icon>
             </dsh-timeline-item-badge>
         </dsh-timeline-item>
-        <dsh-timeline-item *ngFor="let item of timelineInfo$ | async">
+        <dsh-timeline-item *ngFor="let item of timelineInfo$ | async; trackBy: simpleTrackBy">
             <dsh-timeline-item-title>
                 <div fxFlex fxLayout="row" fxLayoutAlign="space-between end">
                     <div>
@@ -38,7 +38,7 @@
             </dsh-timeline-item-badge>
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
                 <div fxLayout="column" fxLayoutGap="10px">
-                    <div *ngFor="let modification of item.modifications">
+                    <div *ngFor="let modification of item.modifications; trackBy: simpleTrackBy">
                         <dsh-document-container
                             *ngIf="isDocumentModificationUnit(modification)"
                             [expandAll]="expandAll"

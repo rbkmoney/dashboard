@@ -45,4 +45,8 @@ export class ConversationComponent {
     editDocument(info: TimelineItemInfo) {
         this.editDocumentService.goToOnboarding(info);
     }
+
+    simpleTrackBy(index: number): number {
+        return index;
+    }
 }
