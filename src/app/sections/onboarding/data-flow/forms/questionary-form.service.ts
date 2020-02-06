@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin, of } from 'rxjs';
 import { debounceTime, map, switchMap, first, shareReplay } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
@@ -27,14 +27,20 @@ export abstract class QuestionaryFormService {
 
     startFormValuePersistent(debounceMs = 300): Subscription {
         const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
-        return formValueChanges$.pipe(debounceTime(debounceMs)).subscribe(v => {
-            try {
-                const questionaryData = this.applyToQuestionaryData(this.questionaryStateService.questionaryData, v);
-                return this.questionaryStateService.add(questionaryData);
-            } catch (err) {
-                console.error(err);
-            }
-        });
+        const data$ = this.questionaryStateService.questionaryData$.pipe(first());
+        return formValueChanges$
+            .pipe(
+                debounceTime(debounceMs),
+                switchMap(v => forkJoin(of(v), data$))
+            )
+            .subscribe(([v, data]) => {
+                try {
+                    const questionaryData = this.applyToQuestionaryData(data, v);
+                    return this.questionaryStateService.add(questionaryData);
+                } catch (err) {
+                    console.error(err);
+                }
+            });
     }
 
     startFormValidityReporting(debounceMs = 300): Subscription {
