@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subject, of, Subscription, merge } from 'rxjs';
-import { filter, distinctUntilChanged, switchMap, pluck, catchError, first, tap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, pluck, catchError, first, tap, shareReplay, filter } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
 
 import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
@@ -14,15 +14,25 @@ export class QuestionaryStateService {
     private save$: Subject<void> = new Subject();
     private sub: Subscription = Subscription.EMPTY;
 
+    get questionaryData() {
+        return this.snapshot$.getValue().questionary.data;
+    }
+
     questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
         filter(v => v !== null),
         pluck('questionary', 'data'),
-        distinctUntilChanged(isEqual)
+        shareReplay(1)
     );
 
     isLoading$ = this.questionaryData$.pipe(booleanDelay());
 
     constructor(private questionaryService: QuestionaryService) {}
+
+    private update(nextSnapshot: Snapshot) {
+        if (!isEqual(this.snapshot$.getValue(), nextSnapshot)) {
+            this.snapshot$.next(nextSnapshot);
+        }
+    }
 
     subscribe() {
         const initSnapshot$ = this.initSnapshot$.pipe(
@@ -55,11 +65,11 @@ export class QuestionaryStateService {
     }
 
     add(data: QuestionaryData) {
-        const s = this.snapshot$.getValue();
-        this.snapshot$.next({
-            ...s,
+        const snapshot = this.snapshot$.getValue();
+        this.update({
+            ...snapshot,
             questionary: {
-                ...s.questionary,
+                ...snapshot.questionary,
                 data
             }
         });
