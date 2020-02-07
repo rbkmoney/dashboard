@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { switchMap, take, switchMapTo, filter } from 'rxjs/operators';
+import { switchMap, switchMapTo, filter, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -18,8 +18,9 @@ export class TestShopService {
     ) {
         this.initTestShop$
             .pipe(
-                take(1),
+                first(),
                 switchMapTo(this.shopService.shops$),
+                first(),
                 filter(shops => shops.length === 0),
                 switchMap(() => this.capiClaimsService.createTestShop())
             )
