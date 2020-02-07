@@ -9,10 +9,7 @@ import { createTestShopClaimChangeset } from './utils';
 
 @Injectable()
 export class ShopService {
-    shops$: Observable<Shop[]> = this.getShops().pipe(
-        switchMap(shops => this.prepareTestShop(shops)),
-        shareReplay(1)
-    );
+    shops$: Observable<Shop[]> = this.initShops().pipe(shareReplay(1));
 
     constructor(private shopsService: ShopsService, private capiClaimsService: CAPIClaimsService) {}
 
@@ -28,7 +25,11 @@ export class ShopService {
         return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 
-    private prepareTestShop(shops: Shop[]): Observable<Shop[]> {
-        return shops.length === 0 ? this.createTestShop().pipe(switchMap(() => this.getShops())) : of(shops);
+    private initShops(): Observable<Shop[]> {
+        return this.getShops().pipe(
+            switchMap(shops =>
+                shops.length === 0 ? this.createTestShop().pipe(switchMap(() => this.getShops())) : of(shops)
+            )
+        );
     }
 }
