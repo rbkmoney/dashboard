@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
 import { MatSelectChange } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 
 import { LAYOUT_GAP } from '../../../../../constants';
 
