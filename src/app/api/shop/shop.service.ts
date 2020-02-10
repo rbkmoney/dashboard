@@ -4,7 +4,7 @@ import { shareReplay, switchMap, startWith } from 'rxjs/operators';
 
 import { Shop, ShopsService } from '../../api-codegen/capi/swagger-codegen';
 import { genXRequestID } from '../utils';
-import { shareReplayConf } from '../../custom-operators';
+import { SHARE_REPLAY_CONF } from '../../custom-operators';
 
 @Injectable()
 export class ShopService {
@@ -13,7 +13,7 @@ export class ShopService {
     shops$: Observable<Shop[]> = this.reloadShops$.pipe(
         startWith(undefined),
         switchMap(() => this.getShops()),
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(private shopsService: ShopsService) {}

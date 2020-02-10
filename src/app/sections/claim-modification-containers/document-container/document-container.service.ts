@@ -7,7 +7,7 @@ import { QuestionaryService } from '../../../api';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { booleanDelay, takeError } from '../../../custom-operators';
 import { toPanelInfo, PanelInfo } from './to-panel-info';
-import { shareReplayConf } from '../../../custom-operators';
+import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 
 @Injectable()
 export class DocumentContainerService {
@@ -17,22 +17,22 @@ export class DocumentContainerService {
         pluck('documentId'),
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
         pluck('questionary', 'data'),
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(
         toPanelInfo,
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     isLoading$: Observable<boolean> = this.questionaryData$.pipe(
         booleanDelay(),
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     error$: Observable<any> = this.questionaryData$.pipe(
         takeError,
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(private questionaryService: QuestionaryService) {}
