@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subject, Observable, BehaviorSubject, of } from 'rxjs';
 import { switchMap, map, shareReplay, filter, pluck, catchError, tap } from 'rxjs/operators';

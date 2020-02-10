@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatDividerModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { DocumentContainerComponent } from './document-container.component';
 import { PanelModule } from '../../../layout/panel';

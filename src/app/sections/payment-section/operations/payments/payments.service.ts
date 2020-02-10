@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, combineLatest } from 'rxjs';
 import { switchMap, catchError, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';

@@ -9,7 +9,7 @@ import {
     MAT_MOMENT_DATE_FORMATS,
     MomentDateAdapter
 } from '@angular/material-moment-adapter';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 

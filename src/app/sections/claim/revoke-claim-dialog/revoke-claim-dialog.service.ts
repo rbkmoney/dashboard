@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, Observable, BehaviorSubject, of } from 'rxjs';
 import { switchMap, pluck, catchError, tap, filter } from 'rxjs/operators';
 import get from 'lodash.get';

@@ -1,4 +1,4 @@
-import { ErrorStateMatcher, CanUpdateErrorStateCtor, mixinErrorState } from '@angular/material';
+import { ErrorStateMatcher, CanUpdateErrorStateCtor, mixinErrorState } from '@angular/material/core';
 import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 
 export class InputBase {

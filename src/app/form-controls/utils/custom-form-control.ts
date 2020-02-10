@@ -1,5 +1,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { MatFormFieldControl, ErrorStateMatcher, MatAutocompleteOrigin } from '@angular/material';
+import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { ControlValueAccessor, FormControl, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';

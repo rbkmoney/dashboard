@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
 import { FormGroup } from '@angular/forms';
 
 import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';

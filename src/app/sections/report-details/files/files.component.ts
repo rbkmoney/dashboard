@@ -1,6 +1,6 @@
 import { Component, Input, Inject } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { FileMeta } from '../../../api-codegen/anapi/swagger-codegen';

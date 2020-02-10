@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ReportDetailsComponent } from './report-details.component';
 import { ReportRoutingModule } from './report-routing.module';

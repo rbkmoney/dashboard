@@ -1,6 +1,6 @@
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';

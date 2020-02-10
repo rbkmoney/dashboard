@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { PdlInfoService } from './pdl-info.service';
 import { LAYOUT_GAP } from '../../../../../constants';

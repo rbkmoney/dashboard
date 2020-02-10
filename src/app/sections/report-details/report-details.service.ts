@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { switchMap, first, shareReplay, map } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subject, Observable } from 'rxjs';
 

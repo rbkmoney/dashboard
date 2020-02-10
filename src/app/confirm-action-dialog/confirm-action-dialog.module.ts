@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
