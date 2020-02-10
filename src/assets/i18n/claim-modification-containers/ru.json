@@ -6,7 +6,8 @@
             "legalOwnerInfo": "Сведения о юридическом лице",
             "individualEntityInfo": "Сведения о физическом лице",
             "bankAccountInfo": "Банковские реквизиты для вывода денежных средств",
-            "contactInfo": "Контактная информация"
+            "contactInfo": "Контактная информация",
+            "beneficialOwnerInfo": "Бенефициарный владелец №{{num}}"
         },
         "orgInfo": {
             "nameInn": "Наименование (ИНН)",
@@ -84,6 +85,24 @@
             "birthDate": "Дата рождения",
             "birthPlace": "Место рождения",
             "residenceAddress": "Адрес места жительства (регистрации) или места пребывания"
+        },
+        "beneficialOwnerInfo": {
+            "ownershipPercentage": "Процент владения капиталом юридического лица",
+            "migrationCardNumber": "Номер миграционной карты",
+            "migrationBeginningDate": "Дата начала срока пребывания в РФ",
+            "migrationExpirationDate": "Дата окончания срока пребывания в РФ",
+            "residenceApproveName": "Документ, подтверждающего право иностранного гражданина или лица без гражданства на пребывание (проживание) в РФ",
+            "residenceApproveSeries": "Серия",
+            "residenceApproveNumber": "Номер",
+            "residenceApproveBeginningDate": "Дата начала срока действия",
+            "residenceApproveExpirationDate": "Дата окончания срока действия",
+            "inn": "ИНН",
+            "snils": "СНИЛС",
+            "pdlCategory": "Принадлежность к категории ПДЛ",
+            "pdlRelationDegree": "Степень родства ПДЛ",
+            "usaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?",
+            "exceptUsaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?",
+            "trueFlag": "Да"
         }
     },
     "download": {
