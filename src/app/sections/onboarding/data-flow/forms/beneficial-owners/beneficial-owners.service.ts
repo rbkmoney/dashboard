@@ -53,8 +53,9 @@ export class BeneficialOwnersService extends QuestionaryFormService {
 
     removeOwner(index: number) {
         const beneficialOwners = this.form.controls.beneficialOwners as FormArray;
-        if (beneficialOwners.length > 1) {
-            beneficialOwners.removeAt(index);
+        beneficialOwners.removeAt(index);
+        if (beneficialOwners.length === 0) {
+            this.noOwnersChange(true);
         }
     }
 
