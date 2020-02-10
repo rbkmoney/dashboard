@@ -22,7 +22,7 @@ import { SettingsModule } from '../../settings';
     `
 })
 class SimpleFloatPanelComponent {
-    @ViewChild('floatPanel', { static: false }) floatPanel: FloatPanelComponent;
+    @ViewChild('floatPanel') floatPanel: FloatPanelComponent;
     pinned = true;
     expanded = true;
 }

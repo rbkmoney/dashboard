@@ -10,7 +10,7 @@ import { DropdownTriggerDirective } from '../../../../../dropdown';
 })
 export class ActionsComponent {
     @Input() report: Report;
-    @ViewChild(DropdownTriggerDirective, { static: false }) trigger: DropdownTriggerDirective;
+    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
     constructor(private router: Router) {}
 

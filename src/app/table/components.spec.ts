@@ -85,7 +85,7 @@ class FakeDataSource extends DataSource<TestData> {
     `
 })
 export class DshTableAppComponent {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -116,7 +116,7 @@ export class DshTableAppComponent {
     `
 })
 export class NativeHtmlTableAppComponent {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource: FakeDataSource | null = new FakeDataSource();
     columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -136,7 +136,7 @@ export class NativeHtmlTableAppComponent {
     `
 })
 export class StickyTableAppComponent {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     dataSource = new FakeDataSource();
     columnsToRender = ['column_a'];
@@ -164,7 +164,7 @@ export class StickyTableAppComponent {
     `
 })
 export class DshTableWithWhenRowAppComponent {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
 
     multiTemplateDataRows = false;
     dataSource: FakeDataSource | null = new FakeDataSource();
@@ -201,8 +201,8 @@ export class DshTableWithWhenRowAppComponent {
     `
 })
 export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();
     dataSource = new MatTableDataSource<TestData>();
@@ -253,8 +253,8 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
     `
 })
 export class DshTableWithPaginatorAppComponent implements OnInit {
-    @ViewChild(TableComponent, { static: false }) table: TableComponent<TestData>;
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild(TableComponent) table: TableComponent<TestData>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     underlyingDataSource = new FakeDataSource();
     dataSource = new MatTableDataSource<TestData>();

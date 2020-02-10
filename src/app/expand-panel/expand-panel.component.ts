@@ -27,7 +27,7 @@ export class ExpandPanelComponent {
         return !!this.expandPanelContentComponent;
     }
 
-    @ContentChild(ExpandPanelContentComponent, { static: false })
+    @ContentChild(ExpandPanelContentComponent)
     expandPanelContentComponent: ExpandPanelContentComponent;
 
     toggle() {

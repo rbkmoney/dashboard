@@ -59,7 +59,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
     @Output() readonly _onCentered: EventEmitter<void> = new EventEmitter<void>(true);
 
-    @ViewChild(PortalHostDirective, { static: false }) _portalHost: PortalHostDirective;
+    @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
 
     @Input() content: TemplatePortal;
 
