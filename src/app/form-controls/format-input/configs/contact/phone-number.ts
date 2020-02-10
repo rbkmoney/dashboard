@@ -5,6 +5,7 @@ import { ValidatorFn } from '@angular/forms';
 import { FormatInputConfig } from '../format-input-config';
 
 const DIGIT_REG_EXP = /\d/;
+const PREFIX = '+7 ';
 
 const parsePhoneNumber = (text: string) => {
     return parsePhoneNumberFromString(text, 'RU');
@@ -23,7 +24,9 @@ const formatPhoneNumber = (text: string) => {
 
 export const phoneNumberMask: TextMaskConfig = {
     mask: rawValue => {
-        const phoneNumber = formatPhoneNumber(rawValue);
+        const value = PREFIX + rawValue;
+        const phoneNumber = formatPhoneNumber(value);
+        console.log(value);
         const phoneNumberParts: string[] = phoneNumber.split('');
         const mask: Array<RegExp | string> = [];
         for (const num of phoneNumberParts) {
@@ -36,7 +39,7 @@ export const phoneNumberMask: TextMaskConfig = {
             }
         }
         mask.push(DIGIT_REG_EXP);
-        return mask;
+        return mask.slice(PREFIX.length);
     },
     guide: false
 };
@@ -52,5 +55,7 @@ export const phoneNumberValidator: ValidatorFn = control => {
 };
 
 export const phoneNumberConfig: FormatInputConfig = {
-    mask: phoneNumberMask
+    mask: phoneNumberMask,
+    prefix: PREFIX,
+    placeholder: '*** *** ** **'
 };
