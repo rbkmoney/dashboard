@@ -31,15 +31,9 @@ export class StepFlowService {
         shareReplay(1)
     );
 
-    hasNextStep$: Observable<boolean> = this.activeStep$.pipe(
-        mapToHasNext(this.stepFlow$),
-        shareReplay(1)
-    );
+    hasNextStep$: Observable<boolean> = this.activeStep$.pipe(mapToHasNext(this.stepFlow$), shareReplay(1));
 
-    hasPreviousStep$: Observable<boolean> = this.activeStep$.pipe(
-        mapToHasPrevious(this.stepFlow$),
-        shareReplay(1)
-    );
+    hasPreviousStep$: Observable<boolean> = this.activeStep$.pipe(mapToHasPrevious(this.stepFlow$), shareReplay(1));
 
     constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {}
 

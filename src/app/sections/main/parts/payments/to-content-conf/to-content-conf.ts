@@ -27,15 +27,8 @@ const initialConf = {
 };
 
 export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Claim[]>): Observable<ContentConfig> => {
-    const hasRealEnv$ = shops.pipe(
-        filterBattleShops,
-        map(negate(isEmpty)),
-        shareReplay(1)
-    );
-    const targetClaim$ = claims.pipe(
-        mapToTargetClaim,
-        shareReplay(1)
-    );
+    const hasRealEnv$ = shops.pipe(filterBattleShops, map(negate(isEmpty)), shareReplay(1));
+    const targetClaim$ = claims.pipe(mapToTargetClaim, shareReplay(1));
     const actionBtnContent$ = hasRealEnv$.pipe(mapToActionBtnContent(targetClaim$));
     const subheading$ = hasRealEnv$.pipe(mapToSubheading(targetClaim$));
     const testEnvBtnContent$ = shops.pipe(

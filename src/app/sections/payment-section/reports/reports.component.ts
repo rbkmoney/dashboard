@@ -16,15 +16,9 @@ import { CreateReportDialogComponent } from './create-report-dialog';
 })
 export class ReportsComponent {
     reports$ = this.reportsService.searchResult$;
-    isLoading$ = this.reportsService.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$ = this.reportsService.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     hasMore$ = this.reportsService.hasMore$;
-    lastUpdated$ = this.reportsService.searchResult$.pipe(
-        mapToTimestamp,
-        shareReplay(1)
-    );
+    lastUpdated$ = this.reportsService.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 
     constructor(
         private reportsService: ReportsService,

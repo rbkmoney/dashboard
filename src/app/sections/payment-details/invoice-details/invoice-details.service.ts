@@ -17,10 +17,7 @@ export class InvoiceDetailsService {
         switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 1, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
-    invoiceError$: Observable<any> = this.invoice$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 
     constructor(
         private invoiceSearchService: InvoiceSearchService,

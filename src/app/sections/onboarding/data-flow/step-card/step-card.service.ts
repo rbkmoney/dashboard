@@ -19,10 +19,7 @@ export class StepCardService {
     stepNavInfo$: Observable<StepNavInfo[]> = combineLatest([
         this.validityService.validitySteps$,
         this.stepFlowService.activeStep$
-    ]).pipe(
-        toStepNavInfo,
-        shareReplay(1)
-    );
+    ]).pipe(toStepNavInfo, shareReplay(1));
 
     constructor(
         private stepFlowService: StepFlowService,

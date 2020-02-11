@@ -18,15 +18,9 @@ export class CommentContainerService {
         shareReplay(1)
     );
 
-    isLoading$ = this.comment$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.comment$.pipe(booleanDelay(), shareReplay(1));
 
-    error$ = this.comment$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    error$ = this.comment$.pipe(takeError, shareReplay(1));
 
     constructor(private messageService: MessagesService) {
         this.comment$.subscribe();

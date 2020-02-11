@@ -28,10 +28,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         })
     );
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(
         private route: ActivatedRoute,

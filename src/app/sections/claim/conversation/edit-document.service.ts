@@ -13,10 +13,7 @@ export class EditDocumentService {
     private goToOnboarding$: Subject<Modification[]> = new Subject();
 
     constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog) {
-        const claimId$ = this.route.params.pipe(
-            pluck('claimId'),
-            first()
-        );
+        const claimId$ = this.route.params.pipe(pluck('claimId'), first());
         this.goToOnboarding$
             .pipe(
                 filter(m => m.length === 1),

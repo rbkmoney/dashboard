@@ -20,20 +20,11 @@ export class DocumentContainerService {
         shareReplay(shareReplayConf)
     );
 
-    panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(
-        toPanelInfo,
-        shareReplay(shareReplayConf)
-    );
+    panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(toPanelInfo, shareReplay(shareReplayConf));
 
-    isLoading$: Observable<boolean> = this.questionaryData$.pipe(
-        booleanDelay(),
-        shareReplay(shareReplayConf)
-    );
+    isLoading$: Observable<boolean> = this.questionaryData$.pipe(booleanDelay(), shareReplay(shareReplayConf));
 
-    error$: Observable<any> = this.questionaryData$.pipe(
-        takeError,
-        shareReplay(shareReplayConf)
-    );
+    error$: Observable<any> = this.questionaryData$.pipe(takeError, shareReplay(shareReplayConf));
 
     constructor(private questionaryService: QuestionaryService) {}
 

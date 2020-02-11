@@ -33,10 +33,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(
         private route: ActivatedRoute,

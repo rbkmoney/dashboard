@@ -29,20 +29,14 @@ export abstract class PartialFetcher<R, P> {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
 
-        this.searchResult$ = fetchResult$.pipe(
-            pluck('result'),
-            shareReplay(1)
-        );
+        this.searchResult$ = fetchResult$.pipe(pluck('result'), shareReplay(1));
         this.hasMore$ = fetchResult$.pipe(
             map(({ continuationToken }) => !!continuationToken),
             startWith(false),
             distinctUntilChanged(),
             shareReplay(1)
         );
-        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(
-            distinctUntilChanged(),
-            shareReplay(1)
-        );
+        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(distinctUntilChanged(), shareReplay(1));
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : EMPTY)),
             tap(error => console.error('Partial fetcher error: ', error)),
@@ -67,18 +61,11 @@ export abstract class PartialFetcher<R, P> {
     protected abstract fetch(...args: Parameters<FetchFn<P, R>>): ReturnType<FetchFn<P, R>>;
 
     private getActionWithParams(debounceActionTime: number): Observable<FetchAction<P>> {
-        return this.action$.pipe(
-            scanAction,
-            debounceActionTime ? debounceTime(debounceActionTime) : tap(),
-            share()
-        );
+        return this.action$.pipe(scanAction, debounceActionTime ? debounceTime(debounceActionTime) : tap(), share());
     }
 
     private getFetchResult(actionWithParams$: Observable<FetchAction<P>>): Observable<FetchResult<R>> {
         const fetchFn = this.fetch.bind(this) as FetchFn<P, R>;
-        return actionWithParams$.pipe(
-            scanFetchResult(fetchFn),
-            shareReplay(1)
-        );
+        return actionWithParams$.pipe(scanFetchResult(fetchFn), shareReplay(1));
     }
 }

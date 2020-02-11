@@ -21,10 +21,7 @@ export class InvoiceDetailsService {
         booleanDelay(500),
         map(r => !r)
     );
-    invoiceError$: Observable<any> = this.invoice$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 
     constructor(
         private invoiceSearchService: InvoiceSearchService,
