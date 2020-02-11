@@ -1,0 +1,53 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.beneficialOwnerInfo'
+    "
+    fxLayout="column"
+    fxLayoutGap="10px"
+>
+    <dsh-details-item [title]="t.ownershipPercentage">
+        {{ beneficialOwner?.ownershipPercentage }}
+    </dsh-details-item>
+
+    <mat-divider></mat-divider>
+
+    <dsh-russian-private-entity-info
+        [russianPrivateEntity]="beneficialOwner?.russianPrivateEntity"
+    ></dsh-russian-private-entity-info>
+
+    <mat-divider></mat-divider>
+
+    <dsh-identity-document-info [identityDocument]="beneficialOwner?.identityDocument"></dsh-identity-document-info>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutGap="10px">
+        <dsh-details-item [title]="t.inn" fxFlex *ngIf="beneficialOwner?.inn">
+            {{ beneficialOwner?.inn }}
+        </dsh-details-item>
+        <dsh-details-item [title]="t.snils" fxFlex *ngIf="beneficialOwner?.snils">
+            {{ beneficialOwner?.snils }}
+        </dsh-details-item>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout *ngIf="beneficialOwner?.pdlCategory" fxLayoutGap="10px">
+        <dsh-details-item fxFlex [title]="t.pdlCategory">
+            {{ beneficialOwner?.pdlCategory | yesNo }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex *ngIf="beneficialOwner?.pdlRelationDegree" [title]="t.pdlRelationDegree">
+            {{ beneficialOwner?.pdlRelationDegree }}
+        </dsh-details-item>
+    </div>
+    <div fxLayout fxLayoutGap="10px">
+        <dsh-details-item [title]="t.usaTaxResident" fxFlex *ngIf="residencyInfo?.usaTaxResident | yesNo">
+            {{ residencyInfo?.usaTaxResident | yesNo }}
+        </dsh-details-item>
+        <dsh-details-item [title]="t.exceptUsaTaxResident" fxFlex *ngIf="residencyInfo?.exceptUsaTaxResident | yesNo">
+            {{ residencyInfo?.exceptUsaTaxResident | yesNo }}
+        </dsh-details-item>
+    </div>
+</div>

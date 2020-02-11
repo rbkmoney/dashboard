@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, ReplaySubject } from 'rxjs';
-import { switchMap, pluck, shareReplay } from 'rxjs/operators';
+import { switchMap, pluck, shareReplay, map } from 'rxjs/operators';
 
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
-import { QuestionaryService } from '../../../api';
+import {
+    QuestionaryService,
+    isRussianIndividualEntityQuestionary,
+    isRussianLegalEntityQuestionary
+} from '../../../api';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { booleanDelay, takeError } from '../../../custom-operators';
 import { toPanelInfo, PanelInfo } from './to-panel-info';
@@ -12,12 +16,25 @@ import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 @Injectable()
 export class DocumentContainerService {
     private unitChange$: Subject<DocumentModificationUnit> = new ReplaySubject(1);
-
-    private questionaryData$: Observable<QuestionaryData> = this.unitChange$.pipe(
+    private questionary$ = this.unitChange$.pipe(
         pluck('documentId'),
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
+        shareReplay(shareReplayConf)
+    );
+    private questionaryData$: Observable<QuestionaryData> = this.questionary$.pipe(
         pluck('questionary', 'data'),
         shareReplay(SHARE_REPLAY_CONF)
+    );
+
+    beneficialOwners$ = this.questionary$.pipe(
+        map(({ questionary }) =>
+            isRussianIndividualEntityQuestionary(questionary)
+                ? questionary.data.contractor.individualEntity.beneficialOwners
+                : isRussianLegalEntityQuestionary(questionary)
+                ? questionary.data.contractor.legalEntity.beneficialOwner
+                : null
+        ),
+        shareReplay(shareReplayConf)
     );
 
     panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(

@@ -7,10 +7,10 @@
     <div class="mat-body-2">{{ t.pdlCategoryDescription }}</div>
     <section class="checkbox-section" fxLayout="column" [fxLayoutGap]="layoutGap">
         <mat-checkbox formControlName="pdlCategory">{{ t.pdlCategory }}</mat-checkbox>
-        <mat-checkbox [checked]="isPdlRelationDegreeVisible$ | async" (change)="pdlRelationDegreeChange($event)">{{
+        <mat-checkbox [checked]="isPdlRelationDegreeVisible" (change)="pdlRelationDegreeChange($event)">{{
             t.pdlRelationDegreeCheckbox
         }}</mat-checkbox>
-        <mat-form-field *ngIf="isPdlRelationDegreeVisible$ | async" fxFlex>
+        <mat-form-field *ngIf="isPdlRelationDegreeVisible" fxFlex>
             <mat-label>{{ t.pdlRelationDegree }}</mat-label>
             <input matInput formControlName="pdlRelationDegree" />
         </mat-form-field>

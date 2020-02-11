@@ -6,7 +6,13 @@
 >
     <label class="mat-caption beneficial-owner-description">{{ t.beneficialOwnerDescription }}</label>
     <section class="checkbox-section">
-        <mat-checkbox formControlName="noOwners" (change)="noOwnersChange($event)">{{ t.noOwners }}</mat-checkbox>
+        <mat-checkbox
+            [checked]="!(isBeneficialOwnersVisible$ | async)"
+            formControlName="noOwners"
+            (change)="noOwnersChange($event)"
+        >
+            {{ t.noOwners }}
+        </mat-checkbox>
     </section>
     <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
         <div
@@ -33,7 +39,7 @@
                     [form]="beneficialOwner.get('individualResidencyInfo')"
                 ></dsh-individual-residency-info>
             </section>
-            <div class="beneficial-owner-actions" *ngIf="i !== 0" fxLayout="row" fxLayoutAlign="end">
+            <div class="beneficial-owner-actions" fxLayout="row" fxLayoutAlign="end">
                 <button dsh-stroked-button color="warn" (click)="removeOwner(i)">
                     {{ t.removeOwner }}
                 </button>

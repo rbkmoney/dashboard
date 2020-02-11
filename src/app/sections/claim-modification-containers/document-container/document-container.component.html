@@ -32,4 +32,10 @@
         ></dsh-bank-account-info>
         <dsh-contact-info *ngIf="infoItem.type === 'contactInfo'" [contactInfo]="infoItem.item"></dsh-contact-info>
     </dsh-document-container-panel>
+    <dsh-document-container-panel
+        *ngFor="let beneficialOwner of beneficialOwners$ | async; index as i"
+        [title]="t.beneficialOwnerInfo | translocoParams: { num: i + 1 }"
+    >
+        <dsh-beneficial-owner-info [beneficialOwner]="beneficialOwner"></dsh-beneficial-owner-info>
+    </dsh-document-container-panel>
 </div>
