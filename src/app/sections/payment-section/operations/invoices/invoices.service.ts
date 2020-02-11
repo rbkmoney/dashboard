@@ -22,10 +22,10 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest(
+    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
         this.searchResult$,
         this.shopService.shops$
-    ).pipe(
+    ]).pipe(
         mapToInvoicesTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');

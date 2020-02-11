@@ -26,7 +26,7 @@ export class ValidityService {
             mapToInitialValiditySteps,
             first()
         );
-        this.sub = combineLatest(this.setUpValidity$, initialSteps$)
+        this.sub = combineLatest([this.setUpValidity$, initialSteps$])
             .pipe(
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(

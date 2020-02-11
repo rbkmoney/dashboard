@@ -9,5 +9,5 @@ export const mapToTargetClaim = (s: Observable<Claim[]>): Observable<Claim> => {
     const questionaryClaims = s.pipe(filterQuestionaryClaims);
     const pendingClaims = questionaryClaims.pipe(filterByProp('status', ClaimStatus.Pending));
     const reviewClaims = questionaryClaims.pipe(filterByProp('status', ClaimStatus.Review));
-    return combineLatest(pendingClaims, reviewClaims).pipe(takeClaimByPriority);
+    return combineLatest([pendingClaims, reviewClaims]).pipe(takeClaimByPriority);
 };

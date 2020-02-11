@@ -48,6 +48,9 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     get selectedIndex(): number | null {
         return this._selectedIndex;
     }
+    set selectedIndex(value: number | null) {
+        this._indexToSelect = value;
+    }
 
     @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
@@ -60,10 +63,6 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
     @ViewChild('tabHeader', { static: true }) _tabHeader: DshTabHeaderComponent;
 
     animationDuration = '500ms';
-
-    set selectedIndex(value: number | null) {
-        this._indexToSelect = value;
-    }
 
     private _indexToSelect: number | null = 0;
 

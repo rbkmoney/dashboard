@@ -12,11 +12,11 @@ import { applyToIdentityDocument } from '../subforms';
 
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
-    { type, date, number }: FormValue
+    { type, date, number: num }: FormValue
 ): AuthorityConfirmingDocument => ({
     ...authorityConfirmingDocument,
     type,
-    number,
+    number: num,
     date
 });
 

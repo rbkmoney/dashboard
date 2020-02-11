@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -19,8 +19,8 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(this.searchResult$).pipe(
-        map(([searchResult]) => searchResult),
+    claimsTableData$: Observable<ClaimsTableData[]> = this.searchResult$.pipe(
+        map(searchResult => searchResult),
         mapToClaimsTableData
     );
 

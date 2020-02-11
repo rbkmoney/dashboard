@@ -11,7 +11,9 @@ describe('ConfigService', () => {
             providers: [ConfigService]
         });
         const injector = getTestBed();
+        // tslint:disable-next-line: deprecation
         const service: ConfigService = injector.get(ConfigService);
+        // tslint:disable-next-line: deprecation
         const httpMock: HttpTestingController = injector.get(HttpTestingController);
         return { injector, service, httpMock };
     }

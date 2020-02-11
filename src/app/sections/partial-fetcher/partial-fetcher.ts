@@ -1,4 +1,4 @@
-import { Observable, Subject, of, empty, merge } from 'rxjs';
+import { Observable, Subject, of, merge, EMPTY } from 'rxjs';
 import {
     map,
     shareReplay,
@@ -44,7 +44,7 @@ export abstract class PartialFetcher<R, P> {
             shareReplay(1)
         );
         this.errors$ = fetchResult$.pipe(
-            switchMap(({ error }) => (error ? of(error) : empty())),
+            switchMap(({ error }) => (error ? of(error) : EMPTY)),
             tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );

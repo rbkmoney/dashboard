@@ -16,10 +16,10 @@ export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
     private finishFormFlow$: Subject<void> = new Subject();
 
-    stepNavInfo$: Observable<StepNavInfo[]> = combineLatest(
+    stepNavInfo$: Observable<StepNavInfo[]> = combineLatest([
         this.validityService.validitySteps$,
         this.stepFlowService.activeStep$
-    ).pipe(
+    ]).pipe(
         toStepNavInfo,
         shareReplay(1)
     );

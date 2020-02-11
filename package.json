@@ -102,7 +102,8 @@
     "prettier": "~1.18.2",
     "protractor": "~5.4.2",
     "ts-node": "~7.0.0",
-    "tslint": "~5.16.0",
+    "tslint": "~6.0.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.7.5",
     "vsc-base": "^0.8.24"
   }

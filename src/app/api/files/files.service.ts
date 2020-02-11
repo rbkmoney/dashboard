@@ -16,7 +16,7 @@ export class FilesService {
             files.map(file =>
                 this.getUploadLink().pipe(
                     switchMap(uploadData =>
-                        forkJoin(of(uploadData.fileId), this.uploadFileToUrl(file, uploadData.url))
+                        forkJoin([of(uploadData.fileId), this.uploadFileToUrl(file, uploadData.url)])
                     ),
                     map(([fileId]) => fileId)
                 )

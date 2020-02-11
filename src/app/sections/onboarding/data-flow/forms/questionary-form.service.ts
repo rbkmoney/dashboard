@@ -31,7 +31,7 @@ export abstract class QuestionaryFormService {
         return formValueChanges$
             .pipe(
                 debounceTime(debounceMs),
-                switchMap(v => forkJoin(of(v), data$))
+                switchMap(v => forkJoin([of(v), data$]))
             )
             .subscribe(([v, data]) => {
                 try {

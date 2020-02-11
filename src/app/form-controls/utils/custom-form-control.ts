@@ -23,6 +23,7 @@ import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
+// tslint:disable-next-line: no-conflicting-lifecycle
 export class CustomFormControl<T extends any = string> extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */

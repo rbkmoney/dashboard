@@ -21,7 +21,7 @@ export class EditDocumentService {
             .pipe(
                 filter(m => m.length === 1),
                 pluck('0', 'claimModificationType', 'documentId'),
-                switchMap(documentId => forkJoin(of(documentId), claimId$)),
+                switchMap(documentId => forkJoin([of(documentId), claimId$])),
                 map(([documentId, claimId]) => [
                     'onboarding',
                     'claim',
@@ -32,13 +32,13 @@ export class EditDocumentService {
                     'basic-info'
                 ]),
                 switchMap(navigationCommands =>
-                    forkJoin(
+                    forkJoin([
                         of(navigationCommands),
                         this.dialog
                             .open(ConfirmActionDialogComponent)
                             .afterClosed()
                             .pipe(filter(r => r === 'confirm'))
-                    )
+                    ])
                 )
             )
             .subscribe(([commands]) => this.router.navigate(commands));

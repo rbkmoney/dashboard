@@ -51,7 +51,7 @@ export class CompanySearchService {
         const initialDocumentID = uuid();
         const changeset = [createDocumentModificationUnit(initialDocumentID)];
         return this.questionaryService.saveQuestionary(initialDocumentID, data).pipe(
-            switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
+            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');

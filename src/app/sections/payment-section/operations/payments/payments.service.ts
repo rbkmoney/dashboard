@@ -22,10 +22,10 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest(
+    paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest([
         this.searchResult$,
         this.shopService.shops$
-    ).pipe(
+    ]).pipe(
         mapToPaymentsTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');

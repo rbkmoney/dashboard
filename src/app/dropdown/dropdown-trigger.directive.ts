@@ -86,9 +86,10 @@ export class DropdownTriggerDirective implements OnDestroy {
     }
 
     private removeWindowListeners() {
-        let unlisten: () => void;
-        while ((unlisten = this.removeWindowListenersFns.pop())) {
+        let unlisten = this.removeWindowListenersFns.pop();
+        while (unlisten) {
             unlisten();
+            unlisten = this.removeWindowListenersFns.pop();
         }
     }
 
@@ -173,6 +174,7 @@ export class DropdownTriggerDirective implements OnDestroy {
     };
 
     private keypressHandler = (event: KeyboardEvent) => {
+        // tslint:disable-next-line: deprecation
         switch (event.keyCode) {
             case Key.Escape:
                 this.conditionalClose();
