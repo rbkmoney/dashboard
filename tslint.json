@@ -1,8 +1,8 @@
 {
     "extends": ["./tslint.angular.json", "tslint-config-prettier"],
     "rules": {
-        "directive-selector": [true, "attribute", "src", "camelCase"],
-        "component-selector": [true, "element", "src", "kebab-case"],
+        "directive-selector": [true, ["attribute", "element"], "dsh", ["camelCase", "kebab-case"]],
+        "component-selector": [true, ["attribute", "element"], "dsh", "kebab-case"],
         "template-no-negated-async": false,
         "import-blacklist": [true, "rxjs/Rx", "lodash", "lodash-es"],
         "no-unused-variable": [true, { "ignore-pattern": "^_" }],
