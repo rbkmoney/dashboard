@@ -8,7 +8,7 @@ import { CAPIClaimsService, ShopService } from './api';
 
 @Injectable()
 export class TestShopService {
-    private initTestShop$ = new Subject();
+    private createTestShopWhenNoShops$ = new Subject();
 
     constructor(
         private capiClaimsService: CAPIClaimsService,
@@ -16,7 +16,7 @@ export class TestShopService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.initTestShop$
+        this.createTestShopWhenNoShops$
             .pipe(
                 first(),
                 switchMapTo(this.shopService.shops$),
@@ -34,7 +34,7 @@ export class TestShopService {
             );
     }
 
-    initTestShop(): void {
-        this.initTestShop$.next();
+    createTestShopWhenNoShops(): void {
+        this.createTestShopWhenNoShops$.next();
     }
 }

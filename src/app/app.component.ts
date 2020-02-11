@@ -9,6 +9,6 @@ import { TestShopService } from './test-shop.service';
 })
 export class AppComponent {
     constructor(testShopService: TestShopService) {
-        testShopService.initTestShop();
+        testShopService.createTestShopWhenNoShops();
     }
 }

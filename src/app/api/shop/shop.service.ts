@@ -18,7 +18,7 @@ export class ShopService {
 
     constructor(private shopsService: ShopsService) {}
 
-    getShops(): Observable<Shop[]> {
+    private getShops(): Observable<Shop[]> {
         return this.shopsService.getShops(genXRequestID());
     }
 
