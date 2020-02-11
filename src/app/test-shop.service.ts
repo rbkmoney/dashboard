@@ -4,7 +4,7 @@ import { switchMap, switchMapTo, filter, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { CAPIClaimsService, ShopService } from './api';
+import { CAPIClaimsService, ShopService, createTestShopClaimChangeset } from './api';
 
 @Injectable()
 export class TestShopService {
@@ -22,7 +22,7 @@ export class TestShopService {
                 switchMapTo(this.shopService.shops$),
                 first(),
                 filter(shops => shops.length === 0),
-                switchMap(() => this.capiClaimsService.createTestShop())
+                switchMap(() => this.createTestShop())
             )
             .subscribe(
                 () => {
@@ -32,6 +32,10 @@ export class TestShopService {
                     this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 }
             );
+    }
+
+    private createTestShop() {
+        return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 
     createTestShopWhenNoShops(): void {
