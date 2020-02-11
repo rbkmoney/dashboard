@@ -16,6 +16,7 @@ export class DocumentContainerComponent implements OnChanges {
     isLoading$ = this.documentContainerService.isLoading$;
     error$ = this.documentContainerService.error$;
     panelInfo$ = this.documentContainerService.panelInfo$;
+    beneficialOwners$ = this.documentContainerService.beneficialOwners$;
 
     constructor(private documentContainerService: DocumentContainerService) {}
 

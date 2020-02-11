@@ -1,5 +1,6 @@
 :host {
     display: flex;
+    align-items: baseline;
 }
 
 .dsh-format-input-element {
@@ -9,6 +10,8 @@
     outline: none;
     font: inherit;
     width: auto;
+    transition: opacity 200ms;
+    opacity: 0;
 }
 
 .dsh-format-input-element-full-size {
@@ -22,5 +25,9 @@
 }
 
 :host.floating .dsh-format-input-spacer {
+    opacity: 1;
+}
+
+:host.floating .dsh-format-input-element {
     opacity: 1;
 }

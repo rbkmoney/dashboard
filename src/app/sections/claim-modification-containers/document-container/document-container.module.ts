@@ -19,6 +19,8 @@ import { AdditionalInfoComponent } from './additional-info';
 import { AuthorityConfirmingDocumentInfoComponent } from './authority-confirming-document-info';
 import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { RussianPrivateEntityInfoComponent } from './russian-private-entity-info';
+import { BeneficialOwnerInfoComponent } from './beneficial-owner-info';
+import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
     imports: [
@@ -42,7 +44,9 @@ import { RussianPrivateEntityInfoComponent } from './russian-private-entity-info
         AuthorityConfirmingDocumentInfoComponent,
         IdentityDocumentInfoComponent,
         ContactInfoComponent,
-        RussianPrivateEntityInfoComponent
+        RussianPrivateEntityInfoComponent,
+        BeneficialOwnerInfoComponent,
+        YesNoPipe
     ],
     exports: [DocumentContainerComponent]
 })
