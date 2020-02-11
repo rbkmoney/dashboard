@@ -11,6 +11,7 @@ import { ClaimsService, QuestionaryService, createDocumentModificationUnit, Kont
 import { PartyContent, OrgType, ReqResponse } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
+import { KeycloakService } from '../../../auth';
 
 @Injectable()
 export class CompanySearchService {
@@ -28,7 +29,8 @@ export class CompanySearchService {
         private questionaryService: QuestionaryService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
-        private konturFocusService: KonturFocusService
+        private konturFocusService: KonturFocusService,
+        private keycloakService: KeycloakService
     ) {
         this.leaveOnboarding$
             .pipe(
@@ -49,7 +51,9 @@ export class CompanySearchService {
     createInitialClaim(data: QuestionaryData): Observable<{ claimID: number; documentID: string }> {
         const initialDocumentID = uuid();
         const changeset = [createDocumentModificationUnit(initialDocumentID)];
-        return this.questionaryService.saveQuestionary(initialDocumentID, data).pipe(
+        const defaultEmail = this.keycloakService.getUsername();
+        const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
+        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
             switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
