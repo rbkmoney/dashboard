@@ -11,7 +11,7 @@ export class ShopService {
     private reloadShops$ = new Subject<void>();
 
     shops$: Observable<Shop[]> = this.reloadShops$.pipe(
-        startWith(undefined),
+        startWith(undefined as void),
         switchMapTo(this.shopsService.getShops(genXRequestID())),
         shareReplay(SHARE_REPLAY_CONF)
     );
