@@ -30,7 +30,7 @@ export class ThemeManager {
     }
 
     private getCorrectName(theme: ThemeName | string): ThemeName {
-        if (!Object.values(ThemeName).includes(theme)) {
+        if (!Object.values<string>(ThemeName).includes(theme)) {
             return this.current || ThemeName.light;
         }
         return theme as ThemeName;
