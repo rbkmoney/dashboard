@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { TestShopService } from './test-shop.service';
 
@@ -7,8 +7,10 @@ import { TestShopService } from './test-shop.service';
     templateUrl: './app.component.html',
     providers: [TestShopService]
 })
-export class AppComponent {
-    constructor(testShopService: TestShopService) {
-        testShopService.createTestShopWhenNoShops();
+export class AppComponent implements OnInit {
+    constructor(private testShopService: TestShopService) {}
+
+    ngOnInit() {
+        this.testShopService.createTestShopWhenNoShops();
     }
 }
