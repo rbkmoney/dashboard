@@ -75,8 +75,10 @@ npm run codegen
 
 ### Analyze bundle size
 
-    npm run build -- --prod --stats-json --extraWebpackConfig webpack.extra.js
-    npx webpack-bundle-analyzer dist/stats.json
+```sh
+    npm run build:stats
+    npm run analyze
+```
 
 ## Guides
 
