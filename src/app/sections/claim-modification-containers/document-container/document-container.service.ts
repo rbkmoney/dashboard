@@ -19,7 +19,7 @@ export class DocumentContainerService {
     private questionary$ = this.unitChange$.pipe(
         pluck('documentId'),
         switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
     private questionaryData$: Observable<QuestionaryData> = this.questionary$.pipe(
         pluck('questionary', 'data'),
@@ -34,7 +34,7 @@ export class DocumentContainerService {
                 ? questionary.data.contractor.legalEntity.beneficialOwner
                 : null
         ),
-        shareReplay(shareReplayConf)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(
