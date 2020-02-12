@@ -19,4 +19,14 @@
     >
         {{ t.reports }}
     </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./payouts"
+        routerLinkActive
+        #payouts="routerLinkActive"
+        [selected]="payouts.isActive"
+        withIcon
+        icon="input"
+    >
+        {{ t.payouts }}
+    </dsh-state-nav-item>
 </dsh-state-nav>
