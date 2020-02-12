@@ -5,9 +5,7 @@ import * as moment from 'moment';
 
 import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { toDateLike, genXRequestID } from '../utils';
-import { InvoicesSearchParams } from './invoices-search-params';
-import { InvoicesWithToken } from './invoices-with-token';
-import { Duration } from './duration';
+import { InvoicesSearchParams, InvoicesWithToken, Duration } from './model';
 
 @Injectable()
 export class InvoiceSearchService {
