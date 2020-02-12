@@ -1,3 +1,16 @@
-<div class="dsh-payouts">
-    <ng-content></ng-content>
+<div
+    class="dsh-payouts"
+    *transloco="let p; scope: 'payouts'; read: 'payouts.payouts'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <h1 class="mat-display-1" *transloco="let title; scope: 'payouts'; read: 'payouts.title'">{{ title }}</h1>
+    <div fxLayout fxLayoutGap="20px">
+        <div fxFlex class="mat-body-1">
+            {{ p.description }}
+        </div>
+        <!-- <div>
+            <button dsh-stroked-button color="accent" (click)="create()">{{ p.createPayout }}</button>
+        </div> -->
+    </div>
 </div>
