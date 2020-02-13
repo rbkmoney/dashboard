@@ -1,4 +1,4 @@
-<div class="dsh-float-panel" [ngStyle]="{ 'min-height': baseContentHeight + 40 + 'px' }">
+<div class="dsh-float-panel" [ngStyle]="{ 'min-height': baseContentHeight + 'px' }">
     <dsh-card
         class="dsh-float-panel-card"
         [ngClass]="{
@@ -6,7 +6,7 @@
         }"
         (dshResized)="cardHeight = $event.height"
     >
-        <div (dshResized)="setBaseContentHeight($event.height)">
+        <div (dshResized)="setBaseContentHeight($event.height)" class="dsh-float-panel-base">
             <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
                 <div fxFlex.gt-sm>
                     <ng-content></ng-content>
@@ -27,7 +27,12 @@
                     <div class="dsh-float-panel-more-content">
                         <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                     </div>
-                    <div fxLayout [fxLayoutGap]="layoutGap" fxLayoutAlign="space-between">
+                    <div
+                        fxLayout
+                        [fxLayoutGap]="layoutGap"
+                        fxLayoutAlign="space-between"
+                        class="dsh-float-panel-more-actions"
+                    >
                         <button dsh-icon-button (click)="pinToggle()">
                             <mat-icon svgIcon="pin_drop"></mat-icon>
                         </button>
