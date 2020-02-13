@@ -28,7 +28,7 @@ $card-without-actions-padding: $card-padding - $actions-padding;
     &-more {
         height: 0;
         overflow: hidden;
-        margin-bottom: $actions-padding;
+        padding-bottom: $actions-padding;
 
         &-content {
             margin-left: $card-padding;
