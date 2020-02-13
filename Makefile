@@ -45,7 +45,7 @@ init: npm-init compile
 npm-init:
 	NG_CLI_ANALYTICS=false npm ci
 
-build: check lint
+build: check
 	npm run build
 
 clean:
