@@ -6,6 +6,7 @@
 @import '../app/charts/bar-chart/bar-chart-theme';
 @import '../app/layout/card/card-theme';
 @import '../app/layout/float-panel/float-panel-theme';
+@import '../app/layout/expand-panel/expand-panel-theme';
 @import '../app/charts/linear-chart/linear-chart-theme';
 @import '../app/state-nav/state-nav-theme';
 @import '../app/charts/legend-tooltip/legend-tooltip-theme';
@@ -46,6 +47,7 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
+    @include dsh-expand-panel-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-expand-panel-typography($config);

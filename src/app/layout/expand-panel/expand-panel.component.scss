@@ -1,0 +1,18 @@
+.dsh-expand-panel {
+    position: relative;
+    cursor: pointer;
+
+    &-expanded {
+        cursor: auto;
+    }
+
+    &-base {
+        overflow: hidden;
+        height: 0;
+    }
+
+    &-expand {
+        overflow: hidden;
+        height: 0;
+    }
+}
