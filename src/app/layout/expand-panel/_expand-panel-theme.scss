@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@import '../../../styles/utils/shadow';
+
+@mixin dsh-expand-panel-theme($theme) {
+}
+
+@mixin dsh-expand-panel-typography($config) {
+    .dsh-expand-panel {
+        font-family: mat-font-family($config);
+        font-size: mat-font-size($config, body-1);
+    }
+}
