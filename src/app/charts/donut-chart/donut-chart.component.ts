@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
     selector: 'dsh-donut-chart',
     templateUrl: './donut-chart.component.html'
 })
-export class DonutChartComponent { }
+export class DonutChartComponent {}
