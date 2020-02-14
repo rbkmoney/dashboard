@@ -18,8 +18,8 @@ import { ButtonModule } from '../../../button';
 import { SearchFormComponent } from './search-form';
 import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
-import { PayoutsService } from './payouts.service';
 import { SearchModule } from '../../../api';
+import { PayoutPanelModule } from './payout-panel';
 
 @NgModule({
     imports: [
@@ -31,6 +31,7 @@ import { SearchModule } from '../../../api';
         ReactiveFormsModule,
         FormsModule,
         LayoutModule,
+        PayoutPanelModule,
         DaterangeSelectorModule,
         MatFormFieldModule,
         MatOptionModule,
