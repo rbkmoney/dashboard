@@ -4,9 +4,7 @@
             <div class="mat-body-1">
                 {{ payout.createdAt | date }}
             </div>
-            <div class="mat-body-2">
-                {{ payout.amount }}
-            </div>
+            <div class="mat-body-2">{{ payout.amount | currency: payout.currency }}</div>
         </div>
         <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div>
@@ -18,8 +16,8 @@
         </div>
     </div>
     <dsh-expand-panel-more>
-        <div class="dsh-payout-panel-more" fxLayout="column" style="width: 100%">
-            <div fxLayout fxLayoutGap="20px">
+        <div class="dsh-payout-panel-more" style="width: 100%" fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout fxLayoutGap="10px">
                 <div
                     class="dsh-payout-panel-more-caption"
                     fxFlex
@@ -37,9 +35,50 @@
                     </button>
                 </div>
             </div>
-            <div fxLayout fxLayoutGap="20px">
-                <div fxFlex="33.3" class="mat-headline">{{ payout.amount }}</div>
-                <div fxFlex="33.3">
+            <div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px">
+                <div fxFlex>
+                    <span class="mat-headline" style="margin: 0">{{ payout.amount | currency: payout.currency }}</span>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">Платежи</div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+            </div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="'Количество операций'">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
                     <dsh-details-item [title]="'Количество операций'">
                         {{ payout.currency }}
                     </dsh-details-item>
@@ -48,23 +87,9 @@
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">Платежи</div>
-            <div fxLayout fxLayoutGap="20px">
-                <div fxFlex="33.3">
-                    <dsh-details-item [title]="'Количество операций'">
-                        {{ payout.currency }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex="33.3">
-                    <dsh-details-item [title]="'Количество операций'">
-                        {{ payout.currency }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex="33.3">
-                    <dsh-details-item [title]="'Количество операций'">
-                        {{ payout.currency }}
-                    </dsh-details-item>
-                </div>
+            <div class="mat-title">Действия</div>
+            <div>
+                <button dsh-stroked-button color="accent">Сформировать реестр операций</button>
             </div>
         </div>
     </dsh-expand-panel-more>
