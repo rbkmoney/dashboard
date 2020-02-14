@@ -1,8 +1,8 @@
-<dsh-expand-panel #expandPanel>
-    <div fxLayout="column" fxLayoutGap="10px">
+<dsh-expand-panel #expandPanel *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
+    <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div class="mat-body-1">
-                {{ payout.createdAt | date }}
+                {{ payout.createdAt | date: 'd MMMM y' }}
             </div>
             <div class="mat-body-2">{{ payout.amount | currency: payout.currency }}</div>
         </div>
@@ -24,9 +24,9 @@
                     fxLayoutAlign="space-between center"
                     fxLayoutGap="10px"
                 >
-                    <div class="mat-caption">Выплата #{{ payout.id }}</div>
+                    <div class="mat-caption">{{ p.payoutNum | translocoParams: { num: payout.id } }}</div>
                     <div class="mat-caption">
-                        {{ payout.createdAt | date }}
+                        {{ payout.createdAt | date: 'd MMMM y, HH:mm:ss' }}
                     </div>
                 </div>
                 <div>
@@ -40,7 +40,7 @@
                     <span class="mat-headline" style="margin: 0">{{ payout.amount | currency: payout.currency }}</span>
                 </div>
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.shop">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
@@ -49,41 +49,81 @@
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">Платежи</div>
+            <div class="mat-title">{{ p.payments }}</div>
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.count">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
-                        {{ payout.currency }}
+                    <dsh-details-item [title]="p.amount">
+                        {{ payout.amount }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.fee">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
             </div>
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.firstConfirmationTime">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.lastConfirmationTime">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.payouts }}</div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.count">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
-                    <dsh-details-item [title]="'Количество операций'">
+                    <dsh-details-item [title]="p.amount">
+                        {{ payout.amount }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.fee">
                         {{ payout.currency }}
                     </dsh-details-item>
                 </div>
             </div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.firstConfirmationTime">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.lastConfirmationTime">
+                        {{ payout.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.bankAccount }}</div>
+            <dsh-details-item [title]="p.bank">
+                {{ payout.currency }}
+            </dsh-details-item>
+            <dsh-details-item [title]="p.bankDetails">
+                {{ payout.currency }}
+            </dsh-details-item>
 
             <mat-divider></mat-divider>
 
