@@ -6,5 +6,19 @@
     },
     "searchForm": {
         "shopID": "Магазин"
+    },
+    "panel": {
+        "payoutNum": "Выплата #{{num}}",
+        "shop": "Магазин",
+        "payments": "Платежи",
+        "payouts": "Возвраты",
+        "bankAccount": "Банковский счет",
+        "count": "Количество операций",
+        "amount": "Сумма",
+        "fee": "Комиссия",
+        "firstConfirmationTime": "Время первого подтверждения",
+        "lastConfirmationTime": "Время последнего подтверждения",
+        "bank": "Наименование банка",
+        "bankDetails": "БИК / Кор. счет / Расчетный счет"
     }
 }
