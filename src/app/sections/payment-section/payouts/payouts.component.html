@@ -14,5 +14,5 @@
         </div> -->
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
-    <div *ngFor="let payout of payouts$ | async">{{ payout?.id }}</div>
+    <div *ngFor="let payout of payouts$ | async"><dsh-payout-panel [payout]="payout"></dsh-payout-panel></div>
 </div>

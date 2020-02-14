@@ -1,6 +1,5 @@
 import { Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { filter } from 'rxjs/operators';
 
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 import { expandAnimation, ExpandState } from './expand-animation';
@@ -26,11 +25,6 @@ export class ExpandPanelComponent {
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;
 
-    constructor() {
-        this.expandedChange.pipe(filter(expanded => !expanded)).subscribe(() => this.resetExpandTrigger());
-        // this.expandedChange.pipe(filter(expanded => expanded)).subscribe(() => this.resetCollapseTrigger());
-    }
-
     expand() {
         if (!this.expanded) {
             this.expanded = true;
@@ -52,14 +46,5 @@ export class ExpandPanelComponent {
 
     setExpandedContentHeight(height: number) {
         this.expandTrigger = { value: ExpandState.expanded, params: { height } };
-        console.log(height);
-    }
-
-    private resetExpandTrigger() {
-        this.expandTrigger = ExpandState.collapsed;
-    }
-
-    private resetCollapseTrigger() {
-        this.collapseTrigger = ExpandState.collapsed;
     }
 }
