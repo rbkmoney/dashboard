@@ -16,7 +16,8 @@ import { DetailsItemModule } from '../../../../details-item';
         FlexLayoutModule,
         CommonModule,
         MatDividerModule,
-        DetailsItemModule
+        DetailsItemModule,
+        ButtonModule
     ],
     declarations: [PayoutPanelComponent],
     exports: [PayoutPanelComponent]
