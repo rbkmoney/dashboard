@@ -3,6 +3,8 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
 import { SearchFormValue } from '../search-form-value';
 import { DaterangeSelectorService } from './daterange-selector.service';
 import { SelectorItem } from './select-item';
+import { DateUnit } from './date-unit';
+import { DaterangeUnitEnum } from './daterange-unit-enum';
 
 @Component({
     selector: 'dsh-daterange-selector',
@@ -11,24 +13,27 @@ import { SelectorItem } from './select-item';
 })
 export class DaterangeSelectorComponent implements OnChanges {
     @Input() value: SearchFormValue;
+    @Input() items: SelectorItem[];
     @Output() selectDaterange: EventEmitter<SearchFormValue> = new EventEmitter();
     @Output() selectMore: EventEmitter<void> = new EventEmitter(true);
 
-    items: SelectorItem[];
+    DaterangeUnitEnum = DaterangeUnitEnum;
 
     constructor(private daterangeSelectorService: DaterangeSelectorService) {}
 
     ngOnChanges({ value }: SimpleChanges) {
         if (value) {
-            this.items = this.daterangeSelectorService.changeSelectorItems(this.value);
+            if (!this.items) {
+                this.items = this.daterangeSelectorService.changeSelectorItems(this.value);
+            }
             if (this.daterangeSelectorService.isMoreChecked(this.items)) {
                 this.selectMore.emit();
             }
         }
     }
 
-    selectUnit(unit: 'today' | 'week' | 'month' | 'more') {
-        if (unit === 'more') {
+    selectUnit(unit: DateUnit | DaterangeUnitEnum.more) {
+        if (unit === DaterangeUnitEnum.more) {
             this.selectMore.emit();
             return;
         }
