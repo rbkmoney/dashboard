@@ -9,6 +9,7 @@ import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { DetailsItemModule } from '../../../../details-item';
 import { FromMinorModule } from '../../../../from-minor';
+import { BankAccountInfoComponent } from './bank-account-info';
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { FromMinorModule } from '../../../../from-minor';
         TranslocoModule,
         FromMinorModule
     ],
-    declarations: [PayoutPanelComponent],
+    declarations: [PayoutPanelComponent, BankAccountInfoComponent],
     exports: [PayoutPanelComponent]
 })
 export class PayoutPanelModule {}

@@ -119,13 +119,10 @@
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">{{ p.bankAccount }}</div>
-            <dsh-details-item [title]="p.bank">
-                {{ payout.currency }}
-            </dsh-details-item>
-            <dsh-details-item [title]="p.bankDetails">
-                {{ payout.currency }}
-            </dsh-details-item>
+            <dsh-bank-account-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankAccount'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-bank-account-info>
 
             <mat-divider></mat-divider>
 
