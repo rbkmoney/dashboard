@@ -27,5 +27,11 @@
         "title": "Формирование отчета с реестром операций",
         "description": "Будет сформирован отчет с реестром операций. Для этого потребуется некоторое время. Загрузить отчет, и отслеживать статус формирования возможно в разделе “Отчеты”.",
         "create": "Сформировать"
+    },
+    "payoutToolType": {
+        "PayoutToolDetailsBankAccount": "Банковский счет",
+        "PayoutToolDetailsBankCard": "Банковская карта",
+        "PayoutToolDetailsInternationalBankAccount": "Международный банковский счет",
+        "PayoutToolDetailsWalletInfo": "Кошелек"
     }
 }

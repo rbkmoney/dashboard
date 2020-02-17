@@ -1,9 +1,12 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { filter } from 'rxjs/operators';
+import { filter, map, shareReplay } from 'rxjs/operators';
 
 import { Payout } from '../../../../api-codegen/anapi';
 import { CreateReportDialogComponent } from '../create-report-dialog';
+import { mapToShopInfo } from '../../operations/operators';
+import { ShopService } from '../../../../api';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Component({
     selector: 'dsh-payout-panel',
@@ -14,7 +17,15 @@ import { CreateReportDialogComponent } from '../create-report-dialog';
 export class PayoutPanelComponent {
     @Input() payout: Payout;
 
-    constructor(private dialog: MatDialog) {}
+    get shop$() {
+        return this.shopService.shops$.pipe(
+            mapToShopInfo,
+            map(shops => shops.find(({ shopID }) => shopID === this.payout.shopID)),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+    }
+
+    constructor(private dialog: MatDialog, private shopService: ShopService) {}
 
     create() {
         return this.dialog

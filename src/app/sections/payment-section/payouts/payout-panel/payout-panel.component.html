@@ -2,16 +2,16 @@
     <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div class="mat-body-1">
-                {{ payout.createdAt | date: 'd MMMM y' }}
+                {{ payout?.createdAt | date: 'd MMMM y' }}
             </div>
-            <div class="mat-body-2">{{ payout.amount | currency: payout.currency }}</div>
+            <div class="mat-body-2">{{ payout?.amount | currency: payout?.currency }}</div>
         </div>
         <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div>
-                {{ payout.amount }}
+                {{ (shop$ | async)?.name || payout?.shopID }}
             </div>
-            <div>
-                {{ payout.amount }}
+            <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
+                {{ t[(payout?.payoutToolDetails?.detailsType)] || payout?.payoutToolDetails?.detailsType }}
             </div>
         </div>
     </div>
