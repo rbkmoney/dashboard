@@ -5,7 +5,8 @@ import {
     MatOptionModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,6 +21,7 @@ import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
+import { CreateReportDialogComponent } from './create-report-dialog';
 
 @NgModule({
     imports: [
@@ -39,9 +41,11 @@ import { PayoutPanelModule } from './payout-panel';
         MatSelectModule,
         MatDatepickerModule,
         SearchModule,
-        MatInputModule
+        MatInputModule,
+        MatDialogModule
     ],
-    declarations: [PayoutsComponent, SearchFormComponent],
+    declarations: [PayoutsComponent, SearchFormComponent, CreateReportDialogComponent],
+    entryComponents: [CreateReportDialogComponent],
     exports: [PayoutsComponent]
 })
 export class PayoutsModule {}
