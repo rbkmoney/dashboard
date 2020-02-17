@@ -25,6 +25,14 @@ export class PayoutPanelComponent {
         );
     }
 
+    get payment() {
+        return this.payout.payoutSummary.find(p => p.type === 'payment');
+    }
+
+    get refund() {
+        return this.payout.payoutSummary.find(p => p.type === 'refund');
+    }
+
     constructor(private dialog: MatDialog, private shopService: ShopService) {}
 
     create() {

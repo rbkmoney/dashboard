@@ -4,7 +4,7 @@
             <div class="mat-body-1">
                 {{ payout?.createdAt | date: 'd MMMM y' }}
             </div>
-            <div class="mat-body-2">{{ payout?.amount | currency: payout?.currency }}</div>
+            <div class="mat-body-2">{{ payout?.amount | fromMinor | currency: payout?.currency }}</div>
         </div>
         <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div>
@@ -26,7 +26,7 @@
                 >
                     <div class="mat-caption">{{ p.payoutNum | translocoParams: { num: payout.id } }}</div>
                     <div class="mat-caption">
-                        {{ payout.createdAt | date: 'd MMMM y, HH:mm:ss' }}
+                        {{ payout?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
                     </div>
                 </div>
                 <div>
@@ -37,11 +37,13 @@
             </div>
             <div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px">
                 <div fxFlex>
-                    <span class="mat-headline" style="margin: 0">{{ payout.amount | currency: payout.currency }}</span>
+                    <span class="mat-headline" style="margin: 0">
+                        {{ payout?.amount | fromMinor | currency: payout?.currency }}
+                    </span>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.shop">
-                        {{ payout.currency }}
+                        {{ (shop$ | async)?.name || payout?.shopID }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex></div>
@@ -53,29 +55,29 @@
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
                     <dsh-details-item [title]="p.count">
-                        {{ payout.currency }}
+                        {{ payment.count }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.amount">
-                        {{ payout.amount }}
+                        {{ payment?.amount | fromMinor | currency: payment?.currency }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.fee">
-                        {{ payout.currency }}
+                        {{ payment?.fee | fromMinor | currency: payment?.currency }}
                     </dsh-details-item>
                 </div>
             </div>
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
                     <dsh-details-item [title]="p.firstConfirmationTime">
-                        {{ payout.currency }}
+                        {{ payment?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.lastConfirmationTime">
-                        {{ payout.currency }}
+                        {{ payment?.toTime | date: 'd MMMM y, HH:mm:ss' }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex></div>
@@ -87,29 +89,29 @@
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
                     <dsh-details-item [title]="p.count">
-                        {{ payout.currency }}
+                        {{ refund.count }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.amount">
-                        {{ payout.amount }}
+                        {{ refund?.amount | fromMinor | currency: refund?.currency }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.fee">
-                        {{ payout.currency }}
+                        {{ refund?.fee | fromMinor | currency: payment?.currency }}
                     </dsh-details-item>
                 </div>
             </div>
             <div fxLayout fxLayoutGap="10px">
                 <div fxFlex>
                     <dsh-details-item [title]="p.firstConfirmationTime">
-                        {{ payout.currency }}
+                        {{ refund?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.lastConfirmationTime">
-                        {{ payout.currency }}
+                        {{ refund?.toTime | date: 'd MMMM y, HH:mm:ss' }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex></div>
