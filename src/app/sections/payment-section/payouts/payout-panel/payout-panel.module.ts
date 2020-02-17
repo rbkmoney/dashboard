@@ -8,6 +8,7 @@ import { PayoutPanelComponent } from './payout-panel.component';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { DetailsItemModule } from '../../../../details-item';
+import { FromMinorModule } from '../../../../from-minor';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { DetailsItemModule } from '../../../../details-item';
         MatDividerModule,
         DetailsItemModule,
         ButtonModule,
-        TranslocoModule
+        TranslocoModule,
+        FromMinorModule
     ],
     declarations: [PayoutPanelComponent],
     exports: [PayoutPanelComponent]
