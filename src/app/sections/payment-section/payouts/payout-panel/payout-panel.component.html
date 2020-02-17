@@ -127,9 +127,9 @@
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">Действия</div>
+            <div class="mat-title">{{ p.actions }}</div>
             <div>
-                <button dsh-stroked-button color="accent">Сформировать реестр операций</button>
+                <button dsh-stroked-button color="accent" (click)="create()">{{ p.createReport }}</button>
             </div>
         </div>
     </dsh-expand-panel-more>
