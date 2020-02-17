@@ -5,14 +5,12 @@ import {
     MatOptionModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatInputModule,
-    MatDialogModule
+    MatInputModule
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { PayoutsComponent } from './payouts.component';
 import { PayoutsRoutingModule } from './payouts-routing.module';
@@ -22,7 +20,6 @@ import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
-import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -42,10 +39,7 @@ import { SpinnerModule } from '../../../spinner';
         MatSelectModule,
         MatDatepickerModule,
         SearchModule,
-        MatInputModule,
-        MatDialogModule,
-        SpinnerModule,
-        RouterModule
+        MatInputModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]
