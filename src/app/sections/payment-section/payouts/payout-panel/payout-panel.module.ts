@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatDividerModule } from '@angular/material';
+import { MatIconModule, MatDividerModule, MatDialogModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
+import { RouterModule } from '@angular/router';
 
 import { PayoutPanelComponent } from './payout-panel.component';
 import { LayoutModule } from '../../../../layout';
@@ -14,6 +15,7 @@ import { CreateReportDialogComponent } from './create-report-dialog';
 import { BankCardInfoComponent } from './bank-card-info';
 import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
 import { WalletInfoComponent } from './wallet-info';
+import { SpinnerModule } from '../../../../spinner';
 
 @NgModule({
     imports: [
@@ -25,7 +27,10 @@ import { WalletInfoComponent } from './wallet-info';
         DetailsItemModule,
         ButtonModule,
         TranslocoModule,
-        FromMinorModule
+        FromMinorModule,
+        SpinnerModule,
+        RouterModule,
+        MatDialogModule
     ],
     declarations: [
         PayoutPanelComponent,
