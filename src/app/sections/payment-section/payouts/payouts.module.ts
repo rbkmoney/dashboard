@@ -12,6 +12,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { PayoutsComponent } from './payouts.component';
 import { PayoutsRoutingModule } from './payouts-routing.module';
@@ -21,7 +22,7 @@ import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
-import { CreateReportDialogComponent } from './create-report-dialog';
+import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -42,10 +43,11 @@ import { CreateReportDialogComponent } from './create-report-dialog';
         MatDatepickerModule,
         SearchModule,
         MatInputModule,
-        MatDialogModule
+        MatDialogModule,
+        SpinnerModule,
+        RouterModule
     ],
-    declarations: [PayoutsComponent, SearchFormComponent, CreateReportDialogComponent],
-    entryComponents: [CreateReportDialogComponent],
+    declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]
 })
 export class PayoutsModule {}

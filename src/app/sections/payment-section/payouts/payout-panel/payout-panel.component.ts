@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { filter, map, shareReplay } from 'rxjs/operators';
 
 import { Payout } from '../../../../api-codegen/anapi';
-import { CreateReportDialogComponent } from '../create-report-dialog';
+import { CreateReportDialogComponent } from './create-report-dialog';
 import { mapToShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
