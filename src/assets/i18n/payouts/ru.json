@@ -31,9 +31,17 @@
         "PayoutToolDetailsInternationalBankAccount": "Международный банковский счет",
         "PayoutToolDetailsWalletInfo": "Кошелек"
     },
-    "payoutToolInfo": {
-        "bankAccount": "Банковский счет",
-        "bank": "Наименование банка",
-        "bankDetails": "БИК / Кор. счет / Расчетный счет"
+    "payoutTool": {
+        "bankAccount": {
+            "title": "Банковский счет",
+            "bank": "Наименование банка",
+            "bankDetails": "БИК / Кор. счет / Расчетный счет"
+        },
+        "bankCard": {
+            "title": "Банковская карта",
+            "cardNumber": "Номер карты",
+            "paymentSystem": "Платежная система",
+            "tokenProvider": "Провайдер платежных токенов"
+        }
     }
 }
