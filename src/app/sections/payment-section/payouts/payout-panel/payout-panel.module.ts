@@ -10,6 +10,10 @@ import { ButtonModule } from '../../../../button';
 import { DetailsItemModule } from '../../../../details-item';
 import { FromMinorModule } from '../../../../from-minor';
 import { BankAccountInfoComponent } from './bank-account-info';
+import { CreateReportDialogComponent } from './create-report-dialog';
+import { BankCardInfoComponent } from './bank-card-info';
+import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
+import { WalletInfoComponent } from './wallet-info';
 
 @NgModule({
     imports: [
@@ -23,7 +27,15 @@ import { BankAccountInfoComponent } from './bank-account-info';
         TranslocoModule,
         FromMinorModule
     ],
-    declarations: [PayoutPanelComponent, BankAccountInfoComponent],
+    declarations: [
+        PayoutPanelComponent,
+        BankAccountInfoComponent,
+        BankCardInfoComponent,
+        InternationalBankAccountInfoComponent,
+        WalletInfoComponent,
+        CreateReportDialogComponent
+    ],
+    entryComponents: [CreateReportDialogComponent],
     exports: [PayoutPanelComponent]
 })
 export class PayoutPanelModule {}

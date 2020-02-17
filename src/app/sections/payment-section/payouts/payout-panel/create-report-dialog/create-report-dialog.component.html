@@ -1,0 +1,30 @@
+<ng-container *transloco="let t">
+    <ng-container *transloco="let d; scope: 'payouts'; read: 'payouts.createReportDialog'">
+        <div>
+            <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="20px">
+                <h1 mat-dialog-title>{{ d.title }}</h1>
+                <div *ngIf="isLoading" flexLayout fxLayoutAlign="center"><dsh-spinner></dsh-spinner></div>
+                <div *ngIf="!isLoading" class="mat-body">
+                    {{ isSuccessfullyCreated ? d.successDescription : d.description }}
+                </div>
+                <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="20px">
+                    <button dsh-button (click)="cancel()">
+                        {{ t.cancel }}
+                    </button>
+                    <button *ngIf="!isSuccessfullyCreated" dsh-button cdkFocusInitial (click)="create()" color="accent">
+                        {{ d.create }}
+                    </button>
+                    <button
+                        *ngIf="isSuccessfullyCreated"
+                        dsh-button
+                        cdkFocusInitial
+                        (click)="toReports()"
+                        color="accent"
+                    >
+                        {{ d.toReports }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

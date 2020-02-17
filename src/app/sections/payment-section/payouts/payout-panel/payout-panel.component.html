@@ -123,6 +123,18 @@
                 *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankAccount'"
                 [payoutTool]="payout.payoutToolDetails"
             ></dsh-bank-account-info>
+            <dsh-bank-card-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankCard'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-bank-card-info>
+            <dsh-international-bank-account-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-international-bank-account-info>
+            <dsh-wallet-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsWalletInfo'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-wallet-info>
 
             <mat-divider></mat-divider>
 
