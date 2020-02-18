@@ -34,5 +34,5 @@ export class PayoutsComponent {
         this.payoutsService.refresh();
     }
 
-    create() {}
+    // create() {}
 }
