@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
-
-type Result = 'canceled' | 'created';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'dsh-create-report-dialog',
@@ -13,16 +11,10 @@ export class CreateReportDialogComponent {
     isLoading = false;
     isSuccessfullyCreated = false;
 
-    constructor(
-        private dialogRef: MatDialogRef<CreateReportDialogComponent, Result>,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {
-        setInterval(() => this.route.url.subscribe(console.log), 1000);
-    }
+    constructor(private dialogRef: MatDialogRef<CreateReportDialogComponent>, private router: Router) {}
 
     cancel() {
-        this.dialogRef.close('canceled');
+        this.dialogRef.close();
     }
 
     create() {
@@ -30,6 +22,7 @@ export class CreateReportDialogComponent {
     }
 
     toReports() {
-        this.router.navigate(['../', 'reports'], { relativeTo: this.route });
+        this.router.navigate([...this.router.url.split('/').slice(0, -1), 'reports']);
+        this.dialogRef.close();
     }
 }
