@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'dsh-create-report-dialog',
-    templateUrl: 'create-report-dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: 'create-report-dialog.component.html'
 })
 export class CreateReportDialogComponent {
     isLoading = false;
@@ -18,7 +17,12 @@ export class CreateReportDialogComponent {
     }
 
     create() {
-        this.isSuccessfullyCreated = true;
+        // TODO
+        this.isLoading = true;
+        setTimeout(() => {
+            this.isLoading = false;
+            this.isSuccessfullyCreated = true;
+        }, 1000);
     }
 
     toReports() {
