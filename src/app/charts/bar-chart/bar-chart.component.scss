@@ -1,0 +1,21 @@
+.apexcharts-tooltip {
+    background: transparent;
+    border: none !important;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.dsh-bar-chart-tooltip {
+    &-round {
+        margin-right: 4px;
+        height: 12px;
+        width: 12px;
+        border-radius: 12px;
+    }
+
+    &-container {
+        padding: 4px;
+        display: flex;
+        align-items: center;
+    }
+}

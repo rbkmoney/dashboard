@@ -29,4 +29,4 @@ import { BarChartModule } from '../../../charts/bar-chart/bar-chart.module';
     ],
     declarations: [AnalyticsComponent, SearchFormComponent]
 })
-export class AnalyticsModule { }
+export class AnalyticsModule {}

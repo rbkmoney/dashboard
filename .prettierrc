@@ -9,6 +9,10 @@
         {
             "files": "*.svg",
             "options": { "parser": "html" }
+        },
+        {
+            "files": "*.huskyrc",
+            "options": { "parser": "json" }
         }
     ]
 }

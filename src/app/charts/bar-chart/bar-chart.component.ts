@@ -1,58 +1,86 @@
-import { Component } from '@angular/core';
-import { ApexChart } from 'ng-apexcharts';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { ApexChart, ApexStates, ApexYAxis } from 'ng-apexcharts';
 import {
     ApexAxisChartSeries,
     ApexDataLabels,
     ApexFill,
     ApexLegend,
-    ApexNoData,
     ApexNonAxisChartSeries,
     ApexPlotOptions,
     ApexStroke,
     ApexTooltip,
-    ApexXAxis,
-    ApexYAxis
+    ApexXAxis
 } from 'ng-apexcharts/lib/model/apex-types';
+import moment from 'moment';
 
 import { BarChartService } from './bar-chart.service';
 
 @Component({
     selector: 'dsh-bar-chart',
     templateUrl: './bar-chart.component.html',
-    providers: [BarChartService]
+    styleUrls: ['bar-chart.component.scss'],
+    providers: [BarChartService],
+    encapsulation: ViewEncapsulation.None
 })
-export class BarChartComponent {
+export class BarChartComponent implements OnInit {
+    @Input()
+    series: ApexAxisChartSeries | ApexNonAxisChartSeries;
 
-    chart: ApexChart = {
-        type: 'bar',
-        height: 300,
-        stacked: true
+    @Input()
+    colors = ['#81DBAF', '#979797', '#FC9B51', '#FB7777', '#FFCD00'];
+
+    @Input()
+    height = 300;
+
+    chart: ApexChart;
+    dataLabels: ApexDataLabels = {
+        enabled: false
     };
-    dataLabels: ApexDataLabels = {};
-    series: ApexAxisChartSeries | ApexNonAxisChartSeries = [
-        {
-            name: "PRODUCT A",
-            data: [44, 55, 41, 67, 22, 43]
-        },
-        {
-            name: "PRODUCT B",
-            data: [13, 23, 20, 8, 13, 27]
-        },
-        {
-            name: "PRODUCT C",
-            data: [11, 17, 15, 15, 21, 14]
-        },
-        {
-            name: "PRODUCT D",
-            data: [21, 7, 25, 13, 22, 8]
-        }
-    ];
     stroke: ApexStroke = {};
-    labels: string[];
-    legend: ApexLegend = {};
-    noData: ApexNoData = {};
-    fill: ApexFill = {};
-    tooltip: ApexTooltip = {};
+    legend: ApexLegend = {
+        position: 'bottom',
+        markers: {
+            width: 12,
+            height: 12,
+            strokeWidth: 2,
+            radius: 12,
+            offsetX: 0,
+            offsetY: 0
+        },
+        onItemHover: {
+            highlightDataSeries: false
+        }
+    };
+    fill: ApexFill = {
+        opacity: 1
+    };
+    tooltip: ApexTooltip = {
+        custom: ({ series, dataPointIndex, w }) => {
+            let values = '';
+            for (let i = 0; i < series.length; i++) {
+                values += `
+                    <div class="dsh-bar-chart-tooltip-container">
+                        <div class="dsh-bar-chart-tooltip-round mat-caption" style="background-color: ${w.globals.colors[i]}"></div>
+                        ${w.globals.seriesNames[i]} - ${series[i][dataPointIndex]}
+                     </div>`;
+            }
+            return `
+                <dsh-card>
+                    <dsh-card-title>
+                        <div class="dsh-bar-chart-tooltip-title mat-caption">${formatDate(
+                            w.config.xaxis.categories[dataPointIndex],
+                            'dd.MM.yyyy, EEEEEE',
+                            moment.locale()
+                        ).toLocaleUpperCase()}</div>
+                    </dsh-card-title>
+                    <dsh-card-content>
+                        ${values}
+                    </dsh-card-content>
+                </dsh-card>
+            `;
+        }
+    };
     plotOptions: ApexPlotOptions = {
         bar: {
             horizontal: false,
@@ -60,17 +88,55 @@ export class BarChartComponent {
         }
     };
     xaxis: ApexXAxis = {
-        type: "category",
-        categories: ["01.01", "02.01", "03.01", "04.01", "05.01", "06.01"],
+        type: 'category',
+        labels: {
+            formatter(value: string): string {
+                return formatDate(value, 'dd.MM', moment.locale());
+            },
+            offsetY: -5
+        },
+        categories: [
+            moment().subtract(6, 'd'),
+            moment().subtract(5, 'd'),
+            moment().subtract(4, 'd'),
+            moment().subtract(3, 'd'),
+            moment().subtract(2, 'd'),
+            moment().subtract(1, 'd')
+        ],
         axisTicks: {
             show: false
         },
         axisBorder: {
             show: false
+        },
+        crosshairs: {
+            show: false
         }
     };
-    yaxis: ApexYAxis | ApexYAxis[] = {
-
+    yaxis: ApexYAxis = {
+        forceNiceScale: true
+    };
+    states: ApexStates = {
+        hover: {
+            filter: {
+                type: 'none'
+            }
+        },
+        active: {
+            filter: {
+                type: 'none'
+            }
+        }
     };
 
+    ngOnInit() {
+        this.chart = {
+            type: 'bar',
+            height: this.height,
+            stacked: true,
+            toolbar: {
+                show: false
+            }
+        };
+    }
 }

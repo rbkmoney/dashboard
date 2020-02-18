@@ -1,12 +1,17 @@
-<div class="dsh-analytics" fxLayout="column" fxLayoutGap="20px" *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'">
+<div
+    class="dsh-analytics"
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+>
     <h1 class="mat-headline">{{ t.headline }}</h1>
-<!--    <dsh-search-form></dsh-search-form>-->
+    <!--    <dsh-search-form></dsh-search-form>-->
     <dsh-card>
         <dsh-card-title>
             <div class="mat-title">{{ t.paymentsAmount }}</div>
         </dsh-card-title>
         <dsh-card-content>
-            <dsh-bar-chart></dsh-bar-chart>
+            <dsh-bar-chart [series]="series" height="200"></dsh-bar-chart>
         </dsh-card-content>
     </dsh-card>
 </div>

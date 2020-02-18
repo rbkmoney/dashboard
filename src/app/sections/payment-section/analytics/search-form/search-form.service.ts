@@ -23,11 +23,7 @@ export class SearchFormService {
         shareReplay(1)
     );
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
@@ -63,5 +59,4 @@ export class SearchFormService {
             toTime: moment().endOf('day')
         });
     }
-
 }

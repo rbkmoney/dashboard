@@ -3,5 +3,5 @@ export enum DaterangeUnitEnum {
     week = 'week',
     month = 'month',
     year = 'year',
-    more = 'more',
+    more = 'more'
 }
