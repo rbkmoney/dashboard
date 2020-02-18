@@ -21,7 +21,12 @@ export class PayoutSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            options.shopID
+            options.shopID,
+            options.offset,
+            options.payoutID,
+            options.payoutToolType,
+            options.excludedShops,
+            options.continuationToken
         );
     }
 }
