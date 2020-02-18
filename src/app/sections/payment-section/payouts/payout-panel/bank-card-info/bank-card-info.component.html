@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.bankCard'">
     <div class="mat-title">{{ p.title }}</div>
     <dsh-details-item [title]="p.cardNumber">
-        {{ payoutTool?.cardNumber }}
+        {{ payoutTool?.cardNumberMask }}
     </dsh-details-item>
     <div fxLayout fxLayoutGap="10px">
         <dsh-details-item *ngIf="payoutTool?.tokenProvider" [title]="p.tokenProvider" fxFlex>
