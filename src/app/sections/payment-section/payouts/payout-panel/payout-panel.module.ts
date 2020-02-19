@@ -16,6 +16,7 @@ import { BankCardInfoComponent } from './bank-card-info';
 import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
 import { WalletInfoComponent } from './wallet-info';
 import { SpinnerModule } from '../../../../spinner';
+import { ReportsModule } from '../../../../api';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { SpinnerModule } from '../../../../spinner';
         FromMinorModule,
         SpinnerModule,
         RouterModule,
-        MatDialogModule
+        MatDialogModule,
+        ReportsModule
     ],
     declarations: [
         PayoutPanelComponent,
