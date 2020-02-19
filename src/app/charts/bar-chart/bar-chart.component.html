@@ -1,15 +1,14 @@
-<div #barChart *ngIf="initialized">
-    <apx-chart
-        [chart]="chart"
-        [series]="series"
-        [dataLabels]="dataLabels"
-        [plotOptions]="plotOptions"
-        [xaxis]="xaxis"
-        [yaxis]="yaxis"
-        [legend]="legend"
-        [fill]="fill"
-        [tooltip]="tooltip"
-        [colors]="colors"
-        [states]="states"
-    ></apx-chart>
-</div>
+<apx-chart
+    *ngIf="initialized"
+    [chart]="chart"
+    [series]="series"
+    [dataLabels]="dataLabels"
+    [plotOptions]="plotOptions"
+    [xaxis]="xaxis"
+    [yaxis]="yaxis"
+    [legend]="legend"
+    [fill]="fill"
+    [tooltip]="tooltip"
+    [colors]="colors"
+    [states]="states"
+></apx-chart>
