@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { map, shareReplay } from 'rxjs/operators';
+import moment from 'moment';
 
 import { Payout } from '../../../../api-codegen/anapi';
-import { CreateReportDialogComponent } from './create-report-dialog';
+import { CreateReportDialogComponent, ReportDialogData } from './create-report-dialog';
 import { mapToShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -36,9 +37,20 @@ export class PayoutPanelComponent {
     constructor(private dialog: MatDialog, private shopService: ShopService) {}
 
     create() {
-        return this.dialog.open(CreateReportDialogComponent, {
+        this.dialog.open<CreateReportDialogComponent, ReportDialogData>(CreateReportDialogComponent, {
             width: '560px',
-            disableClose: true
+            disableClose: true,
+            data: {
+                fromTime: moment
+                    .min(this.payout.payoutSummary.map(({ fromTime }) => moment(fromTime)))
+                    .utc()
+                    .format(),
+                toTime: moment
+                    .max(this.payout.payoutSummary.map(({ toTime }) => moment(toTime)))
+                    .utc()
+                    .format(),
+                shopID: this.payout.shopID
+            }
         });
     }
 }
