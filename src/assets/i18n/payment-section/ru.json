@@ -1,8 +1,7 @@
 {
     "nav": {
         "operations": "Операции",
-        "reports": "Отчеты",
-        "analytics": "Аналитика"
+        "reports": "Отчеты"
     },
     "operations": {
         "headline": "Операции",
@@ -11,6 +10,5 @@
             "refunds": "Возвраты",
             "invoices": "Инвойсы"
         }
-    },
-    "analytics": {}
+    }
 }
