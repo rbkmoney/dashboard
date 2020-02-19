@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 import { Moment } from 'moment';
 
 import { BarChartService } from './bar-chart.service';
-import { defaultConfig } from './default-config';
+import { DEFAULT_CONFIG } from './default-config';
 
 @Component({
     selector: 'dsh-bar-chart',
@@ -12,7 +12,7 @@ import { defaultConfig } from './default-config';
     providers: [BarChartService],
     encapsulation: ViewEncapsulation.None
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnChanges {
     @Input()
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
 
@@ -20,26 +20,19 @@ export class BarChartComponent implements OnInit {
     times: string[] | Moment[] | Date[];
 
     @Input()
-    colors: string[];
+    colors?: string[];
 
     @Input()
-    height = 300;
+    height?: number;
 
-    chart = defaultConfig.chart;
-    dataLabels = defaultConfig.dataLabels;
-    legend = defaultConfig.legend;
-    fill = defaultConfig.fill;
-    tooltip = defaultConfig.tooltip;
-    plotOptions = defaultConfig.plotOptions;
-    xaxis = defaultConfig.xaxis;
-    yaxis = defaultConfig.yaxis;
-    states = defaultConfig.states;
+    config = DEFAULT_CONFIG;
 
-    initialized = false;
-
-    ngOnInit() {
-        this.chart.height = this.height;
-        this.xaxis.categories = this.times;
-        this.initialized = true;
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.times.currentValue !== changes.times.previousValue) {
+            this.config.xaxis = { ...this.config.xaxis, categories: this.times };
+        }
+        if (changes.times.currentValue !== changes.times.previousValue) {
+            this.config.chart = { ...this.config.chart, height: this.height };
+        }
     }
 }

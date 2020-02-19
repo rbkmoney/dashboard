@@ -4,13 +4,14 @@ import moment from 'moment';
 
 import { customTooltip } from './custom-tooltip';
 
-const legendRoundSize = 12;
-const columnWidth = '30%';
+const LEGEND_ROUND_SIZE = 12;
+const COLUMN_WIDTH = '30%';
 
-export const defaultConfig: ApexOptions = {
+export const DEFAULT_CONFIG: ApexOptions = {
     chart: {
         type: 'bar',
         stacked: true,
+        height: 300,
         toolbar: {
             show: false
         }
@@ -21,9 +22,9 @@ export const defaultConfig: ApexOptions = {
     legend: {
         position: 'bottom',
         markers: {
-            width: legendRoundSize,
-            height: legendRoundSize,
-            radius: legendRoundSize
+            width: LEGEND_ROUND_SIZE,
+            height: LEGEND_ROUND_SIZE,
+            radius: LEGEND_ROUND_SIZE
         },
         onItemHover: {
             highlightDataSeries: false
@@ -38,7 +39,7 @@ export const defaultConfig: ApexOptions = {
     plotOptions: {
         bar: {
             horizontal: false,
-            columnWidth
+            columnWidth: COLUMN_WIDTH
         }
     },
     xaxis: {
