@@ -45,9 +45,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
     xaxis: {
         type: 'category',
         labels: {
-            formatter(value: string): string {
-                return formatDate(value, 'dd.MM', moment.locale());
-            },
+            formatter: (v: string): string => formatDate(v, 'dd.MM', moment.locale()),
             offsetY: -5
         },
         axisTicks: {
