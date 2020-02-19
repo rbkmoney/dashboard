@@ -17,4 +17,15 @@
     <ng-container *ngFor="let payout of payouts$ | async">
         <dsh-payout-panel [payout]="payout"></dsh-payout-panel>
     </ng-container>
+    <dsh-card *ngIf="hasMore$ | async" class="show-more">
+        <button
+            dsh-button
+            class="show-more-button"
+            *transloco="let t"
+            (click)="fetchMore()"
+            [disabled]="isLoading$ | async"
+        >
+            {{ t.showMore }}
+        </button>
+    </dsh-card>
 </div>
