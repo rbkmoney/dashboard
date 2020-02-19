@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 
 import { SearchFormValue } from '../search-form-value';
 import { SelectorItem } from './select-item';
-import { DateUnit } from './date-unit';
-import { DaterangeUnitEnum } from './daterange-unit-enum';
 
 @Injectable()
 export class DaterangeSelectorService {
@@ -14,20 +13,23 @@ export class DaterangeSelectorService {
         value: SearchFormValue,
         defaultState: SelectorItem[] = [
             {
-                value: DaterangeUnitEnum.today,
-                checked: false
+                value: 'today',
+                checked: false,
+                dicPath: 'today'
             },
             {
-                value: DaterangeUnitEnum.week,
+                value: 'week',
+                checked: false,
+                dicPath: 'week'
+            },
+            {
+                value: 'month',
+                checked: false,
+                dicPath: 'month'
+            },
+            {
+                value: 'more',
                 checked: true
-            },
-            {
-                value: DaterangeUnitEnum.month,
-                checked: false
-            },
-            {
-                value: DaterangeUnitEnum.more,
-                checked: false
             }
         ]
     ): SelectorItem[] {
@@ -41,7 +43,7 @@ export class DaterangeSelectorService {
         return defaultState;
     }
 
-    toSearchFormValue(unit: DateUnit): SearchFormValue {
+    toSearchFormValue(unit: 'today' | 'week' | 'month'): SearchFormValue {
         return {
             fromTime: this.toFromTime(unit),
             toTime: this.endOfToday
@@ -49,20 +51,18 @@ export class DaterangeSelectorService {
     }
 
     isMoreChecked(items: SelectorItem[]): boolean {
-        return !!items.find(({ value, checked }) => value === DaterangeUnitEnum.more && checked);
+        return !!items.find(({ value, checked }) => value === 'more' && checked);
     }
 
-    private toFromTime(unit: DateUnit): moment.Moment {
+    private toFromTime(unit: 'today' | 'week' | 'month'): Moment {
         const m = moment().startOf('d');
         switch (unit) {
-            case DaterangeUnitEnum.today:
+            case 'today':
                 return m;
-            case DaterangeUnitEnum.week:
+            case 'week':
                 return m.subtract(1, 'w');
-            case DaterangeUnitEnum.month:
+            case 'month':
                 return m.subtract(1, 'M');
-            case DaterangeUnitEnum.year:
-                return m.subtract(1, 'y');
         }
     }
 
@@ -72,21 +72,18 @@ export class DaterangeSelectorService {
             return items;
         }
         if (days === 0) {
-            return this.changeChecked(items, DaterangeUnitEnum.today);
+            return this.changeChecked(items, 'today');
         }
         if (toTime.diff(fromTime, 'M') === 1) {
-            return this.changeChecked(items, DaterangeUnitEnum.month);
+            return this.changeChecked(items, 'month');
         }
         if (toTime.diff(fromTime, 'w') === 1) {
-            return this.changeChecked(items, DaterangeUnitEnum.week);
-        }
-        if (toTime.diff(fromTime, 'y') === 1) {
-            return this.changeChecked(items, DaterangeUnitEnum.year);
+            return this.changeChecked(items, 'week');
         }
         return items;
     }
 
-    private changeChecked(items: SelectorItem[], changeUnit: DateUnit | DaterangeUnitEnum.more): SelectorItem[] {
+    private changeChecked(items: SelectorItem[], changeUnit: 'today' | 'week' | 'month' | 'more'): SelectorItem[] {
         return items.map(item => {
             let checked = false;
             if (item.value === changeUnit) {

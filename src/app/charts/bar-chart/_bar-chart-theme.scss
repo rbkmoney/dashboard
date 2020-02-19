@@ -1,19 +1,28 @@
 @import '~@angular/material/theming';
+@import '../../../styles/utils/shadow';
 
 @mixin dsh-bar-chart-theme($theme) {
     $foreground: map-get($theme, foreground);
     $gray: map-get($theme, gray);
 
-    .dsh-bar-chart-tooltip-title {
-        color: map-get($gray, 500);
+    .dsh-bar-chart-tooltip {
+        &-title {
+            color: map-get($gray, 500);
+        }
     }
 
-    .apexcharts-legend-text {
-        color: mat-color($foreground, text) !important;
-    }
+    .apexcharts {
+        &-text {
+            fill: mat-color($foreground, text);
+        }
 
-    .apexcharts-text {
-        fill: mat-color($foreground, text);
+        &-legend-text {
+            color: mat-color($foreground, text) !important;
+        }
+
+        &-tooltip {
+            @include dsh-shadow($theme);
+        }
     }
 }
 

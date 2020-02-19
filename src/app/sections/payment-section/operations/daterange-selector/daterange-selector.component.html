@@ -1,6 +1,6 @@
 <dsh-button-toggle-group *transloco="let t">
     <dsh-button-toggle *ngFor="let item of items" [checked]="item.checked" (click)="selectUnit(item.value)">
-        <div *ngIf="item.value !== DaterangeUnitEnum.more; else moreBlock">{{ t[item.value] }}</div>
+        <div *ngIf="item.dicPath; else moreBlock">{{ t[item.dicPath] }}</div>
     </dsh-button-toggle>
 </dsh-button-toggle-group>
 <ng-template #moreBlock><mat-icon svgIcon="more_horiz"></mat-icon></ng-template>

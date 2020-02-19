@@ -24,14 +24,21 @@ import { BarChartService } from './bar-chart.service';
     encapsulation: ViewEncapsulation.None
 })
 export class BarChartComponent implements OnInit {
+    private readonly legendRoundSize = 12;
+
     @Input()
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
+
+    @Input()
+    times: string[] | moment.Moment[] | Date[];
 
     @Input()
     colors = ['#81DBAF', '#979797', '#FC9B51', '#FB7777', '#FFCD00'];
 
     @Input()
     height = 300;
+
+    initialized = false;
 
     chart: ApexChart;
     dataLabels: ApexDataLabels = {
@@ -41,12 +48,9 @@ export class BarChartComponent implements OnInit {
     legend: ApexLegend = {
         position: 'bottom',
         markers: {
-            width: 12,
-            height: 12,
-            strokeWidth: 2,
-            radius: 12,
-            offsetX: 0,
-            offsetY: 0
+            width: this.legendRoundSize,
+            height: this.legendRoundSize,
+            radius: this.legendRoundSize
         },
         onItemHover: {
             highlightDataSeries: false
@@ -66,7 +70,7 @@ export class BarChartComponent implements OnInit {
                      </div>`;
             }
             return `
-                <dsh-card>
+<!--                <dsh-card>-->
                     <dsh-card-title>
                         <div class="dsh-bar-chart-tooltip-title mat-caption">${formatDate(
                             w.config.xaxis.categories[dataPointIndex],
@@ -77,7 +81,7 @@ export class BarChartComponent implements OnInit {
                     <dsh-card-content>
                         ${values}
                     </dsh-card-content>
-                </dsh-card>
+<!--                </dsh-card>-->
             `;
         }
     };
@@ -87,32 +91,7 @@ export class BarChartComponent implements OnInit {
             columnWidth: '20'
         }
     };
-    xaxis: ApexXAxis = {
-        type: 'category',
-        labels: {
-            formatter(value: string): string {
-                return formatDate(value, 'dd.MM', moment.locale());
-            },
-            offsetY: -5
-        },
-        categories: [
-            moment().subtract(6, 'd'),
-            moment().subtract(5, 'd'),
-            moment().subtract(4, 'd'),
-            moment().subtract(3, 'd'),
-            moment().subtract(2, 'd'),
-            moment().subtract(1, 'd')
-        ],
-        axisTicks: {
-            show: false
-        },
-        axisBorder: {
-            show: false
-        },
-        crosshairs: {
-            show: false
-        }
-    };
+    xaxis: ApexXAxis;
     yaxis: ApexYAxis = {
         forceNiceScale: true
     };
@@ -138,5 +117,25 @@ export class BarChartComponent implements OnInit {
                 show: false
             }
         };
+        this.xaxis = {
+            type: 'category',
+            labels: {
+                formatter(value: string): string {
+                    return formatDate(value, 'dd.MM', moment.locale());
+                },
+                offsetY: -5
+            },
+            categories: this.times,
+            axisTicks: {
+                show: false
+            },
+            axisBorder: {
+                show: false
+            },
+            crosshairs: {
+                show: false
+            }
+        };
+        this.initialized = true;
     }
 }

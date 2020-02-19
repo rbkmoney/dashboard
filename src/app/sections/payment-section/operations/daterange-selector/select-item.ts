@@ -1,7 +1,5 @@
-import { DateUnit } from './date-unit';
-import { DaterangeUnitEnum } from './daterange-unit-enum';
-
 export interface SelectorItem {
-    value: DateUnit | DaterangeUnitEnum.more;
+    value: 'today' | 'week' | 'month' | 'more';
     checked: boolean;
+    dicPath?: string;
 }
