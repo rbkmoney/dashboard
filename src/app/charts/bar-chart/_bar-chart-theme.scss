@@ -3,6 +3,7 @@
 
 @mixin dsh-bar-chart-theme($theme) {
     $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
     $gray: map-get($theme, gray);
 
     .dsh-bar-chart-tooltip {
@@ -22,6 +23,7 @@
 
         &-tooltip {
             @include dsh-shadow($theme);
+            background-color: mat-color($background, card);
         }
     }
 }
