@@ -35,19 +35,7 @@
                     </button>
                 </div>
             </div>
-            <div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px">
-                <div fxFlex>
-                    <span class="mat-headline dsh-payout-panel-more-amount">
-                        {{ payout?.amount | fromMinor | currency: payout?.currency }}
-                    </span>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.shop">
-                        {{ (shop$ | async)?.name || payout?.shopID }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex></div>
-            </div>
+            <dsh-common-info [payout]="payout" [shopName]="(shop$ | async)?.name"></dsh-common-info>
 
             <mat-divider></mat-divider>
 

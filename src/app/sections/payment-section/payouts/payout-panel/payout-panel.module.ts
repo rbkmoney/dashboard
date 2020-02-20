@@ -19,6 +19,7 @@ import { SpinnerModule } from '../../../../spinner';
 import { ReportsModule } from '../../../../api';
 import { PaymentsInfoComponent } from './payments-info';
 import { RefundsInfoComponent } from './refunds-info';
+import { CommonInfoComponent } from './common-info';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { RefundsInfoComponent } from './refunds-info';
         WalletInfoComponent,
         CreateReportDialogComponent,
         PaymentsInfoComponent,
-        RefundsInfoComponent
+        RefundsInfoComponent,
+        CommonInfoComponent
     ],
     entryComponents: [CreateReportDialogComponent],
     exports: [PayoutPanelComponent]

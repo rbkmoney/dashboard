@@ -1,0 +1,13 @@
+<div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px" *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
+    <div fxFlex>
+        <span class="mat-headline dsh-payout-panel-more-amount">
+            {{ payout?.amount | fromMinor | currency: payout?.currency }}
+        </span>
+    </div>
+    <div fxFlex>
+        <dsh-details-item [title]="p.shop">
+            {{ shopName || payout?.shopID }}
+        </dsh-details-item>
+    </div>
+    <div fxFlex></div>
+</div>
