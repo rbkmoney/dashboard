@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Injectable } from '@angular/core';
 
 import { Payout } from '../../../../api-codegen/anapi';
-import { CreateReportDialogComponent, ReportDialogData } from './create-report-dialog';
+import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
 import { mapToShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -22,7 +22,7 @@ export class PayoutPanelService {
     }
 
     createReport({ payoutSummary, shopID }: Payout) {
-        this.dialog.open<CreateReportDialogComponent, ReportDialogData>(CreateReportDialogComponent, {
+        this.dialog.open<CreateReportDialogComponent, CreateReportDialogData>(CreateReportDialogComponent, {
             width: '560px',
             disableClose: true,
             data: {
