@@ -12,7 +12,7 @@
     <dsh-payout-panel *ngFor="let payout of payouts$ | async" [payout]="payout"></dsh-payout-panel>
     <dsh-card class="show-more" fxLayout>
         <button dsh-button *transloco="let t" (click)="fetchMore()" [disabled]="isLoading$ | async" fxFlex>
-            {{ t.showMore }}
+            {{ (isLoading$ | async) ? t.loading : t.showMore }}
         </button>
     </dsh-card>
 </div>
