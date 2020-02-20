@@ -15,6 +15,7 @@ import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 export class PayoutsComponent {
     payouts$ = this.payoutsService.searchResult$;
     isLoading$ = this.payoutsService.doAction$;
+    isInit$ = this.payoutsService.doSearchAction$;
     hasMore$ = this.payoutsService.hasMore$;
     lastUpdated$ = this.payoutsService.searchResult$.pipe(
         mapToTimestamp,

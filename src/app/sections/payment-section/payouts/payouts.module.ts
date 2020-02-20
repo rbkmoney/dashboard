@@ -20,6 +20,7 @@ import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
+import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { PayoutPanelModule } from './payout-panel';
         MatSelectModule,
         MatDatepickerModule,
         SearchModule,
-        MatInputModule
+        MatInputModule,
+        SpinnerModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

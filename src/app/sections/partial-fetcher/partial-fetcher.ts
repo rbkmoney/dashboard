@@ -8,7 +8,8 @@ import {
     share,
     startWith,
     distinctUntilChanged,
-    tap
+    tap,
+    filter
 } from 'rxjs/operators';
 
 import { FetchAction } from './fetch-action';
@@ -23,6 +24,7 @@ export abstract class PartialFetcher<R, P> {
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
     doAction$: Observable<boolean>;
+    doSearchAction$: Observable<boolean>;
     errors$: Observable<any>;
 
     constructor(debounceActionTime: number = 300) {
@@ -43,13 +45,20 @@ export abstract class PartialFetcher<R, P> {
             distinctUntilChanged(),
             shareReplay(1)
         );
+        this.doSearchAction$ = progress(
+            actionWithParams$.pipe(filter(({ type }) => type === 'search')),
+            fetchResult$
+        ).pipe(
+            distinctUntilChanged(),
+            shareReplay(1)
+        );
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : empty())),
             tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );
 
-        merge(this.searchResult$, this.hasMore$, this.doAction$, this.errors$).subscribe();
+        merge(this.searchResult$, this.hasMore$, this.doAction$, this.doSearchAction$, this.errors$).subscribe();
     }
 
     search(value: P) {
