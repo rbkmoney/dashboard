@@ -8,3 +8,4 @@ export * from './switch-scan';
 export * from './concat-first-scan';
 export * from './progress';
 export * from './share-replay-conf';
+export * from './select-errors';
