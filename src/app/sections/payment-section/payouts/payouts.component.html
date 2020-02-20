@@ -9,9 +9,7 @@
         {{ p.description }}
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
-    <ng-container *ngFor="let payout of payouts$ | async">
-        <dsh-payout-panel [payout]="payout"></dsh-payout-panel>
-    </ng-container>
+    <dsh-payout-panel *ngFor="let payout of payouts$ | async" [payout]="payout"></dsh-payout-panel>
     <dsh-card *ngIf="hasMore$ | async" class="show-more">
         <button
             dsh-button
