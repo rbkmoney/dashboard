@@ -51,71 +51,11 @@
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">{{ p.payments }}</div>
-            <div fxLayout fxLayoutGap="10px">
-                <div fxFlex>
-                    <dsh-details-item [title]="p.count">
-                        {{ payment.count }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.amount">
-                        {{ payment?.amount | fromMinor | currency: payment?.currency }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.fee">
-                        {{ payment?.fee | fromMinor | currency: payment?.currency }}
-                    </dsh-details-item>
-                </div>
-            </div>
-            <div fxLayout fxLayoutGap="10px">
-                <div fxFlex>
-                    <dsh-details-item [title]="p.firstConfirmationTime">
-                        {{ payment?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.lastConfirmationTime">
-                        {{ payment?.toTime | date: 'd MMMM y, HH:mm:ss' }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex></div>
-            </div>
+            <dsh-payments-info [paymentsSummary]="paymentsSummary"></dsh-payments-info>
 
             <mat-divider></mat-divider>
 
-            <div class="mat-title">{{ p.payouts }}</div>
-            <div fxLayout fxLayoutGap="10px">
-                <div fxFlex>
-                    <dsh-details-item [title]="p.count">
-                        {{ refund.count }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.amount">
-                        {{ refund?.amount | fromMinor | currency: refund?.currency }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.fee">
-                        {{ refund?.fee | fromMinor | currency: payment?.currency }}
-                    </dsh-details-item>
-                </div>
-            </div>
-            <div fxLayout fxLayoutGap="10px">
-                <div fxFlex>
-                    <dsh-details-item [title]="p.firstConfirmationTime">
-                        {{ refund?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex>
-                    <dsh-details-item [title]="p.lastConfirmationTime">
-                        {{ refund?.toTime | date: 'd MMMM y, HH:mm:ss' }}
-                    </dsh-details-item>
-                </div>
-                <div fxFlex></div>
-            </div>
+            <dsh-refunds-info [refundsSummary]="refundsSummary"></dsh-refunds-info>
 
             <mat-divider></mat-divider>
 

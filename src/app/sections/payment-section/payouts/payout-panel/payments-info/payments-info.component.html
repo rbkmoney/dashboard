@@ -1,0 +1,33 @@
+<div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
+    <div class="mat-title">{{ p.payments }}</div>
+    <div fxLayout fxLayoutGap="10px">
+        <div fxFlex>
+            <dsh-details-item [title]="p.count">
+                {{ paymentsSummary?.count }}
+            </dsh-details-item>
+        </div>
+        <div fxFlex>
+            <dsh-details-item [title]="p.amount">
+                {{ paymentsSummary?.amount | fromMinor | currency: paymentsSummary?.currency }}
+            </dsh-details-item>
+        </div>
+        <div fxFlex>
+            <dsh-details-item [title]="p.fee">
+                {{ paymentsSummary?.fee | fromMinor | currency: paymentsSummary?.currency }}
+            </dsh-details-item>
+        </div>
+    </div>
+    <div fxLayout fxLayoutGap="10px">
+        <div fxFlex>
+            <dsh-details-item [title]="p.firstConfirmationTime">
+                {{ paymentsSummary?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
+            </dsh-details-item>
+        </div>
+        <div fxFlex>
+            <dsh-details-item [title]="p.lastConfirmationTime">
+                {{ paymentsSummary?.toTime | date: 'd MMMM y, HH:mm:ss' }}
+            </dsh-details-item>
+        </div>
+        <div fxFlex></div>
+    </div>
+</div>

@@ -26,11 +26,11 @@ export class PayoutPanelComponent {
         );
     }
 
-    get payment() {
+    get paymentsSummary() {
         return this.payout.payoutSummary.find(p => p.type === 'payment');
     }
 
-    get refund() {
+    get refundsSummary() {
         return this.payout.payoutSummary.find(p => p.type === 'refund');
     }
 
