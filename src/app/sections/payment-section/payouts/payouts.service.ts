@@ -27,6 +27,6 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
     }
 
     protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string) {
-        return this.payoutSearchService.searchPayouts(fromTime, toTime, 1000, { ...restParams, continuationToken });
+        return this.payoutSearchService.searchPayouts(fromTime, toTime, 10, { ...restParams, continuationToken });
     }
 }

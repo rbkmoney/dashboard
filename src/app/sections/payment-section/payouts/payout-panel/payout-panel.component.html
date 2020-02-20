@@ -16,133 +16,131 @@
         </div>
     </div>
     <dsh-expand-panel-more>
-        <div fxLayout>
-            <div fxFlex fxLayout="column" fxLayoutGap="20px">
-                <div fxLayout fxLayoutGap="10px">
-                    <div
-                        class="dsh-payout-panel-more-caption"
-                        fxFlex
-                        fxLayoutAlign="space-between center"
-                        fxLayoutGap="10px"
-                    >
-                        <div class="mat-caption">{{ p.payoutNum | translocoParams: { num: payout.id } }}</div>
-                        <div class="mat-caption">
-                            {{ payout?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
-                        </div>
-                    </div>
-                    <div>
-                        <button dsh-icon-button (click)="expandPanel.collapse($event)">
-                            <mat-icon svgIcon="keyboard_arrow_up"></mat-icon>
-                        </button>
+        <div class="dsh-payout-panel-more" fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout fxLayoutGap="10px">
+                <div
+                    class="dsh-payout-panel-more-caption"
+                    fxFlex
+                    fxLayoutAlign="space-between center"
+                    fxLayoutGap="10px"
+                >
+                    <div class="mat-caption">{{ p.payoutNum | translocoParams: { num: payout.id } }}</div>
+                    <div class="mat-caption">
+                        {{ payout?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
                     </div>
                 </div>
-                <div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px">
-                    <div fxFlex>
-                        <span class="mat-headline dsh-payout-panel-more-amount">
-                            {{ payout?.amount | fromMinor | currency: payout?.currency }}
-                        </span>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.shop">
-                            {{ (shop$ | async)?.name || payout?.shopID }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex></div>
-                </div>
-
-                <mat-divider></mat-divider>
-
-                <div class="mat-title">{{ p.payments }}</div>
-                <div fxLayout fxLayoutGap="10px">
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.count">
-                            {{ payment.count }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.amount">
-                            {{ payment?.amount | fromMinor | currency: payment?.currency }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.fee">
-                            {{ payment?.fee | fromMinor | currency: payment?.currency }}
-                        </dsh-details-item>
-                    </div>
-                </div>
-                <div fxLayout fxLayoutGap="10px">
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.firstConfirmationTime">
-                            {{ payment?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.lastConfirmationTime">
-                            {{ payment?.toTime | date: 'd MMMM y, HH:mm:ss' }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex></div>
-                </div>
-
-                <mat-divider></mat-divider>
-
-                <div class="mat-title">{{ p.payouts }}</div>
-                <div fxLayout fxLayoutGap="10px">
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.count">
-                            {{ refund.count }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.amount">
-                            {{ refund?.amount | fromMinor | currency: refund?.currency }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.fee">
-                            {{ refund?.fee | fromMinor | currency: payment?.currency }}
-                        </dsh-details-item>
-                    </div>
-                </div>
-                <div fxLayout fxLayoutGap="10px">
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.firstConfirmationTime">
-                            {{ refund?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex>
-                        <dsh-details-item [title]="p.lastConfirmationTime">
-                            {{ refund?.toTime | date: 'd MMMM y, HH:mm:ss' }}
-                        </dsh-details-item>
-                    </div>
-                    <div fxFlex></div>
-                </div>
-
-                <mat-divider></mat-divider>
-
-                <dsh-bank-account-info
-                    *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankAccount'"
-                    [payoutTool]="payout.payoutToolDetails"
-                ></dsh-bank-account-info>
-                <dsh-bank-card-info
-                    *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankCard'"
-                    [payoutTool]="payout.payoutToolDetails"
-                ></dsh-bank-card-info>
-                <dsh-international-bank-account-info
-                    *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
-                    [payoutTool]="payout.payoutToolDetails"
-                ></dsh-international-bank-account-info>
-                <dsh-wallet-info
-                    *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsWalletInfo'"
-                    [payoutTool]="payout.payoutToolDetails"
-                ></dsh-wallet-info>
-
-                <mat-divider></mat-divider>
-
-                <div class="mat-title">{{ p.actions }}</div>
                 <div>
-                    <button dsh-stroked-button color="accent" (click)="create()">{{ p.createReport }}</button>
+                    <button dsh-icon-button (click)="expandPanel.collapse($event)">
+                        <mat-icon svgIcon="keyboard_arrow_up"></mat-icon>
+                    </button>
                 </div>
+            </div>
+            <div fxLayout fxLayoutAlign=" center" fxLayoutGap="10px">
+                <div fxFlex>
+                    <span class="mat-headline dsh-payout-panel-more-amount">
+                        {{ payout?.amount | fromMinor | currency: payout?.currency }}
+                    </span>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.shop">
+                        {{ (shop$ | async)?.name || payout?.shopID }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.payments }}</div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.count">
+                        {{ payment.count }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.amount">
+                        {{ payment?.amount | fromMinor | currency: payment?.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.fee">
+                        {{ payment?.fee | fromMinor | currency: payment?.currency }}
+                    </dsh-details-item>
+                </div>
+            </div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.firstConfirmationTime">
+                        {{ payment?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.lastConfirmationTime">
+                        {{ payment?.toTime | date: 'd MMMM y, HH:mm:ss' }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.payouts }}</div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.count">
+                        {{ refund.count }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.amount">
+                        {{ refund?.amount | fromMinor | currency: refund?.currency }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.fee">
+                        {{ refund?.fee | fromMinor | currency: payment?.currency }}
+                    </dsh-details-item>
+                </div>
+            </div>
+            <div fxLayout fxLayoutGap="10px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.firstConfirmationTime">
+                        {{ refund?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.lastConfirmationTime">
+                        {{ refund?.toTime | date: 'd MMMM y, HH:mm:ss' }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <dsh-bank-account-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankAccount'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-bank-account-info>
+            <dsh-bank-card-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsBankCard'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-bank-card-info>
+            <dsh-international-bank-account-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-international-bank-account-info>
+            <dsh-wallet-info
+                *ngIf="payout.payoutToolDetails.detailsType === 'PayoutToolDetailsWalletInfo'"
+                [payoutTool]="payout.payoutToolDetails"
+            ></dsh-wallet-info>
+
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.actions }}</div>
+            <div>
+                <button dsh-stroked-button color="accent" (click)="create()">{{ p.createReport }}</button>
             </div>
         </div>
     </dsh-expand-panel-more>
