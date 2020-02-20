@@ -37,7 +37,7 @@ export class ResizedDirective implements OnInit, OnDestroy {
         if (width === this.currentEvent.width && height === this.currentEvent.height) {
             return;
         }
-        const event = {
+        const event: ResizedEvent = {
             element: this.elementRef,
             width,
             height,

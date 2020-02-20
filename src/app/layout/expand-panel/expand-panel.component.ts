@@ -4,6 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 import { expandAnimation, ExpandState } from './expand-animation';
 import { coerce } from '../../../utils';
+import { ResizedEvent } from '../../resized';
 
 @Component({
     selector: 'dsh-expand-panel',
@@ -40,11 +41,15 @@ export class ExpandPanelComponent {
         }
     }
 
-    setBaseContentHeight(height: number) {
-        this.collapseTrigger = { value: ExpandState.expanded, params: { height } };
+    setBaseContentHeight({ height, oldHeight }: ResizedEvent) {
+        if (height !== oldHeight) {
+            this.collapseTrigger = { value: ExpandState.expanded, params: { height } };
+        }
     }
 
-    setExpandedContentHeight(height: number) {
-        this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+    setExpandedContentHeight({ height, oldHeight }: ResizedEvent) {
+        if (height !== oldHeight) {
+            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+        }
     }
 }
