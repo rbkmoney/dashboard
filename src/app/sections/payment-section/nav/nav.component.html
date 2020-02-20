@@ -10,16 +10,6 @@
         {{ t.operations }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
-        routerLink="./reports"
-        routerLinkActive
-        #reports="routerLinkActive"
-        [selected]="reports.isActive"
-        withIcon
-        icon="description"
-    >
-        {{ t.reports }}
-    </dsh-state-nav-item>
-    <dsh-state-nav-item
         routerLink="./payouts"
         routerLinkActive
         #payouts="routerLinkActive"
@@ -28,5 +18,15 @@
         icon="input"
     >
         {{ t.payouts }}
+    </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./reports"
+        routerLinkActive
+        #reports="routerLinkActive"
+        [selected]="reports.isActive"
+        withIcon
+        icon="description"
+    >
+        {{ t.reports }}
     </dsh-state-nav-item>
 </dsh-state-nav>
