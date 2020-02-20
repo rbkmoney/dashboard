@@ -5,13 +5,8 @@
     fxLayoutGap="20px"
 >
     <h1 class="mat-display-1" *transloco="let title; scope: 'payouts'; read: 'payouts.title'">{{ title }}</h1>
-    <div fxLayout fxLayoutGap="20px">
-        <div fxFlex class="mat-body-1">
-            {{ p.description }}
-        </div>
-        <!-- <div>
-            <button dsh-stroked-button color="accent" (click)="create()">{{ p.createPayout }}</button>
-        </div> -->
+    <div fxFlex class="mat-body-1">
+        {{ p.description }}
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
     <ng-container *ngFor="let payout of payouts$ | async">
