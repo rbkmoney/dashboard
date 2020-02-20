@@ -20,6 +20,7 @@ import { ReportsModule } from '../../../../api';
 import { PaymentsInfoComponent } from './payments-info';
 import { RefundsInfoComponent } from './refunds-info';
 import { CommonInfoComponent } from './common-info';
+import { PayoutToolInfoComponent } from './payout-tool-info';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { CommonInfoComponent } from './common-info';
         CreateReportDialogComponent,
         PaymentsInfoComponent,
         RefundsInfoComponent,
-        CommonInfoComponent
+        CommonInfoComponent,
+        PayoutToolInfoComponent
     ],
     entryComponents: [CreateReportDialogComponent],
     exports: [PayoutPanelComponent]
