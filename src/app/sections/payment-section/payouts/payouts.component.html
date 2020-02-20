@@ -10,14 +10,8 @@
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
     <dsh-payout-panel *ngFor="let payout of payouts$ | async" [payout]="payout"></dsh-payout-panel>
-    <dsh-card *ngIf="hasMore$ | async" class="show-more">
-        <button
-            dsh-button
-            class="show-more-button"
-            *transloco="let t"
-            (click)="fetchMore()"
-            [disabled]="isLoading$ | async"
-        >
+    <dsh-card class="show-more" fxLayout>
+        <button dsh-button *transloco="let t" (click)="fetchMore()" [disabled]="isLoading$ | async" fxFlex>
             {{ t.showMore }}
         </button>
     </dsh-card>
