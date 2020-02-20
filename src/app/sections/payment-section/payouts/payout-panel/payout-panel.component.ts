@@ -1,56 +1,34 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { map, shareReplay } from 'rxjs/operators';
-import moment from 'moment';
+import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Payout } from '../../../../api-codegen/anapi';
-import { CreateReportDialogComponent, ReportDialogData } from './create-report-dialog';
-import { mapToShopInfo } from '../../operations/operators';
-import { ShopService } from '../../../../api';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
+import { PayoutPanelService } from './payout-panel.service';
+import { ShopInfo } from '../../operations/operators';
 
 @Component({
     selector: 'dsh-payout-panel',
     templateUrl: 'payout-panel.component.html',
     styleUrls: ['payout-panel.component.scss'],
+    providers: [PayoutPanelService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PayoutPanelComponent {
+export class PayoutPanelComponent implements OnChanges {
     @Input() payout: Payout;
+    shopInfo$: Observable<ShopInfo>;
+    paymentsSummary: PayoutSummaryItem;
+    refundsSummary: PayoutSummaryItem;
 
-    get shop$() {
-        return this.shopService.shops$.pipe(
-            mapToShopInfo,
-            map(shops => shops.find(({ shopID }) => shopID === this.payout.shopID)),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+    constructor(private payoutPanelService: PayoutPanelService) {}
+
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        if (simpleChanges.payout.previousValue !== simpleChanges.payout.currentValue) {
+            this.paymentsSummary = this.payout.payoutSummary.find(p => p.type === 'payment');
+            this.refundsSummary = this.payout.payoutSummary.find(p => p.type === 'refund');
+            this.shopInfo$ = this.payoutPanelService.getShopInfo(this.payout.shopID);
+        }
     }
-
-    get paymentsSummary() {
-        return this.payout.payoutSummary.find(p => p.type === 'payment');
-    }
-
-    get refundsSummary() {
-        return this.payout.payoutSummary.find(p => p.type === 'refund');
-    }
-
-    constructor(private dialog: MatDialog, private shopService: ShopService) {}
 
     create() {
-        this.dialog.open<CreateReportDialogComponent, ReportDialogData>(CreateReportDialogComponent, {
-            width: '560px',
-            disableClose: true,
-            data: {
-                fromTime: moment
-                    .min(this.payout.payoutSummary.map(({ fromTime }) => moment(fromTime)))
-                    .utc()
-                    .format(),
-                toTime: moment
-                    .max(this.payout.payoutSummary.map(({ toTime }) => moment(toTime)))
-                    .utc()
-                    .format(),
-                shopID: this.payout.shopID
-            }
-        });
+        this.payoutPanelService.createReport(this.payout);
     }
 }
