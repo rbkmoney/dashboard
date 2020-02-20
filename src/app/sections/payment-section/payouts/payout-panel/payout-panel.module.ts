@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatDividerModule, MatDialogModule } from '@angular/material';
+import { MatIconModule, MatDividerModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -36,7 +36,8 @@ import { PayoutToolInfoComponent } from './payout-tool-info';
         SpinnerModule,
         RouterModule,
         MatDialogModule,
-        ReportsModule
+        ReportsModule,
+        MatSnackBarModule
     ],
     declarations: [
         PayoutPanelComponent,

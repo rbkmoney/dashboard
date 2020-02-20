@@ -11,10 +11,24 @@
                     <button dsh-button (click)="cancel()">
                         {{ t.cancel }}
                     </button>
-                    <button *ngIf="!(report$ | async)" dsh-button cdkFocusInitial (click)="create()" color="accent">
+                    <button
+                        *ngIf="!(report$ | async)"
+                        [disabled]="isLoading$ | async"
+                        dsh-button
+                        cdkFocusInitial
+                        (click)="create()"
+                        color="accent"
+                    >
                         {{ d.create }}
                     </button>
-                    <button *ngIf="report$ | async" dsh-button cdkFocusInitial (click)="toReports()" color="accent">
+                    <button
+                        *ngIf="report$ | async"
+                        [disabled]="isLoading$ | async"
+                        dsh-button
+                        cdkFocusInitial
+                        (click)="toReports()"
+                        color="accent"
+                    >
                         {{ d.toReports }}
                     </button>
                 </div>
