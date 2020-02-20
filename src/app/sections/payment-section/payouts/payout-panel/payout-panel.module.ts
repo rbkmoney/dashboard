@@ -17,6 +17,8 @@ import { InternationalBankAccountInfoComponent } from './international-bank-acco
 import { WalletInfoComponent } from './wallet-info';
 import { SpinnerModule } from '../../../../spinner';
 import { ReportsModule } from '../../../../api';
+import { PaymentsInfoComponent } from './payments-info';
+import { RefundsInfoComponent } from './refunds-info';
 
 @NgModule({
     imports: [
@@ -40,7 +42,9 @@ import { ReportsModule } from '../../../../api';
         BankCardInfoComponent,
         InternationalBankAccountInfoComponent,
         WalletInfoComponent,
-        CreateReportDialogComponent
+        CreateReportDialogComponent,
+        PaymentsInfoComponent,
+        RefundsInfoComponent
     ],
     entryComponents: [CreateReportDialogComponent],
     exports: [PayoutPanelComponent]
