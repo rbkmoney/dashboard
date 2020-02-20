@@ -1,56 +1,35 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { tap, switchMapTo } from 'rxjs/operators';
 
-import { ReportsService } from '../../../../../api';
-
-export interface ReportDialogData {
-    fromTime: string;
-    toTime: string;
-    shopID: string;
-}
+import { CreateReportDialogService } from './create-report-dialog.service';
+import { CreateReportDialogData } from './create-report-dialog-data';
 
 @Component({
     selector: 'dsh-create-report-dialog',
-    templateUrl: 'create-report-dialog.component.html'
+    templateUrl: 'create-report-dialog.component.html',
+    providers: [CreateReportDialogService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateReportDialogComponent {
-    isLoading = false;
-    isSuccessfullyCreated = false;
-    create$ = new Subject<void>();
+    isLoading$ = this.createReportDialogService.isLoading$;
+    report$ = this.createReportDialogService.report$;
 
     constructor(
         private dialogRef: MatDialogRef<CreateReportDialogComponent>,
-        private router: Router,
-        private reportsService: ReportsService,
-        @Inject(MAT_DIALOG_DATA) data: ReportDialogData
-    ) {
-        this.create$
-            .pipe(
-                tap(() => {
-                    this.isLoading = true;
-                }),
-                switchMapTo(this.reportsService.createReport(data)),
-                tap(() => {
-                    this.isLoading = false;
-                    this.isSuccessfullyCreated = true;
-                })
-            )
-            .subscribe();
-    }
+        @Inject(MAT_DIALOG_DATA) private data: CreateReportDialogData,
+        private createReportDialogService: CreateReportDialogService
+    ) {}
 
     cancel() {
         this.dialogRef.close();
     }
 
     create() {
-        this.create$.next();
+        this.createReportDialogService.create(this.data);
     }
 
     toReports() {
-        this.router.navigate([...this.router.url.split('/').slice(0, -1), 'reports']);
+        this.createReportDialogService.toReports();
         this.dialogRef.close();
     }
 }
