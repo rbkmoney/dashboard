@@ -1,3 +1,9 @@
-.show-more {
-    padding: 10px 20px;
+.dsh-payouts {
+    &-empty {
+        padding-top: 30px;
+        text-align: center;
+    }
+    &-show-more {
+        padding: 10px 20px;
+    }
 }

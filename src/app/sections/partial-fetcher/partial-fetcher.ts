@@ -49,6 +49,7 @@ export abstract class PartialFetcher<R, P> {
             actionWithParams$.pipe(filter(({ type }) => type === 'search')),
             fetchResult$
         ).pipe(
+            startWith(true),
             distinctUntilChanged(),
             shareReplay(1)
         );
