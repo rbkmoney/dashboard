@@ -1,3 +1,3 @@
-<button dsh-icon-button class="dsh-scroll-up" (click)="scrollToTop()">
+<button *ngIf="isShow$ | async" dsh-icon-button class="dsh-scroll-up" (click)="scrollToTop()">
     <mat-icon svgIcon="keyboard_arrow_up"></mat-icon>
 </button>
