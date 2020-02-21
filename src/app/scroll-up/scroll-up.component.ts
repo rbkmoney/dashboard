@@ -6,7 +6,7 @@ import { easeInOutCubic } from './ease-in-out-cubic';
 import { hideAnimation } from './hide-animation';
 
 const RIGHT_OFFSET = 30;
-const BOTTOM_OFFSET = 30;
+const BOTTOM_OFFSET = 50;
 const MIN_OFFSET = 10;
 const SIZE = 36;
 
