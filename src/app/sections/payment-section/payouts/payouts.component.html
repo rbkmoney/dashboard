@@ -15,7 +15,7 @@
             {{ p.empty }}
         </div>
     </ng-container>
-    <div fxLayout fxFlexAlign="center">
-        <dsh-spinner *ngIf="isInit$ | async"></dsh-spinner>
+    <div *ngIf="isInit$ | async" fxLayout fxFlexAlign="center">
+        <dsh-spinner></dsh-spinner>
     </div>
 </div>

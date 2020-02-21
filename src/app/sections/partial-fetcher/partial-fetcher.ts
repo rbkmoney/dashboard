@@ -41,18 +41,12 @@ export abstract class PartialFetcher<R, P> {
             distinctUntilChanged(),
             shareReplay(1)
         );
-        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(
-            distinctUntilChanged(),
-            shareReplay(1)
-        );
+        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(1));
         this.doSearchAction$ = progress(
             actionWithParams$.pipe(filter(({ type }) => type === 'search')),
-            fetchResult$
-        ).pipe(
-            startWith(true),
-            distinctUntilChanged(),
-            shareReplay(1)
-        );
+            fetchResult$,
+            true
+        ).pipe(shareReplay(1));
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : empty())),
             tap(error => console.error('Partial fetcher error: ', error)),
