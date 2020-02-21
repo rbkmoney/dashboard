@@ -21,6 +21,7 @@ import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
 import { SpinnerModule } from '../../../spinner';
+import { ScrollUpModule } from '../../../scroll-up';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { SpinnerModule } from '../../../spinner';
         MatDatepickerModule,
         SearchModule,
         MatInputModule,
-        SpinnerModule
+        SpinnerModule,
+        ScrollUpModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

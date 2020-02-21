@@ -3,12 +3,19 @@ import { interval, BehaviorSubject } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
 import { easeInOutCubic } from './ease-in-out-cubic';
+import { hideAnimation } from './hide-animation';
+
+const RIGHT_OFFSET = 30;
+const BOTTOM_OFFSET = 30;
+const MIN_OFFSET = 10;
+const SIZE = 36;
 
 @Component({
     selector: 'dsh-scroll-up',
     templateUrl: 'scroll-up.component.html',
     styleUrls: ['scroll-up.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [hideAnimation]
 })
 export class ScrollUpComponent implements OnInit, OnDestroy {
     @Input()
@@ -20,15 +27,26 @@ export class ScrollUpComponent implements OnInit, OnDestroy {
     @Input()
     interval = 16;
 
+    @Input()
+    hideAfter = 500;
+
+    @Input()
+    contentWidth = 1200;
+
     isShow$ = new BehaviorSubject(false);
 
+    rightOffset$ = new BehaviorSubject(RIGHT_OFFSET);
+    readonly bottomOffset = BOTTOM_OFFSET;
+
     ngOnInit() {
-        this.updateShowing();
-        window.addEventListener('scroll', this.updateShowing);
+        this.setIsShow();
+        window.addEventListener('scroll', this.setIsShow);
+        window.addEventListener('resize', this.setIsShow);
     }
 
     ngOnDestroy() {
-        window.removeEventListener('scroll', this.updateShowing);
+        window.removeEventListener('scroll', this.setIsShow);
+        window.addEventListener('resize', this.setIsShow);
     }
 
     scrollToTop() {
@@ -45,15 +63,28 @@ export class ScrollUpComponent implements OnInit, OnDestroy {
             });
     }
 
-    updateShowing = () => {
-        if (window.pageYOffset === 0) {
-            if (this.isShow$.value !== false) {
-                this.isShow$.next(false);
-            }
-        } else {
-            if (this.isShow$.value !== true) {
-                this.isShow$.next(true);
-            }
+    private changeIsShow(isShow: boolean) {
+        if (this.isShow$.value !== isShow) {
+            this.isShow$.next(isShow);
         }
+    }
+
+    private setIsShow = () => {
+        const isShowByYOffset = window.pageYOffset >= this.hideAfter;
+        if (!isShowByYOffset) {
+            return this.changeIsShow(false);
+        }
+        const width = document.documentElement.clientWidth;
+        const minRequiredWidth = this.contentWidth + (MIN_OFFSET * 2 + SIZE) * 2;
+        const isShowByWidth = width >= minRequiredWidth;
+        if (!isShowByWidth) {
+            return this.changeIsShow(false);
+        }
+        const remaining = Math.min((width - minRequiredWidth) / 2, RIGHT_OFFSET - MIN_OFFSET);
+        const nextOffset = MIN_OFFSET + remaining;
+        if (this.rightOffset$.value !== nextOffset) {
+            this.rightOffset$.next(nextOffset);
+        }
+        this.changeIsShow(true);
     };
 }
