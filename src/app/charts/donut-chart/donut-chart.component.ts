@@ -1,21 +1,21 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
-import { Moment } from 'moment';
 
 import { DEFAULT_CONFIG } from './default-config';
 
 @Component({
-    selector: 'dsh-bar-chart',
-    templateUrl: './bar-chart.component.html',
-    styleUrls: ['bar-chart.component.scss'],
+    selector: 'dsh-donut-chart',
+    templateUrl: './donut-chart.component.html',
+    styleUrls: ['donut-chart.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class BarChartComponent implements OnChanges {
+export class DonutChartComponent implements OnChanges {
+
     @Input()
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
 
     @Input()
-    times: string[] | Moment[] | Date[];
+    labels: string[];
 
     @Input()
     colors?: string[];
@@ -26,11 +26,10 @@ export class BarChartComponent implements OnChanges {
     config = DEFAULT_CONFIG;
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.times.currentValue !== changes.times.previousValue) {
-            this.config.xaxis = { ...this.config.xaxis, categories: this.times };
-        }
+        console.log(this.height);
         if (changes.height.currentValue !== changes.height.previousValue) {
             this.config.chart = { ...this.config.chart, height: this.height };
         }
     }
+
 }

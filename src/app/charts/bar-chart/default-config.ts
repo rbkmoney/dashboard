@@ -3,8 +3,10 @@ import { formatDate } from '@angular/common';
 import moment from 'moment';
 
 import { customTooltip } from './custom-tooltip';
+import { DEFAULT_LEGEND } from '../default-legend';
+import { DEFAULT_STATES } from '../default-states';
 
-const LEGEND_ROUND_SIZE = 12;
+
 const COLUMN_WIDTH = '30%';
 
 export const DEFAULT_CONFIG: ApexOptions = {
@@ -19,17 +21,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
     dataLabels: {
         enabled: false
     },
-    legend: {
-        position: 'bottom',
-        markers: {
-            width: LEGEND_ROUND_SIZE,
-            height: LEGEND_ROUND_SIZE,
-            radius: LEGEND_ROUND_SIZE
-        },
-        onItemHover: {
-            highlightDataSeries: false
-        }
-    },
+    legend: DEFAULT_LEGEND,
     fill: {
         opacity: 1
     },
@@ -61,16 +53,5 @@ export const DEFAULT_CONFIG: ApexOptions = {
     yaxis: {
         forceNiceScale: true
     },
-    states: {
-        hover: {
-            filter: {
-                type: 'none'
-            }
-        },
-        active: {
-            filter: {
-                type: 'none'
-            }
-        }
-    }
+    states: DEFAULT_STATES
 };

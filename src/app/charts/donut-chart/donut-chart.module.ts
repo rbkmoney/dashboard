@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
-import { BarChartComponent } from './bar-chart.component';
+import { DonutChartComponent } from './donut-chart.component';
 
 @NgModule({
-    declarations: [BarChartComponent],
-    exports: [BarChartComponent],
+    declarations: [DonutChartComponent],
+    exports: [DonutChartComponent],
     imports: [CommonModule, NgApexchartsModule]
 })
-export class BarChartModule {}
+export class DonutChartModule {}
