@@ -6,6 +6,7 @@ import { DEFAULT_STATES } from '../default-states';
 export const DEFAULT_CONFIG: ApexOptions = {
     chart: {
         type: 'donut',
+        width: '100%',
         toolbar: {
             show: false
         }
@@ -15,10 +16,9 @@ export const DEFAULT_CONFIG: ApexOptions = {
     },
     legend: {
         ...DEFAULT_LEGEND,
-        position: 'right',
-        horizontalAlign: 'left',
+        horizontalAlign: 'center',
         itemMargin: {
-            vertical: 8
+            vertical: 4
         },
         formatter: (seriesName, opts) => {
             return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex]}%`;

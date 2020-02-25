@@ -6,7 +6,6 @@ import { customTooltip } from './custom-tooltip';
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
 
-
 const COLUMN_WIDTH = '30%';
 
 export const DEFAULT_CONFIG: ApexOptions = {

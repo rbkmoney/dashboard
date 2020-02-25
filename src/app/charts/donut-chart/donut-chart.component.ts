@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
 import { DEFAULT_CONFIG } from './default-config';
@@ -9,8 +9,7 @@ import { DEFAULT_CONFIG } from './default-config';
     styleUrls: ['donut-chart.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class DonutChartComponent implements OnChanges {
-
+export class DonutChartComponent {
     @Input()
     series: ApexAxisChartSeries | ApexNonAxisChartSeries;
 
@@ -20,16 +19,5 @@ export class DonutChartComponent implements OnChanges {
     @Input()
     colors?: string[];
 
-    @Input()
-    height?: number;
-
     config = DEFAULT_CONFIG;
-
-    ngOnChanges(changes: SimpleChanges) {
-        console.log(this.height);
-        if (changes.height.currentValue !== changes.height.previousValue) {
-            this.config.chart = { ...this.config.chart, height: this.height };
-        }
-    }
-
 }

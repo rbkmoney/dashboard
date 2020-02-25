@@ -24,8 +24,12 @@
 @mixin dsh-charts-typography($config) {
     .apexcharts-text,
     .apexcharts-legend-text {
+        line-height: 20px;
+
         font: {
             family: mat-font-family($config, caption) !important;
+            size: mat-font-size($config, caption) !important;
+            weight: mat-font-weight($config, caption) !important;
         }
     }
 }

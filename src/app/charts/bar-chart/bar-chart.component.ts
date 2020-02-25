@@ -26,10 +26,10 @@ export class BarChartComponent implements OnChanges {
     config = DEFAULT_CONFIG;
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.times.currentValue !== changes.times.previousValue) {
+        if (changes.times && changes.times.currentValue !== changes.times.previousValue) {
             this.config.xaxis = { ...this.config.xaxis, categories: this.times };
         }
-        if (changes.height.currentValue !== changes.height.previousValue) {
+        if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
             this.config.chart = { ...this.config.chart, height: this.height };
         }
     }
