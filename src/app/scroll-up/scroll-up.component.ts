@@ -18,20 +18,30 @@ const SIZE = 36;
     animations: [hideAnimation]
 })
 export class ScrollUpComponent implements OnInit, OnDestroy {
+    /**
+     * Auto-scrolling time, ms
+     */
     @Input()
     scrollTime = 500;
 
     /**
+     * Interval, ms
      * 16 = ~60 FPS
      */
     @Input()
     interval = 16;
 
+    /**
+     * Hide after scrolling below, px
+     */
     @Input()
     hideAfter = 500;
 
+    /**
+     * Displayed content width, px
+     */
     @Input()
-    contentWidth = 1200;
+    contentWidth = 920;
 
     isShow$ = new BehaviorSubject(false);
 
