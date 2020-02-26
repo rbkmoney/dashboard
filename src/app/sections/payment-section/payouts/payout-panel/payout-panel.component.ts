@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs';
+import isEqual from 'lodash.isequal';
 
 import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
 import { PayoutPanelService } from './payout-panel.service';
@@ -20,10 +21,10 @@ export class PayoutPanelComponent implements OnChanges {
 
     constructor(private payoutPanelService: PayoutPanelService) {}
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.payout.previousValue !== simpleChanges.payout.currentValue) {
-            this.paymentsSummary = this.payout.payoutSummary.find(p => p.type === 'payment');
-            this.refundsSummary = this.payout.payoutSummary.find(p => p.type === 'refund');
+    ngOnChanges({ payout }: SimpleChanges) {
+        if (!isEqual(payout.previousValue, payout.currentValue)) {
+            this.paymentsSummary = payout.currentValue.payoutSummary.find(p => p.type === 'payment');
+            this.refundsSummary = payout.currentValue.payoutSummary.find(p => p.type === 'refund');
             this.shopInfo$ = this.payoutPanelService.getShopInfo(this.payout.shopID);
         }
     }
