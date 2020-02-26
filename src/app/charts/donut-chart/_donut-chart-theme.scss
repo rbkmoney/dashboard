@@ -1,10 +1,14 @@
 @import '~@angular/material/theming';
+
 @import '../../../styles/utils/shadow';
+@import '../charts-theme';
 
 @mixin dsh-donut-chart-theme($theme) {
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
     $gray: map-get($theme, gray);
+
+    @include dsh-charts-theme($theme);
 
     .dsh-donut-chart-tooltip {
         &-title {

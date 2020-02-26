@@ -16,10 +16,6 @@ export const DEFAULT_CONFIG: ApexOptions = {
     },
     legend: {
         ...DEFAULT_LEGEND,
-        horizontalAlign: 'center',
-        itemMargin: {
-            vertical: 4
-        },
         formatter: (seriesName, opts) => {
             return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex]}%`;
         }

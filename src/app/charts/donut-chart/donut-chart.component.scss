@@ -3,23 +3,4 @@ dsh-donut-chart {
     .apexcharts-legend-marker {
         cursor: default !important;
     }
-
-    .apexcharts-legend {
-        width: available;
-    }
-
-    .apexcharts-legend-text {
-        word-wrap: break-word;
-    }
-}
-
-.apexcharts-legend-series,
-.apexcharts-legend-text,
-.apexcharts-inner,
-.apexcharts-canvas {
-    display: flex !important;
-}
-
-.apexcharts-legend-series {
-    align-items: center;
 }

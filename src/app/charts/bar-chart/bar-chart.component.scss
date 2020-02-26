@@ -1,24 +1,22 @@
-.apexcharts-tooltip {
-    border: none !important;
-    border-radius: 4px;
-    padding: 10px;
-}
-
-.apexcharts-legend-series {
-    align-items: center;
-}
-
-.dsh-bar-chart-tooltip {
-    &-round {
-        margin-right: 4px;
-        height: 15px;
-        width: 15px;
-        border-radius: 15px;
+dsh-bar-chart {
+    .apexcharts-tooltip {
+        border: none !important;
+        border-radius: 4px;
+        padding: 10px;
     }
 
-    &-container {
-        padding: 4px;
-        display: flex;
-        align-items: center;
+    .dsh-bar-chart-tooltip {
+        &-round {
+            margin-right: 4px;
+            height: 15px;
+            width: 15px;
+            border-radius: 15px;
+        }
+
+        &-container {
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
     }
 }
