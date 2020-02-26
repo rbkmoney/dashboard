@@ -7,13 +7,7 @@ import { TranslocoService } from '@ngneat/transloco';
 
 import { ReportsService } from '../../../../../api';
 import { CreateReportDialogData } from './create-report-dialog-data';
-import {
-    progress,
-    SHARE_REPLAY_CONF,
-    selectErrors,
-    filterErrors,
-    filterSuccess
-} from '../../../../../custom-operators';
+import { progress, SHARE_REPLAY_CONF, replaceError, filterError, filterPayload } from '../../../../../custom-operators';
 import { Report } from '../../../../../api-codegen/anapi';
 
 @Injectable()
@@ -31,16 +25,16 @@ export class CreateReportDialogService {
         private transloco: TranslocoService
     ) {
         const report$ = this.create$.pipe(
-            switchMap(data => this.reportsService.createReport(data).pipe(selectErrors)),
+            switchMap(data => this.reportsService.createReport(data).pipe(replaceError)),
             shareReplay(SHARE_REPLAY_CONF)
         );
 
         this.report$ = report$.pipe(
-            filterSuccess,
+            filterPayload,
             shareReplay(SHARE_REPLAY_CONF)
         );
         this.errors$ = report$.pipe(
-            filterErrors,
+            filterError,
             tap(error => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 console.error(error);
