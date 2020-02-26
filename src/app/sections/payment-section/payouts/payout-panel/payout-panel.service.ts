@@ -1,24 +1,30 @@
 import { MatDialog } from '@angular/material';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import moment from 'moment';
 import { Injectable } from '@angular/core';
+import { Observable, Subject, combineLatest, of } from 'rxjs';
 
-import { Payout } from '../../../../api-codegen/anapi';
 import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
-import { mapToShopInfo } from '../../operations/operators';
+import { mapToShopInfo, ShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { Payout } from '../../../../api-codegen/anapi';
 
 @Injectable()
 export class PayoutPanelService {
+    private getShopInfo$ = new Subject<string>();
+
+    shopInfo$: Observable<ShopInfo> = this.getShopInfo$.pipe(
+        distinctUntilChanged(),
+        switchMap(shopID => combineLatest(of(shopID), this.shopService.shops$.pipe(mapToShopInfo))),
+        map(([shopID, shops]) => shops.find(shop => shop.shopID === shopID)),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     constructor(private dialog: MatDialog, private shopService: ShopService) {}
 
     getShopInfo(shopID: string) {
-        return this.shopService.shops$.pipe(
-            mapToShopInfo,
-            map(shops => shops.find(shop => shop.shopID === shopID)),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+        this.getShopInfo$.next(shopID);
     }
 
     createReport({ payoutSummary, shopID }: Payout) {
@@ -34,7 +40,7 @@ export class PayoutPanelService {
                     .max(payoutSummary.map(({ toTime }) => moment(toTime)))
                     .utc()
                     .format(),
-                shopID: shopID
+                shopID
             }
         });
     }
