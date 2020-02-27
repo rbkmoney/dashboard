@@ -15,7 +15,7 @@ import {
 import { FetchAction } from './fetch-action';
 import { scanFetchResult, scanAction } from './operators';
 import { FetchFn } from './fetch-fn';
-import { progress } from '../../custom-operators';
+import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
 import { FetchResult } from './fetch-result';
 
 export abstract class PartialFetcher<R, P> {
@@ -33,20 +33,20 @@ export abstract class PartialFetcher<R, P> {
 
         this.searchResult$ = fetchResult$.pipe(
             pluck('result'),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
         this.hasMore$ = fetchResult$.pipe(
             map(({ continuationToken }) => !!continuationToken),
             startWith(false),
             distinctUntilChanged(),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
-        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(1));
+        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.doSearchAction$ = progress(
             actionWithParams$.pipe(filter(({ type }) => type === 'search')),
             fetchResult$,
             true
-        ).pipe(shareReplay(1));
+        ).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : empty())),
             tap(error => console.error('Partial fetcher error: ', error)),
@@ -82,7 +82,7 @@ export abstract class PartialFetcher<R, P> {
         const fetchFn = this.fetch.bind(this) as FetchFn<P, R>;
         return actionWithParams$.pipe(
             scanFetchResult(fetchFn),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
     }
 }
