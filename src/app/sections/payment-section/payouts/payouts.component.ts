@@ -3,7 +3,7 @@ import { shareReplay } from 'rxjs/operators';
 
 import { PayoutsService } from './payouts.service';
 import { mapToTimestamp } from '../operations/operators';
-import { booleanDebounceTime } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 
 @Component({
     selector: 'dsh-payouts',
@@ -16,12 +16,12 @@ export class PayoutsComponent {
     payouts$ = this.payoutsService.searchResult$;
     isLoading$ = this.payoutsService.doAction$.pipe(
         booleanDebounceTime(),
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
     hasMore$ = this.payoutsService.hasMore$;
     lastUpdated$ = this.payoutsService.searchResult$.pipe(
         mapToTimestamp,
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(private payoutsService: PayoutsService) {}
