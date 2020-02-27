@@ -1,0 +1,17 @@
+.dsh-range-datepicker {
+    &-button {
+        min-width: 160px;
+    }
+
+    &-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        visibility: hidden;
+    }
+}

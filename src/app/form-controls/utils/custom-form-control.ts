@@ -21,8 +21,8 @@ import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
-export class CustomFormControl<T extends any = string> extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy, DoCheck, OnChanges {
+export class CustomFormControl<I extends any = any, O extends any = I> extends InputMixinBase
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I | O>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
@@ -76,16 +76,16 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
     protected type = 'text';
 
     @Input()
-    get value(): T {
+    get value(): I | O {
         return this.formControl.value;
     }
-    set value(value: T) {
+    set value(value: I | O) {
         this.formControl.setValue(value);
         this.stateChanges.next();
     }
 
     get details() {
-        return this.getDetails(this.value);
+        return this.getDetails(this.value as I);
     }
 
     @HostBinding('class.floating')
@@ -180,7 +180,7 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         this._onTouched();
     }
 
-    registerOnChange(onChange: (value: T) => void): void {
+    registerOnChange(onChange: (value: O) => void): void {
         this.formControl.valueChanges.subscribe(v => onChange(this.getValue(v)));
     }
 
@@ -202,15 +202,15 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         this.disabled = shouldDisable;
     }
 
-    writeValue(value: string): void {
+    writeValue(value: I): void {
         this.formControl.setValue(value, { emitEvent: false });
     }
 
-    getDetails(value: T) {
+    getDetails(value: I) {
         return value;
     }
 
-    getValue(value = this.value): T {
-        return value;
+    getValue(value = this.value): O {
+        return value as O;
     }
 }

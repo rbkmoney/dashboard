@@ -28,7 +28,7 @@ export class FormatInputComponent extends CustomFormControl {
         return this._format;
     }
 
-    setType(type: Type) {
+    private setType(type: Type) {
         const c = configs[type];
         const { placeholder, prefix, postfix, size, mask, getValue } = c;
         const sizeFromPlaceholder = c.sizeFromPlaceholder === undefined ? true : c.sizeFromPlaceholder;
@@ -44,7 +44,7 @@ export class FormatInputComponent extends CustomFormControl {
         }
     }
 
-    prepareText(str: string): string {
+    private prepareText(str: string): string {
         return (typeof str === 'string' ? str.replace(/ /g, '\xa0') : str) || '';
     }
 }

@@ -1,0 +1,30 @@
+<dsh-button-toggle-group>
+    <dsh-button-toggle>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </dsh-button-toggle>
+    <dsh-button-toggle [matMenuTriggerFor]="menu">
+        <div class="dsh-range-datepicker-button">
+            <ng-container *ngIf="value?.begin && value?.end; else placeholder">
+                {{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}
+            </ng-container>
+            <ng-template #placeholder>
+                Выберите период
+            </ng-template>
+            <input matInput class="dsh-range-datepicker-input" [formControl]="formControl" [satDatepicker]="picker" />
+        </div>
+    </dsh-button-toggle>
+    <dsh-button-toggle>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </dsh-button-toggle>
+</dsh-button-toggle-group>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>Текущая неделя</button>
+    <button mat-menu-item>Февраль</button>
+    <button mat-menu-item>3 месяца</button>
+    <button mat-menu-item>2020 год</button>
+    <button mat-menu-item>За все время</button>
+    <button mat-menu-item (click)="picker.open()">Указать период...</button>
+</mat-menu>
+
+<sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
