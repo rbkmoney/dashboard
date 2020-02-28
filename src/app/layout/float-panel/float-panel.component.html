@@ -26,7 +26,7 @@
                         </button>
                     </div>
                 </div>
-                <div fxLayout fxLayoutAlign="center" *ngIf="!floatPanelMore">
+                <div fxLayout fxLayoutAlign="center" *ngIf="!floatPanelMore && floatPanelActions">
                     <div>
                         <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
                     </div>

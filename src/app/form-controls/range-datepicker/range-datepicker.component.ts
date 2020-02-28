@@ -6,7 +6,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
 import { CustomFormControl } from '../utils';
 
 type InternalRange = SatDatepickerRangeValue<Date>;
-type PublicRange = SatDatepickerRangeValue<Moment>;
+export type Range = SatDatepickerRangeValue<Moment>;
 
 @Component({
     selector: 'dsh-range-datepicker',
@@ -14,12 +14,12 @@ type PublicRange = SatDatepickerRangeValue<Moment>;
     styleUrls: ['range-datepicker.component.scss'],
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
 })
-export class RangeDatepickerComponent extends CustomFormControl<InternalRange, PublicRange> {
-    toPublicValue(value: InternalRange): PublicRange {
-        return { begin: moment(value.begin), end: moment(value.begin) };
+export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> {
+    toPublicValue({ begin, end }: InternalRange): Range {
+        return { begin: moment(begin), end: moment(end) };
     }
 
-    toInternalValue(value: PublicRange): InternalRange {
-        return { begin: value.begin.toDate(), end: value.begin.toDate() };
+    toInternalValue({ begin, end }: Range): InternalRange {
+        return { begin: begin.toDate(), end: end.toDate() };
     }
 }
