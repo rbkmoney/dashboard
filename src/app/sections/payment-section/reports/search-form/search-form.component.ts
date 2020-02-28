@@ -13,16 +13,8 @@ import { ReportsService } from '../reports.service';
 export class SearchFormComponent {
     form = this.searchFormService.form;
     reset = this.searchFormService.reset;
-
     shopsInfo$ = this.reportsService.shopsInfo$;
-
     reportTypes = Object.values(Report.ReportTypeEnum);
 
-    expanded = false;
-
     constructor(private searchFormService: SearchFormService, private reportsService: ReportsService) {}
-
-    selectDaterange(v: SearchFormValue) {
-        this.form.patchValue(v);
-    }
 }

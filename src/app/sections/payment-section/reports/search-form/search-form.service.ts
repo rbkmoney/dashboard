@@ -1,4 +1,4 @@
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -8,19 +8,22 @@ import { toSearchParams } from './to-search-params';
 import { FormParams } from './form-params';
 import { toFormValue } from './to-form-value';
 import { toQueryParams } from './to-query-params';
+import { QueryParams } from './query-params';
 
 @Injectable()
 export class SearchFormService {
-    static defaultParams: FormParams = {
-        fromTime: moment()
-            .subtract(1, 'month')
-            .startOf('day'),
-        toTime: moment().endOf('day'),
+    defaultParams: FormParams = {
         shopID: null,
-        reportType: null
+        reportType: null,
+        date: {
+            begin: moment()
+                .subtract(1, 'month')
+                .startOf('day'),
+            end: moment().endOf('day')
+        }
     };
 
-    form = this.fb.group(SearchFormService.defaultParams);
+    form = this.fb.group(this.defaultParams);
 
     constructor(
         private fb: FormBuilder,
@@ -36,7 +39,7 @@ export class SearchFormService {
     }
 
     reset() {
-        this.form.setValue(SearchFormService.defaultParams);
+        this.form.setValue(this.defaultParams);
     }
 
     private init() {
@@ -46,8 +49,8 @@ export class SearchFormService {
     }
 
     private syncQueryParams() {
-        const queryParams = this.route.snapshot.queryParams as Record<keyof FormParams, string>;
-        const formValue = toFormValue(queryParams, SearchFormService.defaultParams);
+        const queryParams = this.route.snapshot.queryParams as QueryParams;
+        const formValue = toFormValue(queryParams, this.defaultParams);
         this.form.setValue(formValue);
         this.setQueryParams(formValue);
         this.form.valueChanges.subscribe(v => this.setQueryParams(v));
