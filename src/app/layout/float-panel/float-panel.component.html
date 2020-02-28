@@ -7,21 +7,33 @@
         (dshResized)="cardHeight = $event.height"
     >
         <div (dshResized)="setBaseContentHeight($event.height)">
-            <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
-                <div fxFlex.gt-sm>
-                    <ng-content></ng-content>
+            <div fxLayout="column" [fxLayoutGap]="layoutGap">
+                <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
+                    <div fxFlex.gt-sm>
+                        <ng-content></ng-content>
+                    </div>
+                    <div
+                        *ngIf="!expanded && floatPanelMore"
+                        class="dsh-float-panel-actions"
+                        fxLayout
+                        fxLayoutAlign="center center"
+                    >
+                        <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
+                            <mat-icon svgIcon="keyboard_arrow_down"></mat-icon>
+                        </button>
+                        <button *transloco="let t" dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
+                            {{ t.showMore }}
+                        </button>
+                    </div>
                 </div>
-                <div *ngIf="!expanded" class="dsh-float-panel-actions" fxLayout fxLayoutAlign="center center">
-                    <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
-                        <mat-icon svgIcon="keyboard_arrow_down"></mat-icon>
-                    </button>
-                    <button *transloco="let t" dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
-                        {{ t.showMore }}
-                    </button>
+                <div fxLayout fxLayoutAlign="center" *ngIf="!floatPanelMore">
+                    <div>
+                        <ng-container *ngTemplateOutlet="floatPanelActions?.templateRef"></ng-container>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="dsh-float-panel-more" [@expand]="expandTrigger" *ngIf="expanded">
+        <div class="dsh-float-panel-more" [@expand]="expandTrigger" *ngIf="expanded && floatPanelMore">
             <div (dshResized)="setMoreContentHeight($event.height)">
                 <div fxLayout="column" [fxLayoutGap]="layoutGap">
                     <div class="dsh-float-panel-more-content">
