@@ -1,0 +1,49 @@
+<div
+    class="dsh-analytics"
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+>
+    <h1 class="mat-headline">{{ t.headline }}</h1>
+    <dsh-search-form></dsh-search-form>
+    <div fxLayout fxLayoutGap="20px">
+        <dsh-amount-card fxFlex></dsh-amount-card>
+        <dsh-amount-card fxFlex></dsh-amount-card>
+        <dsh-amount-card fxFlex></dsh-amount-card>
+        <dsh-amount-card fxFlex></dsh-amount-card>
+    </div>
+    <dsh-card>
+        <dsh-card-title
+            ><h1 class="mat-title">{{ t.paymentsCount }}</h1></dsh-card-title
+        >
+        <dsh-card-content>
+            <dsh-bar-chart height="300"></dsh-bar-chart>
+        </dsh-card-content>
+    </dsh-card>
+    <dsh-card>
+        <dsh-card-title
+            ><h1 class="mat-title">{{ t.paymentsAmount }}</h1></dsh-card-title
+        >
+        <dsh-card-content>
+            <dsh-bar-chart height="300"></dsh-bar-chart>
+        </dsh-card-content>
+    </dsh-card>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+        <dsh-card fxFlex>
+            <dsh-card-title
+                ><h1 class="mat-title">{{ t.paymentTools }}</h1></dsh-card-title
+            >
+            <dsh-card-content>
+                <dsh-donut-chart></dsh-donut-chart>
+            </dsh-card-content>
+        </dsh-card>
+        <dsh-card fxFlex>
+            <dsh-card-title
+                ><h1 class="mat-title">{{ t.unsuccessfulPaymentReasons }}</h1></dsh-card-title
+            >
+            <dsh-card-content>
+                <dsh-donut-chart></dsh-donut-chart>
+            </dsh-card-content>
+        </dsh-card>
+    </div>
+</div>

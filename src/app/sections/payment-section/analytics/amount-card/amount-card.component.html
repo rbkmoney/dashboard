@@ -1,0 +1,7 @@
+<dsh-card fxLayout="column" fxLayoutGap="5px ">
+    <h1 class="mat-title">
+        {{ currency ? (currentAmount | currency: currency:'symbol':'4.0-2') : currentAmount }}
+    </h1>
+    <div class="mat-caption dsh-amount-card-title">{{ title }}</div>
+    <dsh-amount-change [currentAmount]="currentAmount" [previousAmount]="previousAmount"></dsh-amount-change>
+</dsh-card>

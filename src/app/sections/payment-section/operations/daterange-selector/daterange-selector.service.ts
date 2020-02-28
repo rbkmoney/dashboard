@@ -43,7 +43,7 @@ export class DaterangeSelectorService {
         return defaultState;
     }
 
-    toSearchFormValue(unit: 'today' | 'week' | 'month'): SearchFormValue {
+    toSearchFormValue(unit: 'today' | 'week' | 'month' | 'year'): SearchFormValue {
         return {
             fromTime: this.toFromTime(unit),
             toTime: this.endOfToday
@@ -54,7 +54,7 @@ export class DaterangeSelectorService {
         return !!items.find(({ value, checked }) => value === 'more' && checked);
     }
 
-    private toFromTime(unit: 'today' | 'week' | 'month'): Moment {
+    private toFromTime(unit: 'today' | 'week' | 'month' | 'year'): Moment {
         const m = moment().startOf('d');
         switch (unit) {
             case 'today':
@@ -63,6 +63,8 @@ export class DaterangeSelectorService {
                 return m.subtract(1, 'w');
             case 'month':
                 return m.subtract(1, 'M');
+            case 'year':
+                return m.subtract(1, 'y');
         }
     }
 
@@ -80,10 +82,16 @@ export class DaterangeSelectorService {
         if (toTime.diff(fromTime, 'w') === 1) {
             return this.changeChecked(items, 'week');
         }
+        if (toTime.diff(fromTime, 'y') === 1) {
+            return this.changeChecked(items, 'year');
+        }
         return items;
     }
 
-    private changeChecked(items: SelectorItem[], changeUnit: 'today' | 'week' | 'month' | 'more'): SelectorItem[] {
+    private changeChecked(
+        items: SelectorItem[],
+        changeUnit: 'today' | 'week' | 'month' | 'year' | 'more'
+    ): SelectorItem[] {
         return items.map(item => {
             let checked = false;
             if (item.value === changeUnit) {

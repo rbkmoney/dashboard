@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
+import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
+import cloneDeep from 'lodash.clonedeep';
 import { Moment } from 'moment';
 
 import { DEFAULT_CONFIG } from './default-config';
@@ -12,7 +13,7 @@ import { DEFAULT_CONFIG } from './default-config';
 })
 export class BarChartComponent implements OnChanges {
     @Input()
-    series: ApexAxisChartSeries | ApexNonAxisChartSeries;
+    series?: ApexAxisChartSeries;
 
     @Input()
     times: string[] | Moment[] | Date[];
@@ -23,14 +24,19 @@ export class BarChartComponent implements OnChanges {
     @Input()
     height?: number;
 
-    config = DEFAULT_CONFIG;
+    config = cloneDeep(DEFAULT_CONFIG);
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.times && changes.times.currentValue !== changes.times.previousValue) {
-            this.config.xaxis = { ...this.config.xaxis, categories: this.times };
+            this.config.xaxis.categories = this.times;
         }
         if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
-            this.config.chart = { ...this.config.chart, height: this.height };
+            this.config.chart.height = this.height;
         }
+        console.log(!this.series[0].name);
+        if (!this.series[0].name) {
+            this.config.tooltip.enabled = false;
+        }
+        console.log(this.config);
     }
 }

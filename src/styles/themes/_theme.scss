@@ -30,6 +30,8 @@
 @import '../../app/layout/panel/panel-theme';
 @import '../../app/charts/bar-chart/bar-chart-theme';
 @import '../../app/charts/donut-chart/donut-chart-theme';
+@import '../../app/sections/payment-section/analytics/amount-card/amount-change/amount-change-theme';
+@import '../../app/sections/payment-section/analytics/amount-card/amount-card-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -65,5 +67,7 @@
         @include dsh-panel-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-donut-chart-theme($theme);
+        @include dsh-amount-change-theme($theme);
+        @include dsh-amount-card-theme($theme);
     }
 }

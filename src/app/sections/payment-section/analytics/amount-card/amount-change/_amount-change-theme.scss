@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-amount-change-theme($theme) {
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .positive-amount-change {
+        color: mat-color($accent, 300);
+    }
+
+    .negative-amount-change {
+        color: mat-color($warn, 300);
+    }
+}

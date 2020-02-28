@@ -1,7 +1,8 @@
 {
     "nav": {
         "operations": "Операции",
-        "reports": "Отчеты"
+        "reports": "Отчеты",
+        "analytics": "Аналитика"
     },
     "operations": {
         "headline": "Операции",
@@ -10,5 +11,14 @@
             "refunds": "Возвраты",
             "invoices": "Инвойсы"
         }
+    },
+    "analytics": {
+        "allShops": "Все магазины",
+        "shop": "Магазин",
+        "headline": "Аналитика",
+        "paymentsCount": "Количество платежей",
+        "paymentsAmount": "Оборот",
+        "paymentTools": "Платежные инструменты",
+        "unsuccessfulPaymentReasons": "Причины неуспешных платежей"
     }
 }
