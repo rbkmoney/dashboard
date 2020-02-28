@@ -84,8 +84,15 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         this.stateChanges.next();
     }
 
+    get publicValue() {
+        return this.toPublicValue(this.value);
+    }
+    set publicValue(value: P) {
+        this.value = this.toInternalValue(value);
+    }
+
     get details() {
-        return this.getDetails(this.toPublicValue(this.formControl.value));
+        return this.getDetails(this.publicValue);
     }
 
     @HostBinding('class.floating')

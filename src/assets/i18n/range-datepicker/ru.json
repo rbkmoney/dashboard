@@ -1,0 +1,9 @@
+{
+    "selectPeriod": "Выберите период",
+    "select": {
+        "currentWeek": "Текущая неделя",
+        "threeMonths": "3 месяца",
+        "allTime": "За всё время",
+        "period": "Указать период..."
+    }
+}

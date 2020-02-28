@@ -22,4 +22,50 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     toInternalValue({ begin, end }: Range): InternalRange {
         return { begin: begin.toDate(), end: end.toDate() };
     }
+
+    forward() {
+        const diff = this.publicValue.end.diff(this.publicValue.begin);
+        this.publicValue = {
+            begin: this.publicValue.begin.add(diff).add(1, 'day'),
+            end: this.publicValue.end.add(diff).add(1, 'day')
+        };
+    }
+
+    back() {
+        const diff = this.publicValue.end.diff(this.publicValue.begin);
+        this.publicValue = {
+            begin: this.publicValue.begin.subtract(diff).subtract(1, 'day'),
+            end: this.publicValue.end.subtract(diff).subtract(1, 'day')
+        };
+    }
+
+    selectCurrentWeek() {
+        this.publicValue = {
+            begin: moment().startOf('week'),
+            end: moment().endOf('day')
+        };
+    }
+
+    selectCurrentMonth() {
+        this.publicValue = {
+            begin: moment().startOf('month'),
+            end: moment().endOf('day')
+        };
+    }
+
+    selectThreeMonths() {
+        this.publicValue = {
+            begin: moment()
+                .subtract(2, 'months')
+                .startOf('month'),
+            end: moment().endOf('day')
+        };
+    }
+
+    selectCurrentYear() {
+        this.publicValue = {
+            begin: moment().startOf('year'),
+            end: moment().endOf('day')
+        };
+    }
 }
