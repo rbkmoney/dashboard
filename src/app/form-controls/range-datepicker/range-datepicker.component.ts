@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import moment, { Moment } from 'moment';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
@@ -15,6 +15,14 @@ export type Range = SatDatepickerRangeValue<Moment>;
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
 })
 export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> {
+    @Input()
+    min = null;
+
+    @Input()
+    max = moment()
+        .endOf('day')
+        .toDate();
+
     toPublicValue({ begin, end }: InternalRange): Range {
         return { begin: moment(begin), end: moment(end) };
     }
@@ -23,19 +31,19 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         return { begin: begin.toDate(), end: end.toDate() };
     }
 
-    forward() {
-        const diff = this.publicValue.end.diff(this.publicValue.begin);
-        this.publicValue = {
-            begin: this.publicValue.begin.add(diff).add(1, 'day'),
-            end: this.publicValue.end.add(diff).add(1, 'day')
-        };
-    }
-
     back() {
         const diff = this.publicValue.end.diff(this.publicValue.begin);
         this.publicValue = {
             begin: this.publicValue.begin.subtract(diff).subtract(1, 'day'),
             end: this.publicValue.end.subtract(diff).subtract(1, 'day')
+        };
+    }
+
+    forward() {
+        const diff = this.publicValue.end.diff(this.publicValue.begin);
+        this.publicValue = {
+            begin: this.publicValue.begin.add(diff).add(1, 'day'),
+            end: this.publicValue.end.add(diff).add(1, 'day')
         };
     }
 

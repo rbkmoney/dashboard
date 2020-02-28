@@ -16,9 +16,7 @@ export class SearchFormService {
         shopID: null,
         reportType: null,
         date: {
-            begin: moment()
-                .subtract(1, 'month')
-                .startOf('day'),
+            begin: moment().startOf('month'),
             end: moment().endOf('day')
         }
     };
