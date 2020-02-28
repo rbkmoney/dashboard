@@ -21,8 +21,8 @@ import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
-export class CustomFormControl<I extends any = any, O extends any = I> extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I | O>, OnDestroy, DoCheck, OnChanges {
+export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
@@ -32,6 +32,7 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
 
     autofilled = false;
 
+    protected _disabled = false;
     @Input()
     get disabled(): boolean {
         if (this.ngControl && this.ngControl.disabled !== null) {
@@ -49,8 +50,8 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
             this.stateChanges.next();
         }
     }
-    protected _disabled = false;
 
+    protected _id: string;
     @HostBinding('attr.id')
     @Input()
     get id(): string {
@@ -59,11 +60,11 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
     set id(value: string) {
         this._id = value || `custom-input-${uuid()}`;
     }
-    protected _id: string;
 
     @Input()
     placeholder: string;
 
+    protected _required = false;
     @Input()
     get required(): boolean {
         return this._required;
@@ -71,21 +72,20 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
     set required(value: boolean) {
         this._required = coerceBooleanProperty(value);
     }
-    protected _required = false;
 
     protected type = 'text';
 
     @Input()
-    get value(): I | O {
+    get value() {
         return this.formControl.value;
     }
-    set value(value: I | O) {
+    set value(value: I) {
         this.formControl.setValue(value);
         this.stateChanges.next();
     }
 
     get details() {
-        return this.getDetails(this.value as I);
+        return this.getDetails(this.toPublicValue(this.formControl.value));
     }
 
     @HostBinding('class.floating')
@@ -103,6 +103,7 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
         return !this.formControl.value;
     }
 
+    private _focused = false;
     get focused(): boolean {
         return this._focused;
     }
@@ -114,7 +115,6 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
     formControl = new FormControl();
     autocompleteOrigin: MatAutocompleteOrigin;
 
-    private _focused = false;
     private _onTouched: () => void;
 
     constructor(
@@ -180,8 +180,8 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
         this._onTouched();
     }
 
-    registerOnChange(onChange: (value: O) => void): void {
-        this.formControl.valueChanges.subscribe(v => onChange(this.getValue(v)));
+    registerOnChange(onChange: (value: P) => void): void {
+        this.formControl.valueChanges.subscribe(v => onChange(this.toPublicValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {
@@ -202,15 +202,19 @@ export class CustomFormControl<I extends any = any, O extends any = I> extends I
         this.disabled = shouldDisable;
     }
 
-    writeValue(value: I): void {
-        this.formControl.setValue(value, { emitEvent: false });
+    writeValue(value: P): void {
+        this.formControl.setValue(this.toInternalValue(value), { emitEvent: false });
     }
 
-    getDetails(value: I) {
-        return value;
+    protected getDetails(value: P): string {
+        return value as any;
     }
 
-    getValue(value = this.value): O {
-        return value as O;
+    protected toInternalValue(value: P): I {
+        return value as any;
+    }
+
+    protected toPublicValue(value: I): P {
+        return value as any;
     }
 }

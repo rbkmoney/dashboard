@@ -1,9 +1,9 @@
-<dsh-button-toggle-group>
+<dsh-button-toggle-group fxLayout>
     <dsh-button-toggle>
         <mat-icon>keyboard_arrow_left</mat-icon>
     </dsh-button-toggle>
-    <dsh-button-toggle [matMenuTriggerFor]="menu">
-        <div class="dsh-range-datepicker-button">
+    <dsh-button-toggle [matMenuTriggerFor]="menu" fxFlex="100" class="dsh-range-datepicker-toggle" fxLayout>
+        <div class="dsh-range-datepicker-button" fxFlex>
             <ng-container *ngIf="value?.begin && value?.end; else placeholder">
                 {{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}
             </ng-container>
