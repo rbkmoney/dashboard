@@ -5,8 +5,17 @@
         </dsh-button-toggle>
         <dsh-button-toggle [matMenuTriggerFor]="menu" fxFlex="100" class="dsh-range-datepicker-toggle" fxLayout>
             <div class="dsh-range-datepicker-button" fxFlex>
-                <ng-container *ngIf="value?.begin && value?.end; else placeholder">
-                    {{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}
+                <ng-container *ngIf="value?.begin && value?.end; else placeholder" [ngSwitch]="period">
+                    <ng-container *ngSwitchCase="'year'">
+                        {{ t.year | translocoParams: { year: value?.begin | date: 'y' } }}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'month'">
+                        {{ value?.begin | date: 'LLLL' | titlecase }}
+                        {{ t.ofYear | translocoParams: { year: value?.begin | date: 'y' } }}
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        {{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}
+                    </ng-container>
                 </ng-container>
                 <ng-template #placeholder>
                     {{ t.selectPeriod }}
@@ -28,10 +37,11 @@
 
     <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="selectPeriod('week')">{{ t.select.currentWeek }}</button>
-        <button mat-menu-item (click)="selectPeriod('month')">Февраль</button>
+        <button mat-menu-item (click)="selectPeriod('month')">{{ current | date: 'LLLL' | titlecase }}</button>
         <button mat-menu-item (click)="selectPeriod('3month')">{{ t.select.threeMonths }}</button>
-        <button mat-menu-item (click)="selectPeriod('year')">2020 год</button>
-        <!-- <button mat-menu-item>{{ t.select.allTime }}</button> -->
+        <button mat-menu-item (click)="selectPeriod('year')">
+            {{ t.select.year | translocoParams: { year: current | date: 'y' } }}
+        </button>
         <button mat-menu-item (click)="picker.open()">{{ t.select.period }}</button>
     </mat-menu>
 

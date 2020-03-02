@@ -34,6 +34,10 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this.period = this.takeUnitOfTime();
     });
 
+    get current() {
+        return moment();
+    }
+
     toPublicValue({ begin, end }: InternalRange): Range {
         return { begin: moment(begin), end: moment(end) };
     }

@@ -3,7 +3,9 @@
     "select": {
         "currentWeek": "Текущая неделя",
         "threeMonths": "3 месяца",
-        "allTime": "За всё время",
+        "year": "{{year}} год",
         "period": "Указать период..."
-    }
+    },
+    "year": "{{year}} год",
+    "ofYear": "{{year}} года"
 }
