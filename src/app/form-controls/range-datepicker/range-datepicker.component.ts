@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import moment, { Moment, unitOfTime } from 'moment';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
@@ -19,7 +19,7 @@ type Period = MomentPeriod | '3month';
     styleUrls: ['range-datepicker.component.scss'],
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
 })
-export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnChanges {
+export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnChanges, OnInit {
     @Input() min: Moment;
     @Input() max: Moment;
 
@@ -44,6 +44,12 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
 
     get isMinDate() {
         return moment(this.minDate).isSame(this.publicValue.begin, 'day');
+    }
+
+    ngOnInit() {
+        if (!this.period) {
+            this.period = this.takeUnitOfTime();
+        }
     }
 
     ngOnChanges({ min, max }: SimpleChanges) {
