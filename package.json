@@ -65,6 +65,7 @@
     "saturn-datepicker": "8.0.1",
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^1.9.0",
+    "utility-types": "^3.10.0",
     "uuid": "^3.3.3",
     "zone.js": "~0.9.1"
   },

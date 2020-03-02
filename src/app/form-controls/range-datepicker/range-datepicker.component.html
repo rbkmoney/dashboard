@@ -27,10 +27,10 @@
     </dsh-button-toggle-group>
 
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="selectCurrentWeek()">{{ t.select.currentWeek }}</button>
-        <button mat-menu-item (click)="selectCurrentMonth()">Февраль</button>
-        <button mat-menu-item (click)="selectThreeMonths()">{{ t.select.threeMonths }}</button>
-        <button mat-menu-item (click)="selectCurrentYear()">2020 год</button>
+        <button mat-menu-item (click)="selectPeriod('week')">{{ t.select.currentWeek }}</button>
+        <button mat-menu-item (click)="selectPeriod('month')">Февраль</button>
+        <button mat-menu-item (click)="selectPeriod('3month')">{{ t.select.threeMonths }}</button>
+        <button mat-menu-item (click)="selectPeriod('year')">2020 год</button>
         <!-- <button mat-menu-item>{{ t.select.allTime }}</button> -->
         <button mat-menu-item (click)="picker.open()">{{ t.select.period }}</button>
     </mat-menu>
