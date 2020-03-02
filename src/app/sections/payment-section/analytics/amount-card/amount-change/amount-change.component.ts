@@ -9,7 +9,7 @@ export class AmountChangeComponent implements OnInit {
     @Input() currentAmount: number;
     @Input() previousAmount: number;
 
-    percents: number = null;
+    percents: number;
 
     ngOnInit() {
         this.percents = Math.round((this.currentAmount / this.previousAmount) * 100 - 100);

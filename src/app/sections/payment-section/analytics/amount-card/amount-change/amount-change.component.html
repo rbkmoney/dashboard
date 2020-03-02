@@ -1,5 +1,5 @@
 <div
-    *ngIf="percents !== null"
+    *ngIf="percents !== undefined"
     class="mat-caption"
     [class.negative-amount-change]="percents < 0"
     [class.positive-amount-change]="percents > 0"
