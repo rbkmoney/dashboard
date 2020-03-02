@@ -1,20 +1,28 @@
-.apexcharts-tooltip {
-    border: none !important;
-    border-radius: 4px;
-    padding: 10px;
-}
+$tooltip-round-size: 15px;
+$tooltip-round-margin: 5px;
+$tooltip-padding: 10px;
+$tooltip-item-padding: 4px 0;
+$tooltip-border-radius: 4px;
 
-.dsh-bar-chart-tooltip {
-    &-round {
-        margin-right: 4px;
-        height: 12px;
-        width: 12px;
-        border-radius: 12px;
+:host ::ng-deep {
+    .apexcharts-tooltip {
+        border: none !important;
+        border-radius: $tooltip-border-radius;
+        padding: $tooltip-padding;
     }
 
-    &-container {
-        padding: 4px;
-        display: flex;
-        align-items: center;
+    .dsh-bar-chart-tooltip {
+        &-round {
+            margin-right: $tooltip-round-margin;
+            height: $tooltip-round-size;
+            width: $tooltip-round-size;
+            border-radius: $tooltip-round-size;
+        }
+
+        &-container {
+            padding: $tooltip-item-padding;
+            display: flex;
+            align-items: center;
+        }
     }
 }

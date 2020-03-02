@@ -1,16 +1,13 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 import { Moment } from 'moment';
 
-import { BarChartService } from './bar-chart.service';
 import { DEFAULT_CONFIG } from './default-config';
 
 @Component({
     selector: 'dsh-bar-chart',
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['bar-chart.component.scss'],
-    providers: [BarChartService],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['bar-chart.component.scss']
 })
 export class BarChartComponent implements OnChanges {
     @Input()
@@ -28,10 +25,10 @@ export class BarChartComponent implements OnChanges {
     config = DEFAULT_CONFIG;
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.times.currentValue !== changes.times.previousValue) {
+        if (changes.times && changes.times.currentValue !== changes.times.previousValue) {
             this.config.xaxis = { ...this.config.xaxis, categories: this.times };
         }
-        if (changes.times.currentValue !== changes.times.previousValue) {
+        if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
             this.config.chart = { ...this.config.chart, height: this.height };
         }
     }

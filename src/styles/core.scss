@@ -24,6 +24,7 @@
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
 @import '../app/layout/panel/panel-theme';
+@import '../app/charts/charts-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -51,6 +52,7 @@
     @include mat-radio-button-override-typography($config);
     @include dsh-payment-details-typography($config);
     @include dsh-panel-typography($config);
+    @include dsh-charts-typography($config);
 }
 
 @include dsh-overrides();
