@@ -14,4 +14,17 @@
         border: none;
         visibility: hidden;
     }
+
+    &-button {
+        transition: background-color 0.25s ease-in-out;
+
+        &:not([disabled]) {
+            cursor: pointer;
+        }
+
+        &[disabled] {
+            pointer-events: none;
+            background-color: transparent !important;
+        }
+    }
 }

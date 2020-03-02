@@ -10,12 +10,16 @@
     .dsh-range-datepicker {
         &-button {
             &:not([disabled]) {
-                color: $text;
+                color: $text !important;
 
                 &:hover,
                 &:active {
-                    background: $bg;
+                    background-color: $bg;
                 }
+            }
+
+            &[disabled] {
+                color: map-get($foreground, disabled-button) !important;
             }
         }
     }
