@@ -13,7 +13,8 @@ import {
     Optional,
     Self,
     HostListener,
-    OnChanges
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import uuid from 'uuid';
 import { AutofillMonitor } from '@angular/cdk/text-field';
@@ -143,7 +144,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         }
     }
 
-    ngOnChanges() {
+    ngOnChanges(_changes?: SimpleChanges) {
         this.stateChanges.next();
     }
 

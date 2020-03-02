@@ -1,6 +1,6 @@
 <ng-container *transloco="let t; scope: 'range-datepicker'; read: 'rangeDatepicker'">
     <dsh-button-toggle-group fxLayout>
-        <dsh-button-toggle (click)="back()" class="dsh-range-datepicker-button">
+        <dsh-button-toggle (click)="back()" class="dsh-range-datepicker-button" [disabled]="isMinDate">
             <mat-icon>keyboard_arrow_left</mat-icon>
         </dsh-button-toggle>
         <dsh-button-toggle
@@ -30,12 +30,12 @@
                     class="dsh-range-datepicker-input"
                     [formControl]="formControl"
                     [satDatepicker]="picker"
-                    [min]="min"
-                    [max]="max"
+                    [min]="minDate"
+                    [max]="maxDate"
                 />
             </div>
         </dsh-button-toggle>
-        <dsh-button-toggle (click)="forward()" class="dsh-range-datepicker-button" disabled>
+        <dsh-button-toggle (click)="forward()" class="dsh-range-datepicker-button" [disabled]="isMaxDate">
             <mat-icon>keyboard_arrow_right</mat-icon>
         </dsh-button-toggle>
     </dsh-button-toggle-group>

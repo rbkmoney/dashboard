@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import moment, { Moment, unitOfTime } from 'moment';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
@@ -19,23 +19,35 @@ type Period = MomentPeriod | '3month';
     styleUrls: ['range-datepicker.component.scss'],
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
 })
-export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> {
-    @Input()
-    min: Date = null;
+export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnChanges {
+    @Input() min: Moment;
+    @Input() max: Moment;
 
-    @Input()
-    max: Date = moment()
+    current = moment();
+    minDate: Date = moment()
+        .subtract(15, 'year')
+        .startOf('day')
+        .toDate();
+    maxDate: Date = moment()
         .endOf('day')
         .toDate();
-
     period: Period = null;
-
     formControlSubscription = this.formControl.valueChanges.pipe(map(this.toPublicValue.bind(this))).subscribe(() => {
         this.period = this.takeUnitOfTime();
     });
 
-    get current() {
-        return moment();
+    get isMaxDate() {
+        return moment(this.maxDate).isSame(this.publicValue.end, 'day');
+    }
+
+    get isMinDate() {
+        return moment(this.minDate).isSame(this.publicValue.begin, 'day');
+    }
+
+    ngOnChanges({ min, max }: SimpleChanges) {
+        this.minDate = min ? min.currentValue.toDate() : null;
+        this.maxDate = max ? max.currentValue.toDate() : null;
+        super.ngOnChanges();
     }
 
     toPublicValue({ begin, end }: InternalRange): Range {
@@ -51,36 +63,36 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         switch (this.period) {
             case 'year': {
                 const newBegin = begin.clone().subtract(1, 'year');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('year') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('year') });
                 return;
             }
             case '3month': {
                 const newBegin = begin.clone().subtract(3, 'month');
-                this.publicValue = {
+                this.changeDate({
                     begin: newBegin,
                     end: newBegin
                         .clone()
                         .add(2, 'month')
                         .endOf('month')
-                };
+                });
                 return;
             }
             case 'month': {
                 const newBegin = begin.clone().subtract(1, 'month');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('month') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('month') });
                 return;
             }
             case 'week': {
                 const newBegin = begin.clone().subtract(1, 'week');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('week') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('week') });
                 return;
             }
             default:
                 const diff = end.diff(begin);
-                this.publicValue = {
+                this.changeDate({
                     begin: begin.subtract(diff).subtract(1, 'day'),
                     end: end.subtract(diff).subtract(1, 'day')
-                };
+                });
         }
     }
 
@@ -89,36 +101,36 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         switch (this.period) {
             case 'year': {
                 const newBegin = begin.clone().add(1, 'year');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('year') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('year') });
                 return;
             }
             case '3month': {
                 const newBegin = begin.clone().add(3, 'month');
-                this.publicValue = {
+                this.changeDate({
                     begin: newBegin,
                     end: newBegin
                         .clone()
                         .add(2, 'month')
                         .endOf('month')
-                };
+                });
                 return;
             }
             case 'month': {
                 const newBegin = begin.clone().add(1, 'month');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('month') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('month') });
                 return;
             }
             case 'week': {
                 const newBegin = begin.clone().add(1, 'week');
-                this.publicValue = { begin: newBegin, end: newBegin.clone().endOf('week') };
+                this.changeDate({ begin: newBegin, end: newBegin.clone().endOf('week') });
                 return;
             }
             default:
                 const diff = end.diff(begin, 'day');
-                this.publicValue = {
+                this.changeDate({
                     begin: begin.clone().add(diff + 1, 'day'),
                     end: end.clone().add(diff + 1, 'day')
-                };
+                });
         }
     }
 
@@ -142,7 +154,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                     begin = moment().startOf('week');
                     break;
             }
-            this.publicValue = { begin, end };
+            this.changeDate({ begin, end });
         }
         this.period = period;
     }
@@ -171,5 +183,23 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
             return 'week';
         }
         return null;
+    }
+
+    private changeDate({ begin, end }: { begin: Moment; end: Moment }) {
+        const min = moment(this.minDate);
+        const max = moment(this.maxDate);
+        if (begin.isBefore(min)) {
+            begin = min;
+        }
+        if (begin.isAfter(max)) {
+            begin = max.clone().startOf('day');
+        }
+        if (end.isAfter(max)) {
+            end = max;
+        }
+        if (end.isBefore(min)) {
+            end = min.clone().endOf('day');
+        }
+        this.publicValue = { begin, end };
     }
 }
