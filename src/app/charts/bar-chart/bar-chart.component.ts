@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 import cloneDeep from 'lodash.clonedeep';
 import { Moment } from 'moment';
@@ -8,8 +8,7 @@ import { DEFAULT_CONFIG } from './default-config';
 @Component({
     selector: 'dsh-bar-chart',
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['bar-chart.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['bar-chart.component.scss']
 })
 export class BarChartComponent implements OnChanges {
     @Input()
