@@ -3,6 +3,8 @@ import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
 
+const INNER_DONUT_RADIUS = '92';
+
 export const DEFAULT_CONFIG: ApexOptions = {
     chart: {
         type: 'donut',
@@ -24,7 +26,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
         pie: {
             expandOnClick: false,
             donut: {
-                size: '92',
+                size: INNER_DONUT_RADIUS,
                 labels: {
                     show: false
                 }
