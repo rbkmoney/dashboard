@@ -47,7 +47,7 @@
         <button mat-menu-item (click)="selectPeriod('year')">
             {{ t.select.year | translocoParams: { year: current | date: 'y' } }}
         </button>
-        <button mat-menu-item (click)="picker.open()">{{ t.select.period }}</button>
+        <button mat-menu-item (click)="picker.open(); selectPeriod()">{{ t.select.period }}</button>
     </mat-menu>
 
     <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>

@@ -26,14 +26,16 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     current = moment();
     minDate: Date = moment()
         .subtract(15, 'year')
-        .startOf('day')
+        .startOf('year')
         .toDate();
     maxDate: Date = moment()
         .endOf('day')
         .toDate();
     period: Period = null;
     formControlSubscription = this.formControl.valueChanges.pipe(map(this.toPublicValue.bind(this))).subscribe(() => {
-        this.period = this.takeUnitOfTime();
+        if (!this.period) {
+            this.period = this.takeUnitOfTime();
+        }
     });
 
     get isMaxDate() {
