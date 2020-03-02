@@ -1,9 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin dsh-amount-card-theme($theme) {
-    $grey: map-get($theme, grey);
-
-    .dsh-amount-card-title {
-        color: map_get($grey, 500);
-    }
-}

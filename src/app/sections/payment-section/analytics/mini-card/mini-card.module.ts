@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AmountCardComponent } from './amount-card.component';
-import { AmountChangeComponent } from './amount-change';
 import { CardModule } from '../../../../layout/card';
+import { MiniCardComponent } from './mini-card.component';
 
 @NgModule({
     imports: [CommonModule, CardModule, FlexLayoutModule],
-    exports: [AmountCardComponent],
-    declarations: [AmountCardComponent, AmountChangeComponent]
+    exports: [MiniCardComponent],
+    declarations: [MiniCardComponent]
 })
-export class AmountCardModule {}
+export class MiniCardModule {}

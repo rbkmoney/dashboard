@@ -13,7 +13,8 @@ import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { JustifyWrapperModule } from '../../../layout/justify-wrapper';
 import { BarChartModule } from '../../../charts/bar-chart';
 import { DonutChartModule } from '../../../charts/donut-chart';
-import { AmountCardModule } from './amount-card';
+import { PercentDifferenceComponent } from './percent-difference';
+import { MiniCardModule } from './mini-card';
 
 @NgModule({
     imports: [
@@ -29,8 +30,8 @@ import { AmountCardModule } from './amount-card';
         MatSelectModule,
         BarChartModule,
         DonutChartModule,
-        AmountCardModule
+        MiniCardModule
     ],
-    declarations: [AnalyticsComponent, SearchFormComponent]
+    declarations: [AnalyticsComponent, SearchFormComponent, PercentDifferenceComponent]
 })
 export class AnalyticsModule {}
