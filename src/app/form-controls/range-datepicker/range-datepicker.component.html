@@ -1,10 +1,15 @@
 <ng-container *transloco="let t; scope: 'range-datepicker'; read: 'rangeDatepicker'">
     <dsh-button-toggle-group fxLayout>
-        <dsh-button-toggle (click)="back()">
+        <dsh-button-toggle (click)="back()" class="dsh-range-datepicker-button">
             <mat-icon>keyboard_arrow_left</mat-icon>
         </dsh-button-toggle>
-        <dsh-button-toggle [matMenuTriggerFor]="menu" fxFlex="100" class="dsh-range-datepicker-toggle" fxLayout>
-            <div class="dsh-range-datepicker-button" fxFlex>
+        <dsh-button-toggle
+            [matMenuTriggerFor]="menu"
+            fxFlex="100"
+            class="dsh-range-datepicker-button dsh-range-datepicker-toggle"
+            fxLayout
+        >
+            <div class="dsh-range-datepicker-content" fxFlex>
                 <ng-container *ngIf="value?.begin && value?.end; else placeholder" [ngSwitch]="period">
                     <ng-container *ngSwitchCase="'year'">
                         {{ t.year | translocoParams: { year: value?.begin | date: 'y' } }}
@@ -30,7 +35,7 @@
                 />
             </div>
         </dsh-button-toggle>
-        <dsh-button-toggle (click)="forward()">
+        <dsh-button-toggle (click)="forward()" class="dsh-range-datepicker-button" disabled>
             <mat-icon>keyboard_arrow_right</mat-icon>
         </dsh-button-toggle>
     </dsh-button-toggle-group>

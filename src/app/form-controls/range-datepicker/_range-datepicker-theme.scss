@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import '../../styles/utils/fill';
+
+@mixin dsh-range-datepicker-theme($theme) {
+    $gray: map-get($theme, gray);
+    $bg: map-get($gray, 200);
+    $foreground: map-get($theme, foreground);
+    $text: map-get($foreground, text);
+
+    .dsh-range-datepicker {
+        &-button {
+            &:not([disabled]) {
+                color: $text;
+
+                &:hover,
+                &:active {
+                    background: $bg;
+                }
+            }
+        }
+    }
+}
