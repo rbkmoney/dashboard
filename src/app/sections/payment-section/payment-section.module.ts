@@ -8,6 +8,7 @@ import { PaymentSectionComponent } from './payment-section.component';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { NavComponent } from './nav';
 import { StateNavModule } from '../../state-nav';
+import { BalanceWidgetModule } from '../../balance-widget';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { StateNavModule } from '../../state-nav';
         StateNavModule,
         MatIconModule,
         FlexLayoutModule,
-        TranslocoModule
+        TranslocoModule,
+        BalanceWidgetModule
     ],
     declarations: [PaymentSectionComponent, NavComponent],
     exports: [PaymentSectionComponent]
