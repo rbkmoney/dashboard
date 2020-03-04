@@ -1,37 +1,34 @@
 <dsh-float-panel *transloco="let r; scope: 'reports'; read: 'reports'" [formGroup]="form">
-    <ng-container *transloco="let t">
-        <div
-            fxLayout
-            fxLayout.lt-md="column"
-            fxLayoutGap="20px"
-            fxLayoutAlign="space-between center"
-            fxLayoutAlign.lt-md="space-between stretch"
-        >
-            <dsh-range-datepicker formControlName="date" fxFlex.gt-sm></dsh-range-datepicker>
-            <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20px">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ r.filter.shopID }}</mat-label>
-                    <mat-select formControlName="shopID">
-                        <mat-option>
-                            {{ t.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
-                            {{ shopInfo.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ r.filter.type }}</mat-label>
-                    <mat-select formControlName="reportType">
-                        <mat-option>
-                            {{ t.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let type of reportTypes" [value]="type">
-                            {{ r.type[type] }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </dsh-justify-wrapper>
-        </div>
-    </ng-container>
+    <dsh-justify-wrapper
+        fxLayout
+        fxLayoutGap="20px"
+        fxLayoutAlign="space-between center"
+        fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-between stretch"
+        *transloco="let t"
+    >
+        <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
+        <mat-form-field fxFlex>
+            <mat-label>{{ r.filter.shopID }}</mat-label>
+            <mat-select formControlName="shopID">
+                <mat-option>
+                    {{ t.any }}
+                </mat-option>
+                <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                    {{ shopInfo.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ r.filter.type }}</mat-label>
+            <mat-select formControlName="reportType">
+                <mat-option>
+                    {{ t.any }}
+                </mat-option>
+                <mat-option *ngFor="let type of reportTypes" [value]="type">
+                    {{ r.type[type] }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </dsh-justify-wrapper>
 </dsh-float-panel>
