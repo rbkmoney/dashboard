@@ -30,6 +30,7 @@
 @import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
+@import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
 @import '../../app/layout/panel/panel-theme';
 @import '../../app/form-controls/range-datepicker/range-datepicker-theme';
 
@@ -69,5 +70,6 @@
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
         @include dsh-range-datepicker-theme($theme);
+        @include dsh-payout-panel-theme($theme);
     }
 }

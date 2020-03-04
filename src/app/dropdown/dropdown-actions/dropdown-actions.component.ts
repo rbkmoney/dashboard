@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dsh-dropdown-actions',
-    templateUrl: 'dropdown-actions.component.html',
+    template: `
+        <ng-content></ng-content>
+    `,
     styleUrls: ['dropdown-actions.component.scss']
 })
 export class DropdownActionsComponent {}

@@ -1,0 +1,6 @@
+<div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.wallet'">
+    <div class="mat-title">{{ p.title }}</div>
+    <dsh-details-item [title]="p.id">
+        {{ payoutTool?.walletID }}
+    </dsh-details-item>
+</div>

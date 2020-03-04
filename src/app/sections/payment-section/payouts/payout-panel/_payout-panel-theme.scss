@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-payout-panel-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-payout-panel-more-caption {
+        color: map-get($gray, 500);
+    }
+}

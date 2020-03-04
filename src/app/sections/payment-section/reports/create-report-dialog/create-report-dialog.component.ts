@@ -38,7 +38,6 @@ export class CreateReportDialogComponent {
     create() {
         this.reportsApiService
             .createReport({
-                reportType: 'paymentRegistry',
                 fromTime: this.form.value.fromTime.utc().format(),
                 toTime: this.form.value.toTime.utc().format(),
                 shopID: this.form.value.shopID || undefined
