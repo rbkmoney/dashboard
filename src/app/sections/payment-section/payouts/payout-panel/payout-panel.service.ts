@@ -1,8 +1,8 @@
 import { MatDialog } from '@angular/material';
 import { map, shareReplay, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import moment from 'moment';
-import { Injectable } from '@angular/core';
-import { Observable, Subject, combineLatest, of } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject, combineLatest, of, Subscription } from 'rxjs';
 
 import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
 import { mapToShopInfo, ShopInfo } from '../../operations/operators';
@@ -11,8 +11,9 @@ import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { Payout } from '../../../../api-codegen/anapi';
 
 @Injectable()
-export class PayoutPanelService {
+export class PayoutPanelService implements OnDestroy {
     private getShopInfo$ = new Subject<string>();
+    private subscription: Subscription = Subscription.EMPTY;
 
     shopInfo$: Observable<ShopInfo> = this.getShopInfo$.pipe(
         distinctUntilChanged(),
@@ -21,7 +22,13 @@ export class PayoutPanelService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private dialog: MatDialog, private shopService: ShopService) {}
+    constructor(private dialog: MatDialog, private shopService: ShopService) {
+        this.subscription = this.shopInfo$.subscribe();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 
     getShopInfo(shopID: string) {
         this.getShopInfo$.next(shopID);

@@ -20,6 +20,8 @@ import { LayoutModule } from '../../../layout';
 import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
+import { SpinnerModule } from '../../../spinner';
+import { ScrollUpModule } from '../../../scroll-up';
 
 @NgModule({
     imports: [
@@ -39,7 +41,9 @@ import { PayoutPanelModule } from './payout-panel';
         MatSelectModule,
         MatDatepickerModule,
         SearchModule,
-        MatInputModule
+        MatInputModule,
+        SpinnerModule,
+        ScrollUpModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

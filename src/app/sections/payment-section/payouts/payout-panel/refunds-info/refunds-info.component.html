@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
     <div class="mat-title">{{ p.payouts }}</div>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <div fxFlex>
             <dsh-details-item [title]="p.count">
                 {{ refundsSummary.count }}
@@ -17,7 +17,7 @@
             </dsh-details-item>
         </div>
     </div>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <div fxFlex>
             <dsh-details-item [title]="p.firstConfirmationTime">
                 {{ refundsSummary?.fromTime | date: 'd MMMM y, HH:mm:ss' }}

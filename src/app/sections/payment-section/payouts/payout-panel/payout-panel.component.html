@@ -8,7 +8,7 @@
         </div>
         <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div>
-                {{ (shopInfo$ | async)?.name || payout?.shopID }}
+                {{ (shopInfo$ | async)?.name }}
             </div>
             <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
                 {{ t[(payout?.payoutToolDetails?.detailsType)] || payout?.payoutToolDetails?.detailsType }}
