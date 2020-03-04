@@ -1,3 +1,5 @@
+import { Overwrite } from 'utility-types';
+
 import {
     Questionary,
     IndividualEntityContractor,
@@ -7,12 +9,11 @@ import {
     IndividualResidencyInfo,
     IndividualRegistrationInfo
 } from '../../../api-codegen/questionary';
-import { Replace } from '../../../../type-utils';
 
-type RussianIndividualEntityContractor = Replace<
+type RussianIndividualEntityContractor = Overwrite<
     IndividualEntityContractor,
     {
-        individualEntity: Replace<
+        individualEntity: Overwrite<
             RussianIndividualEntity,
             {
                 residencyInfo: IndividualResidencyInfo;
@@ -21,12 +22,15 @@ type RussianIndividualEntityContractor = Replace<
         >;
     }
 >;
-type RussianIndividualEntityQuestionaryData = Replace<
+type RussianIndividualEntityQuestionaryData = Overwrite<
     QuestionaryData,
     { contractor: RussianIndividualEntityContractor }
 >;
 
-export type RussianIndividualEntityQuestionary = Replace<Questionary, { data: RussianIndividualEntityQuestionaryData }>;
+export type RussianIndividualEntityQuestionary = Overwrite<
+    Questionary,
+    { data: RussianIndividualEntityQuestionaryData }
+>;
 
 export function isRussianIndividualEntityQuestionary(
     questionary: Questionary
