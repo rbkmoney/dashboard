@@ -15,6 +15,10 @@ const paymentSectionRoutes: Routes = [
             {
                 path: 'reports',
                 loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
+            },
+            {
+                path: 'payouts',
+                loadChildren: () => import('./payouts/payouts.module').then(mod => mod.PayoutsModule)
             }
         ]
     }

@@ -1,12 +1,12 @@
-<div class="dsh-float-panel" [ngStyle]="{ 'min-height': baseContentHeight + 40 + 'px' }">
+<div class="dsh-float-panel" [ngStyle]="{ 'min-height': baseContentHeight + 'px' }" *transloco="let t">
     <dsh-card
         class="dsh-float-panel-card"
         [ngClass]="{
-            'dsh-float-panel-card-unpinned': !expanded || !pinned
+            'dsh-float-panel-card-unpinned': !pinned
         }"
         (dshResized)="cardHeight = $event.height"
     >
-        <div (dshResized)="setBaseContentHeight($event.height)">
+        <div (dshResized)="setBaseContentHeight($event.height)" class="dsh-float-panel-base">
             <div fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
                 <div fxFlex.gt-sm>
                     <ng-content></ng-content>
@@ -15,7 +15,7 @@
                     <button dsh-icon-button (click)="expandToggle()" fxHide.lt-md>
                         <mat-icon svgIcon="keyboard_arrow_down"></mat-icon>
                     </button>
-                    <button *transloco="let t" dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
+                    <button dsh-button (click)="expandToggle()" fxFlex fxHide.gt-sm>
                         {{ t.showMore }}
                     </button>
                 </div>
@@ -27,7 +27,12 @@
                     <div class="dsh-float-panel-more-content">
                         <ng-container *ngTemplateOutlet="floatPanelMore?.templateRef"></ng-container>
                     </div>
-                    <div fxLayout [fxLayoutGap]="layoutGap" fxLayoutAlign="space-between">
+                    <div
+                        fxLayout
+                        [fxLayoutGap]="layoutGap"
+                        fxLayoutAlign="space-between"
+                        class="dsh-float-panel-more-actions"
+                    >
                         <button dsh-icon-button (click)="pinToggle()">
                             <mat-icon svgIcon="pin_drop"></mat-icon>
                         </button>

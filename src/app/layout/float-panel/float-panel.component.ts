@@ -17,12 +17,12 @@ import { coerce } from '../../../utils';
 export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(v => coerceBooleanProperty(v), (v, self) => self.expandedChange.emit(v))
+    @coerce(v => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v))
     expanded = false;
 
     @Output() pinnedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(v => coerceBooleanProperty(v), (v, self) => self.pinnedChange.emit(v))
+    @coerce(v => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v))
     pinned = false;
 
     @Input() layoutGap = '20px';
@@ -50,7 +50,9 @@ export class FloatPanelComponent {
     }
 
     setBaseContentHeight(height: number) {
-        this.baseContentHeight = height;
+        if (!this.baseContentHeight || !this.expanded) {
+            this.baseContentHeight = height;
+        }
     }
 
     setMoreContentHeight(height: number) {

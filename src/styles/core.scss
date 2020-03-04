@@ -46,9 +46,9 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
+    @include dsh-expand-panel-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
-    @include dsh-expand-panel-typography($config);
     @include dsh-table-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
     @include mat-radio-button-override-typography($config);

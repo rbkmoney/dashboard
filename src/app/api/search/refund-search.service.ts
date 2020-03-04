@@ -3,9 +3,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
 
-import { RefundsWithToken } from './refunds-with-token';
 import { toDateLike, genXRequestID } from '../utils';
-import { Duration } from './duration';
+import { Duration, RefundsWithToken } from './model';
 import { SearchService, Refund, RefundSearchResult } from '../../api-codegen/anapi/swagger-codegen';
 
 @Injectable()

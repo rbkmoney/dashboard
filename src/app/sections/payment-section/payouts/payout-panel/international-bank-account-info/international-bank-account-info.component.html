@@ -1,0 +1,16 @@
+<div
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.internationalBankAccount'"
+>
+    <div class="mat-title">{{ p.title }}</div>
+    <dsh-details-item [title]="p.name">
+        {{ payoutTool?.bankDetails?.name }}
+    </dsh-details-item>
+    <dsh-details-item [title]="p.iban">
+        {{ payoutTool?.iban }}
+    </dsh-details-item>
+    <dsh-details-item [title]="p.number">
+        {{ payoutTool?.number }}
+    </dsh-details-item>
+</div>

@@ -8,6 +8,7 @@ import { DropdownComponent } from './dropdown.component';
 import { State } from './open-close-animation';
 
 const WRAPPER_OFFSET = 15;
+const OVERLAY_SELECTOR = '.cdk-overlay-container';
 
 @Directive({
     selector: '[dshDropdownTriggerFor]',
@@ -161,7 +162,7 @@ export class DropdownTriggerDirective implements OnDestroy {
         const { target } = event;
         const { dropdownEl } = this;
         const originEl = this.origin.nativeElement;
-        const overlayEl = document.querySelector('.cdk-overlay-container');
+        const overlayEl = document.querySelector(OVERLAY_SELECTOR);
         if (
             !(dropdownEl && dropdownEl.contains(target)) &&
             !(originEl && originEl.contains(target)) &&
