@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { Overwrite } from 'utility-types';
 
+import { Replace } from '../../../../../../type-utils';
 import { ReqResponse, ReqIndividualEntity } from '../../../../../api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
@@ -8,10 +8,10 @@ import {
     IndividualRegistrationInfo
 } from '../../../../../api-codegen/questionary';
 
-type ReqResponseIndividualEntity = Overwrite<ReqResponse, { contractor: ReqIndividualEntity }>;
-type RussianIndividualEntityContractor = Overwrite<
+type ReqResponseIndividualEntity = Replace<ReqResponse, { contractor: ReqIndividualEntity }>;
+type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,
-    { individualEntity: Overwrite<RussianIndividualEntity, { registrationInfo: IndividualRegistrationInfo }> }
+    { individualEntity: Replace<RussianIndividualEntity, { registrationInfo: IndividualRegistrationInfo }> }
 >;
 
 export function createIndividualEntityContractor({
