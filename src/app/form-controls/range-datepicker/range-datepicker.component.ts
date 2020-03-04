@@ -143,7 +143,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         }
     }
 
-    selectPeriod(period: Period) {
+    selectPeriod(period: Period = null) {
         if (period) {
             const end = moment().endOf('day');
             let begin = end;
