@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-@import '../../styles/utils/fill';
 
 @mixin dsh-range-datepicker-theme($theme) {
     $gray: map-get($theme, gray);
@@ -9,17 +8,30 @@
 
     .dsh-range-datepicker {
         &-button {
-            &:not([disabled]) {
-                color: $text !important;
+            border-color: mat-color($foreground, divider, 0.12);
+            color: $text;
 
+            &:enabled {
                 &:hover,
                 &:active {
                     background-color: $bg;
                 }
             }
 
-            &[disabled] {
-                color: map-get($foreground, disabled-button) !important;
+            &:disabled {
+                color: map-get($foreground, disabled-button);
+            }
+        }
+    }
+}
+
+@mixin dsh-range-datepicker-typography($config) {
+    .dsh-range-datepicker {
+        &-button {
+            font: {
+                family: mat-font-family($config, button);
+                size: mat-font-size($config, button);
+                weight: mat-font-weight($config, button);
             }
         }
     }

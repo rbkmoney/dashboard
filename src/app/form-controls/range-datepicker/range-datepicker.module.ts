@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { RangeDatepickerComponent } from './range-datepicker.component';
-import { ButtonModule } from '../../button';
 import { ButtonToggleModule } from '../../button-toggle';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { ButtonToggleModule } from '../../button-toggle';
         SatNativeDateModule,
         MatNativeDateModule,
         MatMenuModule,
-        ButtonModule,
         MatIconModule,
         ButtonToggleModule,
         FlexLayoutModule,
