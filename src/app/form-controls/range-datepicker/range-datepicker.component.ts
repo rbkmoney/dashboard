@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
-import moment, { Moment, unitOfTime } from 'moment';
+import moment, { Moment } from 'moment';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
 import { SetIntersection } from 'utility-types';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { CustomFormControl } from '../utils';
 type InternalRange = SatDatepickerRangeValue<Date>;
 export type Range = SatDatepickerRangeValue<Moment>;
 
-type MomentPeriod = SetIntersection<unitOfTime.StartOf, 'week' | 'month' | 'year'>;
+type MomentPeriod = SetIntersection<moment.unitOfTime.StartOf, 'week' | 'month' | 'year'>;
 type Period = MomentPeriod | '3month';
 
 @Component({
