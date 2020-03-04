@@ -101,11 +101,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         return this.focused || !this.empty;
     }
 
-    _inputRef = new ElementRef<HTMLInputElement>(null);
-    get inputRef() {
-        this._inputRef.nativeElement = this.elementRef.nativeElement.querySelector('input');
-        return this._inputRef;
-    }
+    inputRef = new ElementRef<HTMLInputElement>(null);
 
     get empty(): boolean {
         return !this.formControl.value;
@@ -122,6 +118,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
 
     formControl = new FormControl();
     autocompleteOrigin: MatAutocompleteOrigin;
+    monitorsRegistered = false;
 
     private _onTouched: () => void;
 
@@ -158,15 +155,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     }
 
     ngAfterViewInit(): void {
-        if (this.platform.isBrowser) {
-            this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
-                this.autofilled = event.isAutofilled;
-                this.stateChanges.next();
-            });
-        }
-        this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
-            this.focused = !!focusOrigin;
-        });
+        this.setInputElement();
     }
 
     ngOnDestroy() {
@@ -196,6 +185,21 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         this._onTouched = onTouched;
     }
 
+    private registerMonitors() {
+        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
+            this.monitorsRegistered = true;
+            if (this.platform.isBrowser) {
+                this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
+                    this.autofilled = event.isAutofilled;
+                    this.stateChanges.next();
+                });
+            }
+            this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
+                this.focused = !!focusOrigin;
+            });
+        }
+    }
+
     setDescribedByIds(ids: string[]): void {
         this._ariaDescribedby = ids.join(' ');
     }
@@ -208,6 +212,11 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         }
 
         this.disabled = shouldDisable;
+    }
+
+    setInputElement(input: HTMLInputElement = this.elementRef.nativeElement.querySelector('input')) {
+        this.inputRef.nativeElement = input;
+        this.registerMonitors();
     }
 
     writeValue(value: P): void {
