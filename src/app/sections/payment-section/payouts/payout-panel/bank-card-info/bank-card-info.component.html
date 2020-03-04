@@ -3,7 +3,7 @@
     <dsh-details-item [title]="p.cardNumber">
         {{ payoutTool?.cardNumberMask }}
     </dsh-details-item>
-    <div fxLayout fxLayoutGap="10px">
+    <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <dsh-details-item *ngIf="payoutTool?.tokenProvider" [title]="p.tokenProvider" fxFlex>
             {{ payoutTool?.tokenProvider }}
         </dsh-details-item>
