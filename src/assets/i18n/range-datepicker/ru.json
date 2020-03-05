@@ -1,16 +1,16 @@
 {
     "selectPeriod": "Выберите период",
     "select": {
+        "currentWeek": "Текущая неделя",
         "threeMonths": "3 месяца",
         "year": "{{year}} год",
         "period": "Указать период..."
     },
-    "year": "{{year}} год",
-    "ofYear": "{{year}} года",
     "rangeDate": {
         "from": "С",
         "fromStartWith2": "Со",
         "to": "по",
-        "currentWeek": "Текущая неделя"
+        "currentWeek": "Текущая неделя",
+        "year": "год"
     }
 }

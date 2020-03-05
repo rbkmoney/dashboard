@@ -4,61 +4,87 @@ import { Moment } from 'moment';
 import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 
-export type Type = 'week' | 'month' | 'year';
-
 @Pipe({ name: 'rangeDate' })
 export class RangeDatePipe implements PipeTransform {
     constructor(@Inject(LOCALE_ID) private locale: string, private transloco: TranslocoService) {}
 
-    transform({ begin, end }: { begin: Moment; end: Moment }, _type?: Type): string {
-        const current = moment();
-
-        if (begin.isSame(current.startOf('week'), 'day') && end.isSame(current.endOf('week'), 'day')) {
+    transform({ begin, end }: { begin: Moment; end: Moment }): string {
+        if (
+            begin.isSame(end, 'year') &&
+            begin.isSame(begin.clone().startOf('year')) &&
+            end.isSame(end.clone().endOf('year'))
+        ) {
+            return this.toYearStr(begin);
+        }
+        if (begin.isSame(begin.clone().startOf('month'), 'day') && end.isSame(end.clone().endOf('month'), 'day')) {
+            return this.toMonthStr(begin, end);
+        }
+        if (begin.isSame(moment().startOf('week'), 'day') && end.isSame(moment().endOf('week'), 'day')) {
             return this.rangeDateTranslate('currentWeek');
         }
-
-        const isSameMonth = begin.isSame(end, 'month');
-        const isSameYear = begin.isSame(end, 'year');
-        const isCurrentYear = current.isSame(begin, 'year') && current.isSame(end, 'year');
-
-        if (isSameYear && begin.isSame(begin.clone().startOf('year')) && end.isSame(end.clone().endOf('year'))) {
-            return this.localizedFormatDate(begin, 'y');
-        }
-
-        const fromStr = this.rangeDateTranslate('from');
-        const toStr = this.rangeDateTranslate('to');
-        if (begin.isSame(begin.clone().startOf('month'), 'day') && end.isSame(end.clone().endOf('month'), 'day')) {
-            if (isSameMonth) {
-                return this.capitalizeFirstLetter(this.localizedFormatDate(begin, isCurrentYear ? 'LLLL' : 'LLLL y'));
-            }
-            return (
-                `${fromStr} ${this.localizedFormatDate(begin, isSameYear ? 'MMMM' : 'LLLL y')}` +
-                ` ${toStr} ${this.localizedFormatDate(end, 'LLLL y')}`
-            );
-        }
-
-        const fromByDayStr = this.rangeDateTranslate(begin.day() === 2 ? 'fromStartWith2' : 'from');
-        if (isSameMonth) {
-            return (
-                `${fromByDayStr} ${this.localizedFormatDate(begin, 'd')}` +
-                ` ${toStr} ${this.localizedFormatDate(end, isCurrentYear ? 'd MMMM' : 'd MMMM y')}`
-            );
-        }
-        return (
-            `${fromByDayStr} ${this.localizedFormatDate(begin, isCurrentYear ? 'd MMMM' : 'd MMMM y')}` +
-            ` ${toStr} ${this.localizedFormatDate(end, isCurrentYear ? 'd MMMM' : 'd MMMM y')}`
-        );
+        return this.toDateStr(begin, end);
     }
 
-    capitalizeFirstLetter(str: string) {
+    /**
+     * 2020 год
+     */
+    private toYearStr(begin: Moment) {
+        return `${this.formatStandaloneDate(begin, false, false, true)} ${this.rangeDateTranslate('year')}`;
+    }
+
+    /**
+     * Январь / Январь 2020
+     * С января по март / С января по март 2020 / С декабря 2019 по март 2020
+     */
+    private toMonthStr(begin: Moment, end: Moment) {
+        const fromStr = this.rangeDateTranslate('from');
+        const toStr = this.rangeDateTranslate('to');
+
+        const beginStr = this.formatDate(begin, false, true, !begin.isSame(end, 'year'));
+        const endStr = this.formatStandaloneDate(end, false, true, !this.isCurrentYear(begin, end));
+
+        if (begin.isSame(end, 'month')) {
+            return this.capitalizeFirstLetter(endStr);
+        }
+
+        return `${fromStr} ${beginStr} ${toStr} ${endStr}`;
+    }
+
+    /**
+     * 2 января / 2 января 2020
+     * Со 2 января по 8 марта / Со 2 января по 8 марта 2020 / С 1 декабря 2019 по 8 марта 2020
+     */
+    private toDateStr(begin: Moment, end: Moment) {
+        const fromByDayStr = this.rangeDateTranslate(begin.date() === 2 ? 'fromStartWith2' : 'from');
+        const toStr = this.rangeDateTranslate('to');
+
+        const beginStr = this.formatDate(begin, true, !begin.isSame(end, 'month'), !begin.isSame(end, 'year'));
+        const endStr = this.formatDate(end, true, true, !this.isCurrentYear(begin, end));
+
+        if (begin.isSame(end, 'day')) {
+            return endStr;
+        }
+
+        return `${fromByDayStr} ${beginStr} ${toStr} ${endStr}`;
+    }
+
+    private isCurrentYear(begin: Moment, end: Moment) {
+        return moment().isSame(begin, 'year') && moment().isSame(end, 'year');
+    }
+
+    private capitalizeFirstLetter(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    rangeDateTranslate(key: string) {
+    private rangeDateTranslate(key: string) {
         return this.transloco.translate(`rangeDate.${key}`, null, 'range-datepicker|scoped');
     }
 
-    localizedFormatDate(date: Moment, format: string) {
-        return formatDate(date.toDate(), format, this.locale);
+    private formatDate(date: Moment, d: boolean = false, m: boolean = false, y: boolean = false) {
+        return formatDate(date.toDate(), [d && 'd', m && 'MMMM', y && 'y'].filter(v => v).join(' '), this.locale);
+    }
+
+    private formatStandaloneDate(date: Moment, d: boolean = false, m: boolean = false, y: boolean = false) {
+        return formatDate(date.toDate(), [d && 'd', m && 'LLLL', y && 'y'].filter(v => v).join(' '), this.locale);
     }
 }
