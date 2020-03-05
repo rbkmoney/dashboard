@@ -35,7 +35,23 @@ export class AnalyticsComponent {
         }
     ];
     paymentTools = [10, 20, 30, 40];
-    paymentsCountTimes = [moment().subtract(7, 'd'), moment().subtract(6, 'd'), moment().subtract(5, 'd'), moment().subtract(4, 'd'), moment().subtract(3, 'd'), moment().subtract(2, 'd'), moment().subtract(1, 'd')];
-    paymentsAmountTimes = [moment().subtract(7, 'd'), moment().subtract(6, 'd'), moment().subtract(5, 'd'), moment().subtract(4, 'd'), moment().subtract(3, 'd'), moment().subtract(2, 'd'), moment().subtract(1, 'd')];
+    paymentsCountTimes = [
+        moment().subtract(7, 'd'),
+        moment().subtract(6, 'd'),
+        moment().subtract(5, 'd'),
+        moment().subtract(4, 'd'),
+        moment().subtract(3, 'd'),
+        moment().subtract(2, 'd'),
+        moment().subtract(1, 'd')
+    ];
+    paymentsAmountTimes = [
+        moment().subtract(7, 'd'),
+        moment().subtract(6, 'd'),
+        moment().subtract(5, 'd'),
+        moment().subtract(4, 'd'),
+        moment().subtract(3, 'd'),
+        moment().subtract(2, 'd'),
+        moment().subtract(1, 'd')
+    ];
     paymentToolsLabels = ['Банковские карты', 'Токенезированные методы', 'Терминалы оплаты', 'Прочие'];
 }
