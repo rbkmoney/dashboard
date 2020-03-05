@@ -11,22 +11,23 @@ import { SelectorItem } from './select-item';
 })
 export class DaterangeSelectorComponent implements OnChanges {
     @Input() value: SearchFormValue;
-    @Input() items?: SelectorItem[];
     @Output() selectDaterange: EventEmitter<SearchFormValue> = new EventEmitter();
     @Output() selectMore: EventEmitter<void> = new EventEmitter(true);
+
+    items: SelectorItem[];
 
     constructor(private daterangeSelectorService: DaterangeSelectorService) {}
 
     ngOnChanges({ value }: SimpleChanges) {
         if (value) {
-            this.items = this.daterangeSelectorService.changeSelectorItems(this.value, this.items);
+            this.items = this.daterangeSelectorService.changeSelectorItems(this.value);
             if (this.daterangeSelectorService.isMoreChecked(this.items)) {
                 this.selectMore.emit();
             }
         }
     }
 
-    selectUnit(unit: 'today' | 'week' | 'month' | 'year' | 'more') {
+    selectUnit(unit: 'today' | 'week' | 'month' | 'more') {
         if (unit === 'more') {
             this.selectMore.emit();
             return;
