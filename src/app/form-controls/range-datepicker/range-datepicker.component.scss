@@ -61,4 +61,9 @@ $border-radius: 4px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    &-menu-divider {
+        width: calc(100% + 20px);
+        transform: translate(-10px, -5px);
+    }
 }

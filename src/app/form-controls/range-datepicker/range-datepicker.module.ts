@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
-import { MatNativeDateModule, MatMenuModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatNativeDateModule, MatMenuModule, MatIconModule, MatInputModule, MatDividerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,8 @@ import { ButtonToggleModule } from '../../button-toggle';
         MatInputModule,
         ReactiveFormsModule,
         CommonModule,
-        TranslocoModule
+        TranslocoModule,
+        MatDividerModule
     ],
     declarations: [RangeDatepickerComponent],
     exports: [RangeDatepickerComponent]
