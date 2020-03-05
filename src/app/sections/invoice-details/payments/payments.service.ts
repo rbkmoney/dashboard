@@ -26,7 +26,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         continuationToken: string
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.paymentSearchService.searchPaymentsByDuration(
-            { amount: 1, unit: 'y' },
+            { amount: 3, unit: 'y' },
             params,
             this.searchLimit,
             continuationToken
