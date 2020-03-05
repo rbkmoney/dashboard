@@ -10,17 +10,8 @@
             title="{{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}"
         >
             <div class="dsh-range-datepicker-input-content">
-                <ng-container *ngIf="value?.begin && value?.end; else placeholder" [ngSwitch]="period">
-                    <ng-container *ngSwitchCase="'year'">
-                        {{ t.year | translocoParams: { year: value?.begin | date: 'y' } }}
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'month'">
-                        {{ value?.begin | date: 'LLLL' | titlecase }}
-                        {{ t.ofYear | translocoParams: { year: value?.begin | date: 'y' } }}
-                    </ng-container>
-                    <ng-container *ngSwitchDefault>
-                        {{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}
-                    </ng-container>
+                <ng-container *ngIf="publicValue?.begin && publicValue?.end; else placeholder" [ngSwitch]="period">
+                    {{ publicValue | rangeDate }}
                 </ng-container>
                 <ng-template #placeholder>
                     {{ t.selectPeriod }}

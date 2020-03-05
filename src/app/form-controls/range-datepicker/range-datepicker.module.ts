@@ -8,6 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { RangeDatepickerComponent } from './range-datepicker.component';
 import { ButtonToggleModule } from '../../button-toggle';
+import { RangeDatePipe } from './range-date.pipe';
 
 @NgModule({
     imports: [
@@ -24,7 +25,7 @@ import { ButtonToggleModule } from '../../button-toggle';
         TranslocoModule,
         MatDividerModule
     ],
-    declarations: [RangeDatepickerComponent],
+    declarations: [RangeDatepickerComponent, RangeDatePipe],
     exports: [RangeDatepickerComponent]
 })
 export class RangeDatepickerModule {}

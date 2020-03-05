@@ -7,5 +7,10 @@
         "period": "Указать период..."
     },
     "year": "{{year}} год",
-    "ofYear": "{{year}} года"
+    "ofYear": "{{year}} года",
+    "rangeDate": {
+        "from": "С",
+        "fromStartWith2": "Со",
+        "to": "по"
+    }
 }
