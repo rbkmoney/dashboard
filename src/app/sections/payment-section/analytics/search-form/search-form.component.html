@@ -7,11 +7,7 @@
             fxLayoutAlign="space-between center"
             fxLayoutAlign.lt-md="space-between stretch"
         >
-            <dsh-daterange-selector
-                fxFlex
-                [value]="form.value"
-                (selectDaterange)="selectDaterange($event)"
-            >
+            <dsh-daterange-selector fxFlex [value]="form.value" (selectDaterange)="selectDaterange($event)">
             </dsh-daterange-selector>
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20">
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>

@@ -3,7 +3,6 @@ import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { AnalyticsSearchValue } from '../analytics-search-value';
-import { SelectorItem } from '../../operations/daterange-selector/select-item';
 
 @Component({
     selector: 'dsh-search-form',

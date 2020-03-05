@@ -25,7 +25,7 @@
             ><h1 class="mat-title">{{ t.paymentsCount }}</h1></dsh-card-title
         >
         <dsh-card-content>
-            <dsh-bar-chart height="300"></dsh-bar-chart>
+            <dsh-bar-chart [series]="paymentsCount" [times]="paymentsCountTimes" height="300"></dsh-bar-chart>
         </dsh-card-content>
     </dsh-card>
     <dsh-card>
@@ -33,7 +33,7 @@
             ><h1 class="mat-title">{{ t.paymentsAmount }}</h1></dsh-card-title
         >
         <dsh-card-content>
-            <dsh-bar-chart height="300"></dsh-bar-chart>
+            <dsh-bar-chart [series]="paymentsAmount" [times]="paymentsAmountTimes" height="300"></dsh-bar-chart>
         </dsh-card-content>
     </dsh-card>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
@@ -42,7 +42,7 @@
                 ><h1 class="mat-title">{{ t.paymentTools }}</h1></dsh-card-title
             >
             <dsh-card-content>
-                <dsh-donut-chart></dsh-donut-chart>
+                <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>
             </dsh-card-content>
         </dsh-card>
         <dsh-card fxFlex>
@@ -50,7 +50,7 @@
                 ><h1 class="mat-title">{{ t.unsuccessfulPaymentReasons }}</h1></dsh-card-title
             >
             <dsh-card-content>
-                <dsh-donut-chart></dsh-donut-chart>
+                <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>
             </dsh-card-content>
         </dsh-card>
     </div>
