@@ -10,7 +10,7 @@ import { PaymentSearchService } from '../../api/search';
 export class PaymentDetailsService {
     payment$ = this.route.params.pipe(
         switchMap(({ invoiceID, paymentID }) =>
-            this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
+            this.paymentSearchService.getPaymentByDuration({ amount: 3, unit: 'y' }, invoiceID, paymentID)
         ),
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
