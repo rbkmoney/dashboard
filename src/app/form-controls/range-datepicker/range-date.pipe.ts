@@ -9,7 +9,7 @@ export class RangeDatePipe implements PipeTransform {
     constructor(@Inject(LOCALE_ID) private locale: string, private transloco: TranslocoService) {}
 
     transform({ begin, end }: { begin: Moment; end: Moment }): string {
-        if (begin.isSame(begin.clone().startOf('year')) && end.isSame(end.clone().endOf('year'))) {
+        if ((begin.isSame(begin.clone().startOf('year'), 'day') && end.isSame(end.clone().endOf('year')), 'day')) {
             return this.toYearStr(begin, end);
         }
         if (begin.isSame(begin.clone().startOf('month'), 'day') && end.isSame(end.clone().endOf('month'), 'day')) {
