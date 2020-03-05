@@ -19,29 +19,6 @@ export class SearchFormComponent implements OnInit {
 
     form = this.searchFormService.searchForm;
 
-    items: SelectorItem[] = [
-        {
-            value: 'today',
-            checked: false,
-            dicPath: 'today'
-        },
-        {
-            value: 'week',
-            checked: true,
-            dicPath: 'week'
-        },
-        {
-            value: 'month',
-            checked: false,
-            dicPath: 'month'
-        },
-        {
-            value: 'year',
-            checked: false,
-            dicPath: 'year'
-        }
-    ];
-
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
