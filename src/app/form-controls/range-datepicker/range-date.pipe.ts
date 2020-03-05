@@ -9,12 +9,8 @@ export class RangeDatePipe implements PipeTransform {
     constructor(@Inject(LOCALE_ID) private locale: string, private transloco: TranslocoService) {}
 
     transform({ begin, end }: { begin: Moment; end: Moment }): string {
-        if (
-            begin.isSame(end, 'year') &&
-            begin.isSame(begin.clone().startOf('year')) &&
-            end.isSame(end.clone().endOf('year'))
-        ) {
-            return this.toYearStr(begin);
+        if (begin.isSame(begin.clone().startOf('year')) && end.isSame(end.clone().endOf('year'))) {
+            return this.toYearStr(begin, end);
         }
         if (begin.isSame(begin.clone().startOf('month'), 'day') && end.isSame(end.clone().endOf('month'), 'day')) {
             return this.toMonthStr(begin, end);
@@ -27,14 +23,27 @@ export class RangeDatePipe implements PipeTransform {
 
     /**
      * 2020 год
+     * С 2019 по 2020 год
      */
-    private toYearStr(begin: Moment) {
-        return `${this.formatStandaloneDate(begin, false, false, true)} ${this.rangeDateTranslate('year')}`;
+    private toYearStr(begin: Moment, end: Moment) {
+        const endStr = `${begin.year()} ${this.rangeDateTranslate('year')}`;
+
+        if (begin.isSame(end, 'year')) {
+            return endStr;
+        }
+
+        const fromStr = this.rangeDateTranslate('from');
+        const toStr = this.rangeDateTranslate('to');
+
+        return `${fromStr} ${begin.year()} ${toStr} ${endStr}`;
     }
 
     /**
-     * Январь / Январь 2020
-     * С января по март / С января по март 2020 / С декабря 2019 по март 2020
+     * Январь
+     * Январь 2020
+     *
+     * С января по март
+     * С января по март 2019 / С декабря 2019 по март 2020
      */
     private toMonthStr(begin: Moment, end: Moment) {
         const fromStr = this.rangeDateTranslate('from');
@@ -51,8 +60,11 @@ export class RangeDatePipe implements PipeTransform {
     }
 
     /**
-     * 2 января / 2 января 2020
-     * Со 2 января по 8 марта / Со 2 января по 8 марта 2020 / С 1 декабря 2019 по 8 марта 2020
+     * 2 января
+     * 2 января 2020
+     *
+     * Со 2 по 8 марта / Со 2 января по 8 марта
+     * Со 2 по 8 марта 2019 / Со 2 января 2019 по 8 марта 2020
      */
     private toDateStr(begin: Moment, end: Moment) {
         const fromByDayStr = this.rangeDateTranslate(begin.date() === 2 ? 'fromStartWith2' : 'from');
