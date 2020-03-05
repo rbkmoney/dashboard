@@ -8,5 +8,9 @@ import { BalanceWidgetService } from './balance-widget.service';
     providers: [BalanceWidgetService]
 })
 export class BalanceWidgetComponent {
-    balances: { amount: number; currency: string }[];
+    balances: { amount: number; currency: string }[] = [
+        { amount: 234237462, currency: 'RUB' },
+        { amount: 1234863, currency: 'USD' },
+        { amount: 236544, currency: 'EUR' }
+    ];
 }
