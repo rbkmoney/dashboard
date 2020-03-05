@@ -32,7 +32,7 @@
 @import '../../app/charts/donut-chart/donut-chart-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/mini-card/mini-card-theme';
-@import '../../app/balance-widget/balance-widget-theme';
+@import '../../app/sections/payment-section/nav/balances/balances-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -70,6 +70,6 @@
         @include dsh-donut-chart-theme($theme);
         @include dsh-percent-difference-theme($theme);
         @include dsh-mini-card-theme($theme);
-        @include dsh-balance-widget-theme($theme);
+        @include dsh-balances-theme($theme);
     }
 }

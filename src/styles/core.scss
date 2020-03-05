@@ -25,6 +25,7 @@
 @import '../app/sections/payment-details/payment-details-theme';
 @import '../app/layout/panel/panel-theme';
 @import '../app/charts/charts-theme';
+@import '../app/sections/payment-section/nav/balances/balances-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -53,6 +54,7 @@
     @include dsh-payment-details-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
+    @include dsh-balances-typography($config);
 }
 
 @include dsh-overrides();

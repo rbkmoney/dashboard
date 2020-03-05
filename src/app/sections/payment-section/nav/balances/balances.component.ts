@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { BalanceWidgetService } from './balance-widget.service';
+import { BalancesService } from './balances.service';
 
 @Component({
-    selector: 'dsh-balance-widget',
-    templateUrl: './balance-widget.component.html',
-    providers: [BalanceWidgetService]
+    selector: 'dsh-balances',
+    templateUrl: './balances.component.html',
+    providers: [BalancesService]
 })
-export class BalanceWidgetComponent {
+export class BalancesComponent {
     balances: { amount: number; currency: string }[] = [
         { amount: 234237462, currency: 'RUB' },
         { amount: 1234863, currency: 'USD' },

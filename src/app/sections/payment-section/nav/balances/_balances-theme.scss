@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+@import './balance-item/balance-item-theme';
+
+@mixin dsh-balances-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-balances-title {
+        color: map-get($gray, 500);
+    }
+}
+
+@mixin dsh-balances-typography($config) {
+    @include dsh-balance-item-typography($config);
+}
