@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { pluck, shareReplay, first, filter, tap, switchMap, map } from 'rxjs/operators';
+import { pluck, shareReplay, first, filter, tap, map, take, catchError, startWith, mapTo } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest, of, Observable, merge } from 'rxjs';
 
 import { PartialFetcher } from '../../partial-fetcher';
 import { Payout } from '../../../api-codegen/anapi';
@@ -17,13 +18,38 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         mapToShopInfo,
         shareReplay(SHARE_REPLAY_CONF)
     );
-    selected$ = this.route.fragment.pipe(
-        first(),
-        filter(f => !!f),
-        switchMap(f => this.searchResult$.pipe(map(r => r.findIndex(({ id }) => id === f)))),
-        tap(r => r === -1 && this.fetchMore()),
-        filter(r => r !== -1),
-        first(),
+    selected$ = merge(
+        combineLatest(
+            this.searchResult$,
+            this.route.fragment.pipe(
+                first(),
+                filter(f => !!f),
+                shareReplay(SHARE_REPLAY_CONF)
+            ),
+            this.hasMore$
+        ).pipe(
+            map(([r, f, hasMore]) => [r.findIndex(({ id }) => id === f), r, hasMore] as const),
+            tap(([idx, hasMore]) => {
+                if (idx === -1 && hasMore) {
+                    this.fetchMore();
+                }
+            }),
+            take(10),
+            pluck(0),
+            filter(r => r !== -1),
+            first(),
+            catchError(() => of(null))
+        ),
+        this.route.fragment
+            .pipe(
+                first(),
+                filter(f => !f)
+            )
+            .pipe(mapTo(null))
+    ).pipe(shareReplay(SHARE_REPLAY_CONF));
+    isInit$: Observable<boolean> = this.selected$.pipe(
+        mapTo(false),
+        startWith(true),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -35,7 +61,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         super();
     }
 
-    protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string) {
-        return this.payoutSearchService.searchPayouts(fromTime, toTime, 10, { ...restParams, continuationToken });
+    protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string, limit: number = 10) {
+        return this.payoutSearchService.searchPayouts(fromTime, toTime, limit, { ...restParams, continuationToken });
     }
 }

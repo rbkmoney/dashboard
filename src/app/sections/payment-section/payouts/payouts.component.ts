@@ -26,7 +26,7 @@ import { smoothChangeTo } from '../../../../utils';
 export class PayoutsComponent implements AfterViewInit {
     payouts$ = this.payoutsService.searchResult$;
     isLoading$ = this.payoutsService.doAction$;
-    isInit$ = this.payoutsService.doSearchAction$;
+    isInit$ = this.payoutsService.isInit$;
     hasMore$ = this.payoutsService.hasMore$;
     lastUpdated$ = this.payoutsService.searchResult$.pipe(
         mapToTimestamp,
