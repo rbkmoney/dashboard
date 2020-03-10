@@ -1,5 +1,5 @@
-import { ContentChildren, QueryList, AfterContentInit, Component } from '@angular/core';
-import { startWith, filter, mapTo } from 'rxjs/operators';
+import { ContentChildren, QueryList, AfterContentInit, Component, Output, EventEmitter } from '@angular/core';
+import { startWith, tap, map } from 'rxjs/operators';
 import { Subscription, merge } from 'rxjs';
 
 import { PayoutPanelComponent } from './payout-panel.component';
@@ -14,6 +14,9 @@ export class PayoutPanelAccordionComponent implements AfterContentInit {
     @ContentChildren(PayoutPanelComponent, { descendants: true })
     payoutPanels: QueryList<PayoutPanelComponent>;
 
+    @Output()
+    expanded = new EventEmitter<number>(null);
+
     subs: Subscription = Subscription.EMPTY;
 
     ngAfterContentInit() {
@@ -23,19 +26,19 @@ export class PayoutPanelAccordionComponent implements AfterContentInit {
                 this.subs.unsubscribe();
                 this.subs = merge(
                     ...payoutPanels.map(({ expandPanel }, idx) =>
-                        expandPanel.expandedChange.pipe(
-                            filter(e => e),
-                            mapTo(idx)
-                        )
+                        expandPanel.expandedChange.pipe(map(e => (e ? idx : null)))
                     )
                 ).subscribe(idx => this.expand(idx));
             });
     }
 
     expand(idx: number) {
-        this.payoutPanels
-            .map(({ expandPanel }) => expandPanel)
-            .filter((_, i) => i !== idx)
-            .forEach(p => p.collapse());
+        if (idx !== null) {
+            this.payoutPanels
+                .map(({ expandPanel }) => expandPanel)
+                .filter((_, i) => i !== idx)
+                .forEach(p => p.collapse());
+        }
+        this.expanded.emit(idx);
     }
 }

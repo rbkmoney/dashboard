@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { pluck, shareReplay } from 'rxjs/operators';
+import { pluck, shareReplay, first, filter, tap, switchMap, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import { PartialFetcher } from '../../partial-fetcher';
@@ -15,6 +15,14 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+    selected$ = this.route.fragment.pipe(
+        first(),
+        filter(f => !!f),
+        switchMap(f => this.searchResult$.pipe(map(r => r.findIndex(({ id }) => id === f)))),
+        filter(r => r !== -1),
+        tap(() => this.fetchMore()),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
