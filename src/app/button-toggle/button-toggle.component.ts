@@ -340,6 +340,11 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         }
     }
 
+    @HostBinding('attr.disabled')
+    get attrDisabled() {
+        return this.disabled ? 'disabled' : null;
+    }
+
     @HostBinding('class.dsh-button-toggle-disabled')
     @Input()
     get disabled(): boolean {
