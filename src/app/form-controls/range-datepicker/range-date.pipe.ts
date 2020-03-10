@@ -43,14 +43,15 @@ export class RangeDatePipe implements PipeTransform {
      * Январь 2020
      *
      * С января по март
-     * С января по март 2019 / С декабря 2019 по март 2020
+     * С января 2019 по март 2019 / С декабря 2019 по март 2020
      */
     private toMonthStr(begin: Moment, end: Moment) {
         const fromStr = this.rangeDateTranslate('from');
         const toStr = this.rangeDateTranslate('to');
 
-        const beginStr = this.formatDate(begin, false, true, !begin.isSame(end, 'year'));
-        const endStr = this.formatStandaloneDate(end, false, true, !this.isCurrentYear(begin, end));
+        const currentYear = this.isCurrentYear(begin, end);
+        const beginStr = this.formatDate(begin, false, true, !currentYear);
+        const endStr = this.formatStandaloneDate(end, false, true, !currentYear);
 
         if (begin.isSame(end, 'month')) {
             return this.capitalizeFirstLetter(endStr);
