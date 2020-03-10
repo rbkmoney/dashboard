@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
@@ -15,6 +15,7 @@ import { BarChartModule } from '../../../charts/bar-chart';
 import { DonutChartModule } from '../../../charts/donut-chart';
 import { PercentDifferenceComponent } from './percent-difference';
 import { MiniCardModule } from './mini-card';
+import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { MiniCardModule } from './mini-card';
         MatSelectModule,
         BarChartModule,
         DonutChartModule,
-        MiniCardModule
+        MiniCardModule,
+        APIAnalyticsModule
     ],
     declarations: [AnalyticsComponent, SearchFormComponent, PercentDifferenceComponent]
 })

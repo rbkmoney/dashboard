@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import moment from 'moment';
 
+import { AnalyticsService } from './analytics.service';
+
 @Component({
-    templateUrl: 'analytics.component.html'
+    templateUrl: 'analytics.component.html',
+    providers: [AnalyticsService]
 })
 export class AnalyticsComponent {
+    shops$ = this.analyticsService.shops$;
+
     paymentsCount: ApexAxisChartSeries = [
         {
             name: 'Подтвержден',
@@ -53,4 +58,6 @@ export class AnalyticsComponent {
         moment().subtract(1, 'd')
     ];
     paymentToolsLabels = ['Банковские карты', 'Токенезированные методы', 'Терминалы оплаты', 'Прочие'];
+
+    constructor(private analyticsService: AnalyticsService) {}
 }
