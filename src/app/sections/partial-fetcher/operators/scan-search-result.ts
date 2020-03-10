@@ -24,12 +24,12 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
 ): Observable<FetchResult<R>> =>
     s.pipe(
         concatFirstScan<FetchAction<P>, FetchResult<R>>(
-            ({ result, continuationToken }, action) => {
-                switch (action.type) {
+            ({ result, continuationToken }, { type, value, limit }) => {
+                switch (type) {
                     case 'search':
-                        return fn(action.value).pipe(handleFetchResultError());
+                        return fn(value, undefined, limit).pipe(handleFetchResultError());
                     case 'fetchMore':
-                        return fn(action.value, continuationToken).pipe(
+                        return fn(value, continuationToken, limit).pipe(
                             map(r => ({
                                 result: result.concat(r.result),
                                 continuationToken: r.continuationToken

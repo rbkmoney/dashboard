@@ -27,7 +27,7 @@ export abstract class PartialFetcher<R, P> {
     doSearchAction$: Observable<boolean>;
     errors$: Observable<any>;
 
-    constructor(debounceActionTime: number = 300) {
+    constructor(debounceActionTime: number = 300, private defaultLimit: number = 10) {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
 
@@ -56,16 +56,16 @@ export abstract class PartialFetcher<R, P> {
         merge(this.searchResult$, this.hasMore$, this.doAction$, this.doSearchAction$, this.errors$).subscribe();
     }
 
-    search(value: P) {
-        this.action$.next({ type: 'search', value });
+    search(value: P, limit: number = this.defaultLimit) {
+        this.action$.next({ type: 'search', value, limit });
     }
 
-    refresh() {
-        this.action$.next({ type: 'search' });
+    refresh(limit: number = this.defaultLimit) {
+        this.action$.next({ type: 'search', limit });
     }
 
-    fetchMore() {
-        this.action$.next({ type: 'fetchMore' });
+    fetchMore(limit: number = this.defaultLimit) {
+        this.action$.next({ type: 'fetchMore', limit });
     }
 
     protected abstract fetch(...args: Parameters<FetchFn<P, R>>): ReturnType<FetchFn<P, R>>;
