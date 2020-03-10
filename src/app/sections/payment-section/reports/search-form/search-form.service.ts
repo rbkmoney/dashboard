@@ -17,7 +17,7 @@ export class SearchFormService {
         reportType: null,
         date: {
             begin: moment().startOf('month'),
-            end: moment().endOf('day')
+            end: moment().endOf('month')
         }
     };
 
