@@ -21,8 +21,9 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         first(),
         filter(f => !!f),
         switchMap(f => this.searchResult$.pipe(map(r => r.findIndex(({ id }) => id === f)))),
+        tap(r => r === -1 && this.fetchMore()),
         filter(r => r !== -1),
-        tap(() => this.fetchMore()),
+        first(),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
