@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import negate from 'lodash.negate';
 import isEmpty from 'lodash.isempty';
 import moment from 'moment';
 
@@ -10,21 +11,28 @@ import { toQueryParams } from '../../operations/to-query-params';
 import { toFormValue } from '../../operations/to-form-value';
 import { AnalyticsSearchValue } from '../analytics-search-value';
 import { removeEmptyProperties } from '../../operations/operators';
+import { ShopService } from '../../../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup = this.initForm();
 
+    shops$ = this.shopService.getShops();
+
     private defaultValues: AnalyticsSearchValue = this.searchForm.value;
     formValueChanges$: Observable<AnalyticsSearchValue> = this.searchForm.valueChanges.pipe(
-        map(v => (v.shop === 0 ? (v.shop = null) : v)),
         startWith(this.defaultValues),
-        filter(() => this.searchForm.status === 'VALID'),
         removeEmptyProperties,
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
@@ -46,8 +54,8 @@ export class SearchFormService {
         this.route.queryParams
             .pipe(
                 take(1),
-                filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<AnalyticsSearchValue>(queryParams))
+                filter(negate(isEmpty)),
+                map(toFormValue)
             )
             .subscribe(formValue => this.searchForm.patchValue(formValue));
     }
@@ -58,7 +66,7 @@ export class SearchFormService {
                 .subtract(1, 'week')
                 .startOf('day'),
             toTime: moment().endOf('day'),
-            shopID: 0
+            shops: undefined
         });
     }
 }

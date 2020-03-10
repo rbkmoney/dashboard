@@ -7,7 +7,7 @@ import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 
 import { RefundsSearchFormValue } from './refunds-search-form-value';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 import { removeEmptyProperties, ShopInfo, filterShopsByEnv, mapToShopInfo } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';

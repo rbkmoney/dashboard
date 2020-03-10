@@ -3,8 +3,7 @@ import { ApexAxisChartSeries } from 'ng-apexcharts';
 import moment from 'moment';
 
 @Component({
-    templateUrl: 'analytics.component.html',
-    styleUrls: ['analytics.component.scss']
+    templateUrl: 'analytics.component.html'
 })
 export class AnalyticsComponent {
     paymentsCount: ApexAxisChartSeries = [

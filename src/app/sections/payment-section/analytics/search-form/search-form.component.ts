@@ -4,6 +4,8 @@ import { debounceTime } from 'rxjs/operators';
 import { SearchFormService } from './search-form.service';
 import { AnalyticsSearchValue } from '../analytics-search-value';
 
+const DEBOUNCE_TIME = 500;
+
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
@@ -12,16 +14,14 @@ import { AnalyticsSearchValue } from '../analytics-search-value';
 export class SearchFormComponent implements OnInit {
     @Output() formValueChanges: EventEmitter<AnalyticsSearchValue> = new EventEmitter<AnalyticsSearchValue>();
 
-    selected = 0;
-
-    valueDebounceTime = 500;
+    shops$ = this.searchFormService.shops$;
 
     form = this.searchFormService.searchForm;
 
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
-        this.searchFormService.formValueChanges$.pipe(debounceTime(this.valueDebounceTime)).subscribe(v => {
+        this.searchFormService.formValueChanges$.pipe(debounceTime(DEBOUNCE_TIME)).subscribe(v => {
             this.formValueChanges.emit(v);
         });
     }

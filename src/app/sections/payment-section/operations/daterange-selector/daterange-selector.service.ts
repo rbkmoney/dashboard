@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
-import { SearchFormValue } from '../search-form-value';
+import { SearchFormValue } from '../../search-form-value';
 import { SelectorItem } from './select-item';
 
 @Injectable()

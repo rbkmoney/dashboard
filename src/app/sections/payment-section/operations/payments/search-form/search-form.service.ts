@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { toFormValue } from '../../to-form-value';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
 import { binValidator, lastDigitsValidator } from '../../../../../form-controls';

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 import {
     tokenProviders as tokenProvidersConsts,
     paymentMethods as paymentMethodsConsts,

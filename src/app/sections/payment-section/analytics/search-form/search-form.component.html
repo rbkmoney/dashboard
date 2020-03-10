@@ -12,9 +12,11 @@
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20">
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>
                     <mat-label>{{ t.shop }}</mat-label>
-                    <mat-select [(value)]="selected" formControlName="shopID">
-                        <mat-option [value]="selected">{{ t.allShops }}</mat-option>
-                        <mat-option *ngFor="let item of ['kek', 'lel', 'kappa']" [value]="item">{{ item }}</mat-option>
+                    <mat-select formControlName="shops">
+                        <mat-option>{{ t.allShops }}</mat-option>
+                        <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">{{
+                            shop.details.name
+                        }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </dsh-justify-wrapper>

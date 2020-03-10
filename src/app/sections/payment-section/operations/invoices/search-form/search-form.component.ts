@@ -4,7 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { SearchFormService } from './search-form.service';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 
 @Component({
