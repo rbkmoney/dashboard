@@ -23,8 +23,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
             this.searchResult$,
             this.route.fragment.pipe(
                 first(),
-                filter(f => !!f),
-                shareReplay(SHARE_REPLAY_CONF)
+                filter(f => !!f)
             ),
             this.hasMore$
         ).pipe(
