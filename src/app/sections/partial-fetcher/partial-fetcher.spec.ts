@@ -59,7 +59,7 @@ describe('PartialFetch', () => {
             partialFetched.fetchMore();
             partialFetched.fetchMore();
             partialFetched.fetchMore();
-            expectObservable(partialFetched.searchResult$).toBe('--0-1-2-3', [
+            expectObservable(partialFetched.searchResult$).toBe('--0--1--2--3', [
                 [undefined],
                 [undefined, 'token'],
                 [undefined, 'token', 'token0'],
@@ -80,7 +80,7 @@ describe('PartialFetch', () => {
             partialFetched.search('params');
             partialFetched.fetchMore();
             partialFetched.refresh();
-            expectObservable(partialFetched.searchResult$).toBe('--0-1-2', [
+            expectObservable(partialFetched.searchResult$).toBe('--0--1--2', [
                 ['params'],
                 ['params', 'params'],
                 ['params']
