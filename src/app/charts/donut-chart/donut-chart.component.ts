@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ApexAxisChartSeries, ApexNonAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
+import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
+import cloneDeep from 'lodash.clonedeep';
 
 import { DEFAULT_CONFIG } from './default-config';
 
@@ -10,7 +11,7 @@ import { DEFAULT_CONFIG } from './default-config';
 })
 export class DonutChartComponent {
     @Input()
-    series: ApexAxisChartSeries | ApexNonAxisChartSeries;
+    series: ApexAxisChartSeries;
 
     @Input()
     labels: string[];
@@ -18,5 +19,5 @@ export class DonutChartComponent {
     @Input()
     colors?: string[];
 
-    config = DEFAULT_CONFIG;
+    config = cloneDeep(DEFAULT_CONFIG);
 }

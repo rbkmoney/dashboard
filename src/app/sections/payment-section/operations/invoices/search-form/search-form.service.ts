@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { toFormValue } from '../../to-form-value';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 import { ShopService } from '../../../../../api';
 import { mapToShopInfo, ShopInfo, filterShopsByEnv, removeEmptyProperties } from '../../operators';
 
