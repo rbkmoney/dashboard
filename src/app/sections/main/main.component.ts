@@ -9,6 +9,7 @@ import { ConfigService } from '../../config';
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
+    oldDashboardEndpoint = this.configService.ext.oldDashboardEndpoint;
     hasWallets = false;
 
     constructor(private configService: ConfigService) {}
