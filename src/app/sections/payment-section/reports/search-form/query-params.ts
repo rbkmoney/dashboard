@@ -1,8 +1,8 @@
 import { Report } from '../../../../api-codegen/anapi';
-import { Range } from '../../../../form-controls';
 
-export interface FormParams {
-    date: Range;
+export interface QueryParams {
+    fromTime: string;
+    toTime: string;
     reportType: Report.ReportTypeEnum;
     shopID?: string;
 }

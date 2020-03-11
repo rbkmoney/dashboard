@@ -16,5 +16,5 @@ export const binConfig: FormatInputConfig = {
     mask: binMask,
     placeholder: '0000 00',
     postfix: '** **** ****',
-    getValue: (v: string) => (v ? v.replace(' ', '') : '')
+    toPublicValue: (v: string) => (v ? v.replace(' ', '') : '')
 };
