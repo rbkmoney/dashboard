@@ -1,5 +1,5 @@
 import { ContentChildren, QueryList, AfterContentInit, Component, Output, EventEmitter } from '@angular/core';
-import { startWith, tap, map } from 'rxjs/operators';
+import { startWith, map } from 'rxjs/operators';
 import { Subscription, merge } from 'rxjs';
 
 import { PayoutPanelComponent } from './payout-panel.component';
