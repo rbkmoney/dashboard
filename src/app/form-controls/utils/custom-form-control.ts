@@ -13,7 +13,8 @@ import {
     Optional,
     Self,
     HostListener,
-    OnChanges
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import uuid from 'uuid';
 import { AutofillMonitor } from '@angular/cdk/text-field';
@@ -21,8 +22,8 @@ import { Platform } from '@angular/cdk/platform';
 
 import { InputMixinBase } from './input-base';
 
-export class CustomFormControl<T extends any = string> extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy, DoCheck, OnChanges {
+export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 
@@ -32,6 +33,7 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
 
     autofilled = false;
 
+    protected _disabled = false;
     @Input()
     get disabled(): boolean {
         if (this.ngControl && this.ngControl.disabled !== null) {
@@ -49,8 +51,8 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
             this.stateChanges.next();
         }
     }
-    protected _disabled = false;
 
+    protected _id: string;
     @HostBinding('attr.id')
     @Input()
     get id(): string {
@@ -59,11 +61,11 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
     set id(value: string) {
         this._id = value || `custom-input-${uuid()}`;
     }
-    protected _id: string;
 
     @Input()
     placeholder: string;
 
+    protected _required = false;
     @Input()
     get required(): boolean {
         return this._required;
@@ -71,21 +73,27 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
     set required(value: boolean) {
         this._required = coerceBooleanProperty(value);
     }
-    protected _required = false;
 
     protected type = 'text';
 
     @Input()
-    get value(): T {
+    get value() {
         return this.formControl.value;
     }
-    set value(value: T) {
+    set value(value: I) {
         this.formControl.setValue(value);
         this.stateChanges.next();
     }
 
+    get publicValue() {
+        return this.toPublicValue(this.value);
+    }
+    set publicValue(value: P) {
+        this.value = this.toInternalValue(value);
+    }
+
     get details() {
-        return this.getDetails(this.value);
+        return this.getDetails(this.publicValue);
     }
 
     @HostBinding('class.floating')
@@ -93,16 +101,13 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         return this.focused || !this.empty;
     }
 
-    _inputRef = new ElementRef<HTMLInputElement>(null);
-    get inputRef() {
-        this._inputRef.nativeElement = this.elementRef.nativeElement.querySelector('input');
-        return this._inputRef;
-    }
+    inputRef = new ElementRef<HTMLInputElement>(null);
 
     get empty(): boolean {
         return !this.formControl.value;
     }
 
+    private _focused = false;
     get focused(): boolean {
         return this._focused;
     }
@@ -113,8 +118,8 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
 
     formControl = new FormControl();
     autocompleteOrigin: MatAutocompleteOrigin;
+    monitorsRegistered = false;
 
-    private _focused = false;
     private _onTouched: () => void;
 
     constructor(
@@ -136,7 +141,7 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         }
     }
 
-    ngOnChanges() {
+    ngOnChanges(_changes?: SimpleChanges) {
         this.stateChanges.next();
     }
 
@@ -150,15 +155,7 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
     }
 
     ngAfterViewInit(): void {
-        if (this.platform.isBrowser) {
-            this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
-                this.autofilled = event.isAutofilled;
-                this.stateChanges.next();
-            });
-        }
-        this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
-            this.focused = !!focusOrigin;
-        });
+        this.setInputElement();
     }
 
     ngOnDestroy() {
@@ -180,12 +177,27 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         this._onTouched();
     }
 
-    registerOnChange(onChange: (value: T) => void): void {
-        this.formControl.valueChanges.subscribe(v => onChange(this.getValue(v)));
+    registerOnChange(onChange: (value: P) => void): void {
+        this.formControl.valueChanges.subscribe(v => onChange(this.toPublicValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {
         this._onTouched = onTouched;
+    }
+
+    private registerMonitors() {
+        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
+            this.monitorsRegistered = true;
+            if (this.platform.isBrowser) {
+                this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
+                    this.autofilled = event.isAutofilled;
+                    this.stateChanges.next();
+                });
+            }
+            this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
+                this.focused = !!focusOrigin;
+            });
+        }
     }
 
     setDescribedByIds(ids: string[]): void {
@@ -202,15 +214,24 @@ export class CustomFormControl<T extends any = string> extends InputMixinBase
         this.disabled = shouldDisable;
     }
 
-    writeValue(value: string): void {
-        this.formControl.setValue(value, { emitEvent: false });
+    setInputElement(input: HTMLInputElement = this.elementRef.nativeElement.querySelector('input')) {
+        this.inputRef.nativeElement = input;
+        this.registerMonitors();
     }
 
-    getDetails(value: T) {
-        return value;
+    writeValue(value: P): void {
+        this.formControl.setValue(this.toInternalValue(value), { emitEvent: false });
     }
 
-    getValue(value = this.value): T {
-        return value;
+    protected getDetails(value: P): string {
+        return value as any;
+    }
+
+    protected toInternalValue(value: P): I {
+        return value as any;
+    }
+
+    protected toPublicValue(value: I): P {
+        return value as any;
     }
 }

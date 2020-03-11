@@ -19,7 +19,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.refundSearchService.searchRefundsByDuration(
-            { amount: 1, unit: 'y' },
+            { amount: 3, unit: 'y' },
             invoiceID,
             paymentID,
             this.searchLimit,

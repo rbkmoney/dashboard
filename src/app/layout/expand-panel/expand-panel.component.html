@@ -1,0 +1,12 @@
+<dsh-card class="dsh-expand-panel" (click)="expand()" [ngClass]="{ 'dsh-expand-panel-expanded': expanded }">
+    <div class="dsh-expand-panel-base" *ngIf="!expanded" [@expand]="collapseTrigger">
+        <div (dshResized)="setBaseContentHeight($event)">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="dsh-expand-panel-expand" *ngIf="expanded" [@expand]="expandTrigger">
+        <div (dshResized)="setExpandedContentHeight($event)" fxLayout>
+            <ng-container *ngTemplateOutlet="expandPanelMore?.templateRef"></ng-container>
+        </div>
+    </div>
+</dsh-card>

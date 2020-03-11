@@ -27,12 +27,14 @@
 @import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
+@import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
 @import '../../app/layout/panel/panel-theme';
 @import '../../app/charts/bar-chart/bar-chart-theme';
 @import '../../app/charts/donut-chart/donut-chart-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/mini-card/mini-card-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
+@import '../../app/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -71,5 +73,7 @@
         @include dsh-percent-difference-theme($theme);
         @include dsh-mini-card-theme($theme);
         @include dsh-balances-theme($theme);
+        @include dsh-range-datepicker-theme($theme);
+        @include dsh-payout-panel-theme($theme);
     }
 }

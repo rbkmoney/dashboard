@@ -7,5 +7,6 @@ export interface FormatInputConfig {
     size?: number;
     prefix?: string;
     postfix?: string;
-    getValue?: (value: any) => any;
+    toPublicValue?: (value: string) => string;
+    toInternalValue?: (value: string) => string;
 }
