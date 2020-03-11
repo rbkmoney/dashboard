@@ -9,6 +9,7 @@ import {
 import { shareReplay, map, filter, first, delay, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
+import isNil from 'lodash.isnil';
 
 import { PayoutsService } from './payouts.service';
 import { mapToTimestamp } from '../operations/operators';
@@ -73,7 +74,7 @@ export class PayoutsComponent implements AfterViewInit {
     }
 
     expand(idx: number) {
-        if (idx === null) {
+        if (isNil(idx)) {
             this.select();
         }
     }

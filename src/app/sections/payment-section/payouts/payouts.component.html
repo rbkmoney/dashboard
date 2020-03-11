@@ -11,7 +11,7 @@
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
     <ng-container *ngIf="!(isInit$ | async)">
-        <dsh-payout-panel-accordion fxLayout="column" fxLayoutGap="20px" (expand)="expand($event)">
+        <dsh-payout-panel-accordion fxLayout="column" fxLayoutGap="20px" (expanded)="expand($event)">
             <dsh-payout-panel
                 *ngFor="let payout of payouts$ | async"
                 [payout]="payout"
