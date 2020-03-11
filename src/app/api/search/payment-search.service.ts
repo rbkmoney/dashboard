@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { PaymentSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
-import { toDateLike, genXRequestID } from '../utils';
-import { PaymentsSearchParams, PaymentsWithToken, Duration } from './model';
+import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { genXRequestID, toDateLike } from '../utils';
+import { Duration, PaymentsSearchParams } from './model';
 
 @Injectable()
 export class PaymentSearchService {
@@ -18,7 +17,7 @@ export class PaymentSearchService {
         limit: number,
         continuationToken?: string,
         excludedShops?: string[]
-    ): Observable<PaymentsWithToken> {
+    ) {
         return this.searchService.searchPayments(
             genXRequestID(),
             toDateLike(fromTime),
@@ -54,7 +53,7 @@ export class PaymentSearchService {
         params: PaymentsSearchParams,
         limit: number,
         continuationToken?: string
-    ): Observable<PaymentsWithToken> {
+    ) {
         const from = moment()
             .subtract(amount, unit)
             .startOf('d')
@@ -67,7 +66,7 @@ export class PaymentSearchService {
         return this.searchPayments(from, to, params, limit, continuationToken);
     }
 
-    getPaymentByDuration(duration: Duration, invoiceID: string, paymentID: string): Observable<PaymentSearchResult> {
+    getPaymentByDuration(duration: Duration, invoiceID: string, paymentID: string) {
         return this.searchPaymentsByDuration(
             duration,
             {
