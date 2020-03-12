@@ -6,55 +6,38 @@
     [pinned]="true"
 >
     <ng-container *transloco="let c">
-        <div
-            fxLayout
-            [fxLayoutGap]="layoutGap"
-            fxLayout.sm="column"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between center"
-            fxLayoutAlign.sm="space-between stretch"
-            fxLayoutAlign.xs="space-between stretch"
-        >
+        <dsh-justify-wrapper fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
             <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
-            <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ t.shopID }}</mat-label>
-                    <mat-select formControlName="shopID">
-                        <mat-option>
-                            {{ c.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
-                            {{ item.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field fxFlex>
-                    <mat-label>{{ t.refundStatus }}</mat-label>
-                    <mat-select formControlName="refundStatus">
-                        <mat-option>
-                            {{ c.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status">
-                            {{ c.refundStatus[status] }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </dsh-justify-wrapper>
-        </div>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.shopID }}</mat-label>
+                <mat-select formControlName="shopID">
+                    <mat-option>
+                        {{ c.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.refundStatus }}</mat-label>
+                <mat-select formControlName="refundStatus">
+                    <mat-option>
+                        {{ c.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status">
+                        {{ c.refundStatus[status] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
                 {{ c.resetSearchParams }}
             </button>
         </dsh-float-panel-actions>
         <dsh-float-panel-more>
-            <div
-                gdAuto
-                [gdGap]="'0 ' + layoutGap"
-                gdColumns="1fr 1fr 1fr 1fr"
-                gdColumns.sm="1fr 1fr"
-                gdColumns.xs="1fr"
-            >
+            <div gdAuto gdGap="0 {{ layoutGap }}" gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr">
                 <mat-form-field>
                     <mat-label>{{ t.refundID }}</mat-label>
                     <input matInput formControlName="refundID" />
