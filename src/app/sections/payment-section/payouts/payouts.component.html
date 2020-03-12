@@ -18,7 +18,9 @@
             </button>
         </dsh-card>
         <div *ngIf="!(payouts$ | async)?.length" class="mat-headline dsh-payouts-empty">
-            {{ p.empty }}
+            <ng-container *transloco="let t">
+                {{ t.empty }}
+            </ng-container>
         </div>
     </ng-container>
     <div *ngIf="isInit$ | async" fxLayout fxFlexAlign="center">

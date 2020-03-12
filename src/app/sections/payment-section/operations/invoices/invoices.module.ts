@@ -28,6 +28,7 @@ import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { LanguageModule } from '../../../../language';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { EmptyModule } from '../empty';
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         TranslocoModule,
         LanguageModule,
         MatMenuModule,
-        RangeDatepickerModule
+        RangeDatepickerModule,
+        EmptyModule
     ],
     declarations: [InvoicesComponent, SearchFormComponent, InvoiceStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

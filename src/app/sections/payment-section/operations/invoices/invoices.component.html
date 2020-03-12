@@ -9,6 +9,7 @@
             ></dsh-last-updated>
             <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
             <dsh-invoices-table [data]="tableData$ | async"></dsh-invoices-table>
+            <dsh-empty *ngIf="!(tableData$ | async)?.length && (lastUpdated$ | async)"></dsh-empty>
             <button *ngIf="hasMoreInvoices$ | async" (click)="fetchMore()" dsh-button>
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}
             </button>
