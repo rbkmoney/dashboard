@@ -20,7 +20,7 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
-import { EmptyModule } from '../empty';
+import { EmptyModule } from '../../empty';
 
 @NgModule({
     imports: [
