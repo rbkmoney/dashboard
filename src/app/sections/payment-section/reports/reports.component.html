@@ -21,7 +21,9 @@
                 ></dsh-last-updated>
                 <dsh-spinner *ngIf="isLoading$ | async" size="20"></dsh-spinner>
                 <dsh-reports-table [reports]="reports$ | async"></dsh-reports-table>
-                <dsh-empty *ngIf="!(reports$ | async).length && !(isLoading$ | async)"></dsh-empty>
+                <dsh-empty-search-result
+                    *ngIf="!(reports$ | async).length && !(isLoading$ | async)"
+                ></dsh-empty-search-result>
                 <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
                     {{ (isLoading$ | async) ? t.loading : t.showMore }}
                 </button>

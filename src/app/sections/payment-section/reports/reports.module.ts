@@ -29,7 +29,7 @@ import { SpinnerModule } from '../../../spinner';
 import { ActionsComponent } from './table/actions';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { FormControlsModule } from '../../../form-controls';
-import { EmptyModule } from '../empty';
+import { EmptySearchResultModule } from '../empty-search-result';
 
 @NgModule({
     imports: [
@@ -56,7 +56,7 @@ import { EmptyModule } from '../empty';
         MatSnackBarModule,
         MatMenuModule,
         FormControlsModule,
-        EmptyModule
+        EmptySearchResultModule
     ],
     declarations: [
         ReportsComponent,

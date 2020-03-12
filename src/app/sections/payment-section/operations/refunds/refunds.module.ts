@@ -20,7 +20,7 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { TableComponent } from './table';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
-import { EmptyModule } from '../../empty';
+import { EmptySearchResultModule } from '../../empty-search-result';
 
 @NgModule({
     imports: [
@@ -45,7 +45,7 @@ import { EmptyModule } from '../../empty';
         StateNavModule,
         MatMenuModule,
         RangeDatepickerModule,
-        EmptyModule
+        EmptySearchResultModule
     ],
     declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
