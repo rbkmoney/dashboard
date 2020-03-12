@@ -67,7 +67,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     }
 
     toPublicValue({ begin, end }: InternalRange): Range {
-        return { begin: moment(begin), end: moment(end) };
+        return { begin: moment(begin).startOf('day'), end: moment(end).endOf('day') };
     }
 
     toInternalValue({ begin, end }: Range): InternalRange {
