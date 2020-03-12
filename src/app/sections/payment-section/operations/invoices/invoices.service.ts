@@ -52,8 +52,8 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.invoiceSearchService.searchInvoices(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params,
                     this.searchLimit,
                     continuationToken,

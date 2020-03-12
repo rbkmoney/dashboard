@@ -31,10 +31,6 @@ export class SearchFormComponent implements OnInit {
             .subscribe(v => this.formValueChanges.emit(v));
     }
 
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
-    }
-
     reset() {
         this.searchFormService.reset();
     }

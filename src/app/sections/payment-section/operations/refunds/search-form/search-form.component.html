@@ -15,12 +15,7 @@
             fxLayoutAlign.sm="space-between stretch"
             fxLayoutAlign.xs="space-between stretch"
         >
-            <dsh-daterange-selector
-                [value]="searchForm.value"
-                (selectDaterange)="selectDaterange($event)"
-                (selectMore)="expanded = true"
-                fxFlex
-            ></dsh-daterange-selector>
+            <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
             <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
                 <mat-form-field fxFlex>
                     <mat-label>{{ t.shopID }}</mat-label>
@@ -60,18 +55,6 @@
                 gdColumns.sm="1fr 1fr"
                 gdColumns.xs="1fr"
             >
-                <mat-form-field>
-                    <mat-label>{{ t.fromTime }}</mat-label>
-                    <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
-                    <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
-                    <mat-datepicker #fromTime></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{ t.toTime }}</mat-label>
-                    <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
-                    <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
-                    <mat-datepicker #toTime></mat-datepicker>
-                </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ t.refundID }}</mat-label>
                     <input matInput formControlName="refundID" />

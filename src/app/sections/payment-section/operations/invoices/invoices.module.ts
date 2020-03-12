@@ -13,13 +13,12 @@ import {
 } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { DaterangeSelectorModule } from '../daterange-selector';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
 import { SearchFormComponent } from './search-form';
-import { FormControlsModule } from '../../../../form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { InvoicesComponent } from './invoices.component';
 import { StatusModule } from '../../../../status';
 import { InvoiceStatusColorPipe } from './status-color.pipe';
@@ -42,10 +41,8 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         TableModule,
         MatIconModule,
         ReactiveFormsModule,
-        MatDatepickerModule,
         MatSelectModule,
         FormControlsModule,
-        DaterangeSelectorModule,
         StatusModule,
         FromMinorModule,
         LastUpdatedModule,
@@ -54,7 +51,8 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         StateNavModule,
         TranslocoModule,
         LanguageModule,
-        MatMenuModule
+        MatMenuModule,
+        RangeDatepickerModule
     ],
     declarations: [InvoicesComponent, SearchFormComponent, InvoiceStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

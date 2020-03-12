@@ -24,7 +24,6 @@ import { TableModule } from '../../../table';
 import { StateNavModule } from '../../../state-nav';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { StatusModule } from '../../../status';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { SpinnerModule } from '../../../spinner';
 import { ActionsComponent } from './table/actions';
@@ -49,7 +48,6 @@ import { FormControlsModule } from '../../../form-controls';
         ReportsApiModule,
         CommonModule,
         StatusModule,
-        DaterangeSelectorModule,
         MatInputModule,
         LastUpdatedModule,
         SpinnerModule,

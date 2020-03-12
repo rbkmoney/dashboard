@@ -4,7 +4,6 @@ import {
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
-    MatDatepickerModule,
     MatInputModule
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -17,7 +16,6 @@ import { PayoutsRoutingModule } from './payouts-routing.module';
 import { ButtonModule } from '../../../button';
 import { SearchFormComponent } from './search-form';
 import { LayoutModule } from '../../../layout';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
 import { PayoutPanelModule } from './payout-panel';
 import { SpinnerModule } from '../../../spinner';
@@ -39,7 +37,6 @@ import { RangeDatepickerModule } from '../../../form-controls';
         MatOptionModule,
         CommonModule,
         MatSelectModule,
-        MatDatepickerModule,
         SearchModule,
         MatInputModule,
         SpinnerModule,

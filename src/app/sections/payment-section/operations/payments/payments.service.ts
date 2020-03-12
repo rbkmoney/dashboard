@@ -55,8 +55,8 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.paymentSearchService.searchPayments(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params,
                     this.searchLimit,
                     continuationToken,
