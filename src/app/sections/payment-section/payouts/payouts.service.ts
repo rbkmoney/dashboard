@@ -41,7 +41,6 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         ).pipe(
             map(([payouts, fragment, hasMore]) => {
                 const idx = payouts.findIndex(({ id }) => id === fragment);
-                console.log(idx, hasMore);
                 return { idx, isContinueToFetch: idx === -1 && hasMore !== false };
             }),
             tap(({ isContinueToFetch }) => {
