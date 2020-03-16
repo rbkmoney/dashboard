@@ -10,7 +10,7 @@
             <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
             <dsh-payments-table [data]="tableData$ | async"></dsh-payments-table>
             <dsh-empty-search-result
-                *ngIf="!(tableData$ | async)?.length && (lastUpdated$ | async)"
+                *ngIf="!(tableData$ | async)?.length && !(isLoading$ | async)"
             ></dsh-empty-search-result>
             <button *ngIf="hasMorePayments$ | async" (click)="fetchMore()" dsh-button>
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}
