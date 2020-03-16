@@ -37,7 +37,7 @@ export abstract class PartialFetcher<R, P> {
         );
         this.hasMore$ = fetchResult$.pipe(
             map(({ continuationToken }) => !!continuationToken),
-            startWith(false),
+            startWith(null),
             distinctUntilChanged(),
             shareReplay(SHARE_REPLAY_CONF)
         );

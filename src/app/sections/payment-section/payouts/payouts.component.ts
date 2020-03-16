@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { shareReplay, map, filter, first, delay, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import isNil from 'lodash.isnil';
 
 import { PayoutsService } from './payouts.service';
@@ -43,7 +43,7 @@ export class PayoutsComponent implements AfterViewInit {
     constructor(private payoutsService: PayoutsService, private route: ActivatedRoute, private router: Router) {}
 
     ngAfterViewInit() {
-        combineLatest(this.payoutsService.selected$, this.payoutPanelsRefs.changes, this.payoutPanels.changes)
+        combineLatest(this.payoutsService.selectedIdx$, this.payoutPanelsRefs.changes, this.payoutPanels.changes)
             .pipe(
                 map(([selectedIdx]) => ({
                     ref: this.payoutPanelsRefs.toArray()[selectedIdx],
@@ -53,12 +53,14 @@ export class PayoutsComponent implements AfterViewInit {
                 first(),
                 delay(350),
                 switchMap(panel =>
-                    smoothChangeTo(window.pageYOffset, panel.ref.element.nativeElement.offsetTop - 20, 500).pipe(
-                        map(scrollY => ({ ...panel, scrollY }))
+                    combineLatest(
+                        smoothChangeTo(window.pageYOffset, panel.ref.element.nativeElement.offsetTop - 20, 500),
+                        of(panel)
                     )
-                )
+                ),
+                map(([scrollY, { component }]) => ({ scrollY, component }))
             )
-            .subscribe(({ component, scrollY }) => this.scrollTo(component, scrollY));
+            .subscribe(({ scrollY, component }) => this.scrollTo(component, scrollY));
     }
 
     scrollTo({ expandPanel, payout: { id } }: PayoutPanelComponent, scrollTo: number) {
@@ -88,6 +90,6 @@ export class PayoutsComponent implements AfterViewInit {
     }
 
     scrollToSelected() {
-        this.payoutsService.selected$.subscribe();
+        this.payoutsService.selectedIdx$.subscribe();
     }
 }

@@ -1,7 +1,19 @@
 import { Injectable } from '@angular/core';
-import { pluck, shareReplay, first, filter, tap, map, take, catchError, startWith, mapTo } from 'rxjs/operators';
+import {
+    pluck,
+    shareReplay,
+    first,
+    filter,
+    tap,
+    map,
+    take,
+    startWith,
+    mapTo,
+    defaultIfEmpty,
+    catchError
+} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, of, Observable, merge } from 'rxjs';
+import { combineLatest, merge, of } from 'rxjs';
 
 import { PartialFetcher } from '../../partial-fetcher';
 import { Payout } from '../../../api-codegen/anapi';
@@ -18,7 +30,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         mapToShopInfo,
         shareReplay(SHARE_REPLAY_CONF)
     );
-    selected$ = merge(
+    selectedIdx$ = merge(
         combineLatest(
             this.searchResult$,
             this.route.fragment.pipe(
@@ -27,26 +39,31 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
             ),
             this.hasMore$
         ).pipe(
-            map(([r, f, hasMore]) => [r.findIndex(({ id }) => id === f), r, hasMore] as const),
-            tap(([idx, hasMore]) => {
-                if (idx === -1 && hasMore) {
+            map(([payouts, fragment, hasMore]) => {
+                const idx = payouts.findIndex(({ id }) => id === fragment);
+                console.log(idx, hasMore);
+                return { idx, isContinueToFetch: idx === -1 && hasMore !== false };
+            }),
+            tap(({ isContinueToFetch }) => {
+                if (isContinueToFetch) {
                     this.fetchMore();
                 }
             }),
             take(10),
-            pluck(0),
-            filter(r => r !== -1),
-            first(),
-            catchError(() => of(null))
+            filter(({ isContinueToFetch }) => !isContinueToFetch),
+            pluck('idx'),
+            first(null, -1)
         ),
-        this.route.fragment
-            .pipe(
-                first(),
-                filter(f => !f)
-            )
-            .pipe(mapTo(null))
-    ).pipe(shareReplay(SHARE_REPLAY_CONF));
-    isInit$: Observable<boolean> = this.selected$.pipe(
+        this.route.fragment.pipe(
+            first(),
+            filter(f => !f),
+            mapTo(-1)
+        )
+    ).pipe(
+        first(null, -1),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+    isInit$ = this.selectedIdx$.pipe(
         mapTo(false),
         startWith(true),
         shareReplay(SHARE_REPLAY_CONF)
