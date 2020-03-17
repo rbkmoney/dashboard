@@ -26,6 +26,7 @@
 @import '../app/layout/panel/panel-theme';
 @import '../app/charts/charts-theme';
 @import '../app/sections/payment-section/nav/balances/balances-theme';
+@import '../app/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -45,13 +46,14 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
+    @include dsh-expand-panel-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
-    @include dsh-expand-panel-typography($config);
     @include dsh-table-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
     @include mat-radio-button-override-typography($config);
     @include dsh-payment-details-typography($config);
+    @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
     @include dsh-balances-typography($config);

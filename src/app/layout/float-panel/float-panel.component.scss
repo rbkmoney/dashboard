@@ -6,6 +6,8 @@ $card-without-actions-padding: $card-padding - $actions-padding;
     position: relative;
 
     &-card {
+        padding: 0;
+
         &-unpinned {
             position: absolute;
             z-index: 100;
@@ -15,20 +17,27 @@ $card-without-actions-padding: $card-padding - $actions-padding;
         }
     }
 
+    &-base {
+        padding: $card-padding;
+    }
+
     &-actions {
         margin-right: -$card-without-actions-padding;
     }
 
     &-more {
-        margin-top: $card-padding;
         height: 0;
         overflow: hidden;
-        margin-left: -$card-without-actions-padding;
-        margin-right: -$card-without-actions-padding;
+        padding-bottom: $actions-padding;
 
         &-content {
-            padding-left: $actions-padding;
-            padding-right: $actions-padding; // actions padding + head button width + margin compensation
+            margin-left: $card-padding;
+            margin-right: $card-padding;
+        }
+
+        &-actions {
+            margin-left: $actions-padding;
+            margin-right: $actions-padding;
         }
     }
 }

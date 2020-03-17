@@ -8,7 +8,9 @@ export enum ExpandState {
 const animation = animate('150ms ease');
 
 export const expandAnimation = trigger('expand', [
-    state(ExpandState.expanded, style({ height: '{{height}}px', 'margin-bottom': '-10px' }), { params: { height: 0 } }),
+    state(ExpandState.expanded, style({ height: '{{height}}px' }), {
+        params: { height: 0 }
+    }),
     transition(`${ExpandState.collapsed} <=> ${ExpandState.expanded}`, [animation]),
     transition(`${ExpandState.expanded} => void`, [animation])
 ]);

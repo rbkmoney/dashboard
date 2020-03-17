@@ -1,0 +1,55 @@
+<ng-container *transloco="let t; scope: 'range-datepicker'; read: 'rangeDatepicker'">
+    <div fxLayout class="dsh-range-datepicker">
+        <button (click)="back()" class="dsh-range-datepicker-button dsh-range-datepicker-back" [disabled]="isMinDate">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button
+            [matMenuTriggerFor]="menu"
+            fxFlex
+            class="dsh-range-datepicker-button dsh-range-datepicker-input"
+            title="{{ value?.begin | date: 'shortDate' }} - {{ value?.end | date: 'shortDate' }}"
+        >
+            <div class="dsh-range-datepicker-input-content">
+                <ng-container *ngIf="publicValue?.begin && publicValue?.end; else placeholder" [ngSwitch]="period">
+                    {{ publicValue | rangeDate }}
+                </ng-container>
+                <ng-template #placeholder>
+                    {{ t.selectPeriod }}
+                </ng-template>
+                <input
+                    #input
+                    matInput
+                    [formControl]="formControl"
+                    [satDatepicker]="picker"
+                    [min]="minDate"
+                    [max]="maxDate"
+                />
+            </div>
+        </button>
+        <button
+            (click)="forward()"
+            class="dsh-range-datepicker-button dsh-range-datepicker-forward"
+            [disabled]="isMaxDate"
+        >
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="selectPeriod('day')">{{ t.select.today }}</button>
+        <button mat-menu-item (click)="selectPeriod('week')">{{ t.select.currentWeek }}</button>
+        <button mat-menu-item (click)="selectPeriod('month')">{{ current | date: 'LLLL' | titlecase }}</button>
+        <button mat-menu-item (click)="selectPeriod('3month')">{{ t.select.threeMonths }}</button>
+        <button mat-menu-item (click)="selectPeriod('year')">
+            {{ t.select.year | translocoParams: { year: current | date: 'y' } }}
+        </button>
+        <ng-container *ngIf="!disablePeriodSelect">
+            <mat-divider class="dsh-range-datepicker-menu-divider"></mat-divider>
+            <button mat-menu-item (click)="picker.open(); selectPeriod()">
+                {{ t.select.period }}
+            </button>
+        </ng-container>
+    </mat-menu>
+
+    <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+</ng-container>

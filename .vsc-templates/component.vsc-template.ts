@@ -49,12 +49,13 @@ export function Template(path: string, templatePath: string): vsc.vscTemplate {
                         type: 'file',
                         name: inputs => `${getComponentPath(inputs.name)}.ts`,
                         content: inputs => `
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: '${PREFIX}-${vsc.toKebabCase(inputs.name)}',
     templateUrl: '${getComponentPath(inputs.name)}.html',
-    styleUrls: ['${getComponentPath(inputs.name)}.scss']
+    styleUrls: ['${getComponentPath(inputs.name)}.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ${getComponentName(inputs.name)} {
 }

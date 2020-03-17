@@ -8,13 +8,14 @@ import {
     share,
     startWith,
     distinctUntilChanged,
-    tap
+    tap,
+    filter
 } from 'rxjs/operators';
 
 import { FetchAction } from './fetch-action';
 import { scanFetchResult, scanAction } from './operators';
 import { FetchFn } from './fetch-fn';
-import { progress } from '../../custom-operators';
+import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
 import { FetchResult } from './fetch-result';
 
 export abstract class PartialFetcher<R, P> {
@@ -23,6 +24,7 @@ export abstract class PartialFetcher<R, P> {
     searchResult$: Observable<R[]>;
     hasMore$: Observable<boolean>;
     doAction$: Observable<boolean>;
+    doSearchAction$: Observable<boolean>;
     errors$: Observable<any>;
 
     constructor(debounceActionTime: number = 300) {
@@ -31,25 +33,27 @@ export abstract class PartialFetcher<R, P> {
 
         this.searchResult$ = fetchResult$.pipe(
             pluck('result'),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
         this.hasMore$ = fetchResult$.pipe(
             map(({ continuationToken }) => !!continuationToken),
             startWith(false),
             distinctUntilChanged(),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
-        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(
-            distinctUntilChanged(),
-            shareReplay(1)
-        );
+        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(SHARE_REPLAY_CONF));
+        this.doSearchAction$ = progress(
+            actionWithParams$.pipe(filter(({ type }) => type === 'search')),
+            fetchResult$,
+            true
+        ).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : empty())),
             tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );
 
-        merge(this.searchResult$, this.hasMore$, this.doAction$, this.errors$).subscribe();
+        merge(this.searchResult$, this.hasMore$, this.doAction$, this.doSearchAction$, this.errors$).subscribe();
     }
 
     search(value: P) {
@@ -78,7 +82,7 @@ export abstract class PartialFetcher<R, P> {
         const fetchFn = this.fetch.bind(this) as FetchFn<P, R>;
         return actionWithParams$.pipe(
             scanFetchResult(fetchFn),
-            shareReplay(1)
+            shareReplay(SHARE_REPLAY_CONF)
         );
     }
 }

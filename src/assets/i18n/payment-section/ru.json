@@ -2,7 +2,8 @@
     "nav": {
         "operations": "Операции",
         "reports": "Отчеты",
-        "analytics": "Аналитика"
+        "analytics": "Аналитика",
+        "payouts": "Возмещения"
     },
     "operations": {
         "headline": "Операции",

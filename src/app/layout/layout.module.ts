@@ -6,6 +6,7 @@ import { JustifyWrapperModule } from './justify-wrapper';
 import { HeadlineModule } from './headline';
 import { PanelModule } from './panel';
 import { TimelineModule } from './timeline';
+import { ExpandPanelModule } from './expand-panel';
 
 const EXPORTED_IMPORTS = [
     CardModule,
@@ -13,7 +14,8 @@ const EXPORTED_IMPORTS = [
     JustifyWrapperModule,
     HeadlineModule,
     PanelModule,
-    TimelineModule
+    TimelineModule,
+    ExpandPanelModule
 ];
 
 @NgModule({

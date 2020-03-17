@@ -2,7 +2,8 @@
     "header": {
         "documentation": "Документация",
         "support": "Поддержка",
-        "dashboard": "Личный кабинет"
+        "dashboard": "Личный кабинет",
+        "returnToTheOldVersion": "Вернуться в старую версию"
     },
     "wallets": {
         "title": "Кошельки",

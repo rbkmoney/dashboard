@@ -4,10 +4,8 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { PaymentSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
-import { PaymentsSearchParams } from './payments-search-params';
-import { PaymentsWithToken } from './payments-with-token';
 import { toDateLike, genXRequestID } from '../utils';
-import { Duration } from './duration';
+import { PaymentsSearchParams, PaymentsWithToken, Duration } from './model';
 
 @Injectable()
 export class PaymentSearchService {
