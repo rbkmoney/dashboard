@@ -16,6 +16,8 @@ import { DonutChartModule } from '../../../charts/donut-chart';
 import { PercentDifferenceComponent } from './percent-difference';
 import { MiniCardModule } from './mini-card';
 import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
+import { RangeDatepickerModule } from '../../../form-controls/range-datepicker';
+import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
     imports: [
@@ -32,7 +34,9 @@ import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
         BarChartModule,
         DonutChartModule,
         MiniCardModule,
-        APIAnalyticsModule
+        APIAnalyticsModule,
+        RangeDatepickerModule,
+        SpinnerModule
     ],
     declarations: [AnalyticsComponent, SearchFormComponent, PercentDifferenceComponent]
 })

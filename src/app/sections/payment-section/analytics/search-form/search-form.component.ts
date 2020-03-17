@@ -1,32 +1,20 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { SearchFormService } from './search-form.service';
-import { AnalyticsSearchValue } from '../analytics-search-value';
-
-const DEBOUNCE_TIME = 500;
+import { SearchParams } from '../search-params';
 
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
     providers: [SearchFormService]
 })
-export class SearchFormComponent implements OnInit {
-    @Output() formValueChanges: EventEmitter<AnalyticsSearchValue> = new EventEmitter<AnalyticsSearchValue>();
+export class SearchFormComponent {
+    @Output() formValueChanges = new EventEmitter<SearchParams>();
 
     shops$ = this.searchFormService.shops$;
 
-    form = this.searchFormService.searchForm;
+    form = this.searchFormService.form;
 
     constructor(private searchFormService: SearchFormService) {}
 
-    ngOnInit() {
-        this.searchFormService.formValueChanges$.pipe(debounceTime(DEBOUNCE_TIME)).subscribe(v => {
-            this.formValueChanges.emit(v);
-        });
-    }
-
-    selectDaterange(v: AnalyticsSearchValue) {
-        this.searchFormService.applySearchFormValue(v);
-    }
 }

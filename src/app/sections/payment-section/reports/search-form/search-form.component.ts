@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
-import { SearchFormValue } from '../../search-form-value';
 import { SearchFormService } from './search-form.service';
 import { ReportsService } from '../reports.service';
 
