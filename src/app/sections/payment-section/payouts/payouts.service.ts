@@ -27,22 +27,21 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         private shopService: ShopService
     ) {
         super();
-        const defaultSelectedIdxByFragment$ = this.route.fragment.pipe(
+        const fragmentIdx$ = this.route.fragment.pipe(
             first(),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        const defaultSelectedIdxByFragment$ = fragmentIdx$.pipe(
             filter(f => !f),
             mapTo(-1)
         );
         const selectedIdxByFragment$ = combineLatest(
-            this.searchResult$,
-            this.route.fragment.pipe(
-                first(),
-                filter(f => !!f)
-            ),
-            this.hasMore$
+            fragmentIdx$.pipe(filter(f => !!f)),
+            this.fetchResultChanges$
         ).pipe(
-            map(([payouts, fragment, hasMore]) => {
+            map(([fragment, { hasMore, result: payouts }]) => {
                 const idx = payouts.findIndex(({ id }) => id === fragment);
-                return { idx, isContinueToFetch: idx === -1 && hasMore !== false };
+                return { idx, isContinueToFetch: idx === -1 && hasMore };
             }),
             tap(({ isContinueToFetch }) => {
                 if (isContinueToFetch) {
