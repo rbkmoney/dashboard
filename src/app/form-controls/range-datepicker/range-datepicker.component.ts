@@ -1,4 +1,5 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatFormFieldControl } from '@angular/material';
 import moment, { Moment } from 'moment';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
@@ -7,11 +8,11 @@ import { map } from 'rxjs/operators';
 
 import { CustomFormControl } from '../utils';
 
-type InternalRange = SatDatepickerRangeValue<Date>;
-export type Range = SatDatepickerRangeValue<Moment>;
-
-type MomentPeriod = SetIntersection<moment.unitOfTime.StartOf, 'week' | 'month' | 'year'>;
+type MomentPeriod = SetIntersection<moment.unitOfTime.StartOf, 'day' | 'week' | 'month' | 'year'>;
 type Period = MomentPeriod | '3month';
+
+type InternalRange = SatDatepickerRangeValue<Date>;
+export type Range = SatDatepickerRangeValue<Moment> & { period?: Period };
 
 @Component({
     selector: 'dsh-range-datepicker',
@@ -19,7 +20,7 @@ type Period = MomentPeriod | '3month';
     styleUrls: ['range-datepicker.component.scss'],
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
 })
-export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> {
+export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnInit, OnDestroy {
     minDate = moment()
         .subtract(15, 'year')
         .startOf('year')
@@ -43,6 +44,15 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         return moment(this.maxDate);
     }
 
+    protected _disablePeriodSelect = false;
+    @Input()
+    get disablePeriodSelect(): boolean {
+        return this._disablePeriodSelect;
+    }
+    set disablePeriodSelect(value: boolean) {
+        this._disablePeriodSelect = coerceBooleanProperty(value);
+    }
+
     @ViewChild('input', { static: false })
     set input(input: ElementRef<HTMLInputElement>) {
         if (input && input.nativeElement) {
@@ -58,6 +68,17 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         }
     });
 
+    ngOnInit() {
+        if (!this.period) {
+            this.period = this.takeUnitOfTime();
+        }
+    }
+
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this.formControlSubscription.unsubscribe();
+    }
+
     get isMaxDate() {
         return this.publicValue.end.isSameOrAfter(this.max, 'day');
     }
@@ -67,7 +88,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     }
 
     toPublicValue({ begin, end }: InternalRange): Range {
-        return { begin: moment(begin).startOf('day'), end: moment(end).endOf('day') };
+        return { begin: moment(begin).startOf('day'), end: moment(end).endOf('day'), period: this.period };
     }
 
     toInternalValue({ begin, end }: Range): InternalRange {
@@ -101,6 +122,11 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
             case 'week': {
                 const newBegin = begin.clone().subtract(1, 'week');
                 this.changeRange(newBegin, newBegin.clone().endOf('week'));
+                return;
+            }
+            case 'day': {
+                const newBegin = begin.clone().subtract(1, 'day');
+                this.changeRange(newBegin, newBegin.clone().endOf('day'));
                 return;
             }
             default:
@@ -138,6 +164,11 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                 this.changeRange(newBegin, newBegin.clone().endOf('week'));
                 return;
             }
+            case 'day': {
+                const newBegin = begin.clone().add(1, 'day');
+                this.changeRange(newBegin, newBegin.clone().endOf('day'));
+                return;
+            }
             default:
                 const diff = end.diff(begin, 'day');
                 this.changeRange(begin.clone().add(diff + 1, 'day'), end.clone().add(diff + 1, 'day'));
@@ -163,6 +194,9 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                 break;
             case 'week':
                 this.changeRange(moment().startOf('week'), moment().endOf('week'));
+                break;
+            case 'day':
+                this.changeRange(moment().startOf('day'), moment().endOf('day'));
                 break;
         }
     }
@@ -190,10 +224,13 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         if (this.checkIsUnitOfTime('week')) {
             return 'week';
         }
+        if (this.checkIsUnitOfTime('day')) {
+            return 'day';
+        }
         return null;
     }
 
     private changeRange(begin: Moment, end: Moment) {
-        this.publicValue = { begin, end };
+        this.publicValue = { begin, end, period: this.period };
     }
 }
