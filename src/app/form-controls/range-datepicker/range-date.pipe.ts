@@ -18,6 +18,9 @@ export class RangeDatePipe implements PipeTransform {
         if (begin.isSame(moment().startOf('week'), 'day') && end.isSame(moment().endOf('week'), 'day')) {
             return this.rangeDateTranslate('currentWeek');
         }
+        if (begin.isSame(moment().startOf('day'), 'day') && end.isSame(moment().endOf('day'), 'day')) {
+            return this.rangeDateTranslate('today');
+        }
         return this.toDateStr(begin, end);
     }
 

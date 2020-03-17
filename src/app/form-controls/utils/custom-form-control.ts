@@ -183,6 +183,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
 
     registerOnTouched(onTouched: () => void): void {
         this._onTouched = onTouched;
+        this._onTouched();
     }
 
     private registerMonitors() {

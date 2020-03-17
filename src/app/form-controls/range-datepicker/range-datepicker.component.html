@@ -36,16 +36,19 @@
     </div>
 
     <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="selectPeriod('day')">{{ t.select.today }}</button>
         <button mat-menu-item (click)="selectPeriod('week')">{{ t.select.currentWeek }}</button>
         <button mat-menu-item (click)="selectPeriod('month')">{{ current | date: 'LLLL' | titlecase }}</button>
         <button mat-menu-item (click)="selectPeriod('3month')">{{ t.select.threeMonths }}</button>
         <button mat-menu-item (click)="selectPeriod('year')">
             {{ t.select.year | translocoParams: { year: current | date: 'y' } }}
         </button>
-        <mat-divider class="dsh-range-datepicker-menu-divider"></mat-divider>
-        <button mat-menu-item (click)="picker.open(); selectPeriod()">
-            {{ t.select.period }}
-        </button>
+        <ng-container *ngIf="!disablePeriodSelect">
+            <mat-divider class="dsh-range-datepicker-menu-divider"></mat-divider>
+            <button mat-menu-item (click)="picker.open(); selectPeriod()">
+                {{ t.select.period }}
+            </button>
+        </ng-container>
     </mat-menu>
 
     <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
