@@ -6,16 +6,19 @@ import {
     ViewContainerRef,
     AfterViewInit
 } from '@angular/core';
-import { shareReplay, map, filter, first, delay, switchMap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, of } from 'rxjs';
 import isNil from 'lodash.isnil';
 
 import { PayoutsService } from './payouts.service';
 import { mapToTimestamp } from '../operations/operators';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PayoutPanelComponent } from './payout-panel';
-import { smoothChangeTo } from '../../../../utils';
+import { autoscrollTo } from './autoscroll-to';
+
+const INIT_DELAY_MS = 350;
+const SCROLL_TO_Y_OFFSET_PX = 20;
+const SCROLL_TIME_MS = 500;
 
 @Component({
     selector: 'dsh-payouts',
@@ -43,24 +46,14 @@ export class PayoutsComponent implements AfterViewInit {
     constructor(private payoutsService: PayoutsService, private route: ActivatedRoute, private router: Router) {}
 
     ngAfterViewInit() {
-        combineLatest(this.payoutsService.selectedIdx$, this.payoutPanelsRefs.changes, this.payoutPanels.changes)
-            .pipe(
-                map(([selectedIdx]) => ({
-                    ref: this.payoutPanelsRefs.toArray()[selectedIdx],
-                    component: this.payoutPanels.toArray()[selectedIdx]
-                })),
-                filter(({ ref, component }) => !!ref && !!component),
-                first(),
-                delay(350),
-                switchMap(panel =>
-                    combineLatest(
-                        smoothChangeTo(window.pageYOffset, panel.ref.element.nativeElement.offsetTop - 20, 500),
-                        of(panel)
-                    )
-                ),
-                map(([scrollY, { component }]) => ({ scrollY, component }))
-            )
-            .subscribe(({ scrollY, component }) => this.scrollTo(component, scrollY));
+        autoscrollTo({
+            selectedIdx$: this.payoutsService.selectedIdx$,
+            payoutPanelsRefs: this.payoutPanelsRefs,
+            payoutPanels: this.payoutPanels,
+            initDelayMs: INIT_DELAY_MS,
+            scrollToYOffset: SCROLL_TO_Y_OFFSET_PX,
+            scrollTimeMs: SCROLL_TIME_MS
+        }).subscribe(({ scrollY, component }) => this.scrollTo(component, scrollY));
     }
 
     scrollTo({ expandPanel, payout: { id } }: PayoutPanelComponent, scrollTo: number) {
