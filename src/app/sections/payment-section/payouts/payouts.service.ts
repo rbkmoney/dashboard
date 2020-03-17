@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-    pluck,
-    shareReplay,
-    first,
-    filter,
-    tap,
-    map,
-    take,
-    startWith,
-    mapTo,
-    defaultIfEmpty,
-    catchError
-} from 'rxjs/operators';
+import { pluck, shareReplay, first, filter, tap, map, take, startWith, mapTo } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, merge, of } from 'rxjs';
+import { combineLatest, merge, Observable } from 'rxjs';
 
 import { PartialFetcher } from '../../partial-fetcher';
 import { Payout } from '../../../api-codegen/anapi';
@@ -30,8 +18,21 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         mapToShopInfo,
         shareReplay(SHARE_REPLAY_CONF)
     );
-    selectedIdx$ = merge(
-        combineLatest(
+    selectedIdx$: Observable<number>;
+    isInit$: Observable<boolean>;
+
+    constructor(
+        private payoutSearchService: PayoutSearchService,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
+        super();
+        const defaultSelectedIdxByFragment$ = this.route.fragment.pipe(
+            first(),
+            filter(f => !f),
+            mapTo(-1)
+        );
+        const selectedIdxByFragment$ = combineLatest(
             this.searchResult$,
             this.route.fragment.pipe(
                 first(),
@@ -52,28 +53,15 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
             filter(({ isContinueToFetch }) => !isContinueToFetch),
             pluck('idx'),
             first(null, -1)
-        ),
-        this.route.fragment.pipe(
-            first(),
-            filter(f => !f),
-            mapTo(-1)
-        )
-    ).pipe(
-        first(null, -1),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-    isInit$ = this.selectedIdx$.pipe(
-        mapTo(false),
-        startWith(true),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-
-    constructor(
-        private payoutSearchService: PayoutSearchService,
-        private route: ActivatedRoute,
-        private shopService: ShopService
-    ) {
-        super();
+        );
+        this.selectedIdx$ = merge(defaultSelectedIdxByFragment$, selectedIdxByFragment$).pipe(
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.isInit$ = this.selectedIdx$.pipe(
+            mapTo(false),
+            startWith(true),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
     }
 
     protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string, limit: number = 10) {
