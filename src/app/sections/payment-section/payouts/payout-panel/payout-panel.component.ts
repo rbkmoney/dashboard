@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
 import isEqual from 'lodash.isequal';
 
 import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
 import { PayoutPanelService } from './payout-panel.service';
+import { ExpandPanelComponent } from '../../../../layout/expand-panel';
 
 @Component({
     selector: 'dsh-payout-panel',
@@ -16,6 +17,8 @@ export class PayoutPanelComponent implements OnChanges {
     shopInfo$ = this.payoutPanelService.shopInfo$;
     paymentsSummary: PayoutSummaryItem;
     refundsSummary: PayoutSummaryItem;
+
+    @ViewChild('expandPanel', { static: false }) expandPanel: ExpandPanelComponent;
 
     constructor(private payoutPanelService: PayoutPanelService) {}
 

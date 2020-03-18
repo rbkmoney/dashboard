@@ -1,9 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy } from '@angular/core';
-import { interval, BehaviorSubject } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
-import { easeInOutCubic } from './ease-in-out-cubic';
 import { hideAnimation } from './hide-animation';
+import { smoothChangeTo } from '../../utils';
 
 const RIGHT_OFFSET = 30;
 const BOTTOM_OFFSET = 50;
@@ -23,13 +22,6 @@ export class ScrollUpComponent implements OnInit, OnDestroy {
      */
     @Input()
     scrollTime = 500;
-
-    /**
-     * Interval, ms
-     * 16 = ~60 FPS
-     */
-    @Input()
-    interval = 16;
 
     /**
      * Hide after scrolling below, px
@@ -60,17 +52,7 @@ export class ScrollUpComponent implements OnInit, OnDestroy {
     }
 
     scrollToTop() {
-        const count = Math.ceil(this.scrollTime / this.interval);
-        const startPos = window.pageYOffset;
-        interval(this.interval)
-            .pipe(
-                map(i => count - 1 - i),
-                takeWhile(i => i >= 0)
-            )
-            .subscribe(i => {
-                const current = easeInOutCubic((1 / count) * i) * startPos;
-                window.scrollTo(0, current);
-            });
+        smoothChangeTo(window.pageYOffset, 0, this.scrollTime).subscribe(v => window.scrollTo(0, v));
     }
 
     private changeIsShow(isShow: boolean) {

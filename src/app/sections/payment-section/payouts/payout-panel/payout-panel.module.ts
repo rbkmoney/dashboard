@@ -21,6 +21,7 @@ import { PaymentsInfoComponent } from './payments-info';
 import { RefundsInfoComponent } from './refunds-info';
 import { CommonInfoComponent } from './common-info';
 import { PayoutToolInfoComponent } from './payout-tool-info';
+import { PayoutPanelAccordionComponent } from './payout-panel-accordion.component';
 
 @NgModule({
     imports: [
@@ -49,9 +50,10 @@ import { PayoutToolInfoComponent } from './payout-tool-info';
         PaymentsInfoComponent,
         RefundsInfoComponent,
         CommonInfoComponent,
-        PayoutToolInfoComponent
+        PayoutToolInfoComponent,
+        PayoutPanelAccordionComponent
     ],
     entryComponents: [CreateReportDialogComponent],
-    exports: [PayoutPanelComponent]
+    exports: [PayoutPanelComponent, PayoutPanelAccordionComponent]
 })
 export class PayoutPanelModule {}
