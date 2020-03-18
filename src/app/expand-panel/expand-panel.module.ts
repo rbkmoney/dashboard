@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material';
 
+import { ResizedModule } from '../../components/indicators/resized';
 import { ActiveClassModule } from '../../utils/active-class/active-class.module';
-import { ResizedModule } from '../resized';
 import { ExpandPanelContentComponent } from './expand-panel-content.component';
 import { ExpandPanelComponent } from './expand-panel.component';
 

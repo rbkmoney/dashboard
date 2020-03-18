@@ -1,8 +1,8 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
-import { ResizedEvent } from '../../../app/resized';
 import { coerce } from '../../../utils';
+import { ResizedEvent } from '../../indicators/resized';
 import { expandAnimation, ExpandState } from './expand-animation';
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 

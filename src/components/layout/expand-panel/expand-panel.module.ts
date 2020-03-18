@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ResizedModule } from '../../../app/resized';
 import { ButtonModule } from '../../../components/buttons';
+import { ResizedModule } from '../../indicators/resized';
 import { CardModule } from '../card';
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 import { ExpandPanelComponent } from './expand-panel.component';
