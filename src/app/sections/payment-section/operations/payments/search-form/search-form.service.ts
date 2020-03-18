@@ -66,10 +66,10 @@ export class SearchFormService {
 
     private initForm(defaultLimit = 20): FormGroup {
         const form = this.fb.group({
-            fromTime: moment()
-                .subtract(1, 'month')
-                .startOf('day'),
-            toTime: moment().endOf('day'),
+            date: {
+                begin: moment().startOf('month'),
+                end: moment().endOf('month')
+            },
             limit: [defaultLimit, Validators.required],
             shopID: '',
             paymentStatus: '',

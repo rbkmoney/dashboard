@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-    MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -13,13 +12,12 @@ import {
 } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { DaterangeSelectorModule } from '../daterange-selector';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
 import { TableModule } from '../../../../table';
 import { SearchFormComponent } from './search-form';
-import { FormControlsModule } from '../../../../form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { PaymentsComponent } from './payments.component';
 import { StatusModule } from '../../../../status';
 import { PaymentStatusColorPipe } from './status-color.pipe';
@@ -29,6 +27,7 @@ import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { LanguageModule } from '../../../../language';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { EmptySearchResultModule } from '../../empty-search-result';
 
 @NgModule({
     imports: [
@@ -42,10 +41,8 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         TableModule,
         MatIconModule,
         ReactiveFormsModule,
-        MatDatepickerModule,
         MatSelectModule,
         FormControlsModule,
-        DaterangeSelectorModule,
         StatusModule,
         FromMinorModule,
         LastUpdatedModule,
@@ -54,7 +51,9 @@ import { LastUpdatedModule } from '../last-updated/last-updated.module';
         StateNavModule,
         TranslocoModule,
         LanguageModule,
-        MatMenuModule
+        MatMenuModule,
+        RangeDatepickerModule,
+        EmptySearchResultModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

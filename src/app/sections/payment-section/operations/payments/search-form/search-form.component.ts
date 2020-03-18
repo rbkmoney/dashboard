@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { SearchFormService } from './search-form.service';
 import { PaymentSearchFormValue } from './payment-search-form-value';
-import { SearchFormValue } from '../../search-form-value';
 import {
     tokenProviders as tokenProvidersConsts,
     paymentMethods as paymentMethodsConsts,
@@ -47,10 +46,6 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {

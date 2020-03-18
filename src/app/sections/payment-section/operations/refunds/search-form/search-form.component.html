@@ -6,72 +6,38 @@
     [pinned]="true"
 >
     <ng-container *transloco="let c">
-        <div
-            fxLayout
-            [fxLayoutGap]="layoutGap"
-            fxLayout.sm="column"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between center"
-            fxLayoutAlign.sm="space-between stretch"
-            fxLayoutAlign.xs="space-between stretch"
-        >
-            <dsh-daterange-selector
-                [value]="searchForm.value"
-                (selectDaterange)="selectDaterange($event)"
-                (selectMore)="expanded = true"
-                fxFlex
-            ></dsh-daterange-selector>
-            <dsh-justify-wrapper fxFlex fxLayout fxLayout.sm="column" fxLayout.xs="column" [fxLayoutGap]="layoutGap">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ t.shopID }}</mat-label>
-                    <mat-select formControlName="shopID">
-                        <mat-option>
-                            {{ c.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
-                            {{ item.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field fxFlex>
-                    <mat-label>{{ t.refundStatus }}</mat-label>
-                    <mat-select formControlName="refundStatus">
-                        <mat-option>
-                            {{ c.any }}
-                        </mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status">
-                            {{ c.refundStatus[status] }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </dsh-justify-wrapper>
-        </div>
+        <dsh-justify-wrapper fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
+            <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.shopID }}</mat-label>
+                <mat-select formControlName="shopID">
+                    <mat-option>
+                        {{ c.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let item of shopsInfo$ | async" [value]="item.shopID">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.refundStatus }}</mat-label>
+                <mat-select formControlName="refundStatus">
+                    <mat-option>
+                        {{ c.any }}
+                    </mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status">
+                        {{ c.refundStatus[status] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
                 {{ c.resetSearchParams }}
             </button>
         </dsh-float-panel-actions>
         <dsh-float-panel-more>
-            <div
-                gdAuto
-                [gdGap]="'0 ' + layoutGap"
-                gdColumns="1fr 1fr 1fr 1fr"
-                gdColumns.sm="1fr 1fr"
-                gdColumns.xs="1fr"
-            >
-                <mat-form-field>
-                    <mat-label>{{ t.fromTime }}</mat-label>
-                    <input required matInput formControlName="fromTime" [matDatepicker]="fromTime" />
-                    <mat-datepicker-toggle matSuffix [for]="fromTime"></mat-datepicker-toggle>
-                    <mat-datepicker #fromTime></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{ t.toTime }}</mat-label>
-                    <input required matInput formControlName="toTime" [matDatepicker]="toTime" />
-                    <mat-datepicker-toggle matSuffix [for]="toTime"></mat-datepicker-toggle>
-                    <mat-datepicker #toTime></mat-datepicker>
-                </mat-form-field>
+            <div gdAuto gdGap="0 {{ layoutGap }}" gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr">
                 <mat-form-field>
                     <mat-label>{{ t.refundID }}</mat-label>
                     <input matInput formControlName="refundID" />
