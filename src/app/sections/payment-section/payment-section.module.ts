@@ -6,10 +6,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { StateNavModule } from '../../state-nav';
 import { NavComponent } from './nav';
+import { BalanceItemComponent, BalancesComponent } from './nav/balances';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
-import { NavComponent } from './nav';
-import { StateNavModule } from '../../state-nav';
-import { BalancesComponent, BalanceItemComponent } from './nav/balances';
 import { PaymentSectionComponent } from './payment-section.component';
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 import cloneDeep from 'lodash.clonedeep';
 import { Moment } from 'moment';
+import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
 import { DEFAULT_CONFIG } from './default-config';
 

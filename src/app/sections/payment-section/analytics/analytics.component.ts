@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApexAxisChartSeries } from 'ng-apexcharts';
 import moment from 'moment';
+import { ApexAxisChartSeries } from 'ng-apexcharts';
 
 @Component({
     templateUrl: 'analytics.component.html'

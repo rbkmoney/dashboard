@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 
-import { SearchFormService } from './search-form.service';
 import { AnalyticsSearchValue } from '../analytics-search-value';
+import { SearchFormService } from './search-form.service';
 
 const DEBOUNCE_TIME = 500;
 

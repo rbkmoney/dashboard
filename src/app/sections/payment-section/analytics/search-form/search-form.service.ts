@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import negate from 'lodash.negate';
 import isEmpty from 'lodash.isempty';
+import negate from 'lodash.negate';
 import moment from 'moment';
+import { Observable } from 'rxjs';
+import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { toQueryParams } from '../../operations/to-query-params';
-import { toFormValue } from '../../operations/to-form-value';
-import { AnalyticsSearchValue } from '../analytics-search-value';
-import { removeEmptyProperties } from '../../operations/operators';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { removeEmptyProperties } from '../../operations/operators';
+import { toFormValue } from '../../operations/to-form-value';
+import { toQueryParams } from '../../operations/to-query-params';
+import { AnalyticsSearchValue } from '../analytics-search-value';
 
 @Injectable()
 export class SearchFormService {
