@@ -1,5 +1,5 @@
-import moment from 'moment';
 import { Params } from '@angular/router';
+import moment from 'moment';
 
 import { FormParams } from './form-params';
 

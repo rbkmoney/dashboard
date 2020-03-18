@@ -1,6 +1,6 @@
 import { QueryList, ViewContainerRef } from '@angular/core';
-import { combineLatest, of, Observable } from 'rxjs';
-import { map, filter, first, delay, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { delay, filter, first, map, switchMap } from 'rxjs/operators';
 
 import { smoothChangeTo } from '../../../../utils';
 import { PayoutPanelComponent } from './payout-panel';
