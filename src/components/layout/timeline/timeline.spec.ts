@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { StatusColor } from '../../theme-manager';
+import { StatusColor } from '../../../app/theme-manager';
 import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
 import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title';

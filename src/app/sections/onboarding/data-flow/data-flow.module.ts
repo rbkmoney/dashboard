@@ -5,9 +5,9 @@ import { MatDialogModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { QuestionaryModule } from '../../../api';
-import { LayoutModule } from '../../../layout';
 import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';
 import { DataFlowRoutingModule } from './data-flow-routing.module';

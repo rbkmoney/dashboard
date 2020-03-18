@@ -10,14 +10,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
+import { FloatPanelModule } from '../../../components/layout/float-panel';
+import { HeadlineModule } from '../../../components/layout/headline';
+import { JustifyWrapperModule } from '../../../components/layout/justify-wrapper';
 import { ClaimsService } from '../../api/claims';
 import { DropdownModule } from '../../dropdown';
-import { CardModule } from '../../layout/card';
-import { FloatPanelModule } from '../../layout/float-panel';
-import { HeadlineModule } from '../../layout/headline';
-import { JustifyWrapperModule } from '../../layout/justify-wrapper';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
 import { StatusModule } from '../../status';
@@ -33,7 +33,7 @@ import { TableComponent } from './table';
 @NgModule({
     imports: [
         ClaimsRoutingModule,
-        CardModule,
+        LayoutModule,
         FlexModule,
         MatOptionModule,
         TranslocoModule,

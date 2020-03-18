@@ -10,32 +10,32 @@
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
+@import '../../components/layout/card/card-theme';
+@import '../../components/layout/float-panel/float-panel-theme';
+@import '../../components/layout/panel/panel-theme';
+@import '../../components/layout/headline/secondary-title/secondary-title-theme';
+@import '../../components/layout/timeline/timeline-theme';
+@import '../../components/layout/tabs/tabs-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
 @import '../../app/charts/bar-chart/bar-chart-theme';
-@import '../../app/layout/card/card-theme';
-@import '../../app/layout/float-panel/float-panel-theme';
 @import '../../app/charts/linear-chart/linear-chart-theme';
 @import '../../app/state-nav/state-nav-theme';
 @import '../../app/charts/legend-tooltip/legend-tooltip-theme';
-@import '../../app/layout/tabs/tabs-theme';
 @import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
-@import '../../app/layout/timeline/timeline-theme';
 @import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/expansion/expansion-theme';
 @import '../../app/details-item/details-item-theme';
-@import '../../app/layout/headline/secondary-title/secondary-title-theme';
 @import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
-@import '../../app/layout/panel/panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {

@@ -6,14 +6,14 @@ import { RouterModule } from '@angular/router';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
+import { CardModule } from '../../../components/layout/card';
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';
-import { LayoutModule } from '../../layout';
-import { CardModule } from '../../layout/card';
 import { SpinnerModule } from '../../spinner';
 import { StatusModule } from '../../status';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';

@@ -6,12 +6,12 @@ import { MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule } from
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { FilesModule, MessagesModule } from '../../../api';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { LayoutModule } from '../../../layout';
 import {
     CommentContainerModule,
     DocumentContainerModule,

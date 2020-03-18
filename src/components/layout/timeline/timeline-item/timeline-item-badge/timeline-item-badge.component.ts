@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
-import { StatusColor } from '../../../../theme-manager';
+import { StatusColor } from '../../../../../app/theme-manager';
 
 @Component({
     selector: 'dsh-timeline-item-badge',

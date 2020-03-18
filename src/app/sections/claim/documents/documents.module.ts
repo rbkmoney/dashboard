@@ -5,10 +5,10 @@ import { MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/mate
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { FilesService } from '../../../api/files';
 import { FileUploaderModule } from '../../../file-uploader';
-import { LayoutModule } from '../../../layout';
 import { FileContainerModule } from '../../claim-modification-containers';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { DocumentsRoutingModule } from './documents-routing.module';

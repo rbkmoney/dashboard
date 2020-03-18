@@ -13,9 +13,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { SearchModule } from '../../../api';
-import { LayoutModule } from '../../../layout';
 import { ScrollUpModule } from '../../../scroll-up';
 import { SpinnerModule } from '../../../spinner';
 import { PayoutPanelModule } from './payout-panel';

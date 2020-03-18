@@ -7,11 +7,11 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { KonturFocusModule } from '../../../api';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { DaDataModule } from '../../../dadata';
-import { LayoutModule } from '../../../layout';
 import { CompanyDetailItemComponent } from './company-detail-item';
 import { CompanyDetailsComponent } from './company-details';
 import { CompanySearchComponent } from './company-search.component';

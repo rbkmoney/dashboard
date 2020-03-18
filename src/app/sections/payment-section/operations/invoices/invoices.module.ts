@@ -14,11 +14,11 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
-import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { StatusModule } from '../../../../status';

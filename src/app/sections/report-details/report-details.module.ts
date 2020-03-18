@@ -5,12 +5,12 @@ import { MatIconModule } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule, ReportsService } from '../../api/reports';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { ExpandPanelModule } from '../../expand-panel';
 import { ExpansionModule } from '../../expansion/expansion.module';
-import { LayoutModule } from '../../layout';
 import { SpinnerModule } from '../../spinner';
 import { StatusModule } from '../../status';
 import { DetailsComponent } from './details/details.component';

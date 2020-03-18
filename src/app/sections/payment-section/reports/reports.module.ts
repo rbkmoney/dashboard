@@ -16,10 +16,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
+import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
-import { LayoutModule } from '../../../layout';
 import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';
 import { StatusModule } from '../../../status';

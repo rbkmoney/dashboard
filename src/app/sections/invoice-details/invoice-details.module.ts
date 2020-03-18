@@ -5,11 +5,11 @@ import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
-import { LayoutModule } from '../../layout';
 import { SpinnerModule } from '../../spinner';
 import { StatusModule } from '../../status';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
