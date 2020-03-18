@@ -6,13 +6,13 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule } from '@dsh/components/indicators';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule, ReportsService } from '../../api/reports';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { ExpandPanelModule } from '../../expand-panel';
 import { ExpansionModule } from '../../expansion/expansion.module';
-import { SpinnerModule } from '../../spinner';
 import { DetailsComponent } from './details/details.component';
 import { StatusDetailsItemComponent } from './details/status-details-item';
 import { FilesComponent } from './files/files.component';

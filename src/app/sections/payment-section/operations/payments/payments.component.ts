@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { SpinnerType } from '../../../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form';
 

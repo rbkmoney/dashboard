@@ -6,12 +6,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule } from '@dsh/components/indicators';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
-import { SpinnerModule } from '../../spinner';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './cart/item/item.component';

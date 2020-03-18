@@ -11,15 +11,11 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule } from '@dsh/components/indicators';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
-import { DropdownModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
-import { FloatPanelModule } from '../../../components/layout/float-panel';
-import { HeadlineModule } from '../../../components/layout/headline';
-import { JustifyWrapperModule } from '../../../components/layout/justify-wrapper';
 import { ClaimsService } from '../../api/claims';
-import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
 import { LAYOUT_GAP } from '../constants';
 import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
@@ -41,17 +37,13 @@ import { TableComponent } from './table';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatSelectModule,
-        JustifyWrapperModule,
-        FloatPanelModule,
         MatInputModule,
         TableModule,
         StatusModule,
         MatIconModule,
-        DropdownModule,
         StateNavModule,
         ButtonModule,
         SpinnerModule,
-        HeadlineModule,
         LastUpdatedModule
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],

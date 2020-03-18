@@ -7,15 +7,14 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule } from '@dsh/components/indicators';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { CardModule } from '../../../components/layout/card';
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';
-import { SpinnerModule } from '../../spinner';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { AmountPipe } from './amount.pipe';
 import { BankCardPipe } from './bank-card.pipe';
@@ -45,7 +44,6 @@ import { StatusDetailsItemComponent } from './status-details-item';
         MatIconModule,
         FlexLayoutModule,
         RouterModule,
-        CardModule,
         ButtonModule,
         CommonModule,
         SearchModule,

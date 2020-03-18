@@ -13,11 +13,11 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { SearchModule } from '../../../api';
 import { ScrollUpModule } from '../../../scroll-up';
-import { SpinnerModule } from '../../../spinner';
 import { PayoutPanelModule } from './payout-panel';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';

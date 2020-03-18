@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import random from 'lodash.random';
 
-import { slateblue400 } from '../theme-manager';
+import { slateblue400 } from '../../../app/theme-manager';
 import { SpinnerType } from './spinner-type';
 
 @Component({

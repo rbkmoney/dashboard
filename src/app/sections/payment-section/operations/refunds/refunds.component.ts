@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { SpinnerType } from '../../../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { RefundsService } from './refunds.service';
 import { RefundsSearchFormValue } from './search-form';
 

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
-import { SpinnerType } from '../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { LAYOUT_GAP } from '../constants';
 import { ClaimsService } from './claims.service';
 import { ClaimSearchFormValue } from './search-form';
