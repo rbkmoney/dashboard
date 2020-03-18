@@ -11,9 +11,10 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { RangeDatepickerModule } from '@dsh/components/form-controls';
+
 import { SearchModule } from '../../../api';
 import { ButtonModule } from '../../../button';
-import { RangeDatepickerModule } from '../../../form-controls';
 import { LayoutModule } from '../../../layout';
 import { ScrollUpModule } from '../../../scroll-up';
 import { SpinnerModule } from '../../../spinner';

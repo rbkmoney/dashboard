@@ -12,8 +12,9 @@ import {
 } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
+import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+
 import { ButtonModule } from '../../../../button';
-import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
 import { LayoutModule } from '../../../../layout';

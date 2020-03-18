@@ -32,7 +32,7 @@
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
 @import '../../app/layout/panel/panel-theme';
-@import '../../app/form-controls/range-datepicker/range-datepicker-theme';
+@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {

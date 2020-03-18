@@ -28,7 +28,7 @@
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
 @import '../app/layout/panel/panel-theme';
-@import '../app/form-controls/range-datepicker/range-datepicker-theme';
+@import '../components/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-overrides() {
     @include body-override();

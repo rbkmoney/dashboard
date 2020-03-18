@@ -16,6 +16,9 @@
         "lib": ["es2018", "dom"],
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "paths": {
+            "@dsh/components/*": ["src/components/*"]
+        }
     }
 }

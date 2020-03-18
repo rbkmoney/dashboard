@@ -3,8 +3,8 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.tslint": true
     },
-    "javascript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.importModuleSpecifier": "relative",
+    "javascript.preferences.importModuleSpecifier": "auto",
+    "typescript.preferences.importModuleSpecifier": "auto",
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",

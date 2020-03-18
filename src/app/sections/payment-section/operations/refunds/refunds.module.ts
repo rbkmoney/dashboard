@@ -6,8 +6,9 @@ import { MatMenuModule, MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
+import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+
 import { ButtonModule } from '../../../../button';
-import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { FromMinorModule } from '../../../../from-minor';
 import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';

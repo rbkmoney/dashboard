@@ -14,9 +14,10 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { FormControlsModule } from '@dsh/components/form-controls';
+
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { ButtonModule } from '../../../button';
-import { FormControlsModule } from '../../../form-controls';
 import { LayoutModule } from '../../../layout';
 import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';

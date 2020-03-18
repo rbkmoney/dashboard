@@ -6,7 +6,7 @@ import { MatDividerModule, MatIconModule, MatInputModule, MatMenuModule, MatNati
 import { TranslocoModule } from '@ngneat/transloco';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
-import { ButtonToggleModule } from '../../button-toggle';
+import { ButtonToggleModule } from '../../../app/button-toggle';
 import { RangeDatePipe } from './range-date.pipe';
 import { RangeDatepickerComponent } from './range-datepicker.component';
 
