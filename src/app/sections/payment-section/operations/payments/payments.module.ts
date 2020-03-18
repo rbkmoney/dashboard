@@ -13,6 +13,7 @@ import {
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { TableModule } from '@dsh/components/table';
 
 import { ButtonModule } from '../../../../button';
 import { FromMinorModule } from '../../../../from-minor';
@@ -21,7 +22,6 @@ import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { StatusModule } from '../../../../status';
-import { TableModule } from '../../../../table';
 import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { PaymentsRoutingModule } from './payments-routing.module';

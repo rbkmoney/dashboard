@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { TableModule } from '@dsh/components/table';
+
 import { ClaimsService } from '../../api/claims';
 import { ButtonModule } from '../../button';
 import { DropdownModule } from '../../dropdown';
@@ -19,7 +21,6 @@ import { JustifyWrapperModule } from '../../layout/justify-wrapper';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
 import { StatusModule } from '../../status';
-import { TableModule } from '../../table';
 import { LAYOUT_GAP } from '../constants';
 import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';

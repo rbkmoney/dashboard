@@ -15,6 +15,7 @@ import {
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { FormControlsModule } from '@dsh/components/form-controls';
+import { TableModule } from '@dsh/components/table';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { ButtonModule } from '../../../button';
@@ -22,7 +23,6 @@ import { LayoutModule } from '../../../layout';
 import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';
 import { StatusModule } from '../../../status';
-import { TableModule } from '../../../table';
 import { EmptySearchResultModule } from '../empty-search-result';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';

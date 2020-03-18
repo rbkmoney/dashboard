@@ -4,7 +4,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { TableModule } from './';
 import {
     ArrayDataSourceDshTableAppComponent,
     DshTableAppComponent,
@@ -16,6 +15,7 @@ import {
     TestData
 } from './components.spec';
 import { expectTableTodshChContent } from './table-utils.spec';
+import { TableModule } from './table.module';
 
 describe('DshTable', () => {
     beforeEach(async(() => {
