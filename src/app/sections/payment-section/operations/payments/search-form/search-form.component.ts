@@ -10,7 +10,6 @@ import {
     paymentStatuses as paymentStatusesConsts,
     tokenProviders as tokenProvidersConsts
 } from '../../constants';
-import { SearchFormValue } from '../../search-form-value';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -47,10 +46,6 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {

@@ -21,26 +21,37 @@ import { scanAction, scanFetchResult } from './operators';
 export abstract class PartialFetcher<R, P> {
     private action$ = new Subject<FetchAction<P>>();
 
-    searchResult$: Observable<R[]>;
-    hasMore$: Observable<boolean>;
-    doAction$: Observable<boolean>;
-    doSearchAction$: Observable<boolean>;
-    errors$: Observable<any>;
+    readonly fetchResultChanges$: Observable<{ result: R[]; hasMore: boolean; continuationToken: string }>;
+
+    readonly searchResult$: Observable<R[]>;
+    readonly hasMore$: Observable<boolean>;
+    readonly doAction$: Observable<boolean>;
+    readonly doSearchAction$: Observable<boolean>;
+    readonly errors$: Observable<any>;
 
     constructor(debounceActionTime: number = 300) {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
 
-        this.searchResult$ = fetchResult$.pipe(
+        this.fetchResultChanges$ = fetchResult$.pipe(
+            map(({ result, continuationToken }) => ({
+                result,
+                continuationToken,
+                hasMore: !!continuationToken
+            })),
+            share()
+        );
+        this.searchResult$ = this.fetchResultChanges$.pipe(
             pluck('result'),
             shareReplay(SHARE_REPLAY_CONF)
         );
-        this.hasMore$ = fetchResult$.pipe(
-            map(({ continuationToken }) => !!continuationToken),
-            startWith(false),
+        this.hasMore$ = this.fetchResultChanges$.pipe(
+            pluck('hasMore'),
+            startWith(null),
             distinctUntilChanged(),
             shareReplay(SHARE_REPLAY_CONF)
         );
+
         this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.doSearchAction$ = progress(
             actionWithParams$.pipe(filter(({ type }) => type === 'search')),
@@ -53,11 +64,18 @@ export abstract class PartialFetcher<R, P> {
             share()
         );
 
-        merge(this.searchResult$, this.hasMore$, this.doAction$, this.doSearchAction$, this.errors$).subscribe();
+        merge(
+            this.searchResult$,
+            this.hasMore$,
+            this.doAction$,
+            this.doSearchAction$,
+            this.errors$,
+            this.fetchResultChanges$
+        ).subscribe();
     }
 
-    search(value: P) {
-        this.action$.next({ type: 'search', value });
+    search(value: P, limit?: number) {
+        this.action$.next({ type: 'search', value, limit });
     }
 
     refresh() {

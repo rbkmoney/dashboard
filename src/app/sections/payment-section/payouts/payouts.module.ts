@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatCommonModule,
-    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
@@ -14,10 +13,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { SearchModule } from '../../../api';
 import { ButtonModule } from '../../../button';
+import { RangeDatepickerModule } from '../../../form-controls';
 import { LayoutModule } from '../../../layout';
 import { ScrollUpModule } from '../../../scroll-up';
 import { SpinnerModule } from '../../../spinner';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { PayoutPanelModule } from './payout-panel';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';
@@ -34,16 +33,15 @@ import { SearchFormComponent } from './search-form';
         FormsModule,
         LayoutModule,
         PayoutPanelModule,
-        DaterangeSelectorModule,
         MatFormFieldModule,
         MatOptionModule,
         CommonModule,
         MatSelectModule,
-        MatDatepickerModule,
         SearchModule,
         MatInputModule,
         SpinnerModule,
-        ScrollUpModule
+        ScrollUpModule,
+        RangeDatepickerModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

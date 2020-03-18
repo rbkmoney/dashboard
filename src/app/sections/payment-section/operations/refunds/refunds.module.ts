@@ -3,24 +3,18 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule, MatSnackBarModule } from '@angular/material';
-import {
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule
-} from '@angular/material';
+import { MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '../../../../button';
-import { FormControlsModule } from '../../../../form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { FromMinorModule } from '../../../../from-minor';
 import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { StatusModule } from '../../../../status';
 import { TableModule } from '../../../../table';
-import { DaterangeSelectorModule } from '../daterange-selector';
+import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
@@ -40,10 +34,8 @@ import { TableComponent } from './table';
         TableModule,
         MatIconModule,
         ReactiveFormsModule,
-        MatDatepickerModule,
         MatSelectModule,
         FormControlsModule,
-        DaterangeSelectorModule,
         StatusModule,
         FromMinorModule,
         LastUpdatedModule,
@@ -51,7 +43,9 @@ import { TableComponent } from './table';
         MatSnackBarModule,
         TranslocoModule,
         StateNavModule,
-        MatMenuModule
+        MatMenuModule,
+        RangeDatepickerModule,
+        EmptySearchResultModule
     ],
     declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

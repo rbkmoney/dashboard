@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-    MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -14,7 +13,7 @@ import {
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '../../../../button';
-import { FormControlsModule } from '../../../../form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
 import { LayoutModule } from '../../../../layout';
@@ -22,7 +21,7 @@ import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
 import { StatusModule } from '../../../../status';
 import { TableModule } from '../../../../table';
-import { DaterangeSelectorModule } from '../daterange-selector';
+import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
@@ -42,10 +41,8 @@ import { TableComponent } from './table';
         TableModule,
         MatIconModule,
         ReactiveFormsModule,
-        MatDatepickerModule,
         MatSelectModule,
         FormControlsModule,
-        DaterangeSelectorModule,
         StatusModule,
         FromMinorModule,
         LastUpdatedModule,
@@ -54,7 +51,9 @@ import { TableComponent } from './table';
         StateNavModule,
         TranslocoModule,
         LanguageModule,
-        MatMenuModule
+        MatMenuModule,
+        RangeDatepickerModule,
+        EmptySearchResultModule
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]

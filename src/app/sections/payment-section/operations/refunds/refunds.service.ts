@@ -50,8 +50,8 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.refundSearchService.searchRefunds(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params.invoiceID,
                     params.paymentID,
                     this.searchLimit,

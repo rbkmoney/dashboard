@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { SearchFormValue } from '../../search-form-value';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -29,10 +28,6 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {

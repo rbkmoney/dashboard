@@ -22,7 +22,7 @@ import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';
 import { StatusModule } from '../../../status';
 import { TableModule } from '../../../table';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
+import { EmptySearchResultModule } from '../empty-search-result';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { ReportsRoutingModule } from './reports-routing.module';
@@ -49,14 +49,14 @@ import { ActionsComponent } from './table/actions';
         ReportsApiModule,
         CommonModule,
         StatusModule,
-        DaterangeSelectorModule,
         MatInputModule,
         LastUpdatedModule,
         SpinnerModule,
         MatDialogModule,
         MatSnackBarModule,
         MatMenuModule,
-        FormControlsModule
+        FormControlsModule,
+        EmptySearchResultModule
     ],
     declarations: [
         ReportsComponent,

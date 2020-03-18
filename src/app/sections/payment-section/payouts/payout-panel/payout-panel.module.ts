@@ -17,6 +17,7 @@ import { CommonInfoComponent } from './common-info';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
 import { PaymentsInfoComponent } from './payments-info';
+import { PayoutPanelAccordionComponent } from './payout-panel-accordion.component';
 import { PayoutPanelComponent } from './payout-panel.component';
 import { PayoutToolInfoComponent } from './payout-tool-info';
 import { RefundsInfoComponent } from './refunds-info';
@@ -49,9 +50,10 @@ import { WalletInfoComponent } from './wallet-info';
         PaymentsInfoComponent,
         RefundsInfoComponent,
         CommonInfoComponent,
-        PayoutToolInfoComponent
+        PayoutToolInfoComponent,
+        PayoutPanelAccordionComponent
     ],
     entryComponents: [CreateReportDialogComponent],
-    exports: [PayoutPanelComponent]
+    exports: [PayoutPanelComponent, PayoutPanelAccordionComponent]
 })
 export class PayoutPanelModule {}

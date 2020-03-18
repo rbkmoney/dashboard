@@ -8,7 +8,7 @@ export function toQueryParams<T extends SearchFormValue>(obj: T): Params {
     const mapped = mapValues(obj, value => (isEmpty(value) ? null : value));
     return {
         ...mapped,
-        fromTime: obj.fromTime.utc().format(),
-        toTime: obj.toTime.utc().format()
+        fromTime: obj.date.begin.utc().format(),
+        toTime: obj.date.end.utc().format()
     };
 }

@@ -4,7 +4,6 @@ import { debounceTime } from 'rxjs/operators';
 
 import { RefundStatus } from '../../../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../../constants';
-import { SearchFormValue } from '../../search-form-value';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -29,10 +28,6 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {
