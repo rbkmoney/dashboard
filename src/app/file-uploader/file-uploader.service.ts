@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
 
-import { progress } from '../custom-operators';
 import { FilesService } from '../api/files';
+import { progress } from '../custom-operators';
 
 @Injectable()
 export class FileUploaderService {

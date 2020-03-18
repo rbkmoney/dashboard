@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { Subject, of, combineLatest, BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, tap, catchError, filter, pluck } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
-import { ConversationID } from '../../../api-codegen/messages';
-import { ReceiveClaimService } from '../receive-claim.service';
 import { ClaimsService } from '../../../api';
-import { RouteParamClaimService } from '../route-param-claim.service';
-import { UpdateParams, UpdateConversationParams, UpdateFilesParams } from './model';
-import { toChangeset } from './to-changeset';
-import { UIError } from '../../ui-error';
+import { ConversationID } from '../../../api-codegen/messages';
 import { progress } from '../../../custom-operators';
+import { UIError } from '../../ui-error';
+import { ReceiveClaimService } from '../receive-claim.service';
+import { RouteParamClaimService } from '../route-param-claim.service';
+import { UpdateConversationParams, UpdateFilesParams, UpdateParams } from './model';
+import { toChangeset } from './to-changeset';
 
 @Injectable()
 export class UpdateClaimService {

@@ -1,32 +1,32 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule, MatMenuModule } from '@angular/material';
+import { MatMenuModule, MatSnackBarModule } from '@angular/material';
 import {
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatSelectModule
 } from '@angular/material';
-import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
+import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { RefundsRoutingModule } from './refunds-routing.module';
-import { RefundsComponent } from './refunds.component';
-import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
-import { TableModule } from '../../../../table';
-import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
-import { DaterangeSelectorModule } from '../daterange-selector';
-import { StatusModule } from '../../../../status';
-import { RefundStatusColorPipe } from './status-color.pipe';
 import { FromMinorModule } from '../../../../from-minor';
-import { LastUpdatedModule } from '../last-updated/last-updated.module';
-import { TableComponent } from './table';
+import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
+import { StatusModule } from '../../../../status';
+import { TableModule } from '../../../../table';
+import { DaterangeSelectorModule } from '../daterange-selector';
+import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { RefundsRoutingModule } from './refunds-routing.module';
+import { RefundsComponent } from './refunds.component';
+import { SearchFormComponent } from './search-form';
+import { RefundStatusColorPipe } from './status-color.pipe';
+import { TableComponent } from './table';
 
 @NgModule({
     imports: [

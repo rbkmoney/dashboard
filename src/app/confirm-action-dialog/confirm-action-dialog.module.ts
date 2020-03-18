@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material';
-import { TranslocoModule } from '@ngneat/transloco';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogModule } from '@angular/material';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '../button';
 import { ConfirmActionDialogComponent } from './confirm-action-dialog.component';

@@ -1,20 +1,20 @@
+import { Platform } from '@angular/cdk/platform';
 import {
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
+    HostBinding,
+    Input,
     OnChanges,
     Renderer2,
     SimpleChanges,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
-    Input,
-    HostBinding
+    ViewEncapsulation
 } from '@angular/core';
-import { mixinDisabled, CanDisableCtor } from '@angular/material/core';
-import { Platform } from '@angular/cdk/platform';
+import { CanDisableCtor, mixinDisabled } from '@angular/material/core';
 
-import { FocusManager } from './focus-manager';
-import { ColorManager } from './color-manager';
 import { coerceBoolean } from '../../utils';
+import { ColorManager } from './color-manager';
+import { FocusManager } from './focus-manager';
 
 const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button', 'dsh-icon-button', 'dsh-fab-button'];
 

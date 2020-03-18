@@ -1,4 +1,4 @@
-import { Component, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { InvoiceLine, InvoiceLineTaxVAT } from '../../../../api-codegen/anapi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../constants';

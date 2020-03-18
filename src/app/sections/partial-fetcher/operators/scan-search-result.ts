@@ -1,10 +1,10 @@
-import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import { FetchResult } from '../fetch-result';
+import { concatFirstScan } from '../../../custom-operators';
 import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
-import { concatFirstScan } from '../../../custom-operators';
+import { FetchResult } from '../fetch-result';
 
 export const handleFetchResultError = <R>(result: R[] = [], continuationToken?: string) => (
     s: Observable<FetchResult<R>>

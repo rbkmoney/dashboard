@@ -1,8 +1,8 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
+import { config, mockConfig } from './config-stub.js';
 import { ConfigService } from './config.service.js';
-import { mockConfig, config } from './config-stub.js';
 
 describe('ConfigService', () => {
     function createService() {

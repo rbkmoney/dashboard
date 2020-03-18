@@ -1,5 +1,5 @@
-import { Component, Type, Provider } from '@angular/core';
-import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { Component, Provider, Type } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { StateNavItemComponent, StateNavModule } from '.';

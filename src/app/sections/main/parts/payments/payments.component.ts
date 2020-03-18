@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { PaymentsService } from './payments.service';
 import { SpinnerType } from '../../../../spinner';
+import { PaymentsService } from './payments.service';
 
 @Component({
     selector: 'dsh-payments',

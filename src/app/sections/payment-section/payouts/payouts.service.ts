@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { pluck, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { pluck, shareReplay } from 'rxjs/operators';
 
-import { PartialFetcher } from '../../partial-fetcher';
-import { Payout } from '../../../api-codegen/anapi';
-import { SearchParams } from './search-params';
-import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
 import { PayoutSearchService, ShopService } from '../../../api';
+import { Payout } from '../../../api-codegen/anapi';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { PartialFetcher } from '../../partial-fetcher';
+import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
+import { SearchParams } from './search-params';
 
 @Injectable()
 export class PayoutsService extends PartialFetcher<Payout, SearchParams> {

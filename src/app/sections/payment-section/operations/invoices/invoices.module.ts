@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -7,28 +7,28 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatSelectModule,
-    MatSnackBarModule,
-    MatMenuModule
+    MatSnackBarModule
 } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { DaterangeSelectorModule } from '../daterange-selector';
-import { InvoicesRoutingModule } from './invoices-routing.module';
-import { LayoutModule } from '../../../../layout';
 import { ButtonModule } from '../../../../button';
-import { TableModule } from '../../../../table';
-import { SearchFormComponent } from './search-form';
 import { FormControlsModule } from '../../../../form-controls';
-import { InvoicesComponent } from './invoices.component';
-import { StatusModule } from '../../../../status';
-import { InvoiceStatusColorPipe } from './status-color.pipe';
 import { FromMinorModule } from '../../../../from-minor';
-import { TableComponent } from './table';
+import { LanguageModule } from '../../../../language';
+import { LayoutModule } from '../../../../layout';
 import { SpinnerModule } from '../../../../spinner';
 import { StateNavModule } from '../../../../state-nav';
-import { LanguageModule } from '../../../../language';
+import { StatusModule } from '../../../../status';
+import { TableModule } from '../../../../table';
+import { DaterangeSelectorModule } from '../daterange-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { InvoicesRoutingModule } from './invoices-routing.module';
+import { InvoicesComponent } from './invoices.component';
+import { SearchFormComponent } from './search-form';
+import { InvoiceStatusColorPipe } from './status-color.pipe';
+import { TableComponent } from './table';
 
 @NgModule({
     imports: [

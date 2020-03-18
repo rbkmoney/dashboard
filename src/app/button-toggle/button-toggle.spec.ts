@@ -2,7 +2,6 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonToggleComponent, ButtonToggleGroupDirective, ButtonToggleModule } from './index';
 import {
     ButtonToggleGroupWithInitialValueComponent,
     ButtonTogglesInsideButtonToggleGroupComponent,
@@ -14,6 +13,7 @@ import {
     RepeatedButtonTogglesWithPreselectedValueComponent,
     StandaloneButtonToggleComponent
 } from './button-toggle.components.spec';
+import { ButtonToggleComponent, ButtonToggleGroupDirective, ButtonToggleModule } from './index';
 
 describe('DshButtonToggle without forms', () => {
     beforeEach(fakeAsync(() => {

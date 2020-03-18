@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { DaterangeSelectorComponent } from './daterange-selector.component';
 import { ButtonToggleModule } from '../../../../button-toggle';
+import { DaterangeSelectorComponent } from './daterange-selector.component';
 
 @NgModule({
     imports: [CommonModule, ButtonToggleModule, MatIconModule, TranslocoModule],

@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import {
-    KonturFocusService as KonturFocusApiService,
-    KonturFocusResponse,
-    KonturFocusRequest,
-    ReqQuery,
-    EgrDetailsQuery,
-    LicencesQuery,
-    EgrDetailsResponses,
-    ReqResponses,
-    LicencesResponses
-} from '../../api-codegen/aggr-proxy';
 import { Mapping } from '../../../type-utils';
+import {
+    EgrDetailsQuery,
+    EgrDetailsResponses,
+    KonturFocusRequest,
+    KonturFocusResponse,
+    KonturFocusService as KonturFocusApiService,
+    LicencesQuery,
+    LicencesResponses,
+    ReqQuery,
+    ReqResponses
+} from '../../api-codegen/aggr-proxy';
 
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;

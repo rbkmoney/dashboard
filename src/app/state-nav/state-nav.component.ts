@@ -1,17 +1,17 @@
 import {
     Component,
     ContentChildren,
-    QueryList,
     EventEmitter,
-    Output,
-    Input,
     HostBinding,
+    Input,
+    Output,
+    QueryList,
     ViewEncapsulation
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { StateNavItemComponent } from './state-nav-item';
 import { coerceBoolean } from '../../utils';
+import { StateNavItemComponent } from './state-nav-item';
 
 @Component({
     selector: 'dsh-state-nav',

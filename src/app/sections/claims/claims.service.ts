@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
 
+import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
 import { ClaimsService as ApiClaimsService } from '../../api/claims/claims.service';
+import { booleanDebounceTime, takeError } from '../../custom-operators';
+import { FetchResult, PartialFetcher } from '../partial-fetcher';
+import { mapToTimestamp } from '../payment-section/operations/operators';
+import { mapToClaimsTableData } from './map-to-claims-table-data';
 import { ClaimSearchFormValue } from './search-form';
 import { ClaimsTableData } from './table';
-import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
-import { FetchResult, PartialFetcher } from '../partial-fetcher';
-import { mapToClaimsTableData } from './map-to-claims-table-data';
-import { booleanDebounceTime, takeError } from '../../custom-operators';
-import { mapToTimestamp } from '../payment-section/operations/operators';
 
 @Injectable()
 export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {

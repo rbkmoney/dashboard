@@ -1,7 +1,7 @@
-import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { async, TestBed } from '@angular/core/testing';
 import { ThemePalette } from '@angular/material/core';
+import { By } from '@angular/platform-browser';
 
 import { ButtonModule } from './index';
 

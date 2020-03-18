@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { select } from 'd3-selection';
+import { Injectable } from '@angular/core';
 import { axisBottom, axisLeft } from 'd3-axis';
-import { locale } from 'moment';
 import { easeExp } from 'd3-ease';
+import { select } from 'd3-selection';
+import { locale } from 'moment';
 
 import { BarType } from './bar-chart/bar-chart.component';
 import { DonutSvgType } from './donut-chart/donut-chart.service';

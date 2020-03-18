@@ -1,13 +1,13 @@
+import { Mapping } from '../../../type-utils';
 import {
-    DaDataRequest,
-    PartyQuery,
-    FioQuery,
     AddressQuery,
+    BankQuery,
+    DaDataRequest,
+    FioQuery,
     FmsUnitQuery,
     OkvedQuery,
-    BankQuery
+    PartyQuery
 } from '../../api-codegen/aggr-proxy';
-import { Mapping } from '../../../type-utils';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;

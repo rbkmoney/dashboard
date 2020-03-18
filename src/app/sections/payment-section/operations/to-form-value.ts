@@ -1,5 +1,5 @@
-import * as moment from 'moment';
 import { Params } from '@angular/router';
+import * as moment from 'moment';
 
 import { SearchFormValue } from './search-form-value';
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
 
 import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
-import { toDateLike, genXRequestID } from '../utils';
-import { InvoicesSearchParams, InvoicesWithToken, Duration } from './model';
+import { genXRequestID, toDateLike } from '../utils';
+import { Duration, InvoicesSearchParams, InvoicesWithToken } from './model';
 
 @Injectable()
 export class InvoiceSearchService {

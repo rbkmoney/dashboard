@@ -1,18 +1,18 @@
 import {
     Component,
+    ElementRef,
     Input,
+    OnChanges,
+    OnDestroy,
     OnInit,
     Renderer2,
-    ElementRef,
-    OnChanges,
     SimpleChanges,
-    ViewChild,
-    OnDestroy
+    ViewChild
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-import { GlowManager } from './glow-manager';
 import { ColorManager } from '../color-manager';
+import { GlowManager } from './glow-manager';
 
 @Component({
     selector: 'dsh-glow',

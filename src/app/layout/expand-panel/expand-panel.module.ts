@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ExpandPanelComponent } from './expand-panel.component';
-import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 import { ButtonModule } from '../../button';
 import { ResizedModule } from '../../resized';
 import { CardModule } from '../card';
+import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
+import { ExpandPanelComponent } from './expand-panel.component';
 
 const EXPORTED_DECLARATIONS = [ExpandPanelComponent, ExpandPanelMoreTemplateComponent];
 

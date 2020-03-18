@@ -1,7 +1,7 @@
 import { individualEntityInnConfig } from './individual-entity-inn';
-import { snilsConfig } from './snils';
-import { seriesNumberConfig } from './series-number';
 import { issuerCodeConfig } from './issuer-code-mask';
+import { seriesNumberConfig } from './series-number';
+import { snilsConfig } from './snils';
 
 export * from './individual-entity-inn';
 export * from './issuer-code-mask';

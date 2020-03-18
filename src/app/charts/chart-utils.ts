@@ -1,12 +1,12 @@
+import { chartColors } from './color-constants';
 import {
     LegendItem,
-    PeriodData,
-    LinearPeriodData,
-    SegmentData,
     LegendTooltipData,
-    PeriodValue
+    LinearPeriodData,
+    PeriodData,
+    PeriodValue,
+    SegmentData
 } from './models/chart-data-models';
-import { chartColors } from './color-constants';
 
 export const getPercentValue = (value: number, sum: number): number => Math.floor((value / sum) * 100 * 100) / 100;
 

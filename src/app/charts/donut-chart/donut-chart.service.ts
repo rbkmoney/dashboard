@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Selection } from 'd3-selection';
-import { arc, Arc, DefaultArcObject, pie, Pie, PieArcDatum } from 'd3-shape';
 import { easeExp } from 'd3-ease';
 import { interpolate } from 'd3-interpolate';
+import { Selection } from 'd3-selection';
+import { arc, Arc, DefaultArcObject, pie, Pie, PieArcDatum } from 'd3-shape';
 
-import { ChartService, DonutChartConfig, SegmentData, SVGInitConfig } from '../models/chart-data-models';
+import { ChartsService } from '../charts.service';
 import { chartColors } from '../color-constants';
 import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
-import { ChartsService } from '../charts.service';
+import { ChartService, DonutChartConfig, SegmentData, SVGInitConfig } from '../models/chart-data-models';
 
 export type DonutSvgType = Selection<SVGGElement, {}, null, undefined>;
 type GeneratedPie = Pie<void, SegmentData>;

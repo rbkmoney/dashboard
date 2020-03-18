@@ -1,3 +1,4 @@
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
     Component,
     ContentChild,
@@ -11,12 +12,11 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
-import { DshTabLabelDirective } from './tab-label.directive';
-import { DshTabContentDirective } from './tab-content.directive';
 import { coerceBoolean } from '../../../utils';
+import { DshTabContentDirective } from './tab-content.directive';
+import { DshTabLabelDirective } from './tab-label.directive';
 
 @Component({
     selector: 'dsh-tab',

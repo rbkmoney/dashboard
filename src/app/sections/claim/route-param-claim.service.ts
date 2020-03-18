@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, pluck } from 'rxjs/operators';
+import { pluck, switchMap } from 'rxjs/operators';
 
 import { ClaimsService } from '../../api';
 

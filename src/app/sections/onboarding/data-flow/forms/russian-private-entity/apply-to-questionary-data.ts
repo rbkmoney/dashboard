@@ -1,10 +1,10 @@
 import get from 'lodash.get';
 
 import {
-    QuestionaryData,
     IndividualEntityContractor,
-    RussianIndividualEntity,
     IndividualResidencyInfo,
+    QuestionaryData,
+    RussianIndividualEntity,
     RussianPrivateEntity
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';

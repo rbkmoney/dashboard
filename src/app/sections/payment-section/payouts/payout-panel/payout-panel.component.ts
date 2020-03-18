@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import isEqual from 'lodash.isequal';
 
 import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';

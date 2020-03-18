@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
-    SemipolarSpinnerModule,
     FulfillingBouncingCircleSpinnerModule,
-    SpringSpinnerModule,
-    RadarSpinnerModule,
-    TrinityRingsSpinnerModule,
     HalfCircleSpinnerModule,
+    RadarSpinnerModule,
     ScalingSquaresSpinnerModule,
-    SwappingSquaresSpinnerModule
+    SemipolarSpinnerModule,
+    SpringSpinnerModule,
+    SwappingSquaresSpinnerModule,
+    TrinityRingsSpinnerModule
 } from 'angular-epic-spinners';
 
 import { SpinnerComponent } from './spinner.component';

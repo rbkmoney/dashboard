@@ -1,5 +1,5 @@
-import { Observable, isObservable, of } from 'rxjs';
-import { scan, switchMap, shareReplay, first, concatMap } from 'rxjs/operators';
+import { isObservable, Observable, of } from 'rxjs';
+import { concatMap, first, scan, shareReplay, switchMap } from 'rxjs/operators';
 
 export const concatFirstScan = <T, P>(
     accumulator: (acc: P, value: T, index: number) => Observable<P>,

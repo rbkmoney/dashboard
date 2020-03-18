@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import { extent, max } from 'd3-array';
-import { easeExp } from 'd3-ease';
 import { Axis, AxisDomain } from 'd3-axis';
+import { easeExp } from 'd3-ease';
+import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 
+import { getPeriodLegendTooltipData } from '../chart-utils';
+import { ChartsService } from '../charts.service';
 import { chartColors } from '../color-constants';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 import { BarChartConfig, ChartService, PeriodData, SVGInitConfig } from '../models/chart-data-models';
 import { BarType } from './bar-chart.component';
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
-import { ChartsService } from '../charts.service';
-import { getPeriodLegendTooltipData } from '../chart-utils';
 
 @Injectable()
 export class BarChartService implements ChartService<PeriodData, BarChartConfig> {

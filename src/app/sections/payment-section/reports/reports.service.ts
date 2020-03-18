@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { pluck } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { pluck } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService, ShopService } from '../../../api';
-import { SearchParams } from './search-params';
-import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
-import { PartialFetcher } from '../../partial-fetcher';
 import { Report } from '../../../api-codegen/anapi';
+import { PartialFetcher } from '../../partial-fetcher';
+import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
+import { SearchParams } from './search-params';
 
 @Injectable()
 export class ReportsService extends PartialFetcher<Report, SearchParams> {

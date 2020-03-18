@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { DropdownComponent } from './dropdown.component';
-import { DropdownTriggerDirective } from './dropdown-trigger.directive';
 import { DropdownActionsComponent } from './dropdown-actions';
 import { DropdownContentComponent } from './dropdown-content';
+import { DropdownTriggerDirective } from './dropdown-trigger.directive';
+import { DropdownComponent } from './dropdown.component';
 
 const EXPORTED_DECLARATIONS = [
     DropdownComponent,

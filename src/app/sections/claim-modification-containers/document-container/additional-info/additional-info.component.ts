@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import get from 'lodash.get';
 
 import { AdditionalInfo, WithoutChiefAccountingOrganization } from '../../../../api-codegen/questionary';

@@ -1,8 +1,8 @@
-import { TestScheduler } from 'rxjs/testing';
 import { Observable } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { PartialFetcher } from './partial-fetcher';
 import { FetchResult } from './fetch-result';
+import { PartialFetcher } from './partial-fetcher';
 
 function assertDeepEqual(actual: any, expected: any) {
     expect(actual).toEqual(expected);

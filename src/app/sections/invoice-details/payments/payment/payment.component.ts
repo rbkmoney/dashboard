@@ -1,10 +1,10 @@
-import { Component, Input, Inject, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
-import { LAYOUT_GAP } from '../../../constants';
-import { StatusColor as Color } from '../../../../theme-manager';
 import { PaymentStatus } from '../../../../api-codegen/anapi/swagger-codegen';
+import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
+import { StatusColor as Color } from '../../../../theme-manager';
+import { LAYOUT_GAP } from '../../../constants';
 import { getPaymentStatusInfo } from '../../../get-payment-status-info';
 
 @Component({

@@ -1,6 +1,6 @@
+import { ValidatorFn } from '@angular/forms';
 import { TextMaskConfig } from 'angular2-text-mask';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { ValidatorFn } from '@angular/forms';
 
 import { FormatInputConfig } from '../format-input-config';
 

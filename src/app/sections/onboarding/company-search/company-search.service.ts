@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, throwError, Subject, forkJoin, of } from 'rxjs';
-import { filter, switchMap, catchError, pluck, map } from 'rxjs/operators';
-import * as uuid from 'uuid/v4';
 import { TranslocoService } from '@ngneat/transloco';
+import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, filter, map, pluck, switchMap } from 'rxjs/operators';
+import * as uuid from 'uuid/v4';
 
-import { ClaimsService, QuestionaryService, createDocumentModificationUnit, KonturFocusService } from '../../../api';
-import { PartyContent, OrgType, ReqResponse } from '../../../api-codegen/aggr-proxy';
+import { ClaimsService, createDocumentModificationUnit, KonturFocusService, QuestionaryService } from '../../../api';
+import { OrgType, PartyContent, ReqResponse } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
 import { KeycloakService } from '../../../auth';
+import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
 
 @Injectable()
 export class CompanySearchService {

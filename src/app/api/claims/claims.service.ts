@@ -3,15 +3,15 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import {
-    ClaimsService as APIClaimsService,
     Claim,
-    StatusModificationUnit,
+    ClaimsService as APIClaimsService,
     Modification,
-    Reason
+    Reason,
+    StatusModificationUnit
 } from '../../api-codegen/claim-management';
-import { ClaimsWithToken } from './models';
+import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';
-import { noContinuationToken, mapResult } from '../../custom-operators';
+import { ClaimsWithToken } from './models';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;
 

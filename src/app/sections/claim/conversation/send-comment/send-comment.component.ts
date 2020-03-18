@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { SendCommentService } from './send-comment.service';
 import { ConversationID } from '../../../../api-codegen/messages';
+import { SendCommentService } from './send-comment.service';
 
 @Component({
     selector: 'dsh-send-comment',

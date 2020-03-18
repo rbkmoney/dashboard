@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy } from '@angular/core';
-import { interval, BehaviorSubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, interval } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
 import { easeInOutCubic } from './ease-in-out-cubic';

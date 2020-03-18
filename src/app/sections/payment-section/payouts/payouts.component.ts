@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 
-import { PayoutsService } from './payouts.service';
-import { mapToTimestamp } from '../operations/operators';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { mapToTimestamp } from '../operations/operators';
+import { PayoutsService } from './payouts.service';
 
 @Component({
     selector: 'dsh-payouts',

@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
 
 import {
     PanelComponent,
-    PanelHeaderComponent,
     PanelContentComponent,
+    PanelHeaderComponent,
     PanelHeaderIconComponent
 } from './panel.component';
 

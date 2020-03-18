@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { QuestionaryFormService } from '../questionary-form.service';
+import { MonthOperationCount, MonthOperationSum, QuestionaryData } from '../../../../../api-codegen/questionary';
+import { bankAccountValidator, bankPostAccountValidator, bikValidator } from '../../../../../form-controls';
 import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
-import { QuestionaryData, MonthOperationSum, MonthOperationCount } from '../../../../../api-codegen/questionary';
-import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
+import { FormValue } from '../form-value';
+import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
-import { bikValidator, bankPostAccountValidator, bankAccountValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
