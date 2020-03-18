@@ -10,8 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
@@ -39,11 +38,10 @@ import { TableComponent } from './table';
         MatSelectModule,
         MatInputModule,
         TableModule,
-        StatusModule,
+        IndicatorsModule,
         MatIconModule,
         StateNavModule,
         ButtonModule,
-        SpinnerModule,
         LastUpdatedModule
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],

@@ -8,8 +8,7 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { DropdownModule } from '@dsh/components/layout';
 
 import { ClaimsService } from '../../api/claims';
@@ -27,11 +26,10 @@ import { UserComponent } from './user';
         OverlayModule,
         StateNavModule,
         ButtonModule,
-        StatusModule,
+        IndicatorsModule,
         MatMenuModule,
         RouterModule,
         CommonModule,
-        SpinnerModule,
         TranslocoModule
     ],
     declarations: [

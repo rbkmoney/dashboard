@@ -6,8 +6,7 @@ import { RouterModule } from '@angular/router';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../api/invoice';
@@ -40,7 +39,6 @@ import { StatusDetailsItemComponent } from './status-details-item';
 @NgModule({
     imports: [
         LayoutModule,
-        StatusModule,
         MatIconModule,
         FlexLayoutModule,
         RouterModule,
@@ -54,7 +52,7 @@ import { StatusDetailsItemComponent } from './status-details-item';
         DetailsItemModule,
         ShopDetailsModule,
         PaymentDetailsRoutingModule,
-        SpinnerModule
+        IndicatorsModule
     ],
     declarations: [
         PaymentDetailsComponent,

@@ -62,6 +62,7 @@
                     { "name": "current", "match": "^[.]", "order": 30 }
                 ]
             }
-        ]
+        ],
+        "no-duplicate-imports": [true, { "allow-namespace-imports": true }]
     }
 }

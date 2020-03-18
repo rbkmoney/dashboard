@@ -6,8 +6,7 @@ import { MatDialogModule, MatInputModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ClaimsModule, QuestionaryModule } from '../../api';
@@ -27,10 +26,9 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ClaimsModule,
         ClaimRoutingModule,
         ConversationModule,
-        StatusModule,
         DocumentsModule,
         TranslocoModule,
-        SpinnerModule,
+        IndicatorsModule,
         QuestionaryModule,
         ReactiveFormsModule,
         MatDialogModule,

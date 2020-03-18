@@ -16,8 +16,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
@@ -49,10 +48,9 @@ import { ActionsComponent } from './table/actions';
         TableModule,
         ReportsApiModule,
         CommonModule,
-        StatusModule,
+        IndicatorsModule,
         MatInputModule,
         LastUpdatedModule,
-        SpinnerModule,
         MatDialogModule,
         MatSnackBarModule,
         MatMenuModule,

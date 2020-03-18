@@ -5,8 +5,7 @@ import { MatIconModule } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule, ReportsService } from '../../api/reports';
@@ -29,11 +28,10 @@ import { ReportRoutingModule } from './report-routing.module';
         ReportsModule,
         LayoutModule,
         DetailsItemModule,
-        StatusModule,
         ExpansionModule,
         ButtonModule,
         ExpandPanelModule,
-        SpinnerModule
+        IndicatorsModule
     ],
     declarations: [ReportDetailsComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }, ReportsService]

@@ -14,8 +14,7 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
@@ -44,10 +43,9 @@ import { TableComponent } from './table';
         ReactiveFormsModule,
         MatSelectModule,
         FormControlsModule,
-        StatusModule,
+        IndicatorsModule,
         FromMinorModule,
         LastUpdatedModule,
-        SpinnerModule,
         MatSnackBarModule,
         StateNavModule,
         TranslocoModule,

@@ -5,8 +5,7 @@ import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { StatusModule } from '@dsh/components/indicators';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
@@ -26,12 +25,11 @@ import { PaymentsComponent } from './payments/payments.component';
     imports: [
         CommonModule,
         ShopDetailsModule,
-        SpinnerModule,
         FlexLayoutModule,
         LayoutModule,
         TranslocoModule,
         DetailsItemModule,
-        StatusModule,
+        IndicatorsModule,
         InvoiceDetailsRoutingModule,
         ButtonModule,
         FromMinorModule,

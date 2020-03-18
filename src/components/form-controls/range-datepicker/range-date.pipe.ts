@@ -1,8 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import { Moment } from 'moment';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 @Pipe({ name: 'rangeDate' })
 export class RangeDatePipe implements PipeTransform {
