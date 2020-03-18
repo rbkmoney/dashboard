@@ -5,8 +5,9 @@ import { MatDialogModule, MatDividerModule, MatIconModule, MatSnackBarModule } f
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ReportsModule } from '../../../../api';
-import { ButtonModule } from '../../../../button';
 import { DetailsItemModule } from '../../../../details-item';
 import { FromMinorModule } from '../../../../from-minor';
 import { LayoutModule } from '../../../../layout';

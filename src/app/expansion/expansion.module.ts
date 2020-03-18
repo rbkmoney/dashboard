@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material';
 
-import { ButtonModule } from '../button';
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ExpansionComponent } from './expansion.component';
 import { ContentComponent } from './item/content/content.component';
 import { HeaderComponent } from './item/header/header.component';

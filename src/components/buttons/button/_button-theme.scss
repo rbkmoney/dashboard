@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../../styles/utils/fill';
+@import '../../../styles/utils/fill';
 
 @mixin glow-effect($color, $color-adjustment) {
     background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);

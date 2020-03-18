@@ -5,9 +5,10 @@ import { MatIconModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
-import { ButtonModule } from '../../button';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';

@@ -4,8 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { FilesService } from '../../../api/files';
-import { ButtonModule } from '../../../button';
 import { FileUploaderModule } from '../../../file-uploader';
 import { LayoutModule } from '../../../layout';
 import { FileContainerModule } from '../../claim-modification-containers';

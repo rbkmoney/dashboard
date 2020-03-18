@@ -1,22 +1,26 @@
 @import '~@angular/material/theming';
+
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
 @import '../overrides/mat-select-panel';
 @import '../overrides/mat-datepicker';
 @import '../overrides/mat-divider';
+
+@import '../../components/table/table-theme';
+@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
+@import '../../components/buttons/button/button-theme';
+@import '../../components/buttons/button-toggle/button-toggle-theme';
+
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/dropdown/dropdown-theme';
-@import '../../app/table/table-theme';
 @import '../../app/charts/bar-chart/bar-chart-theme';
 @import '../../app/layout/card/card-theme';
 @import '../../app/layout/float-panel/float-panel-theme';
 @import '../../app/charts/linear-chart/linear-chart-theme';
 @import '../../app/state-nav/state-nav-theme';
 @import '../../app/charts/legend-tooltip/legend-tooltip-theme';
-@import '../../app/button/button-theme';
 @import '../../app/layout/tabs/tabs-theme';
-@import '../../app/button-toggle/button-toggle-theme';
 @import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
@@ -32,7 +36,6 @@
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
 @import '../../app/layout/panel/panel-theme';
-@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {

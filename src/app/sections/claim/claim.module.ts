@@ -5,8 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatInputModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ClaimsModule, QuestionaryModule } from '../../api';
-import { ButtonModule } from '../../button';
 import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 import { LayoutModule } from '../../layout';
 import { DshTabsModule } from '../../layout/tabs';

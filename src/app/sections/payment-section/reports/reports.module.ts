@@ -14,11 +14,11 @@ import {
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { TableModule } from '@dsh/components/table';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
-import { ButtonModule } from '../../../button';
 import { LayoutModule } from '../../../layout';
 import { SpinnerModule } from '../../../spinner';
 import { StateNavModule } from '../../../state-nav';

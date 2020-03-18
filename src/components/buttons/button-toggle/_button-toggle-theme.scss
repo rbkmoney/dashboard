@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../../styles/utils/fill';
+@import '../../../styles/utils/fill';
 
 @mixin dsh-button-toggle-theme($theme) {
     $primary: map-get($theme, primary);

@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
 
-import { ButtonModule } from '../button';
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ScrollUpComponent } from './scroll-up.component';
 
 @NgModule({

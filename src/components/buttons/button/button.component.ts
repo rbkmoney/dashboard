@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { CanDisableCtor, mixinDisabled } from '@angular/material/core';
 
-import { coerceBoolean } from '../../utils';
+import { coerceBoolean } from '../../../utils';
 import { ColorManager } from './color-manager';
 import { FocusManager } from './focus-manager';
 

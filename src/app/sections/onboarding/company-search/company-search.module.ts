@@ -6,8 +6,9 @@ import { MatDialogModule, MatRadioModule, MatSelectModule, MatSnackBarModule } f
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { KonturFocusModule } from '../../../api';
-import { ButtonModule } from '../../../button';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { DaDataModule } from '../../../dadata';
 import { LayoutModule } from '../../../layout';

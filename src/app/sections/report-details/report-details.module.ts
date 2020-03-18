@@ -4,8 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ReportsModule, ReportsService } from '../../api/reports';
-import { ButtonModule } from '../../button';
 import { DetailsItemModule } from '../../details-item/details-item.module';
 import { ExpandPanelModule } from '../../expand-panel';
 import { ExpansionModule } from '../../expansion/expansion.module';

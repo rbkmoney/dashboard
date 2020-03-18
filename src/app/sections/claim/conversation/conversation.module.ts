@@ -5,8 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { FilesModule, MessagesModule } from '../../../api';
-import { ButtonModule } from '../../../button';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';

@@ -9,10 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
 import { TableModule } from '@dsh/components/table';
 
 import { ClaimsService } from '../../api/claims';
-import { ButtonModule } from '../../button';
 import { DropdownModule } from '../../dropdown';
 import { CardModule } from '../../layout/card';
 import { FloatPanelModule } from '../../layout/float-panel';

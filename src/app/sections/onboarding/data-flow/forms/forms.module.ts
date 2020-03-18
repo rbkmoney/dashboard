@@ -13,9 +13,9 @@ import {
 import { TranslocoModule } from '@ngneat/transloco';
 import { TextMaskModule } from 'angular2-text-mask';
 
+import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 
-import { ButtonModule } from '../../../../button';
 import { DaDataModule } from '../../../../dadata';
 import { BasicInfoComponent, BasicInfoService } from './basic-info';
 import { BeneficialOwnersComponent, BeneficialOwnersService } from './beneficial-owners';

@@ -7,8 +7,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+
 import { ClaimsService } from '../../api/claims';
-import { ButtonModule } from '../../button';
 import { DropdownModule } from '../../dropdown';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
