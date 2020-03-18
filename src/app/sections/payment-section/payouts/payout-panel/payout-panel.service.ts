@@ -1,14 +1,14 @@
-import { MatDialog } from '@angular/material';
-import { map, shareReplay, switchMap, distinctUntilChanged } from 'rxjs/operators';
-import moment from 'moment';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, combineLatest, of, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import moment from 'moment';
+import { combineLatest, Observable, of, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
-import { mapToShopInfo, ShopInfo } from '../../operations/operators';
 import { ShopService } from '../../../../api';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { Payout } from '../../../../api-codegen/anapi';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { mapToShopInfo, ShopInfo } from '../../operations/operators';
+import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
 
 @Injectable()
 export class PayoutPanelService implements OnDestroy {

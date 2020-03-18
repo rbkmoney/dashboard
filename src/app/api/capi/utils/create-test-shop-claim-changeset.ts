@@ -2,19 +2,19 @@ import moment from 'moment';
 import * as uuid from 'uuid/v4';
 
 import {
-    Contractor,
-    PayoutToolDetailsBankAccount,
-    LegalAgreement,
-    ContractCreation,
-    PayoutToolDetails,
-    ContractPayoutToolCreation,
-    ContractLegalAgreementBinding,
-    ShopCreation,
-    ShopLocationUrl,
-    ShopCategoryChange,
-    ShopAccountCreation,
     ClaimChangeset,
-    RussianLegalEntity
+    ContractCreation,
+    ContractLegalAgreementBinding,
+    Contractor,
+    ContractPayoutToolCreation,
+    LegalAgreement,
+    PayoutToolDetails,
+    PayoutToolDetailsBankAccount,
+    RussianLegalEntity,
+    ShopAccountCreation,
+    ShopCategoryChange,
+    ShopCreation,
+    ShopLocationUrl
 } from '../../../api-codegen/capi';
 
 const defaultClaimContractor: RussianLegalEntity = {

@@ -1,7 +1,7 @@
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { FormatInputConfig } from '../format-input-config';
 import { regExpToValidator } from '../../../utils';
+import { FormatInputConfig } from '../format-input-config';
 
 export const individualOrLegalEntityInnMask: TextMaskConfig = {
     mask: new Array(12).fill(/\d/),

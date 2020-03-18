@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { bisectLeft, extent, max, min } from 'd3-array';
+import { Axis, AxisDomain } from 'd3-axis';
+import { easeExp } from 'd3-ease';
+import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
 import { Selection } from 'd3-selection';
 import { Line, line } from 'd3-shape';
-import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
-import { bisectLeft, extent, max, min } from 'd3-array';
-import { easeExp } from 'd3-ease';
-import { Axis, AxisDomain } from 'd3-axis';
 
+import { getLinearLegendTooltipData } from '../chart-utils';
+import { ChartsService } from '../charts.service';
 import { chartColors } from '../color-constants';
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 import {
     ChartService,
     LinearChartConfig,
@@ -14,9 +17,6 @@ import {
     PreparedPeriodValue,
     SVGInitConfig
 } from '../models/chart-data-models';
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
-import { ChartsService } from '../charts.service';
-import { getLinearLegendTooltipData } from '../chart-utils';
 
 export type LinearChartSvgType = Selection<SVGGElement, {}, null, LinearPeriodData>;
 

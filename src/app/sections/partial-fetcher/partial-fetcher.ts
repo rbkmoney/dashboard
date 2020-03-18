@@ -1,22 +1,22 @@
-import { Observable, Subject, of, empty, merge } from 'rxjs';
+import { empty, merge, Observable, of, Subject } from 'rxjs';
 import {
-    map,
-    shareReplay,
     debounceTime,
-    pluck,
-    switchMap,
-    share,
-    startWith,
     distinctUntilChanged,
-    tap,
-    filter
+    filter,
+    map,
+    pluck,
+    share,
+    shareReplay,
+    startWith,
+    switchMap,
+    tap
 } from 'rxjs/operators';
 
-import { FetchAction } from './fetch-action';
-import { scanFetchResult, scanAction } from './operators';
-import { FetchFn } from './fetch-fn';
 import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { FetchAction } from './fetch-action';
+import { FetchFn } from './fetch-fn';
 import { FetchResult } from './fetch-result';
+import { scanAction, scanFetchResult } from './operators';
 
 export abstract class PartialFetcher<R, P> {
     private action$ = new Subject<FetchAction<P>>();

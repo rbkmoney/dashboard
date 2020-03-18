@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Selection } from 'd3-selection';
 
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 import { BarChartConfig, PeriodData } from '../models/chart-data-models';
 import { BarChartService } from './bar-chart.service';
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
 

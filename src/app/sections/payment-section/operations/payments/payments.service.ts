@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest } from 'rxjs';
-import { switchMap, catchError, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { combineLatest, Observable } from 'rxjs';
+import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
-import { PaymentSearchFormValue } from './search-form';
-import { PaymentSearchService } from '../../../../api/search';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
-import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
-import { PaymentsTableData } from './table';
+import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { mapToTimestamp } from '../operators';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { booleanDebounceTime } from '../../../../custom-operators';
+import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
+import { PaymentSearchFormValue } from './search-form';
+import { PaymentsTableData } from './table';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {

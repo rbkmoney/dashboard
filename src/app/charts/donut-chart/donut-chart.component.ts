@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
 import { DonutChartService } from './donut-chart.service';
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Component({
     selector: 'dsh-donut-chart',

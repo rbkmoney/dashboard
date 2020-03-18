@@ -1,10 +1,10 @@
-import { Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
-import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
-import { expandAnimation, ExpandState } from './expand-animation';
 import { coerce } from '../../../utils';
 import { ResizedEvent } from '../../resized';
+import { expandAnimation, ExpandState } from './expand-animation';
+import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
 
 @Component({
     selector: 'dsh-expand-panel',

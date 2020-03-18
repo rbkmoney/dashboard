@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject, Subscription, merge } from 'rxjs';
+import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { shareReplay, startWith, tap } from 'rxjs/operators';
 
-import { StepName } from './step-name';
 import { handleNull } from '../../../../custom-operators';
-import { mapToNavigateCommands } from './map-to-navigate-commands';
-import { mapToStepFlow } from './map-to-step-flow';
+import { QuestionaryStateService } from '../questionary-state.service';
 import { mapDirectionToStep } from './map-direction-to-step';
 import { mapToHasNext } from './map-to-has-next';
 import { mapToHasPrevious } from './map-to-has-previous';
+import { mapToNavigateCommands } from './map-to-navigate-commands';
+import { mapToStepFlow } from './map-to-step-flow';
+import { StepName } from './step-name';
 import { urlToStep } from './url-to-step';
-import { QuestionaryStateService } from '../questionary-state.service';
 
 @Injectable()
 export class StepFlowService {

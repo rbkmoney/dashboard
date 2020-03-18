@@ -1,13 +1,13 @@
-import {
-    Questionary,
-    LegalEntityContractor,
-    RussianLegalEntity,
-    QuestionaryData,
-    Contractor,
-    LegalResidencyInfo,
-    LegalRegistrationInfo
-} from '../../../api-codegen/questionary';
 import { Replace } from '../../../../type-utils';
+import {
+    Contractor,
+    LegalEntityContractor,
+    LegalRegistrationInfo,
+    LegalResidencyInfo,
+    Questionary,
+    QuestionaryData,
+    RussianLegalEntity
+} from '../../../api-codegen/questionary';
 
 type RussianLegalEntityContractor = Replace<
     LegalEntityContractor,

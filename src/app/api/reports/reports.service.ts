@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { ReportsService as ReportsApiService } from '../../api-codegen/anapi';
+import { genXRequestID, toDateLike } from '../utils';
 import { CreateReportReq } from './create-reports';
 import { SearchReportsReq } from './search-reports';
-import { toDateLike, genXRequestID } from '../utils';
 
 @Injectable()
 export class ReportsService {

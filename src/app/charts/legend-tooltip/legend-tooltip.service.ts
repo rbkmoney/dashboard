@@ -1,6 +1,6 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { select } from 'd3-selection';
-import { formatDate } from '@angular/common';
 import { locale } from 'moment';
 
 import { LegendTooltipData } from '../models/chart-data-models';

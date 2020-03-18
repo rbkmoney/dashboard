@@ -1,8 +1,8 @@
-import { Injectable, Optional, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
 
-import { DefaultService } from './swagger-codegen/api/default.service';
 import { BASE_PATH, Configuration } from './swagger-codegen';
+import { DefaultService } from './swagger-codegen/api/default.service';
 
 @Injectable()
 export class GetQuestionaryService extends DefaultService {

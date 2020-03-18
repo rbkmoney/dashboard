@@ -1,14 +1,14 @@
 import moment from 'moment';
 
 import { Replace } from '../../../../../../type-utils';
-import { ReqResponse, Head, ReqLegalEntity } from '../../../../../api-codegen/aggr-proxy';
-import { getAddress } from './get-address';
+import { Head, ReqLegalEntity, ReqResponse } from '../../../../../api-codegen/aggr-proxy';
 import {
+    LegalEntityContractor,
     LegalOwnerInfo,
-    RussianLegalEntity,
     LegalRegistrationInfo,
-    LegalEntityContractor
+    RussianLegalEntity
 } from '../../../../../api-codegen/questionary';
+import { getAddress } from './get-address';
 
 type ReqResponseLegalEntity = Replace<ReqResponse, { contractor: ReqLegalEntity }>;
 type RussianLegalEntityContractor = Replace<

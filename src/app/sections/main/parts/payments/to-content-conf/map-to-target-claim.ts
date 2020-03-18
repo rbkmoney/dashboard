@@ -1,9 +1,9 @@
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 
-import { filterQuestionaryClaims, takeClaimByPriority } from '../operators';
-import { filterByProp } from '../../../../../custom-operators';
 import { ClaimStatus } from '../../../../../api';
 import { Claim } from '../../../../../api-codegen/claim-management';
+import { filterByProp } from '../../../../../custom-operators';
+import { filterQuestionaryClaims, takeClaimByPriority } from '../operators';
 
 export const mapToTargetClaim = (s: Observable<Claim[]>): Observable<Claim> => {
     const questionaryClaims = s.pipe(filterQuestionaryClaims);

@@ -1,5 +1,5 @@
-import { SearchParams } from '../search-params';
 import { Report } from '../../../../api-codegen/anapi';
+import { SearchParams } from '../search-params';
 import { FormParams } from './form-params';
 
 export function toSearchParams({ reportType, date, ...params }: FormParams): SearchParams {

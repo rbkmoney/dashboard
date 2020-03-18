@@ -1,10 +1,10 @@
-import { Component, Type, Provider } from '@angular/core';
+import { Component, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ExpandPanelModule } from './expand-panel.module';
 import { PaletteColor } from '../theme-manager';
+import { ExpandPanelModule } from './expand-panel.module';
 
 @Component({
     template: `

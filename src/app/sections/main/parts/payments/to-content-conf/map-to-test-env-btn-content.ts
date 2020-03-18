@@ -1,8 +1,8 @@
-import { Observable, iif, of } from 'rxjs';
+import { iif, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { TestEnvBtnContent } from '../content-config';
 import { routeEnv } from '../../../../route-env';
+import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
     routerLink: `/payment-section/env/${routeEnv['0']}/operations`,

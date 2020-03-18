@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { first, switchMap, shareReplay } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { Observable, Subject } from 'rxjs';
+import { first, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Invoice } from '../../../api-codegen/capi/swagger-codegen';
 import { InvoiceSearchService } from '../../../api/search';

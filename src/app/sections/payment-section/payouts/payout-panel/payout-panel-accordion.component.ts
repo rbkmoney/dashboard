@@ -1,6 +1,6 @@
-import { ContentChildren, QueryList, AfterContentInit, Component, Output, EventEmitter } from '@angular/core';
-import { startWith, map } from 'rxjs/operators';
-import { Subscription, merge } from 'rxjs';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Output, QueryList } from '@angular/core';
+import { merge, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { PayoutPanelComponent } from './payout-panel.component';
 

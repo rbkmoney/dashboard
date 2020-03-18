@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
 import { Shop, ShopsService } from '../../api-codegen/capi/swagger-codegen';
-import { genXRequestID } from '../utils';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
+import { genXRequestID } from '../utils';
 
 @Injectable()
 export class ShopService {

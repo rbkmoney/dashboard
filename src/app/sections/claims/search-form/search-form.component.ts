@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
-import { SearchFormService } from './search-form.service';
-import { ClaimSearchFormValue } from './claim-search-form-value';
 import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { ClaimSearchFormValue } from './claim-search-form-value';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'dsh-search-form',

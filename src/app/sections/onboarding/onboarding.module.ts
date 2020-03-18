@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { OnboardingRoutingModule } from './onboarding-routing.module';
 import { CompanySearchModule } from './company-search';
 import { DataFlowModule } from './data-flow';
+import { OnboardingRoutingModule } from './onboarding-routing.module';
 
 @NgModule({
     imports: [OnboardingRoutingModule, CompanySearchModule, DataFlowModule]

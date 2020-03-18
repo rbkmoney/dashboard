@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import isEqual from 'lodash.isequal';
 
 import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
-import { PayoutPanelService } from './payout-panel.service';
 import { ExpandPanelComponent } from '../../../../layout/expand-panel';
+import { PayoutPanelService } from './payout-panel.service';
 
 @Component({
     selector: 'dsh-payout-panel',

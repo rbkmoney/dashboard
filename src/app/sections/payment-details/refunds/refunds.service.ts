@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RefundSearchService } from '../../../api/search';
 import { RefundSearchResult } from '../../../api-codegen/capi';
-import { PartialFetcher, FetchResult } from '../../partial-fetcher';
+import { RefundSearchService } from '../../../api/search';
+import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { RefundsSearchParams } from './refunds-search-params';
 
 @Injectable()

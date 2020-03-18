@@ -1,12 +1,12 @@
 import { FormGroup } from '@angular/forms';
-import { Subscription, forkJoin, of } from 'rxjs';
-import { debounceTime, map, switchMap, first, shareReplay } from 'rxjs/operators';
+import { forkJoin, of, Subscription } from 'rxjs';
+import { debounceTime, first, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
-import { ValidityService } from '../validity';
 import { QuestionaryStateService } from '../questionary-state.service';
-import { FormValue } from './form-value';
 import { StepName } from '../step-flow';
+import { ValidityService } from '../validity';
+import { FormValue } from './form-value';
 
 export abstract class QuestionaryFormService {
     readonly form$ = this.questionaryStateService.questionaryData$.pipe(

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { StepNavigationService } from './step-navigation.service';
 import { StepFlowService } from '../step-flow';
+import { StepNavigationService } from './step-navigation.service';
 
 @Component({
     selector: 'dsh-step-navigation',

@@ -1,4 +1,4 @@
-import { FileModificationUnit, ClaimChangeset } from '../../../api-codegen/claim-management';
+import { ClaimChangeset, FileModificationUnit } from '../../../api-codegen/claim-management';
 import { isChangesetFileModificationUnit } from '../type-guards';
 
 export const takeFileModificationUnits = (changeset: ClaimChangeset): FileModificationUnit[] =>

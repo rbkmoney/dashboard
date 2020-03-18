@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { Subject, of, forkJoin } from 'rxjs';
-import { pluck, filter, switchMap, map, first } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, of, Subject } from 'rxjs';
+import { filter, first, map, pluck, switchMap } from 'rxjs/operators';
 
 import { Modification } from '../../../api-codegen/claim-management';
 import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';

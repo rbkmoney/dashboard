@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { switchMap, switchMapTo, filter, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { Subject } from 'rxjs';
+import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
-import { CAPIClaimsService, ShopService, createTestShopClaimChangeset } from './api';
+import { CAPIClaimsService, createTestShopClaimChangeset, ShopService } from './api';
 
 @Injectable()
 export class TestShopService {

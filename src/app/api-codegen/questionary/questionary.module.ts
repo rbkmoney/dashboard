@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { ApiModule, Configuration } from './swagger-codegen';
-import { QuestionaryConfigService } from './questionary-config.service';
 import { GetQuestionaryService } from './get-questionary.service';
+import { QuestionaryConfigService } from './questionary-config.service';
+import { ApiModule, Configuration } from './swagger-codegen';
 
 @NgModule({
     imports: [

@@ -1,10 +1,10 @@
-import { Component, Type, Provider, ViewChild } from '@angular/core';
-import { ComponentFixture, inject, TestBed, tick, fakeAsync, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { FullscreenOverlayContainer, OverlayContainer } from '@angular/cdk/overlay';
+import { Component, Provider, Type, ViewChild } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 
-import { DropdownModule } from './dropdown.module';
 import { DropdownTriggerDirective } from './dropdown-trigger.directive';
+import { DropdownModule } from './dropdown.module';
 
 @Component({
     template: `

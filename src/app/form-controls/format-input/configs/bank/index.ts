@@ -1,6 +1,6 @@
-import { bikConfig } from './bik';
 import { bankAccountConfig } from './bank-account';
 import { bankPostAccountConfig } from './bank-post-account';
+import { bikConfig } from './bik';
 
 export * from './bik';
 export * from './bank-account';

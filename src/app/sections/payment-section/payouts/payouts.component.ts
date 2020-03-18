@@ -1,20 +1,20 @@
 import {
-    Component,
+    AfterViewInit,
     ChangeDetectionStrategy,
-    ViewChildren,
+    Component,
     QueryList,
-    ViewContainerRef,
-    AfterViewInit
+    ViewChildren,
+    ViewContainerRef
 } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import isNil from 'lodash.isnil';
+import { shareReplay } from 'rxjs/operators';
 
-import { PayoutsService } from './payouts.service';
-import { mapToTimestamp } from '../operations/operators';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { PayoutPanelComponent } from './payout-panel';
+import { mapToTimestamp } from '../operations/operators';
 import { autoscrollTo } from './autoscroll-to';
+import { PayoutPanelComponent } from './payout-panel';
+import { PayoutsService } from './payouts.service';
 
 const INIT_DELAY_MS = 350;
 const SCROLL_TO_Y_OFFSET_PX = 20;

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { DaDataService as DaDataApiService, DaDataRequest } from '../../api-codegen/aggr-proxy';
+import { DaDataRequest, DaDataService as DaDataApiService } from '../../api-codegen/aggr-proxy';
 import { ParamsByRequestType } from './suggest-request';
-import { SuggestionsByRequestType, ResponseByRequestType } from './suggest-response';
+import { ResponseByRequestType, SuggestionsByRequestType } from './suggest-response';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;

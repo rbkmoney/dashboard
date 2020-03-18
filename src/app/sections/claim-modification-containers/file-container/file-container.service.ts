@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
 
-import { FilesService } from '../../../api/files';
-import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
-import { booleanDelay, takeError } from '../../../custom-operators';
 import { download } from '../../../../utils';
+import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
+import { FilesService } from '../../../api/files';
+import { booleanDelay, takeError } from '../../../custom-operators';
 
 @Injectable()
 export class FileContainerService {

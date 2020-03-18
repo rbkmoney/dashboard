@@ -1,10 +1,10 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { catchError } from 'rxjs/operators';
 
-import { RefundsService } from './refunds.service';
 import { LAYOUT_GAP } from '../../constants';
+import { RefundsService } from './refunds.service';
 
 @Component({
     selector: 'dsh-refunds',

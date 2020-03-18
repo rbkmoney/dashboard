@@ -1,13 +1,13 @@
-import { Component, Type, Provider } from '@angular/core';
+import { Component, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { TimelineModule } from './timeline.module';
+import { StatusColor } from '../../theme-manager';
 import { TimelineItemBadgeComponent } from './timeline-item/timeline-item-badge';
 import { TimelineItemContentComponent } from './timeline-item/timeline-item-content';
 import { TimelineItemTitleComponent } from './timeline-item/timeline-item-title';
-import { StatusColor } from '../../theme-manager';
+import { TimelineModule } from './timeline.module';
 
 @Component({
     template: `

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { KeycloakEvent, KeycloakOptions } from 'keycloak-angular';
 import { Observable, Observer, Subject } from 'rxjs';
-import { KeycloakOptions, KeycloakEvent } from 'keycloak-angular';
 
 import { STUB_USER } from './stub-user';
 

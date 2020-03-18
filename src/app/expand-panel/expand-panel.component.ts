@@ -1,9 +1,9 @@
 import { Component, ContentChild, Input } from '@angular/core';
 
-import { ExpandPanelContentComponent } from './expand-panel-content.component';
 import { coerceBoolean } from '../../utils';
-import { ExpandState, expandAnimation, ExpandTrigger } from './expand-animation';
 import { PaletteColor } from '../theme-manager';
+import { expandAnimation, ExpandState, ExpandTrigger } from './expand-animation';
+import { ExpandPanelContentComponent } from './expand-panel-content.component';
 
 @Component({
     selector: 'dsh-expand-panel',

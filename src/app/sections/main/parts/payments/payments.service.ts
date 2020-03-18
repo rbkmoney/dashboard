@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { ClaimsService, ShopService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims';
-import { toContentConf } from './to-content-conf';
-import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { booleanDelay, takeError } from '../../../../custom-operators';
+import { ActionBtnContent, TestEnvBtnContent } from './content-config';
+import { toContentConf } from './to-content-conf';
 
 @Injectable()
 export class PaymentsService {

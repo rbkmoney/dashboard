@@ -1,8 +1,8 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { CreateReportDialogService } from './create-report-dialog.service';
 import { CreateReportDialogData } from './create-report-dialog-data';
+import { CreateReportDialogService } from './create-report-dialog.service';
 
 @Component({
     selector: 'dsh-create-report-dialog',

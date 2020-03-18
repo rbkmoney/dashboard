@@ -1,5 +1,5 @@
-import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 import { MapTuple } from '../../../../type-utils';
+import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 
 export type InvoicesSearchParams = MapTuple<
     Parameters<SearchService['searchInvoices']>,

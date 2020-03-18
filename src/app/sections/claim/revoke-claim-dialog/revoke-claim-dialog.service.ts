@@ -1,14 +1,14 @@
-import { Injectable, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Inject, Injectable } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Subject, Observable, BehaviorSubject, of } from 'rxjs';
-import { switchMap, pluck, catchError, tap, filter } from 'rxjs/operators';
 import get from 'lodash.get';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../api';
-import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
-import { UIError } from '../../ui-error';
 import { progress } from '../../../custom-operators';
+import { UIError } from '../../ui-error';
+import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
 
 @Injectable()
 export class RevokeClaimDialogService {

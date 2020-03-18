@@ -1,14 +1,14 @@
-import { Router } from '@angular/router';
-import { Subject, Observable, merge } from 'rxjs';
-import { switchMap, shareReplay, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { merge, Observable, Subject } from 'rxjs';
+import { shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { ReportsService } from '../../../../../api';
-import { CreateReportDialogData } from './create-report-dialog-data';
-import { progress, SHARE_REPLAY_CONF, replaceError, filterError, filterPayload } from '../../../../../custom-operators';
 import { Report } from '../../../../../api-codegen/anapi';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { CreateReportDialogData } from './create-report-dialog-data';
 
 @Injectable()
 export class CreateReportDialogService {

@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
+import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 import { LinearChartConfig, LinearPeriodData } from '../models/chart-data-models';
 import { LinearChartService } from './linear-chart.service';
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
 
 @Component({
     selector: 'dsh-linear-chart',

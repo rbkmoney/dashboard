@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 
-import { DshTabsModule } from './tabs.module';
-import { DshTabComponent } from './tab.component';
 import { DshTabGroupComponent, DshTabHeaderPosition } from './tab-group.component';
+import { DshTabComponent } from './tab.component';
+import { DshTabsModule } from './tabs.module';
 
 @Component({
     template: `
