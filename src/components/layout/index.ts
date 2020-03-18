@@ -7,3 +7,4 @@ export * from './justify-wrapper';
 export * from './panel';
 export * from './tabs';
 export * from './timeline';
+export * from './dropdown';

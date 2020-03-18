@@ -12,13 +12,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { DropdownModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
 import { FloatPanelModule } from '../../../components/layout/float-panel';
 import { HeadlineModule } from '../../../components/layout/headline';
 import { JustifyWrapperModule } from '../../../components/layout/justify-wrapper';
 import { ClaimsService } from '../../api/claims';
-import { DropdownModule } from '../../dropdown';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
 import { LAYOUT_GAP } from '../constants';
