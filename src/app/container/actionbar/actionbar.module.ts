@@ -8,12 +8,12 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { StatusModule } from '@dsh/components/indicators';
 
 import { ClaimsService } from '../../api/claims';
 import { DropdownModule } from '../../dropdown';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
-import { StatusModule } from '../../status';
 import { ActionItemComponent } from './action-item';
 import { ActionbarComponent } from './actionbar.component';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';

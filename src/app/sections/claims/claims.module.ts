@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { StatusModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { TableModule } from '@dsh/components/table';
 
@@ -20,7 +21,6 @@ import { ClaimsService } from '../../api/claims';
 import { DropdownModule } from '../../dropdown';
 import { SpinnerModule } from '../../spinner';
 import { StateNavModule } from '../../state-nav';
-import { StatusModule } from '../../status';
 import { LAYOUT_GAP } from '../constants';
 import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';
