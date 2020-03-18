@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import { TextMaskConfig } from 'angular2-text-mask';
 
-import { configs, Type } from './configs';
 import { CustomFormControl } from '../utils';
+import { configs, Type } from './configs';
 
 @Component({
     selector: 'dsh-format-input',

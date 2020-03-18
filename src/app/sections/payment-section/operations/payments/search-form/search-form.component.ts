@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime, pluck, map, shareReplay, distinctUntilChanged } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, pluck, shareReplay } from 'rxjs/operators';
 
-import { SearchFormService } from './search-form.service';
-import { PaymentSearchFormValue } from './payment-search-form-value';
-import { SearchFormValue } from '../../../search-form-value';
 import {
-    tokenProviders as tokenProvidersConsts,
-    paymentMethods as paymentMethodsConsts,
     bankCardPaymentSystems as bankCardPaymentSystemsConsts,
     paymentFlows as paymentFlowsConsts,
-    paymentStatuses as paymentStatusesConsts
+    paymentMethods as paymentMethodsConsts,
+    paymentStatuses as paymentStatusesConsts,
+    tokenProviders as tokenProvidersConsts
 } from '../../constants';
+import { PaymentSearchFormValue } from './payment-search-form-value';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'dsh-search-form',
@@ -47,10 +46,6 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    selectDaterange(v: SearchFormValue) {
-        this.searchFormService.applySearchFormValue(v);
     }
 
     reset() {

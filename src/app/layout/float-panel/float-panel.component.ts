@@ -1,12 +1,12 @@
-import { Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 import { filter } from 'rxjs/operators';
 
-import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
-import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
+import { coerce } from '../../../utils';
 import { expandAnimation, ExpandState } from './animations/expand-animation';
 import { hideAnimation } from './animations/hide-animation';
-import { coerce } from '../../../utils';
+import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
+import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 
 @Component({
     selector: 'dsh-float-panel',

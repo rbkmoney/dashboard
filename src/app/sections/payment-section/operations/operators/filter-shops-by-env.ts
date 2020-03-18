@@ -1,9 +1,9 @@
-import { switchMap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
+import { filterBattleShops, filterTestShops } from '../../../../api';
 import { Shop } from '../../../../api-codegen/capi';
 import { routeEnv } from '../../../route-env';
-import { filterTestShops, filterBattleShops } from '../../../../api';
 
 export const filterShopsByEnv = (shops: Observable<Shop[]>) => (s: Observable<string>): Observable<Shop[]> =>
     s.pipe(

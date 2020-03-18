@@ -1,5 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -22,8 +23,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatButtonToggleGroup, CanDisableRippleCtor, mixinDisableRipple } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
+import { CanDisableRippleCtor, MatButtonToggleGroup, mixinDisableRipple } from '@angular/material';
 
 export type ToggleType = 'checkbox' | 'radio';
 

@@ -1,9 +1,9 @@
 import { FormParams } from './form-params';
 
-export function toQueryParams({ fromTime, toTime, ...params }: FormParams): Partial<Record<keyof FormParams, string>> {
+export function toQueryParams({ date, ...params }: FormParams) {
     return {
         ...params,
-        fromTime: fromTime.utc().format(),
-        toTime: toTime.utc().format()
+        fromTime: date.begin.utc().format(),
+        toTime: date.end.utc().format()
     };
 }

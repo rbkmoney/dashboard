@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, shareReplay, startWith, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
+import { Observable } from 'rxjs';
+import { filter, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { ClaimSearchFormValue } from './claim-search-form-value';
 import { removeEmptyProperties } from '../../payment-section/operations/operators';
+import { ClaimSearchFormValue } from './claim-search-form-value';
 
 @Injectable()
 export class SearchFormService {

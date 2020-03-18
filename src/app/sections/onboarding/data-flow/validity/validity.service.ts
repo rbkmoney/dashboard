@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, combineLatest, ReplaySubject, of, Subscription } from 'rxjs';
-import { shareReplay, first, scan, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { first, scan, shareReplay, switchMap } from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
-import { mapToIsFlowValid } from './map-to-is-flow-valid';
 import { mapToInitialValiditySteps } from './map-to-initial-validity-steps';
+import { mapToIsFlowValid } from './map-to-is-flow-valid';
 import { ValiditySteps } from './validity-steps';
 
 @Injectable()

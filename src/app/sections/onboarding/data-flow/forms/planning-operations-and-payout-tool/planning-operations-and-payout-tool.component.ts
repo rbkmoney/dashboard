@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { PlanningOperationsAndPayoutToolService } from './planning-operations-and-payout-tool.service';
 import { BankContent } from '../../../../../api-codegen/aggr-proxy';
+import { PlanningOperationsAndPayoutToolService } from './planning-operations-and-payout-tool.service';
 
 @Component({
     templateUrl: 'planning-operations-and-payout-tool.component.html',

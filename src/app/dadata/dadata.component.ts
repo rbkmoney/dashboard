@@ -1,20 +1,20 @@
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AutofillMonitor } from '@angular/cdk/text-field';
-import { Observable, interval } from 'rxjs';
-import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import get from 'lodash.get';
+import { interval, Observable } from 'rxjs';
+import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { DaDataRequest, PartyContent, FmsUnitQuery, BankContent, FmsUnitContent } from '../api-codegen/aggr-proxy';
-import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
-import { Type } from './type';
-import { CustomFormControl } from '../form-controls';
+import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '../api';
+import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '../api-codegen/aggr-proxy';
 import { progress, takeError } from '../custom-operators';
+import { CustomFormControl } from '../form-controls';
+import { Type } from './type';
 
 interface Option<S extends Suggestion> {
     header: string;

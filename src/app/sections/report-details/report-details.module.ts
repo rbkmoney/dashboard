@@ -1,22 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
+import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
+import { ReportsModule, ReportsService } from '../../api/reports';
+import { ButtonModule } from '../../button';
+import { DetailsItemModule } from '../../details-item/details-item.module';
+import { ExpandPanelModule } from '../../expand-panel';
+import { ExpansionModule } from '../../expansion/expansion.module';
+import { LayoutModule } from '../../layout';
+import { SpinnerModule } from '../../spinner';
+import { StatusModule } from '../../status';
+import { DetailsComponent } from './details/details.component';
+import { StatusDetailsItemComponent } from './details/status-details-item';
+import { FilesComponent } from './files/files.component';
 import { ReportDetailsComponent } from './report-details.component';
 import { ReportRoutingModule } from './report-routing.module';
-import { DetailsComponent } from './details/details.component';
-import { ReportsModule, ReportsService } from '../../api/reports';
-import { LayoutModule } from '../../layout';
-import { DetailsItemModule } from '../../details-item/details-item.module';
-import { StatusDetailsItemComponent } from './details/status-details-item';
-import { StatusModule } from '../../status';
-import { ExpansionModule } from '../../expansion/expansion.module';
-import { FilesComponent } from './files/files.component';
-import { ButtonModule } from '../../button';
-import { ExpandPanelModule } from '../../expand-panel';
-import { SpinnerModule } from '../../spinner';
 
 @NgModule({
     imports: [

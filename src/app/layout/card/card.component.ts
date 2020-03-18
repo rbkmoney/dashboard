@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, HostBinding, Directive } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'dsh-card',

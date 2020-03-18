@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import get from 'lodash.get';
 
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api-codegen/capi/swagger-codegen';
-import { PaymentDetailsService } from './payment-details.service';
-import { PayerType } from './payer-details';
 import { LAYOUT_GAP } from '../constants';
+import { PayerType } from './payer-details';
+import { PaymentDetailsService } from './payment-details.service';
 
 @Component({
     templateUrl: './payment-details.component.html',

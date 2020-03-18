@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import get from 'lodash.get';
+import { BehaviorSubject } from 'rxjs';
 
-import { QuestionaryFormService } from '../questionary-form.service';
+import { AccountantInfo, QuestionaryData } from '../../../../../api-codegen/questionary';
+import { legalEntityInnValidator } from '../../../../../form-controls';
 import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
-import { QuestionaryData, AccountantInfo } from '../../../../../api-codegen/questionary';
-import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
+import { FormValue } from '../form-value';
+import { QuestionaryFormService } from '../questionary-form.service';
+import { LegalResidencyInfoService } from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
-import { LegalResidencyInfoService } from '../subforms';
-import { legalEntityInnValidator } from '../../../../../form-controls';
 
 type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 

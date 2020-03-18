@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 
+import { takeFileModificationUnits } from '../../../api';
+import { FileModificationUnit } from '../../../api-codegen/claim-management';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { UpdateClaimService } from '../update-claim';
-import { FileModificationUnit } from '../../../api-codegen/claim-management';
-import { takeFileModificationUnits } from '../../../api';
 
 @Injectable()
 export class DocumentsService {

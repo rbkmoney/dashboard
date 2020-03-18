@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { StepFlowService } from './step-flow';
 import { InitializeFormsService } from './forms';
 import { QuestionaryStateService } from './questionary-state.service';
+import { StepFlowService } from './step-flow';
 import { ValidityService } from './validity';
 
 @Injectable()

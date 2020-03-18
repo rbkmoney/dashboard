@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, startWith, pluck, shareReplay, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { RefundsSearchFormValue } from './refunds-search-form-value';
-import { SearchFormValue } from '../../../search-form-value';
-import { removeEmptyProperties, ShopInfo, filterShopsByEnv, mapToShopInfo } from '../../operators';
+import { ShopService } from '../../../../../api/shop';
+import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
+import { SearchFormValue } from '../../search-form-value';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
-import { ShopService } from '../../../../../api/shop';
+import { RefundsSearchFormValue } from './refunds-search-form-value';
 
 @Injectable()
 export class SearchFormService {
@@ -65,10 +65,10 @@ export class SearchFormService {
 
     private initForm(defaultLimit = 20): FormGroup {
         const form = this.fb.group({
-            fromTime: moment()
-                .subtract(1, 'month')
-                .startOf('day'),
-            toTime: moment().endOf('day'),
+            date: {
+                begin: moment().startOf('month'),
+                end: moment().endOf('month')
+            },
             limit: [defaultLimit, Validators.required],
             offset: '',
             invoiceID: '',

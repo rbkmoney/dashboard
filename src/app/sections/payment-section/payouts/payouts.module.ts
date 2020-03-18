@@ -1,27 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatCommonModule,
     MatFormFieldModule,
+    MatInputModule,
     MatOptionModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatInputModule
+    MatSelectModule
 } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
-import { PayoutsComponent } from './payouts.component';
-import { PayoutsRoutingModule } from './payouts-routing.module';
-import { ButtonModule } from '../../../button';
-import { SearchFormComponent } from './search-form';
-import { LayoutModule } from '../../../layout';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
 import { SearchModule } from '../../../api';
-import { PayoutPanelModule } from './payout-panel';
-import { SpinnerModule } from '../../../spinner';
+import { ButtonModule } from '../../../button';
+import { RangeDatepickerModule } from '../../../form-controls';
+import { LayoutModule } from '../../../layout';
 import { ScrollUpModule } from '../../../scroll-up';
+import { SpinnerModule } from '../../../spinner';
+import { PayoutPanelModule } from './payout-panel';
+import { PayoutsRoutingModule } from './payouts-routing.module';
+import { PayoutsComponent } from './payouts.component';
+import { SearchFormComponent } from './search-form';
 
 @NgModule({
     imports: [
@@ -34,16 +33,15 @@ import { ScrollUpModule } from '../../../scroll-up';
         FormsModule,
         LayoutModule,
         PayoutPanelModule,
-        DaterangeSelectorModule,
         MatFormFieldModule,
         MatOptionModule,
         CommonModule,
         MatSelectModule,
-        MatDatepickerModule,
         SearchModule,
         MatInputModule,
         SpinnerModule,
-        ScrollUpModule
+        ScrollUpModule,
+        RangeDatepickerModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isUpdateConversation, isUpdateFiles } from './type-guards';
 import { createCommentModificationUnit, createFileModificationUnit } from '../../../api';
-import { UpdateParams } from './model';
 import { Modification } from '../../../api-codegen/claim-management';
+import { UpdateParams } from './model';
+import { isUpdateConversation, isUpdateFiles } from './type-guards';
 
 export const toChangeset = (s: Observable<UpdateParams>): Observable<Modification[]> =>
     s.pipe(

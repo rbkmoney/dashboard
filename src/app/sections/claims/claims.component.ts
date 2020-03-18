@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 
-import { ClaimsService } from './claims.service';
-import { LAYOUT_GAP } from '../constants';
-import { ClaimSearchFormValue } from './search-form';
 import { SpinnerType } from '../../spinner';
+import { LAYOUT_GAP } from '../constants';
+import { ClaimsService } from './claims.service';
+import { ClaimSearchFormValue } from './search-form';
 
 @Component({
     selector: 'dsh-claims',

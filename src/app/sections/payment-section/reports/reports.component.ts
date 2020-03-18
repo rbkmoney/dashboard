@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { shareReplay, filter } from 'rxjs/operators';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { filter, shareReplay } from 'rxjs/operators';
 
-import { ReportsService } from './reports.service';
 import { booleanDebounceTime } from '../../../custom-operators';
 import { mapToTimestamp } from '../operations/operators';
 import { CreateReportDialogComponent } from './create-report-dialog';
+import { ReportsService } from './reports.service';
 
 @Component({
     selector: 'dsh-reports',

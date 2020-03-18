@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SearchFormValue } from '../../operations/search-form-value';
-import { SearchFormService } from './search-form.service';
 import { PayoutsService } from '../payouts.service';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'dsh-payouts-search-form',

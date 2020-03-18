@@ -1,8 +1,8 @@
 import get from 'lodash.get';
 
-import { QuestionaryData, AuthorityConfirmingDocument } from '../../../../../api-codegen/questionary';
+import { AuthorityConfirmingDocument, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-import { toRussianDomesticPassport, toPrivateEntityInfo, toPdlInfo } from '../subforms';
+import { toPdlInfo, toPrivateEntityInfo, toRussianDomesticPassport } from '../subforms';
 
 const toAuthorityConfirmingDocument = (d: AuthorityConfirmingDocument): FormValue => ({
     type: get(d, ['type'], null),

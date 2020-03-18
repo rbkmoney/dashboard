@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject, of, Subscription, merge } from 'rxjs';
-import { filter, distinctUntilChanged, switchMap, pluck, catchError, first, tap } from 'rxjs/operators';
 import isEqual from 'lodash.isequal';
+import { BehaviorSubject, merge, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, distinctUntilChanged, filter, first, pluck, switchMap, tap } from 'rxjs/operators';
 
-import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
 import { QuestionaryService } from '../../../api';
+import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
 import { booleanDelay } from '../../../custom-operators';
 
 @Injectable()

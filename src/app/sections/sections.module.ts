@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { SectionsRoutingModule } from './sections-routing.module';
-import { MainModule } from './main';
-import { SectionsComponent } from './sections.component';
-import { LAYOUT_GAP } from './constants';
 import { ShopModule } from '../api/shop';
+import { LAYOUT_GAP } from './constants';
+import { MainModule } from './main';
+import { SectionsRoutingModule } from './sections-routing.module';
+import { SectionsComponent } from './sections.component';
 
 @NgModule({
     imports: [MainModule, SectionsRoutingModule, ShopModule],

@@ -11,14 +11,22 @@
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
     <ng-container *ngIf="!(isInit$ | async)">
-        <dsh-payout-panel *ngFor="let payout of payouts$ | async" [payout]="payout"></dsh-payout-panel>
+        <dsh-payout-panel-accordion fxLayout="column" fxLayoutGap="20px" (expanded)="expand($event)">
+            <dsh-payout-panel
+                *ngFor="let payout of payouts$ | async"
+                [payout]="payout"
+                (click)="select(payout.id)"
+            ></dsh-payout-panel>
+        </dsh-payout-panel-accordion>
         <dsh-card *ngIf="hasMore$ | async" class="dsh-payouts-show-more" fxLayout>
             <button dsh-button (click)="fetchMore()" [disabled]="isLoading$ | async" fxFlex *transloco="let t">
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}
             </button>
         </dsh-card>
-        <div *ngIf="!(payouts$ | async)?.length" class="mat-headline dsh-payouts-empty">
-            {{ p.empty }}
+        <div *ngIf="!(payouts$ | async)?.length && !(isLoading$ | async)" class="mat-headline dsh-payouts-empty">
+            <ng-container *transloco="let t">
+                {{ t.emptySearchResult }}
+            </ng-container>
         </div>
     </ng-container>
     <div *ngIf="isInit$ | async" fxLayout fxFlexAlign="center">

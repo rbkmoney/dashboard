@@ -1,8 +1,8 @@
-import { Component, Inject, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { LAYOUT_GAP } from '../../constants';
-import { StatusColor as Color } from '../../../theme-manager';
 import { Invoice, InvoiceStatus } from '../../../api-codegen/anapi/swagger-codegen';
+import { StatusColor as Color } from '../../../theme-manager';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-details',

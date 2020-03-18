@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { StepFlowService } from './step-flow';
-import { QuestionaryStateService } from './questionary-state.service';
 import { DataFlowService } from './data-flow.service';
+import { QuestionaryStateService } from './questionary-state.service';
+import { StepFlowService } from './step-flow';
 
 @Component({
     selector: 'dsh-data-flow',

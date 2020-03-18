@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { QuestionaryFormService } from '../questionary-form.service';
-import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
-import { StepName } from '../../step-flow';
 import { QuestionaryData } from '../../../../../api-codegen/questionary/swagger-codegen';
+import { QuestionaryStateService } from '../../questionary-state.service';
+import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
 import { FormValue } from '../form-value';
-import { toFormValue } from './to-form-value';
-import { applyToQuestionaryData } from './apply-to-questionary-data';
+import { QuestionaryFormService } from '../questionary-form.service';
 import {
-    PdlInfoService,
-    RussianDomesticPassportService,
     IndividualResidencyInfoService,
-    PrivateEntityInfoService
+    PdlInfoService,
+    PrivateEntityInfoService,
+    RussianDomesticPassportService
 } from '../subforms';
+import { applyToQuestionaryData } from './apply-to-questionary-data';
+import { toFormValue } from './to-form-value';
 
 @Injectable()
 export class RussianPrivateEntityService extends QuestionaryFormService {

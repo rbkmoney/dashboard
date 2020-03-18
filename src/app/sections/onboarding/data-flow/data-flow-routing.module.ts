@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { DataFlowComponent } from './data-flow.component';
 import {
     BasicInfoComponent,
-    RussianLegalOwnerComponent,
-    RussianPrivateEntityComponent,
-    FinancialAndEconomicActivityComponent,
     BeneficialOwnersComponent,
-    PlanningOperationsAndPayoutToolComponent
+    FinancialAndEconomicActivityComponent,
+    PlanningOperationsAndPayoutToolComponent,
+    RussianLegalOwnerComponent,
+    RussianPrivateEntityComponent
 } from './forms';
-import { DataFlowComponent } from './data-flow.component';
 import { StepName } from './step-flow';
 
 export const routes: Routes = [

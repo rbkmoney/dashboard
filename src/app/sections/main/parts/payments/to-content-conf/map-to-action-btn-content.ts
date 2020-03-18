@@ -1,11 +1,11 @@
-import { Observable, of, iif } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
 import last from 'lodash.last';
+import { iif, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
-import { Claim, StatusModificationUnit, ClaimChangeset } from '../../../../../api-codegen/claim-management';
+import { Claim, ClaimChangeset, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
+import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
 import { routeEnv } from '../../../../route-env';
 import { ActionBtnContent } from '../content-config';
-import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
 
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({
     routerLink,

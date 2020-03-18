@@ -1,10 +1,10 @@
-import { Component, Input, ViewChild, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material';
 import moment, { Moment } from 'moment';
+import { map } from 'rxjs/operators';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
 import { SetIntersection } from 'utility-types';
-import { map } from 'rxjs/operators';
 
 import { CustomFormControl } from '../utils';
 
@@ -88,7 +88,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     }
 
     toPublicValue({ begin, end }: InternalRange): Range {
-        return { begin: moment(begin), end: moment(end), period: this.period };
+        return { begin: moment(begin).startOf('day'), end: moment(end).endOf('day'), period: this.period };
     }
 
     toInternalValue({ begin, end }: Range): InternalRange {

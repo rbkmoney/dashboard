@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 
 import { InvoiceCart } from '../../../api-codegen/anapi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';

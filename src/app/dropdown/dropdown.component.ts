@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, EventEmitter, Output, TemplateRef, ContentChild } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { openCloseAnimation, State } from './open-close-animation';

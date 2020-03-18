@@ -1,11 +1,10 @@
 import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TableModule } from './';
-import { expectTableTodshChContent } from './table-utils.spec';
 import {
     ArrayDataSourceDshTableAppComponent,
     DshTableAppComponent,
@@ -16,6 +15,7 @@ import {
     TableWithNgContainerRowComponent,
     TestData
 } from './components.spec';
+import { expectTableTodshChContent } from './table-utils.spec';
 
 describe('DshTable', () => {
     beforeEach(async(() => {

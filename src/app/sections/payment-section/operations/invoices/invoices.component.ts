@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 
+import { SpinnerType } from '../../../../spinner';
 import { InvoicesService } from './invoices.service';
 import { InvoiceSearchFormValue } from './search-form';
-import { SpinnerType } from '../../../../spinner';
 
 @Component({
     selector: 'dsh-invoices',

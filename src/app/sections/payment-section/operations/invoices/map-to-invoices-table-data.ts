@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Shop, Invoice } from '../../../../api-codegen/anapi';
-import { InvoicesTableData } from './table';
+import { Invoice, Shop } from '../../../../api-codegen/anapi';
 import { toShopName } from '../../../../api/shop/utils';
+import { InvoicesTableData } from './table';
 
 const toInvoiceTableData = (
     { amount, status, createdAt, shopID, id, currency }: Invoice,

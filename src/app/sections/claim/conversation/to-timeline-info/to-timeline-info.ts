@@ -1,7 +1,7 @@
-import { ModificationUnit, ClaimModification, Modification } from '../../../../api-codegen/claim-management';
-import { TimelineItemInfo, TimelineAction } from './model';
+import { ClaimModification, Modification, ModificationUnit } from '../../../../api-codegen/claim-management';
 import { sortUnitsByCreatedAtAsc } from '../../../../api/claims/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
+import { TimelineAction, TimelineItemInfo } from './model';
 
 const getUnitTimelineAction = (modification: Modification): TimelineAction | null => {
     switch (modification.modificationType) {

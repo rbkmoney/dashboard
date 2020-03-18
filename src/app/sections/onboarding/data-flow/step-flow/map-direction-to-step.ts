@@ -1,5 +1,5 @@
 import { Observable, of, zip } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { StepName } from './step-name';
 

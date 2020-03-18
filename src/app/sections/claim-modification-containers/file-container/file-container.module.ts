@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { FileContainerComponent } from './file-container.component';
 import { PanelModule } from '../../../layout/panel';
+import { FileContainerComponent } from './file-container.component';
 
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, MatIconModule, PanelModule, TranslocoModule],

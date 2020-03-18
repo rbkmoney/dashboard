@@ -1,4 +1,4 @@
-import { Observable, throwError, iif, of } from 'rxjs';
+import { iif, Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { ResultWithToken } from './result-with-token';

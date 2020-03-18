@@ -1,5 +1,5 @@
-import { Observable, iif, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { iif, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
 

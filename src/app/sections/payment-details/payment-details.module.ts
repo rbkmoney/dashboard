@@ -1,41 +1,41 @@
-import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { RefundItemComponent, RefundsComponent } from './refunds';
+import { InvoiceModule } from '../../api/invoice';
+import { SearchModule } from '../../api/search';
+import { ButtonModule } from '../../button';
+import { DetailsItemModule } from '../../details-item/details-item.module';
+import { FromMinorModule } from '../../from-minor';
+import { HumanizeDurationModule } from '../../humanize-duration';
 import { LayoutModule } from '../../layout';
-import { StatusModule } from '../../status';
-import { DetailsComponent } from './details';
 import { CardModule } from '../../layout/card';
+import { SpinnerModule } from '../../spinner';
+import { StatusModule } from '../../status';
+import { ShopDetailsModule } from '../shop-details/shop-details.module';
+import { AmountPipe } from './amount.pipe';
+import { BankCardPipe } from './bank-card.pipe';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { DetailsComponent } from './details';
+import { HoldDetailsComponent } from './hold-details';
+import { InvoiceDetailsComponent } from './invoice-details';
+import { MakeRecurrentComponent } from './make-recurrent';
+import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
+import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
+import { PaymentDetailsComponent } from './payment-details.component';
 import {
     BankCardComponent,
     DigitalWalletComponent,
     PaymentTerminalComponent,
     PaymentToolComponent
 } from './payment-tool';
-import { AmountPipe } from './amount.pipe';
-import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
-import { HoldDetailsComponent } from './hold-details';
-import { ButtonModule } from '../../button';
-import { RecurrentDetailsComponent } from './recurrent-details';
-import { InvoiceDetailsComponent } from './invoice-details';
-import { PaymentDetailsComponent } from './payment-details.component';
-import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
-import { StatusDetailsItemComponent } from './status-details-item';
-import { CurrencySymbolPipe } from './currency-symbol.pipe';
-import { BankCardPipe } from './bank-card.pipe';
 import { PhoneNumberPipe } from './phone-number.pipe';
-import { SearchModule } from '../../api/search';
-import { FromMinorModule } from '../../from-minor';
-import { MakeRecurrentComponent } from './make-recurrent';
-import { InvoiceModule } from '../../api/invoice';
-import { HumanizeDurationModule } from '../../humanize-duration';
-import { DetailsItemModule } from '../../details-item/details-item.module';
-import { ShopDetailsModule } from '../shop-details/shop-details.module';
-import { SpinnerModule } from '../../spinner';
+import { RecurrentDetailsComponent } from './recurrent-details';
+import { RefundItemComponent, RefundsComponent } from './refunds';
+import { StatusDetailsItemComponent } from './status-details-item';
 
 @NgModule({
     imports: [

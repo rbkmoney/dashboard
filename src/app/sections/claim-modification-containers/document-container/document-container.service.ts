@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, ReplaySubject } from 'rxjs';
-import { switchMap, pluck, shareReplay, map } from 'rxjs/operators';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import {
-    QuestionaryService,
     isRussianIndividualEntityQuestionary,
-    isRussianLegalEntityQuestionary
+    isRussianLegalEntityQuestionary,
+    QuestionaryService
 } from '../../../api';
+import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { booleanDelay, takeError } from '../../../custom-operators';
-import { toPanelInfo, PanelInfo } from './to-panel-info';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { PanelInfo, toPanelInfo } from './to-panel-info';
 
 @Injectable()
 export class DocumentContainerService {

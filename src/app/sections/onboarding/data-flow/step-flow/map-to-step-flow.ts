@@ -1,9 +1,9 @@
+import get from 'lodash.get';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import get from 'lodash.get';
 
 import { Contractor, QuestionaryData } from '../../../../api-codegen/questionary';
-import { LegalEntityStepFlow, IndividualEntityStepFlow } from './step-flows';
+import { IndividualEntityStepFlow, LegalEntityStepFlow } from './step-flows';
 import { StepName } from './step-name';
 
 export const mapToStepFlow = (s: Observable<QuestionaryData>): Observable<StepName[] | null> =>

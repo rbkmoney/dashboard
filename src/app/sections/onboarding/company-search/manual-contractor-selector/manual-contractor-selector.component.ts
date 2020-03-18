@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 
 import { Contractor } from '../../../../api-codegen/questionary';

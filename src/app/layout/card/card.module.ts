@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import {
+    CardActionsComponent,
     CardComponent,
     CardContentComponent,
-    CardTitleDirective,
     CardHeaderComponent,
-    CardActionsComponent
+    CardTitleDirective
 } from './card.component';
 
 const EXPORTED_DECLARATIONS = [

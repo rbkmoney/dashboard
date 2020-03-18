@@ -1,4 +1,3 @@
-import { Directive, HostBinding, Input } from '@angular/core';
 import {
     CdkCell,
     CdkCellDef,
@@ -8,6 +7,7 @@ import {
     CdkHeaderCell,
     CdkHeaderCellDef
 } from '@angular/cdk/table';
+import { Directive, HostBinding, Input } from '@angular/core';
 
 @Directive({
     selector: '[dshCellDef]',

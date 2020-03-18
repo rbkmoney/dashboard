@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { FilesService } from './files.service';
 import { FilesService as ApiFilesService } from '../../api-codegen/dark-api';
+import { FilesService } from './files.service';
 
 @NgModule({
     providers: [FilesService, ApiFilesService]

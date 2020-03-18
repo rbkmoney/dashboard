@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatRadioModule, MatSelectModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatRadioModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { LayoutModule } from '../../../layout';
-import { DaDataModule } from '../../../dadata';
-import { ButtonModule } from '../../../button';
-import { CompanySearchComponent } from './company-search.component';
-import { CompanyDetailsComponent } from './company-details';
-import { CompanyDetailItemComponent } from './company-detail-item';
-import { ManualContractorSelectorComponent } from './manual-contractor-selector';
-import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { KonturFocusModule } from '../../../api';
+import { ButtonModule } from '../../../button';
+import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
+import { DaDataModule } from '../../../dadata';
+import { LayoutModule } from '../../../layout';
+import { CompanyDetailItemComponent } from './company-detail-item';
+import { CompanyDetailsComponent } from './company-details';
+import { CompanySearchComponent } from './company-search.component';
+import { ManualContractorSelectorComponent } from './manual-contractor-selector';
 
 @NgModule({
     imports: [

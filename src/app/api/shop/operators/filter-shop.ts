@@ -1,6 +1,6 @@
+import negate from 'lodash.negate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import negate from 'lodash.negate';
 
 import { Shop } from '../../../api-codegen/capi';
 

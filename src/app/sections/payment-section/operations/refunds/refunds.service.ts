@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { catchError, shareReplay, switchMap } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
-import { ActivatedRoute } from '@angular/router';
 
-import { RefundsSearchFormValue } from './search-form';
-import { RefundSearchService } from '../../../../api/search';
 import { RefundSearchResult } from '../../../../api-codegen/capi';
-import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
-import { RefundsTableData } from './table';
-import { mapToTimestamp } from '../operators';
-import { booleanDebounceTime } from '../../../../custom-operators';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
+import { booleanDebounceTime } from '../../../../custom-operators';
+import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { mapToTimestamp } from '../operators';
+import { RefundsSearchFormValue } from './search-form';
+import { RefundsTableData } from './table';
 
 @Injectable()
 export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchFormValue> {
@@ -50,8 +50,8 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.refundSearchService.searchRefunds(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params.invoiceID,
                     params.paymentID,
                     this.searchLimit,

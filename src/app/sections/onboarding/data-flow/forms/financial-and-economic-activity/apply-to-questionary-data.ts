@@ -1,15 +1,15 @@
 import get from 'lodash.get';
 
 import {
-    QuestionaryData,
-    RussianLegalEntity,
-    LegalEntityContractor,
     AccountantInfo,
-    IndividualEntityContractor,
-    RussianIndividualEntity,
     AdditionalInfo,
     Contractor,
+    IndividualEntityContractor,
+    LegalEntityContractor,
     LegalResidencyInfo,
+    QuestionaryData,
+    RussianIndividualEntity,
+    RussianLegalEntity,
     WithoutChiefAccountingOrganization
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';

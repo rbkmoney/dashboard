@@ -1,31 +1,31 @@
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
+import { MatIconRegistry } from '@angular/material';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
     MomentDateAdapter
 } from '@angular/material-moment-adapter';
-import { MatIconRegistry } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 
+import { environment } from '../environments/environment';
+import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
-import { initializer } from './initializer';
-import { APICodegenModule } from './api-codegen';
-import { SectionsModule } from './sections';
-import { ThemeManagerModule } from './theme-manager';
 import { ConfigModule, ConfigService } from './config';
-import { SettingsModule } from './settings';
 import { ContainerModule } from './container';
 import icons from './icons.json';
-import { environment } from '../environments/environment';
-import { translocoLoader } from './transloco.loader';
+import { initializer } from './initializer';
 import { LanguageService } from './language';
+import { SectionsModule } from './sections';
+import { SettingsModule } from './settings';
+import { ThemeManagerModule } from './theme-manager';
+import { translocoLoader } from './transloco.loader';
 
 @NgModule({
     declarations: [AppComponent],
