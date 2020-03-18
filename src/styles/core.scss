@@ -21,13 +21,13 @@
 @import '../components/layout/tabs/tabs-theme';
 @import '../components/layout/timeline/timeline-theme';
 @import '../components/layout/panel/panel-theme';
+@import '../components/layout/dropdown/dropdown-theme';
+@import '../components/charts/bar-chart/bar-chart-theme';
+@import '../components/charts/linear-chart/linear-chart-theme';
+@import '../components/charts/legend-tooltip/legend-tooltip-theme';
 
 @import '../app/container/container-theme';
-@import '../app/dropdown/dropdown-theme';
-@import '../app/charts/bar-chart/bar-chart-theme';
-@import '../app/charts/linear-chart/linear-chart-theme';
 @import '../app/state-nav/state-nav-theme';
-@import '../app/charts/legend-tooltip/legend-tooltip-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
 @import '../app/expand-panel/expand-panel-theme';
