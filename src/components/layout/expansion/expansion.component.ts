@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 
-import { LAYOUT_GAP } from '../sections/constants';
+import { LAYOUT_GAP } from '../../../app/sections/constants';
 
 @Component({
     selector: 'dsh-expansion',

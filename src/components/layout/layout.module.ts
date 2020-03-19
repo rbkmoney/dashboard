@@ -4,6 +4,7 @@ import { CardModule } from './card';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpandPanelModule } from './expand-panel';
+import { ExpansionModule } from './expansion';
 import { FloatPanelModule } from './float-panel';
 import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
@@ -21,7 +22,8 @@ const EXPORTED_MODULES = [
     PanelModule,
     DshTabsModule,
     TimelineModule,
-    DetailsItemModule
+    DetailsItemModule,
+    ExpansionModule
 ];
 
 @NgModule({
