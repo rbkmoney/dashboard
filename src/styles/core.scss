@@ -30,7 +30,6 @@
 @import '../app/container/container-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
-@import '../app/expand-panel/expand-panel-theme';
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
 
@@ -52,7 +51,6 @@
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
-    @include dsh-expand-panel-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-table-typography($config);

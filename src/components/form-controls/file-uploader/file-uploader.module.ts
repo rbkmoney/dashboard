@@ -4,7 +4,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ngfModule } from 'angular-file';
 
-import { FilesModule } from '../api';
+import { FilesModule } from '../../../app/api';
 import { FileUploaderComponent } from './file-uploader.component';
 import { FileUploaderService } from './file-uploader.service';
 
