@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '../../../components/buttons';
-import { ResizedModule } from '../../indicators/resized';
+import { ButtonModule } from '../../buttons';
+import { ResizedModule } from '../../indicators';
 import { CardModule } from '../card';
 import { FloatPanelComponent } from './float-panel.component';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
