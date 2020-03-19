@@ -1,3 +1,3 @@
-import { InlineResponse2002 } from '../../../api-codegen/anapi/swagger-codegen';
+import { InlineResponse2008 } from '../../../api-codegen/anapi/swagger-codegen';
 
-export type PayoutsWithToken = InlineResponse2002;
+export type PayoutsWithToken = InlineResponse2008;
