@@ -15,7 +15,8 @@ import { ReportsService } from './reports.service';
 })
 export class ReportsComponent {
     reports$ = this.reportsService.searchResult$;
-    isLoading$ = this.reportsService.doAction$.pipe(
+    doAction$ = this.reportsService.doAction$;
+    isLoading$ = this.doAction$.pipe(
         booleanDebounceTime(),
         shareReplay(1)
     );

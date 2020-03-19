@@ -11,7 +11,6 @@ import {
 } from '../../api-codegen/claim-management';
 import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';
-import { ClaimsWithToken } from './models';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;
 
@@ -24,7 +23,7 @@ export class ClaimsService {
         claimStatuses?: StatusModificationUnit.StatusEnum[],
         claimID?: number,
         continuationToken?: string
-    ): Observable<ClaimsWithToken> {
+    ) {
         return this.claimsService.searchClaims(
             genXRequestID(),
             limit,

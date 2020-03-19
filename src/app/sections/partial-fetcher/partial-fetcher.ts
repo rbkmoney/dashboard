@@ -52,7 +52,7 @@ export abstract class PartialFetcher<R, P> {
             shareReplay(SHARE_REPLAY_CONF)
         );
 
-        this.doAction$ = progress(actionWithParams$, fetchResult$).pipe(shareReplay(SHARE_REPLAY_CONF));
+        this.doAction$ = progress(actionWithParams$, fetchResult$, true).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.doSearchAction$ = progress(
             actionWithParams$.pipe(filter(({ type }) => type === 'search')),
             fetchResult$,
@@ -74,8 +74,8 @@ export abstract class PartialFetcher<R, P> {
         ).subscribe();
     }
 
-    search(value: P, limit?: number) {
-        this.action$.next({ type: 'search', value, limit });
+    search(value: P) {
+        this.action$.next({ type: 'search', value });
     }
 
     refresh() {

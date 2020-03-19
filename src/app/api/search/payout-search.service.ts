@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { SearchService } from '../../api-codegen/anapi';
 import { genXRequestID, toDateLike } from '../utils';
-import { PayoutsSearchParams, PayoutsWithToken } from './model';
+import { PayoutsSearchParams } from './model';
 
 @Injectable()
 export class PayoutSearchService {
     constructor(private searchService: SearchService) {}
 
-    searchPayouts(
-        fromTime: string,
-        toTime: string,
-        limit: number,
-        options: PayoutsSearchParams
-    ): Observable<PayoutsWithToken> {
+    searchPayouts(fromTime: string, toTime: string, limit: number, options: PayoutsSearchParams) {
         return this.searchService.searchPayouts(
             genXRequestID(),
             toDateLike(fromTime),

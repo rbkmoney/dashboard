@@ -23,7 +23,7 @@
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}
             </button>
         </dsh-card>
-        <div *ngIf="!(payouts$ | async)?.length && !(isLoading$ | async)" class="mat-headline dsh-payouts-empty">
+        <div *ngIf="!(payouts$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-payouts-empty">
             <ng-container *transloco="let t">
                 {{ t.emptySearchResult }}
             </ng-container>
