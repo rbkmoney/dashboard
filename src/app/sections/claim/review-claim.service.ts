@@ -4,8 +4,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
 import { ClaimsService } from '../../api';
-import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { progress } from '../../custom-operators';
 import { UIError } from '../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';

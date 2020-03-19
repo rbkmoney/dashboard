@@ -7,9 +7,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { FilesModule, MessagesModule } from '../../../api';
-import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import {
     CommentContainerModule,

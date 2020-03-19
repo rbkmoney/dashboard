@@ -8,9 +8,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { KonturFocusModule } from '../../../api';
-import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
 import { DaDataModule } from '../../../dadata';
 import { CompanyDetailItemComponent } from './company-detail-item';
 import { CompanyDetailsComponent } from './company-details';

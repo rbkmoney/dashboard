@@ -8,9 +8,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { ClaimsModule, QuestionaryModule } from '../../api';
-import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ConversationModule } from './conversation';
