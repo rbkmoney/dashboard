@@ -9,7 +9,6 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
-import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { CartComponent } from './cart/cart.component';
@@ -28,7 +27,6 @@ import { PaymentsComponent } from './payments/payments.component';
         FlexLayoutModule,
         LayoutModule,
         TranslocoModule,
-        DetailsItemModule,
         IndicatorsModule,
         InvoiceDetailsRoutingModule,
         ButtonModule,

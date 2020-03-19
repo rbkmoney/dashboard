@@ -7,7 +7,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { QuestionaryModule } from '../../../api';
-import { DetailsItemModule } from '../../../details-item';
 import { AdditionalInfoComponent } from './additional-info';
 import { AuthorityConfirmingDocumentInfoComponent } from './authority-confirming-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';
@@ -24,15 +23,7 @@ import { ShopInfoComponent } from './shop-info';
 import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        LayoutModule,
-        FlexLayoutModule,
-        TranslocoModule,
-        QuestionaryModule,
-        DetailsItemModule,
-        MatDividerModule
-    ],
+    imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule, QuestionaryModule, MatDividerModule],
     declarations: [
         OrgInfoComponent,
         ShopInfoComponent,

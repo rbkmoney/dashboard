@@ -8,3 +8,4 @@ export * from './panel';
 export * from './tabs';
 export * from './timeline';
 export * from './dropdown';
+export * from './details-item';

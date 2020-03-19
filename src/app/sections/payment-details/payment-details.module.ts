@@ -11,7 +11,6 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
-import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
@@ -49,7 +48,6 @@ import { StatusDetailsItemComponent } from './status-details-item';
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,
-        DetailsItemModule,
         ShopDetailsModule,
         PaymentDetailsRoutingModule,
         IndicatorsModule

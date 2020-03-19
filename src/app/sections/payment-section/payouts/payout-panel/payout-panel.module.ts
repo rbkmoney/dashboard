@@ -10,7 +10,6 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
-import { DetailsItemModule } from '../../../../details-item';
 import { FromMinorModule } from '../../../../from-minor';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { BankCardInfoComponent } from './bank-card-info';
@@ -31,7 +30,6 @@ import { WalletInfoComponent } from './wallet-info';
         FlexLayoutModule,
         CommonModule,
         MatDividerModule,
-        DetailsItemModule,
         ButtonModule,
         TranslocoModule,
         FromMinorModule,

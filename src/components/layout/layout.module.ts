@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CardModule } from './card';
+import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpandPanelModule } from './expand-panel';
 import { FloatPanelModule } from './float-panel';
@@ -10,7 +11,7 @@ import { PanelModule } from './panel';
 import { DshTabsModule } from './tabs';
 import { TimelineModule } from './timeline';
 
-const EXPORTED_IMPORTS = [
+const EXPORTED_MODULES = [
     CardModule,
     DropdownModule,
     ExpandPanelModule,
@@ -19,11 +20,12 @@ const EXPORTED_IMPORTS = [
     JustifyWrapperModule,
     PanelModule,
     DshTabsModule,
-    TimelineModule
+    TimelineModule,
+    DetailsItemModule
 ];
 
 @NgModule({
-    imports: EXPORTED_IMPORTS,
-    exports: EXPORTED_IMPORTS
+    imports: EXPORTED_MODULES,
+    exports: EXPORTED_MODULES
 })
 export class LayoutModule {}
