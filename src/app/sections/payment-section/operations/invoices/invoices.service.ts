@@ -3,12 +3,11 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { Invoice } from '../../../../api-codegen/anapi';
 import { InvoiceSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { booleanDebounceTime } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { mapToTimestamp } from '../operators';
@@ -31,11 +30,6 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
-    );
-
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
     );
 
     constructor(
