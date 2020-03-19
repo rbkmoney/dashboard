@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { smoothChangeTo } from '../../utils';
+import { smoothChangeTo } from '../../../utils';
 import { hideAnimation } from './hide-animation';
 
 const RIGHT_OFFSET = 30;

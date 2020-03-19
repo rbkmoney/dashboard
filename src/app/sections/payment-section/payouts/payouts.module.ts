@@ -15,9 +15,9 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { ScrollUpModule } from '@dsh/components/navigation';
 
 import { SearchModule } from '../../../api';
-import { ScrollUpModule } from '../../../scroll-up';
 import { PayoutPanelModule } from './payout-panel';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';
