@@ -18,28 +18,31 @@ import {
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 
-type ParamsByRequestType = Mapping<RequestType,
+type ParamsByRequestType = Mapping<
+    RequestType,
     KonturFocusRequest,
     {
         ReqQuery: ReqQuery;
         EgrDetailsQuery: EgrDetailsQuery;
         LicencesQuery: LicencesQuery;
         BeneficialOwnerQuery: KonturFocusRequest;
-    }>;
+    }
+>;
 
-export type ResponsesByRequestType = Mapping<RequestType,
+export type ResponsesByRequestType = Mapping<
+    RequestType,
     KonturFocusResponse,
     {
         ReqQuery: ReqResponses;
         EgrDetailsQuery: EgrDetailsResponses;
         LicencesQuery: LicencesResponses;
         BeneficialOwnerQuery: KonturFocusResponse;
-    }>;
+    }
+>;
 
 @Injectable()
 export class KonturFocusService {
-    constructor(private konturFocusService: KonturFocusApiService) {
-    }
+    constructor(private konturFocusService: KonturFocusApiService) {}
 
     request<T extends RequestType>(
         konturFocusRequestType: T,
