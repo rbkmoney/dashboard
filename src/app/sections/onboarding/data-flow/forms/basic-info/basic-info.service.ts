@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import { individualOrLegalEntityInnValidator, phoneNumberValidator } from '../../../../../form-controls';
+import { QuestionaryStateService } from '../../questionary-state.service';
+import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
+import { FormValue } from '../form-value';
 import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
-import { FormValue } from '../form-value';
-import { StepName } from '../../step-flow';
-import { phoneNumberValidator, individualOrLegalEntityInnValidator } from '../../../../../form-controls';
 import { toFormValue } from './to-form-value';
 
 @Injectable()

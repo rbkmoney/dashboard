@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LAYOUT_GAP } from '../../../../../constants';
 

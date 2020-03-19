@@ -1,22 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AnalyticsComponent } from './analytics.component';
-import { LayoutModule } from '../../../layout';
-import { AnalyticsRoutingModule } from './analytics-routing.module';
-import { SearchFormComponent } from './search-form';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
-import { JustifyWrapperModule } from '../../../layout/justify-wrapper';
 import { BarChartModule } from '../../../charts/bar-chart';
 import { DonutChartModule } from '../../../charts/donut-chart';
-import { PercentDifferenceComponent } from './percent-difference';
-import { MiniCardModule } from './mini-card';
-import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { RangeDatepickerModule } from '../../../form-controls/range-datepicker';
+import { LayoutModule } from '../../../layout';
+import { JustifyWrapperModule } from '../../../layout/justify-wrapper';
+import { AnalyticsRoutingModule } from './analytics-routing.module';
+import { AnalyticsComponent } from './analytics.component';
+import { MiniCardModule } from './mini-card';
+import { PercentDifferenceComponent } from './percent-difference';
+import { SearchFormComponent } from './search-form';
+import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { SpinnerModule } from '../../../spinner';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { SpinnerModule } from '../../../spinner';
         LayoutModule,
         FlexLayoutModule,
         TranslocoModule,
-        DaterangeSelectorModule,
         JustifyWrapperModule,
         ReactiveFormsModule,
         FormsModule,

@@ -1,17 +1,17 @@
-import { Observable, combineLatest, iif, of, merge } from 'rxjs';
-import { map, first, pluck, switchMap, filter, reduce } from 'rxjs/operators';
-import negate from 'lodash.negate';
-import last from 'lodash.last';
 import isEmpty from 'lodash.isempty';
+import last from 'lodash.last';
+import negate from 'lodash.negate';
+import { combineLatest, iif, merge, Observable, of } from 'rxjs';
+import { filter, first, map, pluck, reduce, switchMap } from 'rxjs/operators';
 
 import {
-    QuestionaryData,
-    ShopInfo,
     BankAccount,
-    LegalOwnerInfo,
-    RussianIndividualEntity,
     ContactInfo,
-    RussianLegalEntity
+    LegalOwnerInfo,
+    QuestionaryData,
+    RussianIndividualEntity,
+    RussianLegalEntity,
+    ShopInfo
 } from '../../../api-codegen/questionary';
 import { OrgInfo } from './org-info';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { config as appConfig } from './config-stub';
 import { BaseConfig } from './config';
+import { config as appConfig } from './config-stub';
 
 @Injectable()
 export class ConfigStubService extends BaseConfig {

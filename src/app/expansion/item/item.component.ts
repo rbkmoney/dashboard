@@ -1,7 +1,7 @@
-import { Component, AfterViewInit, ContentChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild } from '@angular/core';
 
-import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
     selector: 'dsh-expansion-item',

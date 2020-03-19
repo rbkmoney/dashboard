@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusColor } from '../../../../theme-manager';
 import { Invoice } from '../../../../api-codegen/anapi/swagger-codegen';
+import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
     name: 'invoiceStatusColor'

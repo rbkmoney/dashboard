@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { ApiModule, Configuration } from './swagger-codegen';
 import { ClaimManagementConfigService } from './claim-management-config.service';
 import { ClaimsService } from './claims.service';
+import { ApiModule, Configuration } from './swagger-codegen';
 
 @NgModule({
     imports: [

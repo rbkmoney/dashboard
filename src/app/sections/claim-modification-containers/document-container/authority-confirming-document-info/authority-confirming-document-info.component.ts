@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { AuthorityConfirmingDocumentType } from '../../../../api/questionary/model';
 import { AuthorityConfirmingDocument } from '../../../../api-codegen/questionary';
+import { AuthorityConfirmingDocumentType } from '../../../../api/questionary/model';
 
 @Component({
     selector: 'dsh-authority-confirming-document-info',

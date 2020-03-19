@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { switchMap, first, shareReplay, map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { first, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { ReportsService } from '../../api/reports';
 import { Report } from '../../api-codegen/anapi/swagger-codegen';
+import { ReportsService } from '../../api/reports';
 import { booleanDelay, takeError } from '../../custom-operators';
 
 @Injectable()

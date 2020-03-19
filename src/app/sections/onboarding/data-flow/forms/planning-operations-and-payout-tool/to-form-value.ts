@@ -1,11 +1,11 @@
 import get from 'lodash.get';
 
 import {
-    QuestionaryData,
     BankAccount,
     Contractor,
+    IndividualEntity,
     LegalEntity,
-    IndividualEntity
+    QuestionaryData
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 

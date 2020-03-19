@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { filter, catchError } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 
 export const takeError = <T>(source: Observable<T>) =>
     source.pipe(

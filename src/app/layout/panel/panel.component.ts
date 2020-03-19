@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'dsh-panel-content',

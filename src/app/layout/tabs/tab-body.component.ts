@@ -1,3 +1,6 @@
+import { AnimationEvent } from '@angular/animations';
+import { Direction, Directionality } from '@angular/cdk/bidi';
+import { CdkPortalOutlet, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
 import {
     ChangeDetectorRef,
     Component,
@@ -17,9 +20,6 @@ import {
     ViewContainerRef,
     ViewEncapsulation
 } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
-import { CdkPortalOutlet, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
-import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
 

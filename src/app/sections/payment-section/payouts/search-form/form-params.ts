@@ -1,7 +1,6 @@
-import { Moment } from 'moment';
+import { Range } from '../../../../form-controls';
 
 export interface FormParams {
-    fromTime: Moment;
-    toTime: Moment;
+    date: Range;
     shopID?: string;
 }

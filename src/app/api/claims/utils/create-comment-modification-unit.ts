@@ -1,5 +1,5 @@
-import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 import { CommentModificationUnit } from '../../../api-codegen/claim-management';
+import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 
 export const createCommentModificationUnit = (
     commentId: string

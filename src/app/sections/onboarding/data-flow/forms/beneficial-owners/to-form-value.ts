@@ -1,8 +1,8 @@
 import get from 'lodash.get';
 
-import { QuestionaryData, Contractor, BeneficialOwner } from '../../../../../api-codegen/questionary';
+import { BeneficialOwner, Contractor, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-import { toRussianDomesticPassport, toResidencyInfo, toPdlInfo } from '../subforms';
+import { toPdlInfo, toResidencyInfo, toRussianDomesticPassport } from '../subforms';
 
 const extractBeneficialOwner = (c: Contractor): BeneficialOwner[] => {
     switch (get(c, ['contractorType'])) {

@@ -1,5 +1,5 @@
-import { StatusColor } from '../../theme-manager';
 import { StatusModificationUnit } from '../../api-codegen/claim-management';
+import { StatusColor } from '../../theme-manager';
 
 type ClaimStatus = StatusModificationUnit.StatusEnum;
 

@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
-import moment from 'moment';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { ReportsService as ReportsApiService } from '../../../../api';

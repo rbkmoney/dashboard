@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { Subject, of, zip, Observable, combineLatest } from 'rxjs';
-import { map, switchMap, pluck, shareReplay, switchMapTo } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest, Observable, of, Subject, zip } from 'rxjs';
+import { map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
-import { StepFlowService } from '../step-flow';
-import { QuestionaryStateService } from '../questionary-state.service';
 import { ClaimsService } from '../../../../api';
 import { FinishOnboardingDialogComponent } from '../finish-onboarding-dialog';
+import { QuestionaryStateService } from '../questionary-state.service';
+import { StepFlowService } from '../step-flow';
 import { ValidityService } from '../validity';
 import { StepNavInfo, toStepNavInfo } from './to-step-nav-info';
 

@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material';
 
 import { HeadlineComponent } from './headline.component';
 import { SecondaryTitleDirective } from './secondary-title';

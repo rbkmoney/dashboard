@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { ApiModule, Configuration, ClaimsService } from './swagger-codegen';
 import { CAPIConfigService } from './capi-config.service';
+import { ApiModule, ClaimsService, Configuration } from './swagger-codegen';
 
 @NgModule({
     imports: [

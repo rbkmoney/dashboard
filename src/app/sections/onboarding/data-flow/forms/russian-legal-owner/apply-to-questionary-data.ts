@@ -1,11 +1,11 @@
 import get from 'lodash.get';
 
 import {
-    QuestionaryData,
+    AuthorityConfirmingDocument,
     LegalEntityContractor,
     LegalOwnerInfo,
-    RussianLegalEntity,
-    AuthorityConfirmingDocument
+    QuestionaryData,
+    RussianLegalEntity
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';

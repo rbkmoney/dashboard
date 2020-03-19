@@ -1,3 +1,5 @@
+import { Directionality } from '@angular/cdk/bidi';
+import { ViewportRuler } from '@angular/cdk/overlay';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -12,12 +14,10 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 
-import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 import { DshInkBarDirective } from './ink-bar.directive';
+import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 
 @Component({
     selector: 'dsh-tab-header',

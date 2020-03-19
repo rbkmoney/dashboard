@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { BrandType } from './brand';
 

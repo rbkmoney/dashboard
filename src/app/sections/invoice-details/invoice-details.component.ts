@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { InvoiceDetailsService } from './invoice-details.service';
 import { LAYOUT_GAP } from '../constants';
+import { InvoiceDetailsService } from './invoice-details.service';
 
 @Component({
     templateUrl: 'invoice-details.component.html',

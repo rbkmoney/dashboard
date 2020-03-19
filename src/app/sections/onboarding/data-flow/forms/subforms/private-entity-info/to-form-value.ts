@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 
-import { RussianIndividualEntity, LegalOwnerInfo } from '../../../../../../api-codegen/questionary';
+import { LegalOwnerInfo, RussianIndividualEntity } from '../../../../../../api-codegen/questionary';
 import { FormValue } from '../../form-value';
 
 export const toPrivateEntityInfo = (i: RussianIndividualEntity | LegalOwnerInfo): FormValue => {

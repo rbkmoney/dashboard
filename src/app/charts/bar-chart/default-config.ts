@@ -1,10 +1,10 @@
-import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
 import { formatDate } from '@angular/common';
 import moment from 'moment';
+import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
 
-import { customTooltip } from './custom-tooltip';
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
+import { customTooltip } from './custom-tooltip';
 
 const COLUMN_WIDTH = '30%';
 

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { registerLocaleData } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import * as moment from 'moment';
 
 import { SettingsService } from '../settings';
-import { Language } from './language';
 import { angularLocaleData } from './angular-locale-data';
+import { Language } from './language';
 
 @Injectable()
 export class LanguageService {

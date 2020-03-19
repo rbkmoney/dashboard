@@ -1,4 +1,4 @@
-import { RussianDomesticPassport, IdentityDocument } from '../../../../../../api-codegen/questionary';
+import { IdentityDocument, RussianDomesticPassport } from '../../../../../../api-codegen/questionary';
 import { FormValue } from '../../form-value';
 
 export const applyToIdentityDocument = (

@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { PaymentSectionComponent } from './payment-section.component';
-import { PaymentSectionRoutingModule } from './payment-section-routing.module';
-import { NavComponent } from './nav';
 import { StateNavModule } from '../../state-nav';
-import { BalancesComponent, BalanceItemComponent } from './nav/balances';
+import { NavComponent } from './nav';
+import { BalanceItemComponent, BalancesComponent } from './nav/balances';
+import { PaymentSectionRoutingModule } from './payment-section-routing.module';
+import { PaymentSectionComponent } from './payment-section.component';
 
 @NgModule({
     imports: [

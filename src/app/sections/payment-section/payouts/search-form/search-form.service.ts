@@ -1,21 +1,22 @@
-import { FormBuilder } from '@angular/forms';
-import moment from 'moment';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import moment from 'moment';
+import { map, startWith } from 'rxjs/operators';
 
-import { toSearchParams } from './to-search-params';
+import { PayoutsService } from '../payouts.service';
 import { FormParams } from './form-params';
 import { toFormValue } from './to-form-value';
 import { toQueryParams } from './to-query-params';
-import { PayoutsService } from '../payouts.service';
+import { toSearchParams } from './to-search-params';
 
 @Injectable()
 export class SearchFormService {
     static defaultParams: FormParams = {
-        fromTime: moment()
-            .subtract(1, 'month')
-            .startOf('day'),
-        toTime: moment().endOf('day'),
+        date: {
+            begin: moment().startOf('month'),
+            end: moment().endOf('month')
+        },
         shopID: null
     };
 
@@ -30,7 +31,7 @@ export class SearchFormService {
         this.init();
     }
 
-    search(value = this.form.value) {
+    search(value) {
         this.payoutsService.search(toSearchParams(value));
     }
 
@@ -40,20 +41,19 @@ export class SearchFormService {
 
     private init() {
         this.syncQueryParams();
-        this.search();
-        this.form.valueChanges.subscribe(v => this.search(v));
+        this.form.valueChanges.pipe(startWith(this.form.value)).subscribe(v => this.search(v));
     }
 
     private syncQueryParams() {
-        const queryParams = this.route.snapshot.queryParams as Record<keyof FormParams, string>;
-        const formValue = toFormValue(queryParams, SearchFormService.defaultParams);
+        const formValue = toFormValue(this.route.snapshot.queryParams, SearchFormService.defaultParams);
         this.form.setValue(formValue);
-        this.setQueryParams(formValue);
-        this.form.valueChanges.subscribe(v => this.setQueryParams(v));
-    }
-
-    private setQueryParams(formValue: FormParams) {
-        const queryParams = toQueryParams(formValue);
-        this.router.navigate([location.pathname], { queryParams });
+        this.form.valueChanges
+            .pipe(
+                startWith(formValue),
+                map(toQueryParams)
+            )
+            .subscribe(queryParams => {
+                this.router.navigate([location.pathname], { queryParams });
+            });
     }
 }

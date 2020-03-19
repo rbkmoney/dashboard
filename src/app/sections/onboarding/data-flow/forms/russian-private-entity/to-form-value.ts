@@ -2,7 +2,7 @@ import get from 'lodash.get';
 
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
-import { toRussianDomesticPassport, toResidencyInfo, toPrivateEntityInfo, toPdlInfo } from '../subforms';
+import { toPdlInfo, toPrivateEntityInfo, toResidencyInfo, toRussianDomesticPassport } from '../subforms';
 
 export const toFormValue = (d: QuestionaryData): FormValue => {
     const e = get(d, ['contractor', 'individualEntity']);

@@ -1,14 +1,14 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import { ButtonToggleModule } from './button-toggle.module';
 import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import {
     ButtonToggleGroupWithFormControlComponent,
     ButtonToggleGroupWithNgModelComponent
 } from './button-toggle.components.spec';
+import { ButtonToggleModule } from './button-toggle.module';
 
 describe('DshButtonToggle with forms', () => {
     beforeEach(fakeAsync(() => {

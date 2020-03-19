@@ -1,13 +1,13 @@
-import {
-    Questionary,
-    IndividualEntityContractor,
-    RussianIndividualEntity,
-    QuestionaryData,
-    Contractor,
-    IndividualResidencyInfo,
-    IndividualRegistrationInfo
-} from '../../../api-codegen/questionary';
 import { Replace } from '../../../../type-utils';
+import {
+    Contractor,
+    IndividualEntityContractor,
+    IndividualRegistrationInfo,
+    IndividualResidencyInfo,
+    Questionary,
+    QuestionaryData,
+    RussianIndividualEntity
+} from '../../../api-codegen/questionary';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,

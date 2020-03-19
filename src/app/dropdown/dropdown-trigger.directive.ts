@@ -1,6 +1,6 @@
-import { Directive, Input, HostListener, ViewContainerRef, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { FlexibleConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { OverlayRef, OverlayConfig, Overlay, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
+import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
 import get from 'lodash.get';
 import { Key } from 'ts-keycode-enum';
 

@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 
-import { QuestionaryData, Contractor, IndividualEntity, LegalEntity } from '../../../../../api-codegen/questionary';
+import { Contractor, IndividualEntity, LegalEntity, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
 const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => {

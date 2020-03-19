@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Translation, TRANSLOCO_LOADER, TranslocoLoader } from '@ngneat/transloco';
 import { Injectable } from '@angular/core';
+import { Translation, TRANSLOCO_LOADER, TranslocoLoader } from '@ngneat/transloco';
 
 @Injectable({ providedIn: 'root' })
 export class HttpLoader implements TranslocoLoader {

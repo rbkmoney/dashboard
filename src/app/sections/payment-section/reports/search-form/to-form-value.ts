@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-import { FormParams } from './form-params';
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
+import { FormParams } from './form-params';
 import { QueryParams } from './query-params';
 
 export function toFormValue(
