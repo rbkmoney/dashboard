@@ -10,7 +10,6 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { FilesModule, MessagesModule } from '../../../api';
 import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
-import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import {
     CommentContainerModule,
@@ -32,7 +31,6 @@ import { SendCommentComponent } from './send-comment';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        ExpandPanelModule,
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,

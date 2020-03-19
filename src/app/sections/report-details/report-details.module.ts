@@ -9,7 +9,6 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule, ReportsService } from '../../api/reports';
-import { ExpandPanelModule } from '../../expand-panel';
 import { ExpansionModule } from '../../expansion/expansion.module';
 import { DetailsComponent } from './details/details.component';
 import { StatusDetailsItemComponent } from './details/status-details-item';
@@ -28,7 +27,6 @@ import { ReportRoutingModule } from './report-routing.module';
         LayoutModule,
         ExpansionModule,
         ButtonModule,
-        ExpandPanelModule,
         IndicatorsModule
     ],
     declarations: [ReportDetailsComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
