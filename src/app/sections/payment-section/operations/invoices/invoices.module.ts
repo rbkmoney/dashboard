@@ -16,11 +16,11 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
-import { StateNavModule } from '../../../../state-nav';
 import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { InvoicesRoutingModule } from './invoices-routing.module';

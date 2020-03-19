@@ -18,10 +18,10 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
-import { StateNavModule } from '../../../state-nav';
 import { EmptySearchResultModule } from '../empty-search-result';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';

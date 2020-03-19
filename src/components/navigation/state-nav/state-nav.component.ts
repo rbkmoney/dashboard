@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { coerceBoolean } from '../../utils';
+import { coerceBoolean } from '../../../utils';
 import { StateNavItemComponent } from './state-nav-item';
 
 @Component({

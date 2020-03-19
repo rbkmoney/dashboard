@@ -10,9 +10,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { DropdownModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
 
 import { ClaimsService } from '../../api/claims';
-import { StateNavModule } from '../../state-nav';
 import { ActionItemComponent } from './action-item';
 import { ActionbarComponent } from './actionbar.component';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';

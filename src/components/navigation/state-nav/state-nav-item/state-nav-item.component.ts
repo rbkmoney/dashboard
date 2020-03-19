@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { coerceBoolean } from '../../../utils';
+import { coerceBoolean } from '../../../../utils';
 
 export enum Color {
     success = 'success',

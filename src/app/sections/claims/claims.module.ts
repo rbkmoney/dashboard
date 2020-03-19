@@ -12,10 +12,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { ClaimsService } from '../../api/claims';
-import { StateNavModule } from '../../state-nav';
 import { LAYOUT_GAP } from '../constants';
 import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';

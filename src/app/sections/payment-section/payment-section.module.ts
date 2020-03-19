@@ -4,7 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { StateNavModule } from '../../state-nav';
+import { StateNavModule } from '@dsh/components/navigation';
+
 import { NavComponent } from './nav';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { PaymentSectionComponent } from './payment-section.component';
