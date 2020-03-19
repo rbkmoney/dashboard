@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { SearchService } from '../../api-codegen/anapi';
 import { genXRequestID, toDateLike } from '../utils';
