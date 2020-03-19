@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { PaymentSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { genXRequestID, toDateLike } from '../utils';
-import { Duration, PaymentsSearchParams, PaymentsWithToken } from './model';
+import { Duration, PaymentsSearchParams } from './model';
 
 @Injectable()
 export class PaymentSearchService {
@@ -18,7 +18,7 @@ export class PaymentSearchService {
         limit: number,
         continuationToken?: string,
         excludedShops?: string[]
-    ): Observable<PaymentsWithToken> {
+    ) {
         return this.searchService.searchPayments(
             genXRequestID(),
             toDateLike(fromTime),
@@ -54,7 +54,7 @@ export class PaymentSearchService {
         params: PaymentsSearchParams,
         limit: number,
         continuationToken?: string
-    ): Observable<PaymentsWithToken> {
+    ) {
         const from = moment()
             .subtract(amount, unit)
             .startOf('d')

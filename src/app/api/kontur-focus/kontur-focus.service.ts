@@ -4,6 +4,8 @@ import { pluck } from 'rxjs/operators';
 
 import { Mapping } from '../../../type-utils';
 import {
+    BeneficialOwnerQuery,
+    BeneficialOwnerResponses,
     EgrDetailsQuery,
     EgrDetailsResponses,
     KonturFocusRequest,
@@ -25,6 +27,7 @@ type ParamsByRequestType = Mapping<
         ReqQuery: ReqQuery;
         EgrDetailsQuery: EgrDetailsQuery;
         LicencesQuery: LicencesQuery;
+        BeneficialOwnerQuery: BeneficialOwnerQuery;
     }
 >;
 
@@ -35,6 +38,7 @@ export type ResponsesByRequestType = Mapping<
         ReqQuery: ReqResponses;
         EgrDetailsQuery: EgrDetailsResponses;
         LicencesQuery: LicencesResponses;
+        BeneficialOwnerQuery: BeneficialOwnerResponses;
     }
 >;
 
