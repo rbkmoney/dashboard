@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import isNil from 'lodash.isnil';
 import { shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { mapToTimestamp } from '../operations/operators';
 import { autoscrollTo } from './autoscroll-to';
 import { PayoutPanelComponent } from './payout-panel';
@@ -29,7 +29,11 @@ const SCROLL_TIME_MS = 500;
 })
 export class PayoutsComponent implements AfterViewInit {
     payouts$ = this.payoutsService.searchResult$;
-    isLoading$ = this.payoutsService.doAction$;
+    doAction$ = this.payoutsService.doAction$;
+    isLoading$ = this.doAction$.pipe(
+        booleanDebounceTime(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
     isInit$ = this.payoutsService.isInit$;
     hasMore$ = this.payoutsService.hasMore$;
     lastUpdated$ = this.payoutsService.searchResult$.pipe(

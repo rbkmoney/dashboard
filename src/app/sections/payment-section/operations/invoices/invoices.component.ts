@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { shareReplay } from 'rxjs/operators';
 
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SpinnerType } from '../../../../spinner';
 import { InvoicesService } from './invoices.service';
 import { InvoiceSearchFormValue } from './search-form';
@@ -15,7 +17,11 @@ export class InvoicesComponent {
     tableData$ = this.invoicesService.invoicesTableData$;
     hasMoreInvoices$ = this.invoicesService.hasMore$;
     lastUpdated$ = this.invoicesService.lastUpdated$;
-    isLoading$ = this.invoicesService.isLoading$;
+    doAction$ = this.invoicesService.doAction$;
+    isLoading$ = this.doAction$.pipe(
+        booleanDebounceTime(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

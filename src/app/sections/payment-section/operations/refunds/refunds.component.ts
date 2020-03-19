@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { shareReplay } from 'rxjs/operators';
 
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SpinnerType } from '../../../../spinner';
 import { RefundsService } from './refunds.service';
 import { RefundsSearchFormValue } from './search-form';
@@ -15,7 +17,11 @@ export class RefundsComponent {
     tableData$ = this.refundsService.refundsTableData$;
     hasMoreRefunds$ = this.refundsService.hasMore$;
     lastUpdated$ = this.refundsService.lastUpdated$;
-    isLoading$ = this.refundsService.isLoading$;
+    doAction$ = this.refundsService.doAction$;
+    isLoading$ = this.doAction$.pipe(
+        booleanDebounceTime(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
