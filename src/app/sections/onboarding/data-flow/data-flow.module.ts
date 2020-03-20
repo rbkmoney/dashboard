@@ -4,11 +4,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { SpinnerModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
+
 import { QuestionaryModule } from '../../../api';
-import { ButtonModule } from '../../../button';
-import { LayoutModule } from '../../../layout';
-import { SpinnerModule } from '../../../spinner';
-import { StateNavModule } from '../../../state-nav';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
 import { DataFlowComponent } from './data-flow.component';
 import { FinishOnboardingDialogComponent } from './finish-onboarding-dialog';

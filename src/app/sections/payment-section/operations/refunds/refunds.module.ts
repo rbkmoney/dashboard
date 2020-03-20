@@ -2,18 +2,24 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatMenuModule, MatSnackBarModule } from '@angular/material';
-import { MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
+import {
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatSnackBarModule
+} from '@angular/material';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '../../../../button';
-import { FormControlsModule, RangeDatepickerModule } from '../../../../form-controls';
+import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
+import { TableModule } from '@dsh/components/table';
+
 import { FromMinorModule } from '../../../../from-minor';
-import { LayoutModule } from '../../../../layout';
-import { SpinnerModule } from '../../../../spinner';
-import { StateNavModule } from '../../../../state-nav';
-import { StatusModule } from '../../../../status';
-import { TableModule } from '../../../../table';
 import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { RefundsRoutingModule } from './refunds-routing.module';
@@ -36,10 +42,9 @@ import { TableComponent } from './table';
         ReactiveFormsModule,
         MatSelectModule,
         FormControlsModule,
-        StatusModule,
+        IndicatorsModule,
         FromMinorModule,
         LastUpdatedModule,
-        SpinnerModule,
         MatSnackBarModule,
         TranslocoModule,
         StateNavModule,

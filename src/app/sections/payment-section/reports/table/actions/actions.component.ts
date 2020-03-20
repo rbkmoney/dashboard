@@ -1,8 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { DropdownTriggerDirective } from '@dsh/components/layout';
+
 import { Report } from '../../../../../api-codegen/anapi';
-import { DropdownTriggerDirective } from '../../../../../dropdown';
 
 @Component({
     selector: 'dsh-actions',

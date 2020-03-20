@@ -7,12 +7,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { DropdownModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
+
 import { ClaimsService } from '../../api/claims';
-import { ButtonModule } from '../../button';
-import { DropdownModule } from '../../dropdown';
-import { SpinnerModule } from '../../spinner';
-import { StateNavModule } from '../../state-nav';
-import { StatusModule } from '../../status';
 import { ActionItemComponent } from './action-item';
 import { ActionbarComponent } from './actionbar.component';
 import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
@@ -26,11 +26,10 @@ import { UserComponent } from './user';
         OverlayModule,
         StateNavModule,
         ButtonModule,
-        StatusModule,
+        IndicatorsModule,
         MatMenuModule,
         RouterModule,
         CommonModule,
-        SpinnerModule,
         TranslocoModule
     ],
     declarations: [

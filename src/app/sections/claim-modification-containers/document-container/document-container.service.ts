@@ -9,8 +9,7 @@ import {
 } from '../../../api';
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { booleanDelay, takeError } from '../../../custom-operators';
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 import { PanelInfo, toPanelInfo } from './to-panel-info';
 
 @Injectable()

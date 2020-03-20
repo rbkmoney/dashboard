@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
+
 import { FilesModule, MessagesModule } from '../../../api';
-import { ButtonModule } from '../../../button';
-import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
-import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { LayoutModule } from '../../../layout';
 import {
     CommentContainerModule,
     DocumentContainerModule,
@@ -31,7 +31,6 @@ import { SendCommentComponent } from './send-comment';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        ExpandPanelModule,
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,

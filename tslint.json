@@ -57,10 +57,12 @@
             {
                 "grouped-imports": true,
                 "groups": [
-                    { "name": "node_modules", "match": "^(?![.])", "order": 30 },
-                    { "name": "current", "match": "^[.]", "order": 40 }
+                    { "name": "node_modules", "match": "^(?![.]|@dsh/)", "order": 10 },
+                    { "name": "project", "match": "^@dsh/", "order": 20 },
+                    { "name": "current", "match": "^[.]", "order": 30 }
                 ]
             }
-        ]
+        ],
+        "no-duplicate-imports": [true, { "allow-namespace-imports": true }]
     }
 }

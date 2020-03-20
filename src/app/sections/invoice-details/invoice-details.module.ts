@@ -4,13 +4,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
-import { ButtonModule } from '../../button';
-import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
-import { LayoutModule } from '../../layout';
-import { SpinnerModule } from '../../spinner';
-import { StatusModule } from '../../status';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './cart/item/item.component';
@@ -25,12 +24,10 @@ import { PaymentsComponent } from './payments/payments.component';
     imports: [
         CommonModule,
         ShopDetailsModule,
-        SpinnerModule,
         FlexLayoutModule,
         LayoutModule,
         TranslocoModule,
-        DetailsItemModule,
-        StatusModule,
+        IndicatorsModule,
         InvoiceDetailsRoutingModule,
         ButtonModule,
         FromMinorModule,

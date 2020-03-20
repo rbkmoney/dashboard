@@ -3,8 +3,9 @@ import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
 import { shareReplay } from 'rxjs/operators';
 
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { SpinnerType } from '../../../../spinner';
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form';
 

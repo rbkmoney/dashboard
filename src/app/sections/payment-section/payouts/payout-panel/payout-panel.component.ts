@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import isEqual from 'lodash.isequal';
 
+import { ExpandPanelComponent } from '@dsh/components/layout';
+
 import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
-import { ExpandPanelComponent } from '../../../../layout/expand-panel';
 import { PayoutPanelService } from './payout-panel.service';
 
 @Component({

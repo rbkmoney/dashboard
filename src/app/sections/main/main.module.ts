@@ -6,8 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '../../button';
-import { SpinnerModule } from '../../spinner';
+import { ButtonModule } from '@dsh/components/buttons';
+import { SpinnerModule } from '@dsh/components/indicators';
+
 import { MainComponent } from './main.component';
 import { PaymentsComponent, WalletsComponent } from './parts';
 
