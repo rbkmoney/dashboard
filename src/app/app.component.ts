@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
+import { ENV, Env } from '../environments';
 import { TestShopService } from './test-shop.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { TestShopService } from './test-shop.service';
     providers: [TestShopService]
 })
 export class AppComponent implements OnInit {
-    constructor(private testShopService: TestShopService) {}
+    constructor(private testShopService: TestShopService, @Inject(ENV) public env: Env) {}
 
     ngOnInit() {
         this.testShopService.createTestShopWhenNoShops();
