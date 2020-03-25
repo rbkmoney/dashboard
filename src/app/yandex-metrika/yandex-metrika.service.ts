@@ -10,14 +10,14 @@ export class YandexMetrikaService implements OnDestroy {
     private subscription: Subscription;
 
     constructor(private router: Router, private location: Location, private metrika: Metrika) {
-        this.subscription = this.subscribeRouterEvents().subscribe();
+        this.subscription = this.hitRouterEvents().subscribe();
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
-    subscribeRouterEvents() {
+    hitRouterEvents() {
         return this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => this.location.path()),

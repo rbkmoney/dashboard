@@ -10,7 +10,10 @@ import { YandexMetrikaService } from './yandex-metrika.service';
     providers: [YandexMetrikaService]
 })
 export class YandexMetrikaComponent {
-    id = this.yandexMetrikaService.config.id;
+    id = this.yandexMetrikaConfigService.config.id;
 
-    constructor(private yandexMetrikaService: YandexMetrikaConfigService) {}
+    constructor(
+        private yandexMetrikaConfigService: YandexMetrikaConfigService,
+        _yandexMetrikaService: YandexMetrikaService
+    ) {}
 }
