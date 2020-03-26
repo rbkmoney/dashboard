@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -13,7 +13,7 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 
-import { environment } from '../environments/environment';
+import { ENV, environment } from '../environments';
 import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
@@ -26,6 +26,7 @@ import { SectionsModule } from './sections';
 import { SettingsModule } from './settings';
 import { ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';
+import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
 
 @NgModule({
     declarations: [AppComponent],
@@ -42,14 +43,15 @@ import { translocoLoader } from './transloco.loader';
         SettingsModule,
         KeycloakAngularModule,
         HttpClientModule,
-        TranslocoModule
+        TranslocoModule,
+        YandexMetrikaModule
     ],
     providers: [
         LanguageService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LanguageService],
+            deps: [ConfigService, KeycloakService, LanguageService, YandexMetrikaConfigService, PLATFORM_ID],
             multi: true
         },
         {
@@ -77,7 +79,8 @@ import { translocoLoader } from './transloco.loader';
                 scopeStrategy: 'shared'
             } as TranslocoConfig
         },
-        translocoLoader
+        translocoLoader,
+        { provide: ENV, useValue: environment }
     ],
     bootstrap: [AppComponent]
 })
