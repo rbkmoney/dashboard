@@ -10,15 +10,19 @@ const paymentSectionRoutes: Routes = [
         children: [
             {
                 path: 'operations',
-                loadChildren: () => import('./operations/operations.module').then(mod => mod.OperationsModule)
+                loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule)
             },
             {
                 path: 'reports',
-                loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
+                loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule)
             },
             {
                 path: 'payouts',
-                loadChildren: () => import('./payouts/payouts.module').then(mod => mod.PayoutsModule)
+                loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule)
+            },
+            {
+                path: 'integrations',
+                loadChildren: () => import('./../integrations/integrations.module').then(m => m.IntegrationsModule)
             }
         ]
     }
