@@ -16,7 +16,9 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatAutocompleteOrigin, MatFormFieldControl } from '@angular/material';
+import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import uuid from 'uuid';
 

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 

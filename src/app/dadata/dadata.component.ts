@@ -3,7 +3,7 @@ import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import get from 'lodash.get';

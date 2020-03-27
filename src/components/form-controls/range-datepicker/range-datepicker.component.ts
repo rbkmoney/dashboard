@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatFormFieldControl } from '@angular/material';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import moment, { Moment } from 'moment';
 import { map } from 'rxjs/operators';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';

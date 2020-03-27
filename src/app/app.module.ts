@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,

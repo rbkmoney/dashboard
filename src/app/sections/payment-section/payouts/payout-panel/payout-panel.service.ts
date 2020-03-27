@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { combineLatest, Observable, of, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';

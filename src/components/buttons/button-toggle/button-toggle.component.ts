@@ -23,7 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CanDisableRippleCtor, MatButtonToggleGroup, mixinDisableRipple } from '@angular/material';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { CanDisableRippleCtor, mixinDisableRipple } from '@angular/material/core';
 
 export type ToggleType = 'checkbox' | 'radio';
 

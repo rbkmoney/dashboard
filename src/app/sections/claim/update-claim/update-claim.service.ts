@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';

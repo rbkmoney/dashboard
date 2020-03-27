@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, of, Subject, zip } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';

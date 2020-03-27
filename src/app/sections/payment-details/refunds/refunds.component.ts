@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { catchError } from 'rxjs/operators';
 
