@@ -19,10 +19,7 @@ export class PaymentsComponent {
     hasMorePayments$ = this.paymentService.hasMore$;
     lastUpdated$ = this.paymentService.lastUpdated$;
     doAction$ = this.paymentService.doAction$;
-    isLoading$ = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

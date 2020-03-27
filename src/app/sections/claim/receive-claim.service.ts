@@ -20,11 +20,7 @@ export class ReceiveClaimService {
         shareReplay(1)
     );
 
-    claimType$: Observable<ClaimType> = this.claim$.pipe(
-        pluck('changeset'),
-        map(getClaimType),
-        shareReplay(1)
-    );
+    claimType$: Observable<ClaimType> = this.claim$.pipe(pluck('changeset'), map(getClaimType), shareReplay(1));
 
     claimReceived$ = this.claim$.pipe(
         booleanDelay(),

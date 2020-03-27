@@ -21,10 +21,7 @@ export class ReportDetailsService {
         booleanDelay(500),
         map(r => !r)
     );
-    reportError$: Observable<any> = this.report$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    reportError$: Observable<any> = this.report$.pipe(takeError, shareReplay(1));
 
     constructor(
         private reportSearchService: ReportsService,

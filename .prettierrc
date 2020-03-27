@@ -5,6 +5,7 @@
     "tabWidth": 4,
     "semi": true,
     "bracketSpacing": true,
+    "trailingComma": "none",
     "overrides": [
         {
             "files": "*.svg",
