@@ -33,7 +33,7 @@ export class LanguageService {
     }
 
     private getCorrectLanguage(language: Language | string): Language {
-        if (!Object.values(Language).includes(language)) {
+        if (!Object.values<string>(Language).includes(language)) {
             return this.getRecommended();
         }
         return language as Language;
