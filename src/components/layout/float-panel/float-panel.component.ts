@@ -27,9 +27,9 @@ export class FloatPanelComponent {
 
     @Input() layoutGap = '20px';
 
-    @ContentChild(FloatPanelMoreTemplateComponent, { static: false }) floatPanelMore: FloatPanelMoreTemplateComponent;
+    @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
 
-    @ContentChild(FloatPanelActionsTemplateComponent, { static: false })
+    @ContentChild(FloatPanelActionsTemplateComponent)
     floatPanelActions: FloatPanelActionsTemplateComponent;
 
     expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;

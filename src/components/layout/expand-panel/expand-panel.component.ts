@@ -20,7 +20,7 @@ export class ExpandPanelComponent {
 
     @Input() layoutGap = '20px';
 
-    @ContentChild(ExpandPanelMoreTemplateComponent, { static: false })
+    @ContentChild(ExpandPanelMoreTemplateComponent)
     expandPanelMore: ExpandPanelMoreTemplateComponent;
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;

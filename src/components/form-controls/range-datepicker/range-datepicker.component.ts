@@ -53,7 +53,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this._disablePeriodSelect = coerceBooleanProperty(value);
     }
 
-    @ViewChild('input', { static: false })
+    @ViewChild('input')
     set input(input: ElementRef<HTMLInputElement>) {
         if (input && input.nativeElement) {
             this.setInputElement(input.nativeElement);

@@ -9,8 +9,8 @@ import { HeaderComponent } from './header/header.component';
     styleUrls: ['item.component.scss']
 })
 export class ItemComponent implements AfterViewInit {
-    @ContentChild(HeaderComponent, { static: false }) header;
-    @ContentChild(ContentComponent, { static: false }) content;
+    @ContentChild(HeaderComponent) header;
+    @ContentChild(ContentComponent) content;
 
     ngAfterViewInit(): void {
         this.header.toggleEvent.subscribe(opened => {
