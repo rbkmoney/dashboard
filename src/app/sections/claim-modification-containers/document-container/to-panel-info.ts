@@ -53,30 +53,18 @@ export interface PanelInfo {
 }
 
 export const toPanelInfo = (s: Observable<QuestionaryData>): Observable<PanelInfo[]> => {
-    const individualEntityItem$ = s.pipe(
-        pluck('contractor', 'individualEntity'),
-        toPanelItem('individualEntityInfo')
-    );
-    const shopInfoItem$ = s.pipe(
-        pluck('shopInfo'),
-        toPanelItem('shopInfo')
-    );
+    const individualEntityItem$ = s.pipe(pluck('contractor', 'individualEntity'), toPanelItem('individualEntityInfo'));
+    const shopInfoItem$ = s.pipe(pluck('shopInfo'), toPanelItem('shopInfo'));
     const legalOwnerInfoItem$ = s.pipe(
         pluck('contractor', 'legalEntity', 'legalOwnerInfo'),
         toPanelItem('legalOwnerInfo')
     );
-    const bankAccountItem$ = s.pipe(
-        pluck('bankAccount'),
-        toPanelItem('bankAccountInfo')
-    );
-    const contactInfoItem$ = s.pipe(
-        pluck('contactInfo'),
-        toPanelItem('contactInfo')
-    );
-    const orgInfoItem$ = combineLatest(
+    const bankAccountItem$ = s.pipe(pluck('bankAccount'), toPanelItem('bankAccountInfo'));
+    const contactInfoItem$ = s.pipe(pluck('contactInfo'), toPanelItem('contactInfo'));
+    const orgInfoItem$ = combineLatest([
         s.pipe(pluck('contractor', 'legalEntity')),
         s.pipe(pluck('contractor', 'individualEntity'))
-    ).pipe(
+    ]).pipe(
         map(entities => entities.filter(negate(isEmpty))),
         map(last),
         toOrgInfo,

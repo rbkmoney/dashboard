@@ -24,6 +24,7 @@ import uuid from 'uuid';
 
 import { InputMixinBase } from './input-base';
 
+// tslint:disable-next-line: no-conflicting-lifecycle
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */

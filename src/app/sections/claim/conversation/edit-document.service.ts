@@ -14,15 +14,12 @@ export class EditDocumentService {
     private goToOnboarding$: Subject<Modification[]> = new Subject();
 
     constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog) {
-        const claimId$ = this.route.params.pipe(
-            pluck('claimId'),
-            first()
-        );
+        const claimId$ = this.route.params.pipe(pluck('claimId'), first());
         this.goToOnboarding$
             .pipe(
                 filter(m => m.length === 1),
                 pluck('0', 'claimModificationType', 'documentId'),
-                switchMap(documentId => forkJoin(of(documentId), claimId$)),
+                switchMap(documentId => forkJoin([of(documentId), claimId$])),
                 map(([documentId, claimId]) => [
                     'onboarding',
                     'claim',
@@ -33,13 +30,13 @@ export class EditDocumentService {
                     'basic-info'
                 ]),
                 switchMap(navigationCommands =>
-                    forkJoin(
+                    forkJoin([
                         of(navigationCommands),
                         this.dialog
                             .open(ConfirmActionDialogComponent)
                             .afterClosed()
                             .pipe(filter(r => r === 'confirm'))
-                    )
+                    ])
                 )
             )
             .subscribe(([commands]) => this.router.navigate(commands));

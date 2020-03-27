@@ -56,7 +56,7 @@ export class CompanySearchService {
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
         return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
+            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');

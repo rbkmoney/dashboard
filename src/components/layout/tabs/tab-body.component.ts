@@ -59,6 +59,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
     @Output() readonly _onCentered: EventEmitter<void> = new EventEmitter<void>(true);
 
+    // tslint:disable-next-line: deprecation
     @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
 
     @Input() content: TemplatePortal;

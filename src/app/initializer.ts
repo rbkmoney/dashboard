@@ -8,7 +8,7 @@ export const initializer = (
     keycloakService: KeycloakService,
     languageService: LanguageService,
     yandexMetrikaService: YandexMetrikaConfigService,
-    platformId: Object
+    platformId: object
 ) => () =>
     Promise.all([
         configService.init({ configUrl: '/appConfig.json' }).then(() =>

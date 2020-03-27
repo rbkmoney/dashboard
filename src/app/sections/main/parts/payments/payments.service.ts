@@ -32,8 +32,8 @@ export class PaymentsService {
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
         this.testEnvBtnContent$ = contentConfig.pipe(pluck('testEnvBtnContent'));
         this.subheading$ = contentConfig.pipe(pluck('subheading'));
-        this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
-        combineLatest(this.isLoading$, contentConfig)
+        this.isLoading$ = combineLatest([this.shopService.shops$, claims]).pipe(booleanDelay());
+        combineLatest([this.isLoading$, contentConfig])
             .pipe(takeError)
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }

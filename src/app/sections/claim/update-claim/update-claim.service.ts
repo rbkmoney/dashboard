@@ -35,7 +35,7 @@ export class UpdateClaimService {
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
                 toChangeset,
-                switchMap(changeset => combineLatest(of(changeset), this.routeParamClaimService.claim$)),
+                switchMap(changeset => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
                 switchMap(([changeset, { id, revision }]) =>
                     this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
                         catchError(ex => {
