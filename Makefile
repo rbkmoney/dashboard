@@ -25,7 +25,7 @@ BUILD_IMAGE_TAG := 137ba2551041c98498c78e21246902ef9045dae6
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
 
-CALL_W_CONTAINER := init check lint test build clean submodules compile
+CALL_W_CONTAINER := init test build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -40,27 +40,15 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init: npm-init compile
-
-npm-init:
+init:
 	NG_CLI_ANALYTICS=false npm ci
+	npm run codegen
 
-build: check lint
-	npm run build
+build:
+	npx run-p --aggregate-output check lint build
 
 clean:
 	rm -rf dist
 
-check:
-	npm run check
-
-lint:
-	npm run lint
-
 test:
 	npm run test
-
-swagger:
-	npm run codegen
-
-compile: swagger
