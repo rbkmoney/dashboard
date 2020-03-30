@@ -1,0 +1,10 @@
+<dsh-card>
+    <dsh-card-content>
+        {{webhook.url}}
+        {{webhook.scope.shopID}}
+        {{webhook.active ? 'Active' : 'Inactive'}}
+        <ng-container *ngIf="isOpen">
+
+        </ng-container>
+    </dsh-card-content>
+</dsh-card>

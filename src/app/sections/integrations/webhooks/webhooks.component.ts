@@ -7,6 +7,8 @@ import { ReceiveWebhooksService } from './receive-webhooks.service';
     providers: [ReceiveWebhooksService]
 })
 export class WebhooksComponent implements OnInit {
+    webhooks$ = this.receiveWebhooksService.webhooks$;
+
     constructor(private receiveWebhooksService: ReceiveWebhooksService) {}
 
     ngOnInit(): void {

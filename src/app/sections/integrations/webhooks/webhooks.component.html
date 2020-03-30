@@ -1,1 +1,3 @@
-webhooks.component.html
+<ng-container>
+    <dsh-webhook-card *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-card>
+</ng-container>
