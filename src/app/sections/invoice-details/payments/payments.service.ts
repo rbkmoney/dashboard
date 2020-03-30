@@ -12,10 +12,7 @@ import { PaymentSearchFormValue } from '../../payment-section/operations/payment
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
     private readonly searchLimit = 3;
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(private paymentSearchService: PaymentSearchService) {
         super();

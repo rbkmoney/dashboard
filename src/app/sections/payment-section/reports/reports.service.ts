@@ -10,11 +10,7 @@ import { SearchParams } from './search-params';
 
 @Injectable()
 export class ReportsService extends PartialFetcher<Report, SearchParams> {
-    shopsInfo$ = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo
-    );
+    shopsInfo$ = this.route.params.pipe(pluck('envID'), filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
 
     constructor(
         private reportsService: ReportsApiService,

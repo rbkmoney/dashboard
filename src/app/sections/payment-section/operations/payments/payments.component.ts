@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { shareReplay } from 'rxjs/operators';
 
-import { SpinnerType } from '../../../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { PaymentsService } from './payments.service';
 import { PaymentSearchFormValue } from './search-form';
 
@@ -15,7 +18,8 @@ export class PaymentsComponent {
     tableData$ = this.paymentService.paymentsTableData$;
     hasMorePayments$ = this.paymentService.hasMore$;
     lastUpdated$ = this.paymentService.lastUpdated$;
-    isLoading$ = this.paymentService.isLoading$;
+    doAction$ = this.paymentService.doAction$;
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

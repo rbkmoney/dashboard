@@ -1,20 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
+
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
-import { ButtonModule } from '../../button';
-import { DetailsItemModule } from '../../details-item/details-item.module';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';
-import { LayoutModule } from '../../layout';
-import { CardModule } from '../../layout/card';
-import { SpinnerModule } from '../../spinner';
-import { StatusModule } from '../../status';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { AmountPipe } from './amount.pipe';
 import { BankCardPipe } from './bank-card.pipe';
@@ -40,11 +38,9 @@ import { StatusDetailsItemComponent } from './status-details-item';
 @NgModule({
     imports: [
         LayoutModule,
-        StatusModule,
         MatIconModule,
         FlexLayoutModule,
         RouterModule,
-        CardModule,
         ButtonModule,
         CommonModule,
         SearchModule,
@@ -52,10 +48,9 @@ import { StatusDetailsItemComponent } from './status-details-item';
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,
-        DetailsItemModule,
         ShopDetailsModule,
         PaymentDetailsRoutingModule,
-        SpinnerModule
+        IndicatorsModule
     ],
     declarations: [
         PaymentDetailsComponent,

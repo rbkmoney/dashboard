@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { issuerCodeValidator, seriesNumberValidator } from '../../../../../../form-controls';
+import { issuerCodeValidator, seriesNumberValidator } from '@dsh/components/form-controls';
 
 @Injectable()
 export class RussianDomesticPassportService {

@@ -1,5 +1,6 @@
+import { Range } from '@dsh/components/form-controls';
+
 import { Report } from '../../../../api-codegen/anapi';
-import { Range } from '../../../../form-controls';
 
 export interface FormParams {
     date: Range;

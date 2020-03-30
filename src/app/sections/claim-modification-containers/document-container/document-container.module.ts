@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDividerModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { LayoutModule } from '@dsh/components/layout';
+
 import { QuestionaryModule } from '../../../api';
-import { DetailsItemModule } from '../../../details-item';
-import { PanelModule } from '../../../layout/panel';
 import { AdditionalInfoComponent } from './additional-info';
 import { AuthorityConfirmingDocumentInfoComponent } from './authority-confirming-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';
@@ -23,15 +23,7 @@ import { ShopInfoComponent } from './shop-info';
 import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        PanelModule,
-        FlexLayoutModule,
-        TranslocoModule,
-        QuestionaryModule,
-        DetailsItemModule,
-        MatDividerModule
-    ],
+    imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule, QuestionaryModule, MatDividerModule],
     declarations: [
         OrgInfoComponent,
         ShopInfoComponent,

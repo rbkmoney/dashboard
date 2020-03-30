@@ -18,15 +18,9 @@ export class FileContainerService {
         shareReplay(1)
     );
 
-    isLoading$ = this.fileInfo$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.fileInfo$.pipe(booleanDelay(), shareReplay(1));
 
-    error$ = this.fileInfo$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    error$ = this.fileInfo$.pipe(takeError, shareReplay(1));
 
     constructor(
         private filesService: FilesService,
@@ -41,11 +35,9 @@ export class FileContainerService {
     }
 
     downloadFile(fileID: string) {
-        this.filesService
-            .downloadFile(fileID)
-            .subscribe(
-                ({ url }) => download(url),
-                () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
-            );
+        this.filesService.downloadFile(fileID).subscribe(
+            ({ url }) => download(url),
+            () => this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+        );
     }
 }

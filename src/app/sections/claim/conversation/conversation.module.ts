@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
+
 import { FilesModule, MessagesModule } from '../../../api';
-import { ButtonModule } from '../../../button';
-import { ConfirmActionDialogModule } from '../../../confirm-action-dialog';
-import { ExpandPanelModule } from '../../../expand-panel';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { LayoutModule } from '../../../layout';
 import {
     CommentContainerModule,
     DocumentContainerModule,
@@ -31,7 +34,6 @@ import { SendCommentComponent } from './send-comment';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        ExpandPanelModule,
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,

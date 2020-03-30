@@ -9,17 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
+import { TableModule } from '@dsh/components/table';
+
 import { ClaimsService } from '../../api/claims';
-import { ButtonModule } from '../../button';
-import { DropdownModule } from '../../dropdown';
-import { CardModule } from '../../layout/card';
-import { FloatPanelModule } from '../../layout/float-panel';
-import { HeadlineModule } from '../../layout/headline';
-import { JustifyWrapperModule } from '../../layout/justify-wrapper';
-import { SpinnerModule } from '../../spinner';
-import { StateNavModule } from '../../state-nav';
-import { StatusModule } from '../../status';
-import { TableModule } from '../../table';
 import { LAYOUT_GAP } from '../constants';
 import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';
@@ -32,7 +28,7 @@ import { TableComponent } from './table';
 @NgModule({
     imports: [
         ClaimsRoutingModule,
-        CardModule,
+        LayoutModule,
         FlexModule,
         MatOptionModule,
         TranslocoModule,
@@ -40,17 +36,12 @@ import { TableComponent } from './table';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatSelectModule,
-        JustifyWrapperModule,
-        FloatPanelModule,
         MatInputModule,
         TableModule,
-        StatusModule,
+        IndicatorsModule,
         MatIconModule,
-        DropdownModule,
         StateNavModule,
         ButtonModule,
-        SpinnerModule,
-        HeadlineModule,
         LastUpdatedModule
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],

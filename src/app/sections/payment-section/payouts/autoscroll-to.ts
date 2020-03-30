@@ -20,11 +20,11 @@ export function autoscrollTo({
     scrollToYOffset: number;
     scrollTimeMs: number;
 }) {
-    return combineLatest(
+    return combineLatest([
         selectedIdx$,
         payoutPanelsRefs.changes.pipe(map(() => payoutPanelsRefs.toArray())),
         payoutPanels.changes.pipe(map(() => payoutPanels.toArray()))
-    ).pipe(
+    ]).pipe(
         map(([selectedIdx, refs, components]) => ({
             ref: refs[selectedIdx],
             component: components[selectedIdx]
@@ -33,10 +33,10 @@ export function autoscrollTo({
         first(),
         delay(initDelayMs),
         switchMap(({ ref, component }) =>
-            combineLatest(
+            combineLatest([
                 smoothChangeTo(window.pageYOffset, ref.element.nativeElement.offsetTop - scrollToYOffset, scrollTimeMs),
                 of(component)
-            )
+            ])
         ),
         map(([scrollY, component]) => ({ scrollY, component }))
     );

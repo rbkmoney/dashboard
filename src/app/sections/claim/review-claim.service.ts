@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
 import { ClaimsService } from '../../api';
-import { ConfirmActionDialogComponent } from '../../confirm-action-dialog';
 import { progress } from '../../custom-operators';
 import { UIError } from '../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';

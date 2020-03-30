@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { combineLatest, Observable, of, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class PayoutPanelService implements OnDestroy {
 
     shopInfo$: Observable<ShopInfo> = this.getShopInfo$.pipe(
         distinctUntilChanged(),
-        switchMap(shopID => combineLatest(of(shopID), this.shopService.shops$.pipe(mapToShopInfo))),
+        switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$.pipe(mapToShopInfo)])),
         map(([shopID, shops]) => shops.find(shop => shop.shopID === shopID)),
         shareReplay(SHARE_REPLAY_CONF)
     );

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { merge, Observable, Subject } from 'rxjs';
@@ -29,10 +29,7 @@ export class CreateReportDialogService {
             shareReplay(SHARE_REPLAY_CONF)
         );
 
-        this.report$ = report$.pipe(
-            filterPayload,
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+        this.report$ = report$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = report$.pipe(
             filterError,
             tap(error => {

@@ -1,40 +1,41 @@
 @import '~@angular/material/theming';
+
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
 @import '../overrides/mat-select-panel';
 @import '../overrides/mat-datepicker';
 @import '../overrides/mat-divider';
+
+@import '../../components/table/table-theme';
+@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
+@import '../../components/form-controls/file-uploader/file-uploader-theme';
+@import '../../components/buttons/button/button-theme';
+@import '../../components/buttons/button-toggle/button-toggle-theme';
+@import '../../components/layout/card/card-theme';
+@import '../../components/layout/float-panel/float-panel-theme';
+@import '../../components/layout/panel/panel-theme';
+@import '../../components/layout/headline/secondary-title/secondary-title-theme';
+@import '../../components/layout/timeline/timeline-theme';
+@import '../../components/layout/tabs/tabs-theme';
+@import '../../components/layout/dropdown/dropdown-theme';
+@import '../../components/layout/details-item/details-item-theme';
+@import '../../components/layout/expansion/expansion-theme';
+@import '../../components/charts/bar-chart/bar-chart-theme';
+@import '../../components/indicators/status/status-theme';
+@import '../../components/navigation/state-nav/state-nav-theme';
+
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
-@import '../../app/dropdown/dropdown-theme';
-@import '../../app/table/table-theme';
-@import '../../app/layout/card/card-theme';
-@import '../../app/layout/float-panel/float-panel-theme';
-@import '../../app/state-nav/state-nav-theme';
-@import '../../app/button/button-theme';
-@import '../../app/layout/tabs/tabs-theme';
-@import '../../app/button-toggle/button-toggle-theme';
-@import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
-@import '../../app/layout/timeline/timeline-theme';
-@import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
-@import '../../app/expansion/expansion-theme';
-@import '../../app/details-item/details-item-theme';
-@import '../../app/layout/headline/secondary-title/secondary-title-theme';
-@import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
-@import '../../app/layout/panel/panel-theme';
-@import '../../app/charts/bar-chart/bar-chart-theme';
-@import '../../app/charts/donut-chart/donut-chart-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stats/stat-item/stat-item-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
-@import '../../app/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -60,7 +61,6 @@
         @include dsh-main-section-theme($theme);
         @include dsh-welcome-image-theme($theme);
         @include dsh-timeline-theme($theme);
-        @include dsh-expand-panel-theme($theme);
         @include dsh-dadata-autocomplete-theme($theme);
         @include dsh-payment-details-theme($theme);
         @include dsh-expansion-theme($theme);
@@ -69,7 +69,6 @@
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
         @include dsh-bar-chart-theme($theme);
-        @include dsh-donut-chart-theme($theme);
         @include dsh-percent-difference-theme($theme);
         @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);

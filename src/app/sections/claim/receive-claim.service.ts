@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
@@ -20,11 +20,7 @@ export class ReceiveClaimService {
         shareReplay(1)
     );
 
-    claimType$: Observable<ClaimType> = this.claim$.pipe(
-        pluck('changeset'),
-        map(getClaimType),
-        shareReplay(1)
-    );
+    claimType$: Observable<ClaimType> = this.claim$.pipe(pluck('changeset'), map(getClaimType), shareReplay(1));
 
     claimReceived$ = this.claim$.pipe(
         booleanDelay(),

@@ -7,9 +7,4 @@ import { Shop } from '../../../api-codegen/capi';
 import { filterShopsByEnv, negateEnv } from './operators';
 
 export const getExcludedShopIDs = (p: Observable<Params>, s: Observable<Shop[]>): Observable<string[]> =>
-    p.pipe(
-        pluck('envID'),
-        negateEnv,
-        filterShopsByEnv(s),
-        mapToShopId
-    );
+    p.pipe(pluck('envID'), negateEnv, filterShopsByEnv(s), mapToShopId);

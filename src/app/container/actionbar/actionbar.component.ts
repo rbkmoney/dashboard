@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DropdownTriggerDirective } from '../../dropdown';
+import { DropdownTriggerDirective } from '@dsh/components/layout';
+
 import { ThemeManager, ThemeName } from '../../theme-manager';
 
 @Component({
