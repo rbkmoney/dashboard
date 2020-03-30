@@ -45,7 +45,7 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output check lint build
+	npx run-p --aggregate-output --print-label check lint build
 
 clean:
 	rm -rf dist
