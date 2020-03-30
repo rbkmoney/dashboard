@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { AnalyticsService as BaseAnalyticsService } from './swagger-codegen/api/analytics.service';
 

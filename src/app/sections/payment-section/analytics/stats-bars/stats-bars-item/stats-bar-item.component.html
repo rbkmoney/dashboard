@@ -1,0 +1,25 @@
+<dsh-card>
+    <dsh-card-title>
+        <h1 class="mat-title">{{ title }}</h1>
+    </dsh-card-title>
+    <dsh-card-content>
+        <div *ngIf="isLoading; else afterLoad">
+            <dsh-spinner></dsh-spinner>
+        </div>
+        <ng-template #afterLoad>
+            <div *ngIf="!error; else onError">
+                <dsh-bar-chart
+                    *ngIf="chartData; else noData"
+                    [series]="chartData.series"
+                    [times]="chartData.times"
+                ></dsh-bar-chart>
+                <ng-template #noData>
+                    no data
+                </ng-template>
+            </div>
+            <ng-template #onError>
+                error
+            </ng-template>
+        </ng-template>
+    </dsh-card-content>
+</dsh-card>

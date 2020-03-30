@@ -1,0 +1,18 @@
+<div
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-stats-bar-item
+        [title]="t.paymentsCount"
+        [chartData]="paymentsSplitCount$ | async"
+        [isLoading]="isPaymentsSplitCountLoading$ | async"
+        [error]="paymentsSplitCountError$ | async"
+    ></dsh-stats-bar-item>
+    <dsh-stats-bar-item
+        [title]="t.paymentsAmount"
+        [chartData]="paymentsSplitAmount$ | async"
+        [isLoading]="isPaymentsSplitAmountLoading$ | async"
+        [error]="paymentsSplitAmountError$ | async"
+    ></dsh-stats-bar-item>
+</div>

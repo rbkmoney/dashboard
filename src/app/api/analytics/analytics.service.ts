@@ -19,11 +19,7 @@ export class AnalyticsService {
         return this.analyticsService.getPaymentsCount(genXRequestID(), fromTime, toTime, undefined, shopIDs);
     }
 
-    getPaymentsErrorDistribution(
-        fromTime: Date,
-        toTime: Date,
-        shopIDs?: Array<string>
-    ) {
+    getPaymentsErrorDistribution(fromTime: Date, toTime: Date, shopIDs?: Array<string>) {
         return this.analyticsService.getPaymentsErrorDistribution(
             genXRequestID(),
             fromTime,
@@ -33,11 +29,7 @@ export class AnalyticsService {
         );
     }
 
-    getPaymentsToolDistribution(
-        fromTime: Date,
-        toTime: Date,
-        shopIDs?: Array<string>
-    ) {
+    getPaymentsToolDistribution(fromTime: Date, toTime: Date, shopIDs?: Array<string>) {
         return this.analyticsService.getPaymentsToolDistribution(genXRequestID(), fromTime, toTime, undefined, shopIDs);
     }
 
@@ -45,12 +37,7 @@ export class AnalyticsService {
         return this.analyticsService.getRefundsAmount(genXRequestID(), fromTime, toTime, undefined, shopIDs);
     }
 
-    getPaymentsSplitAmount(
-        fromTime: Date,
-        toTime: Date,
-        splitUnit: SplitUnit,
-        shopIDs?: Array<string>
-    ) {
+    getPaymentsSplitAmount(fromTime: Date, toTime: Date, splitUnit: SplitUnit, shopIDs?: Array<string>) {
         return this.analyticsService.getPaymentsSplitAmount(
             genXRequestID(),
             fromTime,
@@ -61,12 +48,7 @@ export class AnalyticsService {
         );
     }
 
-    getPaymentsSplitCount(
-        fromTime: Date,
-        toTime: Date,
-        splitUnit: SplitUnit,
-        shopIDs?: Array<string>
-    ) {
+    getPaymentsSplitCount(fromTime: Date, toTime: Date, splitUnit: SplitUnit, shopIDs?: Array<string>) {
         return this.analyticsService.getPaymentsSplitCount(
             genXRequestID(),
             fromTime,

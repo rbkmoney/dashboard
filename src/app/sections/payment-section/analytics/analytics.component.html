@@ -5,60 +5,9 @@
 >
     <h1 class="mat-headline">{{ t.headline }}</h1>
     <div fxLayout="column" fxLayoutGap="20px">
-        <dsh-search-form (formValueChanges)="formValueChanges($event)"></dsh-search-form>
-<!--        <div fxLayout fxLayoutGap="20px">-->
-<!--            <dsh-mini-card fxFlex [title]="12344000 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 1">-->
-<!--                <dsh-percent-difference [current]="12344000" [previous]="10112000"></dsh-percent-difference>-->
-<!--            </dsh-mini-card>-->
-<!--            <dsh-mini-card fxFlex [title]="123867 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 2">-->
-<!--                <dsh-percent-difference [current]="123867" [previous]="123867"></dsh-percent-difference>-->
-<!--            </dsh-mini-card>-->
-<!--            <dsh-mini-card fxFlex [title]="123032 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 3">-->
-<!--                <dsh-percent-difference [current]="123032" [previous]="125013"></dsh-percent-difference>-->
-<!--            </dsh-mini-card>-->
-<!--            <dsh-mini-card fxFlex title="12303" subtitle="Example 4">-->
-<!--                <dsh-percent-difference [current]="12303" [previous]="11032"></dsh-percent-difference>-->
-<!--            </dsh-mini-card>-->
-<!--        </div>-->
-<!--        <dsh-card>-->
-<!--            <dsh-card-title-->
-<!--                ><h1 class="mat-title">{{ t.paymentsCount }}</h1></dsh-card-title-->
-<!--            >-->
-<!--            <dsh-card-content *ngIf="paymentsSplitCount$ | async as paymentsSplitCount; else paymentsSplitCountSpinner">-->
-<!--                <dsh-bar-chart [series]="paymentsSplitCount.series" [times]="paymentsSplitCount.times" height="300"></dsh-bar-chart>-->
-<!--            </dsh-card-content>-->
-<!--            <ng-template #paymentsSplitCountSpinner>-->
-<!--                <div fxLayout fxLayoutAlign="center"><dsh-spinner></dsh-spinner></div>-->
-<!--            </ng-template>-->
-<!--        </dsh-card>-->
-<!--        <dsh-card>-->
-<!--            <dsh-card-title-->
-<!--                ><h1 class="mat-title">{{ t.paymentsAmount }}</h1></dsh-card-title-->
-<!--            >-->
-<!--            <dsh-card-content *ngIf="paymentsSplitAmount$ | async as paymentsSplitAmount; else paymentsSplitAmountSpinner">-->
-<!--                <dsh-bar-chart [series]="paymentsSplitAmount.series" [times]="paymentsSplitAmount.times" height="300"></dsh-bar-chart>-->
-<!--            </dsh-card-content>-->
-<!--            <ng-template #paymentsSplitAmountSpinner>-->
-<!--                <div fxLayout fxLayoutAlign="center"><dsh-spinner></dsh-spinner></div>-->
-<!--            </ng-template>-->
-<!--        </dsh-card>-->
-<!--        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">-->
-<!--            <dsh-card fxFlex>-->
-<!--                <dsh-card-title-->
-<!--                    ><h1 class="mat-title">{{ t.paymentTools }}</h1></dsh-card-title-->
-<!--                >-->
-<!--                <dsh-card-content>-->
-<!--                    <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>-->
-<!--                </dsh-card-content>-->
-<!--            </dsh-card>-->
-<!--            <dsh-card fxFlex>-->
-<!--                <dsh-card-title-->
-<!--                    ><h1 class="mat-title">{{ t.unsuccessfulPaymentReasons }}</h1></dsh-card-title-->
-<!--                >-->
-<!--                <dsh-card-content>-->
-<!--                    <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>-->
-<!--                </dsh-card-content>-->
-<!--            </dsh-card>-->
-<!--        </div>-->
+        <dsh-search-form></dsh-search-form>
+        <dsh-stats [searchParams]="statSearchParams$ | async"></dsh-stats>
+        <dsh-stats-bars [searchParams]="searchParamsWithSplitUnit$ | async"></dsh-stats-bars>
+        <dsh-distributions [searchParams]="distributionSearchParams$ | async"></dsh-distributions>
     </div>
 </div>

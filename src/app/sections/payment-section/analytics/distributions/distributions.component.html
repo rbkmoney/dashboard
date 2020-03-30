@@ -1,0 +1,21 @@
+<div
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+    fxLayout
+    fxLayout.xs="column"
+    fxLayoutGap="20px"
+>
+    <dsh-distribution-item
+        fxFlex
+        [title]="t.paymentTools"
+        [chartData]="paymentsToolDistribution$ | async"
+        [isLoading]="isPaymentsToolDistributionLoading$ | async"
+        [error]="paymentsToolDistributionError$ | async"
+    ></dsh-distribution-item>
+    <dsh-distribution-item
+        fxFlex
+        [title]="t.unsuccessfulPaymentReasons"
+        [chartData]="paymentsErrorsDistribution$ | async"
+        [isLoading]="isPaymentsErrorsDistributionLoading$ | async"
+        [error]="paymentsErrorsDistributionError$ | async"
+    ></dsh-distribution-item>
+</div>

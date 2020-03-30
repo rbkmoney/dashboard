@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CardModule } from '../../../../layout/card';
-import { MiniCardComponent } from './mini-card.component';
+import { PercentDifferenceComponent } from './percent-difference.component';
 
 @NgModule({
     imports: [CommonModule, CardModule, FlexLayoutModule],
-    exports: [MiniCardComponent],
-    declarations: [MiniCardComponent]
+    exports: [PercentDifferenceComponent],
+    declarations: [PercentDifferenceComponent]
 })
-export class MiniCardModule {}
+export class PercentDifferenceModule {}

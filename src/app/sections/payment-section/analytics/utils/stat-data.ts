@@ -1,5 +1,5 @@
 export interface StatData {
-    current: number
+    current: number;
     previous: number;
     currency?: string;
 }

@@ -20,6 +20,12 @@
         "paymentsCount": "Количество платежей",
         "paymentsAmount": "Оборот",
         "paymentTools": "Платежные инструменты",
-        "unsuccessfulPaymentReasons": "Причины неуспешных платежей"
+        "unsuccessfulPaymentReasons": "Причины неуспешных платежей",
+        "stats": {
+            "paymentsAmount": "Оборот за период",
+            "refundsAmount": "Возвратов за период",
+            "averagePayment": "Средняя сумма платежа",
+            "paymentsCount": "Количество платежей"
+        }
     }
 }

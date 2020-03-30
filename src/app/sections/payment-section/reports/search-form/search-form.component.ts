@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
-import { SearchFormService } from './search-form.service';
 import { ReportsService } from '../reports.service';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'dsh-reports-search-form',

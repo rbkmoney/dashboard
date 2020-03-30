@@ -32,7 +32,7 @@
 @import '../../app/charts/bar-chart/bar-chart-theme';
 @import '../../app/charts/donut-chart/donut-chart-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
-@import '../../app/sections/payment-section/analytics/mini-card/mini-card-theme';
+@import '../../app/sections/payment-section/analytics/stats/stat-item/stat-item-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/form-controls/range-datepicker/range-datepicker-theme';
 
@@ -71,9 +71,9 @@
         @include dsh-bar-chart-theme($theme);
         @include dsh-donut-chart-theme($theme);
         @include dsh-percent-difference-theme($theme);
-        @include dsh-mini-card-theme($theme);
         @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);
         @include dsh-payout-panel-theme($theme);
+        @include dsh-stat-item-theme($theme);
     }
 }

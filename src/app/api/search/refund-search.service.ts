@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import moment from 'moment';
+import { map } from 'rxjs/operators';
 
-import { toDateLike, genXRequestID } from '../utils';
+import { Refund, SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { genXRequestID, toDateLike } from '../utils';
 import { Duration } from './model';
-import { SearchService, Refund } from '../../api-codegen/anapi/swagger-codegen';
 
 @Injectable()
 export class RefundSearchService {
