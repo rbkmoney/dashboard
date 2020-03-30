@@ -21,8 +21,6 @@
 @import '../../components/layout/details-item/details-item-theme';
 @import '../../components/layout/expansion/expansion-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
-@import '../../components/charts/linear-chart/linear-chart-theme';
-@import '../../components/charts/legend-tooltip/legend-tooltip-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
 
@@ -35,13 +33,9 @@
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
-@import '../../app/layout/panel/panel-theme';
-@import '../../app/charts/bar-chart/bar-chart-theme';
-@import '../../app/charts/donut-chart/donut-chart-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/mini-card/mini-card-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
-@import '../../app/form-controls/range-datepicker/range-datepicker-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -75,7 +69,6 @@
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
         @include dsh-bar-chart-theme($theme);
-        @include dsh-donut-chart-theme($theme);
         @include dsh-percent-difference-theme($theme);
         @include dsh-mini-card-theme($theme);
         @include dsh-balances-theme($theme);

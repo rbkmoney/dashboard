@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { CardModule } from '../../../../layout/card';
+import { CardModule } from '@dsh/components/layout';
+
 import { MiniCardComponent } from './mini-card.component';
 
 @NgModule({

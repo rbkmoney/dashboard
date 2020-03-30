@@ -52,11 +52,7 @@ export class SearchFormService {
 
     private pathFormByQueryParams() {
         this.route.queryParams
-            .pipe(
-                take(1),
-                filter(negate(isEmpty)),
-                map(toFormValue)
-            )
+            .pipe(take(1), filter(negate(isEmpty)), map(toFormValue))
             .subscribe(formValue => this.searchForm.patchValue(formValue));
     }
 
