@@ -23,10 +23,7 @@ export class StatsService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isPaymentsAmountLoading$ = progress(this.searchParams$, this.paymentsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
-    paymentsAmountError$ = this.paymentsAmount$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsAmountError$ = this.paymentsAmount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     refundsAmount$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
@@ -41,10 +38,7 @@ export class StatsService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isRefundsAmountLoading$ = progress(this.searchParams$, this.refundsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
-    refundsAmountError$ = this.refundsAmount$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    refundsAmountError$ = this.refundsAmount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     averagePayment$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
@@ -59,10 +53,7 @@ export class StatsService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isAveragePaymentLoading$ = progress(this.searchParams$, this.averagePayment$).pipe(shareReplay(SHARE_REPLAY_CONF));
-    averagePaymentError$ = this.averagePayment$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    averagePaymentError$ = this.averagePayment$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     paymentsCount$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
@@ -77,10 +68,7 @@ export class StatsService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isPaymentsCountLoading$ = progress(this.searchParams$, this.paymentsCount$).pipe(shareReplay(SHARE_REPLAY_CONF));
-    paymentsCountError$ = this.paymentsCount$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsCountError$ = this.paymentsCount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService) {
         merge(

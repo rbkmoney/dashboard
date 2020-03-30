@@ -11,8 +11,7 @@
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20">
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>
                     <mat-label>{{ t.shop }}</mat-label>
-                    <mat-select formControlName="shopIDs">
-                        <mat-option>{{ t.allShops }}</mat-option>
+                    <mat-select multiple formControlName="shopIDs">
                         <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">{{
                             shop.details.name
                         }}</mat-option>

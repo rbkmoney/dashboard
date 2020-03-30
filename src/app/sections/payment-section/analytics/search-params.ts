@@ -1,4 +1,4 @@
-import { Period } from '../../../form-controls/range-datepicker';
+import { Period } from '@dsh/components/form-controls';
 
 export interface SearchParams {
     fromTime: Date;

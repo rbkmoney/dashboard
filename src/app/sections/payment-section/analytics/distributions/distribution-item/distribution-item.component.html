@@ -1,4 +1,4 @@
-<dsh-card>
+<dsh-card *transloco="let c">
     <dsh-card-title>
         <h1 class="mat-title">{{ title }}</h1>
     </dsh-card-title>
@@ -14,11 +14,11 @@
                     [labels]="chartData.labels"
                 ></dsh-donut-chart>
                 <ng-template #noData>
-                    no data
+                    {{ c.emptySearchResult }}
                 </ng-template>
             </div>
             <ng-template #onError>
-                error
+                {{ c.httpError }}
             </ng-template>
         </ng-template>
     </dsh-card-content>

@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-import { Period } from '../../../../form-controls/range-datepicker';
+import { Period } from '@dsh/components/form-controls';
+
 import { SearchParams } from '../search-params';
 import { StatSearchParams } from '../stat-search-params';
 

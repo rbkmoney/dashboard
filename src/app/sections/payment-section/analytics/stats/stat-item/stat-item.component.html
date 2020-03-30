@@ -1,4 +1,4 @@
-<dsh-card>
+<dsh-card *transloco="let c">
     <div *ngIf="!error; else onError" fxLayout="column" fxLayoutGap="5px">
         <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <h1 class="mat-title">
@@ -6,7 +6,7 @@
                     {{ statData.current | currency: statData.currency:'symbol':'1.0-2' }}
                 </div>
                 <ng-template #noData>
-                    no data
+                    {{ c.emptySearchResult }}
                 </ng-template>
             </h1>
             <dsh-spinner *ngIf="isLoading" size="20"></dsh-spinner>
@@ -22,6 +22,6 @@
         </ng-template>
     </div>
     <ng-template #onError>
-        error
+        {{ c.httpError }}
     </ng-template>
 </dsh-card>

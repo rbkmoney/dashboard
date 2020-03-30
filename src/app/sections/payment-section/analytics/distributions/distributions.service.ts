@@ -22,10 +22,7 @@ export class DistributionsService {
     isPaymentsToolDistributionLoading$ = progress(this.searchParams$, this.paymentsToolDistribution$).pipe(
         shareReplay(SHARE_REPLAY_CONF)
     );
-    paymentsToolDistributionError$ = this.paymentsToolDistribution$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsToolDistributionError$ = this.paymentsToolDistribution$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     paymentsErrorsDistribution$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, shopIDs }) =>
@@ -38,10 +35,7 @@ export class DistributionsService {
     isPaymentsErrorsDistributionLoading$ = progress(this.searchParams$, this.paymentsErrorsDistribution$).pipe(
         shareReplay(SHARE_REPLAY_CONF)
     );
-    paymentsErrorsDistributionError$ = this.paymentsErrorsDistribution$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsErrorsDistributionError$ = this.paymentsErrorsDistribution$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService) {
         merge(

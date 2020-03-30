@@ -13,10 +13,7 @@ export class AnalyticsService {
 
     distributionSearchParams$ = this.searchParams$.pipe(shareReplay(SHARE_REPLAY_CONF));
 
-    statSearchParams$ = this.searchParams$.pipe(
-        map(searchParamsToStatSearchParams),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    statSearchParams$ = this.searchParams$.pipe(map(searchParamsToStatSearchParams), shareReplay(SHARE_REPLAY_CONF));
     searchParamsWithSplitUnit$: Observable<SearchParamsWithSplitUnit> = this.searchParams$.pipe(
         map(searchParamsToParamsWithSplitUnit),
         shareReplay(SHARE_REPLAY_CONF)

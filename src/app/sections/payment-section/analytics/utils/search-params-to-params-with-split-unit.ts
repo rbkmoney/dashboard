@@ -1,8 +1,9 @@
+import SplitUnitEnum = SplitCountResult.SplitUnitEnum;
+import { Period } from '@dsh/components/form-controls';
+
 import { SplitCountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
-import { Period } from '../../../../form-controls/range-datepicker';
 import { SearchParams } from '../search-params';
 import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
-import SplitUnitEnum = SplitCountResult.SplitUnitEnum;
 
 export function searchParamsToParamsWithSplitUnit({
     fromTime,
@@ -19,7 +20,6 @@ export function searchParamsToParamsWithSplitUnit({
 }
 
 function periodToSplitUnit(period: Period): SplitUnit {
-    console.log(period);
     switch (period) {
         case 'day':
             return SplitUnitEnum.Hour;

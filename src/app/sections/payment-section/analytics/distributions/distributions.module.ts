@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { BarChartModule } from '../../../../charts/bar-chart';
-import { DonutChartModule } from '../../../../charts/donut-chart';
-import { CardModule } from '../../../../layout/card';
-import { SpinnerModule } from '../../../../spinner';
+import { BarChartModule } from '@dsh/components/charts/bar-chart';
+import { DonutChartModule } from '@dsh/components/charts/donut-chart';
+import { SpinnerModule } from '@dsh/components/indicators';
+import { CardModule } from '@dsh/components/layout';
+
 import { DistributionItemComponent } from './distribution-item';
 import { DistributionsComponent } from './distributions.component';
 

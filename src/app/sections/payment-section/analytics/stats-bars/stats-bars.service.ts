@@ -23,10 +23,7 @@ export class StatsBarsService {
     isPaymentsSplitCountLoading$ = progress(this.searchParams$, this.paymentsSplitCount$).pipe(
         shareReplay(SHARE_REPLAY_CONF)
     );
-    paymentsSplitCountError$ = this.paymentsSplitCount$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsSplitCountError$ = this.paymentsSplitCount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     paymentsSplitAmount$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
@@ -39,10 +36,7 @@ export class StatsBarsService {
     isPaymentsSplitAmountLoading$ = progress(this.searchParams$, this.paymentsSplitAmount$).pipe(
         shareReplay(SHARE_REPLAY_CONF)
     );
-    paymentsSplitAmountError$ = this.paymentsSplitAmount$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    paymentsSplitAmountError$ = this.paymentsSplitAmount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService) {
         merge(

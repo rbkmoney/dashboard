@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { BarChartModule } from '../../../../charts/bar-chart';
-import { CardModule } from '../../../../layout/card';
-import { SpinnerModule } from '../../../../spinner';
+import { BarChartModule } from '@dsh/components/charts/bar-chart';
+import { SpinnerModule } from '@dsh/components/indicators';
+import { CardModule } from '@dsh/components/layout';
+
 import { StatsBarItemComponent } from './stats-bars-item';
 import { StatsBarsComponent } from './stats-bars.component';
 

@@ -52,20 +52,14 @@ export class SearchFormService {
 
     private init() {
         this.syncQueryParams();
-        this.form.valueChanges.pipe(debounceTime(DEBOUNCE_TIME)).subscribe(v => {
-            this.setQueryParams(v);
-            console.log('query params updated', v);
-        });
-        this.formValueChanges$.subscribe(params => {
-            this.analyticsService.updateSearchParams(params);
-            console.log('search params updated', params);
-        });
+        this.form.valueChanges.pipe(debounceTime(DEBOUNCE_TIME)).subscribe(v => this.setQueryParams(v));
+        this.formValueChanges$.subscribe(params => this.analyticsService.updateSearchParams(params));
     }
 
     private syncQueryParams() {
         const queryParams = this.route.snapshot.queryParams as QueryParams;
         const formValue = toFormValue(queryParams, this.defaultParams);
-        this.form.setValue(formValue, { onlySelf: false, emitEvent: true });
+        this.form.setValue(formValue);
     }
 
     private setQueryParams(formValue: FormParams) {
