@@ -4,7 +4,6 @@
   "scripts": {
     "start": "ng serve --port 8000",
     "stub": "ng serve --port 8000 --configuration=stub-keycloak",
-    "aot": "ng serve --port 8000 --aot",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js",
     "test": "ng test",
     "test-silent": "ng test --watch=false --browsers ChromeHeadless",
