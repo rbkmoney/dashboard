@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, filter, map, pluck, switchMap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
 import { ClaimsService, createDocumentModificationUnit, KonturFocusService, QuestionaryService } from '../../../api';
 import { OrgType, PartyContent, ReqResponse } from '../../../api-codegen/aggr-proxy';
 import { QuestionaryData } from '../../../api-codegen/questionary';
 import { KeycloakService } from '../../../auth';
-import { ConfirmActionDialogComponent } from '../../../confirm-action-dialog';
 
 @Injectable()
 export class CompanySearchService {
@@ -54,7 +56,7 @@ export class CompanySearchService {
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
         return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
+            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');

@@ -9,8 +9,7 @@ import {
 } from '../../../api';
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { booleanDelay, takeError } from '../../../custom-operators';
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 import { PanelInfo, toPanelInfo } from './to-panel-info';
 
 @Injectable()
@@ -37,20 +36,11 @@ export class DocumentContainerService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(
-        toPanelInfo,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(toPanelInfo, shareReplay(SHARE_REPLAY_CONF));
 
-    isLoading$: Observable<boolean> = this.questionaryData$.pipe(
-        booleanDelay(),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    isLoading$: Observable<boolean> = this.questionaryData$.pipe(booleanDelay(), shareReplay(SHARE_REPLAY_CONF));
 
-    error$: Observable<any> = this.questionaryData$.pipe(
-        takeError,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    error$: Observable<any> = this.questionaryData$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private questionaryService: QuestionaryService) {}
 

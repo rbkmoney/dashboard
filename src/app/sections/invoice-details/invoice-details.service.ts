@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject } from 'rxjs';
 import { first, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -21,10 +21,7 @@ export class InvoiceDetailsService {
         booleanDelay(500),
         map(r => !r)
     );
-    invoiceError$: Observable<any> = this.invoice$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 
     constructor(
         private invoiceSearchService: InvoiceSearchService,

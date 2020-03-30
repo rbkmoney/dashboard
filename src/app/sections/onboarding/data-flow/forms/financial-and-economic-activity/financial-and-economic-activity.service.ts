@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import get from 'lodash.get';
 import { BehaviorSubject } from 'rxjs';
 
+import { legalEntityInnValidator } from '@dsh/components/form-controls';
+
 import { AccountantInfo, QuestionaryData } from '../../../../../api-codegen/questionary';
-import { legalEntityInnValidator } from '../../../../../form-controls';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidityService } from '../../validity';

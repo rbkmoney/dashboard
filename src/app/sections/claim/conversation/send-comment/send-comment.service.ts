@@ -31,7 +31,7 @@ export class SendCommentService {
                 switchMap(text => {
                     const conversationId = uuid();
                     const params = createSingleMessageConversationParams(conversationId, text);
-                    return forkJoin(
+                    return forkJoin([
                         of(conversationId),
                         this.messagesService.saveConversations(params).pipe(
                             catchError(ex => {
@@ -41,7 +41,7 @@ export class SendCommentService {
                                 return of(error);
                             })
                         )
-                    );
+                    ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )

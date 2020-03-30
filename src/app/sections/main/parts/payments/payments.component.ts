@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { SpinnerType } from '../../../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { PaymentsService } from './payments.service';
 
 @Component({

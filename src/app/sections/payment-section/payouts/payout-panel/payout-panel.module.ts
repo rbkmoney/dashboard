@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialogModule, MatDividerModule, MatIconModule, MatSnackBarModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { SpinnerModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+
 import { ReportsModule } from '../../../../api';
-import { ButtonModule } from '../../../../button';
-import { DetailsItemModule } from '../../../../details-item';
 import { FromMinorModule } from '../../../../from-minor';
-import { LayoutModule } from '../../../../layout';
-import { SpinnerModule } from '../../../../spinner';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { BankCardInfoComponent } from './bank-card-info';
 import { CommonInfoComponent } from './common-info';
@@ -30,7 +33,6 @@ import { WalletInfoComponent } from './wallet-info';
         FlexLayoutModule,
         CommonModule,
         MatDividerModule,
-        DetailsItemModule,
         ButtonModule,
         TranslocoModule,
         FromMinorModule,

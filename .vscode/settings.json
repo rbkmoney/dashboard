@@ -3,15 +3,17 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.tslint": true
     },
-    "javascript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.importModuleSpecifier": "relative",
+    "javascript.preferences.importModuleSpecifier": "auto",
+    "typescript.preferences.importModuleSpecifier": "auto",
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",
         "FATCA",
-        "SNILS",
+        "Metrika",
         "OGRN",
         "OKVED",
+        "SNILS",
+        "Yandex",
         "actionbar",
         "anapi",
         "anthroponym",
@@ -33,6 +35,7 @@
         "snils",
         "submodule",
         "transloco",
+        "webvisor",
         "ЕГРЮЛ",
         "СНИЛС",
         "бенефициарного",

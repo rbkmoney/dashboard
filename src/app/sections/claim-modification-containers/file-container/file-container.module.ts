@@ -4,11 +4,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { PanelModule } from '../../../layout/panel';
+import { LayoutModule } from '@dsh/components/layout';
+
 import { FileContainerComponent } from './file-container.component';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, MatIconModule, PanelModule, TranslocoModule],
+    imports: [CommonModule, FlexLayoutModule, MatIconModule, LayoutModule, TranslocoModule],
     declarations: [FileContainerComponent],
     exports: [FileContainerComponent]
 })
