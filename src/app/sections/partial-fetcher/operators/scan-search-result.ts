@@ -26,10 +26,7 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
             ({ result, continuationToken }, { type, value }) => {
                 switch (type) {
                     case 'search':
-                        return fn(value).pipe(
-                            first(),
-                            handleFetchResultError()
-                        );
+                        return fn(value).pipe(first(), handleFetchResultError());
                     case 'fetchMore':
                         return fn(value, continuationToken).pipe(
                             first(),

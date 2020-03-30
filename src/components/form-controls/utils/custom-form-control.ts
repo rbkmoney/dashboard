@@ -16,12 +16,15 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatAutocompleteOrigin, MatFormFieldControl } from '@angular/material';
+import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import uuid from 'uuid';
 
 import { InputMixinBase } from './input-base';
 
+// tslint:disable-next-line: no-conflicting-lifecycle
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */

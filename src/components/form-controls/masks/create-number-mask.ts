@@ -32,7 +32,7 @@ export function createNumberMask({
         }
 
         const isNegative = rawValue[0] === '-' && allowNegative;
-        //If negative remove "-" sign
+        // If negative remove "-" sign
         if (isNegative) {
             rawValue = rawValue.toString().substr(1);
         }

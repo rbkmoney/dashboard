@@ -30,16 +30,10 @@ const SCROLL_TIME_MS = 500;
 export class PayoutsComponent implements AfterViewInit {
     payouts$ = this.payoutsService.searchResult$;
     doAction$ = this.payoutsService.doAction$;
-    isLoading$ = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
     isInit$ = this.payoutsService.isInit$;
     hasMore$ = this.payoutsService.hasMore$;
-    lastUpdated$ = this.payoutsService.searchResult$.pipe(
-        mapToTimestamp,
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    lastUpdated$ = this.payoutsService.searchResult$.pipe(mapToTimestamp, shareReplay(SHARE_REPLAY_CONF));
 
     @ViewChildren(PayoutPanelComponent, { read: ViewContainerRef })
     payoutPanelsRefs: QueryList<ViewContainerRef>;

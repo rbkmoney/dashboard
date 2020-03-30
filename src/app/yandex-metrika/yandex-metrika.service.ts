@@ -21,17 +21,17 @@ export class YandexMetrikaService implements OnDestroy {
         return this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => this.location.path()),
-            startWith(null),
+            startWith(null as string),
             map(path => (path === '' ? '/' : path)),
             pairwise(),
             tap(([prevPath, newPath]) => {
                 this.metrika.hit(
                     newPath,
-                    prevPath !== null
-                        ? {
+                    prevPath === null
+                        ? undefined
+                        : {
                               referer: prevPath
                           }
-                        : undefined
                 );
             })
         );

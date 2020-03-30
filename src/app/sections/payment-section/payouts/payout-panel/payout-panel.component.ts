@@ -19,7 +19,7 @@ export class PayoutPanelComponent implements OnChanges {
     paymentsSummary: PayoutSummaryItem;
     refundsSummary: PayoutSummaryItem;
 
-    @ViewChild('expandPanel', { static: false }) expandPanel: ExpandPanelComponent;
+    @ViewChild('expandPanel') expandPanel: ExpandPanelComponent;
 
     constructor(private payoutPanelService: PayoutPanelService) {}
 

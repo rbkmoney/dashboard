@@ -80,7 +80,10 @@ class SimpleDynamicTabsTestAppComponent {
     `
 })
 class BindedTabsTestAppComponent {
-    tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
+    tabs = [
+        { label: 'one', content: 'one' },
+        { label: 'two', content: 'two' }
+    ];
     selectedIndex = 0;
 }
 
@@ -119,7 +122,10 @@ class DisabledTabsTestAppComponent {
     `
 })
 class AsyncTabsTestAppComponent implements OnInit {
-    private _tabs = [{ label: 'one', content: 'one' }, { label: 'two', content: 'two' }];
+    private _tabs = [
+        { label: 'one', content: 'one' },
+        { label: 'two', content: 'two' }
+    ];
 
     tabs: Observable<any>;
 
@@ -144,7 +150,7 @@ class AsyncTabsTestAppComponent implements OnInit {
 class TabGroupWithSimpleApiComponent {
     otherLabel = 'Fruit';
     otherContent = 'Apples, grapes';
-    @ViewChild('legumes', { static: false }) legumes: any;
+    @ViewChild('legumes') legumes: any;
 }
 
 @Component({
