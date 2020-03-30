@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CAPIConfigService } from './capi-config.service';
-import { ApiModule, ClaimsService, Configuration, WebhooksService } from './swagger-codegen';
+import { ApiModule, ClaimsService, Configuration } from './swagger-codegen';
 
 @NgModule({
     imports: [
@@ -10,6 +10,6 @@ import { ApiModule, ClaimsService, Configuration, WebhooksService } from './swag
             providers: [{ provide: Configuration, useClass: CAPIConfigService }]
         }
     ],
-    providers: [CAPIConfigService, ClaimsService, WebhooksService]
+    providers: [CAPIConfigService, ClaimsService]
 })
 export class CAPIModule {}
