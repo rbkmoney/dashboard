@@ -1,11 +1,11 @@
 import {
-    CDK_ROW_TEMPLATE,
     CdkFooterRow,
     CdkFooterRowDef,
     CdkHeaderRow,
     CdkHeaderRowDef,
     CdkRow,
-    CdkRowDef
+    CdkRowDef,
+    CDK_ROW_TEMPLATE
 } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, Directive, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 

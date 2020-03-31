@@ -17,19 +17,25 @@ import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-te
 export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(v => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v))
+    @coerce(
+        v => coerceBooleanProperty(v),
+        (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v)
+    )
     expanded = false;
 
     @Output() pinnedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(v => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v))
+    @coerce(
+        v => coerceBooleanProperty(v),
+        (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v)
+    )
     pinned = false;
 
     @Input() layoutGap = '20px';
 
-    @ContentChild(FloatPanelMoreTemplateComponent, { static: false }) floatPanelMore: FloatPanelMoreTemplateComponent;
+    @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
 
-    @ContentChild(FloatPanelActionsTemplateComponent, { static: false })
+    @ContentChild(FloatPanelActionsTemplateComponent)
     floatPanelActions: FloatPanelActionsTemplateComponent;
 
     expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;

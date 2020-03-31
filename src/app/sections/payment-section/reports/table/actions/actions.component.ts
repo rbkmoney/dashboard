@@ -11,7 +11,7 @@ import { Report } from '../../../../../api-codegen/anapi';
 })
 export class ActionsComponent {
     @Input() report: Report;
-    @ViewChild(DropdownTriggerDirective, { static: false }) trigger: DropdownTriggerDirective;
+    @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
 
     constructor(private router: Router) {}
 

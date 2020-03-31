@@ -61,6 +61,7 @@ export class KeycloakService {
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {
+        // tslint:disable-next-line: deprecation
         return Observable.create(async (observer: Observer<any>) => {
             let headers = headersArg;
             if (!headers) {

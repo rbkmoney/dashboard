@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange } from '@angular/material/radio';
 
 import { Contractor } from '../../../../api-codegen/questionary';
 

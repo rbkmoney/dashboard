@@ -14,19 +14,13 @@ export class ValidityService {
     private sub: Subscription = Subscription.EMPTY;
 
     validitySteps$: Observable<ValiditySteps> = this.steps$.asObservable();
-    isFlowValid$: Observable<boolean> = this.validitySteps$.pipe(
-        mapToIsFlowValid,
-        shareReplay(1)
-    );
+    isFlowValid$: Observable<boolean> = this.validitySteps$.pipe(mapToIsFlowValid, shareReplay(1));
 
     constructor(private stepFlowService: StepFlowService) {}
 
     subscribe() {
-        const initialSteps$ = this.stepFlowService.stepFlow$.pipe(
-            mapToInitialValiditySteps,
-            first()
-        );
-        this.sub = combineLatest(this.setUpValidity$, initialSteps$)
+        const initialSteps$ = this.stepFlowService.stepFlow$.pipe(mapToInitialValiditySteps, first());
+        this.sub = combineLatest([this.setUpValidity$, initialSteps$])
             .pipe(
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(

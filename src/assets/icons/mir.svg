@@ -6,7 +6,7 @@
     xmlns:svg="http://www.w3.org/2000/svg"
     xmlns="http://www.w3.org/2000/svg"
     xml:space="preserve"
-    style="enable-background:new 0 0 49 14;"
+    style="enable-background: new 0 0 49 14;"
     viewBox="0 0 49 14"
     height="14px"
     width="49px"
@@ -37,8 +37,8 @@
     </style>
     <title>МИР</title>
     <linearGradient y2="3" x2="48.5" y1="3" x1="34.1742" gradientUnits="userSpaceOnUse" id="SVGID_1_">
-        <stop id="stop6" style="stop-color:#00B4E6" offset="0" />
-        <stop id="stop8" style="stop-color:#088CCB" offset="1" />
+        <stop id="stop6" style="stop-color: #00b4e6;" offset="0" />
+        <stop id="stop8" style="stop-color: #088ccb;" offset="1" />
     </linearGradient>
     <path
         id="path10"
@@ -46,7 +46,7 @@
         class="st0"
     />
     <path
-        style="clip-rule:evenodd;fill:#4db45f;fill-rule:evenodd"
+        style="clip-rule: evenodd; fill: #4db45f; fill-rule: evenodd;"
         id="path12"
         d="m 35,6.5 0,7.5 4.5,0 0,-4 4,0 c 2.2,0 4.1,-1.5 4.7,-3.5 z"
         class="st1"

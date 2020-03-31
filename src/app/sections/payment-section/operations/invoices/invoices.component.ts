@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { shareReplay } from 'rxjs/operators';
 
@@ -19,10 +19,7 @@ export class InvoicesComponent {
     hasMoreInvoices$ = this.invoicesService.hasMore$;
     lastUpdated$ = this.invoicesService.lastUpdated$;
     doAction$ = this.invoicesService.doAction$;
-    isLoading$ = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

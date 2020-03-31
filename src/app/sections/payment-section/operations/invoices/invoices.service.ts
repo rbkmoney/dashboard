@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
@@ -21,10 +21,10 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest(
+    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
         this.searchResult$,
         this.shopService.shops$
-    ).pipe(
+    ]).pipe(
         mapToInvoicesTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');

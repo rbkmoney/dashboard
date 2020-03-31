@@ -15,12 +15,15 @@ import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.c
 export class ExpandPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(v => coerceBooleanProperty(v), (v: boolean, self: ExpandPanelComponent) => self.expandedChange.emit(v))
+    @coerce(
+        v => coerceBooleanProperty(v),
+        (v: boolean, self: ExpandPanelComponent) => self.expandedChange.emit(v)
+    )
     expanded = false;
 
     @Input() layoutGap = '20px';
 
-    @ContentChild(ExpandPanelMoreTemplateComponent, { static: false })
+    @ContentChild(ExpandPanelMoreTemplateComponent)
     expandPanelMore: ExpandPanelMoreTemplateComponent;
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;

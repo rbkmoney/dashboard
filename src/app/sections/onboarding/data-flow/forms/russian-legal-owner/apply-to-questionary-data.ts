@@ -12,6 +12,7 @@ import { applyToIdentityDocument } from '../subforms';
 
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
+    // tslint:disable-next-line: variable-name
     { type, date, number }: FormValue
 ): AuthorityConfirmingDocument => ({
     ...authorityConfirmingDocument,
