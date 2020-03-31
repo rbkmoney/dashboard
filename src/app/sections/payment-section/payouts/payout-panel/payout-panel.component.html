@@ -11,7 +11,7 @@
                 {{ (shopInfo$ | async)?.name }}
             </div>
             <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
-                {{ t[(payout?.payoutToolDetails?.detailsType)] || payout?.payoutToolDetails?.detailsType }}
+                {{ t[payout?.payoutToolDetails?.detailsType] || payout?.payoutToolDetails?.detailsType }}
             </div>
         </div>
     </div>
