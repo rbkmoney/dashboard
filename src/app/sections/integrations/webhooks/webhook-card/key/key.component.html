@@ -3,17 +3,14 @@
         <div class="mat-title">Публичный ключ</div>
     </dsh-card-title>
     <div fxLayout="column" [fxLayoutGap]="layoutGap">
-        <dsh-details-item
-            [title]="
-                'Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений'
-            "
-        >
-            <div class="mat-body-1 pre-wrap">
-                {{ key }}
-            </div>
-        </dsh-details-item>
+        <div class="mat-caption">
+            Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений
+        </div>
+        <div class="mat-body-1 pre-wrap">
+            {{ key }}
+        </div>
         <div>
-            <button dsh-button (click)="copyKey()">Скопировать ключ</button>
+            <button dsh-button [cdkCopyToClipboard]="key">Скопировать ключ</button>
         </div>
     </div>
 </div>

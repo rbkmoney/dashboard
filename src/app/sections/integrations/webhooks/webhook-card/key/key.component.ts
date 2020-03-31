@@ -12,6 +12,4 @@ export class KeyComponent {
     key: string;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
-
-    copyKey() {}
 }

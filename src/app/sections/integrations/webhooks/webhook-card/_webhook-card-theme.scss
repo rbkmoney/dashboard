@@ -8,4 +8,8 @@
     .dsh-webhook-card-events-section {
         border-bottom-color: mat-color($gray, 200);
     }
+
+    .dsh-webhook-card-gray-header {
+        color: map-get($gray, 500);
+    }
 }
