@@ -1,8 +1,8 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material';
-
+import { MatIconModule } from '@angular/material/icon';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
@@ -15,7 +15,7 @@ import { WebhookCardComponent } from './webhook-card.component';
 
 @NgModule({
     declarations: [WebhookCardComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
-    imports: [LayoutModule, CommonModule, ButtonModule, FlexModule, MatIconModule, cdkMo],
+    imports: [ClipboardModule, LayoutModule, CommonModule, ButtonModule, FlexModule, MatIconModule],
     exports: [WebhookCardComponent]
 })
 export class WebhookCardModule {}
