@@ -1,0 +1,19 @@
+<div class="dsh-webhook-card-key-section">
+    <dsh-card-title>
+        <div class="mat-title">Публичный ключ</div>
+    </dsh-card-title>
+    <div fxLayout="column" [fxLayoutGap]="layoutGap">
+        <dsh-details-item
+            [title]="
+                'Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений'
+            "
+        >
+            <div class="mat-body-1 pre-wrap">
+                {{ key }}
+            </div>
+        </dsh-details-item>
+        <div>
+            <button dsh-button (click)="copyKey()">Скопировать ключ</button>
+        </div>
+    </div>
+</div>

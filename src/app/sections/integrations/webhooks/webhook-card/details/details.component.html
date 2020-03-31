@@ -1,0 +1,12 @@
+<div class="dsh-webhook-card-details-section" fxLayout="column" [fxLayoutGap]="layoutGap">
+    <dsh-details-item [title]="'URL, на который будут поступать оповещения о произошедших событиях'">
+        <div class="mat-body-1">
+            {{ webhook.url }}
+        </div>
+    </dsh-details-item>
+    <dsh-details-item [title]="'Магазин'">
+        <div class="mat-body-1">
+            {{ webhook.scope.shopID }}
+        </div>
+    </dsh-details-item>
+</div>

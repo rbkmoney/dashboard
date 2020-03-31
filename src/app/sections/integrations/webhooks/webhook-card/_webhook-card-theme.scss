@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-webhook-card-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-webhook-card-details-section,
+    .dsh-webhook-card-key-section,
+    .dsh-webhook-card-events-section {
+        border-bottom-color: mat-color($gray, 200);
+    }
+}

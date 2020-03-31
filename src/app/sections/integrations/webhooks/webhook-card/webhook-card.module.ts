@@ -1,13 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material';
 
+import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
 
+import { ActionsComponent } from './actions/actions.component';
+import { DetailsComponent } from './details/details.component';
+import { EventsComponent } from './events/events.component';
+import { KeyComponent } from './key/key.component';
 import { WebhookCardComponent } from './webhook-card.component';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
-    declarations: [WebhookCardComponent],
-    imports: [LayoutModule, CommonModule],
+    declarations: [WebhookCardComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
+    imports: [LayoutModule, CommonModule, ButtonModule, FlexModule, MatIconModule],
     exports: [WebhookCardComponent]
 })
 export class WebhookCardModule {}

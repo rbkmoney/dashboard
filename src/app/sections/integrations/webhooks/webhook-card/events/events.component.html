@@ -1,0 +1,8 @@
+<div class="dsh-webhook-card-events-section">
+    <dsh-card-title>
+        <div class="mat-title">Набор событий</div>
+    </dsh-card-title>
+    <ul fxLayout="column" [fxLayoutGap]="layoutGap">
+        <li *ngFor="let event of events">{{ event }}</li>
+    </ul>
+</div>
