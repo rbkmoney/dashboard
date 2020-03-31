@@ -43,9 +43,10 @@
 
             <mat-divider></mat-divider>
 
-            <dsh-refunds-info [refundsSummary]="refundsSummary"></dsh-refunds-info>
-
-            <mat-divider></mat-divider>
+            <ng-container *ngIf="refundsSummary">
+                <dsh-refunds-info [refundsSummary]="refundsSummary"></dsh-refunds-info>
+                <mat-divider></mat-divider>
+            </ng-container>
 
             <dsh-payout-tool-info [payoutToolDetails]="payout?.payoutToolDetails"></dsh-payout-tool-info>
 
