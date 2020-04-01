@@ -26,10 +26,7 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
 
     error$ = this.claimsTableData$.pipe(takeError);
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
-    );
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(
         private claimsService: ApiClaimsService,

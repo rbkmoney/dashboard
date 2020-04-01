@@ -10,7 +10,7 @@ import {
     MatSelectModule,
     MatSnackBarModule
 } from '@angular/material';
-import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';

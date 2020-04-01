@@ -47,13 +47,8 @@ export class SearchFormService {
     private syncQueryParams() {
         const formValue = toFormValue(this.route.snapshot.queryParams, SearchFormService.defaultParams);
         this.form.setValue(formValue);
-        this.form.valueChanges
-            .pipe(
-                startWith(formValue),
-                map(toQueryParams)
-            )
-            .subscribe(queryParams => {
-                this.router.navigate([location.pathname], { queryParams });
-            });
+        this.form.valueChanges.pipe(startWith(formValue), map(toQueryParams)).subscribe(queryParams => {
+            this.router.navigate([location.pathname], { queryParams });
+        });
     }
 }

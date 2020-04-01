@@ -29,10 +29,7 @@ export class CreateReportDialogService {
             shareReplay(SHARE_REPLAY_CONF)
         );
 
-        this.report$ = report$.pipe(
-            filterPayload,
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+        this.report$ = report$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = report$.pipe(
             filterError,
             tap(error => {

@@ -35,11 +35,7 @@ export class ClaimsService {
     }
 
     search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[], cacheSize = 1): Observable<Claim[]> {
-        return this.searchClaims(1000, claimStatuses).pipe(
-            noContinuationToken,
-            mapResult,
-            shareReplay(cacheSize)
-        );
+        return this.searchClaims(1000, claimStatuses).pipe(noContinuationToken, mapResult, shareReplay(cacheSize));
     }
 
     getClaimByID(claimID: number): Observable<Claim> {
