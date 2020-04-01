@@ -52,6 +52,7 @@ export class InvoicesComponent {
         return this.dialog
             .open(CreateInvoiceDialogComponent, {
                 width: '720px',
+                maxHeight: '90vh',
                 disableClose: true,
                 data: {
                     shopsInfo$: this.shopsInfo$

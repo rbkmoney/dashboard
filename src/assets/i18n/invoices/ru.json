@@ -1,6 +1,6 @@
 {
     "create": {
-        "button": "Создание инвойса",
+        "button": "Создать инвойс",
         "success": "Успешно создан"
     },
     "createDialog": {
