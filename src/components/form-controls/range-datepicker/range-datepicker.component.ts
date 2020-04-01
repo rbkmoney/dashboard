@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatFormFieldControl } from '@angular/material';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import moment, { Moment } from 'moment';
 import { map } from 'rxjs/operators';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
@@ -53,7 +53,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this._disablePeriodSelect = coerceBooleanProperty(value);
     }
 
-    @ViewChild('input', { static: false })
+    @ViewChild('input')
     set input(input: ElementRef<HTMLInputElement>) {
         if (input && input.nativeElement) {
             this.setInputElement(input.nativeElement);

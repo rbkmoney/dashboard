@@ -61,10 +61,10 @@ export const toPanelInfo = (s: Observable<QuestionaryData>): Observable<PanelInf
     );
     const bankAccountItem$ = s.pipe(pluck('bankAccount'), toPanelItem('bankAccountInfo'));
     const contactInfoItem$ = s.pipe(pluck('contactInfo'), toPanelItem('contactInfo'));
-    const orgInfoItem$ = combineLatest(
+    const orgInfoItem$ = combineLatest([
         s.pipe(pluck('contractor', 'legalEntity')),
         s.pipe(pluck('contractor', 'individualEntity'))
-    ).pipe(
+    ]).pipe(
         map(entities => entities.filter(negate(isEmpty))),
         map(last),
         toOrgInfo,

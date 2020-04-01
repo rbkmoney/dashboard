@@ -1,4 +1,4 @@
-import { empty, merge, Observable, of, Subject } from 'rxjs';
+import { EMPTY, merge, Observable, of, Subject } from 'rxjs';
 import {
     debounceTime,
     distinctUntilChanged,
@@ -42,9 +42,10 @@ export abstract class PartialFetcher<R, P> {
             share()
         );
         this.searchResult$ = this.fetchResultChanges$.pipe(pluck('result'), shareReplay(SHARE_REPLAY_CONF));
+
         this.hasMore$ = this.fetchResultChanges$.pipe(
             pluck('hasMore'),
-            startWith(null),
+            startWith(null as boolean),
             distinctUntilChanged(),
             shareReplay(SHARE_REPLAY_CONF)
         );
@@ -56,7 +57,7 @@ export abstract class PartialFetcher<R, P> {
             true
         ).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = fetchResult$.pipe(
-            switchMap(({ error }) => (error ? of(error) : empty())),
+            switchMap(({ error }) => (error ? of(error) : EMPTY)),
             tap(error => console.error('Partial fetcher error: ', error)),
             share()
         );

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
@@ -55,7 +56,7 @@ export class CompanySearchService {
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
         return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMap(() => forkJoin(of(initialDocumentID), this.claimsService.createClaim(changeset))),
+            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
             catchError(err => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');

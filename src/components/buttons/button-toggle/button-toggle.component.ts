@@ -23,7 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CanDisableRippleCtor, MatButtonToggleGroup, mixinDisableRipple } from '@angular/material';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { CanDisableRippleCtor, mixinDisableRipple } from '@angular/material/core';
 
 export type ToggleType = 'checkbox' | 'radio';
 
@@ -62,6 +63,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     @HostBinding('class.dsh-button-toggle-group') groupClass = true;
     @HostBinding('attr.role') role = true;
 
+    // tslint:disable-next-line: no-output-native
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
     @Output() readonly valueChange = new EventEmitter<any>();
 
@@ -371,6 +373,7 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     name: string;
 
     /** Event emitted when the group value changes. */
+    // tslint:disable-next-line: no-output-native
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
 
     @ViewChild('button', { static: true }) _buttonElement: ElementRef<HTMLButtonElement>;

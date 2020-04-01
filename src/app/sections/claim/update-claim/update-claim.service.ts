@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class UpdateClaimService {
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
                 toChangeset,
-                switchMap(changeset => combineLatest(of(changeset), this.routeParamClaimService.claim$)),
+                switchMap(changeset => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
                 switchMap(([changeset, { id, revision }]) =>
                     this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
                         catchError(ex => {

@@ -24,9 +24,9 @@ import { DshTabLabelDirective } from './tab-label.directive';
     exportAs: 'dshTab'
 })
 export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy {
-    @ContentChild(DshTabLabelDirective, { static: false }) templateLabel: DshTabLabelDirective;
+    @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;
 
-    @ContentChild(DshTabContentDirective, { read: TemplateRef, static: false })
+    @ContentChild(DshTabContentDirective, { read: TemplateRef })
     _explicitContent: TemplateRef<any>;
 
     @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;

@@ -8,7 +8,7 @@ const apply = <T>(
     state: Observable<ContentConfig>,
     val: Observable<T>,
     fn: (args: [ContentConfig, T]) => ContentConfig
-): Observable<ContentConfig> => combineLatest(state, val).pipe(map(fn));
+): Observable<ContentConfig> => combineLatest([state, val]).pipe(map(fn));
 
 const applyActionBtnContent = (
     state: Observable<ContentConfig>,

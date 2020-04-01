@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, of, Subject } from 'rxjs';
 import { filter, first, map, pluck, switchMap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class EditDocumentService {
             .pipe(
                 filter(m => m.length === 1),
                 pluck('0', 'claimModificationType', 'documentId'),
-                switchMap(documentId => forkJoin(of(documentId), claimId$)),
+                switchMap(documentId => forkJoin([of(documentId), claimId$])),
                 map(([documentId, claimId]) => [
                     'onboarding',
                     'claim',
@@ -30,13 +30,13 @@ export class EditDocumentService {
                     'basic-info'
                 ]),
                 switchMap(navigationCommands =>
-                    forkJoin(
+                    forkJoin([
                         of(navigationCommands),
                         this.dialog
                             .open(ConfirmActionDialogComponent)
                             .afterClosed()
                             .pipe(filter(r => r === 'confirm'))
-                    )
+                    ])
                 )
             )
             .subscribe(([commands]) => this.router.navigate(commands));

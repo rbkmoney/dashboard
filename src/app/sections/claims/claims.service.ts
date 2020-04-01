@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
 import { ClaimsService as ApiClaimsService } from '../../api/claims/claims.service';
@@ -19,10 +19,7 @@ export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    claimsTableData$: Observable<ClaimsTableData[]> = combineLatest(this.searchResult$).pipe(
-        map(([searchResult]) => searchResult),
-        mapToClaimsTableData
-    );
+    claimsTableData$: Observable<ClaimsTableData[]> = this.searchResult$.pipe(mapToClaimsTableData);
 
     error$ = this.claimsTableData$.pipe(takeError);
 

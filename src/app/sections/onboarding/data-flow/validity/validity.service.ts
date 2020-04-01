@@ -20,7 +20,7 @@ export class ValidityService {
 
     subscribe() {
         const initialSteps$ = this.stepFlowService.stepFlow$.pipe(mapToInitialValiditySteps, first());
-        this.sub = combineLatest(this.setUpValidity$, initialSteps$)
+        this.sub = combineLatest([this.setUpValidity$, initialSteps$])
             .pipe(
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(

@@ -199,7 +199,7 @@ export class LinearChartService implements ChartService<LinearPeriodData, Linear
 
     private mousemove(data: LinearPeriodData[]) {
         const dates = data[0].values.map(val => val.time);
-        const x0 = this.xScale.invert((event as MouseEvent).layerX - this.config.width / (2 * dates.length));
+        const x0 = this.xScale.invert((event as any).layerX - this.config.width / (2 * dates.length));
         const i = min([bisectLeft(dates, x0), dates.length - 1]);
         const d = dates[i];
 

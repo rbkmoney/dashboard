@@ -32,10 +32,10 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
             filter(f => !f),
             mapTo(-1)
         );
-        const selectedIdxByFragment$ = combineLatest(
+        const selectedIdxByFragment$ = combineLatest([
             fragmentIdx$.pipe(filter(f => !!f)),
             this.fetchResultChanges$
-        ).pipe(
+        ]).pipe(
             map(([fragment, { hasMore, result: payouts }]) => {
                 const idx = payouts.findIndex(({ id }) => id === fragment);
                 return { idx, isContinueToFetch: idx === -1 && hasMore };
