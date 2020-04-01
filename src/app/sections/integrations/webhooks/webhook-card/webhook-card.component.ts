@@ -1,19 +1,38 @@
-import { Component, Inject, Input, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { combineLatest, of, Subject } from 'rxjs';
+import { map, pluck, switchMap } from 'rxjs/operators';
 
-import { ExpandPanelComponent } from '@dsh/components/layout';
-
-import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
+import { CustomersTopic, InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
+import { ShopService } from '../../../../api/shop';
 import { LAYOUT_GAP } from '../../../constants';
+type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
+type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
     selector: 'dsh-webhook-card',
-    templateUrl: 'webhook-card.component.html'
+    templateUrl: 'webhook-card.component.html',
+    styleUrls: ['webhook-card.component.scss']
 })
-export class WebhookCardComponent {
+export class WebhookCardComponent implements OnChanges {
     @Input()
     webhook: Webhook;
 
-    @ViewChild('expandPanel', { static: false }) expandPanel: ExpandPanelComponent;
+    events: InvoicesEventTypesEnum[] | CustomersEventTypesEnum[] = [];
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+    private shopID: Subject<string> = new Subject();
+
+    shopName = this.shopID.pipe(
+        switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$])),
+        map(([shopID, shops]) => shops.filter(shop => shop.id === shopID)),
+        pluck('0', 'details', 'name')
+    );
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopService: ShopService) {
+        this.shopName.subscribe();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.events = changes.webhook.currentValue.scope.eventTypes;
+        this.shopID.next(changes.webhook.currentValue.scope.shopID);
+    }
 }

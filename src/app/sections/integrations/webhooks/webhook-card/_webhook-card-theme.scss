@@ -3,10 +3,8 @@
 @mixin dsh-webhook-card-theme($theme) {
     $gray: map-get($theme, gray);
 
-    .dsh-webhook-card-details-section,
-    .dsh-webhook-card-key-section,
-    .dsh-webhook-card-events-section {
-        border-bottom-color: mat-color($gray, 200);
+    .dsh-webhook-card-panel-items > *:not(:last-child) {
+        border-bottom-color: mat-color($gray, 200) !important;
     }
 
     .dsh-webhook-card-gray-header {
