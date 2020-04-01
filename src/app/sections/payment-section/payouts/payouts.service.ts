@@ -27,18 +27,15 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         private shopService: ShopService
     ) {
         super();
-        const fragmentIdx$ = this.route.fragment.pipe(
-            first(),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+        const fragmentIdx$ = this.route.fragment.pipe(first(), shareReplay(SHARE_REPLAY_CONF));
         const defaultSelectedIdxByFragment$ = fragmentIdx$.pipe(
             filter(f => !f),
             mapTo(-1)
         );
-        const selectedIdxByFragment$ = combineLatest(
+        const selectedIdxByFragment$ = combineLatest([
             fragmentIdx$.pipe(filter(f => !!f)),
             this.fetchResultChanges$
-        ).pipe(
+        ]).pipe(
             map(([fragment, { hasMore, result: payouts }]) => {
                 const idx = payouts.findIndex(({ id }) => id === fragment);
                 return { idx, isContinueToFetch: idx === -1 && hasMore };
@@ -56,11 +53,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         this.selectedIdx$ = merge(defaultSelectedIdxByFragment$, selectedIdxByFragment$).pipe(
             shareReplay(SHARE_REPLAY_CONF)
         );
-        this.isInit$ = this.selectedIdx$.pipe(
-            mapTo(false),
-            startWith(true),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
+        this.isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
     }
 
     protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string) {

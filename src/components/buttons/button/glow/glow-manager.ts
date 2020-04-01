@@ -15,9 +15,10 @@ export class GlowManager {
     }
 
     unregister() {
-        let unlisten: () => void;
-        while ((unlisten = this.listeners.pop())) {
+        let unlisten = this.listeners.pop();
+        while (unlisten) {
             unlisten();
+            unlisten = this.listeners.pop();
         }
     }
 

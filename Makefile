@@ -20,12 +20,12 @@ REGISTRY ?= dr2.rbkmoney.com
 BASE_IMAGE_NAME := service-fe
 BASE_IMAGE_TAG := 2b4570bc1d9631c10aaed2132eb87eb9003f3471
 
-BUILD_IMAGE_TAG := f3732d29a5e622aabf80542b5138b3631a726adb
+BUILD_IMAGE_TAG := 137ba2551041c98498c78e21246902ef9045dae6
 
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
 
-CALL_W_CONTAINER := init check lint test build clean submodules compile
+CALL_W_CONTAINER := init test build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -40,27 +40,15 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-init: npm-init compile
-
-npm-init:
+init:
 	NG_CLI_ANALYTICS=false npm ci
+	npm run codegen
 
-build: check lint
-	npm run build
+build:
+	npx run-p --aggregate-output --print-label check lint build
 
 clean:
 	rm -rf dist
 
-check:
-	npm run check
-
-lint:
-	npm run lint
-
 test:
 	npm run test
-
-swagger:
-	npm run codegen
-
-compile: swagger

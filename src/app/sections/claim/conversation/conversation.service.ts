@@ -8,16 +8,9 @@ import { toTimelineInfo } from './to-timeline-info';
 
 @Injectable()
 export class ConversationService {
-    timelineInfo$ = this.receiveClaimService.claim$.pipe(
-        pluck('changeset'),
-        map(toTimelineInfo),
-        shareReplay(1)
-    );
+    timelineInfo$ = this.receiveClaimService.claim$.pipe(pluck('changeset'), map(toTimelineInfo), shareReplay(1));
 
-    claimCreatedAt$ = this.receiveClaimService.claim$.pipe(
-        pluck('createdAt'),
-        shareReplay(1)
-    );
+    claimCreatedAt$ = this.receiveClaimService.claim$.pipe(pluck('createdAt'), shareReplay(1));
 
     constructor(private receiveClaimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
 

@@ -20,5 +20,9 @@
         "paths": {
             "@dsh/components/*": ["src/components/*"]
         }
+    },
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
     }
 }
