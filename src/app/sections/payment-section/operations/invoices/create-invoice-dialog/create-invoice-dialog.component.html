@@ -5,7 +5,7 @@
             <div fxLayout="column">
                 <mat-form-field>
                     <mat-label>{{ d.form.shop }}</mat-label>
-                    <mat-select formControlName="shopID">
+                    <mat-select formControlName="shopID" required>
                         <mat-option>
                             {{ t.any }}
                         </mat-option>
@@ -22,7 +22,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ d.form.product }}</mat-label>
-                    <input required matInput formControlName="product" />
+                    <input matInput formControlName="product" />
                 </mat-form-field>
             </div>
 
@@ -45,7 +45,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
-                            <input required matInput formControlName="taxMode" />
+                            <input matInput formControlName="taxMode" />
                         </mat-form-field>
                     </div>
                     <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
@@ -58,7 +58,9 @@
             </ng-container>
 
             <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
-                <h2 class="mat-subheading-1">{{ t.totalAmount }}</h2>
+                <h2 class="mat-subheading-1">
+                    {{ d.totalAmount }} {{ totalAmount$ | async | currency: form.value.currency }}
+                </h2>
                 <button dsh-stroked-button color="accent" (click)="add()">
                     {{ d.addProduct }}
                 </button>

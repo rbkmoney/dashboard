@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 import { Observable } from 'rxjs';
+import { map, shareReplay, startWith } from 'rxjs/operators';
+import { SHARE_REPLAY_CONF } from 'src/app/custom-operators';
 
 import { InvoiceService } from '../../../../../api';
 import { ShopInfo } from '../../../../../api-codegen/dark-api';
@@ -23,6 +25,7 @@ export class CreateInvoiceDialogComponent {
             .add(1, 'month')
             .endOf('day'),
         product: '',
+        currency: 'RUB',
         cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)])
     });
     shopsInfo$: Observable<ShopInfo[]>;
@@ -30,6 +33,12 @@ export class CreateInvoiceDialogComponent {
     get cart() {
         return this.form.controls.cart as FormArray;
     }
+
+    totalAmount$ = this.cart.valueChanges.pipe(
+        startWith(this.cart.value),
+        map(v => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     constructor(
         private dialogRef: MatDialogRef<CreateInvoiceDialogComponent, 'cancel' | 'create'>,
@@ -52,9 +61,15 @@ export class CreateInvoiceDialogComponent {
             .createInvoice({
                 shopID: value.shopID,
                 dueDate: value.dueDate,
-                currency: 'RUB',
+                currency: value.currency,
                 product: value.product,
-                metadata: undefined
+                metadata: undefined,
+                cart: this.cart.controls.map(({ value: v }) => ({
+                    product: v.product,
+                    quantity: v.quantity,
+                    price: v.price,
+                    taxMode: v.taxMode
+                }))
             })
             .subscribe(
                 () => {
