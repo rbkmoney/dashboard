@@ -4,10 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { ShopService } from '../../../../../api';
-import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
+import { removeEmptyProperties } from '../../operators';
 import { SearchFormValue } from '../../search-form-value';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
@@ -16,12 +15,6 @@ import { InvoiceSearchFormValue } from './invoice-search-form-value';
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup = this.initForm();
-    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo,
-        shareReplay(1)
-    );
     private defaultValues: InvoiceSearchFormValue = this.searchForm.value;
     formValueChanges$: Observable<InvoiceSearchFormValue> = this.searchForm.valueChanges.pipe(
         startWith(this.defaultValues),
@@ -30,12 +23,7 @@ export class SearchFormService {
         shareReplay(1)
     );
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute,
-        private shopService: ShopService
-    ) {
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );

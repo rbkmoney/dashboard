@@ -1,3 +1,77 @@
-<div class="dsh-create-invoice-dialog">
-    <ng-content></ng-content>
-</div>
+<ng-container *transloco="let t">
+    <ng-container *transloco="let d; scope: 'invoices'; read: 'invoices.createDialog'">
+        <h1 class="mat-title">{{ d.title }}</h1>
+        <div fxLayout="column" fxLayoutGap="20px" [formGroup]="form">
+            <div fxLayout="column">
+                <mat-form-field>
+                    <mat-label>{{ d.form.shop }}</mat-label>
+                    <mat-select formControlName="shopID">
+                        <mat-option>
+                            {{ t.any }}
+                        </mat-option>
+                        <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                            {{ shopInfo.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ d.form.dueDate }}</mat-label>
+                    <input required matInput formControlName="dueDate" [matDatepicker]="dueDate" />
+                    <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                    <mat-datepicker #dueDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ d.form.product }}</mat-label>
+                    <input required matInput formControlName="product" />
+                </mat-form-field>
+            </div>
+
+            <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
+
+            <ng-container *ngFor="let removeGroup of cart.controls" [formGroup]="removeGroup">
+                <div fxLayout="column">
+                    <mat-form-field>
+                        <mat-label>{{ d.removeFormGroup.product }}</mat-label>
+                        <input required matInput formControlName="product" />
+                    </mat-form-field>
+                    <div fxLayout fxLayoutGap="20px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{ d.removeFormGroup.price }}</mat-label>
+                            <input required matInput formControlName="price" />
+                        </mat-form-field>
+                        <mat-form-field fxFlex>
+                            <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
+                            <input required matInput formControlName="quantity" />
+                        </mat-form-field>
+                        <mat-form-field fxFlex>
+                            <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
+                            <input required matInput formControlName="taxMode" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign=" end" fxFill>
+                    <button dsh-stroked-button color="warn" (click)="remove(removeGroup)">
+                        {{ d.remove }}
+                    </button>
+                </div>
+                <mat-divider></mat-divider>
+            </ng-container>
+
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
+                <h2 class="mat-subheading-1">{{ t.totalAmount }}</h2>
+                <button dsh-stroked-button color="accent" (click)="add()">
+                    {{ d.addProduct }}
+                </button>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
+                <button dsh-button (click)="cancel()">
+                    {{ t.cancel }}
+                </button>
+                <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">
+                    {{ d.create }}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

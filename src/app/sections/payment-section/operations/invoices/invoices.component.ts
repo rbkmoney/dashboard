@@ -23,6 +23,8 @@ export class InvoicesComponent {
     doAction$ = this.invoicesService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
+    shopsInfo$ = this.invoicesService.shopsInfo$;
+
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(
@@ -50,7 +52,10 @@ export class InvoicesComponent {
         return this.dialog
             .open(CreateInvoiceDialogComponent, {
                 width: '720px',
-                disableClose: true
+                disableClose: true,
+                data: {
+                    shopsInfo$: this.shopsInfo$
+                }
             })
             .afterClosed()
             .pipe(filter(r => r === 'create'))

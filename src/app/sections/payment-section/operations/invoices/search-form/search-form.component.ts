@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { ShopInfo } from 'src/app/api-codegen/dark-api';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
@@ -14,13 +15,13 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
+    @Input() shopsInfo: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<InvoiceSearchFormValue> = new EventEmitter<InvoiceSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
-    shopsInfo$ = this.searchFormService.shopsInfo$;
 
     constructor(private searchFormService: SearchFormService) {}
 

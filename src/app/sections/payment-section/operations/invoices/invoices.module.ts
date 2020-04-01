@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +20,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
+import { InvoiceModule } from '../../../../api';
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
 import { EmptySearchResultModule } from '../../empty-search-result';
@@ -53,7 +56,10 @@ import { TableComponent } from './table';
         MatMenuModule,
         RangeDatepickerModule,
         EmptySearchResultModule,
-        MatDialogModule
+        MatDialogModule,
+        InvoiceModule,
+        MatDatepickerModule,
+        MatDividerModule
     ],
     declarations: [
         InvoicesComponent,

@@ -2,7 +2,7 @@
     <div fxLayout="column" fxLayoutAlign=" end">
         <button dsh-stroked-button color="accent" (click)="create()">{{ i.create.button }}</button>
     </div>
-    <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
+    <dsh-search-form (formValueChanges)="search($event)" [shopsInfo]="shopsInfo$ | async"></dsh-search-form>
     <dsh-card>
         <dsh-card-content *transloco="let t" fxLayout="column" fxLayoutGap="15px">
             <dsh-last-updated

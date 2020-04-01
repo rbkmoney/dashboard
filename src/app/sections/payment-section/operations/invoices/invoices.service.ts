@@ -3,14 +3,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
+import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
-import { InvoiceSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { mapToTimestamp } from '../operators';
+import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
 import { InvoicesTableData } from './table';
@@ -30,6 +30,13 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
+    );
+
+    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo,
+        shareReplay(1)
     );
 
     constructor(
