@@ -1,4 +1,6 @@
-<dsh-card-title>
-    <div class="mat-title">Действия</div>
-</dsh-card-title>
-<button dsh-stroked-button color="warn">Удалить webhook</button>
+<ng-container *transloco="let t; scope: 'webhook'; read: 'webhook.actions'">
+    <dsh-card-title>
+        <div class="mat-title">{{ t.title }}</div>
+    </dsh-card-title>
+    <button dsh-stroked-button color="warn" (click)="delete()">{{ t.buttons.delete }}</button>
+</ng-container>

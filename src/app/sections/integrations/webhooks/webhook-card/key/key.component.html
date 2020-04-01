@@ -1,16 +1,16 @@
-<div class="dsh-webhook-card-key-section">
+<div class="dsh-webhook-card-key-section" *transloco="let t; scope: 'webhook'; read: 'webhook.key'">
     <dsh-card-title>
         <div class="mat-title">Публичный ключ</div>
     </dsh-card-title>
     <div fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-caption">
-            Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений
+            {{ t.title }}
         </div>
         <div class="mat-body-1 pre-wrap">
             {{ key }}
         </div>
         <div>
-            <button dsh-button [cdkCopyToClipboard]="key">Скопировать ключ</button>
+            <button dsh-button [cdkCopyToClipboard]="key">{{ t.buttons.copy }}</button>
         </div>
     </div>
 </div>

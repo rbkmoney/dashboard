@@ -35,7 +35,7 @@ export class ReceiveWebhooksService {
             webhooks => this.webhooksState$.next(webhooks),
             err => {
                 console.error(err);
-                this.snackBar.open(this.transloco.translate('commonError'), 'OK');
+                this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                 this.webhooksError$.next(true);
             }
         );
