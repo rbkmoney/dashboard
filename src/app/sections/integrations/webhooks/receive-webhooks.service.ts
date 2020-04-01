@@ -6,7 +6,7 @@ import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Webhook } from '../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../api/webhooks';
-import { booleanDelay } from '../../../custom-operators';
+import { booleanDelay, SHARE_REPLAY_CONF } from '../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
@@ -16,7 +16,7 @@ export class ReceiveWebhooksService {
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     webhooksReceived$ = this.webhooks$.pipe(
