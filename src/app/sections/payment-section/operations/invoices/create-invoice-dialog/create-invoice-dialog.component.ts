@@ -9,9 +9,10 @@ import { map, shareReplay, startWith } from 'rxjs/operators';
 import { SHARE_REPLAY_CONF } from 'src/app/custom-operators';
 
 import { InvoiceService } from '../../../../../api';
-import { ShopInfo } from '../../../../../api-codegen/dark-api';
+import { InvoiceLine, InvoiceLineTaxMode, InvoiceLineTaxVAT } from '../../../../../api-codegen/anapi';
+import { ShopInfo } from '../../operators';
 
-const EMPTY_CART_ITEM = { product: '', quantity: '', price: '', taxMode: '' };
+const EMPTY_CART_ITEM = { product: '', quantity: '', price: '', taxMode: InvoiceLineTaxVAT.RateEnum._0 };
 
 @Component({
     selector: 'dsh-create-invoice-dialog',
@@ -30,15 +31,17 @@ export class CreateInvoiceDialogComponent {
     });
     shopsInfo$: Observable<ShopInfo[]>;
 
-    get cart() {
-        return this.form.controls.cart as FormArray;
-    }
-
     totalAmount$ = this.cart.valueChanges.pipe(
         startWith(this.cart.value),
         map(v => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
         shareReplay(SHARE_REPLAY_CONF)
     );
+
+    taxModes = Object.entries(InvoiceLineTaxVAT.RateEnum);
+
+    get cart() {
+        return this.form.controls.cart as FormArray;
+    }
 
     constructor(
         private dialogRef: MatDialogRef<CreateInvoiceDialogComponent, 'cancel' | 'create'>,
@@ -60,16 +63,22 @@ export class CreateInvoiceDialogComponent {
         this.invoiceService
             .createInvoice({
                 shopID: value.shopID,
-                dueDate: value.dueDate,
+                dueDate: value.dueDate.utc().format(),
                 currency: value.currency,
                 product: value.product,
                 metadata: undefined,
-                cart: this.cart.controls.map(({ value: v }) => ({
-                    product: v.product,
-                    quantity: v.quantity,
-                    price: v.price,
-                    taxMode: v.taxMode
-                }))
+                cart: this.cart.controls.map(
+                    ({ value: v }) =>
+                        ({
+                            product: v.product,
+                            quantity: v.quantity,
+                            price: v.price,
+                            taxMode: {
+                                type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
+                                rate: v.taxMode
+                            }
+                        } as InvoiceLine)
+                )
             })
             .subscribe(
                 () => {

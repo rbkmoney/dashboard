@@ -45,7 +45,11 @@
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
-                            <input matInput formControlName="taxMode" />
+                            <mat-select formControlName="taxMode" required>
+                                <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode[1]">
+                                    {{ taxMode[0] | taxMode }}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
