@@ -49,23 +49,13 @@ export class InvoicesComponent {
     }
 
     create() {
-        return this.dialog
-            .open(CreateInvoiceDialogComponent, {
-                width: '720px',
-                maxHeight: '90vh',
-                disableClose: true,
-                data: {
-                    shopsInfo$: this.shopsInfo$
-                }
-            })
-            .afterClosed()
-            .pipe(filter(r => r === 'create'))
-            .subscribe(() => {
-                this.snackBar.open(
-                    this.transloco.translate('create.success', null, 'invoices|scoped'),
-                    this.transloco.translate('ok')
-                );
-                this.refresh();
-            });
+        this.dialog.open(CreateInvoiceDialogComponent, {
+            width: '720px',
+            maxHeight: '90vh',
+            disableClose: true,
+            data: {
+                shopsInfo$: this.shopsInfo$
+            }
+        });
     }
 }

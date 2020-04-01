@@ -31,7 +31,6 @@ import { InvoicesComponent } from './invoices.component';
 import { SearchFormComponent } from './search-form';
 import { InvoiceStatusColorPipe } from './status-color.pipe';
 import { TableComponent } from './table';
-import { TaxModePipe } from './tax-mode.pipe';
 
 @NgModule({
     imports: [
@@ -67,8 +66,7 @@ import { TaxModePipe } from './tax-mode.pipe';
         SearchFormComponent,
         InvoiceStatusColorPipe,
         TableComponent,
-        CreateInvoiceDialogComponent,
-        TaxModePipe
+        CreateInvoiceDialogComponent
     ],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })

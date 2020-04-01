@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 import { Observable } from 'rxjs';
@@ -12,7 +13,8 @@ import { InvoiceService } from '../../../../../api';
 import { InvoiceLine, InvoiceLineTaxMode, InvoiceLineTaxVAT } from '../../../../../api-codegen/anapi';
 import { ShopInfo } from '../../operators';
 
-const EMPTY_CART_ITEM = { product: '', quantity: '', price: '', taxMode: InvoiceLineTaxVAT.RateEnum._0 };
+const WITHOUT_VAT = Symbol('without VAT');
+const EMPTY_CART_ITEM = { product: '', quantity: null, price: null, taxVatRate: WITHOUT_VAT };
 
 @Component({
     selector: 'dsh-create-invoice-dialog',
@@ -37,7 +39,8 @@ export class CreateInvoiceDialogComponent {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    taxModes = Object.entries(InvoiceLineTaxVAT.RateEnum);
+    taxVatRates = Object.values(InvoiceLineTaxVAT.RateEnum);
+    withoutVAT = WITHOUT_VAT;
 
     get cart() {
         return this.form.controls.cart as FormArray;
@@ -49,7 +52,8 @@ export class CreateInvoiceDialogComponent {
         private transloco: TranslocoService,
         private fb: FormBuilder,
         private snackBar: MatSnackBar,
-        @Inject(MAT_DIALOG_DATA) data: { shopsInfo$: Observable<ShopInfo[]> }
+        @Inject(MAT_DIALOG_DATA) data: { shopsInfo$: Observable<ShopInfo[]> },
+        private router: Router
     ) {
         this.shopsInfo$ = data.shopsInfo$;
     }
@@ -60,29 +64,35 @@ export class CreateInvoiceDialogComponent {
 
     create() {
         const { value } = this.form;
+        const cart = this.cart.controls.map(({ value: v }) => {
+            const product: InvoiceLine = {
+                product: v.product,
+                quantity: Number(v.quantity),
+                price: Number(v.price)
+            };
+            if (v.taxVatRate !== WITHOUT_VAT) {
+                product.taxMode = {
+                    type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
+                    rate: v.taxVatRate
+                } as InvoiceLineTaxMode;
+            }
+            return product;
+        });
         this.invoiceService
             .createInvoice({
                 shopID: value.shopID,
-                dueDate: value.dueDate.utc().format(),
+                dueDate: moment(value.dueDate)
+                    .utc()
+                    .format(),
                 currency: value.currency,
                 product: value.product,
-                metadata: undefined,
-                cart: this.cart.controls.map(
-                    ({ value: v }) =>
-                        ({
-                            product: v.product,
-                            quantity: v.quantity,
-                            price: v.price,
-                            taxMode: {
-                                type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
-                                rate: v.taxMode
-                            }
-                        } as InvoiceLine)
-                )
+                cart,
+                metadata: {}
             })
             .subscribe(
-                () => {
+                ({ invoice }) => {
                     this.dialogRef.close('create');
+                    this.router.navigate(['invoice', invoice.id]);
                 },
                 () => {
                     this.snackBar.open(this.transloco.translate('commonError'), this.transloco.translate('ok'));

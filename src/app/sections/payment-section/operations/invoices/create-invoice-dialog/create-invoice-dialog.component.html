@@ -45,9 +45,10 @@
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
-                            <mat-select formControlName="taxMode" required>
-                                <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode[1]">
-                                    {{ taxMode[0] | taxMode }}
+                            <mat-select formControlName="taxVatRate" required>
+                                <mat-option [value]="withoutVAT">{{ d.removeFormGroup.withoutVAT }}</mat-option>
+                                <mat-option *ngFor="let taxVatRate of taxVatRates" [value]="taxVatRate">
+                                    {{ taxVatRate }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
