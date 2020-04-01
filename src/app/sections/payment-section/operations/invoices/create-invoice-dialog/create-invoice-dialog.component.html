@@ -28,7 +28,7 @@
 
             <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
 
-            <ng-container *ngFor="let removeGroup of cart.controls" [formGroup]="removeGroup">
+            <ng-container *ngFor="let removeGroup of cart.controls; index as i" [formGroup]="removeGroup">
                 <div fxLayout="column">
                     <mat-form-field>
                         <mat-label>{{ d.removeFormGroup.product }}</mat-label>
@@ -48,11 +48,11 @@
                             <input required matInput formControlName="taxMode" />
                         </mat-form-field>
                     </div>
-                </div>
-                <div fxLayout="column" fxLayoutAlign=" end" fxFill>
-                    <button dsh-stroked-button color="warn" (click)="remove(removeGroup)">
-                        {{ d.remove }}
-                    </button>
+                    <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
+                        <button dsh-stroked-button color="warn" (click)="remove(i)">
+                            {{ d.remove }}
+                        </button>
+                    </div>
                 </div>
                 <mat-divider></mat-divider>
             </ng-container>

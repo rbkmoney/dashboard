@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 
 import { InvoiceService } from '../../../../../api';
 import { ShopInfo } from '../../../../../api-codegen/dark-api';
+
+const EMPTY_CART_ITEM = { product: '', quantity: '', price: '', taxMode: '' };
 
 @Component({
     selector: 'dsh-create-invoice-dialog',
@@ -21,7 +23,7 @@ export class CreateInvoiceDialogComponent {
             .add(1, 'month')
             .endOf('day'),
         product: '',
-        cart: this.fb.array([])
+        cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)])
     });
     shopsInfo$: Observable<ShopInfo[]>;
 
@@ -65,10 +67,10 @@ export class CreateInvoiceDialogComponent {
     }
 
     add() {
-        this.cart.push(this.fb.group({ product: '', quantity: '', price: '', taxMode: '' }));
+        this.cart.push(this.fb.group(EMPTY_CART_ITEM));
     }
 
-    remove(control: AbstractControl) {
-        this.cart.removeAt(this.cart.controls.findIndex(c => c === control));
+    remove(idx: number) {
+        this.cart.removeAt(idx);
     }
 }
