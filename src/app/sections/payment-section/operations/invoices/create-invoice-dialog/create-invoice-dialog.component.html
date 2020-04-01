@@ -6,9 +6,6 @@
                 <mat-form-field>
                     <mat-label>{{ d.form.shop }}</mat-label>
                     <mat-select formControlName="shopID" required>
-                        <mat-option>
-                            {{ t.any }}
-                        </mat-option>
                         <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
                             {{ shopInfo.name }}
                         </mat-option>
@@ -37,11 +34,11 @@
                     <div fxLayout fxLayoutGap="20px">
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.price }}</mat-label>
-                            <input required matInput formControlName="price" />
+                            <input required matInput formControlName="price" type="number" />
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
-                            <input required matInput formControlName="quantity" />
+                            <input required matInput formControlName="quantity" type="number" />
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
