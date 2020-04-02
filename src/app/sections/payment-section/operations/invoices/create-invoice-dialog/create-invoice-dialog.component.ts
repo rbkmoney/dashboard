@@ -67,7 +67,7 @@ export class CreateInvoiceDialogComponent {
             const product: InvoiceLine = {
                 product: v.product,
                 quantity: v.quantity,
-                price: v.price
+                price: v.price * 100
             };
             if (v.taxVatRate !== WITHOUT_VAT) {
                 product.taxMode = {
