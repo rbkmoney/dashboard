@@ -19,7 +19,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ d.form.product }}</mat-label>
-                    <input matInput formControlName="product" />
+                    <input matInput formControlName="product" autocomplete="off" />
                 </mat-form-field>
             </div>
 
@@ -29,16 +29,26 @@
                 <div fxLayout="column">
                     <mat-form-field>
                         <mat-label>{{ d.removeFormGroup.product }}</mat-label>
-                        <input required matInput formControlName="product" />
+                        <input required matInput formControlName="product" autocomplete="off" />
                     </mat-form-field>
                     <div fxLayout fxLayoutGap="20px">
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.price }}</mat-label>
-                            <dsh-format-input required formControlName="price" format="currency"></dsh-format-input>
+                            <dsh-format-input
+                                required
+                                formControlName="price"
+                                format="currency"
+                                autocomplete="off"
+                            ></dsh-format-input>
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
-                            <dsh-format-input required formControlName="quantity" format="quantity"></dsh-format-input>
+                            <dsh-format-input
+                                required
+                                formControlName="quantity"
+                                format="quantity"
+                                autocomplete="off"
+                            ></dsh-format-input>
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>

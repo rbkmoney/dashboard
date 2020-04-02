@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { ShopInfo } from 'src/app/api-codegen/dark-api';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { ShopInfo } from '../../operators';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormService } from './search-form.service';
 

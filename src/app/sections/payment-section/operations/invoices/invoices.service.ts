@@ -8,6 +8,7 @@ import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
 import { ShopService } from '../../../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
@@ -36,7 +37,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(
