@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Replace } from '../../../type-utils';
 import { Invoice, InvoiceParams, InvoicesService } from '../../api-codegen/capi/swagger-codegen';
 import { genXRequestID } from '../utils';
 
@@ -12,7 +13,10 @@ export class InvoiceService {
         return this.invoicesService.getInvoiceByID(genXRequestID(), invoiceID);
     }
 
-    createInvoice(invoiceParams: InvoiceParams) {
-        return this.invoicesService.createInvoice(genXRequestID(), invoiceParams);
+    createInvoice({ dueDate, ...invoiceParams }: Replace<InvoiceParams, { dueDate: string }>) {
+        return this.invoicesService.createInvoice(genXRequestID(), {
+            ...invoiceParams,
+            dueDate: (dueDate as any) as Date
+        });
     }
 }
