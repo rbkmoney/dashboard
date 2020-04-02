@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { filter, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
