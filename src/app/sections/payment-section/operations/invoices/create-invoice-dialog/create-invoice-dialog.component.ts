@@ -19,6 +19,7 @@ const EMPTY_CART_ITEM = { product: '', quantity: null, price: null, taxVatRate: 
 @Component({
     selector: 'dsh-create-invoice-dialog',
     templateUrl: 'create-invoice-dialog.component.html',
+    styleUrls: ['create-invoice-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateInvoiceDialogComponent {
