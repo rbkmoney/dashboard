@@ -62,7 +62,7 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
                 <div>
                     <h2 class="mat-subheading-1 total-amount">
-                        {{ d.totalAmount }} {{ totalAmount$ | async | currency: form.value.currency }}
+                        {{ d.totalAmount }} {{ (totalAmount$ | async) / 100 | currency: form.value.currency }}
                     </h2>
                 </div>
                 <button dsh-stroked-button color="accent" (click)="add()">

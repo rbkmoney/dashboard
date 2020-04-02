@@ -14,7 +14,7 @@ export const currencyConfig: FormatInputConfig<string, number> = {
     // return minor number
     toPublicValue: v => {
         if (v) {
-            return Number(v.replace(/ /g, '').replace(',', ''));
+            return Number(v.replace(/ /g, '').replace(',', '.')) * 100;
         }
         if (isNil(v)) {
             return v;
