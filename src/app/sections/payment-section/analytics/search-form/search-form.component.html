@@ -7,7 +7,7 @@
             fxLayoutAlign="space-between center"
             fxLayoutAlign.lt-md="space-between stretch"
         >
-            <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
+            <dsh-range-datepicker formControlName="date" fxFlex disablePeriodSelect></dsh-range-datepicker>
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20">
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>
                     <mat-label>{{ t.shop }}</mat-label>
