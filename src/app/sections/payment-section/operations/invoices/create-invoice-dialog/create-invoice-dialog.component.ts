@@ -24,9 +24,7 @@ const EMPTY_CART_ITEM = { product: '', quantity: null, price: null, taxVatRate: 
 export class CreateInvoiceDialogComponent {
     form = this.fb.group({
         shopID: null,
-        dueDate: moment()
-            .add(1, 'month')
-            .endOf('day'),
+        dueDate: null,
         product: '',
         currency: 'RUB',
         cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)])

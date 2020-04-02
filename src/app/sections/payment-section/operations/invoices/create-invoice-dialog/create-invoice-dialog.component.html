@@ -34,11 +34,11 @@
                     <div fxLayout fxLayoutGap="20px">
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.price }}</mat-label>
-                            <input required matInput formControlName="price" type="number" />
+                            <dsh-format-input required formControlName="price" format="currency"></dsh-format-input>
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
-                            <input required matInput formControlName="quantity" type="number" />
+                            <dsh-format-input required formControlName="quantity" format="quantity"></dsh-format-input>
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
