@@ -66,8 +66,8 @@ export class CreateInvoiceDialogComponent {
         const cart = this.cart.controls.map(({ value: v }) => {
             const product: InvoiceLine = {
                 product: v.product,
-                quantity: Number(v.quantity),
-                price: Number(v.price)
+                quantity: v.quantity,
+                price: v.price
             };
             if (v.taxVatRate !== WITHOUT_VAT) {
                 product.taxMode = {
