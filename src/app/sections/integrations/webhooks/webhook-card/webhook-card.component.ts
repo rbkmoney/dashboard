@@ -1,9 +1,10 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { combineLatest, of, Subject } from 'rxjs';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { CustomersTopic, InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { ShopService } from '../../../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { LAYOUT_GAP } from '../../../constants';
 type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
@@ -24,7 +25,8 @@ export class WebhookCardComponent implements OnChanges {
     shopName = this.shopID.pipe(
         switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$])),
         map(([shopID, shops]) => shops.filter(shop => shop.id === shopID)),
-        pluck('0', 'details', 'name')
+        pluck('0', 'details', 'name'),
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopService: ShopService) {

@@ -10,5 +10,9 @@ import { LAYOUT_GAP } from '../../../../constants';
 export class DetailsComponent {
     @Input()
     webhook: Webhook;
+
+    @Input()
+    shopName: string;
+
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }
