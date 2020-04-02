@@ -59,10 +59,12 @@
                 <mat-divider></mat-divider>
             </ng-container>
 
-            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
-                <h2 class="mat-subheading-1">
-                    {{ d.totalAmount }} {{ totalAmount$ | async | currency: form.value.currency }}
-                </h2>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+                <div>
+                    <h2 class="mat-subheading-1 total-amount">
+                        {{ d.totalAmount }} {{ totalAmount$ | async | currency: form.value.currency }}
+                    </h2>
+                </div>
                 <button dsh-stroked-button color="accent" (click)="add()">
                     {{ d.addProduct }}
                 </button>
