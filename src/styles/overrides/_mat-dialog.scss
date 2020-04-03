@@ -2,5 +2,13 @@
     .mat-dialog-container {
         box-shadow: none !important;
         padding: 20px !important;
+
+        // Clarify padding-bottom in overflow content
+        & > *:last-child:after {
+            display: block;
+            content: '';
+            height: 1rem;
+            margin-bottom: -1rem;
+        }
     }
 }
