@@ -20,9 +20,9 @@ export class WebhookCardComponent implements OnChanges {
 
     events: InvoicesEventTypesEnum[] | CustomersEventTypesEnum[] = [];
 
-    private shopID: Subject<string> = new Subject();
+    private shopID$: Subject<string> = new Subject();
 
-    shopName = this.shopID.pipe(
+    shopName$ = this.shopID$.pipe(
         switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$])),
         map(([shopID, shops]) => shops.filter(shop => shop.id === shopID)),
         pluck('0', 'details', 'name'),
@@ -30,11 +30,11 @@ export class WebhookCardComponent implements OnChanges {
     );
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopService: ShopService) {
-        this.shopName.subscribe();
+        this.shopName$.subscribe();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.events = changes.webhook.currentValue.scope.eventTypes;
-        this.shopID.next(changes.webhook.currentValue.scope.shopID);
+        this.shopID$.next(changes.webhook.currentValue.scope.shopID$);
     }
 }
