@@ -5,13 +5,12 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { CustomersTopic, InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
+import { InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDelay, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 
-type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Injectable()
@@ -57,7 +56,7 @@ export class CreateWebhookService {
             .subscribe(webhook => this.webhookState$.next(webhook));
     }
 
-    typesChanged(checked: boolean, type: InvoicesEventTypesEnum | CustomersEventTypesEnum) {
+    typesChanged(checked: boolean, type: InvoicesEventTypesEnum) {
         if (checked) {
             this.form.patchValue({ types: [...this.form.value.types, type] });
         } else {

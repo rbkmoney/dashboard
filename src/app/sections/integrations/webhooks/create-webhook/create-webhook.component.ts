@@ -3,13 +3,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { CustomersTopic, InvoicesTopic } from '../../../../api-codegen/capi/swagger-codegen';
+import { InvoicesTopic } from '../../../../api-codegen/capi/swagger-codegen';
 import { ShopService } from '../../../../api/shop';
 import { LAYOUT_GAP } from '../../../constants';
 import { CreateWebhookService } from './create-webhook.service';
 import { TYPES } from './event-types';
 
-type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
@@ -32,7 +31,7 @@ export class CreateWebhookComponent {
         this.webhookSaved$.pipe(filter(r => r)).subscribe(r => this.dialogRef.close(r));
     }
 
-    typesChanged(checked: boolean, type: InvoicesEventTypesEnum | CustomersEventTypesEnum) {
+    typesChanged(checked: boolean, type: InvoicesEventTypesEnum) {
         this.createWebhookService.typesChanged(checked, type);
     }
 
