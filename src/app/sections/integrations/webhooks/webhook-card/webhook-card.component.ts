@@ -41,7 +41,7 @@ export class WebhookCardComponent implements OnChanges {
                 }
             }
         } = changes;
-        if (changes.webhook.previousValue.scope.shopID !== shopID) {
+        if (shopID && changes.webhook.previousValue?.scope.shopID !== shopID) {
             this.events = eventTypes;
             this.shopID$.next(shopID);
         }
