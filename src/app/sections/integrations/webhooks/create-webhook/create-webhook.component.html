@@ -1,0 +1,35 @@
+<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let t; scope: 'webhook'; read: 'webhook'">
+    <div class="mat-title">{{ t.create.title }}</div>
+    <form [formGroup]="form" fxLayout="column">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.details.shop }}</mat-label>
+            <mat-select formControlName="shop" required>
+                <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                    {{ shop.details.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.details.url }}</mat-label>
+            <input formControlName="url" matInput type="text" autocomplete="off" required />
+        </mat-form-field>
+        <section class="checkbox-section" fxLayout="column" fxLayoutGap="10px">
+            <label class="mat-body-1">{{ t.create.types }}:</label>
+            <div fxLayout="column" fxLayoutGap="5px">
+                <mat-checkbox
+                    *ngFor="let type of types"
+                    class="mat-body-1"
+                    (change)="typesChanged($event.checked, type)"
+                >
+                    {{ t.events.types[type] }}
+                </mat-checkbox>
+            </div>
+        </section>
+    </form>
+    <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let m">
+        <button dsh-button (click)="cancel()">{{ m.cancel }}</button>
+        <button dsh-button color="accent" [disabled]="(possibleToCreate$ | async) && !form.valid" (click)="save()">
+            {{ t.create.attach }}
+        </button>
+    </div>
+</div>
