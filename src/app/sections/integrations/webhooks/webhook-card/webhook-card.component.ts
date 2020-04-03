@@ -1,11 +1,12 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { combineLatest, of, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { map, pluck, shareReplay } from 'rxjs/operators';
 
 import { CustomersTopic, InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { LAYOUT_GAP } from '../../../constants';
+
 type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
@@ -18,12 +19,11 @@ export class WebhookCardComponent implements OnChanges {
     @Input()
     webhook: Webhook;
 
-    events: InvoicesEventTypesEnum[] | CustomersEventTypesEnum[] = [];
+    events: (InvoicesEventTypesEnum | CustomersEventTypesEnum)[] = [];
 
     private shopID$: Subject<string> = new Subject();
 
-    shopName$ = this.shopID$.pipe(
-        switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$])),
+    shopName$ = combineLatest([this.shopID$, this.shopService.shops$]).pipe(
         map(([shopID, shops]) => shops.filter(shop => shop.id === shopID)),
         pluck('0', 'details', 'name'),
         shareReplay(SHARE_REPLAY_CONF)
@@ -34,7 +34,16 @@ export class WebhookCardComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.events = changes.webhook.currentValue.scope.eventTypes;
-        this.shopID$.next(changes.webhook.currentValue.scope.shopID$);
+        const {
+            webhook: {
+                currentValue: {
+                    scope: { shopID, eventTypes }
+                }
+            }
+        } = changes;
+        if (changes.webhook.previousValue.scope.shopID !== shopID) {
+            this.events = eventTypes;
+            this.shopID$.next(shopID);
+        }
     }
 }

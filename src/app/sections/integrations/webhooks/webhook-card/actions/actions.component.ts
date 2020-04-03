@@ -31,7 +31,7 @@ export class ActionsComponent {
                 switchMap(_ => this.actionsService.remove(this.id)),
                 filter(r => r !== 'error')
             )
-            .subscribe(_ => {
+            .subscribe(() => {
                 this.receiveWebhooksService.receiveWebhooks();
             });
     }
