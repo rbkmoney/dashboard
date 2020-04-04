@@ -19,8 +19,8 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
+import { EmptySearchResultModule } from '../../../../components/empty-search-result';
 import { ReportsModule as ReportsApiModule } from '../../../api';
-import { EmptySearchResultModule } from '../empty-search-result';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { ReportsRoutingModule } from './reports-routing.module';

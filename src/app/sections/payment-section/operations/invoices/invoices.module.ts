@@ -17,9 +17,9 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
+import { EmptySearchResultModule } from '../../../../../components/empty-search-result';
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
-import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { InvoicesComponent } from './invoices.component';
