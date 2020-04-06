@@ -7,7 +7,7 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 
 import { InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
-import { booleanDelay, SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { booleanDebounceTime, booleanDelay, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 
@@ -31,7 +31,10 @@ export class CreateWebhookService {
         map(r => !r)
     );
 
-    error$: Observable<any> = this.webhookError$.asObservable();
+    isLoading$ = progress(this.saveWebhook$, this.webhookState$).pipe(
+        booleanDebounceTime(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     constructor(
         private fb: FormBuilder,
@@ -46,6 +49,7 @@ export class CreateWebhookService {
                     this.webhooksService.createWebhook(v).pipe(
                         catchError(err => {
                             console.error(err);
+                            this.webhookState$.next(null);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             this.webhookError$.next(true);
                             return [];

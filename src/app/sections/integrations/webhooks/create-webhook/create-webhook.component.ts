@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { InvoicesTopic } from '../../../../api-codegen/capi/swagger-codegen';
@@ -20,7 +19,7 @@ export class CreateWebhookComponent {
     types = TYPES;
     shops$ = this.shopService.shops$;
     webhookSaved$ = this.createWebhookService.webhookSaved$;
-    possibleToCreate$ = combineLatest([this.createWebhookService.error$, this.webhookSaved$]);
+    isLoading$ = this.createWebhookService.isLoading$;
 
     constructor(
         private dialogRef: MatDialogRef<CreateWebhookComponent>,

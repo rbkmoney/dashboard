@@ -28,7 +28,7 @@
     </form>
     <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let m">
         <button dsh-button (click)="cancel()">{{ m.cancel }}</button>
-        <button dsh-button color="accent" [disabled]="(possibleToCreate$ | async) && !form.valid" (click)="save()">
+        <button dsh-button color="accent" [disabled]="(isLoading$ | async) || !form.valid" (click)="save()">
             {{ t.create.attach }}
         </button>
     </div>
