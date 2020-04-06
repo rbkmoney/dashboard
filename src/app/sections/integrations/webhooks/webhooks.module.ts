@@ -10,9 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 
-import { EmptySearchResultModule } from '../../../../components/empty-search-result';
 import { ShopService } from '../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
