@@ -11,10 +11,7 @@
     <dsh-expand-panel-more>
         <div fxLayout="column" [fxLayoutGap]="layoutGap" fxFlex="100" class="dsh-webhook-card-panel-items">
             <div fxLayout="row" fxLayoutAlign="space-between center">
-                <div
-                    class="mat-caption dsh-webhook-header"
-                    *transloco="let d; scope: 'webhook'; read: 'webhook'"
-                >
+                <div class="mat-caption dsh-webhook-header" *transloco="let d; scope: 'webhook'; read: 'webhook'">
                     {{ d.webhook }} #{{ webhook.id }}
                 </div>
                 <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
@@ -31,7 +28,7 @@
             <dsh-events [events]="events"></dsh-events>
             <mat-divider></mat-divider>
             <dsh-key [key]="webhook.publicKey"></dsh-key>
-            <mat-divider *ngIf="webhook.active" ></mat-divider>
+            <mat-divider *ngIf="webhook.active"></mat-divider>
             <dsh-actions [webhookID]="webhook.id" *ngIf="webhook.active"></dsh-actions>
         </div>
     </dsh-expand-panel-more>

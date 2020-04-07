@@ -11,7 +11,7 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
     selector: 'dsh-webhook-card',
-    templateUrl: 'webhook-card.component.html',
+    templateUrl: 'webhook-card.component.html'
 })
 export class WebhookCardComponent implements OnChanges {
     @Input()
