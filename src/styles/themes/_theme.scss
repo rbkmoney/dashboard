@@ -35,7 +35,7 @@
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
-@import '../../app/sections/integrations/webhooks/webhook-card/webhook-card-theme';
+@import '../../app/sections/payment-section/integrations/webhooks/webhook-card/webhook-card-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {

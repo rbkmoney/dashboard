@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 
-import { LAYOUT_GAP } from '../../../../constants';
+import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-key',

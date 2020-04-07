@@ -4,9 +4,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Webhook } from '../../../api-codegen/capi/swagger-codegen';
-import { WebhooksService } from '../../../api/webhooks';
-import { booleanDelay, SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
+import { WebhooksService } from '../../../../api/webhooks';
+import { booleanDelay, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {

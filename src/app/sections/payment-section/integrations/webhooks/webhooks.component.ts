@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../../constants';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 
 @Component({

@@ -2,24 +2,22 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { combineLatest, Subject } from 'rxjs';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 
-import { CustomersTopic, InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
-import { ShopService } from '../../../../api/shop';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../constants';
+import { InvoicesTopic, Webhook } from '../../../../../api-codegen/capi/swagger-codegen';
+import { ShopService } from '../../../../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { LAYOUT_GAP } from '../../../../constants';
 
-type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
     selector: 'dsh-webhook-card',
     templateUrl: 'webhook-card.component.html',
-    styleUrls: ['webhook-card.component.scss']
 })
 export class WebhookCardComponent implements OnChanges {
     @Input()
     webhook: Webhook;
 
-    events: (InvoicesEventTypesEnum | CustomersEventTypesEnum)[] = [];
+    events: InvoicesEventTypesEnum[] = [];
 
     private shopID$: Subject<string> = new Subject();
 

@@ -14,7 +14,7 @@ import { ActionsService } from './actions.service';
 })
 export class ActionsComponent {
     @Input()
-    id: string;
+    webhookID: string;
 
     constructor(
         private dialog: MatDialog,
@@ -28,7 +28,7 @@ export class ActionsComponent {
             .afterClosed()
             .pipe(
                 filter(r => r === 'confirm'),
-                switchMap(_ => this.actionsService.remove(this.id)),
+                switchMap(_ => this.actionsService.remove(this.webhookID)),
                 filter(r => r !== 'error')
             )
             .subscribe(() => {

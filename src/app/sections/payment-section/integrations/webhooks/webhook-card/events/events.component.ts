@@ -1,8 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 
-import { CustomersTopic, InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
-import { LAYOUT_GAP } from '../../../../constants';
-type CustomersEventTypesEnum = CustomersTopic.EventTypesEnum;
+import { InvoicesTopic } from '../../../../../../api-codegen/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../../../../constants';
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
@@ -12,7 +11,7 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 })
 export class EventsComponent {
     @Input()
-    events: InvoicesEventTypesEnum[] | CustomersEventTypesEnum[];
+    events: InvoicesEventTypesEnum[];
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

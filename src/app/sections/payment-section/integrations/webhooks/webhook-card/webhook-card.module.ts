@@ -14,6 +14,8 @@ import { DetailsComponent } from './details/details.component';
 import { EventsComponent } from './events/events.component';
 import { KeyComponent } from './key/key.component';
 import { WebhookCardComponent } from './webhook-card.component';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     imports: [
@@ -24,7 +26,9 @@ import { WebhookCardComponent } from './webhook-card.component';
         FlexModule,
         MatIconModule,
         TranslocoModule,
-        MatDialogModule
+        MatDialogModule,
+        ConfirmActionDialogModule,
+        MatDividerModule
     ],
     declarations: [WebhookCardComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
     exports: [WebhookCardComponent]

@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { catchError } from 'rxjs/operators';
 
-import { WebhooksService } from '../../../../../api/webhooks';
+import { WebhooksService } from '../../../../../../api/webhooks';
 
 @Injectable()
 export class ActionsService {
