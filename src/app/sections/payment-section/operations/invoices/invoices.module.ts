@@ -21,6 +21,7 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { InvoiceModule } from '../../../../api';
+import { DebounceModule } from '../../../../debounce';
 import { FromMinorModule } from '../../../../from-minor';
 import { LanguageModule } from '../../../../language';
 import { EmptySearchResultModule } from '../../empty-search-result';
@@ -59,7 +60,8 @@ import { TableComponent } from './table';
         MatDialogModule,
         InvoiceModule,
         MatDatepickerModule,
-        MatDividerModule
+        MatDividerModule,
+        DebounceModule
     ],
     declarations: [
         InvoicesComponent,

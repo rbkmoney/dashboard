@@ -21,7 +21,6 @@ export class InvoicesComponent {
     hasMoreInvoices$ = this.invoicesService.hasMore$;
     lastUpdated$ = this.invoicesService.lastUpdated$;
     doAction$ = this.invoicesService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     shopsInfo$ = this.invoicesService.shopsInfo$;
 

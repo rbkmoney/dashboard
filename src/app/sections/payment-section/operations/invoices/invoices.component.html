@@ -5,18 +5,24 @@
     <dsh-search-form (formValueChanges)="search($event)" [shopsInfo]="shopsInfo$ | async"></dsh-search-form>
     <dsh-card>
         <dsh-card-content *transloco="let t" fxLayout="column" fxLayoutGap="15px">
-            <dsh-last-updated
-                *ngIf="!(isLoading$ | async)"
-                (update)="refresh()"
-                [lastUpdated]="lastUpdated$ | async"
-            ></dsh-last-updated>
-            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
+            <dsh-spinner
+                *ngIf="doAction$ | async | debounce; else updated"
+                [type]="spinnerType"
+                size="20"
+            ></dsh-spinner>
+            <ng-template #updated>
+                <dsh-last-updated
+                    *ngIf="!(doAction$ | async | debounce)"
+                    (update)="refresh()"
+                    [lastUpdated]="lastUpdated$ | async"
+                ></dsh-last-updated>
+            </ng-template>
             <dsh-invoices-table [data]="tableData$ | async"></dsh-invoices-table>
             <dsh-empty-search-result
                 *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
             ></dsh-empty-search-result>
             <button *ngIf="hasMoreInvoices$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? t.loading : t.showMore }}
+                {{ (doAction$ | async | debounce) ? t.loading : t.showMore }}
             </button>
         </dsh-card-content>
     </dsh-card>
