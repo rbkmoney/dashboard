@@ -30,7 +30,6 @@ export class CreateWebhookComponent {
                 map(r => (r ? 'created' : false))
             )
             .subscribe(r => {
-                console.log(r);
                 this.dialogRef.close(r);
             });
     }
