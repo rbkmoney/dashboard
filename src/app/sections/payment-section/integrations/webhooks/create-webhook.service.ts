@@ -12,12 +12,8 @@ export class CreateWebhookService {
 
     constructor(private dialog: MatDialog, private receiveWebhooksService: ReceiveWebhooksService) {
         this.createWebhook$.pipe(switchMap(() => this.openCreateClaimDialog())).subscribe(() => {
-            this.receiveWebhooks();
+            this.receiveWebhooksService.receiveWebhooks();
         });
-    }
-
-    receiveWebhooks() {
-        this.receiveWebhooksService.receiveWebhooks();
     }
 
     createWebhook() {

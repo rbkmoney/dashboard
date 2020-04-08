@@ -14,10 +14,10 @@
             <input formControlName="url" matInput type="text" autocomplete="off" required />
         </mat-form-field>
         <section class="checkbox-section" fxLayout="column" fxLayoutGap="10px">
-            <label class="mat-body-1">{{ t.create.types }}:</label>
-            <div formArrayName="eventTypes">
+            <label class="mat-body-2">{{ t.create.types }}:</label>
+            <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="10px">
                 <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
-                    <mat-checkbox formControlName="selected">{{
+                    <mat-checkbox formControlName="selected" class="mat-body-1">{{
                         t.events.types[eventType.controls.eventName.value]
                     }}</mat-checkbox>
                 </div>

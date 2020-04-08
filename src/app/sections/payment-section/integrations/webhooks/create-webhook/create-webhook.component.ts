@@ -1,11 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { ShopService } from '../../../../../api/shop';
 import { LAYOUT_GAP } from '../../../../constants';
 import { CreateWebhookService } from './create-webhook.service';
+import { TYPES } from './event-types';
 
 @Component({
     templateUrl: 'create-webhook.component.html',
@@ -13,9 +14,8 @@ import { CreateWebhookService } from './create-webhook.service';
 })
 export class CreateWebhookComponent {
     form = this.createWebhookService.form;
-    types = this.createWebhookService.types;
+    types = TYPES;
     shops$ = this.shopService.shops$;
-    webhookCreated$ = this.createWebhookService.webhookCreated$;
     isLoading$ = this.createWebhookService.isLoading$;
 
     constructor(
@@ -24,7 +24,15 @@ export class CreateWebhookComponent {
         @Inject(LAYOUT_GAP) public layoutGap: string,
         private shopService: ShopService
     ) {
-        this.webhookCreated$.pipe(filter(r => r === 'created')).subscribe(r => this.dialogRef.close(r));
+        this.createWebhookService.webhookCreated$
+            .pipe(
+                filter(r => r),
+                map(r => (r ? 'created' : false))
+            )
+            .subscribe(r => {
+                console.log(r);
+                this.dialogRef.close(r);
+            });
     }
 
     get eventTypes() {
