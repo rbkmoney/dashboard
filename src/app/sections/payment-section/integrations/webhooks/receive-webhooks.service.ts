@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -26,14 +26,20 @@ export class ReceiveWebhooksService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.receiveWebhooks$.pipe(switchMap(_ => this.webhooksService.getWebhooks())).subscribe(
-            webhooks => this.webhooksState$.next(webhooks),
-            err => {
-                console.error(err);
-                this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                this.webhooksError$.next(true);
-            }
-        );
+        this.receiveWebhooks$
+            .pipe(
+                switchMap(_ =>
+                    this.webhooksService.getWebhooks().pipe(
+                        catchError(err => {
+                            console.error(err);
+                            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+                            this.webhooksError$.next(true);
+                            return [];
+                        })
+                    )
+                )
+            )
+            .subscribe(webhooks => this.webhooksState$.next(webhooks));
     }
 
     receiveWebhooks() {
