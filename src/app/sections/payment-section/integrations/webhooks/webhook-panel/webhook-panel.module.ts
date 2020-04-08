@@ -15,7 +15,7 @@ import { ActionsComponent } from './actions/actions.component';
 import { DetailsComponent } from './details/details.component';
 import { EventsComponent } from './events/events.component';
 import { KeyComponent } from './key/key.component';
-import { WebhookCardComponent } from './webhook-card.component';
+import { WebhookPanelComponent } from './webhook-panel.component';
 
 @NgModule({
     imports: [
@@ -30,7 +30,7 @@ import { WebhookCardComponent } from './webhook-card.component';
         ConfirmActionDialogModule,
         MatDividerModule
     ],
-    declarations: [WebhookCardComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
-    exports: [WebhookCardComponent]
+    declarations: [WebhookPanelComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
+    exports: [WebhookPanelComponent]
 })
-export class WebhookCardModule {}
+export class WebhookPanelModule {}
