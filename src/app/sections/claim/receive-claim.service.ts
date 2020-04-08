@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Claim } from '../../api-codegen/claim-management';
-import { booleanDelay } from '../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../custom-operators';
 import { ClaimType, getClaimType } from '../../view-utils';
 import { RouteParamClaimService } from './route-param-claim.service';
 
@@ -23,8 +23,9 @@ export class ReceiveClaimService {
     claimType$: Observable<ClaimType> = this.claim$.pipe(pluck('changeset'), map(getClaimType), shareReplay(1));
 
     claimReceived$ = this.claim$.pipe(
-        booleanDelay(),
-        map(r => !r)
+        booleanDebounceTime(),
+        map(r => !r),
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     error$: Observable<any> = this.receiveClaimError$.asObservable();

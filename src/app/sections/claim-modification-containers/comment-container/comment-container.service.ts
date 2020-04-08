@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { MessagesService } from '../../../api';
-import { booleanDelay, takeError } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 
 @Injectable()
 export class CommentContainerService {
@@ -15,12 +15,12 @@ export class CommentContainerService {
             conversations.reduce((acc, { messages }) => (messages.length > 0 ? messages[0] : acc), { text: '' })
         ),
         pluck('text'),
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
-    isLoading$ = this.comment$.pipe(booleanDelay(), shareReplay(1));
+    isLoading$ = this.comment$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
-    error$ = this.comment$.pipe(takeError, shareReplay(1));
+    error$ = this.comment$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private messageService: MessagesService) {
         this.comment$.subscribe();

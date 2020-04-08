@@ -6,7 +6,7 @@ import { first, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Report } from '../../api-codegen/anapi/swagger-codegen';
 import { ReportsService } from '../../api/reports';
-import { booleanDelay, takeError } from '../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../custom-operators';
 
 @Injectable()
 export class ReportDetailsService {
@@ -15,13 +15,14 @@ export class ReportDetailsService {
     report$: Observable<Report> = this.initialize$.pipe(
         first(),
         switchMap(reportID => this.reportSearchService.getReport(reportID)),
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
     reportInitialized$: Observable<boolean> = this.report$.pipe(
-        booleanDelay(500),
-        map(r => !r)
+        booleanDebounceTime(),
+        map(r => !r),
+        shareReplay(SHARE_REPLAY_CONF)
     );
-    reportError$: Observable<any> = this.report$.pipe(takeError, shareReplay(1));
+    reportError$: Observable<any> = this.report$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
         private reportSearchService: ReportsService,

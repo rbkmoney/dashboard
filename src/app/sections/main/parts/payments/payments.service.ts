@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { pluck, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService, ShopService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims';
-import { booleanDelay, takeError } from '../../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../../../custom-operators';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { toContentConf } from './to-content-conf';
 
@@ -32,7 +32,10 @@ export class PaymentsService {
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
         this.testEnvBtnContent$ = contentConfig.pipe(pluck('testEnvBtnContent'));
         this.subheading$ = contentConfig.pipe(pluck('subheading'));
-        this.isLoading$ = combineLatest([this.shopService.shops$, claims]).pipe(booleanDelay());
+        this.isLoading$ = combineLatest([this.shopService.shops$, claims]).pipe(
+            booleanDebounceTime(),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
         combineLatest([this.isLoading$, contentConfig])
             .pipe(takeError)
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));

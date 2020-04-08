@@ -13,7 +13,7 @@ export class DebouncePipe implements OnDestroy, PipeTransform {
 
     constructor(private ref: ChangeDetectorRef) {}
 
-    transform(value: boolean) {
+    transform(value: any) {
         this.inputValue$.next(value);
         return this.value;
     }

@@ -6,7 +6,7 @@ import { first, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Invoice } from '../../api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchService } from '../../api/search';
-import { booleanDelay, takeError } from '../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../custom-operators';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -15,11 +15,12 @@ export class InvoiceDetailsService {
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
         switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
     invoiceInitialized$: Observable<boolean> = this.invoice$.pipe(
-        booleanDelay(500),
-        map(r => !r)
+        booleanDebounceTime(),
+        map(r => !r),
+        shareReplay(SHARE_REPLAY_CONF)
     );
     invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 

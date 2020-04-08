@@ -9,7 +9,7 @@ import {
 } from '../../../api';
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryData } from '../../../api-codegen/questionary';
-import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 import { PanelInfo, toPanelInfo } from './to-panel-info';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class DocumentContainerService {
 
     panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(toPanelInfo, shareReplay(SHARE_REPLAY_CONF));
 
-    isLoading$: Observable<boolean> = this.questionaryData$.pipe(booleanDelay(), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$: Observable<boolean> = this.questionaryData$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     error$: Observable<any> = this.questionaryData$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 

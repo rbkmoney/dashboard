@@ -7,7 +7,7 @@ import { shareReplay, switchMap } from 'rxjs/operators';
 import { download } from '../../../../utils';
 import { FileData } from '../../../api-codegen/dark-api/swagger-codegen';
 import { FilesService } from '../../../api/files';
-import { booleanDelay, takeError } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 
 @Injectable()
 export class FileContainerService {
@@ -18,9 +18,9 @@ export class FileContainerService {
         shareReplay(1)
     );
 
-    isLoading$ = this.fileInfo$.pipe(booleanDelay(), shareReplay(1));
+    isLoading$ = this.fileInfo$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
-    error$ = this.fileInfo$.pipe(takeError, shareReplay(1));
+    error$ = this.fileInfo$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
         private filesService: FilesService,

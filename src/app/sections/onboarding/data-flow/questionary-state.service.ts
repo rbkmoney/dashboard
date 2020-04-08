@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { BehaviorSubject, merge, Observable, of, Subject, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, first, pluck, switchMap, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, filter, first, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { QuestionaryService } from '../../../api';
 import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
-import { booleanDelay } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 
 @Injectable()
 export class QuestionaryStateService {
@@ -20,7 +20,7 @@ export class QuestionaryStateService {
         distinctUntilChanged(isEqual)
     );
 
-    isLoading$ = this.questionaryData$.pipe(booleanDelay());
+    isLoading$ = this.questionaryData$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private questionaryService: QuestionaryService) {}
 
