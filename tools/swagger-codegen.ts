@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import { exec } from 'child_process';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import * as config from '../swagger-codegen-config.json';
