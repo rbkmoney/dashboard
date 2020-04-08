@@ -25,7 +25,6 @@ import { WebhooksComponent } from './webhooks.component';
         ApiWebhooksModule,
         ButtonModule,
         MatDialogModule,
-        WebhookCardModule,
         CommonModule,
         FlexModule,
         ReactiveFormsModule,
@@ -33,12 +32,11 @@ import { WebhooksComponent } from './webhooks.component';
         MatSelectModule,
         MatInputModule,
         MatCheckboxModule,
-        TranslocoModule
+        TranslocoModule,
+        WebhookPanelModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent],
-    imports: [WebhooksRoutingModule, ApiWebhooksModule, WebhookPanelModule, CommonModule, FlexModule],
-    declarations: [WebhooksComponent],
     providers: [ReceiveWebhooksService, ShopService]
 })
 export class WebhooksModule {}
