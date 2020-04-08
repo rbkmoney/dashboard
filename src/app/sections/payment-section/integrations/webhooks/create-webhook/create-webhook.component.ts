@@ -1,14 +1,11 @@
 import { Component, Inject } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { InvoicesTopic } from '../../../../api-codegen/capi/swagger-codegen';
-import { ShopService } from '../../../../api/shop';
-import { LAYOUT_GAP } from '../../../constants';
+import { ShopService } from '../../../../../api/shop';
+import { LAYOUT_GAP } from '../../../../constants';
 import { CreateWebhookService } from './create-webhook.service';
-import { TYPES } from './event-types';
-
-type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
 @Component({
     templateUrl: 'create-webhook.component.html',
@@ -16,9 +13,9 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 })
 export class CreateWebhookComponent {
     form = this.createWebhookService.form;
-    types = TYPES;
+    types = this.createWebhookService.types;
     shops$ = this.shopService.shops$;
-    webhookSaved$ = this.createWebhookService.webhookSaved$;
+    webhookCreated$ = this.createWebhookService.webhookCreated$;
     isLoading$ = this.createWebhookService.isLoading$;
 
     constructor(
@@ -27,11 +24,11 @@ export class CreateWebhookComponent {
         @Inject(LAYOUT_GAP) public layoutGap: string,
         private shopService: ShopService
     ) {
-        this.webhookSaved$.pipe(filter(r => r)).subscribe(r => this.dialogRef.close(r));
+        this.webhookCreated$.pipe(filter(r => r === 'created')).subscribe(r => this.dialogRef.close(r));
     }
 
-    typesChanged(checked: boolean, type: InvoicesEventTypesEnum) {
-        this.createWebhookService.typesChanged(checked, type);
+    get eventTypes() {
+        return this.form.get('eventTypes') as FormArray;
     }
 
     save() {

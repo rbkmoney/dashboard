@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
-import { booleanDelay, SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
@@ -17,11 +17,6 @@ export class ReceiveWebhooksService {
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
-    );
-
-    webhooksReceived$ = this.webhooks$.pipe(
-        booleanDelay(),
-        map(r => !r)
     );
 
     error$: Observable<any> = this.webhooksError$.asObservable();

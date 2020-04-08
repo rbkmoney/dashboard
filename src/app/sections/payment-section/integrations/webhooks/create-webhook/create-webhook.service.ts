@@ -5,33 +5,33 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoicesTopic, Webhook } from '../../../../api-codegen/capi/swagger-codegen';
-import { WebhooksService } from '../../../../api/webhooks';
-import { booleanDebounceTime, booleanDelay, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { Webhook } from '../../../../../api-codegen/capi/swagger-codegen';
+import { WebhooksService } from '../../../../../api/webhooks';
+import { booleanDebounceTime, booleanDelay, progress, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { TYPES } from './event-types';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 
-type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
-
 @Injectable()
 export class CreateWebhookService {
+    types = TYPES;
     form = this.initForm();
 
     private webhookState$ = new BehaviorSubject(null);
     private webhookError$ = new BehaviorSubject(false);
-    private saveWebhook$: Subject<FormParams> = new Subject();
+    private createWebhook$: Subject<FormParams> = new Subject();
 
     webhook$: Observable<Webhook[]> = this.webhookState$.pipe(
         filter(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    webhookSaved$ = this.webhook$.pipe(
+    webhookCreated$ = this.webhook$.pipe(
         booleanDelay(),
-        map(r => !r)
+        map(r => (!r ? 'created' : null))
     );
 
-    isLoading$ = progress(this.saveWebhook$, this.webhookState$).pipe(
+    isLoading$ = progress(this.createWebhook$, this.webhookState$).pipe(
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -42,7 +42,7 @@ export class CreateWebhookService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.saveWebhook$
+        this.createWebhook$
             .pipe(
                 map(formValuesToWebhook),
                 switchMap(v =>
@@ -60,23 +60,22 @@ export class CreateWebhookService {
             .subscribe(webhook => this.webhookState$.next(webhook));
     }
 
-    typesChanged(checked: boolean, type: InvoicesEventTypesEnum) {
-        if (checked) {
-            this.form.patchValue({ types: [...this.form.value.types, type] });
-        } else {
-            this.form.patchValue({ types: this.form.value.types.filter(t => t !== type) });
-        }
-    }
-
     save() {
-        this.saveWebhook$.next(this.form.value);
+        this.createWebhook$.next(this.form.value);
     }
 
     private initForm(): FormGroup {
         return this.fb.group({
             shop: ['', Validators.required],
             url: ['', Validators.required],
-            types: [[], Validators.required]
+            eventTypes: this.fb.array(
+                this.types.map(t =>
+                    this.fb.group({
+                        eventName: t,
+                        selected: false
+                    })
+                )
+            )
         });
     }
 }

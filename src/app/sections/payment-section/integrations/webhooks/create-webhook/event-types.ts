@@ -1,4 +1,4 @@
-import { InvoicesTopic } from '../../../../api-codegen/capi/swagger-codegen';
+import { InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
 
 type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 
