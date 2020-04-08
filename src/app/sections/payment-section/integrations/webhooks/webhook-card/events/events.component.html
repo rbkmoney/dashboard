@@ -2,7 +2,7 @@
     <dsh-card-title>
         <div class="mat-title">{{ t.title }}</div>
     </dsh-card-title>
-    <ul fxLayout="column" [fxLayoutGap]="layoutGap">
+    <ul fxLayout="column" [fxLayoutGap]="layoutGap" class="dsh-webhooks-event-list">
         <li class="mat-body-1" *ngFor="let event of events">{{ t.types[event] }}</li>
     </ul>
 </div>

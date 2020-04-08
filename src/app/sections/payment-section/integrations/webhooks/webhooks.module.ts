@@ -11,6 +11,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 
+import { ShopService } from '../../../../api/shop';
+import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { ShopService } from '../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';

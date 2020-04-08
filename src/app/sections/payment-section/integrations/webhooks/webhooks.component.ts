@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
+import { LAYOUT_GAP } from '../../../constants';
 import { LAYOUT_GAP } from '../../constants';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
