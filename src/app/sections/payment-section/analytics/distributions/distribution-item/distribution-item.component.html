@@ -3,9 +3,7 @@
         <h1 class="mat-title">{{ title }}</h1>
     </dsh-card-title>
     <dsh-card-content>
-        <div *ngIf="isLoading; else afterLoad">
-            <dsh-spinner></dsh-spinner>
-        </div>
+        <dsh-spinner *ngIf="isLoading; else afterLoad" [type]="spinnerType"></dsh-spinner>
         <ng-template #afterLoad>
             <div *ngIf="!error; else onError">
                 <dsh-donut-chart

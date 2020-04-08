@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
 import { StatsBarsService } from './stats-bars.service';
 
@@ -9,6 +11,8 @@ import { StatsBarsService } from './stats-bars.service';
     providers: [StatsBarsService]
 })
 export class StatsBarsComponent implements OnChanges {
+    @Input() spinnerType: SpinnerType;
+
     @Input() searchParams: SearchParamsWithSplitUnit;
 
     paymentsSplitCount$ = this.statsBarsService.paymentsSplitCount$;

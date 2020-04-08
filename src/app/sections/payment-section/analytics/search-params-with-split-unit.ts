@@ -1,8 +1,8 @@
 import { SplitUnit } from '../../../api-codegen/anapi/swagger-codegen';
 
 export interface SearchParamsWithSplitUnit {
-    fromTime: Date;
-    toTime: Date;
+    fromTime: string;
+    toTime: string;
     splitUnit: SplitUnit;
     shopIDs?: string[];
 }

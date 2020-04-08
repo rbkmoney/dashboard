@@ -74,6 +74,7 @@ import { StatusDetailsItemComponent } from './status-details-item';
         PaymentResourcePayerComponent,
         MakeRecurrentComponent
     ],
+    exports: [AmountPipe],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}

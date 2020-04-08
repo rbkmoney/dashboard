@@ -22,8 +22,8 @@ export function searchParamsToStatSearchParams({
 }
 
 function getPreviousParams(
-    currentFromTime: Date,
-    currentToTime: Date,
+    currentFromTime: string,
+    currentToTime: string,
     shopIDs: string[],
     period: Period
 ): StatSearchParams {
@@ -59,5 +59,5 @@ function getPreviousParams(
             break;
         }
     }
-    return { fromTime: fromTime.toDate(), toTime: toTime.toDate(), shopIDs };
+    return { fromTime: fromTime.utc().format(), toTime: toTime.utc().format(), shopIDs };
 }

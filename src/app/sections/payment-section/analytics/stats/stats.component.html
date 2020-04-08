@@ -1,6 +1,7 @@
 <div *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics.stats'" fxLayout fxLayoutGap="20px">
     <dsh-stat-item
         fxFlex
+        [spinnerType]="spinnerType"
         [statData]="paymentsAmount$ | async"
         [subtitle]="t.paymentsAmount"
         [isLoading]="isPaymentsAmountLoading$ | async"
@@ -8,6 +9,7 @@
     ></dsh-stat-item>
     <dsh-stat-item
         fxFlex
+        [spinnerType]="spinnerType"
         [statData]="refundsAmount$ | async"
         [subtitle]="t.refundsAmount"
         [isLoading]="isRefundsAmountLoading$ | async"
@@ -15,6 +17,7 @@
     ></dsh-stat-item>
     <dsh-stat-item
         fxFlex
+        [spinnerType]="spinnerType"
         [statData]="averagePayment$ | async"
         [subtitle]="t.averagePayment"
         [isLoading]="isAveragePaymentLoading$ | async"
@@ -22,6 +25,8 @@
     ></dsh-stat-item>
     <dsh-stat-item
         fxFlex
+        hideCurrency
+        [spinnerType]="spinnerType"
         [statData]="paymentsCount$ | async"
         [subtitle]="t.paymentsCount"
         [isLoading]="isPaymentsCountLoading$ | async"

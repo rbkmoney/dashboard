@@ -6,6 +6,7 @@
 >
     <dsh-distribution-item
         fxFlex
+        [spinnerType]="spinnerType"
         [title]="t.paymentTools"
         [chartData]="paymentsToolDistribution$ | async"
         [isLoading]="isPaymentsToolDistributionLoading$ | async"
@@ -13,6 +14,7 @@
     ></dsh-distribution-item>
     <dsh-distribution-item
         fxFlex
+        [spinnerType]="spinnerType"
         [title]="t.unsuccessfulPaymentReasons"
         [chartData]="paymentsErrorsDistribution$ | async"
         [isLoading]="isPaymentsErrorsDistributionLoading$ | async"

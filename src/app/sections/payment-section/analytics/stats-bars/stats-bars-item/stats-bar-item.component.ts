@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { ChartData } from '../../utils';
 
 @Component({
@@ -7,6 +9,7 @@ import { ChartData } from '../../utils';
     templateUrl: './stats-bar-item.component.html'
 })
 export class StatsBarItemComponent {
+    @Input() spinnerType: SpinnerType;
     @Input() title: string;
     @Input() chartData: ChartData;
     @Input() isLoading: boolean;

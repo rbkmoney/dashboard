@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import moment from 'moment';
-import { forkJoin, merge, of, Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
@@ -14,9 +13,9 @@ export class StatsBarsService {
 
     paymentsSplitCount$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            forkJoin(of(fromTime), this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs))
+            this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
         ),
-        map(([fromTime, { result }]) => paymentsSplitCountToChartData(result, moment(fromTime))),
+        map(({ result }) => paymentsSplitCountToChartData(result)),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -27,9 +26,9 @@ export class StatsBarsService {
 
     paymentsSplitAmount$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            forkJoin(of(fromTime), this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs))
+            this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs)
         ),
-        map(([fromTime, { result }]) => paymentsSplitAmountToChartData(result, moment(fromTime))),
+        map(({ result }) => paymentsSplitAmountToChartData(result)),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );

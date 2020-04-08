@@ -1,5 +1,5 @@
 export interface StatSearchParams {
-    fromTime: Date;
-    toTime: Date;
+    fromTime: string;
+    toTime: string;
     shopIDs?: string[];
 }

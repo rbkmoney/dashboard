@@ -8,6 +8,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule } from '@dsh/components/layout';
 
 import { AnalyticsModule } from '../../../../api/analytics';
+import { FromMinorModule } from '../../../../from-minor';
 import { PercentDifferenceModule } from '../percent-difference';
 import { StatItemComponent } from './stat-item';
 import { StatsComponent } from './stats.component';
@@ -21,7 +22,8 @@ import { StatsComponent } from './stats.component';
         SpinnerModule,
         AnalyticsModule,
         CardModule,
-        PercentDifferenceModule
+        PercentDifferenceModule,
+        FromMinorModule
     ],
     exports: [StatsComponent],
     declarations: [StatsComponent, StatItemComponent]

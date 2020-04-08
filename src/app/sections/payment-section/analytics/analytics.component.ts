@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { AnalyticsService } from './analytics.service';
 
 @Component({
@@ -7,6 +9,8 @@ import { AnalyticsService } from './analytics.service';
     providers: [AnalyticsService]
 })
 export class AnalyticsComponent {
+    spinnerType = SpinnerType.FulfillingBouncingCircle;
+
     distributionSearchParams$ = this.analyticsService.distributionSearchParams$;
     statSearchParams$ = this.analyticsService.statSearchParams$;
     searchParamsWithSplitUnit$ = this.analyticsService.searchParamsWithSplitUnit$;

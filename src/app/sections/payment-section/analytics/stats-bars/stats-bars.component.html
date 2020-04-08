@@ -4,12 +4,14 @@
     fxLayoutGap="20px"
 >
     <dsh-stats-bar-item
+        [spinnerType]="spinnerType"
         [title]="t.paymentsCount"
         [chartData]="paymentsSplitCount$ | async"
         [isLoading]="isPaymentsSplitCountLoading$ | async"
         [error]="paymentsSplitCountError$ | async"
     ></dsh-stats-bar-item>
     <dsh-stats-bar-item
+        [spinnerType]="spinnerType"
         [title]="t.paymentsAmount"
         [chartData]="paymentsSplitAmount$ | async"
         [isLoading]="isPaymentsSplitAmountLoading$ | async"

@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { SearchParamsForCurrentAndPreviousPeriod } from '../utils';
 import { StatsService } from './stats.service';
 
@@ -9,6 +11,8 @@ import { StatsService } from './stats.service';
     providers: [StatsService]
 })
 export class StatsComponent implements OnChanges {
+    @Input() spinnerType: SpinnerType;
+
     @Input() searchParams: SearchParamsForCurrentAndPreviousPeriod;
 
     paymentsAmount$ = this.statsService.paymentsAmount$;
