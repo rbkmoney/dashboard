@@ -14,6 +14,9 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { ShopService } from '../../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
+
+import { ShopService } from '../../../../api/shop';
+import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
@@ -37,6 +40,8 @@ import { WebhooksComponent } from './webhooks.component';
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent],
+    imports: [WebhooksRoutingModule, ApiWebhooksModule, WebhookPanelModule, CommonModule, FlexModule],
+    declarations: [WebhooksComponent],
     providers: [ReceiveWebhooksService, ShopService]
 })
 export class WebhooksModule {}

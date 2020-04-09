@@ -24,7 +24,7 @@ export class RemoveWebhookService {
         this.removeWebhook$
             .pipe(
                 switchMap(webhookID => forkJoin([of(webhookID), this.openConfirmDialog()])),
-                switchMap(([webhookID, _]) =>
+                switchMap(([webhookID]) =>
                     this.webhooksService.deleteWebhookByID(webhookID).pipe(
                         catchError(err => {
                             console.error(err);

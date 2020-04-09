@@ -1,7 +1,5 @@
-<div class="dsh-webhook-card-events-section" *transloco="let t; scope: 'webhook'; read: 'webhook.events'">
-    <dsh-card-title>
-        <div class="mat-title">{{ t.title }}</div>
-    </dsh-card-title>
+<div class="dsh-webhook-panel-events-section" *transloco="let t; scope: 'webhook'; read: 'webhook.events'">
+    <div class="mat-title">{{ t.title }}</div>
     <ul fxLayout="column" [fxLayoutGap]="layoutGap" class="dsh-webhooks-event-list">
         <li class="mat-body-1" *ngFor="let event of events">{{ t.types[event] }}</li>
     </ul>

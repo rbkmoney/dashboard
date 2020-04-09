@@ -73,6 +73,6 @@
         @include dsh-panel-theme($theme);
         @include dsh-range-datepicker-theme($theme);
         @include dsh-payout-panel-theme($theme);
-        @include dsh-webhook-card-theme($theme);
+        @include dsh-webhook-panel-theme($theme);
     }
 }
