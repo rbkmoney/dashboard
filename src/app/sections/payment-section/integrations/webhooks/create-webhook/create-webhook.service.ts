@@ -7,9 +7,9 @@ import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { WebhooksService } from '../../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { TYPES } from './event-types';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
+import { InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
 
 const oneMustBeSelected: ValidatorFn = (control: FormGroup): ValidationErrors | null =>
     control.value.map(c => c.selected).includes(true) ? null : { Error: 'At least one of checkboxes select needed' };
@@ -20,6 +20,7 @@ export class CreateWebhookService {
 
     private createWebhook$: Subject<FormParams> = new Subject();
 
+    invoiceTypes = Object.values(InvoicesTopic.EventTypesEnum)
     webhookCreated$: Subject<'created' | null> = new Subject();
     isLoading$ = progress(this.createWebhook$, this.webhookCreated$).pipe(
         booleanDebounceTime(),
@@ -58,7 +59,7 @@ export class CreateWebhookService {
             shop: ['', Validators.required],
             url: ['', Validators.required],
             eventTypes: this.fb.array(
-                TYPES.map(t =>
+                this.invoiceTypes.map(t =>
                     this.fb.group({
                         eventName: t,
                         selected: false

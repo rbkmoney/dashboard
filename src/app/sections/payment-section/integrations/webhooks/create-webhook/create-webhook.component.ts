@@ -6,7 +6,6 @@ import { filter } from 'rxjs/operators';
 import { ShopService } from '../../../../../api/shop';
 import { LAYOUT_GAP } from '../../../../constants';
 import { CreateWebhookService } from './create-webhook.service';
-import { TYPES } from './event-types';
 
 @Component({
     templateUrl: 'create-webhook.component.html',
@@ -14,7 +13,7 @@ import { TYPES } from './event-types';
 })
 export class CreateWebhookComponent {
     form = this.createWebhookService.form;
-    types = TYPES;
+    types = this.createWebhookService.invoiceTypes;
     shops$ = this.shopService.shops$;
     isLoading$ = this.createWebhookService.isLoading$;
 
