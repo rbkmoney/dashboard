@@ -35,6 +35,7 @@
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
+@import '../../app/sections/payment-section/integrations/webhooks/webhook-panel/webhook-panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -72,5 +73,6 @@
         @include dsh-panel-theme($theme);
         @include dsh-range-datepicker-theme($theme);
         @include dsh-payout-panel-theme($theme);
+        @include dsh-webhook-panel-theme($theme);
     }
 }

@@ -1,0 +1,3 @@
+<div fxLayout="column" [fxLayoutGap]="layoutGap">
+    <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>
+</div>
