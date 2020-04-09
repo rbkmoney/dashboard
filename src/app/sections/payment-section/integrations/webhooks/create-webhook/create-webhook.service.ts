@@ -20,7 +20,7 @@ export class CreateWebhookService {
 
     private createWebhook$: Subject<FormParams> = new Subject();
 
-    webhookCreated$: Subject<boolean> = new Subject();
+    webhookCreated$: Subject<'created' | null> = new Subject();
     isLoading$ = progress(this.createWebhook$, this.webhookCreated$).pipe(
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
@@ -40,13 +40,13 @@ export class CreateWebhookService {
                         catchError(err => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                            this.webhookCreated$.next(false);
+                            this.webhookCreated$.next(null);
                             return [];
                         })
                     )
                 )
             )
-            .subscribe(() => this.webhookCreated$.next(true));
+            .subscribe(() => this.webhookCreated$.next('created'));
     }
 
     save() {

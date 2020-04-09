@@ -10,6 +10,8 @@ import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
+    private webhooksLimit = 9;
+
     private webhooksState$ = new BehaviorSubject(null);
     private webhooksError$ = new BehaviorSubject(false);
     private receiveWebhooks$ = new Subject();
@@ -20,6 +22,8 @@ export class ReceiveWebhooksService {
     );
 
     error$: Observable<any> = this.webhooksError$.asObservable();
+
+    hasMore$: Subject<boolean> = new Subject();
 
     constructor(
         private webhooksService: WebhooksService,

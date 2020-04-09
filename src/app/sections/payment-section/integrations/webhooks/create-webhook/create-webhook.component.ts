@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { ShopService } from '../../../../../api/shop';
 import { LAYOUT_GAP } from '../../../../constants';
@@ -24,14 +24,9 @@ export class CreateWebhookComponent {
         @Inject(LAYOUT_GAP) public layoutGap: string,
         private shopService: ShopService
     ) {
-        this.createWebhookService.webhookCreated$
-            .pipe(
-                filter(r => r),
-                map(r => (r ? 'created' : false))
-            )
-            .subscribe(r => {
-                this.dialogRef.close(r);
-            });
+        this.createWebhookService.webhookCreated$.pipe(filter(r => !!r)).subscribe(r => {
+            this.dialogRef.close(r);
+        });
     }
 
     get eventTypes() {
