@@ -21,8 +21,6 @@ export class ReceiveWebhooksService {
 
     error$: Observable<any> = this.webhooksError$.asObservable();
 
-    hasMore$: Subject<boolean> = new Subject();
-
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
