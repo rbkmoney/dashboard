@@ -5,11 +5,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
 import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
 
+import { InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
-import { InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
 
 const oneMustBeSelected: ValidatorFn = (control: FormGroup): ValidationErrors | null =>
     control.value.map(c => c.selected).includes(true) ? null : { Error: 'At least one of checkboxes select needed' };
@@ -20,7 +20,7 @@ export class CreateWebhookService {
 
     private createWebhook$: Subject<FormParams> = new Subject();
 
-    invoiceTypes = Object.values(InvoicesTopic.EventTypesEnum)
+    invoiceTypes = Object.values(InvoicesTopic.EventTypesEnum);
     webhookCreated$: Subject<'created' | null> = new Subject();
     isLoading$ = progress(this.createWebhook$, this.webhookCreated$).pipe(
         booleanDebounceTime(),
