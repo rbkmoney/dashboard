@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import sortBy from 'lodash.sortby';
 
-import { sortByActiveStatus } from '../../../../../utils';
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -16,7 +16,7 @@ export class ReceiveWebhooksService {
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
-        map(w => w.sort(sortByActiveStatus)),
+        map(w => sortBy(w, i => !i.active)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -42,8 +42,7 @@ export class ReceiveWebhooksService {
                         catchError(err => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                            this.webhooksState$.next(null);
-                            return [];
+                            return of([]);
                         })
                     )
                 )
