@@ -8,7 +8,9 @@
             {{ key }}
         </div>
         <div>
-            <button dsh-button [cdkCopyToClipboard]="key">{{ t.buttons.copy }}</button>
+            <button dsh-button [cdkCopyToClipboard]="key" (cdkCopyToClipboardCopied)="copied($event)">
+                {{ t.buttons.copy }}
+            </button>
         </div>
     </div>
 </div>
