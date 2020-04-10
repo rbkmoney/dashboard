@@ -4,19 +4,25 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { sortByActiveStatus } from '../../../../../utils';
+import { sliceArrayIntoChunks, sortByActiveStatus } from '../../../../../utils';
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
+    private webhooksLimit = 10;
     private webhooksState$ = new BehaviorSubject(null);
     private receiveWebhooks$ = new Subject();
-
-    webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
+    private getMoreWebhooks$ = new Subject();
+    private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
         map(w => w.sort(sortByActiveStatus)),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
+    webhooksChunk$ = this.webhooks$.pipe(
+        map(w => sliceArrayIntoChunks<Webhook>(w, this.webhooksLimit)[0]),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -30,11 +36,24 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    hasMore$: Subject<boolean> = new Subject();
+
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
+        this.getMoreWebhooks$
+            .pipe(
+                booleanDebounceTime(),
+                switchMap(() => this.webhooks$)
+            )
+            .subscribe(webhooks => {
+                this.webhooksLimit = this.webhooksLimit + 10;
+                this.hasMore$.next(webhooks.length > this.webhooksLimit);
+                this.webhooksState$.next(webhooks);
+            });
+
         this.receiveWebhooks$
             .pipe(
                 switchMap(_ =>
@@ -48,10 +67,18 @@ export class ReceiveWebhooksService {
                     )
                 )
             )
-            .subscribe(webhooks => this.webhooksState$.next(webhooks));
+            .subscribe(webhooks => {
+                this.webhooksLimit = 10;
+                this.hasMore$.next(webhooks.length > this.webhooksLimit);
+                this.webhooksState$.next(webhooks);
+            });
     }
 
     receiveWebhooks() {
         this.receiveWebhooks$.next();
+    }
+
+    getMoreWebhooks() {
+        this.getMoreWebhooks$.next();
     }
 }
