@@ -16,11 +16,11 @@ const oneMustBeSelected: ValidatorFn = (control: FormGroup): ValidationErrors | 
 
 @Injectable()
 export class CreateWebhookService {
+    invoiceTypes = Object.values(InvoicesTopic.EventTypesEnum);
     form = this.initForm();
 
     private createWebhook$: Subject<FormParams> = new Subject();
 
-    invoiceTypes = Object.values(InvoicesTopic.EventTypesEnum);
     webhookCreated$: Subject<'created' | null> = new Subject();
     isLoading$ = progress(this.createWebhook$, this.webhookCreated$).pipe(
         booleanDebounceTime(),
