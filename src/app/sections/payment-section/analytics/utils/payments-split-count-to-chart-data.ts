@@ -1,3 +1,4 @@
+import { translate } from '@ngneat/transloco';
 import moment from 'moment';
 
 import { SplitCountResult } from '../../../../api-codegen/anapi/swagger-codegen';
@@ -13,7 +14,11 @@ export const paymentsSplitCountToChartData = (paymentsSplitCount: Array<SplitCou
         return {
             currency,
             series: statusOffsetCounts.map(offsetCounts => ({
-                name: offsetCounts.status.toString(),
+                name: translate(
+                    `analytics.paymentStatuses.${offsetCounts.status.toString()}`,
+                    null,
+                    'payment-section|scoped'
+                ),
                 data: offsetCounts.offsetCount.map(c => c.count)
             })),
             times: statusOffsetCounts[0].offsetCount.map(c => moment(c.offset).format())

@@ -25,5 +25,6 @@ const groupErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErrors
     }
     const otherErrors: number = errors.map(e => e.percents).reduce((prev, curr) => prev + curr);
     groupedErrors.push({ error: "'otherErrors'", percents: otherErrors });
+    groupedErrors.sort((a, b) => b.percents - a.percents);
     return groupedErrors;
 };

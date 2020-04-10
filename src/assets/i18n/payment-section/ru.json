@@ -27,6 +27,18 @@
             "averagePayment": "Средняя сумма платежа",
             "paymentsCount": "Количество платежей"
         },
+        "paymentToolsList": {
+            "bank_card": "Банковская карта",
+            "digital_wallet": "Кошелек"
+        },
+        "paymentStatuses": {
+            "pending": "Запущен",
+            "processed": "Обработан",
+            "captured": "Подтвержден",
+            "cancelled": "Отменен",
+            "refunded": "Возвращен",
+            "failed": "Неуспешен"
+        },
         "errorCodes": {
             "otherErrors": "Прочие",
             "unknownError": "Неизвестная ошибка",

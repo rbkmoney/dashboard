@@ -2,6 +2,8 @@ import { formatDate } from '@angular/common';
 import moment from 'moment';
 import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
 
+import { formatAmount } from '@dsh/components/charts/format-amount';
+
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
 import { customTooltip } from './custom-tooltip';
@@ -50,7 +52,10 @@ export const DEFAULT_CONFIG: ApexOptions = {
         }
     },
     yaxis: {
-        forceNiceScale: true
+        forceNiceScale: true,
+        labels: {
+            formatter: formatAmount
+        }
     },
     states: DEFAULT_STATES
 };

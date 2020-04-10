@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { BarChartModule } from '@dsh/components/charts/bar-chart';
-import { DonutChartModule } from '@dsh/components/charts/donut-chart';
+import { BarChartModule, DonutChartModule } from '@dsh/components/charts';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
