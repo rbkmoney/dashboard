@@ -1,10 +1,10 @@
 <dsh-card *transloco="let c">
     <div *ngIf="!error; else onError" fxLayout="column" fxLayoutGap="5px">
         <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-            <div *ngIf="!isLoading" class="mat-title">
+            <h2 *ngIf="!isLoading" class="mat-title stat-item-title">
                 <div *ngIf="statData; else noData">
                     <div *ngIf="hideCurrency; else showCurrency">
-                        {{ statData.current }}
+                        {{ statData.current | number }}
                     </div>
                     <ng-template #showCurrency>
                         {{ statData.current | fromMinor | currency: statData.currency:'symbol':'1.0-2' }}
@@ -13,7 +13,7 @@
                 <ng-template #noData>
                     {{ c.emptySearchResult }}
                 </ng-template>
-            </div>
+            </h2>
             <dsh-spinner *ngIf="isLoading" [type]="spinnerType" size="20"></dsh-spinner>
         </div>
         <div class="mat-caption dsh-stat-item-title">{{ subtitle }}</div>

@@ -15,13 +15,13 @@ export class StatsBarsComponent implements OnChanges {
 
     @Input() searchParams: SearchParamsWithSplitUnit;
 
-    paymentsSplitCount$ = this.statsBarsService.paymentsSplitCount$;
-    isPaymentsSplitCountLoading$ = this.statsBarsService.isPaymentsSplitCountLoading$;
-    paymentsSplitCountError$ = this.statsBarsService.paymentsSplitCountError$;
+    paymentsSplitCount$ = this.statsBarsService.splitCount$;
+    isPaymentsSplitCountLoading$ = this.statsBarsService.isSplitCountLoading$;
+    paymentsSplitCountError$ = this.statsBarsService.splitCountError$;
 
-    paymentsSplitAmount$ = this.statsBarsService.paymentsSplitAmount$;
-    isPaymentsSplitAmountLoading$ = this.statsBarsService.isPaymentsSplitAmountLoading$;
-    paymentsSplitAmountError$ = this.statsBarsService.paymentsSplitAmountError$;
+    paymentsSplitAmount$ = this.statsBarsService.splitAmount$;
+    isPaymentsSplitAmountLoading$ = this.statsBarsService.isSplitAmountLoading$;
+    paymentsSplitAmountError$ = this.statsBarsService.splitAmountError$;
 
     constructor(private statsBarsService: StatsBarsService) {}
 

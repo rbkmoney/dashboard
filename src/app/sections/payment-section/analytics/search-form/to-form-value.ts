@@ -10,7 +10,7 @@ export function toFormValue(
     return {
         ...defaultParams,
         ...params,
-        shopIDs: Array.isArray(params.shopIDs) ? params.shopIDs : [params.shopIDs],
+        shopIDs: params.shopIDs ? (Array.isArray(params.shopIDs) ? params.shopIDs : [params.shopIDs]) : null,
         date: {
             begin: fromTime ? moment(fromTime) : defaultParams.date.begin,
             end: toTime ? moment(toTime) : defaultParams.date.end,

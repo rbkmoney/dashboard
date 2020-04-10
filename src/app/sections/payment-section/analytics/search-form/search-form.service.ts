@@ -40,6 +40,7 @@ export class SearchFormService {
         tap(console.log),
         removeEmptyProperties,
         map(toSearchParams),
+        tap(console.log),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

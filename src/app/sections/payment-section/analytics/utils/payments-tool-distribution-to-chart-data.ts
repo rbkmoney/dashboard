@@ -4,11 +4,7 @@ import { DistributionChartData } from './distribution-chart-data';
 export const paymentsToolDistributionToChartData = (
     distribution: PaymentsToolDistributionResult[]
 ): DistributionChartData => {
-    const data: number[] = [];
-    const labels: string[] = [];
-    distribution.forEach(d => {
-        data.push(d.percents);
-        labels.push(d.name);
-    });
-    return { series: [{ data }], labels };
+    const series: number[] = distribution.map(d => d.percents);
+    const labels: string[] = distribution.map(d => d.name);
+    return { series, labels };
 };

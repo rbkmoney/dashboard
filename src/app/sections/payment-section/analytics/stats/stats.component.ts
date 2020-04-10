@@ -3,39 +3,50 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { SearchParamsForCurrentAndPreviousPeriod } from '../utils';
-import { StatsService } from './stats.service';
+import { AveragePaymentService } from './average-payment.service';
+import { PaymentsAmountService } from './payments-amount.service';
+import { PaymentsCountService } from './payments-count.service';
+import { RefundsAmountService } from './refunds-amount.service';
 
 @Component({
     selector: 'dsh-stats',
     templateUrl: './stats.component.html',
-    providers: [StatsService]
+    providers: [AveragePaymentService, PaymentsAmountService, RefundsAmountService, PaymentsCountService]
 })
 export class StatsComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;
 
     @Input() searchParams: SearchParamsForCurrentAndPreviousPeriod;
 
-    paymentsAmount$ = this.statsService.paymentsAmount$;
-    isPaymentsAmountLoading$ = this.statsService.isPaymentsAmountLoading$;
-    paymentsAmountError$ = this.statsService.paymentsAmountError$;
+    paymentsAmount$ = this.paymentsAmountService.paymentsAmount$;
+    isPaymentsAmountLoading$ = this.paymentsAmountService.isPaymentsAmountLoading$;
+    paymentsAmountError$ = this.paymentsAmountService.paymentsAmountError$;
 
-    refundsAmount$ = this.statsService.refundsAmount$;
-    isRefundsAmountLoading$ = this.statsService.isRefundsAmountLoading$;
-    refundsAmountError$ = this.statsService.refundsAmountError$;
+    refundsAmount$ = this.refundsAmountService.refundsAmount$;
+    isRefundsAmountLoading$ = this.refundsAmountService.isRefundsAmountLoading$;
+    refundsAmountError$ = this.refundsAmountService.refundsAmountError$;
 
-    averagePayment$ = this.statsService.averagePayment$;
-    isAveragePaymentLoading$ = this.statsService.isAveragePaymentLoading$;
-    averagePaymentError$ = this.statsService.averagePaymentError$;
+    averagePayment$ = this.averagePaymentService.averagePayment$;
+    isAveragePaymentLoading$ = this.averagePaymentService.isAveragePaymentLoading$;
+    averagePaymentError$ = this.averagePaymentService.averagePaymentError$;
 
-    paymentsCount$ = this.statsService.paymentsCount$;
-    isPaymentsCountLoading$ = this.statsService.isPaymentsCountLoading$;
-    paymentsCountError$ = this.statsService.paymentsCountError$;
+    paymentsCount$ = this.paymentsCountService.paymentsCount$;
+    isPaymentsCountLoading$ = this.paymentsCountService.isPaymentsCountLoading$;
+    paymentsCountError$ = this.paymentsCountService.paymentsCountError$;
 
-    constructor(private statsService: StatsService) {}
+    constructor(
+        private paymentsAmountService: PaymentsAmountService,
+        private refundsAmountService: RefundsAmountService,
+        private averagePaymentService: AveragePaymentService,
+        private paymentsCountService: PaymentsCountService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.searchParams.currentValue !== changes.searchParams.previousValue) {
-            this.statsService.searchParamsChanges(this.searchParams);
+            this.paymentsAmountService.searchParamsChanges(this.searchParams);
+            this.refundsAmountService.searchParamsChanges(this.searchParams);
+            this.averagePaymentService.searchParamsChanges(this.searchParams);
+            this.paymentsCountService.searchParamsChanges(this.searchParams);
         }
     }
 }

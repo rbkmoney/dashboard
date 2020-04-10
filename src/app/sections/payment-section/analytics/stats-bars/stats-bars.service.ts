@@ -3,7 +3,7 @@ import { merge, Subject } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
-import { progress, SHARE_REPLAY_CONF, takeError } from '../../../../custom-operators';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
 import { paymentsSplitAmountToChartData, paymentsSplitCountToChartData } from '../utils';
 
@@ -11,40 +11,42 @@ import { paymentsSplitAmountToChartData, paymentsSplitCountToChartData } from '.
 export class StatsBarsService {
     private searchParams$ = new Subject<SearchParamsWithSplitUnit>();
 
-    paymentsSplitCount$ = this.searchParams$.pipe(
+    private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
-        ),
+            this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs).pipe(replaceError)
+        )
+    );
+    splitCount$ = this.splitCountOrError$.pipe(
+        filterPayload,
         map(({ result }) => paymentsSplitCountToChartData(result)),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
-    isPaymentsSplitCountLoading$ = progress(this.searchParams$, this.paymentsSplitCount$).pipe(
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-    paymentsSplitCountError$ = this.paymentsSplitCount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
+    isSplitCountLoading$ = progress(this.searchParams$, this.splitCount$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    splitCountError$ = this.splitCountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    paymentsSplitAmount$ = this.searchParams$.pipe(
+    private splitAmountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs)
-        ),
+            this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs).pipe(replaceError)
+        )
+    );
+    splitAmount$ = this.splitAmountOrError$.pipe(
+        filterPayload,
         map(({ result }) => paymentsSplitAmountToChartData(result)),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
-    isPaymentsSplitAmountLoading$ = progress(this.searchParams$, this.paymentsSplitAmount$).pipe(
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-    paymentsSplitAmountError$ = this.paymentsSplitAmount$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
+    isSplitAmountLoading$ = progress(this.searchParams$, this.splitAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    splitAmountError$ = this.splitAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService) {
         merge(
-            this.paymentsSplitCount$,
-            this.isPaymentsSplitCountLoading$,
-            this.paymentsSplitCountError$,
-            this.paymentsSplitAmount$,
-            this.isPaymentsSplitAmountLoading$,
-            this.paymentsSplitAmountError$
+            this.splitCount$,
+            this.isSplitCountLoading$,
+            this.splitCountError$,
+            this.splitAmount$,
+            this.isSplitAmountLoading$,
+            this.splitAmountError$
         ).subscribe();
     }
 

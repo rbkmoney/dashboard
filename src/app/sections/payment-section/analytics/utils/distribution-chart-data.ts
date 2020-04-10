@@ -1,6 +1,4 @@
-import { ApexAxisChartSeries } from 'ng-apexcharts';
-
 export interface DistributionChartData {
-    series: ApexAxisChartSeries;
+    series: number[];
     labels: string[];
 }

@@ -15,13 +15,13 @@ export class DistributionsComponent implements OnChanges {
 
     @Input() searchParams: SearchParams;
 
-    paymentsToolDistribution$ = this.distributionsService.paymentsToolDistribution$;
-    isPaymentsToolDistributionLoading$ = this.distributionsService.isPaymentsToolDistributionLoading$;
-    paymentsToolDistributionError$ = this.distributionsService.paymentsToolDistributionError$;
+    paymentsToolDistribution$ = this.distributionsService.toolDistribution$;
+    isPaymentsToolDistributionLoading$ = this.distributionsService.isToolDistributionLoading$;
+    paymentsToolDistributionError$ = this.distributionsService.toolDistributionError$;
 
-    paymentsErrorsDistribution$ = this.distributionsService.paymentsErrorsDistribution$;
-    isPaymentsErrorsDistributionLoading$ = this.distributionsService.isPaymentsErrorsDistributionLoading$;
-    paymentsErrorsDistributionError$ = this.distributionsService.paymentsErrorsDistributionError$;
+    paymentsErrorsDistribution$ = this.distributionsService.errorsDistribution$;
+    isPaymentsErrorsDistributionLoading$ = this.distributionsService.isErrorsDistributionLoading$;
+    paymentsErrorsDistributionError$ = this.distributionsService.errorsDistributionError$;
 
     constructor(private distributionsService: DistributionsService) {}
 
