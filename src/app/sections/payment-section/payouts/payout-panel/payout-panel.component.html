@@ -1,23 +1,29 @@
-<dsh-expand-panel #expandPanel *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
-    <div fxLayout="column" fxLayoutGap="20px">
-        <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-            <div class="mat-body-1">
-                {{ payout?.createdAt | date: 'd MMMM y' }}
+<dsh-expand-panel-accordion
+    fxLayout="column"
+    fxLayoutGap="20px"
+    (expandedChange)="select($event)"
+    [expanded]="selectedIdx$ | async"
+    *transloco="let p; scope: 'payouts'; read: 'payouts.panel'"
+>
+    <dsh-expand-panel *ngFor="let payout of payouts$ | async">
+        <div fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
+                <div class="mat-body-1">
+                    {{ payout?.createdAt | date: 'd MMMM y' }}
+                </div>
+                <div class="mat-body-2">{{ payout?.amount | fromMinor | currency: payout?.currency }}</div>
             </div>
-            <div class="mat-body-2">{{ payout?.amount | fromMinor | currency: payout?.currency }}</div>
+            <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
+                <div>
+                    {{ (getShopInfo(payout.shopID) | async)?.name }}
+                </div>
+                <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
+                    {{ t[payout?.payoutToolDetails?.detailsType] || payout?.payoutToolDetails?.detailsType }}
+                </div>
+            </div>
         </div>
-        <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-            <div>
-                {{ (shopInfo$ | async)?.name }}
-            </div>
-            <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
-                {{ t[payout?.payoutToolDetails?.detailsType] || payout?.payoutToolDetails?.detailsType }}
-            </div>
-        </div>
-    </div>
-    <dsh-expand-panel-more>
-        <div class="dsh-payout-panel-more" fxLayout="column" fxLayoutGap="20px">
-            <div fxLayout fxLayoutGap="10px">
+        <dsh-expand-panel-more>
+            <dsh-expand-panel-more-header>
                 <div
                     class="dsh-payout-panel-more-caption"
                     fxFlex
@@ -29,33 +35,29 @@
                         {{ payout?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
                     </div>
                 </div>
-                <div>
-                    <button dsh-icon-button (click)="expandPanel.collapse($event)">
-                        <mat-icon svgIcon="keyboard_arrow_up"></mat-icon>
-                    </button>
-                </div>
-            </div>
-            <dsh-common-info [payout]="payout" [shopName]="(shopInfo$ | async)?.name"></dsh-common-info>
+            </dsh-expand-panel-more-header>
 
+            <dsh-common-info
+                [payout]="payout"
+                [shopName]="(getShopInfo(payout.shopID) | async)?.name"
+            ></dsh-common-info>
             <mat-divider></mat-divider>
 
-            <dsh-payments-info [paymentsSummary]="paymentsSummary"></dsh-payments-info>
-
+            <dsh-payments-info [paymentsSummary]="getPaymentSummary(payout)"></dsh-payments-info>
             <mat-divider></mat-divider>
 
-            <ng-container *ngIf="refundsSummary">
-                <dsh-refunds-info [refundsSummary]="refundsSummary"></dsh-refunds-info>
+            <ng-container *ngIf="getRefundSummary(payout)">
+                <dsh-refunds-info [refundsSummary]="getRefundSummary(payout)"></dsh-refunds-info>
                 <mat-divider></mat-divider>
             </ng-container>
 
             <dsh-payout-tool-info [payoutToolDetails]="payout?.payoutToolDetails"></dsh-payout-tool-info>
-
             <mat-divider></mat-divider>
 
             <div class="mat-title">{{ p.actions }}</div>
             <div>
-                <button dsh-stroked-button color="accent" (click)="create()">{{ p.createReport }}</button>
+                <button dsh-stroked-button color="accent" (click)="createReport(payout)">{{ p.createReport }}</button>
             </div>
-        </div>
-    </dsh-expand-panel-more>
-</dsh-expand-panel>
+        </dsh-expand-panel-more>
+    </dsh-expand-panel>
+</dsh-expand-panel-accordion>

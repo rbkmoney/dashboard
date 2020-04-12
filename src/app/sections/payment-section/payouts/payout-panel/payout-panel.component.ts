@@ -1,37 +1,39 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import isEqual from 'lodash.isequal';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
 
-import { ExpandPanelComponent } from '@dsh/components/layout';
-
-import { Payout, PayoutSummaryItem } from '../../../../api-codegen/anapi';
+import { Payout } from '../../../../api-codegen/anapi';
+import { PayoutsService } from '../payouts.service';
 import { PayoutPanelService } from './payout-panel.service';
 
 @Component({
     selector: 'dsh-payout-panel',
     templateUrl: 'payout-panel.component.html',
-    styleUrls: ['payout-panel.component.scss'],
     providers: [PayoutPanelService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PayoutPanelComponent implements OnChanges {
-    @Input() payout: Payout;
-    shopInfo$ = this.payoutPanelService.shopInfo$;
-    paymentsSummary: PayoutSummaryItem;
-    refundsSummary: PayoutSummaryItem;
+export class PayoutPanelComponent {
+    payouts$ = this.payoutsService.searchResult$;
+    selectedIdx$ = this.payoutsService.selectedIdx$;
 
-    @ViewChild('expandPanel') expandPanel: ExpandPanelComponent;
+    constructor(private payoutPanelService: PayoutPanelService, private payoutsService: PayoutsService) {}
 
-    constructor(private payoutPanelService: PayoutPanelService) {}
-
-    ngOnChanges({ payout }: SimpleChanges) {
-        if (!isEqual(payout.previousValue, payout.currentValue)) {
-            this.paymentsSummary = payout.currentValue.payoutSummary.find(p => p.type === 'payment');
-            this.refundsSummary = payout.currentValue.payoutSummary.find(p => p.type === 'refund');
-            this.payoutPanelService.getShopInfo(this.payout.shopID);
-        }
+    createReport(payout: Payout) {
+        this.payoutPanelService.createReport(payout);
     }
 
-    create() {
-        this.payoutPanelService.createReport(this.payout);
+    getPaymentSummary(payout: Payout) {
+        return payout.payoutSummary.find(({ type }) => type === 'payment');
+    }
+
+    getRefundSummary(payout: Payout) {
+        return payout.payoutSummary.find(({ type }) => type === 'refund');
+    }
+
+    getShopInfo(shopID: string) {
+        return this.payoutPanelService.shopsInfo$.pipe(map(p => p.find(s => s.shopID === shopID)));
+    }
+
+    select(idx: number) {
+        this.payoutsService.select(idx);
     }
 }
