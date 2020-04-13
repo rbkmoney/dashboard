@@ -32,6 +32,5 @@ export class BarChartComponent implements OnChanges {
         if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
             this.config.chart.height = this.height;
         }
-        console.log(this.config, this.series);
     }
 }

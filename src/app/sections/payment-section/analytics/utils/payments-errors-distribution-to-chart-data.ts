@@ -21,13 +21,14 @@ const groupErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErrors
         .filter(e => e.percents > 0)
         .sort((a, b) => b.percents - a.percents);
     const errorsCountToShow = Math.min(sortedErrors.length, ERRORS_COUNT_TO_SHOW);
-    const groupedErrors = sortedErrors;
-    if (errorsCountToShow > sortedErrors.length) {
+    const groupedErrors = sortedErrors.slice(0, errorsCountToShow);
+    if (errorsCountToShow < sortedErrors.length) {
         const otherErrors: number = sortedErrors
             .slice(errorsCountToShow)
             .map(e => e.percents)
             .reduce((prev, curr) => prev + curr);
         groupedErrors.push({ error: "'otherErrors'", percents: otherErrors });
+        groupedErrors.sort((a, b) => b.percents - a.percents);
     }
     return groupedErrors;
 };
