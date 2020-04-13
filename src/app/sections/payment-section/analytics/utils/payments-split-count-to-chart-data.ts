@@ -6,10 +6,11 @@ import { ChartData } from './chart-data';
 
 export const paymentsSplitCountToChartData = (paymentsSplitCount: Array<SplitCountResult>): ChartData[] =>
     paymentsSplitCount.map(({ currency, statusOffsetCounts }) => {
-        statusOffsetCounts.forEach(s => {
-            s.offsetCount.sort((a, b) => a.offset - b.offset);
-            s.offsetCount[1].count += s.offsetCount[0].count;
-            s.offsetCount.shift();
+        statusOffsetCounts.map(s => {
+            let offsetCount = s.offsetCount.slice().sort((a, b) => a.offset - b.offset);
+            offsetCount[1] = { offset: offsetCount[1].offset, count: offsetCount[1].count + offsetCount[0].count };
+            offsetCount = offsetCount.slice(1);
+            return { offsetCount, status: s.status };
         });
         return {
             currency,

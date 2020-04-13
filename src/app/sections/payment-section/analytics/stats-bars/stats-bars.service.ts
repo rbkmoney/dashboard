@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { merge, Subject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -18,7 +18,8 @@ export class StatsBarsService {
     );
     splitCount$ = this.splitCountOrError$.pipe(
         filterPayload,
-        map(({ result }) => paymentsSplitCountToChartData(result)),
+        pluck('result'),
+        map(paymentsSplitCountToChartData),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -32,7 +33,8 @@ export class StatsBarsService {
     );
     splitAmount$ = this.splitAmountOrError$.pipe(
         filterPayload,
-        map(({ result }) => paymentsSplitAmountToChartData(result)),
+        pluck('result'),
+        map(paymentsSplitAmountToChartData),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );

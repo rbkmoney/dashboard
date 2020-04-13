@@ -3,6 +3,8 @@ import { translate } from '@ngneat/transloco';
 import { PaymentsErrorsDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
 import { DistributionChartData } from './distribution-chart-data';
 
+const ERRORS_COUNT_TO_SHOW = 4;
+
 export const paymentsErrorsDistributionToChartData = (
     distribution: PaymentsErrorsDistributionResult[]
 ): DistributionChartData => {
@@ -14,17 +16,18 @@ export const paymentsErrorsDistributionToChartData = (
 };
 
 const groupErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErrorsDistributionResult[] => {
-    errors.sort((a, b) => b.percents - a.percents);
-    const groupedErrors: PaymentsErrorsDistributionResult[] = [];
-    for (let i = 0; i < 5; i++) {
-        if (errors[0].percents > 1) {
-            groupedErrors.push(errors.shift());
-        } else {
-            break;
-        }
+    const sortedErrors = errors
+        .slice()
+        .filter(e => e.percents > 0)
+        .sort((a, b) => b.percents - a.percents);
+    const errorsCountToShow = Math.min(sortedErrors.length, ERRORS_COUNT_TO_SHOW);
+    const groupedErrors = sortedErrors;
+    if (errorsCountToShow > sortedErrors.length) {
+        const otherErrors: number = sortedErrors
+            .slice(errorsCountToShow)
+            .map(e => e.percents)
+            .reduce((prev, curr) => prev + curr);
+        groupedErrors.push({ error: "'otherErrors'", percents: otherErrors });
     }
-    const otherErrors: number = errors.map(e => e.percents).reduce((prev, curr) => prev + curr);
-    groupedErrors.push({ error: "'otherErrors'", percents: otherErrors });
-    groupedErrors.sort((a, b) => b.percents - a.percents);
     return groupedErrors;
 };

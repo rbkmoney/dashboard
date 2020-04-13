@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { Observable } from 'rxjs';
-import { debounceTime, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { debounceTime, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -37,10 +37,8 @@ export class SearchFormService {
 
     formValueChanges$: Observable<SearchParams> = this.form.valueChanges.pipe(
         startWith(this.startValue),
-        tap(console.log),
         removeEmptyProperties,
         map(toSearchParams),
-        tap(console.log),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

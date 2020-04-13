@@ -1,23 +1,14 @@
-export const formatAmount = (amount: number): string => {
-    let res = amount;
-    const rounder = Math.pow(10, 1);
-    let key = '';
-
-    const powers = [
-        { key: 'T', value: Math.pow(10, 12) },
-        { key: 'B', value: Math.pow(10, 9) },
-        { key: 'M', value: Math.pow(10, 6) },
-        { key: 'K', value: 1000 }
-    ];
-
-    for (const p of powers) {
-        let reduced = res / p.value;
-        reduced = Math.round(reduced * rounder) / rounder;
-        if (reduced >= 1) {
-            res = reduced;
-            key = p.key;
-            break;
-        }
+export const formatAmount = (num: number): string => {
+    switch (true) {
+        case num < 1000:
+            return num.toString();
+        case num < 1000000:
+            return num.toString() + 'K';
+        case num < 1000000000:
+            return num.toString() + 'M';
+        case num < 1000000000000:
+            return num.toString() + 'B';
+        default:
+            return num.toString();
     }
-    return res + key;
 };
