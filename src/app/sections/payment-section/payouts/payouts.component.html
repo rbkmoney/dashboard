@@ -18,11 +18,13 @@
                 (click)="select(payout.id)"
             ></dsh-payout-panel>
         </dsh-payout-panel-accordion>
-        <dsh-card *ngIf="hasMore$ | async" class="dsh-payouts-show-more" fxLayout>
-            <button dsh-button (click)="fetchMore()" [disabled]="isLoading$ | async" fxFlex *transloco="let t">
-                {{ (isLoading$ | async) ? t.loading : t.showMore }}
-            </button>
-        </dsh-card>
+        <dsh-show-more-panel
+            *ngIf="hasMore$ | async"
+            [disabled]="isLoading$ | async"
+            (showMoreEvent)="fetchMore()"
+            [isLoading]="isLoading$ | async"
+        >
+        </dsh-show-more-panel>
         <div *ngIf="!(payouts$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-payouts-empty">
             <ng-container *transloco="let t">
                 {{ t.emptySearchResult }}

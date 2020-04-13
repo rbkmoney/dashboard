@@ -13,6 +13,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule } from '@dsh/components/layout';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ShopService } from '../../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
@@ -40,7 +41,8 @@ import { WebhooksComponent } from './webhooks.component';
         WebhookPanelModule,
         SpinnerModule,
         EmptySearchResultModule,
-        CardModule
+        CardModule,
+        ShowMorePanelModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent],
