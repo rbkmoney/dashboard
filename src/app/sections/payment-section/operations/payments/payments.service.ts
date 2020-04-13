@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest } from 'rxjs';
-import { switchMap, catchError, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
+import { combineLatest, Observable } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
-import { PaymentSearchFormValue } from './search-form';
-import { PaymentSearchService } from '../../../../api/search';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
-import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
-import { PaymentsTableData } from './table';
+import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { mapToTimestamp } from '../operators';
+import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { booleanDebounceTime } from '../../../../custom-operators';
+import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
+import { PaymentSearchFormValue } from './search-form';
+import { PaymentsTableData } from './table';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
@@ -22,20 +21,15 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest(
+    paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest([
         this.searchResult$,
         this.shopService.shops$
-    ).pipe(
+    ]).pipe(
         mapToPaymentsTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
-    );
-
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
     );
 
     constructor(
@@ -55,8 +49,8 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.paymentSearchService.searchPayments(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params,
                     this.searchLimit,
                     continuationToken,

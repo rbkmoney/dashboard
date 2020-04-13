@@ -1,10 +1,9 @@
-import { Moment } from 'moment';
+import { Range } from '@dsh/components/form-controls';
 
 import { Report } from '../../../../api-codegen/anapi';
 
 export interface FormParams {
-    fromTime: Moment;
-    toTime: Moment;
+    date: Range;
     reportType: Report.ReportTypeEnum;
     shopID?: string;
 }

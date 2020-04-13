@@ -3,15 +3,14 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import {
-    ClaimsService as APIClaimsService,
     Claim,
-    StatusModificationUnit,
+    ClaimsService as APIClaimsService,
     Modification,
-    Reason
+    Reason,
+    StatusModificationUnit
 } from '../../api-codegen/claim-management';
-import { ClaimsWithToken } from './models';
+import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';
-import { noContinuationToken, mapResult } from '../../custom-operators';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;
 
@@ -22,23 +21,21 @@ export class ClaimsService {
     searchClaims(
         limit: number,
         claimStatuses?: StatusModificationUnit.StatusEnum[],
+        claimID?: number,
         continuationToken?: string
-    ): Observable<ClaimsWithToken> {
+    ) {
         return this.claimsService.searchClaims(
             genXRequestID(),
             limit,
             undefined,
             continuationToken,
+            claimID,
             claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
         );
     }
 
     search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[], cacheSize = 1): Observable<Claim[]> {
-        return this.searchClaims(1000, claimStatuses).pipe(
-            noContinuationToken,
-            mapResult,
-            shareReplay(cacheSize)
-        );
+        return this.searchClaims(1000, claimStatuses).pipe(noContinuationToken, mapResult, shareReplay(cacheSize));
     }
 
     getClaimByID(claimID: number): Observable<Claim> {

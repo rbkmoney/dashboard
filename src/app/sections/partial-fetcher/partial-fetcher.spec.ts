@@ -1,8 +1,8 @@
-import { TestScheduler } from 'rxjs/testing';
 import { Observable } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { PartialFetcher } from './partial-fetcher';
 import { FetchResult } from './fetch-result';
+import { PartialFetcher } from './partial-fetcher';
 
 function assertDeepEqual(actual: any, expected: any) {
     expect(actual).toEqual(expected);
@@ -29,8 +29,8 @@ describe('PartialFetch', () => {
             const partialFetched = new PartialFetched(() => cold('--x|', { x: result }), 100);
             expectObservable(partialFetched.searchResult$).toBe('');
             expectObservable(partialFetched.errors$).toBe('');
-            expectObservable(partialFetched.doAction$).toBe('0', [false]);
-            expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+            expectObservable(partialFetched.doAction$).toBe('0', [true]);
+            expectObservable(partialFetched.hasMore$).toBe('0', [null]);
         });
     });
 
@@ -41,8 +41,8 @@ describe('PartialFetch', () => {
             partialFetched.search(null);
             expectObservable(partialFetched.searchResult$).toBe('100ms --0', [['test']]);
             expectObservable(partialFetched.errors$).toBe('');
-            expectObservable(partialFetched.doAction$).toBe('0 99ms 1 -2', [false, true, false]);
-            expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+            expectObservable(partialFetched.doAction$).toBe('0 100ms -1', [true, false]);
+            expectObservable(partialFetched.hasMore$).toBe('0 100ms -1', [null, false]);
         });
     });
 
@@ -67,7 +67,7 @@ describe('PartialFetch', () => {
             ]);
             expectObservable(partialFetched.errors$).toBe('');
             expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
-            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
+            expectObservable(partialFetched.hasMore$).toBe('0-1', [null, true]);
         });
     });
 
@@ -87,7 +87,7 @@ describe('PartialFetch', () => {
             ]);
             expectObservable(partialFetched.errors$).toBe('');
             expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
-            expectObservable(partialFetched.hasMore$).toBe('0-1', [false, true]);
+            expectObservable(partialFetched.hasMore$).toBe('0-1', [null, true]);
         });
     });
 
@@ -98,8 +98,8 @@ describe('PartialFetch', () => {
                 partialFetched.search(null);
                 expectObservable(partialFetched.searchResult$).toBe('100ms --0', [[]]);
                 expectObservable(partialFetched.errors$).toBe('100ms --0', ['error']);
-                expectObservable(partialFetched.doAction$).toBe('0 99ms 1 -2', [false, true, false]);
-                expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+                expectObservable(partialFetched.doAction$).toBe('0 100ms -1', [true, false]);
+                expectObservable(partialFetched.hasMore$).toBe('0 100ms -1', [null, false]);
             });
         });
 
@@ -111,7 +111,7 @@ describe('PartialFetch', () => {
                 expectObservable(partialFetched.searchResult$).toBe('--0-1', [[], []]);
                 expectObservable(partialFetched.errors$).toBe('--0-1', ['error', 'error']);
                 expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
-                expectObservable(partialFetched.hasMore$).toBe('0', [false]);
+                expectObservable(partialFetched.hasMore$).toBe('0-1', [null, false]);
             });
         });
     });

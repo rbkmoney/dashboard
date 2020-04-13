@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import get from 'lodash.get';
+import { BehaviorSubject } from 'rxjs';
 
-import { QuestionaryFormService } from '../questionary-form.service';
+import { legalEntityInnValidator } from '@dsh/components/form-controls';
+
+import { AccountantInfo, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
-import { QuestionaryData, AccountantInfo } from '../../../../../api-codegen/questionary';
-import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
+import { FormValue } from '../form-value';
+import { QuestionaryFormService } from '../questionary-form.service';
+import { LegalResidencyInfoService } from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
-import { LegalResidencyInfoService } from '../subforms';
-import { legalEntityInnValidator } from '../../../../../form-controls';
 
 type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
@@ -42,9 +43,6 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         private legalResidencyInfoService: LegalResidencyInfoService
     ) {
         super(questionaryStateService, validityService);
-        this.form = this.initForm();
-        this.form$.next(this.form);
-        this.form$.complete();
     }
 
     withoutAccountantChange(withoutAccountant: boolean) {
@@ -62,12 +60,14 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         );
     }
 
-    protected toFormValue(data: QuestionaryData): FormValue {
+    protected toForm(data: QuestionaryData): FormGroup {
         const formValue = toFormValue(data);
+        this.form = this.constructForm();
         this.withoutAccountantChange(formValue.withoutAccountant);
         this.accountantTypeChange(formValue.accountantType);
         this.residencyInfoChange(data);
-        return formValue;
+        this.form.patchValue(formValue);
+        return this.form;
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -91,7 +91,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         }
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             staffCount: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^\d+$/)]],
             withoutAccountant: [false, Validators.required],

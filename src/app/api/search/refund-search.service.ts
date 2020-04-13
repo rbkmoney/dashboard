@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import moment from 'moment';
 
-import { RefundsWithToken } from './refunds-with-token';
-import { toDateLike, genXRequestID } from '../utils';
-import { Duration } from './duration';
-import { SearchService, Refund, RefundSearchResult } from '../../api-codegen/anapi/swagger-codegen';
+import { Refund, RefundSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { genXRequestID, toDateLike } from '../utils';
+import { Duration } from './model';
 
 @Injectable()
 export class RefundSearchService {
@@ -23,7 +22,7 @@ export class RefundSearchService {
         refundStatus: Refund.StatusEnum,
         excludedShops: string[],
         continuationToken?: string
-    ): Observable<RefundsWithToken> {
+    ) {
         return this.searchService.searchRefunds(
             genXRequestID(),
             toDateLike(fromTime),
@@ -51,7 +50,7 @@ export class RefundSearchService {
         refundStatus?: Refund.StatusEnum,
         excludedShops?: string[],
         continuationToken?: string
-    ): Observable<RefundsWithToken> {
+    ) {
         const from = moment()
             .subtract(amount, unit)
             .startOf('d')

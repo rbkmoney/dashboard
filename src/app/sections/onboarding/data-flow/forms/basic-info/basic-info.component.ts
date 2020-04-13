@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { BasicInfoService } from './basic-info.service';
 import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
+import { BasicInfoService } from './basic-info.service';
 
 @Component({
     templateUrl: 'basic-info.component.html'

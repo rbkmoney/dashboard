@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { registerLocaleData } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import * as moment from 'moment';
 
 import { SettingsService } from '../settings';
-import { Language } from './language';
 import { angularLocaleData } from './angular-locale-data';
+import { Language } from './language';
 
 @Injectable()
 export class LanguageService {
@@ -33,7 +33,7 @@ export class LanguageService {
     }
 
     private getCorrectLanguage(language: Language | string): Language {
-        if (!Object.values(Language).includes(language)) {
+        if (!Object.values<string>(Language).includes(language)) {
             return this.getRecommended();
         }
         return language as Language;

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { RefundSearchService } from '../../../api/search';
 import { RefundSearchResult } from '../../../api-codegen/capi';
-import { PartialFetcher, FetchResult } from '../../partial-fetcher';
+import { RefundSearchService } from '../../../api/search';
+import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { RefundsSearchParams } from './refunds-search-params';
 import { CreateRefundComponent, CreateRefundData } from './create-refund';
 
@@ -21,7 +21,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.refundSearchService.searchRefundsByDuration(
-            { amount: 1, unit: 'y' },
+            { amount: 3, unit: 'y' },
             invoiceID,
             paymentID,
             this.searchLimit,

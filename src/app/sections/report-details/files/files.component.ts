@@ -1,13 +1,14 @@
-import { Component, Input, Inject } from '@angular/core';
-import { catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { Component, Inject, Input } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { catchError } from 'rxjs/operators';
 
-import { FileMeta } from '../../../api-codegen/anapi/swagger-codegen';
-import { LAYOUT_GAP } from '../../constants';
-import { SpinnerType } from '../../../spinner';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { download } from '../../../../utils/download';
+import { FileMeta } from '../../../api-codegen/anapi/swagger-codegen';
 import { ReportsService } from '../../../api/reports';
+import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-files',

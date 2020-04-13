@@ -1,37 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { InitialDataService } from './initial-data.service';
+import { DataFlowService } from './data-flow.service';
+import { QuestionaryStateService } from './questionary-state.service';
 import { StepFlowService } from './step-flow';
-import { SaveQuestionaryService } from './save-questionary';
-import { SpinnerType } from '../../../spinner';
-import { InitializeFormsService } from './forms';
 
 @Component({
     selector: 'dsh-data-flow',
     templateUrl: 'data-flow.component.html',
-    styleUrls: ['data-flow.component.scss']
+    styleUrls: ['data-flow.component.scss'],
+    providers: [DataFlowService]
 })
-export class DataFlowComponent implements OnInit {
-    spinnerType = SpinnerType.FulfillingBouncingCircle;
-
-    initialized$ = this.initialDataService.initialized$;
-    initializeError$ = this.initialDataService.initializeError$;
-    isSaving$ = this.saveQuestionaryService.isSaving$;
+export class DataFlowComponent implements OnInit, OnDestroy {
     activeStep$ = this.stepFlowService.activeStep$;
+    questionaryData$ = this.questionaryStateService.questionaryData$;
+    isLoading$ = this.questionaryStateService.isLoading$;
 
     constructor(
-        private route: ActivatedRoute,
         private stepFlowService: StepFlowService,
-        private initialDataService: InitialDataService,
-        private saveQuestionaryService: SaveQuestionaryService,
-        private initializeFormsService: InitializeFormsService
+        private questionaryStateService: QuestionaryStateService,
+        private dataFlowService: DataFlowService
     ) {}
 
     ngOnInit() {
-        this.route.params.pipe(pluck('claimID')).subscribe(claimID => this.initialDataService.initialize(claimID));
-        this.initializeFormsService.initializeForms();
-        this.stepFlowService.preserveDefault();
+        this.dataFlowService.init();
+    }
+
+    ngOnDestroy() {
+        this.dataFlowService.destroy();
     }
 }

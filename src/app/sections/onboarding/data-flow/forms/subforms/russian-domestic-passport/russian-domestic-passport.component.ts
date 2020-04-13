@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-russian-domestic-passport',
     templateUrl: 'russian-domestic-passport.component.html'
 })
 export class RussianDomesticPassportComponent {
-    layoutGap = '20px';
+    @Input() form: FormGroup;
 
-    @Input() form;
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

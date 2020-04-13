@@ -1,4 +1,4 @@
-import { StatusModificationUnit, ClaimModificationType } from '../../../../api-codegen/claim-management';
+import { ClaimModificationType, StatusModificationUnit } from '../../../../api-codegen/claim-management';
 import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {

@@ -1,44 +1,79 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexModule } from '@angular/flex-layout';
-import { TranslocoModule } from '@ngneat/transloco';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
-import { PaymentDetailsComponent } from './payment-details.component';
-import { RefundsModule } from './refunds';
-import { RecurrentDetailsModule } from './recurrent-details';
-import { PaymentToolModule } from './payment-tool';
-import { StatusDetailsItemModule } from './status-details-item';
-import { PayerDetailsModule } from './payer-details';
-import { MakeRecurrentModule } from './make-recurrent';
-import { InvoiceDetailsModule } from './invoice-details';
-import { HoldDetailsModule } from './hold-details';
-import { DetailsModule } from './details';
-import { HeadlineModule } from '../../layout/headline';
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+
+import { InvoiceModule } from '../../api/invoice';
+import { SearchModule } from '../../api/search';
+import { FromMinorModule } from '../../from-minor';
+import { HumanizeDurationModule } from '../../humanize-duration';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
+import { AmountPipe } from './amount.pipe';
+import { BankCardPipe } from './bank-card.pipe';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { DetailsComponent } from './details';
+import { HoldDetailsComponent } from './hold-details';
+import { InvoiceDetailsComponent } from './invoice-details';
+import { MakeRecurrentComponent } from './make-recurrent';
+import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
-import { PaymentSearchService } from '../../api/search';
-import { SpinnerModule } from '../../spinner';
+import { PaymentDetailsComponent } from './payment-details.component';
+import {
+    BankCardComponent,
+    DigitalWalletComponent,
+    PaymentTerminalComponent,
+    PaymentToolComponent
+} from './payment-tool';
+import { PhoneNumberPipe } from './phone-number.pipe';
+import { RecurrentDetailsComponent } from './recurrent-details';
+import { RefundItemComponent, RefundsComponent } from './refunds';
+import { StatusDetailsItemComponent } from './status-details-item';
 
 @NgModule({
     imports: [
-        DetailsModule,
-        HoldDetailsModule,
-        InvoiceDetailsModule,
-        MakeRecurrentModule,
-        PayerDetailsModule,
-        PaymentToolModule,
-        RecurrentDetailsModule,
-        RefundsModule,
-        StatusDetailsItemModule,
-        HeadlineModule,
+        LayoutModule,
+        MatIconModule,
+        FlexLayoutModule,
+        RouterModule,
+        ButtonModule,
         CommonModule,
-        FlexModule,
-        ShopDetailsModule,
+        SearchModule,
+        FromMinorModule,
+        InvoiceModule,
+        HumanizeDurationModule,
         TranslocoModule,
+        ShopDetailsModule,
         PaymentDetailsRoutingModule,
-        SpinnerModule
+        IndicatorsModule
     ],
-    declarations: [PaymentDetailsComponent],
-    providers: [PaymentSearchService]
+    declarations: [
+        PaymentDetailsComponent,
+        DetailsComponent,
+        StatusDetailsItemComponent,
+        PaymentToolComponent,
+        AmountPipe,
+        PayerDetailsComponent,
+        HoldDetailsComponent,
+        RecurrentDetailsComponent,
+        InvoiceDetailsComponent,
+        RefundsComponent,
+        RefundItemComponent,
+        CurrencySymbolPipe,
+        BankCardPipe,
+        PhoneNumberPipe,
+        DigitalWalletComponent,
+        BankCardComponent,
+        PaymentTerminalComponent,
+        CustomerPayerComponent,
+        PaymentResourcePayerComponent,
+        MakeRecurrentComponent
+    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}

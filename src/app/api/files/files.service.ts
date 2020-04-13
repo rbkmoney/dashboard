@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { FileData, FileDownload, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
 import { FilesService as FilesApiService } from '../../api-codegen/dark-api';
+import { FileData, FileDownload, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
 import { genXRequestID } from '../utils';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class FilesService {
             files.map(file =>
                 this.getUploadLink().pipe(
                     switchMap(uploadData =>
-                        forkJoin(of(uploadData.fileId), this.uploadFileToUrl(file, uploadData.url))
+                        forkJoin([of(uploadData.fileId), this.uploadFileToUrl(file, uploadData.url)])
                     ),
                     map(([fileId]) => fileId)
                 )

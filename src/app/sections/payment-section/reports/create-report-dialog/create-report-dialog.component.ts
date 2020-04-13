@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder } from '@angular/forms';
-import moment from 'moment';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { ReportsService as ReportsApiService } from '../../../../api';
@@ -38,7 +39,6 @@ export class CreateReportDialogComponent {
     create() {
         this.reportsApiService
             .createReport({
-                reportType: 'paymentRegistry',
                 fromTime: this.form.value.fromTime.utc().format(),
                 toTime: this.form.value.toTime.utc().format(),
                 shopID: this.form.value.shopID || undefined

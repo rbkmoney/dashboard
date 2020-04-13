@@ -1,0 +1,8 @@
+$claims-max-width: 1000px;
+$claims-padding-top: 20px;
+
+.dsh-claims {
+    padding-top: $claims-padding-top;
+    max-width: $claims-max-width;
+    width: 100%;
+}

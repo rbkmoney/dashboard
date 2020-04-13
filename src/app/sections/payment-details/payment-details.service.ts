@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchService } from '../../api/search';
 
@@ -10,7 +10,7 @@ import { PaymentSearchService } from '../../api/search';
 export class PaymentDetailsService {
     payment$ = this.route.params.pipe(
         switchMap(({ invoiceID, paymentID }) =>
-            this.paymentSearchService.getPaymentByDuration({ amount: 1, unit: 'y' }, invoiceID, paymentID)
+            this.paymentSearchService.getPaymentByDuration({ amount: 3, unit: 'y' }, invoiceID, paymentID)
         ),
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');

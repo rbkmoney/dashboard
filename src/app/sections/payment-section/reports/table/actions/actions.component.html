@@ -1,14 +1,10 @@
 <ng-container *transloco="let t; scope: 'reports'; read: 'reports.columns.actions'">
-    <button dsh-icon-button [dshDropdownTriggerFor]="paymentDetailsDropdown">
+    <button dsh-icon-button [matMenuTriggerFor]="menu">
         <mat-icon svgIcon="more_vert"></mat-icon>
     </button>
-    <dsh-dropdown #paymentDetailsDropdown="dshDropdown">
-        <ng-template>
-            <dsh-dropdown-actions>
-                <dsh-state-nav flat>
-                    <dsh-state-nav-item>{{ t.details }}</dsh-state-nav-item>
-                </dsh-state-nav>
-            </dsh-dropdown-actions>
-        </ng-template>
-    </dsh-dropdown>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="goToReportDetails(report.id)">
+            {{ t.details }}
+        </button>
+    </mat-menu>
 </ng-container>

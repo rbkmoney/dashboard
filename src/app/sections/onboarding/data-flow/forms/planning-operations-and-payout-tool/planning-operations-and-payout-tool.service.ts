@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { QuestionaryFormService } from '../questionary-form.service';
+import { bankAccountValidator, bankPostAccountValidator, bikValidator } from '@dsh/components/form-controls';
+
+import { MonthOperationCount, MonthOperationSum, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
-import { ValidityService } from '../../validity';
-import { QuestionaryData, MonthOperationSum, MonthOperationCount } from '../../../../../api-codegen/questionary';
-import { FormValue } from '../form-value';
 import { StepName } from '../../step-flow';
+import { ValidityService } from '../../validity';
+import { FormValue } from '../form-value';
+import { QuestionaryFormService } from '../questionary-form.service';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
-import { bikValidator, bankPostAccountValidator, bankAccountValidator } from '../../../../../form-controls';
 
 @Injectable()
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
-    form: FormGroup;
+    private form: FormGroup;
 
     constructor(
         protected fb: FormBuilder,
@@ -21,9 +22,6 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
         protected validityService: ValidityService
     ) {
         super(questionaryStateService, validityService);
-        this.form = this.initForm();
-        this.form$.next(this.form);
-        this.form$.complete();
     }
 
     readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
@@ -38,17 +36,21 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
         this.form.get('bankAccount').patchValue(value);
     }
 
-    protected toFormValue(data: QuestionaryData): FormValue {
-        return toFormValue(data);
+    protected toForm(data: QuestionaryData): FormGroup {
+        this.form = this.constructForm();
+        this.form.patchValue(toFormValue(data));
+        return this.form;
     }
+
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
         return applyToQuestionaryData(data, formValue);
     }
+
     protected getStepName(): StepName {
         return StepName.PlanningOperationsAndPayoutTool;
     }
 
-    private initForm(): FormGroup {
+    private constructForm(): FormGroup {
         return this.fb.group({
             monthOperationCount: ['', Validators.required],
             monthOperationSum: ['', Validators.required],

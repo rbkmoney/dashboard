@@ -1,44 +1,46 @@
 import { FormGroup } from '@angular/forms';
-import { Subscription, combineLatest, AsyncSubject } from 'rxjs';
-import { debounceTime, first, map, switchMap } from 'rxjs/operators';
+import { forkJoin, of, Subscription } from 'rxjs';
+import { debounceTime, first, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
-import { ValidityService } from '../validity';
 import { QuestionaryStateService } from '../questionary-state.service';
-import { FormValue } from './form-value';
 import { StepName } from '../step-flow';
+import { ValidityService } from '../validity';
+import { FormValue } from './form-value';
 
 export abstract class QuestionaryFormService {
-    readonly form$ = new AsyncSubject<FormGroup>();
+    readonly form$ = this.questionaryStateService.questionaryData$.pipe(
+        first(),
+        map(data => this.toForm(data)),
+        shareReplay(1)
+    );
     readonly stepName: StepName = this.getStepName();
-
-    private data$ = this.questionaryStateService.questionaryData$.pipe(first());
 
     constructor(
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {}
 
-    initFormValue(): Subscription {
-        return combineLatest(this.data$.pipe(map(d => this.toFormValue(d))), this.form$).subscribe(([v, form]) =>
-            form.patchValue(v)
-        );
+    initForm(): Subscription {
+        return this.form$.subscribe(form => this.validityService.setUpValidity(this.stepName, form.valid));
     }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
-        return combineLatest(this.data$, this.form$.pipe(switchMap(form => form.valueChanges))) // TODO this.data$ is actual?
+        const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
+        const data$ = this.questionaryStateService.questionaryData$.pipe(first());
+        return formValueChanges$
             .pipe(
                 debounceTime(debounceMs),
-                map(([d, v]) => {
-                    try {
-                        return this.applyToQuestionaryData(d, v);
-                    } catch (err) {
-                        console.error(err);
-                        return d;
-                    }
-                })
+                switchMap(v => forkJoin([of(v), data$]))
             )
-            .subscribe(d => this.questionaryStateService.add(d));
+            .subscribe(([v, data]) => {
+                try {
+                    const questionaryData = this.applyToQuestionaryData(data, v);
+                    return this.questionaryStateService.add(questionaryData);
+                } catch (err) {
+                    console.error(err);
+                }
+            });
     }
 
     startFormValidityReporting(debounceMs = 300): Subscription {
@@ -51,7 +53,7 @@ export abstract class QuestionaryFormService {
             .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
-    protected abstract toFormValue(data: QuestionaryData): FormValue;
+    protected abstract toForm(data: QuestionaryData): FormGroup;
 
     protected abstract applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData;
 

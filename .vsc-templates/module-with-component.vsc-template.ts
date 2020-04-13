@@ -2,7 +2,7 @@ import * as vsc from 'vsc-base';
 
 const PREFIX = 'dsh';
 
-function getModuletName(name: string) {
+function getModuleName(name: string) {
     return `${vsc.toPascalCase(name)}Module`;
 }
 
@@ -49,7 +49,7 @@ import { ${getComponentName(inputs.name)} } from './${getComponentPath(inputs.na
     declarations: [${getComponentName(inputs.name)}],
     exports: [${getComponentName(inputs.name)}]
 })
-export class ${getModuletName(inputs.name)} {}
+export class ${getModuleName(inputs.name)} {}
 `
                     },
                     {
@@ -73,12 +73,13 @@ export class ${getModuletName(inputs.name)} {}
                         type: 'file',
                         name: inputs => `${getComponentPath(inputs.name)}.ts`,
                         content: inputs => `
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: '${PREFIX}-${vsc.toKebabCase(inputs.name)}',
     templateUrl: '${getComponentPath(inputs.name)}.html',
-    styleUrls: ['${getComponentPath(inputs.name)}.scss']
+    styleUrls: ['${getComponentPath(inputs.name)}.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ${getComponentName(inputs.name)} {
 }

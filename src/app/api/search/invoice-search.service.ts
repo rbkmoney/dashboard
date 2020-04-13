@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
 
 import { Invoice, SearchService } from '../../api-codegen/anapi/swagger-codegen';
-import { toDateLike, genXRequestID } from '../utils';
-import { InvoicesSearchParams } from './invoices-search-params';
-import { InvoicesWithToken } from './invoices-with-token';
-import { Duration } from './duration';
+import { genXRequestID, toDateLike } from '../utils';
+import { Duration, InvoicesSearchParams } from './model';
 
 @Injectable()
 export class InvoiceSearchService {
@@ -20,7 +18,7 @@ export class InvoiceSearchService {
         limit: number,
         continuationToken?: string,
         excludedShops?: string[]
-    ): Observable<InvoicesWithToken> {
+    ) {
         return this.searchService.searchInvoices(
             genXRequestID(),
             toDateLike(fromTime),
@@ -29,33 +27,15 @@ export class InvoiceSearchService {
             undefined,
             params.shopID,
             params.invoiceStatus,
-            params.paymentStatus,
-            params.paymentFlow,
-            params.paymentMethod,
-            params.paymentTerminalProvider,
             params.invoiceID,
-            params.paymentID,
-            params.payerEmail,
-            params.payerIP,
-            params.payerFingerprint,
-            params.customerID,
-            params.bankCardTokenProvider,
-            params.bankCardPaymentSystem,
-            params.first6,
-            params.last4,
-            params.rrn,
-            params.paymentAmount,
-            params.invoiceAmount,
+            params.invoiceAmountFrom,
+            params.invoiceAmountTo,
             excludedShops,
             continuationToken
         );
     }
 
-    searchInvoicesByDuration(
-        { amount, unit }: Duration,
-        invoiceID: string,
-        limit: number
-    ): Observable<InvoicesWithToken> {
+    searchInvoicesByDuration({ amount, unit }: Duration, invoiceID: string, limit: number) {
         const from = moment()
             .subtract(amount, unit)
             .startOf('d')

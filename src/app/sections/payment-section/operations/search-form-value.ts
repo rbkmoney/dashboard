@@ -1,6 +1,5 @@
-import { Moment } from 'moment';
+import { Range } from '@dsh/components/form-controls';
 
 export interface SearchFormValue {
-    fromTime: Moment;
-    toTime: Moment;
+    date: Range;
 }

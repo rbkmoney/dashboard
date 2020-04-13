@@ -9,7 +9,8 @@
             "payerEmail": "Email плательщика",
             "paymentID": "Идентификатор платежа",
             "invoiceID": "Идентификатор инвойса",
-            "paymentAmount": "Сумма платежа",
+            "paymentAmountFrom": "Минимальная сумма платежа",
+            "paymentAmountTo": "Максимальная сумма платежа",
             "first6": "BIN банка-эмитента карты",
             "last4": "Последние цифры номера карты",
             "payerFingerprint": "Fingerprint плательщика",
@@ -19,7 +20,7 @@
             "bankCardTokenProvider": "Провайдер платежных токенов",
             "bankCardPaymentSystem": "Платежная система",
             "paymentMethod": "Метод оплаты",
-            "rnn": "RNN платежа"
+            "rrn": "RRN платежа"
         },
         "table": {
             "amount": "Сумма списания",

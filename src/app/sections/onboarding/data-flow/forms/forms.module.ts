@@ -1,49 +1,48 @@
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-    MatInputModule,
-    MatDatepickerModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatRadioModule
-} from '@angular/material';
-import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslocoModule } from '@ngneat/transloco';
 import { TextMaskModule } from 'angular2-text-mask';
 
-import { BasicInfoService, BasicInfoComponent } from './basic-info';
-import { RussianPrivateEntityComponent } from './russian-private-entity';
-import { RussianLegalOwnerComponent, RussianLegalOwnerService } from './russian-legal-owner';
-import { InitializeFormsService } from './initialize-forms.service';
-import {
-    RussianDomesticPassportComponent,
-    RussianDomesticPassportService,
-    AuthorityConfirmingDocumentComponent,
-    AuthorityConfirmingDocumentService,
-    PdlInfoComponent,
-    PdlInfoService,
-    PrivateEntityInfoComponent,
-    PrivateEntityInfoService,
-    LegalResidencyInfoComponent,
-    LegalResidencyInfoService,
-    IndividualResidencyInfoComponent,
-    IndividualResidencyInfoService
-} from './subforms';
+import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule } from '@dsh/components/form-controls';
+
+import { DaDataModule } from '../../../../dadata';
+import { BasicInfoComponent, BasicInfoService } from './basic-info';
+import { BeneficialOwnersComponent, BeneficialOwnersService } from './beneficial-owners';
 import {
     FinancialAndEconomicActivityComponent,
     FinancialAndEconomicActivityService
 } from './financial-and-economic-activity';
-import { BeneficialOwnersService, BeneficialOwnersComponent } from './beneficial-owners';
-import { ButtonModule } from '../../../../button';
+import { InitializeFormsService } from './initialize-forms.service';
 import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService
 } from './planning-operations-and-payout-tool';
-import { FormControlsModule } from '../../../../form-controls';
+import { RussianLegalOwnerComponent, RussianLegalOwnerService } from './russian-legal-owner';
+import { RussianPrivateEntityComponent } from './russian-private-entity';
 import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
-import { DaDataModule } from '../../../../dadata';
+import {
+    AuthorityConfirmingDocumentComponent,
+    AuthorityConfirmingDocumentService,
+    IndividualResidencyInfoComponent,
+    IndividualResidencyInfoService,
+    LegalResidencyInfoComponent,
+    LegalResidencyInfoService,
+    PdlInfoComponent,
+    PdlInfoService,
+    PrivateEntityInfoComponent,
+    PrivateEntityInfoService,
+    RussianDomesticPassportComponent,
+    RussianDomesticPassportService
+} from './subforms';
 
 @NgModule({
     imports: [

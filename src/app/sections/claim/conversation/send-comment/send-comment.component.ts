@@ -1,14 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { SendCommentService } from './send-comment.service';
 import { ConversationID } from '../../../../api-codegen/messages';
+import { SendCommentService } from './send-comment.service';
 
 @Component({
     selector: 'dsh-send-comment',
     templateUrl: 'send-comment.component.html',
     styleUrls: ['send-comment.component.scss'],
-    providers: [SendCommentService]
+    providers: [SendCommentService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SendCommentComponent {
     @Output() conversationSaved: EventEmitter<ConversationID> = new EventEmitter();

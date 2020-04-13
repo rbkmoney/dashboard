@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { first, switchMap, shareReplay, map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { first, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDelay, takeError } from '../../custom-operators';
 import { Invoice } from '../../api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchService } from '../../api/search';
+import { booleanDelay, takeError } from '../../custom-operators';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -14,17 +14,14 @@ export class InvoiceDetailsService {
 
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
-        switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 1, unit: 'y' }, invoiceID)),
+        switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
     invoiceInitialized$: Observable<boolean> = this.invoice$.pipe(
         booleanDelay(500),
         map(r => !r)
     );
-    invoiceError$: Observable<any> = this.invoice$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 
     constructor(
         private invoiceSearchService: InvoiceSearchService,

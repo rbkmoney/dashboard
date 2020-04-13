@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import { PdlInfoService } from './pdl-info.service';
 import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
@@ -10,19 +10,20 @@ import { LAYOUT_GAP } from '../../../../../constants';
     styleUrls: ['pdl-info.component.scss']
 })
 export class PdlInfoComponent implements OnChanges {
-    @Input() form;
+    @Input() form: FormGroup;
 
-    isPdlRelationDegreeVisible$ = this.pdlInfoService.isPdlRelationDegreeVisible$;
+    isPdlRelationDegreeVisible = false;
 
-    constructor(private pdlInfoService: PdlInfoService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private fb: FormBuilder) {}
 
     ngOnChanges({ form }: SimpleChanges) {
         if (form && form.currentValue) {
-            this.pdlInfoService.applyFormValue(form.currentValue.value);
+            this.isPdlRelationDegreeVisible = !!form.currentValue.value.pdlRelationDegree;
         }
     }
 
     pdlRelationDegreeChange({ checked }: MatCheckboxChange) {
-        this.pdlInfoService.pdlRelationDegreeChange(this.form, checked);
+        this.isPdlRelationDegreeVisible = checked;
+        this.form.setControl('pdlRelationDegree', this.fb.control('', checked ? Validators.required : null));
     }
 }

@@ -1,11 +1,11 @@
 import moment from 'moment';
 
 import { Replace } from '../../../../../../type-utils';
-import { ReqResponse, ReqIndividualEntity } from '../../../../../api-codegen/aggr-proxy';
+import { ReqIndividualEntity, ReqResponse } from '../../../../../api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
-    RussianIndividualEntity,
-    IndividualRegistrationInfo
+    IndividualRegistrationInfo,
+    RussianIndividualEntity
 } from '../../../../../api-codegen/questionary';
 
 type ReqResponseIndividualEntity = Replace<ReqResponse, { contractor: ReqIndividualEntity }>;

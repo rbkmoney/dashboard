@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-    ConversationsService,
     ConversationID,
-    SaveConversationParams,
+    ConversationResponse,
+    ConversationsService,
     ConversationStatus,
-    ConversationResponse
+    SaveConversationParams
 } from '../../api-codegen/messages';
 
 @Injectable()

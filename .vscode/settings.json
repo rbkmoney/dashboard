@@ -8,10 +8,15 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "CAPI",
+        "FATCA",
+        "Metrika",
         "OGRN",
         "OKVED",
+        "SNILS",
+        "Yandex",
         "actionbar",
         "anapi",
+        "anthroponym",
         "codegen",
         "dadata",
         "datepicker",
@@ -30,10 +35,14 @@
         "snils",
         "submodule",
         "transloco",
+        "webvisor",
+        "ЕГРЮЛ",
         "СНИЛС",
         "бенефициарного",
         "бенефициарные",
-        "бенефициарный"
+        "бенефициарный",
+        "инвойс",
+        "инвойса"
     ],
     "cSpell.language": "en,ru"
 }

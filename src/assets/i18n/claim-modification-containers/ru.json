@@ -1,91 +1,111 @@
 {
-    "changeContainerTypes": {
-        "documentModification": "Сведения об организации"
-    },
-    "shopInfo": {
-        "title": "Сведения о магазине",
-        "name": "Название",
-        "url": "URL адрес"
-    },
-    "contactInfo": {
-        "title": "Контактная информация",
-        "email": "Email",
-        "phoneNumber": "Телефон"
-    },
-    "bankAccount": {
-        "title": "Банковские реквизиты для вывода денежных средств",
-        "bankInfo": "Наименование банка (БИК / Корр. счет)",
-        "account": "Расчетный счет"
-    },
-    "contractorInfo": {
-        "title": "Основные сведения"
-    },
-    "legalEntityContractor": {
-        "nameInn": "Наименование (ИНН)",
-        "registrationAddress": "Адрес регистрации"
-    },
-    "legalOwnerInfo": {
-        "legalOwnerTitle": "Сведения о юридическом лице",
-        "snils": "СНИЛС",
-        "innfl": "ИННФЛ",
-        "headPosition": "Должность",
-        "termOfOffice": "Срок полномочий",
-        "pdlCategory": "Принадлежность к категории ПДЛ",
-        "pdlCategoryFlag": "Да",
-        "pdlRelationDegree": "Степень родства ПДЛ"
-    },
-    "russianPrivateEntity": {
-        "fio": "ФИО",
-        "birthDate": "Дата рождения",
-        "birthPlace": "Место рождения",
-        "residenceAddress": "Адрес места жительства (регистрации) или места пребывания"
-    },
-    "identityDocument": {
-        "seriesNumber": "Серия и номер",
-        "issuerCode": "Код подразделения",
-        "issuer": "Кем выдан",
-        "issuedAt": "Дата выдачи"
-    },
-    "authorityConfirmingDocument": {
-        "label": "Действует на основании",
-        "documentTypes": {
-            "solePartyDecision": "Решение единственного участника",
-            "meetingOfShareholders": "Протокол общего собрания участников",
-            "meetingOfParticipants": "Протокол общего собрания акционеров"
+    "documentContainer": {
+        "panelNames": {
+            "orgInfo": "Сведения об организации",
+            "shopInfo": "Сведения о магазине",
+            "legalOwnerInfo": "Сведения о юридическом лице",
+            "individualEntityInfo": "Сведения о физическом лице",
+            "bankAccountInfo": "Банковские реквизиты для вывода денежных средств",
+            "contactInfo": "Контактная информация",
+            "beneficialOwnerInfo": "Бенефициарный владелец №{{num}}"
+        },
+        "orgInfo": {
+            "nameInn": "Наименование (ИНН)",
+            "registrationAddress": "Адрес регистрации"
+        },
+        "shopInfo": {
+            "name": "Название",
+            "url": "URL адрес"
+        },
+        "legalOwnerInfo": {
+            "snils": "СНИЛС",
+            "innfl": "ИННФЛ",
+            "headPosition": "Должность",
+            "termOfOffice": "Срок полномочий",
+            "pdlCategory": "Принадлежность к категории ПДЛ",
+            "pdlCategoryFlag": "Да",
+            "pdlRelationDegree": "Степень родства ПДЛ"
+        },
+        "individualEntityInfo": {
+            "nameInn": "Наименование (ИНН)",
+            "registrationPlace": "Адрес регистрации",
+            "pdlCategory": "Принадлежность к категории ПДЛ",
+            "pdlCategoryFlag": "Да",
+            "pdlRelationDegree": "Степень родства ПДЛ"
+        },
+        "bankAccountInfo": {
+            "bankInfo": "Наименование банка (БИК / Корр. счет)",
+            "account": "Расчетный счет"
+        },
+        "contactInfo": {
+            "email": "Email",
+            "phoneNumber": "Телефон"
+        },
+        "additionalInfo": {
+            "staffCount": "Штатная численность организации",
+            "accountantTypeLabel": "Бухгалтерский учет осуществляет",
+            "accountantTypes": {
+                "WithoutChiefHeadAccounting": "Руководитель организации",
+                "WithoutChiefAccountingOrganization": "Организация ведущая бухгалтерский учет",
+                "WithoutChiefIndividualAccountant": "Бухгалтер - индивидуальный специалист"
+            },
+            "accountantOrgInn": "ИНН организации, ведущей бухгалтерский учет",
+            "trueFlag": "Да",
+            "hasBeneficiary": "Наличие выгодоприобретателя",
+            "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве",
+            "monthOperationCountLabel": "Планируемое количество операций в месяц",
+            "monthOperationCountTypes": {
+                "LtTen": "до 10",
+                "BtwTenToFifty": "10 - 50",
+                "GtFifty": "свыше 50"
+            },
+            "monthOperationSumLabel": "Планируемая сумма операций в месяц",
+            "monthOperationSumTypes": {
+                "LtFiveHundredThousand": "до 500 000",
+                "BtwFiveHundredThousandToOneMillion": "500 000 - 1 000 000",
+                "GtOneMillion": "свыше 1 000 000"
+            }
+        },
+        "authorityConfirmingDocumentInfo": {
+            "label": "Действует на основании",
+            "documentTypes": {
+                "solePartyDecision": "Решение единственного участника",
+                "meetingOfShareholders": "Протокол общего собрания участников",
+                "meetingOfParticipants": "Протокол общего собрания акционеров"
+            }
+        },
+        "identityDocumentInfo": {
+            "seriesNumber": "Серия и номер",
+            "issuerCode": "Код подразделения",
+            "issuer": "Кем выдан",
+            "issuedAt": "Дата выдачи"
+        },
+        "russianPrivateEntityInfo": {
+            "fio": "ФИО",
+            "birthDate": "Дата рождения",
+            "birthPlace": "Место рождения",
+            "residenceAddress": "Адрес места жительства (регистрации) или места пребывания"
+        },
+        "beneficialOwnerInfo": {
+            "ownershipPercentage": "Процент владения капиталом юридического лица",
+            "migrationCardNumber": "Номер миграционной карты",
+            "migrationBeginningDate": "Дата начала срока пребывания в РФ",
+            "migrationExpirationDate": "Дата окончания срока пребывания в РФ",
+            "residenceApproveName": "Документ, подтверждающего право иностранного гражданина или лица без гражданства на пребывание (проживание) в РФ",
+            "residenceApproveSeries": "Серия",
+            "residenceApproveNumber": "Номер",
+            "residenceApproveBeginningDate": "Дата начала срока действия",
+            "residenceApproveExpirationDate": "Дата окончания срока действия",
+            "inn": "ИНН",
+            "snils": "СНИЛС",
+            "pdlCategory": "Принадлежность к категории ПДЛ",
+            "pdlRelationDegree": "Степень родства ПДЛ",
+            "usaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?",
+            "exceptUsaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?"
         }
     },
-    "additionalInfo": {
-        "financialAndEconomicActivityTitle": "Хозяйственная деятельность",
-        "staffCount": "Штатная численность организации",
-        "accountantTypeLabel": "Бухгалтерский учет осуществляет",
-        "accountantTypes": {
-            "WithoutChiefHeadAccounting": "Руководитель организации",
-            "WithoutChiefAccountingOrganization": "Организация ведущая бухгалтерский учет",
-            "WithoutChiefIndividualAccountant": "Бухгалтер - индивидуальный специалист"
-        },
-        "accountantOrgInn": "ИНН организации, ведущей бухгалтерский учет",
-        "trueFlag": "Да",
-        "hasBeneficiary": "Наличие выгодоприобретателя",
-        "hasLiquidationProcess": "Наличие решений о ликвидации или о любой процедуре, применяемой в деле о банкротстве",
-        "planingOperationsTitle": "Планируемый объем операций",
-        "monthOperationCountLabel": "Планируемое количество операций в месяц",
-        "monthOperationCountTypes": {
-            "LtTen": "до 10",
-            "BtwTenToFifty": "10 - 50",
-            "GtFifty": "свыше 50"
-        },
-        "monthOperationSumLabel": "Планируемая сумма операций в месяц",
-        "monthOperationSumTypes": {
-            "LtFiveHundredThousand": "до 500 000",
-            "BtwFiveHundredThousandToOneMillion": "500 000 - 1 000 000",
-            "GtOneMillion": "свыше 1 000 000"
-        }
-    },
-    "individualEntityContractor": {
-        "nameInn": "Наименование (ИНН)",
-        "registrationPlace": "Адрес регистрации",
-        "pdlCategory": "Принадлежность к категории ПДЛ",
-        "pdlCategoryFlag": "Да",
-        "pdlRelationDegree": "Степень родства ПДЛ"
+    "download": {
+        "questionaryDocument": "Загрузить опросный лист компании",
+        "beneficialOwnerDocument": "Загрузить опросный лист бенефициарного владельца №{{id}}"
     }
 }

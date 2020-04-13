@@ -1,4 +1,4 @@
-import { Observable, iif, throwError, of } from 'rxjs';
+import { iif, Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 export const handleNull = <T>(errorMsg: string) => (s: Observable<T | null>) =>

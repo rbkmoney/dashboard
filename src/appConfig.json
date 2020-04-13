@@ -2,6 +2,10 @@
     "apiEndpoint": "https://api.rbk.money",
     "ext": {
         "docsEndpoint": "https://rbkmoney.github.io/docs",
-        "supportEmail": "support@rbkmoney.com"
+        "supportEmail": "support@rbkmoney.com",
+        "oldDashboardEndpoint": "https://dashboard.rbk.money"
+    },
+    "yandexMetrika": {
+        "id": null
     }
 }
