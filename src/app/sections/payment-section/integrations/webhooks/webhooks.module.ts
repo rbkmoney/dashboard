@@ -12,7 +12,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { CardModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ShopService } from '../../../../api/shop';
@@ -41,7 +40,6 @@ import { WebhooksComponent } from './webhooks.component';
         WebhookPanelModule,
         SpinnerModule,
         EmptySearchResultModule,
-        CardModule,
         ShowMorePanelModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
