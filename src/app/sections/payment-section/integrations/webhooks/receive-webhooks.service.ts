@@ -14,11 +14,10 @@ import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../cu
 @Injectable()
 export class ReceiveWebhooksService {
     private webhooksLimit$: BehaviorSubject<number> = new BehaviorSubject(10);
-    private webhooksState$ = new BehaviorSubject(null);
+    private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<'new' | 'more'> = new Subject();
 
     private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        booleanDebounceTime(),
         filter(s => !!s),
         map(w => sortBy(w, i => !i.active)),
         shareReplay(SHARE_REPLAY_CONF)
@@ -74,15 +73,14 @@ export class ReceiveWebhooksService {
                                 })
                             );
                         case 'more':
-                            this.webhooksLimit$.next(this.webhooksLimit$.getValue() + 10);
+                            this.webhooksLimit$.next(parseInt(this.webhooksLimit$.getValue() as string) + 10);
                             return this.webhooks$;
                     }
                 })
             )
             .subscribe(webhooks => {
-                console.log(webhooks);
-                this.hasMore$.next(webhooks.length > this.webhooksLimit$.getValue());
                 this.webhooksState$.next(webhooks);
+                this.hasMore$.next(webhooks.length > this.webhooksLimit$.getValue());
             });
     }
 
