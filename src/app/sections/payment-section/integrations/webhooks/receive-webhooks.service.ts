@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import chunk from 'lodash.chunk';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -12,7 +13,7 @@ import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../cu
 
 @Injectable()
 export class ReceiveWebhooksService {
-    private webhooksLimit = 10;
+    private webhooksLimit$: BehaviorSubject<number> = new BehaviorSubject(10);
     private webhooksState$ = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<'new' | 'more'> = new Subject();
 
@@ -24,7 +25,7 @@ export class ReceiveWebhooksService {
     );
 
     webhooksChunk$: Observable<Webhook[]> = this.webhooks$.pipe(
-        map(w => chunk(w, this.webhooksLimit)[0]),
+        map(w => chunk(w, this.webhooksLimit$.getValue())[0]),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -43,8 +44,23 @@ export class ReceiveWebhooksService {
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private route: ActivatedRoute,
+        private router: Router
     ) {
+        this.route.queryParams.pipe(take(1)).subscribe(v => {
+            if (v.limit) {
+                this.webhooksLimit$.next(v.limit);
+            }
+        });
+        this.webhooksLimit$.subscribe(limit => {
+            this.router.navigate([location.pathname], {
+                queryParams: {
+                    limit
+                }
+            });
+        });
+
         this.receiveWebhooks$
             .pipe(
                 switchMap(action => {
@@ -58,14 +74,14 @@ export class ReceiveWebhooksService {
                                 })
                             );
                         case 'more':
-                            this.webhooksLimit = this.webhooksLimit + 10;
+                            this.webhooksLimit$.next(this.webhooksLimit$.getValue() + 10);
                             return this.webhooks$;
                     }
                 })
             )
             .subscribe(webhooks => {
                 console.log(webhooks);
-                this.hasMore$.next(webhooks.length > this.webhooksLimit);
+                this.hasMore$.next(webhooks.length > this.webhooksLimit$.getValue());
                 this.webhooksState$.next(webhooks);
             });
     }
