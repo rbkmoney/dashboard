@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CardModule } from '../../../layout/card';
-import { ButtonModule } from '../../../button';
-import { HoldDetailsComponent } from './hold-details.component';
+import { ButtonModule } from '@dsh/components/buttons';
+import { CardModule } from '@dsh/components/layout';
+
 import { HumanizeDurationModule } from '../../../humanize-duration';
+import { HoldDetailsComponent } from './hold-details.component';
 
 @NgModule({
     imports: [TranslocoModule, CardModule, FlexModule, ButtonModule, HumanizeDurationModule, CommonModule],

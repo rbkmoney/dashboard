@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { RefundSearchResult } from '../../../api-codegen/capi';
 import { RefundSearchService } from '../../../api/search';
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
-import { RefundsSearchParams } from './refunds-search-params';
 import { CreateRefundComponent, CreateRefundData } from './create-refund';
+import { RefundsSearchParams } from './refunds-search-params';
 
 @Injectable()
 export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchParams> {

@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CardModule } from '../../../layout/card';
-import { ButtonModule } from '../../../button';
-import { PayerDetailsComponent } from './payer-details.component';
+import { ButtonModule } from '@dsh/components/buttons';
+import { CardModule, DetailsItemModule } from '@dsh/components/layout';
+
 import { CustomerPayerComponent } from './customer-payer';
+import { PayerDetailsComponent } from './payer-details.component';
 import { PaymentResourcePayerComponent } from './payment-resource-payer';
-import { DetailsItemModule } from '../../../details-item';
 
 @NgModule({
     imports: [TranslocoModule, CardModule, FlexModule, ButtonModule, DetailsItemModule, CommonModule],

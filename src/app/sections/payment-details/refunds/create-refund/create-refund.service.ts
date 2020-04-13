@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Account, Refund, RefundParams, Shop } from '../../../../api-codegen/capi/swagger-codegen';
-import { ShopService } from '../../../../api/shop';
-import { RefundService } from '../../../../api/refund';
 import { AccountService } from '../../../../api/account';
+import { RefundService } from '../../../../api/refund';
+import { ShopService } from '../../../../api/shop';
 
 @Injectable()
 export class CreateRefundService {

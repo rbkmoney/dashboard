@@ -14,26 +14,17 @@ import { SearchModule } from '../../api/search';
 import { FromMinorModule } from '../../from-minor';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
-import { AmountPipe } from './amount.pipe';
-import { BankCardPipe } from './bank-card.pipe';
-import { CurrencySymbolPipe } from './currency-symbol.pipe';
-import { DetailsComponent } from './details';
-import { HoldDetailsComponent } from './hold-details';
-import { InvoiceDetailsComponent } from './invoice-details';
-import { MakeRecurrentComponent } from './make-recurrent';
-import { CustomerPayerComponent, PayerDetailsComponent, PaymentResourcePayerComponent } from './payer-details';
+import { DetailsModule } from './details';
+import { HoldDetailsModule } from './hold-details';
+import { InvoiceDetailsModule } from './invoice-details';
+import { MakeRecurrentModule } from './make-recurrent';
+import { PayerDetailsModule } from './payer-details';
 import { PaymentDetailsRoutingModule } from './payment-details-routing.module';
 import { PaymentDetailsComponent } from './payment-details.component';
-import {
-    BankCardComponent,
-    DigitalWalletComponent,
-    PaymentTerminalComponent,
-    PaymentToolComponent
-} from './payment-tool';
-import { PhoneNumberPipe } from './phone-number.pipe';
-import { RecurrentDetailsComponent } from './recurrent-details';
-import { RefundItemComponent, RefundsComponent } from './refunds';
-import { StatusDetailsItemComponent } from './status-details-item';
+import { PaymentToolModule } from './payment-tool';
+import { RecurrentDetailsModule } from './recurrent-details';
+import { RefundsModule } from './refunds';
+import { CurrencySymbolPipe } from './utils/currency-symbol.pipe';
 
 @NgModule({
     imports: [
@@ -50,30 +41,17 @@ import { StatusDetailsItemComponent } from './status-details-item';
         TranslocoModule,
         ShopDetailsModule,
         PaymentDetailsRoutingModule,
-        IndicatorsModule
+        IndicatorsModule,
+        DetailsModule,
+        PaymentToolModule,
+        PayerDetailsModule,
+        HoldDetailsModule,
+        MakeRecurrentModule,
+        RecurrentDetailsModule,
+        InvoiceDetailsModule,
+        RefundsModule
     ],
-    declarations: [
-        PaymentDetailsComponent,
-        DetailsComponent,
-        StatusDetailsItemComponent,
-        PaymentToolComponent,
-        AmountPipe,
-        PayerDetailsComponent,
-        HoldDetailsComponent,
-        RecurrentDetailsComponent,
-        InvoiceDetailsComponent,
-        RefundsComponent,
-        RefundItemComponent,
-        CurrencySymbolPipe,
-        BankCardPipe,
-        PhoneNumberPipe,
-        DigitalWalletComponent,
-        BankCardComponent,
-        PaymentTerminalComponent,
-        CustomerPayerComponent,
-        PaymentResourcePayerComponent,
-        MakeRecurrentComponent
-    ],
+    declarations: [PaymentDetailsComponent, CurrencySymbolPipe],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}
