@@ -9,3 +9,4 @@ export * from './files';
 export * from './kontur-focus';
 export * from './messages';
 export * from './capi';
+export * from './webhooks';
