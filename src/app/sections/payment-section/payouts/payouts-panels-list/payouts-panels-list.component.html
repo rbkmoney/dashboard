@@ -24,12 +24,7 @@
         </div>
         <dsh-expand-panel-more>
             <dsh-expand-panel-more-header>
-                <div
-                    class="dsh-payout-panel-more-caption"
-                    fxFlex
-                    fxLayoutAlign="space-between center"
-                    fxLayoutGap="10px"
-                >
+                <div fxFlex fxLayoutAlign="space-between center" fxLayoutGap="10px">
                     <div class="mat-caption">{{ p.payoutNum | translocoParams: { num: payout.id } }}</div>
                     <div class="mat-caption">
                         {{ payout?.createdAt | date: 'd MMMM y, HH:mm:ss' }}

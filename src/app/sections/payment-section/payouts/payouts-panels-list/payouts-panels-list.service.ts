@@ -10,7 +10,7 @@ import { mapToShopInfo } from '../../operations/operators';
 import { CreateReportDialogComponent, CreateReportDialogData } from './create-report-dialog';
 
 @Injectable()
-export class PayoutPanelService {
+export class PayoutsPanelsListService {
     shopsInfo$ = this.shopService.shops$.pipe(mapToShopInfo, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private dialog: MatDialog, private shopService: ShopService) {}
