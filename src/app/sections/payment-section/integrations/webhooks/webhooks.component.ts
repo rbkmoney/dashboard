@@ -8,9 +8,10 @@ import { ReceiveWebhooksService } from './receive-webhooks.service';
     templateUrl: 'webhooks.component.html'
 })
 export class WebhooksComponent implements OnInit {
-    webhooks$ = this.receiveWebhooksService.webhooks$;
+    webhooks$ = this.receiveWebhooksService.webhooksChunk$;
     isLoading$ = this.receiveWebhooksService.isLoading$;
     webhooksReceived$ = this.receiveWebhooksService.webhooksReceived$;
+    hasMore$ = this.receiveWebhooksService.hasMore$;
 
     constructor(
         private receiveWebhooksService: ReceiveWebhooksService,
@@ -24,5 +25,9 @@ export class WebhooksComponent implements OnInit {
 
     createWebhook() {
         this.createWebhookService.createWebhook();
+    }
+
+    getMoreWebhooks() {
+        this.receiveWebhooksService.getMoreWebhooks();
     }
 }

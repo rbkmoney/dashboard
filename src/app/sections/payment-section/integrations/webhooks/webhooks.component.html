@@ -23,5 +23,10 @@
 
     <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">
         <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>
+        <dsh-card *ngIf="(hasMore$ | async) && (webhooksReceived$ | async)">
+            <dsh-card-content fxLayout="column" fxLayoutAlign="center stretch" *transloco="let c">
+                <button dsh-button (click)="getMoreWebhooks()">{{ c.showMore }}</button>
+            </dsh-card-content>
+        </dsh-card>
     </div>
 </div>
