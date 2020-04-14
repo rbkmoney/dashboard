@@ -1,13 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs/operators';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import round from 'lodash.round';
+import { take } from 'rxjs/operators';
 
-import { LAYOUT_GAP } from '../../../constants';
-import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
+import { amountValidator } from '@dsh/components/form-controls';
+
 import { toMinorAmountFromString } from '../../../../../utils';
-import { amountValidator } from '../../../../form-controls/validators';
+import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../../constants';
 import { ConfirmHoldService } from './confirm-hold.service';
 
 export interface ConfirmHoldData {

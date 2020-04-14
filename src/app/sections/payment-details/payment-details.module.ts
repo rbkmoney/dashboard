@@ -24,7 +24,6 @@ import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentToolModule } from './payment-tool';
 import { RecurrentDetailsModule } from './recurrent-details';
 import { RefundsModule } from './refunds';
-import { CurrencySymbolPipe } from './utils/currency-symbol.pipe';
 
 @NgModule({
     imports: [
@@ -51,7 +50,7 @@ import { CurrencySymbolPipe } from './utils/currency-symbol.pipe';
         InvoiceDetailsModule,
         RefundsModule
     ],
-    declarations: [PaymentDetailsComponent, CurrencySymbolPipe],
+    declarations: [PaymentDetailsComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })
 export class PaymentDetailsModule {}

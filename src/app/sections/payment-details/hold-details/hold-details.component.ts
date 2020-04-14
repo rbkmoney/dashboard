@@ -2,8 +2,8 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 
-import { LAYOUT_GAP } from '../../constants';
 import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
+import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, switchMap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
 import { TranslocoService } from '@ngneat/transloco';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchService } from '../../api/search';
 import { progress } from '../../custom-operators';
