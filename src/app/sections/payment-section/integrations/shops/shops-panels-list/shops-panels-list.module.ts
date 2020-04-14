@@ -1,3 +1,4 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -26,7 +27,8 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         SpinnerModule,
         RouterModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ClipboardModule
     ],
     declarations: [ShopsPanelsListComponent],
     exports: [ShopsPanelsListComponent]

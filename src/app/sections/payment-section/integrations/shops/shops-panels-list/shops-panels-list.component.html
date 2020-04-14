@@ -43,7 +43,9 @@
             <div class="mat-title">{{ p.id }}</div>
             <div class="mat-subheading-2">{{ shop?.id }}</div>
             <div>
-                <button dsh-button>{{ p.copy }}</button>
+                <button dsh-button [cdkCopyToClipboard]="shop?.id" (cdkCopyToClipboardCopied)="copied($event)">
+                    {{ p.copy }}
+                </button>
             </div>
             <mat-divider></mat-divider>
 

@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { ShopsService } from '../shops.service';
 import { ShopsPanelsListService } from './shops-panels-list.service';
@@ -12,5 +14,14 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
 export class ShopsPanelsListComponent {
     shops$ = this.shopsService.shops$;
 
-    constructor(private shopsPanelsListService: ShopsPanelsListService, private shopsService: ShopsService) {}
+    constructor(
+        private shopsPanelsListService: ShopsPanelsListService,
+        private shopsService: ShopsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
+
+    copied(isCopied: boolean) {
+        this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
+    }
 }
