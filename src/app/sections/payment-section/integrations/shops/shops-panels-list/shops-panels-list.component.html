@@ -49,12 +49,20 @@
                     {{ p.copy }}
                 </button>
             </div>
-            <mat-divider></mat-divider>
 
-            <div class="mat-title">{{ p.actions }}</div>
-            <div>
-                <button dsh-stroked-button color="warn">{{ p.suspend }}</button>
-            </div>
+            <ng-container *ngIf="!shop?.isBlocked">
+                <mat-divider></mat-divider>
+
+                <div class="mat-title">{{ p.actions }}</div>
+                <div>
+                    <button *ngIf="!shop?.isSuspended" dsh-stroked-button color="warn" (click)="suspend(shop?.id)">
+                        {{ p.suspend }}
+                    </button>
+                    <button *ngIf="shop?.isSuspended" dsh-stroked-button color="accent" (click)="activate(shop?.id)">
+                        {{ p.activate }}
+                    </button>
+                </div>
+            </ng-container>
         </dsh-expand-panel-more>
     </dsh-expand-panel>
 </dsh-expand-panel-accordion>

@@ -29,4 +29,12 @@ export class ShopsPanelsListComponent {
     select(idx: number) {
         this.shopsPanelsListService.select(idx);
     }
+
+    suspend(id: string) {
+        this.shopsPanelsListService.suspend(id);
+    }
+
+    activate(id: string) {
+        this.shopsPanelsListService.activate(id);
+    }
 }

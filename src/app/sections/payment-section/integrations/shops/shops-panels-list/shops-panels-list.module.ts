@@ -12,6 +12,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { ShopsPanelsListComponent } from './shops-panels-list.component';
 
@@ -28,7 +29,8 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         RouterModule,
         MatDialogModule,
         MatSnackBarModule,
-        ClipboardModule
+        ClipboardModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ShopsPanelsListComponent],
     exports: [ShopsPanelsListComponent]
