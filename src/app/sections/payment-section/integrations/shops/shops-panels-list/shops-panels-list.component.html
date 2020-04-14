@@ -1,0 +1,56 @@
+<dsh-expand-panel-accordion
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let p; scope: 'shops'; read: 'shops.panel'"
+>
+    <dsh-expand-panel *ngFor="let shop of shops$ | async">
+        <div fxLayout="column" fxLayoutGap="20px">
+            <div class="mat-body-1">{{ shop?.details?.name }}</div>
+            <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
+                <div>{{ shop?.id }}</div>
+                <div>{{ shop?.isBlocked ? p.blocked : shop?.isSuspended ? p.suspended : p.active }}</div>
+            </div>
+        </div>
+        <dsh-expand-panel-more>
+            <dsh-expand-panel-more-header>
+                <div fxFlex fxLayoutAlign="space-between center" fxLayoutGap="10px" class="mat-caption">
+                    <div>{{ p.details }}</div>
+                    <div>{{ shop?.isBlocked ? p.blocked : shop?.isSuspended ? p.suspended : p.active }}</div>
+                </div>
+            </dsh-expand-panel-more-header>
+
+            <dsh-details-item [title]="p.name">
+                {{ shop?.details?.name }}
+            </dsh-details-item>
+            <dsh-details-item [title]="p.url">
+                {{ shop?.location?.url }}
+            </dsh-details-item>
+            <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
+                <div fxFlex>
+                    <dsh-details-item [title]="p.createdAt">
+                        {{ shop?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
+                    <dsh-details-item [title]="p.category">
+                        {{ shop?.categoryID }}
+                    </dsh-details-item>
+                </div>
+                <div fxFlex></div>
+            </div>
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.id }}</div>
+            <div class="mat-subheading-2">{{ shop?.id }}</div>
+            <div>
+                <button dsh-button>{{ p.copy }}</button>
+            </div>
+            <mat-divider></mat-divider>
+
+            <div class="mat-title">{{ p.actions }}</div>
+            <div>
+                <button dsh-stroked-button color="warn">{{ p.suspend }}</button>
+            </div>
+        </dsh-expand-panel-more>
+    </dsh-expand-panel>
+</dsh-expand-panel-accordion>

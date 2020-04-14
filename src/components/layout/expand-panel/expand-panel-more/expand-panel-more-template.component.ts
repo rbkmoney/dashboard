@@ -2,7 +2,7 @@ import { Component, ContentChild, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { coerce } from '../../../../utils';
-import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-header-template.component';
+import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-header-template';
 
 @Component({
     selector: 'dsh-expand-panel-more',
