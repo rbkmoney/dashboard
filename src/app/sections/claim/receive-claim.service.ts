@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { switchMap, map, filter, shareReplay, pluck } from 'rxjs/operators';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Claim } from '../../api-codegen/claim-management';
 import { booleanDelay } from '../../custom-operators';
+import { ClaimType, getClaimType } from '../../view-utils';
 import { RouteParamClaimService } from './route-param-claim.service';
-import { getClaimType, ClaimType } from '../../view-utils';
 
 @Injectable()
 export class ReceiveClaimService {
@@ -20,11 +20,7 @@ export class ReceiveClaimService {
         shareReplay(1)
     );
 
-    claimType$: Observable<ClaimType> = this.claim$.pipe(
-        pluck('changeset'),
-        map(getClaimType),
-        shareReplay(1)
-    );
+    claimType$: Observable<ClaimType> = this.claim$.pipe(pluck('changeset'), map(getClaimType), shareReplay(1));
 
     claimReceived$ = this.claim$.pipe(
         booleanDelay(),

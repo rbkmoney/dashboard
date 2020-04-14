@@ -1,26 +1,29 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
-import { TranslocoModule } from '@ngneat/transloco';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { TranslocoModule } from '@ngneat/transloco';
 
-import { TimelineModule } from '../../../timeline';
-import { ConversationComponent } from './conversation.component';
-import { LayoutModule } from '../../../layout';
-import { ButtonModule } from '../../../button';
-import { ExpandPanelModule } from '../../../expand-panel';
+import { ButtonModule } from '@dsh/components/buttons';
+import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
+
+import { FilesModule, MessagesModule } from '../../../api';
 import { HumanizeDurationModule } from '../../../humanize-duration';
-import { ConversationRoutingModule } from './conversation-routing.module';
-import { ActionColorPipe } from './action-color.pipe';
-import { ActionIconPipe } from './action-icon.pipe';
 import {
-    ChangeContainerModule,
     CommentContainerModule,
+    DocumentContainerModule,
     FileContainerModule
 } from '../../claim-modification-containers';
+import { ActionColorPipe } from './action-color.pipe';
+import { ActionIconPipe } from './action-icon.pipe';
+import { ConversationRoutingModule } from './conversation-routing.module';
+import { ConversationComponent } from './conversation.component';
 import { SendCommentComponent } from './send-comment';
-import { MessagesModule, FilesModule } from '../../../api';
 
 @NgModule({
     imports: [
@@ -30,18 +33,18 @@ import { MessagesModule, FilesModule } from '../../../api';
         FlexLayoutModule,
         MatFormFieldModule,
         MatInputModule,
-        TimelineModule,
         MatIconModule,
-        ExpandPanelModule,
         CommonModule,
         HumanizeDurationModule,
         TranslocoModule,
-        ChangeContainerModule,
         CommentContainerModule,
         FileContainerModule,
         ReactiveFormsModule,
         MessagesModule,
-        FilesModule
+        FilesModule,
+        DocumentContainerModule,
+        MatMenuModule,
+        ConfirmActionDialogModule
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
 })

@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 
-import { FormValue } from '../../form-value';
 import { BeneficialOwner, LegalOwnerInfo } from '../../../../../../api-codegen/questionary';
+import { FormValue } from '../../form-value';
 
 export const toPdlInfo = (i: BeneficialOwner | LegalOwnerInfo): FormValue => ({
     pdlCategory: get(i, ['pdlCategory'], null),

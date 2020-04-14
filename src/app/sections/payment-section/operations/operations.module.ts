@@ -1,24 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { OperationsComponent } from './operations.component';
-import { LayoutModule } from '../../../layout';
-import { DshTabsModule } from '../../../layout/tabs';
-import { OperationsRoutingModule } from './operations-routing.module';
+import { LayoutModule } from '@dsh/components/layout';
+
 import { SearchModule } from '../../../api/search';
+import { OperationsRoutingModule } from './operations-routing.module';
+import { OperationsComponent } from './operations.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OperationsRoutingModule,
-        LayoutModule,
-        FlexLayoutModule,
-        DshTabsModule,
-        SearchModule,
-        TranslocoModule
-    ],
+    imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, SearchModule, TranslocoModule],
     declarations: [OperationsComponent]
 })
 export class OperationsModule {}

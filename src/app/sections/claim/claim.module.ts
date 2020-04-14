@@ -1,37 +1,36 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
-import { TranslocoModule } from '@ngneat/transloco';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MatInputModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { TranslocoModule } from '@ngneat/transloco';
 
-import { LayoutModule } from '../../layout';
-import { ButtonModule } from '../../button';
-import { DshTabsModule } from '../../layout/tabs';
+import { ButtonModule } from '@dsh/components/buttons';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
+
+import { ClaimsModule, QuestionaryModule } from '../../api';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
-import { ClaimsModule } from '../../api/claims';
 import { ConversationModule } from './conversation';
-import { StatusModule } from '../../status';
-import { SpinnerModule } from '../../spinner';
 import { DocumentsModule } from './documents';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
-import { ConfirmActionDialogModule } from '../../confirm-action-dialog';
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutModule,
-        DshTabsModule,
         ButtonModule,
         FlexLayoutModule,
         ClaimsModule,
         ClaimRoutingModule,
         ConversationModule,
-        StatusModule,
         DocumentsModule,
         TranslocoModule,
-        SpinnerModule,
+        IndicatorsModule,
+        QuestionaryModule,
         ReactiveFormsModule,
         MatDialogModule,
         MatInputModule,

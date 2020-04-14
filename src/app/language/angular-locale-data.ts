@@ -1,5 +1,5 @@
-import localeRu from '@angular/common/locales/ru';
 import localeEn from '@angular/common/locales/en';
+import localeRu from '@angular/common/locales/ru';
 
 import { Language } from './language';
 

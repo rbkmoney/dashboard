@@ -1,25 +1,25 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CreateRefundComponent } from './create-refund';
-import { RefundsComponent } from './refunds.component';
-import { RefundItemComponent } from './refund-item';
-import { FromMinorModule } from '../../../from-minor';
-import { ButtonModule } from '../../../button';
-import { DetailsItemModule } from '../../../details-item';
-import { LayoutModule } from '../../../layout';
-import { StatusDetailsItemModule } from '../status-details-item';
-import { RefundSearchService } from '../../../api/search';
-import { RefundService } from '../../../api/refund';
-import { ShopService } from '../../../api/shop';
+import { ButtonModule } from '@dsh/components/buttons';
+import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
+
 import { AccountService } from '../../../api/account';
+import { RefundService } from '../../../api/refund';
+import { RefundSearchService } from '../../../api/search';
+import { ShopService } from '../../../api/shop';
+import { FromMinorModule } from '../../../from-minor';
+import { StatusDetailsItemModule } from '../status-details-item';
+import { CreateRefundComponent } from './create-refund';
+import { RefundItemComponent } from './refund-item';
+import { RefundsComponent } from './refunds.component';
 
 @NgModule({
     imports: [

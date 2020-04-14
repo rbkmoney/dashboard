@@ -1,34 +1,33 @@
-import { NgModule } from '@angular/core';
-import { TranslocoModule } from '@ngneat/transloco';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatIconModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSnackBarModule
-} from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslocoModule } from '@ngneat/transloco';
 
-import { ReportsComponent } from './reports.component';
+import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule } from '@dsh/components/form-controls';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule } from '@dsh/components/navigation';
+import { TableModule } from '@dsh/components/table';
+
+import { ReportsModule as ReportsApiModule } from '../../../api';
+import { EmptySearchResultModule } from '../empty-search-result';
+import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
+import { CreateReportDialogComponent } from './create-report-dialog';
 import { ReportsRoutingModule } from './reports-routing.module';
-import { LayoutModule } from '../../../layout';
-import { ButtonModule } from '../../../button';
+import { ReportsComponent } from './reports.component';
 import { SearchFormComponent } from './search-form';
 import { TableComponent } from './table';
-import { TableModule } from '../../../table';
-import { StateNavModule } from '../../../state-nav';
-import { DropdownModule } from '../../../dropdown';
-import { ReportsModule as ReportsApiModule } from '../../../api';
-import { StatusModule } from '../../../status';
-import { DaterangeSelectorModule } from '../operations/daterange-selector';
-import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
-import { SpinnerModule } from '../../../spinner';
 import { ActionsComponent } from './table/actions';
-import { CreateReportDialogComponent } from './create-report-dialog';
 
 @NgModule({
     imports: [
@@ -43,18 +42,18 @@ import { CreateReportDialogComponent } from './create-report-dialog';
         ReactiveFormsModule,
         TableModule,
         StateNavModule,
-        DropdownModule,
         MatIconModule,
         TableModule,
         ReportsApiModule,
         CommonModule,
-        StatusModule,
-        DaterangeSelectorModule,
+        IndicatorsModule,
         MatInputModule,
         LastUpdatedModule,
-        SpinnerModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatMenuModule,
+        FormControlsModule,
+        EmptySearchResultModule
     ],
     declarations: [
         ReportsComponent,

@@ -1,14 +1,14 @@
-import { Observable, combineLatest, merge } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 import isEqual from 'lodash/isEqual';
+import { combineLatest, merge, Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { ContentConfig, ActionBtnContent, TestEnvBtnContent } from '../content-config';
+import { ActionBtnContent, ContentConfig, TestEnvBtnContent } from '../content-config';
 
 const apply = <T>(
     state: Observable<ContentConfig>,
     val: Observable<T>,
     fn: (args: [ContentConfig, T]) => ContentConfig
-): Observable<ContentConfig> => combineLatest(state, val).pipe(map(fn));
+): Observable<ContentConfig> => combineLatest([state, val]).pipe(map(fn));
 
 const applyActionBtnContent = (
     state: Observable<ContentConfig>,

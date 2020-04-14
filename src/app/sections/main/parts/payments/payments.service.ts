@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { ClaimsService, ShopService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims';
-import { toContentConf } from './to-content-conf';
-import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { booleanDelay, takeError } from '../../../../custom-operators';
+import { ActionBtnContent, TestEnvBtnContent } from './content-config';
+import { toContentConf } from './to-content-conf';
 
 @Injectable()
 export class PaymentsService {
@@ -32,8 +32,8 @@ export class PaymentsService {
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
         this.testEnvBtnContent$ = contentConfig.pipe(pluck('testEnvBtnContent'));
         this.subheading$ = contentConfig.pipe(pluck('subheading'));
-        this.isLoading$ = combineLatest(this.shopService.shops$, claims).pipe(booleanDelay());
-        combineLatest(this.isLoading$, contentConfig)
+        this.isLoading$ = combineLatest([this.shopService.shops$, claims]).pipe(booleanDelay());
+        combineLatest([this.isLoading$, contentConfig])
             .pipe(takeError)
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }

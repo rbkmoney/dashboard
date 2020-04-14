@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
+import { Mapping } from '../../../type-utils';
 import {
-    KonturFocusService as KonturFocusApiService,
-    KonturFocusResponse,
-    KonturFocusRequest,
-    ReqQuery,
+    BeneficialOwnerQuery,
+    BeneficialOwnerResponses,
     EgrDetailsQuery,
-    LicencesQuery,
     EgrDetailsResponses,
-    ReqResponses,
-    LicencesResponses
+    KonturFocusRequest,
+    KonturFocusResponse,
+    KonturFocusService as KonturFocusApiService,
+    LicencesQuery,
+    LicencesResponses,
+    ReqQuery,
+    ReqResponses
 } from '../../api-codegen/aggr-proxy';
-import { Mapping, Omit } from '../../../type-utils';
 
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
@@ -25,6 +27,7 @@ type ParamsByRequestType = Mapping<
         ReqQuery: ReqQuery;
         EgrDetailsQuery: EgrDetailsQuery;
         LicencesQuery: LicencesQuery;
+        BeneficialOwnerQuery: BeneficialOwnerQuery;
     }
 >;
 
@@ -35,6 +38,7 @@ export type ResponsesByRequestType = Mapping<
         ReqQuery: ReqResponses;
         EgrDetailsQuery: EgrDetailsResponses;
         LicencesQuery: LicencesResponses;
+        BeneficialOwnerQuery: BeneficialOwnerResponses;
     }
 >;
 

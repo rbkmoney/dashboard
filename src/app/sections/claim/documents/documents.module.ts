@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { DocumentsComponent } from './documents.component';
-import { ButtonModule } from '../../../button';
-import { LayoutModule } from '../../../layout';
+import { ButtonModule } from '@dsh/components/buttons';
+import { FileUploaderModule } from '@dsh/components/form-controls';
+import { LayoutModule } from '@dsh/components/layout';
+
 import { FilesService } from '../../../api/files';
-import { FileUploaderModule } from '../../../file-uploader';
+import { FileContainerModule } from '../../claim-modification-containers';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { DocumentsRoutingModule } from './documents-routing.module';
-import { FileContainerModule } from '../../claim-modification-containers';
+import { DocumentsComponent } from './documents.component';
 
 @NgModule({
     imports: [

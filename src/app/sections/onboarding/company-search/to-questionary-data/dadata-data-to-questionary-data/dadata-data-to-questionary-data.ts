@@ -1,7 +1,7 @@
-import { PartyContent, OrgType } from '../../../../../api-codegen/aggr-proxy';
-import { QuestionaryData, Contractor } from '../../../../../api-codegen/questionary';
-import { createLegalEntityContractor } from './create-legal-entity-contractor';
+import { OrgType, PartyContent } from '../../../../../api-codegen/aggr-proxy';
+import { Contractor, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { createIndividualEntityContractor } from './create-individual-entity-contractor';
+import { createLegalEntityContractor } from './create-legal-entity-contractor';
 
 const createContractor = (partyContent: PartyContent): Contractor | null => {
     switch (partyContent.orgType) {

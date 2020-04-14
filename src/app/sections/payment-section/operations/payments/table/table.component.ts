@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { PaymentsTableData } from './payments-table-data';

@@ -1,9 +1,9 @@
-import { distinctUntilChanged, debounce } from 'rxjs/operators';
-import { timer, empty, Observable } from 'rxjs';
+import { EMPTY, Observable, timer } from 'rxjs';
+import { debounce, distinctUntilChanged } from 'rxjs/operators';
 
 export const booleanDebounceTime = (timeoutMs: number = 500) => (s: Observable<boolean>): Observable<boolean> =>
     s.pipe(
         distinctUntilChanged(),
-        debounce(v => (v ? timer(timeoutMs) : empty())),
+        debounce(v => (v ? timer(timeoutMs) : EMPTY)),
         distinctUntilChanged()
     );

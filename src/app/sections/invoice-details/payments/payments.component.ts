@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { PaymentsService } from './payments.service';
-import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';
+import { SpinnerType } from '@dsh/components/indicators';
+
 import { LAYOUT_GAP } from '../../constants';
-import { SpinnerType } from '../../../spinner';
+import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';
+import { PaymentsService } from './payments.service';
 
 @Component({
     selector: 'dsh-payments',

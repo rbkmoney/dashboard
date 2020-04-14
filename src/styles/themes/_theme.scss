@@ -1,35 +1,40 @@
 @import '~@angular/material/theming';
+
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
 @import '../overrides/mat-select-panel';
 @import '../overrides/mat-datepicker';
+@import '../overrides/mat-divider';
+
+@import '../../components/table/table-theme';
+@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
+@import '../../components/form-controls/file-uploader/file-uploader-theme';
+@import '../../components/buttons/button/button-theme';
+@import '../../components/buttons/button-toggle/button-toggle-theme';
+@import '../../components/layout/card/card-theme';
+@import '../../components/layout/float-panel/float-panel-theme';
+@import '../../components/layout/panel/panel-theme';
+@import '../../components/layout/headline/secondary-title/secondary-title-theme';
+@import '../../components/layout/timeline/timeline-theme';
+@import '../../components/layout/tabs/tabs-theme';
+@import '../../components/layout/dropdown/dropdown-theme';
+@import '../../components/layout/details-item/details-item-theme';
+@import '../../components/layout/expansion/expansion-theme';
+@import '../../components/charts/bar-chart/bar-chart-theme';
+@import '../../components/charts/linear-chart/linear-chart-theme';
+@import '../../components/charts/legend-tooltip/legend-tooltip-theme';
+@import '../../components/indicators/status/status-theme';
+@import '../../components/navigation/state-nav/state-nav-theme';
+
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
-@import '../../app/dropdown/dropdown-theme';
-@import '../../app/table/table-theme';
-@import '../../app/charts/bar-chart/bar-chart-theme';
-@import '../../app/layout/card/card-theme';
-@import '../../app/layout/float-panel/float-panel-theme';
-@import '../../app/charts/linear-chart/linear-chart-theme';
-@import '../../app/state-nav/state-nav-theme';
-@import '../../app/charts/legend-tooltip/legend-tooltip-theme';
-@import '../../app/button/button-theme';
-@import '../../app/layout/tabs/tabs-theme';
-@import '../../app/button-toggle/button-toggle-theme';
-@import '../../app/status/status-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
-@import '../../app/timeline/timeline-theme';
-@import '../../app/expand-panel/expand-panel-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
-@import '../../app/expansion/expansion-theme';
-@import '../../app/details-item/details-item-theme';
-@import '../../app/layout/headline/secondary-title/secondary-title-theme';
-@import '../../app/file-uploader/file-uploader-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
-@import '../../app/layout/panel/panel-theme';
+@import '../../app/sections/payment-section/payouts/payout-panel/payout-panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -38,6 +43,7 @@
         @include mat-autocomplete-panel-override-theme($theme);
         @include mat-select-panel-override-theme($theme);
         @include mat-datepicker-override-theme($theme);
+        @include mat-divider-override-theme($theme);
         @include dsh-container-theme($theme);
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
@@ -57,7 +63,6 @@
         @include dsh-main-section-theme($theme);
         @include dsh-welcome-image-theme($theme);
         @include dsh-timeline-theme($theme);
-        @include dsh-expand-panel-theme($theme);
         @include dsh-dadata-autocomplete-theme($theme);
         @include dsh-payment-details-theme($theme);
         @include dsh-expansion-theme($theme);
@@ -65,5 +70,7 @@
         @include dsh-details-secondary-title-theme($theme);
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
+        @include dsh-range-datepicker-theme($theme);
+        @include dsh-payout-panel-theme($theme);
     }
 }

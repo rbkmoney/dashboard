@@ -1,8 +1,8 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
+import { config, mockConfig } from './config-stub.js';
 import { ConfigService } from './config.service.js';
-import { mockConfig, config } from './config-stub.js';
 
 describe('ConfigService', () => {
     function createService() {
@@ -11,7 +11,9 @@ describe('ConfigService', () => {
             providers: [ConfigService]
         });
         const injector = getTestBed();
+        // tslint:disable-next-line: deprecation
         const service: ConfigService = injector.get(ConfigService);
+        // tslint:disable-next-line: deprecation
         const httpMock: HttpTestingController = injector.get(HttpTestingController);
         return { injector, service, httpMock };
     }

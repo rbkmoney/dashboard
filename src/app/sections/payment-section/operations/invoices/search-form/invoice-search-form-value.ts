@@ -1,11 +1,11 @@
 import {
     BankCardPaymentSystem,
     BankCardTokenProvider,
+    Invoice,
     PaymentStatus,
     PaymentTerminalProvider
 } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { SearchFormValue } from '../../search-form-value';
-import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 
 export interface InvoiceSearchFormValue extends SearchFormValue {
     invoiceStatus?: Invoice.StatusEnum;

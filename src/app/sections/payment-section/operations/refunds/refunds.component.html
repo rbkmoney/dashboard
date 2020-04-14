@@ -9,6 +9,9 @@
             ></dsh-last-updated>
             <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
             <dsh-refunds-table [data]="tableData$ | async"></dsh-refunds-table>
+            <dsh-empty-search-result
+                *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
+            ></dsh-empty-search-result>
             <button *ngIf="hasMoreRefunds$ | async" (click)="fetchMore()" dsh-button>
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}
             </button>

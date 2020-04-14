@@ -1,17 +1,18 @@
 import get from 'lodash.get';
 
 import {
-    QuestionaryData,
+    AuthorityConfirmingDocument,
     LegalEntityContractor,
     LegalOwnerInfo,
-    RussianLegalEntity,
-    AuthorityConfirmingDocument
+    QuestionaryData,
+    RussianLegalEntity
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
 
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
+    // tslint:disable-next-line: variable-name
     { type, date, number }: FormValue
 ): AuthorityConfirmingDocument => ({
     ...authorityConfirmingDocument,

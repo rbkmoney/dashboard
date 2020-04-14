@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import * as humanizeDuration from 'humanize-duration';
 import moment from 'moment';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { Language, LanguageService } from '../language';
 

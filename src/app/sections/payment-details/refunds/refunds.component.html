@@ -8,7 +8,14 @@
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ t.title }}
             </div>
-            <button fxFlex.xs="100" fxFlex="none" dsh-stroked-button color="accent" (click)="createRefund()">
+            <button
+                fxFlex.xs="100"
+                fxFlex="none"
+                [disabled]="!refundAvailable()"
+                dsh-stroked-button
+                color="accent"
+                (click)="createRefund()"
+            >
                 {{ t.createRefund.title }}
             </button>
         </div>

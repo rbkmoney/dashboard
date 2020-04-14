@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { switchMap, pluck } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { pluck, switchMap } from 'rxjs/operators';
 
 import {
-    QuestionaryService as SaveQuestionaryService,
     GetQuestionaryService,
+    QuestionaryData,
+    QuestionaryService as SaveQuestionaryService,
     Snapshot,
-    Version,
-    QuestionaryData
+    Version
 } from '../../api-codegen/questionary';
 import { KeycloakService } from '../../auth';
 

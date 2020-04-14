@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { Observable, combineLatest } from 'rxjs';
-import { switchMap, catchError, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
+import { combineLatest, Observable } from 'rxjs';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoiceSearchFormValue } from './search-form';
-import { InvoiceSearchService } from '../../../../api/search';
+import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
-import { PartialFetcher, FetchResult } from '../../../partial-fetcher';
-import { InvoicesTableData } from './table';
 import { ShopService } from '../../../../api/shop';
-import { mapToTimestamp } from '../operators';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { booleanDebounceTime } from '../../../../custom-operators';
+import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
+import { InvoiceSearchFormValue } from './search-form';
+import { InvoicesTableData } from './table';
 
 @Injectable()
 export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormValue> {
@@ -22,10 +22,10 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest(
+    invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
         this.searchResult$,
         this.shopService.shops$
-    ).pipe(
+    ]).pipe(
         mapToInvoicesTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
@@ -33,9 +33,11 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    isLoading$: Observable<boolean> = this.doAction$.pipe(
-        booleanDebounceTime(),
-        shareReplay(1)
+    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo,
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(
@@ -52,8 +54,8 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
             switchMap(excludedShops =>
                 this.invoiceSearchService.searchInvoices(
-                    params.fromTime.utc().format(),
-                    params.toTime.utc().format(),
+                    params.date.begin.utc().format(),
+                    params.date.end.utc().format(),
                     params,
                     this.searchLimit,
                     continuationToken,

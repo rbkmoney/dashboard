@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { snilsValidator, individualEntityInnValidator } from '../../../../../../form-controls';
+import { individualEntityInnValidator, snilsValidator } from '@dsh/components/form-controls';
 
 @Injectable()
 export class PrivateEntityInfoService {

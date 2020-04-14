@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
-import { Roles } from './roles';
 import { AppAuthGuardService } from './app-auth-guard.service';
+import { Roles } from './roles';
 
 export function protectedRoute(route: Route, roles: Roles[]): Route {
     return {

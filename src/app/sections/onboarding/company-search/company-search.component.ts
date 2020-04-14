@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { take, shareReplay, map, switchMap, catchError } from 'rxjs/operators';
+import { catchError, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { PartyContent } from '../../../api-codegen/aggr-proxy';
+import { Contractor, QuestionaryData } from '../../../api-codegen/questionary';
 import { CompanyDetails } from './company-details';
 import { CompanySearchService } from './company-search.service';
-import { PartyContent } from '../../../api-codegen/aggr-proxy';
-import { QuestionaryData, Contractor } from '../../../api-codegen/questionary';
 import {
-    dadataDataToQuestionaryData,
     contractorTypeToQuestionaryData,
+    dadataDataToQuestionaryData,
     konturFocusDataToQuestionaryData
 } from './to-questionary-data';
 
@@ -39,7 +39,7 @@ export class CompanySearchComponent {
                 switchMap(data => this.companySearchService.createInitialClaim(data)),
                 take(1)
             )
-            .subscribe(id => this.companySearchService.goToOnboardingFlow(id));
+            .subscribe(({ claimID, documentID }) => this.companySearchService.goToOnboardingFlow(claimID, documentID));
     }
 
     updateSuggestion(content: PartyContent) {

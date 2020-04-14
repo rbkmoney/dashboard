@@ -1,6 +1,6 @@
-import { ModificationUnit, DocumentModificationUnit } from '../../../../api-codegen/claim-management';
-import { isDocumentModificationUnit, isClaimModification } from '../claim-modification';
-import { SpecificModificationUnit, SpecificClaimModificationUnit } from '../../utils';
+import { DocumentModificationUnit, ModificationUnit } from '../../../../api-codegen/claim-management';
+import { SpecificClaimModificationUnit, SpecificModificationUnit } from '../../utils';
+import { isClaimModification, isDocumentModificationUnit } from '../claim-modification';
 
 export function isChangesetDocumentModificationUnit(
     u: ModificationUnit

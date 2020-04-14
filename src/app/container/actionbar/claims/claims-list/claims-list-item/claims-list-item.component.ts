@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { Claim } from '../../../../../api-codegen/claim-management/swagger-codegen';
-import { getClaimType, ClaimType, claimStatusToColor } from '../../../../../view-utils';
 import { StatusColor } from '../../../../../theme-manager';
+import { claimStatusToColor, ClaimType, getClaimType } from '../../../../../view-utils';
 
 @Component({
     selector: 'dsh-claims-list-item',

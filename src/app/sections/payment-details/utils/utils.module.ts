@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { BankCardPipe } from './bank-card.pipe';
 import { AmountPipe } from './amount.pipe';
+import { BankCardPipe } from './bank-card.pipe';
 
 @NgModule({
     exports: [AmountPipe, BankCardPipe],

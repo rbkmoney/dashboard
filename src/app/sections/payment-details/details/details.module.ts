@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CardModule } from '../../../layout/card';
-import { ButtonModule } from '../../../button';
-import { DetailsComponent } from './details.component';
-import { StatusDetailsItemModule } from '../status-details-item';
-import { DetailsItemModule } from '../../../details-item';
+import { ButtonModule } from '@dsh/components/buttons';
+import { CardModule, DetailsItemModule } from '@dsh/components/layout';
+
 import { FromMinorModule } from '../../../from-minor';
+import { StatusDetailsItemModule } from '../status-details-item';
+import { DetailsComponent } from './details.component';
 
 @NgModule({
     imports: [

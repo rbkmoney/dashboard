@@ -1,27 +1,21 @@
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Component, ElementRef, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AutofillMonitor } from '@angular/cdk/text-field';
-import { Observable, interval } from 'rxjs';
-import { switchMap, debounce, shareReplay, map, filter, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import get from 'lodash.get';
+import { interval, Observable } from 'rxjs';
+import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import {
-    DaDataRequest,
-    PartyContent,
-    AddressQuery,
-    FmsUnitQuery,
-    BankContent,
-    FmsUnitContent
-} from '../api-codegen/aggr-proxy';
-import { DaDataService, Suggestion, ParamsByRequestType, ContentByRequestType } from '../api';
-import { type } from './type';
-import { CustomFormControl } from '../form-controls';
+import { CustomFormControl } from '@dsh/components/form-controls';
+
+import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '../api';
+import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '../api-codegen/aggr-proxy';
 import { progress, takeError } from '../custom-operators';
+import { Type } from './type';
 
 interface Option<S extends Suggestion> {
     header: string;
@@ -32,7 +26,7 @@ interface Option<S extends Suggestion> {
 const ReqType = DaDataRequest.DaDataRequestTypeEnum;
 type ReqType = DaDataRequest.DaDataRequestTypeEnum;
 
-const requestTypeByType: { [name in typeof type[number]]: ReqType } = {
+const requestTypeByType: { [name in Type]: ReqType } = {
     address: ReqType.AddressQuery,
     bank: ReqType.BankQuery,
     fio: ReqType.FioQuery,
@@ -40,6 +34,7 @@ const requestTypeByType: { [name in typeof type[number]]: ReqType } = {
     okved: ReqType.OkvedQuery,
     party: ReqType.PartyQuery
 };
+type RequestTypeByType = typeof requestTypeByType;
 
 @Component({
     selector: 'dsh-dadata-autocomplete',
@@ -48,15 +43,15 @@ const requestTypeByType: { [name in typeof type[number]]: ReqType } = {
     providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }]
 })
 export class DaDataAutocompleteComponent<
-    T extends typeof type[number],
-    C = ContentByRequestType[typeof requestTypeByType[T]]
+    T extends Type = Type,
+    R extends ReqType = RequestTypeByType[T]
 > extends CustomFormControl {
-    suggestions$: Observable<C[]> = this.formControl.valueChanges.pipe(
+    suggestions$: Observable<ContentByRequestType[R][]> = this.formControl.valueChanges.pipe(
         debounce(() => interval(300)),
         switchMap(this.loadSuggestions.bind(this)),
         shareReplay(1)
     );
-    options$: Observable<Option<C>[]> = this.suggestions$.pipe(
+    options$: Observable<Option<ContentByRequestType[R]>[]> = this.suggestions$.pipe(
         map(suggestions => suggestions.map(s => this.getOption(s))),
         shareReplay(1)
     );
@@ -64,12 +59,12 @@ export class DaDataAutocompleteComponent<
         shareReplay(1)
     );
 
-    @Output() optionSelected = new EventEmitter<C>();
+    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
     @Output() errorOccurred = new EventEmitter<any>();
     @Output() suggestionNotFound = new EventEmitter();
 
     @Input() type: T;
-    @Input() params: ParamsByRequestType[typeof requestTypeByType[T]];
+    @Input() params: ParamsByRequestType[R];
 
     constructor(
         focusMonitor: FocusMonitor,
@@ -104,29 +99,22 @@ export class DaDataAutocompleteComponent<
     }
 
     private loadSuggestions() {
-        const params: ParamsByRequestType[typeof requestTypeByType[T]] = { query: this.formControl.value as string };
+        const params = { query: this.formControl.value as string } as ParamsByRequestType[R];
         return this.daDataService.suggest(requestTypeByType[this.type], this.withSpecificParams(params));
     }
 
-    private withSpecificParams(params: ParamsByRequestType[typeof requestTypeByType[T]]) {
+    private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
         switch (this.type) {
-            // TODO: wait API fixes
-            case 'address':
-                const addressParams = params as AddressQuery;
-                addressParams.restrictValue = false;
-                addressParams.fromBound = 'Area';
-                addressParams.toBound = 'House';
-                return addressParams;
             case 'fmsUnit':
-                const fmsUnitParams = params as FmsUnitQuery;
+                const fmsUnitParams = { ...params } as FmsUnitQuery;
                 fmsUnitParams.queryType = 'FullTextSearch';
-                return fmsUnitParams;
+                return fmsUnitParams as any;
             default:
                 return params;
         }
     }
 
-    private getOption(suggestion: C): Option<C> {
+    private getOption(suggestion: ContentByRequestType[R]): Option<ContentByRequestType[R]> {
         return {
             header: (suggestion as any).value || '',
             description: this.getDescription(suggestion),
@@ -134,7 +122,7 @@ export class DaDataAutocompleteComponent<
         };
     }
 
-    private getDescription(suggestion: C): string {
+    private getDescription(suggestion: ContentByRequestType[R]): string {
         switch (this.type) {
             case 'bank': {
                 const { bic, address } = suggestion as BankContent;

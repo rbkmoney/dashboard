@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatCheckboxChange, MatSelectChange } from '@angular/material';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSelectChange } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 
 import { FinancialAndEconomicActivityService } from './financial-and-economic-activity.service';

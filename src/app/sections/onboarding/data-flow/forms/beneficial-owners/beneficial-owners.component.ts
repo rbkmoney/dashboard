@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material';
-import { Subscription, Observable } from 'rxjs';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BeneficialOwnersService } from './beneficial-owners.service';

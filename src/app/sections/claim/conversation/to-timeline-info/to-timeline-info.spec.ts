@@ -1,12 +1,12 @@
-import { toTimelineInfo } from './to-timeline-info';
 import {
     ClaimModification,
+    Modification,
     ModificationUnit,
     StatusModificationUnit,
-    Modification,
     UserInfo
 } from '../../../../api-codegen/claim-management/swagger-codegen';
 import { TimelineItemInfo } from './model';
+import { toTimelineInfo } from './to-timeline-info';
 
 const genUserInfo = (userType: UserInfo.UserTypeEnum): UserInfo => ({
     userId: '',

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject, of, forkJoin, BehaviorSubject, Observable, merge } from 'rxjs';
-import { switchMap, filter, catchError, tap, pluck } from 'rxjs/operators';
-import uuid from 'uuid';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import get from 'lodash.get';
+import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
+import uuid from 'uuid';
 
-import { MessagesService, createSingleMessageConversationParams } from '../../../../api';
+import { createSingleMessageConversationParams, MessagesService } from '../../../../api';
 import { ConversationID } from '../../../../api-codegen/messages';
 import { progress } from '../../../../custom-operators';
 import { UIError } from '../../../ui-error';
@@ -31,7 +31,7 @@ export class SendCommentService {
                 switchMap(text => {
                     const conversationId = uuid();
                     const params = createSingleMessageConversationParams(conversationId, text);
-                    return forkJoin(
+                    return forkJoin([
                         of(conversationId),
                         this.messagesService.saveConversations(params).pipe(
                             catchError(ex => {
@@ -41,7 +41,7 @@ export class SendCommentService {
                                 return of(error);
                             })
                         )
-                    );
+                    ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)
             )

@@ -1,0 +1,28 @@
+<div fxFlex fxLayoutAlign="center">
+    <div class="dsh-claims" fxLayout="column" [fxLayoutGap]="layoutGap">
+        <dsh-headline>
+            <div *transloco="let t; scope: 'claims'; read: 'claims'">
+                {{ t.title }}
+            </div>
+        </dsh-headline>
+        <dsh-card>
+            <dsh-card-content>
+                <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
+            </dsh-card-content>
+        </dsh-card>
+        <dsh-card>
+            <dsh-card-content *transloco="let c" fxLayout="column" fxLayoutGap="15px">
+                <dsh-last-updated
+                    *ngIf="!(isLoading$ | async)"
+                    (update)="refresh()"
+                    [lastUpdated]="lastUpdated$ | async"
+                ></dsh-last-updated>
+                <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
+                <dsh-claims-table [data]="tableData$ | async"></dsh-claims-table>
+                <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
+                    {{ (isLoading$ | async) ? c.loading : c.showMore }}
+                </button>
+            </dsh-card-content>
+        </dsh-card>
+    </div>
+</div>

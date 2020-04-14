@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ButtonModule } from '@dsh/components/buttons';
+import { SpinnerModule } from '@dsh/components/indicators';
+
 import { MainComponent } from './main.component';
-import { ButtonModule } from '../../button';
 import { PaymentsComponent, WalletsComponent } from './parts';
-import { SpinnerModule } from '../../spinner';
 
 @NgModule({
     imports: [

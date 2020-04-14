@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { switchMap, first, shareReplay, map } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { first, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { ReportsService } from '../../api/reports';
 import { Report } from '../../api-codegen/anapi/swagger-codegen';
+import { ReportsService } from '../../api/reports';
 import { booleanDelay, takeError } from '../../custom-operators';
 
 @Injectable()
@@ -21,10 +21,7 @@ export class ReportDetailsService {
         booleanDelay(500),
         map(r => !r)
     );
-    reportError$: Observable<any> = this.report$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    reportError$: Observable<any> = this.report$.pipe(takeError, shareReplay(1));
 
     constructor(
         private reportSearchService: ReportsService,

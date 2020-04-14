@@ -1,10 +1,13 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { catchError } from 'rxjs/operators';
 
-import { RefundsService } from './refunds.service';
+import { PaymentSearchResult } from '../../../api-codegen/anapi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
+import { RefundsService } from './refunds.service';
+
+const PaymentStatuses = PaymentSearchResult.StatusEnum;
 
 @Component({
     selector: 'dsh-refunds',
@@ -16,6 +19,7 @@ export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
     @Input() shopID: string;
+    @Input() status: PaymentSearchResult.StatusEnum;
     @Input() maxRefundAmount: number;
 
     refunds$ = this.refundsService.searchResult$.pipe(
@@ -45,5 +49,16 @@ export class RefundsComponent implements OnChanges {
 
     fetchMore() {
         this.refundsService.fetchMore();
+    }
+
+    refundAvailable(): boolean {
+        switch (this.status) {
+            case PaymentStatuses.Cancelled:
+            case PaymentStatuses.Refunded:
+            case PaymentStatuses.Failed:
+                return false;
+            default:
+                return true;
+        }
     }
 }

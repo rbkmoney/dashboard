@@ -1,15 +1,15 @@
+import get from 'lodash.get';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import get from 'lodash.get';
 
-import { Questionary, Contractor } from '../../../../api-codegen/questionary';
-import { LegalEntityStepFlow, IndividualEntityStepFlow } from './step-flows';
+import { Contractor, QuestionaryData } from '../../../../api-codegen/questionary';
+import { IndividualEntityStepFlow, LegalEntityStepFlow } from './step-flows';
 import { StepName } from './step-name';
 
-export const mapToStepFlow = (s: Observable<Questionary>): Observable<StepName[] | null> =>
+export const mapToStepFlow = (s: Observable<QuestionaryData>): Observable<StepName[] | null> =>
     s.pipe(
         map(q => {
-            const contractorType = get(q, ['data', 'contractor', 'contractorType']);
+            const contractorType = get(q, ['contractor', 'contractorType']);
             const t = Contractor.ContractorTypeEnum;
             switch (contractorType) {
                 case t.LegalEntityContractor:

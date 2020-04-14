@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { switchMap, shareReplay, map, pluck } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { MessagesService } from '../../../api';
 import { booleanDelay, takeError } from '../../../custom-operators';
@@ -18,15 +18,9 @@ export class CommentContainerService {
         shareReplay(1)
     );
 
-    isLoading$ = this.comment$.pipe(
-        booleanDelay(),
-        shareReplay(1)
-    );
+    isLoading$ = this.comment$.pipe(booleanDelay(), shareReplay(1));
 
-    error$ = this.comment$.pipe(
-        takeError,
-        shareReplay(1)
-    );
+    error$ = this.comment$.pipe(takeError, shareReplay(1));
 
     constructor(private messageService: MessagesService) {
         this.comment$.subscribe();
