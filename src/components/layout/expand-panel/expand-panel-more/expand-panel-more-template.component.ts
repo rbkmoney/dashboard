@@ -17,7 +17,7 @@ export class ExpandPanelMoreTemplateComponent {
     @coerce(
         v => v,
         (v: ExpandPanelMoreHeaderTemplateComponent, self: ExpandPanelMoreTemplateComponent) =>
-            v.collapse$.subscribe(e => self.collapse$.next(e))
+            v && v.collapse$.subscribe(e => self.collapse$.next(e))
     )
     expandPanelMoreHeader: ExpandPanelMoreHeaderTemplateComponent;
 }
