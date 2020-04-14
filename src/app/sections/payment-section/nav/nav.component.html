@@ -29,4 +29,14 @@
     >
         {{ t.reports }}
     </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./integrations"
+        routerLinkActive
+        #integrations="routerLinkActive"
+        [selected]="integrations.isActive"
+        withIcon
+        icon="build"
+    >
+        {{ t.integrations }}
+    </dsh-state-nav-item>
 </dsh-state-nav>

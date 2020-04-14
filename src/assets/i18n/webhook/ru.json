@@ -1,0 +1,56 @@
+{
+    "webhook": "Webhook",
+    "description": "Webhook – это инструмент для получения асинхронных оповещений при наступлении одного или группы интересующих вас событий. Например: платеж успешно завершен.",
+    "attach": "Установить webhook",
+    "emptyResult": "Webhook’и отсутствуют",
+    "details": {
+        "status": {
+            "active": "Активен",
+            "inactive": "Неактивен"
+        },
+        "url": "URL, на который будут поступать оповещения о произошедших событиях",
+        "shop": "Магазин"
+    },
+    "events": {
+        "title": "Набор событий",
+        "types": {
+            "CustomerCreated": "CustomerCreated (плательщик создан)",
+            "CustomerDeleted": "CustomerDeleted (плательщик удален)",
+            "CustomerReady": "CustomerReady (плательщик готов)",
+            "CustomerBindingStarted": "CustomerBindingStarted (привязка к плательщику запущена)",
+            "CustomerBindingSucceeded": "CustomerBindingSucceeded (привязка к плательщику успешно завершена)",
+            "CustomerBindingFailed": "CustomerBindingFailed (привязка к плательщику завершена с неудачей)",
+            "InvoiceCreated": "InvoiceCreated (создан новый инвойс)",
+            "InvoicePaid": "InvoicePaid (инвойс перешел в состояние \"Оплачен\")",
+            "InvoiceCancelled": "InvoiceCancelled (инвойс отменен по истечению срока давности)",
+            "InvoiceFulfilled": "InvoiceFulfilled (инвойс успешно погашен)",
+            "PaymentStarted": "PaymentStarted (создан платеж)",
+            "PaymentProcessed": "PaymentProcessed (платеж в обработке)",
+            "PaymentCaptured": "PaymentCaptured (платеж успешно завершен)",
+            "PaymentCancelled": "PaymentCancelled (платеж успешно отменен)",
+            "PaymentRefunded": "PaymentRefunded (платеж успешно возвращен)",
+            "PaymentFailed": "PaymentFailed (при проведении платежа возникла ошибка)",
+            "PaymentRefundCreated": "PaymentRefundCreated (возврат платежа успешно создан)",
+            "PaymentRefundSucceeded": "PaymentRefundSucceeded (возврат платежа прошел успешно)",
+            "PaymentRefundFailed": "PaymentRefundFailed (возврат платежа завершился неудачей)"
+        }
+    },
+    "actions": {
+        "title": "Действия",
+        "buttons": {
+            "delete": "Удалить webhook"
+        }
+    },
+    "key": {
+        "title": "Публичный ключ",
+        "publicKey": "Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений",
+        "buttons": {
+            "copy": "Скопировать ключ"
+        }
+    },
+    "create": {
+        "title": "Установить новый webhook",
+        "types": "Набор типов событий, о которых следует оповещать",
+        "attach": "Установить"
+    }
+}
