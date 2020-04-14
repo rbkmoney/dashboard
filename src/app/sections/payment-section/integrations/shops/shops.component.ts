@@ -10,5 +10,7 @@ import { ShopsService } from './shops.service';
     providers: [ShopsService]
 })
 export class ShopsComponent {
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
+    shops$ = this.shopsService.shops$;
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopsService: ShopsService) {}
 }
