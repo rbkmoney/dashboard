@@ -13,6 +13,7 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
 })
 export class ShopsPanelsListComponent {
     shops$ = this.shopsService.shops$;
+    selectedIdx$ = this.shopsPanelsListService.selectedIdx$;
 
     constructor(
         private shopsPanelsListService: ShopsPanelsListService,
@@ -23,5 +24,9 @@ export class ShopsPanelsListComponent {
 
     copied(isCopied: boolean) {
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
+    }
+
+    select(idx: number) {
+        this.shopsPanelsListService.select(idx);
     }
 }
