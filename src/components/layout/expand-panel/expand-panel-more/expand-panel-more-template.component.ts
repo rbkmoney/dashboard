@@ -12,6 +12,7 @@ import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-head
 export class ExpandPanelMoreTemplateComponent {
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
 
+    collapse$ = new Subject<MouseEvent>();
     @ContentChild(ExpandPanelMoreHeaderTemplateComponent)
     @coerce(
         v => v,
@@ -19,6 +20,4 @@ export class ExpandPanelMoreTemplateComponent {
             v.collapse$.subscribe(e => self.collapse$.next(e))
     )
     expandPanelMoreHeader: ExpandPanelMoreHeaderTemplateComponent;
-
-    collapse$ = new Subject<MouseEvent>();
 }

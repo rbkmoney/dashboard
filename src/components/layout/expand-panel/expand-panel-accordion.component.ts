@@ -9,7 +9,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { combineLatest, merge, of, Subscription } from 'rxjs';
-import { delay, filter, first, map, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, first, map, startWith, switchMap } from 'rxjs/operators';
 
 import { coerce, smoothChangeTo } from '../../../utils';
 import { ExpandPanelComponent } from './expand-panel.component';
@@ -46,11 +46,17 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
         this.subscribeAutoscrollToSelected();
     }
 
-    expand(idx: number) {
-        if (idx !== null) {
-            this.expandPanels.filter((_, i) => i !== idx).forEach(p => p.collapse());
+    private toggle(idx: number, isExpand: boolean) {
+        let expanded = idx;
+        if (isExpand) {
+            this.expandPanels.filter((p, i) => p.expanded && i !== idx).forEach(p => p.collapse());
+            expanded = idx;
+        } else {
+            expanded = this.expandPanels.toArray().findIndex(p => p.expanded);
         }
-        this.expanded = idx;
+        if (this.expanded !== expanded) {
+            this.expanded = expanded;
+        }
     }
 
     private subscribeAutoscrollToSelected() {
@@ -87,16 +93,16 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
                 startWith(this.expandPanels),
                 switchMap((expandPanels: QueryList<ExpandPanelComponent>) =>
                     merge(
-                        ...expandPanels.toArray().map((expandPanel, idx) =>
-                            expandPanel.expandedChange.pipe(
-                                filter(e => e),
-                                mapTo(idx)
+                        ...expandPanels
+                            .toArray()
+                            .map((expandPanel, idx) =>
+                                expandPanel.expandedChange.pipe(map(isExpand => ({ idx, isExpand })))
                             )
-                        )
                     )
-                )
+                ),
+                distinctUntilChanged()
             )
-            .subscribe(idx => this.expand(idx));
+            .subscribe(({ idx, isExpand }) => this.toggle(idx, isExpand));
     }
 
     private scrollTo(component: ExpandPanelComponent, scrollTo: number) {
