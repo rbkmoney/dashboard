@@ -53,7 +53,7 @@ export class ReceiveWebhooksService {
             .pipe(pluck('limit'))
             .subscribe(limit => {
                 if (limit) {
-                    this.webhooksLimit$.next(parseInt(limit));
+                    this.webhooksLimit$.next(parseInt(limit, 10));
                 }
             });
         this.webhooksLimit$.subscribe(limit => {
