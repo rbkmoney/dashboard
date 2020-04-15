@@ -14,7 +14,6 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ShopService } from '../../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookService } from './create-webhook.service';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
@@ -44,6 +43,6 @@ import { WebhooksComponent } from './webhooks.component';
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent],
-    providers: [ReceiveWebhooksService, CreateWebhookService, ShopService]
+    providers: [ReceiveWebhooksService, CreateWebhookService]
 })
 export class WebhooksModule {}
