@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, merge, Observable, of } from 'rxjs';
-import {
-    filter,
-    first,
-    map,
-    mapTo,
-    pluck,
-    shareReplay,
-    startWith,
-    switchMap,
-    switchMapTo,
-    take,
-    tap
-} from 'rxjs/operators';
+import { of } from 'rxjs';
+import { filter, first, map, mapTo, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { PayoutSearchService, ShopService } from '../../../api';
 import { Payout } from '../../../api-codegen/anapi';

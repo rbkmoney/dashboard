@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { mapToTimestamp } from '../operations/operators';
@@ -21,7 +20,7 @@ export class PayoutsComponent {
     hasMore$ = this.payoutsService.hasMore$;
     lastUpdated$ = this.payoutsService.searchResult$.pipe(mapToTimestamp, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private payoutsService: PayoutsService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private payoutsService: PayoutsService) {}
 
     fetchMore() {
         this.payoutsService.fetchMore();
