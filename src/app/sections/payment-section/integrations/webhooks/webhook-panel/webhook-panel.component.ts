@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { pluck } from 'rxjs/operators';
 
@@ -11,7 +11,8 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 @Component({
     selector: 'dsh-webhook-panel',
     templateUrl: 'webhook-panel.component.html',
-    providers: [WebhookPanelService]
+    providers: [WebhookPanelService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WebhookPanelComponent implements OnChanges {
     @Input()
