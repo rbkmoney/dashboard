@@ -5,7 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import chunk from 'lodash.chunk';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -16,6 +16,7 @@ export class ReceiveWebhooksService {
     private webhooksLimit$: BehaviorSubject<number> = new BehaviorSubject(10);
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<'new' | 'more'> = new Subject();
+    private cache: Webhook[] = [];
 
     private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
@@ -24,7 +25,7 @@ export class ReceiveWebhooksService {
     );
 
     webhooksChunk$: Observable<Webhook[]> = this.webhooks$.pipe(
-        map(w => chunk(w, this.webhooksLimit$.getValue())[0]),
+        map(w => chunk(w, this.webhooksLimit$.value)[0]),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -33,10 +34,10 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooksState$).pipe(
-        booleanDebounceTime(),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    isLoading$: Observable<boolean> = progress(
+        this.receiveWebhooks$.pipe(filter(v => v === 'new')),
+        this.webhooksState$
+    ).pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     hasMore$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -47,11 +48,14 @@ export class ReceiveWebhooksService {
         private route: ActivatedRoute,
         private router: Router
     ) {
-        this.route.queryParams.pipe(take(1)).subscribe(v => {
-            if (v.limit) {
-                this.webhooksLimit$.next(v.limit);
-            }
-        });
+        this.route.queryParams
+            .pipe(take(1))
+            .pipe(pluck('limit'))
+            .subscribe(limit => {
+                if (limit) {
+                    this.webhooksLimit$.next(parseInt(limit));
+                }
+            });
         this.webhooksLimit$.subscribe(limit => {
             this.router.navigate([location.pathname], {
                 queryParams: {
@@ -73,14 +77,15 @@ export class ReceiveWebhooksService {
                                 })
                             );
                         case 'more':
-                            this.webhooksLimit$.next(parseInt(this.webhooksLimit$.getValue() as string) + 10);
-                            return this.webhooks$;
+                            this.webhooksLimit$.next(this.webhooksLimit$.value + 20);
+                            return of(this.cache);
                     }
                 })
             )
             .subscribe(webhooks => {
+                this.cache = webhooks;
                 this.webhooksState$.next(webhooks);
-                this.hasMore$.next(webhooks.length > this.webhooksLimit$.getValue());
+                this.hasMore$.next(webhooks.length > this.webhooksLimit$.value);
             });
     }
 
