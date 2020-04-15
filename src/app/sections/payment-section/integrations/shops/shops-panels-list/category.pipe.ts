@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
-import { combineLatest, Subject, Subscription } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CategoriesService } from '../../../../../api';
