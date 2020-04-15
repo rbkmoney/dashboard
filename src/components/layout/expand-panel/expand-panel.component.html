@@ -3,14 +3,16 @@
     (click)="expand()"
     [ngClass]="{ 'dsh-expand-panel-expanded': expandedChange | async }"
 >
-    <div class="dsh-expand-panel-base" *ngIf="!(expandedChange | async)" [@expand]="collapseTrigger">
-        <div (dshResized)="setBaseContentHeight($event)">
-            <ng-content></ng-content>
-        </div>
-    </div>
-    <div class="dsh-expand-panel-expand" *ngIf="expandedChange | async" [@expand]="expandTrigger">
+    <div class="dsh-expand-panel-expand" *ngIf="expandedChange | async; else panelBase" [@expand]="expandTrigger">
         <div (dshResized)="setExpandedContentHeight($event)" fxLayout>
             <ng-container *ngTemplateOutlet="expandPanelMore?.templateRef"></ng-container>
         </div>
     </div>
+    <ng-template #panelBase>
+        <div class="dsh-expand-panel-base" [@expand]="collapseTrigger">
+            <div (dshResized)="setBaseContentHeight($event)">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </ng-template>
 </dsh-card>

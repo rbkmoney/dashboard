@@ -7,10 +7,16 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '../../buttons';
 import { ResizedModule } from '../../indicators';
 import { CardModule } from '../card';
-import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
+import { ExpandPanelAccordionComponent } from './expand-panel-accordion.component';
+import { ExpandPanelMoreHeaderTemplateComponent, ExpandPanelMoreTemplateComponent } from './expand-panel-more';
 import { ExpandPanelComponent } from './expand-panel.component';
 
-const EXPORTED_DECLARATIONS = [ExpandPanelComponent, ExpandPanelMoreTemplateComponent];
+const EXPORTED_DECLARATIONS = [
+    ExpandPanelComponent,
+    ExpandPanelMoreTemplateComponent,
+    ExpandPanelMoreHeaderTemplateComponent,
+    ExpandPanelAccordionComponent
+];
 
 @NgModule({
     imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, TranslocoModule],
