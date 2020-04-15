@@ -35,7 +35,7 @@
                 </div>
                 <div fxFlex>
                     <dsh-details-item [title]="p.category">
-                        {{ shop?.categoryID }}
+                        {{ (shop?.categoryID | category)?.name }}
                     </dsh-details-item>
                 </div>
                 <div fxFlex></div>

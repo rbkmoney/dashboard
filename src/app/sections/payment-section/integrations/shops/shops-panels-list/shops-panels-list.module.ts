@@ -14,6 +14,8 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
+import { CategoriesModule } from '../../../../../api';
+import { CategoryPipe } from './category.pipe';
 import { ShopsPanelsListComponent } from './shops-panels-list.component';
 
 @NgModule({
@@ -30,9 +32,10 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         MatDialogModule,
         MatSnackBarModule,
         ClipboardModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
+        CategoriesModule
     ],
-    declarations: [ShopsPanelsListComponent],
+    declarations: [ShopsPanelsListComponent, CategoryPipe],
     exports: [ShopsPanelsListComponent]
 })
 export class ShopsPanelsListModule {}
