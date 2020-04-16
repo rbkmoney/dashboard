@@ -16,7 +16,8 @@
     "integrations": {
         "headline": "Интеграция",
         "tabs": {
-            "webhooks": "Webhooks"
+            "webhooks": "Webhooks",
+            "shops": "Магазины"
         }
     }
 }

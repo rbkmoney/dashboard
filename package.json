@@ -13,7 +13,7 @@
     "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
-    "fix": "npm run lint-fix; npm run prettify",
+    "fix": "run-p lint-fix prettify",
     "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts"
