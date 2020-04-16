@@ -5,7 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import chunk from 'lodash.chunk';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
