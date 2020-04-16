@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule } from '@dsh/components/form-controls';
 import { CardModule } from '@dsh/components/layout';
 
 import { PaymentService } from '../../../api/payment';
@@ -29,7 +30,8 @@ import { HoldDetailsComponent } from './hold-details.component';
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        FlexModule
+        FlexModule,
+        FormControlsModule
     ],
     declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent],
     exports: [HoldDetailsComponent],

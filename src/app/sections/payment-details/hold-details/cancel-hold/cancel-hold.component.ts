@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { first } from 'rxjs/operators';
 
 import { LAYOUT_GAP } from '../../../constants';
 import { CancelHoldService } from './cancel-hold.service';
@@ -26,7 +28,9 @@ export class CancelHoldComponent {
         @Inject(MAT_DIALOG_DATA) public data: CancelHoldData,
         private dialogRef: MatDialogRef<CancelHoldComponent>,
         private fb: FormBuilder,
-        private cancelHoldService: CancelHoldService
+        private cancelHoldService: CancelHoldService,
+        private transloco: TranslocoService,
+        private snackBar: MatSnackBar
     ) {}
 
     decline() {
@@ -37,9 +41,15 @@ export class CancelHoldComponent {
         const { reason } = this.form.getRawValue();
         this.cancelHoldService
             .cancelPayment(this.data.invoiceID, this.data.paymentID, reason)
-            .pipe(take(1))
-            .subscribe(() => {
-                this.dialogRef.close();
-            });
+            .pipe(first())
+            .subscribe(
+                () => {
+                    this.dialogRef.close();
+                },
+                () => {
+                    this.snackBar.open(this.transloco.translate('commonError'), 'OK', { duration: 3000 });
+                    this.dialogRef.close();
+                }
+            );
     }
 }

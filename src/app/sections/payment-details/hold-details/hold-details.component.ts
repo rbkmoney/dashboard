@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 
@@ -14,16 +14,14 @@ const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
     selector: 'dsh-hold-details',
     templateUrl: './hold-details.component.html'
 })
-export class HoldDetailsComponent implements OnInit {
+export class HoldDetailsComponent {
     @Input() payment: PaymentSearchResult;
 
-    flowHold: PaymentFlowHold;
+    get flowHold(): PaymentFlowHold {
+        return this.payment.flow as PaymentFlowHold;
+    }
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private dialog: MatDialog) {}
-
-    ngOnInit() {
-        this.flowHold = this.payment.flow as PaymentFlowHold;
-    }
 
     getActiveHoldText(): string {
         switch (this.flowHold.onHoldExpiration) {
