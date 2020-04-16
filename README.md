@@ -3,24 +3,26 @@
 ## Libraries
 
 -   [Angular CLI](https://github.com/angular/angular-cli)
-    -   Run `ng generate component component-name` to generate a new component (you can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`).
-    -   To get more help use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 -   [Angular Material](https://material.angular.io/)
 -   [Prettier](https://prettier.io/)
 -   [PDFMake](https://pdfmake.github.io/docs/)
 
+## Dependency
+
+-   Java
+
 ## Initialization
 
-### Install packages
-
 ```sh
-npm ci
-```
+# Init submodules
+git submodule init
+git submodule update
 
-### Generate Angular modules from swags
-
-```sh
+# Generate Angular modules from swags
 npm run codegen
+
+# Install packages
+npm ci
 ```
 
 ## Development server
@@ -75,8 +77,10 @@ npm run codegen
 
 ### Analyze bundle size
 
-    npm run build -- --prod --stats-json --extraWebpackConfig webpack.extra.js
-    npx webpack-bundle-analyzer dist/stats.json
+```sh
+npm run build -- --prod --stats-json --extraWebpackConfig webpack.extra.js
+npx webpack-bundle-analyzer dist/stats.json
+```
 
 ## Guides
 

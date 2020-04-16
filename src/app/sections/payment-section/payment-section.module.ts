@@ -19,7 +19,6 @@ import { PaymentSectionComponent } from './payment-section.component';
         FlexLayoutModule,
         TranslocoModule
     ],
-    declarations: [PaymentSectionComponent, NavComponent],
-    exports: [PaymentSectionComponent]
+    declarations: [PaymentSectionComponent, NavComponent]
 })
 export class PaymentSectionModule {}

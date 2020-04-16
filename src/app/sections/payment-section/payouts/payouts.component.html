@@ -11,13 +11,7 @@
     </div>
     <dsh-payouts-search-form></dsh-payouts-search-form>
     <ng-container *ngIf="!(isInit$ | async)">
-        <dsh-payout-panel-accordion fxLayout="column" fxLayoutGap="20px" (expanded)="expand($event)">
-            <dsh-payout-panel
-                *ngFor="let payout of payouts$ | async"
-                [payout]="payout"
-                (click)="select(payout.id)"
-            ></dsh-payout-panel>
-        </dsh-payout-panel-accordion>
+        <dsh-payouts-panels-list></dsh-payouts-panels-list>
         <dsh-card *ngIf="hasMore$ | async" class="dsh-payouts-show-more" fxLayout>
             <button dsh-button (click)="fetchMore()" [disabled]="isLoading$ | async" fxFlex *transloco="let t">
                 {{ (isLoading$ | async) ? t.loading : t.showMore }}

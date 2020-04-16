@@ -15,7 +15,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
 
 import { SearchModule } from '../../../api';
-import { PayoutPanelModule } from './payout-panel';
+import { PayoutPanelModule } from './payouts-panels-list';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';
 import { SearchFormComponent } from './search-form';
