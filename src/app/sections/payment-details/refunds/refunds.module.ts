@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule } from '@dsh/components/form-controls';
 import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
 import { AccountService } from '../../../api/account';
@@ -35,7 +36,8 @@ import { RefundsComponent } from './refunds.component';
         DetailsItemModule,
         LayoutModule,
         StatusDetailsItemModule,
-        TranslocoModule
+        TranslocoModule,
+        FormControlsModule
     ],
     declarations: [CreateRefundComponent, RefundsComponent, RefundItemComponent],
     exports: [RefundsComponent],

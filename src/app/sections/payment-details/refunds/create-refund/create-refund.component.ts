@@ -6,9 +6,8 @@ import { take } from 'rxjs/operators';
 
 import { amountValidator } from '@dsh/components/form-controls';
 
-import { toMinorAmountFromString } from '../../../../../utils';
+import { fromMinor, toMinor } from '../../../../../utils';
 import { Account, RefundParams } from '../../../../api-codegen/capi/swagger-codegen';
-import { fromMinor } from '../../../../from-minor';
 import { LAYOUT_GAP } from '../../../constants';
 import { CreateRefundService } from './create-refund.service';
 
@@ -56,7 +55,7 @@ export class CreateRefundComponent implements OnInit {
             currency: 'RUB'
         };
         if (amount) {
-            params.amount = toMinorAmountFromString(amount);
+            params.amount = toMinor(amount);
         }
         this.createRefundService
             .createRefund(this.createRefundData.invoiceID, this.createRefundData.paymentID, params)
