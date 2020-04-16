@@ -5,7 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import chunk from 'lodash.chunk';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -54,11 +54,8 @@ export class ReceiveWebhooksService {
                 pluck('limit'),
                 filter(l => !!l)
             )
-
             .subscribe(limit => {
-                if (limit) {
-                    this.webhooksLimit$.next(parseInt(limit, 10));
-                }
+                this.webhooksLimit$.next(parseInt(limit, 10));
             });
         this.webhooksLimit$.subscribe(limit => {
             this.router.navigate([location.pathname], {

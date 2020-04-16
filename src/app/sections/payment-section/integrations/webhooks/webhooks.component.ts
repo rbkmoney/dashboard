@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
 
 import { LAYOUT_GAP } from '../../../constants';
 import { CreateWebhookService } from './create-webhook.service';
@@ -9,7 +8,7 @@ import { ReceiveWebhooksService } from './receive-webhooks.service';
     templateUrl: 'webhooks.component.html'
 })
 export class WebhooksComponent implements OnInit {
-    webhooks$ = this.receiveWebhooksService.webhooksChunk$.pipe(tap(q => console.log(q)));
+    webhooks$ = this.receiveWebhooksService.webhooksChunk$;
     isLoading$ = this.receiveWebhooksService.isLoading$;
     webhooksReceived$ = this.receiveWebhooksService.webhooksReceived$;
     hasMore$ = this.receiveWebhooksService.hasMore$;
