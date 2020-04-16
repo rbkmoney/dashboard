@@ -22,8 +22,8 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { InvoiceModule } from '../../../../api';
-import { ToMajorModule } from '../../../../to-major';
 import { LanguageModule } from '../../../../language';
+import { ToMajorModule } from '../../../../to-major';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { InvoicesRoutingModule } from './invoices-routing.module';

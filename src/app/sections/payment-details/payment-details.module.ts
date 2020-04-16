@@ -11,8 +11,8 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
-import { ToMajorModule } from '../../to-major';
 import { HumanizeDurationModule } from '../../humanize-duration';
+import { ToMajorModule } from '../../to-major';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { DetailsModule } from './details';
 import { HoldDetailsModule } from './hold-details';
