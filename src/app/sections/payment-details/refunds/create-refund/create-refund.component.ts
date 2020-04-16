@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import round from 'lodash.round';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { amountValidator } from '@dsh/components/form-controls';
 
+import { toMinorAmountFromString } from '../../../../../utils';
 import { Account, RefundParams } from '../../../../api-codegen/capi/swagger-codegen';
+import { fromMinor } from '../../../../from-minor';
 import { LAYOUT_GAP } from '../../../constants';
 import { CreateRefundService } from './create-refund.service';
 
@@ -55,7 +56,7 @@ export class CreateRefundComponent implements OnInit {
             currency: 'RUB'
         };
         if (amount) {
-            params.amount = this.createRefundService.getMinorAmountFromString(amount);
+            params.amount = toMinorAmountFromString(amount);
         }
         this.createRefundService
             .createRefund(this.createRefundData.invoiceID, this.createRefundData.paymentID, params)
@@ -74,7 +75,7 @@ export class CreateRefundComponent implements OnInit {
                     Validators.required,
                     amountValidator,
                     Validators.min(1),
-                    Validators.max(round(this.createRefundData.maxRefundAmount / 100, 2))
+                    Validators.max(fromMinor(this.createRefundData.maxRefundAmount))
                 ])
             );
         } else {

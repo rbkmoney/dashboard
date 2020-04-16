@@ -19,20 +19,6 @@ export class CreateRefundService {
         return this.refundService.createRefund(invoiceID, paymentID, params);
     }
 
-    // TODO: use function from utils
-    getMinorAmountFromString(amount: string): number {
-        const numericalAmount = this.amountToNumber(amount);
-        return numericalAmount > 0 ? this.getMinorAmount(numericalAmount) : undefined;
-    }
-
-    private getMinorAmount(amount: number): number {
-        return Math.round(amount * 100);
-    }
-
-    private amountToNumber(amount: string): number {
-        return Number(amount.replace(',', '.'));
-    }
-
     getAccount(shopID: string): Observable<Account> {
         return this.getShopByID(shopID).pipe(switchMap(shop => this.getAccountByID(shop.account.settlementID)));
     }

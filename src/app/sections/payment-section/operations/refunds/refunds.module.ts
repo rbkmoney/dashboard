@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
@@ -18,7 +19,6 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { FromMinorModule } from '../../../../from-minor';
-import { EmptySearchResultModule } from '../../empty-search-result';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
