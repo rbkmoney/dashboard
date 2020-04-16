@@ -8,7 +8,7 @@
 >
     <div fxFlex>
         <span class="mat-headline dsh-common-info-amount">
-            {{ payout?.amount | fromMinor | currency: payout?.currency }}
+            {{ payout?.amount | toMajor | currency: payout?.currency }}
         </span>
     </div>
     <div fxFlex="66.66">

@@ -11,7 +11,7 @@
                 <div class="mat-body-1">
                     {{ payout?.createdAt | date: 'd MMMM y' }}
                 </div>
-                <div class="mat-body-2">{{ payout?.amount | fromMinor | currency: payout?.currency }}</div>
+                <div class="mat-body-2">{{ payout?.amount | toMajor | currency: payout?.currency }}</div>
             </div>
             <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
                 <div>

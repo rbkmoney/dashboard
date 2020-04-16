@@ -8,12 +8,12 @@
         </div>
         <div fxFlex>
             <dsh-details-item [title]="p.amount">
-                {{ paymentsSummary?.amount | fromMinor | currency: paymentsSummary?.currency }}
+                {{ paymentsSummary?.amount | toMajor | currency: paymentsSummary?.currency }}
             </dsh-details-item>
         </div>
         <div fxFlex>
             <dsh-details-item [title]="p.fee">
-                {{ paymentsSummary?.fee | fromMinor | currency: paymentsSummary?.currency }}
+                {{ paymentsSummary?.fee | toMajor | currency: paymentsSummary?.currency }}
             </dsh-details-item>
         </div>
     </div>
