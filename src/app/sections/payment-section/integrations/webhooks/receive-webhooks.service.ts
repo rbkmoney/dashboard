@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, first, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -30,11 +31,20 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    selectedIdx$ = this.route.fragment.pipe(
+        first(),
+        switchMap(fragment => (fragment ? this.loadSelected(fragment) : of(-1))),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
+        private route: ActivatedRoute,
+        private router: Router,
         private transloco: TranslocoService
     ) {
+        this.selectedIdx$.subscribe();
         this.receiveWebhooks$
             .pipe(
                 switchMap(_ =>
@@ -52,5 +62,15 @@ export class ReceiveWebhooksService {
 
     receiveWebhooks() {
         this.receiveWebhooks$.next();
+    }
+
+    select(idx: number) {
+        this.webhooks$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+            this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
+        });
+    }
+
+    loadSelected(id: string) {
+        return this.webhooks$.pipe(take(10), pluck('idx'), first(null, -1));
     }
 }

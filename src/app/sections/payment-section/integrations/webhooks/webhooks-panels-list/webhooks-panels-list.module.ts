@@ -2,35 +2,29 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { LayoutModule } from '@dsh/components/layout';
-import { ConfirmActionDialogModule } from '@dsh/components/popups';
+import { ExpandPanelModule } from '@dsh/components/layout';
 
 import { ActionsComponent } from './actions/actions.component';
 import { DetailsComponent } from './details/details.component';
 import { EventsComponent } from './events/events.component';
 import { KeyComponent } from './key/key.component';
-import { WebhookPanelComponent } from './webhook-panel.component';
+import { WebhooksPanelsListComponent } from './webhooks-panels-list.component';
 
 @NgModule({
+    declarations: [WebhooksPanelsListComponent, DetailsComponent, EventsComponent, KeyComponent, ActionsComponent],
     imports: [
-        ClipboardModule,
-        LayoutModule,
-        CommonModule,
         ButtonModule,
+        ClipboardModule,
+        ExpandPanelModule,
         FlexModule,
-        MatIconModule,
         TranslocoModule,
-        MatDialogModule,
-        ConfirmActionDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        CommonModule
     ],
-    declarations: [WebhookPanelComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
-    exports: [WebhookPanelComponent]
+    exports: [WebhooksPanelsListComponent]
 })
-export class WebhookPanelModule {}
+export class WebhooksPanelsListModule {}

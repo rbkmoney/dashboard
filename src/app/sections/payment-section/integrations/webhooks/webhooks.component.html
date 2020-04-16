@@ -21,7 +21,8 @@
         [text]="t.emptyResult"
     ></dsh-empty-search-result>
 
-    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">
-        <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>
-    </div>
+    <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
+    <!--    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">-->
+    <!--        <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>-->
+    <!--    </div>-->
 </div>
