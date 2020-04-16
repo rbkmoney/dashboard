@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest, merge, Observable } from 'rxjs';
-import { filter, first, map, mapTo, pluck, shareReplay, startWith, take, tap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { filter, first, map, mapTo, pluck, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { PayoutSearchService, ShopService } from '../../../api';
 import { Payout } from '../../../api-codegen/anapi';
@@ -18,26 +18,27 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
         mapToShopInfo,
         shareReplay(SHARE_REPLAY_CONF)
     );
-    selectedIdx$: Observable<number>;
-    isInit$: Observable<boolean>;
+    selectedIdx$ = this.route.fragment.pipe(
+        first(),
+        switchMap(fragment => (fragment ? this.loadSelected(fragment) : of(-1))),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+    isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
         private payoutSearchService: PayoutSearchService,
         private route: ActivatedRoute,
+        private router: Router,
         private shopService: ShopService
     ) {
         super();
-        const fragmentIdx$ = this.route.fragment.pipe(first(), shareReplay(SHARE_REPLAY_CONF));
-        const defaultSelectedIdxByFragment$ = fragmentIdx$.pipe(
-            filter(f => !f),
-            mapTo(-1)
-        );
-        const selectedIdxByFragment$ = combineLatest([
-            fragmentIdx$.pipe(filter(f => !!f)),
-            this.fetchResultChanges$
-        ]).pipe(
-            map(([fragment, { hasMore, result: payouts }]) => {
-                const idx = payouts.findIndex(({ id }) => id === fragment);
+        this.selectedIdx$.subscribe();
+    }
+
+    loadSelected(id: string) {
+        return this.fetchResultChanges$.pipe(
+            map(({ hasMore, result: payouts }) => {
+                const idx = payouts.findIndex(p => p.id === id);
                 return { idx, isContinueToFetch: idx === -1 && hasMore };
             }),
             tap(({ isContinueToFetch }) => {
@@ -50,10 +51,12 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
             pluck('idx'),
             first(null, -1)
         );
-        this.selectedIdx$ = merge(defaultSelectedIdxByFragment$, selectedIdxByFragment$).pipe(
-            shareReplay(SHARE_REPLAY_CONF)
-        );
-        this.isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
+    }
+
+    select(idx: number) {
+        this.searchResult$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+            this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
+        });
     }
 
     protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string) {

@@ -20,9 +20,8 @@ import { CommonInfoComponent } from './common-info';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
 import { PaymentsInfoComponent } from './payments-info';
-import { PayoutPanelAccordionComponent } from './payout-panel-accordion.component';
-import { PayoutPanelComponent } from './payout-panel.component';
 import { PayoutToolInfoComponent } from './payout-tool-info';
+import { PayoutsPanelsListComponent } from './payouts-panels-list.component';
 import { RefundsInfoComponent } from './refunds-info';
 import { WalletInfoComponent } from './wallet-info';
 
@@ -43,7 +42,7 @@ import { WalletInfoComponent } from './wallet-info';
         MatSnackBarModule
     ],
     declarations: [
-        PayoutPanelComponent,
+        PayoutsPanelsListComponent,
         BankAccountInfoComponent,
         BankCardInfoComponent,
         InternationalBankAccountInfoComponent,
@@ -52,10 +51,9 @@ import { WalletInfoComponent } from './wallet-info';
         PaymentsInfoComponent,
         RefundsInfoComponent,
         CommonInfoComponent,
-        PayoutToolInfoComponent,
-        PayoutPanelAccordionComponent
+        PayoutToolInfoComponent
     ],
     entryComponents: [CreateReportDialogComponent],
-    exports: [PayoutPanelComponent, PayoutPanelAccordionComponent]
+    exports: [PayoutsPanelsListComponent]
 })
 export class PayoutPanelModule {}
