@@ -18,7 +18,7 @@
             fxFlex="33"
         ></dsh-details-status-item>
         <dsh-details-item [title]="t?.amount" fxFlex="33">
-            <div class="mat-body-1">{{ payment.amount | fromMinor | currency: payment.currency }}</div>
+            <div class="mat-body-1">{{ payment.amount | toMajor | currency: payment.currency }}</div>
         </dsh-details-item>
         <dsh-details-item [title]="t?.createdAt" fxFlex="33">
             <div class="mat-body-1">

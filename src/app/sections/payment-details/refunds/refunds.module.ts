@@ -9,13 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { FormControlsModule } from '@dsh/components/form-controls';
 import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
 import { AccountService } from '../../../api/account';
 import { RefundService } from '../../../api/refund';
 import { RefundSearchService } from '../../../api/search';
 import { ShopService } from '../../../api/shop';
-import { FromMinorModule } from '../../../from-minor';
+import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { CreateRefundComponent } from './create-refund';
 import { RefundItemComponent } from './refund-item';
@@ -28,14 +29,15 @@ import { RefundsComponent } from './refunds.component';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatCheckboxModule,
-        FromMinorModule,
+        ToMajorModule,
         MatDialogModule,
         ButtonModule,
         MatInputModule,
         DetailsItemModule,
         LayoutModule,
         StatusDetailsItemModule,
-        TranslocoModule
+        TranslocoModule,
+        FormControlsModule
     ],
     declarations: [CreateRefundComponent, RefundsComponent, RefundItemComponent],
     exports: [RefundsComponent],

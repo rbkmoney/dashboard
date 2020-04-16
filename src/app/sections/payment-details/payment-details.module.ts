@@ -11,7 +11,7 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../api/invoice';
 import { SearchModule } from '../../api/search';
-import { FromMinorModule } from '../../from-minor';
+import { ToMajorModule } from '../../to-major';
 import { HumanizeDurationModule } from '../../humanize-duration';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { DetailsModule } from './details';
@@ -34,7 +34,7 @@ import { RefundsModule } from './refunds';
         ButtonModule,
         CommonModule,
         SearchModule,
-        FromMinorModule,
+        ToMajorModule,
         InvoiceModule,
         HumanizeDurationModule,
         TranslocoModule,

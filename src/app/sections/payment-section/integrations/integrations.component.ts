@@ -10,6 +10,9 @@ export class IntegrationsComponent {
     links = [
         {
             path: 'webhooks'
+        },
+        {
+            path: 'shops'
         }
     ];
 

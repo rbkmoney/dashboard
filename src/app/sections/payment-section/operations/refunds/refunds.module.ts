@@ -18,7 +18,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
-import { FromMinorModule } from '../../../../from-minor';
+import { ToMajorModule } from '../../../../to-major';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
@@ -41,7 +41,7 @@ import { TableComponent } from './table';
         MatSelectModule,
         FormControlsModule,
         IndicatorsModule,
-        FromMinorModule,
+        ToMajorModule,
         LastUpdatedModule,
         MatSnackBarModule,
         TranslocoModule,

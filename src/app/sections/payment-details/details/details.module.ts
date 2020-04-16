@@ -6,7 +6,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { CardModule, DetailsItemModule } from '@dsh/components/layout';
 
-import { FromMinorModule } from '../../../from-minor';
+import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { DetailsComponent } from './details.component';
 
@@ -19,7 +19,7 @@ import { DetailsComponent } from './details.component';
         CommonModule,
         StatusDetailsItemModule,
         DetailsItemModule,
-        FromMinorModule
+        ToMajorModule
     ],
     declarations: [DetailsComponent],
     exports: [DetailsComponent]
