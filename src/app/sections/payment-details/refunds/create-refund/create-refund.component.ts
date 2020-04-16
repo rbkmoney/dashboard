@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -37,7 +39,9 @@ export class CreateRefundComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public createRefundData: CreateRefundData,
         private dialogRef: MatDialogRef<CreateRefundComponent>,
         private fb: FormBuilder,
-        private createRefundService: CreateRefundService
+        private createRefundService: CreateRefundService,
+        private transloco: TranslocoService,
+        private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -60,9 +64,15 @@ export class CreateRefundComponent implements OnInit {
         this.createRefundService
             .createRefund(this.createRefundData.invoiceID, this.createRefundData.paymentID, params)
             .pipe(first())
-            .subscribe(() => {
-                this.dialogRef.close();
-            });
+            .subscribe(
+                () => {
+                    this.dialogRef.close();
+                },
+                () => {
+                    this.snackBar.open(this.transloco.translate('commonError'), 'OK', { duration: 3000 });
+                    this.dialogRef.close();
+                }
+            );
     }
 
     onCheckboxChange(value: boolean) {
