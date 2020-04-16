@@ -7,15 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ShowMorePanelComponent {
     @Input()
-    disabled: boolean;
-
-    @Input()
     isLoading: boolean;
 
     @Output()
-    showMoreEvent: EventEmitter<void> = new EventEmitter();
+    showMore: EventEmitter<void> = new EventEmitter();
 
-    showMore() {
-        this.showMoreEvent.emit();
+    getMore() {
+        this.showMore.emit();
     }
 }

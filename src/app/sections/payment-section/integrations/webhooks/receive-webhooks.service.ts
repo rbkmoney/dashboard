@@ -49,8 +49,12 @@ export class ReceiveWebhooksService {
         private router: Router
     ) {
         this.route.queryParams
-            .pipe(take(1))
-            .pipe(pluck('limit'))
+            .pipe(
+                take(1),
+                pluck('limit'),
+                filter(l => !!l)
+            )
+
             .subscribe(limit => {
                 if (limit) {
                     this.webhooksLimit$.next(parseInt(limit, 10));

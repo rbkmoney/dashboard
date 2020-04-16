@@ -25,9 +25,8 @@
         <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>
         <dsh-show-more-panel
             *ngIf="(hasMore$ | async) && (webhooksReceived$ | async)"
-            [disabled]="isLoading$ | async"
             [isLoading]="isLoading$ | async"
-            (showMoreEvent)="getMoreWebhooks()"
+            (showMore)="getMoreWebhooks()"
         ></dsh-show-more-panel>
     </div>
 </div>
