@@ -9,7 +9,7 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
-import { FromMinorModule } from '../../from-minor';
+import { ToMajorModule } from '../../to-major';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './cart/item/item.component';
@@ -30,7 +30,7 @@ import { PaymentsComponent } from './payments/payments.component';
         IndicatorsModule,
         InvoiceDetailsRoutingModule,
         ButtonModule,
-        FromMinorModule,
+        ToMajorModule,
         MatIconModule
     ],
     declarations: [

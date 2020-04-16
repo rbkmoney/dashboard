@@ -8,7 +8,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceSearchService } from '../../../api/search';
-import { FromMinorModule } from '../../../from-minor';
+import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { InvoiceDetailsComponent } from './invoice-details.component';
 
@@ -19,7 +19,7 @@ import { InvoiceDetailsComponent } from './invoice-details.component';
         FlexModule,
         StatusDetailsItemModule,
         MatIconModule,
-        FromMinorModule,
+        ToMajorModule,
         CommonModule,
         LayoutModule,
         SpinnerModule,

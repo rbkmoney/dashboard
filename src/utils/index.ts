@@ -5,4 +5,4 @@ export * from './download';
 export * from './to-optional';
 export * from './smooth-change-to';
 export * from './to-minor';
-export * from './from-minor';
+export * from './to-major';

@@ -52,11 +52,6 @@ export class RefundsComponent implements OnChanges {
     }
 
     refundAvailable(): boolean {
-        switch (this.status) {
-            case PaymentStatuses.Captured:
-                return true;
-            default:
-                return false;
-        }
+        return this.status === PaymentStatuses.Captured;
     }
 }

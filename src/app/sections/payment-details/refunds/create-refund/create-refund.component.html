@@ -19,7 +19,7 @@
                     <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
                     <mat-hint *ngIf="account$ | async as account">
                         {{ t.balance }}
-                        : {{ account.availableAmount | fromMinor | currency: account.currency }}
+                        : {{ account.availableAmount | toMajor | currency: account.currency }}
                     </mat-hint>
                 </mat-form-field>
             </div>
