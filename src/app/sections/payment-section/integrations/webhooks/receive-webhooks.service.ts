@@ -23,10 +23,9 @@ export class ReceiveWebhooksService {
         map(w => sortBy(w, i => !i.active))
     );
 
-    webhooksChunk$: Observable<Webhook[]> = combineLatest([
-        this.webhooksOffset$,
-        this.webhooks$
-    ]).pipe(map(([offset, webhooks]) => webhooks.slice(0, offset)));
+    webhooksChunk$: Observable<Webhook[]> = combineLatest([this.webhooksOffset$, this.webhooks$]).pipe(
+        map(([offset, webhooks]) => webhooks.slice(0, offset))
+    );
 
     webhooksReceived$: Observable<boolean> = this.webhooksChunk$.pipe(
         map(s => !!s),
