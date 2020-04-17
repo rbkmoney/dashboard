@@ -11,7 +11,6 @@ import { ReceiveWebhooksService } from './receive-webhooks.service';
 export class WebhooksComponent implements OnInit {
     webhooks$ = this.receiveWebhooksService.webhooks$;
     isLoading$ = this.receiveWebhooksService.isLoading$;
-    webhooksReceived$ = this.receiveWebhooksService.webhooksReceived$;
     hasMore$ = this.receiveWebhooksService.hasMore$;
 
     constructor(

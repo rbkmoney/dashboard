@@ -26,18 +26,14 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    webhooksReceived$: Observable<boolean> = this.webhooksState$.pipe(
-        map(s => !!s),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-
     isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooksState$).pipe(
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
     hasMore$: Observable<boolean> = combineLatest([this.webhooksState$, this.webhooksOffset$]).pipe(
-        map(([webhooks, offset]) => webhooks?.length > offset)
+        map(([webhooks, offset]) => webhooks?.length > offset),
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(
