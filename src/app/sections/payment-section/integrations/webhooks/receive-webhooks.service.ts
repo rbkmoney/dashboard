@@ -17,7 +17,7 @@ export class ReceiveWebhooksService {
     private receiveWebhooks$: Subject<void> = new Subject();
     private getMoreWebhooks$: Subject<void> = new Subject();
 
-    webhhoks$: Observable<Webhook[]> = combineLatest([
+    webhooks$: Observable<Webhook[]> = combineLatest([
         this.webhooksLimit$,
         this.webhooksState$.pipe(
             filter(s => !!s),
@@ -30,7 +30,7 @@ export class ReceiveWebhooksService {
         })
     );
 
-    webhooksReceived$: Observable<boolean> = this.webhhoks$.pipe(
+    webhooksReceived$: Observable<boolean> = this.webhooks$.pipe(
         map(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
     );
