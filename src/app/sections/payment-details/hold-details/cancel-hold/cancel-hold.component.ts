@@ -34,7 +34,7 @@ export class CancelHoldComponent {
     ) {}
 
     decline() {
-        this.dialogRef.close();
+        this.dialogRef.close(false);
     }
 
     confirm() {
@@ -44,11 +44,11 @@ export class CancelHoldComponent {
             .pipe(first())
             .subscribe(
                 () => {
-                    this.dialogRef.close();
+                    this.dialogRef.close(true);
                 },
                 () => {
                     this.snackBar.open(this.transloco.translate('commonError'), 'OK', { duration: 3000 });
-                    this.dialogRef.close();
+                    this.dialogRef.close(false);
                 }
             );
     }

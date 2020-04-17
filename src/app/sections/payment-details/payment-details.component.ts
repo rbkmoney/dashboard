@@ -1,26 +1,36 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import get from 'lodash.get';
 
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../constants';
 import { PayerType } from './payer-details';
-import { PaymentDetailsService } from './payment-details.service';
+import { ReceivePaymentService } from './receive-payment.service';
+import { RouteParamPaymentService } from './route-param-payment.service';
 
 @Component({
     templateUrl: './payment-details.component.html',
     styleUrls: ['./payment-details.component.scss'],
-    providers: [PaymentDetailsService]
+    providers: [ReceivePaymentService, RouteParamPaymentService]
 })
-export class PaymentDetailsComponent {
-    payment$ = this.paymentDetailsService.payment$;
-    isLoading$ = this.paymentDetailsService.isLoading$;
+export class PaymentDetailsComponent implements OnInit {
+    payment$ = this.receivePaymentService.payment$;
+    isLoading$ = this.receivePaymentService.isLoading$;
 
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private paymentDetailsService: PaymentDetailsService) {}
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private receivePaymentService: ReceivePaymentService) {
+    }
 
     getPaymentToolDetails(payment: PaymentSearchResult): PaymentToolDetails {
         return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;
+    }
+
+    ngOnInit() {
+        this.receivePayment();
+    }
+
+    receivePayment() {
+        this.receivePaymentService.receivePayment();
     }
 }

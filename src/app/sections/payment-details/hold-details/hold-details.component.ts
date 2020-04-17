@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 
@@ -6,6 +6,7 @@ import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '../../../ap
 import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';
+import { delay } from 'rxjs/operators';
 
 const paymentStatusEnum = PaymentStatus.StatusEnum;
 const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
@@ -16,6 +17,8 @@ const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
 })
 export class HoldDetailsComponent {
     @Input() payment: PaymentSearchResult;
+
+    @Output() onHoldAction = new EventEmitter();
 
     get flowHold(): PaymentFlowHold {
         return this.payment.flow as PaymentFlowHold;
@@ -50,7 +53,7 @@ export class HoldDetailsComponent {
             data,
             width: '450px',
             disableClose: true
-        });
+        }).afterClosed().subscribe((isChanged) => isChanged && this.onHoldAction.emit(true));
     }
 
     confirmHoldDialog() {
@@ -64,7 +67,7 @@ export class HoldDetailsComponent {
             data,
             width: '450px',
             disableClose: true
-        });
+        }).afterClosed().subscribe((isChanged) => isChanged && this.onHoldAction.emit(true));
     }
 
     isHoldActive(date: string): boolean {

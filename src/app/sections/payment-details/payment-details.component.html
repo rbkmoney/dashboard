@@ -26,6 +26,7 @@
             <dsh-hold-details
                 *ngIf="payment.flow?.type === PaymentFlow.PaymentFlowHold"
                 [payment]="payment"
+                (onHoldAction)="receivePayment()"
             ></dsh-hold-details>
             <dsh-make-recurrent *ngIf="payment.makeRecurrent"></dsh-make-recurrent>
             <dsh-recurrent-details
