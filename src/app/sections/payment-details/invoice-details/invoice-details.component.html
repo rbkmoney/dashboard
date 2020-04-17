@@ -23,7 +23,7 @@
                     ></dsh-details-status-item>
                 </ng-container>
                 <dsh-details-item [title]="t?.amount" fxFlex="33">
-                    {{ invoice?.amount | fromMinor | currency: invoice?.currency }}
+                    {{ invoice?.amount | toMajor | currency: invoice?.currency }}
                 </dsh-details-item>
             </div>
             <dsh-details-item [title]="t?.product">

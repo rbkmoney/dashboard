@@ -1,2 +1,1 @@
-export * from './refund-item';
-export * from './refunds.component';
+export * from './refunds.module';

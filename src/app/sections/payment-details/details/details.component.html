@@ -21,17 +21,17 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-item [title]="t?.amount" fxFlex="33">
                 <div class="mat-body-1">
-                    {{ payment?.amount | fromMinor | currency: payment?.currency }}
+                    {{ payment?.amount | toMajor | currency: payment?.currency }}
                 </div>
             </dsh-details-item>
             <dsh-details-item [title]="t?.chargeAmount" fxFlex="33">
                 <div class="mat-body-1">
-                    {{ payment?.amount - (payment?.fee || 0) | fromMinor | currency: payment?.currency }}
+                    {{ payment?.amount - (payment?.fee || 0) | toMajor | currency: payment?.currency }}
                 </div>
             </dsh-details-item>
             <dsh-details-item *ngIf="payment?.fee" [title]="t?.fee" fxFlex="33">
                 <div class="mat-body-1">
-                    {{ payment?.fee | fromMinor | currency: payment?.currency }} ({{
+                    {{ payment?.fee | toMajor | currency: payment?.currency }} ({{
                         payment?.fee / payment?.amount | percent: '1.0-2':'en'
                     }})
                 </div>

@@ -13,7 +13,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
-import { FromMinorModule } from '../../../../from-minor';
+import { ToMajorModule } from '../../../../to-major';
 import { BankAccountInfoComponent } from './bank-account-info';
 import { BankCardInfoComponent } from './bank-card-info';
 import { CommonInfoComponent } from './common-info';
@@ -34,7 +34,7 @@ import { WalletInfoComponent } from './wallet-info';
         MatDividerModule,
         ButtonModule,
         TranslocoModule,
-        FromMinorModule,
+        ToMajorModule,
         SpinnerModule,
         RouterModule,
         MatDialogModule,

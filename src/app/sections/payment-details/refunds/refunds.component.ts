@@ -3,8 +3,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { catchError } from 'rxjs/operators';
 
+import { PaymentSearchResult } from '../../../api-codegen/anapi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
 import { RefundsService } from './refunds.service';
+
+const PaymentStatuses = PaymentSearchResult.StatusEnum;
 
 @Component({
     selector: 'dsh-refunds',
@@ -15,6 +18,9 @@ import { RefundsService } from './refunds.service';
 export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
+    @Input() shopID: string;
+    @Input() status: PaymentSearchResult.StatusEnum;
+    @Input() maxRefundAmount: number;
 
     refunds$ = this.refundsService.searchResult$.pipe(
         catchError(() => {
@@ -37,7 +43,15 @@ export class RefundsComponent implements OnChanges {
         }
     }
 
+    createRefund() {
+        this.refundsService.createRefund(this.shopID, this.invoiceID, this.paymentID, this.maxRefundAmount);
+    }
+
     fetchMore() {
         this.refundsService.fetchMore();
+    }
+
+    refundAvailable(): boolean {
+        return this.status === PaymentStatuses.Captured;
     }
 }
