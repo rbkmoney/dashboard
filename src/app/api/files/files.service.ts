@@ -25,7 +25,12 @@ export class FilesService {
     }
 
     getFileInfo(fileID: string): Observable<FileData> {
-        return this.filesService.getFileInfo(genXRequestID(), fileID);
+        return this.filesService.getFileInfo(genXRequestID(), fileID).pipe(
+            map(file => ({
+                ...file,
+                fileName: decodeURI(file.fileName)
+            }))
+        );
     }
 
     downloadFile(fileID: string): Observable<FileDownload> {
@@ -35,7 +40,7 @@ export class FilesService {
     private uploadFileToUrl(file: File, url: string): Observable<any> {
         return this.http.put(url, file, {
             headers: {
-                'Content-Disposition': `attachment;filename=${file.name}`,
+                'Content-Disposition': `attachment;filename=${encodeURI(file.name)}`,
                 'Content-Type': ''
             }
         });
