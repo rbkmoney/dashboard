@@ -12,6 +12,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
@@ -37,7 +38,8 @@ import { WebhooksComponent } from './webhooks.component';
         SpinnerModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
-        WebhooksPanelsListModule
+        WebhooksPanelsListModule,
+        ConfirmActionDialogModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent]
