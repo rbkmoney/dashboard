@@ -10,24 +10,22 @@ import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
-const WEBHOOK_DEFAULT_OFFSET = 10;
-const WEBHOOK_OFFSET_STEP = 10;
+const WEBHOOK_LIMIT = 10;
 
 @Injectable()
 export class ReceiveWebhooksService {
-    private webhooksOffset$: BehaviorSubject<number> = new BehaviorSubject(WEBHOOK_DEFAULT_OFFSET);
+    private webhooksOffset$: BehaviorSubject<number> = new BehaviorSubject(WEBHOOK_LIMIT);
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
-    private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        filter(s => !!s),
-        map(w => sortBy(w, i => !i.active))
-    );
 
-    webhooksChunk$: Observable<Webhook[]> = combineLatest([this.webhooksOffset$, this.webhooks$]).pipe(
+    webhooks$: Observable<any> = this.webhooksState$.pipe(
+        filter(s => !!s),
+        map(w => sortBy(w, i => !i.active)),
+        switchMap(webhhoks => combineLatest([this.webhooksOffset$, of(webhhoks)])),
         map(([offset, webhooks]) => webhooks.slice(0, offset))
     );
 
-    webhooksReceived$: Observable<boolean> = this.webhooksChunk$.pipe(
+    webhooksReceived$: Observable<boolean> = this.webhooksState$.pipe(
         map(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -89,6 +87,6 @@ export class ReceiveWebhooksService {
     }
 
     getMoreWebhooks() {
-        this.webhooksOffset$.next(this.webhooksOffset$.value + WEBHOOK_OFFSET_STEP);
+        this.webhooksOffset$.next(this.webhooksOffset$.value + WEBHOOK_LIMIT);
     }
 }
