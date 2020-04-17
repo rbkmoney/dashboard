@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -16,6 +16,12 @@ export class ReceiveWebhooksService {
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
     private getMoreWebhooks$: Subject<void> = new Subject();
+
+    selectedIdx$ = this.route.fragment.pipe(
+        first(),
+        switchMap(fragment => (fragment ? this.loadSelected(fragment) : of(-1))),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     webhooks$: Observable<Webhook[]> = combineLatest([
         this.webhooksLimit$,
@@ -49,6 +55,8 @@ export class ReceiveWebhooksService {
         private route: ActivatedRoute,
         private router: Router
     ) {
+        this.selectedIdx$.subscribe();
+
         this.route.queryParams
             .pipe(
                 take(1),
@@ -95,5 +103,29 @@ export class ReceiveWebhooksService {
 
     getMoreWebhooks() {
         this.getMoreWebhooks$.next();
+    }
+
+    loadSelected(id: string) {
+        return combineLatest([this.hasMore$, this.webhooks$]).pipe(
+            map(([hasMore, webhooks]) => {
+                const idx = webhooks.findIndex(p => p.id === id);
+                return { idx, isContinueToFetch: idx === -1 && hasMore };
+            }),
+            tap(({ isContinueToFetch }) => {
+                if (isContinueToFetch) {
+                    this.getMoreWebhooks();
+                }
+            }),
+            take(10),
+            filter(({ isContinueToFetch }) => !isContinueToFetch),
+            pluck('idx'),
+            first(null, -1)
+        );
+    }
+
+    select(idx: number) {
+        this.webhooks$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+            this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
+        });
     }
 }

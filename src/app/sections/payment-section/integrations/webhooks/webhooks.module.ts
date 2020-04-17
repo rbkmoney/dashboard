@@ -17,6 +17,7 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
 import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
+import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
 
@@ -37,7 +38,8 @@ import { WebhooksComponent } from './webhooks.component';
         WebhookPanelModule,
         SpinnerModule,
         EmptySearchResultModule,
-        ShowMorePanelModule
+        ShowMorePanelModule,
+        WebhooksPanelsListModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
     entryComponents: [CreateWebhookComponent]
