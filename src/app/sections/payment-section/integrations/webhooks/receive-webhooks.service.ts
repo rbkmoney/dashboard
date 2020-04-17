@@ -4,33 +4,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, first, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
+const WEBHOOK_DEFAULT_OFFSET = 10;
+const WEBHOOK_OFFSET_STEP = 10;
+
 @Injectable()
 export class ReceiveWebhooksService {
-    private webhooksLimit$: BehaviorSubject<number> = new BehaviorSubject(10);
+    private webhooksOffset$: BehaviorSubject<number> = new BehaviorSubject(WEBHOOK_DEFAULT_OFFSET);
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
-    private getMoreWebhooks$: Subject<void> = new Subject();
-
-    webhooks$: Observable<Webhook[]> = combineLatest([
-        this.webhooksLimit$,
-        this.webhooksState$.pipe(
-            filter(s => !!s),
-            map(w => sortBy(w, i => !i.active))
-        )
-    ]).pipe(
-        map(([limit, webhooks]) => {
-            this.hasMore$.next(webhooks.length > limit);
-            return webhooks.slice(0, limit);
-        })
+    private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
+        filter(s => !!s),
+        map(w => sortBy(w, i => !i.active))
     );
 
-    webhooksReceived$: Observable<boolean> = this.webhooks$.pipe(
+    webhooksChunk$: Observable<Webhook[]> = combineLatest([
+        this.webhooksOffset$,
+        this.webhooks$
+    ]).pipe(map(([offset, webhooks]) => webhooks.slice(0, offset)));
+
+    webhooksReceived$: Observable<boolean> = this.webhooksChunk$.pipe(
         map(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -40,7 +38,9 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    hasMore$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    hasMore$: Observable<boolean> = combineLatest([this.webhooksState$, this.webhooksOffset$]).pipe(
+        map(([webhooks, offset]) => webhooks?.length > offset)
+    );
 
     constructor(
         private webhooksService: WebhooksService,
@@ -51,18 +51,19 @@ export class ReceiveWebhooksService {
     ) {
         this.route.queryParams
             .pipe(
-                take(1),
-                pluck('limit'),
-                filter(l => !!l)
+                first(),
+                pluck('offset'),
+                filter(l => !!l),
+                map(offset => parseInt(offset, 10))
             )
-            .subscribe(limit => {
-                this.webhooksLimit$.next(parseInt(limit, 10));
+            .subscribe(offset => {
+                this.webhooksOffset$.next(offset);
             });
 
-        this.webhooksLimit$.subscribe(limit => {
+        this.webhooksOffset$.subscribe(offset => {
             this.router.navigate([location.pathname], {
                 queryParams: {
-                    limit
+                    offset
                 }
             });
         });
@@ -81,12 +82,7 @@ export class ReceiveWebhooksService {
             )
             .subscribe(webhooks => {
                 this.webhooksState$.next(webhooks);
-                this.hasMore$.next(webhooks.length > this.webhooksLimit$.value);
             });
-
-        this.getMoreWebhooks$.pipe(switchMap(() => this.webhooksLimit$.pipe(take(1)))).subscribe(limit => {
-            this.webhooksLimit$.next(limit + 10);
-        });
     }
 
     receiveWebhooks() {
@@ -94,6 +90,6 @@ export class ReceiveWebhooksService {
     }
 
     getMoreWebhooks() {
-        this.getMoreWebhooks$.next();
+        this.webhooksOffset$.next(this.webhooksOffset$.value + WEBHOOK_OFFSET_STEP);
     }
 }
