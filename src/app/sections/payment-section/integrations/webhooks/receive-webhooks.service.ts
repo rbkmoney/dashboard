@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import chunk from 'lodash.chunk';
 import sortBy from 'lodash.sortby';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
@@ -15,29 +14,31 @@ import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../cu
 export class ReceiveWebhooksService {
     private webhooksLimit$: BehaviorSubject<number> = new BehaviorSubject(10);
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
-    private receiveWebhooks$: Subject<'new' | 'more'> = new Subject();
-    private cache: Webhook[] = [];
+    private receiveWebhooks$: Subject<void> = new Subject();
+    private getMoreWebhooks$: Subject<void> = new Subject();
 
-    private webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        filter(s => !!s),
-        map(w => sortBy(w, i => !i.active)),
-        shareReplay(SHARE_REPLAY_CONF)
+    webhhoks$: Observable<Webhook[]> = combineLatest([
+        this.webhooksLimit$,
+        this.webhooksState$.pipe(
+            filter(s => !!s),
+            map(w => sortBy(w, i => !i.active))
+        )
+    ]).pipe(
+        map(([limit, webhooks]) => {
+            this.hasMore$.next(webhooks.length > limit);
+            return webhooks.slice(0, limit);
+        })
     );
 
-    webhooksChunk$: Observable<Webhook[]> = this.webhooks$.pipe(
-        map(w => chunk(w, this.webhooksLimit$.value)[0]),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-
-    webhooksReceived$: Observable<boolean> = this.webhooksChunk$.pipe(
+    webhooksReceived$: Observable<boolean> = this.webhhoks$.pipe(
         map(s => !!s),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    isLoading$: Observable<boolean> = progress(
-        this.receiveWebhooks$.pipe(filter(v => v === 'new')),
-        this.webhooksState$
-    ).pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooksState$).pipe(
+        booleanDebounceTime(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     hasMore$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -57,6 +58,7 @@ export class ReceiveWebhooksService {
             .subscribe(limit => {
                 this.webhooksLimit$.next(parseInt(limit, 10));
             });
+
         this.webhooksLimit$.subscribe(limit => {
             this.router.navigate([location.pathname], {
                 queryParams: {
@@ -67,34 +69,31 @@ export class ReceiveWebhooksService {
 
         this.receiveWebhooks$
             .pipe(
-                switchMap(action => {
-                    switch (action) {
-                        case 'new':
-                            return this.webhooksService.getWebhooks().pipe(
-                                catchError(err => {
-                                    console.error(err);
-                                    this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                                    return of([]);
-                                })
-                            );
-                        case 'more':
-                            this.webhooksLimit$.next(this.webhooksLimit$.value + 20);
-                            return of(this.cache);
-                    }
-                })
+                switchMap(() =>
+                    this.webhooksService.getWebhooks().pipe(
+                        catchError(err => {
+                            console.error(err);
+                            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+                            return of([]);
+                        })
+                    )
+                )
             )
             .subscribe(webhooks => {
-                this.cache = webhooks;
                 this.webhooksState$.next(webhooks);
                 this.hasMore$.next(webhooks.length > this.webhooksLimit$.value);
             });
+
+        this.getMoreWebhooks$.pipe(switchMap(() => this.webhooksLimit$.pipe(take(1)))).subscribe(limit => {
+            this.webhooksLimit$.next(limit + 10);
+        });
     }
 
     receiveWebhooks() {
-        this.receiveWebhooks$.next('new');
+        this.receiveWebhooks$.next();
     }
 
     getMoreWebhooks() {
-        this.receiveWebhooks$.next('more');
+        this.getMoreWebhooks$.next();
     }
 }

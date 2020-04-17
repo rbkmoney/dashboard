@@ -15,9 +15,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
-import { CreateWebhookService } from './create-webhook.service';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
-import { ReceiveWebhooksService } from './receive-webhooks.service';
 import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
@@ -42,7 +40,6 @@ import { WebhooksComponent } from './webhooks.component';
         ShowMorePanelModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent],
-    providers: [ReceiveWebhooksService, CreateWebhookService]
+    entryComponents: [CreateWebhookComponent]
 })
 export class WebhooksModule {}
