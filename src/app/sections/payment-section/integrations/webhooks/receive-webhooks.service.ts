@@ -18,7 +18,7 @@ export class ReceiveWebhooksService {
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
 
-    webhooks$: Observable<any> = this.webhooksState$.pipe(
+    webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
         map(w => sortBy(w, i => !i.active)),
         switchMap(webhhoks => combineLatest([this.webhooksOffset$, of(webhhoks)])),
