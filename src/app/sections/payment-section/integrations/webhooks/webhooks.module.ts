@@ -12,12 +12,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ShopService } from '../../../../api/shop';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
-import { CreateWebhookService } from './create-webhook.service';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
-import { ReceiveWebhooksService } from './receive-webhooks.service';
 import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
@@ -38,10 +36,10 @@ import { WebhooksComponent } from './webhooks.component';
         TranslocoModule,
         WebhookPanelModule,
         SpinnerModule,
-        EmptySearchResultModule
+        EmptySearchResultModule,
+        ShowMorePanelModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent],
-    providers: [ReceiveWebhooksService, CreateWebhookService, ShopService]
+    entryComponents: [CreateWebhookComponent]
 })
 export class WebhooksModule {}
