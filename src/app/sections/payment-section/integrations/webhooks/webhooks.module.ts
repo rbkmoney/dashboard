@@ -12,11 +12,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
+import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
 import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
@@ -36,6 +38,8 @@ import { WebhooksComponent } from './webhooks.component';
         MatCheckboxModule,
         TranslocoModule,
         SpinnerModule,
+        EmptySearchResultModule,
+        ShowMorePanelModule
         EmptySearchResultModule,
         ShowMorePanelModule,
         WebhooksPanelsListModule,
