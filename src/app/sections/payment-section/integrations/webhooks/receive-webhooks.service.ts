@@ -26,7 +26,7 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooksState$).pipe(
+    isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooks$).pipe(
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -43,6 +43,7 @@ export class ReceiveWebhooksService {
         private route: ActivatedRoute,
         private router: Router
     ) {
+        this.isLoading$.subscribe();
         this.route.queryParams
             .pipe(
                 first(),
