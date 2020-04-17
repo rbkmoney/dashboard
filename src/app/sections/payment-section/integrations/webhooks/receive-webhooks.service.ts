@@ -21,7 +21,7 @@ export class ReceiveWebhooksService {
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter(s => !!s),
         map(w => sortBy(w, i => !i.active)),
-        switchMap(webhhoks => combineLatest([this.webhooksOffset$, of(webhhoks)])),
+        switchMap(webhooks => combineLatest([this.webhooksOffset$, of(webhooks)])),
         map(([offset, webhooks]) => webhooks.slice(0, offset)),
         shareReplay(SHARE_REPLAY_CONF)
     );
