@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ShowMorePanelComponent {
     @Input()
-    isLoading: boolean;
+    isLoading = false;
 
     @Output()
     showMore: EventEmitter<void> = new EventEmitter();
