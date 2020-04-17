@@ -5,12 +5,14 @@ import { CreateWebhookService } from './create-webhook.service';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 
 @Component({
-    templateUrl: 'webhooks.component.html'
+    templateUrl: 'webhooks.component.html',
+    providers: [ReceiveWebhooksService, CreateWebhookService]
 })
 export class WebhooksComponent implements OnInit {
     webhooks$ = this.receiveWebhooksService.webhooks$;
     isLoading$ = this.receiveWebhooksService.isLoading$;
     webhooksReceived$ = this.receiveWebhooksService.webhooksReceived$;
+    hasMore$ = this.receiveWebhooksService.hasMore$;
 
     constructor(
         private receiveWebhooksService: ReceiveWebhooksService,
@@ -24,5 +26,9 @@ export class WebhooksComponent implements OnInit {
 
     createWebhook() {
         this.createWebhookService.createWebhook();
+    }
+
+    getMoreWebhooks() {
+        this.receiveWebhooksService.getMoreWebhooks();
     }
 }

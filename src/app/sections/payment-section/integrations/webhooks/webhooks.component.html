@@ -21,8 +21,13 @@
         [text]="t.emptyResult"
     ></dsh-empty-search-result>
 
-    <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
-    <!--    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">-->
-    <!--        <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>-->
-    <!--    </div>-->
+    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">
+        <!--        <dsh-webhook-panel *ngFor="let webhook of webhooks$ | async" [webhook]="webhook"></dsh-webhook-panel>-->
+        <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
+        <dsh-show-more-panel
+            *ngIf="(hasMore$ | async) && (webhooksReceived$ | async)"
+            [isLoading]="isLoading$ | async"
+            (showMore)="getMoreWebhooks()"
+        ></dsh-show-more-panel>
+    </div>
 </div>
