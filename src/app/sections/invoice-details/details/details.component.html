@@ -13,7 +13,7 @@
             ></dsh-details-status-item>
             <dsh-details-item [title]="t.amount" fxFlex="33">
                 <div class="mat-body-1">
-                    {{ invoice.amount | fromMinor | currency: invoice.currency }}
+                    {{ invoice.amount | toMajor | currency: invoice.currency }}
                 </div>
             </dsh-details-item>
             <dsh-details-item *ngIf="invoice.invoiceTemplateID" [title]="t.invoiceTemplate" fxFlex="33">
