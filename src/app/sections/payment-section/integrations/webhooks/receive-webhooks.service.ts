@@ -4,9 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import {
+    catchError,
+    filter,
+    first,
+    map,
+    pluck,
+    shareReplay,
+    switchMap,
+    take,
+    tap
+} from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
@@ -38,6 +46,13 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    selectedIdx$ = this.route.queryParams.pipe(
+        first(),
+        pluck('selected'),
+        switchMap(selected => (selected ? this.loadSelected(selected) : of(-1))),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
@@ -59,8 +74,9 @@ export class ReceiveWebhooksService {
             });
 
         this.webhooksOffset$.subscribe(offset => {
-            this.router.navigate([location.pathname], {
+            this.router.navigate([], {
                 queryParams: {
+                    ...this.route.snapshot.queryParams,
                     offset
                 }
             });
@@ -110,8 +126,8 @@ export class ReceiveWebhooksService {
     }
 
     select(idx: number) {
-        this.webhooks$.pipe(pluck(idx, 'id')).subscribe(fragment => {
-            this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
+        this.webhooks$.pipe(booleanDebounceTime(), pluck(idx, 'id'), filter(idx => !!idx)).subscribe(selected => {
+            this.router.navigate([], { queryParams: { ...this.route.snapshot.queryParams, selected } });
         });
     }
 }

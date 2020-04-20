@@ -21,7 +21,7 @@
     <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">
         <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
         <dsh-show-more-panel
-            *ngIf="(hasMore$ | async) && (webhooksReceived$ | async)"
+            *ngIf="hasMore$ | async"
             [isLoading]="isLoading$ | async"
             (showMore)="getMoreWebhooks()"
         ></dsh-show-more-panel>
