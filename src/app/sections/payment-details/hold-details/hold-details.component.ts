@@ -6,7 +6,6 @@ import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '../../../ap
 import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';
-import { delay } from 'rxjs/operators';
 
 const paymentStatusEnum = PaymentStatus.StatusEnum;
 const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
@@ -18,7 +17,7 @@ const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
 export class HoldDetailsComponent {
     @Input() payment: PaymentSearchResult;
 
-    @Output() onHoldAction = new EventEmitter();
+    @Output() holdAction = new EventEmitter();
 
     get flowHold(): PaymentFlowHold {
         return this.payment.flow as PaymentFlowHold;
@@ -49,11 +48,14 @@ export class HoldDetailsComponent {
             invoiceID: this.payment.invoiceID,
             paymentID: this.payment.id
         };
-        this.dialog.open(CancelHoldComponent, {
-            data,
-            width: '450px',
-            disableClose: true
-        }).afterClosed().subscribe((isChanged) => isChanged && this.onHoldAction.emit(true));
+        this.dialog
+            .open(CancelHoldComponent, {
+                data,
+                width: '450px',
+                disableClose: true
+            })
+            .afterClosed()
+            .subscribe(isChanged => isChanged && this.holdAction.emit(true));
     }
 
     confirmHoldDialog() {
@@ -63,11 +65,14 @@ export class HoldDetailsComponent {
             currency: this.payment.currency,
             acceptMaxAmount: this.payment.amount
         };
-        this.dialog.open(ConfirmHoldComponent, {
-            data,
-            width: '450px',
-            disableClose: true
-        }).afterClosed().subscribe((isChanged) => isChanged && this.onHoldAction.emit(true));
+        this.dialog
+            .open(ConfirmHoldComponent, {
+                data,
+                width: '450px',
+                disableClose: true
+            })
+            .afterClosed()
+            .subscribe(isChanged => isChanged && this.holdAction.emit(true));
     }
 
     isHoldActive(date: string): boolean {

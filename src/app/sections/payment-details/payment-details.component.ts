@@ -19,8 +19,7 @@ export class PaymentDetailsComponent implements OnInit {
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private receivePaymentService: ReceivePaymentService) {
-    }
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private receivePaymentService: ReceivePaymentService) {}
 
     getPaymentToolDetails(payment: PaymentSearchResult): PaymentToolDetails {
         return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;

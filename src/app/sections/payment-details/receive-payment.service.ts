@@ -4,9 +4,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
+import { PaymentSearchResult } from '../../api-codegen/anapi/swagger-codegen';
 import { progress } from '../../custom-operators';
 import { RouteParamPaymentService } from './route-param-payment.service';
-import { PaymentSearchResult } from '../../api-codegen/anapi/swagger-codegen';
 
 @Injectable()
 export class ReceivePaymentService {
