@@ -41,6 +41,7 @@ $(SUBTARGETS): %/.git: %
 submodules: $(SUBTARGETS)
 
 init:
+	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
 	NG_CLI_ANALYTICS=false npm ci
 	npm run codegen
 
