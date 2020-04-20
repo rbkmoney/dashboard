@@ -72,6 +72,7 @@
     "@angular/cli": "~9.1.1",
     "@angular/compiler-cli": "~9.1.1",
     "@angular/language-service": "~9.1.1",
+    "@rbkmoney/angular-templates": "^0.1.0",
     "@types/d3": "^5.7.0",
     "@types/humanize-duration": "^3.18.0",
     "@types/jasmine": "~3.3.12",
