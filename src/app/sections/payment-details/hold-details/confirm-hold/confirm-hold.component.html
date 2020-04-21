@@ -7,7 +7,7 @@
                 <input matInput type="text" formControlName="reason" required />
             </mat-form-field>
             <div style="padding-bottom: 20px">
-                <mat-checkbox [checked]="isPartialAccept" (change)="onCheckboxChange(!isPartialAccept)">{{
+                <mat-checkbox [checked]="isPartialAccept" (change)="checkboxChange(!isPartialAccept)">{{
                     t.partialAccept
                 }}</mat-checkbox>
             </div>

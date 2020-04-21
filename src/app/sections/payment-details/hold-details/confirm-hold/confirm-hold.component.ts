@@ -9,8 +9,8 @@ import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
 import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
+import { PaymentService } from '../../../../api/payment';
 import { LAYOUT_GAP } from '../../../constants';
-import { ConfirmHoldService } from './confirm-hold.service';
 
 export interface ConfirmHoldData {
     invoiceID: string;
@@ -22,7 +22,7 @@ export interface ConfirmHoldData {
 @Component({
     selector: 'dsh-confirm-hold',
     templateUrl: './confirm-hold.component.html',
-    providers: [ConfirmHoldService]
+    providers: [PaymentService]
 })
 export class ConfirmHoldComponent {
     form: FormGroup = this.fb.group({
@@ -36,7 +36,7 @@ export class ConfirmHoldComponent {
         @Inject(MAT_DIALOG_DATA) public data: ConfirmHoldData,
         private dialogRef: MatDialogRef<ConfirmHoldComponent>,
         private fb: FormBuilder,
-        private acceptHoldService: ConfirmHoldService,
+        private paymentService: PaymentService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
     ) {}
@@ -52,7 +52,7 @@ export class ConfirmHoldComponent {
             amount: amount && toMinor(amount),
             currency: amount && this.data.currency
         };
-        this.acceptHoldService
+        this.paymentService
             .capturePayment(this.data.invoiceID, this.data.paymentID, params)
             .pipe(first())
             .subscribe(
@@ -66,7 +66,7 @@ export class ConfirmHoldComponent {
             );
     }
 
-    onCheckboxChange(value: boolean) {
+    checkboxChange(value: boolean) {
         this.isPartialAccept = value;
         if (value) {
             this.form.addControl(

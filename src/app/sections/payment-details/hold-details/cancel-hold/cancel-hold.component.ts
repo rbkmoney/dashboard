@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { first } from 'rxjs/operators';
 
+import { PaymentService } from '../../../../api/payment';
 import { LAYOUT_GAP } from '../../../constants';
-import { CancelHoldService } from './cancel-hold.service';
 
 export interface CancelHoldData {
     invoiceID: string;
@@ -16,7 +16,7 @@ export interface CancelHoldData {
 @Component({
     selector: 'dsh-cancel-hold',
     templateUrl: './cancel-hold.component.html',
-    providers: [CancelHoldService]
+    providers: [PaymentService]
 })
 export class CancelHoldComponent {
     form: FormGroup = this.fb.group({
@@ -28,7 +28,7 @@ export class CancelHoldComponent {
         @Inject(MAT_DIALOG_DATA) public data: CancelHoldData,
         private dialogRef: MatDialogRef<CancelHoldComponent>,
         private fb: FormBuilder,
-        private cancelHoldService: CancelHoldService,
+        private paymentService: PaymentService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
     ) {}
@@ -39,7 +39,7 @@ export class CancelHoldComponent {
 
     confirm() {
         const { reason } = this.form.getRawValue();
-        this.cancelHoldService
+        this.paymentService
             .cancelPayment(this.data.invoiceID, this.data.paymentID, reason)
             .pipe(first())
             .subscribe(

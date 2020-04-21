@@ -16,6 +16,7 @@ import { PaymentService } from '../../../api/payment';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { CancelHoldComponent } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent } from './confirm-hold/confirm-hold.component';
+import { HoldActivePipe } from './hold-active.pipe';
 import { HoldDetailsComponent } from './hold-details.component';
 
 @NgModule({
@@ -33,7 +34,7 @@ import { HoldDetailsComponent } from './hold-details.component';
         FlexModule,
         FormControlsModule
     ],
-    declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent],
+    declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent, HoldActivePipe],
     exports: [HoldDetailsComponent],
     entryComponents: [ConfirmHoldComponent, CancelHoldComponent],
     providers: [PaymentService]

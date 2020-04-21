@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../constants';
 import { PayerType } from './payer-details';
-import { ReceivePaymentService, ReceivePaymentType } from './receive-payment.service';
+import { ReceivePaymentService } from './receive-payment.service';
 
 @Component({
     templateUrl: './payment-details.component.html',
@@ -15,8 +15,6 @@ export class PaymentDetailsComponent {
     payment$ = this.receivePaymentService.payment$;
     isLoading$ = this.receivePaymentService.isLoading$;
 
-    ReceivePaymentType = ReceivePaymentType;
-
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
@@ -26,7 +24,7 @@ export class PaymentDetailsComponent {
         return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;
     }
 
-    receivePayment(type?: ReceivePaymentType) {
-        this.receivePaymentService.receivePayment(type);
+    holdPayment() {
+        this.receivePaymentService.holdPayment();
     }
 }

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import moment from 'moment';
 
 import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../constants';
@@ -73,9 +72,5 @@ export class HoldDetailsComponent {
             })
             .afterClosed()
             .subscribe(isChanged => isChanged && this.holdAction.emit(true));
-    }
-
-    isHoldActive(date: string): boolean {
-        return moment(date).diff(moment()) > 0 && this.payment.status === paymentStatusEnum.Processed;
     }
 }

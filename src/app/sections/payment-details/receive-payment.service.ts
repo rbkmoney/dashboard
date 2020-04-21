@@ -14,7 +14,7 @@ const completedStatuses: PaymentSearchResult.StatusEnum[] = [
     PaymentSearchResult.StatusEnum.Cancelled
 ];
 
-export enum ReceivePaymentType {
+enum ReceivePaymentType {
     Hold = 'hold',
     Receive = 'receive'
 }
@@ -58,8 +58,8 @@ export class ReceivePaymentService {
 
     error$: Observable<any> = this.payment$.pipe(takeError);
 
-    receivePayment(type = ReceivePaymentType.Receive) {
-        this.receivePayment$.next(type);
+    holdPayment() {
+        this.receivePayment$.next(ReceivePaymentType.Hold);
     }
 
     constructor(

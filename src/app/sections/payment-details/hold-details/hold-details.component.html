@@ -8,8 +8,12 @@
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
             <div class="mat-body-1">
                 {{ t.holdDate }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
-                }}{{ isHoldActive(holdDate) ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')' : '' }}.
-                <ng-container *ngIf="isHoldActive(holdDate); else expiredHold">
+                }}{{
+                    (holdDate | holdActive: payment?.status)
+                        ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')'
+                        : ''
+                }}.
+                <ng-container *ngIf="holdDate | holdActive: payment?.status; else expiredHold">
                     {{ t[getActiveHoldText()] }}
                     {{ t.activeHoldTutorial }}
                 </ng-container>
@@ -18,7 +22,7 @@
                 </ng-template>
             </div>
             <div
-                *ngIf="isHoldActive(holdDate)"
+                *ngIf="holdDate | holdActive: payment?.status"
                 fxLayout="row"
                 fxLayout.xs="column"
                 fxLayoutAlign="space-between stretch"
