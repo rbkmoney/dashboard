@@ -1,5 +1,5 @@
 <ng-container *ngIf="!(isLoading$ | async); else isLoading">
-    <ng-container *ngIf="payment$ | async as payment">
+    <ng-container *ngIf="payment$ | async as payment; else noPayment">
         <div
             *transloco="let t; scope: 'payment-details'; read: 'paymentDetails'"
             class="dsh-payment-details"
@@ -44,6 +44,9 @@
             ></dsh-refunds>
         </div>
     </ng-container>
+    <ng-template #noPayment>
+        <dsh-spinner></dsh-spinner>
+    </ng-template>
 </ng-container>
 <ng-template #isLoading>
     <div fxLayout fxLayoutAlign="center center">
