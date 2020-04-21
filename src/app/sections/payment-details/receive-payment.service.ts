@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, Subject, timer } from 'rxjs';
-import { filter, first, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
+import { filter, first, shareReplay, startWith, switchMap, timeout } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../api-codegen/capi/swagger-codegen';
-import { PaymentSearchService } from '../../api/search';
-import { progress, SHARE_REPLAY_CONF, takeError } from '../../custom-operators';
+import { Duration, PaymentSearchService } from '../../api/search';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 const completedStatuses: PaymentSearchResult.StatusEnum[] = [
     PaymentSearchResult.StatusEnum.Captured,
@@ -19,44 +19,40 @@ enum ReceivePaymentType {
     Receive = 'receive'
 }
 
+const TIME_UNTIL_START = 500;
+const TIMER_PERIOD = 1000;
+const TIMER_TIMEOUT = 30000;
+
 @Injectable()
 export class ReceivePaymentService {
     private receivePayment$ = new Subject<ReceivePaymentType>();
 
-    payment$ = this.receivePayment$.pipe(
+    private paymentOrError$ = this.receivePayment$.pipe(
         startWith(ReceivePaymentType.Receive),
         switchMap(type => {
             const { invoiceID, paymentID } = this.route.snapshot.params;
+            const duration: Duration = {
+                amount: 3,
+                unit: 'y'
+            };
             return type === ReceivePaymentType.Hold
-                ? timer(0, 500).pipe(
-                      switchMap(() =>
-                          this.paymentSearchService.getPaymentByDuration(
-                              {
-                                  amount: 3,
-                                  unit: 'y'
-                              },
-                              invoiceID,
-                              paymentID
-                          )
-                      ),
+                ? timer(TIME_UNTIL_START, TIMER_PERIOD).pipe(
+                      switchMap(() => this.paymentSearchService.getPaymentByDuration(duration, invoiceID, paymentID)),
                       filter(p => completedStatuses.includes(p?.status)),
-                      first()
+                      first(),
+                      timeout(TIMER_TIMEOUT)
                   )
-                : this.paymentSearchService.getPaymentByDuration(
-                      {
-                          amount: 3,
-                          unit: 'y'
-                      },
-                      invoiceID,
-                      paymentID
-                  );
+                : this.paymentSearchService.getPaymentByDuration(duration, invoiceID, paymentID);
         }),
+        replaceError,
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    isLoading$ = progress(this.receivePayment$, this.payment$);
+    payment$ = this.paymentOrError$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
 
-    error$: Observable<any> = this.payment$.pipe(takeError);
+    error$ = this.paymentOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
+
+    isLoading$ = progress(this.receivePayment$, this.payment$);
 
     holdPayment() {
         this.receivePayment$.next(ReceivePaymentType.Hold);
