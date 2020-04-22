@@ -17,7 +17,8 @@
         "headline": "Интеграция",
         "tabs": {
             "webhooks": "Webhooks",
-            "shops": "Магазины"
+            "shops": "Магазины",
+            "payment-link": "Платежная ссылка"
         }
     }
 }

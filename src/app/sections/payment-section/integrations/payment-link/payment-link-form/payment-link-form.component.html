@@ -1,0 +1,54 @@
+<ng-container *transloco="let c; scope: 'payment-link'; read: 'paymentLink.paymentLinkForm'">
+    <h1 class="mat-title">{{ c.title }}</h1>
+    <form [formGroup]="form">
+        <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
+            <mat-form-field>
+                <mat-label>{{ c.form.name }}</mat-label>
+                <input formControlName="name" matInput />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c.form.description }}</mat-label>
+                <input formControlName="description" matInput />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c.form.email }}</mat-label>
+                <input formControlName="email" matInput />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c.form.redirectUrl }}</mat-label>
+                <input formControlName="redirectUrl" matInput />
+            </mat-form-field>
+
+            <mat-checkbox formControlName="bankCard">{{ c.form.bankCard }}</mat-checkbox>
+            <mat-checkbox formControlName="wallets">{{ c.form.wallets }}</mat-checkbox>
+            <mat-checkbox formControlName="terminals">{{ c.form.terminals }}</mat-checkbox>
+            <mat-checkbox formControlName="applePay">{{ c.form.applePay }}</mat-checkbox>
+            <mat-checkbox formControlName="googlePay">{{ c.form.googlePay }}</mat-checkbox>
+            <mat-checkbox formControlName="samsungPay">{{ c.form.samsungPay }}</mat-checkbox>
+
+            <mat-divider></mat-divider>
+
+            <mat-checkbox formControlName="paymentFlowHold">{{ c.form.paymentFlowHold }}</mat-checkbox>
+
+            <mat-divider></mat-divider>
+
+            <div
+                fxLayout
+                fxLayoutGap="20px"
+                fxLayoutAlign="space-between"
+                *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
+            >
+                <button *transloco="let t" dsh-button (click)="back.emit()">{{ t.back }}</button>
+                <button dsh-button color="accent" (click)="create()" *ngIf="form.valid">
+                    {{ c.form.create }}
+                </button>
+                <button dsh-button (click)="clear()" *ngIf="form.invalid">
+                    {{ l.clear }}
+                </button>
+            </div>
+        </dsh-justify-wrapper>
+    </form>
+</ng-container>
