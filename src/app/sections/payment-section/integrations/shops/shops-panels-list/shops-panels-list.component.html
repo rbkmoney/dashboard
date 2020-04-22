@@ -65,4 +65,5 @@
             </ng-container>
         </dsh-expand-panel-more>
     </dsh-expand-panel>
+    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
 </dsh-expand-panel-accordion>

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { ShopsService } from '../shops.service';
 import { ShopsPanelsListService } from './shops-panels-list.service';
 
 @Component({
@@ -12,12 +11,12 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopsPanelsListComponent {
-    shops$ = this.shopsService.shops$;
+    shops$ = this.shopsPanelsListService.shops$;
     selectedIdx$ = this.shopsPanelsListService.selectedIdx$;
+    hasMore$ = this.shopsPanelsListService.hasMore$;
 
     constructor(
         private shopsPanelsListService: ShopsPanelsListService,
-        private shopsService: ShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
@@ -36,5 +35,9 @@ export class ShopsPanelsListComponent {
 
     activate(id: string) {
         this.shopsPanelsListService.activate(id);
+    }
+
+    showMore() {
+        this.shopsPanelsListService.showMore();
     }
 }
