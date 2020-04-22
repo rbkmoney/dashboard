@@ -1,32 +1,61 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { debounceTime, map, shareReplay, take } from 'rxjs/operators';
 
 import { SearchParams } from '../search-params';
-import { SearchFormService } from './search-form.service';
+import { removeEmptyProperties } from '../../operations/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ShopService } from '../../../../api/shop';
+import { toQueryParams } from './to-query-params';
+import { toSearchParams } from './to-search-params';
+import { FormParams } from './form-params';
+import moment from 'moment';
+import { FormBuilder } from '@angular/forms';
+import { toFormValue } from './to-form-value';
+import { QueryParams } from './query-params';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchFormComponent implements OnInit {
-    @Input() valueDebounceTime = 300;
-
     @Input()
     formValue: SearchParams;
 
     @Output()
-    formValueChanges = new EventEmitter<SearchParams>();
+    valueChanges = new EventEmitter<SearchParams>();
 
-    shops$ = this.searchFormService.shops$;
+    shops$ = this.shopService.getShops().pipe(shareReplay(SHARE_REPLAY_CONF));
 
-    form = this.searchFormService.form;
+    private defaultParams: FormParams = {
+        shopIDs: null,
+        date: {
+            begin: moment().startOf('month'),
+            end: moment().endOf('month'),
+            period: 'month'
+        }
+    };
 
-    constructor(private searchFormService: SearchFormService) {}
+    form = this.fb.group(this.defaultParams);
+
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
+    }
 
     ngOnInit() {
-        this.searchFormService.formValueChanges$
-            .pipe(debounceTime(this.valueDebounceTime))
-            .subscribe(v => this.formValueChanges.emit(v));
+        this.form.valueChanges
+            .pipe(debounceTime(300), removeEmptyProperties)
+            .subscribe((v) => {
+                this.router.navigate([location.pathname], { queryParams: toQueryParams(v) });
+                this.valueChanges.emit(toSearchParams(v));
+            });
+        this.route.queryParams
+            .pipe(take(1), map((v: QueryParams) => toFormValue(v, this.defaultParams)))
+            .subscribe((v) => this.form.patchValue(v));
     }
 }
