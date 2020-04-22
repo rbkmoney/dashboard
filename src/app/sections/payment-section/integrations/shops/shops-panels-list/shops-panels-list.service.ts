@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { filter, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { combineLatest, concat, Subject } from 'rxjs';
+import { filter, first, map, mapTo, pluck, scan, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
@@ -16,11 +16,22 @@ const SHOPS_LIMIT = 10;
 
 @Injectable()
 export class ShopsPanelsListService {
-    private showedCount$ = new BehaviorSubject(SHOPS_LIMIT);
+    private showMore$ = new Subject<void>();
 
     selectedIdx$ = combineLatest([this.route.fragment, this.shopsService.shops$]).pipe(
         first(),
         map(([fragment, shops]) => shops.findIndex(({ id }) => id === fragment)),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
+    showedCount$ = combineLatest([
+        concat(
+            this.selectedIdx$.pipe(map(idx => (idx === -1 ? SHOPS_LIMIT : Math.ceil(idx / SHOPS_LIMIT) * SHOPS_LIMIT))),
+            this.showMore$.pipe(mapTo(SHOPS_LIMIT))
+        ).pipe(scan((count, added) => count + added, 0)),
+        this.shopService.shops$.pipe(pluck('length'))
+    ]).pipe(
+        map(([showedCount, count]) => (showedCount > count ? count : showedCount)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -89,6 +100,6 @@ export class ShopsPanelsListService {
     }
 
     showMore() {
-        this.showedCount$.next(this.showedCount$.value + SHOPS_LIMIT);
+        this.showMore$.next();
     }
 }
