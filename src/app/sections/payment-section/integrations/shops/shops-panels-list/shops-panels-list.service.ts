@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, concat, Subject } from 'rxjs';
-import { filter, first, map, mapTo, pluck, scan, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, first, map, mapTo, pluck, scan, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
