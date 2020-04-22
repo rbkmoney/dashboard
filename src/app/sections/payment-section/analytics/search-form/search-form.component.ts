@@ -44,18 +44,18 @@ export class SearchFormComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private shopService: ShopService
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.form.valueChanges
-            .pipe(debounceTime(300), removeEmptyProperties)
-            .subscribe((v) => {
-                this.router.navigate([location.pathname], { queryParams: toQueryParams(v) });
-                this.valueChanges.emit(toSearchParams(v));
-            });
+        this.form.valueChanges.pipe(debounceTime(300), removeEmptyProperties).subscribe(v => {
+            this.router.navigate([location.pathname], { queryParams: toQueryParams(v) });
+            this.valueChanges.emit(toSearchParams(v));
+        });
         this.route.queryParams
-            .pipe(take(1), map((v: QueryParams) => toFormValue(v, this.defaultParams)))
-            .subscribe((v) => this.form.patchValue(v));
+            .pipe(
+                take(1),
+                map((v: QueryParams) => toFormValue(v, this.defaultParams))
+            )
+            .subscribe(v => this.form.patchValue(v));
     }
 }
