@@ -12,11 +12,11 @@
         <button dsh-stroked-button color="accent" (click)="createWebhook()" fxFlex.gt-sm="25">{{ t.attach }}</button>
     </div>
 
-    <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
+    <div *ngIf="(isLoading$ | async) || !(initialized$ | async)" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>
     <dsh-empty-search-result *ngIf="(webhooks$ | async)?.length === 0" [text]="t.emptyResult"></dsh-empty-search-result>
-    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="!(isLoading$ | async)">
+    <div fxLayout="column" [fxLayoutGap]="layoutGap" *ngIf="(initialized$ | async) && !(isLoading$ | async)">
         <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
         <dsh-show-more-panel
             *ngIf="hasMore$ | async"

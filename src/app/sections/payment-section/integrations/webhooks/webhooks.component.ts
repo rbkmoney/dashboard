@@ -12,6 +12,7 @@ export class WebhooksComponent implements OnInit {
     webhooks$ = this.receiveWebhooksService.webhooks$;
     isLoading$ = this.receiveWebhooksService.isLoading$;
     hasMore$ = this.receiveWebhooksService.hasMore$;
+    initialized$ = this.receiveWebhooksService.initialized$;
 
     constructor(
         private receiveWebhooksService: ReceiveWebhooksService,

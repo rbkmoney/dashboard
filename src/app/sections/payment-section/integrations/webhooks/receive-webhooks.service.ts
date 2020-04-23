@@ -30,7 +30,6 @@ export class ReceiveWebhooksService {
     private receiveWebhooks$: Subject<void> = new Subject();
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        booleanDebounceTime(),
         filter(s => !!s),
         map(w => sortBy(w, i => !i.active)),
         switchMap(webhooks => combineLatest([this.webhooksOffset$, of(webhooks)])),
@@ -55,6 +54,14 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    initialized$ = this.webhooks$.pipe(
+        booleanDebounceTime(),
+        first(),
+        switchMap(() => this.selectedIdx$),
+        map(w => !!w),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
@@ -62,7 +69,6 @@ export class ReceiveWebhooksService {
         private route: ActivatedRoute,
         private router: Router
     ) {
-        this.selectedIdx$.subscribe();
         this.isLoading$.subscribe();
         this.receiveWebhooks$
             .pipe(
