@@ -5,7 +5,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import {
-    catchError, debounceTime,
+    catchError,
+    debounceTime,
     distinctUntilChanged,
     filter,
     first,
