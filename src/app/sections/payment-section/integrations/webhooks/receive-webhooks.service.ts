@@ -5,7 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import {
-    catchError,
+    catchError, debounceTime, delay,
     distinctUntilChanged,
     filter,
     first,
@@ -55,7 +55,7 @@ export class ReceiveWebhooksService {
     );
 
     initialized$ = this.webhooks$.pipe(
-        booleanDebounceTime(),
+        debounceTime(500),
         first(),
         switchMap(() => this.selectedIdx$),
         map(w => !!w),
