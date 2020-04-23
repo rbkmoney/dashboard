@@ -6,6 +6,7 @@ import sortBy from 'lodash.sortby';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import {
     catchError,
+    distinctUntilChanged,
     filter,
     first,
     map,
@@ -29,6 +30,7 @@ export class ReceiveWebhooksService {
     private receiveWebhooks$: Subject<void> = new Subject();
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
+        booleanDebounceTime(),
         filter(s => !!s),
         map(w => sortBy(w, i => !i.active)),
         switchMap(webhooks => combineLatest([this.webhooksOffset$, of(webhooks)])),
@@ -43,13 +45,13 @@ export class ReceiveWebhooksService {
 
     hasMore$: Observable<boolean> = combineLatest([this.webhooksState$, this.webhooksOffset$]).pipe(
         map(([webhooks, offset]) => webhooks?.length > offset),
+        distinctUntilChanged(),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    selectedIdx$ = this.route.queryParams.pipe(
+    selectedIdx$ = this.route.fragment.pipe(
         first(),
-        pluck('selected'),
-        switchMap(selected => (selected ? this.loadSelected(selected) : of(-1))),
+        switchMap(fragment => (fragment ? this.loadSelected(fragment) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -62,26 +64,6 @@ export class ReceiveWebhooksService {
     ) {
         this.selectedIdx$.subscribe();
         this.isLoading$.subscribe();
-        this.route.queryParams
-            .pipe(
-                first(),
-                pluck('offset'),
-                filter(l => !!l),
-                map(offset => parseInt(offset, 10))
-            )
-            .subscribe(offset => {
-                this.webhooksOffset$.next(offset);
-            });
-
-        this.webhooksOffset$.subscribe(offset => {
-            this.router.navigate([], {
-                queryParams: {
-                    ...this.route.snapshot.queryParams,
-                    offset
-                }
-            });
-        });
-
         this.receiveWebhooks$
             .pipe(
                 switchMap(() =>
@@ -126,8 +108,8 @@ export class ReceiveWebhooksService {
     }
 
     select(idx: number) {
-        this.webhooks$.pipe(booleanDebounceTime(), pluck(idx, 'id'), filter(idx => !!idx)).subscribe(selected => {
-            this.router.navigate([], { queryParams: { ...this.route.snapshot.queryParams, selected } });
+        this.webhooks$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+            this.router.navigate([], { fragment });
         });
     }
 }
