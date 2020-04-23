@@ -8,6 +8,8 @@ export * from './dadata';
 export * from './files';
 export * from './kontur-focus';
 export * from './messages';
+export * from './refund';
+export * from './payment';
 export * from './capi';
 export * from './webhooks';
 export * from './categories';
