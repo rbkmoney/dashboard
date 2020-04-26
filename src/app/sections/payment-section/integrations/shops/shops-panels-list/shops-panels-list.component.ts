@@ -12,7 +12,7 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
 })
 export class ShopsPanelsListComponent {
     shops$ = this.shopsPanelsListService.shops$;
-    selectedIdx$ = this.shopsPanelsListService.selectedIdx$;
+    selectedPanelPosition$ = this.shopsPanelsListService.selectedPanelPosition$;
     hasMore$ = this.shopsPanelsListService.hasMore$;
 
     constructor(

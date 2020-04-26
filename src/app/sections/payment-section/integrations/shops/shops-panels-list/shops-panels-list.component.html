@@ -2,7 +2,7 @@
     fxLayout="column"
     fxLayoutGap="20px"
     *transloco="let p; scope: 'shops'; read: 'shops.panel'"
-    [expanded]="selectedIdx$ | async"
+    [expanded]="selectedPanelPosition$ | async"
     (expandedChange)="select($event)"
 >
     <dsh-expand-panel *ngFor="let shop of shops$ | async">

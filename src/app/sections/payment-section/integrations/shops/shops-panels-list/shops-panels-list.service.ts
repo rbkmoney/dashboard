@@ -18,29 +18,26 @@ const SHOPS_LIMIT = 10;
 export class ShopsPanelsListService {
     private showMore$ = new Subject<void>();
 
-    selectedIdx$ = combineLatest([this.route.fragment, this.shopsService.shops$]).pipe(
+    selectedPanelPosition$ = combineLatest([this.route.fragment, this.shopsService.shops$]).pipe(
         first(),
         map(([fragment, shops]) => shops.findIndex(({ id }) => id === fragment)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    showedCount$ = combineLatest([
-        concat(
-            this.selectedIdx$.pipe(map(idx => (idx === -1 ? SHOPS_LIMIT : Math.ceil(idx / SHOPS_LIMIT) * SHOPS_LIMIT))),
-            this.showMore$.pipe(mapTo(SHOPS_LIMIT))
-        ).pipe(scan((count, added) => count + added, 0)),
-        this.shopService.shops$.pipe(pluck('length'))
-    ]).pipe(
-        map(([showedCount, count]) => (showedCount > count ? count : showedCount)),
+    private offset$ = concat(
+        this.selectedPanelPosition$.pipe(map(idx => this.getOffsetBySelectedPanelPosition(idx))),
+        this.showMore$.pipe(mapTo(SHOPS_LIMIT))
+    ).pipe(
+        scan((offset, limit) => offset + limit, 0),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    shops$ = combineLatest([this.shopService.shops$, this.showedCount$]).pipe(
+    shops$ = combineLatest([this.shopService.shops$, this.offset$]).pipe(
         map(([shops, showedCount]) => shops.slice(0, showedCount)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    hasMore$ = combineLatest([this.shopService.shops$.pipe(pluck('length')), this.showedCount$]).pipe(
+    hasMore$ = combineLatest([this.shopService.shops$.pipe(pluck('length')), this.offset$]).pipe(
         map(([count, showedCount]) => count > showedCount),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -101,5 +98,12 @@ export class ShopsPanelsListService {
 
     showMore() {
         this.showMore$.next();
+    }
+
+    private getOffsetBySelectedPanelPosition(idx: number) {
+        if (idx === -1) {
+            return SHOPS_LIMIT;
+        }
+        return Math.ceil((idx + 1) / SHOPS_LIMIT) * SHOPS_LIMIT;
     }
 }
