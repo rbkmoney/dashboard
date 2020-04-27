@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { SearchParamsForCurrentAndPreviousPeriod } from '../utils';
+import { SearchParams } from '../search-params';
 import { AveragePaymentService } from './average-payment.service';
 import { PaymentsAmountService } from './payments-amount.service';
 import { PaymentsCountService } from './payments-count.service';
@@ -16,7 +16,7 @@ import { RefundsAmountService } from './refunds-amount.service';
 export class StatsComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;
 
-    @Input() searchParams: SearchParamsForCurrentAndPreviousPeriod;
+    @Input() searchParams: SearchParams;
 
     paymentsAmount$ = this.paymentsAmountService.paymentsAmount$;
     isPaymentsAmountLoading$ = this.paymentsAmountService.isPaymentsAmountLoading$;
@@ -42,11 +42,14 @@ export class StatsComponent implements OnChanges {
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.searchParams.currentValue !== changes.searchParams.previousValue) {
-            this.paymentsAmountService.searchParamsChanges(this.searchParams);
-            this.refundsAmountService.searchParamsChanges(this.searchParams);
-            this.averagePaymentService.searchParamsChanges(this.searchParams);
-            this.paymentsCountService.searchParamsChanges(this.searchParams);
+        if (
+            changes.searchParams.currentValue &&
+            changes.searchParams.currentValue !== changes.searchParams.previousValue
+        ) {
+            this.paymentsAmountService.updateSearchParams(this.searchParams);
+            this.refundsAmountService.updateSearchParams(this.searchParams);
+            this.averagePaymentService.updateSearchParams(this.searchParams);
+            this.paymentsCountService.updateSearchParams(this.searchParams);
         }
     }
 }

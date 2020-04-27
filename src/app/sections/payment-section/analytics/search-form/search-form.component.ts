@@ -2,16 +2,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
-import { debounceTime, map, shareReplay, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime, filter, map, pluck, shareReplay, take } from 'rxjs/operators';
 
 import { ShopService } from '../../../../api/shop';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { removeEmptyProperties } from '../../operations/operators';
+import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { FormParams } from './form-params';
-import { QueryParams } from './query-params';
 import { toFormValue } from './to-form-value';
-import { toQueryParams } from './to-query-params';
 import { toSearchParams } from './to-search-params';
 
 @Component({
@@ -26,7 +24,12 @@ export class SearchFormComponent implements OnInit {
     @Output()
     valueChanges = new EventEmitter<SearchParams>();
 
-    shops$ = this.shopService.getShops().pipe(shareReplay(SHARE_REPLAY_CONF));
+    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo,
+        shareReplay(1)
+    );
 
     private defaultParams: FormParams = {
         shopIDs: null,
@@ -47,14 +50,21 @@ export class SearchFormComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.form.valueChanges.pipe(debounceTime(300), removeEmptyProperties).subscribe(v => {
-            this.router.navigate([location.pathname], { queryParams: toQueryParams(v) });
-            this.valueChanges.emit(toSearchParams(v));
-        });
+        this.form.valueChanges
+            .pipe(
+                filter(v => !!v),
+                debounceTime(300),
+                removeEmptyProperties
+            )
+            .subscribe(v => {
+                const searchParams = toSearchParams(v);
+                this.router.navigate([location.pathname], { queryParams: searchParams });
+                this.valueChanges.emit(searchParams);
+            });
         this.route.queryParams
             .pipe(
                 take(1),
-                map((v: QueryParams) => toFormValue(v, this.defaultParams))
+                map((v: SearchParams) => toFormValue(v, this.defaultParams))
             )
             .subscribe(v => this.form.patchValue(v));
     }

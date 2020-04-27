@@ -1,10 +1,10 @@
 import moment from 'moment';
 
+import { SearchParams } from '../search-params';
 import { FormParams } from './form-params';
-import { QueryParams } from './query-params';
 
 export function toFormValue(
-    { fromTime, toTime, period, ...params }: QueryParams,
+    { fromTime, toTime, period, ...params }: SearchParams,
     defaultParams: FormParams
 ): FormParams {
     return {

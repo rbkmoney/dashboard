@@ -5,15 +5,9 @@
 >
     <h1 class="mat-headline">{{ t.headline }}</h1>
     <div fxLayout="column" fxLayoutGap="20px">
-        <dsh-search-form></dsh-search-form>
-        <dsh-stats [searchParams]="statSearchParams$ | async" [spinnerType]="spinnerType"></dsh-stats>
-        <dsh-stats-bars
-            [searchParams]="searchParamsWithSplitUnit$ | async"
-            [spinnerType]="spinnerType"
-        ></dsh-stats-bars>
-        <dsh-distributions
-            [searchParams]="distributionSearchParams$ | async"
-            [spinnerType]="spinnerType"
-        ></dsh-distributions>
+        <dsh-search-form (valueChanges)="updateSearchParams($event)"></dsh-search-form>
+        <dsh-stats [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-stats>
+        <dsh-stats-bars [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-stats-bars>
+        <dsh-distributions [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-distributions>
     </div>
 </div>

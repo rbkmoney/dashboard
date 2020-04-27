@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
+import { SearchParams } from '../search-params';
 import { StatsBarsService } from './stats-bars.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { StatsBarsService } from './stats-bars.service';
 export class StatsBarsComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;
 
-    @Input() searchParams: SearchParamsWithSplitUnit;
+    @Input() searchParams: SearchParams;
 
     paymentsSplitCount$ = this.statsBarsService.splitCount$;
     isPaymentsSplitCountLoading$ = this.statsBarsService.isSplitCountLoading$;
@@ -26,8 +26,11 @@ export class StatsBarsComponent implements OnChanges {
     constructor(private statsBarsService: StatsBarsService) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.searchParams.currentValue !== changes.searchParams.previousValue) {
-            this.statsBarsService.searchParamsChanges(this.searchParams);
+        if (
+            changes.searchParams.currentValue &&
+            changes.searchParams.currentValue !== changes.searchParams.previousValue
+        ) {
+            this.statsBarsService.updateSearchParams(this.searchParams);
         }
     }
 }

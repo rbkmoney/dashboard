@@ -26,7 +26,10 @@ export class DistributionsComponent implements OnChanges {
     constructor(private distributionsService: DistributionsService) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.searchParams.currentValue !== changes.searchParams.previousValue) {
+        if (
+            changes.searchParams.currentValue &&
+            changes.searchParams.currentValue !== changes.searchParams.previousValue
+        ) {
             this.distributionsService.updateSearchParams(this.searchParams);
         }
     }
