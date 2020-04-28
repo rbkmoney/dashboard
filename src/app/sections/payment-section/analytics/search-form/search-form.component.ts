@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, map, pluck, shareReplay, take } from 'rxjs/operators';
 
 import { ShopService } from '../../../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { FormParams } from './form-params';
@@ -28,7 +29,7 @@ export class SearchFormComponent implements OnInit {
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,
-        shareReplay(1)
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     private defaultParams: FormParams = {
@@ -54,17 +55,17 @@ export class SearchFormComponent implements OnInit {
             .pipe(
                 filter(v => !!v),
                 debounceTime(300),
-                removeEmptyProperties
+                removeEmptyProperties,
+                map(toSearchParams)
             )
             .subscribe(v => {
-                const searchParams = toSearchParams(v);
-                this.router.navigate([location.pathname], { queryParams: searchParams });
-                this.valueChanges.emit(searchParams);
+                this.router.navigate([location.pathname], { queryParams: v });
+                this.valueChanges.emit(v);
             });
         this.route.queryParams
             .pipe(
                 take(1),
-                map((v: SearchParams) => toFormValue(v, this.defaultParams))
+                map(v => toFormValue(v, this.defaultParams))
             )
             .subscribe(v => this.form.patchValue(v));
     }

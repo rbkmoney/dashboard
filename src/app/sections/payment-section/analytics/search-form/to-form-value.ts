@@ -1,12 +1,9 @@
+import { Params } from '@angular/router';
 import moment from 'moment';
 
-import { SearchParams } from '../search-params';
 import { FormParams } from './form-params';
 
-export function toFormValue(
-    { fromTime, toTime, period, ...params }: SearchParams,
-    defaultParams: FormParams
-): FormParams {
+export function toFormValue({ fromTime, toTime, period, ...params }: Params, defaultParams: FormParams): FormParams {
     return {
         ...defaultParams,
         ...params,
