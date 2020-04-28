@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, map, pluck, shareReplay, take } from 'rxjs/operators';
