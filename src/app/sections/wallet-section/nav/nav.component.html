@@ -1,23 +1,33 @@
-<dsh-state-nav fxFlex="180px" *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'">
+<dsh-state-nav fxFlex="180px" *transloco="let t; scope: 'wallet-section'; read: 'walletSection.nav'">
     <dsh-state-nav-item
-        routerLink="./operations"
+        routerLink="./wallets"
         routerLinkActive
-        #operations="routerLinkActive"
-        [selected]="operations.isActive"
+        #wallets="routerLinkActive"
+        [selected]="wallets.isActive"
         withIcon
-        icon="table_chart"
+        icon="pie_chart"
     >
-        {{ t.operations }}
+        {{ t.wallets }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
-        routerLink="./payouts"
+        routerLink="./deposits"
         routerLinkActive
-        #payouts="routerLinkActive"
-        [selected]="payouts.isActive"
+        #deposits="routerLinkActive"
+        [selected]="deposits.isActive"
+        withIcon
+        icon="input"
+    >
+        {{ t.deposits }}
+    </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./withdrawals"
+        routerLinkActive
+        #withdrawals="routerLinkActive"
+        [selected]="withdrawals.isActive"
         withIcon
         icon="output"
     >
-        {{ t.payouts }}
+        {{ t.withdrawals }}
     </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="./reports"

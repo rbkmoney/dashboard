@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'payment-section.component.html',
+    templateUrl: 'wallet-section.component.html',
     styleUrls: ['../main-sections.scss']
 })
-export class PaymentSectionComponent {}
+export class WalletSectionComponent {}
