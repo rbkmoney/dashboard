@@ -1,6 +1,7 @@
-<dsh-card [formGroup]="form">
+<dsh-card>
     <dsh-card-content>
-        <div
+        <form
+            [formGroup]="form"
             fxLayout
             fxLayout.lt-md="column"
             fxLayoutGap="20px"
@@ -12,12 +13,12 @@
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>
                     <mat-label>{{ t.shop }}</mat-label>
                     <mat-select multiple formControlName="shopIDs">
-                        <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">{{
-                            shop.details.name
+                        <mat-option *ngFor="let shop of shopsInfo$ | async" [value]="shop.shopID">{{
+                            shop.name
                         }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </dsh-justify-wrapper>
-        </div>
+        </form>
     </dsh-card-content>
 </dsh-card>

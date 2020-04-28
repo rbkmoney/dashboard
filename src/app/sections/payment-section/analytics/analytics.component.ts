@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { AnalyticsService } from './analytics.service';
+import { SearchParams } from './search-params';
 
 @Component({
-    templateUrl: 'analytics.component.html',
-    providers: [AnalyticsService]
+    templateUrl: 'analytics.component.html'
 })
 export class AnalyticsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    distributionSearchParams$ = this.analyticsService.distributionSearchParams$;
-    statSearchParams$ = this.analyticsService.statSearchParams$;
-    searchParamsWithSplitUnit$ = this.analyticsService.searchParamsWithSplitUnit$;
+    searchParams$ = new Subject<SearchParams>();
 
-    constructor(private analyticsService: AnalyticsService) {}
+    updateSearchParams(searchParams) {
+        this.searchParams$.next(searchParams);
+    }
 }

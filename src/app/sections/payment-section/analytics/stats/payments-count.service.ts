@@ -4,11 +4,16 @@ import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { countResultToStatData, SearchParamsForCurrentAndPreviousPeriod } from '../utils';
+import { SearchParams } from '../search-params';
+import { countResultToStatData, searchParamsToStatSearchParams } from '../utils';
 
 @Injectable()
 export class PaymentsCountService {
-    private searchParams$ = new Subject<SearchParamsForCurrentAndPreviousPeriod>();
+    private initialSearchParams$ = new Subject<SearchParams>();
+    private searchParams$ = this.initialSearchParams$.pipe(
+        map(searchParamsToStatSearchParams),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     private paymentsCountOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
@@ -37,7 +42,7 @@ export class PaymentsCountService {
         ).subscribe();
     }
 
-    searchParamsChanges(searchParams: SearchParamsForCurrentAndPreviousPeriod) {
-        this.searchParams$.next(searchParams);
+    updateSearchParams(searchParams: SearchParams) {
+        this.initialSearchParams$.next(searchParams);
     }
 }

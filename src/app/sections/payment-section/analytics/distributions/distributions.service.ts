@@ -19,6 +19,7 @@ export class DistributionsService {
     private searchParams$ = new Subject<SearchParams>();
 
     private toolDistributionOrError$ = this.searchParams$.pipe(
+        // ngOnInit push null value
         switchMap(({ fromTime, toTime, shopIDs }) =>
             this.analyticsService.getPaymentsToolDistribution(fromTime, toTime, shopIDs).pipe(replaceError)
         )

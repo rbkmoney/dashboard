@@ -4,12 +4,20 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
-import { paymentsSplitAmountToChartData, paymentsSplitCountToChartData } from '../utils';
+import { SearchParams } from '../search-params';
+import {
+    paymentsSplitAmountToChartData,
+    paymentsSplitCountToChartData,
+    searchParamsToParamsWithSplitUnit
+} from '../utils';
 
 @Injectable()
 export class StatsBarsService {
-    private searchParams$ = new Subject<SearchParamsWithSplitUnit>();
+    private initialSearchParams$ = new Subject<SearchParams>();
+    private searchParams$ = this.initialSearchParams$.pipe(
+        map(searchParamsToParamsWithSplitUnit),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
@@ -52,7 +60,7 @@ export class StatsBarsService {
         ).subscribe();
     }
 
-    searchParamsChanges(searchParams: SearchParamsWithSplitUnit) {
-        this.searchParams$.next(searchParams);
+    updateSearchParams(searchParams: SearchParams) {
+        this.initialSearchParams$.next(searchParams);
     }
 }
