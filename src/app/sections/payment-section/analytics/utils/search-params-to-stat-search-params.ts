@@ -5,28 +5,23 @@ import { Period } from '@dsh/components/form-controls';
 import { SearchParams } from '../search-params';
 import { StatSearchParams } from '../stat-search-params';
 
-export interface SearchParamsForCurrentAndPreviousPeriod {
-    current: StatSearchParams;
-    previous: StatSearchParams;
-}
-
-export function searchParamsToStatSearchParams({
+export const searchParamsToStatSearchParams = ({
     fromTime,
     toTime,
     shopIDs,
     period
-}: SearchParams): { current: StatSearchParams; previous: StatSearchParams } {
+}: SearchParams): { current: StatSearchParams; previous: StatSearchParams } => {
     const current: StatSearchParams = { fromTime, toTime, shopIDs };
     const previous = getPreviousParams(fromTime, toTime, shopIDs, period);
     return { current, previous };
-}
+};
 
-function getPreviousParams(
+const getPreviousParams = (
     currentFromTime: string,
     currentToTime: string,
     shopIDs: string[],
     period: Period
-): StatSearchParams {
+): StatSearchParams => {
     let fromTime = moment(currentFromTime);
     let toTime = moment(currentToTime);
     switch (period) {
@@ -60,4 +55,4 @@ function getPreviousParams(
         }
     }
     return { fromTime: fromTime.utc().format(), toTime: toTime.utc().format(), shopIDs };
-}
+};

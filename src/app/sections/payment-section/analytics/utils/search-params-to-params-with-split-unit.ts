@@ -5,21 +5,19 @@ import { SplitCountResult, SplitUnit } from '../../../../api-codegen/anapi/swagg
 import { SearchParams } from '../search-params';
 import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
 
-export function searchParamsToParamsWithSplitUnit({
+export const searchParamsToParamsWithSplitUnit = ({
     fromTime,
     toTime,
     period,
     shopIDs
-}: SearchParams): SearchParamsWithSplitUnit {
-    return {
-        fromTime,
-        toTime,
-        splitUnit: periodToSplitUnit(period),
-        shopIDs
-    };
-}
+}: SearchParams): SearchParamsWithSplitUnit => ({
+    fromTime,
+    toTime,
+    splitUnit: periodToSplitUnit(period),
+    shopIDs
+});
 
-function periodToSplitUnit(period: Period): SplitUnit {
+const periodToSplitUnit = (period: Period): SplitUnit => {
     switch (period) {
         case 'day':
             return SplitUnitEnum.Hour;
@@ -30,4 +28,4 @@ function periodToSplitUnit(period: Period): SplitUnit {
         case 'year':
             return SplitUnitEnum.Month;
     }
-}
+};
