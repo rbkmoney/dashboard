@@ -34,9 +34,12 @@
                 </mat-radio-button>
             </mat-radio-group>
 
-            <ng-container *ngIf="form.value.templateType === templateType.multiLine" formArrayName="cart">
+            <ng-container
+                *ngIf="form.value.templateType === templateType.multiLine; else singleLine"
+                formArrayName="cart"
+            >
                 <h2 class="mat-subheading-1">{{ c.form.cart.title }}:</h2>
-                <ng-container *ngFor="let cart of cartFormArray.controls; let i = index" [formGroupName]="i">
+                <ng-container *ngFor="let cart of cartForm.controls; let i = index" [formGroupName]="i">
                     <mat-form-field>
                         <mat-label>{{ c.form.cart.description }}</mat-label>
                         <input formControlName="product" matInput required />
@@ -65,35 +68,53 @@
                             dsh-stroked-button
                             color="warn"
                             (click)="removeProduct(i)"
-                            *ngIf="i !== 0 || (i === 0 && cartFormArray.controls.length > 1)"
+                            *ngIf="i !== 0 || (i === 0 && cartForm.controls.length > 1)"
                         >
                             {{ c.form.cart.remove }}
                         </button>
                     </div>
                 </ng-container>
+                <mat-divider></mat-divider>
                 <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
                     <div>{{ c.form.cart.summary }}:</div>
                     <button dsh-stroked-button color="accent" (click)="addProduct()">
                         {{ c.form.cart.add }}
                     </button>
                 </div>
-                <mat-divider></mat-divider>
             </ng-container>
 
-            <mat-form-field>
-                <mat-label>{{ c.form.taxMode }}</mat-label>
-                <mat-select required formControlName="taxMode">
-                    <mat-option [value]="withoutVAT">{{ c.form.withoutVAT }}</mat-option>
-                    <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode">{{ taxMode }}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <ng-template #singleLine>
+                <mat-form-field>
+                    <mat-label>{{ c.form.taxMode }}</mat-label>
+                    <mat-select required formControlName="taxMode">
+                        <mat-option [value]="withoutVAT">{{ c.form.withoutVAT }}</mat-option>
+                        <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode">{{ taxMode }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <label class="mat-subheading-1">{{ c.form.costType.label }}:</label>
-            <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="costType">
-                <mat-radio-button *ngFor="let cost of costTypes" fxFlex [value]="cost[1]">
-                    {{ c.form.costType[cost[0]] }}
-                </mat-radio-button>
-            </mat-radio-group>
+                <label class="mat-subheading-1">{{ c.form.costType.label }}:</label>
+                <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="costType">
+                    <mat-radio-button *ngFor="let cost of costTypes" fxFlex [value]="cost[1]">
+                        {{ c.form.costType[cost[0]] }}
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <mat-form-field *ngIf="form.value.costType === costType.fixed">
+                    <mat-label>{{ c.form.cost }}</mat-label>
+                    <dsh-format-input format="amount" formControlName="cost" required></dsh-format-input>
+                </mat-form-field>
+
+                <dsh-justify-wrapper fxLayout fxLayoutGap="20px" *ngIf="form.value.costType === costType.range">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ c.form.lowerBound }}</mat-label>
+                        <dsh-format-input format="amount" formControlName="lowerBound" required></dsh-format-input>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ c.form.upperBound }}</mat-label>
+                        <dsh-format-input format="amount" formControlName="upperBound" required></dsh-format-input>
+                    </mat-form-field>
+                </dsh-justify-wrapper>
+            </ng-template>
         </dsh-justify-wrapper>
 
         <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between">

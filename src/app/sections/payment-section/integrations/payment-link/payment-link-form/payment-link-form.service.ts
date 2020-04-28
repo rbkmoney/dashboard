@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { combineLatest, Subject } from 'rxjs';
-import { pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { InvoiceTemplatesService, UrlShortenerService } from '../../../../api';
-import { InvoiceTemplateAndToken, InvoiceTemplateCreateParams, LifetimeInterval } from '../../../../api-codegen/capi';
-import { ConfigService } from '../../../../config';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { UrlShortenerService } from '../../../../../api';
+import { InvoiceTemplateAndToken, LifetimeInterval } from '../../../../../api-codegen/capi';
+import { ConfigService } from '../../../../../config';
+import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { InvoiceTemplateFormService } from '../invoice-template-form';
 
 export class PaymentLinkArguments {
     invoiceID?: string;
@@ -28,19 +29,11 @@ export class PaymentLinkArguments {
 }
 
 @Injectable()
-export class PaymentLinkService {
-    private createInvoiceTemplateParams$ = new Subject<InvoiceTemplateCreateParams>();
+export class PaymentLinkFormService {
     private createInvoiceTemplatePaymentLinkParams$ = new Subject<PaymentLinkArguments>();
 
-    invoiceTemplateAndToken$ = this.createInvoiceTemplateParams$.pipe(
-        switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p)),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-
-    invoiceTemplatePaymentLink$ = combineLatest([
-        this.createInvoiceTemplatePaymentLinkParams$,
-        this.invoiceTemplateAndToken$
-    ]).pipe(
+    invoiceTemplatePaymentLink$ = this.createInvoiceTemplatePaymentLinkParams$.pipe(
+        withLatestFrom(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
         switchMap(([params, invoiceTemplateAndToken]) =>
             this.urlShortenerService.shortenUrl(
                 this.createUrl(params, invoiceTemplateAndToken),
@@ -52,14 +45,10 @@ export class PaymentLinkService {
     );
 
     constructor(
-        private invoiceTemplatesService: InvoiceTemplatesService,
         private urlShortenerService: UrlShortenerService,
-        private configService: ConfigService
+        private configService: ConfigService,
+        private invoiceTemplateFormService: InvoiceTemplateFormService
     ) {}
-
-    createInvoiceTemplate(params: InvoiceTemplateCreateParams) {
-        this.createInvoiceTemplateParams$.next(params);
-    }
 
     createInvoiceTemplatePaymentLink(params: PaymentLinkArguments) {
         this.createInvoiceTemplatePaymentLinkParams$.next(params);

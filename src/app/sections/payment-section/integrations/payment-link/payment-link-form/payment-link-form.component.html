@@ -32,8 +32,27 @@
             <mat-divider></mat-divider>
 
             <mat-checkbox formControlName="paymentFlowHold">{{ c.form.paymentFlowHold }}</mat-checkbox>
-
             <mat-divider></mat-divider>
+
+            <ng-container *ngIf="true">
+                <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ c.form.link }}</mat-label>
+                        <input formControlName="link" matInput readonly disabled />
+                    </mat-form-field>
+                    <div>
+                        <button
+                            dsh-button
+                            color="accent"
+                            [cdkCopyToClipboard]="form.value.link"
+                            (cdkCopyToClipboardCopied)="copied()"
+                        >
+                            {{ c.form.copy }}
+                        </button>
+                    </div>
+                </dsh-justify-wrapper>
+                <mat-divider></mat-divider>
+            </ng-container>
 
             <div
                 fxLayout

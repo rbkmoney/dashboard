@@ -1,3 +1,4 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -14,11 +15,10 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceTemplatesModule, UrlShortenerModule } from '../../../../api';
-import { InvoiceTemplateFormComponent } from './invoice-template-form';
-import { PaymentLinkFormComponent } from './payment-link-form';
+import { InvoiceTemplateFormComponent, InvoiceTemplateFormService } from './invoice-template-form';
+import { PaymentLinkFormComponent, PaymentLinkFormService } from './payment-link-form';
 import { PaymentLinkRoutingModule } from './payment-link-routing.module';
 import { PaymentLinkComponent } from './payment-link.component';
-import { PaymentLinkService } from './payment-link.service';
 
 const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
 
@@ -38,10 +38,11 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         MatCheckboxModule,
         MatDividerModule,
         UrlShortenerModule,
-        InvoiceTemplatesModule
+        InvoiceTemplatesModule,
+        ClipboardModule
     ],
     declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent, PaymentLinkFormComponent],
     exports: EXPORTED_DECLARATIONS,
-    providers: [PaymentLinkService]
+    providers: [PaymentLinkFormService, InvoiceTemplateFormService]
 })
 export class PaymentLinkModule {}

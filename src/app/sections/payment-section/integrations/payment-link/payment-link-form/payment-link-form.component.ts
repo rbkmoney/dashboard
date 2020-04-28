@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { PaymentLinkService } from '../payment-link.service';
+import { PaymentLinkFormService } from './payment-link-form.service';
 
 enum HoldExpiration {
     cancel = 'cancel',
@@ -19,15 +19,17 @@ export class PaymentLinkFormComponent {
 
     form = this.createForm();
 
-    constructor(private fb: FormBuilder, private paymentLinkService: PaymentLinkService) {}
+    constructor(private fb: FormBuilder, private paymentLinkFormService: PaymentLinkFormService) {}
 
     clear() {
         this.form.patchValue(this.createForm().value);
     }
 
     create() {
-        this.paymentLinkService.createInvoiceTemplatePaymentLink(this.form.value);
+        this.paymentLinkFormService.createInvoiceTemplatePaymentLink(this.form.value);
     }
+
+    copied() {}
 
     private createForm() {
         return this.fb.group({
@@ -42,7 +44,8 @@ export class PaymentLinkFormComponent {
             googlePay: false,
             samsungPay: false,
             paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel
+            holdExpiration: HoldExpiration.cancel,
+            link: ''
         });
     }
 }
