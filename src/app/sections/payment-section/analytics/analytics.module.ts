@@ -13,11 +13,16 @@ import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
 import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsComponent } from './analytics.component';
-import { DistributionsModule } from './distributions';
+import { AveragePaymentModule } from './average-payment';
+import { PaymentSplitAmountModule } from './payment-split-amount';
+import { PaymentSplitCountModule } from './payment-split-count';
+import { PaymentsAmountModule } from './payments-amount';
+import { PaymentsCountModule } from './payments-count';
+import { PaymentsErrorDistributionModule } from './payments-error-distribution';
+import { PaymentsToolDistributionModule } from './payments-tool-distribution';
 import { PercentDifferenceModule } from './percent-difference';
+import { RefundsAmountModule } from './refunds-amount';
 import { SearchFormComponent } from './search-form';
-import { StatsModule } from './stats';
-import { StatsBarsModule } from './stats-bars';
 
 @NgModule({
     imports: [
@@ -35,10 +40,15 @@ import { StatsBarsModule } from './stats-bars';
         APIAnalyticsModule,
         RangeDatepickerModule,
         SpinnerModule,
-        StatsModule,
         PercentDifferenceModule,
-        StatsBarsModule,
-        DistributionsModule
+        PaymentSplitCountModule,
+        PaymentsToolDistributionModule,
+        AveragePaymentModule,
+        PaymentsAmountModule,
+        PaymentsCountModule,
+        RefundsAmountModule,
+        PaymentSplitAmountModule,
+        PaymentsErrorDistributionModule
     ],
     declarations: [AnalyticsComponent, SearchFormComponent]
 })
