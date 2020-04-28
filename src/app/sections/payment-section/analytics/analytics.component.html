@@ -6,8 +6,47 @@
     <h1 class="mat-headline">{{ t.headline }}</h1>
     <div fxLayout="column" fxLayoutGap="20px">
         <dsh-search-form (valueChanges)="updateSearchParams($event)"></dsh-search-form>
-        <dsh-stats [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-stats>
-        <dsh-stats-bars [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-stats-bars>
-        <dsh-distributions [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-distributions>
+        <div fxLayout fxLayoutGap="20px">
+            <dsh-payments-amount
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-amount>
+            <dsh-refunds-amount
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-refunds-amount>
+            <dsh-average-payment
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-average-payment>
+            <dsh-payments-count
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-count>
+        </div>
+        <dsh-payment-split-count
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payment-split-count>
+        <dsh-payment-split-amount
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payment-split-amount>
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+            <dsh-payments-tool-distribution
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-tool-distribution>
+            <dsh-payments-error-distribution
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-error-distribution>
+        </div>
     </div>
 </div>

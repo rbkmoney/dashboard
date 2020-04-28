@@ -1,0 +1,9 @@
+<dsh-donut-chart-item
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+    fxFlex
+    [spinnerType]="spinnerType"
+    [title]="t.unsuccessfulPaymentReasons"
+    [chartData]="errorDistribution$ | async"
+    [isLoading]="isLoading$ | async"
+    [error]="error$ | async"
+></dsh-donut-chart-item>
