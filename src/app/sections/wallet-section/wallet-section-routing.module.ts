@@ -6,7 +6,17 @@ import { WalletSectionComponent } from './wallet-section.component';
 const paymentSectionRoutes: Routes = [
     {
         path: '',
-        component: WalletSectionComponent
+        component: WalletSectionComponent,
+        children: [
+            {
+                path: 'wallets',
+                loadChildren: () => import('./wallets/wallets.module').then(m => m.WalletsModule)
+            },
+            {
+                path: '',
+                redirectTo: 'wallets'
+            }
+        ]
     }
 ];
 
