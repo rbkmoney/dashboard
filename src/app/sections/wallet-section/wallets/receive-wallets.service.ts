@@ -27,7 +27,7 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         super();
     }
 
-    protected fetch(continuationToken: string): Observable<FetchResult<any>> {
+    protected fetch(continuationToken: string): Observable<FetchResult<Wallet>> {
         return this.walletService.listWallets(this.searchLimit, undefined, undefined, continuationToken);
     }
 }
