@@ -1,19 +1,16 @@
-<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let t; scope: 'shops'; read: 'shops'">
+<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let s; scope: 'shops'; read: 'shops'">
     <div class="mat-body-1">
-        {{ t.description }}
+        {{ s.description }}
     </div>
-    <ng-container *ngIf="shops$ | async; else spinner">
-        <dsh-shops-panels-list></dsh-shops-panels-list>
-        <div *ngIf="!(shops$ | async)?.length" class="mat-headline dsh-payouts-empty">
-            <ng-container *transloco="let t">
-                {{ t.emptySearchResult }}
-            </ng-container>
-            <dsh-empty-search-result>{{ t.empty }}</dsh-empty-search-result>
+    <ng-container *ngIf="(isLoading$ | async) || !(shops$ | async); else shopsPanelsList">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
         </div>
     </ng-container>
-    <ng-template #spinner>
-        <div *ngIf="shops$ | async" fxLayout fxFlexAlign="center">
-            <dsh-spinner></dsh-spinner>
+    <ng-template #shopsPanelsList>
+        <dsh-shops-panels-list></dsh-shops-panels-list>
+        <div *ngIf="!(shops$ | async)?.length" class="mat-headline dsh-payouts-empty">
+            <dsh-empty-search-result *transloco="let t">{{ t.emptySearchResult }}</dsh-empty-search-result>
         </div>
     </ng-template>
 </div>
