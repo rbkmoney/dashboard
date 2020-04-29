@@ -42,7 +42,7 @@ import { PaymentsComponent } from './payments/payments.component';
         PaymentsComponent,
         PaymentComponent
     ],
-    exports: [StatusDetailsItemComponent],
+    exports: [StatusDetailsItemComponent, DetailsComponent],
     providers: [InvoiceSearchService, PaymentSearchService]
 })
 export class InvoiceDetailsModule {}

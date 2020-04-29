@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-wallet-panel-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-wallet-header {
+        color: map-get($gray, 500);
+    }
+}

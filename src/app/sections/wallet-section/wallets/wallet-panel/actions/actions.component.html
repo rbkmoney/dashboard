@@ -1,0 +1,6 @@
+<div fxLayout="row" fxLayoutAlign="end center" *transloco="let a; scope: 'wallets'; read: 'wallets.actions'">
+    <div class="dsh-get-more-wallet-details" fxLayout="row" fxLayoutGap="10px" (click)="goToWalletDetails()">
+        <div class="mat-body-1">{{ a.more }}</div>
+        <mat-icon class="dsh-forward-icon go-to-wallet">arrow_forward</mat-icon>
+    </div>
+</div>
