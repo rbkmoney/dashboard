@@ -1,9 +1,9 @@
 <dsh-expand-panel-accordion
     fxLayout="column"
     fxLayoutGap="20px"
-    (expandedChange)="select($event)"
-    [expanded]="selectedIdx$ | async"
     *transloco="let t; scope: 'webhook'; read: 'webhook.details'"
+    [expanded]="selectedPanelPosition$ | async"
+    (expandedChange)="select($event)"
 >
     <dsh-expand-panel *ngFor="let webhook of webhooks$ | async">
         <div fxLayout="column" fxLayoutGap="10px">
@@ -45,4 +45,5 @@
             </div>
         </dsh-expand-panel-more>
     </dsh-expand-panel>
+    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
 </dsh-expand-panel-accordion>

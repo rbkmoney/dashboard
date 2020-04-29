@@ -8,6 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule, ExpandPanelModule } from '@dsh/components/layout';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ActionsComponent } from './actions/actions.component';
 import { DetailsComponent } from './details/details.component';
@@ -26,7 +27,8 @@ import { WebhooksPanelsListComponent } from './webhooks-panels-list.component';
         MatDividerModule,
         ButtonModule,
         ClipboardModule,
-        DetailsItemModule
+        DetailsItemModule,
+        ShowMorePanelModule
     ],
     exports: [WebhooksPanelsListComponent]
 })

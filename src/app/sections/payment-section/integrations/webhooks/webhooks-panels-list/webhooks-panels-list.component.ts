@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { LAYOUT_GAP } from '../../../../constants';
-import { ReceiveWebhooksService } from '../receive-webhooks.service';
 import { WebhooksPanelsListService } from './webhooks-panels-list.service';
 
 @Component({
@@ -11,12 +10,12 @@ import { WebhooksPanelsListService } from './webhooks-panels-list.service';
     providers: [WebhooksPanelsListService]
 })
 export class WebhooksPanelsListComponent {
-    webhooks$ = this.receiveWebhooksService.webhooks$;
-    selectedIdx$ = this.receiveWebhooksService.selectedIdx$;
+    webhooks$ = this.webhooksPanelsListService.webhooks$;
+    selectedPanelPosition$ = this.webhooksPanelsListService.selectedPanelPosition$;
+    hasMore$ = this.webhooksPanelsListService.hasMore$;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
-        private receiveWebhooksService: ReceiveWebhooksService,
         private webhooksPanelsListService: WebhooksPanelsListService
     ) {}
 
@@ -25,6 +24,10 @@ export class WebhooksPanelsListComponent {
     }
 
     select(idx: number) {
-        this.receiveWebhooksService.select(idx);
+        this.webhooksPanelsListService.select(idx);
+    }
+
+    showMore() {
+        this.webhooksPanelsListService.showMore();
     }
 }
