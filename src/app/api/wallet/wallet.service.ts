@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 
 import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '../../api-codegen/wallet-api';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
@@ -8,6 +9,7 @@ import { genXRequestID } from '../utils';
 @Injectable()
 export class WalletService {
     hasWallets$ = this.listWallets(1).pipe(
+        catchError(() => of({ result: [] })),
         pluck('result', 'length'),
         map(l => l > 0),
         shareReplay(SHARE_REPLAY_CONF)
