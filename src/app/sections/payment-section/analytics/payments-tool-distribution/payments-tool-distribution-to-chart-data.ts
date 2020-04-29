@@ -2,7 +2,7 @@ import { translate } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 
 import { PaymentsToolDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { DistributionChartData } from './distribution-chart-data';
+import { DistributionChartData } from '../utils';
 
 const sortSeries = (distribution: number[]) => sortBy(distribution, d => -d);
 

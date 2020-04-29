@@ -5,7 +5,8 @@ import { map, shareReplay, switchMap } from 'rxjs/operators';
 import { AnalyticsService } from '../../../../api';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
-import { countResultToStatData, searchParamsToStatSearchParams } from '../utils';
+import { searchParamsToStatSearchParams } from '../utils';
+import { countResultToStatData } from './count-result-to-stat-data';
 
 @Injectable()
 export class PaymentsCountService {

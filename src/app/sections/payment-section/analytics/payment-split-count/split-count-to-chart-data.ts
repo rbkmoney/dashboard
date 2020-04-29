@@ -1,11 +1,8 @@
 import { translate } from '@ngneat/transloco';
-import sortBy from 'lodash.sortby';
 import moment from 'moment';
 
 import { OffsetCount, SplitCountResult, StatusOffsetCount } from '../../../../api-codegen/anapi/swagger-codegen';
-import { ChartData } from './chart-data';
-
-const sortByOffset = (offsetCounts: OffsetCount[]): OffsetCount[] => sortBy(offsetCounts, o => o.offset);
+import { ChartData, sortByOffset } from '../utils';
 
 const fixExtraInterval = (offsetCounts: OffsetCount[]): OffsetCount[] =>
     offsetCounts.reduce(

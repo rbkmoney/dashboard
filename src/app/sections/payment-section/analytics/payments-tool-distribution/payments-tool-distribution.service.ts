@@ -5,7 +5,7 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
-import { paymentsToolDistributionToChartData } from '../utils';
+import { paymentsToolDistributionToChartData } from './payments-tool-distribution-to-chart-data';
 
 @Injectable()
 export class PaymentsToolDistributionService {

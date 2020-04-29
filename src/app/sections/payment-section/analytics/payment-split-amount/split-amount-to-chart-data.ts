@@ -1,10 +1,8 @@
-import sortBy from 'lodash.sortby';
 import moment from 'moment';
+import { ApexAxisChartSeries } from 'ng-apexcharts';
 
 import { OffsetAmount, SplitAmountResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { ChartData } from './chart-data';
-
-const sortByOffset = (offsetAmounts: OffsetAmount[]): OffsetAmount[] => sortBy(offsetAmounts, o => o.offset);
+import { ChartData, sortByOffset } from '../utils';
 
 const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
     offsetAmounts.reduce(
@@ -25,8 +23,11 @@ const prepareOffsetAmounts = (offsetAmounts: OffsetAmount[]): OffsetAmount[] => 
     return fixExtraInterval(sorted);
 };
 
-const offsetAmountsToData = (offsetAmounts: OffsetAmount[]): number[] =>
-    offsetAmounts.map(offsetAmount => offsetAmount.amount);
+const offsetAmountsToSeries = (offsetAmounts: OffsetAmount[]): ApexAxisChartSeries => [
+    {
+        data: offsetAmounts.map(offsetAmount => offsetAmount.amount)
+    }
+];
 
 const offsetAmountsToTimes = (offsetAmounts: OffsetAmount[]): string[] =>
     offsetAmounts.map(offsetAmount => moment(offsetAmount.offset).format());
@@ -36,11 +37,7 @@ export const splitAmountToChartData = (paymentsSplitAmount: Array<SplitAmountRes
         const prepared = prepareOffsetAmounts(offsetAmounts);
         return {
             currency,
-            series: [
-                {
-                    data: offsetAmountsToData(prepared)
-                }
-            ],
+            series: offsetAmountsToSeries(prepared),
             times: offsetAmountsToTimes(prepared)
         };
     });

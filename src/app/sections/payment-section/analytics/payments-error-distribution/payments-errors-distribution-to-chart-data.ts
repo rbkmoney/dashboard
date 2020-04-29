@@ -2,7 +2,7 @@ import { translate } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 
 import { PaymentsErrorsDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { DistributionChartData } from './distribution-chart-data';
+import { DistributionChartData } from '../utils';
 
 const ERRORS_COUNT_TO_SHOW = 4;
 
