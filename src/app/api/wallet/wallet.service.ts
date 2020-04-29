@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslocoService } from '@ngneat/transloco';
-import { of, throwError } from 'rxjs';
-import { catchError, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 
 import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '../../api-codegen/wallet-api';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
@@ -10,25 +8,14 @@ import { genXRequestID } from '../utils';
 
 @Injectable()
 export class WalletService {
-    hasWallets$ = of('start').pipe(
-        switchMap(() =>
-            this.listWallets(1).pipe(
-                catchError(() => {
-                    this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                    return throwError(`WalletService: ${this.transloco.translate('httpError')}`);
-                })
-            )
-        ),
+    hasWallets$ = this.listWallets(1).pipe(
+        catchError(() => of({ result: [] })),
         pluck('result', 'length'),
         map(l => l > 0),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(
-        private apiWalletsService: ApiWalletsService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {}
+    constructor(private apiWalletsService: ApiWalletsService) {}
 
     getWalletByExternalID(externalID: string) {
         return this.apiWalletsService.getWalletByExternalID(genXRequestID(), externalID);

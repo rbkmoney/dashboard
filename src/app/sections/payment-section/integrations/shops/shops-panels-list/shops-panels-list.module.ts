@@ -13,6 +13,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { CategoriesModule } from '../../../../../api';
 import { CategoryPipe } from './category.pipe';
@@ -33,7 +34,8 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         MatSnackBarModule,
         ClipboardModule,
         ConfirmActionDialogModule,
-        CategoriesModule
+        CategoriesModule,
+        ShowMorePanelModule
     ],
     declarations: [ShopsPanelsListComponent, CategoryPipe],
     exports: [ShopsPanelsListComponent]
