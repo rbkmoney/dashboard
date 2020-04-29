@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import moment from 'moment';
 import { map, shareReplay, startWith } from 'rxjs/operators';
-import { SHARE_REPLAY_CONF } from 'src/app/custom-operators';
 
 import { InvoiceService } from '../../../../../api';
 import { InvoiceLine, InvoiceLineTaxMode } from '../../../../../api-codegen/anapi';
+import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 
 export const WITHOUT_VAT = Symbol('without VAT');
 export const EMPTY_CART_ITEM = { product: '', quantity: null, price: null, taxVatRate: WITHOUT_VAT };
