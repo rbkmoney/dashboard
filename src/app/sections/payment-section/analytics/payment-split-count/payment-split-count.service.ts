@@ -5,7 +5,8 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
-import { paymentsSplitCountToChartData, searchParamsToParamsWithSplitUnit } from '../utils';
+import { searchParamsToParamsWithSplitUnit } from '../utils';
+import { splitCountToChartData } from './split-count-to-chart-data';
 
 @Injectable()
 export class PaymentSplitCountService {
@@ -23,7 +24,7 @@ export class PaymentSplitCountService {
     splitCount$ = this.splitCountOrError$.pipe(
         filterPayload,
         pluck('result'),
-        map(paymentsSplitCountToChartData),
+        map(splitCountToChartData),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );

@@ -1,5 +1,5 @@
 import { CountResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { StatData } from './stat-data';
+import { StatData } from '../utils';
 
 export function countResultToStatData([current, previous]: CountResult[][]): StatData[] {
     const allCurrencies = current.concat(previous).map(c => c.currency);
