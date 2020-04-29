@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
-import { combineLatest, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { UrlShortenerService } from '../../../../../api';
