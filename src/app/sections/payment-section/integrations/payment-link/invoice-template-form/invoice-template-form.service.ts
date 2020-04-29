@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
-import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../../utils';
-import { InvoiceTemplatesService } from '../../../../../api';
+import { InvoiceTemplatesService, ShopService } from '../../../../../api';
 import {
     InvoiceLineTaxMode,
     InvoiceLineTaxVAT,
@@ -19,6 +20,7 @@ import {
     LifetimeInterval
 } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { filterShopsByEnv } from '../../../operations/operators';
 import { lifetimeValidator } from './lifetime-validator';
 
 export enum TemplatType {
@@ -38,6 +40,12 @@ export const withoutVAT = Symbol('without VAT');
 export class InvoiceTemplateFormService {
     private createInvoiceTemplateParams$ = new Subject<void>();
 
+    shops$ = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     invoiceTemplateAndToken$ = this.createInvoiceTemplateParams$.pipe(
         map(() => this.getInvoiceTemplateCreateParams()),
         switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p)),
@@ -50,7 +58,12 @@ export class InvoiceTemplateFormService {
         return this.form.controls.cart as FormArray;
     }
 
-    constructor(private fb: FormBuilder, private invoiceTemplatesService: InvoiceTemplatesService) {
+    constructor(
+        private fb: FormBuilder,
+        private invoiceTemplatesService: InvoiceTemplatesService,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
         const templateType$ = this.form.controls.templateType.valueChanges.pipe(
             startWith(this.form.value.templateType),
             shareReplay(SHARE_REPLAY_CONF)
@@ -102,7 +115,8 @@ export class InvoiceTemplateFormService {
 
     private createForm() {
         return this.fb.group({
-            description: ['', [Validators.maxLength(1000)]],
+            shopId: '',
+            description: '',
             lifetime: this.fb.group(
                 {
                     days: null,
@@ -123,7 +137,7 @@ export class InvoiceTemplateFormService {
 
     private createProductFormGroup() {
         return this.fb.group({
-            product: ['', [Validators.maxLength(1000)]],
+            product: '',
             quantity: null,
             price: null,
             tax: withoutVAT
@@ -133,7 +147,7 @@ export class InvoiceTemplateFormService {
     private getInvoiceTemplateCreateParams(): InvoiceTemplateCreateParams {
         const { value } = this.form;
         return {
-            shopID: '', // TODO
+            shopID: value.shopID,
             description: value.description,
             lifetime: this.getLifetimeInterval(),
             details: this.getInvoiceTemplateDetails()

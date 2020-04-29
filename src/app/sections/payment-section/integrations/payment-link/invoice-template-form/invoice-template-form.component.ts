@@ -6,7 +6,8 @@ import { CostType, InvoiceTemplateFormService, TemplatType, withoutVAT } from '.
 @Component({
     selector: 'dsh-invoice-template-form',
     templateUrl: 'invoice-template-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [InvoiceTemplateFormService]
 })
 export class InvoiceTemplateFormComponent {
     @Output()
@@ -22,6 +23,7 @@ export class InvoiceTemplateFormComponent {
     costTypes = Object.entries(CostType);
 
     form = this.invoiceTemplateFormService.form;
+    shops$ = this.invoiceTemplateFormService.shops$;
 
     get cartForm() {
         return this.invoiceTemplateFormService.cartForm;

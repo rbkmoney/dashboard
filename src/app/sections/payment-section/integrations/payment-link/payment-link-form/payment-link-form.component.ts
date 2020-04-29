@@ -19,6 +19,8 @@ export class PaymentLinkFormComponent {
 
     form = this.createForm();
 
+    link$ = this.paymentLinkFormService.invoiceTemplatePaymentLink$;
+
     constructor(private fb: FormBuilder, private paymentLinkFormService: PaymentLinkFormService) {}
 
     clear() {

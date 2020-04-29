@@ -3,8 +3,17 @@
     <form [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
+                <mat-label>{{ c.form.shop }}</mat-label>
+                <mat-select formControlName="shopId" required>
+                    <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                        {{ shop.details.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
                 <mat-label>{{ c.form.description }}</mat-label>
-                <input formControlName="description" matInput />
+                <input formControlName="description" matInput maxlength="1000" />
             </mat-form-field>
 
             <h2 class="mat-body-2">{{ c.form.lifetime.title }} *:</h2>
@@ -42,7 +51,7 @@
                 <ng-container *ngFor="let cart of cartForm.controls; let i = index" [formGroupName]="i">
                     <mat-form-field>
                         <mat-label>{{ c.form.cart.description }}</mat-label>
-                        <input formControlName="product" matInput required />
+                        <input formControlName="product" matInput maxlength="1000" required />
                     </mat-form-field>
                     <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
                         <mat-form-field fxFlex>
