@@ -1,8 +1,9 @@
+import sortBy from 'lodash.sortby';
 import moment from 'moment';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 
 import { OffsetAmount, SplitAmountResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { ChartData, sortByOffset } from '../utils';
+import { ChartData } from '../utils';
 
 const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
     offsetAmounts.reduce(
@@ -19,7 +20,7 @@ const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
     );
 
 const prepareOffsetAmounts = (offsetAmounts: OffsetAmount[]): OffsetAmount[] => {
-    const sorted = sortByOffset(offsetAmounts);
+    const sorted = sortBy(offsetAmounts, 'offset');
     return fixExtraInterval(sorted);
 };
 
