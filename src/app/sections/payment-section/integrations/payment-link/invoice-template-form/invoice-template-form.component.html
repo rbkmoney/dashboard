@@ -4,7 +4,7 @@
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
                 <mat-label>{{ c.form.shop }}</mat-label>
-                <mat-select formControlName="shopId" required>
+                <mat-select formControlName="shopID" required>
                     <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
                         {{ shop.details.name }}
                     </mat-option>
@@ -64,7 +64,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex>
                             <mat-label>{{ c.form.taxMode }}</mat-label>
-                            <mat-select required formControlName="tax">
+                            <mat-select required formControlName="taxMode">
                                 <mat-option [value]="withoutVAT">{{ c.form.withoutVAT }}</mat-option>
                                 <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode">
                                     {{ taxMode }}
@@ -85,7 +85,7 @@
                 </ng-container>
                 <mat-divider></mat-divider>
                 <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
-                    <div>{{ c.form.cart.summary }}:</div>
+                    <div>{{ c.form.cart.summary }}: {{ summary$ | async | currency: form.value.currency }}</div>
                     <button dsh-stroked-button color="accent" (click)="addProduct()">
                         {{ c.form.cart.add }}
                     </button>
@@ -110,10 +110,15 @@
 
                 <mat-form-field *ngIf="form.value.costType === costType.fixed">
                     <mat-label>{{ c.form.cost }}</mat-label>
-                    <dsh-format-input format="amount" formControlName="cost" required></dsh-format-input>
+                    <dsh-format-input format="amount" formControlName="amount" required></dsh-format-input>
                 </mat-form-field>
 
-                <dsh-justify-wrapper fxLayout fxLayoutGap="20px" *ngIf="form.value.costType === costType.range">
+                <dsh-justify-wrapper
+                    fxLayout
+                    fxLayoutGap="20px"
+                    *ngIf="form.value.costType === costType.range"
+                    formGroupName="range"
+                >
                     <mat-form-field fxFlex>
                         <mat-label>{{ c.form.lowerBound }}</mat-label>
                         <dsh-format-input format="amount" formControlName="lowerBound" required></dsh-format-input>
@@ -130,7 +135,7 @@
             <button *transloco="let l; scope: 'payment-link'; read: 'paymentLink'" dsh-button (click)="clear()">
                 {{ l.clear }}
             </button>
-            <button *transloco="let t" dsh-button color="accent" (click)="next.emit()" [disabled]="form.invalid">
+            <button *transloco="let t" dsh-button color="accent" (click)="nextStep()" [disabled]="form.invalid">
                 {{ t.next }}
             </button>
         </div>

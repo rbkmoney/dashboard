@@ -31,20 +31,32 @@
 
             <mat-divider></mat-divider>
             <mat-checkbox formControlName="paymentFlowHold">{{ c.form.paymentFlowHold }}</mat-checkbox>
+            <ng-container *ngIf="form.value.paymentFlowHold">
+                <label class="mat-subheading-1">{{ c.form.paymentFlowHoldPolicy }}:</label>
+                <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="holdExpiration">
+                    <mat-radio-button
+                        *ngFor="let holdExpiration of holdExpirations"
+                        fxFlex="0 1 calc((100% - 20px * 2)/3)"
+                        [value]="holdExpiration[1]"
+                    >
+                        {{ c.form.holdExpiration[holdExpiration[0]] }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </ng-container>
 
-            <ng-container *ngIf="form.valid && (link$ | async)">
+            <ng-container *ngIf="link$ | async">
                 <mat-divider></mat-divider>
                 <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
                     <mat-form-field fxFlex>
                         <mat-label>{{ c.form.link }}</mat-label>
-                        <input formControlName="link" matInput readonly disabled />
+                        <input [value]="link$ | async" matInput readonly disabled />
                     </mat-form-field>
                     <div>
                         <button
                             dsh-button
                             color="accent"
-                            [cdkCopyToClipboard]="form.value.link"
-                            (cdkCopyToClipboardCopied)="copied()"
+                            [cdkCopyToClipboard]="link$ | async"
+                            (cdkCopyToClipboardCopied)="copied($event)"
                         >
                             {{ c.form.copy }}
                         </button>
@@ -60,7 +72,7 @@
             >
                 <button *transloco="let t" dsh-button (click)="back.emit()">{{ t.back }}</button>
 
-                <ng-container *ngIf="form.valid && (link$ | async); else clearButton">
+                <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
                     <button dsh-button color="accent" (click)="create()">
                         {{ c.form.create }}
                     </button>

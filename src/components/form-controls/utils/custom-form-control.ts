@@ -186,6 +186,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
 
     registerOnChange(onChange: (value: P) => void): void {
         this.formControl.valueChanges.subscribe(v => onChange(this.toPublicValue(v)));
+        // TODO: try like this: this.formControl.registerOnChange(v => onChange(this.toPublicValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {

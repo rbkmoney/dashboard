@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Subject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { combineLatest, ReplaySubject } from 'rxjs';
+import { map, pluck, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../../utils';
 import { InvoiceTemplatesService, ShopService } from '../../../../../api';
@@ -38,21 +38,23 @@ export const withoutVAT = Symbol('without VAT');
 
 @Injectable()
 export class InvoiceTemplateFormService {
-    private createInvoiceTemplateParams$ = new Subject<void>();
+    private createInvoiceTemplate$ = new ReplaySubject<void>(1);
 
-    shops$ = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    shops$ = this.route.params.pipe(pluck('envID'), filterShopsByEnv(this.shopService.shops$), shareReplay(1));
 
-    invoiceTemplateAndToken$ = this.createInvoiceTemplateParams$.pipe(
+    invoiceTemplateAndToken$ = this.createInvoiceTemplate$.pipe(
         map(() => this.getInvoiceTemplateCreateParams()),
         switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p)),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplay(1)
     );
 
     form = this.createForm();
+
+    summary$ = this.cartForm.valueChanges.pipe(
+        startWith(this.cartForm.value),
+        map(v => v.reduce((sum, c) => sum + c.price * c.quantity, 0)),
+        shareReplay(1)
+    );
 
     get cartForm() {
         return this.form.controls.cart as FormArray;
@@ -73,30 +75,27 @@ export class InvoiceTemplateFormService {
             templateType === TemplatType.multiLine ? this.cartForm.enable() : this.cartForm.disable()
         );
         combineLatest([templateType$, costType$]).subscribe(([templateType, costType]) => {
-            const { cost, upperBound, lowerBound } = this.form.controls;
-            if (templateType === TemplatType.singleLine) {
-                switch (costType) {
-                    case CostType.range:
-                        upperBound.enable();
-                        lowerBound.enable();
-                        cost.disable();
-                        return;
-                    case CostType.fixed:
-                        upperBound.disable();
-                        lowerBound.disable();
-                        cost.enable();
-                        return;
-                }
-            } else {
-                upperBound.disable();
-                lowerBound.disable();
-                cost.disable();
+            const { amount, range } = this.form.controls;
+            if (templateType === TemplatType.multiLine || costType === CostType.unlim) {
+                range.disable();
+                amount.disable();
+                return;
+            }
+            switch (costType) {
+                case CostType.range:
+                    range.enable();
+                    amount.disable();
+                    return;
+                case CostType.fixed:
+                    range.disable();
+                    amount.enable();
+                    return;
             }
         });
     }
 
-    createInvoiceTemplate() {
-        this.createInvoiceTemplateParams$.next();
+    create() {
+        this.createInvoiceTemplate$.next();
     }
 
     clear() {
@@ -115,7 +114,7 @@ export class InvoiceTemplateFormService {
 
     private createForm() {
         return this.fb.group({
-            shopId: '',
+            shopID: '',
             description: '',
             lifetime: this.fb.group(
                 {
@@ -129,9 +128,12 @@ export class InvoiceTemplateFormService {
             templateType: TemplatType.singleLine,
             taxMode: withoutVAT,
             cart: this.fb.array([this.createProductFormGroup()]),
-            lowerBound: null,
-            upperBound: null,
-            cost: null
+            range: this.fb.group({
+                lowerBound: null,
+                upperBound: null
+            }),
+            amount: null,
+            currency: 'RUB'
         });
     }
 
@@ -140,7 +142,7 @@ export class InvoiceTemplateFormService {
             product: '',
             quantity: null,
             price: null,
-            tax: withoutVAT
+            taxMode: withoutVAT
         });
     }
 
@@ -164,8 +166,10 @@ export class InvoiceTemplateFormService {
     }
 
     private getInvoiceTemplateDetails(): InvoiceTemplateDetails {
-        const { value } = this.form;
-        const { cart } = value;
+        const {
+            value,
+            value: { cart, currency }
+        } = this.form;
         switch (value.templateType) {
             case TemplatType.singleLine:
                 return {
@@ -184,35 +188,29 @@ export class InvoiceTemplateFormService {
                         price: c.price,
                         ...this.getInvoiceLineTaxMode(c.taxMode)
                     })),
-                    currency: 'RUB'
+                    currency
                 } as InvoiceTemplateMultiLine;
         }
     }
 
     private getInvoiceTemplateLineCost(): InvoiceTemplateLineCost {
-        const { value } = this.form;
-        const type = {
-            costType: value.costType
-        };
-        const currency = {
-            currency: 'RUB'
-        };
-        switch (value.costType) {
+        const { costType, amount, range, currency } = this.form.value;
+        switch (costType) {
             case CostType.unlim:
-                return type as InvoiceTemplateLineCostUnlim;
+                return { costType } as InvoiceTemplateLineCostUnlim;
             case CostType.fixed:
                 return {
-                    ...type,
-                    ...currency,
-                    amount: toMinor(value.cost)
+                    costType,
+                    currency,
+                    amount: toMinor(amount)
                 } as InvoiceTemplateLineCostFixed;
             case CostType.range:
                 return {
-                    ...type,
-                    ...currency,
+                    costType,
+                    currency,
                     range: {
-                        lowerBound: toMinor(value.lowerBound),
-                        upperBound: toMinor(value.lowerBound)
+                        lowerBound: toMinor(range.lowerBound),
+                        upperBound: toMinor(range.upperBound)
                     }
                 } as InvoiceTemplateLineCostRange;
         }

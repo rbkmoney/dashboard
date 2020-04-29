@@ -15,8 +15,8 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceTemplatesModule, UrlShortenerModule } from '../../../../api';
-import { InvoiceTemplateFormComponent, InvoiceTemplateFormService } from './invoice-template-form';
-import { PaymentLinkFormComponent, PaymentLinkFormService } from './payment-link-form';
+import { InvoiceTemplateFormComponent } from './invoice-template-form';
+import { PaymentLinkFormComponent } from './payment-link-form';
 import { PaymentLinkRoutingModule } from './payment-link-routing.module';
 import { PaymentLinkComponent } from './payment-link.component';
 
@@ -42,7 +42,6 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         ClipboardModule
     ],
     declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent, PaymentLinkFormComponent],
-    exports: EXPORTED_DECLARATIONS,
-    providers: [PaymentLinkFormService, InvoiceTemplateFormService]
+    exports: EXPORTED_DECLARATIONS
 })
 export class PaymentLinkModule {}

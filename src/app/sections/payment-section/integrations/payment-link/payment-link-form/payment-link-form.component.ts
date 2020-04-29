@@ -1,12 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { PaymentLinkFormService } from './payment-link-form.service';
-
-enum HoldExpiration {
-    cancel = 'cancel',
-    capture = 'capture'
-}
+import { HoldExpiration, PaymentLinkFormService } from './payment-link-form.service';
 
 @Component({
     selector: 'dsh-payment-link-form',
@@ -17,37 +13,25 @@ export class PaymentLinkFormComponent {
     @Output()
     back = new EventEmitter<void>();
 
-    form = this.createForm();
-
+    form = this.paymentLinkFormService.form;
     link$ = this.paymentLinkFormService.invoiceTemplatePaymentLink$;
+    holdExpirations = Object.entries(HoldExpiration);
 
-    constructor(private fb: FormBuilder, private paymentLinkFormService: PaymentLinkFormService) {}
-
-    clear() {
-        this.form.patchValue(this.createForm().value);
-    }
+    constructor(
+        private paymentLinkFormService: PaymentLinkFormService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     create() {
-        this.paymentLinkFormService.createInvoiceTemplatePaymentLink(this.form.value);
+        this.paymentLinkFormService.create();
     }
 
-    copied() {}
+    clear() {
+        this.paymentLinkFormService.clear();
+    }
 
-    private createForm() {
-        return this.fb.group({
-            name: '',
-            description: '',
-            email: '',
-            redirectUrl: '',
-            bankCard: true,
-            wallets: false,
-            terminals: false,
-            applePay: false,
-            googlePay: false,
-            samsungPay: false,
-            paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel,
-            link: ''
-        });
+    copied(isCopied: boolean) {
+        this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
     }
 }

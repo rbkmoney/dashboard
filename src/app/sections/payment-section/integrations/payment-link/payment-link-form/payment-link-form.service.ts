@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import moment from 'moment';
-import { Subject } from 'rxjs';
-import { pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { concat, of, Subject } from 'rxjs';
+import { mapTo, pluck, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
 
 import { UrlShortenerService } from '../../../../../api';
 import { InvoiceTemplateAndToken, LifetimeInterval } from '../../../../../api-codegen/capi';
@@ -28,50 +29,80 @@ export class PaymentLinkArguments {
     samsungPay?: boolean;
 }
 
+export enum HoldExpiration {
+    cancel = 'cancel',
+    capture = 'capture'
+}
+
 @Injectable()
 export class PaymentLinkFormService {
-    private createInvoiceTemplatePaymentLinkParams$ = new Subject<PaymentLinkArguments>();
+    private createInvoiceTemplatePaymentLink$ = new Subject<void>();
 
-    invoiceTemplatePaymentLink$ = this.createInvoiceTemplatePaymentLinkParams$.pipe(
-        withLatestFrom(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
-        switchMap(([params, invoiceTemplateAndToken]) =>
-            this.urlShortenerService.shortenUrl(
-                this.createUrl(params, invoiceTemplateAndToken),
-                this.createDateFromLifetime(invoiceTemplateAndToken.invoiceTemplate.lifetime)
-            )
-        ),
+    form = this.createForm();
+
+    invoiceTemplatePaymentLink$ = this.createInvoiceTemplatePaymentLink$.pipe(
+        switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
+        switchMap(invoiceTemplateAndToken => this.shortenUrl(invoiceTemplateAndToken)),
         pluck('shortenedUrl'),
+        switchMap(v => concat(of(v), this.form.valueChanges.pipe(take(1), mapTo('')))),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(
         private urlShortenerService: UrlShortenerService,
         private configService: ConfigService,
-        private invoiceTemplateFormService: InvoiceTemplateFormService
+        private invoiceTemplateFormService: InvoiceTemplateFormService,
+        private fb: FormBuilder
     ) {}
 
-    createInvoiceTemplatePaymentLink(params: PaymentLinkArguments) {
-        this.createInvoiceTemplatePaymentLinkParams$.next(params);
+    create() {
+        this.createInvoiceTemplatePaymentLink$.next();
     }
 
-    private createUrl(params: PaymentLinkArguments, invoiceTemplateAndToken: InvoiceTemplateAndToken) {
-        const args = params;
-        args.invoiceTemplateID = invoiceTemplateAndToken.invoiceTemplate.id;
-        args.invoiceTemplateAccessToken = invoiceTemplateAndToken.invoiceTemplateAccessToken.payload;
-        return this.argsToUrl(args);
+    clear() {
+        this.form.patchValue(this.createForm().value);
     }
 
-    private argsToUrl(paymentLinkArgs: PaymentLinkArguments) {
-        const args = Object.entries(paymentLinkArgs)
+    private shortenUrl(invoiceTemplateAndToken: InvoiceTemplateAndToken) {
+        const { value } = this.form;
+        return this.urlShortenerService.shortenUrl(
+            this.argsToUrl({
+                ...value,
+                invoiceTemplateID: invoiceTemplateAndToken.invoiceTemplate.id,
+                invoiceTemplateAccessToken: invoiceTemplateAndToken.invoiceTemplateAccessToken.payload
+            }),
+            this.createDateFromLifetime(invoiceTemplateAndToken.invoiceTemplate.lifetime)
+        );
+    }
+
+    private argsToUrl(paymentLinkParams: PaymentLinkArguments) {
+        const params = Object.entries(paymentLinkParams)
             .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&');
-        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${args}`;
+        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${params}`;
     }
 
-    private createDateFromLifetime(lifetime: LifetimeInterval): any {
+    private createDateFromLifetime(lifetime: LifetimeInterval) {
         return moment()
             .add(moment.duration(lifetime))
             .utc()
             .format();
+    }
+
+    private createForm() {
+        return this.fb.group({
+            name: '',
+            description: '',
+            email: '',
+            redirectUrl: '',
+            bankCard: true,
+            wallets: false,
+            terminals: false,
+            applePay: false,
+            googlePay: false,
+            samsungPay: false,
+            paymentFlowHold: false,
+            holdExpiration: HoldExpiration.cancel
+        });
     }
 }
