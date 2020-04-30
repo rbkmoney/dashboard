@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
 import { concat, of, Subject } from 'rxjs';
 import { mapTo, pluck, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
@@ -93,7 +93,7 @@ export class PaymentLinkFormService {
         return this.fb.group({
             name: '',
             description: '',
-            email: '',
+            email: ['', Validators.email],
             redirectUrl: '',
             bankCard: true,
             wallets: false,

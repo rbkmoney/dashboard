@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../../utils';
 import { InvoiceTemplatesService, ShopService } from '../../../../../api';
