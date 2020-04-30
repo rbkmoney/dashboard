@@ -79,9 +79,6 @@ export class InvoiceTemplateFormService {
         this.isLoading$ = progress(this.createInvoiceTemplate$, invoiceTemplateAndTokenWithErrors$).pipe(
             shareReplay(1)
         );
-        this.isLoading$.subscribe(isLoading =>
-            isLoading ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false })
-        );
         this.subscribeFormChanges();
     }
 
@@ -185,11 +182,11 @@ export class InvoiceTemplateFormService {
     }
 
     private getLifetimeInterval(): LifetimeInterval {
-        const { value } = this.form;
+        const { lifetime } = this.form.value;
         return {
-            days: value.lifetime.days || 0,
-            months: value.lifetime.months || 0,
-            years: value.lifetime.years || 0
+            days: lifetime.days || 0,
+            months: lifetime.months || 0,
+            years: lifetime.years || 0
         };
     }
 

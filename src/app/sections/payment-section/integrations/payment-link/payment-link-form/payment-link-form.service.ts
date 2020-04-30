@@ -65,9 +65,6 @@ export class PaymentLinkFormService {
         this.isLoading$ = progress(this.createInvoiceTemplatePaymentLink$, invoiceTemplatePaymentLinkWithErrors$).pipe(
             shareReplay(1)
         );
-        this.isLoading$.subscribe(isLoading =>
-            isLoading ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false })
-        );
     }
 
     create() {
