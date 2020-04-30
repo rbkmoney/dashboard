@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { merge } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 import { InvoiceLineTaxVAT } from '../../../../../api-codegen/capi';
 import { CostType, InvoiceTemplateFormService, TemplatType, withoutVAT } from './invoice-template-form.service';
@@ -8,7 +12,7 @@ import { CostType, InvoiceTemplateFormService, TemplatType, withoutVAT } from '.
     templateUrl: 'invoice-template-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoiceTemplateFormComponent {
+export class InvoiceTemplateFormComponent implements OnInit {
     @Output()
     next = new EventEmitter<void>();
 
@@ -24,16 +28,32 @@ export class InvoiceTemplateFormComponent {
     form = this.invoiceTemplateFormService.form;
     shops$ = this.invoiceTemplateFormService.shops$;
     summary$ = this.invoiceTemplateFormService.summary$;
+    isLoading$ = this.invoiceTemplateFormService.isLoading$;
 
     get cartForm() {
         return this.invoiceTemplateFormService.cartForm;
     }
 
-    constructor(private invoiceTemplateFormService: InvoiceTemplateFormService) {}
+    constructor(
+        private invoiceTemplateFormService: InvoiceTemplateFormService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
+
+    ngOnInit() {
+        this.invoiceTemplateFormService.errors$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('commonError'), 'OK')
+        );
+    }
 
     nextStep() {
+        merge(
+            this.invoiceTemplateFormService.invoiceTemplateAndToken$.pipe(tap(() => this.next.emit())),
+            this.invoiceTemplateFormService.errors$
+        )
+            .pipe(take(1))
+            .subscribe();
         this.invoiceTemplateFormService.create();
-        this.next.emit();
     }
 
     clear() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, ReplaySubject } from 'rxjs';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../../utils';
@@ -9,6 +9,7 @@ import { InvoiceTemplatesService, ShopService } from '../../../../../api';
 import {
     InvoiceLineTaxMode,
     InvoiceLineTaxVAT,
+    InvoiceTemplateAndToken,
     InvoiceTemplateCreateParams,
     InvoiceTemplateDetails,
     InvoiceTemplateLineCost,
@@ -19,7 +20,7 @@ import {
     InvoiceTemplateSingleLine,
     LifetimeInterval
 } from '../../../../../api-codegen/capi';
-import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { filterShopsByEnv } from '../../../operations/operators';
 import { lifetimeValidator } from './lifetime-validator';
 
@@ -46,12 +47,6 @@ export class InvoiceTemplateFormService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    invoiceTemplateAndToken$ = this.createInvoiceTemplate$.pipe(
-        map(() => this.getInvoiceTemplateCreateParams()),
-        switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p)),
-        shareReplay(1)
-    );
-
     form = this.createForm();
 
     summary$ = this.cartForm.valueChanges.pipe(
@@ -59,6 +54,10 @@ export class InvoiceTemplateFormService {
         map(v => v.reduce((sum, c) => sum + c.price * c.quantity, 0)),
         shareReplay(1)
     );
+
+    invoiceTemplateAndToken$: Observable<InvoiceTemplateAndToken>;
+    errors$: Observable<any>;
+    isLoading$: Observable<boolean>;
 
     get cartForm() {
         return this.form.controls.cart as FormArray;
@@ -70,6 +69,40 @@ export class InvoiceTemplateFormService {
         private route: ActivatedRoute,
         private shopService: ShopService
     ) {
+        const invoiceTemplateAndTokenWithErrors$ = this.createInvoiceTemplate$.pipe(
+            map(() => this.getInvoiceTemplateCreateParams()),
+            switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError))
+        );
+        this.invoiceTemplateAndToken$ = invoiceTemplateAndTokenWithErrors$.pipe(filterPayload, shareReplay(1));
+        this.errors$ = invoiceTemplateAndTokenWithErrors$.pipe(filterError, shareReplay(1));
+        this.isLoading$ = progress(this.createInvoiceTemplate$, invoiceTemplateAndTokenWithErrors$).pipe(
+            shareReplay(1)
+        );
+        this.isLoading$.subscribe(isLoading =>
+            isLoading ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false })
+        );
+        this.subscribeFormChanges();
+    }
+
+    create() {
+        this.createInvoiceTemplate$.next();
+    }
+
+    clear() {
+        this.cartForm.clear();
+        this.addProduct();
+        this.form.patchValue(this.createForm().value);
+    }
+
+    addProduct() {
+        this.cartForm.push(this.createProductFormGroup());
+    }
+
+    removeProduct(idx: number) {
+        this.cartForm.removeAt(idx);
+    }
+
+    private subscribeFormChanges() {
         const templateType$ = this.form.controls.templateType.valueChanges.pipe(
             startWith(this.form.value.templateType),
             shareReplay(SHARE_REPLAY_CONF)
@@ -103,24 +136,6 @@ export class InvoiceTemplateFormService {
                     return;
             }
         });
-    }
-
-    create() {
-        this.createInvoiceTemplate$.next();
-    }
-
-    clear() {
-        this.cartForm.clear();
-        this.addProduct();
-        this.form.patchValue(this.createForm().value);
-    }
-
-    addProduct() {
-        this.cartForm.push(this.createProductFormGroup());
-    }
-
-    removeProduct(idx: number) {
-        this.cartForm.removeAt(idx);
     }
 
     private createForm() {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
-import { concat, of, Subject } from 'rxjs';
+import { concat, Observable, of, Subject } from 'rxjs';
 import { mapTo, pluck, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
 
 import { UrlShortenerService } from '../../../../../api';
 import { InvoiceTemplateAndToken, LifetimeInterval } from '../../../../../api-codegen/capi';
 import { ConfigService } from '../../../../../config';
-import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { InvoiceTemplateFormService } from '../invoice-template-form';
 
 export class PaymentLinkArguments {
@@ -40,20 +40,34 @@ export class PaymentLinkFormService {
 
     form = this.createForm();
 
-    invoiceTemplatePaymentLink$ = this.createInvoiceTemplatePaymentLink$.pipe(
-        switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
-        switchMap(invoiceTemplateAndToken => this.shortenUrl(invoiceTemplateAndToken)),
-        pluck('shortenedUrl'),
-        switchMap(v => concat(of(v), this.form.valueChanges.pipe(take(1), mapTo('')))),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    invoiceTemplatePaymentLink$: Observable<string>;
+    errors$: Observable<any>;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private urlShortenerService: UrlShortenerService,
         private configService: ConfigService,
         private invoiceTemplateFormService: InvoiceTemplateFormService,
         private fb: FormBuilder
-    ) {}
+    ) {
+        const invoiceTemplatePaymentLinkWithErrors$ = this.createInvoiceTemplatePaymentLink$.pipe(
+            switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
+            switchMap(invoiceTemplateAndToken => this.shortenUrl(invoiceTemplateAndToken).pipe(replaceError))
+        );
+        this.invoiceTemplatePaymentLink$ = invoiceTemplatePaymentLinkWithErrors$.pipe(
+            filterPayload,
+            pluck('shortenedUrl'),
+            switchMap(v => concat(of(v), this.form.valueChanges.pipe(take(1), mapTo('')))),
+            shareReplay(1)
+        );
+        this.errors$ = invoiceTemplatePaymentLinkWithErrors$.pipe(filterError, shareReplay(1));
+        this.isLoading$ = progress(this.createInvoiceTemplatePaymentLink$, invoiceTemplatePaymentLinkWithErrors$).pipe(
+            shareReplay(1)
+        );
+        this.isLoading$.subscribe(isLoading =>
+            isLoading ? this.form.disable({ emitEvent: false }) : this.form.enable({ emitEvent: false })
+        );
+    }
 
     create() {
         this.createInvoiceTemplatePaymentLink$.next();
