@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../../utils';
 import { InvoiceTemplatesService, ShopService } from '../../../../../api';
@@ -71,7 +71,8 @@ export class InvoiceTemplateFormService {
     ) {
         const invoiceTemplateAndTokenWithErrors$ = this.createInvoiceTemplate$.pipe(
             map(() => this.getInvoiceTemplateCreateParams()),
-            switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError))
+            switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError)),
+            share()
         );
         this.invoiceTemplateAndToken$ = invoiceTemplateAndTokenWithErrors$.pipe(filterPayload, shareReplay(1));
         this.errors$ = invoiceTemplateAndTokenWithErrors$.pipe(filterError, shareReplay(1));
