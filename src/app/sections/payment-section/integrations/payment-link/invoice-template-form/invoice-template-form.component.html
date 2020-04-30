@@ -94,6 +94,11 @@
 
             <ng-template #singleLine>
                 <mat-form-field>
+                    <mat-label>{{ c.form.product }}</mat-label>
+                    <input formControlName="product" matInput maxlength="1000" required />
+                </mat-form-field>
+
+                <mat-form-field>
                     <mat-label>{{ c.form.taxMode }}</mat-label>
                     <mat-select required formControlName="taxMode">
                         <mat-option [value]="withoutVAT">{{ c.form.withoutVAT }}</mat-option>

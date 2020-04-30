@@ -40,7 +40,11 @@ export const withoutVAT = Symbol('without VAT');
 export class InvoiceTemplateFormService {
     private createInvoiceTemplate$ = new ReplaySubject<void>(1);
 
-    shops$ = this.route.params.pipe(pluck('envID'), filterShopsByEnv(this.shopService.shops$), shareReplay(1));
+    shops$ = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     invoiceTemplateAndToken$ = this.createInvoiceTemplate$.pipe(
         map(() => this.getInvoiceTemplateCreateParams()),
@@ -71,9 +75,16 @@ export class InvoiceTemplateFormService {
             shareReplay(SHARE_REPLAY_CONF)
         );
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));
-        templateType$.subscribe(templateType =>
-            templateType === TemplatType.multiLine ? this.cartForm.enable() : this.cartForm.disable()
-        );
+        templateType$.subscribe(templateType => {
+            const { product } = this.form.controls;
+            if (templateType === TemplatType.multiLine) {
+                this.cartForm.enable();
+                product.disable();
+            } else {
+                this.cartForm.disable();
+                product.enable();
+            }
+        });
         combineLatest([templateType$, costType$]).subscribe(([templateType, costType]) => {
             const { amount, range } = this.form.controls;
             if (templateType === TemplatType.multiLine || costType === CostType.unlim) {
@@ -126,6 +137,7 @@ export class InvoiceTemplateFormService {
             ),
             costType: CostType.unlim,
             templateType: TemplatType.singleLine,
+            product: '',
             taxMode: withoutVAT,
             cart: this.fb.array([this.createProductFormGroup()]),
             range: this.fb.group({
@@ -174,7 +186,7 @@ export class InvoiceTemplateFormService {
             case TemplatType.singleLine:
                 return {
                     templateType: value.templateType,
-                    product: '',
+                    product: value.product,
                     price: this.getInvoiceTemplateLineCost(),
                     ...this.getInvoiceLineTaxMode(value.taxMode)
                 } as InvoiceTemplateSingleLine;
