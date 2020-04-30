@@ -5,7 +5,7 @@ import { merge } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
 import { InvoiceLineTaxVAT } from '../../../../../api-codegen/capi';
-import { CostType, InvoiceTemplateFormService, TemplatType, withoutVAT } from './invoice-template-form.service';
+import { CostType, InvoiceTemplateFormService, TemplateType, withoutVAT } from './invoice-template-form.service';
 
 @Component({
     selector: 'dsh-invoice-template-form',
@@ -19,10 +19,10 @@ export class InvoiceTemplateFormComponent implements OnInit {
     taxModes = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = withoutVAT;
 
-    templateType = TemplatType;
+    templateType = TemplateType;
     costType = CostType;
 
-    templateTypes = Object.entries(TemplatType);
+    templateTypes = Object.entries(TemplateType);
     costTypes = Object.entries(CostType);
 
     form = this.invoiceTemplateFormService.form;

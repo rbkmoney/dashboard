@@ -24,7 +24,7 @@ import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF }
 import { filterShopsByEnv } from '../../../operations/operators';
 import { lifetimeValidator } from './lifetime-validator';
 
-export enum TemplatType {
+export enum TemplateType {
     singleLine = 'InvoiceTemplateSingleLine',
     multiLine = 'InvoiceTemplateMultiLine'
 }
@@ -108,7 +108,7 @@ export class InvoiceTemplateFormService {
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));
         templateType$.subscribe(templateType => {
             const { product } = this.form.controls;
-            if (templateType === TemplatType.multiLine) {
+            if (templateType === TemplateType.multiLine) {
                 this.cartForm.enable();
                 product.disable();
             } else {
@@ -118,7 +118,7 @@ export class InvoiceTemplateFormService {
         });
         combineLatest([templateType$, costType$]).subscribe(([templateType, costType]) => {
             const { amount, range } = this.form.controls;
-            if (templateType === TemplatType.multiLine || costType === CostType.unlim) {
+            if (templateType === TemplateType.multiLine || costType === CostType.unlim) {
                 range.disable();
                 amount.disable();
                 return;
@@ -149,7 +149,7 @@ export class InvoiceTemplateFormService {
                 { validators: [lifetimeValidator] }
             ),
             costType: CostType.unlim,
-            templateType: TemplatType.singleLine,
+            templateType: TemplateType.singleLine,
             product: '',
             taxMode: withoutVAT,
             cart: this.fb.array([this.createProductFormGroup()]),
@@ -196,7 +196,7 @@ export class InvoiceTemplateFormService {
             value: { cart, currency }
         } = this.form;
         switch (value.templateType) {
-            case TemplatType.singleLine:
+            case TemplateType.singleLine:
                 return {
                     templateType: value.templateType,
                     product: value.product,
@@ -204,7 +204,7 @@ export class InvoiceTemplateFormService {
                     ...this.getInvoiceLineTaxMode(value.taxMode)
                 } as InvoiceTemplateSingleLine;
 
-            case TemplatType.multiLine:
+            case TemplateType.multiLine:
                 return {
                     templateType: value.templateType,
                     cart: cart.map(c => ({
