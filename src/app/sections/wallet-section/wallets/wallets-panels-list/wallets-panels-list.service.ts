@@ -8,7 +8,7 @@ import { WalletService } from '../../../../api/wallet';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
-export class WalletPanelService {
+export class WalletsPanelsListService {
     private getWalletAccount$: Subject<string> = new Subject();
 
     account$ = this.getWalletAccount$.pipe(

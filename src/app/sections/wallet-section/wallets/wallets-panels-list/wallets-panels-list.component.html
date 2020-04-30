@@ -1,0 +1,9 @@
+<dsh-expand-panel-accordion
+    fxLayout="column"
+    fxLayoutGap="20px"
+    (expandedChange)="select($event)"
+    [expanded]="selectedIdx$ | async"
+    *transloco="let t; scope: 'wallets'; read: 'wallets'"
+>
+    <dsh-wallet-panel *ngFor="let wallet of wallets$ | async" [wallet]="wallet"></dsh-wallet-panel>
+</dsh-expand-panel-accordion>

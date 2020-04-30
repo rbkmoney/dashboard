@@ -31,6 +31,6 @@ import { WebhookPanelComponent } from './webhook-panel.component';
         MatDividerModule
     ],
     declarations: [WebhookPanelComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
-    exports: [WebhookPanelComponent]
+    exports: [WebhookPanelComponent, DetailsComponent]
 })
 export class WebhookPanelModule {}

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import isEqual from 'lodash.isequal';
 
-import { Wallet } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { LAYOUT_GAP } from '../../../constants';
+import { Wallet } from '../../../../../api-codegen/wallet-api/swagger-codegen';
+import { LAYOUT_GAP } from '../../../../constants';
 import { WalletPanelService } from './wallet-panel.service';
 
 @Component({

@@ -9,7 +9,7 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ReceiveWalletsService } from './receive-wallets.service';
-import { WalletPanelModule } from './wallet-panel/wallet-panel.module';
+import { WalletsPanelsListModule } from './wallets-panels-list/wallets-panels-list.module';
 import { WalletsRoutingModule } from './wallets-routing.module';
 import { WalletsComponent } from './wallets.component';
 
@@ -23,7 +23,7 @@ import { WalletsComponent } from './wallets.component';
         CommonModule,
         SpinnerModule,
         EmptySearchResultModule,
-        WalletPanelModule
+        WalletsPanelsListModule
     ],
     providers: [ReceiveWalletsService],
     declarations: [WalletsComponent]

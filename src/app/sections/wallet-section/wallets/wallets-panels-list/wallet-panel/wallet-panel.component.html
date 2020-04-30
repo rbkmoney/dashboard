@@ -1,4 +1,4 @@
-<dsh-expand-panel #expandPanel *transloco="let t; scope: 'wallets'; read: 'wallets'">
+<dsh-expand-panel *transloco="let t; scope: 'wallets'; read: 'wallets'">
     <div fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div class="mat-body-1">{{ wallet.name }}</div>
@@ -12,18 +12,17 @@
         </div>
     </div>
     <dsh-expand-panel-more>
-        <div fxLayout="column" [fxLayoutGap]="layoutGap" fxFlex="100">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <div class="mat-caption dsh-webhook-header">{{ t.wallet_details }} #{{ wallet.id }}</div>
+        <dsh-expand-panel-more-header>
+            <div fxFlex fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                <div class="mat-caption dsh-wallet-header">{{ t.wallet_details }} #{{ wallet.id }}</div>
                 <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
                     <div class="mat-caption dsh-wallet-header">
                         {{ !wallet.isBlocked ? t.status.active : t.status.inactive }}
                     </div>
-                    <button dsh-icon-button>
-                        <mat-icon svgIcon="keyboard_arrow_up" (click)="expandPanel.collapse($event)"></mat-icon>
-                    </button>
                 </div>
             </div>
+        </dsh-expand-panel-more-header>
+        <div fxLayout="column" [fxLayoutGap]="layoutGap" fxFlex="100">
             <div class="mat-headline">
                 {{ (account$ | async)?.available.amount | toMajor | currency: (account$ | async)?.available.currency }}
             </div>
