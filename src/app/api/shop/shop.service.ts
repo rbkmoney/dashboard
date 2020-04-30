@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
-import { Shop, ShopsService } from '../../api-codegen/capi/swagger-codegen';
+import { Shop } from '../../api-codegen/capi';
+import { ShopsService } from '../../api-codegen/capi/shops.service';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 
@@ -28,5 +29,13 @@ export class ShopService {
 
     reloadShops() {
         this.reloadShops$.next();
+    }
+
+    suspendShop(shopID: string) {
+        return this.shopsService.suspendShop(genXRequestID(), shopID);
+    }
+
+    activateShop(shopID: string) {
+        return this.shopsService.activateShop(genXRequestID(), shopID);
     }
 }

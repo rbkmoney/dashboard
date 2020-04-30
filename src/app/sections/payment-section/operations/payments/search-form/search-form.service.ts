@@ -66,7 +66,7 @@ export class SearchFormService {
     }
 
     private initForm(defaultLimit = 20): FormGroup {
-        const form = this.fb.group({
+        return this.fb.group({
             date: {
                 begin: moment().startOf('month'),
                 end: moment().endOf('month')
@@ -88,6 +88,5 @@ export class SearchFormService {
             paymentAmountTo: '',
             rrn: ''
         });
-        return form;
     }
 }

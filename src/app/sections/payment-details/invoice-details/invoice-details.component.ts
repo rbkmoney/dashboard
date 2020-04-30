@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
 import { StatusColor as Color } from '../../../theme-manager';
 import { LAYOUT_GAP } from '../../constants';
-import { StatusViewInfo } from '../status-details-item';
+import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 import { InvoiceDetailsService } from './invoice-details.service';
 
 @Component({
