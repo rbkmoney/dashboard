@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -13,6 +14,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { InvoiceTemplatesModule, UrlShortenerModule } from '../../../../api';
 import { InvoiceTemplateFormComponent } from './invoice-template-form';
@@ -39,7 +41,9 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         MatDividerModule,
         UrlShortenerModule,
         InvoiceTemplatesModule,
-        ClipboardModule
+        ClipboardModule,
+        ConfirmActionDialogModule,
+        MatDialogModule
     ],
     declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent, PaymentLinkFormComponent],
     exports: EXPORTED_DECLARATIONS

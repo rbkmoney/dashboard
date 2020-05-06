@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { filter, map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
+
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { toMinor } from '../../../../../../utils';
 import { InvoiceTemplatesService, ShopService } from '../../../../../api';
@@ -67,7 +70,8 @@ export class InvoiceTemplateFormService {
         private fb: FormBuilder,
         private invoiceTemplatesService: InvoiceTemplatesService,
         private route: ActivatedRoute,
-        private shopService: ShopService
+        private shopService: ShopService,
+        private dialog: MatDialog
     ) {
         const invoiceTemplateAndTokenWithErrors$ = this.createInvoiceTemplate$.pipe(
             map(() => this.getInvoiceTemplateCreateParams()),
@@ -87,9 +91,15 @@ export class InvoiceTemplateFormService {
     }
 
     clear() {
-        this.cartForm.clear();
-        this.addProduct();
-        this.form.patchValue(this.createForm().value);
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(filter(r => r === 'confirm'))
+            .subscribe(() => {
+                this.cartForm.clear();
+                this.addProduct();
+                this.form.patchValue(this.createForm().value);
+            });
     }
 
     addProduct() {

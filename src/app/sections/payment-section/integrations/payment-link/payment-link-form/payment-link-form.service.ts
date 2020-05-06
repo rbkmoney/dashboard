@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { concat, merge, Observable, of, Subject } from 'rxjs';
-import { mapTo, pluck, share, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
+import { filter, mapTo, pluck, share, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
+
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { UrlShortenerService } from '../../../../../api';
 import { InvoiceTemplateAndToken, LifetimeInterval } from '../../../../../api-codegen/capi';
@@ -48,7 +51,8 @@ export class PaymentLinkFormService {
         private urlShortenerService: UrlShortenerService,
         private configService: ConfigService,
         private invoiceTemplateFormService: InvoiceTemplateFormService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private dialog: MatDialog
     ) {
         const invoiceTemplatePaymentLinkWithErrors$ = this.createInvoiceTemplatePaymentLink$.pipe(
             switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$.pipe(take(1))),
@@ -80,7 +84,11 @@ export class PaymentLinkFormService {
     }
 
     clear() {
-        this.form.patchValue(this.createForm().value);
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(filter(r => r === 'confirm'))
+            .subscribe(() => this.form.patchValue(this.createForm().value));
     }
 
     private shortenUrl(invoiceTemplateAndToken: InvoiceTemplateAndToken) {
