@@ -24,6 +24,7 @@ import {
     LifetimeInterval
 } from '../../../../../api-codegen/capi';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { takeWhenChanged } from '../../../../../custom-operators/take-when-changed';
 import { filterShopsByEnv } from '../../../operations/operators';
 import { lifetimeValidator } from './lifetime-validator';
 
@@ -42,15 +43,17 @@ export const withoutVAT = Symbol('without VAT');
 
 @Injectable()
 export class InvoiceTemplateFormService {
-    private createInvoiceTemplate$ = new ReplaySubject<void>(1);
+    private nextInvoiceTemplate$ = new ReplaySubject<void>(1);
+
+    form = this.createForm();
+
+    private createInvoiceTemplate$ = takeWhenChanged(this.nextInvoiceTemplate$, this.form.valueChanges).pipe(share());
 
     shops$ = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
-
-    form = this.createForm();
 
     summary$ = this.cartForm.valueChanges.pipe(
         startWith(this.cartForm.value),
@@ -87,7 +90,7 @@ export class InvoiceTemplateFormService {
     }
 
     create() {
-        this.createInvoiceTemplate$.next();
+        this.nextInvoiceTemplate$.next();
     }
 
     clear() {
