@@ -18,7 +18,8 @@
         "tabs": {
             "webhooks": "Webhooks",
             "shops": "Магазины",
-            "payment-link": "Платежная ссылка"
+            "payment-link": "Платежная ссылка",
+            "api-key": "API key"
         }
     }
 }
