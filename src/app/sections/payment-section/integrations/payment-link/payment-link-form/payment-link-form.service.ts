@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import moment from 'moment';
-import { concat, Observable, of, Subject } from 'rxjs';
+import { concat, merge, Observable, of, Subject } from 'rxjs';
 import { mapTo, pluck, share, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
 
 import { UrlShortenerService } from '../../../../../api';
@@ -51,14 +51,22 @@ export class PaymentLinkFormService {
         private fb: FormBuilder
     ) {
         const invoiceTemplatePaymentLinkWithErrors$ = this.createInvoiceTemplatePaymentLink$.pipe(
-            switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$),
+            switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$.pipe(take(1))),
             switchMap(invoiceTemplateAndToken => this.shortenUrl(invoiceTemplateAndToken).pipe(replaceError)),
             share()
         );
         this.invoiceTemplatePaymentLink$ = invoiceTemplatePaymentLinkWithErrors$.pipe(
             filterPayload,
             pluck('shortenedUrl'),
-            switchMap(v => concat(of(v), this.form.valueChanges.pipe(take(1), mapTo('')))),
+            switchMap(v =>
+                concat(
+                    of(v),
+                    merge(this.form.valueChanges, this.invoiceTemplateFormService.form.valueChanges).pipe(
+                        take(1),
+                        mapTo('')
+                    )
+                )
+            ),
             shareReplay(1)
         );
         this.errors$ = invoiceTemplatePaymentLinkWithErrors$.pipe(filterError, shareReplay(1));
