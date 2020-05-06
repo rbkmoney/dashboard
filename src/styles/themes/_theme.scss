@@ -73,7 +73,6 @@
         @include dsh-percent-difference-theme($theme);
         @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);
-        @include dsh-payout-panel-theme($theme);
         @include dsh-stat-item-theme($theme);
         @include dsh-expand-panel-theme($theme);
         @include dsh-webhook-panel-theme($theme);
