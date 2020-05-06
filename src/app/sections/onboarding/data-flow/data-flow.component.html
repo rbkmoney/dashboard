@@ -1,5 +1,5 @@
-<div class="container" fxLayout="column" *transloco="let t; scope: 'onboarding'">
-    <h1 class="mat-headline">{{ t.onboarding.headline }}</h1>
+<div class="container" fxLayout="column" fxLayoutGap="20px" *transloco="let t; scope: 'onboarding'">
+    <h1 class="mat-display-1">{{ t.onboarding.headline }}</h1>
     <div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>

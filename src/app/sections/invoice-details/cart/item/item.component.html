@@ -11,12 +11,12 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
                 <dsh-details-item *ngIf="item.cost" [title]="t.cost" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ item.cost | currency: currency }}
+                        {{ item.cost / 100 | currency: currency }}
                     </div>
                 </dsh-details-item>
                 <dsh-details-item *ngIf="!item.cost" [title]="t.cost" fxFlex="33">
                     <div class="mat-body-1">
-                        {{ item.price * item.quantity | fromMinor | currency: currency }}
+                        {{ item.price * item.quantity | toMajor | currency: currency }}
                     </div>
                 </dsh-details-item>
                 <dsh-details-item [title]="t.quantity" fxFlex="33">

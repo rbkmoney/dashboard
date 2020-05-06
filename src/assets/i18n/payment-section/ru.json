@@ -2,8 +2,9 @@
     "nav": {
         "operations": "Операции",
         "reports": "Отчеты",
+        "analytics": "Аналитика",
         "payouts": "Возмещения",
-        "analytics": "Аналитика"
+        "integrations": "Интеграция"
     },
     "operations": {
         "headline": "Операции",
@@ -92,6 +93,12 @@
             "909": "Decline reason message: system malfunction",
             "921": "Decline reason message: security software/hardware error - no action",
             "1001": "Perspayee data expired or missing"
+    },
+    "integrations": {
+        "headline": "Интеграция",
+        "tabs": {
+            "webhooks": "Webhooks",
+            "shops": "Магазины"
         }
     }
 }

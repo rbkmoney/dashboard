@@ -5,7 +5,7 @@
                 {{ t.amount }}
             </th>
             <td dshCell fxFlex="150px" *dshCellDef="let refund">
-                {{ refund.amount | fromMinor | currency: refund.currency }}
+                {{ refund.amount | toMajor | currency: refund.currency }}
             </td>
         </ng-container>
 
