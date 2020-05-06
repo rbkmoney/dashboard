@@ -103,11 +103,14 @@ export class PaymentLinkFormService {
         );
     }
 
-    private argsToUrl(paymentLinkParams: PaymentLinkArguments) {
-        const params = Object.entries(paymentLinkParams)
+    private argsToUrl({ holdExpiration, ...paymentLinkParams }: PaymentLinkArguments) {
+        const queryParamsStr = Object.entries({
+            ...paymentLinkParams,
+            ...(paymentLinkParams.paymentFlowHold ? { holdExpiration } : {})
+        })
             .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&');
-        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${params}`;
+        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${queryParamsStr}`;
     }
 
     private createDateFromLifetime(lifetime: LifetimeInterval) {
