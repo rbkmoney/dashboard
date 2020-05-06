@@ -50,7 +50,6 @@ import { RefundsModule } from './refunds';
         InvoiceDetailsModule,
         RefundsModule
     ],
-    exports: [AmountPipe],
     declarations: [PaymentDetailsComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
 })

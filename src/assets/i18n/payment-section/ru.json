@@ -93,12 +93,13 @@
             "909": "Decline reason message: system malfunction",
             "921": "Decline reason message: security software/hardware error - no action",
             "1001": "Perspayee data expired or missing"
-    },
-    "integrations": {
-        "headline": "Интеграция",
-        "tabs": {
-            "webhooks": "Webhooks",
-            "shops": "Магазины"
+        },
+        "integrations": {
+            "headline": "Интеграция",
+            "tabs": {
+                "webhooks": "Webhooks",
+                "shops": "Магазины"
+            }
         }
     }
 }
