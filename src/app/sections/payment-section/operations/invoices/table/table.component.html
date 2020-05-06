@@ -1,28 +1,28 @@
 <div *transloco="let t; scope: 'operations'; read: 'operations.invoices.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="invoiceID">
-            <th dshHeaderCell fxFlex="160px" *dshHeaderCellDef>
-                {{ t.invoiceID }}
+            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
+                #
             </th>
-            <td dshCell fxFlex="160px" *dshCellDef="let element">
+            <td dshCell fxFlex="120px" *dshCellDef="let element">
                 {{ element.invoiceID }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="amount">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
                 {{ t.amount }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="120px" *dshCellDef="let element">
                 {{ element.amount | toMajor | currency: element.currency }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="status">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="120px" *dshHeaderCellDef>
                 {{ t.status }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="120px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | invoiceStatusColor">{{
                     c.invoiceStatus[element.status]
                 }}</dsh-status>
@@ -30,10 +30,10 @@
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
                 {{ t.createdAt }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="140px" *dshCellDef="let element">
                 {{ element.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
             </td>
         </ng-container>

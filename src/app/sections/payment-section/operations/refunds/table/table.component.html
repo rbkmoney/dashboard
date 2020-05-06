@@ -1,10 +1,10 @@
 <div *transloco="let t; scope: 'operations'; read: 'operations.refunds.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="amount">
-            <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
                 {{ t.amount }}
             </th>
-            <td dshCell fxFlex="150px" *dshCellDef="let refund">
+            <td dshCell fxFlex="140px" *dshCellDef="let refund">
                 {{ refund.amount | toMajor | currency: refund.currency }}
             </td>
         </ng-container>
@@ -21,10 +21,10 @@
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="160px" *dshHeaderCellDef>
                 {{ t.createdAt }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let refund">
+            <td dshCell fxFlex="160px" *dshCellDef="let refund">
                 {{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
             </td>
         </ng-container>
