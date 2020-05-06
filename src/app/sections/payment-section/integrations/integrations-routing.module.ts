@@ -15,6 +15,10 @@ const routes: Routes = [
             {
                 path: 'shops',
                 loadChildren: () => import('./shops').then(m => m.ShopsModule)
+            },
+            {
+                path: 'api-key',
+                loadChildren: () => import('./api-key').then(m => m.ApiKeyModule)
             }
         ]
     }
