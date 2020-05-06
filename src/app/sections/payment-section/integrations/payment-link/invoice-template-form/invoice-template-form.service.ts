@@ -210,7 +210,7 @@ export class InvoiceTemplateFormService {
                     cart: cart.map(c => ({
                         product: c.product,
                         quantity: c.quantity,
-                        price: c.price,
+                        price: toMinor(c.price),
                         ...this.getInvoiceLineTaxMode(c.taxMode)
                     })),
                     currency
