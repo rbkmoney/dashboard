@@ -16,7 +16,9 @@ build('dashboard', 'docker-host') {
     runStage('init') {
       withGithubSshCredentials {
         sh 'make submodules'
-        sh 'make wc_init'
+        withGithubToken {
+          sh 'make wc_init'
+        }
       }
     }
     runStage('build') {
@@ -38,5 +40,5 @@ build('dashboard', 'docker-host') {
       }
     }
   }
-  pipeDefault(pipeline, 'dr2.rbkmoney.com', 'jenkins_harbor')
+  pipeDefault(pipeline, 'dr2.rbkmoney.com', 'jenkins_harbor') 
 }

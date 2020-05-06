@@ -1,1 +1,1 @@
-export * from './recurrent-details.component';
+export * from './recurrent-details.module';

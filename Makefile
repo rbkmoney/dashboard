@@ -23,7 +23,7 @@ BASE_IMAGE_TAG := 2b4570bc1d9631c10aaed2132eb87eb9003f3471
 BUILD_IMAGE_TAG := 137ba2551041c98498c78e21246902ef9045dae6
 
 GIT_SSH_COMMAND :=
-DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)'
+DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
 
 CALL_W_CONTAINER := init test build clean submodules
 
@@ -41,7 +41,8 @@ $(SUBTARGETS): %/.git: %
 submodules: $(SUBTARGETS)
 
 init:
-	NG_CLI_ANALYTICS=false npm ci
+	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
+	npm ci
 	npm run codegen
 
 build:
