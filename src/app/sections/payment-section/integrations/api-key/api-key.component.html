@@ -6,7 +6,7 @@
         </div>
         <div fxLayout="column" [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex="100">
-                <textarea matInput rows="6" class="dsh-api-key-textarea" readonly [value]="token$ | async"></textarea>
+                <textarea matInput rows="6" readonly [value]="token$ | async"></textarea>
             </mat-form-field>
             <div>
                 <button dsh-button [cdkCopyToClipboard]="token$ | async" (cdkCopyToClipboardCopied)="copied($event)">
