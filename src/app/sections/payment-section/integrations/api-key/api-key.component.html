@@ -1,0 +1,18 @@
+<dsh-card fxLayout="column" *transloco="let t; scope: 'api-key'; read: 'apiKey'">
+    <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
+        <div class="mat-title">{{ t.title }}</div>
+        <div class="mat-body-1">
+            {{ t.description }} <a [href]="paymentsEndpoint" target="_blank">{{ t.api }}</a>
+        </div>
+        <div fxLayout="column" [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex="100">
+                <textarea matInput rows="6" class="dsh-api-key-textarea" readonly [value]="token$ | async"></textarea>
+            </mat-form-field>
+            <div>
+                <button dsh-button [cdkCopyToClipboard]="token$ | async" (cdkCopyToClipboardCopied)="copied($event)">
+                    {{ t.copy }}
+                </button>
+            </div>
+        </div>
+    </dsh-card-content>
+</dsh-card>

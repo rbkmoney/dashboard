@@ -13,6 +13,9 @@ export class IntegrationsComponent {
         },
         {
             path: 'shops'
+        },
+        {
+            path: 'api-key'
         }
     ];
 

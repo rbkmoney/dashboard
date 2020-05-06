@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-api-key-theme($theme) {
+    $gray: map-get($theme, gray);
+
+    .dsh-api-key-textarea {
+        color: mat-color($gray, 500);
+    }
+}
