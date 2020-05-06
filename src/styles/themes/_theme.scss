@@ -20,6 +20,7 @@
 @import '../../components/layout/dropdown/dropdown-theme';
 @import '../../components/layout/details-item/details-item-theme';
 @import '../../components/layout/expansion/expansion-theme';
+@import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
@@ -36,6 +37,7 @@
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/mini-card/mini-card-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
+@import '../../app/sections/payment-section/integrations/webhooks/webhook-panel/webhook-panel-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -73,6 +75,7 @@
         @include dsh-mini-card-theme($theme);
         @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);
-        @include dsh-payout-panel-theme($theme);
+        @include dsh-expand-panel-theme($theme);
+        @include dsh-webhook-panel-theme($theme);
     }
 }

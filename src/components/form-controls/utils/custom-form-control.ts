@@ -149,7 +149,11 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     }
 
     ngDoCheck() {
-        if (this.ngControl) {
+        if (
+            this.ngControl &&
+            // TODO: dirty checking is temporary
+            this.ngControl.dirty
+        ) {
             // We need to re-evaluate this on every change detection cycle, because there are some
             // error triggers that we can't subscribe to (e.g. parent form submissions). This means
             // that whatever logic is in here has to be super lean or we risk destroying the performance.

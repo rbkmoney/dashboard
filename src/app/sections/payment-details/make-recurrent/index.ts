@@ -1,1 +1,1 @@
-export * from './make-recurrent.component';
+export * from './make-recurrent.module';

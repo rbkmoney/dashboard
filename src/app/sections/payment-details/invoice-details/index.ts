@@ -1,1 +1,1 @@
-export * from './invoice-details.component';
+export * from './invoice-details.module';

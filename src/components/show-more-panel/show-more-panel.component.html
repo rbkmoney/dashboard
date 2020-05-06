@@ -1,0 +1,5 @@
+<dsh-card class="dsh-show-more-panel" fxLayout>
+    <button dsh-button (click)="getMore()" [disabled]="isLoading" fxFlex *transloco="let t">
+        {{ isLoading ? t.loading : t.showMore }}
+    </button>
+</dsh-card>

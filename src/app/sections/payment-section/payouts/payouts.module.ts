@@ -13,9 +13,10 @@ import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { SearchModule } from '../../../api';
-import { PayoutPanelModule } from './payout-panel';
+import { PayoutPanelModule } from './payouts-panels-list';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';
 import { SearchFormComponent } from './search-form';
@@ -39,7 +40,8 @@ import { SearchFormComponent } from './search-form';
         MatInputModule,
         SpinnerModule,
         ScrollUpModule,
-        RangeDatepickerModule
+        RangeDatepickerModule,
+        ShowMorePanelModule
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
     exports: [PayoutsComponent]

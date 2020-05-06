@@ -1,1 +1,1 @@
-export * from './status-details-item.component';
+export * from './status-details-item.module';

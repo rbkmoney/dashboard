@@ -4,7 +4,7 @@ import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/c
 import { coerce } from '../../../utils';
 import { ResizedEvent } from '../../indicators/resized';
 import { expandAnimation, ExpandState } from './expand-animation';
-import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.component';
+import { ExpandPanelMoreTemplateComponent } from './expand-panel-more';
 
 @Component({
     selector: 'dsh-expand-panel',
@@ -15,15 +15,17 @@ import { ExpandPanelMoreTemplateComponent } from './expand-panel-more-template.c
 export class ExpandPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(
-        v => coerceBooleanProperty(v),
-        (v: boolean, self: ExpandPanelComponent) => self.expandedChange.emit(v)
-    )
+    @coerce(coerceBooleanProperty, (v: boolean, self: ExpandPanelComponent) => self.expandedChange.emit(v))
     expanded = false;
 
     @Input() layoutGap = '20px';
 
     @ContentChild(ExpandPanelMoreTemplateComponent)
+    @coerce(
+        v => v,
+        (v: ExpandPanelMoreTemplateComponent, self: ExpandPanelComponent) =>
+            v.collapse$.subscribe(e => self.collapse(e))
+    )
     expandPanelMore: ExpandPanelMoreTemplateComponent;
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
