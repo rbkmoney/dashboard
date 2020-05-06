@@ -216,7 +216,6 @@ export class InvoiceTemplateFormService {
                     price: this.getInvoiceTemplateLineCost(),
                     ...this.getInvoiceLineTaxMode(value.taxMode)
                 } as InvoiceTemplateSingleLine;
-
             case TemplateType.multiLine:
                 return {
                     templateType: value.templateType,
@@ -254,12 +253,14 @@ export class InvoiceTemplateFormService {
         }
     }
 
-    private getInvoiceLineTaxMode(rate: typeof withoutVAT | InvoiceLineTaxVAT.RateEnum): InvoiceLineTaxMode | {} {
+    private getInvoiceLineTaxMode(rate: typeof withoutVAT | InvoiceLineTaxVAT.RateEnum) {
         return rate === withoutVAT
             ? {}
             : {
-                  type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
-                  rate
+                  taxMode: {
+                      type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
+                      rate
+                  }
               };
     }
 }
