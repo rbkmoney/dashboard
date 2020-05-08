@@ -46,10 +46,12 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint build
+	npx run-p --aggregate-output --print-label check lint
+	npm run test-silent
+	npm run build
 
 clean:
 	rm -rf dist
 
 test:
-	npm run test
+	npm run test-silent

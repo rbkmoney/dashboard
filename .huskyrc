@@ -1,5 +1,3 @@
 {
-    "hooks": {
-        "pre-push": "npm run test-silent"
-    }
+    "hooks": {}
 }
