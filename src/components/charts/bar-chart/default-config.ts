@@ -1,6 +1,7 @@
-import { formatDate } from '@angular/common';
-import moment from 'moment';
 import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
+
+import { DEFAULT_ANIMATION } from '@dsh/components/charts/default-animation';
+import { formatAmount } from '@dsh/components/charts/format-amount';
 
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
@@ -15,7 +16,8 @@ export const DEFAULT_CONFIG: ApexOptions = {
         height: 300,
         toolbar: {
             show: false
-        }
+        },
+        animations: DEFAULT_ANIMATION
     },
     dataLabels: {
         enabled: false
@@ -36,8 +38,8 @@ export const DEFAULT_CONFIG: ApexOptions = {
     xaxis: {
         type: 'category',
         labels: {
-            formatter: (v: string): string => formatDate(v, 'dd.MM', moment.locale()),
-            offsetY: -5
+            offsetY: -5,
+            hideOverlappingLabels: true
         },
         axisTicks: {
             show: false
@@ -50,7 +52,10 @@ export const DEFAULT_CONFIG: ApexOptions = {
         }
     },
     yaxis: {
-        forceNiceScale: true
+        forceNiceScale: true,
+        labels: {
+            formatter: formatAmount
+        }
     },
     states: DEFAULT_STATES
 };

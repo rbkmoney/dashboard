@@ -1,5 +1,7 @@
 import { ApexOptions } from 'ng-apexcharts/lib/model/apex-types';
 
+import { DEFAULT_ANIMATION } from '@dsh/components/charts/default-animation';
+
 import { DEFAULT_LEGEND } from '../default-legend';
 import { DEFAULT_STATES } from '../default-states';
 
@@ -11,7 +13,8 @@ export const DEFAULT_CONFIG: ApexOptions = {
         width: '100%',
         toolbar: {
             show: false
-        }
+        },
+        animations: DEFAULT_ANIMATION
     },
     dataLabels: {
         enabled: false

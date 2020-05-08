@@ -3,56 +3,50 @@
     fxLayoutGap="30px"
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
 >
-    <h1 class="mat-headline">{{ t.headline }}</h1>
+    <h1 class="mat-display-1">{{ t.headline }}</h1>
     <div fxLayout="column" fxLayoutGap="20px">
-        <!-- <dsh-search-form></dsh-search-form> -->
-        <div fxLayout fxLayoutGap="20px">
-            <dsh-mini-card fxFlex [title]="12344000 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 1">
-                <dsh-percent-difference [current]="12344000" [previous]="10112000"></dsh-percent-difference>
-            </dsh-mini-card>
-            <dsh-mini-card fxFlex [title]="123867 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 2">
-                <dsh-percent-difference [current]="123867" [previous]="123867"></dsh-percent-difference>
-            </dsh-mini-card>
-            <dsh-mini-card fxFlex [title]="123032 | currency: 'RUB':'symbol':'1.0-2'" subtitle="Example 3">
-                <dsh-percent-difference [current]="123032" [previous]="125013"></dsh-percent-difference>
-            </dsh-mini-card>
-            <dsh-mini-card fxFlex title="12303" subtitle="Example 4">
-                <dsh-percent-difference [current]="12303" [previous]="11032"></dsh-percent-difference>
-            </dsh-mini-card>
+        <dsh-search-form (valueChanges)="updateSearchParams($event)"></dsh-search-form>
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+            <dsh-payments-amount
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-amount>
+            <dsh-refunds-amount
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-refunds-amount>
+            <dsh-average-payment
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-average-payment>
+            <dsh-payments-count
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-count>
         </div>
-        <dsh-card>
-            <dsh-card-title
-                ><h1 class="mat-title">{{ t.paymentsCount }}</h1></dsh-card-title
-            >
-            <dsh-card-content>
-                <dsh-bar-chart [series]="paymentsCount" [times]="paymentsCountTimes" height="300"></dsh-bar-chart>
-            </dsh-card-content>
-        </dsh-card>
-        <dsh-card>
-            <dsh-card-title
-                ><h1 class="mat-title">{{ t.paymentsAmount }}</h1></dsh-card-title
-            >
-            <dsh-card-content>
-                <dsh-bar-chart [series]="paymentsAmount" [times]="paymentsAmountTimes" height="300"></dsh-bar-chart>
-            </dsh-card-content>
-        </dsh-card>
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-            <dsh-card fxFlex>
-                <dsh-card-title
-                    ><h1 class="mat-title">{{ t.paymentTools }}</h1></dsh-card-title
-                >
-                <dsh-card-content>
-                    <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>
-                </dsh-card-content>
-            </dsh-card>
-            <dsh-card fxFlex>
-                <dsh-card-title
-                    ><h1 class="mat-title">{{ t.unsuccessfulPaymentReasons }}</h1></dsh-card-title
-                >
-                <dsh-card-content>
-                    <dsh-donut-chart [series]="paymentTools" [labels]="paymentToolsLabels"></dsh-donut-chart>
-                </dsh-card-content>
-            </dsh-card>
+        <dsh-payment-split-count
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payment-split-count>
+        <dsh-payment-split-amount
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payment-split-amount>
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+            <dsh-payments-tool-distribution
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-tool-distribution>
+            <dsh-payments-error-distribution
+                fxFlex
+                [searchParams]="searchParams$ | async"
+                [spinnerType]="spinnerType"
+            ></dsh-payments-error-distribution>
         </div>
     </div>
 </div>

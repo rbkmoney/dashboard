@@ -1,9 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin dsh-mini-card-theme($theme) {
-    $gray: map-get($theme, gray);
-
-    .dsh-mini-card-title {
-        color: map-get($gray, 500);
-    }
-}

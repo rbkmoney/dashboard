@@ -1,3 +1,4 @@
+export * from './analytics';
 export * from './claims';
 export * from './shop';
 export * from './invoice';

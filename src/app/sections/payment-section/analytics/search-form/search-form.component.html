@@ -1,24 +1,24 @@
-<dsh-card [formGroup]="form">
+<dsh-card>
     <dsh-card-content>
-        <div
+        <form
+            [formGroup]="form"
             fxLayout
             fxLayout.lt-md="column"
             fxLayoutGap="20px"
             fxLayoutAlign="space-between center"
             fxLayoutAlign.lt-md="space-between stretch"
         >
-            <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
+            <dsh-range-datepicker formControlName="date" fxFlex disablePeriodSelect></dsh-range-datepicker>
             <dsh-justify-wrapper fxFlex.gt-sm fxLayout fxLayout.lt-md="column" fxLayoutGap="20">
                 <mat-form-field *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlex>
                     <mat-label>{{ t.shop }}</mat-label>
-                    <mat-select formControlName="shops">
-                        <mat-option>{{ t.allShops }}</mat-option>
-                        <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">{{
-                            shop.details.name
+                    <mat-select multiple formControlName="shopIDs">
+                        <mat-option *ngFor="let shop of shopsInfo$ | async" [value]="shop.shopID">{{
+                            shop.name
                         }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </dsh-justify-wrapper>
-        </div>
+        </form>
     </dsh-card-content>
 </dsh-card>

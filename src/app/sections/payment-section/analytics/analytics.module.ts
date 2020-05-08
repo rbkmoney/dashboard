@@ -5,15 +5,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { BarChartModule } from '@dsh/components/charts/bar-chart';
-import { DonutChartModule } from '@dsh/components/charts/donut-chart';
+import { BarChartModule, DonutChartModule } from '@dsh/components/charts';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
 
+import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsComponent } from './analytics.component';
-import { MiniCardModule } from './mini-card';
-import { PercentDifferenceComponent } from './percent-difference';
+import { AveragePaymentModule } from './average-payment';
+import { PaymentSplitAmountModule } from './payment-split-amount';
+import { PaymentSplitCountModule } from './payment-split-count';
+import { PaymentsAmountModule } from './payments-amount';
+import { PaymentsCountModule } from './payments-count';
+import { PaymentsErrorDistributionModule } from './payments-error-distribution';
+import { PaymentsToolDistributionModule } from './payments-tool-distribution';
+import { PercentDifferenceModule } from './percent-difference';
+import { RefundsAmountModule } from './refunds-amount';
 import { SearchFormComponent } from './search-form';
 
 @NgModule({
@@ -23,15 +31,25 @@ import { SearchFormComponent } from './search-form';
         LayoutModule,
         FlexLayoutModule,
         TranslocoModule,
-        RangeDatepickerModule,
         JustifyWrapperModule,
         ReactiveFormsModule,
         FormsModule,
         MatSelectModule,
         BarChartModule,
         DonutChartModule,
-        MiniCardModule
+        APIAnalyticsModule,
+        RangeDatepickerModule,
+        SpinnerModule,
+        PercentDifferenceModule,
+        PaymentSplitCountModule,
+        PaymentsToolDistributionModule,
+        AveragePaymentModule,
+        PaymentsAmountModule,
+        PaymentsCountModule,
+        RefundsAmountModule,
+        PaymentSplitAmountModule,
+        PaymentsErrorDistributionModule
     ],
-    declarations: [AnalyticsComponent, SearchFormComponent, PercentDifferenceComponent]
+    declarations: [AnalyticsComponent, SearchFormComponent]
 })
 export class AnalyticsModule {}
