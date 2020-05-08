@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { concat, merge, Observable, of, Subject } from 'rxjs';
-import { filter, mapTo, pluck, share, shareReplay, startWith, switchMap, switchMapTo, take } from 'rxjs/operators';
+import { filter, mapTo, pluck, share, shareReplay, switchMap, switchMapTo, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
