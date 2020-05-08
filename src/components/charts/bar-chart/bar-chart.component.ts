@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import cloneDeep from 'lodash.clonedeep';
-import { Moment } from 'moment';
 import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
 import { DEFAULT_CONFIG } from './default-config';
@@ -15,9 +14,6 @@ export class BarChartComponent implements OnChanges {
     series?: ApexAxisChartSeries;
 
     @Input()
-    times: string[] | Moment[] | Date[];
-
-    @Input()
     colors?: string[];
 
     @Input()
@@ -26,9 +22,6 @@ export class BarChartComponent implements OnChanges {
     config = cloneDeep(DEFAULT_CONFIG);
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.times && changes.times.currentValue !== changes.times.previousValue) {
-            this.config.xaxis.categories = this.times;
-        }
         if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
             this.config.chart.height = this.height;
         }

@@ -1,8 +1,13 @@
-<dsh-card *transloco="let c">
+<dsh-card class="stat-item" *transloco="let c">
     <div *ngIf="!error; else onError" fxLayout="column" fxLayoutGap="5px">
-        <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-            <h2 *ngIf="!isLoading" class="mat-title stat-item-title">
-                <div *ngIf="statData; else noData">
+        <div
+            *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+            fxLayout
+            fxLayoutAlign="space-between"
+            fxLayoutGap="10px"
+        >
+            <h2 class="mat-title stat-item-title">
+                <div *ngIf="statData?.current; else noData">
                     <div *ngIf="hideCurrency; else showCurrency">
                         {{ statData.current | number }}
                     </div>
@@ -11,20 +16,13 @@
                     </ng-template>
                 </div>
                 <ng-template #noData>
-                    {{ c.emptySearchResult }}
+                    {{ t.noData }}
                 </ng-template>
             </h2>
             <dsh-spinner *ngIf="isLoading" [type]="spinnerType" size="20"></dsh-spinner>
         </div>
         <div class="mat-caption dsh-stat-item-title">{{ subtitle }}</div>
-        <div *ngIf="isLoading; else afterLoad">-</div>
-        <ng-template #afterLoad>
-            <dsh-percent-difference
-                *ngIf="statData as statData"
-                [current]="statData.current"
-                [previous]="statData.previous"
-            ></dsh-percent-difference>
-        </ng-template>
+        <dsh-percent-difference [current]="statData?.current" [previous]="statData?.previous"></dsh-percent-difference>
     </div>
     <ng-template #onError>
         {{ c.httpError }}

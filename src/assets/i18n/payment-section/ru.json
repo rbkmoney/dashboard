@@ -22,6 +22,7 @@
         "paymentsAmount": "Оборот",
         "paymentTools": "Платежные инструменты",
         "unsuccessfulPaymentReasons": "Причины неуспешных платежей",
+        "noData": "Нет данных",
         "stats": {
             "paymentsAmount": "Оборот за период",
             "refundsAmount": "Возвратов за период",

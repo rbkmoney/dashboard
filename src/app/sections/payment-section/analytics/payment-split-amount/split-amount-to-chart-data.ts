@@ -1,9 +1,9 @@
 import sortBy from 'lodash.sortby';
 import moment from 'moment';
-import { ApexAxisChartSeries } from 'ng-apexcharts';
 
-import { OffsetAmount, SplitAmountResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { ChartData } from '../utils';
+import { toMajor } from '../../../../../utils';
+import { OffsetAmount, SplitAmountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
+import { ChartData, Series, splitUnitToTimeFormat } from '../utils';
 
 const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
     offsetAmounts.reduce(
@@ -19,26 +19,25 @@ const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
         []
     );
 
-const prepareOffsetAmounts = (offsetAmounts: OffsetAmount[]): OffsetAmount[] => {
+const prepareOffsetAmounts = (offsetAmounts: OffsetAmount[], unit: SplitUnit): OffsetAmount[] => {
     const sorted = sortBy(offsetAmounts, 'offset');
-    return fixExtraInterval(sorted);
+    return unit !== 'hour' ? fixExtraInterval(sorted) : sorted;
 };
 
-const offsetAmountsToSeries = (offsetAmounts: OffsetAmount[]): ApexAxisChartSeries => [
+const offsetAmountsToSeries = (offsetAmounts: OffsetAmount[], unit: SplitUnit): Series[] => [
     {
-        data: offsetAmounts.map(offsetAmount => offsetAmount.amount)
+        data: offsetAmounts.map(offsetAmount => ({
+            x: moment(offsetAmount.offset).format(splitUnitToTimeFormat(unit)),
+            y: toMajor(offsetAmount.amount)
+        }))
     }
 ];
 
-const offsetAmountsToTimes = (offsetAmounts: OffsetAmount[]): string[] =>
-    offsetAmounts.map(offsetAmount => moment(offsetAmount.offset).format());
-
 export const splitAmountToChartData = (paymentsSplitAmount: Array<SplitAmountResult>): ChartData[] =>
-    paymentsSplitAmount.map(({ currency, offsetAmounts }) => {
-        const prepared = prepareOffsetAmounts(offsetAmounts);
+    paymentsSplitAmount.map(({ currency, offsetAmounts, splitUnit }) => {
+        const prepared = prepareOffsetAmounts(offsetAmounts, splitUnit);
         return {
             currency,
-            series: offsetAmountsToSeries(prepared),
-            times: offsetAmountsToTimes(prepared)
+            series: offsetAmountsToSeries(prepared, splitUnit)
         };
     });

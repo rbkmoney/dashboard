@@ -1,5 +1,5 @@
-import { formatDate, formatNumber } from '@angular/common';
-import moment, { locale } from 'moment';
+import { formatNumber } from '@angular/common';
+import { locale } from 'moment';
 
 export const customTooltip = ({ series, dataPointIndex, w }) => {
     let values = '';
@@ -15,12 +15,9 @@ export const customTooltip = ({ series, dataPointIndex, w }) => {
              </div>`;
     }
     return `
-        <div class="dsh-bar-chart-tooltip-title mat-caption">${formatDate(
-            w.config.xaxis.categories[dataPointIndex],
-            'dd.MM.yyyy, EEEEEE',
-            moment.locale()
-        ).toLocaleUpperCase()}
-        </div>
+        <div class="dsh-bar-chart-tooltip-title mat-caption">${w.globals.labels[
+            dataPointIndex
+        ].toLocaleUpperCase()}</div>
         ${values}
     `;
 };

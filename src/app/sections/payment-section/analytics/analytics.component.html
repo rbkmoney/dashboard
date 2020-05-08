@@ -6,7 +6,7 @@
     <h1 class="mat-display-1">{{ t.headline }}</h1>
     <div fxLayout="column" fxLayoutGap="20px">
         <dsh-search-form (valueChanges)="updateSearchParams($event)"></dsh-search-form>
-        <div fxLayout fxLayoutGap="20px">
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
             <dsh-payments-amount
                 fxFlex
                 [searchParams]="searchParams$ | async"

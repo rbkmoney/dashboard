@@ -1,14 +1,22 @@
+import { formatNumber } from '@angular/common';
+import { locale } from 'moment';
+
 export const formatAmount = (num: number): string => {
-    switch (true) {
-        case num < 1000:
-            return num.toString();
-        case num < 1000000:
-            return num.toString() + 'K';
-        case num < 1000000000:
-            return num.toString() + 'M';
-        case num < 1000000000000:
-            return num.toString() + 'B';
-        default:
-            return num.toString();
+    for (const amountUnit of amountUnits) {
+        if (num >= amountUnit.amount) {
+            return formatNumber(num / amountUnit.amount, locale(), '1.0-2') + amountUnit.unit;
+        }
     }
+    return formatNumber(num, locale(), '1.0-2');
 };
+
+interface AmountUnit {
+    amount: number;
+    unit: '' | 'K' | 'M' | 'B';
+}
+
+const amountUnits: AmountUnit[] = [
+    { amount: 1000000000, unit: 'B' },
+    { amount: 1000000, unit: 'M' },
+    { amount: 1000, unit: 'K' }
+];
