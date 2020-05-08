@@ -3,15 +3,11 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnChanges,
     OnInit,
-    Output,
-    SimpleChanges
+    Output
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import isEqual from 'lodash/isEqual';
-import { debounceTime, filter, first, pluck } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { ShopInfo } from '../../operators';
@@ -24,7 +20,7 @@ import { SearchFormService } from './search-form.service';
     providers: [SearchFormService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchFormComponent implements OnInit, OnChanges {
+export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
     @Input() shopsInfo: ShopInfo[];
@@ -35,27 +31,12 @@ export class SearchFormComponent implements OnInit, OnChanges {
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
 
-    constructor(private searchFormService: SearchFormService, private route: ActivatedRoute) {}
+    constructor(private searchFormService: SearchFormService, ) {}
 
     ngOnInit() {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { shopsInfo } = changes;
-        if (shopsInfo.currentValue && !isEqual(shopsInfo.previousValue, shopsInfo.currentValue)) {
-            this.route.queryParams
-                .pipe(
-                    first(),
-                    pluck('shopIDs'),
-                    filter(ids => !ids)
-                )
-                .subscribe(() => {
-                    this.searchForm.patchValue({ shopIDs: shopsInfo.currentValue.map(s => s.shopID) });
-                });
-        }
     }
 
     reset() {

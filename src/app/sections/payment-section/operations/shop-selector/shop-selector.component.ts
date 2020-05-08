@@ -28,8 +28,8 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
     @ViewChild('shopsSelector') clearShopIDsSearchInput: ElementRef;
 
     private shopInfos$: BehaviorSubject<ShopInfo[]> = new BehaviorSubject([]);
-    shopIDsSearch$ = new FormControl();
-    filteredShops$: Observable<ShopInfo[]> = this.shopIDsSearch$.valueChanges.pipe(
+    filterControl$ = new FormControl();
+    filteredShops$: Observable<ShopInfo[]> = this.filterControl$.valueChanges.pipe(
         startWith(this.shopInfos$.value),
         debounceTime(300),
         switchMap(v => combineLatest([of(v), this.shopInfos$])),
@@ -42,7 +42,7 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
     }
 
     clearShopIDsSearch() {
-        this.shopIDsSearch$.patchValue('');
+        this.filterControl$.patchValue('');
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -53,7 +53,7 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
     }
 
     shopsIDsOpenedChange(e) {
-        this.shopIDsSearch$.patchValue('');
+        this.filterControl$.patchValue('');
         if (e === true) {
             this.clearShopIDsSearchInput.nativeElement.focus();
         }

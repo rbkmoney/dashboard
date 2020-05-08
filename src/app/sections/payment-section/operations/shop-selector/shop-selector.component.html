@@ -6,7 +6,7 @@
                 <div class="search-form">
                     <mat-form-field fxFlex appearance="standard">
                         <mat-label>{{ t.shopsSearch }}</mat-label>
-                        <input #shopsSelector autocomplete="off" matInput [formControl]="shopIDsSearch$" />
+                        <input #shopsSelector autocomplete="off" matInput [formControl]="filterControl$" />
                         <button
                             *ngIf="shopsSelector.value"
                             matSuffix
@@ -32,7 +32,7 @@
                     fxLayout="column"
                     fxLayoutAlign=" stretch"
                 >
-                    <button dsh-button (click)="resetShopFilter()">{{ t.resetBtn }}</button>
+                    <button dsh-button (click)="resetShopFilter()">{{ t.reset }}</button>
                 </div>
             </div>
         </mat-select>
