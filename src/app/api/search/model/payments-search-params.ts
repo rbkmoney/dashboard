@@ -5,23 +5,24 @@ export type PaymentsSearchParams = MapTuple<
     Parameters<SearchService['searchPayments']>,
     {
         shopID?: 5;
-        paymentStatus?: 6;
-        paymentFlow?: 7;
-        paymentMethod?: 8;
-        paymentTerminalProvider?: 9;
-        invoiceID?: 10;
-        paymentID?: 11;
-        payerEmail?: 12;
-        payerIP?: 13;
-        payerFingerprint?: 14;
-        customerID?: 15;
-        first6?: 16;
-        last4?: 17;
-        rrn?: 18;
-        approvalCode?: 19;
-        bankCardTokenProvider?: 20;
-        bankCardPaymentSystem?: 21;
-        paymentAmountFrom?: 22;
-        paymentAmountTo?: 23;
+        shopIDs?: 6;
+        paymentStatus?: 7;
+        paymentFlow?: 8;
+        paymentMethod?: 9;
+        paymentTerminalProvider?: 10;
+        invoiceID?: 11;
+        paymentID?: 12;
+        payerEmail?: 13;
+        payerIP?: 14;
+        payerFingerprint?: 15;
+        customerID?: 16;
+        first6?: 17;
+        last4?: 18;
+        rrn?: 19;
+        approvalCode?: 20;
+        bankCardTokenProvider?: 21;
+        bankCardPaymentSystem?: 22;
+        paymentAmountFrom?: 23;
+        paymentAmountTo?: 24;
     }
 >;

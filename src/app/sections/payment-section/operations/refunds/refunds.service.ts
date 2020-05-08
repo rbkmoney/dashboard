@@ -50,6 +50,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                     params.paymentID,
                     this.searchLimit,
                     params.shopID,
+                    params.shopIDs,
                     params.refundID,
                     params.refundStatus,
                     excludedShops,

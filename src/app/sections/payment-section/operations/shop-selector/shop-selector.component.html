@@ -1,0 +1,40 @@
+<ng-container *transloco="let t; scope: 'shop-selector'; read: 'shopSelector'">
+    <mat-form-field fxFlex>
+        <mat-label>{{ t.shops }}</mat-label>
+        <mat-select (openedChange)="shopsIDsOpenedChange($event)" [formControl]="formControl" multiple>
+            <div fxLayout="column">
+                <div class="search-form">
+                    <mat-form-field fxFlex appearance="standard">
+                        <mat-label>{{ t.shopsSearch }}</mat-label>
+                        <input #shopsSelector autocomplete="off" matInput [formControl]="shopIDsSearch$" />
+                        <button
+                            *ngIf="shopsSelector.value"
+                            matSuffix
+                            dsh-icon-button
+                            (click)="clearShopsSearch($event)"
+                        >
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-option *ngFor="let item of filteredShops$ | async" [value]="item.shopID">
+                        {{ item.name }}
+                    </mat-option>
+                </div>
+                <div *ngIf="(filteredShops$ | async)?.length === 0" class="mat-body-1 not-found">
+                    {{ t.notFound }}
+                </div>
+                <div
+                    *ngIf="value?.length > 0"
+                    class="dsh-shop-selector-reset-container reset"
+                    fxFlex
+                    fxLayout="column"
+                    fxLayoutAlign=" stretch"
+                >
+                    <button dsh-button (click)="resetShopFilter()">{{ t.resetBtn }}</button>
+                </div>
+            </div>
+        </mat-select>
+    </mat-form-field>
+</ng-container>

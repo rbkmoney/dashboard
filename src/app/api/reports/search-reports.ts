@@ -5,5 +5,6 @@ export interface SearchReportsReq {
     toTime: string;
     reportTypes: Report.ReportTypeEnum[];
     shopID?: string;
+    shopIDs?: string[];
     continuationToken?: string;
 }

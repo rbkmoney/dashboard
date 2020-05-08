@@ -11,6 +11,7 @@ export interface InvoiceSearchFormValue extends SearchFormValue {
     invoiceStatus?: Invoice.StatusEnum;
     invoiceAmount?: number;
     shopID?: string;
+    shopIDs?: string[];
     paymentStatus?: PaymentStatus.StatusEnum;
     paymentFlow?: 'instant' | 'hold';
     paymentMethod?: 'bankCard' | 'paymentTerminal';

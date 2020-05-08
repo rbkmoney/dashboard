@@ -26,6 +26,7 @@ export class InvoiceSearchService {
             limit,
             undefined,
             params.shopID,
+            params.shopIDs,
             params.invoiceStatus,
             params.invoiceID,
             params.invoiceAmountFrom,

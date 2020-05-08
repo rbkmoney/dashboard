@@ -1,6 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { debounceTime, filter, first, pluck } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { ShopInfo } from '../../operators';
@@ -10,9 +20,10 @@ import { SearchFormService } from './search-form.service';
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnChanges {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
     @Input() shopsInfo: ShopInfo[];
@@ -23,12 +34,27 @@ export class SearchFormComponent implements OnInit {
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
 
-    constructor(private searchFormService: SearchFormService) {}
+    constructor(private searchFormService: SearchFormService, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { shopsInfo } = changes;
+        if (shopsInfo.currentValue) {
+            this.route.queryParams
+                .pipe(
+                    first(),
+                    pluck('shopIDs'),
+                    filter(ids => !ids)
+                )
+                .subscribe(() => {
+                    this.searchForm.patchValue({ shopsIDs: shopsInfo.currentValue.map(s => s.shopID) });
+                });
+        }
     }
 
     reset() {

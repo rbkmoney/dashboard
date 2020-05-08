@@ -1,0 +1,18 @@
+.reset {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+
+    span {
+        cursor: pointer;
+    }
+}
+
+.not-found {
+    padding: 0 10px 15px 10px;
+}
+
+.search-form {
+    padding: 0 15px;
+}

@@ -8,4 +8,5 @@ export interface RefundsSearchFormValue extends SearchFormValue {
     refundID?: string;
     refundStatus?: RefundStatus.StatusEnum;
     shopID?: string;
+    shopIDs?: string[];
 }

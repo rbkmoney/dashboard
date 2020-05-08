@@ -3,14 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, pluck, shareReplay } from 'rxjs/operators';
 
 import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
@@ -51,17 +50,12 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     }
 
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
-        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
-            switchMap(excludedShops =>
-                this.invoiceSearchService.searchInvoices(
-                    params.date.begin.utc().format(),
-                    params.date.end.utc().format(),
-                    params,
-                    this.searchLimit,
-                    continuationToken,
-                    excludedShops
-                )
-            )
+        return this.invoiceSearchService.searchInvoices(
+            params.date.begin.utc().format(),
+            params.date.end.utc().format(),
+            params,
+            this.searchLimit,
+            continuationToken
         );
     }
 }

@@ -16,6 +16,7 @@ export class PayoutSearchService {
             limit,
             undefined,
             options.shopID,
+            options.shopIDs,
             options.offset,
             options.payoutID,
             options.payoutToolType,

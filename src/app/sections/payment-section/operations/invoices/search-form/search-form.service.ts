@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../operators';
-import { SearchFormValue } from '../../search-form-value';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
@@ -34,19 +33,13 @@ export class SearchFormService {
         this.searchForm.reset(this.defaultValues);
     }
 
-    applySearchFormValue(v: SearchFormValue) {
-        if (!v || !this.searchForm) {
-            return;
-        }
-        this.searchForm.patchValue(v);
-    }
-
     private pathFormByQueryParams() {
         this.route.queryParams
             .pipe(
                 take(1),
                 filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<InvoiceSearchFormValue>(queryParams))
+                map(queryParams => toFormValue<InvoiceSearchFormValue>(queryParams)),
+                map(v => ({ ...v, shopIDs: v.shopIDs ? [...v.shopIDs] : [] }))
             )
             .subscribe(formValue => this.searchForm.patchValue(formValue));
     }
@@ -59,7 +52,7 @@ export class SearchFormService {
             },
             limit: [defaultLimit, Validators.required],
             invoiceStatus: '',
-            shopID: '',
+            shopIDs: [],
             invoiceID: ''
         });
     }
