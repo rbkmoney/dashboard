@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import isEqual from 'lodash/isEqual';
 import { debounceTime, filter, first, pluck } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
@@ -44,7 +45,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const { shopsInfo } = changes;
-        if (shopsInfo.currentValue) {
+        if (shopsInfo.currentValue && !isEqual(shopsInfo.previousValue, shopsInfo.currentValue)) {
             this.route.queryParams
                 .pipe(
                     first(),
@@ -52,7 +53,7 @@ export class SearchFormComponent implements OnInit, OnChanges {
                     filter(ids => !ids)
                 )
                 .subscribe(() => {
-                    this.searchForm.patchValue({ shopsIDs: shopsInfo.currentValue.map(s => s.shopID) });
+                    this.searchForm.patchValue({ shopIDs: shopsInfo.currentValue.map(s => s.shopID) });
                 });
         }
     }
