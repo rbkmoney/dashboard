@@ -15,7 +15,7 @@ export const toStepNavInfo = (s: Observable<[ValiditySteps, StepName]>): Observa
     s.pipe(
         map(([validitySteps, activeStep]) => {
             let result = [];
-            for (const [step, isValid] of validitySteps) {
+            for (const [step, { isValid }] of validitySteps) {
                 result = [
                     ...result,
                     {

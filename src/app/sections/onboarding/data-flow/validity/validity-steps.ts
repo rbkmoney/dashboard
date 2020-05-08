@@ -1,3 +1,4 @@
 import { StepName } from '../step-flow';
 
-export type ValiditySteps = Map<StepName, boolean>;
+export type ValidateFn = () => void;
+export type ValiditySteps = Map<StepName, { isValid: boolean; validate: ValidateFn }>;

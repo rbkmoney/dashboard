@@ -13,10 +13,12 @@ import { mapToStepFlow } from './map-to-step-flow';
 import { StepName } from './step-name';
 import { urlToStep } from './url-to-step';
 
+export type Direction = 'forward' | 'back';
+
 @Injectable()
 export class StepFlowService {
     private navigate$: Subject<StepName> = new Subject();
-    private goByDirection$: Subject<'forward' | 'back'> = new Subject();
+    private goByDirection$: Subject<Direction> = new Subject();
     private readonly defaultStep = StepName.BasicInfo;
     private sub: Subscription = Subscription.EMPTY;
 
@@ -57,7 +59,7 @@ export class StepFlowService {
         this.navigate$.next(step);
     }
 
-    go(direction: 'forward' | 'back') {
+    go(direction: Direction) {
         this.goByDirection$.next(direction);
     }
 }

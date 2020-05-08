@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { QuestionaryStateService } from '../questionary-state.service';
-import { StepFlowService } from '../step-flow';
+import { Direction, StepFlowService } from '../step-flow';
+import { ValidityService } from '../validity';
 
 @Injectable()
 export class StepNavigationService {
-    private goByDirection$: Subject<'forward' | 'back'> = new Subject();
-
-    constructor(private questionaryStateService: QuestionaryStateService, private stepFlowService: StepFlowService) {
-        this.goByDirection$
-            .pipe(tap(() => this.questionaryStateService.save()))
-            .subscribe(direction => this.stepFlowService.go(direction));
-    }
+    constructor(
+        private questionaryStateService: QuestionaryStateService,
+        private stepFlowService: StepFlowService,
+        private validityService: ValidityService
+    ) {}
 
     forward() {
-        this.goByDirection$.next('forward');
+        this.goByDirection('forward');
     }
 
     back() {
-        this.goByDirection$.next('back');
+        this.goByDirection('back');
+    }
+
+    goByDirection(direction: Direction) {
+        this.questionaryStateService.save();
+        this.validityService.validateCurrentStep();
+        this.validityService.isCurrentStepValid$
+            .pipe(take(1))
+            .subscribe(isValid => isValid && this.stepFlowService.go(direction));
     }
 }

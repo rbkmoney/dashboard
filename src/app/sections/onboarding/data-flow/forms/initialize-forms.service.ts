@@ -34,14 +34,16 @@ export class InitializeFormsService {
     }
 
     subscribe() {
-        for (const service of this.initializeContainer) {
-            this.subs = [...this.subs, service.initForm(), service.startFormValidityReporting()];
-        }
+        this.subs = this.initializeContainer.map(service => service.startFormValidityReporting());
     }
 
     unsubscribe() {
         for (const sub of this.subs) {
             sub.unsubscribe();
         }
+    }
+
+    validateStep(stepName: string) {
+        this.initializeContainer.find(c => c.stepName === stepName).validate();
     }
 }

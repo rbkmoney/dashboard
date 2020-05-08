@@ -1,12 +1,27 @@
-import { FormGroup } from '@angular/forms';
-import { forkJoin, of, Subscription } from 'rxjs';
-import { debounceTime, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { combineLatest, forkJoin, of, Subscription } from 'rxjs';
+import { debounceTime, first, map, pluck, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepName } from '../step-flow';
 import { ValidityService } from '../validity';
 import { FormValue } from './form-value';
+
+function hasChildrenControls(control: AbstractControl): control is FormGroup | FormArray {
+    return !!(control as any).controls;
+}
+
+function validateControl(form: FormGroup | FormArray) {
+    Object.values(form.controls).forEach(control => {
+        control.markAsTouched();
+        control.markAsDirty();
+        control.updateValueAndValidity();
+        if (hasChildrenControls(control)) {
+            validateControl(control);
+        }
+    });
+}
 
 export abstract class QuestionaryFormService {
     readonly form$ = this.questionaryStateService.questionaryData$.pipe(
@@ -20,10 +35,6 @@ export abstract class QuestionaryFormService {
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService
     ) {}
-
-    initForm(): Subscription {
-        return this.form$.subscribe(form => this.validityService.setUpValidity(this.stepName, form.valid));
-    }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
         const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
@@ -46,11 +57,17 @@ export abstract class QuestionaryFormService {
     startFormValidityReporting(debounceMs = 300): Subscription {
         return this.form$
             .pipe(
-                switchMap(form => form.statusChanges),
-                debounceTime(debounceMs),
-                map(v => v === 'VALID')
+                switchMap(form => combineLatest([of(form), form.statusChanges.pipe(startWith(form.status))])),
+                pluck(0, 'valid'),
+                debounceTime(debounceMs)
             )
-            .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
+            .subscribe(isValid =>
+                this.validityService.setUpValidity(this.stepName, { isValid, validate: this.validate.bind(this) })
+            );
+    }
+
+    validate() {
+        this.form$.pipe(take(1)).subscribe(validateControl);
     }
 
     protected abstract toForm(data: QuestionaryData): FormGroup;
