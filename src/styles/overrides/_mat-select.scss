@@ -1,0 +1,5 @@
+@mixin mat-select-override() {
+    .mat-select-panel {
+        max-height: 356px !important;
+    }
+}

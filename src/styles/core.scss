@@ -11,6 +11,7 @@
 @import './overrides/mat-radio-button';
 @import './overrides/mat-form-field';
 @import './overrides/mat-checkbox';
+@import './overrides/mat-select';
 
 @import '../components/table/table-theme';
 @import '../components/form-controls/range-datepicker/range-datepicker-theme';
@@ -41,6 +42,7 @@
     @include mat-snack-bar-override();
     @include mat-form-field-infix-override();
     @include mat-checkbox-override();
+    @include mat-select-override();
 }
 
 @mixin dsh-typography($config) {
