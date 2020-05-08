@@ -17,7 +17,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
         toolbar: {
             show: false
         },
-        animations: DEFAULT_ANIMATION,
+        animations: DEFAULT_ANIMATION
     },
     dataLabels: {
         enabled: false

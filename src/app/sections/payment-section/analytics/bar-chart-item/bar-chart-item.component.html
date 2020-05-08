@@ -5,10 +5,7 @@
     </dsh-card-title>
     <dsh-card-content *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'">
         <div *ngIf="!error; else onError">
-            <dsh-bar-chart
-                    *ngIf="chartData; else noData"
-                    [series]="chartData.series"
-            ></dsh-bar-chart>
+            <dsh-bar-chart *ngIf="chartData; else noData" [series]="chartData.series"></dsh-bar-chart>
             <ng-template #noData>
                 {{ t.noData }}
             </ng-template>

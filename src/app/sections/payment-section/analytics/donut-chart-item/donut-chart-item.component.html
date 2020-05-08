@@ -6,9 +6,9 @@
     <dsh-card-content *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlexFill>
         <div fxFlexFill *ngIf="!error; else onError">
             <dsh-donut-chart
-                    *ngIf="chartData?.labels?.length; else noData"
-                    [series]="chartData.series"
-                    [labels]="chartData.labels"
+                *ngIf="chartData?.labels?.length; else noData"
+                [series]="chartData.series"
+                [labels]="chartData.labels"
             ></dsh-donut-chart>
             <ng-template #noData>
                 <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>

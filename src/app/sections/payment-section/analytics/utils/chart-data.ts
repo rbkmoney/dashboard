@@ -5,7 +5,7 @@ export interface Series {
         y: any;
         fillColor?: string;
         strokeColor?: string;
-    }[]
+    }[];
 }
 
 export interface ChartData {

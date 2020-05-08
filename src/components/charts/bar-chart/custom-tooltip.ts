@@ -15,7 +15,9 @@ export const customTooltip = ({ series, dataPointIndex, w }) => {
              </div>`;
     }
     return `
-        <div class="dsh-bar-chart-tooltip-title mat-caption">${w.globals.labels[dataPointIndex].toLocaleUpperCase()}</div>
+        <div class="dsh-bar-chart-tooltip-title mat-caption">${w.globals.labels[
+            dataPointIndex
+        ].toLocaleUpperCase()}</div>
         ${values}
     `;
 };

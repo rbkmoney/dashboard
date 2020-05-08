@@ -1,6 +1,5 @@
 import sortBy from 'lodash.sortby';
 import moment from 'moment';
-import { ApexAxisChartSeries } from 'ng-apexcharts';
 
 import { toMajor } from '../../../../../utils';
 import { OffsetAmount, SplitAmountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
