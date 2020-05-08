@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
+import isArray from 'lodash/isArray';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
@@ -39,7 +40,7 @@ export class SearchFormService {
                 take(1),
                 filter(queryParams => !isEmpty(queryParams)),
                 map(queryParams => toFormValue<InvoiceSearchFormValue>(queryParams)),
-                map(v => ({ ...v, shopIDs: v.shopIDs ? [...v.shopIDs] : [] }))
+                map(v => ({ ...v, shopIDs: isArray(v.shopIDs) ? v.shopIDs : [v.shopIDs] }))
             )
             .subscribe(formValue => this.searchForm.patchValue(formValue));
     }
