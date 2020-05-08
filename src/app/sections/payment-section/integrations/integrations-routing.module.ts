@@ -17,6 +17,10 @@ const routes: Routes = [
                 loadChildren: () => import('./shops').then(m => m.ShopsModule)
             },
             {
+                path: 'payment-link',
+                loadChildren: () => import('./payment-link').then(m => m.PaymentLinkModule)
+            },
+            {
                 path: 'api-key',
                 loadChildren: () => import('./api-key').then(m => m.ApiKeyModule)
             }

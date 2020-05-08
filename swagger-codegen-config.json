@@ -10,7 +10,8 @@
         "questionary": "schemes/questionary/v0/swagger.json",
         "aggr-proxy": "schemes/questionary-aggr-proxy/v0/swagger.json",
         "anapi": "schemes/swag-analytics/v1/swagger.json",
-        "dark-api": "schemes/dark-api/v0/swagger.json"
+        "dark-api": "schemes/dark-api/v0/swagger.json",
+        "url-shortener": "schemes/url-shortener/v0/swagger.json"
     },
     "schemes3": {
         "messages": "schemes/messages/v0/swagger.json"
