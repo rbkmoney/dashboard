@@ -13,4 +13,8 @@ export class InvoiceTemplatesService {
     createInvoiceTemplate(params: InvoiceTemplateCreateParams) {
         return this.invoiceTemplatesService.createInvoiceTemplate(genXRequestID(), params);
     }
+
+    getInvoicePaymentMethodsByTemplateID(invoiceTemplateID: string) {
+        return this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(genXRequestID(), invoiceTemplateID);
+    }
 }

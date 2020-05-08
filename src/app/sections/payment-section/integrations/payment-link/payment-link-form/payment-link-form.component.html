@@ -1,6 +1,6 @@
 <ng-container *transloco="let c; scope: 'payment-link'; read: 'paymentLink.paymentLinkForm'">
     <h1 class="mat-title">{{ c.title }}</h1>
-    <form [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
+    <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
                 <mat-label>{{ c.form.name }}</mat-label>
@@ -22,13 +22,27 @@
                 <input formControlName="redirectUrl" matInput type="url" />
             </mat-form-field>
 
-            <h2 class="mat-body-2">{{ c.form.paymentMethods }}:</h2>
-            <mat-checkbox formControlName="bankCard">{{ c.form.bankCard }}</mat-checkbox>
-            <mat-checkbox formControlName="wallets">{{ c.form.wallets }}</mat-checkbox>
-            <mat-checkbox formControlName="terminals">{{ c.form.terminals }}</mat-checkbox>
-            <mat-checkbox formControlName="applePay">{{ c.form.applePay }}</mat-checkbox>
-            <mat-checkbox formControlName="googlePay">{{ c.form.googlePay }}</mat-checkbox>
-            <mat-checkbox formControlName="samsungPay">{{ c.form.samsungPay }}</mat-checkbox>
+            <ng-container formGroupName="paymentMethods">
+                <h2 class="mat-body-2">{{ c.form.paymentMethods }}:</h2>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.bankCard | async" formControlName="bankCard">
+                    {{ c.form.bankCard }}
+                </mat-checkbox>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.wallets | async" formControlName="wallets">
+                    {{ c.form.wallets }}
+                </mat-checkbox>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.terminals | async" formControlName="terminals">
+                    {{ c.form.terminals }}
+                </mat-checkbox>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.applePay | async" formControlName="applePay">
+                    {{ c.form.applePay }}
+                </mat-checkbox>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.googlePay | async" formControlName="googlePay">
+                    {{ c.form.googlePay }}
+                </mat-checkbox>
+                <mat-checkbox *ngIf="paymentMethodsEnabled.samsungPay | async" formControlName="samsungPay">
+                    {{ c.form.samsungPay }}
+                </mat-checkbox>
+            </ng-container>
 
             <mat-divider></mat-divider>
             <mat-checkbox formControlName="paymentFlowHold">{{ c.form.paymentFlowHold }}</mat-checkbox>

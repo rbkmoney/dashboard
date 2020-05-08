@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 
 import { HoldExpiration, PaymentLinkFormService } from './payment-link-form.service';
 
@@ -18,6 +19,17 @@ export class PaymentLinkFormComponent implements OnInit {
     form = this.paymentLinkFormService.form;
     link$ = this.paymentLinkFormService.invoiceTemplatePaymentLink$;
     isLoading$ = this.paymentLinkFormService.isLoading$;
+
+    paymentMethodsEnabled = Object.fromEntries(
+        Object.entries(this.paymentLinkFormService.paymentMethodsFormGroup.controls).map(([k, v]) => [
+            k,
+            v.statusChanges.pipe(
+                startWith(),
+                map(() => v.enabled),
+                shareReplay(1)
+            )
+        ])
+    );
 
     constructor(
         private paymentLinkFormService: PaymentLinkFormService,
