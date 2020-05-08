@@ -33,9 +33,7 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
         startWith(this.shopInfos$.value),
         debounceTime(300),
         switchMap(v => combineLatest([of(v), this.shopInfos$])),
-        map(([v, shops]) => {
-            return shops.filter(s => (v ? (s.name + s.shopID).toLowerCase().includes(v) : true));
-        }),
+        map(([v, shops]) => shops.filter(s => (v ? (s.name + s.shopID).toLowerCase().includes(v) : true))),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
