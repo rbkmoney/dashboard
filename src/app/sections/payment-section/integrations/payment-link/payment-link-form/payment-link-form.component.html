@@ -24,24 +24,11 @@
 
             <ng-container formGroupName="paymentMethods">
                 <h2 class="mat-body-2">{{ c.form.paymentMethods }}:</h2>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.bankCard | async" formControlName="bankCard">
-                    {{ c.form.bankCard }}
-                </mat-checkbox>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.wallets | async" formControlName="wallets">
-                    {{ c.form.wallets }}
-                </mat-checkbox>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.terminals | async" formControlName="terminals">
-                    {{ c.form.terminals }}
-                </mat-checkbox>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.applePay | async" formControlName="applePay">
-                    {{ c.form.applePay }}
-                </mat-checkbox>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.googlePay | async" formControlName="googlePay">
-                    {{ c.form.googlePay }}
-                </mat-checkbox>
-                <mat-checkbox *ngIf="paymentMethodsEnabled.samsungPay | async" formControlName="samsungPay">
-                    {{ c.form.samsungPay }}
-                </mat-checkbox>
+                <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
+                    <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
+                        {{ c.form[methodName] }}
+                    </mat-checkbox>
+                </ng-container>
             </ng-container>
 
             <mat-divider></mat-divider>

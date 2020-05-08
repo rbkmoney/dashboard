@@ -20,6 +20,8 @@ export class PaymentLinkFormComponent implements OnInit {
     link$ = this.paymentLinkFormService.invoiceTemplatePaymentLink$;
     isLoading$ = this.paymentLinkFormService.isLoading$;
 
+    orderedPaymentMethodsNames = ['bankCard', 'wallets', 'terminals', 'applePay', 'googlePay', 'samsungPay'];
+
     paymentMethodsEnabled = Object.fromEntries(
         Object.entries(this.paymentLinkFormService.paymentMethodsFormGroup.controls).map(([k, v]) => [
             k,
