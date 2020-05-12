@@ -1,0 +1,17 @@
+<dsh-card class="bar-chart" *transloco="let c">
+    <dsh-card-title fxLayoutAlign="space-between">
+        <h1 class="mat-title">{{ title }}</h1>
+        <dsh-spinner *ngIf="isLoading" size="30" [type]="spinnerType"></dsh-spinner>
+    </dsh-card-title>
+    <dsh-card-content *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'">
+        <div *ngIf="!error; else onError">
+            <dsh-bar-chart *ngIf="chartData; else noData" [series]="chartData.series"></dsh-bar-chart>
+            <ng-template #noData>
+                {{ t.noData }}
+            </ng-template>
+        </div>
+        <ng-template #onError>
+            {{ c.httpError }}
+        </ng-template>
+    </dsh-card-content>
+</dsh-card>

@@ -5,7 +5,7 @@ import {
     PaymentStatus,
     PaymentTerminalProvider
 } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 
 export interface InvoiceSearchFormValue extends SearchFormValue {
     invoiceStatus?: Invoice.StatusEnum;

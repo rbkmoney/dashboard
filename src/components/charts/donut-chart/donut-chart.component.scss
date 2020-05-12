@@ -1,0 +1,6 @@
+:host ::ng-deep {
+    .apexcharts-legend-series,
+    .apexcharts-legend-marker {
+        cursor: default !important;
+    }
+}

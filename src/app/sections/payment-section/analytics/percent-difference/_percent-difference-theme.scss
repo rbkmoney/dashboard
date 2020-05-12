@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-percent-difference-theme($theme) {
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .positive-percent-difference {
+        color: mat-color($accent, 300);
+    }
+
+    .negative-percent-difference {
+        color: mat-color($warn, 300);
+    }
+}

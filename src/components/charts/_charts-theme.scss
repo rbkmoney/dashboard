@@ -1,0 +1,35 @@
+@import '~@angular/material/theming';
+@import '../../styles/utils/shadow';
+
+@mixin dsh-charts-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    .apexcharts {
+        &-text {
+            fill: mat-color($foreground, text);
+        }
+
+        &-legend-text {
+            color: mat-color($foreground, text) !important;
+        }
+
+        &-tooltip {
+            @include dsh-shadow($theme);
+            background-color: mat-color($background, card);
+        }
+    }
+}
+
+@mixin dsh-charts-typography($config) {
+    .apexcharts-text,
+    .apexcharts-legend-text {
+        line-height: 20px;
+
+        font: {
+            family: mat-font-family($config, caption) !important;
+            size: mat-font-size($config, caption) !important;
+            weight: mat-font-weight($config, caption) !important;
+        }
+    }
+}

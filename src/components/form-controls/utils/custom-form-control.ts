@@ -185,6 +185,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     }
 
     registerOnChange(onChange: (value: P) => void): void {
+        // TODO: иногда передаются public value в toPublicValue и возникают ошибки
         this.formControl.valueChanges.subscribe(v => onChange(this.toPublicValue(v)));
     }
 

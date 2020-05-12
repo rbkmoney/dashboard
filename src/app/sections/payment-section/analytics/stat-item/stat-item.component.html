@@ -1,0 +1,30 @@
+<dsh-card class="stat-item" *transloco="let c">
+    <div *ngIf="!error; else onError" fxLayout="column" fxLayoutGap="5px">
+        <div
+            *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+            fxLayout
+            fxLayoutAlign="space-between"
+            fxLayoutGap="10px"
+        >
+            <h2 class="mat-title stat-item-title">
+                <div *ngIf="statData?.current; else noData">
+                    <div *ngIf="hideCurrency; else showCurrency">
+                        {{ statData.current | number }}
+                    </div>
+                    <ng-template #showCurrency>
+                        {{ statData.current | toMajor | currency: statData.currency:'symbol':'1.0-2' }}
+                    </ng-template>
+                </div>
+                <ng-template #noData>
+                    {{ t.noData }}
+                </ng-template>
+            </h2>
+            <dsh-spinner *ngIf="isLoading" [type]="spinnerType" size="20"></dsh-spinner>
+        </div>
+        <div class="mat-caption dsh-stat-item-title">{{ subtitle }}</div>
+        <dsh-percent-difference [current]="statData?.current" [previous]="statData?.previous"></dsh-percent-difference>
+    </div>
+    <ng-template #onError>
+        {{ c.httpError }}
+    </ng-template>
+</dsh-card>

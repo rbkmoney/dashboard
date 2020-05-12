@@ -23,8 +23,6 @@
 @import '../components/layout/panel/panel-theme';
 @import '../components/layout/dropdown/dropdown-theme';
 @import '../components/charts/bar-chart/bar-chart-theme';
-@import '../components/charts/linear-chart/linear-chart-theme';
-@import '../components/charts/legend-tooltip/legend-tooltip-theme';
 @import '../components/navigation/state-nav/state-nav-theme';
 
 @import '../app/container/container-theme';
@@ -32,6 +30,7 @@
 @import '../app/container/welcome-image/welcome-image-theme';
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
+@import '../app/sections/payment-section/nav/balances/balances-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -59,6 +58,8 @@
     @include dsh-payment-details-typography($config);
     @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
+    @include dsh-charts-typography($config);
+    @include dsh-balances-typography($config);
 }
 
 @include dsh-overrides();

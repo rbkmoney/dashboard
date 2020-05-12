@@ -19,4 +19,8 @@ export class InvoiceService {
             dueDate: (dueDate as any) as Date
         });
     }
+
+    createInvoiceAccessToken(invoiceID: string) {
+        return this.invoicesService.createInvoiceAccessToken(genXRequestID(), invoiceID);
+    }
 }
