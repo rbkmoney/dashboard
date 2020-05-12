@@ -22,7 +22,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
     legend: {
         ...DEFAULT_LEGEND,
         formatter: (seriesName, opts) => {
-            return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex]}%`;
+            return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex].toFixed(2)}%`;
         }
     },
     plotOptions: {
