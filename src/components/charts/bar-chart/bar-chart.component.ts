@@ -1,37 +1,29 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Selection } from 'd3-selection';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import cloneDeep from 'lodash.clonedeep';
+import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
-import { BarChartConfig, PeriodData } from '../models/chart-data-models';
-import { BarChartService } from './bar-chart.service';
-
-export type BarType = Selection<SVGGElement, {}, null, PeriodData>;
+import { DEFAULT_CONFIG } from './default-config';
 
 @Component({
     selector: 'dsh-bar-chart',
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['./bar-chart.component.scss', '../legend-tooltip/_legend-tooltip-theme.scss'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [BarChartService, LegendTooltipService]
+    styleUrls: ['bar-chart.component.scss']
 })
-export class BarChartComponent implements OnChanges, OnInit {
-    @ViewChild('barChart', { static: true })
-    private chartContainer: ElementRef;
+export class BarChartComponent implements OnChanges {
+    @Input()
+    series?: ApexAxisChartSeries;
 
     @Input()
-    data: PeriodData[];
+    colors?: string[];
 
     @Input()
-    config: BarChartConfig;
+    height?: number;
 
-    constructor(private barChartService: BarChartService) {}
+    config = cloneDeep(DEFAULT_CONFIG);
 
-    ngOnInit() {
-        const element = this.chartContainer.nativeElement;
-        this.barChartService.initChart(this.data, element, this.config);
-    }
-
-    ngOnChanges() {
-        this.barChartService.updateChart(this.data);
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.height && changes.height.currentValue !== changes.height.previousValue) {
+            this.config.chart.height = this.height;
+        }
     }
 }

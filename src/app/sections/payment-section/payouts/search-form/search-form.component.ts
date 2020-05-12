@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { SearchFormValue } from '../../operations/search-form-value';
+import { SearchFormValue } from '../../search-form-value';
 import { PayoutsService } from '../payouts.service';
 import { SearchFormService } from './search-form.service';
 

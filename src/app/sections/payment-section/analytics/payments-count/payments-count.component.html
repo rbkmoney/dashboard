@@ -1,0 +1,10 @@
+<dsh-stat-item
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics.stats'"
+    fxFlex
+    hideCurrency
+    [spinnerType]="spinnerType"
+    [statData]="paymentsCount$ | async"
+    [subtitle]="t.paymentsCount"
+    [isLoading]="isLoading$ | async"
+    [error]="error$ | async"
+></dsh-stat-item>
