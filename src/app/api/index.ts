@@ -14,3 +14,5 @@ export * from './payment';
 export * from './capi';
 export * from './webhooks';
 export * from './categories';
+export * from './url-shortener';
+export * from './invoice-templates';
