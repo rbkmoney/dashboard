@@ -34,13 +34,6 @@ export class SearchFormService {
         this.searchForm.reset(this.defaultValues);
     }
 
-    applySearchFormValue(v: SearchFormValue) {
-        if (!v || !this.searchForm) {
-            return;
-        }
-        this.searchForm.patchValue(v);
-    }
-
     private pathFormByQueryParams() {
         this.route.queryParams
             .pipe(
