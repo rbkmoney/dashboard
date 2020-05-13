@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { genXRequestID, toDateLike } from '../utils';
-import { Duration, RefundSearchParams } from './model';
+import { Duration, RefundsSearchParams } from './model';
 
 @Injectable()
 export class RefundSearchService {
@@ -13,7 +13,7 @@ export class RefundSearchService {
     searchRefunds(
         fromTime: string,
         toTime: string,
-        params: RefundSearchParams,
+        params: RefundsSearchParams,
         limit: number,
         excludedShops: string[],
         continuationToken?: string
@@ -38,7 +38,7 @@ export class RefundSearchService {
 
     searchRefundsByDuration(
         { amount, unit }: Duration,
-        params: RefundSearchParams,
+        params: RefundsSearchParams,
         limit?: number,
         excludedShops?: string[],
         continuationToken?: string

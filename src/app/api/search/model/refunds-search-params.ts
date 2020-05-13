@@ -1,7 +1,7 @@
 import { MapTuple } from '../../../../type-utils';
 import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 
-export type RefundSearchParams = MapTuple<
+export type RefundsSearchParams = MapTuple<
     Parameters<SearchService['searchRefunds']>,
     {
         shopID?: 5;
