@@ -9,7 +9,6 @@ import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 
 import { ShopService } from '../../../../../api';
-import { SearchFormValue } from '../../../search-form-value';
 import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
