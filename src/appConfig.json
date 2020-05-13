@@ -1,5 +1,7 @@
 {
     "apiEndpoint": "https://api.rbk.money",
+    "urlShortenerEndpoint": "https://rbk.mn",
+    "checkoutEndpoint": "https://checkout.rbk.money",
     "ext": {
         "docsEndpoint": "https://rbkmoney.github.io/docs",
         "supportEmail": "support@rbkmoney.com",

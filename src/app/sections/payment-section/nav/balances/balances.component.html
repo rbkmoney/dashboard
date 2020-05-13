@@ -1,0 +1,4 @@
+<div *ngIf="balances.length" fxLayout="column" fxLayoutGap="5px">
+    <div *transloco="let c" class="mat-caption dsh-balances-title">{{ c.availableFunds }}</div>
+    <dsh-balance-item *ngFor="let balance of balances" [balance]="balance"></dsh-balance-item>
+</div>

@@ -62,11 +62,12 @@ npm ci
 1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes`/`schemes3` property
 1.  [Generate Angular modules from swags](#Generate-Angular-modules-from-swags)
 1.  Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
-1.  Add in `src/api/<SCHEME_NAME>` files:
+1.  Add in `src/api-codegen/<SCHEME_NAME>` files:
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`
     -   `<SCHEME_NAME>-config.service.ts`
 1.  Add `<SCHEME_NAME>.module.ts` to `src/app/api/api.module.ts` `imports`
+1.  Create `src/api/<SCHEME_NAME>` module
 
 ## Tests
 

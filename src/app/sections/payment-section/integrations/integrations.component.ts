@@ -16,6 +16,9 @@ export class IntegrationsComponent {
         },
         {
             path: 'api-key'
+        },
+        {
+            path: 'payment-link'
         }
     ];
 
