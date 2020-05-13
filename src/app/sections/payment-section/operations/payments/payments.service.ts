@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { routeEnv } from '../../../route-env';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
@@ -46,7 +47,9 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         params: PaymentSearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<PaymentSearchResult>> {
-        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
+        return this.route.params.pipe(
+            pluck('envID'),
+            switchMap(env => (env === routeEnv[0] ? of([]) : getExcludedShopIDs(of(env), this.shopService.shops$))),
             switchMap(excludedShops =>
                 this.paymentSearchService.searchPayments(
                     params.date.begin.utc().format(),

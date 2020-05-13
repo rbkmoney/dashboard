@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { routeEnv } from '../../../route-env';
 import { getExcludedShopIDs } from '../get-excluded-shop-ids';
 import { mapToTimestamp } from '../operators';
 import { RefundsSearchFormValue } from './search-form';
@@ -41,7 +42,9 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         params: RefundsSearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
-        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
+        return this.route.params.pipe(
+            pluck('envID'),
+            switchMap(env => (env === routeEnv[0] ? of(null) : getExcludedShopIDs(of(env), this.shopService.shops$))),
             switchMap(excludedShops =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
