@@ -26,7 +26,7 @@ export class SearchFormComponent implements OnInit {
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    shopsInfo$ = this.searchFormService.shopsInfo$;
+    shopsInfos$ = this.searchFormService.shopsInfos$;
     tokenProviders = tokenProvidersConsts;
     paymentMethods = paymentMethodsConsts;
     bankCardPaymentSystems = bankCardPaymentSystemsConsts;

@@ -26,13 +26,13 @@
                     {{ t.notFound }}
                 </div>
                 <div
-                    *ngIf="value?.length > 0"
-                    class="dsh-shop-selector-reset-container reset"
+                    class="dsh-shop-selector-action-container action"
                     fxFlex
                     fxLayout="column"
                     fxLayoutAlign=" stretch"
                 >
-                    <button dsh-button (click)="resetShopFilter()">{{ t.reset }}</button>
+                    <button *ngIf="value?.length > 0" dsh-button (click)="resetShopFilter()">{{ t.reset }}</button>
+                    <button *ngIf="value?.length === 0" dsh-button (click)="selectAllShops()">{{ t.selectAll }}</button>
                 </div>
             </div>
         </mat-select>

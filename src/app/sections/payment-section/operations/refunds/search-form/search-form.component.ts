@@ -20,7 +20,7 @@ export class SearchFormComponent implements OnInit {
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = Object.values(RefundStatus.StatusEnum);
-    shopsInfo$ = this.searchFormService.shopsInfo$;
+    shopsInfos$ = this.searchFormService.shopsInfos$;
 
     constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 

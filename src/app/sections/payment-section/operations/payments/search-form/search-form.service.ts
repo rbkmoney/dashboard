@@ -18,7 +18,7 @@ import { PaymentSearchFormValue } from './payment-search-form-value';
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup = this.initForm();
-    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+    shopsInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,

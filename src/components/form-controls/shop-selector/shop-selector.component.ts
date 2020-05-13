@@ -14,15 +14,15 @@ import { CustomFormControl } from '../utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopSelectorComponent extends CustomFormControl {
-    @Input() shopsInfo: ShopInfo[];
+    @Input() shopsInfos: ShopInfo[];
 
     @ViewChild('shopsSelector') clearShopIDsSearchInput: ElementRef;
 
     filterControl$ = new FormControl();
     filteredShops$: Observable<ShopInfo[]> = this.filterControl$.valueChanges.pipe(
-        startWith(this.shopsInfo),
+        startWith(this.shopsInfos),
         debounceTime(300),
-        switchMap(v => combineLatest([of(v), of(this.shopsInfo)])),
+        switchMap(v => combineLatest([of(v), of(this.shopsInfos)])),
         filterByNameAndId,
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -45,5 +45,9 @@ export class ShopSelectorComponent extends CustomFormControl {
     clearShopsSearch(event) {
         event.stopPropagation();
         this.clearShopIDsSearch();
+    }
+
+    selectAllShops() {
+        this.value = this.shopsInfos.map(s => s.shopID);
     }
 }

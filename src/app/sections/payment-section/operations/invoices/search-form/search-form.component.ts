@@ -15,7 +15,7 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
-    @Input() shopsInfo: ShopInfo[];
+    @Input() shopsInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<InvoiceSearchFormValue> = new EventEmitter<InvoiceSearchFormValue>();
 
