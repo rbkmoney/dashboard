@@ -1,11 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
@@ -31,7 +24,7 @@ export class SearchFormComponent implements OnInit {
     expanded = false;
     statuses: Invoice.StatusEnum[] = Object.values(Invoice.StatusEnum);
 
-    constructor(private searchFormService: SearchFormService, ) {}
+    constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {
         this.searchFormService.formValueChanges$

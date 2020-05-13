@@ -25,6 +25,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
             invoiceID,
             paymentID,
             this.searchLimit,
+            undefined,
             continuationToken
         );
     }

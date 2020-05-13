@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
+import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
+import { routeEnv } from '../../../../route-env';
 import { removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
@@ -27,6 +28,7 @@ export class SearchFormService {
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
         this.pathFormByQueryParams();
+        this.checkIfTestEnv();
     }
 
     reset() {
@@ -54,5 +56,19 @@ export class SearchFormService {
             shopIDs: [],
             invoiceID: ''
         });
+    }
+
+    private checkIfTestEnv() {
+        this.route.params
+            .pipe(
+                take(1),
+                pluck('envID'),
+                filter(env => env === routeEnv[0])
+            )
+            .subscribe(() => {
+                const { shopIDs } = this.searchForm.controls;
+                shopIDs.disable();
+                shopIDs.patchValue(['TEST']);
+            });
     }
 }

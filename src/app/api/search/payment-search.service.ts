@@ -25,7 +25,7 @@ export class PaymentSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            params.shopID,
+            undefined,
             params.shopIDs,
             params.paymentStatus,
             params.paymentFlow,

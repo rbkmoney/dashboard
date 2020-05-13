@@ -1,7 +1,7 @@
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { filterBattleShops, filterTestShops } from '../../../../api';
+import { filterTestShops } from '../../../../api';
 import { Shop } from '../../../../api-codegen/capi';
 import { routeEnv } from '../../../route-env';
 
@@ -12,7 +12,7 @@ export const filterShopsByEnv = (shops: Observable<Shop[]>) => (s: Observable<st
                 return shops.pipe(filterTestShops);
             }
             if (envID === routeEnv['1']) {
-                return shops.pipe(filterBattleShops);
+                return of([]);
             }
             return throwError(`Unknown envID: ${envID}`);
         })

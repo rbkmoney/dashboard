@@ -13,7 +13,7 @@ import { toSearchParams } from './to-search-params';
 @Injectable()
 export class SearchFormService {
     defaultParams: FormParams = {
-        shopID: null,
+        shopIDs: null,
         reportType: null,
         date: {
             begin: moment().startOf('month'),

@@ -15,7 +15,7 @@ export class PayoutSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            options.shopID,
+            undefined,
             options.shopIDs,
             options.offset,
             options.payoutID,

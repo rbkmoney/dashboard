@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
 import { ReportsService } from '../reports.service';
@@ -12,7 +13,7 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent {
     form = this.searchFormService.form;
     reset = this.searchFormService.reset;
-    shopsInfo$ = this.reportsService.shopsInfo$;
+    shopsInfo$ = this.reportsService.shopsInfo$.pipe(tap(q => console.log(q)));
     reportTypes = Object.values(Report.ReportTypeEnum);
 
     constructor(private searchFormService: SearchFormService, private reportsService: ReportsService) {}

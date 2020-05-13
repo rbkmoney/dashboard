@@ -25,7 +25,7 @@ export class InvoiceSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            params.shopID,
+            undefined,
             params.shopIDs,
             params.invoiceStatus,
             params.invoiceID,
