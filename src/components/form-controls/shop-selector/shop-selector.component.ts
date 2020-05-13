@@ -46,8 +46,4 @@ export class ShopSelectorComponent extends CustomFormControl {
         event.stopPropagation();
         this.clearShopIDsSearch();
     }
-
-    selectAllShops() {
-        this.value = this.shopsInfos.map(s => s.shopID);
-    }
 }
