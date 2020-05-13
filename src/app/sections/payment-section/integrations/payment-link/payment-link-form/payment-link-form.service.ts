@@ -72,7 +72,7 @@ export class PaymentLinkFormService {
             switchMap(v =>
                 concat(
                     of(v),
-                    merge(this.form.valueChanges, this.invoiceTemplateFormService.form.valueChanges).pipe(
+                    merge([this.form.valueChanges, this.invoiceTemplateFormService.form.valueChanges]).pipe(
                         take(1),
                         mapTo('')
                     )

@@ -18,10 +18,10 @@ export class PaymentsCountService {
 
     private paymentsCountOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
-            forkJoin(
+            forkJoin([
                 this.analyticsService.getPaymentsCount(current.fromTime, current.toTime, current.shopIDs),
                 this.analyticsService.getPaymentsCount(previous.fromTime, previous.toTime, previous.shopIDs)
-            ).pipe(replaceError)
+            ]).pipe(replaceError)
         )
     );
     paymentsCount$ = this.paymentsCountOrError$.pipe(

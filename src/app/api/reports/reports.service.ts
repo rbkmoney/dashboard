@@ -23,7 +23,7 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    searchReports({ fromTime, toTime, reportTypes, shopID, continuationToken }: SearchReportsReq) {
+    searchReports({ fromTime, toTime, reportTypes, shopID, shopIDs, continuationToken }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
             toDateLike(fromTime),
@@ -31,6 +31,7 @@ export class ReportsService {
             reportTypes,
             undefined,
             shopID,
+            shopIDs,
             continuationToken
         );
     }

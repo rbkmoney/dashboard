@@ -5,10 +5,11 @@ export type PayoutsSearchParams = MapTuple<
     Parameters<SearchService['searchPayouts']>,
     {
         shopID?: 5;
-        offset?: 6;
-        payoutID?: 7;
-        payoutToolType?: 8;
-        excludedShops?: 9;
-        continuationToken?: 10;
+        shopIDs?: 6;
+        offset?: 7;
+        payoutID?: 8;
+        payoutToolType?: 9;
+        excludedShops?: 10;
+        continuationToken?: 11;
     }
 >;

@@ -25,6 +25,7 @@ export class PaymentSearchService {
             limit,
             undefined,
             params.shopID,
+            params.shopIDs,
             params.paymentStatus,
             params.paymentFlow,
             params.paymentMethod,

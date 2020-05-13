@@ -46,12 +46,8 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    params.invoiceID,
-                    params.paymentID,
+                    params,
                     this.searchLimit,
-                    params.shopID,
-                    params.refundID,
-                    params.refundStatus,
                     excludedShops,
                     continuationToken
                 )
