@@ -72,7 +72,7 @@ export class SearchFormService {
                 end: moment().endOf('month')
             },
             limit: [defaultLimit, Validators.required],
-            shopID: '',
+            shopIDs: [],
             paymentStatus: '',
             paymentFlow: '',
             paymentMethod: '',

@@ -40,43 +40,43 @@
 @import '../../components/form-controls/shop-selector/shop-selector-theme';
 
 @mixin dsh-theme($theme) {
-  body.#{map-get($theme, name)} {
-    @include angular-material-theme($theme);
-    @include mat-menu-override-theme($theme);
-    @include mat-autocomplete-panel-override-theme($theme);
-    @include mat-select-panel-override-theme($theme);
-    @include mat-datepicker-override-theme($theme);
-    @include mat-divider-override-theme($theme);
-    @include dsh-container-theme($theme);
-    @include dsh-actionbar-theme($theme);
-    @include dsh-dropdown-theme($theme);
-    @include dsh-table-theme($theme);
-    @include dsh-invoice-cart-theme($theme);
-    @include dsh-invoice-payments-theme($theme);
-    @include dsh-card-theme($theme);
-    @include dsh-tabs-theme($theme);
-    @include dsh-state-nav-theme($theme);
-    @include dsh-button-theme($theme);
-    @include dsh-button-toggle-theme($theme);
-    @include dsh-float-panel-theme($theme);
-    @include dsh-status-theme($theme);
-    @include dsh-main-section-theme($theme);
-    @include dsh-welcome-image-theme($theme);
-    @include dsh-timeline-theme($theme);
-    @include dsh-dadata-autocomplete-theme($theme);
-    @include dsh-payment-details-theme($theme);
-    @include dsh-expansion-theme($theme);
-    @include dsh-details-item-theme($theme);
-    @include dsh-details-secondary-title-theme($theme);
-    @include dsh-file-uploader-theme($theme);
-    @include dsh-panel-theme($theme);
-    @include dsh-bar-chart-theme($theme);
-    @include dsh-percent-difference-theme($theme);
-    @include dsh-balances-theme($theme);
-    @include dsh-range-datepicker-theme($theme);
-    @include dsh-stat-item-theme($theme);
-    @include dsh-expand-panel-theme($theme);
-    @include dsh-webhook-panel-theme($theme);
-    @include dsh-shop-selector-theme($theme);
-  }
+    body.#{map-get($theme, name)} {
+        @include angular-material-theme($theme);
+        @include mat-menu-override-theme($theme);
+        @include mat-autocomplete-panel-override-theme($theme);
+        @include mat-select-panel-override-theme($theme);
+        @include mat-datepicker-override-theme($theme);
+        @include mat-divider-override-theme($theme);
+        @include dsh-container-theme($theme);
+        @include dsh-actionbar-theme($theme);
+        @include dsh-dropdown-theme($theme);
+        @include dsh-table-theme($theme);
+        @include dsh-invoice-cart-theme($theme);
+        @include dsh-invoice-payments-theme($theme);
+        @include dsh-card-theme($theme);
+        @include dsh-tabs-theme($theme);
+        @include dsh-state-nav-theme($theme);
+        @include dsh-button-theme($theme);
+        @include dsh-button-toggle-theme($theme);
+        @include dsh-float-panel-theme($theme);
+        @include dsh-status-theme($theme);
+        @include dsh-main-section-theme($theme);
+        @include dsh-welcome-image-theme($theme);
+        @include dsh-timeline-theme($theme);
+        @include dsh-dadata-autocomplete-theme($theme);
+        @include dsh-payment-details-theme($theme);
+        @include dsh-expansion-theme($theme);
+        @include dsh-details-item-theme($theme);
+        @include dsh-details-secondary-title-theme($theme);
+        @include dsh-file-uploader-theme($theme);
+        @include dsh-panel-theme($theme);
+        @include dsh-bar-chart-theme($theme);
+        @include dsh-percent-difference-theme($theme);
+        @include dsh-balances-theme($theme);
+        @include dsh-range-datepicker-theme($theme);
+        @include dsh-stat-item-theme($theme);
+        @include dsh-expand-panel-theme($theme);
+        @include dsh-webhook-panel-theme($theme);
+        @include dsh-shop-selector-theme($theme);
+    }
 }

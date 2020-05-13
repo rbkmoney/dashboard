@@ -74,7 +74,7 @@ export class SearchFormService {
             invoiceID: '',
             refundID: '',
             refundStatus: '',
-            shopID: ''
+            shopIDs: []
         });
         return form;
     }

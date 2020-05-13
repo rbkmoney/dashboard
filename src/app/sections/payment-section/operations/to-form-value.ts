@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
-import * as moment from 'moment';
 import isArray from 'lodash/isArray';
+import * as moment from 'moment';
 
 import { SearchFormValue } from '../search-form-value';
 
