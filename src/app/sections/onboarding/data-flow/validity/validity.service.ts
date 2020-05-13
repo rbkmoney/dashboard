@@ -5,21 +5,21 @@ import { first, map, mergeScan, pluck, scan, shareReplay, switchMap, take } from
 import { StepFlowService, StepName } from '../step-flow';
 import { mapToInitialValiditySteps } from './map-to-initial-validity-steps';
 import { mapToIsFlowValid } from './map-to-is-flow-valid';
-import { ValidateFn, ValiditySteps } from './validity-steps';
+import { StepWithValidity, Validity, ValiditySteps } from './validity-steps';
 
 @Injectable()
 export class ValidityService {
-    private setUpValidity$ = new Subject<{ step: StepName; isValid: boolean; validate: ValidateFn }>();
+    private setUpValidity$ = new Subject<StepWithValidity>();
     private steps$ = new ReplaySubject<ValiditySteps>(1);
     private sub: Subscription = Subscription.EMPTY;
-    private currentStep$ = combineLatest([this.stepFlowService.activeStep$, this.steps$]).pipe(
+    private activeStepValidity$ = combineLatest([this.stepFlowService.activeStep$, this.steps$]).pipe(
         map(([activeStep, validitySteps]) => validitySteps.get(activeStep)),
         shareReplay(1)
     );
 
     validitySteps$: Observable<ValiditySteps> = this.steps$.asObservable();
     isFlowValid$: Observable<boolean> = this.validitySteps$.pipe(mapToIsFlowValid, shareReplay(1));
-    isCurrentStepValid$: Observable<boolean> = this.currentStep$.pipe(pluck('isValid'), shareReplay(1));
+    isCurrentStepValid$: Observable<boolean> = this.activeStepValidity$.pipe(pluck('isValid'), shareReplay(1));
 
     constructor(private stepFlowService: StepFlowService) {}
 
@@ -30,7 +30,7 @@ export class ValidityService {
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(
                         scan(
-                            (acc, { step, ...validation }) => (acc.has(step) ? acc.set(step, validation) : acc),
+                            (acc, { step, ...validity }) => (acc.has(step) ? acc.set(step, validity) : acc),
                             initialSteps
                         )
                     )
@@ -43,11 +43,11 @@ export class ValidityService {
         this.sub.unsubscribe();
     }
 
-    setUpValidity(step: StepName, validation: { isValid: boolean; validate: ValidateFn }) {
-        this.setUpValidity$.next({ step, ...validation });
+    setUpValidity(step: StepName, validity: Validity) {
+        this.setUpValidity$.next({ step, ...validity });
     }
 
     validateCurrentStep() {
-        this.currentStep$.pipe(take(1), pluck('validate')).subscribe(validate => validate());
+        this.activeStepValidity$.pipe(take(1), pluck('validate')).subscribe(validate => validate());
     }
 }
