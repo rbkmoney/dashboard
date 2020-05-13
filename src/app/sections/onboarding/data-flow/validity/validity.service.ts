@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { first, map, mergeScan, pluck, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import { combineLatest, merge, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { first, map, pairwise, pluck, scan, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
 import { mapToInitialValiditySteps } from './map-to-initial-validity-steps';
@@ -25,8 +25,8 @@ export class ValidityService {
 
     subscribe() {
         const initialSteps$ = this.stepFlowService.stepFlow$.pipe(mapToInitialValiditySteps, first());
-        this.sub = combineLatest([this.setUpValidity$, initialSteps$])
-            .pipe(
+        this.sub = merge(
+            combineLatest([this.setUpValidity$, initialSteps$]).pipe(
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(
                         scan(
@@ -34,9 +34,15 @@ export class ValidityService {
                             initialSteps
                         )
                     )
-                )
+                ),
+                tap(s => this.steps$.next(s))
+            ),
+            combineLatest([this.stepFlowService.activeStep$.pipe(pairwise(), pluck(0)), this.steps$]).pipe(
+                map(([prevStep, validitySteps]) => validitySteps.get(prevStep)),
+                pluck('validate'),
+                tap(validate => validate())
             )
-            .subscribe(s => this.steps$.next(s));
+        ).subscribe();
     }
 
     unsubscribe() {
