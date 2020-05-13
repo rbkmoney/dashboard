@@ -8,10 +8,10 @@
                         <mat-label>{{ t.shopsSearch }}</mat-label>
                         <input #shopsSelector autocomplete="off" matInput [formControl]="filterControl$" />
                         <button
-                                *ngIf="shopsSelector.value"
-                                matSuffix
-                                dsh-icon-button
-                                (click)="clearShopsSearch($event)"
+                            *ngIf="shopsSelector.value"
+                            matSuffix
+                            dsh-icon-button
+                            (click)="clearShopsSearch($event)"
                         >
                             <mat-icon>close</mat-icon>
                         </button>
@@ -26,11 +26,11 @@
                     {{ t.notFound }}
                 </div>
                 <div
-                        *ngIf="value?.length > 0"
-                        class="dsh-shop-selector-reset-container reset"
-                        fxFlex
-                        fxLayout="column"
-                        fxLayoutAlign=" stretch"
+                    *ngIf="value?.length > 0"
+                    class="dsh-shop-selector-reset-container reset"
+                    fxFlex
+                    fxLayout="column"
+                    fxLayoutAlign=" stretch"
                 >
                     <button dsh-button (click)="resetShopFilter()">{{ t.reset }}</button>
                 </div>

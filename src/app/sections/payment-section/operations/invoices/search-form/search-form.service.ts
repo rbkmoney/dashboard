@@ -59,7 +59,7 @@ export class SearchFormService {
             },
             limit: [defaultLimit, Validators.required],
             invoiceStatus: '',
-            shopID: '',
+            shopIDs: [],
             invoiceID: ''
         });
     }
