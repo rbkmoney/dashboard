@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { first, map, pluck, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import { first, map, mergeScan, pluck, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
 import { mapToInitialValiditySteps } from './map-to-initial-validity-steps';
@@ -29,7 +29,10 @@ export class ValidityService {
             .pipe(
                 switchMap(([validityContext, initialSteps]) =>
                     of(validityContext).pipe(
-                        scan((acc, { step, ...validation }) => acc.set(step, validation), initialSteps)
+                        scan(
+                            (acc, { step, ...validation }) => (acc.has(step) ? acc.set(step, validation) : acc),
+                            initialSteps
+                        )
                     )
                 )
             )
