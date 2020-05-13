@@ -4,7 +4,6 @@ import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 export type PaymentsSearchParams = MapTuple<
     Parameters<SearchService['searchPayments']>,
     {
-        shopID?: 5;
         shopIDs?: 6;
         paymentStatus?: 7;
         paymentFlow?: 8;

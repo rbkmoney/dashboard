@@ -24,7 +24,7 @@ export class RefundSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            params.shopID,
+            undefined,
             params.shopIDs,
             undefined,
             params.invoiceID,
