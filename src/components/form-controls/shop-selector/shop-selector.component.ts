@@ -11,10 +11,9 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { debounceTime, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { CustomFormControl } from '@dsh/components/form-controls';
-
 import { SHARE_REPLAY_CONF } from '../../../app/custom-operators';
 import { ShopInfo } from '../../../app/sections/payment-section/operations/operators';
+import { CustomFormControl } from '../utils';
 
 @Component({
     selector: 'dsh-shop-selector',
