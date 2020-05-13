@@ -12,3 +12,7 @@
 .search-form {
     padding: 0 15px;
 }
+
+::ng-deep .mat-select-panel {
+    max-height: 356px !important;
+}

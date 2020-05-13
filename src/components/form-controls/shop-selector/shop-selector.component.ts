@@ -4,7 +4,7 @@ import { combineLatest, Observable, of } from 'rxjs';
 import { debounceTime, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '../../../app/custom-operators';
-import { ShopInfo, filterByNameAndId } from '../../../app/sections/payment-section/operations/operators';
+import { filterByNameAndId, ShopInfo } from '../../../app/sections/payment-section/operations/operators';
 import { CustomFormControl } from '../utils';
 
 @Component({
