@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { merge, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { forkJoin, merge, of, Subject } from 'rxjs';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
 import { searchParamsToParamsWithSplitUnit } from '../utils';
+import { prepareSplitAmount } from './prepare-split-amount';
 import { splitAmountToChartData } from './split-amount-to-chart-data';
 
 @Injectable()
@@ -17,12 +18,16 @@ export class PaymentSplitAmountService {
     );
     private splitAmountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs).pipe(replaceError)
+            forkJoin(
+                of(fromTime),
+                of(toTime),
+                this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs)
+            ).pipe(replaceError)
         )
     );
     splitAmount$ = this.splitAmountOrError$.pipe(
         filterPayload,
-        pluck('result'),
+        map(([fromTime, toTime, splitAmount]) => prepareSplitAmount(splitAmount?.result, fromTime, toTime)),
         map(splitAmountToChartData),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)

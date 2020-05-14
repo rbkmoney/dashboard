@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { merge, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { forkJoin, merge, of, Subject } from 'rxjs';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
 import { searchParamsToParamsWithSplitUnit } from '../utils';
+import { prepareSplitCount } from './prepare-split-count';
 import { splitCountToChartData } from './split-count-to-chart-data';
 
 @Injectable()
@@ -18,12 +19,16 @@ export class PaymentSplitCountService {
 
     private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs).pipe(replaceError)
+            forkJoin(
+                of(fromTime),
+                of(toTime),
+                this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
+            ).pipe(replaceError)
         )
     );
     splitCount$ = this.splitCountOrError$.pipe(
         filterPayload,
-        pluck('result'),
+        map(([fromTime, toTime, splitCount]) => prepareSplitCount(splitCount?.result, fromTime, toTime)),
         map(splitCountToChartData),
         map(data => data.find(d => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
