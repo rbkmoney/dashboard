@@ -7,10 +7,10 @@ export const removeEmptyProperties = <T>(s: Observable<T>) =>
     s.pipe(
         map(obj =>
             Object.keys(obj).reduce((acc, cur) => {
-                if (!isNil(obj[cur]) && obj[cur] !== '' && !isArray(obj[cur])) {
-                    return { ...acc, [cur]: obj[cur] };
-                } else if (isArray(obj[cur])) {
+                if (isArray(obj[cur])) {
                     return obj[cur].filter(i => !!i).length > 0 ? { ...acc, [cur]: obj[cur] } : acc;
+                } else if (!isNil(obj[cur]) && obj[cur] !== '') {
+                    return { ...acc, [cur]: obj[cur] };
                 } else {
                     return acc;
                 }
