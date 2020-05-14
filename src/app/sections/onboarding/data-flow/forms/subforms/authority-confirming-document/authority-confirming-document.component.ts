@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { AuthorityConfirmingDocumentType } from '../../../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';

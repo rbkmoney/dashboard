@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
-import { shareReplay, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, shareReplay, startWith, tap } from 'rxjs/operators';
 
 import { handleNull } from '../../../../custom-operators';
 import { QuestionaryStateService } from '../questionary-state.service';
@@ -30,6 +30,7 @@ export class StepFlowService {
 
     activeStep$: Observable<StepName> = this.navigate$.pipe(
         startWith(urlToStep(this.router.url, this.defaultStep)),
+        distinctUntilChanged(),
         shareReplay(1)
     );
 

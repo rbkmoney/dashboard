@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, merge, Observable, of, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { first, map, pairwise, pluck, scan, shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    first,
+    map,
+    pairwise,
+    pluck,
+    scan,
+    shareReplay,
+    switchMap,
+    take,
+    tap
+} from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
 import { mapToInitialValiditySteps } from './map-to-initial-validity-steps';
@@ -37,10 +48,12 @@ export class ValidityService {
                 ),
                 tap(s => this.steps$.next(s))
             ),
-            combineLatest([this.stepFlowService.activeStep$.pipe(pairwise(), pluck(0)), this.steps$]).pipe(
+            this.stepFlowService.activeStep$.pipe(
+                pairwise(),
+                pluck(0),
+                switchMap(stepName => combineLatest([of(stepName), this.steps$.pipe(take(1))])),
                 map(([prevStep, validitySteps]) => validitySteps.get(prevStep)),
-                pluck('validate'),
-                tap(validate => validate())
+                tap(({ validate }) => validate())
             )
         ).subscribe();
     }
