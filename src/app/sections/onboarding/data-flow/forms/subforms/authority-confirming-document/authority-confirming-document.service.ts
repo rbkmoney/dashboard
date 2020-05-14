@@ -3,11 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class AuthorityConfirmingDocumentService {
+    static readonly CustomType = Symbol('custom');
+
     constructor(private fb: FormBuilder) {}
 
     getForm(): FormGroup {
         return this.fb.group({
-            type: ['', Validators.required],
+            type: [null],
+            customType: [null],
             date: [null],
             number: ['']
         });
