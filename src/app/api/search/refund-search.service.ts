@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Refund, RefundSearchResult, SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { Refund, SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { genXRequestID, toDateLike } from '../utils';
 import { Duration } from './model';
 
@@ -74,7 +73,7 @@ export class RefundSearchService {
         );
     }
 
-    getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string): Observable<RefundSearchResult> {
+    getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string) {
         return this.searchRefundsByDuration(duration, invoiceID, paymentID, 1).pipe(map(res => res.result[0]));
     }
 }

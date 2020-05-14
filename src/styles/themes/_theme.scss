@@ -22,8 +22,6 @@
 @import '../../components/layout/expansion/expansion-theme';
 @import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
-@import '../../components/charts/linear-chart/linear-chart-theme';
-@import '../../components/charts/legend-tooltip/legend-tooltip-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
 
@@ -35,6 +33,9 @@
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
+@import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
+@import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
+@import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/sections/payment-section/integrations/webhooks/webhook-panel/webhook-panel-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallet-panel/wallet-panel-theme';
 
@@ -52,12 +53,9 @@
         @include dsh-table-theme($theme);
         @include dsh-invoice-cart-theme($theme);
         @include dsh-invoice-payments-theme($theme);
-        @include dsh-bar-chart-theme($theme);
         @include dsh-card-theme($theme);
-        @include dsh-linear-chart-theme($theme);
         @include dsh-tabs-theme($theme);
         @include dsh-state-nav-theme($theme);
-        @include dsh-legend-tooltip-theme($theme);
         @include dsh-button-theme($theme);
         @include dsh-button-toggle-theme($theme);
         @include dsh-float-panel-theme($theme);
@@ -72,7 +70,11 @@
         @include dsh-details-secondary-title-theme($theme);
         @include dsh-file-uploader-theme($theme);
         @include dsh-panel-theme($theme);
+        @include dsh-bar-chart-theme($theme);
+        @include dsh-percent-difference-theme($theme);
+        @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);
+        @include dsh-stat-item-theme($theme);
         @include dsh-expand-panel-theme($theme);
         @include dsh-webhook-panel-theme($theme);
         @include dsh-wallet-panel-theme($theme);

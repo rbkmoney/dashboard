@@ -1,5 +1,5 @@
 import { RefundStatus } from '../../../../../api-codegen/capi/swagger-codegen';
-import { SearchFormValue } from '../../search-form-value';
+import { SearchFormValue } from '../../../search-form-value';
 
 export interface RefundsSearchFormValue extends SearchFormValue {
     offset?: number;

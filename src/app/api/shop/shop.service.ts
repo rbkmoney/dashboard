@@ -23,6 +23,10 @@ export class ShopService {
         return this.shopsService.getShopByID(genXRequestID(), shopID);
     }
 
+    getShops(): Observable<Shop[]> {
+        return this.shopsService.getShops(genXRequestID());
+    }
+
     reloadShops() {
         this.reloadShops$.next();
     }

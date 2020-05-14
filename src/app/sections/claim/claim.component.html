@@ -3,7 +3,9 @@
         <dsh-spinner></dsh-spinner>
     </div>
     <div *ngIf="(claimReceived$ | async) && !(error$ | async)" fxLayout="column" fxLayoutGap="20px">
-        <h1 class="mat-headline">{{ t?.details }} #{{ claimID$ | async }}</h1>
+        <h1 class="mat-display-1">
+            {{ t?.details }} <span dshSecondaryTitle> #{{ claimID$ | async }} </span>
+        </h1>
         <dsh-card>
             <div fxLayout="row" fxLayoutAlign="space-between">
                 <h2 *transloco="let claimType; read: 'claimType'" class="mat-title">
