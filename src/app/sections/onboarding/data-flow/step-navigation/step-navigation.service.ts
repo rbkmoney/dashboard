@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 
 import { QuestionaryStateService } from '../questionary-state.service';
 import { Direction, StepFlowService } from '../step-flow';
@@ -25,7 +25,10 @@ export class StepNavigationService {
         this.questionaryStateService.save();
         this.validityService.validateCurrentStep();
         this.validityService.isCurrentStepValid$
-            .pipe(take(1))
-            .subscribe(isValid => isValid && this.stepFlowService.go(direction));
+            .pipe(
+                take(1),
+                filter(isValid => isValid)
+            )
+            .subscribe(() => this.stepFlowService.go(direction));
     }
 }
