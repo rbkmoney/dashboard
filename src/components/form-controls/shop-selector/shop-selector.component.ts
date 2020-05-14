@@ -42,23 +42,31 @@ export class ShopSelectorComponent extends CustomFormControl implements OnInit {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(focusMonitor: FocusMonitor,
-                elementRef: ElementRef<HTMLElement>,
-                platform: Platform,
-                @Optional() @Self() ngControl: NgControl,
-                autofillMonitor: AutofillMonitor,
-                defaultErrorStateMatcher: ErrorStateMatcher,
-                @Optional() parentForm: NgForm,
-                @Optional() parentFormGroup: FormGroupDirective,
-                private route: ActivatedRoute) {
-        super(focusMonitor, elementRef, platform, ngControl, autofillMonitor, defaultErrorStateMatcher, parentForm, parentFormGroup);
+    constructor(
+        focusMonitor: FocusMonitor,
+        elementRef: ElementRef<HTMLElement>,
+        platform: Platform,
+        @Optional() @Self() ngControl: NgControl,
+        autofillMonitor: AutofillMonitor,
+        defaultErrorStateMatcher: ErrorStateMatcher,
+        @Optional() parentForm: NgForm,
+        @Optional() parentFormGroup: FormGroupDirective,
+        private route: ActivatedRoute
+    ) {
+        super(
+            focusMonitor,
+            elementRef,
+            platform,
+            ngControl,
+            autofillMonitor,
+            defaultErrorStateMatcher,
+            parentForm,
+            parentFormGroup
+        );
     }
 
     ngOnInit(): void {
-        this.route.params.pipe(
-            take(1),
-            pluck('envID')
-        ).subscribe(env => {
+        this.route.params.pipe(take(1), pluck('envID')).subscribe(env => {
             if (env === routeEnv[0]) {
                 this.value = ['TEST'];
                 this.setDisabledState(true);
