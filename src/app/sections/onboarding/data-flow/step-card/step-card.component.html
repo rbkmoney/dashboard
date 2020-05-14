@@ -9,7 +9,7 @@
                 [status]="info.navStatus"
                 [iconVisible]="info.iconVisible"
             >
-                {{ info.step | stepLabel: 'stepCard' }}
+                <span class="mat-body-1">{{ info.step | stepLabel: 'stepCard' }}</span>
             </dsh-state-nav-item>
         </dsh-state-nav>
         <button fxFlex dsh-button color="accent" [disabled]="!(isFlowValid$ | async)" (click)="finishFormFlow()">
