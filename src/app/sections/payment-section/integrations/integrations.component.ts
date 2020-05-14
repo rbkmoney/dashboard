@@ -13,6 +13,12 @@ export class IntegrationsComponent {
         },
         {
             path: 'shops'
+        },
+        {
+            path: 'api-key'
+        },
+        {
+            path: 'payment-link'
         }
     ];
 

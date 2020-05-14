@@ -1,5 +1,5 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/swag-wallets/v0
+SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/url-shortener/v0 schemes/swag-wallets/v0
 SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
@@ -46,10 +46,12 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint build
+	npx run-p --aggregate-output --print-label check lint
+	npm run test-silent
+	npm run build
 
 clean:
 	rm -rf dist
 
 test:
-	npm run test
+	npm run test-silent

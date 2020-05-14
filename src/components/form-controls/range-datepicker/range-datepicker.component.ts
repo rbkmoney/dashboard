@@ -9,7 +9,7 @@ import { SetIntersection } from 'utility-types';
 import { CustomFormControl } from '../utils';
 
 type MomentPeriod = SetIntersection<moment.unitOfTime.StartOf, 'day' | 'week' | 'month' | 'year'>;
-type Period = MomentPeriod | '3month';
+export type Period = MomentPeriod | '3month';
 
 type InternalRange = SatDatepickerRangeValue<Date>;
 export type Range = SatDatepickerRangeValue<Moment> & { period?: Period };

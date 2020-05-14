@@ -6,8 +6,8 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, map, shareReplay, startWith, take } from 'rxjs/operators';
 
+import { SearchFormValue } from '../../../search-form-value';
 import { removeEmptyProperties } from '../../operators';
-import { SearchFormValue } from '../../search-form-value';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';

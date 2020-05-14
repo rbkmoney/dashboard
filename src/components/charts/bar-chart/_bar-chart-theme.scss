@@ -1,19 +1,18 @@
 @import '~@angular/material/theming';
 
+@import '../../../styles/utils/shadow';
+@import '../charts-theme';
+
 @mixin dsh-bar-chart-theme($theme) {
-    $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    $gray: map-get($theme, gray);
 
-    .x.axis > .tick:first-of-type > text,
-    .x.axis > .tick:last-of-type > text {
-        color: mat-color($foreground, x-axis-text-color);
-    }
+    @include dsh-charts-theme($theme);
 
-    .tick > line {
-        color: mat-color($foreground, axis-tick-color);
-    }
-
-    .y.axis > .tick > text {
-        color: mat-color($foreground, y-axis-text-color);
+    .dsh-bar-chart-tooltip {
+        &-title {
+            color: map-get($gray, 500);
+        }
     }
 }

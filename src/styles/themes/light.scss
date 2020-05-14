@@ -19,8 +19,7 @@ $background: (
      * Custom
      *
     */ hover: map_get($mat-grey, 200),
-    selected-button: map_get($mat-grey, 100),
-    tooltip-line-color: rgba(black, 0.1)
+    selected-button: map_get($mat-grey, 100)
 );
 
 $foreground: (
@@ -45,11 +44,7 @@ $foreground: (
     /*
    * Custom
    *
-*/ axis-tick-color: rgba(black, 0.1),
-    x-axis-text-color: rgba(black, 0.3),
-    y-axis-text-color: rgba(black, 0.5),
-    legend-tooltip-date-color: rgba(black, 0.3),
-    contrast-test: white
+*/ contrast-test: white
 );
 
 $theme: (

@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { ShopService } from '../../../../../api/shop';
+import { SearchFormValue } from '../../../search-form-value';
 import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
-import { SearchFormValue } from '../../search-form-value';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
