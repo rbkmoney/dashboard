@@ -8,6 +8,7 @@ import { legalEntityInnValidator } from '@dsh/components/form-controls';
 import { AccountantInfo, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
+import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { FormValue } from '../form-value';
 import { QuestionaryFormService } from '../questionary-form.service';
@@ -40,9 +41,10 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService,
+        protected validationCheckService: ValidationCheckService,
         private legalResidencyInfoService: LegalResidencyInfoService
     ) {
-        super(questionaryStateService, validityService);
+        super(questionaryStateService, validityService, validationCheckService);
     }
 
     withoutAccountantChange(withoutAccountant: boolean) {

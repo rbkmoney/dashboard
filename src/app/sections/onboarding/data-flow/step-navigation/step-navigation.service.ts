@@ -3,6 +3,7 @@ import { filter, take } from 'rxjs/operators';
 
 import { QuestionaryStateService } from '../questionary-state.service';
 import { Direction, StepFlowService } from '../step-flow';
+import { ValidationCheckService } from '../validation-check';
 import { ValidityService } from '../validity';
 
 @Injectable()
@@ -10,7 +11,8 @@ export class StepNavigationService {
     constructor(
         private questionaryStateService: QuestionaryStateService,
         private stepFlowService: StepFlowService,
-        private validityService: ValidityService
+        private validityService: ValidityService,
+        private validationCheckService: ValidationCheckService
     ) {}
 
     forward() {
@@ -23,7 +25,7 @@ export class StepNavigationService {
 
     goByDirection(direction: Direction) {
         this.questionaryStateService.save();
-        this.validityService.validateCurrentStep();
+        this.validationCheckService.validationCheckCurrentStep();
         this.validityService.isCurrentStepValid$
             .pipe(
                 take(1),

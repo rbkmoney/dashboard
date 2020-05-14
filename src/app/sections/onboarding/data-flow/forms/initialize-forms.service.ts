@@ -42,8 +42,4 @@ export class InitializeFormsService {
             sub.unsubscribe();
         }
     }
-
-    validateStep(stepName: string) {
-        this.initializeContainer.find(c => c.stepName === stepName).validate();
-    }
 }

@@ -14,7 +14,7 @@ export interface StepNavInfo {
 export const toStepNavInfo = (s: Observable<[ValiditySteps, StepName]>): Observable<StepNavInfo[]> =>
     s.pipe(
         map(([validitySteps, activeStep]) =>
-            Array.from(validitySteps).map(([step, { isValid }]) => ({
+            Array.from(validitySteps).map(([step, isValid]) => ({
                 step,
                 iconVisible: isValid,
                 navStatus: isValid ? 'success' : null,

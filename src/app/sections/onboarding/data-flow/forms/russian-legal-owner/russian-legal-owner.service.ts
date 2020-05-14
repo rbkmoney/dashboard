@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
+import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { FormValue } from '../form-value';
 import { QuestionaryFormService } from '../questionary-form.service';
@@ -21,13 +22,14 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
     constructor(
         protected questionaryStateService: QuestionaryStateService,
         protected validityService: ValidityService,
+        protected validationCheckService: ValidationCheckService,
         private fb: FormBuilder,
         private russianDomesticPassportService: RussianDomesticPassportService,
         private pdlInfoService: PdlInfoService,
         private authorityConfirmingDocumentService: AuthorityConfirmingDocumentService,
         private privateEntityInfoService: PrivateEntityInfoService
     ) {
-        super(questionaryStateService, validityService);
+        super(questionaryStateService, validityService, validationCheckService);
     }
 
     protected toForm(data: QuestionaryData): FormGroup {

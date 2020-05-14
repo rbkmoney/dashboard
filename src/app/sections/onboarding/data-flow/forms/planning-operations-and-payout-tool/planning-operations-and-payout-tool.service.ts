@@ -6,6 +6,7 @@ import { bankAccountValidator, bankPostAccountValidator, bikValidator } from '@d
 import { MonthOperationCount, MonthOperationSum, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
+import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { FormValue } from '../form-value';
 import { QuestionaryFormService } from '../questionary-form.service';
@@ -19,9 +20,10 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
-        protected validityService: ValidityService
+        protected validityService: ValidityService,
+        protected validationCheckService: ValidationCheckService
     ) {
-        super(questionaryStateService, validityService);
+        super(questionaryStateService, validityService, validationCheckService);
     }
 
     readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
