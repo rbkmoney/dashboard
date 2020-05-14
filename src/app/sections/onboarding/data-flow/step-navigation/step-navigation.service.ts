@@ -25,7 +25,9 @@ export class StepNavigationService {
 
     goByDirection(direction: Direction) {
         this.questionaryStateService.save();
-        this.validationCheckService.validationCheckCurrentStep();
+        if (direction === 'forward') {
+            this.validationCheckService.validationCheckCurrentStep();
+        }
         this.validityService.isCurrentStepValid$
             .pipe(
                 take(1),

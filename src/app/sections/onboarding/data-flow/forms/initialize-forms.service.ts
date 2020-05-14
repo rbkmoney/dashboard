@@ -34,7 +34,10 @@ export class InitializeFormsService {
     }
 
     subscribe() {
-        this.subs = this.initializeContainer.map(service => service.startFormValidityReporting());
+        this.subs = [
+            ...this.initializeContainer.map(service => service.startFormValidityReporting()),
+            ...this.initializeContainer.map(service => service.startFormControlsValidationCheck())
+        ];
     }
 
     unsubscribe() {

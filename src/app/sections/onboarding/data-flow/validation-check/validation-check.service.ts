@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { combineLatest, merge, of, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { first, map, pairwise, pluck, scan, switchMap, take, tap } from 'rxjs/operators';
+import { merge, ReplaySubject, Subscription } from 'rxjs';
+import { map, pairwise, pluck, scan, switchMap, take, tap } from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
 import { validationCheckControl } from './validation-check-control';
@@ -10,7 +10,7 @@ export type ValiditionCheckSteps = Map<StepName, AbstractControl>;
 
 @Injectable()
 export class ValidationCheckService {
-    private setUpFormControls$ = new Subject<[StepName, AbstractControl]>();
+    private setUpFormControls$ = new ReplaySubject<[StepName, AbstractControl]>();
     private sub = Subscription.EMPTY;
     private steps$ = new ReplaySubject<ValiditionCheckSteps>(1);
 
@@ -25,14 +25,12 @@ export class ValidationCheckService {
     }
 
     subscribe() {
-        const initialSteps$ = this.stepFlowService.stepFlow$.pipe(
-            map(stepFlow => new Map(stepFlow.map(stepName => [stepName, undefined]))),
-            first()
-        );
         this.sub = merge(
-            combineLatest([this.setUpFormControls$, initialSteps$]).pipe(
-                switchMap(([validityContext, initialSteps]) =>
-                    of(validityContext).pipe(
+            this.stepFlowService.stepFlow$.pipe(
+                map(stepFlow => new Map(stepFlow.map(stepName => [stepName, undefined]))),
+                take(1),
+                switchMap(initialSteps =>
+                    this.setUpFormControls$.pipe(
                         scan((acc, [step, control]) => (acc.has(step) ? acc.set(step, control) : acc), initialSteps)
                     )
                 ),
