@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { SearchFormService } from './search-form.service';
     templateUrl: 'search-form.component.html',
     providers: [SearchFormService]
 })
-export class SearchFormComponent implements OnInit, OnChanges {
+export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() shopInfos: ShopInfo[];
 
@@ -29,13 +29,6 @@ export class SearchFormComponent implements OnInit, OnChanges {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { shopInfos } = changes;
-        if (shopInfos.currentValue) {
-            this.searchFormService.init(this.shopInfos);
-        }
     }
 
     reset() {

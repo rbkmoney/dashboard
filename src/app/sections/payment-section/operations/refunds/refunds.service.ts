@@ -50,14 +50,14 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.route.params.pipe(
             pluck('envID'),
-            getShopSearchParamsByEnv(this.shopInfos$),
-            switchMap(searchShopParams =>
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ excludedShops, shopIDs }) =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    { ...params, shopIDs: searchShopParams.shopIDs ? searchShopParams.shopIDs : params.shopIDs },
+                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
                     this.searchLimit,
-                    searchShopParams.excludedShops,
+                    excludedShops,
                     continuationToken
                 )
             )

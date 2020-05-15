@@ -53,15 +53,15 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
             pluck('envID'),
-            getShopSearchParamsByEnv(this.shopInfos$),
-            switchMap(searchShopParams =>
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ excludedShops, shopIDs }) =>
                 this.invoiceSearchService.searchInvoices(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    { ...params, shopIDs: searchShopParams.shopIDs ? searchShopParams.shopIDs : params.shopIDs },
+                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
                     this.searchLimit,
                     continuationToken,
-                    searchShopParams.excludedShops
+                    excludedShops
                 )
             )
         );

@@ -1,21 +1,23 @@
-import { combineLatest, iif, Observable, of } from 'rxjs';
-import { mergeMap, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
+import { Shop } from '../../../api-codegen/anapi/swagger-codegen';
 import { isTestShop } from '../../../api/shop/operators';
 import { RouteEnv } from '../../route-env';
-import { ShopInfo } from './operators';
 
-export const getShopSearchParamsByEnv = (shops: Observable<ShopInfo[]>) => (
+export const getShopSearchParamsByEnv = (shops: Observable<Shop[]>) => (
     env: Observable<RouteEnv>
 ): Observable<{ excludedShops: string[]; shopIDs?: string[] }> =>
     env.pipe(
-        switchMap(e => combineLatest([of(e), shops])),
-        mergeMap(([e, s]) => {
-            const testShops = s.filter(shop => isTestShop(shop)).map(shop => shop.shopID);
-            return iif(
-                () => e === RouteEnv.test,
-                of({ excludedShops: [], shopIDs: testShops }),
-                of({ excludedShops: testShops })
-            );
-        })
+        switchMap(e =>
+            combineLatest([of(e), shops.pipe(map(s => s.filter(shop => isTestShop(shop)).map(shop => shop.id)))])
+        ),
+        map(([e, testShops]) =>
+            e === RouteEnv.test
+                ? {
+                      excludedShops: null,
+                      shopIDs: testShops
+                  }
+                : { excludedShops: testShops }
+        )
     );

@@ -56,15 +56,15 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.route.params.pipe(
             pluck('envID'),
-            getShopSearchParamsByEnv(this.shopInfos$),
-            switchMap(searchShopParams =>
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ excludedShops, shopIDs }) =>
                 this.paymentSearchService.searchPayments(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    { ...params, shopIDs: searchShopParams.shopIDs ? searchShopParams.shopIDs : params.shopIDs },
+                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
                     this.searchLimit,
                     continuationToken,
-                    searchShopParams.excludedShops
+                    excludedShops
                 )
             )
         );

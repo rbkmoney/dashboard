@@ -20,8 +20,8 @@ import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
-import { ShopSelectorModule } from '../../../../view-utils/shop-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { ShopSelectorModule } from '../shop-selector';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
 import { SearchFormComponent } from './search-form';

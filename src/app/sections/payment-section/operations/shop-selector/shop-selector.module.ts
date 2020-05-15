@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
+import { JustifyWrapperModule } from '@dsh/components/layout';
 
 import { ShopSelectorComponent } from './shop-selector.component';
 
@@ -23,7 +24,8 @@ import { ShopSelectorComponent } from './shop-selector.component';
         ReactiveFormsModule,
         MatIconModule,
         CommonModule,
-        TranslocoModule
+        TranslocoModule,
+        JustifyWrapperModule
     ],
     exports: [ShopSelectorComponent]
 })

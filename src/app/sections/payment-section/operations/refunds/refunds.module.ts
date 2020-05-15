@@ -19,8 +19,8 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { ToMajorModule } from '../../../../to-major';
-import { ShopSelectorModule } from '../../../../view-utils/shop-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
+import { ShopSelectorModule } from '../shop-selector';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
 import { SearchFormComponent } from './search-form';
