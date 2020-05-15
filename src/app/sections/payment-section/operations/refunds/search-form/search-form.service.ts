@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { RouteEnv } from '../../../../route-env';
@@ -35,16 +35,19 @@ export class SearchFormService {
     }
 
     private init() {
-        combineLatest([this.route.params.pipe(pluck('envID')), this.route.queryParams])
-            .pipe(take(1))
-            .subscribe(([env, queryParams]) => {
-                if (!isEmpty(queryParams)) {
-                    this.searchForm.patchValue(toFormValue<RefundsSearchFormValue>(queryParams));
-                }
-                if (env === RouteEnv.test) {
-                    this.searchForm.controls.shopIDs.disable();
-                }
-            });
+        this.route.params
+            .pipe(
+                pluck('envID'),
+                take(1),
+                filter(e => e === RouteEnv.test)
+            )
+            .subscribe(() => this.searchForm.controls.shopIDs.disable());
+        this.route.queryParams
+            .pipe(
+                take(1),
+                filter(p => !isEmpty(p))
+            )
+            .subscribe(p => this.searchForm.patchValue(toFormValue<RefundsSearchFormValue>(p)));
     }
 
     private initForm(defaultLimit = 20): FormGroup {

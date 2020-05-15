@@ -15,7 +15,7 @@ export const getShopSearchParamsByEnv = (shops: Observable<Shop[]>) => (
         map(([e, testShops]) =>
             e === RouteEnv.test
                 ? {
-                      excludedShops: null,
+                      excludedShops: [],
                       shopIDs: testShops
                   }
                 : { excludedShops: testShops }

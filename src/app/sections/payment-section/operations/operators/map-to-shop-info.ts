@@ -6,7 +6,6 @@ import { Shop } from '../../../../api-codegen/capi';
 export interface ShopInfo {
     shopID: string;
     name: string;
-    categoryID: number;
 }
 
 const toShopInfo = (s: Shop[]) => s.map(({ id, categoryID, details: { name } }) => ({ shopID: id, name, categoryID }));
