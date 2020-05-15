@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, shareReplay } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import {
     paymentStatuses as paymentStatusesConsts,
     tokenProviders as tokenProvidersConsts
 } from '../../constants';
+import { ShopInfo } from '../../operators';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -18,15 +19,15 @@ import { SearchFormService } from './search-form.service';
     templateUrl: 'search-form.component.html',
     providers: [SearchFormService]
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnChanges {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    shopsInfos$ = this.searchFormService.shopsInfos$;
     tokenProviders = tokenProvidersConsts;
     paymentMethods = paymentMethodsConsts;
     bankCardPaymentSystems = bankCardPaymentSystemsConsts;
@@ -46,6 +47,13 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { shopInfos } = changes;
+        if (shopInfos.currentValue) {
+            this.searchFormService.init(this.shopInfos);
+        }
     }
 
     reset() {

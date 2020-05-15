@@ -8,7 +8,7 @@
     <ng-container *transloco="let c">
         <dsh-justify-wrapper fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
             <dsh-range-datepicker fxFlex formControlName="date"></dsh-range-datepicker>
-            <dsh-shop-selector [shopsInfos]="shopsInfos$ | async" formControlName="shopIDs" fxFlex></dsh-shop-selector>
+            <dsh-shop-selector [shopInfos]="shopInfos" formControlName="shopIDs" fxFlex></dsh-shop-selector>
             <mat-form-field fxFlex>
                 <mat-label>{{ t.paymentStatus }}</mat-label>
                 <mat-select formControlName="paymentStatus">

@@ -6,21 +6,21 @@ import {
     Component,
     ElementRef,
     Input,
-    OnInit,
+    OnChanges,
     Optional,
     Self,
     ViewChild
 } from '@angular/core';
 import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable, of } from 'rxjs';
-import { debounceTime, pluck, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime, map, shareReplay, startWith } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '../../../app/custom-operators';
-import { filterByNameAndId, ShopInfo } from '../../../app/sections/payment-section/operations/operators';
-import { routeEnv } from '../../../app/sections/route-env';
-import { CustomFormControl } from '../utils';
+import { CustomFormControl } from '@dsh/components/form-controls/utils';
+
+import { SHARE_REPLAY_CONF } from '../../custom-operators';
+import { ShopInfo } from '../../sections/payment-section/operations/operators';
+import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 
 @Component({
     selector: 'dsh-shop-selector',
@@ -28,17 +28,16 @@ import { CustomFormControl } from '../utils';
     styleUrls: ['shop-selector.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShopSelectorComponent extends CustomFormControl implements OnInit {
-    @Input() shopsInfos: ShopInfo[];
+export class ShopSelectorComponent extends CustomFormControl implements OnChanges {
+    @Input() shopInfos: ShopInfo[];
 
     @ViewChild('shopsSelector') clearShopIDsSearchInput: ElementRef;
 
-    filterControl$ = new FormControl();
-    filteredShops$: Observable<ShopInfo[]> = this.filterControl$.valueChanges.pipe(
-        startWith(this.shopsInfos),
+    filterControl = new FormControl();
+    filteredShops$: Observable<ShopInfo[]> = this.filterControl.valueChanges.pipe(
+        startWith(this.shopInfos),
         debounceTime(300),
-        switchMap(v => combineLatest([of(v), of(this.shopsInfos)])),
-        filterByNameAndId,
+        map(v => filterByNameAndId(v, this.shopInfos)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -50,8 +49,7 @@ export class ShopSelectorComponent extends CustomFormControl implements OnInit {
         autofillMonitor: AutofillMonitor,
         defaultErrorStateMatcher: ErrorStateMatcher,
         @Optional() parentForm: NgForm,
-        @Optional() parentFormGroup: FormGroupDirective,
-        private route: ActivatedRoute
+        @Optional() parentFormGroup: FormGroupDirective
     ) {
         super(
             focusMonitor,
@@ -65,25 +63,16 @@ export class ShopSelectorComponent extends CustomFormControl implements OnInit {
         );
     }
 
-    ngOnInit(): void {
-        this.route.params.pipe(take(1), pluck('envID')).subscribe(env => {
-            if (env === routeEnv[0]) {
-                this.value = ['TEST'];
-                this.setDisabledState(true);
-            }
-        });
-    }
-
     resetShopFilter() {
         this.value = [];
     }
 
     clearShopIDsSearch() {
-        this.filterControl$.patchValue('');
+        this.filterControl.patchValue('');
     }
 
     shopsIDsOpenedChange(e) {
-        this.filterControl$.patchValue('');
+        this.filterControl.patchValue('');
         if (e === true) {
             this.clearShopIDsSearchInput.nativeElement.focus();
         }

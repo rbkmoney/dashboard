@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { routeEnv } from '../../../route-env';
+import { routeEnv } from '../../../route-envs';
 
 const filterEnv = (e: string): string[] => routeEnv.filter(env => env !== e);
 

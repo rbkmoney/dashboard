@@ -6,7 +6,7 @@
                 <div class="search-form">
                     <mat-form-field fxFlex appearance="standard">
                         <mat-label>{{ t.shopsSearch }}</mat-label>
-                        <input #shopsSelector autocomplete="off" matInput [formControl]="filterControl$" />
+                        <input #shopsSelector autocomplete="off" matInput [formControl]="filterControl" />
                         <button
                             *ngIf="shopsSelector.value"
                             matSuffix

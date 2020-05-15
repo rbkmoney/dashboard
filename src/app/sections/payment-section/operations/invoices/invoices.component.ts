@@ -23,7 +23,7 @@ export class InvoicesComponent {
     doAction$ = this.invoicesService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
-    shopsInfos$ = this.invoicesService.shopsInfo$;
+    shopInfos$ = this.invoicesService.shopInfos$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
@@ -54,7 +54,7 @@ export class InvoicesComponent {
             maxHeight: '90vh',
             disableClose: true,
             data: {
-                shopsInfo$: this.shopsInfos$
+                shopsInfo$: this.shopInfos$
             }
         });
     }

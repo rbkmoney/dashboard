@@ -22,25 +22,21 @@ export class PaymentsComponent implements OnChanges {
     @Input()
     invoiceID: string;
 
-    @Input()
-    shopID: string;
-
     constructor(private paymentsService: PaymentsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     fetchMore() {
         this.paymentsService.fetchMore();
     }
 
-    ngOnChanges({ invoiceID, shopID }: SimpleChanges): void {
-        if (invoiceID.currentValue && shopID.currentValue) {
-            this.search(invoiceID.currentValue, shopID.currentValue);
+    ngOnChanges({ invoiceID }: SimpleChanges): void {
+        if (invoiceID.currentValue) {
+            this.search(invoiceID.currentValue);
         }
     }
 
-    private search(invoiceID, shopID) {
+    private search(invoiceID) {
         this.paymentsService.search({
-            invoiceID,
-            shopID
+            invoiceID
         } as PaymentSearchFormValue);
     }
 }

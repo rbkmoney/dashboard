@@ -7,7 +7,7 @@ import {
 import { SearchFormValue } from '../../../search-form-value';
 
 export interface PaymentSearchFormValue extends SearchFormValue {
-    shopID?: string;
+    shopIDs?: string[];
     paymentStatus?: PaymentStatus.StatusEnum;
     paymentFlow?: 'hold' | 'instant';
     paymentMethod?: 'bankCard' | 'paymentTerminal';

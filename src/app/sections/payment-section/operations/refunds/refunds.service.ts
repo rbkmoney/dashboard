@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, of } from 'rxjs';
-import { catchError, pluck, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { routeEnv } from '../../../route-env';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { mapToTimestamp } from '../operators';
+import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
+import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { RefundsSearchFormValue } from './search-form';
 import { RefundsTableData } from './table';
 
@@ -26,6 +25,13 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
+    );
+
+    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo,
+        shareReplay(1)
     );
 
     constructor(
@@ -44,14 +50,14 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.route.params.pipe(
             pluck('envID'),
-            switchMap(env => (env === routeEnv[0] ? of(null) : getExcludedShopIDs(of(env), this.shopService.shops$))),
-            switchMap(excludedShops =>
+            getShopSearchParamsByEnv(this.shopInfos$),
+            switchMap(searchShopParams =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    params,
+                    { ...params, shopIDs: searchShopParams.shopIDs ? searchShopParams.shopIDs : params.shopIDs },
                     this.searchLimit,
-                    excludedShops,
+                    searchShopParams.excludedShops,
                     continuationToken
                 )
             )

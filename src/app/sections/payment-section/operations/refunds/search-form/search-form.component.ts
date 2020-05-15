@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 import { RefundStatus } from '../../../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../../constants';
+import { ShopInfo } from '../../operators';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -12,15 +13,15 @@ import { SearchFormService } from './search-form.service';
     templateUrl: 'search-form.component.html',
     providers: [SearchFormService]
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnChanges {
     @Input() valueDebounceTime = 300;
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<RefundsSearchFormValue> = new EventEmitter<RefundsSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = Object.values(RefundStatus.StatusEnum);
-    shopsInfos$ = this.searchFormService.shopsInfos$;
 
     constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
@@ -28,6 +29,13 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
             .subscribe(v => this.formValueChanges.emit(v));
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { shopInfos } = changes;
+        if (shopInfos.currentValue) {
+            this.searchFormService.init(this.shopInfos);
+        }
     }
 
     reset() {

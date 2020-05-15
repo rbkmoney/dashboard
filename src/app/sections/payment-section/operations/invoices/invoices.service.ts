@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable, of } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceSearchService } from '../../../../api';
@@ -10,8 +10,7 @@ import { Invoice } from '../../../../api-codegen/anapi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { routeEnv } from '../../../route-env';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
@@ -34,7 +33,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,
@@ -54,15 +53,15 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
             pluck('envID'),
-            switchMap(env => (env === routeEnv[0] ? of([]) : getExcludedShopIDs(of(env), this.shopService.shops$))),
-            switchMap(excludedShops =>
+            getShopSearchParamsByEnv(this.shopInfos$),
+            switchMap(searchShopParams =>
                 this.invoiceSearchService.searchInvoices(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    params,
+                    { ...params, shopIDs: searchShopParams.shopIDs ? searchShopParams.shopIDs : params.shopIDs },
                     this.searchLimit,
                     continuationToken,
-                    excludedShops
+                    searchShopParams.excludedShops
                 )
             )
         );

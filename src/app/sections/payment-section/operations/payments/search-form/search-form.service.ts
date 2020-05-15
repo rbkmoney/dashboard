@@ -1,60 +1,48 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, pluck, shareReplay, take } from 'rxjs/operators';
 
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 
-import { ShopService } from '../../../../../api';
-import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
-import { toFormValue } from '../../to-form-value';
+import { RouteEnv } from '../../../../route-env';
+import { removeEmptyProperties, ShopInfo } from '../../operators';
 import { toQueryParams } from '../../to-query-params';
+import { toSearchFormValue } from '../../to-search-form-value';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup = this.initForm();
-    shopsInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo,
-        shareReplay(1)
-    );
-    private defaultValues: PaymentSearchFormValue = this.searchForm.value;
+    private defaultValues: PaymentSearchFormValue;
     formValueChanges$: Observable<PaymentSearchFormValue> = this.searchForm.valueChanges.pipe(
-        startWith(this.defaultValues),
         filter(() => this.searchForm.status === 'VALID'),
         removeEmptyProperties,
         shareReplay(1)
     );
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute,
-        private shopService: ShopService
-    ) {
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
-        this.pathFormByQueryParams();
+        this.defaultValues = this.searchForm.value;
     }
 
     reset() {
         this.searchForm.reset(this.defaultValues);
     }
 
-    private pathFormByQueryParams() {
-        this.route.queryParams
-            .pipe(
-                take(1),
-                filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<PaymentSearchFormValue>(queryParams))
-            )
-            .subscribe(formValue => this.searchForm.patchValue(formValue));
+    init(shopInfos: ShopInfo[]) {
+        combineLatest([this.route.params.pipe(pluck('envID')), this.route.queryParams])
+            .pipe(take(1))
+            .subscribe(([env, queryParams]) => {
+                this.searchForm.patchValue(toSearchFormValue<PaymentSearchFormValue>(env, queryParams, shopInfos));
+                if (env === RouteEnv.test) {
+                    this.searchForm.controls.shopIDs.disable();
+                }
+            });
     }
 
     private initForm(defaultLimit = 20): FormGroup {

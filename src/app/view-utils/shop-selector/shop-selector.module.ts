@@ -9,7 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { ShopSelectorComponent } from '@dsh/components/form-controls/shop-selector/shop-selector.component';
+
+import { ShopSelectorComponent } from './shop-selector.component';
 
 @NgModule({
     declarations: [ShopSelectorComponent],
