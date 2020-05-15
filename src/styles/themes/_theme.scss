@@ -9,6 +9,7 @@
 @import '../../components/table/table-theme';
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
+@import '../../components/form-controls/shop-selector/shop-selector-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
@@ -37,7 +38,6 @@
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/sections/payment-section/integrations/webhooks/webhook-panel/webhook-panel-theme';
-@import '../../components/form-controls/shop-selector/shop-selector-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
