@@ -17,11 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, map, pluck, shareReplay, startWith } from 'rxjs/operators';
 
-import { CustomFormControl } from '@dsh/components/form-controls/utils';
-
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { RouteEnv } from '../../../route-env';
-import { ShopInfo } from '../operators';
+import { SHARE_REPLAY_CONF } from '../../../app/custom-operators';
+import { ShopInfo } from '../../../app/sections/payment-section/operations/operators';
+import { RouteEnv } from '../../../app/sections/route-env';
+import { CustomFormControl } from '../utils';
 import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 
 @Component({

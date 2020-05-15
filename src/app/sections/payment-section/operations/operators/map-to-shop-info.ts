@@ -8,6 +8,6 @@ export interface ShopInfo {
     name: string;
 }
 
-const toShopInfo = (s: Shop[]) => s.map(({ id, categoryID, details: { name } }) => ({ shopID: id, name, categoryID }));
+const toShopInfo = (s: Shop[]) => s.map(({ id, details: { name } }): ShopInfo => ({ shopID: id, name }));
 
 export const mapToShopInfo = (s: Observable<Shop[]>): Observable<ShopInfo[]> => s.pipe(map(toShopInfo));
