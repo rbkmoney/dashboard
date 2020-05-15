@@ -1,7 +1,7 @@
 import { iif, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RouteEnv } from '../../../../route-envs';
+import { RouteEnv } from '../../../../route-env';
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({

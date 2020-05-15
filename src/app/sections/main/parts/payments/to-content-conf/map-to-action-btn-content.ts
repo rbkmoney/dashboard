@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { Claim, ClaimChangeset, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
 import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
-import { RouteEnv } from '../../../../route-envs';
+import { RouteEnv } from '../../../../route-env';
 import { ActionBtnContent } from '../content-config';
 
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({
