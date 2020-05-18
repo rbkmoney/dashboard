@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
 
-import { Refund, SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { genXRequestID, toDateLike } from '../utils';
-import { Duration } from './model';
+import { Duration, RefundsSearchParams } from './model';
 
 @Injectable()
 export class RefundSearchService {
@@ -13,12 +13,8 @@ export class RefundSearchService {
     searchRefunds(
         fromTime: string,
         toTime: string,
-        invoiceID: string,
-        paymentID: string,
+        params: RefundsSearchParams,
         limit: number,
-        shopID: string,
-        refundID: string,
-        refundStatus: Refund.StatusEnum,
         excludedShops: string[],
         continuationToken?: string
     ) {
@@ -28,12 +24,13 @@ export class RefundSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            shopID,
             undefined,
-            invoiceID,
-            paymentID,
-            refundID,
-            refundStatus,
+            params.shopIDs,
+            undefined,
+            params.invoiceID,
+            params.paymentID,
+            params.refundID,
+            params.refundStatus,
             excludedShops,
             continuationToken
         );
@@ -41,12 +38,8 @@ export class RefundSearchService {
 
     searchRefundsByDuration(
         { amount, unit }: Duration,
-        invoiceID: string,
-        paymentID: string,
+        params: RefundsSearchParams,
         limit?: number,
-        shopID?: string,
-        refundID?: string,
-        refundStatus?: Refund.StatusEnum,
         excludedShops?: string[],
         continuationToken?: string
     ) {
@@ -59,21 +52,10 @@ export class RefundSearchService {
             .endOf('d')
             .utc()
             .format();
-        return this.searchRefunds(
-            from,
-            to,
-            invoiceID,
-            paymentID,
-            limit,
-            shopID,
-            refundID,
-            refundStatus,
-            excludedShops,
-            continuationToken
-        );
+        return this.searchRefunds(from, to, params, limit, excludedShops, continuationToken);
     }
 
     getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string) {
-        return this.searchRefundsByDuration(duration, invoiceID, paymentID, 1).pipe(map(res => res.result[0]));
+        return this.searchRefundsByDuration(duration, { invoiceID, paymentID }, 1).pipe(map(res => res.result[0]));
     }
 }

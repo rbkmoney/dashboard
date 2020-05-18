@@ -3,14 +3,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
-import { mapToTimestamp } from '../operators';
+import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
+import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { RefundsSearchFormValue } from './search-form';
 import { RefundsTableData } from './table';
 
@@ -27,6 +27,13 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         })
     );
 
+    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo,
+        shareReplay(1)
+    );
+
     constructor(
         private route: ActivatedRoute,
         private refundSearchService: RefundSearchService,
@@ -41,17 +48,15 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         params: RefundsSearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
-        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
-            switchMap(excludedShops =>
+        return this.route.params.pipe(
+            pluck('envID'),
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ excludedShops, shopIDs }) =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    params.invoiceID,
-                    params.paymentID,
+                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
                     this.searchLimit,
-                    params.shopID,
-                    params.refundID,
-                    params.refundStatus,
                     excludedShops,
                     continuationToken
                 )
