@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, of, Subject } from 'rxjs';
-import { filter, pluck, switchMap, take, tap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 import { QuestionaryStateService } from '../questionary-state.service';
 import { Direction, StepFlowService } from '../step-flow';
@@ -22,11 +22,16 @@ export class StepNavigationService {
                 tap(() => this.questionaryStateService.save()),
                 switchMap(direction =>
                     combineLatest([of(direction), this.validityService.isCurrentStepValid$.pipe(take(1))])
-                ),
-                filter(([direction, isValid]) => direction === 'back' || isValid),
-                pluck(0)
+                )
             )
-            .subscribe(direction => this.stepFlowService.go(direction));
+            .subscribe(([direction, isValid]) => {
+                if (!isValid) {
+                    this.validationCheckService.validationCheck();
+                }
+                if (direction === 'back' || isValid) {
+                    this.stepFlowService.go(direction);
+                }
+            });
     }
 
     forward() {
