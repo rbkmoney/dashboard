@@ -6,13 +6,13 @@ import { map, pairwise, pluck, scan, switchMap, take, tap } from 'rxjs/operators
 import { StepFlowService, StepName } from '../step-flow';
 import { validationCheckControl } from './validation-check-control';
 
-export type ValiditionCheckSteps = Map<StepName, AbstractControl>;
+export type ValidationCheckSteps = Map<StepName, AbstractControl>;
 
 @Injectable()
 export class ValidationCheckService {
     private setUpFormControls$ = new ReplaySubject<[StepName, AbstractControl]>();
     private sub = Subscription.EMPTY;
-    private steps$ = new ReplaySubject<ValiditionCheckSteps>(1);
+    private steps$ = new ReplaySubject<ValidationCheckSteps>(1);
     private validationCheckStep$ = new Subject<StepName | undefined>();
 
     constructor(private stepFlowService: StepFlowService) {}
