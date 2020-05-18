@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { RefundStatus } from '../../../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../../constants';
+import { ShopInfo } from '../../operators';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -14,13 +15,13 @@ import { SearchFormService } from './search-form.service';
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<RefundsSearchFormValue> = new EventEmitter<RefundsSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
     statuses: RefundStatus.StatusEnum[] = Object.values(RefundStatus.StatusEnum);
-    shopsInfo$ = this.searchFormService.shopsInfo$;
 
     constructor(private searchFormService: SearchFormService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
 
