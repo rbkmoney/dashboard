@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { merge, ReplaySubject, Subscription } from 'rxjs';
+import { combineLatest, merge, of, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { map, pairwise, pluck, scan, switchMap, take, tap } from 'rxjs/operators';
 
 import { StepFlowService, StepName } from '../step-flow';
@@ -13,6 +13,7 @@ export class ValidationCheckService {
     private setUpFormControls$ = new ReplaySubject<[StepName, AbstractControl]>();
     private sub = Subscription.EMPTY;
     private steps$ = new ReplaySubject<ValiditionCheckSteps>(1);
+    private validationCheckStep$ = new Subject<StepName | undefined>();
 
     constructor(private stepFlowService: StepFlowService) {}
 
@@ -20,8 +21,8 @@ export class ValidationCheckService {
         this.setUpFormControls$.next([step, control]);
     }
 
-    validationCheckCurrentStep() {
-        this.stepFlowService.activeStep$.pipe(take(1)).subscribe(step => this.validationCheckByStep(step));
+    validationCheck(step?: StepName) {
+        this.validationCheckStep$.next(step);
     }
 
     subscribe() {
@@ -36,24 +37,22 @@ export class ValidationCheckService {
                 ),
                 tap(s => this.steps$.next(s))
             ),
+            this.validationCheckStep$.pipe(
+                switchMap(step =>
+                    combineLatest([this.steps$, step ? of(step) : this.stepFlowService.activeStep$.pipe(take(1))])
+                ),
+                map(([steps, step]) => steps.get(step)),
+                tap(validationCheckControl)
+            ),
             this.stepFlowService.activeStep$.pipe(
                 pairwise(),
                 pluck(0),
-                tap(step => this.validationCheckByStep(step))
+                tap(step => this.validationCheck(step))
             )
         ).subscribe();
     }
 
     unsubscribe() {
         this.sub.unsubscribe();
-    }
-
-    private validationCheckByStep(step: StepName) {
-        this.steps$
-            .pipe(
-                take(1),
-                map(steps => steps.get(step))
-            )
-            .subscribe(validationCheckControl);
     }
 }
