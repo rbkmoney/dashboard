@@ -12,14 +12,13 @@ export class ValidityService {
     private setUpValidity$ = new Subject<[StepName, boolean]>();
     private steps$ = new ReplaySubject<ValiditySteps>(1);
     private sub: Subscription = Subscription.EMPTY;
-    private activeStepValidity$ = combineLatest([this.stepFlowService.activeStep$, this.steps$]).pipe(
-        map(([activeStep, validitySteps]) => validitySteps.get(activeStep)),
-        shareReplay(1)
-    );
 
     validitySteps$: Observable<ValiditySteps> = this.steps$.asObservable();
     isFlowValid$: Observable<boolean> = this.validitySteps$.pipe(mapToIsFlowValid, shareReplay(1));
-    isCurrentStepValid$: Observable<boolean> = this.activeStepValidity$.pipe(shareReplay(1));
+    isCurrentStepValid$: Observable<boolean> = combineLatest([this.stepFlowService.activeStep$, this.steps$]).pipe(
+        map(([activeStep, validitySteps]) => validitySteps.get(activeStep)),
+        shareReplay(1)
+    );
 
     constructor(private stepFlowService: StepFlowService) {}
 
