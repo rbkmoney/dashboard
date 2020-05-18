@@ -16,10 +16,10 @@ export class RefundsAmountService {
     );
     private refundsAmountOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
-            forkJoin(
+            forkJoin([
                 this.analyticsService.getRefundsAmount(current.fromTime, current.toTime, current.shopIDs),
                 this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, previous.shopIDs)
-            ).pipe(replaceError)
+            ]).pipe(replaceError)
         )
     );
     refundsAmount$ = this.refundsAmountOrError$.pipe(

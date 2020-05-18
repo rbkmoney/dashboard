@@ -17,10 +17,10 @@ export class AveragePaymentService {
 
     private averagePaymentOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
-            forkJoin(
+            forkJoin([
                 this.analyticsService.getAveragePayment(current.fromTime, current.toTime, current.shopIDs),
                 this.analyticsService.getAveragePayment(previous.fromTime, previous.toTime, previous.shopIDs)
-            ).pipe(replaceError)
+            ]).pipe(replaceError)
         )
     );
     averagePayment$ = this.averagePaymentOrError$.pipe(

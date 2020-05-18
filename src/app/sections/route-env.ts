@@ -1,1 +1,6 @@
-export const routeEnv = ['test', 'real'] as const;
+export enum RouteEnv {
+    test = 'test',
+    real = 'real'
+}
+
+export const routeEnv = Object.values(RouteEnv);

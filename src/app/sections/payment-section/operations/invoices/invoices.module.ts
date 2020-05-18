@@ -15,7 +15,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
-import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { FormControlsModule, RangeDatepickerModule, ShopSelectorModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
@@ -59,7 +59,8 @@ import { TableComponent } from './table';
         MatDialogModule,
         InvoiceModule,
         MatDatepickerModule,
-        MatDividerModule
+        MatDividerModule,
+        ShopSelectorModule
     ],
     declarations: [
         InvoicesComponent,

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Shop } from '../../../api-codegen/capi';
 
-const isTestShop = ({ categoryID }: Shop): boolean => categoryID === 1;
+export const isTestShop = ({ categoryID }: Shop): boolean => categoryID === 1;
 const toTestShops = (s: Shop[]): Shop[] => s.filter(isTestShop);
 const toBattleShops = (s: Shop[]): Shop[] => s.filter(negate(isTestShop));
 
