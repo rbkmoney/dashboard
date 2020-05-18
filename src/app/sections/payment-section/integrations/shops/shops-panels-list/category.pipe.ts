@@ -9,8 +9,8 @@ import { Category } from '../../../../../api-codegen/capi';
 export class CategoryPipe implements PipeTransform, OnDestroy {
     private categoryID$ = new Subject<number>();
     private subscription = combineLatest([this.categoryID$, this.categoriesService.categories$])
-        .pipe(map(([categoryID, categories]) => categories.find(c => c.categoryID === categoryID)))
-        .subscribe(category => this.updateValue(category));
+        .pipe(map(([categoryID, categories]) => categories.find((c) => c.categoryID === categoryID)))
+        .subscribe((category) => this.updateValue(category));
     private latestValue: Category;
 
     constructor(private categoriesService: CategoriesService, private ref: ChangeDetectorRef) {}

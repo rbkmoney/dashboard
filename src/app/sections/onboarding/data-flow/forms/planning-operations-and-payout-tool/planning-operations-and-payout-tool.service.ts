@@ -29,7 +29,7 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
     readonly monthOperationSums: MonthOperationSum[] = [
         'LtFiveHundredThousand',
         'BtwFiveHundredThousandToOneMillion',
-        'GtOneMillion'
+        'GtOneMillion',
     ];
 
     patchBankAccountForm(value: { [key: string]: any }) {
@@ -58,8 +58,8 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
                 account: ['', [Validators.required, bankAccountValidator]],
                 bankName: ['', Validators.required],
                 bankPostAccount: ['', [Validators.required, bankPostAccountValidator]],
-                bankBik: ['', [Validators.required, bikValidator]]
-            })
+                bankBik: ['', [Validators.required, bikValidator]],
+            }),
         });
     }
 }

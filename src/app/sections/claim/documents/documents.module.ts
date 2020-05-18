@@ -28,9 +28,9 @@ import { DocumentsComponent } from './documents.component';
         CommonModule,
         TranslocoModule,
         FileUploaderModule,
-        FileContainerModule
+        FileContainerModule,
     ],
     declarations: [DocumentsComponent],
-    providers: [FilesService, ReceiveClaimService]
+    providers: [FilesService, ReceiveClaimService],
 })
 export class DocumentsModule {}

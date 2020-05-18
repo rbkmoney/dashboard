@@ -6,7 +6,7 @@ import { ShopInfo } from '../../../../api-codegen/questionary';
 @Component({
     selector: 'dsh-shop-info',
     templateUrl: 'shop-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopInfoComponent implements OnChanges {
     @Input() shopInfo: ShopInfo;

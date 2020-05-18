@@ -9,7 +9,7 @@ export class AuthorityConfirmingDocumentService {
         return this.fb.group({
             type: ['', Validators.required],
             date: [null],
-            number: ['']
+            number: [''],
         });
     }
 }

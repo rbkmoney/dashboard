@@ -9,11 +9,11 @@ export const handleFetchResultError = <R>(result: R[] = [], continuationToken?: 
     s: Observable<FetchResult<R>>
 ): Observable<FetchResult<R>> =>
     s.pipe(
-        catchError(error =>
+        catchError((error) =>
             of<FetchResult<R>>({
                 result,
                 continuationToken,
-                error
+                error,
             })
         )
     );
@@ -30,9 +30,9 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
                     case 'fetchMore':
                         return fn(value, continuationToken).pipe(
                             first(),
-                            map(r => ({
+                            map((r) => ({
                                 result: result.concat(r.result),
-                                continuationToken: r.continuationToken
+                                continuationToken: r.continuationToken,
                             })),
                             handleFetchResultError(result, continuationToken)
                         );

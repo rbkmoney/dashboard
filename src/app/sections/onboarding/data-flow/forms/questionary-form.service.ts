@@ -11,7 +11,7 @@ import { FormValue } from './form-value';
 export abstract class QuestionaryFormService {
     readonly form$ = this.questionaryStateService.questionaryData$.pipe(
         first(),
-        map(data => this.toForm(data)),
+        map((data) => this.toForm(data)),
         shareReplay(1)
     );
     readonly stepName: StepName = this.getStepName();
@@ -22,16 +22,16 @@ export abstract class QuestionaryFormService {
     ) {}
 
     initForm(): Subscription {
-        return this.form$.subscribe(form => this.validityService.setUpValidity(this.stepName, form.valid));
+        return this.form$.subscribe((form) => this.validityService.setUpValidity(this.stepName, form.valid));
     }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
-        const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
+        const formValueChanges$ = this.form$.pipe(switchMap((form) => form.valueChanges));
         const data$ = this.questionaryStateService.questionaryData$.pipe(first());
         return formValueChanges$
             .pipe(
                 debounceTime(debounceMs),
-                switchMap(v => forkJoin([of(v), data$]))
+                switchMap((v) => forkJoin([of(v), data$]))
             )
             .subscribe(([v, data]) => {
                 try {
@@ -46,11 +46,11 @@ export abstract class QuestionaryFormService {
     startFormValidityReporting(debounceMs = 300): Subscription {
         return this.form$
             .pipe(
-                switchMap(form => form.statusChanges),
+                switchMap((form) => form.statusChanges),
                 debounceTime(debounceMs),
-                map(v => v === 'VALID')
+                map((v) => v === 'VALID')
             )
-            .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
+            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
     protected abstract toForm(data: QuestionaryData): FormGroup;

@@ -32,11 +32,11 @@ import { HoldDetailsComponent } from './hold-details.component';
         MatCheckboxModule,
         ReactiveFormsModule,
         FlexModule,
-        FormControlsModule
+        FormControlsModule,
     ],
     declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent, HoldActivePipe],
     exports: [HoldDetailsComponent],
     entryComponents: [ConfirmHoldComponent, CancelHoldComponent],
-    providers: [PaymentService]
+    providers: [PaymentService],
 })
 export class HoldDetailsModule {}

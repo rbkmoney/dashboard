@@ -50,7 +50,7 @@ export class BasicInfoService extends QuestionaryFormService {
             shopUrl: ['', Validators.required],
             shopName: ['', Validators.required],
             email: ['', Validators.required],
-            phoneNumber: ['', [Validators.required, phoneNumberValidator]]
+            phoneNumber: ['', [Validators.required, phoneNumberValidator]],
         });
     }
 }

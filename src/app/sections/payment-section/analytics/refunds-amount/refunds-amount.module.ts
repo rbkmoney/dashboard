@@ -22,9 +22,9 @@ import { RefundsAmountComponent } from './refunds-amount.component';
         AnalyticsModule,
         CardModule,
         PercentDifferenceModule,
-        StatItemModule
+        StatItemModule,
     ],
     declarations: [RefundsAmountComponent],
-    exports: [RefundsAmountComponent]
+    exports: [RefundsAmountComponent],
 })
 export class RefundsAmountModule {}

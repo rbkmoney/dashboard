@@ -7,7 +7,7 @@ import { ClaimsService } from './claims.service';
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
-    providers: [ClaimsService]
+    providers: [ClaimsService],
 })
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();

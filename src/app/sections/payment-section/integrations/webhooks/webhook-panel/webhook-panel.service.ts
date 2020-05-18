@@ -13,8 +13,8 @@ export class WebhookPanelService implements OnDestroy {
 
     shopInfo$: Observable<ShopInfo> = this.getShopInfo$.pipe(
         distinctUntilChanged(),
-        switchMap(shopID => combineLatest([of(shopID), this.shopService.shops$.pipe(mapToShopInfo)])),
-        map(([shopID, shops]) => shops.find(shop => shop.shopID === shopID)),
+        switchMap((shopID) => combineLatest([of(shopID), this.shopService.shops$.pipe(mapToShopInfo)])),
+        map(([shopID, shops]) => shops.find((shop) => shop.shopID === shopID)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

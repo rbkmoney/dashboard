@@ -7,7 +7,7 @@ import { RouteEnv } from '../../../route-env';
 
 export const filterShopsByEnv = (shops: Observable<Shop[]>) => (s: Observable<string>): Observable<Shop[]> =>
     s.pipe(
-        switchMap(envID => {
+        switchMap((envID) => {
             if (envID === RouteEnv.test) {
                 return shops.pipe(filterTestShops);
             }

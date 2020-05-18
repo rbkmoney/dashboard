@@ -8,6 +8,6 @@ import { BrandComponent } from './brand.component';
 @NgModule({
     declarations: [BrandComponent],
     imports: [RouterModule, MatIconModule, HttpClientModule],
-    exports: [BrandComponent]
+    exports: [BrandComponent],
 })
 export class BrandModule {}

@@ -24,7 +24,7 @@ export class HumanizeDurationService {
         return humanizeDuration.humanizer({
             language: this.languageService.active || Language.en,
             round: true,
-            delimiter: ' '
+            delimiter: ' ',
         });
     }
 
@@ -41,9 +41,9 @@ export class HumanizeDurationService {
                     h: getLocalizedUnitFn('hour'),
                     m: getLocalizedUnitFn('minute'),
                     s: getLocalizedUnitFn('second'),
-                    ms: getLocalizedUnitFn('millisecond')
-                }
-            }
+                    ms: getLocalizedUnitFn('millisecond'),
+                },
+            },
         };
     }
 

@@ -12,7 +12,7 @@ function createScheduler() {
 
 describe('takeError', () => {
     it('operation without error', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '-a-b-c|';
             const flow = cold(operation).pipe(takeError);
@@ -21,7 +21,7 @@ describe('takeError', () => {
     });
 
     it('operation with error', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '-a-#-c|';
             const flow = cold(operation).pipe(takeError);

@@ -6,7 +6,7 @@ import {
     Input,
     Output,
     QueryList,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { StateNavItemComponent } from './state-nav-item';
     selector: 'dsh-state-nav',
     templateUrl: 'state-nav.component.html',
     styleUrls: ['state-nav.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class StateNavComponent {
     @HostBinding('class.dsh-state-nav-flat')

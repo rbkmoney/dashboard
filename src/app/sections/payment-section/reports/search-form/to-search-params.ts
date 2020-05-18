@@ -7,6 +7,6 @@ export function toSearchParams({ reportType, date, ...params }: FormParams): Sea
         ...params,
         reportTypes: reportType ? [reportType] : Object.values(Report.ReportTypeEnum),
         fromTime: date.begin.utc().format(),
-        toTime: date.end.utc().format()
+        toTime: date.end.utc().format(),
     };
 }

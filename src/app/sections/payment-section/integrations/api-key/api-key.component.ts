@@ -8,7 +8,7 @@ import { ConfigService } from '../../../../config';
 import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
-    templateUrl: 'api-key.component.html'
+    templateUrl: 'api-key.component.html',
 })
 export class ApiKeyComponent {
     token$ = from(this.keycloakService.getToken());

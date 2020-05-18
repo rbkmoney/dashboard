@@ -9,7 +9,7 @@ const customDocumentType = 'custom';
 
 @Component({
     selector: 'dsh-authority-confirming-document',
-    templateUrl: 'authority-confirming-document.component.html'
+    templateUrl: 'authority-confirming-document.component.html',
 })
 export class AuthorityConfirmingDocumentComponent implements OnChanges {
     isCustomDocumentInfoVisible = false;
@@ -36,7 +36,7 @@ export class AuthorityConfirmingDocumentComponent implements OnChanges {
         const isCustomType = value === customDocumentType;
         this.isCustomDocumentInfoVisible = isCustomType;
         this.form.patchValue({
-            type: isCustomType ? '' : value
+            type: isCustomType ? '' : value,
         });
         this.form.setControl('date', this.fb.control(null, isCustomType ? Validators.required : null));
     }

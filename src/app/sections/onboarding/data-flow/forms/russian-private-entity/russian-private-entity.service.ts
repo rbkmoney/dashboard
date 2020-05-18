@@ -11,7 +11,7 @@ import {
     IndividualResidencyInfoService,
     PdlInfoService,
     PrivateEntityInfoService,
-    RussianDomesticPassportService
+    RussianDomesticPassportService,
 } from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
@@ -53,7 +53,7 @@ export class RussianPrivateEntityService extends QuestionaryFormService {
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
-            individualResidencyInfo: this.individualResidencyInfoService.getForm()
+            individualResidencyInfo: this.individualResidencyInfoService.getForm(),
         });
     }
 }

@@ -5,7 +5,7 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import {
     isRussianIndividualEntityQuestionary,
     isRussianLegalEntityQuestionary,
-    QuestionaryService
+    QuestionaryService,
 } from '../../../api';
 import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
 import { QuestionaryData } from '../../../api-codegen/questionary';
@@ -17,7 +17,7 @@ export class DocumentContainerService {
     private unitChange$: Subject<DocumentModificationUnit> = new ReplaySubject(1);
     private questionary$ = this.unitChange$.pipe(
         pluck('documentId'),
-        switchMap(documentId => this.questionaryService.getQuestionary(documentId)),
+        switchMap((documentId) => this.questionaryService.getQuestionary(documentId)),
         shareReplay(SHARE_REPLAY_CONF)
     );
     private questionaryData$: Observable<QuestionaryData> = this.questionary$.pipe(

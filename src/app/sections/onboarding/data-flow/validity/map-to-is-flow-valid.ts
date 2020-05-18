@@ -5,7 +5,7 @@ import { ValiditySteps } from './validity-steps';
 
 export const mapToIsFlowValid = (s: Observable<ValiditySteps>): Observable<boolean> =>
     s.pipe(
-        map(validitySteps => {
+        map((validitySteps) => {
             for (const isValid of validitySteps.values()) {
                 if (!isValid) {
                     return false;

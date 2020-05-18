@@ -8,7 +8,7 @@ import { ShopsService } from './shops.service';
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopsService]
+    providers: [ShopsService],
 })
 export class ShopsComponent {
     shops$ = this.shopsService.shops$;

@@ -7,7 +7,7 @@ import { toPdlInfo, toPrivateEntityInfo, toRussianDomesticPassport } from '../su
 const toAuthorityConfirmingDocument = (d: AuthorityConfirmingDocument): FormValue => ({
     type: get(d, ['type'], null),
     date: get(d, ['date'], null),
-    number: get(d, ['number'], null)
+    number: get(d, ['number'], null),
 });
 
 export const toFormValue = (d: QuestionaryData): FormValue => {
@@ -18,6 +18,6 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
         termOfOffice: get(i, ['termOfOffice'], null),
         russianDomesticPassport: toRussianDomesticPassport(get(i, ['identityDocument'])),
         pdlInfo: toPdlInfo(i),
-        authorityConfirmingDocument: toAuthorityConfirmingDocument(get(i, ['authorityConfirmingDocument']))
+        authorityConfirmingDocument: toAuthorityConfirmingDocument(get(i, ['authorityConfirmingDocument'])),
     };
 };

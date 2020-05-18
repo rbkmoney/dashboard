@@ -12,7 +12,7 @@ import {
     IndividualResidencyInfoService,
     PdlInfoService,
     PrivateEntityInfoService,
-    RussianDomesticPassportService
+    RussianDomesticPassportService,
 } from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
@@ -86,7 +86,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
     private constructForm(): FormGroup {
         return this.fb.group({
             noOwners: [false, Validators.required],
-            beneficialOwners: this.fb.array([])
+            beneficialOwners: this.fb.array([]),
         });
     }
 
@@ -94,12 +94,12 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         return this.fb.group({
             ownershipPercentage: [
                 1,
-                [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/^\d+$/)]
+                [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/^\d+$/)],
             ],
             privateEntityInfo: this.privateEntityInfoService.getForm(),
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
-            individualResidencyInfo: this.individualResidencyInfoService.getForm()
+            individualResidencyInfo: this.individualResidencyInfoService.getForm(),
         });
     }
 }

@@ -16,7 +16,7 @@ import { QuestionaryModule } from './questionary';
         AnapiModule,
         AggrProxyModule,
         DarkApiModule,
-        MessagesModule
-    ]
+        MessagesModule,
+    ],
 })
 export class APICodegenModule {}

@@ -43,19 +43,12 @@ export class RefundSearchService {
         excludedShops?: string[],
         continuationToken?: string
     ) {
-        const from = moment()
-            .subtract(amount, unit)
-            .startOf('d')
-            .utc()
-            .format();
-        const to = moment()
-            .endOf('d')
-            .utc()
-            .format();
+        const from = moment().subtract(amount, unit).startOf('d').utc().format();
+        const to = moment().endOf('d').utc().format();
         return this.searchRefunds(from, to, params, limit, excludedShops, continuationToken);
     }
 
     getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string) {
-        return this.searchRefundsByDuration(duration, { invoiceID, paymentID }, 1).pipe(map(res => res.result[0]));
+        return this.searchRefundsByDuration(duration, { invoiceID, paymentID }, 1).pipe(map((res) => res.result[0]));
     }
 }

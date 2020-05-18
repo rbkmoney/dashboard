@@ -60,15 +60,15 @@ import { TableComponent } from './table';
         InvoiceModule,
         MatDatepickerModule,
         MatDividerModule,
-        ShopSelectorModule
+        ShopSelectorModule,
     ],
     declarations: [
         InvoicesComponent,
         SearchFormComponent,
         InvoiceStatusColorPipe,
         TableComponent,
-        CreateInvoiceDialogComponent
+        CreateInvoiceDialogComponent,
     ],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class InvoicesModule {}

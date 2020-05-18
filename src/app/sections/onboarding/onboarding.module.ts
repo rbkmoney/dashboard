@@ -5,6 +5,6 @@ import { DataFlowModule } from './data-flow';
 import { OnboardingRoutingModule } from './onboarding-routing.module';
 
 @NgModule({
-    imports: [OnboardingRoutingModule, CompanySearchModule, DataFlowModule]
+    imports: [OnboardingRoutingModule, CompanySearchModule, DataFlowModule],
 })
 export class OnboardingModule {}

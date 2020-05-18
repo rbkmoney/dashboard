@@ -1,4 +1,4 @@
-import type AppConfig from '../../appConfig.json'
+import type AppConfig from '../../appConfig.json';
 import { getBaseClass } from '../../utils';
 
 export type Config = typeof AppConfig;

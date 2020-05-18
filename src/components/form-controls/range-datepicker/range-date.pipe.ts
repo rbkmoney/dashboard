@@ -96,10 +96,10 @@ export class RangeDatePipe implements PipeTransform {
     }
 
     private formatDate(date: Moment, d: boolean = false, m: boolean = false, y: boolean = false) {
-        return formatDate(date.toDate(), [d && 'd', m && 'MMMM', y && 'y'].filter(v => v).join(' '), this.locale);
+        return formatDate(date.toDate(), [d && 'd', m && 'MMMM', y && 'y'].filter((v) => v).join(' '), this.locale);
     }
 
     private formatStandaloneDate(date: Moment, d: boolean = false, m: boolean = false, y: boolean = false) {
-        return formatDate(date.toDate(), [d && 'd', m && 'LLLL', y && 'y'].filter(v => v).join(' '), this.locale);
+        return formatDate(date.toDate(), [d && 'd', m && 'LLLL', y && 'y'].filter((v) => v).join(' '), this.locale);
     }
 }

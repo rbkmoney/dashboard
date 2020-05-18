@@ -5,7 +5,7 @@ export function regExpToValidator(
     forbiddenName: string = 'regExpValidator',
     required = false
 ): ValidatorFn {
-    return control => {
+    return (control) => {
         const value: string = control.value;
         if (!required && !value) {
             return null;

@@ -10,22 +10,22 @@ const operationsRoutes: Routes = [
         children: [
             {
                 path: 'payments',
-                loadChildren: () => import('./payments/payments.module').then(mod => mod.PaymentsModule)
+                loadChildren: () => import('./payments/payments.module').then((mod) => mod.PaymentsModule),
             },
             {
                 path: 'refunds',
-                loadChildren: () => import('./refunds/refunds.module').then(mod => mod.RefundsModule)
+                loadChildren: () => import('./refunds/refunds.module').then((mod) => mod.RefundsModule),
             },
             {
                 path: 'invoices',
-                loadChildren: () => import('./invoices/invoices.module').then(mod => mod.InvoicesModule)
-            }
-        ]
-    }
+                loadChildren: () => import('./invoices/invoices.module').then((mod) => mod.InvoicesModule),
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(operationsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class OperationsRoutingModule {}

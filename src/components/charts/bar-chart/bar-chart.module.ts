@@ -7,6 +7,6 @@ import { BarChartComponent } from './bar-chart.component';
 @NgModule({
     declarations: [BarChartComponent],
     exports: [BarChartComponent],
-    imports: [CommonModule, NgApexchartsModule]
+    imports: [CommonModule, NgApexchartsModule],
 })
 export class BarChartModule {}

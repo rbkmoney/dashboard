@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'dsh-welcome-image',
     templateUrl: 'welcome-image.component.html',
-    styleUrls: ['welcome-image.component.scss']
+    styleUrls: ['welcome-image.component.scss'],
 })
 export class WelcomeImageComponent {
     endpoint = `assets/background/${this.getFileName()}`;

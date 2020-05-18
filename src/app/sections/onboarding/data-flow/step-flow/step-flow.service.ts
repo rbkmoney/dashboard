@@ -40,11 +40,11 @@ export class StepFlowService {
     subscribe() {
         const navigate$ = this.navigate$.pipe(
             mapToNavigateCommands(this.router.url),
-            tap(commands => this.router.navigate(commands))
+            tap((commands) => this.router.navigate(commands))
         );
         const goByDirection$ = this.goByDirection$.pipe(
             mapDirectionToStep(this.stepFlow$, this.activeStep$),
-            tap(step => this.navigate$.next(step))
+            tap((step) => this.navigate$.next(step))
         );
         this.sub = merge(navigate$, goByDirection$).subscribe();
     }

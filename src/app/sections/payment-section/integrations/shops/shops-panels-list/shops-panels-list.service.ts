@@ -25,7 +25,7 @@ export class ShopsPanelsListService {
     );
 
     private offset$ = concat(
-        this.selectedPanelPosition$.pipe(map(idx => this.getOffsetBySelectedPanelPosition(idx))),
+        this.selectedPanelPosition$.pipe(map((idx) => this.getOffsetBySelectedPanelPosition(idx))),
         this.showMore$.pipe(mapTo(SHOPS_LIMIT))
     ).pipe(
         scan((offset, limit) => offset + limit, 0),
@@ -53,7 +53,7 @@ export class ShopsPanelsListService {
     ) {}
 
     select(idx: number) {
-        this.shopsService.shops$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+        this.shopsService.shops$.pipe(pluck(idx, 'id')).subscribe((fragment) => {
             this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
         });
     }
@@ -63,13 +63,13 @@ export class ShopsPanelsListService {
             .open(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(
-                filter(r => r === 'confirm'),
+                filter((r) => r === 'confirm'),
                 switchMap(() => this.shopService.suspendShop(id))
             )
             .subscribe(
                 () => {
                     this.snackBar.open(this.transloco.translate('suspend.success', null, 'shops|scoped'), 'OK', {
-                        duration: 3000
+                        duration: 3000,
                     });
                     this.shopService.reloadShops();
                 },
@@ -82,13 +82,13 @@ export class ShopsPanelsListService {
             .open(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(
-                filter(r => r === 'confirm'),
+                filter((r) => r === 'confirm'),
                 switchMap(() => this.shopService.activateShop(id))
             )
             .subscribe(
                 () => {
                     this.snackBar.open(this.transloco.translate('activate.success', null, 'shops|scoped'), 'OK', {
-                        duration: 3000
+                        duration: 3000,
                     });
                     this.shopService.reloadShops();
                 },

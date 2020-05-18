@@ -6,13 +6,13 @@ export class BasicError<T = any> {
 }
 
 export const replaceError = <T, E = any>(source: Observable<T>): Observable<T | BasicError<E>> =>
-    source.pipe(catchError(value => of(new BasicError(value))));
+    source.pipe(catchError((value) => of(new BasicError(value))));
 
 export const filterError = <E>(source: Observable<any | BasicError<E>>): Observable<E> =>
     source.pipe(
-        filter(value => value instanceof BasicError),
+        filter((value) => value instanceof BasicError),
         pluck('error')
     );
 
 export const filterPayload = <T>(source: Observable<T | BasicError<any>>): Observable<T> =>
-    source.pipe(filter(value => !(value instanceof BasicError))) as Observable<T>;
+    source.pipe(filter((value) => !(value instanceof BasicError))) as Observable<T>;

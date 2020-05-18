@@ -28,7 +28,7 @@ export class ValidityService {
                     )
                 )
             )
-            .subscribe(s => this.steps$.next(s));
+            .subscribe((s) => this.steps$.next(s));
     }
 
     unsubscribe() {

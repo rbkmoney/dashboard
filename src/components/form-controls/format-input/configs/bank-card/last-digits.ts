@@ -5,7 +5,7 @@ import { FormatInputConfig } from '../format-input-config';
 
 export const lastDigitsMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, /\d/],
-    guide: false
+    guide: false,
 };
 
 export const lastDigitsValidator = maskToValidator(lastDigitsMask);
@@ -13,5 +13,5 @@ export const lastDigitsValidator = maskToValidator(lastDigitsMask);
 export const lastDigitsConfig: FormatInputConfig = {
     mask: lastDigitsMask,
     placeholder: '0000',
-    prefix: '**** **** **** '
+    prefix: '**** **** **** ',
 };

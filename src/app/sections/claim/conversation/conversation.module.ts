@@ -17,7 +17,7 @@ import { HumanizeDurationModule } from '../../../humanize-duration';
 import {
     CommentContainerModule,
     DocumentContainerModule,
-    FileContainerModule
+    FileContainerModule,
 } from '../../claim-modification-containers';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
@@ -44,8 +44,8 @@ import { SendCommentComponent } from './send-comment';
         FilesModule,
         DocumentContainerModule,
         MatMenuModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
     ],
-    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent]
+    declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent],
 })
 export class ConversationModule {}

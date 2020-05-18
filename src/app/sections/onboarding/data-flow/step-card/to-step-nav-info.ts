@@ -22,8 +22,8 @@ export const toStepNavInfo = (s: Observable<[ValiditySteps, StepName]>): Observa
                         step,
                         iconVisible: isValid,
                         navStatus: isValid ? 'success' : null,
-                        navItemSelected: step === activeStep
-                    }
+                        navItemSelected: step === activeStep,
+                    },
                 ];
             }
             return result;

@@ -13,7 +13,7 @@ import { StateNavModule } from './state-nav.module';
             <dsh-state-nav-item status="success">third</dsh-state-nav-item>
             <dsh-state-nav-item>last</dsh-state-nav-item>
         </dsh-state-nav>
-    `
+    `,
 })
 class SimpleStateNavComponent {
     idx: number;
@@ -33,7 +33,7 @@ describe('DshStateNav', () => {
         TestBed.configureTestingModule({
             imports: [StateNavModule],
             declarations: [component, ...declarations],
-            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers]
+            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers],
         }).compileComponents();
 
         return TestBed.createComponent<T>(component);

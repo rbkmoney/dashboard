@@ -44,7 +44,7 @@ class FakeDataSource extends DataSource<TestData> {
         copiedData.push({
             a: `a_${nextIndex}`,
             b: `b_${nextIndex}`,
-            c: `c_${nextIndex}`
+            c: `c_${nextIndex}`,
         });
 
         this.data = copiedData;
@@ -82,7 +82,7 @@ class FakeDataSource extends DataSource<TestData> {
             <tr dsh-footer-row *dshFooterRowDef="columnsToRender"></tr>
             <table></table>
         </table>
-    `
+    `,
 })
 export class DshTableAppComponent {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -113,7 +113,7 @@ export class DshTableAppComponent {
             <tr tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
             <tr tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
         </table>
-    `
+    `,
 })
 export class NativeHtmlTableAppComponent {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -133,7 +133,7 @@ export class NativeHtmlTableAppComponent {
             <tr tr dsh-header-row *dshHeaderRowDef="columnsToRender; sticky: true"></tr>
             <tr tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
         </table>
-    `
+    `,
 })
 export class StickyTableAppComponent {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -161,7 +161,7 @@ export class StickyTableAppComponent {
             <tr dsh-footer-row *dshFooterRowDef="['column_a']"></tr>
             <table></table>
         </table>
-    `
+    `,
 })
 export class DshTableWithWhenRowAppComponent {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -198,7 +198,7 @@ export class DshTableWithWhenRowAppComponent {
         </table>
 
         <mat-paginator [pageSize]="5"></mat-paginator>
-    `
+    `,
 })
 export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -216,7 +216,7 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
         this.underlyingDataSource.addData();
         this.underlyingDataSource.addData();
 
-        this.underlyingDataSource.connect().subscribe(data => {
+        this.underlyingDataSource.connect().subscribe((data) => {
             this.dataSource.data = data;
         });
     }
@@ -250,7 +250,7 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
                 <mat-paginator [pageSize]="5"></mat-paginator>
             </table>
         </table>
-    `
+    `,
 })
 export class DshTableWithPaginatorAppComponent implements OnInit {
     @ViewChild(TableComponent) table: TableComponent<TestData>;
@@ -268,7 +268,7 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
         this.underlyingDataSource.addData();
         this.underlyingDataSource.addData();
 
-        this.underlyingDataSource.connect().subscribe(data => {
+        this.underlyingDataSource.connect().subscribe((data) => {
             this.dataSource.data = data;
         });
     }
@@ -290,7 +290,7 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
             <ng-container *dshRowDef="let row; columns: columnsToRender"> <tr dsh-row></tr> </ng-container>
             <table></table>
         </table>
-    `
+    `,
 })
 export class TableWithNgContainerRowComponent {
     dataSource: FakeDataSource | null = new FakeDataSource();

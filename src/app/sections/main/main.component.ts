@@ -4,7 +4,7 @@ import { ConfigService } from '../../config';
 
 @Component({
     templateUrl: 'main.component.html',
-    styleUrls: ['main.component.scss']
+    styleUrls: ['main.component.scss'],
 })
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;

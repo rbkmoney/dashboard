@@ -13,8 +13,8 @@ export function toFormValue(
         ...params,
         date: {
             begin: fromTime ? moment(fromTime) : defaultParams.date.begin,
-            end: toTime ? moment(toTime) : defaultParams.date.end
+            end: toTime ? moment(toTime) : defaultParams.date.end,
         },
-        reportType: reportType ? (reportType as Report.ReportTypeEnum) : defaultParams.reportType
+        reportType: reportType ? (reportType as Report.ReportTypeEnum) : defaultParams.reportType,
     };
 }

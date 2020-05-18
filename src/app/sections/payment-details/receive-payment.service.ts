@@ -11,12 +11,12 @@ import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF }
 
 const completedStatuses: PaymentSearchResult.StatusEnum[] = [
     PaymentSearchResult.StatusEnum.Captured,
-    PaymentSearchResult.StatusEnum.Cancelled
+    PaymentSearchResult.StatusEnum.Cancelled,
 ];
 
 enum ReceivePaymentType {
     Hold = 'hold',
-    Receive = 'receive'
+    Receive = 'receive',
 }
 
 const TIME_UNTIL_START = 500;
@@ -29,16 +29,16 @@ export class ReceivePaymentService {
 
     private paymentOrError$ = this.receivePayment$.pipe(
         startWith(ReceivePaymentType.Receive),
-        switchMap(type => {
+        switchMap((type) => {
             const { invoiceID, paymentID } = this.route.snapshot.params;
             const duration: Duration = {
                 amount: 3,
-                unit: 'y'
+                unit: 'y',
             };
             return type === ReceivePaymentType.Hold
                 ? timer(TIME_UNTIL_START, TIMER_PERIOD).pipe(
                       switchMap(() => this.paymentSearchService.getPaymentByDuration(duration, invoiceID, paymentID)),
-                      filter(p => completedStatuses.includes(p?.status)),
+                      filter((p) => completedStatuses.includes(p?.status)),
                       first(),
                       timeout(TIMER_TIMEOUT)
                   )

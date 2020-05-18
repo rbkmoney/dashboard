@@ -34,7 +34,7 @@ import { ValidityService } from './validity';
         TranslocoModule,
         SpinnerModule,
         OnboardingFormsModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     declarations: [
         DataFlowComponent,
@@ -42,9 +42,9 @@ import { ValidityService } from './validity';
         StepCardComponent,
         StepNavigationComponent,
         StepLabelPipe,
-        FinishOnboardingDialogComponent
+        FinishOnboardingDialogComponent,
     ],
     providers: [StepFlowService, ValidityService, QuestionaryStateService],
-    entryComponents: [FinishOnboardingDialogComponent]
+    entryComponents: [FinishOnboardingDialogComponent],
 })
 export class DataFlowModule {}

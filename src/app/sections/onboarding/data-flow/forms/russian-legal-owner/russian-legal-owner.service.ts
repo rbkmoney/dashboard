@@ -11,7 +11,7 @@ import {
     AuthorityConfirmingDocumentService,
     PdlInfoService,
     PrivateEntityInfoService,
-    RussianDomesticPassportService
+    RussianDomesticPassportService,
 } from '../subforms';
 import { applyToQuestionaryData } from './apply-to-questionary-data';
 import { toFormValue } from './to-form-value';
@@ -51,7 +51,7 @@ export class RussianLegalOwnerService extends QuestionaryFormService {
             termOfOffice: ['', Validators.required],
             russianDomesticPassport: this.russianDomesticPassportService.getForm(),
             pdlInfo: this.pdlInfoService.getForm(),
-            authorityConfirmingDocument: this.authorityConfirmingDocumentService.getForm()
+            authorityConfirmingDocument: this.authorityConfirmingDocumentService.getForm(),
         });
     }
 }

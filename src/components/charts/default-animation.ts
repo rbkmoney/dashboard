@@ -4,10 +4,10 @@ export const DEFAULT_ANIMATION: object = {
     speed: 500,
     animateGradually: {
         enabled: true,
-        delay: 150
+        delay: 150,
     },
     dynamicAnimation: {
         enabled: true,
-        speed: 350
-    }
+        speed: 350,
+    },
 };

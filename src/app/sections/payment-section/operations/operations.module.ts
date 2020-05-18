@@ -11,6 +11,6 @@ import { OperationsComponent } from './operations.component';
 
 @NgModule({
     imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, SearchModule, TranslocoModule],
-    declarations: [OperationsComponent]
+    declarations: [OperationsComponent],
 })
 export class OperationsModule {}

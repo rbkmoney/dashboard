@@ -6,7 +6,7 @@ import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
     selector: 'dsh-refund-item',
-    templateUrl: './refund-item.component.html'
+    templateUrl: './refund-item.component.html',
 })
 export class RefundItemComponent implements OnChanges {
     @Input() refund: RefundSearchResult;

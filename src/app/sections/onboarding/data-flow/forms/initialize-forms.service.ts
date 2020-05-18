@@ -29,7 +29,7 @@ export class InitializeFormsService {
             this.financialAndEconomicActivityService,
             this.beneficialOwnersService,
             this.russianPrivateEntityService,
-            this.planningOperationsAndPayoutToolService
+            this.planningOperationsAndPayoutToolService,
         ];
     }
 

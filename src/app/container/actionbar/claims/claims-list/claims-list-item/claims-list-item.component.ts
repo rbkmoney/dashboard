@@ -7,7 +7,7 @@ import { claimStatusToColor, ClaimType, getClaimType } from '../../../../../view
 @Component({
     selector: 'dsh-claims-list-item',
     templateUrl: 'claims-list-item.component.html',
-    styleUrls: ['claims-list-item.component.scss']
+    styleUrls: ['claims-list-item.component.scss'],
 })
 export class ClaimsListItemComponent implements OnChanges {
     @Input() claim: Claim;

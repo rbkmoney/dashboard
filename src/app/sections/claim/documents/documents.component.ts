@@ -5,7 +5,7 @@ import { DocumentsService } from './documents.service';
 @Component({
     selector: 'dsh-documents',
     templateUrl: 'documents.component.html',
-    providers: [DocumentsService]
+    providers: [DocumentsService],
 })
 export class DocumentsComponent {
     fileUnits$ = this.documentsService.fileUnits$;

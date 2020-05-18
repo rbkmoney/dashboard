@@ -5,7 +5,7 @@ import { RevokeClaimDialogService } from './revoke-claim-dialog.service';
 @Component({
     templateUrl: 'revoke-claim-dialog.component.html',
     styleUrls: ['revoke-claim-dialog.component.scss'],
-    providers: [RevokeClaimDialogService]
+    providers: [RevokeClaimDialogService],
 })
 export class RevokeClaimDialogComponent {
     form = this.revokeClaimDialogService.form;

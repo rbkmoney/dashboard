@@ -7,6 +7,6 @@ const conversationRoutes: Routes = [{ path: '', component: ConversationComponent
 
 @NgModule({
     imports: [RouterModule.forChild(conversationRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ConversationRoutingModule {}

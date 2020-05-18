@@ -9,7 +9,7 @@ export const createCommentModificationUnit = (
         claimModificationType: 'CommentModificationUnit',
         commentId,
         commentModification: {
-            commentModificationType: 'CommentCreated'
-        }
-    }
+            commentModificationType: 'CommentCreated',
+        },
+    },
 });

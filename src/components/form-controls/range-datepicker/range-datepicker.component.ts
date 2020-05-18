@@ -18,13 +18,10 @@ export type Range = SatDatepickerRangeValue<Moment> & { period?: Period };
     selector: 'dsh-range-datepicker',
     templateUrl: 'range-datepicker.component.html',
     styleUrls: ['range-datepicker.component.scss'],
-    providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }]
+    providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }],
 })
 export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnInit, OnDestroy {
-    minDate = moment()
-        .subtract(15, 'year')
-        .startOf('year')
-        .toDate();
+    minDate = moment().subtract(15, 'year').startOf('year').toDate();
     @Input()
     set min(min: Moment) {
         this.minDate = min.toDate();
@@ -33,9 +30,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         return moment(this.minDate);
     }
 
-    maxDate = moment()
-        .endOf('day')
-        .toDate();
+    maxDate = moment().endOf('day').toDate();
     @Input()
     set max(max: Moment) {
         this.maxDate = max.toDate();
@@ -105,13 +100,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
             }
             case '3month': {
                 const newBegin = begin.clone().subtract(3, 'month');
-                this.changeRange(
-                    newBegin,
-                    newBegin
-                        .clone()
-                        .add(2, 'month')
-                        .endOf('month')
-                );
+                this.changeRange(newBegin, newBegin.clone().add(2, 'month').endOf('month'));
                 return;
             }
             case 'month': {
@@ -145,13 +134,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
             }
             case '3month': {
                 const newBegin = begin.clone().add(3, 'month');
-                this.changeRange(
-                    newBegin,
-                    newBegin
-                        .clone()
-                        .add(2, 'month')
-                        .endOf('month')
-                );
+                this.changeRange(newBegin, newBegin.clone().add(2, 'month').endOf('month'));
                 return;
             }
             case 'month': {
@@ -182,12 +165,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                 this.changeRange(moment().startOf('year'), moment().endOf('year'));
                 break;
             case '3month':
-                this.changeRange(
-                    moment()
-                        .subtract(2, 'month')
-                        .startOf('month'),
-                    moment().endOf('month')
-                );
+                this.changeRange(moment().subtract(2, 'month').startOf('month'), moment().endOf('month'));
                 break;
             case 'month':
                 this.changeRange(moment().startOf('month'), moment().endOf('month'));

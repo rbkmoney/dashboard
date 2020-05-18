@@ -5,14 +5,14 @@ import { PaymentLinkFormService } from './payment-link-form';
 
 enum Step {
     invoiceTemplate,
-    paymentLink
+    paymentLink,
 }
 
 @Component({
     selector: 'dsh-payment-link',
     templateUrl: 'payment-link.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [InvoiceTemplateFormService, PaymentLinkFormService]
+    providers: [InvoiceTemplateFormService, PaymentLinkFormService],
 })
 export class PaymentLinkComponent {
     step = Step;

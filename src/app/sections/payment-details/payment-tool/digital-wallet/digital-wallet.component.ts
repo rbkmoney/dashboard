@@ -3,13 +3,13 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
     DigitalWalletDetails,
     DigitalWalletDetailsQIWI,
-    PaymentToolDetailsDigitalWallet
+    PaymentToolDetailsDigitalWallet,
 } from '../../../../api-codegen/capi/swagger-codegen';
 import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWalletDetailsTypeEnum;
 
 @Component({
     selector: 'dsh-digital-wallet',
-    templateUrl: './digital-wallet.component.html'
+    templateUrl: './digital-wallet.component.html',
 })
 export class DigitalWalletComponent implements OnChanges {
     @Input() digitalWallet: DigitalWalletDetails;

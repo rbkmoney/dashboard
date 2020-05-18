@@ -11,5 +11,5 @@ export enum Roles {
     InvoicesWrite = 'invoices:write',
     PartyWrite = 'party:write',
     CustomersRead = 'customers:read',
-    CustomersBindingsWrite = 'customers.*.bindings:write'
+    CustomersBindingsWrite = 'customers.*.bindings:write',
 }

@@ -8,10 +8,10 @@ const toClaimTableData = ({ id, changeset, status, updatedAt }: Claim): ClaimsTa
     claimID: id,
     changeset,
     status: status as StatusModificationUnit.StatusEnum,
-    updatedAt: updatedAt.toString()
+    updatedAt: updatedAt.toString(),
 });
 
-const claimsToTableData = (searchResult: Claim[]) => searchResult.map(r => toClaimTableData(r));
+const claimsToTableData = (searchResult: Claim[]) => searchResult.map((r) => toClaimTableData(r));
 
 export const mapToClaimsTableData = (s: Observable<Claim[]>) =>
-    s.pipe(map(searchResult => claimsToTableData(searchResult)));
+    s.pipe(map((searchResult) => claimsToTableData(searchResult)));

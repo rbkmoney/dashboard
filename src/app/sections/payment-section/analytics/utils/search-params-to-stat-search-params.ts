@@ -9,7 +9,7 @@ export const searchParamsToStatSearchParams = ({
     fromTime,
     toTime,
     shopIDs,
-    period
+    period,
 }: SearchParams): { current: StatSearchParams; previous: StatSearchParams } => {
     const current: StatSearchParams = { fromTime, toTime, shopIDs };
     const previous = getPreviousParams(fromTime, toTime, shopIDs, period);
@@ -32,10 +32,7 @@ const getPreviousParams = (
         }
         case '3month': {
             fromTime = fromTime.subtract(3, 'month');
-            toTime = fromTime
-                .clone()
-                .add(2, 'month')
-                .endOf('month');
+            toTime = fromTime.clone().add(2, 'month').endOf('month');
             break;
         }
         case 'month': {

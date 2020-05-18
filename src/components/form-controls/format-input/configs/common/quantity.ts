@@ -5,12 +5,12 @@ import { FormatInputConfig } from '../format-input-config';
 
 export const quantityMask = createNumberMask({
     thousandsSeparatorSymbol: ' ',
-    allowDecimal: false
+    allowDecimal: false,
 });
 
 export const quantityConfig: FormatInputConfig<string, number> = {
     mask: quantityMask,
-    toPublicValue: v => {
+    toPublicValue: (v) => {
         if (v) {
             return Number(v.replace(/ /g, ''));
         }
@@ -18,5 +18,5 @@ export const quantityConfig: FormatInputConfig<string, number> = {
             return v;
         }
         return null;
-    }
+    },
 };
