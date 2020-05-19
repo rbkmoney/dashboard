@@ -1,10 +1,11 @@
 import { FormGroup } from '@angular/forms';
-import { forkJoin, of, Subscription } from 'rxjs';
-import { debounceTime, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { combineLatest, forkJoin, of, Subscription } from 'rxjs';
+import { debounceTime, first, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepName } from '../step-flow';
+import { ValidationCheckService } from '../validation-check';
 import { ValidityService } from '../validity';
 import { FormValue } from './form-value';
 
@@ -18,12 +19,9 @@ export abstract class QuestionaryFormService {
 
     constructor(
         protected questionaryStateService: QuestionaryStateService,
-        protected validityService: ValidityService
+        protected validityService: ValidityService,
+        protected validationCheckService: ValidationCheckService
     ) {}
-
-    initForm(): Subscription {
-        return this.form$.subscribe((form) => this.validityService.setUpValidity(this.stepName, form.valid));
-    }
 
     startFormValuePersistent(debounceMs = 300): Subscription {
         const formValueChanges$ = this.form$.pipe(switchMap((form) => form.valueChanges));
@@ -46,11 +44,15 @@ export abstract class QuestionaryFormService {
     startFormValidityReporting(debounceMs = 300): Subscription {
         return this.form$
             .pipe(
-                switchMap((form) => form.statusChanges),
-                debounceTime(debounceMs),
-                map((v) => v === 'VALID')
+                switchMap((form) => combineLatest([of(form), form.statusChanges.pipe(startWith(form.status))])),
+                pluck(0, 'valid'),
+                debounceTime(debounceMs)
             )
             .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
+    }
+
+    startFormControlsValidationCheck() {
+        return this.form$.subscribe((control) => this.validationCheckService.setUpFormControl(this.stepName, control));
     }
 
     protected abstract toForm(data: QuestionaryData): FormGroup;

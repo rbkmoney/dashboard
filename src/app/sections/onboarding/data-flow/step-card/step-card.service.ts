@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, of, Subject, zip } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../../api';
@@ -31,11 +31,8 @@ export class StepCardService {
         private validityService: ValidityService
     ) {
         const claimID$ = this.route.params.pipe(pluck('claimID'));
-        this.selectStepFlowIndex$
-            .pipe(
-                switchMap((i) => zip(of(i), this.stepFlowService.stepFlow$)),
-                map(([i, stepFlow]) => stepFlow[i])
-            )
+        combineLatest([this.stepFlowService.stepFlow$, this.selectStepFlowIndex$])
+            .pipe(map(([stepFlow, idx]) => stepFlow[idx]))
             .subscribe((step) => {
                 this.questionaryStateService.save();
                 this.stepFlowService.navigate(step);

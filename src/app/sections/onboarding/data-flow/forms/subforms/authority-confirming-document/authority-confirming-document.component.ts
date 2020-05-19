@@ -1,43 +1,53 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
+import { Component, Inject, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { BehaviorSubject, combineLatest, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
+import { AuthorityConfirmingDocumentType } from '../../../../../../api';
+import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { LAYOUT_GAP } from '../../../../../constants';
-
-const documentTypes = ['solePartyDecision', 'meetingOfShareholders', 'meetingOfParticipants'];
-const customDocumentType = 'custom';
+import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';
 
 @Component({
     selector: 'dsh-authority-confirming-document',
     templateUrl: 'authority-confirming-document.component.html',
 })
-export class AuthorityConfirmingDocumentComponent implements OnChanges {
-    isCustomDocumentInfoVisible = false;
-    selectedOption = '';
-    readonly selectOptionTypes = [...documentTypes, customDocumentType];
-
-    @Input() form: FormGroup;
-
-    constructor(private fb: FormBuilder, @Inject(LAYOUT_GAP) public layoutGap: string) {}
-
-    ngOnChanges({ form }: SimpleChanges) {
-        if (form && form.currentValue) {
-            const type = form.currentValue.value.type;
-            if (type === null) {
-                return;
-            }
-            const isKnownType = documentTypes.includes(type);
-            this.selectedOption = isKnownType ? type : customDocumentType;
-            this.isCustomDocumentInfoVisible = !isKnownType;
-        }
+export class AuthorityConfirmingDocumentComponent {
+    form$ = new BehaviorSubject<FormGroup>(null);
+    @Input() set form(form: FormGroup) {
+        this.form$.next(form);
     }
 
-    documentTypeSelectionChange({ value }: MatSelectChange) {
-        const isCustomType = value === customDocumentType;
-        this.isCustomDocumentInfoVisible = isCustomType;
-        this.form.patchValue({
-            type: isCustomType ? '' : value,
-        });
-        this.form.setControl('date', this.fb.control(null, isCustomType ? Validators.required : null));
+    readonly selectOptionTypes = Object.values(AuthorityConfirmingDocumentType);
+
+    customType = AuthorityConfirmingDocumentService.CustomType;
+
+    isCustom$ = this.form$.pipe(
+        switchMap((form) =>
+            form
+                ? form.valueChanges.pipe(
+                      startWith(form.value),
+                      map((v) => v.type === this.customType)
+                  )
+                : of(false)
+        ),
+        distinctUntilChanged(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
+    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {
+        combineLatest([this.form$, this.isCustom$])
+            .pipe(filter(([f]) => !!f))
+            .subscribe(([form, isCustom]) => {
+                if (isCustom) {
+                    form.controls.customType.enable();
+                    form.controls.number.enable();
+                    form.controls.date.enable();
+                } else {
+                    form.controls.customType.disable();
+                    form.controls.number.disable();
+                    form.controls.date.disable();
+                }
+            });
     }
 }
