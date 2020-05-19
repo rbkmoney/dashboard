@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-shop-selector-theme($theme) {
+    $background: map-get($theme, background);
+
+    .dsh-shop-selector-action-container {
+        background-color: mat-color($background, card);
+    }
+}

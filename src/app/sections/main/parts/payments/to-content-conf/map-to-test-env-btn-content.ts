@@ -1,11 +1,11 @@
 import { iif, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { routeEnv } from '../../../../route-env';
+import { RouteEnv } from '../../../../route-env';
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
-    routerLink: `/payment-section/env/${routeEnv['0']}/operations`,
+    routerLink: `/payment-section/env/${RouteEnv.test}/operations`,
     disabled: false
 });
 
