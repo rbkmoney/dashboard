@@ -13,7 +13,7 @@ import { ReportsService } from './reports.service';
     selector: 'dsh-reports',
     templateUrl: 'reports.component.html',
     styleUrls: ['reports.component.scss'],
-    providers: [ReportsService]
+    providers: [ReportsService],
 })
 export class ReportsComponent {
     reports$ = this.reportsService.searchResult$;
@@ -43,11 +43,11 @@ export class ReportsComponent {
                 width: '560px',
                 disableClose: true,
                 data: {
-                    shopsInfo$: this.reportsService.shopsInfo$
-                }
+                    shopsInfo$: this.reportsService.shopsInfo$,
+                },
             })
             .afterClosed()
-            .pipe(filter(r => r === 'create'))
+            .pipe(filter((r) => r === 'create'))
             .subscribe(() => {
                 this.snackBar.open(
                     this.transloco.translate('create.success', null, 'reports|scoped'),

@@ -55,16 +55,16 @@ import { SearchFormComponent } from './search-form';
         MatMenuModule,
         FormControlsModule,
         EmptySearchResultModule,
-        MatDividerModule
+        MatDividerModule,
     ],
     declarations: [
         ReportsComponent,
         SearchFormComponent,
         CreateReportDialogComponent,
         ReportListComponent,
-        FilesComponent
+        FilesComponent,
     ],
     exports: [ReportsComponent],
-    entryComponents: [CreateReportDialogComponent]
+    entryComponents: [CreateReportDialogComponent],
 })
 export class ReportsModule {}

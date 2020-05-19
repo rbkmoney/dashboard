@@ -1,7 +1,7 @@
 /**
  * https://github.com/sindresorhus/multi-download/blob/master/index.js
  */
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function download(url: string, name?: string) {
     console.log('THIS IS DOWNLOAD URL EEEEEEEEEEEE', url);

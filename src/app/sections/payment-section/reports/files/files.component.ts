@@ -15,7 +15,7 @@ import { LAYOUT_GAP } from '../../../constants';
 @Component({
     selector: 'dsh-files',
     templateUrl: 'files.component.html',
-    styleUrls: ['files.component.scss']
+    styleUrls: ['files.component.scss'],
 })
 export class FilesComponent {
     @Input() files: FileMeta[];
@@ -43,7 +43,7 @@ export class FilesComponent {
 
     downloadFile(fileID: string) {
         this.isLoading = true;
-        this.getDownloadLink(fileID).subscribe(fileLink => {
+        this.getDownloadLink(fileID).subscribe((fileLink) => {
             this.isLoading = false;
             download(fileLink.url);
         });
@@ -51,9 +51,9 @@ export class FilesComponent {
 
     downloadAll() {
         this.isLoading = true;
-        forkJoin(this.files.map(file => this.getDownloadLink(file.id)))
-            .pipe(map(links => links.map(link => link.url)))
-            .subscribe(urls => {
+        forkJoin(this.files.map((file) => this.getDownloadLink(file.id)))
+            .pipe(map((links) => links.map((link) => link.url)))
+            .subscribe((urls) => {
                 this.isLoading = false;
                 multipleDownload(urls);
             });

@@ -16,7 +16,7 @@ export class ReportsService extends PartialFetcher<Report, SearchParams> {
 
     selectedId$ = this.route.fragment.pipe(
         first(),
-        switchMap(fragment => (fragment ? this.loadSelected(Number(fragment)) : of(-1))),
+        switchMap((fragment) => (fragment ? this.loadSelected(Number(fragment)) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -31,14 +31,14 @@ export class ReportsService extends PartialFetcher<Report, SearchParams> {
     }
 
     select(id: number) {
-        this.searchResult$.pipe(pluck(id, 'id')).subscribe(fragment => {
+        this.searchResult$.pipe(pluck(id, 'id')).subscribe((fragment) => {
             this.router.navigate([], { fragment: fragment?.toString(), queryParams: this.route.snapshot.queryParams });
         });
     }
 
     loadSelected(id: number) {
         return this.fetchResultChanges$.pipe(
-            map(({ result }) => result.findIndex(p => p.id === id)),
+            map(({ result }) => result.findIndex((p) => p.id === id)),
             first(null, -1)
         );
     }

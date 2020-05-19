@@ -10,7 +10,7 @@ import { ReportListService } from './report-list.service';
 @Component({
     selector: 'dsh-report-list',
     templateUrl: 'report-list.component.html',
-    providers: [ReportListService]
+    providers: [ReportListService],
 })
 export class ReportListComponent {
     @Input() reports: Report[];
@@ -20,7 +20,7 @@ export class ReportListComponent {
     constructor(private reportService: ReportListService, private reportsService: ReportsService) {}
 
     getShopInfo(shopID: string): Observable<ShopInfo> {
-        return this.reportService.shopsInfo$.pipe(map(p => p.find(s => s.shopID === shopID)));
+        return this.reportService.shopsInfo$.pipe(map((p) => p.find((s) => s.shopID === shopID)));
     }
 
     select(id: number) {
