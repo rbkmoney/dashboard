@@ -11,15 +11,15 @@ import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 import { ShopService } from '../../../../../api';
 import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { ShopsService } from '../shops.service';
 
 const SHOPS_LIMIT = 10;
 
 @Injectable()
 export class ShopsPanelsListService {
+    private allShops$ = new ReplaySubject<Shop[]>(1);
     private showMore$ = new Subject<void>();
 
-    selectedPanelPosition$ = combineLatest([this.route.fragment, this.shopsService.shops$]).pipe(
+    selectedPanelPosition$ = combineLatest([this.route.fragment, this.allShops$]).pipe(
         first(),
         map(([fragment, shops]) => shops.findIndex(({ id }) => id === fragment)),
         shareReplay(SHARE_REPLAY_CONF)
@@ -33,16 +33,18 @@ export class ShopsPanelsListService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    shops$ = new ReplaySubject<Shop[]>(1);
+    shops$ = combineLatest([this.allShops$, this.offset$]).pipe(
+        map(([shops, showedCount]) => shops.slice(0, showedCount)),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
-    hasMore$ = combineLatest([this.shopService.shops$.pipe(pluck('length')), this.offset$]).pipe(
+    hasMore$ = combineLatest([this.allShops$.pipe(pluck('length')), this.offset$]).pipe(
         map(([count, showedCount]) => count > showedCount),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(
         private dialog: MatDialog,
-        private shopsService: ShopsService,
         private route: ActivatedRoute,
         private router: Router,
         private shopService: ShopService,
@@ -51,7 +53,7 @@ export class ShopsPanelsListService {
     ) {}
 
     select(idx: number) {
-        this.shopsService.shops$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+        this.allShops$.pipe(pluck(idx, 'id')).subscribe(fragment => {
             this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
         });
     }
@@ -99,7 +101,7 @@ export class ShopsPanelsListService {
     }
 
     updateShops(shops: Shop[]) {
-        this.shops$.next(shops);
+        this.allShops$.next(shops);
     }
 
     private getOffsetBySelectedPanelPosition(idx: number) {
