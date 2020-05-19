@@ -6,6 +6,7 @@ import { pluck } from 'rxjs/operators';
 import { InitializeFormsService } from './forms';
 import { QuestionaryStateService } from './questionary-state.service';
 import { StepFlowService } from './step-flow';
+import { ValidationCheckService } from './validation-check';
 import { ValidityService } from './validity';
 
 @Injectable()
@@ -17,13 +18,15 @@ export class DataFlowService {
         private stepFlowService: StepFlowService,
         private initializeFormsService: InitializeFormsService,
         private questionaryStateService: QuestionaryStateService,
-        private validityService: ValidityService
+        private validityService: ValidityService,
+        private validationCheckService: ValidationCheckService
     ) {}
 
     init() {
         this.questionaryStateService.subscribe();
         this.stepFlowService.subscribe();
         this.validityService.subscribe();
+        this.validationCheckService.subscribe();
         this.initializeFormsService.subscribe();
         this.sub = this.route.params
             .pipe(pluck('documentID'))
@@ -35,6 +38,7 @@ export class DataFlowService {
         this.initializeFormsService.unsubscribe();
         this.questionaryStateService.unsubscribe();
         this.validityService.unsubscribe();
+        this.validationCheckService.unsubscribe();
         this.stepFlowService.unsubscribe();
         this.questionaryStateService.reset();
     }
