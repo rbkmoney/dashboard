@@ -10,6 +10,7 @@ import {
     paymentStatuses as paymentStatusesConsts,
     tokenProviders as tokenProvidersConsts
 } from '../../constants';
+import { ShopInfo } from '../../operators';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -21,12 +22,12 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    shopsInfo$ = this.searchFormService.shopsInfo$;
     tokenProviders = tokenProvidersConsts;
     paymentMethods = paymentMethodsConsts;
     bankCardPaymentSystems = bankCardPaymentSystemsConsts;

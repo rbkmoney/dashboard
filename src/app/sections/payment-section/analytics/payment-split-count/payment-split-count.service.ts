@@ -19,11 +19,11 @@ export class PaymentSplitCountService {
 
     private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            forkJoin(
+            forkJoin([
                 of(fromTime),
                 of(toTime),
                 this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
-            ).pipe(replaceError)
+            ]).pipe(replaceError)
         )
     );
     splitCount$ = this.splitCountOrError$.pipe(
