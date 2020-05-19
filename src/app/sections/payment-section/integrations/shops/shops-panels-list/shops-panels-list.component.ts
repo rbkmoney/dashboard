@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -12,10 +12,12 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopsPanelsListComponent {
-    @Input()
-    set shops(shops: Shop[]) {
+    @Input() set shops(shops: Shop[]) {
         this.shopsPanelsListService.updateShops(shops);
     }
+
+    @Output() activateShop = new EventEmitter<string>();
+    @Output() suspendShop = new EventEmitter<string>();
 
     shops$ = this.shopsPanelsListService.shops$;
     selectedPanelPosition$ = this.shopsPanelsListService.selectedPanelPosition$;
@@ -36,11 +38,11 @@ export class ShopsPanelsListComponent {
     }
 
     suspend(id: string) {
-        this.shopsPanelsListService.suspend(id);
+        this.suspendShop.emit(id);
     }
 
     activate(id: string) {
-        this.shopsPanelsListService.activate(id);
+        this.activateShop.emit(id);
     }
 
     showMore() {
