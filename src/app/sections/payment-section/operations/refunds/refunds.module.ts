@@ -49,9 +49,9 @@ import { TableComponent } from './table';
         MatMenuModule,
         RangeDatepickerModule,
         EmptySearchResultModule,
-        ShopSelectorModule
+        ShopSelectorModule,
     ],
     declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class RefundsModule {}

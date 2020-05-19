@@ -10,7 +10,7 @@ import { getPaymentStatusInfo } from '../../../get-payment-status-info';
 @Component({
     selector: 'dsh-payment',
     templateUrl: 'payment.component.html',
-    styleUrls: ['payment.component.scss']
+    styleUrls: ['payment.component.scss'],
 })
 export class PaymentComponent implements OnChanges {
     color: Color;

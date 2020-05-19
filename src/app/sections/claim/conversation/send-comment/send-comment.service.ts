@@ -17,30 +17,30 @@ export class SendCommentService {
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;
-    conversationSaved$: Observable<ConversationID> = this.conversationId$.pipe(filter(id => !!id));
+    conversationSaved$: Observable<ConversationID> = this.conversationId$.pipe(filter((id) => !!id));
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
     inProgress$: Observable<boolean> = progress(this.sendComment$, merge(this.conversationId$, this.error$));
 
     constructor(private fb: FormBuilder, private messagesService: MessagesService) {
         this.form = this.fb.group({
-            comment: ['', [Validators.maxLength(1000)]]
+            comment: ['', [Validators.maxLength(1000)]],
         });
         this.sendComment$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
-                switchMap(text => {
+                switchMap((text) => {
                     const conversationId = uuid();
                     const params = createSingleMessageConversationParams(conversationId, text);
                     return forkJoin([
                         of(conversationId),
                         this.messagesService.saveConversations(params).pipe(
-                            catchError(ex => {
+                            catchError((ex) => {
                                 console.error(ex);
                                 const error = { hasError: true, code: 'saveConversationsFailed' };
                                 this.error$.next(error);
                                 return of(error);
                             })
-                        )
+                        ),
                     ]);
                 }),
                 filter(([, res]) => get(res, ['hasError']) !== true)

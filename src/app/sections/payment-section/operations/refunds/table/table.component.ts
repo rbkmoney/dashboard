@@ -7,7 +7,7 @@ import { RefundsTableData } from './refunds-table-data';
 @Component({
     selector: 'dsh-refunds-table',
     templateUrl: 'table.component.html',
-    styleUrls: ['table.component.scss']
+    styleUrls: ['table.component.scss'],
 })
 export class TableComponent {
     @Input() data: MatTableDataSource<RefundsTableData>;

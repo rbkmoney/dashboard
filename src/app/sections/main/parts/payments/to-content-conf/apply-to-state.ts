@@ -16,13 +16,13 @@ const applyActionBtnContent = (
 ): Observable<ContentConfig> =>
     apply(state, val, ([s, actionBtnContent]) => ({
         ...s,
-        actionBtnContent
+        actionBtnContent,
     }));
 
 const applySubheading = (state: Observable<ContentConfig>, val: Observable<string>): Observable<ContentConfig> =>
     apply(state, val, ([s, subheading]) => ({
         ...s,
-        subheading
+        subheading,
     }));
 
 const applyTestEnvBtnContent = (
@@ -31,7 +31,7 @@ const applyTestEnvBtnContent = (
 ): Observable<ContentConfig> =>
     apply(state, val, ([s, testEnvBtnContent]) => ({
         ...s,
-        testEnvBtnContent
+        testEnvBtnContent,
     }));
 
 export const applyToSate = (

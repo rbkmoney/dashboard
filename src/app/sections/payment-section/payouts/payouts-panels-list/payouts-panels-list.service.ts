@@ -28,8 +28,8 @@ export class PayoutsPanelsListService {
                     .max(payoutSummary.map(({ toTime }) => moment(toTime)))
                     .utc()
                     .format(),
-                shopID
-            }
+                shopID,
+            },
         });
     }
 }

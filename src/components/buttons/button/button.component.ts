@@ -8,7 +8,7 @@ import {
     OnChanges,
     Renderer2,
     SimpleChanges,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { CanDisableCtor, mixinDisabled } from '@angular/material/core';
 
@@ -31,7 +31,7 @@ const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled
     templateUrl: 'button.component.html',
     styleUrls: ['button.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     @Input()
@@ -91,6 +91,6 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     }
 
     private hasHostAttributes(...attributes: string[]): boolean {
-        return attributes.some(attribute => this.button.hasAttribute(attribute));
+        return attributes.some((attribute) => this.button.hasAttribute(attribute));
     }
 }

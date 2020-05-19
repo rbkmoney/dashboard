@@ -43,9 +43,9 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         InvoiceTemplatesModule,
         ClipboardModule,
         ConfirmActionDialogModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent, PaymentLinkFormComponent],
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class PaymentLinkModule {}

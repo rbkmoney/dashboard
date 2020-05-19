@@ -5,6 +5,6 @@ import { KeycloakAngularModule } from './keycloak';
 
 @NgModule({
     imports: [KeycloakAngularModule],
-    providers: [AppAuthGuardService]
+    providers: [AppAuthGuardService],
 })
 export class AuthModule {}

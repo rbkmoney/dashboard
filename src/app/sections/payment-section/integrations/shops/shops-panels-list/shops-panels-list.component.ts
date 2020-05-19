@@ -9,7 +9,7 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
     selector: 'dsh-shops-panels-list',
     templateUrl: 'shops-panels-list.component.html',
     providers: [ShopsPanelsListService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopsPanelsListComponent {
     @Input()

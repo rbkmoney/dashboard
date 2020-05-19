@@ -6,7 +6,7 @@ import {
     LegalEntityContractor,
     LegalOwnerInfo,
     LegalRegistrationInfo,
-    RussianLegalEntity
+    RussianLegalEntity,
 } from '../../../../../api-codegen/questionary';
 import { getAddress } from './get-address';
 
@@ -25,8 +25,8 @@ function getLegalOwnerInfo(heads: Head[]): LegalOwnerInfo {
         inn: head.innfl,
         headPosition: head.position,
         russianPrivateEntity: {
-            fio: head.fio
-        }
+            fio: head.fio,
+        },
     };
 }
 
@@ -40,14 +40,12 @@ export function createLegalEntityContractor({ contractor, inn }: ReqResponseLega
             inn,
             registrationInfo: {
                 registrationInfoType: 'LegalRegistrationInfo',
-                registrationDate: moment(contractor.registrationDate)
-                    .utc()
-                    .format(),
-                registrationAddress: getAddress(contractor.legalAddress.addressRf)
+                registrationDate: moment(contractor.registrationDate).utc().format(),
+                registrationAddress: getAddress(contractor.legalAddress.addressRf),
             },
             okatoCode: contractor.okato,
             okpoCode: contractor.okpo,
-            ...(legalOwnerInfo ? { legalOwnerInfo } : {})
-        }
+            ...(legalOwnerInfo ? { legalOwnerInfo } : {}),
+        },
     };
 }

@@ -6,7 +6,7 @@ import { AuthorityConfirmingDocumentType } from '../../../../api/questionary/mod
 @Component({
     selector: 'dsh-authority-confirming-document-info',
     templateUrl: 'authority-confirming-document-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorityConfirmingDocumentInfoComponent {
     @Input() authorityConfirmingDocument: AuthorityConfirmingDocument;

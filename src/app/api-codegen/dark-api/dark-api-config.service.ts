@@ -9,7 +9,7 @@ export class DarkApiConfigService extends Configuration {
     constructor(keycloakService: KeycloakService, { apiEndpoint }: ConfigService) {
         super({
             apiKeys: { Authorization: `Bearer ${keycloakService.getKeycloakInstance().token}` },
-            basePath: `${apiEndpoint}/dark-api/v1`
+            basePath: `${apiEndpoint}/dark-api/v1`,
         });
     }
 }

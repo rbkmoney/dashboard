@@ -13,6 +13,6 @@ import { DonutChartItemComponent } from './donut-chart-item.component';
 @NgModule({
     imports: [CommonModule, CardModule, BarChartModule, FlexModule, SpinnerModule, TranslocoModule, DonutChartModule],
     declarations: [DonutChartItemComponent],
-    exports: [DonutChartItemComponent]
+    exports: [DonutChartItemComponent],
 })
 export class DonutChartItemModule {}

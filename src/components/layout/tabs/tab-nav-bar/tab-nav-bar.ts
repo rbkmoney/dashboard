@@ -17,7 +17,7 @@ import {
     Optional,
     QueryList,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { merge, of as observableOf, Subject } from 'rxjs';
@@ -29,7 +29,7 @@ import { DshInkBarDirective } from '../ink-bar.directive';
     selector: '[dsh-tab-nav-bar]',
     templateUrl: 'tab-nav-bar.html',
     styleUrls: ['tab-nav-bar.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TabNavComponent implements AfterContentChecked, AfterContentInit, OnDestroy {
     @Input() color: string;
@@ -43,10 +43,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
 
     // tslint:disable-next-line:no-use-before-declare
-    @ContentChildren(
-        forwardRef(() => TabLinkDirective),
-        { descendants: true }
-    )
+    @ContentChildren(forwardRef(() => TabLinkDirective), { descendants: true })
     _tabLinks: QueryList<TabLinkDirective>;
 
     constructor(
@@ -73,7 +70,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 
     ngAfterContentChecked(): void {
         if (this._activeLinkChanged) {
-            const activeTab = this._tabLinks.find(tab => tab.active);
+            const activeTab = this._tabLinks.find((tab) => tab.active);
 
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
@@ -98,7 +95,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 
 @Directive({
     selector: '[dsh-tab-link], [dshTabLink]',
-    exportAs: 'dshTabLink'
+    exportAs: 'dshTabLink',
 })
 export class TabLinkDirective implements CanDisable, HasTabIndex {
     private _isActive: boolean;

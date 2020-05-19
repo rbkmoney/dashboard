@@ -11,6 +11,6 @@ export const toPrivateEntityInfo = (i: RussianIndividualEntity | LegalOwnerInfo)
         residenceAddress: get(e, ['residenceAddress'], null),
         fio: get(e, ['fio'], null),
         snils: get(i, ['snils'], null),
-        innfl: get(i, ['inn'], null)
+        innfl: get(i, ['inn'], null),
     };
 };

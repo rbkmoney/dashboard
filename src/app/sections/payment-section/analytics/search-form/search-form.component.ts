@@ -16,7 +16,7 @@ import { toSearchParams } from './to-search-params';
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFormComponent implements OnInit {
     @Input()
@@ -37,8 +37,8 @@ export class SearchFormComponent implements OnInit {
         date: {
             begin: moment().startOf('month'),
             end: moment().endOf('month'),
-            period: 'month'
-        }
+            period: 'month',
+        },
     };
 
     form = this.fb.group(this.defaultParams);
@@ -53,20 +53,20 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         this.form.valueChanges
             .pipe(
-                filter(v => !!v),
+                filter((v) => !!v),
                 debounceTime(300),
                 removeEmptyProperties,
                 map(toSearchParams)
             )
-            .subscribe(v => {
+            .subscribe((v) => {
                 this.router.navigate([location.pathname], { queryParams: v });
                 this.valueChanges.emit(v);
             });
         this.route.queryParams
             .pipe(
                 take(1),
-                map(v => toFormValue(v, this.defaultParams))
+                map((v) => toFormValue(v, this.defaultParams))
             )
-            .subscribe(v => this.form.patchValue(v));
+            .subscribe((v) => this.form.patchValue(v));
     }
 }

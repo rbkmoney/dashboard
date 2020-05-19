@@ -8,7 +8,7 @@ import { PaymentSplitAmountService } from './payment-split-amount.service';
 @Component({
     selector: 'dsh-payment-split-amount',
     templateUrl: './payment-split-amount.component.html',
-    providers: [PaymentSplitAmountService]
+    providers: [PaymentSplitAmountService],
 })
 export class PaymentSplitAmountComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;

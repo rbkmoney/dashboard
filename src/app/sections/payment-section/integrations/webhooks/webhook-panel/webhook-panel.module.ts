@@ -28,9 +28,9 @@ import { WebhookPanelComponent } from './webhook-panel.component';
         TranslocoModule,
         MatDialogModule,
         ConfirmActionDialogModule,
-        MatDividerModule
+        MatDividerModule,
     ],
     declarations: [WebhookPanelComponent, ActionsComponent, DetailsComponent, EventsComponent, KeyComponent],
-    exports: [WebhookPanelComponent]
+    exports: [WebhookPanelComponent],
 })
 export class WebhookPanelModule {}

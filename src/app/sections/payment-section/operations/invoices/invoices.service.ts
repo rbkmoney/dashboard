@@ -24,7 +24,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
         this.searchResult$,
-        this.shopService.shops$
+        this.shopService.shops$,
     ]).pipe(
         mapToInvoicesTableData,
         catchError(() => {

@@ -6,7 +6,7 @@ import { ReceiveWebhooksService } from './receive-webhooks.service';
 
 @Component({
     templateUrl: 'webhooks.component.html',
-    providers: [ReceiveWebhooksService, CreateWebhookService]
+    providers: [ReceiveWebhooksService, CreateWebhookService],
 })
 export class WebhooksComponent implements OnInit {
     webhooks$ = this.receiveWebhooksService.webhooks$;

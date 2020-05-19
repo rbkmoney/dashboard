@@ -8,7 +8,7 @@ import { CreateReportDialogService } from './create-report-dialog.service';
     selector: 'dsh-create-report-dialog',
     templateUrl: 'create-report-dialog.component.html',
     providers: [CreateReportDialogService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateReportDialogComponent {
     isLoading$ = this.createReportDialogService.isLoading$;

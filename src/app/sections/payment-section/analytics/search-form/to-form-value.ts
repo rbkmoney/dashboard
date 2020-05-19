@@ -11,7 +11,7 @@ export function toFormValue({ fromTime, toTime, period, ...params }: Params, def
         date: {
             begin: fromTime ? moment(fromTime) : defaultParams.date.begin,
             end: toTime ? moment(toTime) : defaultParams.date.end,
-            period: period ? period : defaultParams.date.period
-        }
+            period: period ? period : defaultParams.date.period,
+        },
     };
 }

@@ -20,7 +20,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
     );
     selectedIdx$ = this.route.fragment.pipe(
         first(),
-        switchMap(fragment => (fragment ? this.loadSelected(fragment) : of(-1))),
+        switchMap((fragment) => (fragment ? this.loadSelected(fragment) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
@@ -38,7 +38,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
     loadSelected(id: string) {
         return this.fetchResultChanges$.pipe(
             map(({ hasMore, result: payouts }) => {
-                const idx = payouts.findIndex(p => p.id === id);
+                const idx = payouts.findIndex((p) => p.id === id);
                 return { idx, isContinueToFetch: idx === -1 && hasMore };
             }),
             tap(({ isContinueToFetch }) => {
@@ -54,7 +54,7 @@ export class PayoutsService extends PartialFetcher<Payout, SearchParams> {
     }
 
     select(idx: number) {
-        this.searchResult$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+        this.searchResult$.pipe(pluck(idx, 'id')).subscribe((fragment) => {
             this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
         });
     }

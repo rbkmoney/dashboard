@@ -12,5 +12,5 @@ export const bankCardPaymentSystems: BankCardPaymentSystem[] = [
     'discover',
     'unionpay',
     'jcb',
-    'nspkmir'
+    'nspkmir',
 ];

@@ -11,7 +11,7 @@ import { InvoiceDetailsService } from './invoice-details.service';
     selector: 'dsh-invoice-details',
     templateUrl: './invoice-details.component.html',
     styleUrls: ['./invoice-details.component.scss'],
-    providers: [InvoiceDetailsService]
+    providers: [InvoiceDetailsService],
 })
 export class InvoiceDetailsComponent implements OnInit {
     @Input() invoiceID: string;

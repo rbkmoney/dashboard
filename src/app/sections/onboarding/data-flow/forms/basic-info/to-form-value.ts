@@ -5,7 +5,7 @@ import { FormValue } from '../form-value';
 
 const fromEntity = (i: IndividualEntity | LegalEntity): FormValue => ({
     name: get(i, ['name'], null),
-    inn: get(i, ['inn'], null)
+    inn: get(i, ['inn'], null),
 });
 
 const fromContractor = (c: Contractor): FormValue => {
@@ -14,13 +14,13 @@ const fromContractor = (c: Contractor): FormValue => {
             const individualEntity = get(c, ['individualEntity']);
             return {
                 ...fromEntity(individualEntity),
-                registrationPlace: get(individualEntity, ['registrationInfo', 'registrationPlace'], null)
+                registrationPlace: get(individualEntity, ['registrationInfo', 'registrationPlace'], null),
             };
         case 'LegalEntityContractor':
             const legalEntity = get(c, ['legalEntity']);
             return {
                 ...fromEntity(legalEntity),
-                registrationPlace: get(legalEntity, ['registrationInfo', 'registrationAddress'], null)
+                registrationPlace: get(legalEntity, ['registrationInfo', 'registrationAddress'], null),
             };
     }
 };
@@ -30,5 +30,5 @@ export const toFormValue = (d: QuestionaryData): FormValue => ({
     shopUrl: get(d, ['shopInfo', 'location', 'url'], null),
     shopName: get(d, ['shopInfo', 'details', 'name'], null),
     email: get(d, ['contactInfo', 'email'], null),
-    phoneNumber: get(d, ['contactInfo', 'phoneNumber'], null)
+    phoneNumber: get(d, ['contactInfo', 'phoneNumber'], null),
 });

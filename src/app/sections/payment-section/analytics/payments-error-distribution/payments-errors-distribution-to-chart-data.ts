@@ -7,16 +7,16 @@ import { DistributionChartData } from '../utils';
 const ERRORS_COUNT_TO_SHOW = 4;
 
 const filterErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErrorsDistributionResult[] =>
-    errors.filter(e => e.percents > 0);
+    errors.filter((e) => e.percents > 0);
 
 const sortErrorsByPercents = (errors: PaymentsErrorsDistributionResult[]): PaymentsErrorsDistributionResult[] =>
-    sortBy(errors, e => -e.percents);
+    sortBy(errors, (e) => -e.percents);
 
 const groupErrors = (errors: PaymentsErrorsDistributionResult[], count: number): PaymentsErrorsDistributionResult[] => {
     const groupedErrors = errors.slice(0, count);
     const otherErrorsSummary = errors
         .slice(count)
-        .map(e => e.percents)
+        .map((e) => e.percents)
         .reduce((prev, curr) => prev + curr);
     groupedErrors.push({ error: "'otherErrors'", percents: otherErrorsSummary });
     return groupedErrors;
@@ -31,10 +31,10 @@ const prepareErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErro
     return sortedErrors;
 };
 
-const errorsToSeries = (errors: PaymentsErrorsDistributionResult[]): number[] => errors.map(d => d.percents);
+const errorsToSeries = (errors: PaymentsErrorsDistributionResult[]): number[] => errors.map((d) => d.percents);
 
 const errorsToErrorCodes = (errors: PaymentsErrorsDistributionResult[]): string[] =>
-    errors.map(d => `analytics.errorCodes.${d.error.split("'")[1] ?? 'unknownError'}`);
+    errors.map((d) => `analytics.errorCodes.${d.error.split("'")[1] ?? 'unknownError'}`);
 
 const errorsToLabels = (errors: PaymentsErrorsDistributionResult[]): string[] => {
     const errorCodes: string[] = errorsToErrorCodes(errors);

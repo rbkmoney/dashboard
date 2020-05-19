@@ -7,9 +7,9 @@ import { UrlShortenerConfigService } from './url-shortener-config.service';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: UrlShortenerConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: UrlShortenerConfigService }],
+        },
     ],
-    providers: [UrlShortenerConfigService]
+    providers: [UrlShortenerConfigService],
 })
 export class UrlShortenerModule {}

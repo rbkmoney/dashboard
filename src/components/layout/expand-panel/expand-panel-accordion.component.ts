@@ -6,7 +6,7 @@ import {
     Input,
     Output,
     QueryList,
-    ViewContainerRef
+    ViewContainerRef,
 } from '@angular/core';
 import { combineLatest, merge, of, Subscription } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -20,17 +20,12 @@ const SCROLL_TIME_MS = 500;
 
 @Component({
     selector: 'dsh-expand-panel-accordion',
-    template: `
-        <ng-content></ng-content>
-    `
+    template: ` <ng-content></ng-content> `,
 })
 export class ExpandPanelAccordionComponent implements AfterViewInit {
     @Output() expandedChange = new EventEmitter<number>();
     @Input()
-    @coerce(
-        v => v,
-        (v: number, self: ExpandPanelAccordionComponent) => self.expandedChange.emit(v)
-    )
+    @coerce((v) => v, (v: number, self: ExpandPanelAccordionComponent) => self.expandedChange.emit(v))
     expanded: number;
 
     @ContentChildren(ExpandPanelComponent, { descendants: true })
@@ -49,10 +44,10 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
     private toggle(idx: number, isExpand: boolean) {
         let expanded = idx;
         if (isExpand) {
-            this.expandPanels.filter((p, i) => p.expanded && i !== idx).forEach(p => p.collapse());
+            this.expandPanels.filter((p, i) => p.expanded && i !== idx).forEach((p) => p.collapse());
             expanded = idx;
         } else {
-            expanded = this.expandPanels.toArray().findIndex(p => p.expanded);
+            expanded = this.expandPanels.toArray().findIndex((p) => p.expanded);
         }
         if (this.expanded !== expanded) {
             this.expanded = expanded;
@@ -62,12 +57,12 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
     private subscribeAutoscrollToSelected() {
         combineLatest([
             this.expandPanelsRefs.changes.pipe(startWith(this.expandPanelsRefs)),
-            this.expandPanels.changes.pipe(startWith(this.expandPanels))
+            this.expandPanels.changes.pipe(startWith(this.expandPanels)),
         ])
             .pipe(
                 map(([refs, components]) => ({
                     ref: refs.toArray()[this.expanded],
-                    component: components.toArray()[this.expanded]
+                    component: components.toArray()[this.expanded],
                 })),
                 filter(({ ref, component }) => !!ref && !!component),
                 take(1),
@@ -79,7 +74,7 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
                             ref.element.nativeElement.offsetTop - SCROLL_TO_Y_OFFSET_PX,
                             SCROLL_TIME_MS
                         ),
-                        of(component)
+                        of(component),
                     ])
                 ),
                 map(([scrollY, component]) => ({ scrollY, component }))
@@ -96,7 +91,7 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
                         ...expandPanels
                             .toArray()
                             .map((expandPanel, idx) =>
-                                expandPanel.expandedChange.pipe(map(isExpand => ({ idx, isExpand })))
+                                expandPanel.expandedChange.pipe(map((isExpand) => ({ idx, isExpand })))
                             )
                     )
                 ),

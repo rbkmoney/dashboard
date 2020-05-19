@@ -19,12 +19,12 @@ import { BasicInfoComponent, BasicInfoService } from './basic-info';
 import { BeneficialOwnersComponent, BeneficialOwnersService } from './beneficial-owners';
 import {
     FinancialAndEconomicActivityComponent,
-    FinancialAndEconomicActivityService
+    FinancialAndEconomicActivityService,
 } from './financial-and-economic-activity';
 import { InitializeFormsService } from './initialize-forms.service';
 import {
     PlanningOperationsAndPayoutToolComponent,
-    PlanningOperationsAndPayoutToolService
+    PlanningOperationsAndPayoutToolService,
 } from './planning-operations-and-payout-tool';
 import { RussianLegalOwnerComponent, RussianLegalOwnerService } from './russian-legal-owner';
 import { RussianPrivateEntityComponent } from './russian-private-entity';
@@ -41,7 +41,7 @@ import {
     PrivateEntityInfoComponent,
     PrivateEntityInfoService,
     RussianDomesticPassportComponent,
-    RussianDomesticPassportService
+    RussianDomesticPassportService,
 } from './subforms';
 
 @NgModule({
@@ -60,7 +60,7 @@ import {
         MatRadioModule,
         TextMaskModule,
         FormControlsModule,
-        DaDataModule
+        DaDataModule,
     ],
     declarations: [
         BasicInfoComponent,
@@ -74,7 +74,7 @@ import {
         BeneficialOwnersComponent,
         PlanningOperationsAndPayoutToolComponent,
         IndividualResidencyInfoComponent,
-        LegalResidencyInfoComponent
+        LegalResidencyInfoComponent,
     ],
     providers: [
         InitializeFormsService,
@@ -89,7 +89,7 @@ import {
         PlanningOperationsAndPayoutToolService,
         IndividualResidencyInfoService,
         RussianPrivateEntityService,
-        LegalResidencyInfoService
-    ]
+        LegalResidencyInfoService,
+    ],
 })
 export class OnboardingFormsModule {}

@@ -14,7 +14,7 @@ import {
     ShopAccountCreation,
     ShopCategoryChange,
     ShopCreation,
-    ShopLocationUrl
+    ShopLocationUrl,
 } from '../../../api-codegen/capi';
 
 const defaultClaimContractor: RussianLegalEntity = {
@@ -32,8 +32,8 @@ const defaultClaimContractor: RussianLegalEntity = {
         account: '00000000000000000000',
         bankName: 'Test bank name',
         bankPostAccount: '00000000000000000000',
-        bankBik: '000000000'
-    }
+        bankBik: '000000000',
+    },
 };
 
 const defaultPayoutToolDetails: PayoutToolDetailsBankAccount = {
@@ -41,15 +41,12 @@ const defaultPayoutToolDetails: PayoutToolDetailsBankAccount = {
     account: '00000000000000000000',
     bankName: 'Test bank name',
     bankPostAccount: '00000000000000000000',
-    bankBik: '000000000'
+    bankBik: '000000000',
 };
 
 const defaultLegalAgreement: LegalAgreement = {
     id: '000000/00',
-    signedAt: moment()
-        .subtract(1, 'days')
-        .utc()
-        .format() as any
+    signedAt: moment().subtract(1, 'days').utc().format() as any,
 };
 
 const contractCreationChange = (
@@ -62,7 +59,7 @@ const contractCreationChange = (
         contractID,
         contractModificationType: 'ContractCreation',
         paymentInstitutionID,
-        contractor: contractor || defaultClaimContractor
+        contractor: contractor || defaultClaimContractor,
     };
 };
 
@@ -78,7 +75,7 @@ const contractPayoutToolCreationChange = (
         contractModificationType: 'ContractPayoutToolCreation',
         payoutToolID,
         currency,
-        details: details || defaultPayoutToolDetails
+        details: details || defaultPayoutToolDetails,
     } as ContractPayoutToolCreation;
 };
 
@@ -90,7 +87,7 @@ const contractLegalAgreementBindingChange = (
         partyModificationType: 'ContractModification',
         contractID,
         contractModificationType: 'ContractLegalAgreementBinding',
-        legalAgreement: legalAgreement || defaultLegalAgreement
+        legalAgreement: legalAgreement || defaultLegalAgreement,
     };
 };
 
@@ -101,14 +98,14 @@ const shopCreationChange = (shopID: string, contractID: string, payoutToolID: st
         shopModificationType: 'ShopCreation',
         location: {
             locationType: 'ShopLocationUrl',
-            url: 'http://test.url'
+            url: 'http://test.url',
         } as ShopLocationUrl,
         details: {
             name: 'Test shop',
-            description: 'Shop for test integration'
+            description: 'Shop for test integration',
         },
         contractID,
-        payoutToolID
+        payoutToolID,
     };
 };
 
@@ -117,7 +114,7 @@ const shopCategoryChange = (shopID: string, categoryID: number): ShopCategoryCha
         partyModificationType: 'ShopModification',
         shopID,
         shopModificationType: 'ShopCategoryChange',
-        categoryID
+        categoryID,
     };
 };
 
@@ -126,7 +123,7 @@ const shopAccountCreationChange = (shopID: string, currency: string): ShopAccoun
         partyModificationType: 'ShopModification',
         shopID,
         shopModificationType: 'ShopAccountCreation',
-        currency
+        currency,
     };
 };
 
@@ -141,6 +138,6 @@ export const createTestShopClaimChangeset = (id?: string): ClaimChangeset => {
         contractLegalAgreementBindingChange(testContractID),
         shopCreationChange(testShopID, testContractID, testPayoutToolID),
         shopCategoryChange(testShopID, 1),
-        shopAccountCreationChange(testShopID, 'RUB')
+        shopAccountCreationChange(testShopID, 'RUB'),
     ];
 };

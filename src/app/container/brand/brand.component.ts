@@ -5,7 +5,7 @@ import { BrandType } from './brand-type';
 @Component({
     selector: 'dsh-brand',
     templateUrl: './brand.component.html',
-    styleUrls: ['./brand.component.scss']
+    styleUrls: ['./brand.component.scss'],
 })
 export class BrandComponent {
     @Input() type: BrandType = BrandType.normal;

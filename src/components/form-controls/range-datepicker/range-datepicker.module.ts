@@ -28,9 +28,9 @@ import { RangeDatepickerComponent } from './range-datepicker.component';
         ReactiveFormsModule,
         CommonModule,
         TranslocoModule,
-        MatDividerModule
+        MatDividerModule,
     ],
     declarations: [RangeDatepickerComponent, RangeDatePipe],
-    exports: [RangeDatepickerComponent]
+    exports: [RangeDatepickerComponent],
 })
 export class RangeDatepickerModule {}

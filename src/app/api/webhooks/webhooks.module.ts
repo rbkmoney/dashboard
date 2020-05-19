@@ -5,6 +5,6 @@ import { WebhooksService } from './webhooks.service';
 
 @NgModule({
     imports: [CAPIModule],
-    providers: [WebhooksService]
+    providers: [WebhooksService],
 })
 export class WebhooksModule {}

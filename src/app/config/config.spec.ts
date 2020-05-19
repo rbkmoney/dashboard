@@ -8,7 +8,7 @@ describe('ConfigService', () => {
     function createService() {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [ConfigService]
+            providers: [ConfigService],
         });
         const injector = getTestBed();
         // tslint:disable-next-line: deprecation

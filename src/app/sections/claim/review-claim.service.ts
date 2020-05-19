@@ -23,7 +23,7 @@ export class ReviewClaimService {
         shareReplay(1)
     );
     errorCode$: Observable<string> = this.error$.pipe(
-        filter(err => err.hasError),
+        filter((err) => err.hasError),
         pluck('code')
     );
     inProgress$: Observable<boolean> = progress(this.reviewClaim$, this.error$);
@@ -43,12 +43,12 @@ export class ReviewClaimService {
                     this.dialog
                         .open(ConfirmActionDialogComponent)
                         .afterClosed()
-                        .pipe(filter(r => r === 'confirm'))
+                        .pipe(filter((r) => r === 'confirm'))
                 ),
                 switchMap(() => this.routeParamClaimService.claim$),
                 switchMap(({ id, revision }) =>
                     this.claimsApiService.requestReviewClaimByID(id, revision).pipe(
-                        catchError(ex => {
+                        catchError((ex) => {
                             console.error(ex);
                             const error = { hasError: true, code: 'requestReviewClaimByIDFailed' };
                             this.error$.next(error);
@@ -60,12 +60,12 @@ export class ReviewClaimService {
             .subscribe(() => {
                 this.receiveClaimService.receiveClaim();
                 this.snackBar.open(this.transloco.translate('reviewed', null, 'claim|scoped'), 'OK', {
-                    duration: 2000
+                    duration: 2000,
                 });
             });
-        this.errorCode$.subscribe(code =>
+        this.errorCode$.subscribe((code) =>
             this.snackBar.open(this.transloco.translate(`errors.${code}`), 'OK', {
-                duration: 5000
+                duration: 5000,
             })
         );
     }

@@ -7,7 +7,7 @@ const ICONS_DIR = path.join(ROOT_DIR, 'src/assets/icons');
 const ICONS_LIST_FILE = path.join(ROOT_DIR, 'src/app/icons.json');
 
 (async function genIconsList() {
-    const icons = fs.readdirSync(ICONS_DIR).map(file => file.slice(0, -4));
+    const icons = fs.readdirSync(ICONS_DIR).map((file) => file.slice(0, -4));
     const filePath = await prettier.resolveConfigFile();
     const options = await prettier.resolveConfig(filePath);
     const formatted = prettier.format(JSON.stringify(icons), { ...options, parser: 'json' });

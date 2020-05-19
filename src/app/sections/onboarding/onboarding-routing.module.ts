@@ -6,16 +6,16 @@ import { CompanySearchComponent } from './company-search';
 export const routes: Routes = [
     {
         path: '',
-        component: CompanySearchComponent
+        component: CompanySearchComponent,
     },
     {
         path: 'claim/:claimID/document/:documentID',
-        loadChildren: () => import('./data-flow').then(m => m.DataFlowModule)
-    }
+        loadChildren: () => import('./data-flow').then((m) => m.DataFlowModule),
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class OnboardingRoutingModule {}

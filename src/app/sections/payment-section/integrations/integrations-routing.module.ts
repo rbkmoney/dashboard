@@ -10,26 +10,26 @@ const routes: Routes = [
         children: [
             {
                 path: 'webhooks',
-                loadChildren: () => import('./webhooks/webhooks.module').then(m => m.WebhooksModule)
+                loadChildren: () => import('./webhooks/webhooks.module').then((m) => m.WebhooksModule),
             },
             {
                 path: 'shops',
-                loadChildren: () => import('./shops').then(m => m.ShopsModule)
+                loadChildren: () => import('./shops').then((m) => m.ShopsModule),
             },
             {
                 path: 'payment-link',
-                loadChildren: () => import('./payment-link').then(m => m.PaymentLinkModule)
+                loadChildren: () => import('./payment-link').then((m) => m.PaymentLinkModule),
             },
             {
                 path: 'api-key',
-                loadChildren: () => import('./api-key').then(m => m.ApiKeyModule)
-            }
-        ]
-    }
+                loadChildren: () => import('./api-key').then((m) => m.ApiKeyModule),
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class IntegrationsRoutingModule {}

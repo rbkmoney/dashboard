@@ -19,9 +19,9 @@ export class ReceiveWebhooksService {
     private receiveWebhooks$: Subject<void> = new Subject();
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        filter(s => !!s),
-        map(w => sortBy(w, i => !i.active)),
-        switchMap(webhooks => combineLatest([this.webhooksOffset$, of(webhooks)])),
+        filter((s) => !!s),
+        map((w) => sortBy(w, (i) => !i.active)),
+        switchMap((webhooks) => combineLatest([this.webhooksOffset$, of(webhooks)])),
         map(([offset, webhooks]) => webhooks.slice(0, offset)),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -48,18 +48,18 @@ export class ReceiveWebhooksService {
             .pipe(
                 first(),
                 pluck('offset'),
-                filter(l => !!l),
-                map(offset => parseInt(offset, 10))
+                filter((l) => !!l),
+                map((offset) => parseInt(offset, 10))
             )
-            .subscribe(offset => {
+            .subscribe((offset) => {
                 this.webhooksOffset$.next(offset);
             });
 
-        this.webhooksOffset$.subscribe(offset => {
+        this.webhooksOffset$.subscribe((offset) => {
             this.router.navigate([location.pathname], {
                 queryParams: {
-                    offset
-                }
+                    offset,
+                },
             });
         });
 
@@ -67,7 +67,7 @@ export class ReceiveWebhooksService {
             .pipe(
                 switchMap(() =>
                     this.webhooksService.getWebhooks().pipe(
-                        catchError(err => {
+                        catchError((err) => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             return of([]);
@@ -75,7 +75,7 @@ export class ReceiveWebhooksService {
                     )
                 )
             )
-            .subscribe(webhooks => {
+            .subscribe((webhooks) => {
                 this.webhooksState$.next(webhooks);
             });
     }

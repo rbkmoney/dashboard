@@ -17,10 +17,10 @@ import { HighlightSearchPipe } from './highlight.pipe';
         FormsModule,
         ReactiveFormsModule,
         MatInputModule,
-        DaDataApiModule
+        DaDataApiModule,
     ],
     declarations: [DaDataAutocompleteComponent, HighlightSearchPipe],
     entryComponents: [DaDataAutocompleteComponent],
-    exports: [DaDataAutocompleteComponent]
+    exports: [DaDataAutocompleteComponent],
 })
 export class DaDataModule {}

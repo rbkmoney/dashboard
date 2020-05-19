@@ -6,7 +6,7 @@ import { PlanningOperationsAndPayoutToolService } from './planning-operations-an
 
 @Component({
     templateUrl: 'planning-operations-and-payout-tool.component.html',
-    styleUrls: ['planning-operations-and-payout-tool.component.scss']
+    styleUrls: ['planning-operations-and-payout-tool.component.scss'],
 })
 export class PlanningOperationsAndPayoutToolComponent implements OnInit, OnDestroy {
     layoutGap = '20px';

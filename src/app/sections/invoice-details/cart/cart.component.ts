@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-cart',
-    templateUrl: 'cart.component.html'
+    templateUrl: 'cart.component.html',
 })
 export class CartComponent {
     @Input()

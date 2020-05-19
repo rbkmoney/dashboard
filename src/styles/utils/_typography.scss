@@ -30,7 +30,7 @@
         body-1: $body-1,
         caption: $caption,
         button: $button,
-        input: $input
+        input: $input,
     );
 
     // Loop through the levels and set the `font-family` of the ones that don't have one to the base.
@@ -40,13 +40,13 @@
             $new-level: map-merge(
                 $level,
                 (
-                    font-family: $font-family
+                    font-family: $font-family,
                 )
             );
             $config: map-merge(
                 $config,
                 (
-                    $key: $new-level
+                    $key: $new-level,
                 )
             );
         }
@@ -56,7 +56,7 @@
     @return map-merge(
         $config,
         (
-            font-family: $font-family
+            font-family: $font-family,
         )
     );
 }

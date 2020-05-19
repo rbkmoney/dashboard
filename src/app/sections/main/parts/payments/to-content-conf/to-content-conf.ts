@@ -18,12 +18,12 @@ const initialConf = {
     actionBtnContent: {
         actionLabel: `details`,
         routerLink: '/',
-        disabled: true
+        disabled: true,
     },
     testEnvBtnContent: {
         routerLink: '/',
-        disabled: true
-    }
+        disabled: true,
+    },
 };
 
 export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Claim[]>): Observable<ContentConfig> => {
@@ -39,7 +39,7 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
     const state = new BehaviorSubject<ContentConfig>(initialConf);
     return applyToSate(state.asObservable(), actionBtnContent$, subheading$, testEnvBtnContent$).pipe(
         startWith(initialConf),
-        tap(r => state.next(r)),
+        tap((r) => state.next(r)),
         shareReplay(1)
     );
 };

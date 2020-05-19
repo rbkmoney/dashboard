@@ -7,7 +7,7 @@ import { StatusColor } from '../../../../../app/theme-manager';
     template: '<ng-content></ng-content>',
     styleUrls: ['timeline-item-badge.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TimelineItemBadgeComponent {
     @Input() color: StatusColor;

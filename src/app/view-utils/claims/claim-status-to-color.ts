@@ -9,7 +9,7 @@ const statusMapToColor: { [status in ClaimStatus]: StatusColor } = {
     review: StatusColor.neutral,
     revoked: StatusColor.warn,
     denied: StatusColor.warn,
-    accepted: StatusColor.success
+    accepted: StatusColor.success,
 };
 
 export const claimStatusToColor = (status: ClaimStatus): StatusColor => statusMapToColor[status];

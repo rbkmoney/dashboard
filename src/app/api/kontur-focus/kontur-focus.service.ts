@@ -14,7 +14,7 @@ import {
     LicencesQuery,
     LicencesResponses,
     ReqQuery,
-    ReqResponses
+    ReqResponses,
 } from '../../api-codegen/aggr-proxy';
 
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;

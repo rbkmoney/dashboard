@@ -37,9 +37,9 @@ import { WebhooksComponent } from './webhooks.component';
         WebhookPanelModule,
         SpinnerModule,
         EmptySearchResultModule,
-        ShowMorePanelModule
+        ShowMorePanelModule,
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent]
+    entryComponents: [CreateWebhookComponent],
 })
 export class WebhooksModule {}

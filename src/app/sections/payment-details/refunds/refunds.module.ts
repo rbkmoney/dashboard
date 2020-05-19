@@ -37,11 +37,11 @@ import { RefundsComponent } from './refunds.component';
         LayoutModule,
         StatusDetailsItemModule,
         TranslocoModule,
-        FormControlsModule
+        FormControlsModule,
     ],
     declarations: [CreateRefundComponent, RefundsComponent, RefundItemComponent],
     exports: [RefundsComponent],
     providers: [RefundSearchService, RefundService, ShopService, AccountService],
-    entryComponents: [CreateRefundComponent]
+    entryComponents: [CreateRefundComponent],
 })
 export class RefundsModule {}

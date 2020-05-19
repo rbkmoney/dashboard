@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-individual-residency-info',
-    templateUrl: 'individual-residency-info.component.html'
+    templateUrl: 'individual-residency-info.component.html',
 })
 export class IndividualResidencyInfoComponent {
     @Input() form: FormGroup;

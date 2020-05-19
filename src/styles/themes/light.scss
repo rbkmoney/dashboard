@@ -19,7 +19,7 @@ $background: (
      * Custom
      *
     */ hover: map_get($mat-grey, 200),
-    selected-button: map_get($mat-grey, 100)
+    selected-button: map_get($mat-grey, 100),
 );
 
 $foreground: (
@@ -44,7 +44,7 @@ $foreground: (
     /*
    * Custom
    *
-*/ contrast-test: white
+*/ contrast-test: white,
 );
 
 $theme: (
@@ -64,7 +64,7 @@ $theme: (
     gray: mat-palette($mat-grey),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
-    warn-base: mat-color(mat-palette($dsh-warn), 300)
+    warn-base: mat-color(mat-palette($dsh-warn), 300),
 );
 
 @include dsh-theme($theme);

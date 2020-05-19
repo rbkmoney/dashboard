@@ -8,7 +8,7 @@ import { PaymentsAmountService } from './payments-amount.service';
 @Component({
     selector: 'dsh-payments-amount',
     templateUrl: './payments-amount.component.html',
-    providers: [PaymentsAmountService]
+    providers: [PaymentsAmountService],
 })
 export class PaymentsAmountComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;
