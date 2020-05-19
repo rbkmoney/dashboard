@@ -11,23 +11,6 @@
         </div>
     </div>
     <dsh-reports-search-form></dsh-reports-search-form>
-    <div fxLayout="column" fxLayoutGap="20px" *transloco="let t">
-        <dsh-card>
-            <dsh-card-content fxLayout="column" fxLayoutGap="15px">
-                <dsh-last-updated
-                    *ngIf="!(isLoading$ | async)"
-                    (update)="refresh()"
-                    [lastUpdated]="lastUpdated$ | async"
-                ></dsh-last-updated>
-                <dsh-spinner *ngIf="isLoading$ | async" size="20"></dsh-spinner>
-                <dsh-reports-table [reports]="reports$ | async"></dsh-reports-table>
-                <dsh-empty-search-result
-                    *ngIf="!(reports$ | async)?.length && !(doAction$ | async)"
-                ></dsh-empty-search-result>
-                <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
-                    {{ (isLoading$ | async) ? t.loading : t.showMore }}
-                </button>
-            </dsh-card-content>
-        </dsh-card>
-    </div>
+    <dsh-report-list [reports]="reports$ | async"></dsh-report-list>
+    <dsh-empty-search-result *ngIf="!(reports$ | async)?.length && !(doAction$ | async)"></dsh-empty-search-result>
 </div>
