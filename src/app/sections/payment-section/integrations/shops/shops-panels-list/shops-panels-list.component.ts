@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
+import { Shop } from '../../../../../api-codegen/capi';
 import { ShopsPanelsListService } from './shops-panels-list.service';
 
 @Component({
@@ -11,7 +12,13 @@ import { ShopsPanelsListService } from './shops-panels-list.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopsPanelsListComponent {
+    @Input()
+    set shops(shops: Shop[]) {
+        this.shopsPanelsListService.updateShops(shops);
+    }
+
     shops$ = this.shopsPanelsListService.shops$;
+
     selectedPanelPosition$ = this.shopsPanelsListService.selectedPanelPosition$;
     hasMore$ = this.shopsPanelsListService.hasMore$;
 

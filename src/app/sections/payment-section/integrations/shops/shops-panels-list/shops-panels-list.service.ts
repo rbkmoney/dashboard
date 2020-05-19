@@ -3,12 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, concat, Subject } from 'rxjs';
+import { combineLatest, concat, ReplaySubject, Subject } from 'rxjs';
 import { filter, first, map, mapTo, pluck, scan, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { ShopService } from '../../../../../api';
+import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { ShopsService } from '../shops.service';
 
@@ -32,10 +33,7 @@ export class ShopsPanelsListService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    shops$ = combineLatest([this.shopService.shops$, this.offset$]).pipe(
-        map(([shops, showedCount]) => shops.slice(0, showedCount)),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    shops$ = new ReplaySubject<Shop[]>(1);
 
     hasMore$ = combineLatest([this.shopService.shops$.pipe(pluck('length')), this.offset$]).pipe(
         map(([count, showedCount]) => count > showedCount),
@@ -98,6 +96,10 @@ export class ShopsPanelsListService {
 
     showMore() {
         this.showMore$.next();
+    }
+
+    updateShops(shops: Shop[]) {
+        this.shops$.next(shops);
     }
 
     private getOffsetBySelectedPanelPosition(idx: number) {
