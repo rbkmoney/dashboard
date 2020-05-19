@@ -12,7 +12,7 @@ import {
     NativeHtmlTableAppComponent,
     StickyTableAppComponent,
     TableWithNgContainerRowComponent,
-    TestData
+    TestData,
 } from './components.spec';
 import { expectTableTodshChContent } from './table-utils.spec';
 import { TableModule } from './table.module';
@@ -28,8 +28,8 @@ describe('DshTable', () => {
                 NativeHtmlTableAppComponent,
                 DshTableWithPaginatorAppComponent,
                 StickyTableAppComponent,
-                TableWithNgContainerRowComponent
-            ]
+                TableWithNgContainerRowComponent,
+            ],
         }).compileComponents();
     }));
 
@@ -46,7 +46,7 @@ describe('DshTable', () => {
                 [data[1].a, data[1].b, data[1].c],
                 [data[2].a, data[2].b, data[2].c],
                 ['fourth_row'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         });
 
@@ -61,7 +61,7 @@ describe('DshTable', () => {
                 ['a_2'],
                 ['a_3'],
                 ['fourth_row'],
-                ['Footer A']
+                ['Footer A'],
             ]);
         });
 
@@ -78,7 +78,7 @@ describe('DshTable', () => {
                 ['a_3'],
                 ['a_4'], // With multiple rows, this row shows up along with the special 'when' fourth_row
                 ['fourth_row'],
-                ['Footer A']
+                ['Footer A'],
             ]);
         });
     });
@@ -94,7 +94,7 @@ describe('DshTable', () => {
             [data[0].a, data[0].b, data[0].c],
             [data[1].a, data[1].b, data[1].c],
             [data[2].a, data[2].b, data[2].c],
-            [data[3].a, data[3].b, data[3].c]
+            [data[3].a, data[3].b, data[3].c],
         ]);
     });
 
@@ -108,7 +108,7 @@ describe('DshTable', () => {
             ['Column A', 'Column B', 'Column C'],
             [data[0].a, data[0].b, data[0].c],
             [data[1].a, data[1].b, data[1].c],
-            [data[2].a, data[2].b, data[2].c]
+            [data[2].a, data[2].b, data[2].c],
         ]);
     });
 
@@ -151,7 +151,7 @@ describe('DshTable', () => {
                 ['a_1', 'b_1', 'c_1'],
                 ['a_2', 'b_2', 'c_2'],
                 ['a_3', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         });
 
@@ -165,7 +165,7 @@ describe('DshTable', () => {
                 ['a_2', 'b_2', 'c_2'],
                 ['a_3', 'b_3', 'c_3'],
                 ['a_4', 'b_4', 'c_4'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
 
             // Remove data
@@ -178,7 +178,7 @@ describe('DshTable', () => {
                 ['a_2', 'b_2', 'c_2'],
                 ['a_3', 'b_3', 'c_3'],
                 ['a_4', 'b_4', 'c_4'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         });
 
@@ -191,7 +191,7 @@ describe('DshTable', () => {
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
                 ['a_1', 'b_1', 'c_1'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
 
             flushMicrotasks(); // Resolve promise that updates paginator's length
@@ -205,7 +205,7 @@ describe('DshTable', () => {
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
                 ['a_2', 'b_2', 'c_2'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
 
             // Change filter to empty string, should dshCh all rows
@@ -220,7 +220,7 @@ describe('DshTable', () => {
                 ['a_1', 'b_1', 'c_1'],
                 ['a_2', 'b_2', 'c_2'],
                 ['a_3', 'b_3', 'c_3'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
 
             // Change filter function and filter, should dshCh to rows with zebra.
@@ -247,7 +247,7 @@ describe('DshTable', () => {
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
                 ['a_2', 'b_2', 'c_2'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         }));
 
@@ -259,7 +259,7 @@ describe('DshTable', () => {
             expect(dataSource.filteredData.length).toBe(0);
             expectTableTodshChContent(tableElement, [
                 ['Column A', 'Column B', 'Column C'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         }));
 
@@ -277,7 +277,7 @@ describe('DshTable', () => {
                 ['a_3', 'b_3', 'c_3'],
                 ['a_4', 'b_4', 'c_4'],
                 ['a_5', 'b_5', 'c_5'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
 
             // Navigate to the next page
@@ -290,7 +290,7 @@ describe('DshTable', () => {
                 ['a_8', 'b_8', 'c_8'],
                 ['a_9', 'b_9', 'c_9'],
                 ['a_10', 'b_10', 'c_10'],
-                ['Footer A', 'Footer B', 'Footer C']
+                ['Footer A', 'Footer B', 'Footer C'],
             ]);
         }));
     });

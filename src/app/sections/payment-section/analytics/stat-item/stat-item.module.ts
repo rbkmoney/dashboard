@@ -18,9 +18,9 @@ import { StatItemComponent } from './stat-item.component';
         SpinnerModule,
         TranslocoModule,
         PercentDifferenceModule,
-        ToMajorModule
+        ToMajorModule,
     ],
     declarations: [StatItemComponent],
-    exports: [StatItemComponent]
+    exports: [StatItemComponent],
 })
 export class StatItemModule {}

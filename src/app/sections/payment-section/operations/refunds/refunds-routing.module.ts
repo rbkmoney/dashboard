@@ -7,6 +7,6 @@ const refundsRoutes: Routes = [{ path: '', component: RefundsComponent }];
 
 @NgModule({
     imports: [RouterModule.forChild(refundsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RefundsRoutingModule {}

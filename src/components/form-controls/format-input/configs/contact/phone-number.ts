@@ -22,7 +22,7 @@ const formatPhoneNumber = (text: string) => {
 };
 
 export const phoneNumberMask: TextMaskConfig = {
-    mask: rawValue => {
+    mask: (rawValue) => {
         const phoneNumber = formatPhoneNumber(rawValue);
         const phoneNumberParts: string[] = phoneNumber.split('');
         const mask: Array<RegExp | string> = [];
@@ -41,19 +41,16 @@ export const phoneNumberMask: TextMaskConfig = {
     pipe: (conformedValue: string) => {
         let resultValue = conformedValue || '';
         if (resultValue.includes('+')) {
-            resultValue = resultValue
-                .replace('+7', '')
-                .replace('+', '')
-                .trim();
+            resultValue = resultValue.replace('+7', '').replace('+', '').trim();
         } else if (resultValue[0] === '7') {
             resultValue = resultValue.slice(1).trim();
         }
         return '+7 ' + resultValue;
     },
-    guide: false
+    guide: false,
 };
 
-export const phoneNumberValidator: ValidatorFn = control => {
+export const phoneNumberValidator: ValidatorFn = (control) => {
     if (control.value) {
         const phoneNumber = parsePhoneNumber(control.value);
         if (!phoneNumber || !phoneNumber.isValid()) {
@@ -65,5 +62,5 @@ export const phoneNumberValidator: ValidatorFn = control => {
 
 export const phoneNumberConfig: FormatInputConfig = {
     mask: phoneNumberMask,
-    placeholder: '+7 *** *** ** **'
+    placeholder: '+7 *** *** ** **',
 };

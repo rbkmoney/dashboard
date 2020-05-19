@@ -9,7 +9,7 @@ import { CreateWebhookService } from './create-webhook.service';
 
 @Component({
     templateUrl: 'create-webhook.component.html',
-    providers: [CreateWebhookService]
+    providers: [CreateWebhookService],
 })
 export class CreateWebhookComponent {
     form = this.createWebhookService.form;
@@ -23,7 +23,7 @@ export class CreateWebhookComponent {
         @Inject(LAYOUT_GAP) public layoutGap: string,
         private shopService: ShopService
     ) {
-        this.createWebhookService.webhookCreated$.pipe(filter(r => !!r)).subscribe(r => {
+        this.createWebhookService.webhookCreated$.pipe(filter((r) => !!r)).subscribe((r) => {
             this.dialogRef.close(r);
         });
     }

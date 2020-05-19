@@ -20,8 +20,8 @@ import { ApiKeyComponent } from './api-key.component';
         MatInputModule,
         CommonModule,
         ButtonModule,
-        ClipboardModule
+        ClipboardModule,
     ],
-    declarations: [ApiKeyComponent]
+    declarations: [ApiKeyComponent],
 })
 export class ApiKeyModule {}

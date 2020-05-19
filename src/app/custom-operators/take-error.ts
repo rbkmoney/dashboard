@@ -3,6 +3,6 @@ import { catchError, filter } from 'rxjs/operators';
 
 export const takeError = <T>(source: Observable<T>) =>
     source.pipe(
-        filter(_ => false),
-        catchError(err => of(err))
+        filter((_) => false),
+        catchError((err) => of(err))
     );

@@ -34,7 +34,7 @@ export class PaymentLinkParams {
 
 export enum HoldExpiration {
     cancel = 'cancel',
-    capture = 'capture'
+    capture = 'capture',
 }
 
 const TokenProvider = BankCard.TokenProvidersEnum;
@@ -63,16 +63,16 @@ export class PaymentLinkFormService {
     ) {
         const invoiceTemplatePaymentLinkWithErrors$ = this.createInvoiceTemplatePaymentLink$.pipe(
             switchMapTo(this.invoiceTemplateFormService.invoiceTemplateAndToken$.pipe(take(1))),
-            switchMap(invoiceTemplateAndToken => this.shortenUrl(invoiceTemplateAndToken).pipe(replaceError)),
+            switchMap((invoiceTemplateAndToken) => this.shortenUrl(invoiceTemplateAndToken).pipe(replaceError)),
             share()
         );
         this.invoiceTemplatePaymentLink$ = invoiceTemplatePaymentLinkWithErrors$.pipe(
             filterPayload,
             pluck('shortenedUrl'),
-            switchMap(v =>
+            switchMap((v) =>
                 concat(
                     of(v),
-                    merge(this.form.valueChanges, this.invoiceTemplateFormService.form.valueChanges).pipe(
+                    merge([this.form.valueChanges, this.invoiceTemplateFormService.form.valueChanges]).pipe(
                         take(1),
                         mapTo('')
                     )
@@ -90,7 +90,7 @@ export class PaymentLinkFormService {
                     this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(id)
                 )
             )
-            .subscribe(paymentMethods => this.updatePaymentMethods(paymentMethods));
+            .subscribe((paymentMethods) => this.updatePaymentMethods(paymentMethods));
     }
 
     create() {
@@ -101,7 +101,7 @@ export class PaymentLinkFormService {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
-            .pipe(filter(r => r === 'confirm'))
+            .pipe(filter((r) => r === 'confirm'))
             .subscribe(() => this.form.patchValue(this.createForm().value));
     }
 
@@ -109,7 +109,7 @@ export class PaymentLinkFormService {
         return this.urlShortenerService.shortenUrl(
             this.buildUrl({
                 invoiceTemplateID: invoiceTemplateAndToken.invoiceTemplate.id,
-                invoiceTemplateAccessToken: invoiceTemplateAndToken.invoiceTemplateAccessToken.payload
+                invoiceTemplateAccessToken: invoiceTemplateAndToken.invoiceTemplateAccessToken.payload,
             }),
             this.createDateFromLifetime(invoiceTemplateAndToken.invoiceTemplate.lifetime)
         );
@@ -123,10 +123,7 @@ export class PaymentLinkFormService {
     }
 
     private createDateFromLifetime(lifetime: LifetimeInterval) {
-        return moment()
-            .add(moment.duration(lifetime))
-            .utc()
-            .format();
+        return moment().add(moment.duration(lifetime)).utc().format();
     }
 
     private getPaymentLinkParamsFromFormValue(): PaymentLinkParams {
@@ -134,7 +131,7 @@ export class PaymentLinkFormService {
         return {
             ...paymentLinkParams,
             ...(paymentLinkParams.paymentFlowHold ? { holdExpiration } : {}),
-            ...paymentMethods
+            ...paymentMethods,
         };
     }
 
@@ -150,17 +147,17 @@ export class PaymentLinkFormService {
                 terminals: { value: false, disabled: true },
                 applePay: { value: false, disabled: true },
                 googlePay: { value: false, disabled: true },
-                samsungPay: { value: false, disabled: true }
+                samsungPay: { value: false, disabled: true },
             }),
             paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel
+            holdExpiration: HoldExpiration.cancel,
         });
     }
 
     private updatePaymentMethods(paymentMethods: PaymentMethod[] = []) {
         const paymentMethodsControls = this.paymentMethodsFormGroup.controls;
-        Object.values(paymentMethodsControls).forEach(c => c.disable());
-        paymentMethods.forEach(item => {
+        Object.values(paymentMethodsControls).forEach((c) => c.disable());
+        paymentMethods.forEach((item) => {
             switch (item.method) {
                 case 'BankCard':
                     const bankCard = item as BankCard;

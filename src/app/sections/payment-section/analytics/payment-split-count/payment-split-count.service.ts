@@ -19,18 +19,18 @@ export class PaymentSplitCountService {
 
     private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
-            forkJoin(
+            forkJoin([
                 of(fromTime),
                 of(toTime),
-                this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
-            ).pipe(replaceError)
+                this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs),
+            ]).pipe(replaceError)
         )
     );
     splitCount$ = this.splitCountOrError$.pipe(
         filterPayload,
         map(([fromTime, toTime, splitCount]) => prepareSplitCount(splitCount?.result, fromTime, toTime)),
         map(splitCountToChartData),
-        map(data => data.find(d => d.currency === 'RUB')),
+        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.splitCount$).pipe(shareReplay(SHARE_REPLAY_CONF));

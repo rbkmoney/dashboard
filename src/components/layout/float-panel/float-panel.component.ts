@@ -12,23 +12,17 @@ import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-te
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, hideAnimation]
+    animations: [expandAnimation, hideAnimation],
 })
 export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(
-        v => coerceBooleanProperty(v),
-        (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v)
-    )
+    @coerce((v) => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v))
     expanded = false;
 
     @Output() pinnedChange = new EventEmitter<boolean>();
     @Input()
-    @coerce(
-        v => coerceBooleanProperty(v),
-        (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v)
-    )
+    @coerce((v) => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v))
     pinned = false;
 
     @Input() layoutGap = '20px';
@@ -44,7 +38,7 @@ export class FloatPanelComponent {
     baseContentHeight = 0;
 
     constructor() {
-        this.expandedChange.pipe(filter(expanded => !expanded)).subscribe(() => this.resetExpandTrigger());
+        this.expandedChange.pipe(filter((expanded) => !expanded)).subscribe(() => this.resetExpandTrigger());
     }
 
     expandToggle() {

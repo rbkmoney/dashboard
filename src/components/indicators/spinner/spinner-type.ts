@@ -6,5 +6,5 @@ export enum SpinnerType {
     TrinityRings = 4,
     HalfCircle = 5,
     ScalingSquares = 6,
-    SwappingSquares = 7
+    SwappingSquares = 7,
 }

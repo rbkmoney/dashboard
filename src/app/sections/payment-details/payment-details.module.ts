@@ -48,9 +48,9 @@ import { RefundsModule } from './refunds';
         MakeRecurrentModule,
         RecurrentDetailsModule,
         InvoiceDetailsModule,
-        RefundsModule
+        RefundsModule,
     ],
     declarations: [PaymentDetailsComponent],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }]
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class PaymentDetailsModule {}

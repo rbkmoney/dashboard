@@ -13,6 +13,6 @@ import { ShopLocationUrlComponent } from './shop-location-url';
     imports: [CommonModule, FlexLayoutModule, TranslocoModule, LayoutModule],
     declarations: [ShopDetailsComponent, ShopLocationUrlComponent],
     exports: [ShopDetailsComponent],
-    providers: [ShopDetailsService]
+    providers: [ShopDetailsService],
 })
 export class ShopDetailsModule {}

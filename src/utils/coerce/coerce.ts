@@ -3,7 +3,7 @@ export function coerce<I = any, O = any, T = any>(
     afterFn?: (newValue: O, self: T, oldValue: I) => void
 ): PropertyDecorator {
     // tslint:disable-next-line: only-arrow-functions
-    return function(target: T, key) {
+    return function (target: T, key) {
         const _key = Symbol(key.toString());
         target[_key] = target[key];
         Object.defineProperty(target, key, {
@@ -11,13 +11,13 @@ export function coerce<I = any, O = any, T = any>(
                 return this[_key];
             },
             set: afterFn
-                ? function(v) {
+                ? function (v) {
                       this[_key] = fn.call(this, v);
                       afterFn.call(this, this[_key], this, v);
                   }
-                : function(v) {
+                : function (v) {
                       this[_key] = fn.call(this, v, this);
-                  }
+                  },
         });
     };
 }

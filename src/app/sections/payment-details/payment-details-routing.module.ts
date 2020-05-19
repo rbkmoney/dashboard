@@ -6,12 +6,12 @@ import { PaymentDetailsComponent } from './payment-details.component';
 const paymentDetailsRoutes: Routes = [
     {
         path: ':paymentID',
-        component: PaymentDetailsComponent
-    }
+        component: PaymentDetailsComponent,
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(paymentDetailsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PaymentDetailsRoutingModule {}

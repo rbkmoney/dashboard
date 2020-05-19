@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-russian-domestic-passport',
-    templateUrl: 'russian-domestic-passport.component.html'
+    templateUrl: 'russian-domestic-passport.component.html',
 })
 export class RussianDomesticPassportComponent {
     @Input() form: FormGroup;

@@ -5,7 +5,7 @@ import { PayoutToolDetailsInternationalBankAccount } from '../../../../../api-co
 @Component({
     selector: 'dsh-international-bank-account-info',
     templateUrl: 'international-bank-account-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternationalBankAccountInfoComponent {
     @Input() payoutTool: PayoutToolDetailsInternationalBankAccount;

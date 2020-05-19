@@ -20,7 +20,7 @@ const concatLastItem = (acc: TimelineItemInfo[], updateItem: TimelineItemInfo): 
         accItemIndex === acc.length - 1
             ? {
                   ...updateItem,
-                  modifications: accItem.modifications.concat(updateItem.modifications)
+                  modifications: accItem.modifications.concat(updateItem.modifications),
               }
             : accItem
     );
@@ -49,7 +49,7 @@ const acceptTimelineItem = (
         action,
         userInfo,
         createdAt: createdAt as any,
-        modifications
+        modifications,
     };
     if (acc.length !== 0 && modifications.length !== 0) {
         const lastItem = acc[acc.length - 1];

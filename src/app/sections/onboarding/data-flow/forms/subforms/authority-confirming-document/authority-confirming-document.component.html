@@ -1,21 +1,22 @@
 <form
     fxLayout="column"
     fxLayoutGap="10px"
-    [formGroup]="form"
+    [formGroup]="form$ | async"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.authorityConfirmingDocument'"
 >
     <mat-form-field>
         <mat-label>{{ t.typeSelector }}</mat-label>
-        <mat-select [value]="selectedOption" (selectionChange)="documentTypeSelectionChange($event)" required>
+        <mat-select required formControlName="type">
             <mat-option *ngFor="let option of selectOptionTypes" [value]="option">
                 {{ t.documentTypes[option] }}
             </mat-option>
+            <mat-option [value]="customType"> {{ t.documentTypes.custom }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <div *ngIf="isCustomDocumentInfoVisible" fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="isCustom$ | async" fxLayout="column" fxLayoutGap="10px">
         <mat-form-field fxFlex>
             <mat-label>{{ t.customDocumentType }}</mat-label>
-            <input matInput formControlName="type" required />
+            <input matInput formControlName="customType" required />
         </mat-form-field>
         <div fxLayout [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>

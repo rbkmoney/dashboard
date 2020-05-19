@@ -4,6 +4,6 @@ export function toQueryParams({ date, ...params }: FormParams) {
     return {
         ...params,
         fromTime: date.begin.utc().format(),
-        toTime: date.end.utc().format()
+        toTime: date.end.utc().format(),
     };
 }

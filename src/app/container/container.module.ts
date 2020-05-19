@@ -11,6 +11,6 @@ import { WelcomeImageModule } from './welcome-image';
 @NgModule({
     imports: [CommonModule, ToolbarModule, RouterModule, FlexLayoutModule, MatIconModule, WelcomeImageModule],
     declarations: [ContainerComponent],
-    exports: [ContainerComponent]
+    exports: [ContainerComponent],
 })
 export class ContainerModule {}

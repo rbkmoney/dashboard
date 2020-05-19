@@ -6,7 +6,7 @@ import { LAYOUT_GAP } from '../../../constants';
 @Component({
     selector: 'dsh-cart-item',
     templateUrl: 'item.component.html',
-    styleUrls: ['item.component.scss']
+    styleUrls: ['item.component.scss'],
 })
 export class ItemComponent implements OnChanges {
     @Input()

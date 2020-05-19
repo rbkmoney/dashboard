@@ -4,7 +4,7 @@ import { APP_INITIALIZER, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
-    MomentDateAdapter
+    MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -44,7 +44,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         KeycloakAngularModule,
         HttpClientModule,
         TranslocoModule,
-        YandexMetrikaModule
+        YandexMetrikaModule,
     ],
     providers: [
         LanguageService,
@@ -52,17 +52,17 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             provide: APP_INITIALIZER,
             useFactory: initializer,
             deps: [ConfigService, KeycloakService, LanguageService, YandexMetrikaConfigService, PLATFORM_ID],
-            multi: true
+            multi: true,
         },
         {
             provide: LOCALE_ID,
             deps: [LanguageService],
-            useFactory: (languageService: LanguageService) => languageService.active
+            useFactory: (languageService: LanguageService) => languageService.active,
         },
         {
             provide: MAT_DATE_LOCALE,
             deps: [LanguageService],
-            useFactory: (languageService: LanguageService) => languageService.active
+            useFactory: (languageService: LanguageService) => languageService.active,
         },
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
@@ -76,13 +76,13 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 defaultLang: 'ru',
                 fallbackLang: 'ru',
                 prodMode: environment.production,
-                scopeStrategy: 'shared'
-            } as TranslocoConfig
+                scopeStrategy: 'shared',
+            } as TranslocoConfig,
         },
         translocoLoader,
-        { provide: ENV, useValue: environment }
+        { provide: ENV, useValue: environment },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {

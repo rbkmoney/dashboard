@@ -10,6 +10,6 @@ import { StatusDetailsItemComponent } from './status-details-item.component';
 @NgModule({
     imports: [DetailsItemModule, StatusModule, CommonModule, TranslocoModule],
     declarations: [StatusDetailsItemComponent],
-    exports: [StatusDetailsItemComponent]
+    exports: [StatusDetailsItemComponent],
 })
 export class StatusDetailsItemModule {}

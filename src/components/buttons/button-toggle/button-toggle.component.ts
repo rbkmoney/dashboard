@@ -20,7 +20,7 @@ import {
     Output,
     QueryList,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
@@ -37,7 +37,7 @@ export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     // tslint:disable-next-line:no-use-before-declare
     useExisting: forwardRef(() => ButtonToggleGroupDirective),
-    multi: true
+    multi: true,
 };
 
 let _uniqueIdCounter = 0;
@@ -50,9 +50,9 @@ export class DshButtonToggleChange {
     selector: 'dsh-button-toggle-group, [dshButtonToggleGroup]',
     providers: [
         DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
-        { provide: MatButtonToggleGroup, useExisting: ButtonToggleGroupDirective }
+        { provide: MatButtonToggleGroup, useExisting: ButtonToggleGroupDirective },
     ],
-    exportAs: 'dshButtonToggleGroup'
+    exportAs: 'dshButtonToggleGroup',
 })
 export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /* Child button toggle buttons. */
@@ -95,7 +95,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
         this._name = value;
 
         if (this._buttonToggles) {
-            this._buttonToggles.forEach(toggle => {
+            this._buttonToggles.forEach((toggle) => {
                 toggle.name = this._name;
                 toggle._markForCheck();
             });
@@ -118,7 +118,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
         const selected = this._selectionModel ? this._selectionModel.selected : [];
 
         if (this.multiple) {
-            return selected.map(toggle => toggle.value);
+            return selected.map((toggle) => toggle.value);
         }
 
         return selected[0] ? selected[0].value : undefined;
@@ -152,7 +152,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
         this._disabled = coerceBooleanProperty(value);
 
         if (this._buttonToggles) {
-            this._buttonToggles.forEach(toggle => toggle._markForCheck());
+            this._buttonToggles.forEach((toggle) => toggle._markForCheck());
         }
     }
 
@@ -163,7 +163,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     }
 
     ngAfterContentInit() {
-        this._selectionModel.select(...this._buttonToggles.filter(toggle => toggle.checked));
+        this._selectionModel.select(...this._buttonToggles.filter((toggle) => toggle.checked));
     }
 
     /**
@@ -241,7 +241,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
         }
 
         if (this.multiple && Array.isArray(this._rawValue)) {
-            return this._rawValue.some(value => toggle.value != null && value === toggle.value);
+            return this._rawValue.some((value) => toggle.value != null && value === toggle.value);
         }
 
         return toggle.value === this._rawValue;
@@ -271,12 +271,12 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     /** Clears the selected toggles. */
     private _clearSelection() {
         this._selectionModel.clear();
-        this._buttonToggles.forEach(toggle => (toggle.checked = false));
+        this._buttonToggles.forEach((toggle) => (toggle.checked = false));
     }
 
     /** Selects a value if there's a toggle that corresponds to it. */
     private _selectValue(value: any) {
-        const correspondingOption = this._buttonToggles.find(toggle => {
+        const correspondingOption = this._buttonToggles.find((toggle) => {
             return toggle.value != null && toggle.value === value;
         });
 
@@ -313,7 +313,7 @@ const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBa
     styleUrls: ['button-toggle.component.scss'],
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshButtonToggle',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements OnInit, OnDestroy {
     private _isSingleSelector = false;

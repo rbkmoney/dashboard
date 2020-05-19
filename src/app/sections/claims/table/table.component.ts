@@ -7,7 +7,7 @@ import { ClaimsTableData } from './claims-table-data';
 @Component({
     selector: 'dsh-claims-table',
     templateUrl: 'table.component.html',
-    styleUrls: ['table.component.scss']
+    styleUrls: ['table.component.scss'],
 })
 export class TableComponent {
     @Input() data: MatTableDataSource<ClaimsTableData>;

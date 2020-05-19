@@ -8,6 +8,6 @@ import { HumanizedDurationPipe } from './humanized-duration.pipe';
     imports: [LanguageModule],
     declarations: [HumanizedDurationPipe],
     providers: [HumanizeDurationService],
-    exports: [HumanizedDurationPipe]
+    exports: [HumanizedDurationPipe],
 })
 export class HumanizeDurationModule {}

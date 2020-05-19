@@ -17,17 +17,17 @@ export class AveragePaymentService {
 
     private averagePaymentOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
-            forkJoin(
+            forkJoin([
                 this.analyticsService.getAveragePayment(current.fromTime, current.toTime, current.shopIDs),
-                this.analyticsService.getAveragePayment(previous.fromTime, previous.toTime, previous.shopIDs)
-            ).pipe(replaceError)
+                this.analyticsService.getAveragePayment(previous.fromTime, previous.toTime, previous.shopIDs),
+            ]).pipe(replaceError)
         )
     );
     averagePayment$ = this.averagePaymentOrError$.pipe(
         filterPayload,
-        map(res => res.map(r => r.result)),
+        map((res) => res.map((r) => r.result)),
         map(amountResultToStatData),
-        map(data => data.find(d => d.currency === 'RUB')),
+        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.averagePayment$).pipe(shareReplay(SHARE_REPLAY_CONF));

@@ -21,7 +21,7 @@ import {
     InvoiceTemplateLineCostUnlim,
     InvoiceTemplateMultiLine,
     InvoiceTemplateSingleLine,
-    LifetimeInterval
+    LifetimeInterval,
 } from '../../../../../api-codegen/capi';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { takeWhenChanged } from '../../../../../custom-operators/take-when-changed';
@@ -30,13 +30,13 @@ import { lifetimeValidator } from './lifetime-validator';
 
 export enum TemplateType {
     singleLine = 'InvoiceTemplateSingleLine',
-    multiLine = 'InvoiceTemplateMultiLine'
+    multiLine = 'InvoiceTemplateMultiLine',
 }
 
 export enum CostType {
     unlim = 'InvoiceTemplateLineCostUnlim',
     fixed = 'InvoiceTemplateLineCostFixed',
-    range = 'InvoiceTemplateLineCostRange'
+    range = 'InvoiceTemplateLineCostRange',
 }
 
 export const withoutVAT = Symbol('without VAT');
@@ -57,7 +57,7 @@ export class InvoiceTemplateFormService {
 
     summary$ = this.cartForm.valueChanges.pipe(
         startWith(this.cartForm.value),
-        map(v => v.reduce((sum, c) => sum + c.price * c.quantity, 0)),
+        map((v) => v.reduce((sum, c) => sum + c.price * c.quantity, 0)),
         shareReplay(1)
     );
 
@@ -78,7 +78,7 @@ export class InvoiceTemplateFormService {
     ) {
         const invoiceTemplateAndTokenWithErrors$ = this.createInvoiceTemplate$.pipe(
             map(() => this.getInvoiceTemplateCreateParams()),
-            switchMap(p => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError)),
+            switchMap((p) => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError)),
             share()
         );
         this.invoiceTemplateAndToken$ = invoiceTemplateAndTokenWithErrors$.pipe(filterPayload, shareReplay(1));
@@ -97,7 +97,7 @@ export class InvoiceTemplateFormService {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
-            .pipe(filter(r => r === 'confirm'))
+            .pipe(filter((r) => r === 'confirm'))
             .subscribe(() => {
                 this.cartForm.clear();
                 this.addProduct();
@@ -119,7 +119,7 @@ export class InvoiceTemplateFormService {
             shareReplay(SHARE_REPLAY_CONF)
         );
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));
-        templateType$.subscribe(templateType => {
+        templateType$.subscribe((templateType) => {
             const { product } = this.form.controls;
             if (templateType === TemplateType.multiLine) {
                 this.cartForm.enable();
@@ -157,7 +157,7 @@ export class InvoiceTemplateFormService {
                 {
                     days: null,
                     months: null,
-                    years: null
+                    years: null,
                 },
                 { validators: [lifetimeValidator] }
             ),
@@ -168,10 +168,10 @@ export class InvoiceTemplateFormService {
             cart: this.fb.array([this.createProductFormGroup()]),
             range: this.fb.group({
                 lowerBound: null,
-                upperBound: null
+                upperBound: null,
             }),
             amount: null,
-            currency: 'RUB'
+            currency: 'RUB',
         });
     }
 
@@ -180,7 +180,7 @@ export class InvoiceTemplateFormService {
             product: '',
             quantity: null,
             price: null,
-            taxMode: withoutVAT
+            taxMode: withoutVAT,
         });
     }
 
@@ -190,7 +190,7 @@ export class InvoiceTemplateFormService {
             shopID: value.shopID,
             description: value.description,
             lifetime: this.getLifetimeInterval(),
-            details: this.getInvoiceTemplateDetails()
+            details: this.getInvoiceTemplateDetails(),
         };
     }
 
@@ -199,14 +199,14 @@ export class InvoiceTemplateFormService {
         return {
             days: lifetime.days || 0,
             months: lifetime.months || 0,
-            years: lifetime.years || 0
+            years: lifetime.years || 0,
         };
     }
 
     private getInvoiceTemplateDetails(): InvoiceTemplateDetails {
         const {
             value,
-            value: { cart, currency }
+            value: { cart, currency },
         } = this.form;
         switch (value.templateType) {
             case TemplateType.singleLine:
@@ -214,18 +214,18 @@ export class InvoiceTemplateFormService {
                     templateType: value.templateType,
                     product: value.product,
                     price: this.getInvoiceTemplateLineCost(),
-                    ...this.getInvoiceLineTaxMode(value.taxMode)
+                    ...this.getInvoiceLineTaxMode(value.taxMode),
                 } as InvoiceTemplateSingleLine;
             case TemplateType.multiLine:
                 return {
                     templateType: value.templateType,
-                    cart: cart.map(c => ({
+                    cart: cart.map((c) => ({
                         product: c.product,
                         quantity: c.quantity,
                         price: toMinor(c.price),
-                        ...this.getInvoiceLineTaxMode(c.taxMode)
+                        ...this.getInvoiceLineTaxMode(c.taxMode),
                     })),
-                    currency
+                    currency,
                 } as InvoiceTemplateMultiLine;
         }
     }
@@ -239,7 +239,7 @@ export class InvoiceTemplateFormService {
                 return {
                     costType,
                     currency,
-                    amount: toMinor(amount)
+                    amount: toMinor(amount),
                 } as InvoiceTemplateLineCostFixed;
             case CostType.range:
                 return {
@@ -247,8 +247,8 @@ export class InvoiceTemplateFormService {
                     currency,
                     range: {
                         lowerBound: toMinor(range.lowerBound),
-                        upperBound: toMinor(range.upperBound)
-                    }
+                        upperBound: toMinor(range.upperBound),
+                    },
                 } as InvoiceTemplateLineCostRange;
         }
     }
@@ -259,8 +259,8 @@ export class InvoiceTemplateFormService {
             : {
                   taxMode: {
                       type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
-                      rate
-                  }
+                      rate,
+                  },
               };
     }
 }

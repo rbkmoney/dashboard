@@ -5,7 +5,7 @@ import { BeneficialOwner, IndividualResidencyInfo } from '../../../../api-codege
 @Component({
     selector: 'dsh-beneficial-owner-info',
     templateUrl: 'beneficial-owner-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BeneficialOwnerInfoComponent {
     @Input() beneficialOwner: BeneficialOwner;

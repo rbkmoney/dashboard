@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[dshTabLabelWrapper]'
+    selector: '[dshTabLabelWrapper]',
 })
 export class DshTabLabelWrapperDirective {
     constructor(public elementRef: ElementRef) {}

@@ -24,7 +24,8 @@ export class PaymentSearchService {
             toDateLike(toTime),
             limit,
             undefined,
-            params.shopID,
+            undefined,
+            params.shopIDs,
             params.paymentStatus,
             params.paymentFlow,
             params.paymentMethod,
@@ -54,15 +55,8 @@ export class PaymentSearchService {
         limit: number,
         continuationToken?: string
     ) {
-        const from = moment()
-            .subtract(amount, unit)
-            .startOf('d')
-            .utc()
-            .format();
-        const to = moment()
-            .endOf('d')
-            .utc()
-            .format();
+        const from = moment().subtract(amount, unit).startOf('d').utc().format();
+        const to = moment().endOf('d').utc().format();
         return this.searchPayments(from, to, params, limit, continuationToken);
     }
 
@@ -71,7 +65,7 @@ export class PaymentSearchService {
             duration,
             {
                 invoiceID,
-                paymentID
+                paymentID,
             },
             1
         ).pipe(map(({ result }) => result[0]));

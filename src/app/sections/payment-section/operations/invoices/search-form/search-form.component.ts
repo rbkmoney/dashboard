@@ -10,12 +10,12 @@ import { SearchFormService } from './search-form.service';
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
-    @Input() shopsInfo: ShopInfo[];
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<InvoiceSearchFormValue> = new EventEmitter<InvoiceSearchFormValue>();
 
@@ -28,7 +28,7 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
-            .subscribe(v => this.formValueChanges.emit(v));
+            .subscribe((v) => this.formValueChanges.emit(v));
     }
 
     reset() {

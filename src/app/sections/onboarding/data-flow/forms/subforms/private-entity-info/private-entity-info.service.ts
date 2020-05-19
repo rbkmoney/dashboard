@@ -14,7 +14,7 @@ export class PrivateEntityInfoService {
             birthPlace: ['', Validators.required],
             residenceAddress: ['', Validators.required],
             snils: ['', [Validators.required, snilsValidator]],
-            innfl: ['', individualEntityInnValidator]
+            innfl: ['', individualEntityInnValidator],
         });
     }
 }

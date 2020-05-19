@@ -10,7 +10,7 @@ import { ButtonToggleComponent, ButtonToggleGroupDirective, DshButtonToggleChang
             <dsh-button-toggle value="test2">Test2</dsh-button-toggle>
             <dsh-button-toggle value="test3">Test3</dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class ButtonTogglesInsideButtonToggleGroupComponent {
     isGroupDisabled = false;
@@ -26,7 +26,7 @@ export class ButtonTogglesInsideButtonToggleGroupComponent {
                 {{ option.label }}
             </dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class ButtonToggleGroupWithNgModelComponent {
     groupName = 'group-name';
@@ -34,7 +34,7 @@ export class ButtonToggleGroupWithNgModelComponent {
     options = [
         { label: 'Red', value: 'red' },
         { label: 'Green', value: 'green' },
-        { label: 'Blue', value: 'blue' }
+        { label: 'Blue', value: 'blue' },
     ];
     lastEvent: DshButtonToggleChange;
 }
@@ -46,7 +46,7 @@ export class ButtonToggleGroupWithNgModelComponent {
             <dsh-button-toggle value="flour">Flour</dsh-button-toggle>
             <dsh-button-toggle value="sugar">Sugar</dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class ButtonTogglesInsideButtonToggleGroupMultipleComponent {
     isGroupDisabled = false;
@@ -61,7 +61,7 @@ export class ButtonTogglesInsideButtonToggleGroupMultipleComponent {
             <dsh-button-toggle [value]="false">Sugar</dsh-button-toggle>
             <dsh-button-toggle>Sugar</dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent {
     value: ('' | number | null | undefined | boolean)[] = [0];
@@ -69,9 +69,7 @@ export class FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent {
 }
 
 @Component({
-    template: `
-        <dsh-button-toggle>Yes</dsh-button-toggle>
-    `
+    template: ` <dsh-button-toggle>Yes</dsh-button-toggle> `,
 })
 export class StandaloneButtonToggleComponent {}
 
@@ -81,7 +79,7 @@ export class StandaloneButtonToggleComponent {}
             <dsh-button-toggle value="red">Value Red</dsh-button-toggle>
             <dsh-button-toggle value="green">Value Green</dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class ButtonToggleGroupWithInitialValueComponent {
     lastEvent: DshButtonToggleChange;
@@ -94,7 +92,7 @@ export class ButtonToggleGroupWithInitialValueComponent {
             <dsh-button-toggle value="green">Value Green</dsh-button-toggle>
             <dsh-button-toggle value="blue">Value Blue</dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class ButtonToggleGroupWithFormControlComponent {
     control = new FormControl();
@@ -102,17 +100,13 @@ export class ButtonToggleGroupWithFormControlComponent {
 
 /** Simple test component with an aria-label set. */
 @Component({
-    template: `
-        <dsh-button-toggle aria-label="Super effective"></dsh-button-toggle>
-    `
+    template: ` <dsh-button-toggle aria-label="Super effective"></dsh-button-toggle> `,
 })
 export class ButtonToggleWithAriaLabelComponent {}
 
 /** Simple test component with an aria-label set. */
 @Component({
-    template: `
-        <dsh-button-toggle aria-labelledby="some-id"></dsh-button-toggle>
-    `
+    template: ` <dsh-button-toggle aria-labelledby="some-id"></dsh-button-toggle> `,
 })
 export class ButtonToggleWithAriaLabelledbyComponent {}
 
@@ -123,7 +117,7 @@ export class ButtonToggleWithAriaLabelledbyComponent {}
                 {{ toggle }}
             </dsh-button-toggle>
         </dsh-button-toggle-group>
-    `
+    `,
 })
 export class RepeatedButtonTogglesWithPreselectedValueComponent {
     @ViewChild(ButtonToggleGroupDirective) toggleGroup: ButtonToggleGroupDirective;
@@ -134,8 +128,6 @@ export class RepeatedButtonTogglesWithPreselectedValueComponent {
 }
 
 @Component({
-    template: `
-        <dsh-button-toggle name="custom-name"></dsh-button-toggle>
-    `
+    template: ` <dsh-button-toggle name="custom-name"></dsh-button-toggle> `,
 })
 export class ButtonToggleWithStaticNameComponent {}

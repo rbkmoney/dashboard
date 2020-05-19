@@ -6,7 +6,7 @@ import {
     IndividualResidencyInfo,
     Questionary,
     QuestionaryData,
-    RussianIndividualEntity
+    RussianIndividualEntity,
 } from '../../../api-codegen/questionary';
 
 type RussianIndividualEntityContractor = Replace<

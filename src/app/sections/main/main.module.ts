@@ -21,8 +21,8 @@ import { PaymentsComponent, WalletsComponent } from './parts';
         ButtonModule,
         SpinnerModule,
         MatSnackBarModule,
-        TranslocoModule
+        TranslocoModule,
     ],
-    declarations: [MainComponent, PaymentsComponent, WalletsComponent]
+    declarations: [MainComponent, PaymentsComponent, WalletsComponent],
 })
 export class MainModule {}

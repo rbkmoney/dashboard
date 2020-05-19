@@ -9,7 +9,7 @@ import { ResizedEvent } from './resized-event';
  * (for example: affects flex layout gap - extra indentation will be added)
  */
 @Directive({
-    selector: '[dshResized], [dsh-resized]'
+    selector: '[dshResized], [dsh-resized]',
 })
 export class ResizedDirective implements OnInit, OnDestroy {
     @Output() readonly dshResized = new EventEmitter<ResizedEvent>();
@@ -20,7 +20,7 @@ export class ResizedDirective implements OnInit, OnDestroy {
         this.currentEvent = {
             element: this.elementRef,
             width: 0,
-            height: 0
+            height: 0,
         };
     }
 
@@ -42,7 +42,7 @@ export class ResizedDirective implements OnInit, OnDestroy {
             width,
             height,
             oldWidth: this.currentEvent.width,
-            oldHeight: this.currentEvent.height
+            oldHeight: this.currentEvent.height,
         };
         this.currentEvent = event;
         this.dshResized.emit(event);

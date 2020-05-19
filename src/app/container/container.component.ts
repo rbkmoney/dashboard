@@ -8,14 +8,14 @@ import { BrandType } from './brand';
 @Component({
     selector: 'dsh-container',
     templateUrl: 'container.component.html',
-    styleUrls: ['container.component.scss']
+    styleUrls: ['container.component.scss'],
 })
 export class ContainerComponent {
     routerNavigationEnd: Observable<boolean>;
 
     constructor(private router: Router) {
         this.routerNavigationEnd = router.events.pipe(
-            filter(e => e instanceof NavigationEnd),
+            filter((e) => e instanceof NavigationEnd),
             map(() => true)
         );
     }

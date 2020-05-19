@@ -16,7 +16,7 @@ export class InvoiceService {
     createInvoice({ dueDate, ...invoiceParams }: Replace<InvoiceParams, { dueDate: string }>) {
         return this.invoicesService.createInvoice(genXRequestID(), {
             ...invoiceParams,
-            dueDate: (dueDate as any) as Date
+            dueDate: (dueDate as any) as Date,
         });
     }
 

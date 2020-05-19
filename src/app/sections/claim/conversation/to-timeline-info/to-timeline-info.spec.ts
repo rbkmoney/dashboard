@@ -3,7 +3,7 @@ import {
     Modification,
     ModificationUnit,
     StatusModificationUnit,
-    UserInfo
+    UserInfo,
 } from '../../../../api-codegen/claim-management/swagger-codegen';
 import { TimelineItemInfo } from './model';
 import { toTimelineInfo } from './to-timeline-info';
@@ -12,7 +12,7 @@ const genUserInfo = (userType: UserInfo.UserTypeEnum): UserInfo => ({
     userId: '',
     email: '',
     username: '',
-    userType
+    userType,
 });
 
 const genPartialModification = (
@@ -25,8 +25,8 @@ const genPartialModification = (
     createdAt: createdAt as any,
     userInfo: genUserInfo(userType),
     modification: {
-        modificationType
-    }
+        modificationType,
+    },
 });
 
 const genStatusModificationUnit = (
@@ -42,9 +42,9 @@ const genStatusModificationUnit = (
             claimModificationType: {
                 claimModificationType: 'StatusModificationUnit',
                 status,
-                statusModification: { statusModificationType: 'StatusChanged' }
-            }
-        } as ClaimModification
+                statusModification: { statusModificationType: 'StatusChanged' },
+            },
+        } as ClaimModification,
     };
 };
 
@@ -57,9 +57,9 @@ const genCommentModificationUnit = (modificationID: number, createdAt: string, c
             claimModificationType: {
                 claimModificationType: 'CommentModificationUnit',
                 commentId,
-                commentModification: { commentModificationType: 'CommentCreated' }
-            }
-        } as ClaimModification
+                commentModification: { commentModificationType: 'CommentCreated' },
+            },
+        } as ClaimModification,
     };
 };
 
@@ -72,9 +72,9 @@ const genFileModificationUnit = (modificationID: number, createdAt: string, file
             claimModificationType: {
                 claimModificationType: 'FileModificationUnit',
                 fileId,
-                fileModification: { fileModificationType: 'FileCreated' }
-            }
-        } as ClaimModification
+                fileModification: { fileModificationType: 'FileCreated' },
+            },
+        } as ClaimModification,
     };
 };
 
@@ -91,9 +91,9 @@ const genDocumentModificationUnit = (
             claimModificationType: {
                 claimModificationType: 'DocumentModificationUnit',
                 documentId,
-                documentModification: { documentModificationType: 'DocumentCreated' }
-            }
-        } as ClaimModification
+                documentModification: { documentModificationType: 'DocumentCreated' },
+            },
+        } as ClaimModification,
     };
 };
 
@@ -107,8 +107,8 @@ describe('toTimelineInfo', () => {
                 action: 'changesAdded',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: [units[0].modification]
-            } as TimelineItemInfo
+                modifications: [units[0].modification],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -122,8 +122,8 @@ describe('toTimelineInfo', () => {
                 action: 'filesAdded',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: [units[0].modification]
-            } as TimelineItemInfo
+                modifications: [units[0].modification],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -137,8 +137,8 @@ describe('toTimelineInfo', () => {
                 action: 'statusReview',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: []
-            } as TimelineItemInfo
+                modifications: [],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -152,8 +152,8 @@ describe('toTimelineInfo', () => {
                 action: 'statusAccepted',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: []
-            } as TimelineItemInfo
+                modifications: [],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -167,8 +167,8 @@ describe('toTimelineInfo', () => {
                 action: 'statusDenied',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: []
-            } as TimelineItemInfo
+                modifications: [],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -182,8 +182,8 @@ describe('toTimelineInfo', () => {
                 action: 'statusRevoked',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: []
-            } as TimelineItemInfo
+                modifications: [],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -197,8 +197,8 @@ describe('toTimelineInfo', () => {
                 action: 'statusPending',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: []
-            } as TimelineItemInfo
+                modifications: [],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -220,8 +220,8 @@ describe('toTimelineInfo', () => {
                 action: 'commentAdded',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: [units[0].modification]
-            } as TimelineItemInfo
+                modifications: [units[0].modification],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });
@@ -230,7 +230,7 @@ describe('toTimelineInfo', () => {
         const createdAt = '2019-11-21T18:43:00.000000Z';
         const units = [
             genFileModificationUnit(67, '2019-11-21T18:40:00.000000Z', '7dfbc2fe-7ac4-416a-9f96-fileId1'),
-            genFileModificationUnit(68, createdAt, '7dfbc2fe-7ac4-416a-9f96-fileId2')
+            genFileModificationUnit(68, createdAt, '7dfbc2fe-7ac4-416a-9f96-fileId2'),
         ];
         const result = toTimelineInfo(units);
         const expected = [
@@ -238,8 +238,8 @@ describe('toTimelineInfo', () => {
                 action: 'filesAdded',
                 userInfo: units[0].userInfo,
                 createdAt,
-                modifications: [units[0].modification, units[1].modification]
-            } as TimelineItemInfo
+                modifications: [units[0].modification, units[1].modification],
+            } as TimelineItemInfo,
         ];
         expect(result).toEqual(expected);
     });

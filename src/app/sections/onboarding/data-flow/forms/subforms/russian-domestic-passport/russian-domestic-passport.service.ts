@@ -12,7 +12,7 @@ export class RussianDomesticPassportService {
             seriesNumber: ['', [Validators.required, seriesNumberValidator]],
             issuer: ['', Validators.required],
             issuerCode: ['', [Validators.required, issuerCodeValidator]],
-            issuedAt: [null, Validators.required]
+            issuedAt: [null, Validators.required],
         });
     }
 }

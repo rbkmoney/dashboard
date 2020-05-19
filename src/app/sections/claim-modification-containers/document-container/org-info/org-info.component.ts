@@ -6,7 +6,7 @@ import { OrgInfo } from './org-info';
 @Component({
     selector: 'dsh-org-info',
     templateUrl: 'org-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrgInfoComponent implements OnChanges {
     @Input() orgInfo: OrgInfo;

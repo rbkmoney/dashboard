@@ -6,11 +6,11 @@ import { ApiKeyComponent } from './api-key.component';
 const routes: Routes = [
     {
         path: '',
-        component: ApiKeyComponent
-    }
+        component: ApiKeyComponent,
+    },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)]
+    imports: [RouterModule.forChild(routes)],
 })
 export class ApiKeyRoutingModule {}

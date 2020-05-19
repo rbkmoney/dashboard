@@ -3,14 +3,14 @@ import {
     BankCardTokenProvider,
     Invoice,
     PaymentStatus,
-    PaymentTerminalProvider
+    PaymentTerminalProvider,
 } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { SearchFormValue } from '../../../search-form-value';
 
 export interface InvoiceSearchFormValue extends SearchFormValue {
     invoiceStatus?: Invoice.StatusEnum;
     invoiceAmount?: number;
-    shopID?: string;
+    shopIDs?: string[];
     paymentStatus?: PaymentStatus.StatusEnum;
     paymentFlow?: 'instant' | 'hold';
     paymentMethod?: 'bankCard' | 'paymentTerminal';

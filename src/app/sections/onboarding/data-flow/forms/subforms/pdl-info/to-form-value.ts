@@ -5,5 +5,5 @@ import { FormValue } from '../../form-value';
 
 export const toPdlInfo = (i: BeneficialOwner | LegalOwnerInfo): FormValue => ({
     pdlCategory: get(i, ['pdlCategory'], null),
-    pdlRelationDegree: get(i, ['pdlRelationDegree'], null)
+    pdlRelationDegree: get(i, ['pdlRelationDegree'], null),
 });

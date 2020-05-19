@@ -10,14 +10,14 @@ const operationsRoutes: Routes = [
         children: [
             {
                 path: 'analytics',
-                loadChildren: () => import('./analytics.module').then(mod => mod.AnalyticsModule)
-            }
-        ]
-    }
+                loadChildren: () => import('./analytics.module').then((mod) => mod.AnalyticsModule),
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(operationsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AnalyticsRoutingModule {}

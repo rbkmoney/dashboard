@@ -8,7 +8,7 @@ export class IndividualResidencyInfoService {
     getForm(): FormGroup {
         return this.fb.group({
             usaTaxResident: [false, Validators.required],
-            exceptUsaTaxResident: [false, Validators.required]
+            exceptUsaTaxResident: [false, Validators.required],
         });
     }
 }

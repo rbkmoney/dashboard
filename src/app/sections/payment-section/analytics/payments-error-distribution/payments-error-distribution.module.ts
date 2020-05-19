@@ -20,9 +20,9 @@ import { PaymentsErrorDistributionComponent } from './payments-error-distributio
         SpinnerModule,
         TranslocoModule,
         DonutChartModule,
-        DonutChartItemModule
+        DonutChartItemModule,
     ],
     declarations: [PaymentsErrorDistributionComponent],
-    exports: [PaymentsErrorDistributionComponent]
+    exports: [PaymentsErrorDistributionComponent],
 })
 export class PaymentsErrorDistributionModule {}

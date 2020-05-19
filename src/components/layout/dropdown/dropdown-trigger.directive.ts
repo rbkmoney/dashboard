@@ -12,7 +12,7 @@ const OVERLAY_SELECTOR = '.cdk-overlay-container';
 
 @Directive({
     selector: '[dshDropdownTriggerFor]',
-    exportAs: 'dshDropdownTrigger'
+    exportAs: 'dshDropdownTrigger',
 })
 export class DropdownTriggerDirective implements OnDestroy {
     @Input('dshDropdownTriggerFor')
@@ -127,11 +127,11 @@ export class DropdownTriggerDirective implements OnDestroy {
                         originX: 'center',
                         originY: 'bottom',
                         overlayX: 'center',
-                        overlayY: 'top'
-                    }
+                        overlayY: 'top',
+                    },
                 ]),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            width: this.dropdown.getCorrectedWidth()
+            width: this.dropdown.getCorrectedWidth(),
         });
     }
 

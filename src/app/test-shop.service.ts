@@ -21,7 +21,7 @@ export class TestShopService {
                 first(),
                 switchMapTo(this.shopService.shops$),
                 first(),
-                filter(shops => shops.length === 0),
+                filter((shops) => shops.length === 0),
                 switchMap(() => this.createTestShop())
             )
             .subscribe(

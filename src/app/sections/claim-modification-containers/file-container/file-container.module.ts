@@ -11,6 +11,6 @@ import { FileContainerComponent } from './file-container.component';
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, MatIconModule, LayoutModule, TranslocoModule],
     declarations: [FileContainerComponent],
-    exports: [FileContainerComponent]
+    exports: [FileContainerComponent],
 })
 export class FileContainerModule {}

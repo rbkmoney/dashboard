@@ -15,47 +15,47 @@ export const DEFAULT_CONFIG: ApexOptions = {
         stacked: true,
         height: 300,
         toolbar: {
-            show: false
+            show: false,
         },
-        animations: DEFAULT_ANIMATION
+        animations: DEFAULT_ANIMATION,
     },
     dataLabels: {
-        enabled: false
+        enabled: false,
     },
     legend: DEFAULT_LEGEND,
     fill: {
-        opacity: 1
+        opacity: 1,
     },
     tooltip: {
-        custom: customTooltip
+        custom: customTooltip,
     },
     plotOptions: {
         bar: {
             horizontal: false,
-            columnWidth: COLUMN_WIDTH
-        }
+            columnWidth: COLUMN_WIDTH,
+        },
     },
     xaxis: {
         type: 'category',
         labels: {
             offsetY: -5,
-            hideOverlappingLabels: true
+            hideOverlappingLabels: true,
         },
         axisTicks: {
-            show: false
+            show: false,
         },
         axisBorder: {
-            show: false
+            show: false,
         },
         crosshairs: {
-            show: false
-        }
+            show: false,
+        },
     },
     yaxis: {
         forceNiceScale: true,
         labels: {
-            formatter: formatAmount
-        }
+            formatter: formatAmount,
+        },
     },
-    states: DEFAULT_STATES
+    states: DEFAULT_STATES,
 };

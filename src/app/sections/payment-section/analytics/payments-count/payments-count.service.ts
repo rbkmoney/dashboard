@@ -18,17 +18,17 @@ export class PaymentsCountService {
 
     private paymentsCountOrError$ = this.searchParams$.pipe(
         switchMap(({ current, previous }) =>
-            forkJoin(
+            forkJoin([
                 this.analyticsService.getPaymentsCount(current.fromTime, current.toTime, current.shopIDs),
-                this.analyticsService.getPaymentsCount(previous.fromTime, previous.toTime, previous.shopIDs)
-            ).pipe(replaceError)
+                this.analyticsService.getPaymentsCount(previous.fromTime, previous.toTime, previous.shopIDs),
+            ]).pipe(replaceError)
         )
     );
     paymentsCount$ = this.paymentsCountOrError$.pipe(
         filterPayload,
-        map(res => res.map(r => r.result)),
+        map((res) => res.map((r) => r.result)),
         map(countResultToStatData),
-        map(data => data.find(d => d.currency === 'RUB')),
+        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.paymentsCount$).pipe(shareReplay(SHARE_REPLAY_CONF));

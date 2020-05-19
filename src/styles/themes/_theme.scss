@@ -9,6 +9,7 @@
 @import '../../components/table/table-theme';
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
+@import '../../components/form-controls/shop-selector/shop-selector-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
@@ -76,5 +77,6 @@
         @include dsh-stat-item-theme($theme);
         @include dsh-expand-panel-theme($theme);
         @include dsh-webhook-panel-theme($theme);
+        @include dsh-shop-selector-theme($theme);
     }
 }

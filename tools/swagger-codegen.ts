@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import { exec } from 'child_process';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import * as config from '../swagger-codegen-config.json';
@@ -8,7 +8,7 @@ const ROOT_DIR = path.join(__dirname, '..');
 
 function deleteFolderRecursive(deletedDir: string) {
     if (fs.existsSync(deletedDir)) {
-        fs.readdirSync(deletedDir).forEach(file => {
+        fs.readdirSync(deletedDir).forEach((file) => {
             const currentPath = path.join(deletedDir, file);
             fs.lstatSync(currentPath).isDirectory() ? deleteFolderRecursive(currentPath) : fs.unlinkSync(currentPath);
         });
@@ -21,7 +21,7 @@ function execWithLog(cmd: string) {
         exec(
             cmd,
             {
-                cwd: ROOT_DIR
+                cwd: ROOT_DIR,
             },
             (error, stdout, stderr) => {
                 if (error === null) {
@@ -49,7 +49,7 @@ async function swaggerCodegenAngularCli({
     name,
     codegenPath,
     swags,
-    outputDir
+    outputDir,
 }: {
     name: string;
     codegenPath: string;
@@ -73,13 +73,13 @@ async function swaggerCodegenAngularCli({
             name: 'Swagger Codegen 3',
             codegenPath: path.join(config.rootDir, config.cli3),
             swags: config.schemes3,
-            outputDir
+            outputDir,
         }),
         swaggerCodegenAngularCli({
             name: 'Swagger Codegen 2',
             codegenPath: path.join(config.rootDir, config.cli),
             swags: config.schemes,
-            outputDir
-        })
+            outputDir,
+        }),
     ]);
 })();
