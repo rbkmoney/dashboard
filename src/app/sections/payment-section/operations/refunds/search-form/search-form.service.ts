@@ -4,11 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, map, pluck, shareReplay, startWith, take } from 'rxjs/operators';
+import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { ShopService } from '../../../../../api/shop';
-import { filterShopsByEnv, mapToShopInfo, removeEmptyProperties, ShopInfo } from '../../operators';
-import { SearchFormValue } from '../../search-form-value';
+import { RouteEnv } from '../../../../route-env';
+import { removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { RefundsSearchFormValue } from './refunds-search-form-value';
@@ -16,12 +15,6 @@ import { RefundsSearchFormValue } from './refunds-search-form-value';
 @Injectable()
 export class SearchFormService {
     searchForm: FormGroup = this.initForm();
-    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo,
-        shareReplay(1)
-    );
     private defaultValues: RefundsSearchFormValue = this.searchForm.value;
     formValueChanges$: Observable<RefundsSearchFormValue> = this.searchForm.valueChanges.pipe(
         startWith(this.defaultValues),
@@ -30,41 +23,35 @@ export class SearchFormService {
         shareReplay(1)
     );
 
-    constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute,
-        private shopService: ShopService
-    ) {
+    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
         this.formValueChanges$.subscribe(formValues =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
-        this.pathFormByQueryParams();
+        this.init();
     }
 
     reset() {
         this.searchForm.reset(this.defaultValues);
     }
 
-    applySearchFormValue(v: SearchFormValue) {
-        if (!v || !this.searchForm) {
-            return;
-        }
-        this.searchForm.patchValue(v);
-    }
-
-    private pathFormByQueryParams() {
+    private init() {
+        this.route.params
+            .pipe(
+                pluck('envID'),
+                take(1),
+                filter(e => e === RouteEnv.test)
+            )
+            .subscribe(() => this.searchForm.controls.shopIDs.disable());
         this.route.queryParams
             .pipe(
                 take(1),
-                filter(queryParams => !isEmpty(queryParams)),
-                map(queryParams => toFormValue<RefundsSearchFormValue>(queryParams))
+                filter(p => !isEmpty(p))
             )
-            .subscribe(formValue => this.searchForm.patchValue(formValue));
+            .subscribe(p => this.searchForm.patchValue(toFormValue<RefundsSearchFormValue>(p)));
     }
 
     private initForm(defaultLimit = 20): FormGroup {
-        const form = this.fb.group({
+        return this.fb.group({
             date: {
                 begin: moment().startOf('month'),
                 end: moment().endOf('month')
@@ -74,8 +61,7 @@ export class SearchFormService {
             invoiceID: '',
             refundID: '',
             refundStatus: '',
-            shopID: ''
+            shopIDs: []
         });
-        return form;
     }
 }

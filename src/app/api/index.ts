@@ -1,3 +1,4 @@
+export * from './analytics';
 export * from './claims';
 export * from './shop';
 export * from './invoice';
@@ -13,3 +14,5 @@ export * from './payment';
 export * from './capi';
 export * from './webhooks';
 export * from './categories';
+export * from './url-shortener';
+export * from './invoice-templates';
