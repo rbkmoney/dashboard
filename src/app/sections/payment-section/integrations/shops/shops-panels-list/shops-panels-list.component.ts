@@ -18,7 +18,6 @@ export class ShopsPanelsListComponent {
     }
 
     shops$ = this.shopsPanelsListService.shops$;
-
     selectedPanelPosition$ = this.shopsPanelsListService.selectedPanelPosition$;
     hasMore$ = this.shopsPanelsListService.hasMore$;
 
