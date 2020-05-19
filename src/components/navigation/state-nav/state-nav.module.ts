@@ -12,6 +12,6 @@ const EXPORTED_DECLARATIONS = [StateNavComponent, StateNavItemComponent];
     imports: [FlexModule, CommonModule, MatIconModule],
     declarations: EXPORTED_DECLARATIONS,
     entryComponents: [],
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class StateNavModule {}

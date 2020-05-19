@@ -16,18 +16,18 @@ import { UpdateClaimService } from './update-claim';
         ReceiveClaimService,
         RevokeClaimService,
         UpdateClaimService,
-        ReviewClaimService
+        ReviewClaimService,
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimComponent implements OnInit {
     links = [
         {
-            path: 'conversation'
+            path: 'conversation',
         },
         {
-            path: 'documents'
-        }
+            path: 'documents',
+        },
     ];
 
     claimID$ = this.receiveClaimService.claim$.pipe(pluck('id'));

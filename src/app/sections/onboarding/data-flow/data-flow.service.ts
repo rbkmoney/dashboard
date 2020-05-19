@@ -30,7 +30,7 @@ export class DataFlowService {
         this.initializeFormsService.subscribe();
         this.sub = this.route.params
             .pipe(pluck('documentID'))
-            .subscribe(documentID => this.questionaryStateService.receiveSnapshot(documentID));
+            .subscribe((documentID) => this.questionaryStateService.receiveSnapshot(documentID));
     }
 
     destroy() {

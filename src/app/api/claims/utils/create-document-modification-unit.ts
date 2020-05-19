@@ -9,7 +9,7 @@ export const createDocumentModificationUnit = (
         claimModificationType: 'DocumentModificationUnit',
         documentId,
         documentModification: {
-            documentModificationType: 'DocumentCreated'
-        }
-    }
+            documentModificationType: 'DocumentCreated',
+        },
+    },
 });

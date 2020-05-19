@@ -21,7 +21,7 @@ const EXPORTED_DECLARATIONS = [
     DshTabHeaderComponent,
     DshTabBodyComponent,
     TabNavComponent,
-    TabLinkDirective
+    TabLinkDirective,
 ];
 
 @NgModule({
@@ -34,7 +34,7 @@ const EXPORTED_DECLARATIONS = [
         DshTabLabelDirective,
         DshTabContentDirective,
         DshInkBarDirective,
-        DshTabLabelWrapperDirective
-    ]
+        DshTabLabelWrapperDirective,
+    ],
 })
 export class DshTabsModule {}

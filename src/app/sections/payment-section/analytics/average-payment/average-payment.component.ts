@@ -8,7 +8,7 @@ import { AveragePaymentService } from './average-payment.service';
 @Component({
     selector: 'dsh-average-payment',
     templateUrl: './average-payment.component.html',
-    providers: [AveragePaymentService]
+    providers: [AveragePaymentService],
 })
 export class AveragePaymentComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;

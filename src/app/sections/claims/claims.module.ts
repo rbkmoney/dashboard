@@ -42,10 +42,10 @@ import { TableComponent } from './table';
         MatIconModule,
         StateNavModule,
         ButtonModule,
-        LastUpdatedModule
+        LastUpdatedModule,
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
     exports: [ClaimsComponent],
-    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService]
+    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService],
 })
 export class ClaimsModule {}

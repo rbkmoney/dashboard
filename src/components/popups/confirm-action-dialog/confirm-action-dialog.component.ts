@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     templateUrl: 'confirm-action-dialog.component.html',
-    styleUrls: ['confirm-action-dialog.component.scss']
+    styleUrls: ['confirm-action-dialog.component.scss'],
 })
 export class ConfirmActionDialogComponent {
     constructor(public dialogRef: MatDialogRef<ConfirmActionDialogComponent, 'cancel' | 'confirm'>) {}

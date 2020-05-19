@@ -18,5 +18,5 @@ interface AmountUnit {
 const amountUnits: AmountUnit[] = [
     { amount: 1000000000, unit: 'B' },
     { amount: 1000000, unit: 'M' },
-    { amount: 1000, unit: 'K' }
+    { amount: 1000, unit: 'K' },
 ];

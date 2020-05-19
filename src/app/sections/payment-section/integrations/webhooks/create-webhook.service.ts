@@ -24,6 +24,6 @@ export class CreateWebhookService {
         return this.dialog
             .open(CreateWebhookComponent, { width: '560px', disableClose: true })
             .afterClosed()
-            .pipe(filter(r => r === 'created'));
+            .pipe(filter((r) => r === 'created'));
     }
 }

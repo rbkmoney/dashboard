@@ -12,7 +12,7 @@ import { FormValue } from './form-value';
 export abstract class QuestionaryFormService {
     readonly form$ = this.questionaryStateService.questionaryData$.pipe(
         first(),
-        map(data => this.toForm(data)),
+        map((data) => this.toForm(data)),
         shareReplay(1)
     );
     readonly stepName: StepName = this.getStepName();
@@ -24,12 +24,12 @@ export abstract class QuestionaryFormService {
     ) {}
 
     startFormValuePersistent(debounceMs = 300): Subscription {
-        const formValueChanges$ = this.form$.pipe(switchMap(form => form.valueChanges));
+        const formValueChanges$ = this.form$.pipe(switchMap((form) => form.valueChanges));
         const data$ = this.questionaryStateService.questionaryData$.pipe(first());
         return formValueChanges$
             .pipe(
                 debounceTime(debounceMs),
-                switchMap(v => forkJoin([of(v), data$]))
+                switchMap((v) => forkJoin([of(v), data$]))
             )
             .subscribe(([v, data]) => {
                 try {
@@ -44,15 +44,15 @@ export abstract class QuestionaryFormService {
     startFormValidityReporting(debounceMs = 300): Subscription {
         return this.form$
             .pipe(
-                switchMap(form => combineLatest([of(form), form.statusChanges.pipe(startWith(form.status))])),
+                switchMap((form) => combineLatest([of(form), form.statusChanges.pipe(startWith(form.status))])),
                 pluck(0, 'valid'),
                 debounceTime(debounceMs)
             )
-            .subscribe(isValid => this.validityService.setUpValidity(this.stepName, isValid));
+            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
     startFormControlsValidationCheck() {
-        return this.form$.subscribe(control => this.validationCheckService.setUpFormControl(this.stepName, control));
+        return this.form$.subscribe((control) => this.validationCheckService.setUpFormControl(this.stepName, control));
     }
 
     protected abstract toForm(data: QuestionaryData): FormGroup;

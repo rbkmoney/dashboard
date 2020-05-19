@@ -12,7 +12,7 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
     selector: 'dsh-webhook-panel',
     templateUrl: 'webhook-panel.component.html',
     providers: [WebhookPanelService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebhookPanelComponent implements OnChanges {
     @Input()
@@ -27,7 +27,7 @@ export class WebhookPanelComponent implements OnChanges {
     ngOnChanges({ webhook }: SimpleChanges) {
         if (!isEqual(webhook.previousValue, webhook.currentValue)) {
             const {
-                scope: { eventTypes, shopID }
+                scope: { eventTypes, shopID },
             } = webhook.currentValue;
             this.events = eventTypes;
             this.webhookPanelService.getShopInfo(shopID);

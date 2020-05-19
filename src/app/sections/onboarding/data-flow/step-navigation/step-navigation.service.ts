@@ -20,7 +20,7 @@ export class StepNavigationService {
         this.goByDirection$
             .pipe(
                 tap(() => this.questionaryStateService.save()),
-                switchMap(direction =>
+                switchMap((direction) =>
                     combineLatest([of(direction), this.validityService.isCurrentStepValid$.pipe(take(1))])
                 )
             )

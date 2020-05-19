@@ -4,13 +4,13 @@ import sortBy from 'lodash.sortby';
 import { PaymentsToolDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
 import { DistributionChartData } from '../utils';
 
-const sortByPercents = (distribution: PaymentsToolDistributionResult[]) => sortBy(distribution, d => -d.percents);
+const sortByPercents = (distribution: PaymentsToolDistributionResult[]) => sortBy(distribution, (d) => -d.percents);
 
-const getSeries = (distribution: PaymentsToolDistributionResult[]): number[] => distribution.map(d => d.percents);
+const getSeries = (distribution: PaymentsToolDistributionResult[]): number[] => distribution.map((d) => d.percents);
 
 const getLabels = (distribution: PaymentsToolDistributionResult[]): string[] =>
     translate(
-        distribution.map(d => `analytics.paymentToolsList.${d.name}`),
+        distribution.map((d) => `analytics.paymentToolsList.${d.name}`),
         null,
         'payment-section|scoped'
     );
@@ -21,6 +21,6 @@ export const paymentsToolDistributionToChartData = (
     const sorted = sortByPercents(distribution);
     return {
         series: getSeries(sorted),
-        labels: getLabels(sorted)
+        labels: getLabels(sorted),
     };
 };

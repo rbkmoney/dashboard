@@ -5,7 +5,7 @@ import { coerceBoolean } from '../../../../utils';
 
 export enum Color {
     success = 'success',
-    warn = 'warn'
+    warn = 'warn',
 }
 
 const HOST_ATTRIBUTES = ['withIcon'];
@@ -13,7 +13,7 @@ const HOST_ATTRIBUTES = ['withIcon'];
 @Component({
     selector: 'dsh-state-nav-item, dsh-state-nav-item[withIcon]',
     templateUrl: 'state-nav-item.component.html',
-    styleUrls: ['state-nav-item.component.scss']
+    styleUrls: ['state-nav-item.component.scss'],
 })
 export class StateNavItemComponent {
     @Input()
@@ -50,6 +50,6 @@ export class StateNavItemComponent {
     }
 
     private hasHostAttributes(...attributes: string[]): boolean {
-        return attributes.some(attribute => this.item.hasAttribute(attribute));
+        return attributes.some((attribute) => this.item.hasAttribute(attribute));
     }
 }

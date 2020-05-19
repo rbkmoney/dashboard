@@ -7,7 +7,7 @@ import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-head
 @Component({
     selector: 'dsh-expand-panel-more',
     templateUrl: 'expand-panel-more-template.component.html',
-    styleUrls: ['expand-panel-more-template.component.scss']
+    styleUrls: ['expand-panel-more-template.component.scss'],
 })
 export class ExpandPanelMoreTemplateComponent {
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
@@ -15,9 +15,9 @@ export class ExpandPanelMoreTemplateComponent {
     collapse$ = new Subject<MouseEvent>();
     @ContentChild(ExpandPanelMoreHeaderTemplateComponent)
     @coerce(
-        v => v,
+        (v) => v,
         (v: ExpandPanelMoreHeaderTemplateComponent, self: ExpandPanelMoreTemplateComponent) =>
-            v && v.collapse$.subscribe(e => self.collapse$.next(e))
+            v && v.collapse$.subscribe((e) => self.collapse$.next(e))
     )
     expandPanelMoreHeader: ExpandPanelMoreHeaderTemplateComponent;
 }

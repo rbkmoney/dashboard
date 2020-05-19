@@ -17,12 +17,12 @@ export class CreateInvoiceDialogService {
         dueDate: null,
         product: '',
         currency: 'RUB',
-        cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)])
+        cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)]),
     });
 
     totalAmount$ = this.form.controls.cart.valueChanges.pipe(
         startWith(this.form.controls.cart.value),
-        map(v => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
+        map((v) => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -32,13 +32,11 @@ export class CreateInvoiceDialogService {
         const { value } = this.form;
         return this.invoiceService.createInvoice({
             shopID: value.shopID,
-            dueDate: moment(value.dueDate)
-                .utc()
-                .format(),
+            dueDate: moment(value.dueDate).utc().format(),
             currency: value.currency,
             product: value.product,
             cart: value.cart.map(this.getCartItemValue.bind(this)),
-            metadata: {}
+            metadata: {},
         });
     }
 
@@ -54,12 +52,12 @@ export class CreateInvoiceDialogService {
         const product: InvoiceLine = {
             product: v.product,
             quantity: v.quantity,
-            price: v.price * 100
+            price: v.price * 100,
         };
         if (v.taxVatRate !== WITHOUT_VAT) {
             product.taxMode = {
                 type: InvoiceLineTaxMode.TypeEnum.InvoiceLineTaxVAT,
-                rate: v.taxVatRate
+                rate: v.taxVatRate,
             } as InvoiceLineTaxMode;
         }
         return product;

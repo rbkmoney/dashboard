@@ -30,7 +30,7 @@ import { UserComponent } from './user';
         MatMenuModule,
         RouterModule,
         CommonModule,
-        TranslocoModule
+        TranslocoModule,
     ],
     declarations: [
         ActionbarComponent,
@@ -38,9 +38,9 @@ import { UserComponent } from './user';
         ClaimsListComponent,
         ClaimsListItemComponent,
         UserComponent,
-        ClaimsComponent
+        ClaimsComponent,
     ],
     providers: [ClaimsService],
-    exports: [ActionbarComponent]
+    exports: [ActionbarComponent],
 })
 export class ActionbarModule {}

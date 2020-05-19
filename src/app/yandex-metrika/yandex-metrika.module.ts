@@ -13,20 +13,20 @@ import { YandexMetrikaComponent } from './yandex-metrika.component';
         {
             provide: DEFAULT_COUNTER_ID,
             useFactory: (yandexMetrikaService: YandexMetrikaConfigService) => yandexMetrikaService.config.id,
-            deps: [YandexMetrikaConfigService]
+            deps: [YandexMetrikaConfigService],
         },
         {
             provide: YANDEX_COUNTERS_CONFIGS,
             useFactory: (yandexMetrikaService: YandexMetrikaConfigService) => [yandexMetrikaService.config],
-            deps: [YandexMetrikaConfigService]
+            deps: [YandexMetrikaConfigService],
         },
         {
             provide: Metrika,
             useClass: Metrika,
-            deps: [Injector, PLATFORM_ID]
-        }
+            deps: [Injector, PLATFORM_ID],
+        },
     ],
     declarations: [YandexMetrikaComponent],
-    exports: [YandexMetrikaComponent]
+    exports: [YandexMetrikaComponent],
 })
 export class YandexMetrikaModule {}

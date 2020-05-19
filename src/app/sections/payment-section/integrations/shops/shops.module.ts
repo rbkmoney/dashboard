@@ -18,9 +18,9 @@ import { ShopsComponent } from './shops.component';
         ShopsPanelsListModule,
         CommonModule,
         SpinnerModule,
-        EmptySearchResultModule
+        EmptySearchResultModule,
     ],
     declarations: [ShopsComponent],
-    exports: [ShopsComponent]
+    exports: [ShopsComponent],
 })
 export class ShopsModule {}

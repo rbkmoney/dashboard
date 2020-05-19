@@ -29,14 +29,14 @@ export class InitializeFormsService {
             this.financialAndEconomicActivityService,
             this.beneficialOwnersService,
             this.russianPrivateEntityService,
-            this.planningOperationsAndPayoutToolService
+            this.planningOperationsAndPayoutToolService,
         ];
     }
 
     subscribe() {
         this.subs = [
-            ...this.initializeContainer.map(service => service.startFormValidityReporting()),
-            ...this.initializeContainer.map(service => service.startFormControlsValidationCheck())
+            ...this.initializeContainer.map((service) => service.startFormValidityReporting()),
+            ...this.initializeContainer.map((service) => service.startFormControlsValidationCheck()),
         ];
     }
 

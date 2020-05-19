@@ -10,7 +10,7 @@ export class GlowManager {
         this.listeners = [
             this.renderer.listen(t, 'mouseenter', this.showGlow.bind(this)),
             this.renderer.listen(t, 'mouseleave', this.hideGlow.bind(this)),
-            this.renderer.listen(t, 'mousemove', this.moveGlow.bind(this, t))
+            this.renderer.listen(t, 'mousemove', this.moveGlow.bind(this, t)),
         ];
     }
 

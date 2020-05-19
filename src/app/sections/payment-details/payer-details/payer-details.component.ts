@@ -6,12 +6,12 @@ import { LAYOUT_GAP } from '../../constants';
 export enum PayerType {
     CustomerPayer = 'CustomerPayer',
     PaymentResourcePayer = 'PaymentResourcePayer',
-    RecurrentPayer = 'RecurrentPayer'
+    RecurrentPayer = 'RecurrentPayer',
 }
 
 @Component({
     selector: 'dsh-payer-details',
-    templateUrl: './payer-details.component.html'
+    templateUrl: './payer-details.component.html',
 })
 export class PayerDetailsComponent {
     @Input() payer: Payer;

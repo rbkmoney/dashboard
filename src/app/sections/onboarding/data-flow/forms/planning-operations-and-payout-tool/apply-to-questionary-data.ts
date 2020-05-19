@@ -9,7 +9,7 @@ import {
     QuestionaryData,
     RussianBankAccount,
     RussianIndividualEntity,
-    RussianLegalEntity
+    RussianLegalEntity,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -19,7 +19,7 @@ const applyToAdditionalInfo = (
 ): AdditionalInfo => ({
     ...i,
     monthOperationCount,
-    monthOperationSum
+    monthOperationSum,
 });
 
 const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
@@ -28,8 +28,8 @@ const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): L
         ...t,
         legalEntity: {
             ...legalEntity,
-            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v)
-        } as RussianLegalEntity
+            additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v),
+        } as RussianLegalEntity,
     };
 };
 
@@ -39,8 +39,8 @@ const applyToIndividualEntityContractor = (t: IndividualEntityContractor, v: For
         ...t,
         individualEntity: {
             ...individualEntity,
-            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v)
-        } as RussianIndividualEntity
+            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v),
+        } as RussianIndividualEntity,
     };
 };
 
@@ -60,11 +60,11 @@ const applyToBankAccount = (b: BankAccount, { account, bankName, bankPostAccount
         account,
         bankName,
         bankPostAccount,
-        bankBik
+        bankBik,
     } as RussianBankAccount);
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
     contractor: applyToContractor(d.contractor, v),
-    bankAccount: applyToBankAccount(d.bankAccount, get(v, ['bankAccount']))
+    bankAccount: applyToBankAccount(d.bankAccount, get(v, ['bankAccount'])),
 });

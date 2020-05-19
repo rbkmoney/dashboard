@@ -2,18 +2,18 @@ import { coerce } from './coerce';
 
 describe('coerce', () => {
     class Simple {
-        @coerce(function(v) {
+        @coerce(function (v) {
             return this.withDef + v;
         })
         testThisBefore = 1;
 
-        @coerce(v => v + 1)
+        @coerce((v) => v + 1)
         withDef = 0;
 
-        @coerce(v => v + 1)
+        @coerce((v) => v + 1)
         withoutDef;
 
-        @coerce(function(v) {
+        @coerce(function (v) {
             return this.withDef + v;
         })
         testThisAfter = 1;

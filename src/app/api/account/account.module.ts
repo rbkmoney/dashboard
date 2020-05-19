@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { AccountService } from './account.service';
 
 @NgModule({
-    providers: [AccountService]
+    providers: [AccountService],
 })
 export class AccountModule {}

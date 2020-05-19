@@ -4,20 +4,20 @@ export type _DshInkBarPositioner = (element: HTMLElement) => { left: string; wid
 
 export const _DSH_INK_BAR_POSITIONER = new InjectionToken<_DshInkBarPositioner>('DshInkBarPositioner', {
     providedIn: 'root',
-    factory: _DSH_INK_BAR_POSITIONER_FACTORY
+    factory: _DSH_INK_BAR_POSITIONER_FACTORY,
 });
 
 export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
     const method = (element: HTMLElement) => ({
         left: element ? (element.offsetLeft || 0) + 'px' : '0',
-        width: element ? (element.offsetWidth || 0) + 'px' : '0'
+        width: element ? (element.offsetWidth || 0) + 'px' : '0',
     });
 
     return method;
 }
 
 @Directive({
-    selector: 'dsh-ink-bar'
+    selector: 'dsh-ink-bar',
 })
 export class DshInkBarDirective {
     @HostBinding('class.dsh-ink-bar')

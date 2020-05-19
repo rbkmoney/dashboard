@@ -15,6 +15,6 @@ const EXPORTED_DECLARATIONS = [ExpansionComponent, ItemComponent, HeaderComponen
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, ButtonModule, MatIconModule],
     declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class ExpansionModule {}

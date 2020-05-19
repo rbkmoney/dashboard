@@ -6,7 +6,7 @@ import { StepCardService } from './step-card.service';
 @Component({
     selector: 'dsh-step-card',
     templateUrl: 'step-card.component.html',
-    providers: [StepCardService]
+    providers: [StepCardService],
 })
 export class StepCardComponent {
     isFlowValid$ = this.validityService.isFlowValid$;

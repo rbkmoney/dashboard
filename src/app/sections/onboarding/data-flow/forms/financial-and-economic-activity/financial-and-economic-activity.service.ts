@@ -21,7 +21,7 @@ type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 const accountantTypes: AccountantInfoType[] = [
     'WithoutChiefHeadAccounting',
     'WithoutChiefIndividualAccountant',
-    'WithoutChiefAccountingOrganization'
+    'WithoutChiefAccountingOrganization',
 ];
 
 @Injectable()
@@ -101,7 +101,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
             accountantOrgInn: [''],
             hasBeneficiary: [false, Validators.required],
             hasLiquidationProcess: [false, Validators.required],
-            residencyInfo: this.legalResidencyInfoService.getForm()
+            residencyInfo: this.legalResidencyInfoService.getForm(),
         });
     }
 }

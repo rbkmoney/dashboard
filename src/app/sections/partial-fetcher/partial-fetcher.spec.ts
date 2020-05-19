@@ -51,7 +51,7 @@ describe('PartialFetch', () => {
             const partialFetched = new PartialFetched(
                 (_params, token) =>
                     cold('--x|', {
-                        x: { result: [token], continuationToken: token ? token + '0' : 'token' }
+                        x: { result: [token], continuationToken: token ? token + '0' : 'token' },
                     } as FetchResult<any>),
                 0
             );
@@ -63,7 +63,7 @@ describe('PartialFetch', () => {
                 [undefined],
                 [undefined, 'token'],
                 [undefined, 'token', 'token0'],
-                [undefined, 'token', 'token0', 'token00']
+                [undefined, 'token', 'token0', 'token00'],
             ]);
             expectObservable(partialFetched.errors$).toBe('');
             expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);
@@ -74,7 +74,7 @@ describe('PartialFetch', () => {
     it('should reload with old params', () => {
         createScheduler().run(({ cold, expectObservable }) => {
             const partialFetched = new PartialFetched(
-                params => cold('--x|', { x: { result: [params], continuationToken: 'token' } as FetchResult<any> }),
+                (params) => cold('--x|', { x: { result: [params], continuationToken: 'token' } as FetchResult<any> }),
                 0
             );
             partialFetched.search('params');
@@ -83,7 +83,7 @@ describe('PartialFetch', () => {
             expectObservable(partialFetched.searchResult$).toBe('--0-1-2', [
                 ['params'],
                 ['params', 'params'],
-                ['params']
+                ['params'],
             ]);
             expectObservable(partialFetched.errors$).toBe('');
             expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);

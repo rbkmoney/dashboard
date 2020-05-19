@@ -11,7 +11,7 @@ import { DropdownModule } from './dropdown.module';
         <button id="another">Another button</button>
         <button id="toggle" [dshDropdownTriggerFor]="dropdown"><span id="toggle-content">Toggle</span></button>
         <dsh-dropdown width="400px" #dropdown="dshDropdown"><ng-template>Text</ng-template></dsh-dropdown>
-    `
+    `,
 })
 class SimpleDropdownComponent {
     @ViewChild(DropdownTriggerDirective) trigger: DropdownTriggerDirective;
@@ -29,7 +29,7 @@ describe('DshDropdown', () => {
         TestBed.configureTestingModule({
             imports: [DropdownModule, NoopAnimationsModule],
             declarations: [component, ...declarations],
-            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers]
+            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers],
         }).compileComponents();
 
         inject([OverlayContainer], (oc: FullscreenOverlayContainer) => {

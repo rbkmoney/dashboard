@@ -9,7 +9,7 @@ import { SendCommentService } from './send-comment.service';
     templateUrl: 'send-comment.component.html',
     styleUrls: ['send-comment.component.scss'],
     providers: [SendCommentService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SendCommentComponent {
     @Output() conversationSaved: EventEmitter<ConversationID> = new EventEmitter();
@@ -19,7 +19,7 @@ export class SendCommentComponent {
     inProgress$ = this.sendCommentService.inProgress$;
 
     constructor(private sendCommentService: SendCommentService) {
-        this.sendCommentService.conversationSaved$.subscribe(id => this.conversationSaved.next(id));
+        this.sendCommentService.conversationSaved$.subscribe((id) => this.conversationSaved.next(id));
     }
 
     sendComment(comment: string) {

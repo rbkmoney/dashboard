@@ -10,6 +10,6 @@ import { SectionsComponent } from './sections.component';
     imports: [MainModule, SectionsRoutingModule, ShopModule],
     declarations: [SectionsComponent],
     exports: [SectionsComponent],
-    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }]
+    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }],
 })
 export class SectionsModule {}

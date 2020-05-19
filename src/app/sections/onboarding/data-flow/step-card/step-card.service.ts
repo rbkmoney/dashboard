@@ -18,7 +18,7 @@ export class StepCardService {
 
     stepNavInfo$: Observable<StepNavInfo[]> = combineLatest([
         this.validityService.validitySteps$,
-        this.stepFlowService.activeStep$
+        this.stepFlowService.activeStep$,
     ]).pipe(toStepNavInfo, shareReplay(1));
 
     constructor(
@@ -33,7 +33,7 @@ export class StepCardService {
         const claimID$ = this.route.params.pipe(pluck('claimID'));
         combineLatest([this.stepFlowService.stepFlow$, this.selectStepFlowIndex$])
             .pipe(map(([stepFlow, idx]) => stepFlow[idx]))
-            .subscribe(step => {
+            .subscribe((step) => {
                 this.questionaryStateService.save();
                 this.stepFlowService.navigate(step);
             });
@@ -41,19 +41,19 @@ export class StepCardService {
         this.finishFormFlow$
             .pipe(
                 switchMapTo(claimID$),
-                switchMap(claimID => this.claimsService.getClaimByID(claimID)),
+                switchMap((claimID) => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
                 switchMap(() =>
                     this.dialog
                         .open(FinishOnboardingDialogComponent, {
                             disableClose: true,
-                            width: '600px'
+                            width: '600px',
                         })
                         .afterClosed()
                 ),
                 switchMapTo(claimID$)
             )
-            .subscribe(claimID => this.router.navigate(['claim', claimID, 'documents']));
+            .subscribe((claimID) => this.router.navigate(['claim', claimID, 'documents']));
     }
 
     finishFormFlow() {

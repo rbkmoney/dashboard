@@ -7,7 +7,7 @@ export const mapDirectionToStep = (stepFlow$: Observable<StepName[]>, activeStep
     s: Observable<'forward' | 'back'>
 ): Observable<StepName> =>
     s.pipe(
-        switchMap(direction => zip(activeStep$, stepFlow$, of(direction))),
+        switchMap((direction) => zip(activeStep$, stepFlow$, of(direction))),
         map(([activeStep, stepFlow, direction]) => {
             const currentPosition = stepFlow.indexOf(activeStep);
             let result;

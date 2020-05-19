@@ -9,9 +9,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: AnapiConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: AnapiConfigService }],
+        },
     ],
-    providers: [AnapiConfigService, ReportsService, AnalyticsService]
+    providers: [AnapiConfigService, ReportsService, AnalyticsService],
 })
 export class AnapiModule {}

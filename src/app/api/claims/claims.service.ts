@@ -7,7 +7,7 @@ import {
     ClaimsService as APIClaimsService,
     Modification,
     Reason,
-    StatusModificationUnit
+    StatusModificationUnit,
 } from '../../api-codegen/claim-management';
 import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';

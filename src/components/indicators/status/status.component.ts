@@ -6,7 +6,7 @@ import { coerceBoolean } from '../../../utils';
 @Component({
     selector: 'dsh-status',
     templateUrl: 'status.component.html',
-    styleUrls: ['status.component.scss']
+    styleUrls: ['status.component.scss'],
 })
 export class StatusComponent {
     @Input() color: StatusColor;

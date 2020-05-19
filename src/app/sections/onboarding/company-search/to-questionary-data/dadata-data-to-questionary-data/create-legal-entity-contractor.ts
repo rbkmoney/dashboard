@@ -3,7 +3,7 @@ import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
 import {
     LegalEntityContractor,
     LegalRegistrationInfo,
-    RussianLegalEntity
+    RussianLegalEntity,
 } from '../../../../../api-codegen/questionary';
 
 type RussianLegalEntityContractor = Replace<
@@ -17,7 +17,7 @@ export function createLegalEntityContractor({ inn, name }: PartyContent): Russia
         legalEntity: {
             legalEntityType: 'RussianLegalEntity',
             name: name.shortName,
-            inn
-        }
+            inn,
+        },
     };
 }

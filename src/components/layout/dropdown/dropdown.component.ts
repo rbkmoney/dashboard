@@ -13,7 +13,7 @@ const FULL_WIDTH = '99.99%';
     templateUrl: 'dropdown.component.html',
     styleUrls: ['dropdown.component.scss'],
     animations: [openCloseAnimation],
-    exportAs: 'dshDropdown'
+    exportAs: 'dshDropdown',
 })
 export class DropdownComponent {
     @Input() width?: number | string;

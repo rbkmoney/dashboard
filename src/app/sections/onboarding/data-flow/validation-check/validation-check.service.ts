@@ -28,17 +28,17 @@ export class ValidationCheckService {
     subscribe() {
         this.sub = merge(
             this.stepFlowService.stepFlow$.pipe(
-                map(stepFlow => new Map(stepFlow.map(stepName => [stepName, undefined]))),
+                map((stepFlow) => new Map(stepFlow.map((stepName) => [stepName, undefined]))),
                 take(1),
-                switchMap(initialSteps =>
+                switchMap((initialSteps) =>
                     this.setUpFormControls$.pipe(
                         scan((acc, [step, control]) => (acc.has(step) ? acc.set(step, control) : acc), initialSteps)
                     )
                 ),
-                tap(s => this.steps$.next(s))
+                tap((s) => this.steps$.next(s))
             ),
             this.validationCheckStep$.pipe(
-                switchMap(step =>
+                switchMap((step) =>
                     combineLatest([this.steps$, step ? of(step) : this.stepFlowService.activeStep$.pipe(take(1))])
                 ),
                 map(([steps, step]) => steps.get(step)),
@@ -47,7 +47,7 @@ export class ValidationCheckService {
             this.stepFlowService.activeStep$.pipe(
                 pairwise(),
                 pluck(0),
-                tap(step => this.validationCheck(step))
+                tap((step) => this.validationCheck(step))
             )
         ).subscribe();
     }

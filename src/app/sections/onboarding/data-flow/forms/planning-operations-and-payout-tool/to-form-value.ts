@@ -5,7 +5,7 @@ import {
     Contractor,
     IndividualEntity,
     LegalEntity,
-    QuestionaryData
+    QuestionaryData,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -13,12 +13,12 @@ const fromBankAccount = (b: BankAccount) => ({
     account: get(b, ['account'], null),
     bankName: get(b, ['bankName'], null),
     bankPostAccount: get(b, ['bankPostAccount'], null),
-    bankBik: get(b, ['bankBik'], null)
+    bankBik: get(b, ['bankBik'], null),
 });
 
 const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => ({
     monthOperationCount: get(l, ['additionalInfo', 'monthOperationCount'], null),
-    monthOperationSum: get(l, ['additionalInfo', 'monthOperationSum'], null)
+    monthOperationSum: get(l, ['additionalInfo', 'monthOperationSum'], null),
 });
 
 const fromContractor = (c: Contractor): FormValue => {
@@ -32,5 +32,5 @@ const fromContractor = (c: Contractor): FormValue => {
 
 export const toFormValue = (d: QuestionaryData): FormValue => ({
     ...fromContractor(get(d, ['contractor'])),
-    bankAccount: fromBankAccount(get(d, ['bankAccount']))
+    bankAccount: fromBankAccount(get(d, ['bankAccount'])),
 });

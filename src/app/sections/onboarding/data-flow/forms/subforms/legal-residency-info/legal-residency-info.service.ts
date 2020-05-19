@@ -8,7 +8,7 @@ export class LegalResidencyInfoService {
     getForm(): FormGroup {
         return this.fb.group({
             taxResident: [false, Validators.required],
-            fatca: [false, Validators.required]
+            fatca: [false, Validators.required],
         });
     }
 }

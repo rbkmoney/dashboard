@@ -12,7 +12,7 @@ export class AuthorityConfirmingDocumentService {
             type: [null],
             customType: [null],
             date: [null],
-            number: ['']
+            number: [''],
         });
     }
 }

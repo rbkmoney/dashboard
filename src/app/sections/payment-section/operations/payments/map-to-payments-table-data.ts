@@ -15,11 +15,11 @@ const toPaymentTableData = (
     invoiceID,
     statusChangedAt: statusChangedAt as any,
     paymentID: id,
-    shopName: toShopName(s, shopID)
+    shopName: toShopName(s, shopID),
 });
 
 const paymentsToTableData = (searchResult: PaymentSearchResult[], s: Shop[]) =>
-    searchResult.map(r => toPaymentTableData(r, s));
+    searchResult.map((r) => toPaymentTableData(r, s));
 
 export const mapToPaymentsTableData = (s: Observable<[PaymentSearchResult[], Shop[]]>) =>
     s.pipe(map(([searchResult, shops]) => paymentsToTableData(searchResult, shops)));

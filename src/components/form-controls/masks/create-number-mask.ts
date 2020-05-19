@@ -16,7 +16,7 @@ export function createNumberMask({
     requireDecimal = false,
     allowNegative = false,
     allowLeadingZeroes = false,
-    integerLimit = null
+    integerLimit = null,
 } = {}): TextMaskConfig {
     const prefixLength = (prefix && prefix.length) || 0;
     const suffixLength = (suffix && suffix.length) || 0;
@@ -124,7 +124,7 @@ export function createNumberMask({
 }
 
 function convertToMask(strNumber: string): Array<string | RegExp> {
-    return strNumber.split('').map(char => (DIGIT_REG_EXP.test(char) ? DIGIT_REG_EXP : char));
+    return strNumber.split('').map((char) => (DIGIT_REG_EXP.test(char) ? DIGIT_REG_EXP : char));
 }
 
 // http://stackoverflow.com/a/10899795/604296

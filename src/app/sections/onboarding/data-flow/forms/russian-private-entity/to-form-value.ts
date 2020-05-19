@@ -10,6 +10,6 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
         privateEntityInfo: toPrivateEntityInfo(e),
         russianDomesticPassport: toRussianDomesticPassport(get(e, ['identityDocument'])),
         individualResidencyInfo: toResidencyInfo(get(e, ['residencyInfo'])),
-        pdlInfo: toPdlInfo(e)
+        pdlInfo: toPdlInfo(e),
     };
 };

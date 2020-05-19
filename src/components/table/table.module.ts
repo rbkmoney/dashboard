@@ -10,7 +10,7 @@ import {
     FooterCellDefDirective,
     FooterCellDirective,
     HeaderCellDefDirective,
-    HeaderCellDirective
+    HeaderCellDirective,
 } from './cell';
 import {
     FooterRowComponent,
@@ -18,7 +18,7 @@ import {
     HeaderRowComponent,
     HeaderRowDefDirective,
     RowComponent,
-    RowDefDirective
+    RowDefDirective,
 } from './row';
 import { TableComponent } from './table';
 
@@ -36,12 +36,12 @@ const EXPORTED_DECLARATIONS = [
     FooterCellDirective,
     HeaderRowComponent,
     RowComponent,
-    FooterRowComponent
+    FooterRowComponent,
 ];
 
 @NgModule({
     imports: [CdkTableModule, CommonModule, MatTableModule],
     exports: EXPORTED_DECLARATIONS,
-    declarations: EXPORTED_DECLARATIONS
+    declarations: EXPORTED_DECLARATIONS,
 })
 export class TableModule {}

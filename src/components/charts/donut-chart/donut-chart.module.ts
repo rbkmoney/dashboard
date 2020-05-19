@@ -7,6 +7,6 @@ import { DonutChartComponent } from './donut-chart.component';
 @NgModule({
     declarations: [DonutChartComponent],
     exports: [DonutChartComponent],
-    imports: [CommonModule, NgApexchartsModule]
+    imports: [CommonModule, NgApexchartsModule],
 })
 export class DonutChartModule {}

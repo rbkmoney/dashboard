@@ -11,6 +11,6 @@ import { CommentContainerComponent } from './comment-container.component';
 @NgModule({
     imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule, MessagesModule],
     declarations: [CommentContainerComponent],
-    exports: [CommentContainerComponent]
+    exports: [CommentContainerComponent],
 })
 export class CommentContainerModule {}

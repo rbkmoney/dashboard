@@ -8,7 +8,7 @@ import { PaymentsService } from './payments.service';
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
     styleUrls: ['payments.component.scss'],
-    providers: [PaymentsService]
+    providers: [PaymentsService],
 })
 export class PaymentsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;

@@ -19,7 +19,7 @@ export class UpdateClaimService {
     private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
 
     errorCode$: Observable<string> = this.error$.pipe(
-        filter(err => err.hasError),
+        filter((err) => err.hasError),
         pluck('code')
     );
     inProgress$: Observable<boolean> = progress(this.updateBy$, this.error$);
@@ -35,10 +35,10 @@ export class UpdateClaimService {
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
                 toChangeset,
-                switchMap(changeset => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
+                switchMap((changeset) => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
                 switchMap(([changeset, { id, revision }]) =>
                     this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
-                        catchError(ex => {
+                        catchError((ex) => {
                             console.error(ex);
                             const error = { hasError: true, code: 'updateClaimByIDFailed' };
                             this.error$.next(error);
@@ -48,9 +48,9 @@ export class UpdateClaimService {
                 )
             )
             .subscribe(() => this.receiveClaimService.receiveClaim());
-        this.errorCode$.subscribe(code =>
+        this.errorCode$.subscribe((code) =>
             this.snackBar.open(this.transloco.translate(`errors.${code}`), 'OK', {
-                duration: 5000
+                duration: 5000,
             })
         );
     }
@@ -58,14 +58,14 @@ export class UpdateClaimService {
     updateByConversation(conversationId: ConversationID) {
         this.updateBy$.next({
             type: 'updateConversation',
-            conversationId
+            conversationId,
         } as UpdateConversationParams);
     }
 
     updateByFiles(fileIds: string[]) {
         this.updateBy$.next({
             type: 'updateFiles',
-            fileIds
+            fileIds,
         } as UpdateFilesParams);
     }
 }

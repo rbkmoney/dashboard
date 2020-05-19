@@ -5,13 +5,13 @@ import {
     CdkHeaderRowDef,
     CdkRow,
     CdkRowDef,
-    CDK_ROW_TEMPLATE
+    CDK_ROW_TEMPLATE,
 } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, Directive, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Directive({
     selector: '[dshHeaderRowDef]',
-    providers: [{ provide: CdkHeaderRowDef, useExisting: HeaderRowDefDirective }]
+    providers: [{ provide: CdkHeaderRowDef, useExisting: HeaderRowDefDirective }],
 })
 export class HeaderRowDefDirective extends CdkHeaderRowDef {
     @Input('dshHeaderRowDef') columns: string[];
@@ -21,7 +21,7 @@ export class HeaderRowDefDirective extends CdkHeaderRowDef {
 
 @Directive({
     selector: '[dshFooterRowDef]',
-    providers: [{ provide: CdkFooterRowDef, useExisting: FooterRowDefDirective }]
+    providers: [{ provide: CdkFooterRowDef, useExisting: FooterRowDefDirective }],
 })
 export class FooterRowDefDirective extends CdkFooterRowDef {
     @Input('dshFooterRowDef') columns;
@@ -31,7 +31,7 @@ export class FooterRowDefDirective extends CdkFooterRowDef {
 
 @Directive({
     selector: '[dshRowDef]',
-    providers: [{ provide: CdkRowDef, useExisting: RowDefDirective }]
+    providers: [{ provide: CdkRowDef, useExisting: RowDefDirective }],
 })
 export class RowDefDirective<T> extends CdkRowDef<T> {
     // tslint:disable-next-line:no-input-rename
@@ -48,7 +48,7 @@ export class RowDefDirective<T> extends CdkRowDef<T> {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshHeaderRow',
-    providers: [{ provide: CdkHeaderRow, useExisting: HeaderRowComponent }]
+    providers: [{ provide: CdkHeaderRow, useExisting: HeaderRowComponent }],
 })
 export class HeaderRowComponent extends CdkHeaderRow {
     @HostBinding('class') classes = 'dsh-header-row';
@@ -63,7 +63,7 @@ export class HeaderRowComponent extends CdkHeaderRow {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshFooterRow',
-    providers: [{ provide: CdkFooterRow, useExisting: FooterRowComponent }]
+    providers: [{ provide: CdkFooterRow, useExisting: FooterRowComponent }],
 })
 export class FooterRowComponent extends CdkFooterRow {
     @HostBinding('class') classes = 'dsh-footer-row';
@@ -78,7 +78,7 @@ export class FooterRowComponent extends CdkFooterRow {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     exportAs: 'dshRow',
-    providers: [{ provide: CdkRow, useExisting: RowComponent }]
+    providers: [{ provide: CdkRow, useExisting: RowComponent }],
 })
 export class RowComponent extends CdkRow {
     @HostBinding('class') classes = 'dsh-row';

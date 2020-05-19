@@ -14,7 +14,9 @@ export class DocumentsService {
         map(takeFileModificationUnits)
     );
 
-    isQuestionaryClaim$: Observable<boolean> = this.receiveClaimService.claimType$.pipe(map(t => t === 'questionary'));
+    isQuestionaryClaim$: Observable<boolean> = this.receiveClaimService.claimType$.pipe(
+        map((t) => t === 'questionary')
+    );
 
     constructor(private receiveClaimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
 

@@ -6,12 +6,12 @@ import { InvoiceDetailsComponent } from './invoice-details.component';
 const invoiceDetailsRoutes: Routes = [
     {
         path: ':invoiceID',
-        component: InvoiceDetailsComponent
-    }
+        component: InvoiceDetailsComponent,
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(invoiceDetailsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class InvoiceDetailsRoutingModule {}

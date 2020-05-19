@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { RussianLegalOwnerService } from './russian-legal-owner.service';
 
 @Component({
-    templateUrl: 'russian-legal-owner.component.html'
+    templateUrl: 'russian-legal-owner.component.html',
 })
 export class RussianLegalOwnerComponent implements OnInit, OnDestroy {
     layoutGap = '20px';

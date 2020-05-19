@@ -2,13 +2,13 @@ export enum StatusColor {
     neutral = 'neutral',
     success = 'success',
     pending = 'pending',
-    warn = 'warn'
+    warn = 'warn',
 }
 
 export enum PaletteColor {
     primary = 'primary',
     accent = 'accent',
-    warn = 'warn'
+    warn = 'warn',
 }
 
 export type Status = keyof typeof StatusColor;

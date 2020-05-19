@@ -10,7 +10,7 @@ import { AuthorityConfirmingDocumentService } from './authority-confirming-docum
 
 @Component({
     selector: 'dsh-authority-confirming-document',
-    templateUrl: 'authority-confirming-document.component.html'
+    templateUrl: 'authority-confirming-document.component.html',
 })
 export class AuthorityConfirmingDocumentComponent {
     form$ = new BehaviorSubject<FormGroup>(null);
@@ -23,11 +23,11 @@ export class AuthorityConfirmingDocumentComponent {
     customType = AuthorityConfirmingDocumentService.CustomType;
 
     isCustom$ = this.form$.pipe(
-        switchMap(form =>
+        switchMap((form) =>
             form
                 ? form.valueChanges.pipe(
                       startWith(form.value),
-                      map(v => v.type === this.customType)
+                      map((v) => v.type === this.customType)
                   )
                 : of(false)
         ),

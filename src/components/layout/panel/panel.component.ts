@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulati
 
 @Component({
     selector: 'dsh-panel-content',
-    template: `
-        <ng-content></ng-content>
-    `
+    template: ` <ng-content></ng-content> `,
 })
 export class PanelContentComponent {
     @HostBinding('class.dsh-panel-content') class = true;
@@ -12,9 +10,7 @@ export class PanelContentComponent {
 
 @Component({
     selector: 'dsh-panel-header-icon',
-    template: `
-        <mat-icon class="dsh-panel-header-icon" [svgIcon]="icon"></mat-icon>
-    `
+    template: ` <mat-icon class="dsh-panel-header-icon" [svgIcon]="icon"></mat-icon> `,
 })
 export class PanelHeaderIconComponent {
     @Input() icon: string;
@@ -26,7 +22,7 @@ export class PanelHeaderIconComponent {
         <div class="dsh-panel-header-content">
             <ng-content></ng-content>
         </div>
-    `
+    `,
 })
 export class PanelHeaderComponent {
     @HostBinding('class.dsh-panel-header') class = true;
@@ -37,7 +33,7 @@ export class PanelHeaderComponent {
     templateUrl: 'panel.component.html',
     styleUrls: ['panel.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PanelComponent {
     @Input() color: 'primary' | 'accent';

@@ -39,7 +39,7 @@ import { WalletInfoComponent } from './wallet-info';
         RouterModule,
         MatDialogModule,
         ReportsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
     ],
     declarations: [
         PayoutsPanelsListComponent,
@@ -51,9 +51,9 @@ import { WalletInfoComponent } from './wallet-info';
         PaymentsInfoComponent,
         RefundsInfoComponent,
         CommonInfoComponent,
-        PayoutToolInfoComponent
+        PayoutToolInfoComponent,
     ],
     entryComponents: [CreateReportDialogComponent],
-    exports: [PayoutsPanelsListComponent]
+    exports: [PayoutsPanelsListComponent],
 })
 export class PayoutPanelModule {}

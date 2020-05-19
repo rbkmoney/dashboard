@@ -9,12 +9,12 @@ export const searchParamsToParamsWithSplitUnit = ({
     fromTime,
     toTime,
     period,
-    shopIDs
+    shopIDs,
 }: SearchParams): SearchParamsWithSplitUnit => ({
     fromTime,
     toTime,
     splitUnit: periodToSplitUnit(period),
-    shopIDs
+    shopIDs,
 });
 
 const periodToSplitUnit = (period: Period): SplitUnit => {

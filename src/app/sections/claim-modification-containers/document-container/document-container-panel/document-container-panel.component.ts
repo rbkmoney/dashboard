@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     selector: 'dsh-document-container-panel',
     templateUrl: 'document-container-panel.component.html',
     styleUrls: ['document-container-panel.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentContainerPanelComponent {
     @Input() title: string;

@@ -12,6 +12,6 @@ import { BarChartItemComponent } from './bar-chart-item.component';
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, CardModule, SpinnerModule, TranslocoModule, BarChartModule],
     declarations: [BarChartItemComponent],
-    exports: [BarChartItemComponent]
+    exports: [BarChartItemComponent],
 })
 export class BarChartItemModule {}

@@ -11,15 +11,15 @@ import { ShopInfo } from '../../operations/operators';
 
 @Component({
     selector: 'dsh-create-report-dialog',
-    templateUrl: 'create-report-dialog.component.html'
+    templateUrl: 'create-report-dialog.component.html',
 })
 export class CreateReportDialogComponent {
     form = this.fb.group({
         date: {
             begin: moment().startOf('month'),
-            end: moment().endOf('month')
+            end: moment().endOf('month'),
         },
-        shopID: null
+        shopID: null,
     });
     shopsInfo$ = this.data.shopsInfo$;
 
@@ -42,7 +42,7 @@ export class CreateReportDialogComponent {
             .createReport({
                 fromTime: date.begin.utc().format(),
                 toTime: date.end.utc().format(),
-                shopID: shopID || undefined
+                shopID: shopID || undefined,
             })
             .subscribe(
                 () => {
