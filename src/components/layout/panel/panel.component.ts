@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulati
 
 @Component({
     selector: 'dsh-panel-content',
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
 })
 export class PanelContentComponent {
     @HostBinding('class.dsh-panel-content') class = true;

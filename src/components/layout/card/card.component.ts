@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Directive, HostBinding, ViewEncapsu
 @Component({
     selector: 'dsh-card',
     styleUrls: ['card.component.scss'],
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -23,7 +23,7 @@ export class CardHeaderComponent {
 
 @Component({
     selector: 'dsh-card-content',
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
 })
 export class CardContentComponent {
     @HostBinding('class.dsh-card-content') class = true;
@@ -32,7 +32,7 @@ export class CardContentComponent {
 @Component({
     selector: 'dsh-card-actions',
     exportAs: 'dshCardActions',
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
 })
 export class CardActionsComponent {
     @HostBinding('class.dsh-card-actions') class = true;

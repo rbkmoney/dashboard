@@ -1,4 +1,3 @@
-import { translate } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 
 import { PaymentsErrorsDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
@@ -18,7 +17,7 @@ const groupErrors = (errors: PaymentsErrorsDistributionResult[], count: number):
         .slice(count)
         .map((e) => e.percents)
         .reduce((prev, curr) => prev + curr);
-    groupedErrors.push({ error: "'otherErrors'", percents: otherErrorsSummary });
+    groupedErrors.push({ error: 'Other', percents: otherErrorsSummary });
     return groupedErrors;
 };
 
@@ -33,13 +32,8 @@ const prepareErrors = (errors: PaymentsErrorsDistributionResult[]): PaymentsErro
 
 const errorsToSeries = (errors: PaymentsErrorsDistributionResult[]): number[] => errors.map((d) => d.percents);
 
-const errorsToErrorCodes = (errors: PaymentsErrorsDistributionResult[]): string[] =>
-    errors.map((d) => `analytics.errorCodes.${d.error.split("'")[1] ?? 'unknownError'}`);
-
-const errorsToLabels = (errors: PaymentsErrorsDistributionResult[]): string[] => {
-    const errorCodes: string[] = errorsToErrorCodes(errors);
-    return translate(errorCodes, null, 'payment-section|scoped');
-};
+const errorsToLabels = (errors: PaymentsErrorsDistributionResult[]): string[] =>
+    errors.map((d) => d.error.split("'")[3] || d.error || 'Unknown error');
 
 export const paymentsErrorsDistributionToChartData = (
     distribution: PaymentsErrorsDistributionResult[]
