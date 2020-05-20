@@ -5,6 +5,7 @@ import { map, mapTo, pluck, scan, shareReplay, take } from 'rxjs/operators';
 
 import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
 
 const SHOPS_LIMIT = 10;
 
@@ -19,7 +20,7 @@ export class ShopsPanelsListService {
     );
 
     private offset$ = concat(
-        this.selectedPanelPosition$.pipe(map((idx) => this.getOffsetBySelectedPanelPosition(idx))),
+        this.selectedPanelPosition$.pipe(map((idx) => getOffsetBySelectedPanelPosition(idx, SHOPS_LIMIT))),
         this.showMore$.pipe(mapTo(SHOPS_LIMIT))
     ).pipe(
         scan((offset, limit) => offset + limit, 0),
@@ -50,12 +51,5 @@ export class ShopsPanelsListService {
 
     updateShops(shops: Shop[]) {
         this.allShops$.next(shops);
-    }
-
-    private getOffsetBySelectedPanelPosition(idx: number) {
-        if (idx === -1) {
-            return SHOPS_LIMIT;
-        }
-        return Math.ceil((idx + 1) / SHOPS_LIMIT) * SHOPS_LIMIT;
     }
 }
