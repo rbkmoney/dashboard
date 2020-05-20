@@ -15,8 +15,8 @@ export class ReceiveWebhooksService {
     private receiveWebhooks$: Subject<void> = new Subject();
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        filter(s => !!s),
-        map(w => sortBy(w, i => !i.active)),
+        filter((s) => !!s),
+        map((w) => sortBy(w, (i) => !i.active)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -36,7 +36,7 @@ export class ReceiveWebhooksService {
             .pipe(
                 switchMap(() =>
                     this.webhooksService.getWebhooks().pipe(
-                        catchError(err => {
+                        catchError((err) => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             return of([]);
@@ -44,7 +44,7 @@ export class ReceiveWebhooksService {
                     )
                 )
             )
-            .subscribe(webhooks => {
+            .subscribe((webhooks) => {
                 this.webhooksState$.next(webhooks);
             });
     }
