@@ -6,7 +6,6 @@ import { map, mapTo, pluck, scan, shareReplay, take } from 'rxjs/operators';
 import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
-import { ShopsService } from '../shops.service';
 
 const SHOPS_LIMIT = 10;
 
