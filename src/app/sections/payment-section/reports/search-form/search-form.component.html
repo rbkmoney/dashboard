@@ -8,17 +8,7 @@
             fxLayoutAlign.lt-md="space-between stretch"
         >
             <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
-            <mat-form-field fxFlex>
-                <mat-label>{{ r.filter.shopID }}</mat-label>
-                <mat-select multiple formControlName="shopIDs">
-                    <mat-option>
-                        {{ c.any }}
-                    </mat-option>
-                    <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
-                        {{ shopInfo.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <dsh-shop-selector [shopInfos]="shopsInfo$ | async" formControlName="shopIDs" fxFlex></dsh-shop-selector>
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">

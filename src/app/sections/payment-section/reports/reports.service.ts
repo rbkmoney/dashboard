@@ -7,6 +7,7 @@ import { ReportsService as ReportsApiService, ShopService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
+import { getShopSearchParamsByEnv } from '../operations/get-shop-search-params-by-env';
 import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
 import { SearchParams } from './search-params';
 
@@ -46,6 +47,10 @@ export class ReportsService extends PartialFetcher<Report, SearchParams> {
     }
 
     protected fetch(params: SearchParams, continuationToken: string) {
-        return this.reportsService.searchReports({ ...params, continuationToken });
+        return this.route.params.pipe(
+            pluck('envID'),
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ shopIDs }) => this.reportsService.searchReports({ ...params, shopIDs, continuationToken }))
+        );
     }
 }
