@@ -6,11 +6,11 @@ import { WebhooksComponent } from './webhooks.component';
 const routes: Routes = [
     {
         path: '',
-        component: WebhooksComponent
-    }
+        component: WebhooksComponent,
+    },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)]
+    imports: [RouterModule.forChild(routes)],
 })
 export class WebhooksRoutingModule {}

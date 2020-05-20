@@ -7,7 +7,7 @@ import { WebhooksPanelsListService } from './webhooks-panels-list.service';
 @Component({
     selector: 'dsh-webhooks-panels-list',
     templateUrl: 'webhooks-panels-list.component.html',
-    providers: [WebhooksPanelsListService]
+    providers: [WebhooksPanelsListService],
 })
 export class WebhooksPanelsListComponent {
     webhooks$ = this.webhooksPanelsListService.webhooks$;
@@ -20,7 +20,7 @@ export class WebhooksPanelsListComponent {
     ) {}
 
     getShopInfo(shopID: string) {
-        return this.webhooksPanelsListService.shopsInfo$.pipe(map(p => p.find(s => s.shopID === shopID)));
+        return this.webhooksPanelsListService.shopsInfo$.pipe(map((p) => p.find((s) => s.shopID === shopID)));
     }
 
     select(idx: number) {

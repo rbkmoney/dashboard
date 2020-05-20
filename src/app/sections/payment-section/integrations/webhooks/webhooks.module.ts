@@ -17,9 +17,9 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
+import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
-import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
 
 @NgModule({
     imports: [
@@ -41,9 +41,9 @@ import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels
         EmptySearchResultModule,
         ShowMorePanelModule,
         WebhooksPanelsListModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent]
+    entryComponents: [CreateWebhookComponent],
 })
 export class WebhooksModule {}

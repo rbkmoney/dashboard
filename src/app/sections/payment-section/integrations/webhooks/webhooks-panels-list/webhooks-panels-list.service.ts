@@ -22,7 +22,7 @@ export class WebhooksPanelsListService {
     );
 
     private offset$ = concat(
-        this.selectedPanelPosition$.pipe(map(idx => getOffsetBySelectedPanelPosition(idx, WEBHOOKS_LIMIT))),
+        this.selectedPanelPosition$.pipe(map((idx) => getOffsetBySelectedPanelPosition(idx, WEBHOOKS_LIMIT))),
         this.showMore$.pipe(mapTo(WEBHOOKS_LIMIT))
     ).pipe(
         scan((offset, limit) => offset + limit, 0),
@@ -49,7 +49,7 @@ export class WebhooksPanelsListService {
     ) {}
 
     select(idx: number) {
-        this.receiveWebhooksService.webhooks$.pipe(pluck(idx, 'id')).subscribe(fragment => {
+        this.receiveWebhooksService.webhooks$.pipe(pluck(idx, 'id')).subscribe((fragment) => {
             this.router.navigate([], { fragment, queryParams: this.route.snapshot.queryParams });
         });
     }

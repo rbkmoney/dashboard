@@ -28,8 +28,8 @@ import { WebhooksPanelsListComponent } from './webhooks-panels-list.component';
         ButtonModule,
         ClipboardModule,
         DetailsItemModule,
-        ShowMorePanelModule
+        ShowMorePanelModule,
     ],
-    exports: [WebhooksPanelsListComponent]
+    exports: [WebhooksPanelsListComponent],
 })
 export class WebhooksPanelsListModule {}
