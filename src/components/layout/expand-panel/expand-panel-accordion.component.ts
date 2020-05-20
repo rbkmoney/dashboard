@@ -20,7 +20,7 @@ const SCROLL_TIME_MS = 500;
 
 @Component({
     selector: 'dsh-expand-panel-accordion',
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
 })
 export class ExpandPanelAccordionComponent implements AfterViewInit {
     @Output() expandedChange = new EventEmitter<number>();
