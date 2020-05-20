@@ -9,7 +9,7 @@ import {
     ViewContainerRef,
 } from '@angular/core';
 import { combineLatest, merge, of, Subscription } from 'rxjs';
-import { delay, distinctUntilChanged, filter, first, map, startWith, switchMap } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { coerce, smoothChangeTo } from '../../../utils';
 import { ExpandPanelComponent } from './expand-panel.component';
@@ -20,7 +20,7 @@ const SCROLL_TIME_MS = 500;
 
 @Component({
     selector: 'dsh-expand-panel-accordion',
-    template: ` <ng-content></ng-content> `,
+    template: `<ng-content></ng-content>`,
 })
 export class ExpandPanelAccordionComponent implements AfterViewInit {
     @Output() expandedChange = new EventEmitter<number>();
@@ -65,7 +65,7 @@ export class ExpandPanelAccordionComponent implements AfterViewInit {
                     component: components.toArray()[this.expanded],
                 })),
                 filter(({ ref, component }) => !!ref && !!component),
-                first(),
+                take(1),
                 delay(INIT_DELAY_MS),
                 switchMap(({ ref, component }) =>
                     combineLatest([

@@ -15,4 +15,12 @@ export class ShopsComponent {
     isLoading$ = this.shopsService.isLoading$.pipe(booleanDebounceTime());
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopsService: ShopsService) {}
+
+    activate(id: string) {
+        this.shopsService.activate(id);
+    }
+
+    suspend(id: string) {
+        this.shopsService.suspend(id);
+    }
 }
