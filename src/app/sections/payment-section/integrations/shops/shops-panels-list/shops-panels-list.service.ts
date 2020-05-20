@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, concat, ReplaySubject, Subject } from 'rxjs';
-import { first, map, mapTo, pluck, scan, shareReplay } from 'rxjs/operators';
+import { map, mapTo, pluck, scan, shareReplay, take } from 'rxjs/operators';
 
 import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
@@ -13,8 +13,7 @@ export class ShopsPanelsListService {
     private allShops$ = new ReplaySubject<Shop[]>(1);
     private showMore$ = new Subject<void>();
 
-    selectedPanelPosition$ = combineLatest([this.route.fragment, this.allShops$]).pipe(
-        first(),
+    selectedPanelPosition$ = combineLatest([this.route.fragment.pipe(take(1)), this.allShops$]).pipe(
         map(([fragment, shops]) => shops.findIndex(({ id }) => id === fragment)),
         shareReplay(SHARE_REPLAY_CONF)
     );
