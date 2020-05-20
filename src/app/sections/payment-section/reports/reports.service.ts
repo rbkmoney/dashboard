@@ -5,7 +5,7 @@ import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService, ShopService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
 import { SearchParams } from './search-params';
@@ -13,6 +13,8 @@ import { SearchParams } from './search-params';
 @Injectable()
 export class ReportsService extends PartialFetcher<Report, SearchParams> {
     shopsInfo$ = this.route.params.pipe(pluck('envID'), filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
+
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     selectedId$ = this.route.fragment.pipe(
         first(),

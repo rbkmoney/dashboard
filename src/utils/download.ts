@@ -4,7 +4,6 @@
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function download(url: string, name?: string) {
-    console.log('THIS IS DOWNLOAD URL EEEEEEEEEEEE', url);
     const a = document.createElement('a');
     a.id = url;
     a.download = name;

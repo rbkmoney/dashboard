@@ -10,7 +10,7 @@
             <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
             <mat-form-field fxFlex>
                 <mat-label>{{ r.filter.shopID }}</mat-label>
-                <mat-select formControlName="shopID">
+                <mat-select multiple formControlName="shopIDs">
                     <mat-option>
                         {{ c.any }}
                     </mat-option>

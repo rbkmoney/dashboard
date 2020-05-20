@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { filter, shareReplay } from 'rxjs/operators';
 
-import { booleanDebounceTime } from '../../../custom-operators';
 import { mapToTimestamp } from '../operations/operators';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { ReportsService } from './reports.service';
@@ -18,7 +17,7 @@ import { ReportsService } from './reports.service';
 export class ReportsComponent {
     reports$ = this.reportsService.searchResult$;
     doAction$ = this.reportsService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
+    isLoading$ = this.reportsService.isLoading$;
     hasMore$ = this.reportsService.hasMore$;
     lastUpdated$ = this.reportsService.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 

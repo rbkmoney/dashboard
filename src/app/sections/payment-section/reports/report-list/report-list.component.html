@@ -10,7 +10,7 @@
                 {{ report.fromTime | date: 'dd MMMM yyyy' }} - {{ report.toTime | date: 'dd MMMM yyyy' }}
             </div>
             <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-                <div>{{ (getShopInfo(report.shopID) | async).name }}</div>
+                <div>{{ (getShopInfo(report.shopID) | async)?.name }}</div>
                 <div *transloco="let s; scope: 'reports'; read: 'reports'">{{ s.status[report.status] }}</div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     }}</dsh-details-item>
                 </div>
                 <dsh-details-item [title]="t.details.shop">{{
-                    (getShopInfo(report.shopID) | async).name
+                    (getShopInfo(report.shopID) | async)?.name
                 }}</dsh-details-item>
                 <mat-divider></mat-divider>
                 <dsh-files [files]="report.files" [reportID]="report.id"></dsh-files>
