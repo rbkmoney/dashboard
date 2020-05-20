@@ -10,19 +10,14 @@ import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
-const WEBHOOK_LIMIT = 10;
-
 @Injectable()
 export class ReceiveWebhooksService {
-    private webhooksOffset$: BehaviorSubject<number> = new BehaviorSubject(WEBHOOK_LIMIT);
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
 
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
-        filter((s) => !!s),
-        map((w) => sortBy(w, (i) => !i.active)),
-        switchMap((webhooks) => combineLatest([this.webhooksOffset$, of(webhooks)])),
-        map(([offset, webhooks]) => webhooks.slice(0, offset)),
+        filter(s => !!s),
+        map(w => sortBy(w, i => !i.active)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -31,43 +26,18 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    hasMore$: Observable<boolean> = combineLatest([this.webhooksState$, this.webhooksOffset$]).pipe(
-        map(([webhooks, offset]) => webhooks?.length > offset),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
-
     constructor(
         private webhooksService: WebhooksService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService,
-        private route: ActivatedRoute,
-        private router: Router
+        private transloco: TranslocoService
     ) {
         this.isLoading$.subscribe();
-        this.route.queryParams
-            .pipe(
-                first(),
-                pluck('offset'),
-                filter((l) => !!l),
-                map((offset) => parseInt(offset, 10))
-            )
-            .subscribe((offset) => {
-                this.webhooksOffset$.next(offset);
-            });
-
-        this.webhooksOffset$.subscribe((offset) => {
-            this.router.navigate([location.pathname], {
-                queryParams: {
-                    offset,
-                },
-            });
-        });
 
         this.receiveWebhooks$
             .pipe(
                 switchMap(() =>
                     this.webhooksService.getWebhooks().pipe(
-                        catchError((err) => {
+                        catchError(err => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             return of([]);
@@ -75,16 +45,12 @@ export class ReceiveWebhooksService {
                     )
                 )
             )
-            .subscribe((webhooks) => {
+            .subscribe(webhooks => {
                 this.webhooksState$.next(webhooks);
             });
     }
 
     receiveWebhooks() {
         this.receiveWebhooks$.next();
-    }
-
-    getMoreWebhooks() {
-        this.webhooksOffset$.next(this.webhooksOffset$.value + WEBHOOK_LIMIT);
     }
 }

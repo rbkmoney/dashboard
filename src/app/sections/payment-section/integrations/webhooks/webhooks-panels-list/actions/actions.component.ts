@@ -5,7 +5,7 @@ import { RemoveWebhookService } from './remove-webhook.service';
 @Component({
     selector: 'dsh-actions',
     templateUrl: 'actions.component.html',
-    providers: [RemoveWebhookService],
+    providers: [RemoveWebhookService]
 })
 export class ActionsComponent {
     @Input()

@@ -12,7 +12,7 @@ import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 
 const oneMustBeSelected: ValidatorFn = (control: FormGroup): ValidationErrors | null =>
-    control.value.map((c) => c.selected).includes(true) ? null : { Error: 'At least one of checkboxes select needed' };
+    control.value.map(c => c.selected).includes(true) ? null : { Error: 'At least one of checkboxes select needed' };
 
 @Injectable()
 export class CreateWebhookService {
@@ -36,9 +36,9 @@ export class CreateWebhookService {
         this.createWebhook$
             .pipe(
                 map(formValuesToWebhook),
-                switchMap((v) =>
+                switchMap(v =>
                     this.webhooksService.createWebhook(v).pipe(
-                        catchError((err) => {
+                        catchError(err => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             this.webhookCreated$.next(null);
@@ -59,14 +59,14 @@ export class CreateWebhookService {
             shop: ['', Validators.required],
             url: ['', Validators.required],
             eventTypes: this.fb.array(
-                this.invoiceTypes.map((t) =>
+                this.invoiceTypes.map(t =>
                     this.fb.group({
                         eventName: t,
-                        selected: false,
+                        selected: false
                     })
                 ),
                 [oneMustBeSelected]
-            ),
+            )
         });
     }
 }

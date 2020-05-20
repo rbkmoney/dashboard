@@ -1,0 +1,57 @@
+<dsh-expand-panel-accordion
+    fxLayout="column"
+    fxLayoutGap="20px"
+    *transloco="let t; scope: 'webhook'; read: 'webhook.details'"
+    [expanded]="selectedPanelPosition$ | async"
+    (expandedChange)="select($event)"
+>
+    <dsh-expand-panel *ngFor="let webhook of webhooks$ | async">
+        <div fxLayout="column" fxLayoutGap="10px">
+            <div class="mat-body-1">{{ webhook.url }}</div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="mat-caption">{{
+                    (getShopInfo(webhook.scope.shopID) | async)
+                        ? (getShopInfo(webhook.scope.shopID) | async).name
+                        : 'Loading...'
+                }}</span>
+                <span class="mat-caption">
+                    {{ webhook.active ? t.status.active : t.status.inactive }}
+                </span>
+            </div>
+        </div>
+        <dsh-expand-panel-more>
+            <div fxLayout="column" [fxLayoutGap]="layoutGap" fxFlex>
+                <dsh-expand-panel-more-header>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+                        <div
+                            class="mat-caption dsh-webhook-header"
+                            *transloco="let d; scope: 'webhook'; read: 'webhook'"
+                        >
+                            {{ d.webhook }} #{{ webhook.id }}
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+                            <div class="mat-caption dsh-webhook-header">
+                                {{ webhook.active ? t.status.active : t.status.inactive }}
+                            </div>
+                        </div>
+                    </div>
+                </dsh-expand-panel-more-header>
+                <dsh-details
+                    [webhook]="webhook"
+                    [shopName]="
+                        (getShopInfo(webhook.scope.shopID) | async)
+                            ? (getShopInfo(webhook.scope.shopID) | async).name
+                            : 'Loading...'
+                    "
+                ></dsh-details>
+                <mat-divider></mat-divider>
+                <dsh-events [events]="webhook.scope.eventTypes"></dsh-events>
+                <mat-divider></mat-divider>
+                <dsh-key [key]="webhook.publicKey"></dsh-key>
+                <mat-divider *ngIf="webhook.active"></mat-divider>
+                <dsh-actions [webhookID]="webhook.id" *ngIf="webhook.active"></dsh-actions>
+            </div>
+        </dsh-expand-panel-more>
+    </dsh-expand-panel>
+    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
+</dsh-expand-panel-accordion>

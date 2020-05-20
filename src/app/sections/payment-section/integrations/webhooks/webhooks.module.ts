@@ -12,13 +12,14 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
-import { WebhookPanelModule } from './webhook-panel/webhook-panel.module';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
+import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
 
 @NgModule({
     imports: [
@@ -34,12 +35,15 @@ import { WebhooksComponent } from './webhooks.component';
         MatInputModule,
         MatCheckboxModule,
         TranslocoModule,
-        WebhookPanelModule,
         SpinnerModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
+        EmptySearchResultModule,
+        ShowMorePanelModule,
+        WebhooksPanelsListModule,
+        ConfirmActionDialogModule
     ],
     declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent],
+    entryComponents: [CreateWebhookComponent]
 })
 export class WebhooksModule {}

@@ -6,7 +6,7 @@ export const formValuesToWebhook = (v: FormParams): Webhook =>
         url: v.url,
         scope: {
             shopID: v.shop,
-            eventTypes: v.eventTypes.filter((e) => e.selected).map((e) => e.eventName),
-            topic: 'InvoicesTopic',
-        },
+            eventTypes: v.eventTypes.filter(e => e.selected).map(e => e.eventName),
+            topic: 'InvoicesTopic'
+        }
     } as Webhook);
