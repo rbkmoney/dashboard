@@ -9,10 +9,10 @@
         <div fxLayout="column" fxLayoutGap="10px">
             <div class="mat-body-1">{{ webhook.url }}</div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
-                <span class="mat-caption">{{
+                <span class="mat-caption" *transloco="let c">{{
                     (getShopInfo(webhook.scope.shopID) | async)
                         ? (getShopInfo(webhook.scope.shopID) | async).name
-                        : 'Loading...'
+                        : c.loading
                 }}</span>
                 <span class="mat-caption">
                     {{ webhook.active ? t.status.active : t.status.inactive }}
@@ -38,10 +38,11 @@
                 </dsh-expand-panel-more-header>
                 <dsh-details
                     [webhook]="webhook"
+                    *transloco="let c"
                     [shopName]="
                         (getShopInfo(webhook.scope.shopID) | async)
                             ? (getShopInfo(webhook.scope.shopID) | async).name
-                            : 'Loading...'
+                            : c.loading
                     "
                 ></dsh-details>
                 <mat-divider></mat-divider>
