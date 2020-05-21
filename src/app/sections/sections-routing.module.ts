@@ -22,7 +22,7 @@ const routes: Routes = [
     },
     {
         path: 'wallet-section',
-        loadChildren: () => import('./wallet-section').then(m => m.WalletSectionModule)
+        loadChildren: () => import('./wallet-section').then((m) => m.WalletSectionModule),
     },
     {
         path: 'invoice/:invoiceID/payment',

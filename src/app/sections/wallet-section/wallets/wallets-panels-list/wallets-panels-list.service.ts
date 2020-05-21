@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
+import { WalletAccount } from '../../../../api-codegen/wallet-api/swagger-codegen';
 import { WalletService } from '../../../../api/wallet';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
@@ -29,10 +30,14 @@ export class WalletsPanelsListService {
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
     ) {
-        this.account$.subscribe();
+        // this.account$.subscribe();
     }
 
-    getWalletAccount(id: string) {
-        this.getWalletAccount$.next(id);
+    getWalletAccount(id: string): Observable<WalletAccount> {
+        return this.walletService.getWalletAccount(id).pipe(shareReplay(SHARE_REPLAY_CONF), catchError(err => {
+            console.error(err);
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+            return [];
+        }));
     }
 }

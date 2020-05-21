@@ -23,9 +23,9 @@ import { WalletsComponent } from './wallets.component';
         CommonModule,
         SpinnerModule,
         EmptySearchResultModule,
-        WalletsPanelsListModule
+        WalletsPanelsListModule,
     ],
     providers: [ReceiveWalletsService],
-    declarations: [WalletsComponent]
+    declarations: [WalletsComponent],
 })
 export class WalletsModule {}

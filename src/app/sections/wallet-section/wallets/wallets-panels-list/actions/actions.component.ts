@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
     selector: 'dsh-actions',
     templateUrl: 'actions.component.html',
     styleUrls: ['actions.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsComponent {
     @Input()

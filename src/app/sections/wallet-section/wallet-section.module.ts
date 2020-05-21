@@ -17,8 +17,8 @@ import { WalletSectionComponent } from './wallet-section.component';
         StateNavModule,
         MatIconModule,
         FlexLayoutModule,
-        TranslocoModule
+        TranslocoModule,
     ],
-    declarations: [WalletSectionComponent, NavComponent]
+    declarations: [WalletSectionComponent, NavComponent],
 })
 export class WalletSectionModule {}

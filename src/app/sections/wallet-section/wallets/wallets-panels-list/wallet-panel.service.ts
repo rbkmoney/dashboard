@@ -4,17 +4,17 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
 import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
-import { WalletService } from '../../../../../api/wallet';
-import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { WalletService } from '../../../../api/wallet';
+import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class WalletPanelService {
     private getWalletAccount$: Subject<string> = new Subject();
 
     account$ = this.getWalletAccount$.pipe(
-        switchMap(id =>
+        switchMap((id) =>
             this.walletService.getWalletAccount(id).pipe(
-                catchError(err => {
+                catchError((err) => {
                     console.error(err);
                     this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                     return [];
