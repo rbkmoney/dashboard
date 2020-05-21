@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { LAYOUT_GAP } from '../../../constants';
 import { ReceiveWalletsService } from '../receive-wallets.service';
@@ -8,10 +8,12 @@ import { WalletsPanelsListService } from './wallets-panels-list.service';
     selector: 'dsh-wallets-panels-list',
     templateUrl: 'wallets-panels-list.component.html',
     providers: [WalletsPanelsListService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletsPanelsListComponent {
     wallets$ = this.receiveWalletsService.searchResult$;
     selectedIdx$ = this.receiveWalletsService.selectedIdx$;
+    accounts$ = this.receiveWalletsService.accounts$;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,

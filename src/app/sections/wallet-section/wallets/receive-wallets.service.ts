@@ -24,7 +24,7 @@ import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
-    private readonly searchLimit = 20;
+    private readonly searchLimit = 10;
 
     wallets$ = this.searchResult$.pipe(
         catchError(() => {
@@ -38,6 +38,11 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
+    accounts$ = this.wallets$.pipe(
+        map((wallets: Wallet[]) =>
+            wallets.reduce((acc, cur) => ({ ...acc, [cur.id]: this.walletService.getWalletAccount(cur.id) }), {})
+        )
+    );
 
     constructor(
         private walletService: WalletService,
@@ -47,6 +52,7 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         private transloco: TranslocoService
     ) {
         super();
+        // this.accounts$.subscribe((q) => console.log(q));
     }
 
     loadSelected(id: string) {
