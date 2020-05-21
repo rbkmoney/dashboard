@@ -3,7 +3,7 @@ import {
     coerceBooleanProperty,
     coerceCssPixelValue,
     coerceElement as coerceElementProperty,
-    coerceNumberProperty
+    coerceNumberProperty,
 } from '@angular/cdk/coercion';
 
 import { coerce } from './coerce';

@@ -13,6 +13,6 @@ import { PaymentResourcePayerComponent } from './payment-resource-payer';
 @NgModule({
     imports: [TranslocoModule, CardModule, FlexModule, ButtonModule, DetailsItemModule, CommonModule],
     declarations: [PayerDetailsComponent, CustomerPayerComponent, PaymentResourcePayerComponent],
-    exports: [PayerDetailsComponent]
+    exports: [PayerDetailsComponent],
 })
 export class PayerDetailsModule {}

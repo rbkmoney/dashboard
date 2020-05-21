@@ -2,8 +2,8 @@ import { Component, Provider, Type } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { StateNavItemComponent, StateNavModule } from '.';
-import { Color } from './state-nav-item';
+import { Color, StateNavItemComponent } from './state-nav-item';
+import { StateNavModule } from './state-nav.module';
 
 @Component({
     template: `
@@ -13,7 +13,7 @@ import { Color } from './state-nav-item';
             <dsh-state-nav-item status="success">third</dsh-state-nav-item>
             <dsh-state-nav-item>last</dsh-state-nav-item>
         </dsh-state-nav>
-    `
+    `,
 })
 class SimpleStateNavComponent {
     idx: number;
@@ -33,7 +33,7 @@ describe('DshStateNav', () => {
         TestBed.configureTestingModule({
             imports: [StateNavModule],
             declarations: [component, ...declarations],
-            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers]
+            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }, ...providers],
         }).compileComponents();
 
         return TestBed.createComponent<T>(component);

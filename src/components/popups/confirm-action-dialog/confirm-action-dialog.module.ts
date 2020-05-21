@@ -18,9 +18,9 @@ import { ConfirmActionDialogComponent } from './confirm-action-dialog.component'
             useValue: {
                 width: '450px',
                 hasBackdrop: true,
-                disableClose: true
-            } as MatDialogConfig
-        }
-    ]
+                disableClose: true,
+            } as MatDialogConfig,
+        },
+    ],
 })
 export class ConfirmActionDialogModule {}

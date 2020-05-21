@@ -17,8 +17,8 @@ export class SearchFormService {
         reportType: null,
         date: {
             begin: moment().startOf('month'),
-            end: moment().endOf('month')
-        }
+            end: moment().endOf('month'),
+        },
     };
 
     form = this.fb.group(this.defaultParams);
@@ -43,7 +43,7 @@ export class SearchFormService {
     private init() {
         this.syncQueryParams();
         this.search();
-        this.form.valueChanges.subscribe(v => this.search(v));
+        this.form.valueChanges.subscribe((v) => this.search(v));
     }
 
     private syncQueryParams() {
@@ -51,7 +51,7 @@ export class SearchFormService {
         const formValue = toFormValue(queryParams, this.defaultParams);
         this.form.setValue(formValue);
         this.setQueryParams(formValue);
-        this.form.valueChanges.subscribe(v => this.setQueryParams(v));
+        this.form.valueChanges.subscribe((v) => this.setQueryParams(v));
     }
 
     private setQueryParams(formValue: FormParams) {

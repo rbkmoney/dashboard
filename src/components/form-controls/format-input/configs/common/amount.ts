@@ -6,13 +6,13 @@ import { FormatInputConfig } from '../format-input-config';
 export const amountMask = createNumberMask({
     thousandsSeparatorSymbol: ' ',
     allowDecimal: true,
-    decimalSymbol: ','
+    decimalSymbol: ',',
 });
 
 export const amountConfig: FormatInputConfig<string, number> = {
     mask: amountMask,
     // return major number
-    toPublicValue: v => {
+    toPublicValue: (v) => {
         if (v) {
             return Number(v.replace(/ /g, '').replace(',', '.'));
         }
@@ -20,5 +20,5 @@ export const amountConfig: FormatInputConfig<string, number> = {
             return v;
         }
         return null;
-    }
+    },
 };

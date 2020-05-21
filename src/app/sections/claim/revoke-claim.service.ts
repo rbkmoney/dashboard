@@ -32,7 +32,7 @@ export class RevokeClaimService {
             .subscribe(() => {
                 this.receiveClaimService.receiveClaim();
                 this.snackBar.open(this.transloco.translate('revoked', null, 'claim|scoped'), 'OK', {
-                    duration: 2000
+                    duration: 2000,
                 });
             });
     }
@@ -46,9 +46,9 @@ export class RevokeClaimService {
             .open(RevokeClaimDialogComponent, {
                 disableClose: true,
                 width: '500px',
-                data: { claimId, revision }
+                data: { claimId, revision },
             })
             .afterClosed()
-            .pipe(filter(r => r === 'revoked'));
+            .pipe(filter((r) => r === 'revoked'));
     }
 }

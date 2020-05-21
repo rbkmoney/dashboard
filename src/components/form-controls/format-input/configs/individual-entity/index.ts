@@ -12,5 +12,5 @@ export const individualEntityConfigs = {
     individualEntityInn: individualEntityInnConfig,
     issuerCode: issuerCodeConfig,
     seriesNumber: seriesNumberConfig,
-    snils: snilsConfig
+    snils: snilsConfig,
 };

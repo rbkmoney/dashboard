@@ -1,0 +1,8 @@
+<dsh-bar-chart-item
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
+    [spinnerType]="spinnerType"
+    [title]="t.paymentsAmount"
+    [chartData]="splitAmount$ | async"
+    [isLoading]="isLoading$ | async"
+    [error]="error$ | async"
+></dsh-bar-chart-item>

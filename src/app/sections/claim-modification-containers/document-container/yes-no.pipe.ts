@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 
 @Pipe({
-    name: 'yesNo'
+    name: 'yesNo',
 })
 export class YesNoPipe implements PipeTransform {
     constructor(private transloco: TranslocoService) {}

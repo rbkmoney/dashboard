@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     selector: 'dsh-empty-search-result',
     templateUrl: 'empty-search-result.component.html',
     styleUrls: ['empty-search-result.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmptySearchResultComponent {
     @Input()

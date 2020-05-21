@@ -15,9 +15,9 @@ export class SearchFormService {
     static defaultParams: FormParams = {
         date: {
             begin: moment().startOf('month'),
-            end: moment().endOf('month')
+            end: moment().endOf('month'),
         },
-        shopID: null
+        shopID: null,
     };
 
     form = this.fb.group(SearchFormService.defaultParams);
@@ -41,13 +41,13 @@ export class SearchFormService {
 
     private init() {
         this.syncQueryParams();
-        this.form.valueChanges.pipe(startWith(this.form.value)).subscribe(v => this.search(v));
+        this.form.valueChanges.pipe(startWith(this.form.value)).subscribe((v) => this.search(v));
     }
 
     private syncQueryParams() {
         const formValue = toFormValue(this.route.snapshot.queryParams, SearchFormService.defaultParams);
         this.form.setValue(formValue);
-        this.form.valueChanges.pipe(startWith(formValue), map(toQueryParams)).subscribe(queryParams => {
+        this.form.valueChanges.pipe(startWith(formValue), map(toQueryParams)).subscribe((queryParams) => {
             this.router.navigate([location.pathname], { queryParams });
         });
     }

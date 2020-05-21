@@ -6,6 +6,6 @@ import { KeycloakService } from './keycloak.service';
     imports: [],
     declarations: [],
     entryComponents: [],
-    providers: [KeycloakService]
+    providers: [KeycloakService],
 })
 export class KeycloakAngularModule {}

@@ -4,6 +4,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     selector: 'dsh-justify-wrapper',
     templateUrl: 'justify-wrapper.component.html',
     styleUrls: ['justify-wrapper.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class JustifyWrapperComponent {}

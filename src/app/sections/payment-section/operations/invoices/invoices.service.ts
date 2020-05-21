@@ -10,7 +10,7 @@ import { Invoice } from '../../../../api-codegen/anapi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getExcludedShopIDs } from '../get-excluded-shop-ids';
+import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
@@ -24,7 +24,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
         this.searchResult$,
-        this.shopService.shops$
+        this.shopService.shops$,
     ]).pipe(
         mapToInvoicesTableData,
         catchError(() => {
@@ -33,7 +33,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    shopsInfo$: Observable<ShopInfo[]> = this.route.params.pipe(
+    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
         mapToShopInfo,
@@ -51,12 +51,14 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     }
 
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
-        return getExcludedShopIDs(this.route.params, this.shopService.shops$).pipe(
-            switchMap(excludedShops =>
+        return this.route.params.pipe(
+            pluck('envID'),
+            getShopSearchParamsByEnv(this.shopService.shops$),
+            switchMap(({ excludedShops, shopIDs }) =>
                 this.invoiceSearchService.searchInvoices(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    params,
+                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
                     this.searchLimit,
                     continuationToken,
                     excludedShops

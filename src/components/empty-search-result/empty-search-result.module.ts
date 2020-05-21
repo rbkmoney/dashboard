@@ -6,6 +6,6 @@ import { EmptySearchResultComponent } from './empty-search-result.component';
 @NgModule({
     imports: [TranslocoModule],
     declarations: [EmptySearchResultComponent],
-    exports: [EmptySearchResultComponent]
+    exports: [EmptySearchResultComponent],
 })
 export class EmptySearchResultModule {}

@@ -10,13 +10,13 @@ import { CompanySearchService } from './company-search.service';
 import {
     contractorTypeToQuestionaryData,
     dadataDataToQuestionaryData,
-    konturFocusDataToQuestionaryData
+    konturFocusDataToQuestionaryData,
 } from './to-questionary-data';
 
 @Component({
     templateUrl: 'company-search.component.html',
     styleUrls: ['company-search.component.scss'],
-    providers: [CompanySearchService]
+    providers: [CompanySearchService],
 })
 export class CompanySearchComponent {
     form: FormGroup = this.companySearchService.form;
@@ -36,7 +36,7 @@ export class CompanySearchComponent {
     next() {
         this.data$
             .pipe(
-                switchMap(data => this.companySearchService.createInitialClaim(data)),
+                switchMap((data) => this.companySearchService.createInitialClaim(data)),
                 take(1)
             )
             .subscribe(({ claimID, documentID }) => this.companySearchService.goToOnboardingFlow(claimID, documentID));
@@ -80,11 +80,11 @@ export class CompanySearchComponent {
     private setDataByPartyContent(content: PartyContent) {
         this.content = content;
         this.data$ = this.companySearchService.loadKonturFocusData(content.inn).pipe(
-            catchError(e => {
+            catchError((e) => {
                 console.error('Kontur.Focus API error', e);
                 return of(null);
             }),
-            map(data => (data ? konturFocusDataToQuestionaryData(data) : dadataDataToQuestionaryData(content))),
+            map((data) => (data ? konturFocusDataToQuestionaryData(data) : dadataDataToQuestionaryData(content))),
             shareReplay(1)
         );
     }

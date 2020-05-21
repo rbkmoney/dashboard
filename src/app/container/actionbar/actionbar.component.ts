@@ -6,7 +6,7 @@ import { ThemeManager, ThemeName } from '../../theme-manager';
 
 @Component({
     selector: 'dsh-actionbar',
-    templateUrl: './actionbar.component.html'
+    templateUrl: './actionbar.component.html',
 })
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
@@ -15,7 +15,7 @@ export class ActionbarComponent {
 
     changeTheme() {
         const themes: ThemeName[] = Object.values(ThemeName);
-        const nextThemeIdx = (themes.findIndex(name => name === this.themeService.current) + 1) % themes.length;
+        const nextThemeIdx = (themes.findIndex((name) => name === this.themeService.current) + 1) % themes.length;
         this.themeService.change(themes[nextThemeIdx]);
     }
 

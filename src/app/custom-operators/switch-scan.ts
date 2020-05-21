@@ -10,11 +10,11 @@ export const switchScan = <T, P>(
         scan(
             (acc$, value, index) =>
                 acc$.pipe(
-                    switchMap(acc => accumulator(acc, value, index)),
+                    switchMap((acc) => accumulator(acc, value, index)),
                     shareReplay(1)
                 ),
             seed$
         ),
-        switchMap(v$ => v$)
+        switchMap((v$) => v$)
     );
 };

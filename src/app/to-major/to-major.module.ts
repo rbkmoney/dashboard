@@ -4,6 +4,6 @@ import { ToMajorPipe } from './to-major.pipe';
 
 @NgModule({
     declarations: [ToMajorPipe],
-    exports: [ToMajorPipe]
+    exports: [ToMajorPipe],
 })
 export class ToMajorModule {}

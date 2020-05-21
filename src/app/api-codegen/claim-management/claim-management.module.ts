@@ -8,9 +8,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: ClaimManagementConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: ClaimManagementConfigService }],
+        },
     ],
-    providers: [ClaimManagementConfigService, ClaimsService]
+    providers: [ClaimManagementConfigService, ClaimsService],
 })
 export class ClaimManagementModule {}

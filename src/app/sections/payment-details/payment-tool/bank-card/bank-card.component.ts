@@ -4,7 +4,7 @@ import { BankCardDetails, PaymentToolDetailsBankCard } from '../../../../api-cod
 
 @Component({
     selector: 'dsh-bank-card',
-    templateUrl: './bank-card.component.html'
+    templateUrl: './bank-card.component.html',
 })
 export class BankCardComponent {
     @Input() bankCard: BankCardDetails;

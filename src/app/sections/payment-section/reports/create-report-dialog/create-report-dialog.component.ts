@@ -7,19 +7,19 @@ import moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { ReportsService as ReportsApiService } from '../../../../api';
-import { ShopInfo } from '../../../../api-codegen/questionary';
+import { ShopInfo } from '../../operations/operators';
 
 @Component({
     selector: 'dsh-create-report-dialog',
-    templateUrl: 'create-report-dialog.component.html'
+    templateUrl: 'create-report-dialog.component.html',
 })
 export class CreateReportDialogComponent {
     form = this.fb.group({
-        fromTime: moment()
-            .subtract(1, 'month')
-            .startOf('day'),
-        toTime: moment().endOf('day'),
-        shopID: null
+        date: {
+            begin: moment().startOf('month'),
+            end: moment().endOf('month'),
+        },
+        shopID: null,
     });
     shopsInfo$ = this.data.shopsInfo$;
 
@@ -37,11 +37,12 @@ export class CreateReportDialogComponent {
     }
 
     create() {
+        const { date, shopID } = this.form.value;
         this.reportsApiService
             .createReport({
-                fromTime: this.form.value.fromTime.utc().format(),
-                toTime: this.form.value.toTime.utc().format(),
-                shopID: this.form.value.shopID || undefined
+                fromTime: date.begin.utc().format(),
+                toTime: date.end.utc().format(),
+                shopID: shopID || undefined,
             })
             .subscribe(
                 () => {

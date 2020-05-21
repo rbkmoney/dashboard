@@ -1,33 +1,23 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import cloneDeep from 'lodash.clonedeep';
+import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
-import { LegendTooltipService } from '../legend-tooltip/legend-tooltip.service';
-import { DonutChartConfig, SegmentData } from '../models/chart-data-models';
-import { DonutChartService } from './donut-chart.service';
+import { DEFAULT_CONFIG } from './default-config';
 
 @Component({
     selector: 'dsh-donut-chart',
     templateUrl: './donut-chart.component.html',
-    styleUrls: ['./donut-chart.component.scss', '../legend-tooltip/_legend-tooltip-theme.scss'],
-    providers: [DonutChartService, LegendTooltipService]
+    styleUrls: ['donut-chart.component.scss'],
 })
-export class DonutChartComponent implements OnChanges, OnInit {
-    @ViewChild('donutChart', { static: true })
-    private chartContainer: ElementRef;
+export class DonutChartComponent {
+    @Input()
+    series: ApexAxisChartSeries;
 
     @Input()
-    data: SegmentData[];
+    labels: string[];
 
     @Input()
-    config: DonutChartConfig;
+    colors?: string[];
 
-    constructor(private donutChartService: DonutChartService) {}
-
-    ngOnInit() {
-        const element = this.chartContainer.nativeElement;
-        this.donutChartService.initChart(this.data, element, this.config);
-    }
-
-    ngOnChanges() {
-        this.donutChartService.updateChart(this.data);
-    }
+    config = cloneDeep(DEFAULT_CONFIG);
 }

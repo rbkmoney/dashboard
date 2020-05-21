@@ -3,17 +3,18 @@ import { switchMap } from 'rxjs/operators';
 
 import { filterBattleShops, filterTestShops } from '../../../../api';
 import { Shop } from '../../../../api-codegen/capi';
-import { routeEnv } from '../../../route-env';
+import { RouteEnv } from '../../../route-env';
 
-export const filterShopsByEnv = (shops: Observable<Shop[]>) => (s: Observable<string>): Observable<Shop[]> =>
+export const filterShopsByEnv = (shops$: Observable<Shop[]>) => (s: Observable<string>): Observable<Shop[]> =>
     s.pipe(
-        switchMap(envID => {
-            if (envID === routeEnv['0']) {
-                return shops.pipe(filterTestShops);
+        switchMap((envID) => {
+            switch (envID) {
+                case RouteEnv.test:
+                    return shops$.pipe(filterTestShops);
+                case RouteEnv.real:
+                    return shops$.pipe(filterBattleShops);
+                default:
+                    return throwError(`Unknown envID: ${envID}`);
             }
-            if (envID === routeEnv['1']) {
-                return shops.pipe(filterBattleShops);
-            }
-            return throwError(`Unknown envID: ${envID}`);
         })
     );

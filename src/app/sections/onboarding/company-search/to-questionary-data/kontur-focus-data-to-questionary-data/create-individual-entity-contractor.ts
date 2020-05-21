@@ -5,7 +5,7 @@ import { ReqIndividualEntity, ReqResponse } from '../../../../../api-codegen/agg
 import {
     IndividualEntityContractor,
     IndividualRegistrationInfo,
-    RussianIndividualEntity
+    RussianIndividualEntity,
 } from '../../../../../api-codegen/questionary';
 
 type ReqResponseIndividualEntity = Replace<ReqResponse, { contractor: ReqIndividualEntity }>;
@@ -16,7 +16,7 @@ type RussianIndividualEntityContractor = Replace<
 
 export function createIndividualEntityContractor({
     contractor,
-    inn
+    inn,
 }: ReqResponseIndividualEntity): RussianIndividualEntityContractor {
     return {
         contractorType: 'IndividualEntityContractor',
@@ -26,13 +26,11 @@ export function createIndividualEntityContractor({
             inn,
             registrationInfo: {
                 registrationInfoType: 'IndividualRegistrationInfo',
-                registrationDate: moment(contractor.registrationDate)
-                    .utc()
-                    .format()
+                registrationDate: moment(contractor.registrationDate).utc().format(),
             },
             russianPrivateEntity: {
-                fio: contractor.fio
-            }
-        }
+                fio: contractor.fio,
+            },
+        },
     };
 }

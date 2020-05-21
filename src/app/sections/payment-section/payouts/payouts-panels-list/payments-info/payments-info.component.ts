@@ -5,7 +5,7 @@ import { PayoutSummaryItem } from '../../../../../api-codegen/anapi';
 @Component({
     selector: 'dsh-payments-info',
     templateUrl: 'payments-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsInfoComponent {
     @Input() paymentsSummary: PayoutSummaryItem;

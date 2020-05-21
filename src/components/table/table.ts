@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
     encapsulation: ViewEncapsulation.None,
     // See note on CdkTable for explanation on why this uses the default change detection strategy.
     // tslint:disable-next-line:validate-decorators
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TableComponent<T> extends CdkTable<T> {
     /** Overrides the sticky CSS class set by the `CdkTable`. */

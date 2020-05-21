@@ -26,7 +26,7 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
     const contractor = get(d, ['contractor']);
     return {
         noOwners: !get(extractEntity(contractor), ['hasBeneficialOwners'], true),
-        beneficialOwners: extractBeneficialOwner(contractor).map(owner => ({
+        beneficialOwners: extractBeneficialOwner(contractor).map((owner) => ({
             ownershipPercentage: get(owner, ['ownershipPercentage'], null),
             privateEntityInfo: {
                 birthDate: get(owner, ['russianPrivateEntity', 'birthDate'], null),
@@ -34,11 +34,11 @@ export const toFormValue = (d: QuestionaryData): FormValue => {
                 residenceAddress: get(owner, ['russianPrivateEntity', 'residenceAddress'], null),
                 fio: get(owner, ['russianPrivateEntity', 'fio'], null),
                 snils: get(owner, ['snils'], null),
-                innfl: get(owner, ['inn'], null)
+                innfl: get(owner, ['inn'], null),
             },
             russianDomesticPassport: toRussianDomesticPassport(get(owner, ['identityDocument'], null)),
             pdlInfo: toPdlInfo(owner),
-            individualResidencyInfo: toResidencyInfo(get(owner, ['residencyInfo']))
-        }))
+            individualResidencyInfo: toResidencyInfo(get(owner, ['residencyInfo'])),
+        })),
     };
 };

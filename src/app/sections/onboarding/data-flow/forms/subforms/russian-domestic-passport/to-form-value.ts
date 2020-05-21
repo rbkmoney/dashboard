@@ -7,5 +7,5 @@ export const toRussianDomesticPassport = (i: RussianDomesticPassport): FormValue
     seriesNumber: get(i, ['seriesNumber'], null),
     issuer: get(i, ['issuer'], null),
     issuerCode: get(i, ['issuerCode'], null),
-    issuedAt: get(i, ['issuedAt'], null)
+    issuedAt: get(i, ['issuedAt'], null),
 });

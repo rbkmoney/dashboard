@@ -9,5 +9,5 @@ export * from './bank-post-account';
 export const bankConfigs = {
     bik: bikConfig,
     bankAccount: bankAccountConfig,
-    bankPostAccount: bankPostAccountConfig
+    bankPostAccount: bankPostAccountConfig,
 };

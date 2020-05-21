@@ -12,7 +12,7 @@ import { RefundsSearchFormValue } from './search-form';
 @Component({
     selector: 'dsh-refunds',
     templateUrl: 'refunds.component.html',
-    providers: [RefundsService]
+    providers: [RefundsService],
 })
 export class RefundsComponent {
     tableData$ = this.refundsService.refundsTableData$;
@@ -20,6 +20,7 @@ export class RefundsComponent {
     lastUpdated$ = this.refundsService.lastUpdated$;
     doAction$ = this.refundsService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    shopInfos$ = this.refundsService.shopInfos$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

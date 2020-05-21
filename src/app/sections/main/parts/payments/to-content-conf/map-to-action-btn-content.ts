@@ -4,13 +4,13 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { Claim, ClaimChangeset, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
 import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
-import { routeEnv } from '../../../../route-env';
+import { RouteEnv } from '../../../../route-env';
 import { ActionBtnContent } from '../content-config';
 
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({
     routerLink,
     actionLabel,
-    disabled: false
+    disabled: false,
 });
 
 const getDocumentID = (changeset: ClaimChangeset) => last(takeDocumentModificationUnits(changeset)).documentId;
@@ -35,7 +35,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
 export const mapToActionBtnContent = (claim: Observable<Claim>) => (
     s: Observable<boolean>
 ): Observable<ActionBtnContent> => {
-    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${routeEnv['1']}/operations`));
+    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${RouteEnv.real}/operations`));
     const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
-    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
+    return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
 };

@@ -8,6 +8,6 @@ const EXPORTED_DECLARATIONS = [ButtonToggleGroupDirective, ButtonToggleComponent
 @NgModule({
     imports: [CommonModule],
     exports: EXPORTED_DECLARATIONS,
-    declarations: EXPORTED_DECLARATIONS
+    declarations: EXPORTED_DECLARATIONS,
 })
 export class ButtonToggleModule {}

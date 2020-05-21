@@ -6,6 +6,6 @@ import { JustifyWrapperComponent } from './justify-wrapper.component';
 @NgModule({
     imports: [FlexLayoutModule],
     declarations: [JustifyWrapperComponent],
-    exports: [JustifyWrapperComponent]
+    exports: [JustifyWrapperComponent],
 })
 export class JustifyWrapperModule {}

@@ -10,5 +10,5 @@ export const applyToIdentityDocument = (
     issuer,
     issuerCode,
     issuedAt,
-    seriesNumber
+    seriesNumber,
 });

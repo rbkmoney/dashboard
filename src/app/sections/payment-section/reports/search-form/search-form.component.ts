@@ -7,7 +7,7 @@ import { SearchFormService } from './search-form.service';
 @Component({
     selector: 'dsh-reports-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent {
     form = this.searchFormService.form;

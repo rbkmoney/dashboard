@@ -7,6 +7,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { StateNavModule } from '@dsh/components/navigation';
 
 import { NavComponent } from './nav';
+import { BalanceItemComponent, BalancesComponent } from './nav/balances';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { PaymentSectionComponent } from './payment-section.component';
 
@@ -17,8 +18,9 @@ import { PaymentSectionComponent } from './payment-section.component';
         StateNavModule,
         MatIconModule,
         FlexLayoutModule,
-        TranslocoModule
+        TranslocoModule,
     ],
-    declarations: [PaymentSectionComponent, NavComponent]
+    declarations: [PaymentSectionComponent, NavComponent, BalancesComponent, BalanceItemComponent],
+    exports: [PaymentSectionComponent],
 })
 export class PaymentSectionModule {}

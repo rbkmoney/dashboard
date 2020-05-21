@@ -35,9 +35,9 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         ClipboardModule,
         ConfirmActionDialogModule,
         CategoriesModule,
-        ShowMorePanelModule
+        ShowMorePanelModule,
     ],
     declarations: [ShopsPanelsListComponent, CategoryPipe],
-    exports: [ShopsPanelsListComponent]
+    exports: [ShopsPanelsListComponent],
 })
 export class ShopsPanelsListModule {}

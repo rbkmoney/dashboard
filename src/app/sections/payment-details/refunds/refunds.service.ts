@@ -22,9 +22,12 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.refundSearchService.searchRefundsByDuration(
             { amount: 3, unit: 'y' },
-            invoiceID,
-            paymentID,
+            {
+                invoiceID,
+                paymentID,
+            },
             this.searchLimit,
+            undefined,
             continuationToken
         );
     }
@@ -35,10 +38,10 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                 shopID,
                 invoiceID,
                 paymentID,
-                maxRefundAmount
+                maxRefundAmount,
             } as CreateRefundData,
             width: '450px',
-            disableClose: true
+            disableClose: true,
         });
     }
 }

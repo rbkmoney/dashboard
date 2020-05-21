@@ -21,7 +21,7 @@ $background: (
     /*
      * Custom
      *
- */ tooltip-line-color: rgba(white, 0.1)
+ */
 );
 
 $foreground: (
@@ -46,10 +46,7 @@ $foreground: (
     /*
      * Custom
      *
- */ axis-tick-color: rgba(white, 0.1),
-    x-axis-text-color: rgba(white, 0.5),
-    y-axis-text-color: rgba(white, 0.7),
-    legend-tooltip-date-color: rgba(white, 0.5)
+ */
 );
 
 $theme: (
@@ -69,7 +66,7 @@ $theme: (
     gray: mat-palette($mat-gray),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
-    warn-base: mat-color(mat-palette($dsh-warn), 300)
+    warn-base: mat-color(mat-palette($dsh-warn), 300),
 );
 
 @include dsh-theme($theme);

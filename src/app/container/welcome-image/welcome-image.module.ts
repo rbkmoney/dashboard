@@ -6,6 +6,6 @@ import { WelcomeImageComponent } from './welcome-image.component';
 @NgModule({
     imports: [CommonModule],
     exports: [WelcomeImageComponent],
-    declarations: [WelcomeImageComponent]
+    declarations: [WelcomeImageComponent],
 })
 export class WelcomeImageModule {}

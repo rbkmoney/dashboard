@@ -15,7 +15,7 @@ import { CreateInvoiceDialogService, WITHOUT_VAT } from './create-invoice-dialog
     templateUrl: 'create-invoice-dialog.component.html',
     styleUrls: ['create-invoice-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [CreateInvoiceDialogService]
+    providers: [CreateInvoiceDialogService],
 })
 export class CreateInvoiceDialogComponent {
     form = this.createInvoiceDialogService.form;

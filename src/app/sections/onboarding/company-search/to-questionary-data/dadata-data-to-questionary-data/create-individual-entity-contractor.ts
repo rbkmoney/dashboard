@@ -3,7 +3,7 @@ import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
     IndividualRegistrationInfo,
-    RussianIndividualEntity
+    RussianIndividualEntity,
 } from '../../../../../api-codegen/questionary';
 
 type RussianIndividualEntityContractor = Replace<
@@ -17,7 +17,7 @@ export function createIndividualEntityContractor({ inn, name }: PartyContent): R
         individualEntity: {
             individualEntityType: 'RussianIndividualEntity',
             name: name.shortName,
-            inn
-        }
+            inn,
+        },
     };
 }

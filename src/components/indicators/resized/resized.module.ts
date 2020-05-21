@@ -6,6 +6,6 @@ import { ResizedDirective } from './resized.directive';
 @NgModule({
     imports: [CommonModule],
     declarations: [ResizedDirective],
-    exports: [ResizedDirective]
+    exports: [ResizedDirective],
 })
 export class ResizedModule {}

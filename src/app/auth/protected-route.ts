@@ -7,6 +7,6 @@ export function protectedRoute(route: Route, roles: Roles[]): Route {
     return {
         ...route,
         canActivate: [...(route.canActivate || []), AppAuthGuardService],
-        data: { ...(route.data || {}), roles }
+        data: { ...(route.data || {}), roles },
     };
 }

@@ -6,12 +6,12 @@ import {
     PanelComponent,
     PanelContentComponent,
     PanelHeaderComponent,
-    PanelHeaderIconComponent
+    PanelHeaderIconComponent,
 } from './panel.component';
 
 @NgModule({
     imports: [CommonModule, MatIconModule],
     declarations: [PanelComponent, PanelHeaderComponent, PanelContentComponent, PanelHeaderIconComponent],
-    exports: [PanelComponent, PanelHeaderComponent, PanelContentComponent, PanelHeaderIconComponent]
+    exports: [PanelComponent, PanelHeaderComponent, PanelContentComponent, PanelHeaderIconComponent],
 })
 export class PanelModule {}

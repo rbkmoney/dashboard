@@ -1,1 +1,13 @@
-<div #barChart><svg></svg></div>
+<apx-chart
+    [chart]="config.chart"
+    [series]="series"
+    [dataLabels]="config.dataLabels"
+    [plotOptions]="config.plotOptions"
+    [xaxis]="config.xaxis"
+    [yaxis]="config.yaxis"
+    [legend]="config.legend"
+    [fill]="config.fill"
+    [tooltip]="config.tooltip"
+    [colors]="colors"
+    [states]="config.states"
+></apx-chart>

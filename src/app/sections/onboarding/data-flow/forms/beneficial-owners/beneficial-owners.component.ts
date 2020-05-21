@@ -8,7 +8,7 @@ import { BeneficialOwnersService } from './beneficial-owners.service';
 
 @Component({
     templateUrl: 'beneficial-owners.component.html',
-    styleUrls: ['beneficial-owners.component.scss']
+    styleUrls: ['beneficial-owners.component.scss'],
 })
 export class BeneficialOwnersComponent implements OnInit, OnDestroy {
     layoutGap = '20px';
@@ -16,7 +16,7 @@ export class BeneficialOwnersComponent implements OnInit, OnDestroy {
     form$ = this.beneficialOwnersService.form$;
 
     beneficialOwners$: Observable<FormArray> = this.beneficialOwnersService.form$.pipe(
-        map(form => form.controls.beneficialOwners as FormArray)
+        map((form) => form.controls.beneficialOwners as FormArray)
     );
 
     isBeneficialOwnersVisible$ = this.beneficialOwnersService.isBeneficialOwnersVisible$;

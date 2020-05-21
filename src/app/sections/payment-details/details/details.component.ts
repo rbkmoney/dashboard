@@ -7,7 +7,7 @@ import { getPaymentStatusInfo } from '../../get-payment-status-info';
 
 @Component({
     selector: 'dsh-details',
-    templateUrl: './details.component.html'
+    templateUrl: './details.component.html',
 })
 export class DetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;

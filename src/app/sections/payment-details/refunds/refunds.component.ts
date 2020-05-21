@@ -13,7 +13,7 @@ const PaymentStatuses = PaymentSearchResult.StatusEnum;
     selector: 'dsh-refunds',
     templateUrl: './refunds.component.html',
     styleUrls: ['./refunds.component.scss'],
-    providers: [RefundsService]
+    providers: [RefundsService],
 })
 export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;

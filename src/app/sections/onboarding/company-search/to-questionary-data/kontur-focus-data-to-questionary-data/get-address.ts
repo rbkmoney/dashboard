@@ -13,8 +13,8 @@ export function getAddress(address: ParsedAddressRF): string {
         getAddressPart(address.street),
         getAddressPart(address.bulk),
         getAddressPart(address.house),
-        getAddressPart(address.flat)
+        getAddressPart(address.flat),
     ]
-        .filter(v => !!v)
+        .filter((v) => !!v)
         .join(', ');
 }

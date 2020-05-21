@@ -2,6 +2,7 @@
     "nav": {
         "operations": "Операции",
         "reports": "Отчеты",
+        "analytics": "Аналитика",
         "payouts": "Возмещения",
         "integrations": "Интеграция"
     },
@@ -13,11 +14,42 @@
             "invoices": "Инвойсы"
         }
     },
+    "analytics": {
+        "allShops": "Все магазины",
+        "shop": "Магазин",
+        "headline": "Аналитика",
+        "paymentsCount": "Количество платежей",
+        "paymentsAmount": "Оборот",
+        "paymentTools": "Платежные инструменты",
+        "unsuccessfulPaymentReasons": "Причины неуспешных платежей",
+        "noData": "Нет данных",
+        "stats": {
+            "paymentsAmount": "Оборот за период",
+            "refundsAmount": "Возвратов за период",
+            "averagePayment": "Средняя сумма платежа",
+            "paymentsCount": "Количество платежей"
+        },
+        "paymentToolsList": {
+            "bank_card": "Банковская карта",
+            "digital_wallet": "Кошелек",
+            "payment_terminal": "Терминал"
+        },
+        "paymentStatuses": {
+            "pending": "Запущен",
+            "processed": "Обработан",
+            "captured": "Подтвержден",
+            "cancelled": "Отменен",
+            "refunded": "Возвращен",
+            "failed": "Неуспешен"
+        }
+    },
     "integrations": {
         "headline": "Интеграция",
         "tabs": {
             "webhooks": "Webhooks",
-            "shops": "Магазины"
+            "shops": "Магазины",
+            "payment-link": "Платежная ссылка",
+            "api-key": "API key"
         }
     }
 }

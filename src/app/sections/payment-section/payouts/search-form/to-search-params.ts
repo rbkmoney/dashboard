@@ -5,6 +5,6 @@ export function toSearchParams({ date, ...params }: FormParams): SearchParams {
     return {
         ...params,
         fromTime: date.begin.utc().format(),
-        toTime: date.end.utc().format()
+        toTime: date.end.utc().format(),
     };
 }

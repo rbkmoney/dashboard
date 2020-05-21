@@ -15,7 +15,7 @@ export class QuestionaryStateService {
     private sub: Subscription = Subscription.EMPTY;
 
     questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
-        filter(v => v !== null),
+        filter((v) => v !== null),
         pluck('questionary', 'data'),
         distinctUntilChanged(isEqual)
     );
@@ -26,24 +26,24 @@ export class QuestionaryStateService {
 
     subscribe() {
         const initSnapshot$ = this.initSnapshot$.pipe(
-            switchMap(documentID => this.questionaryService.getQuestionary(documentID)),
-            tap(snapshot => this.snapshot$.next(snapshot))
+            switchMap((documentID) => this.questionaryService.getQuestionary(documentID)),
+            tap((snapshot) => this.snapshot$.next(snapshot))
         );
         const save$ = this.save$.pipe(
             switchMap(() => this.snapshot$.pipe(first())),
             distinctUntilChanged((x, y) => isEqual(x.questionary.data, y.questionary.data)),
             switchMap(({ questionary: { id, data }, version }) =>
                 this.questionaryService.saveQuestionary(id, data, version).pipe(
-                    catchError(err => {
+                    catchError((err) => {
                         console.error(err);
                         return of(version);
                     })
                 )
             ),
-            tap(version => {
+            tap((version) => {
                 this.snapshot$.next({
                     ...this.snapshot$.getValue(),
-                    version
+                    version,
                 });
             })
         );
@@ -60,8 +60,8 @@ export class QuestionaryStateService {
             ...s,
             questionary: {
                 ...s.questionary,
-                data
-            }
+                data,
+            },
         });
     }
 

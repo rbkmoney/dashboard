@@ -19,7 +19,7 @@ import { FloatPanelModule } from './float-panel.module';
                 Фильтр
             </dsh-float-panel-more>
         </dsh-float-panel>
-    `
+    `,
 })
 class SimpleFloatPanelComponent {
     @ViewChild('floatPanel') floatPanel: FloatPanelComponent;
@@ -38,7 +38,7 @@ describe('FloatPanelComponent', () => {
         TestBed.configureTestingModule({
             imports: [FloatPanelModule, NoopAnimationsModule, HttpClientTestingModule, SettingsModule],
             declarations: [component, ...declarations],
-            providers
+            providers,
         }).compileComponents();
 
         return TestBed.createComponent<T>(component);
