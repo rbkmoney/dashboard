@@ -7,9 +7,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: MessagesConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: MessagesConfigService }],
+        },
     ],
-    providers: [MessagesConfigService]
+    providers: [MessagesConfigService],
 })
 export class MessagesModule {}

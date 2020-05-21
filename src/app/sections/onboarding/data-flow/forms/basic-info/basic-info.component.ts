@@ -5,7 +5,7 @@ import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
 import { BasicInfoService } from './basic-info.service';
 
 @Component({
-    templateUrl: 'basic-info.component.html'
+    templateUrl: 'basic-info.component.html',
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {
     layoutGap = '20px';

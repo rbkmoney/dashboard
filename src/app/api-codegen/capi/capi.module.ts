@@ -8,9 +8,9 @@ import { ApiModule, ClaimsService, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: CAPIConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: CAPIConfigService }],
+        },
     ],
-    providers: [CAPIConfigService, ClaimsService, ShopsService]
+    providers: [CAPIConfigService, ClaimsService, ShopsService],
 })
 export class CAPIModule {}

@@ -12,6 +12,6 @@ import { FileUploaderService } from './file-uploader.service';
     imports: [TranslocoModule, FlexModule, ngfModule, CommonModule, FilesModule],
     exports: [FileUploaderComponent],
     declarations: [FileUploaderComponent],
-    providers: [FileUploaderService]
+    providers: [FileUploaderService],
 })
 export class FileUploaderModule {}

@@ -13,19 +13,12 @@ export interface StepNavInfo {
 
 export const toStepNavInfo = (s: Observable<[ValiditySteps, StepName]>): Observable<StepNavInfo[]> =>
     s.pipe(
-        map(([validitySteps, activeStep]) => {
-            let result = [];
-            for (const [step, isValid] of validitySteps) {
-                result = [
-                    ...result,
-                    {
-                        step,
-                        iconVisible: isValid,
-                        navStatus: isValid ? 'success' : null,
-                        navItemSelected: step === activeStep
-                    }
-                ];
-            }
-            return result;
-        })
+        map(([validitySteps, activeStep]) =>
+            Array.from(validitySteps).map(([step, isValid]) => ({
+                step,
+                iconVisible: isValid,
+                navStatus: isValid ? 'success' : null,
+                navItemSelected: step === activeStep,
+            }))
+        )
     );

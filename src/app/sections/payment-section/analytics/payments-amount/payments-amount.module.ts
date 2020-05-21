@@ -22,9 +22,9 @@ import { PaymentsAmountComponent } from './payments-amount.component';
         AnalyticsModule,
         CardModule,
         PercentDifferenceModule,
-        StatItemModule
+        StatItemModule,
     ],
     declarations: [PaymentsAmountComponent],
-    exports: [PaymentsAmountComponent]
+    exports: [PaymentsAmountComponent],
 })
 export class PaymentsAmountModule {}

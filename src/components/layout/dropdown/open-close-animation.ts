@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export enum State {
     open = 'open',
-    closed = 'closed'
+    closed = 'closed',
 }
 
 export const openCloseAnimation = trigger('openClose', [
@@ -11,7 +11,7 @@ export const openCloseAnimation = trigger('openClose', [
         style({
             opacity: 1,
             transform: 'rotateX(0deg)',
-            'transform-origin': '0% 0px'
+            'transform-origin': '0% 0px',
         })
     ),
     state(
@@ -19,8 +19,8 @@ export const openCloseAnimation = trigger('openClose', [
         style({
             opacity: 0,
             transform: 'rotateX(-15deg)',
-            'transform-origin': '50% -50px'
+            'transform-origin': '50% -50px',
         })
     ),
-    transition(`${State.open} <=> ${State.closed}`, [animate('0.25s ease')])
+    transition(`${State.open} <=> ${State.closed}`, [animate('0.25s ease')]),
 ]);

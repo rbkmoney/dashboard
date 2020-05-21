@@ -9,6 +9,6 @@ import { PercentDifferenceComponent } from './percent-difference.component';
 @NgModule({
     imports: [CommonModule, CardModule, FlexLayoutModule],
     exports: [PercentDifferenceComponent],
-    declarations: [PercentDifferenceComponent]
+    declarations: [PercentDifferenceComponent],
 })
 export class PercentDifferenceModule {}

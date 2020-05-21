@@ -5,7 +5,7 @@ import {
     IndividualResidencyInfo,
     QuestionaryData,
     RussianIndividualEntity,
-    RussianPrivateEntity
+    RussianPrivateEntity,
 } from '../../../../../api-codegen/questionary/swagger-codegen';
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
@@ -16,7 +16,7 @@ const applyToContractor = (
         privateEntityInfo: { fio, birthDate, birthPlace, residenceAddress, snils },
         russianDomesticPassport,
         pdlInfo: { pdlCategory, pdlRelationDegree },
-        individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
+        individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident },
     }: FormValue
 ): IndividualEntityContractor => {
     const individualEntity = get(t, ['individualEntity']);
@@ -34,7 +34,7 @@ const applyToContractor = (
                 birthDate,
                 birthPlace,
                 residenceAddress,
-                fio
+                fio,
             } as RussianPrivateEntity,
             identityDocument: applyToIdentityDocument(
                 get(individualEntity, ['identityDocument']),
@@ -44,15 +44,15 @@ const applyToContractor = (
                 ...residencyInfo,
                 residencyInfoType: 'IndividualResidencyInfo',
                 usaTaxResident,
-                exceptUsaTaxResident
+                exceptUsaTaxResident,
             } as IndividualResidencyInfo,
             pdlCategory,
-            pdlRelationDegree
-        } as RussianIndividualEntity
+            pdlRelationDegree,
+        } as RussianIndividualEntity,
     };
 };
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
-    contractor: applyToContractor(d.contractor, v)
+    contractor: applyToContractor(d.contractor, v),
 });

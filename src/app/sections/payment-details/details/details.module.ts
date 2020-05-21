@@ -19,9 +19,9 @@ import { DetailsComponent } from './details.component';
         CommonModule,
         StatusDetailsItemModule,
         DetailsItemModule,
-        ToMajorModule
+        ToMajorModule,
     ],
     declarations: [DetailsComponent],
-    exports: [DetailsComponent]
+    exports: [DetailsComponent],
 })
 export class DetailsModule {}

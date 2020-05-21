@@ -11,6 +11,6 @@ const EXPORTED_DECLARATIONS = [HeadlineComponent, SecondaryTitleDirective];
 @NgModule({
     imports: [CommonModule, MatIconModule, FlexLayoutModule],
     exports: EXPORTED_DECLARATIONS,
-    declarations: EXPORTED_DECLARATIONS
+    declarations: EXPORTED_DECLARATIONS,
 })
 export class HeadlineModule {}

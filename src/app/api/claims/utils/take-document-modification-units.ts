@@ -2,4 +2,4 @@ import { ClaimChangeset, DocumentModificationUnit } from '../../../api-codegen/c
 import { isChangesetDocumentModificationUnit } from '../type-guards';
 
 export const takeDocumentModificationUnits = (changeset: ClaimChangeset): DocumentModificationUnit[] =>
-    changeset.filter(isChangesetDocumentModificationUnit).map(u => u.modification.claimModificationType);
+    changeset.filter(isChangesetDocumentModificationUnit).map((u) => u.modification.claimModificationType);

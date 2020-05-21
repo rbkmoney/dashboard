@@ -7,7 +7,7 @@ import { DEFAULT_CONFIG } from './default-config';
 @Component({
     selector: 'dsh-donut-chart',
     templateUrl: './donut-chart.component.html',
-    styleUrls: ['donut-chart.component.scss']
+    styleUrls: ['donut-chart.component.scss'],
 })
 export class DonutChartComponent {
     @Input()

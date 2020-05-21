@@ -7,5 +7,5 @@ export const STUB_USER: Keycloak.KeycloakProfile = {
     enabled: true,
     emailVerified: true,
     totp: true,
-    createdTimestamp: 1
+    createdTimestamp: 1,
 };

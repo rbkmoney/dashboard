@@ -7,12 +7,12 @@ const LEGAL_ENTITY_INN_LENGTH = 10;
 
 export const legalEntityInnMask: TextMaskConfig = {
     mask: new Array(LEGAL_ENTITY_INN_LENGTH).fill(/\d/),
-    guide: false
+    guide: false,
 };
 
 export const legalEntityInnValidator = maskToValidator(legalEntityInnMask);
 
 export const legalEntityInnConfig: FormatInputConfig = {
     mask: legalEntityInnMask,
-    placeholder: '0'.repeat(LEGAL_ENTITY_INN_LENGTH)
+    placeholder: '0'.repeat(LEGAL_ENTITY_INN_LENGTH),
 };

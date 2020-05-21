@@ -7,7 +7,7 @@ import { PaymentsTableData } from './payments-table-data';
 @Component({
     selector: 'dsh-payments-table',
     templateUrl: 'table.component.html',
-    styleUrls: ['table.component.scss']
+    styleUrls: ['table.component.scss'],
 })
 export class TableComponent {
     @Input() data: MatTableDataSource<PaymentsTableData>;

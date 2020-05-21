@@ -11,19 +11,19 @@ import {
     QuestionaryData,
     RussianIndividualEntity,
     RussianLegalEntity,
-    ShopInfo
+    ShopInfo,
 } from '../../../api-codegen/questionary';
 import { OrgInfo } from './org-info';
 
 const toPanelItem = <T>(type: PanelInfoType) => (s: Observable<T>): Observable<PanelInfo | null> =>
     s.pipe(
-        map(item => (item ? { type, item } : null)),
+        map((item) => (item ? { type, item } : null)),
         first()
     );
 
 const toOrgInfo = (s: Observable<RussianLegalEntity | RussianIndividualEntity | null>): Observable<OrgInfo | null> =>
     s.pipe(
-        switchMap(entity =>
+        switchMap((entity) =>
             iif(
                 () => isEmpty(entity),
                 of(null),
@@ -32,7 +32,7 @@ const toOrgInfo = (s: Observable<RussianLegalEntity | RussianIndividualEntity | 
                         additionalInfo,
                         name,
                         inn,
-                        registrationInfo
+                        registrationInfo,
                     }))
                 )
             )
@@ -63,9 +63,9 @@ export const toPanelInfo = (s: Observable<QuestionaryData>): Observable<PanelInf
     const contactInfoItem$ = s.pipe(pluck('contactInfo'), toPanelItem('contactInfo'));
     const orgInfoItem$ = combineLatest([
         s.pipe(pluck('contractor', 'legalEntity')),
-        s.pipe(pluck('contractor', 'individualEntity'))
+        s.pipe(pluck('contractor', 'individualEntity')),
     ]).pipe(
-        map(entities => entities.filter(negate(isEmpty))),
+        map((entities) => entities.filter(negate(isEmpty))),
         map(last),
         toOrgInfo,
         toPanelItem('orgInfo')

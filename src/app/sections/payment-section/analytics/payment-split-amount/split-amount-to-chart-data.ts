@@ -6,15 +6,15 @@ import { ChartData, Series, splitUnitToTimeFormat } from '../utils';
 
 const offsetAmountsToSeries = (offsetAmounts: OffsetAmount[], unit: SplitUnit): Series[] => [
     {
-        data: offsetAmounts.map(offsetAmount => ({
+        data: offsetAmounts.map((offsetAmount) => ({
             x: moment(offsetAmount.offset).format(splitUnitToTimeFormat(unit)),
-            y: toMajor(offsetAmount.amount)
-        }))
-    }
+            y: toMajor(offsetAmount.amount),
+        })),
+    },
 ];
 
 export const splitAmountToChartData = (paymentsSplitAmount: Array<SplitAmountResult>): ChartData[] =>
     paymentsSplitAmount.map(({ currency, offsetAmounts, splitUnit }) => ({
         currency,
-        series: offsetAmountsToSeries(offsetAmounts, splitUnit)
+        series: offsetAmountsToSeries(offsetAmounts, splitUnit),
     }));

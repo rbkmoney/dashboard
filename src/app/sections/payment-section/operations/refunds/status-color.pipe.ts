@@ -4,7 +4,7 @@ import { RefundStatus } from '../../../../api-codegen/capi/swagger-codegen';
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
-    name: 'refundStatusColor'
+    name: 'refundStatusColor',
 })
 export class RefundStatusColorPipe implements PipeTransform {
     transform(status: RefundStatus.StatusEnum): StatusColor {

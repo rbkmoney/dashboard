@@ -12,7 +12,7 @@ import {
     Optional,
     QueryList,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -24,7 +24,7 @@ import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
     exportAs: 'dshTabHeader',
     templateUrl: 'tab-header.component.html',
     styleUrls: ['tab-header.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class DshTabHeaderComponent implements AfterContentChecked, AfterContentInit, OnDestroy {
     @ContentChildren(DshTabLabelWrapperDirective) _labelWrappers: QueryList<DshTabLabelWrapperDirective>;

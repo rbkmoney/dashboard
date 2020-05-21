@@ -6,7 +6,7 @@ import { CommentContainerService } from './comment-container.service';
 @Component({
     selector: 'dsh-comment-container',
     templateUrl: 'comment-container.component.html',
-    providers: [CommentContainerService]
+    providers: [CommentContainerService],
 })
 export class CommentContainerComponent implements OnChanges {
     @Input() unit: CommentModificationUnit;

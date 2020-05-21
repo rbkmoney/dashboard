@@ -5,6 +5,6 @@ import { UrlShortenerService } from './url-shortener.service';
 
 @NgModule({
     imports: [UrlShortenerApiModule],
-    providers: [UrlShortenerService]
+    providers: [UrlShortenerService],
 })
 export class UrlShortenerModule {}

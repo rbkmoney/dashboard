@@ -18,15 +18,15 @@ export class RefundsAmountService {
         switchMap(({ current, previous }) =>
             forkJoin([
                 this.analyticsService.getRefundsAmount(current.fromTime, current.toTime, current.shopIDs),
-                this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, previous.shopIDs)
+                this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, previous.shopIDs),
             ]).pipe(replaceError)
         )
     );
     refundsAmount$ = this.refundsAmountOrError$.pipe(
         filterPayload,
-        map(res => res.map(r => r.result)),
+        map((res) => res.map((r) => r.result)),
         map(amountResultToStatData),
-        map(data => data.find(d => d.currency === 'RUB')),
+        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.refundsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));

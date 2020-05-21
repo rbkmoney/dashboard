@@ -9,7 +9,7 @@ import { SearchFormService } from './search-form.service';
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
@@ -19,7 +19,7 @@ export class SearchFormComponent implements OnInit {
 
     searchForm: FormGroup;
 
-    statuses = Object.values(StatusModificationUnit.StatusEnum).filter(i => i !== 'pendingAcceptance');
+    statuses = Object.values(StatusModificationUnit.StatusEnum).filter((i) => i !== 'pendingAcceptance');
 
     constructor(private searchFormService: SearchFormService) {}
 
@@ -27,6 +27,6 @@ export class SearchFormComponent implements OnInit {
         this.searchForm = this.searchFormService.searchForm;
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
-            .subscribe(v => this.formValueChanges.emit(v));
+            .subscribe((v) => this.formValueChanges.emit(v));
     }
 }

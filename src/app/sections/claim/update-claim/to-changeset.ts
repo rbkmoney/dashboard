@@ -8,7 +8,7 @@ import { isUpdateConversation, isUpdateFiles } from './type-guards';
 
 export const toChangeset = (s: Observable<UpdateParams>): Observable<Modification[]> =>
     s.pipe(
-        map(params => {
+        map((params) => {
             if (isUpdateConversation(params)) {
                 return [createCommentModificationUnit(params.conversationId)];
             }

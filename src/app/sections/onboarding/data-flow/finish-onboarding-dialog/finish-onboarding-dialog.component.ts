@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
     selector: 'dsh-finish-onboarding-dialog',
     templateUrl: 'finish-onboarding-dialog.component.html',
-    styleUrls: ['finish-onboarding-dialog.component.scss']
+    styleUrls: ['finish-onboarding-dialog.component.scss'],
 })
 export class FinishOnboardingDialogComponent {
     constructor(private dialogRef: MatDialogRef<FinishOnboardingDialogComponent>) {}

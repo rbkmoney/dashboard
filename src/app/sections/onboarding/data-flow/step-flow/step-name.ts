@@ -5,5 +5,5 @@ export enum StepName {
     PlanningOperationsAndPayoutTool = 'planning-operations-and-payout-tool',
     RussianPrivateEntity = 'russian-private-entity',
     RussianLegalOwner = 'russian-legal-owner',
-    RussianIndividualEntity = 'russian-individual-entity'
+    RussianIndividualEntity = 'russian-individual-entity',
 }

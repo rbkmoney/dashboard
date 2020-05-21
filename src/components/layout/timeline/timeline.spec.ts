@@ -18,7 +18,7 @@ import { TimelineModule } from './timeline.module';
                 <dsh-timeline-item-content>Content</dsh-timeline-item-content>
             </dsh-timeline-item>
         </dsh-timeline>
-    `
+    `,
 })
 class SampleTimelineComponent {
     color: StatusColor;
@@ -33,7 +33,7 @@ describe('Timeline', () => {
         TestBed.configureTestingModule({
             imports: [TimelineModule, NoopAnimationsModule],
             declarations: [component, ...declarations],
-            providers
+            providers,
         }).compileComponents();
         const fixture = TestBed.createComponent<T>(component);
         fixture.detectChanges();

@@ -10,7 +10,7 @@ import { ActionBtnContent } from '../content-config';
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({
     routerLink,
     actionLabel,
-    disabled: false
+    disabled: false,
 });
 
 const getDocumentID = (changeset: ClaimChangeset) => last(takeDocumentModificationUnits(changeset)).documentId;
@@ -37,5 +37,5 @@ export const mapToActionBtnContent = (claim: Observable<Claim>) => (
 ): Observable<ActionBtnContent> => {
     const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${RouteEnv.real}/operations`));
     const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
-    return s.pipe(switchMap(isRealEnv => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
+    return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
 };

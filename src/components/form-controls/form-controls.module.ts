@@ -9,6 +9,6 @@ const EXPORTED_DECLARATIONS = [FormatInputModule, RangeDatepickerModule, FileUpl
 
 @NgModule({
     imports: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class FormControlsModule {}

@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { ButtonToggleComponent, ButtonToggleGroupDirective } from './button-toggle.component';
 import {
     ButtonToggleGroupWithFormControlComponent,
-    ButtonToggleGroupWithNgModelComponent
+    ButtonToggleGroupWithNgModelComponent,
 } from './button-toggle.components.spec';
 import { ButtonToggleModule } from './button-toggle.module';
 
@@ -14,7 +14,7 @@ describe('DshButtonToggle with forms', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ButtonToggleModule, FormsModule, ReactiveFormsModule],
-            declarations: [ButtonToggleGroupWithNgModelComponent, ButtonToggleGroupWithFormControlComponent]
+            declarations: [ButtonToggleGroupWithNgModelComponent, ButtonToggleGroupWithFormControlComponent],
         });
 
         TestBed.compileComponents();
@@ -86,8 +86,8 @@ describe('DshButtonToggle with forms', () => {
             groupNgModel = groupDebugElement.injector.get<NgModel>(NgModel);
 
             buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
-            buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
-            innerButtons = buttonToggleDebugElements.map(debugEl => debugEl.query(By.css('button')).nativeElement);
+            buttonToggleInstances = buttonToggleDebugElements.map((debugEl) => debugEl.componentInstance);
+            innerButtons = buttonToggleDebugElements.map((debugEl) => debugEl.query(By.css('button')).nativeElement);
 
             fixture.detectChanges();
         }));
@@ -117,7 +117,7 @@ describe('DshButtonToggle with forms', () => {
         });
 
         it('should update the name of radio DOM elements if the name of the group changes', () => {
-            expect(innerButtons.every(button => button.getAttribute('name') === groupInstance.name)).toBe(
+            expect(innerButtons.every((button) => button.getAttribute('name') === groupInstance.name)).toBe(
                 true,
                 'Expected all buttons to have the initial name.'
             );
@@ -126,7 +126,7 @@ describe('DshButtonToggle with forms', () => {
             fixture.detectChanges();
 
             expect(groupInstance.name).toBe('changed-name');
-            expect(innerButtons.every(button => button.getAttribute('name') === groupInstance.name)).toBe(
+            expect(innerButtons.every((button) => button.getAttribute('name') === groupInstance.name)).toBe(
                 true,
                 'Expected all buttons to have the new name.'
             );
@@ -199,7 +199,7 @@ describe('DshButtonToggle with forms', () => {
                 fixture.detectChanges();
 
                 buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
-                buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
+                buttonToggleInstances = buttonToggleDebugElements.map((debugEl) => debugEl.componentInstance);
 
                 expect(buttonToggleInstances[0].checked).toBe(true);
                 expect(groupInstance.value).toBe('red');

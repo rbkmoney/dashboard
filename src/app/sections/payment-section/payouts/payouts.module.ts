@@ -41,9 +41,9 @@ import { SearchFormComponent } from './search-form';
         SpinnerModule,
         ScrollUpModule,
         RangeDatepickerModule,
-        ShowMorePanelModule
+        ShowMorePanelModule,
     ],
     declarations: [PayoutsComponent, SearchFormComponent],
-    exports: [PayoutsComponent]
+    exports: [PayoutsComponent],
 })
 export class PayoutsModule {}

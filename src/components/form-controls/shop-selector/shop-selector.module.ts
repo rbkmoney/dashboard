@@ -25,8 +25,8 @@ import { ShopSelectorComponent } from './shop-selector.component';
         MatIconModule,
         CommonModule,
         TranslocoModule,
-        JustifyWrapperModule
+        JustifyWrapperModule,
     ],
-    exports: [ShopSelectorComponent]
+    exports: [ShopSelectorComponent],
 })
 export class ShopSelectorModule {}

@@ -5,7 +5,7 @@ import { Contractor } from '../../../../api-codegen/questionary';
 
 @Component({
     selector: 'dsh-manual-contractor-selector',
-    templateUrl: 'manual-contractor-selector.component.html'
+    templateUrl: 'manual-contractor-selector.component.html',
 })
 export class ManualContractorSelectorComponent implements OnDestroy {
     @Output() contractorTypeSelected: EventEmitter<Contractor.ContractorTypeEnum> = new EventEmitter();

@@ -18,7 +18,7 @@ import {
     Output,
     ViewChild,
     ViewContainerRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export declare type DshTabBodyPositionState =
     exportAs: 'dshTabBody',
     templateUrl: 'tab-body.component.html',
     encapsulation: ViewEncapsulation.None,
-    animations: [dshTabsAnimations.translateTab]
+    animations: [dshTabsAnimations.translateTab],
 })
 export class DshTabBodyComponent implements OnInit, OnDestroy {
     @HostBinding('class.dsh-tab-body')
@@ -92,7 +92,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
                     return x.fromState === y.fromState && x.toState === y.toState;
                 })
             )
-            .subscribe(event => {
+            .subscribe((event) => {
                 if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
                     this._onCentered.emit();
                 }
@@ -148,7 +148,7 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[dshTabBodyHost]'
+    selector: '[dshTabBodyHost]',
 })
 export class DshTabBodyPortalDirective extends CdkPortalOutlet implements OnInit, OnDestroy {
     private _centeringSub = Subscription.EMPTY;

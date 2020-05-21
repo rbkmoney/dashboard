@@ -6,6 +6,7 @@ import { individualOrLegalEntityInnValidator, phoneNumberValidator } from '@dsh/
 import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
+import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { FormValue } from '../form-value';
 import { QuestionaryFormService } from '../questionary-form.service';
@@ -19,9 +20,10 @@ export class BasicInfoService extends QuestionaryFormService {
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
-        protected validityService: ValidityService
+        protected validityService: ValidityService,
+        protected validationCheckService: ValidationCheckService
     ) {
-        super(questionaryStateService, validityService);
+        super(questionaryStateService, validityService, validationCheckService);
     }
 
     patchForm(value: { [key: string]: any }) {
@@ -50,7 +52,7 @@ export class BasicInfoService extends QuestionaryFormService {
             shopUrl: ['', Validators.required],
             shopName: ['', Validators.required],
             email: ['', Validators.required],
-            phoneNumber: ['', [Validators.required, phoneNumberValidator]]
+            phoneNumber: ['', [Validators.required, phoneNumberValidator]],
         });
     }
 }

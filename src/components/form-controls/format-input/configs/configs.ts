@@ -11,7 +11,7 @@ export const configs = {
     ...bankCardConfigs,
     ...contactConfigs,
     ...individualEntityConfigs,
-    ...legalEntityConfigs
+    ...legalEntityConfigs,
 };
 
 export type Type = keyof typeof configs;

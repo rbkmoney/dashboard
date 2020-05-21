@@ -14,7 +14,7 @@ import { InvoiceSearchFormValue } from './search-form';
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [InvoicesService]
+    providers: [InvoicesService],
 })
 export class InvoicesComponent {
     tableData$ = this.invoicesService.invoicesTableData$;
@@ -54,8 +54,8 @@ export class InvoicesComponent {
             maxHeight: '90vh',
             disableClose: true,
             data: {
-                shopsInfo$: this.shopInfos$
-            }
+                shopsInfo$: this.shopInfos$,
+            },
         });
     }
 }

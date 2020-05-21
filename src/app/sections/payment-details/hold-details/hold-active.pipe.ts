@@ -4,7 +4,7 @@ import moment from 'moment';
 import { PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
 
 @Pipe({
-    name: 'holdActive'
+    name: 'holdActive',
 })
 export class HoldActivePipe implements PipeTransform {
     transform(date: string, status: PaymentStatus.StatusEnum): boolean {

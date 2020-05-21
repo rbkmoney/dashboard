@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { QuestionaryService } from './questionary.service';
 
 @NgModule({
-    providers: [QuestionaryService]
+    providers: [QuestionaryService],
 })
 export class QuestionaryModule {}

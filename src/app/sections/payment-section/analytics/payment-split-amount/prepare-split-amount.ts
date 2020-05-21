@@ -10,8 +10,8 @@ const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>
                 ? [
                       {
                           ...curr,
-                          amount: acc[0].amount + curr.amount
-                      }
+                          amount: acc[0].amount + curr.amount,
+                      },
                   ]
                 : [...acc, curr],
         []
@@ -24,11 +24,11 @@ const fillSplitAmountByZeroValues = (
     splitUnit: SplitUnit
 ): OffsetAmount[] => {
     const offsets = getOffsets(fromTime, toTime, splitUnit);
-    return offsets.map(offset => {
+    return offsets.map((offset) => {
         const fixedOffsetAmount = splitUnit !== 'hour' ? fixExtraInterval(offsetAmounts) : offsetAmounts;
         return {
             offset,
-            amount: fixedOffsetAmount[fixedOffsetAmount.findIndex(o => o.offset === offset)]?.amount || 0
+            amount: fixedOffsetAmount[fixedOffsetAmount.findIndex((o) => o.offset === offset)]?.amount || 0,
         };
     });
 };
@@ -41,5 +41,5 @@ export const prepareSplitAmount = (
     splitAmounts.map(({ splitUnit, currency, offsetAmounts }) => ({
         splitUnit,
         currency,
-        offsetAmounts: fillSplitAmountByZeroValues(offsetAmounts, fromTime, toTime, splitUnit)
+        offsetAmounts: fillSplitAmountByZeroValues(offsetAmounts, fromTime, toTime, splitUnit),
     }));

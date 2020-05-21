@@ -10,7 +10,7 @@ import { ExpandPanelMoreTemplateComponent } from './expand-panel-more';
     selector: 'dsh-expand-panel',
     templateUrl: 'expand-panel.component.html',
     styleUrls: ['expand-panel.component.scss'],
-    animations: [expandAnimation]
+    animations: [expandAnimation],
 })
 export class ExpandPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
@@ -22,9 +22,9 @@ export class ExpandPanelComponent {
 
     @ContentChild(ExpandPanelMoreTemplateComponent)
     @coerce(
-        v => v,
+        (v) => v,
         (v: ExpandPanelMoreTemplateComponent, self: ExpandPanelComponent) =>
-            v.collapse$.subscribe(e => self.collapse(e))
+            v.collapse$.subscribe((e) => self.collapse(e))
     )
     expandPanelMore: ExpandPanelMoreTemplateComponent;
 

@@ -10,18 +10,18 @@ const claimRoutes: Routes = [
         children: [
             {
                 path: 'conversation',
-                loadChildren: () => import('./conversation/conversation.module').then(mod => mod.ConversationModule)
+                loadChildren: () => import('./conversation/conversation.module').then((mod) => mod.ConversationModule),
             },
             {
                 path: 'documents',
-                loadChildren: () => import('./documents/documents.module').then(mod => mod.DocumentsModule)
-            }
-        ]
-    }
+                loadChildren: () => import('./documents/documents.module').then((mod) => mod.DocumentsModule),
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(claimRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ClaimRoutingModule {}

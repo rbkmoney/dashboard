@@ -14,7 +14,7 @@ export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
     fileInfo$: Observable<FileData> = this.getFileInfo$.pipe(
-        switchMap(fileID => this.filesService.getFileInfo(fileID)),
+        switchMap((fileID) => this.filesService.getFileInfo(fileID)),
         shareReplay(1)
     );
 

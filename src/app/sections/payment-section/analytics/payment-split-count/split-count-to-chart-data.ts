@@ -11,7 +11,7 @@ const prepareOffsetCounts = (statusOffsetCounts: StatusOffsetCount[]): StatusOff
             const sorted = sortBy(statusOffsetCount.offsetCount, 'offset');
             return {
                 ...statusOffsetCount,
-                offsetCount: sorted
+                offsetCount: sorted,
             };
         }
     );
@@ -19,10 +19,10 @@ const prepareOffsetCounts = (statusOffsetCounts: StatusOffsetCount[]): StatusOff
 const statusOffsetCountsToSeries = (statusOffsetCounts: StatusOffsetCount[], unit: SplitUnit) => {
     return statusOffsetCounts.map(({ status, offsetCount }) => ({
         name: translate(`analytics.paymentStatuses.${status.toString()}`, null, 'payment-section|scoped'),
-        data: offsetCount.map(c => ({
+        data: offsetCount.map((c) => ({
             x: moment(c.offset).format(splitUnitToTimeFormat(unit)),
-            y: c.count
-        }))
+            y: c.count,
+        })),
     }));
 };
 
@@ -31,6 +31,6 @@ export const splitCountToChartData = (splitCounts: SplitCountResult[]): ChartDat
         const prepared = prepareOffsetCounts(statusOffsetCounts);
         return {
             currency,
-            series: statusOffsetCountsToSeries(prepared, splitUnit)
+            series: statusOffsetCountsToSeries(prepared, splitUnit),
         };
     });

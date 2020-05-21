@@ -5,6 +5,6 @@ import { ThemeManager } from './theme-manager.service';
 
 @NgModule({
     imports: [SettingsModule],
-    providers: [ThemeManager]
+    providers: [ThemeManager],
 })
 export class ThemeManagerModule {}

@@ -7,7 +7,7 @@ type InvoicesEventTypesEnum = InvoicesTopic.EventTypesEnum;
 @Component({
     selector: 'dsh-events',
     templateUrl: 'events.component.html',
-    styleUrls: ['events.component.scss']
+    styleUrls: ['events.component.scss'],
 })
 export class EventsComponent {
     @Input()

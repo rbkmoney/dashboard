@@ -8,7 +8,7 @@ export class PdlInfoService {
     getForm(): FormGroup {
         return this.fb.group({
             pdlCategory: [false],
-            pdlRelationDegree: ['']
+            pdlRelationDegree: [''],
         });
     }
 }

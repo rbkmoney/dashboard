@@ -7,7 +7,7 @@ import { DocumentContainerService } from './document-container.service';
     selector: 'dsh-document-container',
     templateUrl: 'document-container.component.html',
     providers: [DocumentContainerService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentContainerComponent implements OnChanges {
     @Input() unit: DocumentModificationUnit;

@@ -11,7 +11,7 @@ const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
 
 @Component({
     selector: 'dsh-hold-details',
-    templateUrl: './hold-details.component.html'
+    templateUrl: './hold-details.component.html',
 })
 export class HoldDetailsComponent {
     @Input() payment: PaymentSearchResult;
@@ -45,16 +45,16 @@ export class HoldDetailsComponent {
     cancelHoldDialog() {
         const data: CancelHoldData = {
             invoiceID: this.payment.invoiceID,
-            paymentID: this.payment.id
+            paymentID: this.payment.id,
         };
         this.dialog
             .open(CancelHoldComponent, {
                 data,
                 width: '450px',
-                disableClose: true
+                disableClose: true,
             })
             .afterClosed()
-            .subscribe(isChanged => isChanged && this.holdAction.emit(true));
+            .subscribe((isChanged) => isChanged && this.holdAction.emit(true));
     }
 
     confirmHoldDialog() {
@@ -62,15 +62,15 @@ export class HoldDetailsComponent {
             invoiceID: this.payment.invoiceID,
             paymentID: this.payment.id,
             currency: this.payment.currency,
-            acceptMaxAmount: this.payment.amount
+            acceptMaxAmount: this.payment.amount,
         };
         this.dialog
             .open(ConfirmHoldComponent, {
                 data,
                 width: '450px',
-                disableClose: true
+                disableClose: true,
             })
             .afterClosed()
-            .subscribe(isChanged => isChanged && this.holdAction.emit(true));
+            .subscribe((isChanged) => isChanged && this.holdAction.emit(true));
     }
 }

@@ -7,7 +7,7 @@ import { InvoicesTableData } from './invoices-table-data';
 @Component({
     selector: 'dsh-invoices-table',
     templateUrl: 'table.component.html',
-    styleUrls: ['table.component.scss']
+    styleUrls: ['table.component.scss'],
 })
 export class TableComponent {
     @Input() data: MatTableDataSource<InvoicesTableData>;

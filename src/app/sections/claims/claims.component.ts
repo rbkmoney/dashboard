@@ -10,7 +10,7 @@ import { ClaimSearchFormValue } from './search-form';
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
-    providers: [ClaimsService]
+    providers: [ClaimsService],
 })
 export class ClaimsComponent {
     tableData$ = this.claimsService.claimsTableData$;

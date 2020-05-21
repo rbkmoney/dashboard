@@ -8,7 +8,7 @@ import { StepFlowService } from './step-flow';
     selector: 'dsh-data-flow',
     templateUrl: 'data-flow.component.html',
     styleUrls: ['data-flow.component.scss'],
-    providers: [DataFlowService]
+    providers: [DataFlowService],
 })
 export class DataFlowComponent implements OnInit, OnDestroy {
     activeStep$ = this.stepFlowService.activeStep$;

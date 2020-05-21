@@ -7,7 +7,7 @@ export const createFileModificationUnit = (fileId: string): SpecificClaimModific
         claimModificationType: 'FileModificationUnit',
         fileId,
         fileModification: {
-            fileModificationType: 'FileCreated'
-        }
-    }
+            fileModificationType: 'FileCreated',
+        },
+    },
 });
