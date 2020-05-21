@@ -6,7 +6,7 @@ import {
     CardComponent,
     CardContentComponent,
     CardHeaderComponent,
-    CardTitleDirective
+    CardTitleDirective,
 } from './card.component';
 
 const EXPORTED_DECLARATIONS = [
@@ -14,12 +14,12 @@ const EXPORTED_DECLARATIONS = [
     CardContentComponent,
     CardTitleDirective,
     CardHeaderComponent,
-    CardActionsComponent
+    CardActionsComponent,
 ];
 
 @NgModule({
     imports: [CommonModule],
     declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS
+    exports: EXPORTED_DECLARATIONS,
 })
 export class CardModule {}

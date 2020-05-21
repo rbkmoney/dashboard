@@ -9,7 +9,7 @@ import { configs, Type } from './configs';
     selector: 'dsh-format-input',
     templateUrl: 'format-input.component.html',
     styleUrls: ['format-input.component.scss'],
-    providers: [{ provide: MatFormFieldControl, useExisting: FormatInputComponent }]
+    providers: [{ provide: MatFormFieldControl, useExisting: FormatInputComponent }],
 })
 export class FormatInputComponent extends CustomFormControl {
     mask: TextMaskConfig;

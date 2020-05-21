@@ -9,6 +9,6 @@ import { ToolbarComponent } from './toolbar.component';
 @NgModule({
     declarations: [ToolbarComponent],
     imports: [CommonModule, FlexLayoutModule, BrandModule, ActionbarModule],
-    exports: [ToolbarComponent]
+    exports: [ToolbarComponent],
 })
 export class ToolbarModule {}

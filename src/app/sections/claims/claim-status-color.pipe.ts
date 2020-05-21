@@ -4,7 +4,7 @@ import { StatusModificationUnit } from '../../api-codegen/claim-management/swagg
 import { StatusColor } from '../../theme-manager';
 
 @Pipe({
-    name: 'claimStatusColor'
+    name: 'claimStatusColor',
 })
 export class ClaimStatusColorPipe implements PipeTransform {
     transform(status: StatusModificationUnit.StatusEnum): StatusColor {

@@ -14,7 +14,7 @@ const SIZE = 36;
     templateUrl: 'scroll-up.component.html',
     styleUrls: ['scroll-up.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [hideAnimation]
+    animations: [hideAnimation],
 })
 export class ScrollUpComponent implements OnInit, OnDestroy {
     /**
@@ -52,7 +52,7 @@ export class ScrollUpComponent implements OnInit, OnDestroy {
     }
 
     scrollToTop() {
-        smoothChangeTo(window.pageYOffset, 0, this.scrollTime).subscribe(v => window.scrollTo(0, v));
+        smoothChangeTo(window.pageYOffset, 0, this.scrollTime).subscribe((v) => window.scrollTo(0, v));
     }
 
     private changeIsShow(isShow: boolean) {

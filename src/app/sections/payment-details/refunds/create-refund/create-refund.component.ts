@@ -23,11 +23,11 @@ export interface CreateRefundData {
 @Component({
     selector: 'dsh-create-refund',
     templateUrl: './create-refund.component.html',
-    providers: [CreateRefundService]
+    providers: [CreateRefundService],
 })
 export class CreateRefundComponent implements OnInit {
     form = this.fb.group({
-        reason: ['']
+        reason: [''],
     });
 
     isPartialRefund = false;
@@ -56,7 +56,7 @@ export class CreateRefundComponent implements OnInit {
         const { reason, amount } = this.form.getRawValue();
         const params: RefundParams = {
             reason,
-            currency: 'RUB'
+            currency: 'RUB',
         };
         if (amount) {
             params.amount = toMinor(amount);
@@ -84,7 +84,7 @@ export class CreateRefundComponent implements OnInit {
                     Validators.required,
                     amountValidator,
                     Validators.min(1),
-                    Validators.max(toMajor(this.createRefundData.maxRefundAmount))
+                    Validators.max(toMajor(this.createRefundData.maxRefundAmount)),
                 ])
             );
         } else {

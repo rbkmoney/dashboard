@@ -44,5 +44,6 @@
         "инвойс",
         "инвойса"
     ],
-    "cSpell.language": "en,ru"
+    "cSpell.language": "en,ru",
+    "prettier.prettierPath": "node_modules/prettier"
 }

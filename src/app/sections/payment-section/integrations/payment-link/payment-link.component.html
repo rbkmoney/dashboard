@@ -1,0 +1,10 @@
+<dsh-card>
+    <dsh-invoice-template-form
+        *ngIf="currentStep === step.invoiceTemplate"
+        (next)="currentStep = step.paymentLink"
+    ></dsh-invoice-template-form>
+    <dsh-payment-link-form
+        *ngIf="currentStep === step.paymentLink"
+        (back)="currentStep = step.invoiceTemplate"
+    ></dsh-payment-link-form>
+</dsh-card>

@@ -14,7 +14,7 @@ export class InvoiceDetailsService {
 
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
-        switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
+        switchMap((invoiceID) => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
     invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { SearchFormValue } from '../../operations/search-form-value';
+import { SearchFormValue } from '../../search-form-value';
 import { PayoutsService } from '../payouts.service';
 import { SearchFormService } from './search-form.service';
 
@@ -8,7 +8,7 @@ import { SearchFormService } from './search-form.service';
     selector: 'dsh-payouts-search-form',
     templateUrl: 'search-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent {
     form = this.searchFormService.form;

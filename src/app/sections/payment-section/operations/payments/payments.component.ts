@@ -12,7 +12,7 @@ import { PaymentSearchFormValue } from './search-form';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [PaymentsService]
+    providers: [PaymentsService],
 })
 export class PaymentsComponent {
     tableData$ = this.paymentService.paymentsTableData$;
@@ -20,6 +20,7 @@ export class PaymentsComponent {
     lastUpdated$ = this.paymentService.lastUpdated$;
     doAction$ = this.paymentService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    shopInfos$ = this.paymentService.shopInfos$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 

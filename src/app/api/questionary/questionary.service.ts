@@ -7,7 +7,7 @@ import {
     QuestionaryData,
     QuestionaryService as SaveQuestionaryService,
     Snapshot,
-    Version
+    Version,
 } from '../../api-codegen/questionary';
 import { KeycloakService } from '../../auth';
 
@@ -26,12 +26,12 @@ export class QuestionaryService {
     saveQuestionary(id: string, data: QuestionaryData, version?: Version): Observable<Version> {
         return from(this.keycloakService.loadUserProfile()).pipe(
             pluck('email'),
-            switchMap(ownerId =>
+            switchMap((ownerId) =>
                 this.saveQuestionaryService.saveQuestionary({
                     id,
                     ownerId,
                     data,
-                    version
+                    version,
                 })
             )
         );

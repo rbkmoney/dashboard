@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { KonturFocusService } from './kontur-focus.service';
 
 @NgModule({
-    providers: [KonturFocusService]
+    providers: [KonturFocusService],
 })
 export class KonturFocusModule {}

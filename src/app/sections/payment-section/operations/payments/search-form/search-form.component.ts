@@ -8,25 +8,26 @@ import {
     paymentFlows as paymentFlowsConsts,
     paymentMethods as paymentMethodsConsts,
     paymentStatuses as paymentStatusesConsts,
-    tokenProviders as tokenProvidersConsts
+    tokenProviders as tokenProvidersConsts,
 } from '../../constants';
+import { ShopInfo } from '../../operators';
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',
-    providers: [SearchFormService]
+    providers: [SearchFormService],
 })
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
+    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<PaymentSearchFormValue> = new EventEmitter<PaymentSearchFormValue>();
 
     searchForm: FormGroup = this.searchFormService.searchForm;
     expanded = false;
-    shopsInfo$ = this.searchFormService.shopsInfo$;
     tokenProviders = tokenProvidersConsts;
     paymentMethods = paymentMethodsConsts;
     bankCardPaymentSystems = bankCardPaymentSystemsConsts;
@@ -35,7 +36,7 @@ export class SearchFormComponent implements OnInit {
 
     isBankCard$: Observable<boolean> = this.searchFormService.formValueChanges$.pipe(
         pluck('paymentMethod'),
-        map(v => v === paymentMethodsConsts[0]),
+        map((v) => v === paymentMethodsConsts[0]),
         distinctUntilChanged(),
         shareReplay(1)
     );
@@ -45,7 +46,7 @@ export class SearchFormComponent implements OnInit {
     ngOnInit() {
         this.searchFormService.formValueChanges$
             .pipe(debounceTime(this.valueDebounceTime))
-            .subscribe(v => this.formValueChanges.emit(v));
+            .subscribe((v) => this.formValueChanges.emit(v));
     }
 
     reset() {

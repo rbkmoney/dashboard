@@ -6,5 +6,5 @@ export const paymentStatuses: PaymentStatus.StatusEnum[] = [
     'captured',
     'cancelled',
     'refunded',
-    'failed'
+    'failed',
 ];

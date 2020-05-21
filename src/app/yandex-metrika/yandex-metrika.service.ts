@@ -19,10 +19,10 @@ export class YandexMetrikaService implements OnDestroy {
 
     hitRouterEvents() {
         return this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd),
+            filter((event) => event instanceof NavigationEnd),
             map(() => this.location.path()),
             startWith(null as string),
-            map(path => (path === '' ? '/' : path)),
+            map((path) => (path === '' ? '/' : path)),
             pairwise(),
             tap(([prevPath, newPath]) => {
                 this.metrika.hit(
@@ -30,7 +30,7 @@ export class YandexMetrikaService implements OnDestroy {
                     prevPath === null
                         ? undefined
                         : {
-                              referer: prevPath
+                              referer: prevPath,
                           }
                 );
             })

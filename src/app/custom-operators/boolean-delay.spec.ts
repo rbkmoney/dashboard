@@ -12,7 +12,7 @@ function createScheduler() {
 
 describe('booleanDelay', () => {
     it('operation without delays', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '-a-b-c|';
             const flow = cold(operation).pipe(booleanDelay());
@@ -21,7 +21,7 @@ describe('booleanDelay', () => {
     });
 
     it('operation with single delay', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '100ms a|';
             const flow = cold(operation).pipe(booleanDelay(50));
@@ -30,7 +30,7 @@ describe('booleanDelay', () => {
     });
 
     it('custom emit trigger', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '500ms a|';
             const trigger = '200ms a|';
@@ -40,7 +40,7 @@ describe('booleanDelay', () => {
     });
 
     it('operation with error', () => {
-        createScheduler().run(helpers => {
+        createScheduler().run((helpers) => {
             const { cold, expectObservable } = helpers;
             const operation = '100ms #';
             const flow = cold(operation).pipe(booleanDelay(50));

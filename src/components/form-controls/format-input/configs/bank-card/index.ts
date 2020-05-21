@@ -6,5 +6,5 @@ export * from './last-digits';
 
 export const bankCardConfigs = {
     bin: binConfig,
-    lastDigits: lastDigitsConfig
+    lastDigits: lastDigitsConfig,
 };

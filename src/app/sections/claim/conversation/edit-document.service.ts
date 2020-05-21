@@ -17,9 +17,9 @@ export class EditDocumentService {
         const claimId$ = this.route.params.pipe(pluck('claimId'), first());
         this.goToOnboarding$
             .pipe(
-                filter(m => m.length === 1),
+                filter((m) => m.length === 1),
                 pluck('0', 'claimModificationType', 'documentId'),
-                switchMap(documentId => forkJoin([of(documentId), claimId$])),
+                switchMap((documentId) => forkJoin([of(documentId), claimId$])),
                 map(([documentId, claimId]) => [
                     'onboarding',
                     'claim',
@@ -27,15 +27,15 @@ export class EditDocumentService {
                     'document',
                     documentId,
                     'step',
-                    'basic-info'
+                    'basic-info',
                 ]),
-                switchMap(navigationCommands =>
+                switchMap((navigationCommands) =>
                     forkJoin([
                         of(navigationCommands),
                         this.dialog
                             .open(ConfirmActionDialogComponent)
                             .afterClosed()
-                            .pipe(filter(r => r === 'confirm'))
+                            .pipe(filter((r) => r === 'confirm')),
                     ])
                 )
             )

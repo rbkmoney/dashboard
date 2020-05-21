@@ -9,27 +9,31 @@ const paymentSectionRoutes: Routes = [
         component: PaymentSectionComponent,
         children: [
             {
+                path: 'analytics',
+                loadChildren: () => import('./analytics/analytics.module').then((mod) => mod.AnalyticsModule),
+            },
+            {
                 path: 'operations',
-                loadChildren: () => import('./operations/operations.module').then(m => m.OperationsModule)
+                loadChildren: () => import('./operations/operations.module').then((m) => m.OperationsModule),
             },
             {
                 path: 'reports',
-                loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule)
+                loadChildren: () => import('./reports/reports.module').then((m) => m.ReportsModule),
             },
             {
                 path: 'payouts',
-                loadChildren: () => import('./payouts/payouts.module').then(m => m.PayoutsModule)
+                loadChildren: () => import('./payouts/payouts.module').then((m) => m.PayoutsModule),
             },
             {
                 path: 'integrations',
-                loadChildren: () => import('./integrations/integrations.module').then(m => m.IntegrationsModule)
-            }
-        ]
-    }
+                loadChildren: () => import('./integrations/integrations.module').then((m) => m.IntegrationsModule),
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(paymentSectionRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PaymentSectionRoutingModule {}

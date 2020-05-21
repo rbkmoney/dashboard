@@ -10,6 +10,6 @@ import { RecurrentDetailsComponent } from './recurrent-details.component';
 @NgModule({
     imports: [TranslocoModule, CardModule, FlexModule, ButtonModule],
     declarations: [RecurrentDetailsComponent],
-    exports: [RecurrentDetailsComponent]
+    exports: [RecurrentDetailsComponent],
 })
 export class RecurrentDetailsModule {}

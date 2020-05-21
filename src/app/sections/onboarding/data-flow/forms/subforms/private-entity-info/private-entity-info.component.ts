@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-private-entity-info',
-    templateUrl: 'private-entity-info.component.html'
+    templateUrl: 'private-entity-info.component.html',
 })
 export class PrivateEntityInfoComponent {
     @Input() form: FormGroup;

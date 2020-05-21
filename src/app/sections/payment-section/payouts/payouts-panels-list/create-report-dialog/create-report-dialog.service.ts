@@ -25,14 +25,14 @@ export class CreateReportDialogService {
         private transloco: TranslocoService
     ) {
         const report$ = this.create$.pipe(
-            switchMap(data => this.reportsService.createReport(data).pipe(replaceError)),
+            switchMap((data) => this.reportsService.createReport(data).pipe(replaceError)),
             shareReplay(SHARE_REPLAY_CONF)
         );
 
         this.report$ = report$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = report$.pipe(
             filterError,
-            tap(error => {
+            tap((error) => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 console.error(error);
             }),

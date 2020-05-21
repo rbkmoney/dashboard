@@ -23,11 +23,11 @@ const EXPORTED_MODULES = [
     DshTabsModule,
     TimelineModule,
     DetailsItemModule,
-    ExpansionModule
+    ExpansionModule,
 ];
 
 @NgModule({
     imports: EXPORTED_MODULES,
-    exports: EXPORTED_MODULES
+    exports: EXPORTED_MODULES,
 })
 export class LayoutModule {}

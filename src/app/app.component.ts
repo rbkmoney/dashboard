@@ -6,7 +6,7 @@ import { TestShopService } from './test-shop.service';
 @Component({
     selector: 'dsh-root',
     templateUrl: './app.component.html',
-    providers: [TestShopService]
+    providers: [TestShopService],
 })
 export class AppComponent implements OnInit {
     constructor(private testShopService: TestShopService, @Inject(ENV) public env: Env) {}

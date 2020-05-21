@@ -9,6 +9,6 @@ import { FormatInputComponent } from './format-input.component';
 @NgModule({
     imports: [FormsModule, ReactiveFormsModule, A11yModule, TextMaskModule, CommonModule],
     declarations: [FormatInputComponent],
-    exports: [FormatInputComponent]
+    exports: [FormatInputComponent],
 })
 export class FormatInputModule {}

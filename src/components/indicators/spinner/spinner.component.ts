@@ -6,7 +6,7 @@ import { SpinnerType } from './spinner-type';
 
 @Component({
     selector: 'dsh-spinner',
-    templateUrl: 'spinner.component.html'
+    templateUrl: 'spinner.component.html',
 })
 export class SpinnerComponent implements OnChanges {
     @Input() type: SpinnerType;

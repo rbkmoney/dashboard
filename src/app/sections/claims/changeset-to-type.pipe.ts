@@ -4,7 +4,7 @@ import { ClaimChangeset } from '../../api-codegen/claim-management/swagger-codeg
 import { getClaimType } from '../../view-utils/claims';
 
 @Pipe({
-    name: 'changesetToType'
+    name: 'changesetToType',
 })
 export class ChangesetToTypePipe implements PipeTransform {
     transform(changeset: ClaimChangeset): string {

@@ -8,6 +8,6 @@ import { GlowComponent } from './glow/glow.component';
 @NgModule({
     imports: [CommonModule, PlatformModule],
     exports: [ButtonComponent],
-    declarations: [ButtonComponent, GlowComponent]
+    declarations: [ButtonComponent, GlowComponent],
 })
 export class ButtonModule {}

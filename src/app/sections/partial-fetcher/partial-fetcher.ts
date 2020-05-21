@@ -9,7 +9,7 @@ import {
     shareReplay,
     startWith,
     switchMap,
-    tap
+    tap,
 } from 'rxjs/operators';
 
 import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
@@ -37,7 +37,7 @@ export abstract class PartialFetcher<R, P> {
             map(({ result, continuationToken }) => ({
                 result,
                 continuationToken,
-                hasMore: !!continuationToken
+                hasMore: !!continuationToken,
             })),
             share()
         );
@@ -58,7 +58,7 @@ export abstract class PartialFetcher<R, P> {
         ).pipe(shareReplay(SHARE_REPLAY_CONF));
         this.errors$ = fetchResult$.pipe(
             switchMap(({ error }) => (error ? of(error) : EMPTY)),
-            tap(error => console.error('Partial fetcher error: ', error)),
+            tap((error) => console.error('Partial fetcher error: ', error)),
             share()
         );
 

@@ -20,7 +20,7 @@
             <dsh-details [invoice]="invoice"></dsh-details>
             <dsh-cart *ngIf="invoice.cart" [invoiceCart]="invoice.cart" [currency]="invoice.currency"></dsh-cart>
             <dsh-shop-details [shopID]="invoice.shopID"></dsh-shop-details>
-            <dsh-payments [shopID]="invoice.shopID" [invoiceID]="invoice.id"></dsh-payments>
+            <dsh-payments [invoiceID]="invoice.id"></dsh-payments>
         </div>
     </ng-container>
 </ng-container>

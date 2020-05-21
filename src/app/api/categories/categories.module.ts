@@ -5,6 +5,6 @@ import { CategoriesService } from './categories.service';
 
 @NgModule({
     imports: [CAPIModule],
-    providers: [CategoriesService]
+    providers: [CategoriesService],
 })
 export class CategoriesModule {}

@@ -9,7 +9,7 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewContainerRef
+    ViewContainerRef,
 } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -21,7 +21,7 @@ import { DshTabLabelDirective } from './tab-label.directive';
 @Component({
     selector: 'dsh-tab',
     templateUrl: 'tab.component.html',
-    exportAs: 'dshTab'
+    exportAs: 'dshTab',
 })
 export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy {
     @ContentChild(DshTabLabelDirective) templateLabel: DshTabLabelDirective;

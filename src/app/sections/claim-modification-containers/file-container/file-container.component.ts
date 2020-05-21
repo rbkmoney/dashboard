@@ -7,7 +7,7 @@ import { FileContainerService } from './file-container.service';
     selector: 'dsh-file-container',
     templateUrl: 'file-container.component.html',
     styleUrls: ['file-container.component.scss'],
-    providers: [FileContainerService]
+    providers: [FileContainerService],
 })
 export class FileContainerComponent implements OnChanges {
     @Input() unit: FileModificationUnit;

@@ -14,7 +14,7 @@ export class FileUploaderService {
     filesUploadingError$ = new Subject<null>();
 
     filesUploaded$ = this.startUploading$.pipe(
-        switchMap(files =>
+        switchMap((files) =>
             this.filesService.uploadFiles(files).pipe(
                 catchError(() => {
                     this.filesUploadingError$.next(null);
@@ -22,7 +22,7 @@ export class FileUploaderService {
                 })
             )
         ),
-        filter(v => !!v.length),
+        filter((v) => !!v.length),
         shareReplay(1)
     );
 

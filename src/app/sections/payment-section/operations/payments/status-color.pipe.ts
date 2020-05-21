@@ -4,7 +4,7 @@ import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codege
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
-    name: 'paymentStatusColor'
+    name: 'paymentStatusColor',
 })
 export class PaymentStatusColorPipe implements PipeTransform {
     transform(status: PaymentSearchResult.StatusEnum): StatusColor {

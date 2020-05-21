@@ -5,3 +5,4 @@ export * from './swagger-codegen/variables';
 export * from './swagger-codegen/configuration';
 export * from './swagger-codegen/api.module';
 export * from './reports.service';
+export * from './analytics.service';

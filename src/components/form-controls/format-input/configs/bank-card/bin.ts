@@ -7,7 +7,7 @@ const BIN_LENGTH = 6;
 
 export const binMask: TextMaskConfig = {
     mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/],
-    guide: false
+    guide: false,
 };
 
 export const binValidator = regExpToValidator(new RegExp(`^\\d{${BIN_LENGTH}}$`));
@@ -16,5 +16,5 @@ export const binConfig: FormatInputConfig = {
     mask: binMask,
     placeholder: '0000 00',
     postfix: '** **** ****',
-    toPublicValue: (v: string) => (v ? v.replace(' ', '') : '')
+    toPublicValue: (v: string) => (v ? v.replace(' ', '') : ''),
 };

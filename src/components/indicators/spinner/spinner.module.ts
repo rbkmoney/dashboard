@@ -8,7 +8,7 @@ import {
     SemipolarSpinnerModule,
     SpringSpinnerModule,
     SwappingSquaresSpinnerModule,
-    TrinityRingsSpinnerModule
+    TrinityRingsSpinnerModule,
 } from 'angular-epic-spinners';
 
 import { SpinnerComponent } from './spinner.component';
@@ -23,9 +23,9 @@ import { SpinnerComponent } from './spinner.component';
         TrinityRingsSpinnerModule,
         HalfCircleSpinnerModule,
         ScalingSquaresSpinnerModule,
-        SwappingSquaresSpinnerModule
+        SwappingSquaresSpinnerModule,
     ],
     declarations: [SpinnerComponent],
-    exports: [SpinnerComponent]
+    exports: [SpinnerComponent],
 })
 export class SpinnerModule {}

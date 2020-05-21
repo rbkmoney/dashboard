@@ -22,11 +22,11 @@ export interface ConfirmHoldData {
 @Component({
     selector: 'dsh-confirm-hold',
     templateUrl: './confirm-hold.component.html',
-    providers: [PaymentService]
+    providers: [PaymentService],
 })
 export class ConfirmHoldComponent {
     form: FormGroup = this.fb.group({
-        reason: ['', [Validators.required]]
+        reason: ['', [Validators.required]],
     });
 
     isPartialAccept: boolean;
@@ -50,7 +50,7 @@ export class ConfirmHoldComponent {
         const params: CaptureParams = {
             reason,
             amount: amount && toMinor(amount),
-            currency: amount && this.data.currency
+            currency: amount && this.data.currency,
         };
         this.paymentService
             .capturePayment(this.data.invoiceID, this.data.paymentID, params)
@@ -75,7 +75,7 @@ export class ConfirmHoldComponent {
                     Validators.required,
                     amountValidator,
                     Validators.min(1),
-                    Validators.max(toMajor(this.data.acceptMaxAmount))
+                    Validators.max(toMajor(this.data.acceptMaxAmount)),
                 ])
             );
         } else {

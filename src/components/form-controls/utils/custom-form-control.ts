@@ -13,7 +13,7 @@ import {
     OnDestroy,
     Optional,
     Self,
-    SimpleChanges
+    SimpleChanges,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
@@ -185,7 +185,8 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
     }
 
     registerOnChange(onChange: (value: P) => void): void {
-        this.formControl.valueChanges.subscribe(v => onChange(this.toPublicValue(v)));
+        // TODO: иногда передаются public value в toPublicValue и возникают ошибки
+        this.formControl.valueChanges.subscribe((v) => onChange(this.toPublicValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {
@@ -197,12 +198,12 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         if (!this.monitorsRegistered && this.inputRef.nativeElement) {
             this.monitorsRegistered = true;
             if (this.platform.isBrowser) {
-                this.autofillMonitor.monitor(this.inputRef).subscribe(event => {
+                this.autofillMonitor.monitor(this.inputRef).subscribe((event) => {
                     this.autofilled = event.isAutofilled;
                     this.stateChanges.next();
                 });
             }
-            this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe(focusOrigin => {
+            this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe((focusOrigin) => {
                 this.focused = !!focusOrigin;
             });
         }

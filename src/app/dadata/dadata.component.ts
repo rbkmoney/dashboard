@@ -32,7 +32,7 @@ const requestTypeByType: { [name in Type]: ReqType } = {
     fio: ReqType.FioQuery,
     fmsUnit: ReqType.FmsUnitQuery,
     okved: ReqType.OkvedQuery,
-    party: ReqType.PartyQuery
+    party: ReqType.PartyQuery,
 };
 type RequestTypeByType = typeof requestTypeByType;
 
@@ -40,7 +40,7 @@ type RequestTypeByType = typeof requestTypeByType;
     selector: 'dsh-dadata-autocomplete',
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html',
-    providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }]
+    providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
 })
 export class DaDataAutocompleteComponent<
     T extends Type = Type,
@@ -52,7 +52,7 @@ export class DaDataAutocompleteComponent<
         shareReplay(1)
     );
     options$: Observable<Option<ContentByRequestType[R]>[]> = this.suggestions$.pipe(
-        map(suggestions => suggestions.map(s => this.getOption(s))),
+        map((suggestions) => suggestions.map((s) => this.getOption(s))),
         shareReplay(1)
     );
     isOptionsLoading$: Observable<boolean> = progress(this.formControl.valueChanges, this.suggestions$).pipe(
@@ -89,13 +89,13 @@ export class DaDataAutocompleteComponent<
         );
         this.isOptionsLoading$.subscribe();
         this.options$.subscribe();
-        this.suggestions$.pipe(filter(s => !s)).subscribe(() => this.suggestionNotFound.next());
-        this.suggestions$.pipe(takeError).subscribe(error => this.errorOccurred.next(error));
+        this.suggestions$.pipe(filter((s) => !s)).subscribe(() => this.suggestionNotFound.next());
+        this.suggestions$.pipe(takeError).subscribe((error) => this.errorOccurred.next(error));
     }
 
     optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
-        const idx = e.source.options.toArray().findIndex(option => option === e.option);
-        this.options$.pipe(take(1)).subscribe(options => this.optionSelected.next(options[idx].value));
+        const idx = e.source.options.toArray().findIndex((option) => option === e.option);
+        this.options$.pipe(take(1)).subscribe((options) => this.optionSelected.next(options[idx].value));
     }
 
     private loadSuggestions() {
@@ -118,7 +118,7 @@ export class DaDataAutocompleteComponent<
         return {
             header: (suggestion as any).value || '',
             description: this.getDescription(suggestion),
-            value: suggestion
+            value: suggestion,
         };
     }
 
@@ -126,12 +126,12 @@ export class DaDataAutocompleteComponent<
         switch (this.type) {
             case 'bank': {
                 const { bic, address } = suggestion as BankContent;
-                return [bic, get(address, ['value'])].filter(v => !!v).join(' ');
+                return [bic, get(address, ['value'])].filter((v) => !!v).join(' ');
             }
             case 'party': {
                 const { inn, ogrn, address } = suggestion as PartyContent;
-                const innOGRN = [inn, ogrn].filter(v => !!v).join('/');
-                return [innOGRN, get(address, ['value'])].filter(v => !!v).join(' ');
+                const innOGRN = [inn, ogrn].filter((v) => !!v).join('/');
+                return [innOGRN, get(address, ['value'])].filter((v) => !!v).join(' ');
             }
             case 'fmsUnit':
                 const { code } = suggestion as FmsUnitContent;

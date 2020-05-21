@@ -8,6 +8,6 @@ const EXPORTED_MODULES = [ResizedModule, SpinnerModule, StatusModule];
 
 @NgModule({
     imports: EXPORTED_MODULES,
-    exports: EXPORTED_MODULES
+    exports: EXPORTED_MODULES,
 })
 export class IndicatorsModule {}

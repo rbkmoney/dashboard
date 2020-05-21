@@ -6,7 +6,7 @@ import {
     ConversationResponse,
     ConversationsService,
     ConversationStatus,
-    SaveConversationParams
+    SaveConversationParams,
 } from '../../api-codegen/messages';
 
 @Injectable()

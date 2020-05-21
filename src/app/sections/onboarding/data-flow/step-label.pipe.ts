@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { StepName } from './step-flow';
 
 @Pipe({
-    name: 'stepLabel'
+    name: 'stepLabel',
 })
 export class StepLabelPipe implements PipeTransform {
     constructor(private transloco: TranslocoService) {}

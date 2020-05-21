@@ -8,6 +8,6 @@ import { MakeRecurrentComponent } from './make-recurrent.component';
 @NgModule({
     imports: [TranslocoModule, CardModule],
     declarations: [MakeRecurrentComponent],
-    exports: [MakeRecurrentComponent]
+    exports: [MakeRecurrentComponent],
 })
 export class MakeRecurrentModule {}
