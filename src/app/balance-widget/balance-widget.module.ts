@@ -10,6 +10,6 @@ import { BalanceWidgetComponent } from './balance-widget.component';
 @NgModule({
     imports: [CommonModule, MatIconModule, FlexLayoutModule, TranslocoModule],
     declarations: [BalanceWidgetComponent, BalanceItemComponent],
-    exports: [BalanceWidgetComponent]
+    exports: [BalanceWidgetComponent],
 })
 export class BalanceWidgetModule {}

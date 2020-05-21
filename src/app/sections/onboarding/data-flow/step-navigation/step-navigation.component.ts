@@ -6,7 +6,7 @@ import { StepNavigationService } from './step-navigation.service';
 @Component({
     selector: 'dsh-step-navigation',
     templateUrl: 'step-navigation.component.html',
-    providers: [StepNavigationService]
+    providers: [StepNavigationService],
 })
 export class StepNavigationComponent {
     hasNextStep$ = this.stepFlowService.hasNextStep$;

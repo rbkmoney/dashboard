@@ -10,6 +10,6 @@ import { ShowMorePanelComponent } from './show-more-panel.component';
 @NgModule({
     declarations: [ShowMorePanelComponent],
     imports: [CardModule, ButtonModule, FlexModule, TranslocoModule],
-    exports: [ShowMorePanelComponent]
+    exports: [ShowMorePanelComponent],
 })
 export class ShowMorePanelModule {}

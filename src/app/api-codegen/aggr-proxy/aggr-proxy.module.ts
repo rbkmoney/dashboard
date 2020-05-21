@@ -7,9 +7,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: AggrProxyConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: AggrProxyConfigService }],
+        },
     ],
-    providers: [AggrProxyConfigService]
+    providers: [AggrProxyConfigService],
 })
 export class AggrProxyModule {}

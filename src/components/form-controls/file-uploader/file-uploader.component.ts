@@ -5,7 +5,7 @@ import { FileUploaderService } from './file-uploader.service';
 @Component({
     selector: 'dsh-file-uploader',
     templateUrl: 'file-uploader.component.html',
-    styleUrls: ['file-uploader.component.scss']
+    styleUrls: ['file-uploader.component.scss'],
 })
 export class FileUploaderComponent {
     @Output()
@@ -18,7 +18,7 @@ export class FileUploaderComponent {
     isUploading$ = this.fileUploaderService.isUploading$;
 
     constructor(private fileUploaderService: FileUploaderService) {
-        this.fileUploaderService.filesUploaded$.subscribe(value => this.filesUploaded.emit(value));
+        this.fileUploaderService.filesUploaded$.subscribe((value) => this.filesUploaded.emit(value));
     }
 
     setDragover(value: boolean) {

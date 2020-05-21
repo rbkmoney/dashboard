@@ -7,7 +7,7 @@ import { ThemeName } from './theme-name';
 
 enum Type {
     JS = 'js',
-    CSS = 'css'
+    CSS = 'css',
 }
 
 @Injectable()

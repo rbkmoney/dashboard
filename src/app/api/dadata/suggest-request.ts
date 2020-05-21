@@ -6,7 +6,7 @@ import {
     FioQuery,
     FmsUnitQuery,
     OkvedQuery,
-    PartyQuery
+    PartyQuery,
 } from '../../api-codegen/aggr-proxy';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;

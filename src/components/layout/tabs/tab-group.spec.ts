@@ -29,7 +29,7 @@ import { DshTabsModule } from './tabs.module';
                 Tab three content
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class SimpleTabsTestAppComponent {
     @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
@@ -54,13 +54,13 @@ class SimpleTabsTestAppComponent {
                 {{ tab.content }}
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class SimpleDynamicTabsTestAppComponent {
     tabs = [
         { label: 'Label 1', content: 'Content 1' },
         { label: 'Label 2', content: 'Content 2' },
-        { label: 'Label 3', content: 'Content 3' }
+        { label: 'Label 3', content: 'Content 3' },
     ];
     selectedIndex = 1;
     selectEvent: any;
@@ -77,12 +77,12 @@ class SimpleDynamicTabsTestAppComponent {
                 {{ tab.content }}
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class BindedTabsTestAppComponent {
     tabs = [
         { label: 'one', content: 'one' },
-        { label: 'two', content: 'two' }
+        { label: 'two', content: 'two' },
     ];
     selectedIndex = 0;
 }
@@ -104,7 +104,7 @@ class BindedTabsTestAppComponent {
                 Tab three content
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class DisabledTabsTestAppComponent {
     @ViewChildren(DshTabComponent) tabs: QueryList<DshTabComponent>;
@@ -119,12 +119,12 @@ class DisabledTabsTestAppComponent {
                 {{ tab.content }}
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class AsyncTabsTestAppComponent implements OnInit {
     private _tabs = [
         { label: 'one', content: 'one' },
-        { label: 'two', content: 'two' }
+        { label: 'two', content: 'two' },
     ];
 
     tabs: Observable<any>;
@@ -145,7 +145,7 @@ class AsyncTabsTestAppComponent implements OnInit {
             <dsh-tab [label]="otherLabel"> {{ otherContent }} </dsh-tab>
             <dsh-tab label="Legumes"><p #legumes>Peanuts</p></dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class TabGroupWithSimpleApiComponent {
     otherLabel = 'Fruit';
@@ -166,7 +166,7 @@ class TabGroupWithSimpleApiComponent {
                 </ng-template>
             </dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class TemplateTabsComponent {}
 
@@ -175,7 +175,7 @@ class TemplateTabsComponent {}
         <dsh-tab-group>
             <dsh-tab [aria-label]="ariaLabel" [aria-labelledby]="ariaLabelledby"></dsh-tab>
         </dsh-tab-group>
-    `
+    `,
 })
 class TabGroupWithAriaInputsComponent {
     ariaLabel: string;
@@ -194,8 +194,8 @@ describe('DshTabGroupComponentComponent', () => {
                 DisabledTabsTestAppComponent,
                 TabGroupWithSimpleApiComponent,
                 TemplateTabsComponent,
-                TabGroupWithAriaInputsComponent
-            ]
+                TabGroupWithAriaInputsComponent,
+            ],
         });
 
         TestBed.compileComponents();

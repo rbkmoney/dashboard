@@ -24,7 +24,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
 
     paymentsTableData$: Observable<PaymentsTableData[]> = combineLatest([
         this.searchResult$,
-        this.shopService.shops$
+        this.shopService.shops$,
     ]).pipe(
         mapToPaymentsTableData,
         catchError(() => {

@@ -9,7 +9,7 @@ import {
     OnChanges,
     Optional,
     Self,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -27,7 +27,7 @@ import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
     selector: 'dsh-shop-selector',
     templateUrl: 'shop-selector.component.html',
     styleUrls: ['shop-selector.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopSelectorComponent extends CustomFormControl implements OnChanges {
     @Input() shopInfos: ShopInfo[];
@@ -38,12 +38,12 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
     filteredShops$: Observable<ShopInfo[]> = this.filterControl.valueChanges.pipe(
         startWith(this.shopInfos),
         debounceTime(300),
-        map(v => filterByNameAndId(v, this.shopInfos)),
+        map((v) => filterByNameAndId(v, this.shopInfos)),
         shareReplay(SHARE_REPLAY_CONF)
     );
     selectLabel = this.route.params.pipe(
         pluck('envID'),
-        map(e => e === RouteEnv.test)
+        map((e) => e === RouteEnv.test)
     );
 
     constructor(

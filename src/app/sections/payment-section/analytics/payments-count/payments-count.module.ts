@@ -22,9 +22,9 @@ import { PaymentsCountComponent } from './payments-count.component';
         AnalyticsModule,
         CardModule,
         PercentDifferenceModule,
-        StatItemModule
+        StatItemModule,
     ],
     declarations: [PaymentsCountComponent],
-    exports: [PaymentsCountComponent]
+    exports: [PaymentsCountComponent],
 })
 export class PaymentsCountModule {}

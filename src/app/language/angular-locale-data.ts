@@ -5,5 +5,5 @@ import { Language } from './language';
 
 export const angularLocaleData: { [language in Language]: any } = {
     [Language.ru]: localeRu,
-    [Language.en]: localeEn
+    [Language.en]: localeEn,
 };

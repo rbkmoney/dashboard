@@ -7,7 +7,7 @@ import { ReportDetailsService } from './report-details.service';
 @Component({
     templateUrl: 'report-details.component.html',
     styleUrls: ['report-details.component.scss'],
-    providers: [ReportDetailsService]
+    providers: [ReportDetailsService],
 })
 export class ReportDetailsComponent implements OnInit {
     report$ = this.reportService.report$;

@@ -8,9 +8,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: QuestionaryConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: QuestionaryConfigService }],
+        },
     ],
-    providers: [QuestionaryConfigService, GetQuestionaryService]
+    providers: [QuestionaryConfigService, GetQuestionaryService],
 })
 export class QuestionaryModule {}

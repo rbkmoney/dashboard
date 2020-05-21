@@ -4,6 +4,6 @@ import { ActiveClassPipe } from './active-class';
 
 @NgModule({
     declarations: [ActiveClassPipe],
-    exports: [ActiveClassPipe]
+    exports: [ActiveClassPipe],
 })
 export class ActiveClassModule {}

@@ -7,7 +7,7 @@ import {
     OnInit,
     Renderer2,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
@@ -17,7 +17,7 @@ import { GlowManager } from './glow-manager';
 @Component({
     selector: 'dsh-glow',
     templateUrl: 'glow.component.html',
-    styleUrls: ['glow.component.scss']
+    styleUrls: ['glow.component.scss'],
 })
 export class GlowComponent implements OnInit, OnChanges, OnDestroy {
     @Input() target: HTMLButtonElement;

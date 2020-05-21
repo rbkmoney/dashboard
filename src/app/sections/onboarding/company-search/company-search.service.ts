@@ -20,7 +20,7 @@ export class CompanySearchService {
     private leaveOnboarding$ = new Subject();
 
     form: FormGroup = this.fb.group({
-        searchStr: ''
+        searchStr: '',
     });
 
     constructor(
@@ -40,7 +40,7 @@ export class CompanySearchService {
                     this.dialog
                         .open(ConfirmActionDialogComponent)
                         .afterClosed()
-                        .pipe(filter(r => r === 'confirm'))
+                        .pipe(filter((r) => r === 'confirm'))
                 )
             )
             .subscribe(() => this.router.navigate(['/']));
@@ -58,7 +58,7 @@ export class CompanySearchService {
         return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
             switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
             map(([documentID, { id }]) => ({ documentID, claimID: id })),
-            catchError(err => {
+            catchError((err) => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 return throwError(err);
             })
@@ -76,7 +76,7 @@ export class CompanySearchService {
     loadKonturFocusData(inn: string): Observable<ReqResponse> {
         return this.konturFocusService
             .request('ReqQuery', {
-                inn: [inn]
+                inn: [inn],
             })
             .pipe(pluck(0));
     }

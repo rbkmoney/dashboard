@@ -38,8 +38,8 @@ import { YesNoPipe } from './yes-no.pipe';
         ContactInfoComponent,
         RussianPrivateEntityInfoComponent,
         BeneficialOwnerInfoComponent,
-        YesNoPipe
+        YesNoPipe,
     ],
-    exports: [DocumentContainerComponent]
+    exports: [DocumentContainerComponent],
 })
 export class DocumentContainerModule {}

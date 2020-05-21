@@ -6,5 +6,5 @@ export enum TimelineAction {
     statusPending = 'statusPending',
     statusDenied = 'statusDenied',
     statusRevoked = 'statusRevoked',
-    statusAccepted = 'statusAccepted'
+    statusAccepted = 'statusAccepted',
 }

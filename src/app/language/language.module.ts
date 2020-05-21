@@ -5,6 +5,6 @@ import { LanguageService } from './language.service';
 
 @NgModule({
     imports: [SettingsModule],
-    providers: [LanguageService]
+    providers: [LanguageService],
 })
 export class LanguageModule {}

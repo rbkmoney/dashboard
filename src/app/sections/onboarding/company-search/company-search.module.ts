@@ -36,14 +36,14 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         MatDialogModule,
         MatSnackBarModule,
         TranslocoModule,
-        ConfirmActionDialogModule
+        ConfirmActionDialogModule,
     ],
     declarations: [
         CompanySearchComponent,
         CompanyDetailsComponent,
         CompanyDetailItemComponent,
-        ManualContractorSelectorComponent
+        ManualContractorSelectorComponent,
     ],
-    exports: [CompanySearchComponent]
+    exports: [CompanySearchComponent],
 })
 export class CompanySearchModule {}

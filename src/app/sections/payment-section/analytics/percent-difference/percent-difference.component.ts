@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'dsh-percent-difference',
-    templateUrl: './percent-difference.component.html'
+    templateUrl: './percent-difference.component.html',
 })
 export class PercentDifferenceComponent implements OnChanges {
     @Input() current: number;

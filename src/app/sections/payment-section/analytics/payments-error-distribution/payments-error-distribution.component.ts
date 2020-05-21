@@ -8,7 +8,7 @@ import { PaymentsErrorDistributionService } from './payments-error-distribution.
 @Component({
     selector: 'dsh-payments-error-distribution',
     templateUrl: './payments-error-distribution.component.html',
-    providers: [PaymentsErrorDistributionService]
+    providers: [PaymentsErrorDistributionService],
 })
 export class PaymentsErrorDistributionComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;

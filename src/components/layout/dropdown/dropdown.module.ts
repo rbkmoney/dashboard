@@ -12,13 +12,13 @@ const EXPORTED_DECLARATIONS = [
     DropdownComponent,
     DropdownTriggerDirective,
     DropdownActionsComponent,
-    DropdownContentComponent
+    DropdownContentComponent,
 ];
 
 @NgModule({
     imports: [CommonModule, OverlayModule, PortalModule, PortalModule],
     exports: EXPORTED_DECLARATIONS,
     declarations: EXPORTED_DECLARATIONS,
-    entryComponents: [DropdownComponent]
+    entryComponents: [DropdownComponent],
 })
 export class DropdownModule {}

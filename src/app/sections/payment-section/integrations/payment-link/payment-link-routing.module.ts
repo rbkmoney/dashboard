@@ -6,11 +6,11 @@ import { PaymentLinkComponent } from './payment-link.component';
 const routes: Routes = [
     {
         path: '',
-        component: PaymentLinkComponent
-    }
+        component: PaymentLinkComponent,
+    },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)]
+    imports: [RouterModule.forChild(routes)],
 })
 export class PaymentLinkRoutingModule {}

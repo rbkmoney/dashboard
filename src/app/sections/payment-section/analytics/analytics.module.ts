@@ -48,8 +48,8 @@ import { SearchFormComponent } from './search-form';
         PaymentsCountModule,
         RefundsAmountModule,
         PaymentSplitAmountModule,
-        PaymentsErrorDistributionModule
+        PaymentsErrorDistributionModule,
     ],
-    declarations: [AnalyticsComponent, SearchFormComponent]
+    declarations: [AnalyticsComponent, SearchFormComponent],
 })
 export class AnalyticsModule {}

@@ -6,10 +6,10 @@ import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
     routerLink: `/payment-section/env/${RouteEnv.test}/operations`,
-    disabled: false
+    disabled: false,
 });
 
 export const mapToTestEnvBtnContent = (defaultContent: TestEnvBtnContent) => (
     s: Observable<boolean>
 ): Observable<TestEnvBtnContent> =>
-    s.pipe(switchMap(isTest => iif(() => isTest, of(toTestEnvBtnContent()), of(defaultContent))));
+    s.pipe(switchMap((isTest) => iif(() => isTest, of(toTestEnvBtnContent()), of(defaultContent))));

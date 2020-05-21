@@ -10,7 +10,7 @@ import { PayoutsService } from './payouts.service';
     templateUrl: 'payouts.component.html',
     styleUrls: ['payouts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [PayoutsService]
+    providers: [PayoutsService],
 })
 export class PayoutsComponent {
     payouts$ = this.payoutsService.searchResult$;

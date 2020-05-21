@@ -9,9 +9,9 @@ import { ApiModule, Configuration } from './swagger-codegen';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: DarkApiConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: DarkApiConfigService }],
+        },
     ],
-    providers: [DarkApiConfigService, FilesService, KeycloakService]
+    providers: [DarkApiConfigService, FilesService, KeycloakService],
 })
 export class DarkApiModule {}

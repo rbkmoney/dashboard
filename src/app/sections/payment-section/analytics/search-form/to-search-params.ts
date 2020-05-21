@@ -7,6 +7,6 @@ export function toSearchParams({ date, ...params }: FormParams): SearchParams {
         shopIDs: params.shopIDs?.length ? params.shopIDs : null,
         fromTime: date?.begin.utc().format(),
         toTime: date?.end.utc().format(),
-        period: date?.period
+        period: date?.period,
     };
 }

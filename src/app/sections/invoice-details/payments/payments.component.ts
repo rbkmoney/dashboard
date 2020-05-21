@@ -10,7 +10,7 @@ import { PaymentsService } from './payments.service';
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
     providers: [PaymentsService],
-    styleUrls: ['payments.component.scss']
+    styleUrls: ['payments.component.scss'],
 })
 export class PaymentsComponent implements OnChanges {
     payments$ = this.paymentsService.searchResult$;
@@ -36,7 +36,7 @@ export class PaymentsComponent implements OnChanges {
 
     private search(invoiceID) {
         this.paymentsService.search({
-            invoiceID
+            invoiceID,
         } as PaymentSearchFormValue);
     }
 }

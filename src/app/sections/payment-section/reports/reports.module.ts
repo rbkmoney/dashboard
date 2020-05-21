@@ -53,16 +53,16 @@ import { ActionsComponent } from './table/actions';
         MatSnackBarModule,
         MatMenuModule,
         FormControlsModule,
-        EmptySearchResultModule
+        EmptySearchResultModule,
     ],
     declarations: [
         ReportsComponent,
         SearchFormComponent,
         TableComponent,
         ActionsComponent,
-        CreateReportDialogComponent
+        CreateReportDialogComponent,
     ],
     exports: [ReportsComponent],
-    entryComponents: [CreateReportDialogComponent]
+    entryComponents: [CreateReportDialogComponent],
 })
 export class ReportsModule {}

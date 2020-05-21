@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../../../../constants';
 
 @Component({
     selector: 'dsh-details',
-    templateUrl: 'details.component.html'
+    templateUrl: 'details.component.html',
 })
 export class DetailsComponent {
     @Input()

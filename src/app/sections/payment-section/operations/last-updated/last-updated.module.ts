@@ -9,6 +9,6 @@ import { LastUpdatedComponent } from './last-updated.component';
 @NgModule({
     imports: [CommonModule, HumanizeDurationModule, FlexLayoutModule, TranslocoModule],
     exports: [LastUpdatedComponent],
-    declarations: [LastUpdatedComponent]
+    declarations: [LastUpdatedComponent],
 })
 export class LastUpdatedModule {}

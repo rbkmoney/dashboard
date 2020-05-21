@@ -8,7 +8,7 @@ import {
     RussianIndividualEntity,
     RussianLegalEntity,
     ShopInfo,
-    ShopLocation
+    ShopLocation,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -27,9 +27,9 @@ const applyToLegalEntityContractor = (
             registrationInfo: {
                 ...registrationInfo,
                 registrationInfoType: 'LegalRegistrationInfo',
-                registrationAddress: registrationPlace
-            }
-        } as RussianLegalEntity
+                registrationAddress: registrationPlace,
+            },
+        } as RussianLegalEntity,
     };
 };
 
@@ -48,9 +48,9 @@ const applyToIndividualEntityContractor = (
             registrationInfo: {
                 ...registrationInfo,
                 registrationInfoType: 'IndividualRegistrationInfo',
-                registrationPlace
-            }
-        } as RussianIndividualEntity
+                registrationPlace,
+            },
+        } as RussianIndividualEntity,
     };
 };
 
@@ -71,13 +71,13 @@ const applyToShopInfo = (t: ShopInfo, { shopUrl, shopName }: FormValue): ShopInf
         location: {
             ...location,
             locationType: 'ShopLocationUrl',
-            url: shopUrl || ''
+            url: shopUrl || '',
         } as ShopLocation,
         details: {
             ...details,
             name: shopName,
-            description: get(details, ['description'], null)
-        }
+            description: get(details, ['description'], null),
+        },
     };
 };
 
@@ -86,7 +86,7 @@ const applyToContactInfo = (t: ContactInfo, { email, phoneNumber }: FormValue): 
     return {
         ...contactInfo,
         email,
-        phoneNumber
+        phoneNumber,
     };
 };
 
@@ -94,5 +94,5 @@ export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): Questi
     ...d,
     contractor: applyToContractor(d.contractor, v),
     shopInfo: applyToShopInfo(d.shopInfo, v),
-    contactInfo: applyToContactInfo(d.contactInfo, v)
+    contactInfo: applyToContactInfo(d.contactInfo, v),
 });

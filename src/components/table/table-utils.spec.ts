@@ -47,20 +47,20 @@ function getFooterCells(footerRow: Element): Element[] {
 
 function getActualTableContent(tableElement: Element): string[][] {
     let actualTableContent: Element[][] = [];
-    getHeaderRows(tableElement).forEach(row => {
+    getHeaderRows(tableElement).forEach((row) => {
         actualTableContent.push(getHeaderCells(row));
     });
 
     // Check data row cells
-    const rows = getRows(tableElement).map(row => getCells(row));
+    const rows = getRows(tableElement).map((row) => getCells(row));
     actualTableContent = actualTableContent.concat(rows);
 
-    getFooterRows(tableElement).forEach(row => {
+    getFooterRows(tableElement).forEach((row) => {
         actualTableContent.push(getFooterCells(row));
     });
 
     // Convert the nodes into their status content;
-    return actualTableContent.map(row => row.map(cell => cell.textContent.trim()));
+    return actualTableContent.map((row) => row.map((cell) => cell.textContent.trim()));
 }
 
 export function expectTableTodshChContent(tableElement: Element, expected: any[]) {

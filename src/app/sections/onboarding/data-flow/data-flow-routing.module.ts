@@ -8,7 +8,7 @@ import {
     FinancialAndEconomicActivityComponent,
     PlanningOperationsAndPayoutToolComponent,
     RussianLegalOwnerComponent,
-    RussianPrivateEntityComponent
+    RussianPrivateEntityComponent,
 } from './forms';
 import { StepName } from './step-flow';
 
@@ -19,34 +19,34 @@ export const routes: Routes = [
         children: [
             {
                 path: StepName.BasicInfo,
-                component: BasicInfoComponent
+                component: BasicInfoComponent,
             },
             {
                 path: StepName.RussianPrivateEntity,
-                component: RussianPrivateEntityComponent
+                component: RussianPrivateEntityComponent,
             },
             {
                 path: StepName.RussianLegalOwner,
-                component: RussianLegalOwnerComponent
+                component: RussianLegalOwnerComponent,
             },
             {
                 path: StepName.FinancialAndEconomicActivity,
-                component: FinancialAndEconomicActivityComponent
+                component: FinancialAndEconomicActivityComponent,
             },
             {
                 path: StepName.BeneficialOwners,
-                component: BeneficialOwnersComponent
+                component: BeneficialOwnersComponent,
             },
             {
                 path: StepName.PlanningOperationsAndPayoutTool,
-                component: PlanningOperationsAndPayoutToolComponent
-            }
-        ]
-    }
+                component: PlanningOperationsAndPayoutToolComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DataFlowRoutingModule {}

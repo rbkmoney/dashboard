@@ -14,12 +14,12 @@ export class InvoiceDetailsService {
 
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
-        switchMap(invoiceID => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
+        switchMap((invoiceID) => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
     invoiceInitialized$: Observable<boolean> = this.invoice$.pipe(
         booleanDelay(500),
-        map(r => !r)
+        map((r) => !r)
     );
     invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 

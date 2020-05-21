@@ -12,7 +12,7 @@ import { PaymentSearchFormValue } from './search-form';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [PaymentsService]
+    providers: [PaymentsService],
 })
 export class PaymentsComponent {
     tableData$ = this.paymentService.paymentsTableData$;

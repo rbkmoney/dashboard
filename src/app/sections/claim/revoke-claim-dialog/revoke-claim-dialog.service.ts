@@ -26,14 +26,14 @@ export class RevokeClaimDialogService {
         @Inject(MAT_DIALOG_DATA) private data: { claimId: number; revision: number }
     ) {
         this.form = this.fb.group({
-            reason: ['', [Validators.required, Validators.maxLength(1000)]]
+            reason: ['', [Validators.required, Validators.maxLength(1000)]],
         });
         this.revoke$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
-                switchMap(reason =>
+                switchMap((reason) =>
                     this.claimsApiService.revokeClaimByID(this.data.claimId, this.data.revision, reason).pipe(
-                        catchError(ex => {
+                        catchError((ex) => {
                             console.error(ex);
                             const error = { hasError: true, code: 'revokeClaimByIDFailed' };
                             this.error$.next(error);
@@ -41,7 +41,7 @@ export class RevokeClaimDialogService {
                         })
                     )
                 ),
-                filter(res => get(res, ['hasError']) !== true)
+                filter((res) => get(res, ['hasError']) !== true)
             )
             .subscribe(() => this.dialogRef.close('revoked'));
     }
