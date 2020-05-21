@@ -5,6 +5,6 @@ import { WalletService } from './wallet.service';
 
 @NgModule({
     imports: [ApiWalletModule],
-    providers: [WalletService]
+    providers: [WalletService],
 })
 export class WalletModule {}

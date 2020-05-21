@@ -5,7 +5,7 @@ import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operator
 import { ReceiveWalletsService } from './receive-wallets.service';
 
 @Component({
-    templateUrl: 'wallets.component.html'
+    templateUrl: 'wallets.component.html',
 })
 export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;

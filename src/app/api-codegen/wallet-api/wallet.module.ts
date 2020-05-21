@@ -8,9 +8,9 @@ import { WalletService } from './wallet.service';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: WalletApiConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: WalletApiConfigService }],
+        },
     ],
-    providers: [WalletApiConfigService, WalletService]
+    providers: [WalletApiConfigService, WalletService],
 })
 export class WalletModule {}
