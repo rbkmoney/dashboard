@@ -12,6 +12,7 @@ export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;
     hasMore$ = this.receiveWalletsService.hasMore$;
     isLoading$ = this.receiveWalletsService.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    isInit$ = this.receiveWalletsService.isInit$;
 
     constructor(private receiveWalletsService: ReceiveWalletsService) {}
 

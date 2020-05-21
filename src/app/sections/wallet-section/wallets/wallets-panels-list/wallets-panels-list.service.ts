@@ -13,9 +13,9 @@ export class WalletsPanelsListService {
     private getWalletAccount$: Subject<string> = new Subject();
 
     account$ = this.getWalletAccount$.pipe(
-        switchMap(id =>
+        switchMap((id) =>
             this.walletService.getWalletAccount(id).pipe(
-                catchError(err => {
+                catchError((err) => {
                     console.error(err);
                     this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                     return [];
@@ -34,10 +34,13 @@ export class WalletsPanelsListService {
     }
 
     getWalletAccount(id: string): Observable<WalletAccount> {
-        return this.walletService.getWalletAccount(id).pipe(shareReplay(SHARE_REPLAY_CONF), catchError(err => {
-            console.error(err);
-            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-            return [];
-        }));
+        return this.walletService.getWalletAccount(id).pipe(
+            shareReplay(SHARE_REPLAY_CONF),
+            catchError((err) => {
+                console.error(err);
+                this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+                return [];
+            })
+        );
     }
 }
