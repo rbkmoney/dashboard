@@ -11,8 +11,7 @@ import { ReceiveWalletsService } from './receive-wallets.service';
 export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;
     hasMore$ = this.receiveWalletsService.hasMore$;
-    isLoading$ = this.receiveWalletsService.doAction$.pipe(booleanDebounceTime(100), shareReplay(SHARE_REPLAY_CONF));
-    isInit$ = this.receiveWalletsService.isInit$;
+    isLoading$ = this.receiveWalletsService.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private receiveWalletsService: ReceiveWalletsService) {}
 
