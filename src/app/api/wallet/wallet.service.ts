@@ -11,7 +11,7 @@ export class WalletService {
     hasWallets$ = this.listWallets(1).pipe(
         catchError(() => of({ result: [] })),
         pluck('result', 'length'),
-        map(l => l > 0),
+        map((l) => l > 0),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
