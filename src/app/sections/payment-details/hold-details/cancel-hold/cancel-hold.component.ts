@@ -16,11 +16,11 @@ export interface CancelHoldData {
 @Component({
     selector: 'dsh-cancel-hold',
     templateUrl: './cancel-hold.component.html',
-    providers: [PaymentService]
+    providers: [PaymentService],
 })
 export class CancelHoldComponent {
     form: FormGroup = this.fb.group({
-        reason: ['', [Validators.required]]
+        reason: ['', [Validators.required]],
     });
 
     constructor(

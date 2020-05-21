@@ -26,7 +26,7 @@ export class PaymentsService {
         const claims = this.claimService.search1000Claims([
             ClaimStatus.Pending,
             ClaimStatus.PendingAcceptance,
-            ClaimStatus.Review
+            ClaimStatus.Review,
         ]);
         const contentConfig = toContentConf(this.shopService.shops$, claims);
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));

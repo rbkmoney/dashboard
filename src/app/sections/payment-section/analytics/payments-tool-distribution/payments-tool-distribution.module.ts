@@ -20,9 +20,9 @@ import { PaymentsToolDistributionComponent } from './payments-tool-distribution.
         SpinnerModule,
         TranslocoModule,
         DonutChartModule,
-        DonutChartItemModule
+        DonutChartItemModule,
     ],
     declarations: [PaymentsToolDistributionComponent],
-    exports: [PaymentsToolDistributionComponent]
+    exports: [PaymentsToolDistributionComponent],
 })
 export class PaymentsToolDistributionModule {}

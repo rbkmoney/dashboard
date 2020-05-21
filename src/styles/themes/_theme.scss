@@ -37,7 +37,7 @@
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
-@import '../../app/sections/payment-section/integrations/webhooks/webhook-panel/webhook-panel-theme';
+@import '../../app/sections/payment-section/integrations/webhooks/webhooks-panels-list/webhooks-panels-list-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallet-panel/wallet-panel-theme';
 
 @mixin dsh-theme($theme) {
@@ -77,7 +77,7 @@
         @include dsh-range-datepicker-theme($theme);
         @include dsh-stat-item-theme($theme);
         @include dsh-expand-panel-theme($theme);
-        @include dsh-webhook-panel-theme($theme);
+        @include dsh-webhooks-panels-list-theme($theme);
         @include dsh-wallet-panel-theme($theme);
         @include dsh-shop-selector-theme($theme);
     }

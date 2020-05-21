@@ -18,7 +18,7 @@ import { ButtonModule } from './index';
         >
             Go
         </button>
-    `
+    `,
 })
 class TestAppComponent {
     clickCount = 0;
@@ -35,7 +35,7 @@ describe('DshButton', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ButtonModule],
-            declarations: [TestAppComponent]
+            declarations: [TestAppComponent],
         });
 
         TestBed.compileComponents();

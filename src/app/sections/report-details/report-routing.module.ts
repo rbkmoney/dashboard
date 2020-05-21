@@ -6,12 +6,12 @@ import { ReportDetailsComponent } from './report-details.component';
 const reportDetailsRoutes: Routes = [
     {
         path: ':reportID',
-        component: ReportDetailsComponent
-    }
+        component: ReportDetailsComponent,
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(reportDetailsRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ReportRoutingModule {}

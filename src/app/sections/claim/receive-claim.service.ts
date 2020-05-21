@@ -16,7 +16,7 @@ export class ReceiveClaimService {
     private receiveClaim$ = new Subject();
 
     claim$: Observable<Claim> = this.claimState$.pipe(
-        filter(s => !!s),
+        filter((s) => !!s),
         shareReplay(1)
     );
 
@@ -24,7 +24,7 @@ export class ReceiveClaimService {
 
     claimReceived$ = this.claim$.pipe(
         booleanDelay(),
-        map(r => !r)
+        map((r) => !r)
     );
 
     error$: Observable<any> = this.receiveClaimError$.asObservable();
@@ -39,8 +39,8 @@ export class ReceiveClaimService {
         private transloco: TranslocoService
     ) {
         this.receiveClaim$.pipe(switchMap(() => this.routeParamClaimService.claim$)).subscribe(
-            claim => this.claimState$.next(claim),
-            err => {
+            (claim) => this.claimState$.next(claim),
+            (err) => {
                 console.error(err);
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 this.receiveClaimError$.next(true);

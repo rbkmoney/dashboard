@@ -22,9 +22,9 @@ import { AveragePaymentComponent } from './average-payment.component';
         AnalyticsModule,
         CardModule,
         PercentDifferenceModule,
-        StatItemModule
+        StatItemModule,
     ],
     declarations: [AveragePaymentComponent],
-    exports: [AveragePaymentComponent]
+    exports: [AveragePaymentComponent],
 })
 export class AveragePaymentModule {}

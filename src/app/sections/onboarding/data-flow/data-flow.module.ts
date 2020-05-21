@@ -20,6 +20,7 @@ import { StepCardComponent } from './step-card';
 import { StepFlowService } from './step-flow';
 import { StepLabelPipe } from './step-label.pipe';
 import { StepNavigationComponent } from './step-navigation';
+import { ValidationCheckService } from './validation-check';
 import { ValidityService } from './validity';
 
 @NgModule({
@@ -34,7 +35,7 @@ import { ValidityService } from './validity';
         TranslocoModule,
         SpinnerModule,
         OnboardingFormsModule,
-        MatDialogModule
+        MatDialogModule,
     ],
     declarations: [
         DataFlowComponent,
@@ -42,9 +43,9 @@ import { ValidityService } from './validity';
         StepCardComponent,
         StepNavigationComponent,
         StepLabelPipe,
-        FinishOnboardingDialogComponent
+        FinishOnboardingDialogComponent,
     ],
-    providers: [StepFlowService, ValidityService, QuestionaryStateService],
-    entryComponents: [FinishOnboardingDialogComponent]
+    providers: [StepFlowService, ValidityService, QuestionaryStateService, ValidationCheckService],
+    entryComponents: [FinishOnboardingDialogComponent],
 })
 export class DataFlowModule {}

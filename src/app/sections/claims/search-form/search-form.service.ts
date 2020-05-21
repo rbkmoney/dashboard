@@ -21,7 +21,7 @@ export class SearchFormService {
     );
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
-        this.formValueChanges$.subscribe(formValues => {
+        this.formValueChanges$.subscribe((formValues) => {
             const { claimStatus } = formValues;
             if (claimStatus && !claimStatus.length) {
                 formValues.claimStatus = null;
@@ -34,7 +34,7 @@ export class SearchFormService {
     private initForm(): FormGroup {
         return this.fb.group({
             claimID: null,
-            claimStatus: null
+            claimStatus: null,
         });
     }
 
@@ -42,10 +42,10 @@ export class SearchFormService {
         this.route.queryParams
             .pipe(
                 take(1),
-                filter(queryParams => !isEmpty(queryParams)),
+                filter((queryParams) => !isEmpty(queryParams)),
                 removeEmptyProperties
             )
-            .subscribe(formValue => {
+            .subscribe((formValue) => {
                 const value: any = {};
                 Object.assign(value, formValue);
                 if (value.claimStatus && !Array.isArray(value.claimStatus)) {

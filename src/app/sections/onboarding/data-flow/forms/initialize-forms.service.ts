@@ -29,14 +29,15 @@ export class InitializeFormsService {
             this.financialAndEconomicActivityService,
             this.beneficialOwnersService,
             this.russianPrivateEntityService,
-            this.planningOperationsAndPayoutToolService
+            this.planningOperationsAndPayoutToolService,
         ];
     }
 
     subscribe() {
-        for (const service of this.initializeContainer) {
-            this.subs = [...this.subs, service.initForm(), service.startFormValidityReporting()];
-        }
+        this.subs = [
+            ...this.initializeContainer.map((service) => service.startFormValidityReporting()),
+            ...this.initializeContainer.map((service) => service.startFormControlsValidationCheck()),
+        ];
     }
 
     unsubscribe() {

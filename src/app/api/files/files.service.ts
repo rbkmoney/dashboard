@@ -13,9 +13,9 @@ export class FilesService {
 
     uploadFiles(files: File[]): Observable<string[]> {
         return forkJoin(
-            files.map(file =>
+            files.map((file) =>
                 this.getUploadLink().pipe(
-                    switchMap(uploadData =>
+                    switchMap((uploadData) =>
                         forkJoin([of(uploadData.fileId), this.uploadFileToUrl(file, uploadData.url)])
                     ),
                     map(([fileId]) => fileId)
@@ -26,9 +26,9 @@ export class FilesService {
 
     getFileInfo(fileID: string): Observable<FileData> {
         return this.filesService.getFileInfo(genXRequestID(), fileID).pipe(
-            map(file => ({
+            map((file) => ({
                 ...file,
-                fileName: decodeURI(file.fileName)
+                fileName: decodeURI(file.fileName),
             }))
         );
     }
@@ -41,8 +41,8 @@ export class FilesService {
         return this.http.put(url, file, {
             headers: {
                 'Content-Disposition': `attachment;filename=${encodeURI(file.name)}`,
-                'Content-Type': ''
-            }
+                'Content-Type': '',
+            },
         });
     }
 

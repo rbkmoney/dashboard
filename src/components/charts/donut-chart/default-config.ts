@@ -12,18 +12,18 @@ export const DEFAULT_CONFIG: ApexOptions = {
         type: 'donut',
         width: '100%',
         toolbar: {
-            show: false
+            show: false,
         },
-        animations: DEFAULT_ANIMATION
+        animations: DEFAULT_ANIMATION,
     },
     dataLabels: {
-        enabled: false
+        enabled: false,
     },
     legend: {
         ...DEFAULT_LEGEND,
         formatter: (seriesName, opts) => {
             return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex].toFixed(2)}%`;
-        }
+        },
     },
     plotOptions: {
         pie: {
@@ -31,13 +31,13 @@ export const DEFAULT_CONFIG: ApexOptions = {
             donut: {
                 size: INNER_DONUT_RADIUS,
                 labels: {
-                    show: false
-                }
-            }
-        }
+                    show: false,
+                },
+            },
+        },
     },
     tooltip: {
-        enabled: false
+        enabled: false,
     },
-    states: DEFAULT_STATES
+    states: DEFAULT_STATES,
 };

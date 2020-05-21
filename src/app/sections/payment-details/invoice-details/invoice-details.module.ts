@@ -23,10 +23,10 @@ import { InvoiceDetailsComponent } from './invoice-details.component';
         CommonModule,
         LayoutModule,
         SpinnerModule,
-        DetailsItemModule
+        DetailsItemModule,
     ],
     declarations: [InvoiceDetailsComponent],
     exports: [InvoiceDetailsComponent],
-    providers: [InvoiceSearchService]
+    providers: [InvoiceSearchService],
 })
 export class InvoiceDetailsModule {}

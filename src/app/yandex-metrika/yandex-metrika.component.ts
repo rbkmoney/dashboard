@@ -7,7 +7,7 @@ import { YandexMetrikaService } from './yandex-metrika.service';
     selector: 'dsh-yandex-metrika',
     templateUrl: 'yandex-metrika.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [YandexMetrikaService]
+    providers: [YandexMetrikaService],
 })
 export class YandexMetrikaComponent {
     id = this.yandexMetrikaConfigService.config.id;

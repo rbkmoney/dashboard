@@ -12,7 +12,7 @@ import { RefundsSearchFormValue } from './search-form';
 @Component({
     selector: 'dsh-refunds',
     templateUrl: 'refunds.component.html',
-    providers: [RefundsService]
+    providers: [RefundsService],
 })
 export class RefundsComponent {
     tableData$ = this.refundsService.refundsTableData$;

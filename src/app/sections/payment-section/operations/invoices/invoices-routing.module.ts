@@ -7,6 +7,6 @@ const invoicesRoutes: Routes = [{ path: '', component: InvoicesComponent }];
 
 @NgModule({
     imports: [RouterModule.forChild(invoicesRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class InvoicesRoutingModule {}

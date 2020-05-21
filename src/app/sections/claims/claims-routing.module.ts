@@ -6,12 +6,12 @@ import { ClaimsComponent } from './claims.component';
 const routes: Routes = [
     {
         path: '',
-        component: ClaimsComponent
-    }
+        component: ClaimsComponent,
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ClaimsRoutingModule {}

@@ -14,12 +14,12 @@ export class ReportDetailsService {
 
     report$: Observable<Report> = this.initialize$.pipe(
         first(),
-        switchMap(reportID => this.reportSearchService.getReport(reportID)),
+        switchMap((reportID) => this.reportSearchService.getReport(reportID)),
         shareReplay(1)
     );
     reportInitialized$: Observable<boolean> = this.report$.pipe(
         booleanDelay(500),
-        map(r => !r)
+        map((r) => !r)
     );
     reportError$: Observable<any> = this.report$.pipe(takeError, shareReplay(1));
 

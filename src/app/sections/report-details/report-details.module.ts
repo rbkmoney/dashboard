@@ -25,10 +25,9 @@ import { ReportRoutingModule } from './report-routing.module';
         ReportsModule,
         LayoutModule,
         ButtonModule,
-        IndicatorsModule
+        IndicatorsModule,
     ],
     declarations: [ReportDetailsComponent, DetailsComponent, FilesComponent, StatusDetailsItemComponent],
-    exports: [DetailsComponent],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }, ReportsService]
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }, ReportsService],
 })
 export class ReportDetailsModule {}

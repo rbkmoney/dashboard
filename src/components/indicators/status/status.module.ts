@@ -7,6 +7,6 @@ import { StatusComponent } from './status.component';
     imports: [CommonModule],
     declarations: [StatusComponent],
     entryComponents: [StatusComponent],
-    exports: [StatusComponent]
+    exports: [StatusComponent],
 })
 export class StatusModule {}

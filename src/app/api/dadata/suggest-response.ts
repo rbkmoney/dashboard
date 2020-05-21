@@ -7,7 +7,7 @@ import {
     FioResponse,
     FmsUnitResponse,
     OkvedResponse,
-    PartyResponse
+    PartyResponse,
 } from '../../api-codegen/aggr-proxy';
 
 const RequestType = DaDataRequest.DaDataRequestTypeEnum;

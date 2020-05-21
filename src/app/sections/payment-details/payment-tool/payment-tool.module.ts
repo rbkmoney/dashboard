@@ -22,9 +22,9 @@ import { PaymentToolComponent } from './payment-tool.component';
         FlexModule,
         DetailsItemModule,
         MatIconModule,
-        UtilsModule
+        UtilsModule,
     ],
     declarations: [PaymentToolComponent, BankCardComponent, DigitalWalletComponent, PaymentTerminalComponent],
-    exports: [PaymentToolComponent]
+    exports: [PaymentToolComponent],
 })
 export class PaymentToolModule {}

@@ -9,5 +9,5 @@ export * from './quantity';
 export const commonConfigs = {
     individualOrLegalEntityInn: individualOrLegalEntityInnConfig,
     amount: amountConfig,
-    quantity: quantityConfig
+    quantity: quantityConfig,
 };

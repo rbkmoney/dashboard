@@ -9,7 +9,7 @@ import { PayoutsPanelsListService } from './payouts-panels-list.service';
     selector: 'dsh-payouts-panels-list',
     templateUrl: 'payouts-panels-list.component.html',
     providers: [PayoutsPanelsListService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PayoutsPanelsListComponent {
     payouts$ = this.payoutsService.searchResult$;
@@ -30,7 +30,7 @@ export class PayoutsPanelsListComponent {
     }
 
     getShopInfo(shopID: string) {
-        return this.payoutPanelService.shopsInfo$.pipe(map(p => p.find(s => s.shopID === shopID)));
+        return this.payoutPanelService.shopsInfo$.pipe(map((p) => p.find((s) => s.shopID === shopID)));
     }
 
     select(idx: number) {

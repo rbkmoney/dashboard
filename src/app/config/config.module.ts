@@ -3,6 +3,6 @@ import { NgModule } from '@angular/core';
 import { ConfigService } from './config.service';
 
 @NgModule({
-    providers: [ConfigService]
+    providers: [ConfigService],
 })
 export class ConfigModule {}

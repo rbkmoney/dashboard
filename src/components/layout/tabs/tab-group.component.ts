@@ -9,7 +9,7 @@ import {
     Output,
     QueryList,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { CanColorCtor, CanDisableRippleCtor, mixinColor, mixinDisableRipple } from '@angular/material/core';
 
@@ -39,7 +39,7 @@ export class DshTabChangeEvent {
     exportAs: 'dshTabGroup',
     templateUrl: 'tab-group.component.html',
     styleUrls: ['tab-group.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class DshTabGroupComponent extends _MatTabGroupMixinBase implements AfterContentChecked {
     @Input() headerPosition: DshTabHeaderPosition = 'above';

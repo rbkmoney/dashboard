@@ -10,7 +10,7 @@ import { CostType, InvoiceTemplateFormService, TemplateType, withoutVAT } from '
 @Component({
     selector: 'dsh-invoice-template-form',
     templateUrl: 'invoice-template-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceTemplateFormComponent implements OnInit {
     @Output()

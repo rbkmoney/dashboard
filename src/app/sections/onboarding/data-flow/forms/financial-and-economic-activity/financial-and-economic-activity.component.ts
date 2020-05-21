@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { FinancialAndEconomicActivityService } from './financial-and-economic-activity.service';
 
 @Component({
-    templateUrl: 'financial-and-economic-activity.component.html'
+    templateUrl: 'financial-and-economic-activity.component.html',
 })
 export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy {
     layoutGap = '20px';

@@ -13,6 +13,6 @@ import { PaymentSplitAmountComponent } from './payment-split-amount.component';
 @NgModule({
     imports: [CommonModule, CardModule, BarChartModule, FlexModule, SpinnerModule, TranslocoModule, BarChartItemModule],
     exports: [PaymentSplitAmountComponent],
-    declarations: [PaymentSplitAmountComponent]
+    declarations: [PaymentSplitAmountComponent],
 })
 export class PaymentSplitAmountModule {}

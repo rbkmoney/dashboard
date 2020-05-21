@@ -4,7 +4,7 @@ import {
     isClaimModification,
     isCommentModificationUnit,
     isDocumentModificationUnit,
-    isFileModificationUnit
+    isFileModificationUnit,
 } from '../../../api';
 import { Modification } from '../../../api-codegen/claim-management';
 import { ConversationID } from '../../../api-codegen/messages';
@@ -16,7 +16,7 @@ import { TimelineItemInfo } from './to-timeline-info';
     templateUrl: 'conversation.component.html',
     styleUrls: ['conversation.component.scss'],
     providers: [ConversationService, EditDocumentService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConversationComponent {
     timelineInfo$ = this.conversationService.timelineInfo$;

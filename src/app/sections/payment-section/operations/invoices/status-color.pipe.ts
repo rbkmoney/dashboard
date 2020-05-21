@@ -4,7 +4,7 @@ import { Invoice } from '../../../../api-codegen/anapi/swagger-codegen';
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
-    name: 'invoiceStatusColor'
+    name: 'invoiceStatusColor',
 })
 export class InvoiceStatusColorPipe implements PipeTransform {
     transform(status: Invoice.StatusEnum): StatusColor {

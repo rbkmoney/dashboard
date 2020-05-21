@@ -6,6 +6,6 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 
 @NgModule({
     exports: [AmountPipe, BankCardPipe, CurrencySymbolPipe],
-    declarations: [AmountPipe, BankCardPipe, CurrencySymbolPipe]
+    declarations: [AmountPipe, BankCardPipe, CurrencySymbolPipe],
 })
 export class UtilsModule {}

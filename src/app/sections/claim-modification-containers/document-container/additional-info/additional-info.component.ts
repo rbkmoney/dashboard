@@ -6,7 +6,7 @@ import { AdditionalInfo, WithoutChiefAccountingOrganization } from '../../../../
 @Component({
     selector: 'dsh-additional-info',
     templateUrl: 'additional-info.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdditionalInfoComponent implements OnChanges {
     @Input() additionalInfo: AdditionalInfo;

@@ -7,12 +7,12 @@ const BIK_LENGTH = 9;
 
 export const bikMask: TextMaskConfig = {
     mask: new Array(BIK_LENGTH).fill(/\d/),
-    guide: false
+    guide: false,
 };
 
 export const bikValidator = maskToValidator(bikMask);
 
 export const bikConfig: FormatInputConfig = {
     mask: bikMask,
-    placeholder: '0'.repeat(BIK_LENGTH)
+    placeholder: '0'.repeat(BIK_LENGTH),
 };

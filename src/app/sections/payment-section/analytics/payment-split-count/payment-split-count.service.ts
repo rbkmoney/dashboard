@@ -22,7 +22,7 @@ export class PaymentSplitCountService {
             forkJoin([
                 of(fromTime),
                 of(toTime),
-                this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs)
+                this.analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit, shopIDs),
             ]).pipe(replaceError)
         )
     );
@@ -30,7 +30,7 @@ export class PaymentSplitCountService {
         filterPayload,
         map(([fromTime, toTime, splitCount]) => prepareSplitCount(splitCount?.result, fromTime, toTime)),
         map(splitCountToChartData),
-        map(data => data.find(d => d.currency === 'RUB')),
+        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.splitCount$).pipe(shareReplay(SHARE_REPLAY_CONF));

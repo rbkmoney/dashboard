@@ -8,11 +8,19 @@ import { ShopsService } from './shops.service';
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopsService]
+    providers: [ShopsService],
 })
 export class ShopsComponent {
     shops$ = this.shopsService.shops$;
     isLoading$ = this.shopsService.isLoading$.pipe(booleanDebounceTime());
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopsService: ShopsService) {}
+
+    activate(id: string) {
+        this.shopsService.activate(id);
+    }
+
+    suspend(id: string) {
+        this.shopsService.suspend(id);
+    }
 }

@@ -13,7 +13,7 @@ import { LAYOUT_GAP } from '../../constants';
 @Component({
     selector: 'dsh-files',
     templateUrl: 'files.component.html',
-    styleUrls: ['files.component.scss']
+    styleUrls: ['files.component.scss'],
 })
 export class FilesComponent {
     @Input() files: FileMeta[];
@@ -40,7 +40,7 @@ export class FilesComponent {
                     return [];
                 })
             )
-            .subscribe(fileLink => {
+            .subscribe((fileLink) => {
                 this.isLoading = false;
                 download(fileLink.url);
             });

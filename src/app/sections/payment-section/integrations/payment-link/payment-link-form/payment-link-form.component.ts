@@ -8,7 +8,7 @@ import { HoldExpiration, PaymentLinkFormService } from './payment-link-form.serv
 @Component({
     selector: 'dsh-payment-link-form',
     templateUrl: 'payment-link-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentLinkFormComponent implements OnInit {
     @Output()
@@ -29,7 +29,7 @@ export class PaymentLinkFormComponent implements OnInit {
                 startWith(),
                 map(() => v.enabled),
                 shareReplay(1)
-            )
+            ),
         ])
     );
 

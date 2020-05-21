@@ -10,7 +10,7 @@ import {
     QuestionaryData,
     RussianIndividualEntity,
     RussianLegalEntity,
-    WithoutChiefAccountingOrganization
+    WithoutChiefAccountingOrganization,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -19,12 +19,12 @@ const applyToWithoutAccountant = (
     accountantOrgInn: string
 ) => {
     const result = {
-        accountantInfoType
+        accountantInfoType,
     };
     if (accountantInfoType === 'WithoutChiefAccountingOrganization') {
         return {
             ...result,
-            inn: accountantOrgInn
+            inn: accountantOrgInn,
         } as WithoutChiefAccountingOrganization;
     }
     return result;
@@ -38,7 +38,7 @@ const applyToAccountantInfo = (
     withoutAccountant
         ? applyToWithoutAccountant(accountantType, accountantOrgInn)
         : {
-              accountantInfoType: 'WithChiefAccountant'
+              accountantInfoType: 'WithChiefAccountant',
           };
 
 const applyToAdditionalInfo = (
@@ -49,7 +49,7 @@ const applyToAdditionalInfo = (
         accountantType,
         accountantOrgInn,
         hasBeneficiary,
-        hasLiquidationProcess
+        hasLiquidationProcess,
     }: FormValue
 ): AdditionalInfo => ({
     ...i,
@@ -57,7 +57,7 @@ const applyToAdditionalInfo = (
     benefitThirdParties: false,
     hasBeneficiary,
     hasLiquidationProcess,
-    accountantInfo: applyToAccountantInfo(withoutAccountant, accountantType, accountantOrgInn)
+    accountantInfo: applyToAccountantInfo(withoutAccountant, accountantType, accountantOrgInn),
 });
 
 const applyToResidencyInfo = (
@@ -67,7 +67,7 @@ const applyToResidencyInfo = (
     ...i,
     residencyInfoType: 'LegalResidencyInfo',
     taxResident,
-    fatca
+    fatca,
 });
 
 const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): LegalEntityContractor => {
@@ -77,8 +77,8 @@ const applyToLegalEntityContractor = (t: LegalEntityContractor, v: FormValue): L
         legalEntity: {
             ...legalEntity,
             additionalInfo: applyToAdditionalInfo(get(legalEntity, ['additionalInfo']), v),
-            residencyInfo: applyToResidencyInfo(get(legalEntity, ['residencyInfo']), v)
-        } as RussianLegalEntity
+            residencyInfo: applyToResidencyInfo(get(legalEntity, ['residencyInfo']), v),
+        } as RussianLegalEntity,
     };
 };
 
@@ -88,8 +88,8 @@ const applyToIndividualEntityContractor = (t: IndividualEntityContractor, v: For
         ...t,
         individualEntity: {
             ...individualEntity,
-            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v)
-        } as RussianIndividualEntity
+            additionalInfo: applyToAdditionalInfo(get(individualEntity, ['additionalInfo']), v),
+        } as RussianIndividualEntity,
     };
 };
 
@@ -104,5 +104,5 @@ const applyToContractor = (t: Contractor, v: FormValue): LegalEntityContractor =
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
-    contractor: applyToContractor(d.contractor, v)
+    contractor: applyToContractor(d.contractor, v),
 });

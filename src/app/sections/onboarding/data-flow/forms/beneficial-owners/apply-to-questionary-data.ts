@@ -8,7 +8,7 @@ import {
     LegalEntityContractor,
     QuestionaryData,
     RussianIndividualEntity,
-    RussianLegalEntity
+    RussianLegalEntity,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 
@@ -22,7 +22,7 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
             pdlInfo: { pdlCategory, pdlRelationDegree },
             privateEntityInfo: { birthDate, birthPlace, residenceAddress, snils, innfl, fio },
             russianDomesticPassport: { seriesNumber, issuer, issuerCode, issuedAt },
-            individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident }
+            individualResidencyInfo: { usaTaxResident, exceptUsaTaxResident },
         }) => ({
             ownershipPercentage,
             pdlCategory,
@@ -31,7 +31,7 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
                 birthDate,
                 birthPlace,
                 residenceAddress,
-                fio
+                fio,
             },
             snils,
             inn: innfl,
@@ -40,13 +40,13 @@ const applyToBeneficialOwners = (beneficialOwners: FormValue[]): BeneficialOwner
                 issuer,
                 issuerCode,
                 issuedAt,
-                seriesNumber
+                seriesNumber,
             },
             residencyInfo: {
                 residencyInfoType: 'IndividualResidencyInfo',
                 usaTaxResident,
-                exceptUsaTaxResident
-            } as IndividualResidencyInfo
+                exceptUsaTaxResident,
+            } as IndividualResidencyInfo,
         })
     );
 };
@@ -61,8 +61,8 @@ const applyToLegalEntityContractor = (
         legalEntity: {
             ...legalEntity,
             hasBeneficialOwners: !noOwners,
-            beneficialOwner: applyToBeneficialOwners(beneficialOwners)
-        } as RussianLegalEntity
+            beneficialOwner: applyToBeneficialOwners(beneficialOwners),
+        } as RussianLegalEntity,
     };
 };
 
@@ -76,8 +76,8 @@ const applyToIndividualEntityContractor = (
         individualEntity: {
             ...individualEntity,
             hasBeneficialOwners: !noOwners,
-            beneficialOwners: applyToBeneficialOwners(beneficialOwners)
-        } as RussianIndividualEntity
+            beneficialOwners: applyToBeneficialOwners(beneficialOwners),
+        } as RussianIndividualEntity,
     };
 };
 
@@ -92,5 +92,5 @@ const applyToContractor = (t: Contractor, v: FormValue): Contractor => {
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
-    contractor: applyToContractor(d.contractor, v)
+    contractor: applyToContractor(d.contractor, v),
 });

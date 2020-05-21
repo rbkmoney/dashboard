@@ -5,7 +5,7 @@ import {
     LegalEntityContractor,
     LegalOwnerInfo,
     QuestionaryData,
-    RussianLegalEntity
+    RussianLegalEntity,
 } from '../../../../../api-codegen/questionary';
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
@@ -13,12 +13,12 @@ import { applyToIdentityDocument } from '../subforms';
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
     // tslint:disable-next-line: variable-name
-    { type, date, number }: FormValue
+    { type, customType, date, number }: FormValue
 ): AuthorityConfirmingDocument => ({
     ...authorityConfirmingDocument,
-    type,
+    type: customType || type,
     number,
-    date
+    date,
 });
 
 const applyToContractor = (
@@ -29,7 +29,7 @@ const applyToContractor = (
         termOfOffice,
         russianDomesticPassport,
         pdlInfo: { pdlCategory, pdlRelationDegree },
-        authorityConfirmingDocument
+        authorityConfirmingDocument,
     }: FormValue
 ): LegalEntityContractor => {
     const legalEntity = get(t, ['legalEntity']);
@@ -49,7 +49,7 @@ const applyToContractor = (
                     birthDate,
                     birthPlace,
                     residenceAddress,
-                    fio
+                    fio,
                 },
                 inn: innfl,
                 identityDocument: applyToIdentityDocument(
@@ -61,13 +61,13 @@ const applyToContractor = (
                     get(legalOwnerInfo, ['authorityConfirmingDocument']),
                     authorityConfirmingDocument
                 ),
-                headPosition
-            } as LegalOwnerInfo
-        } as RussianLegalEntity
+                headPosition,
+            } as LegalOwnerInfo,
+        } as RussianLegalEntity,
     };
 };
 
 export const applyToQuestionaryData = (d: QuestionaryData, v: FormValue): QuestionaryData => ({
     ...d,
-    contractor: applyToContractor(d.contractor, v)
+    contractor: applyToContractor(d.contractor, v),
 });

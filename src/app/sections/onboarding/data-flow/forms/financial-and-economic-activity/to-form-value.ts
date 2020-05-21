@@ -13,7 +13,7 @@ const fromEntity = (l: LegalEntity | IndividualEntity): FormValue => {
         hasLiquidationProcess: get(additionalInfo, ['hasLiquidationProcess'], false),
         withoutAccountant: accountantInfoType !== 'WithChiefAccountant',
         accountantType: accountantInfoType,
-        accountantOrgInn: get(accountantInfo, ['inn'], null)
+        accountantOrgInn: get(accountantInfo, ['inn'], null),
     };
 };
 
@@ -23,8 +23,8 @@ const fromLegalEntity = (l: LegalEntity): FormValue => {
         ...fromEntity(l),
         residencyInfo: {
             taxResident: get(residencyInfo, ['taxResident'], null),
-            fatca: get(residencyInfo, ['fatca'], null)
-        }
+            fatca: get(residencyInfo, ['fatca'], null),
+        },
     };
 };
 

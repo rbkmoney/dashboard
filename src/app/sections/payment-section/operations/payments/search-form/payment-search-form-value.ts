@@ -2,7 +2,7 @@ import {
     BankCardPaymentSystem,
     BankCardTokenProvider,
     PaymentStatus,
-    PaymentTerminalProvider
+    PaymentTerminalProvider,
 } from '../../../../../api-codegen/capi/swagger-codegen';
 import { SearchFormValue } from '../../../search-form-value';
 

@@ -14,7 +14,7 @@ export const initializer = (
         configService.init({ configUrl: '/appConfig.json' }).then(() =>
             yandexMetrikaService.init(
                 {
-                    id: configService.yandexMetrika.id
+                    id: configService.yandexMetrika.id,
                 },
                 platformId
             )
@@ -23,11 +23,11 @@ export const initializer = (
             config: '/authConfig.json',
             initOptions: {
                 onLoad: 'login-required',
-                checkLoginIframe: true
+                checkLoginIframe: true,
             },
             enableBearerInterceptor: true,
             bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
-            bearerPrefix: 'Bearer'
+            bearerPrefix: 'Bearer',
         }),
-        languageService.init()
+        languageService.init(),
     ]);

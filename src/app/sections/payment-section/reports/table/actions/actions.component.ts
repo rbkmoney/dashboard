@@ -7,7 +7,7 @@ import { Report } from '../../../../../api-codegen/anapi';
 
 @Component({
     selector: 'dsh-actions',
-    templateUrl: 'actions.component.html'
+    templateUrl: 'actions.component.html',
 })
 export class ActionsComponent {
     @Input() report: Report;

@@ -9,14 +9,14 @@ export const getShopSearchParamsByEnv = (shops: Observable<Shop[]>) => (
     env: Observable<RouteEnv>
 ): Observable<{ excludedShops: string[]; shopIDs?: string[] }> =>
     env.pipe(
-        switchMap(e =>
-            combineLatest([of(e), shops.pipe(map(s => s.filter(shop => isTestShop(shop)).map(shop => shop.id)))])
+        switchMap((e) =>
+            combineLatest([of(e), shops.pipe(map((s) => s.filter((shop) => isTestShop(shop)).map((shop) => shop.id)))])
         ),
         map(([e, testShops]) =>
             e === RouteEnv.test
                 ? {
                       excludedShops: [],
-                      shopIDs: testShops
+                      shopIDs: testShops,
                   }
                 : { excludedShops: testShops }
         )

@@ -23,10 +23,10 @@ export class RemoveWebhookService {
     ) {
         this.removeWebhook$
             .pipe(
-                switchMap(webhookID => forkJoin([of(webhookID), this.openConfirmDialog()])),
+                switchMap((webhookID) => forkJoin([of(webhookID), this.openConfirmDialog()])),
                 switchMap(([webhookID]) =>
                     this.webhooksService.deleteWebhookByID(webhookID).pipe(
-                        catchError(err => {
+                        catchError((err) => {
                             console.error(err);
                             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
                             return 'error';
@@ -51,6 +51,6 @@ export class RemoveWebhookService {
         return this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
-            .pipe(filter(r => r === 'confirm'));
+            .pipe(filter((r) => r === 'confirm'));
     }
 }

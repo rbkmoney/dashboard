@@ -4,7 +4,7 @@ import { StatusColor } from '../../../theme-manager';
 import { TimelineAction } from './to-timeline-info';
 
 @Pipe({
-    name: 'actionColor'
+    name: 'actionColor',
 })
 export class ActionColorPipe implements PipeTransform {
     transform(action: TimelineAction): StatusColor | null {

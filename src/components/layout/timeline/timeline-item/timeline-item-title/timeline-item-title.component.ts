@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation } fr
     template: '<ng-content></ng-content>',
     styleUrls: ['timeline-item-title.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimelineItemTitleComponent {
     @HostBinding('class.dsh-timeline-item-title') rootClass = true;

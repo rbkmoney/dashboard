@@ -9,6 +9,6 @@ import { ScrollUpComponent } from './scroll-up.component';
 @NgModule({
     imports: [MatIconModule, ButtonModule, CommonModule],
     declarations: [ScrollUpComponent],
-    exports: [ScrollUpComponent]
+    exports: [ScrollUpComponent],
 })
 export class ScrollUpModule {}

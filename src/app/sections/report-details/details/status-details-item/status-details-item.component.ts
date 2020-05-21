@@ -9,7 +9,7 @@ export interface StatusViewInfo {
 
 @Component({
     selector: 'dsh-details-status-item',
-    templateUrl: './status-details-item.component.html'
+    templateUrl: './status-details-item.component.html',
 })
 export class StatusDetailsItemComponent {
     @Input() color: Color;

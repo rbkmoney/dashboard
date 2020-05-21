@@ -11,7 +11,7 @@ import {
     ButtonToggleWithStaticNameComponent,
     FalsyButtonTogglesInsideButtonToggleGroupMultipleComponent,
     RepeatedButtonTogglesWithPreselectedValueComponent,
-    StandaloneButtonToggleComponent
+    StandaloneButtonToggleComponent,
 } from './button-toggle.components.spec';
 import { ButtonToggleComponent, ButtonToggleGroupDirective, ButtonToggleModule } from './index';
 
@@ -28,8 +28,8 @@ describe('DshButtonToggle without forms', () => {
                 ButtonToggleWithAriaLabelComponent,
                 ButtonToggleWithAriaLabelledbyComponent,
                 RepeatedButtonTogglesWithPreselectedValueComponent,
-                ButtonToggleWithStaticNameComponent
-            ]
+                ButtonToggleWithStaticNameComponent,
+            ],
         });
 
         TestBed.compileComponents();
@@ -58,13 +58,13 @@ describe('DshButtonToggle without forms', () => {
 
             buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
 
-            buttonToggleNativeElements = buttonToggleDebugElements.map(debugEl => debugEl.nativeElement);
+            buttonToggleNativeElements = buttonToggleDebugElements.map((debugEl) => debugEl.nativeElement);
 
             buttonToggleLabelElements = fixture.debugElement
                 .queryAll(By.css('button'))
-                .map(debugEl => debugEl.nativeElement);
+                .map((debugEl) => debugEl.nativeElement);
 
-            buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
+            buttonToggleInstances = buttonToggleDebugElements.map((debugEl) => debugEl.componentInstance);
         });
 
         it('should set individual button toggle names based on the group name', () => {
@@ -94,14 +94,14 @@ describe('DshButtonToggle without forms', () => {
         });
 
         it('should disable the underlying button when the group is disabled', () => {
-            const buttons = buttonToggleNativeElements.map(toggle => toggle.querySelector('button'));
+            const buttons = buttonToggleNativeElements.map((toggle) => toggle.querySelector('button'));
 
-            expect(buttons.every(input => input.disabled)).toBe(false);
+            expect(buttons.every((input) => input.disabled)).toBe(false);
 
             testComponent.isGroupDisabled = true;
             fixture.detectChanges();
 
-            expect(buttons.every(input => input.disabled)).toBe(true);
+            expect(buttons.every((input) => input.disabled)).toBe(true);
         });
 
         it('should update the group value when one of the toggles changes', () => {
@@ -221,7 +221,7 @@ describe('DshButtonToggle without forms', () => {
 
             groupInstance.value = null;
 
-            expect(buttonToggleInstances.every(toggle => !toggle.checked)).toBe(true);
+            expect(buttonToggleInstances.every((toggle) => !toggle.checked)).toBe(true);
         });
 
         it('should update the model if a selected toggle is removed', fakeAsync(() => {
@@ -287,11 +287,11 @@ describe('DshButtonToggle without forms', () => {
             groupInstance = groupDebugElement.injector.get<ButtonToggleGroupDirective>(ButtonToggleGroupDirective);
 
             buttonToggleDebugElements = fixture.debugElement.queryAll(By.directive(ButtonToggleComponent));
-            buttonToggleNativeElements = buttonToggleDebugElements.map(debugEl => debugEl.nativeElement);
+            buttonToggleNativeElements = buttonToggleDebugElements.map((debugEl) => debugEl.nativeElement);
             buttonToggleLabelElements = fixture.debugElement
                 .queryAll(By.css('button'))
-                .map(debugEl => debugEl.nativeElement);
-            buttonToggleInstances = buttonToggleDebugElements.map(debugEl => debugEl.componentInstance);
+                .map((debugEl) => debugEl.nativeElement);
+            buttonToggleInstances = buttonToggleDebugElements.map((debugEl) => debugEl.componentInstance);
         }));
 
         it('should disable click interactions when the group is disabled', () => {
@@ -303,7 +303,7 @@ describe('DshButtonToggle without forms', () => {
         });
 
         it('should check a button toggle when clicked', () => {
-            expect(buttonToggleInstances.every(buttonToggle => !buttonToggle.checked)).toBe(true);
+            expect(buttonToggleInstances.every((buttonToggle) => !buttonToggle.checked)).toBe(true);
 
             const nativeCheckboxLabel = buttonToggleDebugElements[0].query(By.css('button')).nativeElement;
 

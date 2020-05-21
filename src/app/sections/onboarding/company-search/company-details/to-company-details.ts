@@ -6,5 +6,5 @@ export const toCompanyDetails = ({ value, address, ogrn, inn, kpp }: PartyConten
     address: address.value,
     ogrn,
     inn,
-    kpp
+    kpp,
 });

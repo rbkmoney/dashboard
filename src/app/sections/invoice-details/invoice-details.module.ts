@@ -31,7 +31,7 @@ import { PaymentsComponent } from './payments/payments.component';
         InvoiceDetailsRoutingModule,
         ButtonModule,
         ToMajorModule,
-        MatIconModule
+        MatIconModule,
     ],
     declarations: [
         InvoiceDetailsComponent,
@@ -40,9 +40,9 @@ import { PaymentsComponent } from './payments/payments.component';
         CartComponent,
         ItemComponent,
         PaymentsComponent,
-        PaymentComponent
+        PaymentComponent,
     ],
-    exports: [StatusDetailsItemComponent, DetailsComponent],
-    providers: [InvoiceSearchService, PaymentSearchService]
+    exports: [StatusDetailsItemComponent],
+    providers: [InvoiceSearchService, PaymentSearchService],
 })
 export class InvoiceDetailsModule {}
