@@ -20,7 +20,5 @@
             </ng-container>
         </div>
     </ng-container>
-    <div *ngIf="isInit$ | async" fxLayout fxFlexAlign="center">
-        <dsh-spinner></dsh-spinner>
-    </div>
+    <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>

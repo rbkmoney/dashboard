@@ -4,5 +4,5 @@ export interface QueryParams {
     fromTime: string;
     toTime: string;
     reportType: Report.ReportTypeEnum;
-    shopID?: string;
+    shopIDs?: string[];
 }
