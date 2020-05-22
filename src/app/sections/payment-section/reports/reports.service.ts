@@ -50,10 +50,8 @@ export class ReportsService extends PartialFetcher<Report, SearchParams> {
         return this.route.params.pipe(
             pluck('envID'),
             getShopSearchParamsByEnv(this.shopService.shops$),
-            switchMap(({ excludedShops, shopIDs }) => {
-                const ids =
-                    shopIDs ??
-                    (params.shopIDs ? params.shopIDs.filter((id) => !excludedShops.includes(id)) : params.shopIDs);
+            switchMap(({ shopIDs }) => {
+                const ids = shopIDs ? shopIDs : params.shopIDs;
                 return this.reportsService.searchReports({ ...params, shopIDs: ids, continuationToken });
             })
         );
