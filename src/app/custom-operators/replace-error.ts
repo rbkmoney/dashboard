@@ -16,3 +16,7 @@ export const filterError = <E>(source: Observable<any | BasicError<E>>): Observa
 
 export const filterPayload = <T>(source: Observable<T | BasicError<any>>): Observable<T> =>
     source.pipe(filter((value) => !(value instanceof BasicError))) as Observable<T>;
+
+export function splitReplacedError<T extends Observable<any>>(source: T) {
+    return [source.pipe(filterPayload), source.pipe(filterError)] as const;
+}

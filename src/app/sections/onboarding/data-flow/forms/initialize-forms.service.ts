@@ -8,6 +8,7 @@ import { PlanningOperationsAndPayoutToolService } from './planning-operations-an
 import { QuestionaryFormService } from './questionary-form.service';
 import { RussianLegalOwnerService } from './russian-legal-owner';
 import { RussianPrivateEntityService } from './russian-private-entity/russian-private-entity.service';
+import { UploadDocumentsService } from './upload-documents/upload-documents.service';
 
 @Injectable()
 export class InitializeFormsService {
@@ -21,7 +22,8 @@ export class InitializeFormsService {
         private financialAndEconomicActivityService: FinancialAndEconomicActivityService,
         private beneficialOwnersService: BeneficialOwnersService,
         private planningOperationsAndPayoutToolService: PlanningOperationsAndPayoutToolService,
-        private russianPrivateEntityService: RussianPrivateEntityService
+        private russianPrivateEntityService: RussianPrivateEntityService,
+        private uploadDocumentsService: UploadDocumentsService
     ) {
         this.initializeContainer = [
             this.basicInfoService,
@@ -30,6 +32,7 @@ export class InitializeFormsService {
             this.beneficialOwnersService,
             this.russianPrivateEntityService,
             this.planningOperationsAndPayoutToolService,
+            this.uploadDocumentsService,
         ];
     }
 

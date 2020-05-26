@@ -125,13 +125,14 @@
             "planningOperationsAndPayoutTool": "Вывод средств",
             "russianLegalOwner": "Сведения о юр. лице",
             "russianPrivateEntity": "Сведения о физ. лице",
+            "uploadDocuments": "Загрузка документов",
             "actionLabel": "Отправить на рассмотрение"
         },
         "stepTitle": {
             "basicInfo": "Основные сведения",
             "financialAndEconomicActivity": "Сведения о хозяйственной деятельности",
             "beneficialOwners": "Сведения о бенефициарных владельцах (физлица)",
-            "documentsUpload": "Загрузка документов",
+            "uploadDocuments": "Загрузка документов",
             "planningOperationsAndPayoutTool": "Планируемые операции и данные для вывода средств",
             "russianLegalOwner": "Сведения о юридическом лице",
             "russianPrivateEntity": "Сведения о физическом лице"
@@ -139,6 +140,13 @@
         "helpCard": {
             "title": "Возникли вопросы?",
             "content": "Напишите нам на почту help@rbk.money и оставьте свой телефон для связи."
+        },
+        "uploadDocuments": {
+            "requiredDocs": "Необходимо предоставить",
+            "passport": "Паспорт руководителя",
+            "registrationDoc": "Документ, подтверждающий право нахождения по фактическому адресу",
+            "uploadedDocs": "Документы, прикрепленные к заявке",
+            "noDocs": "Документы отсутствуют"
         }
     },
     "documentUpload": {
