@@ -39,8 +39,8 @@ export class QuestionaryStateService {
                         console.error(err);
                         if (!iter) {
                             console.warn(`Update snapshot version & save`);
-                            this.questionaryService.getQuestionary(id).subscribe(({ version }) => {
-                                this.snapshot$.next({ ...this.snapshot$.getValue(), version });
+                            this.questionaryService.getQuestionary(id).subscribe(({ version: nextVersion }) => {
+                                this.snapshot$.next({ ...this.snapshot$.getValue(), version: nextVersion });
                                 this.save$.next(iter + 1);
                             });
                         }
