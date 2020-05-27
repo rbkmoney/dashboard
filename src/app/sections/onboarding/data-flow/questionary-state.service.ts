@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import isEqual from 'lodash.isequal';
-import { BehaviorSubject, merge, Observable, Subject, Subscription, EMPTY, combineLatest, of } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, pluck, switchMap, tap, take, debounceTime } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, EMPTY, merge, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, pluck, switchMap, take, tap } from 'rxjs/operators';
 
 import { QuestionaryService } from '../../../api';
 import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
