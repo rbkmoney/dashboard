@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
-import { map, shareReplay, switchMap, tap, share } from 'rxjs/operators';
+import { map, share, shareReplay, switchMap } from 'rxjs/operators';
 
 import { FilesService } from '../../../../api';
 import { progress } from '../../../../custom-operators';

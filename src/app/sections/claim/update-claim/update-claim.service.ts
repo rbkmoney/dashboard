@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, pluck, switchMap, tap, share } from 'rxjs/operators';
+import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../api';
 import { ConversationID } from '../../../api-codegen/messages';
