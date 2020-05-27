@@ -4,7 +4,7 @@
             <mat-label>{{ t.sendComment }}</mat-label>
             <input formControlName="comment" matInput type="text" autocomplete="off" />
         </mat-form-field>
-        <div fxFlex="40px" class="send-comment-action">
+        <div class="action">
             <button
                 dsh-icon-button
                 color="accent"
@@ -12,6 +12,11 @@
                 [disabled]="(inProgress$ | async) || !form.valid"
             >
                 <mat-icon svgIcon="send_white"></mat-icon>
+            </button>
+        </div>
+        <div class="action">
+            <button dsh-icon-button [disabled]="inProgress$ | async" ngfSelect (fileChange)="startUploading($event)">
+                <mat-icon svgIcon="attach"></mat-icon>
             </button>
         </div>
     </form>

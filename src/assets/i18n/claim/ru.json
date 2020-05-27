@@ -11,7 +11,7 @@
             "action": {
                 "changesAdded": "добавлены изменения",
                 "filesAdded": "добавлены документы",
-                "commentAdded": "добавлены комментарий",
+                "commentAdded": "добавлены комментарии",
                 "statusReview": "заявка отправлена на рассмотрение",
                 "statusPending": "рассмотрена заявка",
                 "statusDenied": "отклонена заявка",

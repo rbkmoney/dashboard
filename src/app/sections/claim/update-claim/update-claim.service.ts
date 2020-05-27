@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, pluck, switchMap, tap, share } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../api';
 import { ConversationID } from '../../../api-codegen/messages';
@@ -22,7 +22,7 @@ export class UpdateClaimService {
         filter((err) => err.hasError),
         pluck('code')
     );
-    inProgress$: Observable<boolean> = progress(this.updateBy$, this.error$);
+    inProgress$: Observable<boolean>;
 
     constructor(
         private receiveClaimService: ReceiveClaimService,
@@ -31,23 +31,25 @@ export class UpdateClaimService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        this.updateBy$
-            .pipe(
-                tap(() => this.error$.next({ hasError: false })),
-                toChangeset,
-                switchMap((changeset) => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
-                switchMap(([changeset, { id, revision }]) =>
-                    this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
-                        catchError((ex) => {
-                            console.error(ex);
-                            const error = { hasError: true, code: 'updateClaimByIDFailed' };
-                            this.error$.next(error);
-                            return of(error);
-                        })
-                    )
+        const updated$ = this.updateBy$.pipe(
+            tap(() => this.error$.next({ hasError: false })),
+            toChangeset,
+            switchMap((changeset) => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
+            switchMap(([changeset, { id, revision }]) =>
+                this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
+                    catchError((ex) => {
+                        console.error(ex);
+                        const error = { hasError: true, code: 'updateClaimByIDFailed' };
+                        this.error$.next(error);
+                        return of(error);
+                    })
                 )
-            )
-            .subscribe(() => this.receiveClaimService.receiveClaim());
+            ),
+            share()
+        );
+
+        this.inProgress$ = progress(this.updateBy$, updated$);
+        updated$.subscribe(() => this.receiveClaimService.receiveClaim());
         this.errorCode$.subscribe((code) =>
             this.snackBar.open(this.transloco.translate(`errors.${code}`), 'OK', {
                 duration: 5000,
