@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { Observable, Subject } from 'rxjs';
 import { map, pluck, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '../../../../../api';
