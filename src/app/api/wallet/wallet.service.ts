@@ -8,6 +8,11 @@ import { genXRequestID } from '../utils';
 
 @Injectable()
 export class WalletService {
+    wallets$ = this.listWallets(1000).pipe(
+        catchError(() => of({ result: [] })),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     hasWallets$ = this.listWallets(1).pipe(
         catchError(() => of({ result: [] })),
         pluck('result', 'length'),
@@ -37,6 +42,7 @@ export class WalletService {
     }
 
     getWallet(walletID: string) {
+        console.log('api service', this.apiWalletsService);
         return this.apiWalletsService.getWallet(genXRequestID(), walletID);
     }
 

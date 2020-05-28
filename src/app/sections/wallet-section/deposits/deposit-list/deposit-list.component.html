@@ -1,0 +1,76 @@
+<dsh-expand-panel-accordion
+    fxLayout="column"
+    fxLayoutGap="20px"
+    (expandedChange)="select($event)"
+    [expanded]="selectedId$ | async"
+>
+    <dsh-expand-panel *ngFor="let deposit of deposits">
+        <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
+            <div fxLayout="column" fxLayoutGap="10px">
+                <div class="mat-caption">{{ (getWallet(deposit.wallet) | async)?.name }}</div>
+                <div *transloco="let d; scope: 'deposits'; read: 'deposits'" class="mat-body-1">
+                    {{ d.status[deposit.status] }}
+                </div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="10px">
+                <div class="mat-body-2">
+                    {{ deposit.body.amount | toMajor | amount }}
+                </div>
+                <div class="mat-caption">
+                    {{ deposit.body.currency }}
+                </div>
+            </div>
+        </div>
+        <dsh-expand-panel-more>
+            <dsh-expand-panel-more-header>
+                <div *transloco="let t; scope: 'deposits'; read: 'deposits.deposit'" class="mat-caption" fxFlex>
+                    {{ t.deposit }} #{{ deposit.id }}
+                </div>
+            </dsh-expand-panel-more-header>
+
+            <div
+                *transloco="let t; scope: 'deposits'; read: 'deposits.deposit'"
+                class="container"
+                fxLayout="column"
+                fxLayoutGap="20px"
+            >
+                <div class="mat-headline">{{ deposit.body.amount | toMajor | currency: deposit.body.currency }}</div>
+                <dsh-details-item fxFlex [title]="t.walletName">
+                    <div class="mat-body-1">
+                        <span *ngIf="getWallet(deposit.wallet) | async as wallet; else noWallet">{{
+                            wallet.name
+                        }}</span>
+                        <ng-template #noWallet>.</ng-template>
+                    </div>
+                </dsh-details-item>
+                <div fxLayout fxLayout.sm="column" fxLayoutGap="10px">
+                    <dsh-details-status-item
+                        *transloco="let status; scope: 'deposits'; read: 'deposits.status'"
+                        fxFlex
+                        class="mat-body-1"
+                        [color]="statusToColor(deposit.status)"
+                        [text]="status[deposit.status]"
+                    ></dsh-details-status-item>
+                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.createdAt">{{
+                        deposit.createdAt | date: 'dd MMMM yyyy, HH:mm'
+                    }}</dsh-details-item>
+                    <div fxFlex></div>
+                </div>
+                <div fxLayout fxLayout.sm="column" fxLayoutGap="10px">
+                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.amount">{{
+                        deposit.body.amount | toMajor | currency: deposit.body.currency
+                    }}</dsh-details-item>
+                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.fee">{{
+                        deposit.fee.amount | toMajor | currency: deposit.fee.currency
+                    }}</dsh-details-item>
+                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.total">{{
+                        deposit.body.amount - deposit.fee.amount | toMajor | currency: deposit.body.currency
+                    }}</dsh-details-item>
+                </div>
+                <dsh-details-item *ngIf="deposit.failure" fxFlex [title]="t.error">
+                    <div class="mat-body-1">{{ deposit.failure.code }}</div>
+                </dsh-details-item>
+            </div>
+        </dsh-expand-panel-more>
+    </dsh-expand-panel>
+</dsh-expand-panel-accordion>
