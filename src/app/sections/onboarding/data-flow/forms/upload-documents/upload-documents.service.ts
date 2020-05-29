@@ -3,17 +3,18 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject } from 'rxjs';
-import { map, pluck, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '../../../../../api';
 import { FileModificationUnit } from '../../../../../api-codegen/claim-management';
-import { replaceError, splitReplacedError } from '../../../../../custom-operators';
+import { replaceError } from '../../../../../custom-operators';
 import { ClaimService } from '../../claim';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { QuestionaryFormService } from '../questionary-form.service';
+import { filterError, filterPayload } from './../../../../../custom-operators/replace-error';
 
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {
@@ -34,17 +35,16 @@ export class UploadDocumentsService extends QuestionaryFormService {
         private transloco: TranslocoService
     ) {
         super(questionaryStateService, validityService, validationCheckService);
-        const [payload$, error$] = splitReplacedError(
-            this.filesUploaded$.pipe(
-                map((fileIds) => fileIds.map(createFileModificationUnit)),
-                withLatestFrom(this.claimService.cliam$),
-                switchMap(([changeset, { id, revision }]) =>
-                    this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
-                )
-            )
+        const uploadedFilesWithError$ = this.filesUploaded$.pipe(
+            map((fileIds) => fileIds.map(createFileModificationUnit)),
+            withLatestFrom(this.claimService.cliam$),
+            switchMap(([changeset, { id, revision }]) =>
+                this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
+            ),
+            share()
         );
-        payload$.subscribe(() => this.claimService.reloadCliam());
-        error$.subscribe(() =>
+        uploadedFilesWithError$.pipe(filterPayload).subscribe(() => this.claimService.reloadCliam());
+        uploadedFilesWithError$.pipe(filterError).subscribe(() =>
             this.snackBar.open(this.transloco.translate('httpError'), 'OK', {
                 duration: 5000,
             })
