@@ -30,6 +30,9 @@ export class StepLabelPipe implements PipeTransform {
             case StepName.RussianPrivateEntity:
                 path = 'russianPrivateEntity';
                 break;
+            case StepName.UploadDocuments:
+                path = 'uploadDocuments';
+                break;
         }
         return path ? this.transloco.translate(`onboarding.dataFlow.${pathSection}.${path}`) : path;
     }

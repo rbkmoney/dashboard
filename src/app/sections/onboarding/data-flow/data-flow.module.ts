@@ -8,11 +8,11 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { QuestionaryModule } from '../../../api';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
 import { DataFlowComponent } from './data-flow.component';
-import { FinishOnboardingDialogComponent } from './finish-onboarding-dialog';
 import { OnboardingFormsModule } from './forms';
 import { HelpCardComponent } from './help-card';
 import { QuestionaryStateService } from './questionary-state.service';
@@ -36,16 +36,9 @@ import { ValidityService } from './validity';
         SpinnerModule,
         OnboardingFormsModule,
         MatDialogModule,
+        ConfirmActionDialogModule,
     ],
-    declarations: [
-        DataFlowComponent,
-        HelpCardComponent,
-        StepCardComponent,
-        StepNavigationComponent,
-        StepLabelPipe,
-        FinishOnboardingDialogComponent,
-    ],
+    declarations: [DataFlowComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent, StepLabelPipe],
     providers: [StepFlowService, ValidityService, QuestionaryStateService, ValidationCheckService],
-    entryComponents: [FinishOnboardingDialogComponent],
 })
 export class DataFlowModule {}

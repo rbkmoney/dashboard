@@ -15,13 +15,13 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 
 import { DaDataModule } from '../../../../dadata';
+import { FileContainerModule } from './../../../claim-modification-containers/file-container/file-container.module';
 import { BasicInfoComponent, BasicInfoService } from './basic-info';
 import { BeneficialOwnersComponent, BeneficialOwnersService } from './beneficial-owners';
 import {
     FinancialAndEconomicActivityComponent,
     FinancialAndEconomicActivityService,
 } from './financial-and-economic-activity';
-import { InitializeFormsService } from './initialize-forms.service';
 import {
     PlanningOperationsAndPayoutToolComponent,
     PlanningOperationsAndPayoutToolService,
@@ -43,6 +43,7 @@ import {
     RussianDomesticPassportComponent,
     RussianDomesticPassportService,
 } from './subforms';
+import { UploadDocumentsComponent } from './upload-documents';
 
 @NgModule({
     imports: [
@@ -61,6 +62,7 @@ import {
         TextMaskModule,
         FormControlsModule,
         DaDataModule,
+        FileContainerModule,
     ],
     declarations: [
         BasicInfoComponent,
@@ -75,9 +77,9 @@ import {
         PlanningOperationsAndPayoutToolComponent,
         IndividualResidencyInfoComponent,
         LegalResidencyInfoComponent,
+        UploadDocumentsComponent,
     ],
     providers: [
-        InitializeFormsService,
         BasicInfoService,
         RussianLegalOwnerService,
         RussianDomesticPassportService,

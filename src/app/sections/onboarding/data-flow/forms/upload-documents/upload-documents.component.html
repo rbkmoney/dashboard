@@ -1,0 +1,19 @@
+<div
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.uploadDocuments'"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div fxLayout="column" fxLayoutGap="10px">
+        <div class="mat-body-2">{{ t.requiredDocs }}:</div>
+        <div class="mat-body-1">- {{ t.passport }};</div>
+        <div class="mat-body-1">- {{ t.registrationDoc }}.</div>
+    </div>
+    <div class="mat-body-2">{{ t.uploadedDocs }}:</div>
+    <div *ngIf="!(fileUnits$ | async)?.length; else files" class="mat-body-1">{{ t.noDocs }}</div>
+    <ng-template #files>
+        <div fxLayout="column" fxLayoutGap="10px">
+            <dsh-file-container *ngFor="let unit of fileUnits$ | async" [unit]="unit"></dsh-file-container>
+        </div>
+    </ng-template>
+    <dsh-file-uploader (filesUploaded)="filesUploaded($event)"></dsh-file-uploader>
+</div>
