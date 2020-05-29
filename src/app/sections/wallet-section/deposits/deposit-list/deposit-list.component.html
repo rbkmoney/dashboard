@@ -68,7 +68,7 @@
                     }}</dsh-details-item>
                 </div>
                 <dsh-details-item *ngIf="deposit.failure" fxFlex [title]="t.error">
-                    <div class="mat-body-1">{{ deposit.failure.code }}</div>
+                    <div class="mat-body-1">{{ t.errors[deposit.failure.code] }}</div>
                 </dsh-details-item>
             </div>
         </dsh-expand-panel-more>

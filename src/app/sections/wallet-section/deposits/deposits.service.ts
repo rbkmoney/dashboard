@@ -5,7 +5,7 @@ import { filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rx
 
 import { DepositsService as DepositsApiService } from '../../../api';
 import { Deposit } from '../../../api-codegen/wallet-api/swagger-codegen';
-import { DepositsSearchParams } from '../../../api/deposits/deposits-search-params';
+import { DepositsSearchParams } from '../../../api/deposits';
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 
