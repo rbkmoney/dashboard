@@ -17,6 +17,10 @@ const paymentSectionRoutes: Routes = [
                 loadChildren: () => import('./deposits/deposits.module').then((m) => m.DepositsModule),
             },
             {
+                path: 'withdrawals',
+                loadChildren: () => import('./withdrawals/withdrawals.module').then((m) => m.WithdrawalsModule),
+            },
+            {
                 path: '',
                 redirectTo: 'wallets',
             },

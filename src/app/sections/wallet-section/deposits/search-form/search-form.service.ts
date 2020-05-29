@@ -3,7 +3,7 @@
 // import { ActivatedRoute, Router } from '@angular/router';
 // import moment from 'moment';
 //
-// import { DepositsService } from '../deposits.service';
+// import { WithdrawalsService } from '../deposits.service';
 // import { FormParams } from './form-params';
 // import { QueryParams } from './query-params';
 // import { toFormValue } from './to-form-value';
@@ -33,7 +33,7 @@
 //         private fb: FormBuilder,
 //         private route: ActivatedRoute,
 //         private router: Router,
-//         private depositsService: DepositsService
+//         private depositsService: WithdrawalsService
 //     ) {
 //         this.init();
 //     }
