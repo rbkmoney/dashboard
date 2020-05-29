@@ -32,7 +32,7 @@ export class SendCommentComponent {
         this.sendCommentService.sendComment(comment);
     }
 
-    startUploading(file: File) {
-        this.fileUploaderService.uploadFiles([file]);
+    startUploading(files: File[]) {
+        this.fileUploaderService.uploadFiles(files);
     }
 }

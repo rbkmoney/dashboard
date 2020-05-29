@@ -15,7 +15,13 @@
             </button>
         </div>
         <div class="action">
-            <button dsh-icon-button [disabled]="inProgress$ | async" ngfSelect (fileChange)="startUploading($event)">
+            <button
+                dsh-icon-button
+                [disabled]="inProgress$ | async"
+                ngfSelect
+                (filesChange)="startUploading($event)"
+                [files]="[]"
+            >
                 <mat-icon svgIcon="attach"></mat-icon>
             </button>
         </div>
