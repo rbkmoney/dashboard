@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, switchMapTo, filter } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../../api';
-import { FinishOnboardingDialogComponent } from '../finish-onboarding-dialog';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepFlowService } from '../step-flow';
 import { ValidityService } from '../validity';
 import { StepNavInfo, toStepNavInfo } from './to-step-nav-info';
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 @Injectable()
 export class StepCardService {
@@ -37,29 +37,24 @@ export class StepCardService {
                 this.questionaryStateService.save();
                 this.stepFlowService.navigate(step);
             });
-
         this.finishFormFlow$
             .pipe(
+                switchMap(() => this.dialog.open(ConfirmActionDialogComponent).afterClosed()),
+                filter((r) => r === 'confirm'),
                 switchMapTo(claimID$),
                 switchMap((claimID) => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
-                switchMap(() =>
-                    this.dialog
-                        .open(FinishOnboardingDialogComponent, {
-                            disableClose: true,
-                            width: '600px',
-                        })
-                        .afterClosed()
-                ),
                 switchMapTo(claimID$)
             )
-            .subscribe((claimID) => this.router.navigate(['claim', claimID, 'documents']));
+            .subscribe((claimID) => {
+                this.finishFormFlow$.complete();
+                this.router.navigate(['claim', claimID, 'conversation']);
+            });
     }
 
     finishFormFlow() {
         this.questionaryStateService.save();
         this.finishFormFlow$.next();
-        this.finishFormFlow$.complete();
     }
 
     selectStepFlowIndex(index: number) {

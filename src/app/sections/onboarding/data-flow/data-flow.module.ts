@@ -12,7 +12,6 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { QuestionaryModule } from '../../../api';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
 import { DataFlowComponent } from './data-flow.component';
-import { FinishOnboardingDialogComponent } from './finish-onboarding-dialog';
 import { OnboardingFormsModule } from './forms';
 import { HelpCardComponent } from './help-card';
 import { QuestionaryStateService } from './questionary-state.service';
@@ -22,6 +21,7 @@ import { StepLabelPipe } from './step-label.pipe';
 import { StepNavigationComponent } from './step-navigation';
 import { ValidationCheckService } from './validation-check';
 import { ValidityService } from './validity';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 @NgModule({
     imports: [
@@ -36,16 +36,9 @@ import { ValidityService } from './validity';
         SpinnerModule,
         OnboardingFormsModule,
         MatDialogModule,
+        ConfirmActionDialogModule,
     ],
-    declarations: [
-        DataFlowComponent,
-        HelpCardComponent,
-        StepCardComponent,
-        StepNavigationComponent,
-        StepLabelPipe,
-        FinishOnboardingDialogComponent,
-    ],
+    declarations: [DataFlowComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent, StepLabelPipe],
     providers: [StepFlowService, ValidityService, QuestionaryStateService, ValidationCheckService],
-    entryComponents: [FinishOnboardingDialogComponent],
 })
 export class DataFlowModule {}
