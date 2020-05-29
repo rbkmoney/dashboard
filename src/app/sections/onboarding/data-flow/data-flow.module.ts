@@ -8,6 +8,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { QuestionaryModule } from '../../../api';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
@@ -21,7 +22,6 @@ import { StepLabelPipe } from './step-label.pipe';
 import { StepNavigationComponent } from './step-navigation';
 import { ValidationCheckService } from './validation-check';
 import { ValidityService } from './validity';
-import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 @NgModule({
     imports: [
