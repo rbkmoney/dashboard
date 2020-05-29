@@ -42,7 +42,6 @@ export class WalletService {
     }
 
     getWallet(walletID: string) {
-        console.log('api service', this.apiWalletsService);
         return this.apiWalletsService.getWallet(genXRequestID(), walletID);
     }
 
