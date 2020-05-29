@@ -17,6 +17,6 @@ export class TableComponent {
     constructor(private router: Router) {}
 
     goToClaimDetails({ claimID }: ClaimsTableData) {
-        this.router.navigate(['claim', claimID, 'conversation']);
+        this.router.navigate(['claim', claimID]);
     }
 }

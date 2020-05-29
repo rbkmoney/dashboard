@@ -21,21 +21,7 @@
                 </dsh-status>
             </div>
             <div fxLayout="column" fxLayoutGap="20px">
-                <nav dsh-tab-nav-bar>
-                    <a
-                        dsh-tab-link
-                        *ngFor="let link of links"
-                        [routerLink]="link.path"
-                        routerLinkActive
-                        #rla="routerLinkActive"
-                        [active]="rla.isActive"
-                    >
-                        {{ t[link.path].label }}
-                    </a>
-                </nav>
-                <div class="router-outlet-container">
-                    <router-outlet></router-outlet>
-                </div>
+                <dsh-conversation></dsh-conversation>
                 <div fxLayout="row" fxLayoutAlign="space-between">
                     <div>
                         <button

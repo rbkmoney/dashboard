@@ -27,7 +27,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
                 `/onboarding/claim/${claim.id}/document/${getDocumentID(claim.changeset)}/step/basic-info`
             );
         case s.Review:
-            return toActionBtnContent('claimDetails', `/claim/${claim.id}/conversation`);
+            return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
     }
     throw new Error('Unsupported claim status');
 };

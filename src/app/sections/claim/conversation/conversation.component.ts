@@ -13,6 +13,7 @@ import { EditDocumentService } from './edit-document.service';
 import { TimelineItemInfo } from './to-timeline-info';
 
 @Component({
+    selector: 'dsh-conversation',
     templateUrl: 'conversation.component.html',
     styleUrls: ['conversation.component.scss'],
     providers: [ConversationService, EditDocumentService],

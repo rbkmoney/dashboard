@@ -49,7 +49,7 @@ export class StepCardService {
             )
             .subscribe((claimID) => {
                 this.finishFormFlow$.complete();
-                this.router.navigate(['claim', claimID, 'conversation']);
+                this.router.navigate(['claim', claimID]);
             });
     }
 
