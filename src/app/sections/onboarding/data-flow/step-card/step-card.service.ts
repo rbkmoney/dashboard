@@ -53,7 +53,7 @@ export class StepCardService {
                 ),
                 switchMapTo(claimID$)
             )
-            .subscribe((claimID) => this.router.navigate(['claim', claimID, 'documents']));
+            .subscribe((claimID) => this.router.navigate(['claim', claimID]));
     }
 
     finishFormFlow() {
