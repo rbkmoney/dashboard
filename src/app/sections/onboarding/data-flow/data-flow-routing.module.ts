@@ -9,6 +9,7 @@ import {
     PlanningOperationsAndPayoutToolComponent,
     RussianLegalOwnerComponent,
     RussianPrivateEntityComponent,
+    UploadDocumentsComponent,
 } from './forms';
 import { StepName } from './step-flow';
 
@@ -40,6 +41,10 @@ export const routes: Routes = [
             {
                 path: StepName.PlanningOperationsAndPayoutTool,
                 component: PlanningOperationsAndPayoutToolComponent,
+            },
+            {
+                path: StepName.UploadDocuments,
+                component: UploadDocumentsComponent,
             },
         ],
     },

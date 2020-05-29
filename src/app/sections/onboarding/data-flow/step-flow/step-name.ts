@@ -6,4 +6,5 @@ export enum StepName {
     RussianPrivateEntity = 'russian-private-entity',
     RussianLegalOwner = 'russian-legal-owner',
     RussianIndividualEntity = 'russian-individual-entity',
+    UploadDocuments = 'upload-documents',
 }
