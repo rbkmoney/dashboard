@@ -7,7 +7,6 @@
 >
     <dsh-expand-panel *ngFor="let wallet of wallets$ | async">
         <ng-container *ngIf="accounts$ | async as accounts">
-            <!--            <ng-container *ngIf="accounts[wallet.id] | async as account">-->
             <div fxLayout="column" fxLayoutGap="10px">
                 <div fxLayout="row " fxLayoutAlign="space-between center">
                     <div class="mat-body-1">{{ wallet.name }}</div>
@@ -48,7 +47,6 @@
                     <dsh-actions [walletID]="wallet.id"></dsh-actions>
                 </div>
             </dsh-expand-panel-more>
-            <!--            </ng-container>-->
         </ng-container>
     </dsh-expand-panel>
 </dsh-expand-panel-accordion>
