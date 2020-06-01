@@ -14,7 +14,7 @@ import {
     startWith,
     switchMap,
     take,
-    tap,
+    tap
 } from 'rxjs/operators';
 
 import { Wallet } from '../../../api-codegen/wallet-api/swagger-codegen';
@@ -24,7 +24,7 @@ import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
-    private readonly searchLimit = 10;
+    private readonly searchLimit = 20;
 
     wallets$ = this.searchResult$.pipe(
         catchError(() => {
@@ -40,7 +40,13 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
     isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
     accounts$ = this.wallets$.pipe(
         map((wallets: Wallet[]) =>
-            wallets.reduce((acc, cur) => ({ ...acc, [cur.id]: this.walletService.getWalletAccount(cur.id) }), {})
+            wallets.reduce(
+                (acc, cur) => ({
+                    ...acc,
+                    [cur.id]: this.walletService.getWalletAccount(cur.id).pipe(shareReplay(SHARE_REPLAY_CONF)),
+                }),
+                {}
+            )
         )
     );
 
@@ -52,7 +58,6 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         private transloco: TranslocoService
     ) {
         super();
-        // this.accounts$.subscribe((q) => console.log(q));
     }
 
     loadSelected(id: string) {
