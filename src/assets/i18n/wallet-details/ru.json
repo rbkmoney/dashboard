@@ -1,0 +1,24 @@
+{
+    "title": "Детали кошелька",
+    "details": {
+        "walletName": "Название кошелька",
+        "createdAt": "Дата и время создания"
+    },
+    "accountDetails": {
+        "title": "Состояние счета",
+        "description": "Доступные средства равны собственным средствам за вычетом сумм всех незавершенных операций",
+        "ownAmount": "Собственные средства",
+        "availableAmount": "Доступные средства"
+    },
+    "deposits": {
+        "title": "Пополнения",
+        "deposit": "Пополнение",
+        "status": "",
+        "amount": "",
+        "fee": "",
+        "total": "",
+        "error": "",
+        "createdAt": ""
+    },
+    "withdrawals": {}
+}

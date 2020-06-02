@@ -1,0 +1,9 @@
+<dsh-card *transloco="let t; scope: 'wallet-details'; read: 'walletDetails'">
+    <dsh-card-header>
+        <div class="mat-headline">{{ available.amount | toMajor }} {{ available.currency }}</div>
+    </dsh-card-header>
+    <dsh-card-content>
+        <dsh-details-item fxFlex [title]="t.walletName">{{ walletName }}</dsh-details-item>
+        <dsh-details-item fxFlex [title]="t.createdAt">{{ createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</dsh-details-item>
+    </dsh-card-content>
+</dsh-card>
