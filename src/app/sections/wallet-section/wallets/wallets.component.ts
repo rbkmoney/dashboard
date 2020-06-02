@@ -22,6 +22,6 @@ export class WalletsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.receiveWalletsService.search(null);
+        this.receiveWalletsService.search({});
     }
 }

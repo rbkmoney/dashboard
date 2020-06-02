@@ -19,11 +19,12 @@ import {
 
 import { Wallet } from '../../../api-codegen/wallet-api/swagger-codegen';
 import { WalletService } from '../../../api/wallet';
+import { WalletsSearchParams } from '../../../api/wallet/wallets-search-params';
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
-export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
+export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchParams> {
     private readonly searchLimit = 20;
 
     wallets$ = this.searchResult$.pipe(
@@ -73,7 +74,7 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         });
     }
 
-    protected fetch(continuationToken: string): Observable<FetchResult<Wallet>> {
-        return this.walletService.listWallets(this.searchLimit, undefined, undefined, continuationToken);
+    protected fetch(params: WalletsSearchParams, continuationToken: string): Observable<FetchResult<Wallet>> {
+        return this.walletService.listWallets(this.searchLimit, params, continuationToken);
     }
 }

@@ -5,10 +5,11 @@ import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '../../api-codegen/wallet-api';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
+import { WalletsSearchParams } from './wallets-search-params';
 
 @Injectable()
 export class WalletService {
-    hasWallets$ = this.listWallets(1).pipe(
+    hasWallets$ = this.listWallets(1, {}).pipe(
         catchError(() => of({ result: [] })),
         pluck('result', 'length'),
         map((l) => l > 0),
@@ -21,13 +22,13 @@ export class WalletService {
         return this.apiWalletsService.getWalletByExternalID(genXRequestID(), externalID);
     }
 
-    listWallets(limit: number, identityID?: string, currencyID?: string, continuationToken?: string) {
+    listWallets(limit: number, params: WalletsSearchParams, continuationToken?: string) {
         return this.apiWalletsService.listWallets(
             genXRequestID(),
             limit,
             undefined,
-            identityID,
-            currencyID,
+            params.identityID,
+            params.currencyID,
             continuationToken
         );
     }

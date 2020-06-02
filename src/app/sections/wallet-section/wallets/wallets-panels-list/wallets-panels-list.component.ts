@@ -18,7 +18,11 @@ export class WalletsPanelsListComponent implements OnInit {
     selectedIdx$ = this.receiveWalletsService.selectedIdx$;
     accounts = {};
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private receiveWalletsService: ReceiveWalletsService, private walletService: WalletService) {}
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        private receiveWalletsService: ReceiveWalletsService,
+        private walletService: WalletService
+    ) {}
 
     ngOnInit(): void {
         this.wallets$.subscribe((wallets: Wallet[]) => {
