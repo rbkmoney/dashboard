@@ -60,9 +60,11 @@
                     <dsh-details-item fxFlex class="mat-body-1" [title]="t.amount">{{
                         deposit.body.amount | toMajor | currency: deposit.body.currency
                     }}</dsh-details-item>
-                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.fee">{{
-                        deposit.fee.amount | toMajor | currency: deposit.fee.currency
-                    }}</dsh-details-item>
+                    <dsh-details-item fxFlex class="mat-body-1" [title]="t.fee"
+                        >{{ deposit.fee.amount | toMajor | currency: deposit.fee.currency }} ({{
+                            deposit.fee.amount / deposit.body.amount | percent: '1.0-2':'en'
+                        }})</dsh-details-item
+                    >
                     <dsh-details-item fxFlex class="mat-body-1" [title]="t.total">{{
                         deposit.body.amount - deposit.fee.amount | toMajor | currency: deposit.body.currency
                     }}</dsh-details-item>

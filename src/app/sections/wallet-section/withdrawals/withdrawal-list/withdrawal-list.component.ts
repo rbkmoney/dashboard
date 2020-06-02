@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Wallet, Withdrawal, WithdrawalStatus } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { StatusColor as Color } from '../../../../theme-manager';
+import { Wallet, Withdrawal } from '../../../../api-codegen/wallet-api/swagger-codegen';
 import { WithdrawalsService } from '../withdrawals.service';
 import { WithdrawalListService } from './withdrawal-list.service';
 
@@ -26,16 +25,5 @@ export class WithdrawalListComponent {
 
     select(id: number) {
         this.withdrawalsService.select(id);
-    }
-
-    statusToColor(status: WithdrawalStatus.StatusEnum): Color {
-        switch (status) {
-            case 'Succeeded':
-                return Color.success;
-            case 'Pending':
-                return Color.pending;
-            case 'Failed':
-                return Color.warn;
-        }
     }
 }

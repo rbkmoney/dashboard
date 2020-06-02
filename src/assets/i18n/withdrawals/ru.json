@@ -11,16 +11,16 @@
         "currencyID": "Валюта"
     },
     "status": {
-        "Pending": "Запущено",
-        "Succeeded": "Успешно",
-        "Failed": "Неуспешно"
+        "Succeeded": "Успешен",
+        "Pending": "Запущен",
+        "Failed": "Неуспешен"
     },
     "withdrawal": {
         "withdrawal": "Вывод",
         "walletName": "Название кошелька",
         "status": "Статус",
         "createdAt": "Время запуска вывода",
-        "amount": "Объем поступивших средств",
+        "amount": "Объем средств для вывода",
         "fee": "Комиссия",
         "total": "Итого",
         "error": "Ошибка",

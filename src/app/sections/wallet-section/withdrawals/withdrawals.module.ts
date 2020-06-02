@@ -18,6 +18,7 @@ import { WithdrawalsModule as WithdrawalsApiModule } from '../../../api';
 import { ToMajorModule } from '../../../to-major';
 import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
+import { WalletSectionModule } from '../wallet-section.module';
 import { SearchFormComponent } from './search-form';
 import { WithdrawalListComponent } from './withdrawal-list/withdrawal-list.component';
 import { WithdrawalsRoutingModule } from './withdrawals-routing.module';
@@ -46,6 +47,7 @@ import { WithdrawalsComponent } from './withdrawals.component';
         SpinnerModule,
         ScrollUpModule,
         InvoiceDetailsModule,
+        WalletSectionModule,
     ],
     declarations: [WithdrawalsComponent, SearchFormComponent, WithdrawalListComponent],
 })

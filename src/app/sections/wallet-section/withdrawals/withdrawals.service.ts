@@ -11,7 +11,7 @@ import { PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class WithdrawalsService extends PartialFetcher<Withdrawal, WithdrawalsSearchParams> {
-    private limit = 20;
+    private limit = 10;
 
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
