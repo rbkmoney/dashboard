@@ -14,7 +14,7 @@ import {
     startWith,
     switchMap,
     take,
-    tap
+    tap,
 } from 'rxjs/operators';
 
 import { Wallet } from '../../../api-codegen/wallet-api/swagger-codegen';
@@ -38,17 +38,6 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, null> {
         shareReplay(SHARE_REPLAY_CONF)
     );
     isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
-    accounts$ = this.wallets$.pipe(
-        map((wallets: Wallet[]) =>
-            wallets.reduce(
-                (acc, cur) => ({
-                    ...acc,
-                    [cur.id]: this.walletService.getWalletAccount(cur.id).pipe(shareReplay(SHARE_REPLAY_CONF)),
-                }),
-                {}
-            )
-        )
-    );
 
     constructor(
         private walletService: WalletService,

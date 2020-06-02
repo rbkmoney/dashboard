@@ -7,6 +7,7 @@ import { ReceiveWalletsService } from './receive-wallets.service';
 @Component({
     templateUrl: 'wallets.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [ReceiveWalletsService],
 })
 export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;
