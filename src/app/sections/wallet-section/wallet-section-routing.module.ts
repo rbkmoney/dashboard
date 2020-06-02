@@ -14,7 +14,11 @@ const paymentSectionRoutes: Routes = [
             },
             {
                 path: 'deposits',
-                loadChildren: () => import('./deposits/deposits.module').then((m) => m.DepositsModule),
+                loadChildren: () => import('./deposits').then((m) => m.DepositsModule),
+            },
+            {
+                path: 'withdrawals',
+                loadChildren: () => import('./withdrawals').then((m) => m.WithdrawalsModule),
             },
             {
                 path: '',
