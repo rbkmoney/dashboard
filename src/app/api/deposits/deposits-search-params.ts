@@ -1,8 +1,8 @@
 import { DepositStatus } from '../../api-codegen/wallet-api/swagger-codegen';
 
 export class DepositsSearchParams {
-    fromTime: string;
-    toTime: string;
+    fromTime?: string;
+    toTime?: string;
     walletID?: string;
     identityID?: string;
     depositID?: string;

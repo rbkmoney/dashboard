@@ -11,7 +11,7 @@ import { PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class DepositsService extends PartialFetcher<Deposit, DepositsSearchParams> {
-    private limit = 20;
+    private limit = 10;
 
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 

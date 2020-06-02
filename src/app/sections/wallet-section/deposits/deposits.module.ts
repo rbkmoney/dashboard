@@ -18,6 +18,7 @@ import { DepositsModule as DepositsApiModule } from '../../../api';
 import { ToMajorModule } from '../../../to-major';
 import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
+import { WalletSectionModule } from '../wallet-section.module';
 import { DepositListComponent } from './deposit-list/deposit-list.component';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
@@ -46,6 +47,7 @@ import { SearchFormComponent } from './search-form';
         SpinnerModule,
         ScrollUpModule,
         InvoiceDetailsModule,
+        WalletSectionModule,
     ],
     declarations: [DepositsComponent, SearchFormComponent, DepositListComponent],
 })

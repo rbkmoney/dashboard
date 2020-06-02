@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Deposit, DepositStatus, Wallet } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { StatusColor as Color } from '../../../../theme-manager';
+import { Deposit, Wallet } from '../../../../api-codegen/wallet-api/swagger-codegen';
 import { DepositsService } from '../deposits.service';
 import { DepositListService } from './deposit-list.service';
 
@@ -26,16 +25,5 @@ export class DepositListComponent {
 
     select(id: number) {
         this.depositsService.select(id);
-    }
-
-    statusToColor(status: DepositStatus.StatusEnum): Color {
-        switch (status) {
-            case 'Succeeded':
-                return Color.success;
-            case 'Pending':
-                return Color.pending;
-            case 'Failed':
-                return Color.warn;
-        }
     }
 }

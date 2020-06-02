@@ -7,6 +7,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { StateNavModule } from '@dsh/components/navigation';
 
 import { NavComponent } from './nav';
+import { StatusToColorPipe } from './status-to-color.pipe';
 import { WalletSectionRoutingModule } from './wallet-section-routing.module';
 import { WalletSectionComponent } from './wallet-section.component';
 
@@ -19,6 +20,7 @@ import { WalletSectionComponent } from './wallet-section.component';
         FlexLayoutModule,
         TranslocoModule,
     ],
-    declarations: [WalletSectionComponent, NavComponent],
+    declarations: [WalletSectionComponent, NavComponent, StatusToColorPipe],
+    exports: [StatusToColorPipe],
 })
 export class WalletSectionModule {}

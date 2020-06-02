@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { pluck, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { WalletService } from '../../../../api/wallet';
 
 @Injectable()
 export class DepositListService {
-    wallets$ = this.walletService.wallets$.pipe(pluck('result'), shareReplay(1));
+    wallets$ = this.walletService.wallets$.pipe(shareReplay(1));
 
     constructor(private walletService: WalletService) {}
 }
