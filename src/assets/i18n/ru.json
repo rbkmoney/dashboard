@@ -58,14 +58,9 @@
         "processed": "Готов"
     },
     "depositStatus": {
-        "Succeeded": "Успешен",
-        "Pending": "Запущен",
-        "Failed": "Неуспешен"
-    },
-    "withdrawalStatus": {
-        "Succeeded": "Успешен",
-        "Pending": "Запущен",
-        "Failed": "Неуспешен"
+        "Succeeded": "Успешно",
+        "Pending": "Запущено",
+        "Failed": "Неуспешно"
     },
     "paymentFlow": {
         "instant": "Мгновенный",

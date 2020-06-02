@@ -7,17 +7,17 @@
     <dsh-expand-panel *ngFor="let deposit of deposits">
         <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
             <div fxLayout="column" fxLayoutGap="10px">
-                <div class="mat-caption">{{ (getWallet(deposit.wallet) | async)?.name }}</div>
-                <div *transloco="let d; scope: 'deposits'; read: 'deposits'" class="mat-body-1">
-                    {{ d.status[deposit.status] }}
+                <div class="mat-body-1">{{ (getWallet(deposit.wallet) | async)?.name }}</div>
+                <div class="mat-caption">
+                    {{ deposit.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
                 </div>
             </div>
             <div fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="10px">
                 <div class="mat-body-2">
-                    {{ deposit.body.amount | toMajor | amount }}
+                    {{ deposit.body.amount | toMajor | currency: deposit.body.currency }}
                 </div>
-                <div class="mat-caption">
-                    {{ deposit.body.currency }}
+                <div *transloco="let d; scope: 'deposits'; read: 'deposits'" class="mat-caption">
+                    {{ d.status[deposit.status] }}
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                         *transloco="let status; scope: 'deposits'; read: 'deposits.status'"
                         fxFlex
                         class="mat-body-1"
-                        [color]="statusToColor(deposit.status)"
+                        [color]="deposit.status | statusToColor"
                         [text]="status[deposit.status]"
                     ></dsh-details-status-item>
                     <dsh-details-item fxFlex class="mat-body-1" [title]="t.createdAt">{{
@@ -68,7 +68,7 @@
                     }}</dsh-details-item>
                 </div>
                 <dsh-details-item *ngIf="deposit.failure" fxFlex [title]="t.error">
-                    <div class="mat-body-1">{{ deposit.failure.code }}</div>
+                    <div class="mat-body-1">{{ t.errors[deposit.failure.code] }}</div>
                 </dsh-details-item>
             </div>
         </dsh-expand-panel-more>
