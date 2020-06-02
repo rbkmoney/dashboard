@@ -9,6 +9,12 @@ import { WalletsSearchParams } from './wallets-search-params';
 
 @Injectable()
 export class WalletService {
+    wallets$ = this.listWallets(1000, {}).pipe(
+        catchError(() => of({ result: [] })),
+        pluck('result'),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+
     hasWallets$ = this.listWallets(1, {}).pipe(
         catchError(() => of({ result: [] })),
         pluck('result', 'length'),
