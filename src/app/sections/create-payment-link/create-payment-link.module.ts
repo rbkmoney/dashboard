@@ -1,13 +1,14 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
@@ -15,17 +16,14 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { InvoiceTemplatesModule, UrlShortenerModule } from '../../../../api';
-import { CreatePaymentLinkModule } from '../../../create-payment-link';
-import { InvoiceTemplateFormComponent } from './invoice-template-form';
-import { PaymentLinkRoutingModule } from './payment-link-routing.module';
-import { PaymentLinkComponent } from './payment-link.component';
+import { InvoiceModule, InvoiceTemplatesModule, UrlShortenerModule } from '../../api';
+import { CreatePaymentLinkComponent } from './create-payment-link.component';
+import { CreatePaymentLinkService } from './create-payment-link.service';
 
-const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
+const EXPORTED_DECLARATIONS = [CreatePaymentLinkComponent];
 
 @NgModule({
     imports: [
-        PaymentLinkRoutingModule,
         LayoutModule,
         TranslocoModule,
         FlexLayoutModule,
@@ -35,16 +33,18 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         MatInputModule,
         MatRadioModule,
         ButtonModule,
-        MatSelectModule,
         MatCheckboxModule,
         MatDividerModule,
         UrlShortenerModule,
-        InvoiceTemplatesModule,
+        ClipboardModule,
         ConfirmActionDialogModule,
-        MatDialogModule,
-        CreatePaymentLinkModule,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        InvoiceTemplatesModule,
+        InvoiceModule,
     ],
-    declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent],
+    declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
+    providers: [CreatePaymentLinkService],
 })
-export class PaymentLinkModule {}
+export class CreatePaymentLinkModule {}

@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { merge } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
 
 import { InvoiceLineTaxVAT } from '../../../../../api-codegen/capi';
 import { CostType, InvoiceTemplateFormService, TemplateType, withoutVAT } from './invoice-template-form.service';
@@ -47,13 +45,8 @@ export class InvoiceTemplateFormComponent implements OnInit {
     }
 
     nextStep() {
-        merge(
-            this.invoiceTemplateFormService.invoiceTemplateAndToken$.pipe(tap(() => this.next.emit())),
-            this.invoiceTemplateFormService.errors$
-        )
-            .pipe(take(1))
-            .subscribe();
         this.invoiceTemplateFormService.create();
+        this.next.emit();
     }
 
     clear() {
