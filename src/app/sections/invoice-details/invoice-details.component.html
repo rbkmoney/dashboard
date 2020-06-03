@@ -18,6 +18,7 @@
                 </div>
             </dsh-headline>
             <dsh-details [invoice]="invoice"></dsh-details>
+            <dsh-payment-link [invoice]="invoice"></dsh-payment-link>
             <dsh-cart *ngIf="invoice.cart" [invoiceCart]="invoice.cart" [currency]="invoice.currency"></dsh-cart>
             <dsh-shop-details [shopID]="invoice.shopID"></dsh-shop-details>
             <dsh-payments [invoiceID]="invoice.id"></dsh-payments>

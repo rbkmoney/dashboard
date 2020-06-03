@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Replace } from '../../../type-utils';
-import { Invoice, InvoiceParams, InvoicesService } from '../../api-codegen/capi/swagger-codegen';
+import { Invoice, InvoiceParams } from '../../api-codegen/capi/swagger-codegen';
 import { genXRequestID } from '../utils';
+import { InvoicesService } from './../../api-codegen/capi/invoices.service';
 
 @Injectable()
 export class InvoiceService {
@@ -22,5 +23,9 @@ export class InvoiceService {
 
     createInvoiceAccessToken(invoiceID: string) {
         return this.invoicesService.createInvoiceAccessToken(genXRequestID(), invoiceID);
+    }
+
+    getInvoicePaymentMethods(invoiceID: string) {
+        return this.invoicesService.getInvoicePaymentMethods(genXRequestID(), invoiceID);
     }
 }
