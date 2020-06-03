@@ -4,6 +4,7 @@ import { ReceiveWalletsService } from './receive-wallets.service';
 
 @Component({
     templateUrl: 'wallets.component.html',
+    styleUrls: ['wallets.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ReceiveWalletsService],
 })
