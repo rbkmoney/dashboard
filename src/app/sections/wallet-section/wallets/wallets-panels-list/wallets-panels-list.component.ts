@@ -10,7 +10,6 @@ import { ReceiveWalletsService } from '../receive-wallets.service';
 @Component({
     selector: 'dsh-wallets-panels-list',
     templateUrl: 'wallets-panels-list.component.html',
-
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletsPanelsListComponent implements OnInit {
