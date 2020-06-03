@@ -14,7 +14,7 @@
     <button
         *transloco="let t; scope: 'actionbar'; read: 'actionbar.claims'"
         mat-menu-item
-        [routerLink]="['/claim', claim.id, 'conversation']"
+        [routerLink]="['/claim', claim.id]"
         (click)="menuItemSelected.emit()"
     >
         {{ t.details }}

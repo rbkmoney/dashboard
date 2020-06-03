@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { ClaimService } from './claim/claim.service';
 import { DataFlowService } from './data-flow.service';
+import { InitializeFormsService, UploadDocumentsService } from './forms';
 import { QuestionaryStateService } from './questionary-state.service';
 import { StepFlowService } from './step-flow';
 
@@ -8,7 +10,7 @@ import { StepFlowService } from './step-flow';
     selector: 'dsh-data-flow',
     templateUrl: 'data-flow.component.html',
     styleUrls: ['data-flow.component.scss'],
-    providers: [DataFlowService],
+    providers: [DataFlowService, ClaimService, InitializeFormsService, UploadDocumentsService],
 })
 export class DataFlowComponent implements OnInit, OnDestroy {
     activeStep$ = this.stepFlowService.activeStep$;

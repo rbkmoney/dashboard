@@ -1,15 +1,24 @@
 /**
  * https://github.com/sindresorhus/multi-download/blob/master/index.js
  */
-export function download(url: string, name?: string): void {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export async function download(url: string, name?: string) {
     const a = document.createElement('a');
+    a.id = url;
     a.download = name;
-    a.href = url;
     a.style.display = 'none';
-    document.body.append(a);
+    document.body.appendChild(a);
+    a.href = url;
     a.click();
     // Chrome requires the timeout
-    setTimeout(() => {
-        a.remove();
-    }, 100);
+    await delay(100);
+    a.remove();
+}
+
+export function multipleDownload(urls: string[]) {
+    urls.forEach(async (url, i) => {
+        await delay(i * 1000);
+        download(url);
+    });
 }

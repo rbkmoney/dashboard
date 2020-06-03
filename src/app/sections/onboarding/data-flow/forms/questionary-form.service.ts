@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { combineLatest, forkJoin, of, Subscription } from 'rxjs';
-import { debounceTime, first, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { forkJoin, of, Subscription } from 'rxjs';
+import { debounceTime, first, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { QuestionaryData } from '../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../questionary-state.service';
@@ -44,8 +44,12 @@ export abstract class QuestionaryFormService {
     startFormValidityReporting(debounceMs = 300): Subscription {
         return this.form$
             .pipe(
-                switchMap((form) => combineLatest([of(form), form.statusChanges.pipe(startWith(form.status))])),
-                pluck(0, 'valid'),
+                switchMap((form) =>
+                    form.statusChanges.pipe(
+                        startWith(form.status),
+                        map(() => form.valid)
+                    )
+                ),
                 debounceTime(debounceMs)
             )
             .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));

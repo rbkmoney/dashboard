@@ -4,6 +4,9 @@
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
                 {{ t.title }}
             </div>
+            <button dsh-stroked-button color="accent" (click)="downloadAll()" [disabled]="isLoading">
+                {{ t.downloadAll }}
+            </button>
         </div>
     </dsh-card-title>
     <dsh-card-content>
