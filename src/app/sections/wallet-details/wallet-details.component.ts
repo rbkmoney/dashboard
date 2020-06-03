@@ -12,6 +12,7 @@ export class WalletDetailsComponent {
     wallet$ = this.walletDetailsService.wallet$;
     walletAccount$ = this.walletDetailsService.walletAccount$;
     isLoading$ = this.walletDetailsService.isLoading$;
+    error$ = this.walletDetailsService.errors$;
 
     constructor(private walletDetailsService: WalletDetailsService) {}
 }

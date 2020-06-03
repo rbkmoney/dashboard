@@ -21,4 +21,4 @@
         <div></div>
     </ng-template>
 </div>
-<div *ngIf="isLoading$ | async" fxLayout fxLayoutAlign="center"><dsh-spinner></dsh-spinner></div>
+<div *ngIf="!(error$ | async) && (isLoading$ | async)" fxLayout fxLayoutAlign="center"><dsh-spinner></dsh-spinner></div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { SpinnerModule } from '@dsh/components/indicators';
 
@@ -23,6 +24,7 @@ import { WithdrawalsModule } from './withdrawals';
         WithdrawalsModule,
         WalletDetailsRoutingModule,
         WalletDetailsHeadlineModule,
+        TranslocoModule,
     ],
     declarations: [WalletDetailsComponent],
 })

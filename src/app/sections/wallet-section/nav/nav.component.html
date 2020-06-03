@@ -9,16 +9,16 @@
     >
         {{ t.wallets }}
     </dsh-state-nav-item>
-    <!--    <dsh-state-nav-item-->
-    <!--        routerLink="./deposits"-->
-    <!--        routerLinkActive-->
-    <!--        #deposits="routerLinkActive"-->
-    <!--        [selected]="deposits.isActive"-->
-    <!--        withIcon-->
-    <!--        icon="input"-->
-    <!--    >-->
-    <!--        {{ t.deposits }}-->
-    <!--    </dsh-state-nav-item>-->
+    <dsh-state-nav-item
+        routerLink="./deposits"
+        routerLinkActive
+        #deposits="routerLinkActive"
+        [selected]="deposits.isActive"
+        withIcon
+        icon="input"
+    >
+        {{ t.deposits }}
+    </dsh-state-nav-item>
     <dsh-state-nav-item
         routerLink="./withdrawals"
         routerLinkActive

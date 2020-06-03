@@ -21,9 +21,9 @@
                 {{ c.showMore }}
             </ng-container>
         </button>
-        <div *ngIf="isLoading$ | async" fxFlexAlign="center"><dsh-spinner></dsh-spinner></div>
+        <div *ngIf="!(error$ | async) && (isLoading$ | async)" fxFlexAlign="center"><dsh-spinner></dsh-spinner></div>
         <div *ngIf="error$ | async" fxFlexAlign="center">{{ t.error }}</div>
-        <div *ngIf="(deposits$ | async)?.length === 0">
+        <div *ngIf="!(error$ | async) && (deposits$ | async)?.length === 0">
             {{ t.noDeposits }}
         </div>
     </dsh-card-content>
