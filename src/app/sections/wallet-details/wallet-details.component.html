@@ -1,6 +1,11 @@
 <div *ngIf="!(isLoading$ | async)">
     <ng-container *ngIf="wallet$ | async as wallet; else noWallet">
-        <div *ngIf="walletAccount$ | async as walletAccount" fxLayout="column" fxLayoutGap="20px">
+        <div
+            *ngIf="walletAccount$ | async as walletAccount"
+            class="dsh-wallet-details"
+            fxLayout="column"
+            fxLayoutGap="20px"
+        >
             <dsh-wallet-details-headline [walletID]="wallet.id"></dsh-wallet-details-headline>
             <dsh-details
                 [walletName]="wallet.name"

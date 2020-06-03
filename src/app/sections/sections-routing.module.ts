@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('./wallet-section').then((m) => m.WalletSectionModule),
     },
     {
+        path: 'wallet',
+        loadChildren: () => import('./wallet-details').then((m) => m.WalletDetailsModule),
+    },
+    {
         path: 'invoice/:invoiceID/payment',
         loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
     },

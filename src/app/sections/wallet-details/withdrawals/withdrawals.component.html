@@ -1,1 +1,30 @@
-<p>withdrawals works!</p>
+<dsh-card *transloco="let t; scope: 'wallet-details'; read: 'walletDetails.withdrawals'">
+    <dsh-card-title>
+        <div class="mat-title">{{ t.title }}</div>
+    </dsh-card-title>
+    <dsh-card-content fxLayout="column" fxLayoutGap="20px">
+        <div *ngFor="let withdrawal of withdrawals$ | async" fxLayout="column" fxLayoutGap="20px">
+            <div class="mat-subheading-1">
+                {{ t.withdrawal }}
+                <span dshSecondaryTitle>#{{ withdrawal.id }}</span>
+            </div>
+            <dsh-withdrawal-info [withdrawal]="withdrawal"></dsh-withdrawal-info>
+            <mat-divider></mat-divider>
+        </div>
+        <button
+            *ngIf="(hasMore$ | async) && !(isLoading$ | async)"
+            class="dsh-show-more"
+            dsh-button
+            (click)="fetchMore()"
+        >
+            <ng-container *transloco="let c">
+                {{ c.showMore }}
+            </ng-container>
+        </button>
+        <div *ngIf="isLoading$ | async" fxFlexAlign="center"><dsh-spinner></dsh-spinner></div>
+        <div *ngIf="error$ | async" fxFlexAlign="center">{{ t.error }}</div>
+        <div *ngIf="(withdrawals$ | async)?.length === 0">
+            {{ t.noWithdrawals }}
+        </div>
+    </dsh-card-content>
+</dsh-card>

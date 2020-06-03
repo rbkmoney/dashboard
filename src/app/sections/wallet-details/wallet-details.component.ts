@@ -6,6 +6,7 @@ import { WalletDetailsService } from './wallet-details.service';
     selector: 'dsh-wallet-details',
     templateUrl: 'wallet-details.component.html',
     styleUrls: ['wallet-details.component.scss'],
+    providers: [WalletDetailsService],
 })
 export class WalletDetailsComponent {
     wallet$ = this.walletDetailsService.wallet$;
