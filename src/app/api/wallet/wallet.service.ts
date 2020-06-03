@@ -9,13 +9,13 @@ import { WalletsSearchParams } from './wallets-search-params';
 
 @Injectable()
 export class WalletService {
-    wallets$ = this.listWallets(1000, {}).pipe(
+    wallets$ = this.listWallets(1000).pipe(
         catchError(() => of({ result: [] })),
         pluck('result'),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    hasWallets$ = this.listWallets(1, {}).pipe(
+    hasWallets$ = this.listWallets(1).pipe(
         catchError(() => of({ result: [] })),
         pluck('result', 'length'),
         map((l) => l > 0),
@@ -28,13 +28,13 @@ export class WalletService {
         return this.apiWalletsService.getWalletByExternalID(genXRequestID(), externalID);
     }
 
-    listWallets(limit: number, params: WalletsSearchParams, continuationToken?: string) {
+    listWallets(limit: number, params?: WalletsSearchParams, continuationToken?: string) {
         return this.apiWalletsService.listWallets(
             genXRequestID(),
             limit,
             undefined,
-            params.identityID,
-            params.currencyID,
+            params?.identityID,
+            params?.currencyID,
             continuationToken
         );
     }

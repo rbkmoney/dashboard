@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { ReceiveWalletsService } from './receive-wallets.service';
 
 @Component({
@@ -12,7 +10,7 @@ import { ReceiveWalletsService } from './receive-wallets.service';
 export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;
     hasMore$ = this.receiveWalletsService.hasMore$;
-    isLoading$ = this.receiveWalletsService.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$ = this.receiveWalletsService.isLoading$;
     isInit$ = this.receiveWalletsService.isInit$;
 
     constructor(private receiveWalletsService: ReceiveWalletsService) {}

@@ -25,7 +25,7 @@ import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchParams> {
-    private readonly searchLimit = 20;
+    private readonly searchLimit = 10;
 
     wallets$ = this.searchResult$.pipe(
         catchError(() => {
@@ -38,7 +38,8 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchP
         switchMap((fragment) => (fragment ? this.loadSelected(fragment) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
-    isInit$ = this.selectedIdx$.pipe(mapTo(false), startWith(true), shareReplay(SHARE_REPLAY_CONF));
+    isInit$ = this.selectedIdx$.pipe(mapTo(true), startWith(false), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$ = this.doAction$.pipe(startWith(true), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
         private walletService: WalletService,
@@ -52,8 +53,8 @@ export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchP
 
     loadSelected(id: string) {
         return this.fetchResultChanges$.pipe(
-            map(({ hasMore, result: payouts }) => {
-                const idx = payouts.findIndex((p) => p.id === id);
+            map(({ hasMore, result: wallets }) => {
+                const idx = wallets.findIndex((p) => p.id === id);
                 return { idx, isContinueToFetch: idx === -1 && hasMore };
             }),
             tap(({ isContinueToFetch }) => {

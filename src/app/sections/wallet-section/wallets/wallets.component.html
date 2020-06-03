@@ -1,7 +1,7 @@
 <dsh-scroll-up></dsh-scroll-up>
 <div class="dsh-wallets" fxLayout="column" fxLayoutGap="20px" *transloco="let t; scope: 'wallets'; read: 'wallets'">
     <h1 class="mat-display-1">{{ t.title }}</h1>
-    <ng-container *ngIf="!(isInit$ | async); else spinner">
+    <ng-container *ngIf="isInit$ | async">
         <dsh-wallets-panels-list></dsh-wallets-panels-list>
         <dsh-empty-search-result
             *ngIf="!(wallets$ | async)?.length && !(isLoading$ | async)"
@@ -10,9 +10,9 @@
         <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
         </dsh-show-more-panel>
     </ng-container>
-    <ng-template #spinner>
-        <div fxLayout fxFlexAlign="center" *ngIf="isLoading$ | async">
+    <ng-container *ngIf="!(isInit$ | async) && isLoading$ | async">
+        <div fxLayout fxFlexAlign="center">
             <dsh-spinner></dsh-spinner>
         </div>
-    </ng-template>
+    </ng-container>
 </div>
