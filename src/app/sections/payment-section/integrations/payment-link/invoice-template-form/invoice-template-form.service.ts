@@ -3,16 +3,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
-import {
-    distinctUntilChanged,
-    filter,
-    map,
-    pluck,
-    share,
-    shareReplay,
-    startWith,
-    switchMap,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
