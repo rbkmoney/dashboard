@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ngfModule } from 'angular-file';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
@@ -21,13 +22,11 @@ import {
 } from '../../claim-modification-containers';
 import { ActionColorPipe } from './action-color.pipe';
 import { ActionIconPipe } from './action-icon.pipe';
-import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
 import { SendCommentComponent } from './send-comment';
 
 @NgModule({
     imports: [
-        ConversationRoutingModule,
         LayoutModule,
         ButtonModule,
         FlexLayoutModule,
@@ -45,7 +44,9 @@ import { SendCommentComponent } from './send-comment';
         DocumentContainerModule,
         MatMenuModule,
         ConfirmActionDialogModule,
+        ngfModule,
     ],
     declarations: [ConversationComponent, ActionColorPipe, ActionIconPipe, SendCommentComponent],
+    exports: [ConversationComponent],
 })
 export class ConversationModule {}

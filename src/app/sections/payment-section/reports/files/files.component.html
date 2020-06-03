@@ -1,0 +1,38 @@
+<dsh-card *transloco="let t; scope: 'report'; read: 'report.files'">
+    <dsh-card-title>
+        <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
+            <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
+                {{ t.title }}
+            </div>
+            <button dsh-stroked-button color="accent" (click)="downloadAll()" [disabled]="isLoading">
+                {{ t.downloadAll }}
+            </button>
+        </div>
+    </dsh-card-title>
+    <dsh-card-content>
+        <dsh-expansion>
+            <dsh-expansion-item *ngFor="let file of files">
+                <dsh-expansion-item-header>
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="file-name">
+                            {{ file.filename }}
+                        </div>
+                        <button dsh-icon-button (click)="downloadFile(file.id)" [disabled]="isLoading">
+                            <mat-icon svgIcon="save"></mat-icon>
+                        </button>
+                    </div>
+                </dsh-expansion-item-header>
+                <dsh-expansion-item-content>
+                    <div fxLayout="column" [fxLayoutGap]="layoutGap">
+                        <dsh-details-item [title]="t.md5Title">
+                            {{ file.signatures.md5 }}
+                        </dsh-details-item>
+                        <dsh-details-item [title]="t.sha256Title">
+                            {{ file.signatures.sha256 }}
+                        </dsh-details-item>
+                    </div>
+                </dsh-expansion-item-content>
+            </dsh-expansion-item>
+        </dsh-expansion>
+    </dsh-card-content>
+</dsh-card>

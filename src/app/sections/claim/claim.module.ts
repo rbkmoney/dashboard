@@ -15,7 +15,6 @@ import { ClaimsModule, QuestionaryModule } from '../../api';
 import { ClaimRoutingModule } from './claim-routing.module';
 import { ClaimComponent } from './claim.component';
 import { ConversationModule } from './conversation';
-import { DocumentsModule } from './documents';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ClaimsModule,
         ClaimRoutingModule,
         ConversationModule,
-        DocumentsModule,
         TranslocoModule,
         IndicatorsModule,
         QuestionaryModule,

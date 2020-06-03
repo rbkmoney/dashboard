@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -23,11 +24,11 @@ import { TableModule } from '@dsh/components/table';
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';
+import { FilesComponent } from './files';
+import { ReportListComponent } from './report-list';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { SearchFormComponent } from './search-form';
-import { TableComponent } from './table';
-import { ActionsComponent } from './table/actions';
 
 @NgModule({
     imports: [
@@ -54,13 +55,14 @@ import { ActionsComponent } from './table/actions';
         MatMenuModule,
         FormControlsModule,
         EmptySearchResultModule,
+        MatDividerModule,
     ],
     declarations: [
         ReportsComponent,
         SearchFormComponent,
-        TableComponent,
-        ActionsComponent,
         CreateReportDialogComponent,
+        ReportListComponent,
+        FilesComponent,
     ],
     exports: [ReportsComponent],
     entryComponents: [CreateReportDialogComponent],

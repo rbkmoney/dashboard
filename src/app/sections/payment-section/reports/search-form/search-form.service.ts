@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
+import { filter, pluck, take } from 'rxjs/operators';
 
+import { RouteEnv } from '../../../route-env';
 import { ReportsService } from '../reports.service';
 import { FormParams } from './form-params';
 import { QueryParams } from './query-params';
@@ -13,7 +15,7 @@ import { toSearchParams } from './to-search-params';
 @Injectable()
 export class SearchFormService {
     defaultParams: FormParams = {
-        shopID: null,
+        shopIDs: [],
         reportType: null,
         date: {
             begin: moment().startOf('month'),
@@ -41,6 +43,13 @@ export class SearchFormService {
     }
 
     private init() {
+        this.route.params
+            .pipe(
+                pluck('envID'),
+                take(1),
+                filter((e) => e === RouteEnv.test)
+            )
+            .subscribe(() => this.form.controls.shopIDs.disable());
         this.syncQueryParams();
         this.search();
         this.form.valueChanges.subscribe((v) => this.search(v));

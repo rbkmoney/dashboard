@@ -7,16 +7,6 @@ const claimRoutes: Routes = [
     {
         path: ':claimId',
         component: ClaimComponent,
-        children: [
-            {
-                path: 'conversation',
-                loadChildren: () => import('./conversation/conversation.module').then((mod) => mod.ConversationModule),
-            },
-            {
-                path: 'documents',
-                loadChildren: () => import('./documents/documents.module').then((mod) => mod.DocumentsModule),
-            },
-        ],
     },
 ];
 

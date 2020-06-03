@@ -1,7 +1,9 @@
 import { ParsedAddressRF, Toponim } from '../../../../../api-codegen/aggr-proxy';
 
 function getAddressPart(toponim: Toponim, isFullName = false): string {
-    return toponim ? `${isFullName ? toponim.topoFullName : toponim.topoShortName} ${toponim.topoValue}` : null;
+    return toponim
+        ? [isFullName ? toponim.topoFullName : toponim.topoShortName, toponim.topoValue].filter((v) => !!v).join(' ')
+        : null;
 }
 
 export function getAddress(address: ParsedAddressRF): string {

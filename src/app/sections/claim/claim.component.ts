@@ -21,15 +21,6 @@ import { UpdateClaimService } from './update-claim';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimComponent implements OnInit {
-    links = [
-        {
-            path: 'conversation',
-        },
-        {
-            path: 'documents',
-        },
-    ];
-
     claimID$ = this.receiveClaimService.claim$.pipe(pluck('id'));
     claimStatus$ = this.receiveClaimService.claim$.pipe(pluck('status'));
     claimStatusColor$ = this.claimStatus$.pipe(map(claimStatusToColor));
