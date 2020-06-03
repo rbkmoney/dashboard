@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { ReceiveWalletsService } from './receive-wallets.service';
 
 @Component({
     templateUrl: 'wallets.component.html',
+    styleUrls: ['wallets.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [ReceiveWalletsService],
 })
 export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.wallets$;
     hasMore$ = this.receiveWalletsService.hasMore$;
-    isLoading$ = this.receiveWalletsService.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    isLoading$ = this.receiveWalletsService.isLoading$;
+    isInit$ = this.receiveWalletsService.isInit$;
 
     constructor(private receiveWalletsService: ReceiveWalletsService) {}
 
@@ -19,6 +21,6 @@ export class WalletsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.receiveWalletsService.search(null);
+        this.receiveWalletsService.search({});
     }
 }
