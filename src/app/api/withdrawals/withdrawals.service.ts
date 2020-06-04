@@ -16,17 +16,13 @@ export class WithdrawalsService {
             params.withdrawalID,
             params.destinationID,
             params.status,
-            toDateLike(params.fromTime),
-            toDateLike(params.toTime),
+            params.fromTime ? toDateLike(params.fromTime) : undefined,
+            params.toTime ? toDateLike(params.toTime) : undefined,
             params.amountFrom,
             params.amountTo,
             params.currencyID,
             continuationToken
         );
-    }
-
-    getWithdrawal() {
-        return this.withdrawalsService.getWithdrawal(genXRequestID(), '38019');
     }
 
     constructor(private withdrawalsService: ApiWithdrawalsService) {}

@@ -11,6 +11,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { DetailsItemModule, ExpandPanelModule, FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
+import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
@@ -48,6 +49,7 @@ import { WithdrawalsComponent } from './withdrawals.component';
         ScrollUpModule,
         InvoiceDetailsModule,
         WalletSectionModule,
+        WithdrawalInfoModule,
     ],
     declarations: [WithdrawalsComponent, SearchFormComponent, WithdrawalListComponent],
 })

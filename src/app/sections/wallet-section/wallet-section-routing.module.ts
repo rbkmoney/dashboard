@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WalletSectionComponent } from './wallet-section.component';
 
-const paymentSectionRoutes: Routes = [
+const walletSectionRoutes: Routes = [
     {
         path: '',
         component: WalletSectionComponent,
@@ -29,7 +29,7 @@ const paymentSectionRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(paymentSectionRoutes)],
+    imports: [RouterModule.forChild(walletSectionRoutes)],
     exports: [RouterModule],
 })
 export class WalletSectionRoutingModule {}

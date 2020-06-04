@@ -1,5 +1,7 @@
 {
     "title": "Выводы",
+    "withdrawal": "Вывод",
+    "walletName": "Название кошелька",
     "filter": {
         "withdrawalStatus": "Статус вывода",
         "walletID": "Идентификатор кошелька",
@@ -9,23 +11,5 @@
         "amountFrom": "Сумма от",
         "amountTo": "Сумма до",
         "currencyID": "Валюта"
-    },
-    "status": {
-        "Succeeded": "Успешен",
-        "Pending": "Запущен",
-        "Failed": "Неуспешен"
-    },
-    "withdrawal": {
-        "withdrawal": "Вывод",
-        "walletName": "Название кошелька",
-        "status": "Статус",
-        "createdAt": "Время запуска вывода",
-        "amount": "Объем средств для вывода",
-        "fee": "Комиссия",
-        "total": "Итого",
-        "error": "Ошибка",
-        "errors": {
-            "failed": "Ошибка вывода средств"
-        }
     }
 }
