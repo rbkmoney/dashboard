@@ -9,6 +9,7 @@
                 *ngIf="chartData?.labels?.length; else noData"
                 [series]="chartData.series"
                 [labels]="chartData.labels"
+                [colors]="colors"
             ></dsh-donut-chart>
             <ng-template #noData>
                 <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>

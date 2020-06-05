@@ -39,7 +39,11 @@ export const DEFAULT_CONFIG: ApexOptions = {
         type: 'category',
         labels: {
             offsetY: -5,
-            hideOverlappingLabels: true,
+            rotate: 0,
+            formatter(value: string): string {
+                const splitted = value.split('#');
+                return splitted[1] === 'hide' ? '' : splitted[0];
+            },
         },
         axisTicks: {
             show: false,

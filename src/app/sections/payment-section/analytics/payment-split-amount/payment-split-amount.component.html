@@ -2,6 +2,7 @@
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
     [spinnerType]="spinnerType"
     [title]="t.paymentsAmount"
+    [colors]="color"
     [chartData]="splitAmount$ | async"
     [isLoading]="isLoading$ | async"
     [error]="error$ | async"

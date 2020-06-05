@@ -16,11 +16,17 @@ const prepareOffsetCounts = (statusOffsetCounts: StatusOffsetCount[]): StatusOff
         }
     );
 
+const indexToVisibility = (index: number, length: number): 'show' | 'hide' =>
+    length > 24 ? (index % 2 ? 'hide' : 'show') : 'show';
+
+const offsetToX = (offset: number, unit: SplitUnit, index: number, length: number): string =>
+    `${moment(offset).format(splitUnitToTimeFormat(unit))}#${indexToVisibility(index, length)}`;
+
 const statusOffsetCountsToSeries = (statusOffsetCounts: StatusOffsetCount[], unit: SplitUnit) => {
     return statusOffsetCounts.map(({ status, offsetCount }) => ({
         name: translate(`analytics.paymentStatuses.${status.toString()}`, null, 'payment-section|scoped'),
-        data: offsetCount.map((c) => ({
-            x: moment(c.offset).format(splitUnitToTimeFormat(unit)),
+        data: offsetCount.map((c, i) => ({
+            x: offsetToX(c.offset, unit, i, offsetCount.length),
             y: c.count,
         })),
     }));
