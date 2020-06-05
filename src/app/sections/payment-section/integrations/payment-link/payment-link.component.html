@@ -3,8 +3,10 @@
         *ngIf="currentStep === step.invoiceTemplate"
         (next)="currentStep = step.paymentLink"
     ></dsh-invoice-template-form>
-    <dsh-payment-link-form
+    <dsh-create-payment-link
         *ngIf="currentStep === step.paymentLink"
+        [template]="template$ | async"
+        backButton
         (back)="currentStep = step.invoiceTemplate"
-    ></dsh-payment-link-form>
+    ></dsh-create-payment-link>
 </dsh-card>

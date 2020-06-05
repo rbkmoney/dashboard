@@ -72,9 +72,14 @@
                 fxLayoutAlign="space-between"
                 *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
             >
-                <button *transloco="let t" dsh-button (click)="back.emit()" [disabled]="isLoading$ | async">
-                    {{ t.back }}
-                </button>
+                <ng-container *transloco="let t">
+                    <button *ngIf="backButton" dsh-button (click)="back.emit()" [disabled]="isLoading$ | async">
+                        {{ t.back }}
+                    </button>
+                    <button *ngIf="cancelButton" dsh-button (click)="cancel.emit()" [disabled]="isLoading$ | async">
+                        {{ t.cancel }}
+                    </button>
+                </ng-container>
 
                 <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
                     <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">

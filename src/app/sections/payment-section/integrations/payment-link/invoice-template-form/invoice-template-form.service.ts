@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { filter, map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { combineLatest, merge, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, pluck, share, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
@@ -24,7 +24,6 @@ import {
     LifetimeInterval,
 } from '../../../../../api-codegen/capi';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { takeWhenChanged } from '../../../../../custom-operators/take-when-changed';
 import { filterShopsByEnv } from '../../../operations/operators';
 import { lifetimeValidator } from './lifetime-validator';
 
@@ -43,11 +42,9 @@ export const withoutVAT = Symbol('without VAT');
 
 @Injectable()
 export class InvoiceTemplateFormService {
-    private nextInvoiceTemplate$ = new ReplaySubject<void>(1);
+    private nextInvoiceTemplate$ = new Subject<InvoiceTemplateCreateParams>();
 
     form = this.createForm();
-
-    private createInvoiceTemplate$ = takeWhenChanged(this.nextInvoiceTemplate$, this.form.valueChanges).pipe(share());
 
     shops$ = this.route.params.pipe(
         pluck('envID'),
@@ -76,21 +73,24 @@ export class InvoiceTemplateFormService {
         private shopService: ShopService,
         private dialog: MatDialog
     ) {
-        const invoiceTemplateAndTokenWithErrors$ = this.createInvoiceTemplate$.pipe(
-            map(() => this.getInvoiceTemplateCreateParams()),
+        const createInvoiceTemplate$ = this.nextInvoiceTemplate$.pipe(
+            distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y)),
+            share()
+        );
+        const invoiceTemplateAndTokenWithErrors$ = createInvoiceTemplate$.pipe(
             switchMap((p) => this.invoiceTemplatesService.createInvoiceTemplate(p).pipe(replaceError)),
             share()
         );
         this.invoiceTemplateAndToken$ = invoiceTemplateAndTokenWithErrors$.pipe(filterPayload, shareReplay(1));
         this.errors$ = invoiceTemplateAndTokenWithErrors$.pipe(filterError, shareReplay(1));
-        this.isLoading$ = progress(this.createInvoiceTemplate$, invoiceTemplateAndTokenWithErrors$).pipe(
-            shareReplay(1)
-        );
+        this.isLoading$ = progress(createInvoiceTemplate$, invoiceTemplateAndTokenWithErrors$).pipe(shareReplay(1));
+
         this.subscribeFormChanges();
+        merge(this.invoiceTemplateAndToken$, this.errors$, this.isLoading$).subscribe();
     }
 
     create() {
-        this.nextInvoiceTemplate$.next();
+        this.nextInvoiceTemplate$.next(this.getInvoiceTemplateCreateParams());
     }
 
     clear() {
