@@ -1,0 +1,15 @@
+{
+    "title": "Выводы",
+    "withdrawal": "Вывод",
+    "walletName": "Название кошелька",
+    "filter": {
+        "withdrawalStatus": "Статус вывода",
+        "walletID": "Идентификатор кошелька",
+        "identityID": "Идентификатор владельца",
+        "withdrawalID": "Идентификатор вывода",
+        "destinationID": "Идентификатор приёмника средств",
+        "amountFrom": "Сумма от",
+        "amountTo": "Сумма до",
+        "currencyID": "Валюта"
+    }
+}

@@ -1,0 +1,52 @@
+<dsh-state-nav fxFlex="180px" *transloco="let t; scope: 'wallet-section'; read: 'walletSection.nav'">
+    <dsh-state-nav-item
+        routerLink="./wallets"
+        routerLinkActive
+        #wallets="routerLinkActive"
+        [selected]="wallets.isActive"
+        withIcon
+        icon="pie_chart"
+    >
+        {{ t.wallets }}
+    </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./deposits"
+        routerLinkActive
+        #deposits="routerLinkActive"
+        [selected]="deposits.isActive"
+        withIcon
+        icon="input"
+    >
+        {{ t.deposits }}
+    </dsh-state-nav-item>
+    <dsh-state-nav-item
+        routerLink="./withdrawals"
+        routerLinkActive
+        #withdrawals="routerLinkActive"
+        [selected]="withdrawals.isActive"
+        withIcon
+        icon="output"
+    >
+        {{ t.withdrawals }}
+    </dsh-state-nav-item>
+    <!--    <dsh-state-nav-item-->
+    <!--        routerLink="./reports"-->
+    <!--        routerLinkActive-->
+    <!--        #reports="routerLinkActive"-->
+    <!--        [selected]="reports.isActive"-->
+    <!--        withIcon-->
+    <!--        icon="description"-->
+    <!--    >-->
+    <!--        {{ t.reports }}-->
+    <!--    </dsh-state-nav-item>-->
+    <!--    <dsh-state-nav-item-->
+    <!--        routerLink="./integrations"-->
+    <!--        routerLinkActive-->
+    <!--        #integrations="routerLinkActive"-->
+    <!--        [selected]="integrations.isActive"-->
+    <!--        withIcon-->
+    <!--        icon="build"-->
+    <!--    >-->
+    <!--        {{ t.integrations }}-->
+    <!--    </dsh-state-nav-item>-->
+</dsh-state-nav>
