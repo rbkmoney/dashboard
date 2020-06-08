@@ -116,6 +116,8 @@
         "confirm": "Подтвердить"
     },
     "errors": {
+        "common": "Что-то пошло не так",
+        "repsonse": "Ошибка при получении данных с сервера",
         "saveConversationsFailed": "Не удалось сохранить комментарий",
         "revokeClaimByIDFailed": "Не удалось отозвать заявку",
         "requestReviewClaimByIDFailed": "Не удалось отправить заявку на рассмотрение",
