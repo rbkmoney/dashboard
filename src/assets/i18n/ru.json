@@ -57,6 +57,16 @@
         "pending": "В процессе",
         "processed": "Готов"
     },
+    "depositStatus": {
+        "Succeeded": "Успешно",
+        "Pending": "Запущено",
+        "Failed": "Неуспешно"
+    },
+    "withdrawalStatus": {
+        "Succeeded": "Успешен",
+        "Pending": "Запущен",
+        "Failed": "Неуспешен"
+    },
     "paymentFlow": {
         "instant": "Мгновенный",
         "hold": "С удержанием"

@@ -16,7 +16,7 @@
     </div>
 </div>
 <div
-    *ngIf="hasWallets"
+    *ngIf="hasWallets$ | async"
     class="parts-container"
     fxLayout
     fxLayout.md="row"
@@ -32,6 +32,6 @@
     <dsh-payments></dsh-payments>
     <dsh-wallets></dsh-wallets>
 </div>
-<div *ngIf="!hasWallets" class="parts-container">
+<div *ngIf="!(hasWallets$ | async)" class="parts-container">
     <dsh-payments fxFlexOffset="80px" fxFlexOffset.xs="0"></dsh-payments>
 </div>
