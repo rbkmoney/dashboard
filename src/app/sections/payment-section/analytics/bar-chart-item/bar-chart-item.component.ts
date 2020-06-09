@@ -14,6 +14,7 @@ export class BarChartItemComponent implements OnChanges {
     @Input() chartData: ChartData;
     @Input() isLoading: boolean;
     @Input() error: Error;
+    @Input() colors?: string[];
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.chartData?.currentValue) {

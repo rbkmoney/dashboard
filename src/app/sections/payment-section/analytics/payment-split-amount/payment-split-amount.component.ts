@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { barChartColor } from '../../../../../styles/chart-colors';
 import { SearchParams } from '../search-params';
 import { PaymentSplitAmountService } from './payment-split-amount.service';
 
@@ -18,6 +19,8 @@ export class PaymentSplitAmountComponent implements OnChanges {
     splitAmount$ = this.statsBarsService.splitAmount$;
     isLoading$ = this.statsBarsService.isLoading$;
     error$ = this.statsBarsService.error$;
+
+    color = barChartColor;
 
     constructor(private statsBarsService: PaymentSplitAmountService) {}
 

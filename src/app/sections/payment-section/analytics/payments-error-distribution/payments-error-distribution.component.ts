@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { donutChartColors } from '../../../../../styles/chart-colors';
 import { SearchParams } from '../search-params';
 import { PaymentsErrorDistributionService } from './payments-error-distribution.service';
 
@@ -18,6 +19,8 @@ export class PaymentsErrorDistributionComponent implements OnChanges {
     errorDistribution$ = this.distributionsService.errorDistribution$;
     isLoading$ = this.distributionsService.isLoading$;
     error$ = this.distributionsService.error$;
+
+    colors = donutChartColors;
 
     constructor(private distributionsService: PaymentsErrorDistributionService) {}
 
