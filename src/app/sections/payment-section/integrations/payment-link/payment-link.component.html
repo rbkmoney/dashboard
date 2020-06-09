@@ -1,12 +1,17 @@
-<dsh-card>
-    <dsh-invoice-template-form
-        *ngIf="currentStep === step.invoiceTemplate"
-        (next)="currentStep = step.paymentLink"
-    ></dsh-invoice-template-form>
-    <dsh-create-payment-link
-        *ngIf="currentStep === step.paymentLink"
-        [template]="template$ | async"
-        backButton
-        (back)="currentStep = step.invoiceTemplate"
-    ></dsh-create-payment-link>
-</dsh-card>
+<div fxLayout="column" fxLayoutGap="20px">
+    <div *transloco="let t; scope: 'payment-link'; read: 'paymentLink'" class="mat-body-1">
+        {{ t.description }}
+    </div>
+    <dsh-card>
+        <dsh-invoice-template-form
+            *ngIf="currentStep === step.invoiceTemplate"
+            (next)="currentStep = step.paymentLink"
+        ></dsh-invoice-template-form>
+        <dsh-create-payment-link
+            *ngIf="currentStep === step.paymentLink"
+            [template]="template$ | async"
+            backButton
+            (back)="currentStep = step.invoiceTemplate"
+        ></dsh-create-payment-link>
+    </dsh-card>
+</div>
