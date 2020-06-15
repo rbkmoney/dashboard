@@ -12,7 +12,7 @@ import { RefundsTableData } from './refunds-table-data';
 export class TableComponent {
     @Input() data: MatTableDataSource<RefundsTableData>;
 
-    displayedColumns: string[] = ['amount', 'status', 'createdAt', 'reason', 'actions'];
+    displayedColumns: string[] = ['amount', 'status', 'createdAt', 'shopName', 'actions'];
 
     constructor(private router: Router) {}
 
