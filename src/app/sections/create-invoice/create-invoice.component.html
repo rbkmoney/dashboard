@@ -76,10 +76,10 @@
         </div>
 
         <div *transloco="let t" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
-            <button *ngIf="backButton" dsh-stroked-button color="accent" (click)="back.emit()">
+            <button *ngIf="backButton" dsh-button (click)="back.emit()">
                 {{ backButton }}
             </button>
-            <button *ngIf="!backButton" dsh-stroked-button color="accent" (click)="clear()">
+            <button *ngIf="!backButton" dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
                 {{ t.clearForm }}
             </button>
             <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">

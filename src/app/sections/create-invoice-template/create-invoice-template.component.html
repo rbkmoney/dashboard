@@ -128,7 +128,7 @@
                 dsh-stroked-button
                 color="accent"
                 (click)="clear()"
-                [disabled]="isLoading$ | async"
+                [disabled]="(isLoading$ | async) || form.pristine"
             >
                 {{ t.clearForm }}
             </button>
