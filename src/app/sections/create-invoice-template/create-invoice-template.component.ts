@@ -1,18 +1,25 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import moment from 'moment';
 
-import { InvoiceLineTaxVAT } from '../../../../../api-codegen/capi';
-import { CostType, InvoiceTemplateFormService, TemplateType, withoutVAT } from './invoice-template-form.service';
+import { InvoiceLineTaxVAT, InvoiceTemplateAndToken, Shop } from '../../api-codegen/capi';
+import { CostType, CreateInvoiceTemplateService, TemplateType, withoutVAT } from './create-invoice-template.service';
 
 @Component({
-    selector: 'dsh-invoice-template-form',
-    templateUrl: 'invoice-template-form.component.html',
+    selector: 'dsh-create-invoice-template',
+    templateUrl: 'create-invoice-template.component.html',
+
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceTemplateFormComponent implements OnInit {
+export class CreateInvoiceTemplateComponent implements OnInit {
     @Output()
-    next = new EventEmitter<void>();
+    next = new EventEmitter<InvoiceTemplateAndToken>();
+
+    @Input()
+    shops: Shop[];
+
+    currentDate = moment().add('1', 'day').startOf('day').toDate();
 
     taxModes = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = withoutVAT;
@@ -24,7 +31,6 @@ export class InvoiceTemplateFormComponent implements OnInit {
     costTypes = Object.entries(CostType);
 
     form = this.invoiceTemplateFormService.form;
-    shops$ = this.invoiceTemplateFormService.shops$;
     summary$ = this.invoiceTemplateFormService.summary$;
     isLoading$ = this.invoiceTemplateFormService.isLoading$;
 
@@ -33,7 +39,7 @@ export class InvoiceTemplateFormComponent implements OnInit {
     }
 
     constructor(
-        private invoiceTemplateFormService: InvoiceTemplateFormService,
+        private invoiceTemplateFormService: CreateInvoiceTemplateService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
@@ -42,11 +48,11 @@ export class InvoiceTemplateFormComponent implements OnInit {
         this.invoiceTemplateFormService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         );
+        this.invoiceTemplateFormService.nextInvoiceTemplateAndToken$.subscribe((template) => this.next.emit(template));
     }
 
     nextStep() {
         this.invoiceTemplateFormService.create();
-        this.next.emit();
     }
 
     clear() {

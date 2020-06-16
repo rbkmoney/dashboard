@@ -5,32 +5,24 @@
             <mat-form-field>
                 <mat-label>{{ c.form.shop }}</mat-label>
                 <mat-select formControlName="shopID" required>
-                    <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                    <mat-option *ngFor="let shop of shops" [value]="shop.id">
                         {{ shop.details.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ c.form.description }}</mat-label>
-                <input formControlName="description" matInput maxlength="1000" />
+                <mat-label>{{ c.form.lifetime }}</mat-label>
+                <input
+                    matInput
+                    formControlName="lifetime"
+                    [matDatepicker]="dateDatepicker"
+                    required
+                    [min]="currentDate"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dateDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #dateDatepicker></mat-datepicker>
             </mat-form-field>
-
-            <h2 class="mat-body-2">{{ c.form.lifetime.title }} *:</h2>
-            <dsh-justify-wrapper fxLayout fxLayoutGap="20px" formGroupName="lifetime">
-                <mat-form-field fxFlex>
-                    <mat-label>{{ c.form.lifetime.days }}</mat-label>
-                    <dsh-format-input format="quantity" formControlName="days"></dsh-format-input>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ c.form.lifetime.months }}</mat-label>
-                    <dsh-format-input format="quantity" formControlName="months"></dsh-format-input>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ c.form.lifetime.years }}</mat-label>
-                    <dsh-format-input format="quantity" formControlName="years"></dsh-format-input>
-                </mat-form-field>
-            </dsh-justify-wrapper>
 
             <label class="mat-subheading-1">{{ c.form.templateType.label }}:</label>
             <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="templateType">

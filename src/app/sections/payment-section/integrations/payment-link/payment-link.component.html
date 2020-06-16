@@ -3,13 +3,14 @@
         {{ t.description }}
     </div>
     <dsh-card>
-        <dsh-invoice-template-form
+        <dsh-create-invoice-or-invoice-template
             *ngIf="currentStep === step.invoiceTemplate"
-            (next)="currentStep = step.paymentLink"
-        ></dsh-invoice-template-form>
+            (next)="nextInvoiceOrInvoiceTemplate($event)"
+        ></dsh-create-invoice-or-invoice-template>
         <dsh-create-payment-link
             *ngIf="currentStep === step.paymentLink"
-            [template]="template$ | async"
+            [invoice]="invoice$ | async"
+            [template]="invoiceTemplate$ | async"
             backButton
             (back)="currentStep = step.invoiceTemplate"
         ></dsh-create-payment-link>
