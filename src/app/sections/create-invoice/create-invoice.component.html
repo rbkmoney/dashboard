@@ -16,10 +16,6 @@
                 <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
                 <mat-datepicker #dueDate></mat-datepicker>
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ d.form.product }}</mat-label>
-                <input matInput formControlName="product" autocomplete="off" />
-            </mat-form-field>
         </div>
 
         <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
