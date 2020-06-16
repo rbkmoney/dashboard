@@ -27,7 +27,7 @@ export class CreateInvoiceComponent {
     buttonType: 'create' | 'next' = 'create';
 
     @Input()
-    backButton: string | boolean = false;
+    backButton: string;
 
     form = this.createInvoiceService.form;
     totalAmount$ = this.createInvoiceService.totalAmount$;

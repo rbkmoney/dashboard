@@ -81,9 +81,9 @@
 
         <div *transloco="let t" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
             <button *ngIf="backButton" dsh-button (click)="back.emit()">
-                {{ t.cancel }}
+                {{ backButton }}
             </button>
-            <button dsh-button (click)="clear()">
+            <button *ngIf="!backButton" dsh-button (click)="clear()">
                 {{ t.clearForm }}
             </button>
             <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">
