@@ -1,7 +1,7 @@
 <ng-container *transloco="let d; scope: 'create-invoice'; read: 'createInvoice'">
     <h1 class="mat-title">{{ d.title }}</h1>
     <div fxLayout="column" fxLayoutGap="20px" [formGroup]="form">
-        <div fxLayout="column">
+        <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
                 <mat-label>{{ d.form.shop }}</mat-label>
                 <mat-select formControlName="shopID" required>
@@ -12,21 +12,21 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ d.form.dueDate }}</mat-label>
-                <input required matInput formControlName="dueDate" [matDatepicker]="dueDate" />
+                <input required matInput formControlName="dueDate" [matDatepicker]="dueDate" [min]="minDate" />
                 <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
                 <mat-datepicker #dueDate></mat-datepicker>
             </mat-form-field>
-        </div>
+        </dsh-justify-wrapper>
 
         <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
 
         <ng-container *ngFor="let removeGroup of cart.controls; index as i" [formGroup]="removeGroup">
-            <div fxLayout="column">
+            <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
                 <mat-form-field>
                     <mat-label>{{ d.removeFormGroup.product }}</mat-label>
                     <input required matInput formControlName="product" autocomplete="off" />
                 </mat-form-field>
-                <div fxLayout fxLayoutGap="20px">
+                <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
                     <mat-form-field fxFlex>
                         <mat-label>{{ d.removeFormGroup.price }}</mat-label>
                         <dsh-format-input
@@ -54,13 +54,13 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
+                </dsh-justify-wrapper>
                 <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
                     <button dsh-stroked-button color="warn" (click)="remove(i)">
                         {{ d.remove }}
                     </button>
                 </div>
-            </div>
+            </dsh-justify-wrapper>
             <mat-divider></mat-divider>
         </ng-container>
 
@@ -76,10 +76,10 @@
         </div>
 
         <div *transloco="let t" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
-            <button *ngIf="backButton" dsh-button (click)="back.emit()">
+            <button *ngIf="backButton" dsh-stroked-button color="accent" (click)="back.emit()">
                 {{ backButton }}
             </button>
-            <button *ngIf="!backButton" dsh-button (click)="clear()">
+            <button *ngIf="!backButton" dsh-stroked-button color="accent" (click)="clear()">
                 {{ t.clearForm }}
             </button>
             <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">

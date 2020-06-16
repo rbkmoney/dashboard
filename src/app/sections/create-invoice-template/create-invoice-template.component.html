@@ -13,13 +13,7 @@
 
             <mat-form-field>
                 <mat-label>{{ c.form.lifetime }}</mat-label>
-                <input
-                    matInput
-                    formControlName="lifetime"
-                    [matDatepicker]="dateDatepicker"
-                    required
-                    [min]="currentDate"
-                />
+                <input matInput formControlName="lifetime" [matDatepicker]="dateDatepicker" required [min]="minDate" />
                 <mat-datepicker-toggle matSuffix [for]="dateDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #dateDatepicker></mat-datepicker>
             </mat-form-field>
@@ -131,7 +125,8 @@
         <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between" *transloco="let t">
             <button
                 *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
-                dsh-button
+                dsh-stroked-button
+                color="accent"
                 (click)="clear()"
                 [disabled]="isLoading$ | async"
             >

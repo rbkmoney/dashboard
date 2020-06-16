@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import * as moment from 'moment';
 
 import { InvoiceLineTaxVAT } from '../../api-codegen/anapi';
 import { Invoice, Shop } from '../../api-codegen/capi';
@@ -33,6 +34,8 @@ export class CreateInvoiceComponent {
     totalAmount$ = this.createInvoiceService.totalAmount$;
     taxVatRates = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = WITHOUT_VAT;
+
+    minDate = moment().add('1', 'day').startOf('day').toDate();
 
     get cart() {
         return this.form.controls.cart as FormArray;
