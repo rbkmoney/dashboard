@@ -128,22 +128,16 @@
             </ng-template>
         </dsh-justify-wrapper>
 
-        <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between">
+        <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between" *transloco="let t">
             <button
                 *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
                 dsh-button
                 (click)="clear()"
                 [disabled]="isLoading$ | async"
             >
-                {{ l.clear }}
+                {{ t.clearForm }}
             </button>
-            <button
-                *transloco="let t"
-                dsh-button
-                color="accent"
-                (click)="nextStep()"
-                [disabled]="form.invalid || (isLoading$ | async)"
-            >
+            <button dsh-button color="accent" (click)="nextStep()" [disabled]="form.invalid || (isLoading$ | async)">
                 {{ t.next }}
             </button>
         </div>

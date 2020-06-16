@@ -1,1 +1,94 @@
-<ng-content></ng-content>
+<ng-container *transloco="let d; scope: 'invoices'; read: 'invoices.createDialog'">
+    <h1 class="mat-title">{{ d.title }}</h1>
+    <div fxLayout="column" fxLayoutGap="20px" [formGroup]="form">
+        <div fxLayout="column">
+            <mat-form-field>
+                <mat-label>{{ d.form.shop }}</mat-label>
+                <mat-select formControlName="shopID" required>
+                    <mat-option *ngFor="let shop of shops" [value]="shop.id">
+                        {{ shop.details.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ d.form.dueDate }}</mat-label>
+                <input required matInput formControlName="dueDate" [matDatepicker]="dueDate" />
+                <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                <mat-datepicker #dueDate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ d.form.product }}</mat-label>
+                <input matInput formControlName="product" autocomplete="off" />
+            </mat-form-field>
+        </div>
+
+        <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
+
+        <ng-container *ngFor="let removeGroup of cart.controls; index as i" [formGroup]="removeGroup">
+            <div fxLayout="column">
+                <mat-form-field>
+                    <mat-label>{{ d.removeFormGroup.product }}</mat-label>
+                    <input required matInput formControlName="product" autocomplete="off" />
+                </mat-form-field>
+                <div fxLayout fxLayoutGap="20px">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ d.removeFormGroup.price }}</mat-label>
+                        <dsh-format-input
+                            required
+                            formControlName="price"
+                            format="amount"
+                            autocomplete="off"
+                        ></dsh-format-input>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
+                        <dsh-format-input
+                            required
+                            formControlName="quantity"
+                            format="quantity"
+                            autocomplete="off"
+                        ></dsh-format-input>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
+                        <mat-select formControlName="taxVatRate" required>
+                            <mat-option [value]="withoutVAT">{{ d.removeFormGroup.withoutVAT }}</mat-option>
+                            <mat-option *ngFor="let taxVatRate of taxVatRates" [value]="taxVatRate">
+                                {{ taxVatRate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
+                    <button dsh-stroked-button color="warn" (click)="remove(i)">
+                        {{ d.remove }}
+                    </button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </ng-container>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+            <div>
+                <h2 class="mat-subheading-1 total-amount">
+                    {{ d.totalAmount }} {{ totalAmount$ | async | currency: form.value.currency }}
+                </h2>
+            </div>
+            <button dsh-stroked-button color="accent" (click)="add()">
+                {{ d.addProduct }}
+            </button>
+        </div>
+
+        <div *transloco="let t" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
+            <button *ngIf="backButton" dsh-button (click)="back.emit()">
+                {{ t.cancel }}
+            </button>
+            <button dsh-button (click)="clear()">
+                {{ t.clearForm }}
+            </button>
+            <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">
+                {{ buttonType === 'create' ? t.create : t.next }}
+            </button>
+        </div>
+    </div>
+</ng-container>
