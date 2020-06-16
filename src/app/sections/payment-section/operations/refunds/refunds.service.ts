@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
@@ -11,6 +11,7 @@ import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
+import { mapToRefundsTableData } from './map-to-refunds-table-data';
 import { RefundsSearchFormValue } from './search-form';
 import { RefundsTableData } from './table';
 
@@ -20,7 +21,11 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
-    refundsTableData$: Observable<RefundsTableData[]> = this.searchResult$.pipe(
+    refundsTableData$: Observable<RefundsTableData[]> = combineLatest([
+        this.searchResult$,
+        this.shopService.shops$,
+    ]).pipe(
+        mapToRefundsTableData,
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];

@@ -29,10 +29,10 @@
             </td>
         </ng-container>
 
-        <ng-container dshColumnDef="reason">
-            <th dshHeaderCell *dshHeaderCellDef>{{ t.reason }}</th>
+        <ng-container dshColumnDef="shopName">
+            <th dshHeaderCell *dshHeaderCellDef>{{ t.shop }}</th>
             <td dshCell *dshCellDef="let refund">
-                <span class="truncate">{{ refund.reason }}</span>
+                <span class="truncate">{{ refund.shopName }}</span>
             </td>
         </ng-container>
 

@@ -7,5 +7,5 @@ export interface RefundsTableData {
     createdAt: string;
     invoiceID: string;
     paymentID: string;
-    reason: string;
+    shopName: string;
 }
