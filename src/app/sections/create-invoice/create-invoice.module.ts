@@ -13,11 +13,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { FormControlsModule, RangeDatepickerModule, ShopSelectorModule } from '@dsh/components/form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { InvoiceModule } from '../../api';
+import { ShopSelectorModule } from '../shop-selector';
 import { CreateInvoiceComponent } from './create-invoice.component';
 import { CreateInvoiceService } from './create-invoice.service';
 
