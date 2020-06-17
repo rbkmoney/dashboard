@@ -80,7 +80,7 @@
         "table": {
             "amount": "Сумма возврата",
             "createdAt": "Создан",
-            "reason": "Причина возврата",
+            "shop": "Магазин",
             "status": "Статус",
             "actions": {
                 "paymentDetails": "Детали платежа",
