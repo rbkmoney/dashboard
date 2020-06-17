@@ -15,7 +15,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
-import { FormControlsModule, RangeDatepickerModule, ShopSelectorModule } from '@dsh/components/form-controls';
+import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
@@ -25,6 +25,7 @@ import { InvoiceModule } from '../../../../api';
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
 import { CreateInvoiceModule } from '../../../create-invoice';
+import { ShopSelectorModule } from '../../../shop-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { InvoicesRoutingModule } from './invoices-routing.module';

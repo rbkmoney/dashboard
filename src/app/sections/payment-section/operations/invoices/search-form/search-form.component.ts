@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { ShopInfo } from '../../operators';
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormService } from './search-form.service';
 
@@ -15,7 +14,6 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent implements OnInit {
     @Input() valueDebounceTime = 300;
     @Input() layoutGap = '20px';
-    @Input() shopInfos: ShopInfo[];
 
     @Output() formValueChanges: EventEmitter<InvoiceSearchFormValue> = new EventEmitter<InvoiceSearchFormValue>();
 
