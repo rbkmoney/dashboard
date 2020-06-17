@@ -8,11 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
 import { debounceTime, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { ShopService } from '../../../app/api/shop';
-import { SHARE_REPLAY_CONF } from '../../../app/custom-operators';
-import { filterShopsByEnv, mapToShopInfo, ShopInfo } from '../../../app/sections/payment-section/operations/operators';
-import { RouteEnv } from '../../../app/sections/route-env';
-import { CustomFormControl } from '../utils';
+import { CustomFormControl } from '@dsh/components/form-controls/utils';
+
+import { ShopService } from '../../api/shop';
+import { SHARE_REPLAY_CONF } from '../../custom-operators';
+import { filterShopsByEnv, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
+import { RouteEnv } from '../route-env';
 import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 
 @Component({
