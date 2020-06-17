@@ -22,10 +22,9 @@ export class InvoicesComponent {
     lastUpdated$ = this.invoicesService.lastUpdated$;
     doAction$ = this.invoicesService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
-
-    shopInfos$ = this.invoicesService.shopInfos$;
-
     spinnerType = SpinnerType.FulfillingBouncingCircle;
+
+    private shopInfos$ = this.invoicesService.shopInfos$;
 
     constructor(
         private invoicesService: InvoicesService,

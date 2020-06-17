@@ -8,7 +8,7 @@
             fxLayoutAlign.lt-md="space-between stretch"
         >
             <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
-            <dsh-shop-selector [shopInfos]="shopsInfo$ | async" formControlName="shopIDs" fxFlex></dsh-shop-selector>
+            <dsh-shop-selector formControlName="shopIDs" fxFlex></dsh-shop-selector>
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">

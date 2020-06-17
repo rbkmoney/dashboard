@@ -30,7 +30,7 @@ export class WalletDetailsService {
     private walletError$ = this.walletOrError$.pipe(filterError);
     private accountError$ = this.accountOrError$.pipe(filterError);
 
-    errors$ = merge(this.walletError$, this.accountError$);
+    errors$ = merge([this.walletError$, this.accountError$]);
 
     requests$ = zip(this.wallet$, this.walletAccount$);
 

@@ -20,7 +20,6 @@ export class RefundsComponent {
     lastUpdated$ = this.refundsService.lastUpdated$;
     doAction$ = this.refundsService.doAction$;
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
-    shopInfos$ = this.refundsService.shopInfos$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
