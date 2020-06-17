@@ -12,7 +12,7 @@ import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
-import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
+import { filterShopsByEnv, mapToTimestamp } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
 import { InvoicesTableData } from './table';
@@ -39,8 +39,6 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
-
-    shopInfos$: Observable<ShopInfo[]> = this.shops$.pipe(mapToShopInfo, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
         private route: ActivatedRoute,
