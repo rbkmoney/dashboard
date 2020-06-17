@@ -9,7 +9,6 @@
 @import '../../components/table/table-theme';
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
-@import '../../app/sections/shop-selector/shop-selector-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
@@ -28,10 +27,11 @@
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
-@import '../../app/sections/main/main-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
-@import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/dadata/dadata-theme';
+@import '../../app/sections/main/main-theme';
+@import '../../app/sections/payment-details/payment-details-theme';
+@import '../../app/sections/shop-selector/shop-selector-theme';
 @import '../../app/sections/invoice-details/cart/cart-theme';
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
