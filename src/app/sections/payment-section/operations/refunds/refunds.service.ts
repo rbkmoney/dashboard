@@ -3,15 +3,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
-import { mapToRefundsTableData } from './map-to-refunds-table-data';
 import { mapToTimestamp } from '../operators';
+import { mapToRefundsTableData } from './map-to-refunds-table-data';
 import { RefundsSearchFormValue } from './search-form';
 import { RefundsTableData } from './table';
 
