@@ -73,7 +73,13 @@
                 *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
             >
                 <ng-container *transloco="let t">
-                    <button *ngIf="backButton" dsh-button (click)="back.emit()" [disabled]="isLoading$ | async">
+                    <button
+                        *ngIf="backButton"
+                        dsh-stroked-button
+                        color="accent"
+                        (click)="back.emit()"
+                        [disabled]="isLoading$ | async"
+                    >
                         {{ t.back }}
                     </button>
                     <button *ngIf="cancelButton" dsh-button (click)="cancel.emit()" [disabled]="isLoading$ | async">

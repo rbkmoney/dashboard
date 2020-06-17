@@ -13,11 +13,11 @@
         "applePay": "Apple Pay",
         "googlePay": "Google Pay",
         "samsungPay": "Samsung Pay",
-        "paymentFlowHold": "Платеж производить с удержанием денежных средств",
-        "paymentFlowHoldPolicy": "Политика, которая будет применена по истечении срока удержания",
+        "paymentFlowHold": "Предварительно заблокировать сумму платежа у покупателя",
+        "paymentFlowHoldPolicy": "По истечении срока удержания (72 часа)",
         "holdExpiration": {
-            "cancel": "В пользу плательщика",
-            "capture": "В пользу мерчанта"
+            "cancel": "Вернуть покупателю",
+            "capture": "Списать с покупателя"
         },
         "create": "Сформировать ссылку на оплату",
         "copy": "Скопировать",
