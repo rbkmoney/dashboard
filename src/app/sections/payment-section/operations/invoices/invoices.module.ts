@@ -24,6 +24,7 @@ import { TableModule } from '@dsh/components/table';
 import { InvoiceModule } from '../../../../api';
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
+import { CreateInvoiceModule } from '../../../create-invoice';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { InvoicesRoutingModule } from './invoices-routing.module';
@@ -61,6 +62,7 @@ import { TableComponent } from './table';
         MatDatepickerModule,
         MatDividerModule,
         ShopSelectorModule,
+        CreateInvoiceModule,
     ],
     declarations: [
         InvoicesComponent,

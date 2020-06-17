@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
-import { InvoiceTemplateFormService } from './invoice-template-form';
+import { Invoice, InvoiceTemplateAndToken } from '../../../../api-codegen/capi';
+import {
+    CreateInvoiceOrInvoiceTemplateService,
+    InvoiceOrInvoiceTemplate,
+    Type,
+} from './create-invoice-or-invoice-template';
 
 enum Step {
     invoiceTemplate,
@@ -11,12 +17,21 @@ enum Step {
     selector: 'dsh-payment-link',
     templateUrl: 'payment-link.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [InvoiceTemplateFormService],
+    providers: [CreateInvoiceOrInvoiceTemplateService],
 })
 export class PaymentLinkComponent {
     step = Step;
     currentStep = Step.invoiceTemplate;
-    template$ = this.invoiceTemplateFormService.invoiceTemplateAndToken$;
 
-    constructor(private invoiceTemplateFormService: InvoiceTemplateFormService) {}
+    invoiceTemplate$ = new ReplaySubject<InvoiceTemplateAndToken>(1);
+    invoice$ = new ReplaySubject<Invoice>(1);
+
+    nextInvoiceOrInvoiceTemplate({ type, invoiceOrInvoiceTemplate }: InvoiceOrInvoiceTemplate) {
+        if (type === Type.invoice) {
+            this.invoice$.next(invoiceOrInvoiceTemplate as Invoice);
+        } else {
+            this.invoiceTemplate$.next(invoiceOrInvoiceTemplate as InvoiceTemplateAndToken);
+        }
+        this.currentStep = Step.paymentLink;
+    }
 }
