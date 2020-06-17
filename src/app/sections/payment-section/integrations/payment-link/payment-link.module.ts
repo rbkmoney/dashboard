@@ -15,9 +15,10 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { InvoiceTemplatesModule, UrlShortenerModule } from '../../../../api';
+import { CreateInvoiceModule } from '../../../create-invoice';
+import { CreateInvoiceTemplateModule } from '../../../create-invoice-template';
 import { CreatePaymentLinkModule } from '../../../create-payment-link';
-import { InvoiceTemplateFormComponent } from './invoice-template-form';
+import { CreateInvoiceOrInvoiceTemplateComponent } from './create-invoice-or-invoice-template';
 import { PaymentLinkRoutingModule } from './payment-link-routing.module';
 import { PaymentLinkComponent } from './payment-link.component';
 
@@ -38,13 +39,13 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         MatSelectModule,
         MatCheckboxModule,
         MatDividerModule,
-        UrlShortenerModule,
-        InvoiceTemplatesModule,
         ConfirmActionDialogModule,
         MatDialogModule,
         CreatePaymentLinkModule,
+        CreateInvoiceTemplateModule,
+        CreateInvoiceModule,
     ],
-    declarations: [...EXPORTED_DECLARATIONS, InvoiceTemplateFormComponent],
+    declarations: [...EXPORTED_DECLARATIONS, CreateInvoiceOrInvoiceTemplateComponent],
     exports: EXPORTED_DECLARATIONS,
 })
 export class PaymentLinkModule {}

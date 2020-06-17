@@ -53,7 +53,7 @@ export class InvoicesComponent {
             maxHeight: '90vh',
             disableClose: true,
             data: {
-                shopsInfo$: this.shopInfos$,
+                shops$: this.shopInfos$,
             },
         });
     }

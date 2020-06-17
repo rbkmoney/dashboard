@@ -1,4 +1,4 @@
-<ng-container *transloco="let c; scope: 'payment-link'; read: 'paymentLink.paymentLinkForm'">
+<ng-container *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'">
     <h1 class="mat-title">{{ c.title }}</h1>
     <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
@@ -73,24 +73,30 @@
                 *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
             >
                 <ng-container *transloco="let t">
-                    <button *ngIf="backButton" dsh-button (click)="back.emit()" [disabled]="isLoading$ | async">
+                    <button
+                        *ngIf="backButton"
+                        dsh-stroked-button
+                        color="accent"
+                        (click)="back.emit()"
+                        [disabled]="isLoading$ | async"
+                    >
                         {{ t.back }}
                     </button>
                     <button *ngIf="cancelButton" dsh-button (click)="cancel.emit()" [disabled]="isLoading$ | async">
                         {{ t.cancel }}
                     </button>
-                </ng-container>
 
-                <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
-                    <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
-                        {{ c.form.create }}
-                    </button>
+                    <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
+                        <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
+                            {{ c.form.create }}
+                        </button>
+                    </ng-container>
+                    <ng-template #clearButton>
+                        <button dsh-button (click)="clear()" [disabled]="isLoading$ | async">
+                            {{ t.clearForm }}
+                        </button>
+                    </ng-template>
                 </ng-container>
-                <ng-template #clearButton>
-                    <button dsh-button (click)="clear()" [disabled]="isLoading$ | async">
-                        {{ l.clear }}
-                    </button>
-                </ng-template>
             </div>
         </dsh-justify-wrapper>
     </form>
