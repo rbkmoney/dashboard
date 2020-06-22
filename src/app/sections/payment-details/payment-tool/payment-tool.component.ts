@@ -1,12 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { PaymentToolDetails } from '../../../api-codegen/capi/swagger-codegen';
-
-enum PaymentToolDetailsType {
-    BankCard = 'PaymentToolDetailsBankCard',
-    Wallet = 'PaymentToolDetailsDigitalWallet',
-    Terminal = 'PaymentToolDetailsPaymentTerminal',
-}
+import { PaymentToolDetailsType } from '../../../api';
+import { PaymentToolDetails } from '../../../api-codegen/capi';
 
 @Component({
     selector: 'dsh-payment-tool',
