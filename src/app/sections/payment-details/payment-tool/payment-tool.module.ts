@@ -10,6 +10,7 @@ import { CardModule, DetailsItemModule } from '@dsh/components/layout';
 import { UtilsModule } from '../utils';
 import { BankCardComponent } from './bank-card';
 import { DigitalWalletComponent } from './digital-wallet';
+import { MobileCommerceComponent } from './mobile-commerce';
 import { PaymentTerminalComponent } from './payment-terminal';
 import { PaymentToolComponent } from './payment-tool.component';
 
@@ -24,7 +25,13 @@ import { PaymentToolComponent } from './payment-tool.component';
         MatIconModule,
         UtilsModule,
     ],
-    declarations: [PaymentToolComponent, BankCardComponent, DigitalWalletComponent, PaymentTerminalComponent],
+    declarations: [
+        PaymentToolComponent,
+        BankCardComponent,
+        DigitalWalletComponent,
+        PaymentTerminalComponent,
+        MobileCommerceComponent,
+    ],
     exports: [PaymentToolComponent],
 })
 export class PaymentToolModule {}

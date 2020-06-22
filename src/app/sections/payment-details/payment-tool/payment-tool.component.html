@@ -4,18 +4,13 @@
             {{ t?.title }}
         </h2>
     </dsh-card-title>
-    <dsh-card-content>
-        <dsh-bank-card
-            *ngIf="paymentToolDetails.detailsType === Type.BankCard"
-            [bankCard]="paymentToolDetails"
-        ></dsh-bank-card>
-        <dsh-digital-wallet
-            *ngIf="paymentToolDetails.detailsType === Type.Wallet"
-            [digitalWallet]="paymentToolDetails"
-        ></dsh-digital-wallet>
+    <dsh-card-content [ngSwitch]="paymentToolDetails.detailsType">
+        <dsh-bank-card *ngSwitchCase="Type.BankCard" [bankCard]="paymentToolDetails"></dsh-bank-card>
+        <dsh-digital-wallet *ngSwitchCase="Type.Wallet" [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
         <dsh-payment-terminal
-            *ngIf="paymentToolDetails.detailsType === Type.Terminal"
+            *ngSwitchCase="Type.Terminal"
             [paymentTerminal]="paymentToolDetails"
         ></dsh-payment-terminal>
+        <dsh-mobile-commerce *ngSwitchCase="Type.MobileCommerce" [details]="paymentToolDetails"></dsh-mobile-commerce>
     </dsh-card-content>
 </dsh-card>
