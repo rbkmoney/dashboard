@@ -11,10 +11,10 @@ import { BrandType } from './brand';
     styleUrls: ['container.component.scss'],
 })
 export class ContainerComponent {
-    routerNavigationEnd: Observable<boolean>;
+    routerNavigationEnd$: Observable<boolean>;
 
     constructor(private router: Router) {
-        this.routerNavigationEnd = router.events.pipe(
+        this.routerNavigationEnd$ = router.events.pipe(
             filter((e) => e instanceof NavigationEnd),
             map(() => true)
         );

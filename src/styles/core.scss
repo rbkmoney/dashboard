@@ -44,6 +44,7 @@
 
 @mixin dsh-typography($config) {
     @include mat-core($config);
+    @include dsh-base-typography($config);
     @include dsh-button-typography($config);
     @include dsh-state-nav-typography($config);
     @include dsh-tabs-typography($config);

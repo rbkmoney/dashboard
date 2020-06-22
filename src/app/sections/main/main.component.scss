@@ -1,31 +1,5 @@
-$dsh-header-container-padding: 60px 0 0 80px;
-$dsh-header-container-padding-xs: 30px 0 0 0;
-
-$dsh-parts-container-padding: 120px 0 0 0;
-$dsh-parts-container-padding-xs: 40px 0 0 0;
+$dsh-header-container-padding: 80px 0;
 
 .header-container {
     padding: $dsh-header-container-padding;
-
-    .title {
-        margin-bottom: 0;
-    }
-
-    .link {
-        text-decoration: none;
-    }
-}
-
-.parts-container {
-    padding: $dsh-parts-container-padding;
-}
-
-@media only screen and (max-width: 600px) {
-    .header-container {
-        padding: $dsh-header-container-padding-xs;
-    }
-
-    .parts-container {
-        padding: $dsh-parts-container-padding-xs;
-    }
 }

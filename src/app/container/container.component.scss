@@ -1,8 +1,8 @@
-$container-padding: 20px 10px 10px 10px;
-$container-max-width: 1200px;
+$dsh-container-padding: 16px;
+$dsh-container-max-width: 1128px;
 
 .container {
-    padding: $container-padding;
-    max-width: $container-max-width;
+    padding: $dsh-container-padding;
+    max-width: $dsh-container-max-width;
     margin: 0 auto;
 }
