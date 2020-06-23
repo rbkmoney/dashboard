@@ -35,7 +35,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
 export const mapToActionBtnContent = (claim: Observable<Claim>) => (
     s: Observable<boolean>
 ): Observable<ActionBtnContent> => {
-    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${RouteEnv.real}/operations`));
+    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${RouteEnv.real}/analytics`));
     const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
     return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
 };

@@ -8,6 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { MainComponent } from './main.component';
 import { PaymentsComponent, WalletsComponent } from './parts';
@@ -22,6 +23,7 @@ import { PaymentsComponent, WalletsComponent } from './parts';
         SpinnerModule,
         MatSnackBarModule,
         TranslocoModule,
+        LayoutModule,
     ],
     declarations: [MainComponent, PaymentsComponent, WalletsComponent],
 })

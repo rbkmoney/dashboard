@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
@@ -9,6 +9,7 @@ import { PaymentsService } from './payments.service';
     templateUrl: 'payments.component.html',
     styleUrls: ['payments.component.scss'],
     providers: [PaymentsService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;

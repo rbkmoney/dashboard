@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 'dsh-welcome-image',
     templateUrl: 'welcome-image.component.html',
     styleUrls: ['welcome-image.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeImageComponent {
     endpoint = `assets/background/${this.getFileName()}`;
