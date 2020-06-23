@@ -3,8 +3,10 @@
 @mixin dsh-main-section-theme($theme) {
     $foreground: map-get($theme, foreground);
 
-    .header-container h1,
-    a {
-        color: map-get($foreground, contrast-text);
+    .dsh-header-container {
+        h1,
+        a {
+            color: map-get($foreground, contrast-text);
+        }
     }
 }

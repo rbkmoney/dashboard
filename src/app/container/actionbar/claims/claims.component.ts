@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ClaimsService } from './claims.service';
@@ -8,6 +8,7 @@ import { ClaimsService } from './claims.service';
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
     providers: [ClaimsService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsComponent {
     @Output() menuItemSelected = new EventEmitter();

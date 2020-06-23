@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 
 import { DropdownTriggerDirective } from '@dsh/components/layout';
 
@@ -7,6 +7,7 @@ import { ThemeManager, ThemeName } from '../../theme-manager';
 @Component({
     selector: 'dsh-actionbar',
     templateUrl: './actionbar.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
