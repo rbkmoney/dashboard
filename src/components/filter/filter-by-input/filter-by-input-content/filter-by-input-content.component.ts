@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
 export interface Item {
     label?: string;
@@ -24,12 +24,12 @@ export interface DisplayedItem {
 }
 
 @Component({
-    selector: 'dsh-filter-by-input',
-    templateUrl: 'filter-by-input.component.html',
-    styleUrls: ['filter-by-input.component.scss'],
+    selector: 'dsh-filter-by-input-content',
+    templateUrl: 'filter-by-input-content.component.html',
+    styleUrls: ['filter-by-input-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterByInputComponent implements OnInit, OnChanges {
+export class FilterByInputContentComponent implements OnInit, OnChanges {
     @Input() label: string;
     @Input() items: Item[] = [];
     @Output() selectedChange = new EventEmitter<Item[]>();

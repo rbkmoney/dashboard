@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@mixin dsh-filter-button-theme($theme) {
+@mixin dsh-filter-theme($theme) {
     $foreground: map-get($theme, foreground);
     $primary: map-get($theme, primary);
 

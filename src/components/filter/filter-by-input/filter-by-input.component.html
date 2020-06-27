@@ -1,0 +1,25 @@
+<dsh-filter
+    [title]="
+        ((displayedItems$ | async).length === 0
+            ? label
+            : (displayedItems$ | async).length > 3
+            ? selectedLabel
+            : (displayedItemsStr$ | async)) +
+        ((displayedItems$ | async).length > 3 ? ' · ' + (displayedItems$ | async).length : '')
+    "
+    (closed)="content.revert()"
+    #filter
+>
+    <dsh-filter-button-content>
+        <dsh-filter-by-input-content
+            [label]="label"
+            [items]="items"
+            (selectedChange)="selectedItemsChange($event)"
+            #content
+        ></dsh-filter-by-input-content>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions
+        (clear)="content.clear()"
+        (save)="content.save(); filter.close()"
+    ></dsh-filter-button-actions>
+</dsh-filter>

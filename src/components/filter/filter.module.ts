@@ -7,18 +7,21 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { DropdownModule } from '../../layout/dropdown';
-import { JustifyWrapperModule } from '../../layout/justify-wrapper';
-import { ButtonModule } from '../button';
+import { ButtonModule } from '../buttons/button';
+import { DropdownModule } from '../layout/dropdown';
+import { JustifyWrapperModule } from '../layout/justify-wrapper';
+import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
-import { FilterButtonComponent } from './filter-button.component';
-import { FilterByInputComponent } from './filter-by-input';
+import { FilterByInputComponent, FilterByInputContentComponent } from './filter-by-input';
+import { FilterComponent } from './filter.component';
 
 const EXPORTED_DECLARATIONS = [
+    FilterComponent,
     FilterButtonComponent,
     FilterButtonActionsComponent,
     FilterButtonContentComponent,
+    FilterByInputContentComponent,
     FilterByInputComponent,
 ];
 
@@ -37,6 +40,5 @@ const EXPORTED_DECLARATIONS = [
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
-    providers: [],
 })
-export class FilterButtonModule {}
+export class FilterModule {}
