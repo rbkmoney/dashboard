@@ -24,6 +24,7 @@
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
+@import '../../components/buttons/filter-button/filter-button-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -80,5 +81,6 @@
         @include dsh-webhooks-panels-list-theme($theme);
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
+        @include dsh-filter-button-theme($theme);
     }
 }

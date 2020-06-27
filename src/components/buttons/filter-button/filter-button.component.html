@@ -1,0 +1,13 @@
+<button
+    class="dsh-filter-button dsh-body-1"
+    [ngClass]="{ 'dsh-filter-button-active': active }"
+    [dshDropdownTriggerFor]="dropdown"
+>
+    {{ title }}{{ count ? ' · ' + count : '' }}
+</button>
+
+<dsh-dropdown #dropdown="dshDropdown" hasArrow="false" position="left" offset="16px 0 0" (closed)="closed.emit()">
+    <ng-template>
+        <ng-content></ng-content>
+    </ng-template>
+</dsh-dropdown>

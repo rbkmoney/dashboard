@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+    <dsh-justify-wrapper fxLayout="column" fxLayoutGap="28px">
+        <mat-form-field fxFlex>
+            <mat-label>{{ label }}</mat-label>
+            <input matInput formControlName="search" />
+        </mat-form-field>
+        <div
+            class="items"
+            [ngClass]="{ 'items-overflow': hasOverflowY$ | async }"
+            *ngIf="itemsForm.enabled"
+            fxLayout="column"
+            fxLayoutGap="14px"
+        >
+            <ng-container *ngFor="let control of itemsForm.controls; let i = index">
+                <mat-checkbox *ngIf="control.enabled" [formControl]="control">
+                    {{ items[i].label || items[i].value }}
+                </mat-checkbox>
+            </ng-container>
+        </div>
+    </dsh-justify-wrapper>
+</form>

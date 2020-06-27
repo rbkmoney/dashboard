@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, shareReplay } from 'rxjs/operators';
 
+import { Shop } from '../../../../../api-codegen/capi';
 import {
     bankCardPaymentSystems as bankCardPaymentSystemsConsts,
     paymentFlows as paymentFlowsConsts,
@@ -49,5 +50,9 @@ export class SearchFormComponent implements OnInit {
 
     reset() {
         this.searchFormService.reset();
+    }
+
+    changeShops(_shops: Shop[]) {
+        // this.formValueChanges.next({ ...this.formValueChanges.value, shopIDs: shops.map(({ id }) => id) });
     }
 }

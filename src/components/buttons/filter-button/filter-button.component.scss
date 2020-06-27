@@ -1,0 +1,23 @@
+.dsh-filter-button {
+    border: 1px solid;
+    border-radius: 32px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    max-width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &-content,
+    &-actions {
+        padding: 24px;
+    }
+
+    &-active {
+        border-width: 2px;
+    }
+}

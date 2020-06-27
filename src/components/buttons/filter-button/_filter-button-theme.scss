@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-filter-button-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $primary: map-get($theme, primary);
+
+    .dsh-filter-button {
+        border-color: mat-color($foreground, divider, 0.12);
+
+        &-active {
+            border-color: mat-color($primary, 400);
+            color: mat-color($primary, 400);
+        }
+    }
+}

@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    width: 312px;
+
+    .items {
+        &-overflow {
+            overflow-y: auto;
+            max-height: 195.5px;
+        }
+    }
+}

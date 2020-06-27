@@ -20,6 +20,7 @@ import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
+import { FilterShopsModule } from '../../../filter-shops';
 import { ShopSelectorModule } from '../../../shop-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { PaymentsRoutingModule } from './payments-routing.module';
@@ -53,6 +54,7 @@ import { TableComponent } from './table';
         RangeDatepickerModule,
         EmptySearchResultModule,
         ShopSelectorModule,
+        FilterShopsModule,
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],

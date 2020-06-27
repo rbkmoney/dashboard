@@ -1,0 +1,26 @@
+<dsh-filter-button
+    *transloco="let t; scope: 'filter-shops'; read: 'filterShops'"
+    [title]="
+        (displayedShops$ | async).length === 0
+            ? t.label
+            : (displayedShops$ | async).length > 3
+            ? t.selectedLabel
+            : (displayedShopsStr$ | async)
+    "
+    [count]="(displayedShops$ | async).length > 3 ? (displayedShops$ | async).length : null"
+    (closed)="filterByInput.revert()"
+    #filterButton
+>
+    <dsh-filter-button-content>
+        <dsh-filter-by-input
+            [label]="t.label"
+            [items]="shops$ | async"
+            (selectedChange)="selectedShopsChange($event)"
+            #filterByInput
+        ></dsh-filter-by-input>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions
+        (clear)="filterByInput.clear()"
+        (save)="filterByInput.save(); filterButton.close()"
+    ></dsh-filter-button-actions>
+</dsh-filter-button>
