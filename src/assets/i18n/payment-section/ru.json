@@ -41,6 +41,29 @@
             "cancelled": "Отменен",
             "refunded": "Возвращен",
             "failed": "Неуспешен"
+        },
+        "errorCodes": {
+            "operation_timeout": "Превышено время ожидания",
+            "authorization_failed": "Ошибка авторизации",
+            "preauthorization_failed": "Ошибка предавторизации",
+            "no_route_found": "Маршрут не найден",
+            "insufficient_funds": "Недостаточно средств",
+            "rejected_by_issuer": "Отклонено эмитентом",
+            "risk_score_is_too_high": "Операция с высоким риском",
+            "payment_tool_rejected": "Платежный инструмент отклонен",
+            "security_policy_violated": "Нарушение политики безопасности",
+            "three_ds_not_finished": "Не завершена проверка 3DS",
+            "operation_blocked": "Операция заблокирована",
+            "account_limit_exceeded": "Превышен лимит счёта",
+            "three_ds_failed": "Ошибка 3DS",
+            "processing_deadline_reached": "Время проведения платежа истекло",
+            "account_not_found": "Счёт не найден",
+            "bank_card_rejected": "Банковская карта отклонена",
+            "amount": "Лимит суммы превышен",
+            "number": "Лимит количества операций превышен",
+            "card_number_invalid": "Неверный номер карты",
+            "card_expired": "Срок действия карты истёк",
+            "other": "Прочее"
         }
     },
     "integrations": {

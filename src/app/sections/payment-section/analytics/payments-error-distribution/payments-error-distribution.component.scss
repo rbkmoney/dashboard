@@ -1,0 +1,7 @@
+.errors-chart ::ng-deep {
+    .apexcharts-legend-series,
+    .apexcharts-legend-marker,
+    .apexcharts-pie-series {
+        cursor: pointer !important;
+    }
+}

@@ -4,16 +4,23 @@
         <dsh-spinner *ngIf="isLoading" size="30" [type]="spinnerType"></dsh-spinner>
     </dsh-card-title>
     <dsh-card-content *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'" fxFlexFill>
-        <div fxFlexFill *ngIf="!error; else onError">
-            <dsh-donut-chart
-                *ngIf="chartData?.labels?.length; else noData"
-                [series]="chartData.series"
-                [labels]="chartData.labels"
-                [colors]="colors"
-            ></dsh-donut-chart>
-            <ng-template #noData>
-                <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>
-            </ng-template>
+        <div fxFlexFill fxFlex *ngIf="!error; else onError">
+            <div fxFlexFill>
+                <div *ngIf="selectedErrorTitle" fxLayout fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <mat-icon class="back-selection-icon" (click)="goBackDataSelection()" inline>arrow_back</mat-icon>
+                    <div class="mat-caption">{{ selectedErrorTitle }}</div>
+                </div>
+                <dsh-donut-chart
+                    *ngIf="chartData?.series?.length; else noData"
+                    [series]="chartData.series"
+                    [labels]="chartData.labels"
+                    [colors]="colors"
+                    (dataSelect)="updateDataSelection($event)"
+                ></dsh-donut-chart>
+                <ng-template #noData>
+                    <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>
+                </ng-template>
+            </div>
         </div>
         <ng-template #onError>
             <div fxFlexFill fxLayoutAlign="center center">{{ c.httpError }}</div>
