@@ -12,6 +12,7 @@ import { DropdownComponent } from '../layout/dropdown';
 export class FilterComponent {
     @Input() title: string;
     @Input() @coerceBoolean active = false;
+    @Input() @coerceBoolean disabled = false;
 
     @Output() closed = new EventEmitter<void>();
 

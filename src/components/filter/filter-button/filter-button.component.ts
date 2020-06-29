@@ -10,4 +10,5 @@ import { coerceBoolean } from '../../../utils';
 })
 export class FilterButtonComponent {
     @Input() @coerceBoolean active = false;
+    @Input() @coerceBoolean disabled = false;
 }

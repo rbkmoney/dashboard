@@ -4,7 +4,6 @@
     height: 32px;
     padding: 0 16px;
     background-color: transparent;
-    cursor: pointer;
     outline: none;
     max-width: 250px;
     white-space: nowrap;
@@ -21,7 +20,11 @@
         border-width: 2px;
     }
 
-    &:disabled {
-        pointer-events: none;
+    &:enabled {
+        cursor: pointer;
     }
+}
+
+:host:disabled {
+    pointer-events: none;
 }

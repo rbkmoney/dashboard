@@ -1,4 +1,6 @@
-<dsh-filter-button [active]="active" [dshDropdownTriggerFor]="dropdown">{{ title }}</dsh-filter-button>
+<dsh-filter-button [disabled]="disabled" [active]="active" [dshDropdownTriggerFor]="dropdown">
+    {{ title }}
+</dsh-filter-button>
 
 <dsh-dropdown #dropdown="dshDropdown" hasArrow="false" position="left" offset="16px 0 0" (closed)="closed.emit()">
     <ng-template>
