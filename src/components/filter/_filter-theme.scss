@@ -7,9 +7,17 @@
     .dsh-filter-button {
         border-color: mat-color($foreground, divider, 0.12);
 
+        &:hover,
         &-active {
             border-color: mat-color($primary, 400);
+        }
+
+        &-active {
             color: mat-color($primary, 400);
+        }
+
+        &:disabled {
+            color: mat-color($foreground, disabled-text, 0.38);
         }
     }
 }

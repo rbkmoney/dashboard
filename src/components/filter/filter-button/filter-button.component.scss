@@ -10,6 +10,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: border-color 200ms ease, color 200ms ease;
 
     &-content,
     &-actions {
@@ -18,5 +19,9 @@
 
     &-active {
         border-width: 2px;
+    }
+
+    &:disabled {
+        pointer-events: none;
     }
 }
