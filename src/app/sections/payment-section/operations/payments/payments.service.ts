@@ -3,15 +3,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
-import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
+import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
 import { PaymentSearchFormValue } from './search-form';
 import { PaymentsTableData } from './table';
@@ -31,13 +30,6 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
-    );
-
-    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo,
-        shareReplay(SHARE_REPLAY_CONF)
     );
 
     constructor(

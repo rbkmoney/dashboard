@@ -1,52 +1,42 @@
-<div *transloco="let t; scope: 'main'; read: 'main.payments'" class="dsh-main-parts-surface">
-    <div fxLayout="column" fxLayoutAlign="space-between stretch">
-        <div fxLayout fxLayoutGap="30px">
-            <mat-icon
-                fxHide.md="true"
-                fxHide.sm="true"
-                fxHide.xs="true"
-                fxFlex="180px"
-                class="bill-icon"
-                svgIcon="bill"
-            ></mat-icon>
-            <div>
-                <div fxLayout fxLayoutAlign="space-between">
-                    <h2 class="mat-title">{{ t.title }}</h2>
-                    <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="30"></dsh-spinner>
-                </div>
-                <h4 class="mat-subheading-1 subheading">
-                    {{ t.subheading[subheading$ | async] }}
-                </h4>
+<dsh-card
+    *transloco="let t; scope: 'main'; read: 'main.payments'"
+    class="dsh-main-parts-surface"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <div fxLayout fxLayoutGap="32px">
+        <mat-icon fxHide.xs="true" fxFlex="180px" class="bill-icon" svgIcon="bill"></mat-icon>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <div fxLayout fxLayoutAlign="space-between">
+                <h2 class="dsh-headline">{{ t.title }}</h2>
+                <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="32"></dsh-spinner>
             </div>
-        </div>
-        <div
-            fxLayout
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between stretch"
-            fxLayoutGap="20px"
-            fxLayoutGap.xs="10px"
-        >
-            <button
-                fxFlex="50"
-                fxFlex.xs="none"
-                dsh-button
-                color="accent"
-                [disabled]="(actionBtnContent$ | async).disabled"
-                [routerLink]="(actionBtnContent$ | async).routerLink"
-            >
-                {{ t.action[(actionBtnContent$ | async).actionLabel] }}
-            </button>
-            <div fxFlex="50" fxFlex.xs="none">
-                <button
-                    fxFlex="100"
-                    dsh-stroked-button
-                    color="accent"
-                    [disabled]="(testEnvBtnContent$ | async).disabled"
-                    [routerLink]="(testEnvBtnContent$ | async).routerLink"
-                >
-                    {{ t.testEnvironment }}
-                </button>
-            </div>
+            <h4 class="dsh-subheading-1 subheading">
+                {{ t.subheading[subheading$ | async] }}
+            </h4>
         </div>
     </div>
-</div>
+    <div fxLayout fxLayout.xs="column" fxLayoutGap="32px">
+        <button
+            fxFlex="50"
+            fxFlex.xs="none"
+            dsh-button
+            color="accent"
+            [disabled]="(actionBtnContent$ | async).disabled"
+            [routerLink]="(actionBtnContent$ | async).routerLink"
+        >
+            {{ t.action[(actionBtnContent$ | async).actionLabel] }}
+        </button>
+        <div fxFlex="50" fxFlex.xs="none">
+            <button
+                fxFlex="100"
+                dsh-stroked-button
+                color="accent"
+                [disabled]="(testEnvBtnContent$ | async).disabled"
+                [routerLink]="(testEnvBtnContent$ | async).routerLink"
+            >
+                {{ t.testEnvironment }}
+            </button>
+        </div>
+    </div>
+</dsh-card>

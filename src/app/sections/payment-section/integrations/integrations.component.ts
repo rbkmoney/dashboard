@@ -9,22 +9,22 @@ import { filter } from 'rxjs/operators';
 export class IntegrationsComponent {
     links = [
         {
-            path: 'webhooks',
+            path: 'shops',
         },
         {
-            path: 'shops',
+            path: 'payment-link',
         },
         {
             path: 'api-key',
         },
         {
-            path: 'payment-link',
+            path: 'webhooks',
         },
     ];
 
     constructor(private router: Router) {
         this.router.events
             .pipe(filter((e: RouterEvent) => e.url && e.url.endsWith('integrations')))
-            .subscribe((e) => this.router.navigate([e.url, 'webhooks']));
+            .subscribe((e) => this.router.navigate([e.url, 'shops']));
     }
 }

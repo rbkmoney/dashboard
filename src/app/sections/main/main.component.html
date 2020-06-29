@@ -1,37 +1,17 @@
 <div
     *transloco="let t; scope: 'main'; read: 'main.header'"
-    class="header-container"
+    class="dsh-header-container"
     fxLayout="column"
-    fxLayoutGap="20px"
+    fxLayoutGap="24px"
 >
-    <h1 class="mat-display-1 dsh-main-section-text title">{{ t.dashboard }}</h1>
-    <div class="mat-subheading-2">
-        <a class="dsh-main-section-text" [href]="oldDashboardEndpoint" target="_blank">{{ t.returnToTheOldVersion }}</a>
-    </div>
-    <div fxLayout fxLayoutGap="20px">
-        <a class="mat-caption dsh-main-section-text link" [href]="docsEndpoint" target="_blank">{{
-            t.documentation
-        }}</a>
-        <a class="mat-caption dsh-main-section-text link" [href]="supportMailto">{{ t.support }}</a>
+    <h1 class="dsh-display-1">{{ t.dashboard }}</h1>
+    <a class="dsh-subheading-1" [href]="oldDashboardEndpoint" target="_blank">{{ t.returnToTheOldVersion }}</a>
+    <div fxLayout fxLayoutGap="24px">
+        <a class="dsh-caption" [href]="docsEndpoint" target="_blank">{{ t.documentation }}</a>
+        <a class="dsh-caption" [href]="supportMailto">{{ t.support }}</a>
     </div>
 </div>
-<div
-    *ngIf="hasWallets$ | async"
-    class="parts-container"
-    fxLayout
-    fxLayout.md="row"
-    fxLayout.sm="column"
-    fxLayout.xs="column"
-    fxLayoutGap="40px"
-    fxLayoutGap.md="20px"
-    fxLayoutGap.sm="10px"
-    fxLayoutGap.xs="10px"
-    fxLayoutAlign="center center"
-    fxLayoutAlign.xs="start stretch"
->
-    <dsh-payments></dsh-payments>
-    <dsh-wallets></dsh-wallets>
-</div>
-<div *ngIf="!(hasWallets$ | async)" class="parts-container">
-    <dsh-payments fxFlexOffset="80px" fxFlexOffset.xs="0"></dsh-payments>
+<div fxLayout fxLayout.lt-md="column" fxLayoutGap="32px">
+    <dsh-payments fxFlex="50" fxFlex.lt-md="100"></dsh-payments>
+    <dsh-wallets fxFlex="50" fxFlex.lt-md="100" *ngIf="hasWallets$ | async"></dsh-wallets>
 </div>

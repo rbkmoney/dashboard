@@ -1,28 +1,9 @@
-$dsh-serface-padding: 30px 30px 20px 30px;
-$dsh-serface-border-radius: 4px;
-$dsh-serface-max-width: 440px;
-$dsh-serface-subheading-height: 90px;
+$dsh-surface-padding: 32px;
+$dsh-surface-subheading-height: 80px;
 
 .dsh-main-parts-surface {
-    display: block;
-    position: relative;
-    padding: $dsh-serface-padding;
-    border-radius: $dsh-serface-border-radius;
-    max-width: $dsh-serface-max-width;
+    padding: $dsh-surface-padding;
     .subheading {
-        min-height: $dsh-serface-subheading-height;
-    }
-}
-
-@media only screen and (max-width: 960px) {
-    .dsh-main-parts-surface {
-        width: $dsh-serface-max-width;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .dsh-main-parts-surface {
-        width: auto;
-        max-width: 100%;
+        min-height: $dsh-surface-subheading-height;
     }
 }

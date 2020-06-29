@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { BrandType } from './brand-type';
 
@@ -6,6 +6,7 @@ import { BrandType } from './brand-type';
     selector: 'dsh-brand',
     templateUrl: './brand.component.html',
     styleUrls: ['./brand.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandComponent {
     @Input() type: BrandType = BrandType.normal;

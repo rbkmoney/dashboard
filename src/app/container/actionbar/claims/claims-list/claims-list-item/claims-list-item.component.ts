@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 
 import { Claim } from '../../../../../api-codegen/claim-management/swagger-codegen';
 import { StatusColor } from '../../../../../theme-manager';
@@ -8,6 +16,7 @@ import { claimStatusToColor, ClaimType, getClaimType } from '../../../../../view
     selector: 'dsh-claims-list-item',
     templateUrl: 'claims-list-item.component.html',
     styleUrls: ['claims-list-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsListItemComponent implements OnChanges {
     @Input() claim: Claim;

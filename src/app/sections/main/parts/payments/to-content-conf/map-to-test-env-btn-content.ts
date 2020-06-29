@@ -5,7 +5,7 @@ import { RouteEnv } from '../../../../route-env';
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
-    routerLink: `/payment-section/env/${RouteEnv.test}/operations`,
+    routerLink: `/payment-section/env/${RouteEnv.test}/analytics`,
     disabled: false,
 });
 

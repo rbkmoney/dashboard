@@ -25,14 +25,18 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     @Input()
     set template(template: InvoiceTemplateAndToken) {
-        this.createPaymentLinkService.changeInvoiceTemplate(template);
-        this.type = 'template';
+        if (template) {
+            this.createPaymentLinkService.changeInvoiceTemplate(template);
+            this.type = 'template';
+        }
     }
 
     @Input()
     set invoice(invoice: Invoice) {
-        this.createPaymentLinkService.changeInvoice(invoice);
-        this.type = 'invoice';
+        if (invoice) {
+            this.createPaymentLinkService.changeInvoice(invoice);
+            this.type = 'invoice';
+        }
     }
 
     @Output() back = new EventEmitter<void>();

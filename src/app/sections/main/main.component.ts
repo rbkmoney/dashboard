@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { WalletService } from '../../api/wallet';
 import { ConfigService } from '../../config';
@@ -6,6 +6,7 @@ import { ConfigService } from '../../config';
 @Component({
     templateUrl: 'main.component.html',
     styleUrls: ['main.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;

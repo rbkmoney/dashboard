@@ -7,11 +7,12 @@ import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
+import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
-import { filterShopsByEnv, mapToShopInfo, mapToTimestamp, ShopInfo } from '../operators';
+import { filterShopsByEnv, mapToTimestamp } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
 import { InvoicesTableData } from './table';
@@ -33,10 +34,9 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         })
     );
 
-    shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
+    shops$: Observable<Shop[]> = this.route.params.pipe(
         pluck('envID'),
         filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo,
         shareReplay(SHARE_REPLAY_CONF)
     );
 
