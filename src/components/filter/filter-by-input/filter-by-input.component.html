@@ -7,7 +7,7 @@
             : (displayedItemsStr$ | async)) +
         ((displayedItems$ | async).length > 3 ? ' · ' + (displayedItems$ | async).length : '')
     "
-    [active]="(displayedItems$ | async).length"
+    [active]="!!(displayedItems$ | async).length"
     (closed)="content.revert()"
     #filter
 >
