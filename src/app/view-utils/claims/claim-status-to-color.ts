@@ -6,7 +6,7 @@ type ClaimStatus = StatusModificationUnit.StatusEnum;
 const statusMapToColor: { [status in ClaimStatus]: StatusColor } = {
     pending: StatusColor.pending,
     pendingAcceptance: StatusColor.pending,
-    review: StatusColor.neutral,
+    review: StatusColor.pending,
     revoked: StatusColor.warn,
     denied: StatusColor.warn,
     accepted: StatusColor.success,

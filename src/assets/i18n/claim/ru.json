@@ -10,7 +10,7 @@
                 "external_user": "Вами"
             },
             "action": {
-                "changesAdded": "добавлены изменения",
+                "changesAdded": "добавлены следующие сведения",
                 "filesAdded": "добавлены документы",
                 "commentAdded": "добавлены комментарии",
                 "statusReview": "заявка отправлена на рассмотрение",
@@ -19,6 +19,10 @@
                 "statusRevoked": "отозвана заявка",
                 "statusAccepted": "одобрена заявка"
             }
+        },
+        "action": {
+            "edit": "Изменить сведения",
+            "toggleDetails": "Раскрыть / скрыть детали"
         }
     },
     "details": "Детали заявки",
