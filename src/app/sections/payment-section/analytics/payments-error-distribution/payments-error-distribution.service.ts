@@ -36,7 +36,6 @@ export class PaymentsErrorDistributionService {
         tap((d) => this.currentErrorTitle$.next(getErrorTitle(d, this.selectedSubError$.getValue()))),
         map((d) => filterSubError(d, this.selectedSubError$.getValue())),
         map(errorsDistributionToChartData),
-        tap(console.log),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.errorDistribution$).pipe(shareReplay(SHARE_REPLAY_CONF));

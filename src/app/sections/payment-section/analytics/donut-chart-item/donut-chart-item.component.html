@@ -10,15 +10,24 @@
                     <mat-icon class="back-selection-icon" (click)="goBackDataSelection()" inline>arrow_back</mat-icon>
                     <div class="mat-caption">{{ selectedErrorTitle }}</div>
                 </div>
-                <dsh-donut-chart
-                    *ngIf="chartData?.series?.length; else noData"
-                    [series]="chartData.series"
-                    [labels]="chartData.labels"
-                    [colors]="colors"
-                    (dataSelect)="updateDataSelection($event)"
-                ></dsh-donut-chart>
-                <ng-template #noData>
-                    <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>
+                <div *ngIf="selectedErrorTitle && chartData?.series?.length === 0; else usualData">
+                    <dsh-donut-chart
+                        [series]="[100]"
+                        [labels]="[selectedErrorTitle]"
+                        [colors]="colors"
+                    ></dsh-donut-chart>
+                </div>
+                <ng-template #usualData>
+                    <dsh-donut-chart
+                        *ngIf="chartData?.series?.length; else noData"
+                        [series]="chartData.series"
+                        [labels]="chartData.labels"
+                        [colors]="colors"
+                        (dataSelect)="updateDataSelection($event)"
+                    ></dsh-donut-chart>
+                    <ng-template #noData>
+                        <div fxFlexFill fxLayoutAlign="center center">{{ t.noData }}</div>
+                    </ng-template>
                 </ng-template>
             </div>
         </div>
