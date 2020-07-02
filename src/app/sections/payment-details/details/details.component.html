@@ -56,7 +56,7 @@
         </div>
         <div *ngIf="payment?.error?.code" fxLayout="row" fxLayout.xs="column">
             <dsh-details-item [title]="t?.error">
-                <div class="mat-body-1">{{ getMessage(payment.error) }}</div>
+                <div class="mat-body-1">{{ payment.error | errorToMessage }}</div>
             </dsh-details-item>
         </div>
     </dsh-card-content>
