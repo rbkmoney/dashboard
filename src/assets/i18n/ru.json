@@ -22,6 +22,7 @@
     "lastUpdate": "Последнее обновление",
     "httpError": "Произошла ошибка в процессе передачи / получения данных",
     "commonError": "Что-то пошло не так",
+    "unknownError": "Неизвестная ошибка",
     "loading": "Загрузка...",
     "ok": "OK",
     "noDocs": "Нет прикрепленных документов",
@@ -135,5 +136,57 @@
     },
     "yes": "Да",
     "no": "Нет",
-    "emptySearchResult": "Данные за указанный период отсутствуют"
+    "emptySearchResult": "Данные за указанный период отсутствуют",
+    "paymentErrors": {
+        "rejected_by_inspector": "Отклонено сервисом противодействия мошенничеству",
+        "preauthorization_failed": {
+            "message": "Ошибка предавторизации (3DS)",
+            "unknown": "Неизвестная ошибка предавторизации (3DS)",
+            "three_ds_failed": "Ошибка 3DS"
+        },
+        "authorization_failed": {
+            "message": "Ошибка авторизации платежа у провайдера",
+            "unknown": "Неизвестная ошибка авторизации",
+            "merchant_blocked": "Мерчант заблокирован",
+            "operation_blocked": "Операция платежа заблокирована",
+            "account_not_found": "Аккаунт не найден",
+            "account_blocked": "Аккаунт заблокирован",
+            "account_stolen": "Аккаунт украден",
+            "insufficient_funds": "Не хватает средств",
+            "account_limit_exceeded": {
+                "message": "Превышен лимит на счете плательщика",
+                "unknown": "Объект лимита неизвестен",
+                "amount": "Лимит на сумму",
+                "number": "Лимит на количество попыток"
+            },
+            "provider_limit_exceeded": {
+                "message": "Превышен лимит на мерчанта у провайдера (вас или платформы RBKmoney)",
+                "unknown": "Объект лимита неизвестен",
+                "amount": "Лимит на сумму",
+                "number": "Лимит на количество попыток"
+            },
+            "payment_tool_rejected": {
+                "message": "Платёжный интрумент отклонён",
+                "unknown": "Неизвестный платёжный интрумент",
+                "bank_card_rejected": {
+                    "message": "Банковская карта отклонена",
+                    "unknown": "Причина неизвестна",
+                    "card_number_invalid": "Неверный номер карты",
+                    "card_expired": "Истёк срок действия карты",
+                    "card_holder_invalid": "Неверный владелец карты",
+                    "cvv_invalid": "Неверный CVV код",
+                    "issuer_not_found": "Эмитент не найден"
+                }
+            },
+            "security_policy_violated": "Нарушения политики безопасности",
+            "temporarily_unavailable": "Временная недоступность третьих сторон",
+            "rejected_by_issuer": "Отклонено эмитентом"
+        },
+        "no_route_found": {
+            "message": "Маршрут не найден",
+            "unknown": "Неизвестная ошибка при поиске маршрута",
+            "risk_score_is_too_high": "Операция с высоким риском"
+        },
+        "timeout": "Превышен лимит ожидания"
+    }
 }

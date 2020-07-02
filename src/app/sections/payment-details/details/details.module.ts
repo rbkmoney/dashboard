@@ -9,6 +9,7 @@ import { CardModule, DetailsItemModule } from '@dsh/components/layout';
 import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { DetailsComponent } from './details.component';
+import { ErrorToMessagePipe } from './error-to-message.pipe';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { DetailsComponent } from './details.component';
         DetailsItemModule,
         ToMajorModule,
     ],
-    declarations: [DetailsComponent],
+    declarations: [DetailsComponent, ErrorToMessagePipe],
     exports: [DetailsComponent],
 })
 export class DetailsModule {}
