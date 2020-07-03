@@ -9,7 +9,6 @@ import { PaymentsErrorDistributionService } from './payments-error-distribution.
 @Component({
     selector: 'dsh-payments-error-distribution',
     templateUrl: './payments-error-distribution.component.html',
-    styleUrls: ['./payments-error-distribution.component.scss'],
     providers: [PaymentsErrorDistributionService],
     encapsulation: ViewEncapsulation.Emulated,
 })

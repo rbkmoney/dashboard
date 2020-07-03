@@ -20,6 +20,7 @@
                 <ng-template #usualData>
                     <dsh-donut-chart
                         *ngIf="chartData?.series?.length; else noData"
+                        class="interactive-errors-chart"
                         [series]="chartData.series"
                         [labels]="chartData.labels"
                         [colors]="colors"
