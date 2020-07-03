@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BarChartModule } from '@dsh/components/charts/bar-chart';
@@ -11,7 +12,16 @@ import { CardModule } from '@dsh/components/layout';
 import { DonutChartItemComponent } from './donut-chart-item.component';
 
 @NgModule({
-    imports: [CommonModule, CardModule, BarChartModule, FlexModule, SpinnerModule, TranslocoModule, DonutChartModule],
+    imports: [
+        CommonModule,
+        CardModule,
+        BarChartModule,
+        FlexModule,
+        SpinnerModule,
+        TranslocoModule,
+        DonutChartModule,
+        MatIconModule,
+    ],
     declarations: [DonutChartItemComponent],
     exports: [DonutChartItemComponent],
 })

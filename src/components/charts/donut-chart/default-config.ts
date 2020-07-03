@@ -15,6 +15,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
             show: false,
         },
         animations: DEFAULT_ANIMATION,
+        events: {},
     },
     dataLabels: {
         enabled: false,
@@ -24,6 +25,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
         formatter: (seriesName, opts) => {
             return `${seriesName} - ${opts.w.globals.series[opts.seriesIndex].toFixed(2)}%`;
         },
+        showForNullSeries: true,
     },
     plotOptions: {
         pie: {
