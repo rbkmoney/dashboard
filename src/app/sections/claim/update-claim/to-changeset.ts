@@ -13,7 +13,7 @@ export const toChangeset = (s: Observable<UpdateParams>): Observable<Modificatio
                 return [createCommentModificationUnit(params.conversationId)];
             }
             if (isUpdateFiles(params)) {
-                return params.fileIds.map(createFileModificationUnit);
+                return params.fileIds.map((id) => createFileModificationUnit(id));
             }
             throw new Error('Unknown update claim params');
         })

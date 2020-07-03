@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '../../../../../api';
-import { FileModificationUnit } from '../../../../../api-codegen/claim-management';
+import { FileModification, FileModificationUnit } from '../../../../../api-codegen/claim-management';
 import { replaceError } from '../../../../../custom-operators';
 import { ClaimService } from '../../claim';
 import { QuestionaryStateService } from '../../questionary-state.service';
@@ -19,6 +19,7 @@ import { filterError, filterPayload } from './../../../../../custom-operators/re
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {
     private filesUploaded$ = new Subject<string[]>();
+    private deleteFile$ = new Subject<FileModificationUnit>();
 
     fileUnits$: Observable<FileModificationUnit[]> = this.claimService.cliam$.pipe(
         pluck('changeset'),
@@ -36,7 +37,7 @@ export class UploadDocumentsService extends QuestionaryFormService {
     ) {
         super(questionaryStateService, validityService, validationCheckService);
         const uploadedFilesWithError$ = this.filesUploaded$.pipe(
-            map((fileIds) => fileIds.map(createFileModificationUnit)),
+            map((fileIds) => fileIds.map((id) => createFileModificationUnit(id))),
             withLatestFrom(this.claimService.cliam$),
             switchMap(([changeset, { id, revision }]) =>
                 this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
@@ -49,10 +50,27 @@ export class UploadDocumentsService extends QuestionaryFormService {
                 duration: 5000,
             })
         );
+        this.deleteFile$
+            .pipe(
+                map((unit) => [
+                    createFileModificationUnit(unit.fileId, FileModification.FileModificationTypeEnum.FileDeleted),
+                ]),
+                withLatestFrom(this.claimService.cliam$),
+                switchMap(([changeset, { id, revision }]) =>
+                    this.claimsService.updateClaimByID(id, revision, changeset)
+                )
+            )
+            .subscribe((unit) => {
+                console.log('deleted');
+            });
     }
 
     filesUploaded(fileIds: string[]) {
         this.filesUploaded$.next(fileIds);
+    }
+
+    deleteFile(unit: FileModificationUnit) {
+        this.deleteFile$.next(unit);
     }
 
     protected toForm() {

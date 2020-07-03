@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
+import { coerceBoolean } from '../../../../utils';
 import { FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 import { FileContainerService } from './file-container.service';
 
@@ -11,6 +12,8 @@ import { FileContainerService } from './file-container.service';
 })
 export class FileContainerComponent implements OnChanges {
     @Input() unit: FileModificationUnit;
+    @Input() @coerceBoolean deletion = false;
+    @Output() delete = new EventEmitter<FileModificationUnit>();
 
     fileInfo$ = this.fileContainerService.fileInfo$;
     isLoading$ = this.fileContainerService.isLoading$;
@@ -24,7 +27,7 @@ export class FileContainerComponent implements OnChanges {
         }
     }
 
-    downloadFile(fileID: string) {
-        this.fileContainerService.downloadFile(fileID);
+    download() {
+        this.fileContainerService.downloadFile(this.unit.fileId);
     }
 }
