@@ -51,6 +51,8 @@
                         <dsh-file-container
                             *ngIf="isFileModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
+                            deletion
+                            (delete)="deleteFile(modification)"
                         ></dsh-file-container>
                     </div>
                 </div>

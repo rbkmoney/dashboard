@@ -1,3 +1,4 @@
+import { FileModification } from '../../../api-codegen/claim-management';
 import { ConversationID } from '../../../api-codegen/messages';
 
 export interface UpdateParams {
@@ -10,4 +11,5 @@ export interface UpdateConversationParams extends UpdateParams {
 
 export interface UpdateFilesParams extends UpdateParams {
     fileIds: string[];
+    fileModificationType: FileModification.FileModificationTypeEnum;
 }
