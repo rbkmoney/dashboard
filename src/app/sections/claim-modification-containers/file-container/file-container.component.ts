@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { filter } from 'rxjs/operators';
+
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { coerceBoolean } from '../../../../utils';
 import { FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
@@ -19,7 +23,7 @@ export class FileContainerComponent implements OnChanges {
     isLoading$ = this.fileContainerService.isLoading$;
     error$ = this.fileContainerService.error$;
 
-    constructor(private fileContainerService: FileContainerService) {}
+    constructor(private fileContainerService: FileContainerService, private dialog: MatDialog) {}
 
     ngOnChanges({ unit }: SimpleChanges) {
         if (unit.firstChange || unit.currentValue.fileId !== unit.previousValue.fileId) {
@@ -29,5 +33,15 @@ export class FileContainerComponent implements OnChanges {
 
     download() {
         this.fileContainerService.downloadFile(this.unit.fileId);
+    }
+
+    deleteByCondition() {
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(filter((r) => r === 'confirm'))
+            .subscribe(() => {
+                this.delete.emit(this.unit);
+            });
     }
 }

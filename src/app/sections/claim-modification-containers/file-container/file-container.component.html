@@ -9,7 +9,7 @@
                     *ngIf="deletion"
                     class="icon"
                     icon="cross"
-                    (click)="this.delete.emit(unit)"
+                    (click)="deleteByCondition()"
                 ></dsh-panel-header-icon>
                 <dsh-panel-header-icon class="icon" icon="save" (click)="download()"></dsh-panel-header-icon>
             </div>

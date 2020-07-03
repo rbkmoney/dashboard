@@ -60,9 +60,7 @@ export class UploadDocumentsService extends QuestionaryFormService {
                     this.claimsService.updateClaimByID(id, revision, changeset)
                 )
             )
-            .subscribe((unit) => {
-                console.log('deleted');
-            });
+            .subscribe();
     }
 
     filesUploaded(fileIds: string[]) {
