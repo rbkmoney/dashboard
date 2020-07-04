@@ -1,5 +1,11 @@
 import { ClaimChangeset, FileModificationUnit } from '../../../api-codegen/claim-management';
-import { isChangesetFileModificationUnit } from '../type-guards';
+import { isClaimModification, isFileModificationUnit } from '../type-guards';
 
 export const takeFileModificationUnits = (changeset: ClaimChangeset): FileModificationUnit[] =>
-    changeset.filter(isChangesetFileModificationUnit).map((u) => u.modification.claimModificationType);
+    changeset.reduce(
+        (acc, { modification }) =>
+            isClaimModification(modification) && isFileModificationUnit(modification.claimModificationType)
+                ? acc.concat(modification.claimModificationType)
+                : acc,
+        [] as FileModificationUnit[]
+    );
