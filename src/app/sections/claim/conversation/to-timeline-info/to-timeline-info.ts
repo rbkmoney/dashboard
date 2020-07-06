@@ -54,6 +54,10 @@ const reduceToAcceptedTimelineItem = (
     { createdAt, modification, userInfo }: ModificationUnit
 ): TimelineItemInfo[] => {
     const action = getUnitTimelineAction(modification);
+    if (!action) {
+        return acc;
+    }
+    const modifications = [];
     switch (action) {
         case TimelineAction.filesDeleted:
             return deleteAddedFile(
@@ -63,16 +67,10 @@ const reduceToAcceptedTimelineItem = (
         case TimelineAction.changesAdded:
         case TimelineAction.filesAdded:
         case TimelineAction.commentAdded:
-            const result = {
-                action,
-                userInfo,
-                createdAt: createdAt as any,
-                modifications: [modification],
-            };
-            return concatLastItem(acc, result);
-        default:
-            return acc;
+            modifications.push(modification);
     }
+    const result: TimelineItemInfo = { action, userInfo, createdAt: createdAt as any, modifications };
+    return concatLastItem(acc, result);
 };
 
 export const toTimelineInfo = (units: ModificationUnit[]): TimelineItemInfo[] =>
