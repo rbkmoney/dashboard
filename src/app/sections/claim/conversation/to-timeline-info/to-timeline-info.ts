@@ -69,8 +69,7 @@ const reduceToAcceptedTimelineItem = (
         case TimelineAction.commentAdded:
             modifications.push(modification);
     }
-    const result: TimelineItemInfo = { action, userInfo, createdAt: createdAt as any, modifications };
-    return concatLastItem(acc, result);
+    return concatLastItem(acc, { action, userInfo, createdAt: createdAt as any, modifications });
 };
 
 export const toTimelineInfo = (units: ModificationUnit[]): TimelineItemInfo[] =>
