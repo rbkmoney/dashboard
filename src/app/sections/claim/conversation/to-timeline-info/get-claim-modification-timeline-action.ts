@@ -30,7 +30,7 @@ function getStatusModificationTimelineAction(unit: StatusModificationUnit): Time
     }
 }
 
-function geFileModificationTimelineAction(unit: FileModificationUnit): TimelineAction {
+function getFileModificationTimelineAction(unit: FileModificationUnit): TimelineAction {
     const Type = FileModification.FileModificationTypeEnum;
     switch (unit.fileModification.fileModificationType) {
         case Type.FileCreated:
@@ -42,12 +42,12 @@ function geFileModificationTimelineAction(unit: FileModificationUnit): TimelineA
 
 export function getClaimModificationTimelineAction(m: ClaimModificationType): TimelineAction | null {
     if (isFileModificationUnit(m)) {
-        return geFileModificationTimelineAction(m);
+        return getFileModificationTimelineAction(m);
     } else if (isStatusModificationUnit(m)) {
         return getStatusModificationTimelineAction(m);
-    } else if (isDocumentModificationUnit) {
+    } else if (isDocumentModificationUnit(m)) {
         return TimelineAction.changesAdded;
-    } else if (isCommentModificationUnit) {
+    } else if (isCommentModificationUnit(m)) {
         return TimelineAction.commentAdded;
     }
     throw new Error(`Unknown claimModificationType: ${m.claimModificationType}`);
