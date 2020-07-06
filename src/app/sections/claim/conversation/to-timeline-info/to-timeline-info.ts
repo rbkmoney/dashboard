@@ -19,24 +19,13 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
 const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
     x.action === y.action && x.userInfo.userType === y.userInfo.userType;
 
-const concatLastItem = (
-    acc: TimelineItemInfo[],
-    { modifications, ...updatedItem }: TimelineItemInfo
-): TimelineItemInfo[] => [
-    ...acc.slice(0, -1),
-    { ...updatedItem, modifications: [...acc[acc.length - 1].modifications, ...modifications] },
-];
-
-const toTimelineInfoModifications = (action: TimelineAction, modification: Modification): Modification[] => {
-    switch (action) {
-        case 'changesAdded':
-        case 'filesAdded':
-        case 'commentAdded':
-            return [modification];
-        default:
-            return [];
-    }
-};
+const concatLastItem = (acc: TimelineItemInfo[], info: TimelineItemInfo): TimelineItemInfo[] =>
+    acc.length && isSame(info, acc[acc.length - 1])
+        ? [
+              ...acc.slice(0, -1),
+              { ...info, modifications: [...acc[acc.length - 1].modifications, ...info.modifications] },
+          ]
+        : [...acc, info];
 
 const deleteAddedFile = (info: TimelineItemInfo[], deletedFileId: string) => {
     for (let i = 0, item = info[0]; i < info.length; item = info[++i]) {
@@ -65,24 +54,25 @@ const reduceToAcceptedTimelineItem = (
     { createdAt, modification, userInfo }: ModificationUnit
 ): TimelineItemInfo[] => {
     const action = getUnitTimelineAction(modification);
-    if (action === null) {
-        return acc;
+    switch (action) {
+        case TimelineAction.filesDeleted:
+            return deleteAddedFile(
+                acc,
+                ((modification as ClaimModification).claimModificationType as FileModificationUnit).fileId
+            );
+        case TimelineAction.changesAdded:
+        case TimelineAction.filesAdded:
+        case TimelineAction.commentAdded:
+            const result = {
+                action,
+                userInfo,
+                createdAt: createdAt as any,
+                modifications: [modification],
+            };
+            return concatLastItem(acc, result);
+        default:
+            return acc;
     }
-    if (action === TimelineAction.filesDeleted) {
-        return deleteAddedFile(
-            acc,
-            ((modification as ClaimModification).claimModificationType as FileModificationUnit).fileId
-        );
-    }
-    const result = {
-        action,
-        userInfo,
-        createdAt: createdAt as any,
-        modifications: toTimelineInfoModifications(action, modification),
-    };
-    return acc.length && result.modifications.length && isSame(result, acc[acc.length - 1])
-        ? concatLastItem(acc, result)
-        : [...acc, result];
 };
 
 export const toTimelineInfo = (units: ModificationUnit[]): TimelineItemInfo[] =>
