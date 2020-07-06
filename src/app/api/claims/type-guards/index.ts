@@ -1,2 +1,3 @@
 export * from './claim-modification';
-export * from './changeset';
+export * from './document-modification';
+export * from './modification';

@@ -9,14 +9,14 @@ import { ClaimsService } from '../../../../api';
 export class ClaimService {
     private loadClaim$ = new BehaviorSubject<void>(undefined);
 
-    cliam$ = combineLatest([this.route.params, this.loadClaim$]).pipe(
+    claim$ = combineLatest([this.route.params, this.loadClaim$]).pipe(
         switchMap(([{ claimID }]) => this.claimsService.getClaimByID(claimID)),
         shareReplay(1)
     );
 
     constructor(private route: ActivatedRoute, private claimsService: ClaimsService) {}
 
-    reloadCliam() {
+    reloadClaim() {
         this.loadClaim$.next();
     }
 }

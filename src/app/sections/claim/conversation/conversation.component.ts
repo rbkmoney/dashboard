@@ -5,8 +5,9 @@ import {
     isCommentModificationUnit,
     isDocumentModificationUnit,
     isFileModificationUnit,
+    SpecificClaimModificationUnit,
 } from '../../../api';
-import { Modification } from '../../../api-codegen/claim-management';
+import { FileModificationUnit, Modification } from '../../../api-codegen/claim-management';
 import { ConversationID } from '../../../api-codegen/messages';
 import { ConversationService } from './conversation.service';
 import { EditDocumentService } from './edit-document.service';
@@ -49,5 +50,9 @@ export class ConversationComponent {
 
     simpleTrackBy(index: number): number {
         return index;
+    }
+
+    deleteFile(m: SpecificClaimModificationUnit<FileModificationUnit>) {
+        this.conversationService.deleteFile(m.claimModificationType.fileId);
     }
 }

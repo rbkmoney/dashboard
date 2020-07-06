@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, Subject } from 'rxjs';
+import { merge, Observable, Subject } from 'rxjs';
 import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '../../../../../api';
-import { FileModificationUnit } from '../../../../../api-codegen/claim-management';
+import { FileModification, FileModificationUnit } from '../../../../../api-codegen/claim-management';
 import { replaceError } from '../../../../../custom-operators';
 import { ClaimService } from '../../claim';
 import { QuestionaryStateService } from '../../questionary-state.service';
@@ -19,8 +19,9 @@ import { filterError, filterPayload } from './../../../../../custom-operators/re
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {
     private filesUploaded$ = new Subject<string[]>();
+    private deleteFile$ = new Subject<FileModificationUnit>();
 
-    fileUnits$: Observable<FileModificationUnit[]> = this.claimService.cliam$.pipe(
+    fileUnits$: Observable<FileModificationUnit[]> = this.claimService.claim$.pipe(
         pluck('changeset'),
         map(takeFileModificationUnits)
     );
@@ -36,15 +37,26 @@ export class UploadDocumentsService extends QuestionaryFormService {
     ) {
         super(questionaryStateService, validityService, validationCheckService);
         const uploadedFilesWithError$ = this.filesUploaded$.pipe(
-            map((fileIds) => fileIds.map(createFileModificationUnit)),
-            withLatestFrom(this.claimService.cliam$),
+            map((fileIds) => fileIds.map((id) => createFileModificationUnit(id))),
+            withLatestFrom(this.claimService.claim$),
             switchMap(([changeset, { id, revision }]) =>
                 this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
             ),
             share()
         );
-        uploadedFilesWithError$.pipe(filterPayload).subscribe(() => this.claimService.reloadCliam());
-        uploadedFilesWithError$.pipe(filterError).subscribe(() =>
+        const deletedFilesWithError$ = this.deleteFile$.pipe(
+            map((unit) => [
+                createFileModificationUnit(unit.fileId, FileModification.FileModificationTypeEnum.FileDeleted),
+            ]),
+            withLatestFrom(this.claimService.claim$),
+            switchMap(([changeset, { id, revision }]) =>
+                this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
+            ),
+            share()
+        );
+        const result$ = merge(uploadedFilesWithError$, deletedFilesWithError$).pipe(share());
+        result$.pipe(filterPayload).subscribe(() => this.claimService.reloadClaim());
+        result$.pipe(filterError).subscribe(() =>
             this.snackBar.open(this.transloco.translate('httpError'), 'OK', {
                 duration: 5000,
             })
@@ -53,6 +65,10 @@ export class UploadDocumentsService extends QuestionaryFormService {
 
     filesUploaded(fileIds: string[]) {
         this.filesUploaded$.next(fileIds);
+    }
+
+    deleteFile(unit: FileModificationUnit) {
+        this.deleteFile$.next(unit);
     }
 
     protected toForm() {

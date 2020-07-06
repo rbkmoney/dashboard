@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '../../../api';
+import { FileModification } from '../../../api-codegen/claim-management';
 import { ConversationID } from '../../../api-codegen/messages';
 import { progress } from '../../../custom-operators';
 import { UIError } from '../../ui-error';
@@ -15,8 +16,8 @@ import { toChangeset } from './to-changeset';
 
 @Injectable()
 export class UpdateClaimService {
-    private updateBy$: Subject<UpdateParams> = new Subject();
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private updateBy$ = new Subject<UpdateParams>();
+    private error$ = new BehaviorSubject<UIError>({ hasError: false });
 
     errorCode$: Observable<string> = this.error$.pipe(
         filter((err) => err.hasError),
@@ -64,10 +65,15 @@ export class UpdateClaimService {
         } as UpdateConversationParams);
     }
 
-    updateByFiles(fileIds: string[]) {
+    updateByFiles(
+        fileIds: string[],
+        fileModificationType: FileModification.FileModificationTypeEnum = FileModification.FileModificationTypeEnum
+            .FileCreated
+    ) {
         this.updateBy$.next({
             type: 'updateFiles',
             fileIds,
+            fileModificationType,
         } as UpdateFilesParams);
     }
 }
