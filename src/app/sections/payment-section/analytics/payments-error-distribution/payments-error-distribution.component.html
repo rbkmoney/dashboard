@@ -1,10 +1,14 @@
 <dsh-donut-chart-item
+    class="errors-chart"
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
     fxFlex
     [spinnerType]="spinnerType"
     [title]="t.unsuccessfulPaymentReasons"
+    [selectedErrorTitle]="currentErrorTitle$ | async"
     [colors]="colors"
     [chartData]="errorDistribution$ | async"
     [isLoading]="isLoading$ | async"
     [error]="error$ | async"
+    (dataSelect)="updateDataSelection($event)"
+    (backDataSelect)="goBackDataSelection()"
 ></dsh-donut-chart-item>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
@@ -12,14 +12,25 @@ import { DistributionChartData } from '../utils';
 export class DonutChartItemComponent implements OnChanges {
     @Input() spinnerType: SpinnerType;
     @Input() title: string;
+    @Input() selectedErrorTitle: string;
     @Input() chartData: DistributionChartData;
     @Input() isLoading: boolean;
     @Input() error: Error;
     @Input() colors?: string[];
+    @Output() dataSelect = new EventEmitter<number>();
+    @Output() backDataSelect = new EventEmitter();
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.chartData?.currentValue) {
             this.error = undefined;
         }
+    }
+
+    updateDataSelection(value: number) {
+        this.dataSelect.emit(value);
+    }
+
+    goBackDataSelection() {
+        this.backDataSelect.emit();
     }
 }

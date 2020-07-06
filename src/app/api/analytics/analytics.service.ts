@@ -47,6 +47,16 @@ export class AnalyticsService {
         );
     }
 
+    getPaymentsSubErrorDistribution(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+        return this.analyticsService.getPaymentsSubErrorDistribution(
+            genXRequestID(),
+            toDateLike(fromTime),
+            toDateLike(toTime),
+            undefined,
+            shopIDs
+        );
+    }
+
     getPaymentsToolDistribution(fromTime: string, toTime: string, shopIDs?: Array<string>) {
         return this.analyticsService.getPaymentsToolDistribution(
             genXRequestID(),

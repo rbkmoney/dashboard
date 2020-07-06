@@ -1,7 +1,14 @@
 import sortBy from 'lodash.sortby';
 
-import { OffsetCount, SplitCountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
+import {
+    OffsetCount,
+    SplitCountResult,
+    SplitUnit,
+    StatusOffsetCount,
+} from '../../../../api-codegen/anapi/swagger-codegen';
 import { getOffsets } from '../utils';
+
+const statuses: StatusOffsetCount.StatusEnum[] = ['captured', 'cancelled', 'failed'];
 
 const fixExtraInterval = (offsetCounts: OffsetCount[]): OffsetCount[] =>
     sortBy(offsetCounts, 'offset').reduce(
@@ -24,13 +31,17 @@ const fillSplitCountByZeroValues = (
     splitUnit: SplitUnit
 ): OffsetCount[] => {
     const offsets = getOffsets(fromTime, toTime, splitUnit);
-    return offsets.map((offset) => {
-        const fixedOffsetCount = splitUnit !== 'hour' ? fixExtraInterval(offsetCounts) : offsetCounts;
-        return {
-            offset,
-            count: fixedOffsetCount[fixedOffsetCount.findIndex((o) => o.offset === offset)]?.count || 0,
-        };
-    });
+    if (offsetCounts) {
+        return offsets.map((offset) => {
+            const fixedOffsetCount = splitUnit !== 'hour' ? fixExtraInterval(offsetCounts) : offsetCounts;
+            return {
+                offset,
+                count: fixedOffsetCount[fixedOffsetCount.findIndex((o) => o.offset === offset)]?.count || 0,
+            };
+        });
+    } else {
+        return offsets.map((offset) => ({ offset, count: 0 }));
+    }
 };
 
 export const prepareSplitCount = (
@@ -41,8 +52,13 @@ export const prepareSplitCount = (
     splitCounts.map(({ splitUnit, currency, statusOffsetCounts }) => ({
         splitUnit,
         currency,
-        statusOffsetCounts: statusOffsetCounts.map(({ status, offsetCount }) => ({
+        statusOffsetCounts: statuses.map((status) => ({
             status,
-            offsetCount: fillSplitCountByZeroValues(offsetCount, fromTime, toTime, splitUnit),
+            offsetCount: fillSplitCountByZeroValues(
+                statusOffsetCounts.find((o) => o.status === status)?.offsetCount,
+                fromTime,
+                toTime,
+                splitUnit
+            ),
         })),
     }));
