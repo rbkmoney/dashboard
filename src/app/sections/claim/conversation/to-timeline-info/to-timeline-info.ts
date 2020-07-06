@@ -1,5 +1,10 @@
 import { isClaimModification } from '../../../../api';
-import { FileModificationUnit, Modification, ModificationUnit } from '../../../../api-codegen/claim-management';
+import {
+    ClaimModification,
+    FileModificationUnit,
+    Modification,
+    ModificationUnit,
+} from '../../../../api-codegen/claim-management';
 import { sortUnitsByCreatedAtAsc } from '../../../../api/claims/utils';
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { TimelineAction, TimelineItemInfo } from './model';
@@ -38,8 +43,8 @@ const deleteAddedFile = (info: TimelineItemInfo[], deletedFileId: string) => {
         if (item.action !== TimelineAction.filesAdded) {
             continue;
         }
-        const fileModificationIdx = ((item.modifications as any) as FileModificationUnit[]).findIndex(
-            ({ fileId }) => fileId === deletedFileId
+        const fileModificationIdx = (item.modifications as ClaimModification[]).findIndex(
+            ({ claimModificationType }) => (claimModificationType as FileModificationUnit).fileId === deletedFileId
         );
         if (fileModificationIdx === -1) {
             continue;
@@ -64,7 +69,10 @@ const reduceToAcceptedTimelineItem = (
         return acc;
     }
     if (action === TimelineAction.filesDeleted) {
-        return deleteAddedFile(acc, ((modification as any) as FileModificationUnit).fileId);
+        return deleteAddedFile(
+            acc,
+            ((modification as ClaimModification).claimModificationType as FileModificationUnit).fileId
+        );
     }
     const result = {
         action,
