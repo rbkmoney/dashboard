@@ -6,7 +6,6 @@ import { DropdownComponent } from '../layout/dropdown';
 @Component({
     selector: 'dsh-filter',
     templateUrl: 'filter.component.html',
-    styleUrls: ['filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent {
