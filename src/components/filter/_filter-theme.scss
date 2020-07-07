@@ -6,6 +6,7 @@
 
     .dsh-filter-button {
         border-color: map-get($foreground, dividers);
+        color: map-get($foreground, text);
 
         &:hover:enabled,
         &-active:enabled {
