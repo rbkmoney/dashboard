@@ -1,4 +1,4 @@
-<dsh-filter [title]="title$ | async" [active]="!!(displayedLabels$ | async).length" (closed)="content.revert()" #filter>
+<dsh-filter [title]="title$ | async" [active]="!!(displayedLabels$ | async).length" (closed)="content.save()" #filter>
     <dsh-filter-button-content>
         <dsh-multiselect-filter-content
             [label]="label"

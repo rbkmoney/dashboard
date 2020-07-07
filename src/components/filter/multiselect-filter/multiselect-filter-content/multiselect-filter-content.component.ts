@@ -102,9 +102,4 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
         this.savedValue = this.form.value;
         this.selectedChange.emit(this.getSelected(this.savedValue.items));
     }
-
-    revert() {
-        this.clear();
-        this.form.patchValue(this.savedValue);
-    }
 }
