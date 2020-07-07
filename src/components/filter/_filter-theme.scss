@@ -5,7 +5,7 @@
     $primary: map-get($theme, primary);
 
     .dsh-filter-button {
-        border-color: mat-color($foreground, divider, 0.12);
+        border-color: map-get($foreground, dividers);
 
         &:hover:enabled,
         &-active:enabled {
