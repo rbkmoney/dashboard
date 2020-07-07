@@ -17,14 +17,23 @@ export class MultiselectFilterComponent {
 
     @Output() selectedChange = new EventEmitter<Item[]>();
 
-    displayedItems$ = new BehaviorSubject<string[]>([]);
-    displayedItemsStr$ = this.displayedItems$.pipe(
-        map((labels) => labels.join(', ')),
+    displayedLabels$ = new BehaviorSubject<string[]>([]);
+
+    title$ = this.displayedLabels$.pipe(
+        map((labels) => {
+            const { length } = labels;
+            if (length === 0) {
+                return this.label;
+            } else if (length <= 3) {
+                return labels.join(', ');
+            }
+            return `${this.selectedLabel} · ${length}`;
+        }),
         shareReplay(1)
     );
 
     selectedItemsChange(items: Item[]) {
         this.selectedChange.emit(items);
-        this.displayedItems$.next(items.map(({ label }) => label));
+        this.displayedLabels$.next(items.map(({ label }) => label));
     }
 }

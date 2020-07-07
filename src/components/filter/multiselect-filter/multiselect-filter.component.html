@@ -1,16 +1,4 @@
-<dsh-filter
-    [title]="
-        ((displayedItems$ | async).length === 0
-            ? label
-            : (displayedItems$ | async).length > 3
-            ? selectedLabel
-            : (displayedItemsStr$ | async)) +
-        ((displayedItems$ | async).length > 3 ? ' · ' + (displayedItems$ | async).length : '')
-    "
-    [active]="!!(displayedItems$ | async).length"
-    (closed)="content.revert()"
-    #filter
->
+<dsh-filter [title]="title$ | async" [active]="!!(displayedLabels$ | async).length" (closed)="content.revert()" #filter>
     <dsh-filter-button-content>
         <dsh-multiselect-filter-content
             [label]="label"
