@@ -1,3 +1,3 @@
 export * from './filter.component';
-export * from './filter-by-input';
+export * from './multiselect-filter';
 export * from './filter.module';

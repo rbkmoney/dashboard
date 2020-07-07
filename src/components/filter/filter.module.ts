@@ -13,16 +13,16 @@ import { JustifyWrapperModule } from '../layout/justify-wrapper';
 import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
-import { FilterByInputComponent, FilterByInputContentComponent } from './filter-by-input';
 import { FilterComponent } from './filter.component';
+import { MultiselectFilterComponent, MultiselectFilterContentComponent } from './multiselect-filter';
 
 const EXPORTED_DECLARATIONS = [
     FilterComponent,
     FilterButtonComponent,
     FilterButtonActionsComponent,
     FilterButtonContentComponent,
-    FilterByInputContentComponent,
-    FilterByInputComponent,
+    MultiselectFilterContentComponent,
+    MultiselectFilterComponent,
 ];
 
 @NgModule({

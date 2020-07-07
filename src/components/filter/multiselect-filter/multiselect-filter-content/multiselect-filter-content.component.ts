@@ -24,12 +24,12 @@ export interface DisplayedItem {
 }
 
 @Component({
-    selector: 'dsh-filter-by-input-content',
-    templateUrl: 'filter-by-input-content.component.html',
-    styleUrls: ['filter-by-input-content.component.scss'],
+    selector: 'dsh-multiselect-filter-content',
+    templateUrl: 'multiselect-filter-content.component.html',
+    styleUrls: ['multiselect-filter-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterByInputContentComponent implements OnInit, OnChanges {
+export class MultiselectFilterContentComponent implements OnInit, OnChanges {
     @Input() label: string;
     @Input() items: Item[] = [];
     @Output() selectedChange = new EventEmitter<Item[]>();

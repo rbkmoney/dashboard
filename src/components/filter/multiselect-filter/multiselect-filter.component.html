@@ -12,12 +12,12 @@
     #filter
 >
     <dsh-filter-button-content>
-        <dsh-filter-by-input-content
+        <dsh-multiselect-filter-content
             [label]="label"
             [items]="items"
             (selectedChange)="selectedItemsChange($event)"
             #content
-        ></dsh-filter-by-input-content>
+        ></dsh-multiselect-filter-content>
     </dsh-filter-button-content>
     <dsh-filter-button-actions
         (clear)="content.clear()"

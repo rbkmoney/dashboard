@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { Item } from './filter-by-input-content';
+import { Item } from './multiselect-filter-content';
 
 @Component({
-    selector: 'dsh-filter-by-input',
-    templateUrl: 'filter-by-input.component.html',
+    selector: 'dsh-multiselect-filter',
+    templateUrl: 'multiselect-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterByInputComponent {
+export class MultiselectFilterComponent {
     @Input() label: string;
     @Input() selectedLabel?: string;
 
