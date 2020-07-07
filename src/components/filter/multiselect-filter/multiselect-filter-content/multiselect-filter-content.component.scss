@@ -1,11 +1,17 @@
+$width: 312px;
+$item-height: 39px;
+$displayed-items: 5;
+
 :host {
     display: block;
-    width: 312px;
+    width: $width;
 
     .items {
+        overflow: hidden;
+
         &-overflow {
             overflow-y: auto;
-            max-height: 195.5px;
+            max-height: $item-height * $displayed-items;
         }
     }
 }

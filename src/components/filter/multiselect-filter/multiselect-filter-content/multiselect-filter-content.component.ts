@@ -9,8 +9,8 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
 export interface Item {
     label?: string;
@@ -32,6 +32,7 @@ export interface DisplayedItem {
 export class MultiselectFilterContentComponent implements OnInit, OnChanges {
     @Input() label: string;
     @Input() items: Item[] = [];
+
     @Output() selectedChange = new EventEmitter<Item[]>();
     @Output() foundChange = new EventEmitter<Item[]>();
 
@@ -42,34 +43,33 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
     get itemsForm() {
         return this.form.controls.items as FormArray;
     }
-    private savedValue = this.form.value;
 
-    hasOverflowY$ = this.itemsForm.statusChanges.pipe(
-        startWith(this.itemsForm.status),
-        map(() => this.itemsForm.controls.filter((c) => c.enabled).length > 5),
+    items$ = new BehaviorSubject([]);
+    displayedItemsIdx$ = combineLatest([
+        (this.form.controls.search.valueChanges as Observable<string>).pipe(
+            startWith(this.form.controls.search.value as string)
+        ),
+        this.items$,
+    ]).pipe(
+        debounceTime(200),
+        map(([value, items]) =>
+            items.reduce(
+                (acc, item, idx) =>
+                    this.itemsForm.controls[idx].value || this.filterPredicate(value, item, idx, items)
+                        ? acc.concat(idx)
+                        : acc,
+                [] as number[]
+            )
+        ),
         shareReplay(1)
     );
+
+    @Input() filterPredicate: (value: string, item: Item, idx: number, items: Item[]) => boolean = (value, item) =>
+        item.value.toLowerCase().trim().includes(value.toLowerCase().trim());
 
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        const searchControl = this.form.controls.search;
-        searchControl.valueChanges.pipe(startWith(searchControl.value)).subscribe((value) => {
-            if (this.items) {
-                const lowerValue = value.toLowerCase().trim();
-                for (const [idx, item] of Object.entries(this.items)) {
-                    const enabled = item.value.toLowerCase().trim().includes(lowerValue);
-                    const control = this.itemsForm.controls[idx];
-                    if (enabled) {
-                        if (control.disabled) {
-                            control.enable();
-                        }
-                    } else if (control.enabled && !control.value) {
-                        control.disable();
-                    }
-                }
-            }
-        });
         (this.itemsForm.valueChanges as Observable<boolean[]>)
             .pipe(
                 map((values) => this.getSelected(values)),
@@ -81,6 +81,7 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
     ngOnChanges({ items }: SimpleChanges) {
         if (items.currentValue !== items.previousValue) {
             const currentItems: Item[] = items.currentValue || [];
+            this.items$.next(currentItems);
             this.itemsForm.clear();
             for ({} of currentItems) {
                 this.itemsForm.push(this.fb.control(false));
@@ -99,7 +100,6 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
 
     save() {
         this.form.patchValue({ search: '' });
-        this.savedValue = this.form.value;
-        this.selectedChange.emit(this.getSelected(this.savedValue.items));
+        this.selectedChange.emit(this.getSelected(this.form.value.items));
     }
 }
