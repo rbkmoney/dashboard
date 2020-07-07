@@ -1,7 +1,15 @@
 .donut-chart {
-    height: 390px;
+    height: 420px;
 }
 
-.content {
-    height: 100%;
+.back-selection-icon {
+    cursor: pointer;
+}
+
+.interactive-errors-chart ::ng-deep {
+    .apexcharts-legend-series,
+    .apexcharts-legend-marker,
+    .apexcharts-pie-series {
+        cursor: pointer !important;
+    }
 }

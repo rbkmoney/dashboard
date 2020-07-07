@@ -29,8 +29,8 @@
                     ></mat-icon>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item (click)="editDocument(item)">Изменить</button>
-                    <button mat-menu-item (click)="expandAll = !expandAll">Раскрыть / скрыть детали</button>
+                    <button mat-menu-item (click)="editDocument(item)">{{ t.action.edit }}</button>
+                    <button mat-menu-item (click)="expandAll = !expandAll">{{ t.action.toggleDetails }}</button>
                 </mat-menu>
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge [color]="item.action | actionColor">
@@ -51,6 +51,8 @@
                         <dsh-file-container
                             *ngIf="isFileModificationUnit(modification)"
                             [unit]="modification.claimModificationType"
+                            deletion
+                            (delete)="deleteFile(modification)"
                         ></dsh-file-container>
                     </div>
                 </div>

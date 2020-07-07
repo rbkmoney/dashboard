@@ -16,7 +16,7 @@ export function isPayload<T>(value: T | BasicError<any>): value is T {
 export const replaceError = <T, E = any>(source: Observable<T>): Observable<T | BasicError<E>> =>
     source.pipe(catchError((value) => of(new BasicError(value))));
 
-export const filterError = <E>(source: Observable<any | BasicError<E>>): Observable<E> =>
+export const filterError = <E, T = any>(source: Observable<T | BasicError<E>>): Observable<E> =>
     source.pipe(
         filter((value) => value instanceof BasicError),
         pluck('error')

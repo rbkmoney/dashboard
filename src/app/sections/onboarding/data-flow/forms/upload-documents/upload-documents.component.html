@@ -12,7 +12,12 @@
     <div *ngIf="!(fileUnits$ | async)?.length; else files" class="mat-body-1">{{ t.noDocs }}</div>
     <ng-template #files>
         <div fxLayout="column" fxLayoutGap="10px">
-            <dsh-file-container *ngFor="let unit of fileUnits$ | async" [unit]="unit"></dsh-file-container>
+            <dsh-file-container
+                *ngFor="let unit of fileUnits$ | async"
+                [unit]="unit"
+                deletion
+                (delete)="deleteFile(unit)"
+            ></dsh-file-container>
         </div>
     </ng-template>
     <dsh-file-uploader (filesUploaded)="filesUploaded($event)"></dsh-file-uploader>

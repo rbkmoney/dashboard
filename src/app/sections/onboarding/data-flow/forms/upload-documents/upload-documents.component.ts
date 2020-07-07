@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { FileModificationUnit } from '../../../../../api-codegen/claim-management/swagger-codegen';
 import { UploadDocumentsService } from './upload-documents.service';
 
 @Component({
@@ -13,5 +14,9 @@ export class UploadDocumentsComponent {
 
     filesUploaded(fileIds: string[]) {
         this.documentsService.filesUploaded(fileIds);
+    }
+
+    deleteFile(unit: FileModificationUnit) {
+        this.documentsService.deleteFile(unit);
     }
 }

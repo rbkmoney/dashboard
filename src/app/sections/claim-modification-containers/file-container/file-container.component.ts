@@ -1,5 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { filter } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
+import { coerceBoolean } from '../../../../utils';
 import { FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 import { FileContainerService } from './file-container.service';
 
@@ -11,12 +16,14 @@ import { FileContainerService } from './file-container.service';
 })
 export class FileContainerComponent implements OnChanges {
     @Input() unit: FileModificationUnit;
+    @Input() @coerceBoolean deletion = false;
+    @Output() delete = new EventEmitter<FileModificationUnit>();
 
     fileInfo$ = this.fileContainerService.fileInfo$;
     isLoading$ = this.fileContainerService.isLoading$;
     error$ = this.fileContainerService.error$;
 
-    constructor(private fileContainerService: FileContainerService) {}
+    constructor(private fileContainerService: FileContainerService, private dialog: MatDialog) {}
 
     ngOnChanges({ unit }: SimpleChanges) {
         if (unit.firstChange || unit.currentValue.fileId !== unit.previousValue.fileId) {
@@ -24,7 +31,17 @@ export class FileContainerComponent implements OnChanges {
         }
     }
 
-    downloadFile(fileID: string) {
-        this.fileContainerService.downloadFile(fileID);
+    download() {
+        this.fileContainerService.downloadFile(this.unit.fileId);
+    }
+
+    deleteByCondition() {
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(filter((r) => r === 'confirm'))
+            .subscribe(() => {
+                this.delete.emit(this.unit);
+            });
     }
 }
