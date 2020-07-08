@@ -1,7 +1,9 @@
+$padding: 24px;
+
 :host {
     display: block;
 
     .actions {
-        padding: 24px;
+        padding: $padding;
     }
 }

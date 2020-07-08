@@ -1,4 +1,6 @@
+$padding: 24px;
+
 :host {
     display: block;
-    padding: 24px;
+    padding: $padding;
 }

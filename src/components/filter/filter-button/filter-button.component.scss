@@ -1,23 +1,33 @@
+$height: 32px;
+$padding-top-bottom: 16px;
+$max-width: 250px;
+$content-padding: 24px;
+
+$border-width: 1px;
+$active-border-width: 2px;
+
+$transition-time: 200ms;
+
 .dsh-filter-button {
-    border: 1px solid;
-    border-radius: 32px;
-    height: 32px;
-    padding: 0 16px;
+    border: $border-width solid;
+    border-radius: $height;
+    height: $height;
+    padding: 0 $padding-top-bottom;
     background-color: transparent;
     outline: none;
-    max-width: 250px;
+    max-width: $max-width;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: border-color 200ms ease, color 200ms ease;
+    transition: border-color $transition-time ease, color $transition-time ease;
 
     &-content,
     &-actions {
-        padding: 24px;
+        padding: $content-padding;
     }
 
     &-active {
-        border-width: 2px;
+        border-width: $active-border-width;
     }
 
     &:enabled {
