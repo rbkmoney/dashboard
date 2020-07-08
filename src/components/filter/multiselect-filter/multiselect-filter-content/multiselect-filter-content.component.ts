@@ -1,27 +1,10 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
-export interface Item {
-    label?: string;
-    value: string;
-}
-
-export interface DisplayedItem {
-    item: Item;
-    found: boolean;
-    selected: boolean;
-}
+import { ComponentChanges } from '../../../../type-utils';
+import { MultiselectFilterItem } from '../multiselect-filter-item';
 
 @Component({
     selector: 'dsh-multiselect-filter-content',
@@ -29,12 +12,13 @@ export interface DisplayedItem {
     styleUrls: ['multiselect-filter-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterContentComponent implements OnInit, OnChanges {
+export class MultiselectFilterContentComponent<T = any> implements OnInit, OnChanges {
     @Input() label: string;
-    @Input() items: Item[] = [];
+    @Input() items: MultiselectFilterItem<T>[];
+    @Input() selectedItems?: (MultiselectFilterItem<T> | MultiselectFilterItem<T>['id'])[];
 
-    @Output() selectedChange = new EventEmitter<Item[]>();
-    @Output() foundChange = new EventEmitter<Item[]>();
+    @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
+    @Output() foundChange = new EventEmitter<MultiselectFilterItem<T>[]>();
 
     form = this.fb.group({
         search: '',
@@ -64,8 +48,12 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
         shareReplay(1)
     );
 
-    @Input() filterPredicate: (value: string, item: Item, idx: number, items: Item[]) => boolean = (value, item) =>
-        item.value.toLowerCase().trim().includes(value.toLowerCase().trim());
+    @Input() filterPredicate: (
+        value: string,
+        item: MultiselectFilterItem<T>,
+        idx: number,
+        items: MultiselectFilterItem<T>[]
+    ) => boolean = (value, item) => item.label.toLowerCase().trim().includes(value.toLowerCase().trim());
 
     constructor(private fb: FormBuilder) {}
 
@@ -78,19 +66,30 @@ export class MultiselectFilterContentComponent implements OnInit, OnChanges {
             .subscribe((found) => this.foundChange.emit(found));
     }
 
-    ngOnChanges({ items }: SimpleChanges) {
-        if (items.currentValue !== items.previousValue) {
-            const currentItems: Item[] = items.currentValue || [];
+    ngOnChanges({ items, selectedItems }: ComponentChanges<MultiselectFilterContentComponent<T>>) {
+        if (items && items.currentValue !== items.previousValue) {
+            const currentItems = items.currentValue || [];
             this.items$.next(currentItems);
             this.itemsForm.clear();
             for ({} of currentItems) {
                 this.itemsForm.push(this.fb.control(false));
             }
         }
+        if (selectedItems && selectedItems.currentValue !== selectedItems.previousValue) {
+            if (this.items) {
+                const currentSelectedItems = selectedItems.currentValue || [];
+                const newValue = new Array(this.items.length || 0).fill(false);
+                for (const selected of currentSelectedItems) {
+                    const selectedId = typeof selected === 'object' ? selected.id : selected;
+                    const idx = this.items.findIndex(({ id }) => id === selectedId);
+                    this.itemsForm.controls[idx].patchValue(true);
+                }
+            }
+        }
     }
 
     private getSelected(values: boolean[] = this.itemsForm.value) {
-        return values.reduce((acc, v, idx) => (v ? [...acc, this.items[idx]] : acc), [] as Item[]);
+        return values.reduce((acc, v, idx) => (v ? [...acc, this.items[idx]] : acc), [] as MultiselectFilterItem<T>[]);
     }
 
     clear() {

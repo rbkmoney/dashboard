@@ -2,20 +2,22 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { Item } from './multiselect-filter-content';
+import { MultiselectFilterContentComponent } from './multiselect-filter-content';
+import { MultiselectFilterItem } from './multiselect-filter-item';
 
 @Component({
     selector: 'dsh-multiselect-filter',
     templateUrl: 'multiselect-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterComponent {
+export class MultiselectFilterComponent<T = any> {
     @Input() label: string;
     @Input() selectedLabel?: string;
 
-    @Input() items: Item[] = [];
+    @Input() items: MultiselectFilterItem<T>[] = [];
+    @Input() selectedItems?: MultiselectFilterContentComponent['selectedItems'];
 
-    @Output() selectedChange = new EventEmitter<Item[]>();
+    @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
 
     displayedLabels$ = new BehaviorSubject<string[]>([]);
 
@@ -32,7 +34,7 @@ export class MultiselectFilterComponent {
         shareReplay(1)
     );
 
-    selectedItemsChange(items: Item[]) {
+    selectedItemsChange(items: MultiselectFilterItem[]) {
         this.selectedChange.emit(items);
         this.displayedLabels$.next(items.map(({ label }) => label));
     }
