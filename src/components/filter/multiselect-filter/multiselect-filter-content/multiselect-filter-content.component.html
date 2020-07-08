@@ -1,17 +1,21 @@
-<form [formGroup]="form" fxLayout="column" fxLayoutGap="8px" class="form">
+<div class="form" fxLayout="column" fxLayoutGap="8px">
     <mat-form-field fxFlex>
         <mat-label>{{ label }}</mat-label>
-        <input matInput formControlName="search" />
+        <input matInput [formControl]="searchControl" />
     </mat-form-field>
     <div
         class="items"
-        [ngClass]="{ 'items-overflow': (displayedItemsIdx$ | async)?.length > 5 }"
-        *ngIf="(displayedItemsIdx$ | async)?.length"
+        [ngClass]="{ 'items-overflow': (displayedItems$ | async)?.length > 5 }"
+        *ngIf="(displayedItems$ | async)?.length"
         fxLayout="column"
         fxLayoutGap="16px"
     >
-        <mat-checkbox *ngFor="let idx of displayedItemsIdx$ | async" [formControl]="itemsForm.controls[idx]">
-            {{ items[idx].label }}
+        <mat-checkbox
+            *ngFor="let item of displayedItems$ | async"
+            [checked]="(selectedItems$ | async)[item.id]"
+            (change)="toggle(item.id)"
+        >
+            {{ item.label }}
         </mat-checkbox>
     </div>
-</form>
+</div>
