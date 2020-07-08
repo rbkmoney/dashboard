@@ -1,17 +1,15 @@
+$max-height: 272px;
 $width: 312px;
-$item-height: 39px;
-$displayed-items: 5;
 
-:host {
-    display: block;
+.form {
     width: $width;
+    max-height: $max-height;
 
     .items {
         overflow: hidden;
 
         &-overflow {
             overflow-y: auto;
-            max-height: $item-height * $displayed-items;
         }
     }
 }
