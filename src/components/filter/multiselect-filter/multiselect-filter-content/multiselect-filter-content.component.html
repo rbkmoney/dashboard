@@ -1,4 +1,9 @@
-<div class="form" fxLayout="column" fxLayoutGap="8px">
+<div
+    class="form"
+    [ngClass]="{ 'form-without-items': !(displayedItems$ | async)?.length }"
+    fxLayout="column"
+    fxLayoutGap="8px"
+>
     <mat-form-field fxFlex>
         <mat-label>{{ label }}</mat-label>
         <input matInput [formControl]="searchControl" />

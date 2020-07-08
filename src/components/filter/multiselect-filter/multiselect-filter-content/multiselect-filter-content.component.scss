@@ -1,9 +1,16 @@
 $dsh-multiselect-filter-content-max-height: 272px;
 $dsh-multiselect-filter-content-width: 312px;
+$dsh-multiselect-filter-content-content-padding: 24px;
+$dsh-multiselect-filter-content-content-without-items-bottom-padding: 8px;
 
 .form {
     width: $dsh-multiselect-filter-content-width;
     max-height: $dsh-multiselect-filter-content-max-height;
+
+    &-without-items {
+        margin-bottom: $dsh-multiselect-filter-content-content-without-items-bottom-padding -
+            $dsh-multiselect-filter-content-content-padding;
+    }
 
     .items {
         overflow: hidden;
