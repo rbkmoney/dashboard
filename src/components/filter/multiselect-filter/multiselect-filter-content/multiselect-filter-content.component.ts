@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, map, shareReplay, startWith } from 'rxjs/operators';
+import { debounceTime, map, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
 
-import { ComponentChanges } from '../../../../type-utils';
 import { MultiselectFilterItem } from '../multiselect-filter-item';
+import { MultiselectFilterService } from '../multiselect-filter.service';
 
 @Component({
     selector: 'dsh-multiselect-filter-content',
@@ -12,27 +12,26 @@ import { MultiselectFilterItem } from '../multiselect-filter-item';
     styleUrls: ['multiselect-filter-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterContentComponent<T = any> implements OnChanges {
+export class MultiselectFilterContentComponent<T = any> {
     @Input() label: string;
-    @Input() items: MultiselectFilterItem<T>[];
-    @Input() selectedItems?: (MultiselectFilterItem<T> | MultiselectFilterItem<T>['id'])[];
 
     @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
     @Output() foundChange = new EventEmitter<MultiselectFilterItem<T>[]>();
 
     searchControl = this.fb.control('');
 
-    items$ = new BehaviorSubject<MultiselectFilterItem<T>[]>([]);
-    selectedItems$ = new BehaviorSubject<{ [N in MultiselectFilterItem<T>['id']]: boolean }>({});
+    items$ = this.multiselectFilterService.items$;
+    currentSelectedItemsById$ = new BehaviorSubject<{ [N in MultiselectFilterItem<T>['id']]: boolean }>({});
     displayedItems$ = combineLatest([
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value), debounceTime(250)) as Observable<
             string
         >,
-        this.items$,
+        this.multiselectFilterService.items$,
     ]).pipe(
-        map(([search, items]) =>
+        withLatestFrom(this.currentSelectedItemsById$),
+        map(([[search, items], selectedItems]) =>
             (items || []).filter(
-                (item, idx) => this.selectedItems$.value[item.id] || this.filterPredicate(search, item, idx, items)
+                (item, idx) => selectedItems[item.id] || this.filterPredicate(search, item, idx, items)
             )
         ),
         shareReplay(1)
@@ -45,33 +44,34 @@ export class MultiselectFilterContentComponent<T = any> implements OnChanges {
         items: MultiselectFilterItem<T>[]
     ) => boolean = (value, item) => item.label.toLowerCase().trim().includes(value.toLowerCase().trim());
 
-    constructor(private fb: FormBuilder) {}
-
-    ngOnChanges({ items, selectedItems }: ComponentChanges<MultiselectFilterContentComponent<T>>) {
-        if (items && items.currentValue !== items.previousValue) {
-            this.items$.next(items.currentValue);
-        }
-        if (selectedItems && selectedItems.currentValue !== selectedItems.previousValue) {
-            this.selectedItems$.next(
-                Object.fromEntries(selectedItems.currentValue.map((i) => [typeof i === 'object' ? i.id : i, true]))
-            );
-        }
+    constructor(private fb: FormBuilder, private multiselectFilterService: MultiselectFilterService) {
+        this.multiselectFilterService.selectedItemsById$.subscribe((selectedItemsById) =>
+            this.currentSelectedItemsById$.next(selectedItemsById)
+        );
     }
 
     clear() {
         this.searchControl.patchValue('');
-        this.selectedItems$.next({});
+        this.currentSelectedItemsById$.next({});
     }
 
     save() {
-        if (this.items) {
+        this.multiselectFilterService.items$.subscribe((items) => {
+            const { value: selectedItems } = this.currentSelectedItemsById$;
             this.searchControl.patchValue('');
-            this.selectedChange.emit(this.items.filter(({ id }) => this.selectedItems$.value[id]));
-        }
+            this.selectedChange.emit((items || []).filter(({ id }) => selectedItems[id]));
+            this.multiselectFilterService.updateSelectedItemsById(selectedItems);
+        });
     }
 
     toggle(id: MultiselectFilterItem<T>['id']) {
-        this.selectedItems$.next({ ...this.selectedItems$.value, [id]: !this.selectedItems$.value[id] });
-        console.log(this.selectedItems$.value);
+        const { value } = this.currentSelectedItemsById$;
+        const newValue = { ...value };
+        if (newValue[id]) {
+            delete newValue[id];
+        } else {
+            newValue[id] = true;
+        }
+        this.currentSelectedItemsById$.next(newValue);
     }
 }

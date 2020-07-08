@@ -1,12 +1,6 @@
-<dsh-filter [title]="title$ | async" [active]="!!(displayedLabels$ | async).length" (closed)="content.save()" #filter>
+<dsh-filter [title]="title$ | async" [active]="!!(selectedItems$ | async)?.length" (closed)="content.save()" #filter>
     <dsh-filter-button-content>
-        <dsh-multiselect-filter-content
-            [label]="label"
-            [items]="items"
-            [selectedItems]="selectedItems"
-            (selectedChange)="selectedItemsChange($event)"
-            #content
-        ></dsh-multiselect-filter-content>
+        <dsh-multiselect-filter-content [label]="label" #content></dsh-multiselect-filter-content>
     </dsh-filter-button-content>
     <dsh-filter-button-actions
         (clear)="content.clear()"

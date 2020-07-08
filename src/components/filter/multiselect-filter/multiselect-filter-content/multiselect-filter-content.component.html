@@ -12,7 +12,7 @@
     >
         <mat-checkbox
             *ngFor="let item of displayedItems$ | async"
-            [checked]="(selectedItems$ | async)[item.id]"
+            [checked]="(currentSelectedItemsById$ | async)[item.id]"
             (change)="toggle(item.id)"
         >
             {{ item.label }}
