@@ -8,7 +8,7 @@
         [ngClass]="{ 'items-overflow': (displayedItemsIdx$ | async)?.length > 5 }"
         *ngIf="(displayedItemsIdx$ | async)?.length"
         fxLayout="column"
-        fxLayoutGap="14px"
+        fxLayoutGap="16px"
     >
         <mat-checkbox *ngFor="let idx of displayedItemsIdx$ | async" [formControl]="itemsForm.controls[idx]">
             {{ items[idx].label || items[idx].value }}
