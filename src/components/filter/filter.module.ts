@@ -9,7 +9,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '../buttons/button';
 import { DropdownModule } from '../layout/dropdown';
-import { JustifyWrapperModule } from '../layout/justify-wrapper';
 import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
@@ -36,7 +35,6 @@ const EXPORTED_DECLARATIONS = [
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        JustifyWrapperModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

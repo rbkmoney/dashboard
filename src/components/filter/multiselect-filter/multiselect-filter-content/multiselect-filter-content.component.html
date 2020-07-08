@@ -1,21 +1,17 @@
-<form [formGroup]="form">
-    <dsh-justify-wrapper fxLayout="column" fxLayoutGap="28px">
-        <mat-form-field fxFlex>
-            <mat-label>{{ label }}</mat-label>
-            <input matInput formControlName="search" />
-        </mat-form-field>
-        <div
-            class="items"
-            [ngClass]="{ 'items-overflow': (displayedItemsIdx$ | async)?.length > 5 }"
-            *ngIf="(displayedItemsIdx$ | async)?.length"
-            fxLayout="column"
-            fxLayoutGap="14px"
-        >
-            <ng-container *ngFor="let idx of displayedItemsIdx$ | async">
-                <mat-checkbox [formControl]="itemsForm.controls[idx]">
-                    {{ items[idx].label || items[idx].value }}
-                </mat-checkbox>
-            </ng-container>
-        </div>
-    </dsh-justify-wrapper>
+<form [formGroup]="form" fxLayout="column">
+    <mat-form-field fxFlex>
+        <mat-label>{{ label }}</mat-label>
+        <input matInput formControlName="search" />
+    </mat-form-field>
+    <div
+        class="items"
+        [ngClass]="{ 'items-overflow': (displayedItemsIdx$ | async)?.length > 5 }"
+        *ngIf="(displayedItemsIdx$ | async)?.length"
+        fxLayout="column"
+        fxLayoutGap="14px"
+    >
+        <mat-checkbox *ngFor="let idx of displayedItemsIdx$ | async" [formControl]="itemsForm.controls[idx]">
+            {{ items[idx].label || items[idx].value }}
+        </mat-checkbox>
+    </div>
 </form>
