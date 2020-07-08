@@ -1,9 +1,9 @@
-$max-height: 272px;
-$width: 312px;
+$dsh-multiselect-filter-content-max-height: 272px;
+$dsh-multiselect-filter-content-width: 312px;
 
 .form {
-    width: $width;
-    max-height: $max-height;
+    width: $dsh-multiselect-filter-content-width;
+    max-height: $dsh-multiselect-filter-content-max-height;
 
     .items {
         overflow: hidden;

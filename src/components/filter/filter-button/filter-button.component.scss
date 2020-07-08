@@ -1,33 +1,33 @@
-$height: 32px;
-$padding-top-bottom: 16px;
-$max-width: 250px;
-$content-padding: 24px;
+$dsh-filter-button-height: 32px;
+$dsh-filter-button-padding-top-bottom: 16px;
+$dsh-filter-button-max-width: 250px;
+$dsh-filter-button-content-padding: 24px;
 
-$border-width: 1px;
-$active-border-width: 2px;
+$dsh-filter-button-border-width: 1px;
+$dsh-filter-button-active-border-width: 2px;
 
-$transition-time: 200ms;
+$dsh-filter-button-transition-time: 200ms;
 
 .dsh-filter-button {
-    border: $border-width solid;
-    border-radius: $height;
-    height: $height;
-    padding: 0 $padding-top-bottom;
+    border: $dsh-filter-button-border-width solid;
+    border-radius: $dsh-filter-button-height;
+    height: $dsh-filter-button-height;
+    padding: 0 $dsh-filter-button-padding-top-bottom;
     background-color: transparent;
     outline: none;
-    max-width: $max-width;
+    max-width: $dsh-filter-button-max-width;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    transition: border-color $transition-time ease, color $transition-time ease;
+    transition: border-color $dsh-filter-button-transition-time ease, color $dsh-filter-button-transition-time ease;
 
     &-content,
     &-actions {
-        padding: $content-padding;
+        padding: $dsh-filter-button-content-padding;
     }
 
     &-active {
-        border-width: $active-border-width;
+        border-width: $dsh-filter-button-active-border-width;
     }
 
     &:enabled {

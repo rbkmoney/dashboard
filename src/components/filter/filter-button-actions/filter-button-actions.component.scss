@@ -1,9 +1,9 @@
-$padding: 24px;
+$dsh-filter-button-actions-padding: 24px;
 
 :host {
     display: block;
 
     .actions {
-        padding: $padding;
+        padding: $dsh-filter-button-actions-padding;
     }
 }
