@@ -27,7 +27,7 @@ build('dashboard', 'docker-host') {
     runStage('build image') {
       sh 'make build_image'
     }
-
+    runFESecurityTools()
     try {
       if (env.BRANCH_NAME == 'master') {
         runStage('push image') {
