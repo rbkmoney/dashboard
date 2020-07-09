@@ -1,4 +1,5 @@
 import sortBy from 'lodash.sortby';
+import moment from 'moment';
 
 import {
     OffsetCount,
@@ -32,11 +33,14 @@ const fillSplitCountByZeroValues = (
 ): OffsetCount[] => {
     const offsets = getOffsets(fromTime, toTime, splitUnit);
     if (offsetCounts) {
+        const fixedOffsetCount =
+            splitUnit !== 'hour' && moment(fromTime).valueOf() === offsets[0]
+                ? fixExtraInterval(offsetCounts)
+                : offsetCounts;
         return offsets.map((offset) => {
-            const fixedOffsetCount = splitUnit !== 'hour' ? fixExtraInterval(offsetCounts) : offsetCounts;
             return {
                 offset,
-                count: fixedOffsetCount[fixedOffsetCount.findIndex((o) => o.offset === offset)]?.count || 0,
+                count: fixedOffsetCount.find((o) => o.offset === offset)?.count || 0,
             };
         });
     } else {

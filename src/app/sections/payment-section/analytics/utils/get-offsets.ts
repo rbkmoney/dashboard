@@ -1,9 +1,23 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
 
 export const getOffsets = (fromTime: string, toTime: string, splitUnit: SplitUnit): number[] => {
-    const current = splitUnit !== 'hour' ? moment(fromTime).add(getUtcOffsetHours(), 'h') : moment(fromTime);
+    let current: Moment;
+    switch (splitUnit) {
+        case 'month':
+            current = moment(fromTime).subtract(moment(fromTime).date() - 1, 'd');
+            break;
+        case 'week':
+            current = moment(fromTime).subtract(moment(fromTime).weekday(), 'd');
+            break;
+        default:
+            current = moment(fromTime);
+            break;
+    }
+    if (splitUnit !== 'hour') {
+        current.add(getUtcOffsetHours(), 'h');
+    }
     const to = moment(toTime);
     const offsets: number[] = [];
     while (current < to) {
