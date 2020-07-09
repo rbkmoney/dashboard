@@ -5,6 +5,7 @@ export const splitUnitToTimeFormat = (unit: SplitUnit): string => {
         case 'hour':
             return 'HH:mm';
         case 'day':
+        case 'week':
             return 'DD.MM';
         case 'month':
             return 'MMMM';
