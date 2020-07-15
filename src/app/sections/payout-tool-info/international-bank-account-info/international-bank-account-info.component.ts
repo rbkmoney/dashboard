@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PayoutToolDetailsInternationalBankAccount } from '../../../../../api-codegen/anapi';
+import { coerceBoolean } from '../../../../utils';
+import { PayoutToolDetailsInternationalBankAccount } from '../../../api-codegen/anapi';
 
 @Component({
     selector: 'dsh-international-bank-account-info',
@@ -8,5 +9,6 @@ import { PayoutToolDetailsInternationalBankAccount } from '../../../../../api-co
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternationalBankAccountInfoComponent {
+    @Input() @coerceBoolean hideTitle: boolean;
     @Input() payoutTool: PayoutToolDetailsInternationalBankAccount;
 }
