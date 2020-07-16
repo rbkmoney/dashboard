@@ -1,5 +1,11 @@
-<ng-container *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'">
-    <h1 class="mat-title">{{ c.title }}</h1>
+<div *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'" fxLayout="column" fxLayoutGap="24px">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <div fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
+            <h1 class="dsh-title">{{ c.title }}</h1>
+            <mat-icon class="close-icon" svgIcon="cross" (click)="cancel.emit()"></mat-icon>
+        </div>
+        <div class="dsh-body-1">{{ c.description }}</div>
+    </div>
     <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
@@ -100,4 +106,4 @@
             </div>
         </dsh-justify-wrapper>
     </form>
-</ng-container>
+</div>

@@ -248,7 +248,7 @@ export class CreatePaymentLinkService {
                     paymentMethodsControls.terminals.enable();
                     break;
                 default:
-                    console.error('Unhandled PaymentMethod');
+                    console.error(`Unhandled PaymentMethod - ${item.method}`);
                     break;
             }
         });

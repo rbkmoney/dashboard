@@ -12,6 +12,7 @@ const OrderedPaymentMethodsNames = ['bankCard', 'wallets', 'terminals', 'applePa
 @Component({
     selector: 'dsh-create-payment-link',
     templateUrl: 'create-payment-link.component.html',
+    styleUrls: ['create-payment-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePaymentLinkComponent implements OnInit {
