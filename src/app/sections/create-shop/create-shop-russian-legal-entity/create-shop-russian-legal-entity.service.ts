@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
-import { map, mapTo, pluck, switchMap, switchMapTo } from 'rxjs/operators';
+import { map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import {
