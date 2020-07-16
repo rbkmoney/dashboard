@@ -18,3 +18,4 @@ export * from './url-shortener';
 export * from './invoice-templates';
 export * from './deposits';
 export * from './withdrawals';
+export * from './payouts';

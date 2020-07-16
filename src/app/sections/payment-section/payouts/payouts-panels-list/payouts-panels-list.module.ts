@@ -14,16 +14,12 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
 import { ToMajorModule } from '../../../../to-major';
-import { BankAccountInfoComponent } from './bank-account-info';
-import { BankCardInfoComponent } from './bank-card-info';
+import { PayoutToolInfoModule } from '../../../payout-tool-info';
 import { CommonInfoComponent } from './common-info';
 import { CreateReportDialogComponent } from './create-report-dialog';
-import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
 import { PaymentsInfoComponent } from './payments-info';
-import { PayoutToolInfoComponent } from './payout-tool-info';
 import { PayoutsPanelsListComponent } from './payouts-panels-list.component';
 import { RefundsInfoComponent } from './refunds-info';
-import { WalletInfoComponent } from './wallet-info';
 
 @NgModule({
     imports: [
@@ -40,18 +36,14 @@ import { WalletInfoComponent } from './wallet-info';
         MatDialogModule,
         ReportsModule,
         MatSnackBarModule,
+        PayoutToolInfoModule,
     ],
     declarations: [
         PayoutsPanelsListComponent,
-        BankAccountInfoComponent,
-        BankCardInfoComponent,
-        InternationalBankAccountInfoComponent,
-        WalletInfoComponent,
         CreateReportDialogComponent,
         PaymentsInfoComponent,
         RefundsInfoComponent,
         CommonInfoComponent,
-        PayoutToolInfoComponent,
     ],
     entryComponents: [CreateReportDialogComponent],
     exports: [PayoutsPanelsListComponent],
