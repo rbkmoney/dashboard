@@ -1,4 +1,5 @@
 import sortBy from 'lodash.sortby';
+import moment from 'moment';
 
 import { OffsetAmount, SplitAmountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
 import { getOffsets } from '../utils';
@@ -24,8 +25,11 @@ const fillSplitAmountByZeroValues = (
     splitUnit: SplitUnit
 ): OffsetAmount[] => {
     const offsets = getOffsets(fromTime, toTime, splitUnit);
+    const fixedOffsetAmount =
+        splitUnit !== 'hour' && moment(fromTime).valueOf() === offsets[0]
+            ? fixExtraInterval(offsetAmounts)
+            : offsetAmounts;
     return offsets.map((offset) => {
-        const fixedOffsetAmount = splitUnit !== 'hour' ? fixExtraInterval(offsetAmounts) : offsetAmounts;
         return {
             offset,
             amount: fixedOffsetAmount[fixedOffsetAmount.findIndex((o) => o.offset === offset)]?.amount || 0,
