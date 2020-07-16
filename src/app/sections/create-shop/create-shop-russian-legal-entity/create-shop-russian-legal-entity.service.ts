@@ -10,7 +10,13 @@ import {
     QuestionaryService,
     ShopService,
 } from '../../../api';
-import { BankAccount, QuestionaryData, RussianBankAccount, ShopLocationUrl } from '../../../api-codegen/questionary';
+import {
+    BankAccount,
+    QuestionaryData,
+    RussianBankAccount,
+    ShopLocation,
+    ShopLocationUrl,
+} from '../../../api-codegen/questionary';
 
 @Injectable()
 export class CreateShopRussianLegalEntityService {
@@ -40,8 +46,13 @@ export class CreateShopRussianLegalEntityService {
         const changeset = [createDocumentModificationUnit(initialDocumentID)];
         const questionaryData: QuestionaryData = {
             shopInfo: {
-                location: { url } as ShopLocationUrl,
-                details: { name },
+                location: {
+                    locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
+                    url,
+                } as ShopLocationUrl,
+                details: {
+                    name,
+                },
             },
             bankAccount: {
                 bankAccountType: BankAccount.BankAccountTypeEnum.RussianBankAccount,
