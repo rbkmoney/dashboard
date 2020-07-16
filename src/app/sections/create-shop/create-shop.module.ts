@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
@@ -41,6 +42,7 @@ const EXPORTED_DECLARATIONS = [CreateShopRussianLegalEntityComponent];
         PayoutToolInfoModule,
         MatSnackBarModule,
         QuestionaryModule,
+        RouterModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

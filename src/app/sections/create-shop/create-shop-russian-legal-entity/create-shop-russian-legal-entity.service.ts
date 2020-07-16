@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, mapTo, pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import {
@@ -63,8 +63,11 @@ export class CreateShopRussianLegalEntityService {
             } as RussianBankAccount,
         };
         return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
-            switchMap(([, { id, revision }]) => this.claimsService.requestReviewClaimByID(id, revision))
+            switchMapTo(this.claimsService.createClaim(changeset)),
+            switchMap((claim) =>
+                forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
+            ),
+            pluck(0)
         );
     }
 
