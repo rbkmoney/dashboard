@@ -62,9 +62,10 @@ export class CreateShopRussianLegalEntityService {
                 bankBik,
             } as RussianBankAccount,
         };
-        return this.questionaryService
-            .saveQuestionary(initialDocumentID, questionaryData)
-            .pipe(switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])));
+        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
+            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
+            switchMap(([, { id, revision }]) => this.claimsService.requestReviewClaimByID(id, revision))
+        );
     }
 
     getPayoutToolByShopID(shopID: string) {
