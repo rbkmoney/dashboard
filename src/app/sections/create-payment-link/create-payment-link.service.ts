@@ -249,8 +249,7 @@ export class CreatePaymentLinkService {
                 case 'PaymentTerminal':
                     paymentMethodsControls.terminals.enable();
                     break;
-                // TODO: update swag
-                case 'MobileCommerce' as string:
+                case 'MobileCommerce':
                     paymentMethodsControls.mobileCommerce.enable();
                     break;
                 default:
