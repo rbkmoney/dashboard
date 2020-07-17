@@ -1,0 +1,93 @@
+<form
+    fxLayout="column"
+    fxLayoutGap="32px"
+    [formGroup]="form"
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'"
+>
+    <h1 class="dsh-headline">{{ t.title }}</h1>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <mat-form-field>
+            <mat-label>{{ t.url }}</mat-label>
+            <input matInput formControlName="url" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ t.name }}</mat-label>
+            <input matInput formControlName="name" required maxlength="100" />
+            <mat-hint>{{ form.value.name.length }} / 100</mat-hint>
+        </mat-form-field>
+
+        <div *ngIf="t.payoutTool as p" fxLayout="column" fxLayoutGap="24px">
+            <mat-divider></mat-divider>
+
+            <div fxLayout="column" fxLayoutGap="16px">
+                <h2 class="dsh-title">{{ p.title }}</h2>
+                <div class="dsh-body-1">{{ p.description }}</div>
+            </div>
+
+            <div>
+                <mat-radio-group formControlName="bankAccountType" fxLayout fxLayoutGap="24px" required>
+                    <mat-radio-button value="new" fxFlex>{{ p.bankAccountType.new }}</mat-radio-button>
+                    <mat-radio-button value="existing" fxFlex>{{ p.bankAccountType.existing }}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div *ngIf="form.value.bankAccountType === 'new'" fxLayout="column" fxLayoutGap="16px">
+                <mat-form-field>
+                    <mat-label>{{ p.new.search }}</mat-label>
+                    <dsh-dadata-autocomplete
+                        formControlName="search"
+                        type="bank"
+                        (optionSelected)="bankSelected($event)"
+                    ></dsh-dadata-autocomplete>
+                </mat-form-field>
+
+                <div *ngIf="form.controls.bankName.dirty || form.value.bankName" fxLayout="column" fxLayoutGap="8px">
+                    <mat-form-field>
+                        <mat-label>{{ p.new.name }}</mat-label>
+                        <input matInput formControlName="bankName" required />
+                    </mat-form-field>
+                    <div fxLayout fxLayoutGap="24px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{ p.new.bik }}</mat-label>
+                            <dsh-format-input format="bik" formControlName="bankBik" required></dsh-format-input>
+                        </mat-form-field>
+                        <mat-form-field fxFlex>
+                            <mat-label>{{ p.new.postAccount }}</mat-label>
+                            <dsh-format-input
+                                format="bankPostAccount"
+                                matInput
+                                formControlName="bankPostAccount"
+                                required
+                            ></dsh-format-input>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field>
+                        <mat-label>{{ p.new.account }}</mat-label>
+                        <dsh-format-input format="bankAccount" formControlName="account" required></dsh-format-input>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div *ngIf="form.value.bankAccountType === 'existing'" fxLayout="column" fxLayoutGap="16px">
+                <mat-form-field>
+                    <mat-label>{{ p.existing.label }}</mat-label>
+                    <mat-select formControlName="shop" required>
+                        <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                            {{ shop.details.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <dsh-payout-tool-info
+                    [payoutToolDetails]="(payoutTool$ | async).details"
+                    *ngIf="payoutTool$ | async"
+                    hideTitle
+                ></dsh-payout-tool-info>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
+        <button dsh-button *transloco="let t" (click)="cancel.emit()">{{ t.cancel }}</button>
+        <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t.send }}</button>
+    </div>
+</form>

@@ -1,9 +1,9 @@
 <div
     fxLayout="column"
-    fxLayoutGap="20px"
+    fxLayoutGap="24px"
     *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.internationalBankAccount'"
 >
-    <div class="mat-title">{{ p.title }}</div>
+    <div class="mat-title" *ngIf="!hideTitle">{{ p.title }}</div>
     <dsh-details-item [title]="p.name">
         {{ payoutTool?.bankDetails?.name }}
     </dsh-details-item>

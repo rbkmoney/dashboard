@@ -1,6 +1,7 @@
 import { Replace } from '../../../../type-utils';
 import {
     Contractor,
+    IndividualEntity,
     IndividualEntityContractor,
     IndividualRegistrationInfo,
     IndividualResidencyInfo,
@@ -28,8 +29,15 @@ type RussianIndividualEntityQuestionaryData = Replace<
 
 export type RussianIndividualEntityQuestionary = Replace<Questionary, { data: RussianIndividualEntityQuestionaryData }>;
 
+export const isRussianIndividualEntityContractor = (
+    contractor: IndividualEntityContractor
+): contractor is RussianIndividualEntityContractor =>
+    contractor.contractorType === Contractor.ContractorTypeEnum.IndividualEntityContractor &&
+    contractor.individualEntity.individualEntityType ===
+        IndividualEntity.IndividualEntityTypeEnum.RussianIndividualEntity;
+
 export function isRussianIndividualEntityQuestionary(
     questionary: Questionary
 ): questionary is RussianIndividualEntityQuestionary {
-    return questionary.data.contractor.contractorType === Contractor.ContractorTypeEnum.IndividualEntityContractor;
+    return questionary?.data?.contractor && isRussianIndividualEntityContractor(questionary.data.contractor);
 }

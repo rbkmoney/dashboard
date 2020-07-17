@@ -1,5 +1,5 @@
-<div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.bankCard'">
-    <div class="mat-title">{{ p.title }}</div>
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.bankCard'">
+    <div class="mat-title" *ngIf="!hideTitle">{{ p.title }}</div>
     <dsh-details-item [title]="p.cardNumber">
         {{ payoutTool?.cardNumberMask }}
     </dsh-details-item>

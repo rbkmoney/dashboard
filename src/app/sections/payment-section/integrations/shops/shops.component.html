@@ -1,6 +1,12 @@
-<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let s; scope: 'shops'; read: 'shops'">
-    <div class="mat-body-1">
-        {{ s.description }}
+<div fxLayout="column" fxLayoutGap="32px" *transloco="let s; scope: 'shops'; read: 'shops'">
+    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign=" center">
+        <div class="dsh-caption" fxFlex>
+            {{ s.description }}
+        </div>
+        <mat-divider vertical fxFlexAlign="stretch"></mat-divider>
+        <div>
+            <button dsh-button color="accent" (click)="createShop()">{{ s.createShop }}</button>
+        </div>
     </div>
     <ng-container *ngIf="(isLoading$ | async) || !(shops$ | async); else shopsPanelsList">
         <div fxLayout fxFlexAlign="center">

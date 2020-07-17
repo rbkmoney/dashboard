@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PayoutToolDetailsBankCard } from '../../../../../api-codegen/anapi';
+import { coerceBoolean } from '../../../../utils';
+import { PayoutToolDetailsBankCard } from '../../../api-codegen/anapi';
 
 @Component({
     selector: 'dsh-bank-card-info',
@@ -8,5 +9,6 @@ import { PayoutToolDetailsBankCard } from '../../../../../api-codegen/anapi';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankCardInfoComponent {
+    @Input() @coerceBoolean hideTitle: boolean;
     @Input() payoutTool: PayoutToolDetailsBankCard;
 }
