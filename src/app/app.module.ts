@@ -23,6 +23,7 @@ import icons from './icons.json';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
+import { TestEnvBannerModule } from './sections/banners/test-env-banner/test-env-banner.module';
 import { SettingsModule } from './settings';
 import { ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';
@@ -45,6 +46,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         HttpClientModule,
         TranslocoModule,
         YandexMetrikaModule,
+        TestEnvBannerModule,
     ],
     providers: [
         LanguageService,

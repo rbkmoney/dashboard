@@ -1,0 +1,16 @@
+<div class="dsh-global-banner" #bannerElement *ngIf="isActive">
+    <div class="dsh-global-banner-container" fxLayout="row" fxLayoutAlign="space-between top" fxLayoutGap="56px">
+        <div class="dsh-global-banner-mascot-icon">
+            <img *ngIf="mascot" [src]="'/assets/mascots/' + mascot + '.svg'" alt="Mascot icon" />
+        </div>
+        <div class="dsh-global-banner-content" fxLayout="column" fxLayoutGap="8px" fxFlex>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="dsh-headline">{{ title }}</div>
+                <mat-icon class="close" svgIcon="cross" (click)="close()"></mat-icon>
+            </div>
+            <div class="dsh-global-banner-text">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

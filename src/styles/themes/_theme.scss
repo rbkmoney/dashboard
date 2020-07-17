@@ -39,6 +39,7 @@
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/sections/payment-section/integrations/webhooks/webhooks-panels-list/webhooks-panels-list-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
+@import '../../app/sections/banners/global-banner/global-banner-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -80,5 +81,6 @@
         @include dsh-webhooks-panels-list-theme($theme);
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
+        @include dsh-global-banner-theme($theme);
     }
 }

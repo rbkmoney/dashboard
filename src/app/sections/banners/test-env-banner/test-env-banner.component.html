@@ -1,0 +1,14 @@
+<dsh-global-banner
+    *transloco="let t; scope: 'test-env-banner'; read: 'testEnvBanner'"
+    [mascot]="mascots.patrick"
+    [title]="t.title"
+    [isActive]="isActive$ | async"
+    (closed)="onClose()"
+>
+    <div class="dsh-body-1">
+        {{ t['text-1'] }}<br />
+        {{ t['text-2'] }}
+        {{ t['text-3'] }}<br />
+        {{ t['text-4'] }}
+    </div>
+</dsh-global-banner>

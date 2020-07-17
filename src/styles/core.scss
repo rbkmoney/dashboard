@@ -31,6 +31,7 @@
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
 @import '../app/sections/payment-section/nav/balances/balances-theme';
+@import '../app/sections/banners/global-banner/global-banner-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -61,6 +62,7 @@
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
     @include dsh-balances-typography($config);
+    @include dsh-global-banner-typography($config);
 }
 
 @include dsh-overrides();
