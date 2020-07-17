@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Mascots } from '../global-banner/mascots';
+import { Mascots } from '../../../global-banner/mascots';
 import { TestEnvBannerService } from './test-env-banner.service';
 
 @Component({
     selector: 'dsh-test-env-banner',
     templateUrl: 'test-env-banner.component.html',
+    styleUrls: ['test-env-banner.component.scss'],
     providers: [TestEnvBannerService],
 })
 export class TestEnvBannerComponent {

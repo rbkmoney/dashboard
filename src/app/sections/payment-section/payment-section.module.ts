@@ -10,6 +10,7 @@ import { NavComponent } from './nav';
 import { BalanceItemComponent, BalancesComponent } from './nav/balances';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { PaymentSectionComponent } from './payment-section.component';
+import { TestEnvBannerModule } from './test-env-banner/test-env-banner.module';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { PaymentSectionComponent } from './payment-section.component';
         MatIconModule,
         FlexLayoutModule,
         TranslocoModule,
+        TestEnvBannerModule
     ],
     declarations: [PaymentSectionComponent, NavComponent, BalancesComponent, BalanceItemComponent],
     exports: [PaymentSectionComponent],

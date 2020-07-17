@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { GlobalBannerModule } from '../global-banner/global-banner.module';
+import { GlobalBannerModule } from '../../../global-banner/global-banner.module';
 import { TestEnvBannerComponent } from './test-env-banner.component';
 
 @NgModule({
