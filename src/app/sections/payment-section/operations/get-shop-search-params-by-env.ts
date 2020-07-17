@@ -1,7 +1,7 @@
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Shop } from '../../../api-codegen/anapi/swagger-codegen';
+import { Shop } from '../../../api-codegen/capi';
 import { isTestShop } from '../../../api/shop/operators';
 import { RouteEnv } from '../../route-env';
 

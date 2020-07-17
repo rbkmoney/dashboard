@@ -36,6 +36,7 @@ export class PaymentLinkParams {
     terminals?: boolean;
     wallets?: boolean;
     bankCard?: boolean;
+    mobileCommerce?: boolean;
     applePay?: boolean;
     googlePay?: boolean;
     samsungPay?: boolean;
@@ -208,6 +209,7 @@ export class CreatePaymentLinkService {
                 bankCard: { value: true, disabled: true },
                 wallets: { value: false, disabled: true },
                 terminals: { value: false, disabled: true },
+                mobileCommerce: { value: false, disabled: true },
                 applePay: { value: false, disabled: true },
                 googlePay: { value: false, disabled: true },
                 samsungPay: { value: false, disabled: true },
@@ -247,8 +249,11 @@ export class CreatePaymentLinkService {
                 case 'PaymentTerminal':
                     paymentMethodsControls.terminals.enable();
                     break;
+                case 'MobileCommerce':
+                    paymentMethodsControls.mobileCommerce.enable();
+                    break;
                 default:
-                    console.error('Unhandled PaymentMethod');
+                    console.error(`Unhandled PaymentMethod - ${item.method}`);
                     break;
             }
         });

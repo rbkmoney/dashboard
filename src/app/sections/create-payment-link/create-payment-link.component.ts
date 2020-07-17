@@ -7,11 +7,20 @@ import { coerceBoolean } from '../../../utils';
 import { Invoice, InvoiceTemplateAndToken } from '../../api-codegen/capi';
 import { CreatePaymentLinkService, HoldExpiration } from './create-payment-link.service';
 
-const OrderedPaymentMethodsNames = ['bankCard', 'wallets', 'terminals', 'applePay', 'googlePay', 'samsungPay'] as const;
+const OrderedPaymentMethodsNames = [
+    'bankCard',
+    'wallets',
+    'terminals',
+    'mobileCommerce',
+    'applePay',
+    'googlePay',
+    'samsungPay',
+] as const;
 
 @Component({
     selector: 'dsh-create-payment-link',
     templateUrl: 'create-payment-link.component.html',
+    styleUrls: ['create-payment-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePaymentLinkComponent implements OnInit {
