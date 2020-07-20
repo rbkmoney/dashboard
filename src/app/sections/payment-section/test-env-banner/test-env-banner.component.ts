@@ -1,21 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-import { Mascots } from '../../../global-banner/mascots';
-import { TestEnvBannerService } from './test-env-banner.service';
+import { Mascots } from '@dsh/components/global-banner/mascots';
 
 @Component({
     selector: 'dsh-test-env-banner',
     templateUrl: 'test-env-banner.component.html',
     styleUrls: ['test-env-banner.component.scss'],
-    providers: [TestEnvBannerService],
 })
 export class TestEnvBannerComponent {
-    isActive$ = this.testEnvBannerService.isActive$;
     mascots = Mascots;
 
-    constructor(private testEnvBannerService: TestEnvBannerService) {}
+    @Output()
+    closed = new EventEmitter();
 
     onClose() {
-        this.testEnvBannerService.close();
+        this.closed.emit();
     }
 }

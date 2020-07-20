@@ -7,5 +7,4 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-<dsh-test-env-banner></dsh-test-env-banner>
-
+<dsh-test-env-banner *ngIf="isActive$ | async" (closed)="close()"></dsh-test-env-banner>

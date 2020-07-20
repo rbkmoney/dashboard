@@ -23,7 +23,6 @@ import icons from './icons.json';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
-import { TestEnvBannerModule } from './sections/payment-section/test-env-banner/test-env-banner.module';
 import { SettingsModule } from './settings';
 import { ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';

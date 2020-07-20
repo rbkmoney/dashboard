@@ -20,7 +20,7 @@ import { TestEnvBannerModule } from './test-env-banner/test-env-banner.module';
         MatIconModule,
         FlexLayoutModule,
         TranslocoModule,
-        TestEnvBannerModule
+        TestEnvBannerModule,
     ],
     declarations: [PaymentSectionComponent, NavComponent, BalancesComponent, BalanceItemComponent],
     exports: [PaymentSectionComponent],

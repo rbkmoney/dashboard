@@ -31,7 +31,7 @@
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
 @import '../app/sections/payment-section/nav/balances/balances-theme';
-@import '../app/global-banner/global-banner-theme';
+@import '../components/global-banner/global-banner-theme';
 
 @mixin dsh-overrides() {
     @include body-override();

@@ -249,9 +249,9 @@ export class CreatePaymentLinkService {
                 case 'PaymentTerminal':
                     paymentMethodsControls.terminals.enable();
                     break;
-                case 'MobileCommerce':
-                    paymentMethodsControls.mobileCommerce.enable();
-                    break;
+                // case 'MobileCommerce':
+                //     paymentMethodsControls.mobileCommerce.enable();
+                //     break;
                 default:
                     console.error(`Unhandled PaymentMethod - ${item.method}`);
                     break;

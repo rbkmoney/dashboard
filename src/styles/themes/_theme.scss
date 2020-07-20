@@ -24,6 +24,8 @@
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
+@import '../../components/global-banner/global-banner-theme';
+@import '../../components/color-icon/color-icon-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -39,7 +41,6 @@
 @import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/sections/payment-section/integrations/webhooks/webhooks-panels-list/webhooks-panels-list-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
-@import '../../app/global-banner/global-banner-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -82,5 +83,6 @@
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
         @include dsh-global-banner-theme($theme);
+        @include dsh-color-icon-theme($theme);
     }
 }

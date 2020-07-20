@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@mixin paint-icon($color) {
+    svg {
+        rect,
+        path {
+            fill: $color;
+        }
+    }
+}
+
+@mixin dsh-color-icon-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-color-icon {
+        .text {
+            @include paint-icon(map-get($foreground, text));
+        }
+
+        .contrast-text {
+            @include paint-icon(map-get($foreground, contrast-text));
+        }
+    }
+}

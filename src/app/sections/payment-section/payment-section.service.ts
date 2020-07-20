@@ -3,15 +3,15 @@ import { Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, filter, pluck, shareReplay } from 'rxjs/operators';
 
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { SettingsService } from '../../../settings';
-import { RouteEnv } from '../../route-env';
+import { SHARE_REPLAY_CONF } from '../../custom-operators';
+import { SettingsService } from '../../settings';
+import { RouteEnv } from '../route-env';
 
 @Injectable()
-export class TestEnvBannerService {
+export class PaymentSectionService {
     isActive$ = new BehaviorSubject(false);
 
-    bannerName = 'test-env-banner';
+    private bannerName = 'test-env-banner';
 
     constructor(private settingsService: SettingsService, private router: Router) {
         this.router.events
