@@ -1,0 +1,6 @@
+<div class="dsh-navbar-item" fxLayout fxLayoutAlign="start center" fxLayoutGap="8px">
+    <dsh-colored-icon [color]="active ? 'primary' : ''" [icon]="icon"></dsh-colored-icon>
+    <div class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
+        <ng-content></ng-content>
+    </div>
+</div>

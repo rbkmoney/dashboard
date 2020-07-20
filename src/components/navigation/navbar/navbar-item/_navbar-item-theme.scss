@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-navbar-item-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-navbar-item-content-active {
+        color: mat-color($primary, 400);
+    }
+}
+
+@mixin dsh-navbar-item-typography($config) {
+    .dsh-navbar-item-content {
+        @include mat-typography-level-to-styles($config, subheading-2);
+    }
+}

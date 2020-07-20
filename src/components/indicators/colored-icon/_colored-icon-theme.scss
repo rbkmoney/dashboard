@@ -1,0 +1,71 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-colored-icon-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-colored-icon {
+        &-pie-chart-primary {
+            svg {
+                circle {
+                    stroke: mat-color($primary, 400);
+                }
+                rect {
+                    fill: mat-color($primary, 400);
+                }
+            }
+        }
+        &-table-chart-primary {
+            svg {
+                path {
+                    stroke: mat-color($primary, 400);
+                }
+                rect {
+                    fill: mat-color($primary, 400);
+                }
+            }
+        }
+        &-output,
+        &-input {
+            &-primary {
+                svg {
+                    line {
+                        stroke: mat-color($primary, 400);
+                    }
+                    path {
+                        fill: mat-color($primary, 400);
+                    }
+                    rect {
+                        stroke: mat-color($primary, 400);
+                    }
+                }
+            }
+        }
+        &-description-primary {
+            svg {
+                path {
+                    fill: mat-color($primary, 400);
+                }
+                rect {
+                    stroke: mat-color($primary, 400);
+                }
+            }
+        }
+        &-build-primary {
+            svg {
+                path {
+                    stroke: mat-color($primary, 400);
+                }
+            }
+        }
+        &-wallet-menu-primary {
+            svg {
+                rect {
+                    stroke: mat-color($primary, 400);
+                }
+                circle {
+                    fill: mat-color($primary, 400);
+                }
+            }
+        }
+    }
+}
