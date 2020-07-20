@@ -21,15 +21,6 @@
         &-accent {
             @include panel(mat-color($accent, 50));
         }
-
-        &-header-icon {
-            svg {
-                path,
-                rect {
-                    fill: map-get($foreground, text);
-                }
-            }
-        }
     }
 }
 

@@ -5,13 +5,6 @@
         <div *ngIf="fileInfo$ | async as fileInfo" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
             <div>{{ fileInfo.fileName }}</div>
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign=" center">
-                <!--                <dsh-panel-header-icon-->
-                <!--                    *ngIf="deletion"-->
-                <!--                    class="icon"-->
-                <!--                    icon="cross"-->
-                <!--                    (click)="deleteByCondition()"-->
-                <!--                ></dsh-panel-header-icon>-->
-
                 <dsh-color-icon
                     *ngIf="deletion"
                     class="icon"

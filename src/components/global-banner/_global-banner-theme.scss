@@ -7,13 +7,6 @@
     .dsh-global-banner {
         background-color: map-get($primary, 400);
         color: map-get($foreground, contrast-text);
-        //
-        //mat-icon {
-        //    rect,
-        //    path {
-        //        fill: map-get($foreground, contrast-text);
-        //    }
-        //}
     }
 }
 
