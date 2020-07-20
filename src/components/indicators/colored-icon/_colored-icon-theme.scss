@@ -1,0 +1,127 @@
+@import '~@angular/material/theming';
+
+@mixin set-color-pie-chart($color) {
+    svg {
+        circle {
+            stroke: $color;
+        }
+        rect {
+            fill: $color;
+        }
+    }
+}
+
+@mixin set-color-table-chart($color) {
+    svg {
+        path {
+            stroke: $color;
+        }
+        rect {
+            fill: $color;
+        }
+    }
+}
+
+@mixin set-color-input-output($color) {
+    svg {
+        line {
+            stroke: $color;
+        }
+        path {
+            fill: $color;
+        }
+        rect {
+            stroke: $color;
+        }
+    }
+}
+
+@mixin set-color-description($color) {
+    svg {
+        path {
+            fill: $color;
+        }
+        rect {
+            stroke: $color;
+        }
+    }
+}
+
+@mixin set-color-build($color) {
+    svg {
+        path {
+            stroke: $color;
+        }
+    }
+}
+
+@mixin set-color-wallet-menu($color) {
+    svg {
+        rect {
+            stroke: $color;
+        }
+        circle {
+            fill: $color;
+        }
+    }
+}
+
+@mixin dsh-colored-icon-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+
+    $default-color: map-get($foreground, text);
+    $primary-color: mat-color($primary, 400);
+
+    .dsh-colored-icon {
+        &-pie-chart {
+            &-default {
+                @include set-color-pie-chart($default-color);
+            }
+            &-primary {
+                @include set-color-pie-chart($primary-color);
+            }
+        }
+        &-table-chart {
+            &-default {
+                @include set-color-table-chart($default-color);
+            }
+            &-primary {
+                @include set-color-table-chart($primary-color);
+            }
+        }
+        &-output,
+        &-input {
+            &-default {
+                @include set-color-input-output($default-color);
+            }
+            &-primary {
+                @include set-color-input-output($primary-color);
+            }
+        }
+        &-description {
+            &-default {
+                @include set-color-description($default-color);
+            }
+            &-primary {
+                @include set-color-description($primary-color);
+            }
+        }
+        &-build {
+            &-default {
+                @include set-color-build($default-color);
+            }
+            &-primary {
+                @include set-color-build($primary-color);
+            }
+        }
+        &-wallet-menu {
+            &-default {
+                @include set-color-wallet-menu($default-color);
+            }
+            &-primary {
+                @include set-color-wallet-menu($primary-color);
+            }
+        }
+    }
+}
