@@ -1,6 +1,7 @@
 import { Replace } from '../../../../type-utils';
 import {
     Contractor,
+    LegalEntity,
     LegalEntityContractor,
     LegalRegistrationInfo,
     LegalResidencyInfo,
@@ -34,8 +35,14 @@ export type RussianLegalEntityQuestionary = Replace<
     }
 >;
 
+export const isRussianLegalEntityContractor = (
+    contractor: LegalEntityContractor
+): contractor is RussianLegalEntityContractor =>
+    contractor.contractorType === Contractor.ContractorTypeEnum.LegalEntityContractor &&
+    contractor.legalEntity.legalEntityType === LegalEntity.LegalEntityTypeEnum.RussianLegalEntity;
+
 export function isRussianLegalEntityQuestionary(
     questionary: Questionary
 ): questionary is RussianLegalEntityQuestionary {
-    return questionary.data.contractor.contractorType === Contractor.ContractorTypeEnum.LegalEntityContractor;
+    return questionary?.data?.contractor && isRussianLegalEntityContractor(questionary.data.contractor);
 }

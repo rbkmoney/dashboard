@@ -1,5 +1,5 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEMES_PATH := schemes/swag/v3 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/url-shortener/v0 schemes/swag-wallets/v0
+SWAGGER_SCHEMES_PATH := schemes/swag/v2 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/url-shortener/v0 schemes/swag-wallets/v0
 SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
@@ -20,7 +20,7 @@ REGISTRY ?= dr2.rbkmoney.com
 BASE_IMAGE_NAME := service-fe
 BASE_IMAGE_TAG := 2b4570bc1d9631c10aaed2132eb87eb9003f3471
 
-BUILD_IMAGE_TAG := 137ba2551041c98498c78e21246902ef9045dae6
+BUILD_IMAGE_TAG := b04c5291d101132e53e578d96e1628d2e6dab0c0
 
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'

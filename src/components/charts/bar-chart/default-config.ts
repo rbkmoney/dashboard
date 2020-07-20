@@ -41,7 +41,7 @@ export const DEFAULT_CONFIG: ApexOptions = {
             offsetY: -5,
             rotate: 0,
             formatter(value: string): string {
-                const splitted = value.split('#');
+                const splitted = typeof value === 'string' ? value.split('#') : '';
                 return splitted[1] === 'hide' ? '' : splitted[0];
             },
         },

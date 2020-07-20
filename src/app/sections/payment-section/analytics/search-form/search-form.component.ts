@@ -37,7 +37,6 @@ export class SearchFormComponent implements OnInit {
         date: {
             begin: moment().startOf('month'),
             end: moment().endOf('month'),
-            period: 'month',
         },
     };
 

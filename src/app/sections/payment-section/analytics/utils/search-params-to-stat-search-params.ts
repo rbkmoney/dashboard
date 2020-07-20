@@ -50,6 +50,11 @@ const getPreviousParams = (
             toTime = fromTime.clone().endOf('day');
             break;
         }
+        default:
+            const diff = toTime.diff(fromTime, 'd');
+            fromTime = fromTime.subtract(diff, 'd');
+            toTime = moment(currentFromTime).subtract(1, 'ms');
+            break;
     }
     return { fromTime: fromTime.utc().format(), toTime: toTime.utc().format(), shopIDs };
 };
