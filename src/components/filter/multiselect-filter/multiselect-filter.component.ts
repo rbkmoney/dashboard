@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
+import { mapItemsToLabel } from './mapItemsToLabel';
 import { MultiselectFilterItem } from './multiselect-filter-item';
 import { MultiselectFilterService } from './multiselect-filter.service';
 
@@ -20,18 +21,7 @@ export class MultiselectFilterComponent<T = any> implements OnChanges {
     @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
 
     selectedItems$ = this.multiselectFilterService.selectedItems$;
-    title$ = this.selectedItems$.pipe(
-        map((items) => {
-            const { length } = items;
-            if (length === 0) {
-                return this.label;
-            } else if (length <= 3) {
-                return items.map(({ label }) => label).join(', ');
-            }
-            return `${this.selectedLabel} · ${length}`;
-        }),
-        shareReplay(1)
-    );
+    title$ = this.selectedItems$.pipe(mapItemsToLabel(this.label), shareReplay(1));
 
     constructor(private multiselectFilterService: MultiselectFilterService<T>) {}
 
