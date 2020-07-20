@@ -2,10 +2,6 @@
 	path = build_utils
 	url = git@github.com:rbkmoney/build_utils.git
 	branch = master
-[submodule "schemes/swag/v3"]
-	path = schemes/swag/v3
-	url = git@github.com:rbkmoney/swag.git
-	branch = release/v3
 [submodule "schemes/claim-management/v0"]
 	path = schemes/claim-management/v0
 	url = git@github.com:rbkmoney/swag-claim-management.git
@@ -38,3 +34,7 @@
 	path = schemes/url-shortener/v0
 	url = git@github.com:rbkmoney/swag-url-shortener.git
 	branch = release/master
+[submodule "schemes/swag/v2"]
+	path = schemes/swag/v2
+	url = git@github.com:rbkmoney/swag.git
+	branch = release/v2
