@@ -23,9 +23,10 @@
 @import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
+@import '../../components/indicators/colored-icon/colored-icon-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
+@import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
-@import '../../components/color-icon/color-icon-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -59,10 +60,12 @@
         @include dsh-card-theme($theme);
         @include dsh-tabs-theme($theme);
         @include dsh-state-nav-theme($theme);
+        @include dsh-navbar-theme($theme);
         @include dsh-button-theme($theme);
         @include dsh-button-toggle-theme($theme);
         @include dsh-float-panel-theme($theme);
         @include dsh-status-theme($theme);
+        @include dsh-colored-icon-theme($theme);
         @include dsh-main-section-theme($theme);
         @include dsh-welcome-image-theme($theme);
         @include dsh-timeline-theme($theme);
@@ -83,6 +86,5 @@
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
         @include dsh-global-banner-theme($theme);
-        @include dsh-color-icon-theme($theme);
     }
 }
