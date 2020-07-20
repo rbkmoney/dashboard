@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export type IconName = 'pie_chart' | 'table_chart' | 'output' | 'input' | 'description' | 'build' | 'wallet_menu';
 
-export type IconColor = 'primary';
+export type IconColor = 'primary' | 'default';
 
 @Component({
     selector: 'dsh-colored-icon',
@@ -11,13 +11,10 @@ export type IconColor = 'primary';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColoredIconComponent {
-    @Input() color: IconColor;
+    @Input() color: IconColor = 'default';
     @Input() icon: IconName;
 
-    calcIconClass(icon: IconName, color: IconColor, prefix = 'dsh-colored-icon'): string {
-        if (color !== 'primary') {
-            return '';
-        }
+    calcIconClass(icon: IconName, color: IconColor = 'default', prefix = 'dsh-colored-icon'): string {
         switch (icon) {
             case 'pie_chart':
                 return `${prefix}-pie-chart-${color}`;
