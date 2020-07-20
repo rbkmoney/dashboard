@@ -1,7 +1,7 @@
 <dsh-multiselect-filter
     *transloco="let t; scope: 'filter-shops'; read: 'filterShops'"
     [label]="t.label"
-    [selectedLabel]="t.selectedLabel"
+    [searchInputLabel]="t.searchInputLabel"
     [items]="shopItems$ | async"
     [selectedItems]="selectedItemsIds$ | async"
     (selectedChange)="selectedShopsChange($event)"

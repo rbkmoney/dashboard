@@ -14,14 +14,18 @@ import { MultiselectFilterService } from './multiselect-filter.service';
 })
 export class MultiselectFilterComponent<T = any> implements OnChanges {
     @Input() label: string;
-    @Input() selectedLabel?: string;
+    @Input() searchInputLabel?: string;
     @Input() items: MultiselectFilterItem<T>[];
     @Input() selectedItems?: (MultiselectFilterItem<T> | MultiselectFilterItem<T>['id'])[];
 
     @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
 
     selectedItems$ = this.multiselectFilterService.selectedItems$;
-    title$ = this.selectedItems$.pipe(mapItemsToLabel(this.label), shareReplay(1));
+    title$ = this.selectedItems$.pipe(
+        map((items) => ({ items, label: this.label, searchInputLabel: this.searchInputLabel })),
+        mapItemsToLabel,
+        shareReplay(1)
+    );
 
     constructor(private multiselectFilterService: MultiselectFilterService<T>) {}
 
