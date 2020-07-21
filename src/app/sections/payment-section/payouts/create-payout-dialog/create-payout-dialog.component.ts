@@ -21,6 +21,8 @@ export class CreatePayoutDialogComponent {
         shopID: null,
     });
 
+    log = console.log;
+
     hasSelectedShop = false;
 
     currentPayoutToolCurrency: string;
@@ -38,20 +40,7 @@ export class CreatePayoutDialogComponent {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(MAT_DIALOG_DATA) private data: { shopsInfo$: Observable<ShopInfo[]> }
-    ) {
-        this.hasPayoutTools$.subscribe((hasPayoutTools) => {
-            if (hasPayoutTools) {
-                this.form.addControl('payoutToolID', this.fb.control('', [Validators.required]));
-                this.form.addControl(
-                    'amount',
-                    this.fb.control('', [Validators.required, amountValidator, Validators.min(1)])
-                );
-            } else {
-                this.form.removeControl('payoutToolID');
-                this.form.removeControl('ammount');
-            }
-        });
-    }
+    ) {}
 
     cancel() {
         this.dialogRef.close();
@@ -73,7 +62,17 @@ export class CreatePayoutDialogComponent {
 
     onShopSelectionChange(shopID: string) {
         this.hasSelectedShop = !!shopID;
-        this.createPayoutDialogService.updateWalletID(shopID);
+        if (this.hasSelectedShop) {
+            this.createPayoutDialogService.updateWalletID(shopID);
+            this.form.addControl('payoutToolID', this.fb.control('', [Validators.required]));
+            this.form.addControl(
+                'amount',
+                this.fb.control('', [Validators.required, amountValidator, Validators.min(1)])
+            );
+        } else {
+            this.form.removeControl('payoutToolID');
+            this.form.removeControl('amount');
+        }
     }
 
     onPayoutToolSelectionChange(payoutToolCurrency: string) {
