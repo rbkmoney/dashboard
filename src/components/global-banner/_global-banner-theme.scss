@@ -17,11 +17,6 @@
 
 @mixin dsh-global-banner-typography($config) {
     .dsh-global-banner-text {
-        font: {
-            family: mat-font-family($config, body-1);
-            size: mat-font-size($config, body-1);
-            weight: mat-font-weight($config, body-1);
-        }
-        line-height: mat-line-height($config, body-1);
+        @include mat-typography-level-to-styles($config, body-1);
     }
 }
