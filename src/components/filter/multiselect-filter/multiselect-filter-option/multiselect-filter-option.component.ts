@@ -31,6 +31,7 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
     }
 
     selected$ = new BehaviorSubject(false);
+    savedSelected$ = new BehaviorSubject(false);
     displayed$ = new BehaviorSubject(true);
 
     toggle() {
@@ -39,6 +40,7 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
 
     ngOnChanges({ selected }: ComponentChanges<MultiselectFilterOptionComponent<T>>) {
         if (selected) {
+            this.savedSelected$.next(selected.currentValue);
             this.selected$.next(selected.currentValue);
         }
     }
@@ -50,5 +52,9 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
 
     select(isSelected = true) {
         this.selected$.next(isSelected);
+    }
+
+    save() {
+        this.savedSelected$.next(this.selected$.value);
     }
 }

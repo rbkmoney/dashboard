@@ -14,7 +14,7 @@ import { filterShopsByEnv } from '../payment-section/operations/operators';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterShopsComponent implements OnChanges {
-    @Input() selected?: (Shop | Shop['id'])[];
+    @Input() selected?: (Pick<Shop, 'id'> | Shop['id'])[];
     @Output() selectedChange = new EventEmitter<Shop[]>();
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
