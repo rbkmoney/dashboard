@@ -1,37 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { filter, pluck, take } from 'rxjs/operators';
 
 import { SettingsService } from '../../settings';
 import { RouteEnv } from '../route-env';
 
 @Injectable()
 export class PaymentSectionService {
-    private testEnvBannerChange$ = new Subject<void>();
+    private testBannerVisibleState$ = new BehaviorSubject(false);
 
-    isTestEnvBannerVisible$ = this.testEnvBannerChange$.pipe(
-        switchMap(() => this.route.params),
-        pluck('envID'),
-        map((envID) => envID === RouteEnv.test),
-        map((isTest) => {
-            if (isTest) {
-                const sessionStorageValue = this.settingsService.getSessionStorageItem(this.bannerName);
-                return sessionStorageValue === 'true' || sessionStorageValue === null;
-            } else {
-                return isTest;
-            }
-        })
-    );
+    isTestEnvBannerVisible$ = this.testBannerVisibleState$.asObservable();
 
     private bannerName = 'test-env-banner';
 
     constructor(private settingsService: SettingsService, private route: ActivatedRoute) {
-        this.testEnvBannerChange$.subscribe();
+        this.route.params
+            .pipe(
+                pluck('envID'),
+                filter((envID) => envID === RouteEnv.test),
+                filter(() => {
+                    const v = this.settingsService.getSessionStorageItem(this.bannerName);
+                    return v === 'true' || v === null;
+                }),
+                take(1)
+            )
+            .subscribe((r) => this.testBannerVisibleState$.next(r));
     }
 
     close() {
+        this.testBannerVisibleState$.next(false);
         this.settingsService.setSessionStorageItem(this.bannerName, 'false');
-        this.testEnvBannerChange$.next();
     }
 }
