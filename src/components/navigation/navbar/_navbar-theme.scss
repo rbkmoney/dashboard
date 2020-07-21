@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+@import './navbar-item/navbar-item-theme';
+
+@mixin dsh-navbar-theme($theme) {
+    @include dsh-navbar-item-theme($theme);
+}
