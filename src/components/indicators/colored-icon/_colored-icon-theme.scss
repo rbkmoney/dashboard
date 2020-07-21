@@ -1,26 +1,38 @@
 @import '~@angular/material/theming';
 
-@mixin set-line-color($color) {
+@mixin set-line-stroke-color($color) {
     line {
         stroke: $color;
     }
 }
 
-@mixin set-circle-color($color) {
+@mixin set-circle-stroke-color($color) {
     circle {
         stroke: $color;
     }
 }
 
-@mixin set-path-color($color) {
+@mixin set-path-stroke-color($color) {
     path {
         stroke: $color;
     }
 }
 
-@mixin set-rect-color($color) {
+@mixin set-path-fill-color($color) {
+    path {
+        fill: $color;
+    }
+}
+
+@mixin set-rect-fill-color($color) {
     rect {
         fill: $color;
+    }
+}
+
+@mixin set-rect-stroke-color($color) {
+    rect {
+        stroke: $color;
     }
 }
 
@@ -36,15 +48,15 @@
         &-pie-chart {
             &-default {
                 svg {
-                    @include set-circle-color($default-color);
-                    @include set-rect-color($default-color);
+                    @include set-circle-stroke-color($default-color);
+                    @include set-rect-fill-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-circle-color($primary-color);
-                    @include set-rect-color($primary-color);
+                    @include set-circle-stroke-color($primary-color);
+                    @include set-rect-fill-color($primary-color);
                 }
             }
         }
@@ -52,15 +64,15 @@
         &-table-chart {
             &-default {
                 svg {
-                    @include set-path-color($default-color);
-                    @include set-rect-color($default-color);
+                    @include set-path-stroke-color($default-color);
+                    @include set-rect-fill-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-path-color($primary-color);
-                    @include set-rect-color($primary-color);
+                    @include set-path-stroke-color($primary-color);
+                    @include set-rect-fill-color($primary-color);
                 }
             }
         }
@@ -69,17 +81,17 @@
         &-input {
             &-default {
                 svg {
-                    @include set-line-color($default-color);
-                    @include set-path-color($default-color);
-                    @include set-rect-color($default-color);
+                    @include set-line-stroke-color($default-color);
+                    @include set-path-stroke-color($default-color);
+                    @include set-rect-stroke-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-line-color($primary-color);
-                    @include set-path-color($primary-color);
-                    @include set-rect-color($primary-color);
+                    @include set-line-stroke-color($primary-color);
+                    @include set-path-stroke-color($primary-color);
+                    @include set-rect-stroke-color($primary-color);
                 }
             }
         }
@@ -87,15 +99,15 @@
         &-description {
             &-default {
                 svg {
-                    @include set-path-color($default-color);
-                    @include set-rect-color($default-color);
+                    @include set-path-fill-color($default-color);
+                    @include set-rect-stroke-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-path-color($primary-color);
-                    @include set-rect-color($primary-color);
+                    @include set-path-fill-color($primary-color);
+                    @include set-rect-stroke-color($primary-color);
                 }
             }
         }
@@ -103,13 +115,13 @@
         &-build {
             &-default {
                 svg {
-                    @include set-path-color($default-color);
+                    @include set-path-stroke-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-path-color($default-color);
+                    @include set-path-stroke-color($default-color);
                 }
             }
         }
@@ -117,15 +129,15 @@
         &-wallet-menu {
             &-default {
                 svg {
-                    @include set-rect-color($default-color);
-                    @include set-circle-color($default-color);
+                    @include set-rect-fill-color($default-color);
+                    @include set-circle-stroke-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-rect-color($primary-color);
-                    @include set-circle-color($primary-color);
+                    @include set-rect-fill-color($primary-color);
+                    @include set-circle-stroke-color($primary-color);
                 }
             }
         }
@@ -133,15 +145,15 @@
         &-cross {
             &-contrast-text {
                 svg {
-                    @include set-path-color($contrast-text);
-                    @include set-rect-color($contrast-text);
+                    @include set-path-fill-color($contrast-text);
+                    @include set-rect-fill-color($contrast-text);
                 }
             }
 
             &-default {
                 svg {
-                    @include set-path-color($default-color);
-                    @include set-rect-color($default-color);
+                    @include set-path-fill-color($default-color);
+                    @include set-rect-fill-color($default-color);
                 }
             }
         }

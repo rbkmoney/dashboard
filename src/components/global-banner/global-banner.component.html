@@ -6,7 +6,7 @@
         <div class="dsh-global-banner-content" fxLayout="column" fxLayoutGap="8px" fxFlex>
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <div class="dsh-headline">{{ title }}</div>
-                <dsh-colored-icon color="contrast-text" icon="cross"></dsh-colored-icon>
+                <dsh-colored-icon color="contrast-text" icon="cross" (click)="close()" class="close"></dsh-colored-icon>
             </div>
             <div class="dsh-global-banner-text">
                 <ng-content></ng-content>
