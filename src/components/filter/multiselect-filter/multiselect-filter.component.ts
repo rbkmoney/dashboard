@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { map, pluck, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
+import { map, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
 
 import { mapIdxBooleanToFilteredArray } from './map-idx-boolean-to-filtered-array';
 import { mapItemsToLabel } from './mapItemsToLabel';
@@ -55,8 +55,7 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
-        withLatestFrom(this.selectedOptionsByIdx$),
-        map(([[options, searchStr], selectedOptionsIdx]) =>
+        withLatestFrom(this.selectedOptionsByIdx$, ([options, searchStr], selectedOptionsIdx) =>
             options.filter((o, idx) => selectedOptionsIdx[idx] || this.searchPredicateByOption(o, searchStr))
         ),
         shareReplay(1)
@@ -81,17 +80,17 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
                 options.forEach((o) => o.display(displayedOptions.includes(o)))
             );
         this.clear$
-            .pipe(withLatestFrom(this.options$), pluck(1))
+            .pipe(withLatestFrom(this.options$, (_, o) => o))
             .subscribe((options) => options.forEach((o) => o.select(false)));
         this.save$
-            .pipe(withLatestFrom(this.options$), pluck(1))
+            .pipe(withLatestFrom(this.options$, (_, o) => o))
             .subscribe((options) => options.forEach((o) => o.save()));
         this.save$
             .pipe(
-                withLatestFrom(this.selectedOptionsByIdx$),
-                pluck(1),
-                withLatestFrom(this.options$),
-                map(([idxToBooleanMap, array]) => ({ idxToBooleanMap, array })),
+                withLatestFrom(this.selectedOptionsByIdx$, this.options$, (_, idxToBooleanMap, array) => ({
+                    idxToBooleanMap,
+                    array,
+                })),
                 mapIdxBooleanToFilteredArray,
                 map((selectedOptions) => selectedOptions.map(({ value }) => value))
             )
