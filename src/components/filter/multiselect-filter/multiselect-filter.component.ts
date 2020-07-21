@@ -1,42 +1,120 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
+} from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs';
+import { map, pluck, scan, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './mapItemsToLabel';
-import { MultiselectFilterItem } from './multiselect-filter-item';
-import { MultiselectFilterService } from './multiselect-filter.service';
+import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
 
 @Component({
     selector: 'dsh-multiselect-filter',
     templateUrl: 'multiselect-filter.component.html',
+    styleUrls: ['multiselect-filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MultiselectFilterService],
 })
-export class MultiselectFilterComponent<T = any> implements OnChanges {
+export class MultiselectFilterComponent<T = any> implements AfterContentInit, OnInit {
     @Input() label: string;
     @Input() searchInputLabel?: string;
-    @Input() items: MultiselectFilterItem<T>[];
-    @Input() selectedItems?: (MultiselectFilterItem<T> | MultiselectFilterItem<T>['id'])[];
+    @Input() searchPredicate?: (value: T, searchStr: string) => boolean;
 
-    @Output() selectedChange = new EventEmitter<MultiselectFilterItem<T>[]>();
+    @Output() selectedChange = new EventEmitter<T[]>();
 
-    selectedItems$ = this.multiselectFilterService.selectedItems$;
-    title$ = this.selectedItems$.pipe(
-        map((items) => ({ items, label: this.label, searchInputLabel: this.searchInputLabel })),
+    @ContentChildren(MultiselectFilterOptionComponent) options: QueryList<MultiselectFilterOptionComponent<T>>;
+
+    searchControl = this.fb.control('');
+
+    private save$ = new Subject<void>();
+    private clear$ = new Subject<void>();
+
+    options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
+    selectedOptionsByIdx$: Observable<{ [N in number]: boolean }> = this.options$.pipe(
+        switchMap((o) =>
+            merge(...o.map((option, idx) => option.selected$.pipe(map((selected) => ({ [idx]: selected }))))).pipe(
+                scan((acc, selected) => ({ ...acc, ...selected }), {}),
+                startWith({})
+            )
+        ),
+        shareReplay(1)
+    );
+    private selectedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = this.selectedOptionsByIdx$.pipe(
+        map((selected) =>
+            Object.entries(selected)
+                .filter(([, v]) => v)
+                .map(([idx]) => this.options.toArray()[idx])
+        ),
+        shareReplay(1)
+    );
+    savedSelectedOptions$ = this.save$.pipe(withLatestFrom(this.selectedOptions$), pluck(1), shareReplay(1));
+    displayedOptions$ = combineLatest([
+        this.options$,
+        this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
+    ]).pipe(
+        withLatestFrom(this.selectedOptionsByIdx$),
+        map(([[options, searchStr], selectedOptionsIdx]) =>
+            options.filter((o, idx) => selectedOptionsIdx[idx] || this.searchPredicateByOption(o, searchStr))
+        ),
+        shareReplay(1)
+    );
+
+    title$ = this.savedSelectedOptions$.pipe(
+        map((selectedOptions) => ({
+            selectedItemsLabels: selectedOptions.map(({ label }) => label),
+            label: this.label,
+            searchInputLabel: this.searchInputLabel,
+        })),
         mapItemsToLabel,
         shareReplay(1)
     );
 
-    constructor(private multiselectFilterService: MultiselectFilterService<T>) {}
+    constructor(private fb: FormBuilder) {}
 
-    ngOnChanges({ items, selectedItems }: ComponentChanges<MultiselectFilterComponent<T>>) {
-        if (items && items.currentValue !== items.previousValue) {
-            this.multiselectFilterService.updateItems(items.currentValue);
-        }
-        if (selectedItems && selectedItems.currentValue !== selectedItems.previousValue) {
-            this.multiselectFilterService.updateSelectedItems(
-                selectedItems.currentValue.map((i) => (typeof i === 'object' ? i.id : i))
+    ngOnInit() {
+        this.savedSelectedOptions$
+            .pipe(map((selectedOptions) => selectedOptions.map(({ value }) => value)))
+            .subscribe((selectedValues) => this.selectedChange.emit(selectedValues));
+        this.displayedOptions$
+            .pipe(withLatestFrom(this.options$))
+            .subscribe(([displayedOptions, options]) =>
+                options.forEach((o) => o.display(displayedOptions.includes(o)))
             );
+        this.clear$
+            .pipe(withLatestFrom(this.options$), pluck(1))
+            .subscribe((options) => options.forEach((o) => o.select(false)));
+    }
+
+    ngAfterContentInit() {
+        this.options.changes
+            .pipe(
+                startWith(this.options),
+                map((o: MultiselectFilterComponent<T>['options']) => o.toArray())
+            )
+            .subscribe((o) => this.options$.next(o));
+    }
+
+    private searchPredicateByOption(option: MultiselectFilterOptionComponent, searchStr: string) {
+        if (this.searchPredicate) {
+            return this.searchPredicate(option.value, searchStr);
         }
+        return option.label.toLowerCase().trim().includes(searchStr.toLowerCase().trim());
+    }
+
+    save() {
+        this.searchControl.patchValue('');
+        this.save$.next();
+    }
+
+    clear() {
+        this.searchControl.patchValue('');
+        this.clear$.next();
     }
 }

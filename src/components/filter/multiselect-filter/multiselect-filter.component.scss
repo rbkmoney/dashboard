@@ -1,0 +1,30 @@
+$dsh-multiselect-filter-content-max-height: 272px;
+$dsh-multiselect-filter-content-width: 312px;
+$dsh-multiselect-filter-content-padding: 24px;
+$dsh-multiselect-filter-content-without-items-bottom-padding: 8px;
+
+$dsh-multiselect-filter-options-gap: 16px;
+$dsh-multiselect-filter-options-padding-fix: 8px;
+
+.content {
+    width: $dsh-multiselect-filter-content-width;
+    max-height: $dsh-multiselect-filter-content-max-height;
+
+    &-without-items {
+        margin-bottom: $dsh-multiselect-filter-content-without-items-bottom-padding -
+            $dsh-multiselect-filter-content-padding;
+    }
+
+    .items-wrapper {
+        overflow-y: auto;
+        padding-bottom: $dsh-multiselect-filter-options-padding-fix;
+        margin-bottom: -$dsh-multiselect-filter-options-padding-fix;
+
+        .items {
+            margin-top: -$dsh-multiselect-filter-options-gap;
+            & > ::ng-deep * {
+                margin-top: $dsh-multiselect-filter-options-gap;
+            }
+        }
+    }
+}

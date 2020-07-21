@@ -1,23 +1,21 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { MultiselectFilterItem } from './multiselect-filter-item';
-
 export const mapItemsToLabel = (
     s: Observable<{
-        items: MultiselectFilterItem[];
+        selectedItemsLabels: string[];
         label: string;
         searchInputLabel: string;
         itemsCountToDisplayLabel?: number;
     }>
 ): Observable<string> =>
     s.pipe(
-        map(({ items, label, searchInputLabel, itemsCountToDisplayLabel = 3 }) => {
-            const { length } = items;
+        map(({ selectedItemsLabels, label, searchInputLabel, itemsCountToDisplayLabel = 3 }) => {
+            const { length } = selectedItemsLabels;
             if (length === 0) {
                 return label;
             } else if (length <= itemsCountToDisplayLabel) {
-                return items.map((item) => item.label).join(', ');
+                return selectedItemsLabels.join(', ');
             }
             return `${searchInputLabel} · ${length}`;
         })

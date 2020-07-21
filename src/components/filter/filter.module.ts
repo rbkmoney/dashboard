@@ -13,15 +13,15 @@ import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
 import { FilterComponent } from './filter.component';
-import { MultiselectFilterComponent, MultiselectFilterContentComponent } from './multiselect-filter';
+import { MultiselectFilterComponent, MultiselectFilterOptionComponent } from './multiselect-filter';
 
 const EXPORTED_DECLARATIONS = [
     FilterComponent,
     FilterButtonComponent,
     FilterButtonActionsComponent,
     FilterButtonContentComponent,
-    MultiselectFilterContentComponent,
     MultiselectFilterComponent,
+    MultiselectFilterOptionComponent,
 ];
 
 @NgModule({
