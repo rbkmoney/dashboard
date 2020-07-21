@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import {
     Payout,
     PayoutParams,
-    PayoutsService as ApiPayoutsService,
+    PayoutsService as PayoutsAPIService,
     PayoutTool,
 } from '../../api-codegen/capi/swagger-codegen';
 import { genXRequestID } from '../utils';
 
 @Injectable()
 export class PayoutsService {
-    constructor(private payoutsService: ApiPayoutsService) {}
+    constructor(private payoutsService: PayoutsAPIService) {}
 
     createPayout(params: PayoutParams): Observable<Payout> {
         return this.payoutsService.createPayout(genXRequestID(), params);
@@ -19,5 +19,8 @@ export class PayoutsService {
 
     getPayoutTools(contractID: string): Observable<PayoutTool[]> {
         return this.payoutsService.getPayoutTools(genXRequestID(), contractID);
+
+    getPayoutToolByID(contractID: string, payoutToolID: string) {
+        return this.payoutsService.getPayoutToolByID(genXRequestID(), contractID, payoutToolID);
     }
 }

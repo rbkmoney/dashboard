@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PayoutToolDetailsWalletInfo } from '../../../../../api-codegen/anapi';
+import { coerceBoolean } from '../../../../utils';
+import { PayoutToolDetailsWalletInfo } from '../../../api-codegen/anapi';
 
 @Component({
     selector: 'dsh-wallet-info',
@@ -9,6 +10,7 @@ import { PayoutToolDetailsWalletInfo } from '../../../../../api-codegen/anapi';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletInfoComponent {
+    @Input() @coerceBoolean hideTitle: boolean;
     @Input() payoutTool: PayoutToolDetailsWalletInfo;
 
     constructor(private router: Router) {}
