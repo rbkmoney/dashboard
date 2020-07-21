@@ -8,7 +8,7 @@ import { PaymentSectionService } from './payment-section.service';
     providers: [PaymentSectionService],
 })
 export class PaymentSectionComponent {
-    isActive$ = this.paymentSectionService.isActive$;
+    isTestEnvBannerVisible$ = this.paymentSectionService.isTestEnvBannerVisible$;
     constructor(private paymentSectionService: PaymentSectionService) {}
 
     close() {

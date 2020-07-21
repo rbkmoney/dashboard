@@ -3,15 +3,25 @@
 @mixin dsh-global-banner-theme($theme) {
     $primary: map-get($theme, primary);
     $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
 
     .dsh-global-banner {
         background-color: map-get($primary, 400);
         color: map-get($foreground, contrast-text);
+
+        &-text {
+            color: map-get($background, background);
+        }
     }
 }
 
 @mixin dsh-global-banner-typography($config) {
     .dsh-global-banner-text {
+        font: {
+            family: mat-font-family($config, body-1);
+            size: mat-font-size($config, body-1);
+            weight: mat-font-weight($config, body-1);
+        }
         line-height: mat-line-height($config, body-1);
     }
 }

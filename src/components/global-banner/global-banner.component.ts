@@ -37,7 +37,7 @@ export class GlobalBannerComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        document.body.style.paddingBottom = this.elRef.nativeElement.getBoundingClientRect().height + 32 + 'px';
+        document.body.style.paddingBottom = this.elRef.nativeElement.getBoundingClientRect().height + 56 + 'px';
     }
 
     ngOnDestroy(): void {
