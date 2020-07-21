@@ -10,10 +10,11 @@
 @mixin dsh-panel-theme($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
-    $background: map-get($background, background);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
 
     .dsh-panel {
-        @include panel($background);
+        @include panel(map-get($background, card));
         &-primary {
             @include panel(mat-color($primary, 50));
         }

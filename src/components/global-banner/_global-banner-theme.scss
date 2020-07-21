@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-global-banner-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    .dsh-global-banner {
+        background-color: map-get($primary, 400);
+        color: map-get($foreground, contrast-text);
+
+        &-text {
+            color: map-get($background, background);
+        }
+    }
+}
+
+@mixin dsh-global-banner-typography($config) {
+    .dsh-global-banner-text {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}
