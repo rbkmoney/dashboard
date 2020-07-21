@@ -1,0 +1,63 @@
+<ng-container *transloco="let t">
+    <ng-container *transloco="let p; scope: 'payouts'; read: 'payouts.payouts'">
+        <h3 class="mat-title">{{ p.title }}</h3>
+        <div [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
+            <div fxLayout="column" fxLayoutGap="20px">
+                <mat-form-field fxFill>
+                    <mat-label>{{ p.shop }}</mat-label>
+                    <mat-select
+                        formControlName="shopID"
+                        required
+                        (selectionChange)="onShopSelectionChange($event.value)"
+                    >
+                        <mat-option>
+                            {{ t.any }}
+                        </mat-option>
+                        <mat-option *ngFor="let shopInfo of shopsInfo$ | async" [value]="shopInfo.shopID">
+                            {{ shopInfo.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <ng-container *ngIf="!(isPayoutToolsLoading$ | async) && (hasPayoutTools$ | async)">
+                    <mat-form-field fxFill>
+                        <mat-label>{{ p.payoutTool }}</mat-label>
+                        <mat-select
+                            formControlName="payoutToolID"
+                            (selectionChange)="onPayoutToolSelectionChange($event)"
+                        >
+                            <mat-option *ngFor="let payoutTool of payoutTools$ | async" [value]="payoutTool.id">
+                                {{ p.payoutToolType[payoutTool.details.detailsType] }}:
+                                {{ payoutTool.details.walletID }} ({{ payoutTool.currency }})
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFill>
+                        <mat-label>{{ p.amount }}</mat-label>
+                        <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
+                    </mat-form-field>
+                </ng-container>
+                <div
+                    *ngIf="!(hasPayoutTools$ | async) && hasSelectedShop"
+                    class="mat-body-1"
+                    fxFlexFill
+                    fxLayoutAlign="center"
+                >
+                    {{ p.noPayoutTools }}
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFill>
+                <button dsh-button (click)="cancel()">
+                    {{ t.cancel }}
+                </button>
+                <button
+                    dsh-button
+                    (click)="create()"
+                    color="accent"
+                    [disabled]="form.invalid || !(hasPayoutTools$ | async)"
+                >
+                    {{ p.createPayout }}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

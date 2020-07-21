@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PayoutToolDetailsWalletInfo } from '../../../../../api-codegen/anapi';
 
@@ -9,4 +10,10 @@ import { PayoutToolDetailsWalletInfo } from '../../../../../api-codegen/anapi';
 })
 export class WalletInfoComponent {
     @Input() payoutTool: PayoutToolDetailsWalletInfo;
+
+    constructor(private router: Router) {}
+
+    goToWalletDetails(id) {
+        this.router.navigate(['wallet', id]);
+    }
 }
