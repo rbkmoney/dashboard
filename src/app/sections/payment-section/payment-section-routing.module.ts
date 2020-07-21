@@ -10,7 +10,7 @@ const paymentSectionRoutes: Routes = [
         children: [
             {
                 path: 'analytics',
-                loadChildren: () => import('./analytics/analytics.module').then((mod) => mod.AnalyticsModule),
+                loadChildren: () => import('./analytics/analytics.module').then((m) => m.AnalyticsModule),
             },
             {
                 path: 'operations',

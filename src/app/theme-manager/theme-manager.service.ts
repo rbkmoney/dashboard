@@ -19,7 +19,7 @@ export class ThemeManager {
     private element: HTMLScriptElement | HTMLLinkElement;
 
     constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
-        const name = this.settingsService.get(ThemeManager.KEY);
+        const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
         const correctedName = this.getCorrectName(name);
         this.change(correctedName);
     }
@@ -40,7 +40,7 @@ export class ThemeManager {
         this.element = this.createElement(name);
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
-        this.settingsService.set(ThemeManager.KEY, name);
+        this.settingsService.setLocalStorageItem(ThemeManager.KEY, name);
         this.current = name;
     }
 

@@ -16,7 +16,7 @@ export class LanguageService {
     constructor(private settingsService: SettingsService, private transloco: TranslocoService) {}
 
     async init() {
-        const language = this.settingsService.get(LanguageService.KEY);
+        const language = this.settingsService.getLocalStorageItem(LanguageService.KEY);
         const correctedLanguage = this.getCorrectLanguage(language);
         await this.change(correctedLanguage);
     }
@@ -27,7 +27,7 @@ export class LanguageService {
             await import(`moment/locale/${language}`);
         }
         moment.locale(language);
-        this.settingsService.set(LanguageService.KEY, language);
+        this.settingsService.setLocalStorageItem(LanguageService.KEY, language);
         this.transloco.setActiveLang(language);
         this.active = language;
     }
