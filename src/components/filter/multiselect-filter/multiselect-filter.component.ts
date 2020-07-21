@@ -61,6 +61,11 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
         shareReplay(1)
     );
 
+    /**
+     * Для title берется текущее состояние с сохраненными options'ами
+     * чтобы получить актуальные выбранные
+     * если они были переданы через Input() option'а
+     */
     title$ = this.savedSelectedOptions$.pipe(
         map((selectedOptions) => ({
             selectedItemsLabels: selectedOptions.map(({ label }) => label),
@@ -85,6 +90,11 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
         this.save$
             .pipe(withLatestFrom(this.options$, (_, o) => o))
             .subscribe((options) => options.forEach((o) => o.save()));
+        /**
+         * При сохранении берется текущее состояние с сохраненными options'ами
+         * чтобы получить единственное событие
+         * а не от каждого option'а
+         */
         this.save$
             .pipe(
                 withLatestFrom(this.selectedOptionsByIdx$, this.options$, (_, idxToBooleanMap, array) => ({
