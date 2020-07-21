@@ -6,6 +6,12 @@
     }
 }
 
+@mixin set-circle-fill-color($color) {
+    circle {
+        fill: $color;
+    }
+}
+
 @mixin set-circle-stroke-color($color) {
     circle {
         stroke: $color;
@@ -82,7 +88,7 @@
             &-default {
                 svg {
                     @include set-line-stroke-color($default-color);
-                    @include set-path-stroke-color($default-color);
+                    @include set-path-fill-color($default-color);
                     @include set-rect-stroke-color($default-color);
                 }
             }
@@ -90,7 +96,7 @@
             &-primary {
                 svg {
                     @include set-line-stroke-color($primary-color);
-                    @include set-path-stroke-color($primary-color);
+                    @include set-path-fill-color($primary-color);
                     @include set-rect-stroke-color($primary-color);
                 }
             }
@@ -129,15 +135,15 @@
         &-wallet-menu {
             &-default {
                 svg {
-                    @include set-rect-fill-color($default-color);
-                    @include set-circle-stroke-color($default-color);
+                    @include set-rect-stroke-color($default-color);
+                    @include set-circle-fill-color($default-color);
                 }
             }
 
             &-primary {
                 svg {
-                    @include set-rect-fill-color($primary-color);
-                    @include set-circle-stroke-color($primary-color);
+                    @include set-rect-stroke-color($primary-color);
+                    @include set-circle-fill-color($primary-color);
                 }
             }
         }

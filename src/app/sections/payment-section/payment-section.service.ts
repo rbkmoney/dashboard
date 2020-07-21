@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { debounceTime, filter, pluck, shareReplay } from 'rxjs/operators';
+import { pluck, shareReplay } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { SettingsService } from '../../settings';
@@ -13,25 +13,17 @@ export class PaymentSectionService {
 
     private bannerName = 'test-env-banner';
 
-    constructor(private settingsService: SettingsService, private router: Router) {
-        this.router.events
-            .pipe(
-                filter((event: RouterEvent) => !!event.url),
-                pluck('url'),
-                debounceTime(300),
-                shareReplay(SHARE_REPLAY_CONF)
-            )
-            .subscribe((url) => {
-                const isTestEnvUrl = url.includes(`env/${RouteEnv.test}`);
-                if (isTestEnvUrl) {
-                    const sessionStorageValue = this.settingsService.getSessionStorageItem(this.bannerName);
-                    if (sessionStorageValue === 'true' || sessionStorageValue === null) {
-                        this.isActive$.next(true);
-                    }
-                } else {
-                    this.isActive$.next(false);
+    constructor(private settingsService: SettingsService, private route: ActivatedRoute) {
+        this.route.params.pipe(pluck('envID'), shareReplay(SHARE_REPLAY_CONF)).subscribe((envID) => {
+            if (envID === RouteEnv.test) {
+                const sessionStorageValue = this.settingsService.getSessionStorageItem(this.bannerName);
+                if (sessionStorageValue === 'true' || sessionStorageValue === null) {
+                    this.isActive$.next(true);
                 }
-            });
+            } else {
+                this.isActive$.next(false);
+            }
+        });
     }
 
     close() {
