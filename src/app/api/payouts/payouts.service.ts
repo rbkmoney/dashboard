@@ -19,6 +19,7 @@ export class PayoutsService {
 
     getPayoutTools(contractID: string): Observable<PayoutTool[]> {
         return this.payoutsService.getPayoutTools(genXRequestID(), contractID);
+    }
 
     getPayoutToolByID(contractID: string, payoutToolID: string) {
         return this.payoutsService.getPayoutToolByID(genXRequestID(), contractID, payoutToolID);
