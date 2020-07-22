@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { ComponentChanges } from '../../../type-utils';
 import { ShopService } from '../../api';
 import { Shop } from '../../api-codegen/capi';
 import { filterShopsByEnv } from '../payment-section/operations/operators';
@@ -13,8 +12,8 @@ import { filterShopsByEnv } from '../payment-section/operations/operators';
     templateUrl: 'filter-shops.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterShopsComponent implements OnChanges {
-    @Input() selected?: (Pick<Shop, 'id'> | Shop['id'])[];
+export class FilterShopsComponent {
+    @Input() selected?: Pick<Shop, 'id'>[];
     @Output() selectedChange = new EventEmitter<Shop[]>();
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
@@ -22,18 +21,15 @@ export class FilterShopsComponent implements OnChanges {
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(1)
     );
-    selectedShopsIds$ = new BehaviorSubject<{ [N in string]: boolean }>({});
 
     constructor(private route: ActivatedRoute, private shopService: ShopService) {}
 
-    ngOnChanges({ selected }: ComponentChanges<FilterShopsComponent>) {
-        if (selected) {
-            const selectedIds = selected.currentValue.map((i) => (typeof i === 'object' ? i.id : i));
-            this.selectedShopsIds$.next(Object.fromEntries(selectedIds.map((id) => [id, true])));
-        }
+    searchShopPredicate(data: Shop, searchStr: string): boolean {
+        const lowerSearchStr = searchStr.trim().toLowerCase();
+        return data.details.name.toLowerCase().includes(lowerSearchStr) || data.id.includes(lowerSearchStr);
     }
 
-    selectedShopsChange(shops: Shop[]) {
-        this.selectedChange.emit(shops);
+    compareWithShops(s1: Shop, s2: Shop): boolean {
+        return s1.id === s2.id;
     }
 }

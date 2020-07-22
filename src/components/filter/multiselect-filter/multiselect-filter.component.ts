@@ -5,18 +5,18 @@ import {
     ContentChildren,
     EventEmitter,
     Input,
+    OnChanges,
     OnInit,
     Output,
     QueryList,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { map, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, merge, ReplaySubject, Subject } from 'rxjs';
+import { map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { mapIdxBooleanToFilteredArray } from './map-idx-boolean-to-filtered-array';
+import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './mapItemsToLabel';
 import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
-import { reduceIdxToBooleanMap } from './reduce-idx-to-boolean-map';
 
 @Component({
     selector: 'dsh-multiselect-filter',
@@ -24,11 +24,12 @@ import { reduceIdxToBooleanMap } from './reduce-idx-to-boolean-map';
     styleUrls: ['multiselect-filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterComponent<T = any> implements AfterContentInit, OnInit {
+export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
     @Input() label: string;
     @Input() searchInputLabel?: string;
     @Input() searchPredicate?: (value: T, searchStr: string) => boolean;
 
+    @Input() selected?: T[];
     @Output() selectedChange = new EventEmitter<T[]>();
 
     @ContentChildren(MultiselectFilterOptionComponent) options: QueryList<MultiselectFilterOptionComponent<T>>;
@@ -37,35 +38,30 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
 
     private save$ = new Subject<void>();
     private clear$ = new Subject<void>();
+    private selectFromInput$ = new ReplaySubject<T[]>(1);
 
-    options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
-    selectedOptionsByIdx$ = this.options$.pipe(
-        map((o) => o.map(({ selected$ }) => selected$)),
-        reduceIdxToBooleanMap,
-        shareReplay(1)
-    );
-    savedSelectedOptions$ = this.options$.pipe(
-        map((o) => o.map(({ savedSelected$ }) => savedSelected$)),
-        reduceIdxToBooleanMap,
-        withLatestFrom(this.options$, (idxToBooleanMap, array) => ({ idxToBooleanMap, array })),
-        mapIdxBooleanToFilteredArray,
-        shareReplay(1)
-    );
-    displayedOptions$ = combineLatest([
+    private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
+    private selectedValues$ = new BehaviorSubject<T[]>([]);
+    savedSelectedOptions$ = combineLatest([
+        merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
-        this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
-        withLatestFrom(this.selectedOptionsByIdx$, ([options, searchStr], selectedOptionsIdx) =>
-            options.filter((o, idx) => selectedOptionsIdx[idx] || this.searchPredicateByOption(o, searchStr))
+        map(([selected, options]) =>
+            selected.map((s) => options.find((o) => this.compareWith(s, o.value))).filter((v) => v)
         ),
         shareReplay(1)
     );
 
-    /**
-     * Для title берется текущее состояние с сохраненными options'ами
-     * чтобы получить актуальные выбранные
-     * если они были переданы через Input() option'а
-     */
+    displayedOptions$ = combineLatest([
+        this.options$,
+        this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
+    ]).pipe(
+        withLatestFrom(this.savedSelectedOptions$, ([options, searchStr], savedSelectedOptions) =>
+            options.filter((o) => savedSelectedOptions.includes(o) || this.searchPredicateByOption(o, searchStr))
+        ),
+        shareReplay(1)
+    );
+
     title$ = this.savedSelectedOptions$.pipe(
         map((selectedOptions) => ({
             selectedItemsLabels: selectedOptions.map(({ label }) => label),
@@ -76,35 +72,32 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
         shareReplay(1)
     );
 
+    @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        this.displayedOptions$
-            .pipe(withLatestFrom(this.options$))
-            .subscribe(([displayedOptions, options]) =>
-                options.forEach((o) => o.display(displayedOptions.includes(o)))
-            );
-        this.clear$
-            .pipe(withLatestFrom(this.options$, (_, o) => o))
-            .subscribe((options) => options.forEach((o) => o.select(false)));
-        this.save$
-            .pipe(withLatestFrom(this.options$, (_, o) => o))
-            .subscribe((options) => options.forEach((o) => o.save()));
-        /**
-         * При сохранении берется текущее состояние с сохраненными options'ами
-         * чтобы получить единственное событие
-         * а не от каждого option'а
-         */
-        this.save$
+        combineLatest([this.displayedOptions$, this.options$]).subscribe(([displayedOptions, options]) =>
+            options.forEach((o) => o.display(displayedOptions.includes(o)))
+        );
+        combineLatest([merge(this.selectFromInput$, this.clear$.pipe(mapTo([]))), this.options$]).subscribe(
+            ([selectedValues, options]) => {
+                options.forEach((o) => o.select(selectedValues.findIndex((s) => this.compareWith(s, o.value)) !== -1));
+                this.selectedValues$.next(selectedValues);
+            }
+        );
+        this.options$
             .pipe(
-                withLatestFrom(this.selectedOptionsByIdx$, this.options$, (_, idxToBooleanMap, array) => ({
-                    idxToBooleanMap,
-                    array,
-                })),
-                mapIdxBooleanToFilteredArray,
-                map((selectedOptions) => selectedOptions.map(({ value }) => value))
+                switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))),
+                withLatestFrom(this.selectedValues$),
+                map(([o, selected]) => {
+                    const idx = selected.findIndex((s) => this.compareWith(s, o));
+                    const newSelected = selected.slice();
+                    idx === -1 ? newSelected.push(o) : newSelected.splice(idx, 1);
+                    return newSelected;
+                })
             )
-            .subscribe((selectedOptions) => this.selectedChange.emit(selectedOptions));
+            .subscribe((selected) => this.selectedValues$.next(selected));
     }
 
     ngAfterContentInit() {
@@ -114,6 +107,12 @@ export class MultiselectFilterComponent<T = any> implements AfterContentInit, On
                 map((o: MultiselectFilterComponent<T>['options']) => o.toArray())
             )
             .subscribe((o) => this.options$.next(o));
+    }
+
+    ngOnChanges({ selected }: ComponentChanges<MultiselectFilterComponent>) {
+        if (selected) {
+            this.selectFromInput$.next(selected.currentValue);
+        }
     }
 
     private searchPredicateByOption(option: MultiselectFilterOptionComponent, searchStr: string) {

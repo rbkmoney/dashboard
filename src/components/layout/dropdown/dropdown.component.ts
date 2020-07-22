@@ -1,6 +1,5 @@
-import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 import { coerceBoolean } from '../../../utils';
 import { openCloseAnimation, State } from './open-close-animation';
@@ -17,7 +16,7 @@ const FULL_WIDTH = '99.99%';
     animations: [openCloseAnimation],
     exportAs: 'dshDropdown',
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent {
     @Input() width?: number | string;
     @Input() disableClose = false;
     @Input() @coerceBoolean hasArrow = true;
@@ -33,10 +32,6 @@ export class DropdownComponent implements OnInit {
     state$ = new BehaviorSubject(State.closed);
     triangleLeftOffset: string;
     animationDone$ = new Subject();
-
-    ngOnInit() {
-        this.state$.pipe(filter((s) => s === State.closed)).subscribe(() => this.closed.emit());
-    }
 
     getCorrectedWidth() {
         if (this.width === '100%') {
@@ -54,6 +49,7 @@ export class DropdownComponent implements OnInit {
 
     close() {
         this.state$.next(State.closed);
+        this.closed.emit();
     }
 
     open() {

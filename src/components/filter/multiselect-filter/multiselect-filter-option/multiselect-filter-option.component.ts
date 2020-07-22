@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    EventEmitter,
     HostBinding,
     Input,
     OnChanges,
@@ -22,6 +23,8 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
     @Input() value: T;
     @Input() @coerceBoolean selected = false;
 
+    toggle = new EventEmitter<void>();
+
     @HostBinding('style.display') styleDisplay = 'block';
 
     @ViewChild(MatCheckbox, { read: ElementRef }) private content: ElementRef;
@@ -31,16 +34,10 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
     }
 
     selected$ = new BehaviorSubject(false);
-    savedSelected$ = new BehaviorSubject(false);
     displayed$ = new BehaviorSubject(true);
-
-    toggle() {
-        this.selected$.next(!this.selected$.value);
-    }
 
     ngOnChanges({ selected }: ComponentChanges<MultiselectFilterOptionComponent<T>>) {
         if (selected) {
-            this.savedSelected$.next(selected.currentValue);
             this.selected$.next(selected.currentValue);
         }
     }
@@ -52,9 +49,5 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
 
     select(isSelected = true) {
         this.selected$.next(isSelected);
-    }
-
-    save() {
-        this.savedSelected$.next(this.selected$.value);
     }
 }

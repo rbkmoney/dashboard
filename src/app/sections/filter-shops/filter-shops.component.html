@@ -2,13 +2,12 @@
     *transloco="let t; scope: 'filter-shops'; read: 'filterShops'"
     [label]="t.label"
     [searchInputLabel]="t.searchInputLabel"
+    [searchPredicate]="searchShopPredicate"
+    [compareWith]="compareWithShops"
+    [selected]="selected"
     (selectedChange)="this.selectedChange.emit($event)"
 >
-    <dsh-multiselect-filter-option
-        *ngFor="let shop of shops$ | async"
-        [value]="shop"
-        [selected]="(selectedShopsIds$ | async)[shop.id]"
-    >
+    <dsh-multiselect-filter-option *ngFor="let shop of shops$ | async" [value]="shop">
         {{ shop.details.name }}
     </dsh-multiselect-filter-option>
 </dsh-multiselect-filter>
