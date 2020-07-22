@@ -56,7 +56,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
-        map(([options, searchStr]) => options.filter((o) => o.selected || this.searchPredicateByOption(o, searchStr))),
+        map(([options, searchStr]) => options.filter((o) => this.checkDisplayOption(o, searchStr))),
         shareReplay(1)
     );
 
@@ -79,7 +79,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
             options.forEach((o) => o.display(displayedOptions.includes(o)))
         );
         combineLatest([this.selectedValues$, this.options$]).subscribe(([selectedValues, options]) =>
-            options.forEach((o) => o.select(selectedValues.findIndex((s) => this.compareWith(s, o.value)) !== -1))
+            options.forEach((o) => o.select(this.includesValue(selectedValues, o.value)))
         );
         merge(this.selectFromInput$, this.clear$.pipe(mapTo([]))).subscribe((selectedValues) =>
             this.selectedValues$.next(selectedValues)
@@ -88,12 +88,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
             .pipe(
                 switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))),
                 withLatestFrom(this.selectedValues$),
-                map(([o, selected]) => {
-                    const idx = selected.findIndex((s) => this.compareWith(s, o));
-                    const newSelected = selected.slice();
-                    idx === -1 ? newSelected.push(o) : newSelected.splice(idx, 1);
-                    return newSelected;
-                })
+                map(([o, selected]) => this.toggleValue(selected, o))
             )
             .subscribe((selected) => this.selectedValues$.next(selected));
     }
@@ -113,11 +108,24 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         }
     }
 
-    private searchPredicateByOption(option: MultiselectFilterOptionComponent, searchStr: string) {
-        if (this.searchPredicate) {
+    private checkDisplayOption(option: MultiselectFilterOptionComponent, searchStr: string) {
+        if (option.selected) {
+            return true;
+        } else if (this.searchPredicate) {
             return this.searchPredicate(option.value, searchStr);
         }
         return option.label.toLowerCase().trim().includes(searchStr.toLowerCase().trim());
+    }
+
+    private includesValue(values: T[], value: T) {
+        return values.findIndex((s) => this.compareWith(s, value)) !== -1;
+    }
+
+    private toggleValue(values: T[], value: T) {
+        const idx = values.findIndex((s) => this.compareWith(s, value));
+        const newSelected = values.slice();
+        idx === -1 ? newSelected.push(value) : newSelected.splice(idx, 1);
+        return newSelected;
     }
 
     save() {
