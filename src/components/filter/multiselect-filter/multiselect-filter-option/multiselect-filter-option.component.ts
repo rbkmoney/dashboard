@@ -5,23 +5,18 @@ import {
     EventEmitter,
     HostBinding,
     Input,
-    OnChanges,
     ViewChild,
 } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { BehaviorSubject } from 'rxjs';
-
-import { ComponentChanges } from '../../../../type-utils';
-import { coerceBoolean } from '../../../../utils';
 
 @Component({
     selector: 'dsh-multiselect-filter-option',
     templateUrl: 'multiselect-filter-option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
+export class MultiselectFilterOptionComponent<T = any> {
     @Input() value: T;
-    @Input() @coerceBoolean selected = false;
 
     toggle = new EventEmitter<void>();
 
@@ -33,21 +28,19 @@ export class MultiselectFilterOptionComponent<T = any> implements OnChanges {
         return (this.content?.nativeElement?.textContent || '').trim();
     }
 
+    get selected() {
+        return this.selected$.value;
+    }
+
     selected$ = new BehaviorSubject(false);
     displayed$ = new BehaviorSubject(true);
 
-    ngOnChanges({ selected }: ComponentChanges<MultiselectFilterOptionComponent<T>>) {
-        if (selected) {
-            this.selected$.next(selected.currentValue);
-        }
-    }
-
-    display(isDisplay = true) {
+    display(isDisplay: boolean) {
         this.displayed$.next(isDisplay);
         this.styleDisplay = isDisplay ? 'block' : 'none';
     }
 
-    select(isSelected = true) {
+    select(isSelected: boolean) {
         this.selected$.next(isSelected);
     }
 }

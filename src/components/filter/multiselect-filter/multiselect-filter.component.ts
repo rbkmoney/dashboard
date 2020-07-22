@@ -56,9 +56,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
-        withLatestFrom(this.savedSelectedOptions$, ([options, searchStr], savedSelectedOptions) =>
-            options.filter((o) => savedSelectedOptions.includes(o) || this.searchPredicateByOption(o, searchStr))
-        ),
+        map(([options, searchStr]) => options.filter((o) => o.selected || this.searchPredicateByOption(o, searchStr))),
         shareReplay(1)
     );
 
@@ -80,11 +78,11 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         combineLatest([this.displayedOptions$, this.options$]).subscribe(([displayedOptions, options]) =>
             options.forEach((o) => o.display(displayedOptions.includes(o)))
         );
-        combineLatest([merge(this.selectFromInput$, this.clear$.pipe(mapTo([]))), this.options$]).subscribe(
-            ([selectedValues, options]) => {
-                options.forEach((o) => o.select(selectedValues.findIndex((s) => this.compareWith(s, o.value)) !== -1));
-                this.selectedValues$.next(selectedValues);
-            }
+        combineLatest([this.selectedValues$, this.options$]).subscribe(([selectedValues, options]) =>
+            options.forEach((o) => o.select(selectedValues.findIndex((s) => this.compareWith(s, o.value)) !== -1))
+        );
+        merge(this.selectFromInput$, this.clear$.pipe(mapTo([]))).subscribe((selectedValues) =>
+            this.selectedValues$.next(selectedValues)
         );
         this.options$
             .pipe(
