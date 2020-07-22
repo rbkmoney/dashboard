@@ -127,7 +127,7 @@
 
             &-primary {
                 svg {
-                    @include set-path-stroke-color($default-color);
+                    @include set-path-stroke-color($primary-color);
                 }
             }
         }
