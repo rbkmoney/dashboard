@@ -103,7 +103,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     }
 
     ngOnChanges({ selected }: ComponentChanges<MultiselectFilterComponent>) {
-        if (selected) {
+        if (selected && selected.currentValue) {
             this.selectFromInput$.next(selected.currentValue);
         }
     }
