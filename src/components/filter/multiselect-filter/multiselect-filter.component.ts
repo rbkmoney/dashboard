@@ -11,7 +11,7 @@ import {
     QueryList,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { BehaviorSubject, combineLatest, merge, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
@@ -43,7 +43,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
     private selectedValues$ = new BehaviorSubject<T[]>([]);
 
-    savedSelectedOptions$ = combineLatest([
+    savedSelectedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
     ]).pipe(
@@ -52,7 +52,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
-    displayedOptions$ = combineLatest([
+    displayedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
@@ -60,7 +60,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
-    title$ = this.savedSelectedOptions$.pipe(
+    title$: Observable<string> = this.savedSelectedOptions$.pipe(
         map((selectedOptions) => ({
             selectedItemsLabels: selectedOptions.map(({ label }) => label),
             label: this.label,
