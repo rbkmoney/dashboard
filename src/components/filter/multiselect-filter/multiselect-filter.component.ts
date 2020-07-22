@@ -42,13 +42,13 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
 
     private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
     private selectedValues$ = new BehaviorSubject<T[]>([]);
+
     savedSelectedOptions$ = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
     ]).pipe(
-        map(([selected, options]) =>
-            selected.map((s) => options.find((o) => this.compareWith(s, o.value))).filter((v) => v)
-        ),
+        map(([selected]) => this.mapInputValuesToOptions(selected)),
+        startWith([]),
         shareReplay(1)
     );
 
@@ -91,6 +91,14 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
                 map(([o, selected]) => this.toggleValue(selected, o))
             )
             .subscribe((selected) => this.selectedValues$.next(selected));
+        this.save$
+            .pipe(
+                withLatestFrom(this.selectedValues$),
+                pluck(1),
+                map((selected) => this.mapInputValuesToOptions(selected)),
+                map((options) => options.map(({ value }) => value))
+            )
+            .subscribe((selectedValues) => this.selectedChange.emit(selectedValues));
     }
 
     ngAfterContentInit() {
@@ -126,6 +134,12 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         const newSelected = values.slice();
         idx === -1 ? newSelected.push(value) : newSelected.splice(idx, 1);
         return newSelected;
+    }
+
+    private mapInputValuesToOptions(inputValues: T[]) {
+        return inputValues
+            .map((s) => this.options.toArray().find((o) => this.compareWith(s, o.value)))
+            .filter((v) => v);
     }
 
     save() {
