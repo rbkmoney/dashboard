@@ -21,8 +21,6 @@ export class CreatePayoutDialogComponent {
         shopID: null,
     });
 
-    log = console.log;
-
     hasSelectedShop = false;
 
     currentPayoutToolCurrency: string;

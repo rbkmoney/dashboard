@@ -32,7 +32,7 @@ export class CreatePayoutDialogService {
         private shopsService: ShopService,
         private payoutsService: PayoutsService
     ) {
-        merge(this.payoutTools$, this.hasPayoutTools$).subscribe(console.log);
+        merge(this.payoutTools$, this.hasPayoutTools$).subscribe();
     }
 
     updateWalletID(id: string) {
