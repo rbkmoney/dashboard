@@ -40,6 +40,8 @@ export class SearchFormComponent implements OnInit {
         shareReplay(1)
     );
 
+    shops$ = this.searchFormService.shops$;
+
     constructor(private searchFormService: SearchFormService) {}
 
     ngOnInit() {

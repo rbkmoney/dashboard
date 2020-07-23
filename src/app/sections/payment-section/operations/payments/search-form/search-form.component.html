@@ -1,4 +1,4 @@
-<dsh-filter-shops (selectedChange)="changeShops($event)"></dsh-filter-shops>
+<dsh-filter-shops [shops]="shops$ | async" (selectedChange)="changeShops($event)"></dsh-filter-shops>
 
 <br /><br />
 
