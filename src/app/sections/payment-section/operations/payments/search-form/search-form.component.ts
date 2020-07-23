@@ -54,8 +54,7 @@ export class SearchFormComponent implements OnInit {
         this.searchFormService.reset();
     }
 
-    changeShops(shops: Shop[]) {
-        console.log(shops);
+    changeShops(_shops: Shop[]) {
         // this.formValueChanges.next({ ...this.formValueChanges.value, shopIDs: shops.map(({ id }) => id) });
     }
 }
