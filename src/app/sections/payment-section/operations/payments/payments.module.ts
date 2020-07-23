@@ -18,9 +18,9 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
+import { FilterShopsModule } from '../../../../components';
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
-import { FilterShopsModule } from '../../../filter-shops';
 import { ShopSelectorModule } from '../../../shop-selector';
 import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { PaymentsRoutingModule } from './payments-routing.module';
