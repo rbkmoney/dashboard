@@ -1,0 +1,5 @@
+@import './filter-button/filter-button-theme';
+
+@mixin dsh-filter-theme($theme) {
+    @include dsh-filter-button-theme($theme);
+}

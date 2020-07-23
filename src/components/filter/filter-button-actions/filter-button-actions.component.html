@@ -1,0 +1,13 @@
+<mat-divider></mat-divider>
+
+<div class="actions">
+    <ng-content></ng-content>
+    <div *transloco="let t" fxFlex fxLayoutAlign="space-between" fxLayoutGap="20px">
+        <div>
+            <button dsh-button (click)="clear.emit($event)">{{ t.clear }}</button>
+        </div>
+        <div>
+            <button dsh-button color="accent" (click)="save.emit($event)">{{ t.save }}</button>
+        </div>
+    </div>
+</div>

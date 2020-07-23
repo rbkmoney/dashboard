@@ -1,7 +1,12 @@
-import { FlexibleConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import {
+    ConnectedPosition,
+    FlexibleConnectedPositionStrategy,
+    Overlay,
+    OverlayConfig,
+    OverlayRef,
+} from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
-import get from 'lodash.get';
 import { Key } from 'ts-keycode-enum';
 
 import { DropdownComponent } from './dropdown.component';
@@ -9,6 +14,20 @@ import { State } from './open-close-animation';
 
 const WRAPPER_OFFSET = 15;
 const OVERLAY_SELECTOR = '.cdk-overlay-container';
+
+const POSITION_CENTER: ConnectedPosition = {
+    originX: 'center',
+    originY: 'bottom',
+    overlayX: 'center',
+    overlayY: 'top',
+};
+
+const POSITION_LEFT: ConnectedPosition = {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+};
 
 @Directive({
     selector: '[dshDropdownTriggerFor]',
@@ -29,12 +48,13 @@ export class DropdownTriggerDirective implements OnDestroy {
         private renderer: Renderer2
     ) {}
 
-    private get dropdownEl(): HTMLElement {
-        return get(this.overlayRef, 'overlayElement.firstChild');
+    private get dropdownEl() {
+        return this.overlayRef?.overlayElement?.firstChild as HTMLElement;
     }
 
-    private get triangleEl(): HTMLElement {
-        return get(this.dropdownEl, 'firstChild.firstChild');
+    private get triangleEl() {
+        const triangleEl = this.dropdownEl?.firstChild?.firstChild as HTMLElement;
+        return typeof triangleEl?.getBoundingClientRect === 'function' ? triangleEl : null;
     }
 
     get overlayRef() {
@@ -58,20 +78,20 @@ export class DropdownTriggerDirective implements OnDestroy {
         if (!this.overlayRef.hasAttached()) {
             const portal = this.getPortal();
             this.overlayRef.attach(portal);
-            this.dropdown.state = State.open;
+            this.dropdown.open();
             this.updatePosition();
             this.addWindowListeners();
         }
     }
 
     close() {
-        this.dropdown.state = State.closed;
+        this.dropdown.close();
         this.removeWindowListeners();
     }
 
     toggle() {
         if (this.overlayRef.hasAttached()) {
-            if (this.dropdown.state === 'open') {
+            if (this.dropdown.state$.value === State.open) {
                 this.close();
             }
         } else {
@@ -107,7 +127,7 @@ export class DropdownTriggerDirective implements OnDestroy {
     }
 
     private animationDoneHandler = () => {
-        if (this.dropdown.state === State.closed) {
+        if (this.dropdown.state$.value === State.closed) {
             this.overlayRef.detach();
         } else {
             this.updatePosition();
@@ -122,14 +142,7 @@ export class DropdownTriggerDirective implements OnDestroy {
                 .withPush(true)
                 .withDefaultOffsetX(0)
                 .withLockedPosition()
-                .withPositions([
-                    {
-                        originX: 'center',
-                        originY: 'bottom',
-                        overlayX: 'center',
-                        overlayY: 'top',
-                    },
-                ]),
+                .withPositions([this.dropdown.position === 'center' ? POSITION_CENTER : POSITION_LEFT]),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             width: this.dropdown.getCorrectedWidth(),
         });

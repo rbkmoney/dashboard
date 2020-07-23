@@ -8,7 +8,7 @@
 
     .dsh-range-datepicker {
         &-button {
-            border-color: mat-color($foreground, divider, 0.12);
+            border-color: map-get($foreground, dividers);
             color: $text;
 
             &:enabled {

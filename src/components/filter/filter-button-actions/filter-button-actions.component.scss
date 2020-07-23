@@ -1,0 +1,9 @@
+$dsh-filter-button-actions-padding: 24px;
+
+:host {
+    display: block;
+
+    .actions {
+        padding: $dsh-filter-button-actions-padding;
+    }
+}

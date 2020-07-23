@@ -1,0 +1,26 @@
+<dsh-filter [title]="title$ | async" [active]="!!(savedSelectedOptions$ | async)?.length" (closed)="save()" #filter>
+    <dsh-filter-button-content>
+        <div
+            class="content"
+            [ngClass]="{ 'content-without-items': !(displayedOptions$ | async)?.length }"
+            fxLayout="column"
+            fxLayoutGap="8px"
+        >
+            <mat-form-field fxFlex>
+                <mat-label>{{ label }}</mat-label>
+                <input matInput [formControl]="searchControl" />
+            </mat-form-field>
+            <div
+                class="items-wrapper"
+                [ngClass]="{ 'items-wrapper-overflow': (displayedOptions$ | async)?.length > 5 }"
+                *ngIf="(displayedOptions$ | async)?.length"
+                fxLayout="column"
+            >
+                <div class="items">
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions (clear)="clear()" (save)="save(); filter.close()"></dsh-filter-button-actions>
+</dsh-filter>

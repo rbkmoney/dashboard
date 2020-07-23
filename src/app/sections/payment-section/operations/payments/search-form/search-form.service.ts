@@ -8,8 +8,10 @@ import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 
+import { ShopService } from '../../../../../api';
+import { Shop } from '../../../../../api-codegen/capi';
 import { RouteEnv } from '../../../../route-env';
-import { removeEmptyProperties } from '../../operators';
+import { filterShopsByEnv, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { PaymentSearchFormValue } from './payment-search-form-value';
@@ -25,7 +27,18 @@ export class SearchFormService {
         shareReplay(1)
     );
 
-    constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    shops$: Observable<Shop[]> = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        shareReplay(1)
+    );
+
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private shopService: ShopService
+    ) {
         this.formValueChanges$.subscribe((formValues) =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })
         );
