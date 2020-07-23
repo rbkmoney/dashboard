@@ -1,6 +1,5 @@
 import {
     AfterContentInit,
-    ChangeDetectionStrategy,
     Component,
     ContentChildren,
     EventEmitter,
@@ -22,7 +21,6 @@ import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
     selector: 'dsh-multiselect-filter',
     templateUrl: 'multiselect-filter.component.html',
     styleUrls: ['multiselect-filter.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
     @Input() label: string;
