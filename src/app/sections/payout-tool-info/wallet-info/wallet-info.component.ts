@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { coerceBoolean } from '../../../../utils';
 import { PayoutToolDetailsWalletInfo } from '../../../api-codegen/anapi';
@@ -11,4 +12,10 @@ import { PayoutToolDetailsWalletInfo } from '../../../api-codegen/anapi';
 export class WalletInfoComponent {
     @Input() @coerceBoolean hideTitle: boolean;
     @Input() payoutTool: PayoutToolDetailsWalletInfo;
+
+    constructor(private router: Router) {}
+
+    goToWalletDetails(id) {
+        this.router.navigate(['wallet', id]);
+    }
 }

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-export type IconName = 'pie_chart' | 'table_chart' | 'output' | 'input' | 'description' | 'build' | 'wallet_menu';
+import { IconName } from './icon-name';
 
-export type IconColor = 'primary' | 'default';
+export type IconColor = 'primary' | 'default' | 'contrast-text';
 
 @Component({
     selector: 'dsh-colored-icon',
@@ -30,6 +30,8 @@ export class ColoredIconComponent {
                 return `${prefix}-build-${color}`;
             case 'wallet_menu':
                 return `${prefix}-wallet-menu-${color}`;
+            case 'cross':
+                return `${prefix}-cross-${color}`;
             default:
                 return '';
         }

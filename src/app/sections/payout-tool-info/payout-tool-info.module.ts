@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { LayoutModule } from '@dsh/components/layout';
@@ -20,7 +21,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule],
+    imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule, MatIconModule],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })

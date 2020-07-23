@@ -27,6 +27,7 @@
 @import '../../components/navigation/state-nav/state-nav-theme';
 @import '../../components/filter/filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/global-banner/global-banner-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -86,5 +87,6 @@
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
         @include dsh-filter-theme($theme);
+        @include dsh-global-banner-theme($theme);
     }
 }
