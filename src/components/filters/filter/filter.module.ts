@@ -7,21 +7,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '../buttons/button';
-import { DropdownModule } from '../layout/dropdown';
+import { ButtonModule } from '../../buttons/button';
+import { DropdownModule } from '../../layout/dropdown';
 import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
 import { FilterComponent } from './filter.component';
-import { MultiselectFilterComponent, MultiselectFilterOptionComponent } from './multiselect-filter';
 
 const EXPORTED_DECLARATIONS = [
     FilterComponent,
     FilterButtonComponent,
     FilterButtonActionsComponent,
     FilterButtonContentComponent,
-    MultiselectFilterComponent,
-    MultiselectFilterOptionComponent,
 ];
 
 @NgModule({
