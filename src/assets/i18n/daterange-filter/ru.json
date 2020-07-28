@@ -1,6 +1,6 @@
 {
     "title": "Выберите период",
-    "select": {
+    "menu": {
         "today": "Сегодня",
         "currentWeek": "Текущая неделя",
         "threeMonths": "3 месяца",

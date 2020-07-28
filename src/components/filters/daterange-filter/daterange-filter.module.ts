@@ -7,9 +7,10 @@ import { SatDatepickerModule } from 'saturn-datepicker';
 import { DaterangeModule } from '@dsh/pipes/daterange';
 
 import { FilterModule } from '../filter';
+import { DaterangeFilterMenuComponent } from './daterange-filter-selector';
 import { DaterangeFilterComponent } from './daterange-filter.component';
 
-const EXPORTED_DECLARATIONS = [DaterangeFilterComponent];
+const EXPORTED_DECLARATIONS = [DaterangeFilterComponent, DaterangeFilterMenuComponent];
 
 @NgModule({
     imports: [CommonModule, SatDatepickerModule, FlexLayoutModule, FilterModule, TranslocoModule, DaterangeModule],

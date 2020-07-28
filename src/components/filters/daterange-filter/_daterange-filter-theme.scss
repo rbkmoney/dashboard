@@ -1,0 +1,5 @@
+@import './daterange-filter-selector/daterange-filter-menu-theme';
+
+@mixin dsh-daterange-filter-theme($theme) {
+    @include dsh-daterange-filter-menu-theme($theme);
+}

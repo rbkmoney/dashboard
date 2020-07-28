@@ -1,31 +1,27 @@
 <dsh-filter
     #filter
     *transloco="let t; scope: 'daterange-filter'; read: 'daterangeFilter'"
-    [title]="t.title"
-    [active]="selected"
+    [title]="(savedSelected$ | async | daterange) || t.title"
+    [active]="!!(savedSelected$ | async)"
     (closed)="save()"
 >
     <dsh-filter-button-content fxLayout fxLayoutGap="20px">
-        <div fxLayout="column" fxLayoutGap="32px" class="dsh-body-1">
-            <div>{{ t.select.today }}</div>
-            <div>{{ t.select.currentWeek }}</div>
-            <div>{{ current | date: 'LLLL' | titlecase }}</div>
-            <div>{{ t.select.threeMonths }}</div>
-            <div>{{ t.select.year | translocoParams: { year: current | date: 'y' } }}</div>
-            <div>{{ t.select.anotherPeriod }}</div>
-        </div>
+        <dsh-daterange-filter-menu
+            [selected]="selected$ | async"
+            (selectedChange)="this.select$.next($event)"
+        ></dsh-daterange-filter-menu>
         <div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign=" center">
             <div class="dsh-body-2">{{ (selected$ | async | daterange) || t.title }}</div>
             <div fxLayout fxLayoutGap="48px">
                 <sat-calendar
+                    class="calendar"
                     (selectedChange)="beginDateChange($event)"
                     [selected]="(selected$ | async)?.begin?.toDate()"
-                    style="width: 278px;"
                 ></sat-calendar>
                 <sat-calendar
+                    class="calendar"
                     (selectedChange)="endDateChange($event)"
                     [selected]="(selected$ | async)?.end?.toDate()"
-                    style="width: 278px;"
                 ></sat-calendar>
             </div>
         </div>
