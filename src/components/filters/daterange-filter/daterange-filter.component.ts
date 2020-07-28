@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { MatCalendar } from '@angular/material/datepicker';
 import moment from 'moment';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, scan, shareReplay, withLatestFrom } from 'rxjs/operators';
@@ -16,6 +17,9 @@ import { ComponentChanges } from '../../../type-utils';
 export class DaterangeFilterComponent implements OnChanges {
     @Input() selected?: Partial<Daterange>;
     @Output() selectedChange = new EventEmitter<Daterange>();
+
+    @ViewChild('beginCalendar') beginCalendar: MatCalendar<Date>;
+    @ViewChild('endCalendar') endCalendar: MatCalendar<Date>;
 
     save$ = new Subject();
     select$ = new Subject<Partial<Daterange>>();
@@ -53,6 +57,14 @@ export class DaterangeFilterComponent implements OnChanges {
                     this.clear();
                 }
             });
+        this.select$.subscribe(({ begin, end }) => {
+            if (begin) {
+                this.beginCalendar.activeDate = begin.toDate();
+            }
+            if (end) {
+                this.endCalendar.activeDate = end.toDate();
+            }
+        });
     }
 
     ngOnChanges({ selected }: ComponentChanges<DaterangeFilterComponent>): void {

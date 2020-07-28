@@ -13,16 +13,20 @@
         <div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign=" center">
             <div class="dsh-body-2">{{ (selected$ | async | daterange) || t.title }}</div>
             <div fxLayout fxLayoutGap="48px">
-                <sat-calendar
+                <mat-calendar
                     class="calendar"
                     (selectedChange)="beginDateChange($event)"
                     [selected]="(selected$ | async)?.begin?.toDate()"
-                ></sat-calendar>
-                <sat-calendar
+                    [startAt]="(selected$ | async)?.begin?.toDate()"
+                    #beginCalendar
+                ></mat-calendar>
+                <mat-calendar
                     class="calendar"
                     (selectedChange)="endDateChange($event)"
                     [selected]="(selected$ | async)?.end?.toDate()"
-                ></sat-calendar>
+                    [startAt]="(selected$ | async)?.end?.toDate()"
+                    #endCalendar
+                ></mat-calendar>
             </div>
         </div>
     </dsh-filter-button-content>
