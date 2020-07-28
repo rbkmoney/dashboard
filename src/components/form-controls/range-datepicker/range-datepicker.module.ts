@@ -11,8 +11,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 import { ButtonToggleModule } from '@dsh/components/buttons/button-toggle';
+import { DaterangeModule } from '@dsh/pipes/daterange';
 
-import { RangeDatePipe } from './range-date.pipe';
 import { RangeDatepickerComponent } from './range-datepicker.component';
 
 @NgModule({
@@ -29,8 +29,9 @@ import { RangeDatepickerComponent } from './range-datepicker.component';
         CommonModule,
         TranslocoModule,
         MatDividerModule,
+        DaterangeModule,
     ],
-    declarations: [RangeDatepickerComponent, RangeDatePipe],
+    declarations: [RangeDatepickerComponent],
     exports: [RangeDatepickerComponent],
 })
 export class RangeDatepickerModule {}
