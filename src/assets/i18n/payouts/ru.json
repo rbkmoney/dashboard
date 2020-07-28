@@ -8,6 +8,7 @@
         "shop": "Магазин",
         "payoutTool": "Инструмент вывода средств",
         "amount": "Сумма списания",
+        "created": "Заявка на выплату успешно создана",
         "payoutToolType": {
             "PayoutToolDetailsBankAccount": "Банковский счёт",
             "PayoutToolDetailsInternationalBankAccount": "Международный банковский счёт",

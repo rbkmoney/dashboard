@@ -44,7 +44,7 @@ export class PayoutsComponent {
             .pipe(filter((r) => r === 'create'))
             .subscribe(() => {
                 this.snackBar.open(
-                    this.transloco.translate('create.success', null, 'reports|scoped'),
+                    this.transloco.translate('payouts.created', null, 'payouts|scoped'),
                     this.transloco.translate('ok')
                 );
                 this.refresh();
