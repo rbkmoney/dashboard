@@ -1,7 +1,9 @@
-<dsh-filter-shops [shops]="shops$ | async" (selectedChange)="changeShops($event)"></dsh-filter-shops>
-<dsh-daterange-filter></dsh-daterange-filter>
+<dsh-filter-group>
+    <dsh-filter-shops [shops]="shops$ | async" (selectedChange)="changeShops($event)"></dsh-filter-shops>
+    <dsh-daterange-filter></dsh-daterange-filter>
+</dsh-filter-group>
 
-<br /><br />
+<br />
 
 <dsh-float-panel
     *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'"

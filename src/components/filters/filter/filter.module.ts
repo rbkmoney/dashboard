@@ -12,6 +12,7 @@ import { DropdownModule } from '../../layout/dropdown';
 import { FilterButtonComponent } from './filter-button';
 import { FilterButtonActionsComponent } from './filter-button-actions';
 import { FilterButtonContentComponent } from './filter-button-content';
+import { FilterGroupComponent } from './filter-group';
 import { FilterComponent } from './filter.component';
 
 const EXPORTED_DECLARATIONS = [
@@ -19,6 +20,7 @@ const EXPORTED_DECLARATIONS = [
     FilterButtonComponent,
     FilterButtonActionsComponent,
     FilterButtonContentComponent,
+    FilterGroupComponent,
 ];
 
 @NgModule({
