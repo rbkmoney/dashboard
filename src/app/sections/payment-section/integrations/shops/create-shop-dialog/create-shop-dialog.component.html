@@ -1,5 +1,46 @@
+<ng-container *ngIf="!selectionConfirmed">
+    <div fxLayout="column" fxLayoutGap="32px" *transloco="let t; scope: 'create-shop'; read: 'createShop'">
+        <h1 class="dsh-headline">{{ t.title }}</h1>
+        <div fxLayout="column" fxLayoutGap="18px">
+            <p class="dsh-subheading-2">{{ t.type }}</p>
+            <mat-radio-group fxLayout="column" fxLayoutGap="20px">
+                <mat-radio-button
+                    [checked]="selectedShopType === shopType.russian"
+                    [value]="shopType.russian"
+                    (change)="onTypeChange($event.value)"
+                    >{{ t.russianLegalEntityType }}</mat-radio-button
+                >
+                <mat-radio-button
+                    [checked]="selectedShopType === shopType.international"
+                    [value]="shopType.international"
+                    (change)="onTypeChange($event.value)"
+                    >{{ t.internationalLegalEntityType }}</mat-radio-button
+                >
+            </mat-radio-group>
+            <div *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
+                <button dsh-button (click)="dialogRef.close('cancel')">{{ c.cancel }}</button>
+                <button
+                    dsh-button
+                    (click)="selectionConfirmed = true"
+                    color="accent"
+                    class="next-button"
+                    [disabled]="!selectedShopType"
+                >
+                    {{ c.next }}
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
 <dsh-create-shop-russian-legal-entity
+    *ngIf="selectionConfirmed && selectedShopType === shopType.russian"
     [envID]="data.envID"
     (cancel)="dialogRef.close('cancel')"
     (send)="dialogRef.close('send')"
 ></dsh-create-shop-russian-legal-entity>
+<dsh-create-shop-international-legal-entity
+    *ngIf="selectionConfirmed && selectedShopType === shopType.international"
+    [envID]="data.envID"
+    (cancel)="dialogRef.close('cancel')"
+    (send)="dialogRef.close('send')"
+></dsh-create-shop-international-legal-entity>

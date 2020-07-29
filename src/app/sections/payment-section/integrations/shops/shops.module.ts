@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
@@ -28,6 +29,7 @@ import { ShopsComponent } from './shops.component';
         ButtonModule,
         CreateShopModule,
         RouterModule,
+        MatRadioModule,
     ],
     declarations: [ShopsComponent, CreateShopDialogComponent],
     exports: [ShopsComponent],

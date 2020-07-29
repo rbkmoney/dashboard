@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,9 +19,13 @@ import { LayoutModule } from '@dsh/components/layout';
 import { PayoutsModule, QuestionaryModule } from '../../api';
 import { DaDataModule } from '../../dadata';
 import { PayoutToolInfoModule } from '../payout-tool-info';
+import {
+    CreateShopInternationalLegalEntityComponent,
+    InternationalPayoutToolFormComponent,
+} from './create-shop-international-legal-entity';
 import { CreateShopRussianLegalEntityComponent } from './create-shop-russian-legal-entity';
 
-const EXPORTED_DECLARATIONS = [CreateShopRussianLegalEntityComponent];
+const EXPORTED_DECLARATIONS = [CreateShopRussianLegalEntityComponent, CreateShopInternationalLegalEntityComponent];
 
 @NgModule({
     imports: [
@@ -43,8 +48,9 @@ const EXPORTED_DECLARATIONS = [CreateShopRussianLegalEntityComponent];
         MatSnackBarModule,
         QuestionaryModule,
         RouterModule,
+        MatCheckboxModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
+    declarations: [...EXPORTED_DECLARATIONS, InternationalPayoutToolFormComponent],
     exports: EXPORTED_DECLARATIONS,
 })
 export class CreateShopModule {}

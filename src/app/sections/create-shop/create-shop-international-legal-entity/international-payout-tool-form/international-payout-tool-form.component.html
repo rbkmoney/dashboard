@@ -1,0 +1,43 @@
+<form
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity.payoutTool'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+    [formGroup]="form"
+>
+    <mat-form-field>
+        <mat-label>{{ t.accountNumber }}</mat-label>
+        <input matInput formControlName="number" />
+    </mat-form-field>
+
+    <div class="dsh-body-1">{{ t.description }}</div>
+
+    <mat-form-field>
+        <mat-label>{{ t.iban }}</mat-label>
+        <input matInput formControlName="iban" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t.bic }}</mat-label>
+        <input matInput formControlName="bic" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t.abaRtn }}</mat-label>
+        <input matInput formControlName="abartn" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t.bankName }}</mat-label>
+        <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t.bankCountry }}</mat-label>
+        <input matInput formControlName="countryCode" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t.bankAddress }}</mat-label>
+        <input matInput formControlName="address" />
+    </mat-form-field>
+</form>
