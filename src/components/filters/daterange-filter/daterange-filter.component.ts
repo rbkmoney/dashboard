@@ -74,11 +74,11 @@ export class DaterangeFilterComponent implements OnChanges {
     }
 
     beginDateChange(begin: Date) {
-        this.select$.next({ begin: moment(begin) });
+        this.select$.next({ begin: moment(begin).startOf('day') });
     }
 
     endDateChange(end: Date) {
-        this.select$.next({ end: moment(end) });
+        this.select$.next({ end: moment(end).endOf('day') });
     }
 
     clear() {

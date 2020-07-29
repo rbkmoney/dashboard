@@ -1,6 +1,6 @@
 <dsh-filter-group>
     <dsh-filter-shops [shops]="shops$ | async" (selectedChange)="changeShops($event)"></dsh-filter-shops>
-    <dsh-daterange-filter></dsh-daterange-filter>
+    <dsh-daterange-filter (selectedChange)="changeDaterange($event)"></dsh-daterange-filter>
 </dsh-filter-group>
 
 <br />
