@@ -1,8 +1,19 @@
 {
     "title": "Возмещения",
     "payouts": {
+        "title": "Создание выплаты",
         "description": "Согласно расписанию вывода средств, система будет инициировать банковские переводы на основе суммы платежей, принятой по всем активным магазинам.",
-        "createPayout": "Создать выплату"
+        "createPayout": "Создать выплату",
+        "noPayoutTools": "Отсутствуют доступные инструменты вывода средств",
+        "shop": "Магазин",
+        "payoutTool": "Инструмент вывода средств",
+        "amount": "Сумма списания",
+        "created": "Заявка на выплату успешно создана",
+        "payoutToolType": {
+            "PayoutToolDetailsBankAccount": "Банковский счёт",
+            "PayoutToolDetailsInternationalBankAccount": "Международный банковский счёт",
+            "PayoutToolDetailsWalletInfo": "Кошелек"
+        }
     },
     "filter": {
         "shopID": "Магазин"

@@ -9,13 +9,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
-import { RangeDatepickerModule } from '@dsh/components/form-controls';
+import { FormatInputModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { SearchModule } from '../../../api';
+import { PayoutsModule as ApiPayoutsModule, SearchModule } from '../../../api';
+import { ShopSelectorModule } from '../../shop-selector';
+import { CreatePayoutDialogComponent } from './create-payout-dialog';
 import { PayoutPanelModule } from './payouts-panels-list';
 import { PayoutsRoutingModule } from './payouts-routing.module';
 import { PayoutsComponent } from './payouts.component';
@@ -42,8 +44,12 @@ import { SearchFormComponent } from './search-form';
         ScrollUpModule,
         RangeDatepickerModule,
         ShowMorePanelModule,
+        ShopSelectorModule,
+        ApiPayoutsModule,
+        FormatInputModule,
     ],
-    declarations: [PayoutsComponent, SearchFormComponent],
+    declarations: [PayoutsComponent, SearchFormComponent, CreatePayoutDialogComponent],
     exports: [PayoutsComponent],
+    entryComponents: [CreatePayoutDialogComponent],
 })
 export class PayoutsModule {}
