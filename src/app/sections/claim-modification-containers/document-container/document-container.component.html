@@ -25,11 +25,19 @@
             *ngIf="infoItem.type === 'individualEntityInfo'"
             [individualEntity]="infoItem.item"
         ></dsh-individual-entity-info>
+        <dsh-international-legal-entity-info
+            *ngIf="infoItem.type === 'internationalLegalEntity'"
+            [internationalLegalEntity]="infoItem.item"
+        ></dsh-international-legal-entity-info>
         <dsh-shop-info *ngIf="infoItem.type === 'shopInfo'" [shopInfo]="infoItem.item"></dsh-shop-info>
         <dsh-bank-account-info
             *ngIf="infoItem.type === 'bankAccountInfo'"
             [bankAccount]="infoItem.item"
         ></dsh-bank-account-info>
+        <dsh-international-bank-account-info
+            *ngIf="infoItem.type === 'internationalBankAccountInfo'"
+            [bankAccount]="infoItem.item"
+        ></dsh-international-bank-account-info>
         <dsh-contact-info *ngIf="infoItem.type === 'contactInfo'" [contactInfo]="infoItem.item"></dsh-contact-info>
     </dsh-document-container-panel>
     <dsh-document-container-panel
