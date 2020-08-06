@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { CorrespondentAccount, InternationalBankAccount } from '../../../../api-codegen/questionary';
+import { CountryCodes } from '../../../create-shop/create-shop-international-legal-entity/country-codes';
 
 @Component({
     selector: 'dsh-international-bank-account-info',
@@ -12,5 +13,9 @@ export class InternationalBankAccountInfoComponent {
 
     hasCorrespondentAccount(acc: CorrespondentAccount): boolean {
         return !!Object.entries(acc?.bank || {}).length;
+    }
+
+    getCountryCodeText(num): string {
+        return CountryCodes[num];
     }
 }

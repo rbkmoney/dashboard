@@ -16,7 +16,7 @@ export class InternationalPayoutToolFormService {
                 bic: ['', [Validators.pattern(/^([A-Z0-9]{8}|[A-Z0-9]{11})$/)]],
                 abaRtn: ['', [Validators.pattern(/^[0-9]{9}$/)]],
                 name: ['', [Validators.maxLength(100)]],
-                countryCode: ['', [Validators.pattern(/^[A-Z]{3}$/), countryCodeValidator]],
+                country: ['', [Validators.pattern(/^[A-Z]{3}$/), countryCodeValidator]],
                 address: ['', [Validators.maxLength(1000)]],
             },
             { validators: formValidator }

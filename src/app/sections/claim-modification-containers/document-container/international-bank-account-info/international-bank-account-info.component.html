@@ -14,7 +14,7 @@
         {{ bankAccount.number }}
     </dsh-details-item>
     <dsh-details-item *ngIf="bankAccount?.bank?.country" [title]="t.country">
-        {{ bankAccount.bank.country }}
+        {{ getCountryCodeText(bankAccount.bank.country) }}
     </dsh-details-item>
     <dsh-details-item *ngIf="bankAccount?.bank?.address" [title]="t.address">
         {{ bankAccount.bank.address }}
