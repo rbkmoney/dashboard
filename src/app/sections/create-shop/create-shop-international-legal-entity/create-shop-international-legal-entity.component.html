@@ -5,22 +5,24 @@
     *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'"
 >
     <h1 class="dsh-headline">{{ t.title }}</h1>
-    <div fxLayout="column" fxLayoutGap="16px">
-        <mat-form-field>
-            <mat-label>{{ t.shopUrl }}</mat-label>
-            <input matInput formControlName="shopUrl" required />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>{{ t.shopName }}</mat-label>
-            <input matInput formControlName="shopName" required maxlength="100" />
-            <mat-hint>{{ form.value.shopName.length }} / 100</mat-hint>
-        </mat-form-field>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field>
+                <mat-label>{{ t.shopUrl }}</mat-label>
+                <input matInput formControlName="shopUrl" required />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ t.shopName }}</mat-label>
+                <input matInput formControlName="shopName" required maxlength="100" />
+                <mat-hint>{{ form.value.shopName.length }} / 100</mat-hint>
+            </mat-form-field>
+        </div>
 
-        <div fxLayout="column" fxLayoutGap="32px">
-            <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-            <h2 class="dsh-title">{{ t.organization }}</h2>
+        <h2 class="dsh-title">{{ t.organization }}</h2>
 
+        <div fxLayout="column" fxLayoutGap="16px">
             <mat-form-field>
                 <mat-label>{{ t.organizationName }}</mat-label>
                 <input matInput formControlName="organizationName" required />
@@ -41,6 +43,10 @@
                 <input matInput formControlName="actualAddress" />
             </mat-form-field>
         </div>
+
+        <mat-divider></mat-divider>
+
+        <h2 class="dsh-title">{{ t.payoutToolTitle }}</h2>
 
         <dsh-international-payout-tool-form [form]="form.get('payoutTool')"></dsh-international-payout-tool-form>
 
