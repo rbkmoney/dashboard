@@ -16,6 +16,8 @@ import { DocumentContainerPanelComponent } from './document-container-panel';
 import { DocumentContainerComponent } from './document-container.component';
 import { IdentityDocumentInfoComponent } from './identity-document-info';
 import { IndividualEntityInfoComponent } from './individual-entity-info';
+import { InternationalBankAccountInfoComponent } from './international-bank-account-info';
+import { InternationalLegalEntityInfoComponent } from './international-legal-entity-info';
 import { LegalOwnerInfoComponent } from './legal-owner-info';
 import { OrgInfoComponent } from './org-info';
 import { RussianPrivateEntityInfoComponent } from './russian-private-entity-info';
@@ -39,6 +41,8 @@ import { YesNoPipe } from './yes-no.pipe';
         RussianPrivateEntityInfoComponent,
         BeneficialOwnerInfoComponent,
         YesNoPipe,
+        InternationalLegalEntityInfoComponent,
+        InternationalBankAccountInfoComponent,
     ],
     exports: [DocumentContainerComponent],
 })
