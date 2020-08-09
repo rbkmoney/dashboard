@@ -1,3 +1,2 @@
-
 export * from './report-files.module';
-export * from './report-files.component'
+export * from './report-files.component';
