@@ -9,3 +9,5 @@ export * from './tabs';
 export * from './timeline';
 export * from './dropdown';
 export * from './details-item';
+export * from './row';
+export * from './accordion';

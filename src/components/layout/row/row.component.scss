@@ -1,0 +1,10 @@
+$dsh-row-padding: 0 24px !default;
+$dsh-row-border-radius: 8px !default;
+$dsh-row-height: 48px !default;
+
+.dsh-row {
+    display: block;
+    padding: $dsh-row-padding;
+    border-radius: $dsh-row-border-radius;
+    height: $dsh-row-height;
+}

@@ -21,6 +21,8 @@
 @import '../../components/layout/details-item/details-item-theme';
 @import '../../components/layout/expansion/expansion-theme';
 @import '../../components/layout/expand-panel/expand-panel-theme';
+@import '../../components/layout/row/row-theme';
+@import '../../components/layout/accordion/accordion-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/colored-icon/colored-icon-theme';
@@ -86,5 +88,7 @@
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
         @include dsh-global-banner-theme($theme);
+        @include dsh-row-theme($theme);
+        @include dsh-accordion-theme($theme);
     }
 }

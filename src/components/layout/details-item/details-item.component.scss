@@ -1,3 +1,11 @@
-.dsh-details-item-title {
-    padding-bottom: 5px;
+$dsh-details-item-title-padding: 0 0 8px 0;
+
+.dsh-details-item {
+    &-title {
+        padding: $dsh-details-item-title-padding;
+    }
+
+    &-content {
+        word-wrap: break-word;
+    }
 }

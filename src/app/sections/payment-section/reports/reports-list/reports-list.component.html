@@ -1,0 +1,17 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-report-row-header></dsh-report-row-header>
+
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="select($event)"
+        [expanded]="selectedId$ | async"
+    >
+        <dsh-accordion-item *ngFor="let report of reports" #expandPanel>
+            <dsh-report-row [report]="report"></dsh-report-row>
+            <dsh-accordion-item-content>
+                <dsh-report-details [report]="report" (collapse)="expandPanel.collapse($event)"></dsh-report-details>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

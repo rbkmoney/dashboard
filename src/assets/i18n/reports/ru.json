@@ -1,14 +1,30 @@
 {
     "title": "Отчеты",
-    "columns": {
-        "type": "Тип формирования",
-        "createdAt": "Создан",
+    "headerRow": {
+        "createdAt": "Дата создания",
         "status": "Статус",
-        "period": "Период",
-        "actions": {
-            "details": "Детали отчета"
-        }
+        "type": "Тип формирования",
+        "period": "Период отчетности"
     },
+    "reportDetails": {
+        "title": "Отчет",
+        "status": "Статус",
+        "type": "Тип формирования",
+        "createdAt": "Дата создания",
+        "period": "Период отчетности"
+    },
+    "status": {
+        "created": "Сформирован",
+        "pending": "В процессе"
+    },
+    "reportFiles": {
+        "title": "Документы",
+        "downloadAll": "Загрузить все"
+    },
+    "errors": {
+        "commonError": "Не удалось загрузить документы"
+    },
+
     "type": {
         "provisionOfService": "Автоматический",
         "paymentRegistry": "Ручной"
@@ -16,10 +32,6 @@
     "filter": {
         "shopID": "Магазин",
         "type": "Тип формирования"
-    },
-    "status": {
-        "created": "Сформирован",
-        "pending": "В процессе формирования"
     },
     "create": {
         "button": "Сформировать отчет",
