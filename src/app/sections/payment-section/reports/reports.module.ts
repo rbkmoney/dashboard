@@ -17,6 +17,7 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { ScrollUpModule } from '@dsh/components/navigation';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
 import { CreateReportDialogComponent } from './create-report-dialog';
@@ -49,6 +50,7 @@ import { ShopDetailsItemModule } from './shop-details-item';
         MatDividerModule,
         ReportsListModule,
         ShopDetailsItemModule,
+        ScrollUpModule,
     ],
     declarations: [ReportsComponent, SearchFormComponent, CreateReportDialogComponent],
     exports: [ReportsComponent],
