@@ -5,7 +5,9 @@
             "shopInfo": "Сведения о магазине",
             "legalOwnerInfo": "Сведения о юридическом лице",
             "individualEntityInfo": "Сведения о физическом лице",
+            "internationalLegalEntity": "Сведения о международном юридическом лице",
             "bankAccountInfo": "Банковские реквизиты для вывода денежных средств",
+            "internationalBankAccountInfo": "Банковские реквизиты для вывода денежных средств",
             "contactInfo": "Контактная информация",
             "beneficialOwnerInfo": "Бенефициарный владелец №{{num}}"
         },
@@ -102,6 +104,23 @@
             "pdlRelationDegree": "Степень родства ПДЛ",
             "usaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом США?",
             "exceptUsaTaxResident": "Является ли бенефициарный владелец налогоплательщиком/налоговым резидентом иного иностранного государства (кроме США)?"
+        },
+        "internationalLegalEntity": {
+            "legalName": "Наименование",
+            "actualAddress": "Адрес места нахождения",
+            "registeredAddress": "Адрес места регистрации",
+            "registeredNumber": "Регистрационный номер",
+            "tradingName": "Торговое наименование"
+        },
+        "internationalBankAccountInfo": {
+            "name": "Наименование юридическогол лица банковской организации",
+            "number": "Номер счета",
+            "country": "Страна резиденции банковсккой организации",
+            "address": "Адрес юридического лица банковской организации",
+            "bic": "BIC",
+            "abaRtn": "ABA RTN",
+            "iban": "IBAN",
+            "correspondentAccount": "Корреспондетский счет"
         }
     },
     "download": {

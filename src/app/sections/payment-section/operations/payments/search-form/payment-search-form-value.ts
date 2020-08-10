@@ -3,7 +3,7 @@ import {
     BankCardTokenProvider,
     PaymentStatus,
     PaymentTerminalProvider,
-} from '../../../../../api-codegen/capi/swagger-codegen';
+} from '../../../../../api-codegen/anapi/swagger-codegen';
 import { SearchFormValue } from '../../../search-form-value';
 
 export interface PaymentSearchFormValue extends SearchFormValue {
