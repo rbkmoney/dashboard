@@ -26,6 +26,7 @@
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/colored-icon/colored-icon-theme';
+@import '../../components/indicators/last-updated/last-updated-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
@@ -90,5 +91,6 @@
         @include dsh-global-banner-theme($theme);
         @include dsh-row-theme($theme);
         @include dsh-accordion-theme($theme);
+        @include dsh-last-updated-theme($theme);
     }
 }

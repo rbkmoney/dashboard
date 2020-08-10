@@ -2,7 +2,7 @@
     <h1 class="dsh-display-1">{{ r.title }}</h1>
     <div fxLayout="row" fxLayoutGap="24px">
         <div fxFlex class="dsh-body-1">
-            {{ r.create.description }}
+            {{ r.description }}
         </div>
         <div>
             <button dsh-button color="accent" (click)="create()">
@@ -12,10 +12,11 @@
     </div>
     <dsh-reports-search-form></dsh-reports-search-form>
     <dsh-reports-list
-        *ngIf="!(isLoading$ | async)"
         [expandedId]="expandedId$ | async"
         (expandedIdChange)="expandedIdChange($event)"
         [reports]="reports$ | async"
+        [lastUpdated]="lastUpdated$ | async"
+        (refreshData)="refresh()"
     ></dsh-reports-list>
     <dsh-empty-search-result *ngIf="(reports$ | async)?.length === 0"></dsh-empty-search-result>
     <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>

@@ -19,9 +19,7 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
-import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';
-// import { ReportFilesModule } from './report-files';
 import { ReportsListModule } from './reports-list';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
@@ -44,7 +42,6 @@ import { ShopDetailsItemModule } from './shop-details-item';
         CommonModule,
         IndicatorsModule,
         MatInputModule,
-        LastUpdatedModule,
         MatDialogModule,
         MatSnackBarModule,
         FormControlsModule,
@@ -52,7 +49,6 @@ import { ShopDetailsItemModule } from './shop-details-item';
         MatDividerModule,
         ReportsListModule,
         ShopDetailsItemModule,
-        // ReportFilesModule,
     ],
     declarations: [ReportsComponent, SearchFormComponent, CreateReportDialogComponent],
     exports: [ReportsComponent],

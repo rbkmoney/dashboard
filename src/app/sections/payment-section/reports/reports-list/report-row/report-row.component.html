@@ -5,8 +5,8 @@
     <dsh-row-label fxFlex="20">
         <dsh-status [color]="report.status | reportStatusColor">{{ report.status | reportStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex="30">{{ report.reportType }}</dsh-row-label>
-    <dsh-row-label fxFlex="30" fxHide.lt-md>
+    <dsh-row-label fxFlex="40">{{ report.reportType | reportTypeName }}</dsh-row-label>
+    <dsh-row-label fxFlex="20" fxHide.lt-md>
         {{ report.fromTime | date: 'dd.MM.yy' }} - {{ report.toTime | date: 'dd.MM.yy' }}
     </dsh-row-label>
 </dsh-row>

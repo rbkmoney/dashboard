@@ -18,6 +18,7 @@ import { ReportRowComponent } from './report-row';
 import { ReportRowHeaderComponent } from './report-row-header';
 import { ReportStatusColorPipe } from './report-status-color.pipe';
 import { ReportStatusNamePipe } from './report-status-name.pipe';
+import { ReportTypeNamePipe } from './report-type-name.pipe';
 import { ReportsListComponent } from './reports-list.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { ReportsListComponent } from './reports-list.component';
         ReportDetailsComponent,
         ReportStatusColorPipe,
         ReportStatusNamePipe,
+        ReportTypeNamePipe,
     ],
     exports: [ReportsListComponent],
 })

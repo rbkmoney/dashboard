@@ -29,6 +29,7 @@
 @import '../components/navigation/state-nav/state-nav-theme';
 @import '../components/navigation/navbar/navbar-theme';
 @import '../components/indicators/status/status-theme';
+@import '../components/indicators/last-updated/last-updated-theme';
 
 @import '../app/container/container-theme';
 @import '../app/sections/main/main-theme';
@@ -73,6 +74,7 @@
     @include dsh-accordion-typography($config);
     @include dsh-status-typography($config);
     @include dsh-details-item-typography($config);
+    @include dsh-last-updated-typography($config);
 }
 
 @include dsh-overrides();

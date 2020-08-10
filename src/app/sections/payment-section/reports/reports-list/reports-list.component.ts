@@ -9,5 +9,7 @@ import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
 export class ReportsListComponent {
     @Input() reports: Report[];
     @Input() expandedId: number;
+    @Input() lastUpdated: string;
     @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
+    @Output() refreshData: EventEmitter<void> = new EventEmitter();
 }
