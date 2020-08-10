@@ -9,14 +9,14 @@ import {
     QueryList,
     ViewContainerRef,
 } from '@angular/core';
-import { combineLatest, merge, of, Subscription } from 'rxjs';
+import { combineLatest, merge, of } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { coerce, smoothChangeTo } from '../../../utils';
 import { AccordionItemComponent } from './accordion-item';
 
 const INIT_DELAY_MS = 350;
-const SCROLL_TO_Y_OFFSET_PX = 20;
+const SCROLL_TO_Y_OFFSET_PX = 80;
 const SCROLL_TIME_MS = 500;
 
 @Component({
@@ -25,41 +25,27 @@ const SCROLL_TIME_MS = 500;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionComponent implements AfterViewInit {
-    @Output() expandedChange = new EventEmitter<number>();
     @Input()
     @coerce((v) => v, (v: number, self: AccordionComponent) => self.expandedChange.emit(v))
     expanded: number;
 
+    @Output() expandedChange = new EventEmitter<number>();
+
     @ContentChildren(AccordionItemComponent, { descendants: true })
-    expandPanels: QueryList<AccordionItemComponent>;
+    private accordionItems: QueryList<AccordionItemComponent>;
 
     @ContentChildren(AccordionItemComponent, { read: ViewContainerRef, descendants: true })
-    expandPanelsRefs: QueryList<AccordionItemComponent>;
-
-    expandedPanelsExpandSubscription: Subscription = Subscription.EMPTY;
+    private accordionItemsRefs: QueryList<AccordionItemComponent>;
 
     ngAfterViewInit() {
         this.subscribeExpandedPanelsExpand();
-        this.subscribeAutoscrollToSelected();
+        this.subscribeAutoScrollToSelected();
     }
 
-    private toggle(idx: number, isExpand: boolean) {
-        let expanded = idx;
-        if (isExpand) {
-            this.expandPanels.filter((p, i) => p.expanded && i !== idx).forEach((p) => p.collapse());
-            expanded = idx;
-        } else {
-            expanded = this.expandPanels.toArray().findIndex((p) => p.expanded);
-        }
-        if (this.expanded !== expanded) {
-            this.expanded = expanded;
-        }
-    }
-
-    private subscribeAutoscrollToSelected() {
+    private subscribeAutoScrollToSelected() {
         combineLatest([
-            this.expandPanelsRefs.changes.pipe(startWith(this.expandPanelsRefs)),
-            this.expandPanels.changes.pipe(startWith(this.expandPanels)),
+            this.accordionItemsRefs.changes.pipe(startWith(this.accordionItemsRefs)),
+            this.accordionItems.changes.pipe(startWith(this.accordionItems)),
         ])
             .pipe(
                 map(([refs, components]) => ({
@@ -85,21 +71,34 @@ export class AccordionComponent implements AfterViewInit {
     }
 
     private subscribeExpandedPanelsExpand() {
-        this.expandPanels.changes
+        this.accordionItems.changes
             .pipe(
-                startWith(this.expandPanels),
-                switchMap((expandPanels: QueryList<AccordionItemComponent>) =>
+                startWith(this.accordionItems),
+                switchMap((accordionItems: QueryList<AccordionItemComponent>) =>
                     merge(
-                        ...expandPanels
+                        ...accordionItems
                             .toArray()
-                            .map((expandPanel, idx) =>
-                                expandPanel.expandedChange.pipe(map((isExpand) => ({ idx, isExpand })))
+                            .map((accordionItem, idx) =>
+                                accordionItem.expandedChange.pipe(map((isExpand) => ({ idx, isExpand })))
                             )
                     )
                 ),
                 distinctUntilChanged()
             )
             .subscribe(({ idx, isExpand }) => this.toggle(idx, isExpand));
+    }
+
+    private toggle(idx: number, isExpand: boolean) {
+        let expanded = idx;
+        if (isExpand) {
+            this.accordionItems.filter((p, i) => p.expanded && i !== idx).forEach((p) => p.collapse());
+            expanded = idx;
+        } else {
+            expanded = this.accordionItems.toArray().findIndex((p) => p.expanded);
+        }
+        if (this.expanded !== expanded) {
+            this.expanded = expanded;
+        }
     }
 
     private scrollTo(component: AccordionItemComponent, scrollTo: number) {

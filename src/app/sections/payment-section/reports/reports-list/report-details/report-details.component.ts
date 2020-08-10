@@ -10,8 +10,4 @@ import { Report } from '../../../../../api-codegen/anapi';
 export class ReportDetailsComponent {
     @Input() report: Report;
     @Output() collapse: EventEmitter<MouseEvent> = new EventEmitter();
-
-    collapseClick(e: MouseEvent) {
-        this.collapse.emit(e);
-    }
 }

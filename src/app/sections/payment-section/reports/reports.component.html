@@ -11,7 +11,12 @@
         </div>
     </div>
     <dsh-reports-search-form></dsh-reports-search-form>
-    <dsh-reports-list [reports]="reports$ | async"></dsh-reports-list>
-    <dsh-empty-search-result *ngIf="!(reports$ | async)?.length && !(doAction$ | async)"></dsh-empty-search-result>
+    <dsh-reports-list
+        *ngIf="!(isLoading$ | async)"
+        [expandedId]="expandedId$ | async"
+        (expandedIdChange)="expandedIdChange($event)"
+        [reports]="reports$ | async"
+    ></dsh-reports-list>
+    <dsh-empty-search-result *ngIf="(reports$ | async)?.length === 0"></dsh-empty-search-result>
     <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>

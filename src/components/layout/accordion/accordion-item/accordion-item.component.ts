@@ -20,7 +20,7 @@ export class AccordionItemComponent {
     expanded = false;
 
     @ContentChild(AccordionItemContentComponent)
-    expandPanelMore: AccordionItemContentComponent;
+    accordionItemContent: AccordionItemContentComponent;
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;
