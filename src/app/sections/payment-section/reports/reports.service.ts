@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService, ShopService } from '../../../api';
-import { Report } from '../../../api-codegen/anapi';
+import { Report } from '../../../api-codegen/anapi/swagger-codegen';
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { getShopSearchParamsByEnv } from '../operations/get-shop-search-params-by-env';

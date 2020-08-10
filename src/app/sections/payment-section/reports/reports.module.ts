@@ -22,6 +22,7 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { ReportsModule as ReportsApiModule } from '../../../api';
+import { ShopSelectorModule } from '../../shop-selector';
 import { LastUpdatedModule } from '../operations/last-updated/last-updated.module';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { FilesComponent } from './files';
@@ -56,6 +57,7 @@ import { SearchFormComponent } from './search-form';
         FormControlsModule,
         EmptySearchResultModule,
         MatDividerModule,
+        ShopSelectorModule,
     ],
     declarations: [
         ReportsComponent,
