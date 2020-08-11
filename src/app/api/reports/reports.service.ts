@@ -25,11 +25,12 @@ export class ReportsService {
     }
 
     searchReports({ fromTime, toTime, reportTypes, shopIDs, continuationToken }: SearchReportsReq) {
+        console.warn('Skip types, return after backend fix', reportTypes);
         return this.reportsService.searchReports(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
-            reportTypes,
+            ['paymentRegistry', 'provisionOfService'],
             undefined,
             undefined,
             shopIDs,
@@ -39,5 +40,9 @@ export class ReportsService {
 
     downloadFile(reportID: number, fileID: string): Observable<ReportLink> {
         return this.reportsService.downloadFile(genXRequestID(), reportID, fileID);
+    }
+
+    cancelReport(reportID: number): Observable<void> {
+        return this.reportsService.cancelReport(genXRequestID(), reportID);
     }
 }
