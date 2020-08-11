@@ -3,9 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, pluck, shareReplay } from 'rxjs/operators';
 
-import { Daterange } from '@dsh/components/filters/daterange-filter';
-
-import { Shop } from '../../../../../api-codegen/capi';
 import {
     bankCardPaymentSystems as bankCardPaymentSystemsConsts,
     paymentFlows as paymentFlowsConsts,
