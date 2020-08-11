@@ -6,13 +6,5 @@
         "threeMonths": "3 месяца",
         "year": "{{year}} год",
         "period": "Указать период..."
-    },
-    "rangeDate": {
-        "today": "Сегодня",
-        "from": "С",
-        "fromStartWith2": "Со",
-        "to": "по",
-        "currentWeek": "Текущая неделя",
-        "year": "год"
     }
 }

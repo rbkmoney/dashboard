@@ -12,12 +12,14 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
+import { FiltersModule } from '@dsh/components/filters';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
+import { FilterShopsModule } from '../../../../components';
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
 import { ShopSelectorModule } from '../../../shop-selector';
@@ -51,6 +53,8 @@ import { TableComponent } from './table';
         RangeDatepickerModule,
         EmptySearchResultModule,
         ShopSelectorModule,
+        FilterShopsModule,
+        FiltersModule,
     ],
     declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],

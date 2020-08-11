@@ -1,0 +1,10 @@
+{
+    "title": "Выберите период",
+    "menu": {
+        "today": "Сегодня",
+        "currentWeek": "Текущая неделя",
+        "threeMonths": "3 месяца",
+        "year": "{{year}} год",
+        "anotherPeriod": "Другой период"
+    }
+}

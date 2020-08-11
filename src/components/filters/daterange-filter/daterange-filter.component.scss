@@ -1,0 +1,19 @@
+$dsh-daterange-filter-calendar-width: 278px;
+
+.calendar {
+    width: $dsh-daterange-filter-calendar-width;
+
+    & ::ng-deep {
+        .mat-calendar-controls {
+            margin-top: 0;
+        }
+
+        .mat-calendar-header {
+            padding-top: 0;
+        }
+
+        .mat-calendar-content {
+            padding-bottom: 0;
+        }
+    }
+}
