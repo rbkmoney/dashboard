@@ -55,10 +55,4 @@ export class SearchFormComponent implements OnInit {
     reset() {
         this.searchFormService.reset();
     }
-
-    changeShops(_shops: Shop[]) {
-        // this.formValueChanges.next({ ...this.formValueChanges.value, shopIDs: shops.map(({ id }) => id) });
-    }
-
-    changeDaterange(_daterange: Daterange) {}
 }

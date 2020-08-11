@@ -1,10 +1,3 @@
-<dsh-filter-group>
-    <dsh-filter-shops [shops]="shops$ | async" (selectedChange)="changeShops($event)"></dsh-filter-shops>
-    <dsh-daterange-filter (selectedChange)="changeDaterange($event)"></dsh-daterange-filter>
-</dsh-filter-group>
-
-<br />
-
 <dsh-float-panel
     *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'"
     [formGroup]="searchForm"
@@ -15,7 +8,7 @@
     <ng-container *transloco="let c">
         <dsh-justify-wrapper fxLayout fxLayout.lt-md="column" [fxLayoutGap]="layoutGap">
             <dsh-range-datepicker fxFlex formControlName="date"></dsh-range-datepicker>
-            <!-- <dsh-shop-selector formControlName="shopIDs" fxFlex></dsh-shop-selector> -->
+            <dsh-shop-selector formControlName="shopIDs" fxFlex></dsh-shop-selector>
             <mat-form-field fxFlex>
                 <mat-label>{{ t.paymentStatus }}</mat-label>
                 <mat-select formControlName="paymentStatus">
