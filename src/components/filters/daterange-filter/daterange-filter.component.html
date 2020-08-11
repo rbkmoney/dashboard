@@ -1,0 +1,34 @@
+<dsh-filter
+    #filter
+    *transloco="let t; scope: 'daterange-filter'; read: 'daterangeFilter'"
+    [title]="(savedSelected$ | async | daterange) || t.title"
+    [active]="!!(savedSelected$ | async)"
+    (closed)="save()"
+>
+    <dsh-filter-button-content fxLayout fxLayoutGap="20px">
+        <dsh-daterange-filter-menu
+            [selected]="selected$ | async"
+            (selectedChange)="this.select$.next($event)"
+        ></dsh-daterange-filter-menu>
+        <div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign=" center">
+            <div class="dsh-body-2">{{ (selected$ | async | daterange) || t.title }}</div>
+            <div fxLayout fxLayoutGap="48px">
+                <mat-calendar
+                    class="calendar"
+                    (selectedChange)="beginDateChange($event)"
+                    [selected]="(selected$ | async)?.begin?.toDate()"
+                    [startAt]="(selected$ | async)?.begin?.toDate()"
+                    #beginCalendar
+                ></mat-calendar>
+                <mat-calendar
+                    class="calendar"
+                    (selectedChange)="endDateChange($event)"
+                    [selected]="(selected$ | async)?.end?.toDate()"
+                    [startAt]="(selected$ | async)?.end?.toDate()"
+                    #endCalendar
+                ></mat-calendar>
+            </div>
+        </div>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions (clear)="clear()" (save)="save(); filter.close()"></dsh-filter-button-actions>
+</dsh-filter>

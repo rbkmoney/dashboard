@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-daterange-filter-menu-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-daterange-filter-menu-item-active {
+        color: mat-color($primary, 400);
+    }
+}

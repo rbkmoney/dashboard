@@ -25,7 +25,8 @@
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/colored-icon/colored-icon-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
-@import '../../components/filter/filter-theme';
+@import '../../components/filters/filter/filter-theme';
+@import '../../components/filters/daterange-filter/daterange-filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 
@@ -87,6 +88,7 @@
         @include dsh-wallets-panels-list-theme($theme);
         @include dsh-shop-selector-theme($theme);
         @include dsh-filter-theme($theme);
+        @include dsh-daterange-filter-theme($theme);
         @include dsh-global-banner-theme($theme);
     }
 }

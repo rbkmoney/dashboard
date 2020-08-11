@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
-import { coerceBoolean } from '../../utils';
-import { DropdownComponent } from '../layout/dropdown';
+import { DropdownComponent } from '@dsh/components/layout/dropdown';
+
+import { coerceBoolean } from '../../../utils';
 
 @Component({
     selector: 'dsh-filter',

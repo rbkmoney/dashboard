@@ -1,0 +1,48 @@
+<div
+    *transloco="let t; scope: 'daterange-filter'; read: 'daterangeFilter.menu'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+    class="dsh-body-1"
+>
+    <div
+        class="dsh-daterange-filter-menu-item"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === 'today' }"
+        (click)="this.selectToday()"
+    >
+        {{ t.today }}
+    </div>
+    <div
+        class="dsh-daterange-filter-menu-item"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentWeek }"
+        (click)="this.selectCurrentWeek()"
+    >
+        {{ t.currentWeek }}
+    </div>
+    <div
+        class="dsh-daterange-filter-menu-item"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentMonth }"
+        (click)="this.selectCurrentMonth()"
+    >
+        {{ current | date: 'LLLL' | titlecase }}
+    </div>
+    <div
+        class="dsh-daterange-filter-menu-item"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.threeMonths }"
+        (click)="this.selectThreeMonths()"
+    >
+        {{ t.threeMonths }}
+    </div>
+    <div
+        class="dsh-daterange-filter-menu-item"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentYear }"
+        (click)="this.selectCurrentYear()"
+    >
+        {{ t.year | translocoParams: { year: current | date: 'y' } }}
+    </div>
+    <div
+        class="dsh-daterange-filter-menu-item-another"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.another }"
+    >
+        {{ t.anotherPeriod }}
+    </div>
+</div>

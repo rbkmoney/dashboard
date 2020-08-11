@@ -7,27 +7,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '../buttons/button';
-import { DropdownModule } from '../layout/dropdown';
-import { FilterButtonComponent } from './filter-button';
-import { FilterButtonActionsComponent } from './filter-button-actions';
-import { FilterButtonContentComponent } from './filter-button-content';
-import { FilterComponent } from './filter.component';
-import { MultiselectFilterComponent, MultiselectFilterOptionComponent } from './multiselect-filter';
+import { ButtonModule } from '../../buttons';
+import { FilterModule } from '../filter';
+import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
+import { MultiselectFilterComponent } from './multiselect-filter.component';
 
-const EXPORTED_DECLARATIONS = [
-    FilterComponent,
-    FilterButtonComponent,
-    FilterButtonActionsComponent,
-    FilterButtonContentComponent,
-    MultiselectFilterComponent,
-    MultiselectFilterOptionComponent,
-];
+const EXPORTED_DECLARATIONS = [MultiselectFilterComponent, MultiselectFilterOptionComponent];
 
 @NgModule({
     imports: [
         CommonModule,
-        DropdownModule,
         MatDividerModule,
         ButtonModule,
         TranslocoModule,
@@ -35,8 +24,9 @@ const EXPORTED_DECLARATIONS = [
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
+        FilterModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })
-export class FilterModule {}
+export class MultiselectFilterModule {}

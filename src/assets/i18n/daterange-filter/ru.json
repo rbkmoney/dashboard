@@ -1,10 +1,10 @@
 {
-    "selectPeriod": "Выберите период",
-    "select": {
+    "title": "Выберите период",
+    "menu": {
         "today": "Сегодня",
         "currentWeek": "Текущая неделя",
         "threeMonths": "3 месяца",
         "year": "{{year}} год",
-        "period": "Указать период..."
+        "anotherPeriod": "Другой период"
     }
 }

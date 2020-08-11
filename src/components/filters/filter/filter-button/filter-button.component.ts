@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { coerceBoolean } from '../../../utils';
+import { coerceBoolean } from '../../../../utils';
 
 @Component({
     selector: 'dsh-filter-button',

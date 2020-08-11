@@ -11,7 +11,7 @@
         >
             <div class="dsh-range-datepicker-input-content">
                 <ng-container *ngIf="publicValue?.begin && publicValue?.end; else placeholder" [ngSwitch]="period">
-                    {{ publicValue | rangeDate }}
+                    {{ publicValue | daterange }}
                 </ng-container>
                 <ng-template #placeholder>
                     {{ t.selectPeriod }}
