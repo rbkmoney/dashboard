@@ -22,9 +22,14 @@
 @import '../components/layout/timeline/timeline-theme';
 @import '../components/layout/panel/panel-theme';
 @import '../components/layout/dropdown/dropdown-theme';
+@import '../components/layout/row/row-theme';
+@import '../components/layout/accordion/accordion-theme';
+@import '../components/layout/details-item/details-item-theme';
 @import '../components/charts/bar-chart/bar-chart-theme';
 @import '../components/navigation/state-nav/state-nav-theme';
 @import '../components/navigation/navbar/navbar-theme';
+@import '../components/indicators/status/status-theme';
+@import '../components/indicators/last-updated/last-updated-theme';
 
 @import '../app/container/container-theme';
 @import '../app/sections/main/main-theme';
@@ -65,6 +70,11 @@
     @include dsh-balances-typography($config);
     @include dsh-navbar-item-typography($config);
     @include dsh-global-banner-typography($config);
+    @include dsh-row-typography($config);
+    @include dsh-accordion-typography($config);
+    @include dsh-status-typography($config);
+    @include dsh-details-item-typography($config);
+    @include dsh-last-updated-typography($config);
 }
 
 @include dsh-overrides();

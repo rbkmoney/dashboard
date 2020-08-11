@@ -1,6 +1,6 @@
 $dsh-header-row-height: 56px;
-$dsh-row-height: 52px;
-$dsh-row-horizontal-padding: 10px;
+$dsh-table-row-height: 52px;
+$dsh-table-row-horizontal-padding: 10px;
 $dsh-header-border-radius: 4px;
 
 .dsh {
@@ -28,12 +28,12 @@ $dsh-header-border-radius: 4px;
         min-height: $dsh-header-row-height;
     }
 
-    &-row,
+    &-table-row,
     &-footer-row {
-        min-height: $dsh-row-height;
+        min-height: $dsh-table-row-height;
     }
 
-    &-row,
+    &-table-row,
     &-header-row,
     &-footer-row {
         display: flex;
@@ -48,7 +48,7 @@ $dsh-header-border-radius: 4px;
         }
     }
 
-    &-row,
+    &-table-row,
     &-footer-row {
         border-bottom-width: 1px;
         border-style: solid;
@@ -57,22 +57,22 @@ $dsh-header-border-radius: 4px;
     &-cell:first-of-type,
     &-header-cell:first-of-type,
     &-footer-cell:first-of-type {
-        padding-left: $dsh-row-horizontal-padding;
+        padding-left: $dsh-table-row-horizontal-padding;
 
         [dir='rtl'] & {
             padding-left: 0;
-            padding-right: $dsh-row-horizontal-padding;
+            padding-right: $dsh-table-row-horizontal-padding;
         }
     }
 
     &-cell:last-of-type,
     &-header-cell:last-of-type,
     &-footer-cell:last-of-type {
-        padding-right: $dsh-row-horizontal-padding;
+        padding-right: $dsh-table-row-horizontal-padding;
 
         [dir='rtl'] & {
             padding-right: 0;
-            padding-left: $dsh-row-horizontal-padding;
+            padding-left: $dsh-table-row-horizontal-padding;
         }
     }
 
@@ -92,9 +92,9 @@ $dsh-header-border-radius: 4px;
         height: $dsh-header-row-height;
     }
 
-    &-row,
+    &-table-row,
     &-footer-row {
-        height: $dsh-row-height;
+        height: $dsh-table-row-height;
     }
 
     &-header-cell {

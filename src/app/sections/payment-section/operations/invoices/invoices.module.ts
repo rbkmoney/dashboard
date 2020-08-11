@@ -26,7 +26,6 @@ import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
 import { CreateInvoiceModule } from '../../../create-invoice';
 import { ShopSelectorModule } from '../../../shop-selector';
-import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { InvoicesComponent } from './invoices.component';
@@ -50,7 +49,6 @@ import { TableComponent } from './table';
         FormControlsModule,
         IndicatorsModule,
         ToMajorModule,
-        LastUpdatedModule,
         MatSnackBarModule,
         StateNavModule,
         TranslocoModule,

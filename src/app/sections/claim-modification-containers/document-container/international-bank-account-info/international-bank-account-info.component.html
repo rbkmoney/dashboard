@@ -1,0 +1,42 @@
+<div
+    *transloco="
+        let t;
+        scope: 'claim-modification-containers';
+        read: 'claimModificationContainers.documentContainer.internationalBankAccountInfo'
+    "
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <dsh-details-item *ngIf="bankAccount?.bank?.name" [title]="t.name">
+        {{ bankAccount.bank.name }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.number" [title]="t.number">
+        {{ bankAccount.number }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.bank?.country" [title]="t.country">
+        {{ getCountryCodeText(bankAccount.bank.country) }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.bank?.address" [title]="t.address">
+        {{ bankAccount.bank.address }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.bank?.bic" [title]="t.bic">
+        {{ bankAccount.bank.bic }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.bank?.abaRtn" [title]="t.abaRtn">
+        {{ bankAccount.bank.abaRtn }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="bankAccount?.iban" [title]="t.iban">
+        {{ bankAccount.iban }}
+    </dsh-details-item>
+    <ng-container
+        *ngIf="hasCorrespondentAccount(bankAccount['correspondentAccount'])"
+        fxLayout="column"
+        fxLayoutGap="20px"
+    >
+        <mat-divider></mat-divider>
+        <div class="dsh-title">{{ t.correspondentAccount }}</div>
+        <dsh-international-bank-account-info
+            [bankAccount]="bankAccount['correspondentAccount']"
+        ></dsh-international-bank-account-info>
+    </ng-container>
+</div>

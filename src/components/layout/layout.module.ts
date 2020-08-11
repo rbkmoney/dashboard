@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { AccordionModule } from './accordion';
 import { CardModule } from './card';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
@@ -9,6 +10,7 @@ import { FloatPanelModule } from './float-panel';
 import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
 import { PanelModule } from './panel';
+import { RowModule } from './row';
 import { DshTabsModule } from './tabs';
 import { TimelineModule } from './timeline';
 
@@ -24,6 +26,8 @@ const EXPORTED_MODULES = [
     TimelineModule,
     DetailsItemModule,
     ExpansionModule,
+    RowModule,
+    AccordionModule,
 ];
 
 @NgModule({

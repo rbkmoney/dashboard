@@ -65,6 +65,6 @@ export class SearchFormService {
 
     private setQueryParams(formValue: FormParams) {
         const queryParams = toQueryParams(formValue);
-        this.router.navigate([location.pathname], { queryParams });
+        this.router.navigate([location.pathname], { queryParams, preserveFragment: true });
     }
 }

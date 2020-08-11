@@ -1,17 +1,24 @@
-<div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-display-1">{{ r.title }}</h1>
-    <div fxLayout="row" fxLayoutGap="20px">
-        <div fxFlex class="mat-body-1">
-            {{ r.create.description }}
+<div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="32px">
+    <h1 class="dsh-display-1">{{ r.title }}</h1>
+    <div fxLayout="row" fxLayoutGap="24px">
+        <div fxFlex class="dsh-body-1">
+            {{ r.description }}
         </div>
         <div>
-            <button dsh-stroked-button color="accent" (click)="create()">
+            <button dsh-button color="accent" (click)="create()">
                 {{ r.create.button }}
             </button>
         </div>
     </div>
     <dsh-reports-search-form></dsh-reports-search-form>
-    <dsh-report-list [reports]="reports$ | async"></dsh-report-list>
-    <dsh-empty-search-result *ngIf="!(reports$ | async)?.length && !(doAction$ | async)"></dsh-empty-search-result>
+    <dsh-reports-list
+        [expandedId]="expandedId$ | async"
+        (expandedIdChange)="expandedIdChange($event)"
+        [reports]="reports$ | async"
+        [lastUpdated]="lastUpdated$ | async"
+        (refreshData)="refresh()"
+    ></dsh-reports-list>
+    <dsh-empty-search-result *ngIf="(reports$ | async)?.length === 0"></dsh-empty-search-result>
     <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>
+<dsh-scroll-up></dsh-scroll-up>

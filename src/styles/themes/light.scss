@@ -24,14 +24,14 @@ $background: (
 
 $foreground: (
     base: black,
-    divider: rgba(#000, 0.27),
+    divider: $dark-dividers,
     dividers: $dark-dividers,
     disabled: $dark-disabled-text,
     disabled-button: rgba(#000, 0.26),
     disabled-text: $dark-disabled-text,
     elevation: black,
     hint-text: $dark-disabled-text,
-    secondary-text: rgba(#000, 0.67),
+    secondary-text: $dark-secondary-text,
     icon: rgba(#000, 0.54),
     icons: rgba(#000, 0.54),
     slider-off: rgba(#000, 0.26),

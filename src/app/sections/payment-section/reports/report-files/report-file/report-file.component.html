@@ -1,0 +1,6 @@
+<div class="dsh-report-file" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="dsh-body-1">{{ file.filename }}</div>
+    <button dsh-icon-button (click)="download(file.id)" [disabled]="isLoading$ | async">
+        <mat-icon svgIcon="save"></mat-icon>
+    </button>
+</div>
