@@ -77,8 +77,8 @@ class FakeDataSource extends DataSource<TestData> {
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: columnsToRender"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
             <tr dsh-footer-row *dshFooterRowDef="columnsToRender"></tr>
             <table></table>
         </table>
@@ -111,7 +111,7 @@ export class DshTableAppComponent {
             </ng-container>
 
             <tr tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <tr tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
+            <tr tr dsh-table-row *dshRowDef="let row; columns: columnsToRender"></tr>
         </table>
     `,
 })
@@ -131,7 +131,7 @@ export class NativeHtmlTableAppComponent {
             </ng-container>
 
             <tr tr dsh-header-row *dshHeaderRowDef="columnsToRender; sticky: true"></tr>
-            <tr tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
+            <tr tr dsh-table-row *dshRowDef="let row; columns: columnsToRender"></tr>
         </table>
     `,
 })
@@ -156,8 +156,8 @@ export class StickyTableAppComponent {
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="['column_a']"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: ['column_a']"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: ['column_a']"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
             <tr dsh-footer-row *dshFooterRowDef="['column_a']"></tr>
             <table></table>
         </table>
@@ -193,7 +193,7 @@ export class DshTableWithWhenRowAppComponent {
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: columnsToRender"></tr>
             <tr dsh-footer-row *dshFooterRowDef="columnsToRender"></tr>
         </table>
 
@@ -245,7 +245,7 @@ export class ArrayDataSourceDshTableAppComponent implements AfterViewInit {
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <tr dsh-row *dshRowDef="let row; columns: columnsToRender"></tr>
+            <tr dsh-table-row *dshRowDef="let row; columns: columnsToRender"></tr>
             <table>
                 <mat-paginator [pageSize]="5"></mat-paginator>
             </table>
@@ -287,7 +287,7 @@ export class DshTableWithPaginatorAppComponent implements OnInit {
             </ng-container>
 
             <tr dsh-header-row *dshHeaderRowDef="columnsToRender"></tr>
-            <ng-container *dshRowDef="let row; columns: columnsToRender"> <tr dsh-row></tr> </ng-container>
+            <ng-container *dshRowDef="let row; columns: columnsToRender"> <tr dsh-table-row></tr> </ng-container>
             <table></table>
         </table>
     `,

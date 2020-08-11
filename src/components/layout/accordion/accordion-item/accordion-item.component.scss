@@ -1,0 +1,14 @@
+.dsh-accordion-item {
+    position: relative;
+    cursor: pointer;
+
+    &-expanded {
+        cursor: auto;
+    }
+
+    &-base,
+    &-expand {
+        overflow: hidden;
+        height: 0;
+    }
+}

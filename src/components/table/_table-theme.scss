@@ -16,7 +16,7 @@
             mat-row,
             mat-footer-row,
             [dsh-header-row],
-            [dsh-row],
+            [dsh-table-row],
             [dsh-footer-row],
             .dsh-table-sticky {
                 background: inherit;
@@ -36,7 +36,7 @@
             color: mat-color($foreground, text);
         }
 
-        &-row,
+        &-table-row,
         &-header-row,
         &-footer-row {
             border-bottom-color: mat-color($gray, 300);

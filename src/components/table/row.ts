@@ -71,7 +71,7 @@ export class FooterRowComponent extends CdkFooterRow {
 }
 
 @Component({
-    selector: 'dsh-row, tr[dsh-row]',
+    selector: 'dsh-table-row, tr[dsh-table-row]',
     template: CDK_ROW_TEMPLATE,
     // See note on CdkTable for explanation on why this uses the default change detection strategy.
     // tslint:disable-next-line:validate-decorators
@@ -81,6 +81,6 @@ export class FooterRowComponent extends CdkFooterRow {
     providers: [{ provide: CdkRow, useExisting: RowComponent }],
 })
 export class RowComponent extends CdkRow {
-    @HostBinding('class') classes = 'dsh-row';
+    @HostBinding('class') classes = 'dsh-table-row';
     @HostBinding('attr.role') roles = 'row';
 }

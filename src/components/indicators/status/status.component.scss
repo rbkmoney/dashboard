@@ -1,4 +1,5 @@
-$size: 10px;
+$dsh-status-label-padding: 0 0 0 4px;
+$dsh-status-icon-size: 8px;
 
 :host {
     display: inline-block;
@@ -8,7 +9,10 @@ $size: 10px;
     &-icon {
         display: inline-block;
         border-radius: 50%;
-        width: $size;
-        height: $size;
+        width: $dsh-status-icon-size;
+        height: $dsh-status-icon-size;
+    }
+    &-label {
+        padding: $dsh-status-label-padding;
     }
 }

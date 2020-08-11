@@ -11,7 +11,7 @@ function getFooterRows(tableElement: Element): Element[] {
 }
 
 function getRows(tableElement: Element): Element[] {
-    return getElements(tableElement, '.dsh-row');
+    return getElements(tableElement, '.dsh-table-row');
 }
 
 function getCells(row: Element): Element[] {

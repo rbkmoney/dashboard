@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+@import './accordion-item-content-header/accordion-item-content-header-theme';
+
+@mixin dsh-accordion-theme($theme) {
+    @include dsh-accordion-item-content-header-theme($theme);
+}
+
+@mixin dsh-accordion-typography($config) {
+    @include dsh-accordion-item-content-header-typography($config);
+}

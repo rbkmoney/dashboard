@@ -1,15 +1,23 @@
 @import '~@angular/material/theming';
 
 @mixin dsh-details-item-theme($theme) {
-    $gray: map-get($theme, gray);
+    $foreground: map-get($theme, foreground);
 
     .dsh-details-item {
         &-title {
-            color: map-get($gray, 500);
+            color: mat-color($foreground, secondary-text);
+        }
+    }
+}
+
+@mixin dsh-details-item-typography($config) {
+    .dsh-details-item {
+        &-title {
+            @include mat-typography-level-to-styles($config, caption);
         }
 
         &-content {
-            word-wrap: break-word;
+            @include mat-typography-level-to-styles($config, body-1);
         }
     }
 }

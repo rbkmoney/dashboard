@@ -20,7 +20,6 @@ import { TableModule } from '@dsh/components/table';
 
 import { ToMajorModule } from '../../../../to-major';
 import { ShopSelectorModule } from '../../../shop-selector';
-import { LastUpdatedModule } from '../last-updated/last-updated.module';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsComponent } from './refunds.component';
 import { SearchFormComponent } from './search-form';
@@ -43,7 +42,6 @@ import { TableComponent } from './table';
         FormControlsModule,
         IndicatorsModule,
         ToMajorModule,
-        LastUpdatedModule,
         MatSnackBarModule,
         TranslocoModule,
         StateNavModule,

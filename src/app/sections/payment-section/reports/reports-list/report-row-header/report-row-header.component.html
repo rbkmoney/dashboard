@@ -1,0 +1,12 @@
+<dsh-row
+    *transloco="let t; scope: 'reports'; read: 'reports.headerRow'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex="20">{{ t.createdAt }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="20">{{ t.status }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="40">{{ t.type }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="20" fxHide.lt-md> {{ t.period }} </dsh-row-header-label>
+</dsh-row>

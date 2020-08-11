@@ -17,7 +17,6 @@ import { TableModule } from '@dsh/components/table';
 
 import { ClaimsService } from '../../api/claims';
 import { LAYOUT_GAP } from '../constants';
-import { LastUpdatedModule } from '../payment-section/operations/last-updated/last-updated.module';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';
 import { ClaimStatusColorPipe } from './claim-status-color.pipe';
 import { ClaimsRoutingModule } from './claims-routing.module';
@@ -42,7 +41,6 @@ import { TableComponent } from './table';
         MatIconModule,
         StateNavModule,
         ButtonModule,
-        LastUpdatedModule,
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
     exports: [ClaimsComponent],
