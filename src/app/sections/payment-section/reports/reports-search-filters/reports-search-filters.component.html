@@ -1,0 +1,12 @@
+<div
+    *transloco="let t; scope: 'reports'; read: 'reports.searchFilters'"
+    fxLayout="row"
+    fxLayoutGap="16px"
+    fxLayoutAlign="center center"
+>
+    <div class="dsh-body-1">{{ t.dateRangeDescription }}:</div>
+    <dsh-daterange-filter
+        [selected]="daterange"
+        (selectedChange)="daterangeSelectionChange($event)"
+    ></dsh-daterange-filter>
+</div>

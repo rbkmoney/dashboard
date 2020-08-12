@@ -30,13 +30,16 @@
         "paymentRegistry": "Реестр операций",
         "paymentRegistryByPayout": "Реестр операций выплаты"
     },
+    "searchFilters": {
+        "dateRangeDescription": "Период создания отчетов"
+    },
 
     "filter": {
         "shopID": "Магазин",
         "type": "Тип формирования"
     },
     "create": {
-        "button": "Сформировать отчет",
+        "button": "Создать отчет",
         "success": "Отчет формируется",
         "dialog": {
             "title": "Параметры формирования отчета",

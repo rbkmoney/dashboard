@@ -1,49 +1,63 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { filter, shareReplay } from 'rxjs/operators';
+import { filter, pluck } from 'rxjs/operators';
 
+import { ShopService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
-import { booleanDebounceTime } from '../../../custom-operators';
-import { mapToTimestamp } from '../operations/operators';
+import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { ExpandedIdManager } from './expanded-id-manager.service';
-import { ReportsService } from './reports.service';
+import { FetchReportsService } from './fetch-reports.service';
+import { SearchFiltersParams } from './reports-search-filters';
+import { ReportsSearchFiltersStore } from './reports-search-filters-store.service';
 
 @Component({
     selector: 'dsh-reports',
     templateUrl: 'reports.component.html',
     styleUrls: ['reports.component.scss'],
-    providers: [ReportsService, ExpandedIdManager],
+    providers: [FetchReportsService, ExpandedIdManager, ReportsSearchFiltersStore],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsComponent {
-    reports$ = this.reportsService.searchResult$;
-    isLoading$ = this.reportsService.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-    lastUpdated$ = this.reportsService.searchResult$.pipe(mapToTimestamp, shareReplay(1));
+    reports$ = this.fetchReportsService.searchResult$;
+    isLoading$ = this.fetchReportsService.isLoading$;
+    lastUpdated$ = this.fetchReportsService.lastUpdated$;
     expandedId$ = this.expandedIdManager.expandedId$;
+    initSearchParams$ = this.reportsSearchFiltersStore.data$;
+
+    private shopsInfo$ = this.route.params.pipe(
+        pluck('envID'),
+        filterShopsByEnv(this.shopService.shops$),
+        mapToShopInfo
+    );
 
     constructor(
-        private reportsService: ReportsService,
+        private fetchReportsService: FetchReportsService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private expandedIdManager: ExpandedIdManager<Report>
+        private expandedIdManager: ExpandedIdManager<Report>,
+        private reportsSearchFiltersStore: ReportsSearchFiltersStore,
+        private shopService: ShopService,
+        private route: ActivatedRoute
     ) {
         this.expandedIdManager.data$ = this.reports$;
+    }
+
+    searchParamsChanges(p: SearchFiltersParams) {
+        this.fetchReportsService.search(p);
+        this.reportsSearchFiltersStore.preserve(p);
     }
 
     expandedIdChange(id: number) {
         this.expandedIdManager.expandedIdChange(id);
     }
 
-    fetchMore() {
-        this.reportsService.fetchMore();
-    }
-
     refresh() {
-        this.reportsService.refresh();
+        this.fetchReportsService.refresh();
     }
 
     create() {
@@ -52,7 +66,7 @@ export class ReportsComponent {
                 width: '560px',
                 disableClose: true,
                 data: {
-                    shopsInfo$: this.reportsService.shopsInfo$,
+                    shopsInfo$: this.shopsInfo$,
                 },
             })
             .afterClosed()

@@ -68,7 +68,7 @@ export class DaterangeFilterComponent implements OnChanges {
     }
 
     ngOnChanges({ selected }: ComponentChanges<DaterangeFilterComponent>): void {
-        if (selected) {
+        if (selected && selected.currentValue) {
             this.inputSelect$.next(selected.currentValue);
         }
     }
