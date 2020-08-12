@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { QueryParamsStore } from './query-params-store';
+import { QueryParamsStore } from '@dsh/app/shared/services';
+
 import { SearchFiltersParams } from './reports-search-filters';
 
 @Injectable()

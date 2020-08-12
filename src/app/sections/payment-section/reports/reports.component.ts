@@ -6,11 +6,10 @@ import { TranslocoService } from '@ngneat/transloco';
 import { filter, pluck } from 'rxjs/operators';
 
 import { ShopService } from '../../../api';
-import { Report } from '../../../api-codegen/anapi';
 import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
 import { CreateReportDialogComponent } from './create-report-dialog';
-import { ExpandedIdManager } from './expanded-id-manager.service';
 import { FetchReportsService } from './fetch-reports.service';
+import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
 import { SearchFiltersParams } from './reports-search-filters';
 import { ReportsSearchFiltersStore } from './reports-search-filters-store.service';
 
@@ -18,14 +17,14 @@ import { ReportsSearchFiltersStore } from './reports-search-filters-store.servic
     selector: 'dsh-reports',
     templateUrl: 'reports.component.html',
     styleUrls: ['reports.component.scss'],
-    providers: [FetchReportsService, ExpandedIdManager, ReportsSearchFiltersStore],
+    providers: [FetchReportsService, ReportsSearchFiltersStore, PayoutsExpandedIdManager],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsComponent {
     reports$ = this.fetchReportsService.searchResult$;
     isLoading$ = this.fetchReportsService.isLoading$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
-    expandedId$ = this.expandedIdManager.expandedId$;
+    expandedId$ = this.payoutsExpandedIdManager.expandedId$;
     initSearchParams$ = this.reportsSearchFiltersStore.data$;
 
     private shopsInfo$ = this.route.params.pipe(
@@ -36,16 +35,14 @@ export class ReportsComponent {
 
     constructor(
         private fetchReportsService: FetchReportsService,
+        private payoutsExpandedIdManager: PayoutsExpandedIdManager,
+        private reportsSearchFiltersStore: ReportsSearchFiltersStore,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private expandedIdManager: ExpandedIdManager<Report>,
-        private reportsSearchFiltersStore: ReportsSearchFiltersStore,
         private shopService: ShopService,
         private route: ActivatedRoute
-    ) {
-        this.expandedIdManager.data$ = this.reports$;
-    }
+    ) {}
 
     searchParamsChanges(p: SearchFiltersParams) {
         this.fetchReportsService.search(p);
@@ -53,7 +50,7 @@ export class ReportsComponent {
     }
 
     expandedIdChange(id: number) {
-        this.expandedIdManager.expandedIdChange(id);
+        this.payoutsExpandedIdManager.expandedIdChange(id);
     }
 
     refresh() {
