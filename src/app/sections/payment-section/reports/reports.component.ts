@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -20,12 +20,13 @@ import { ReportsSearchFiltersStore } from './reports-search-filters-store.servic
     providers: [FetchReportsService, ReportsSearchFiltersStore, PayoutsExpandedIdManager],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportsComponent {
+export class ReportsComponent implements OnInit {
     reports$ = this.fetchReportsService.searchResult$;
     isLoading$ = this.fetchReportsService.isLoading$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
     expandedId$ = this.payoutsExpandedIdManager.expandedId$;
     initSearchParams$ = this.reportsSearchFiltersStore.data$;
+    fetchErrors$ = this.fetchReportsService.errors$;
 
     private shopsInfo$ = this.route.params.pipe(
         pluck('envID'),
@@ -43,6 +44,12 @@ export class ReportsComponent {
         private shopService: ShopService,
         private route: ActivatedRoute
     ) {}
+
+    ngOnInit() {
+        this.fetchReportsService.errors$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports|scoped'), 'OK')
+        );
+    }
 
     searchParamsChanges(p: SearchFiltersParams) {
         this.fetchReportsService.search(p);

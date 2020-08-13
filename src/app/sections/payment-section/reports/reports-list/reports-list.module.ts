@@ -6,13 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
 import { ReportFilesModule } from '../report-files';
-import { ShopDetailsItemModule } from '../shop-details-item';
 import { ReportDetailsComponent } from './report-details';
 import { ReportRowComponent } from './report-row';
 import { ReportRowHeaderComponent } from './report-row-header';
@@ -32,9 +32,9 @@ import { ReportsListComponent } from './reports-list.component';
         CommonModule,
         MatSnackBarModule,
         MatDividerModule,
-        ShopDetailsItemModule,
         ReportFilesModule,
         IndicatorsModule,
+        ApiModelRefsModule,
     ],
     declarations: [
         ReportsListComponent,

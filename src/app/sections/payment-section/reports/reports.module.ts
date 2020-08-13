@@ -25,7 +25,6 @@ import { ReportsListModule } from './reports-list';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsSearchFiltersModule } from './reports-search-filters';
 import { ReportsComponent } from './reports.component';
-import { ShopDetailsItemModule } from './shop-details-item';
 
 @NgModule({
     imports: [
@@ -49,7 +48,6 @@ import { ShopDetailsItemModule } from './shop-details-item';
         EmptySearchResultModule,
         MatDividerModule,
         ReportsListModule,
-        ShopDetailsItemModule,
         ScrollUpModule,
         ReportsSearchFiltersModule,
     ],

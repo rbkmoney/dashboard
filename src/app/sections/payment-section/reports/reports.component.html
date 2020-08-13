@@ -16,7 +16,9 @@
         [lastUpdated]="lastUpdated$ | async"
         (refreshData)="refresh()"
     ></dsh-reports-list>
-    <dsh-empty-search-result *ngIf="(reports$ | async)?.length === 0"></dsh-empty-search-result>
+    <dsh-empty-search-result
+        *ngIf="!(fetchErrors$ | async) && (reports$ | async)?.length === 0"
+    ></dsh-empty-search-result>
     <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>
 <dsh-scroll-up></dsh-scroll-up>
