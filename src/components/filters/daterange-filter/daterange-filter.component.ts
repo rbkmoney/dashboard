@@ -65,10 +65,11 @@ export class DaterangeFilterComponent implements OnChanges {
                 this.endCalendar.activeDate = end.toDate();
             }
         });
+        this.savedSelected$.subscribe();
     }
 
     ngOnChanges({ selected }: ComponentChanges<DaterangeFilterComponent>): void {
-        if (selected && selected.currentValue) {
+        if (selected) {
             this.inputSelect$.next(selected.currentValue);
         }
     }

@@ -16,6 +16,7 @@ export class DaterangeService {
     constructor(@Inject(LOCALE_ID) private locale: string, private transloco: TranslocoService) {}
 
     switchToDaterangeStr(daterange: Partial<Daterange>): Observable<string> {
+        daterange = { begin: daterange?.begin?.local(), end: daterange?.end?.local() };
         if (!isDaterange(daterange)) {
             return of('');
         } else if (isYearsRange(daterange)) {
