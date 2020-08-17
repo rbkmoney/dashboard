@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <dsh-report-main-info [report]="report"></dsh-report-main-info>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="report.status === 'created'">
+        <dsh-report-files [reportID]="report.id" [files]="report.files"></dsh-report-files>
+        <mat-divider></mat-divider>
+    </ng-container>
+    <dsh-report-actions
+        *ngIf="report.reportType !== 'provisionOfService'"
+        [reportID]="report.id"
+        (cancelReport)="cancelReport.emit($event)"
+    ></dsh-report-actions>
+</div>

@@ -4,9 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -33,26 +31,23 @@ import { ReportsComponent } from './reports.component';
         LayoutModule,
         ButtonModule,
         FlexLayoutModule,
+        ReportsApiModule,
+        CommonModule,
+        IndicatorsModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        EmptySearchResultModule,
+        ReportsListModule,
+        ScrollUpModule,
+        FormControlsModule,
+        MatInputModule,
         MatFormFieldModule,
         MatDatepickerModule,
         MatSelectModule,
         ReactiveFormsModule,
-        MatIconModule,
-        ReportsApiModule,
-        CommonModule,
-        IndicatorsModule,
-        MatInputModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        FormControlsModule,
-        EmptySearchResultModule,
-        MatDividerModule,
-        ReportsListModule,
-        ScrollUpModule,
         ReportsSearchFiltersModule,
     ],
     declarations: [ReportsComponent, CreateReportDialogComponent],
-    exports: [ReportsComponent],
     entryComponents: [CreateReportDialogComponent],
 })
 export class ReportsModule {}
