@@ -6,12 +6,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { ReportsModule } from '../../../../api';
-import { CancelReportComponent } from './cancel-report.component';
 import { CancelReportService } from './cancel-report.service';
 
 @NgModule({
     imports: [TranslocoModule, ReportsModule, MatSnackBarModule, ConfirmActionDialogModule, MatDialogModule],
-    declarations: [CancelReportComponent],
     providers: [CancelReportService],
 })
 export class CancelReportModule {}
