@@ -11,11 +11,11 @@ export class ReportsSearchFiltersStore extends QueryParamsStore<SearchFiltersPar
         super(router, route);
     }
 
-    map2Data(queryParams: Params): SearchFiltersParams {
+    mapToData(queryParams: Params): SearchFiltersParams {
         return queryParams as SearchFiltersParams;
     }
 
-    map2Params(data: SearchFiltersParams): Params {
+    mapToParams(data: SearchFiltersParams): Params {
         return data;
     }
 }
