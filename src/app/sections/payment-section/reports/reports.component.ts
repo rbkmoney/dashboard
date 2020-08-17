@@ -14,7 +14,6 @@ import { SearchFiltersParams } from './reports-search-filters';
 import { ReportsSearchFiltersStore } from './reports-search-filters-store.service';
 
 @Component({
-    selector: 'dsh-reports',
     templateUrl: 'reports.component.html',
     styleUrls: ['reports.component.scss'],
     providers: [FetchReportsService, ReportsSearchFiltersStore, PayoutsExpandedIdManager],

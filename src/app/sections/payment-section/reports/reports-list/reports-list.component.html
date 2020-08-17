@@ -10,7 +10,14 @@
         <dsh-accordion-item *ngFor="let report of reports" #accordionItem>
             <dsh-report-row [report]="report"></dsh-report-row>
             <dsh-accordion-item-content>
-                <dsh-report-details [report]="report" (collapse)="accordionItem.collapse($event)"></dsh-report-details>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'reports'; read: 'reports.reportContent'"
+                        (collapse)="accordionItem.collapse($event)"
+                        >{{ t.header }} #{{ report.id }}</dsh-accordion-item-content-header
+                    >
+                    <dsh-report-details [report]="report" (cancelReport)="cancelReport($event)"></dsh-report-details>
+                </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>
     </dsh-accordion>

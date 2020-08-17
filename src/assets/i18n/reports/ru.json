@@ -7,13 +7,19 @@
         "type": "Тип формирования",
         "period": "Период отчетности"
     },
+    "reportContent": {
+        "header": "Отчет"
+    },
     "reportDetails": {
-        "title": "Отчет",
         "status": "Статус",
         "type": "Тип формирования",
         "createdAt": "Дата создания",
         "period": "Период отчетности",
-        "shop": "Магазин"
+        "shop": "Магазин",
+        "actions": {
+            "title": "Действия",
+            "cancelReport": "Отменить отчет"
+        }
     },
     "status": {
         "created": "Сформирован",
@@ -25,7 +31,8 @@
     },
     "errors": {
         "downloadReportError": "Не удалось загрузить документы",
-        "fetchError": "Не удалось получить отчеты"
+        "fetchError": "Не удалось получить отчеты",
+        "cancelError": "Не удалось отменить отчет"
     },
     "type": {
         "provisionOfService": "Автоматический",
