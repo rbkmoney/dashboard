@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { filter, pluck } from 'rxjs/operators';
+import { filter, pluck, take } from 'rxjs/operators';
 
 import { ShopService } from '../../../api';
 import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
@@ -25,7 +25,7 @@ export class ReportsComponent implements OnInit {
     isLoading$ = this.fetchReportsService.isLoading$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
     expandedId$ = this.payoutsExpandedIdManager.expandedId$;
-    initSearchParams$ = this.reportsSearchFiltersStore.data$;
+    initSearchParams$ = this.reportsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchReportsService.errors$;
 
     private shopsInfo$ = this.route.params.pipe(

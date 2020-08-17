@@ -1,17 +1,16 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import isEqual from 'lodash.isequal';
 import { Observable } from 'rxjs';
-import { map, shareReplay, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
 export abstract class QueryParamsStore<D> {
     data$: Observable<D> = this.route.queryParams.pipe(
-        take(1),
+        distinctUntilChanged(isEqual),
         map((p) => this.mapToData(p)),
         shareReplay(1)
     );
 
-    constructor(protected router: Router, protected route: ActivatedRoute) {
-        this.route.queryParams.subscribe((p) => console.log('on queryParams', p));
-    }
+    constructor(protected router: Router, protected route: ActivatedRoute) {}
 
     abstract mapToData(queryParams: Params): D;
 
