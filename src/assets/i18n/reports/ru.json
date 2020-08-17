@@ -12,7 +12,8 @@
         "status": "Статус",
         "type": "Тип формирования",
         "createdAt": "Дата создания",
-        "period": "Период отчетности"
+        "period": "Период отчетности",
+        "shop": "Магазин"
     },
     "status": {
         "created": "Сформирован",
@@ -23,12 +24,16 @@
         "downloadAll": "Загрузить все"
     },
     "errors": {
-        "commonError": "Не удалось загрузить документы"
+        "downloadReportError": "Не удалось загрузить документы",
+        "fetchError": "Не удалось получить отчеты"
     },
     "type": {
         "provisionOfService": "Автоматический",
         "paymentRegistry": "Реестр операций",
         "paymentRegistryByPayout": "Реестр операций выплаты"
+    },
+    "searchFilters": {
+        "dateRangeDescription": "Период создания отчетов"
     },
 
     "filter": {
@@ -36,7 +41,7 @@
         "type": "Тип формирования"
     },
     "create": {
-        "button": "Сформировать отчет",
+        "button": "Создать отчет",
         "success": "Отчет формируется",
         "dialog": {
             "title": "Параметры формирования отчета",

@@ -24,16 +24,15 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    searchReports({ fromTime, toTime, reportTypes, shopIDs, continuationToken }: SearchReportsReq) {
-        console.warn('Skip types, return after backend fix', reportTypes);
+    searchReports({ fromTime, toTime, reportTypes, continuationToken }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
-            ['paymentRegistry', 'provisionOfService'],
+            reportTypes,
             undefined,
             undefined,
-            shopIDs,
+            undefined,
             continuationToken
         );
     }

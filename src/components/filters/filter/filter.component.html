@@ -1,6 +1,9 @@
-<dsh-filter-button [disabled]="disabled" [active]="active" [dshDropdownTriggerFor]="dropdown">
-    {{ title }}
-</dsh-filter-button>
+<div class="button-wrapper" [ngClass]="{ 'button-wrapper-disabled': disabled }">
+    <div class="dropdown-trigger" [dshDropdownTriggerFor]="dropdown"></div>
+    <dsh-filter-button [disabled]="disabled" [active]="active">
+        {{ title }}
+    </dsh-filter-button>
+</div>
 
 <dsh-dropdown #dropdown="dshDropdown" hasArrow="false" position="left" offset="16px 0 0" (closed)="closed.emit()">
     <ng-template>

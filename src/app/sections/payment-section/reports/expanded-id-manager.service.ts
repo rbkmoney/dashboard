@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
-import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
 export class ExpandedIdManager<T extends { id: string | number }> {
@@ -10,7 +10,7 @@ export class ExpandedIdManager<T extends { id: string | number }> {
     data$: Observable<T[]> = of([]);
 
     expandedId$: Observable<number> = this.route.fragment.pipe(
-        first(),
+        take(1),
         switchMap((fragment) => this.data$.pipe(map((d) => d.findIndex(({ id }) => id + '' === fragment)))),
         shareReplay(1)
     );

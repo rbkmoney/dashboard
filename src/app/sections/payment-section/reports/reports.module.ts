@@ -23,9 +23,8 @@ import { ReportsModule as ReportsApiModule } from '../../../api';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { ReportsListModule } from './reports-list';
 import { ReportsRoutingModule } from './reports-routing.module';
+import { ReportsSearchFiltersModule } from './reports-search-filters';
 import { ReportsComponent } from './reports.component';
-import { SearchFormComponent } from './search-form';
-import { ShopDetailsItemModule } from './shop-details-item';
 
 @NgModule({
     imports: [
@@ -49,10 +48,10 @@ import { ShopDetailsItemModule } from './shop-details-item';
         EmptySearchResultModule,
         MatDividerModule,
         ReportsListModule,
-        ShopDetailsItemModule,
         ScrollUpModule,
+        ReportsSearchFiltersModule,
     ],
-    declarations: [ReportsComponent, SearchFormComponent, CreateReportDialogComponent],
+    declarations: [ReportsComponent, CreateReportDialogComponent],
     exports: [ReportsComponent],
     entryComponents: [CreateReportDialogComponent],
 })

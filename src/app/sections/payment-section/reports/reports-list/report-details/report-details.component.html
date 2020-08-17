@@ -20,7 +20,9 @@
             >{{ report.fromTime | date: 'dd MMMM yyyy, HH:mm' }} -
             {{ report.toTime | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item
         >
-        <dsh-shop-details-item *ngIf="report?.shopID" [shopID]="report?.shopID"></dsh-shop-details-item>
+        <dsh-details-item *ngIf="report?.shopID" [title]="t.shop">
+            {{ report?.shopID | shopDetails }}
+        </dsh-details-item>
         <mat-divider></mat-divider>
         <dsh-report-files [reportID]="report.id" [files]="report.files"></dsh-report-files>
     </div>

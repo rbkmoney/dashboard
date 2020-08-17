@@ -7,6 +7,7 @@ import { coerceBoolean } from '../../../utils';
 @Component({
     selector: 'dsh-filter',
     templateUrl: 'filter.component.html',
+    styleUrls: ['filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent {
