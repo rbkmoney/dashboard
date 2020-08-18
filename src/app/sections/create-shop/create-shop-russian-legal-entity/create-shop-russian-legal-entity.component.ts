@@ -1,16 +1,21 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { of, ReplaySubject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { ShopService } from '../../../api';
 import { BankContent } from '../../../api-codegen/aggr-proxy';
 import { BankAccount } from '../../../api-codegen/capi';
 import { filterShopsByEnv } from '../../payment-section/operations/operators';
 import { CreateShopRussianLegalEntityService } from './create-shop-russian-legal-entity.service';
+
+enum BankAccountType {
+    new = 'new',
+    existing = 'existing',
+}
 
 @Component({
     selector: 'dsh-create-shop-russian-legal-entity',
@@ -31,11 +36,13 @@ export class CreateShopRussianLegalEntityComponent {
         url: '',
         name: '',
         bankAccountType: '',
-        search: '',
-        bankName: '',
-        bankBik: '',
-        bankPostAccount: '',
-        account: '',
+        newBankAccount: this.fb.group({
+            search: '',
+            bankName: ['', Validators.required],
+            bankBik: ['', Validators.required],
+            bankPostAccount: ['', Validators.required],
+            account: ['', Validators.required],
+        }),
         shop: '',
     });
 
@@ -46,6 +53,8 @@ export class CreateShopRussianLegalEntityComponent {
 
     shops$ = this.envID$.pipe(filterShopsByEnv(this.shopService.shops$), shareReplay(1));
 
+    bankAccountType = BankAccountType;
+
     constructor(
         private fb: FormBuilder,
         private createShopRussianLegalEntityService: CreateShopRussianLegalEntityService,
@@ -53,19 +62,34 @@ export class CreateShopRussianLegalEntityComponent {
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
         private router: Router
-    ) {}
+    ) {
+        const { newBankAccount, shop, bankAccountType } = this.form.controls;
+        bankAccountType.valueChanges.pipe(startWith(bankAccountType.value)).subscribe((type: BankAccountType) => {
+            switch (type) {
+                case BankAccountType.new:
+                    newBankAccount.enable();
+                    shop.disable();
+                    break;
+                case BankAccountType.existing:
+                    newBankAccount.disable();
+                    shop.enable();
+                    break;
+                default:
+                    newBankAccount.disable();
+                    shop.disable();
+                    break;
+            }
+        });
+    }
 
-    bankSelected({ bic, correspondentAccount, value }: BankContent) {
-        this.form.patchValue(
-            { bankName: value, bankBik: bic, bankPostAccount: correspondentAccount },
-            { emitEvent: true }
-        );
+    bankSelected({ bic: bankBik, correspondentAccount: bankPostAccount, value: bankName }: BankContent) {
+        this.form.patchValue({ newBankAccount: { bankName, bankBik, bankPostAccount } }, { emitEvent: true });
     }
 
     createShop() {
-        const { url, name, bankName, bankBik, bankPostAccount, account, bankAccountType } = this.form.value;
-        (bankAccountType === 'new'
-            ? of({ bankName, bankBik, bankPostAccount, account } as BankAccount)
+        const { url, name, bankAccountType, newBankAccount } = this.form.value;
+        (bankAccountType === BankAccountType.new
+            ? of(newBankAccount as BankAccount)
             : this.payoutTool$.pipe(map(({ details }) => (details as any) as BankAccount))
         )
             .pipe(
