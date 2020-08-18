@@ -156,7 +156,7 @@ export class CreatePaymentLinkService {
             .open(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(filter((r) => r === 'confirm'))
-            .subscribe(() => this.form.patchValue(this.createForm().value));
+            .subscribe(() => this.form.reset(this.createForm().value));
     }
 
     private shortenUrlByTemplate(invoiceTemplateAndToken: InvoiceTemplateAndToken) {

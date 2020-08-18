@@ -51,7 +51,7 @@ export class CreateInvoiceService {
             .afterClosed()
             .pipe(filter((r) => r === 'confirm'))
             .subscribe(() => {
-                this.form.patchValue(this.createForm().value);
+                this.form.reset(this.createForm().value);
             });
     }
 
