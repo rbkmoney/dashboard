@@ -107,7 +107,7 @@ export class CreateInvoiceTemplateService {
             .subscribe(() => {
                 this.cartForm.clear();
                 this.addProduct();
-                this.form.patchValue(this.createForm().value);
+                this.form.reset(this.createForm().value);
             });
     }
 

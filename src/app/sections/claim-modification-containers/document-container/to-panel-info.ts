@@ -100,22 +100,27 @@ export const toPanelInfo = (s: Observable<QuestionaryData>): Observable<PanelInf
     s.pipe(
         map((data) => {
             const panelInfo: PanelInfo[] = [];
-            switch (true) {
-                case data.contractor.contractorType === 'IndividualEntityContractor':
+            switch (data?.contractor?.contractorType) {
+                case 'IndividualEntityContractor':
                     panelInfo.push(contractorToOrgInfo(data.contractor), contractorToPanelInfo(data.contractor));
                     break;
-                case data.contractor.contractorType === 'LegalEntityContractor' &&
-                    (data.contractor as LegalEntityContractor).legalEntity.legalEntityType ===
-                        'InternationalLegalEntity':
-                    panelInfo.push(contractorToPanelInfo(data.contractor));
+                case 'LegalEntityContractor':
+                    if (
+                        (data.contractor as LegalEntityContractor).legalEntity.legalEntityType ===
+                        'InternationalLegalEntity'
+                    ) {
+                        panelInfo.push(contractorToPanelInfo(data.contractor));
+                    }
                     break;
             }
             panelInfo.push({ type: 'shopInfo', item: data.shopInfo }, { type: 'contactInfo', item: data.contactInfo });
-            if (data.bankAccount.bankAccountType === 'RussianBankAccount') {
-                panelInfo.push({ type: 'bankAccountInfo', item: data.bankAccount });
-            }
-            if (data.bankAccount.bankAccountType === 'InternationalBankAccount') {
-                panelInfo.push({ type: 'internationalBankAccountInfo', item: data.bankAccount });
+            switch (data?.bankAccount?.bankAccountType) {
+                case 'RussianBankAccount':
+                    panelInfo.push({ type: 'bankAccountInfo', item: data.bankAccount });
+                    break;
+                case 'InternationalBankAccount':
+                    panelInfo.push({ type: 'internationalBankAccountInfo', item: data.bankAccount });
+                    break;
             }
             return panelInfo.filter((e) => !isEmpty(e?.item));
         })

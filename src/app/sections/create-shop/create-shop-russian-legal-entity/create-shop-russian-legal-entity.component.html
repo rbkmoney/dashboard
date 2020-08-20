@@ -26,12 +26,21 @@
 
             <div>
                 <mat-radio-group formControlName="bankAccountType" fxLayout fxLayoutGap="24px" required>
-                    <mat-radio-button value="new" fxFlex>{{ p.bankAccountType.new }}</mat-radio-button>
-                    <mat-radio-button value="existing" fxFlex>{{ p.bankAccountType.existing }}</mat-radio-button>
+                    <mat-radio-button [value]="bankAccountType.new" fxFlex>{{
+                        p.bankAccountType.new
+                    }}</mat-radio-button>
+                    <mat-radio-button [value]="bankAccountType.existing" fxFlex>{{
+                        p.bankAccountType.existing
+                    }}</mat-radio-button>
                 </mat-radio-group>
             </div>
 
-            <div *ngIf="form.value.bankAccountType === 'new'" fxLayout="column" fxLayoutGap="16px">
+            <div
+                *ngIf="form.value.bankAccountType === bankAccountType.new"
+                formGroupName="newBankAccount"
+                fxLayout="column"
+                fxLayoutGap="16px"
+            >
                 <mat-form-field>
                     <mat-label>{{ p.new.search }}</mat-label>
                     <dsh-dadata-autocomplete
@@ -41,7 +50,15 @@
                     ></dsh-dadata-autocomplete>
                 </mat-form-field>
 
-                <div *ngIf="form.controls.bankName.dirty || form.value.bankName" fxLayout="column" fxLayoutGap="8px">
+                <div
+                    fxLayout="column"
+                    fxLayoutGap="8px"
+                    [ngStyle]="
+                        form.get('newBankAccount').get('bankName').pristine && !form.value.newBankAccount.bankName
+                            ? { display: 'none' }
+                            : null
+                    "
+                >
                     <mat-form-field>
                         <mat-label>{{ p.new.name }}</mat-label>
                         <input matInput formControlName="bankName" required />
@@ -68,7 +85,7 @@
                 </div>
             </div>
 
-            <div *ngIf="form.value.bankAccountType === 'existing'" fxLayout="column" fxLayoutGap="16px">
+            <div *ngIf="form.value.bankAccountType === bankAccountType.existing" fxLayout="column" fxLayoutGap="16px">
                 <mat-form-field>
                     <mat-label>{{ p.existing.label }}</mat-label>
                     <mat-select formControlName="shop" required>

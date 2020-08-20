@@ -11,6 +11,12 @@
                     >{{ t.russianLegalEntityType }}</mat-radio-button
                 >
                 <mat-radio-button
+                    [checked]="selectedShopType === shopType.new"
+                    [value]="shopType.new"
+                    (change)="onTypeChange($event.value)"
+                    >{{ t.newLegalEntityType }}</mat-radio-button
+                >
+                <mat-radio-button
                     [checked]="selectedShopType === shopType.international"
                     [value]="shopType.international"
                     (change)="onTypeChange($event.value)"
@@ -20,13 +26,7 @@
         </div>
         <div *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
             <button dsh-button (click)="dialogRef.close('cancel')">{{ c.cancel }}</button>
-            <button
-                dsh-button
-                (click)="selectionConfirmed = true"
-                color="accent"
-                class="next-button"
-                [disabled]="!selectedShopType"
-            >
+            <button dsh-button (click)="next()" color="accent" class="next-button" [disabled]="!selectedShopType">
                 {{ c.next }}
             </button>
         </div>
