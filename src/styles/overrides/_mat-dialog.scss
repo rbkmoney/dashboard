@@ -1,7 +1,8 @@
 @mixin mat-dialog-override() {
     .mat-dialog-container {
         box-shadow: none !important;
-        padding: 20px !important;
+        padding: 24px !important;
+        border-radius: 8px !important;
 
         // Clarify padding-bottom in overflow content
         & > *:last-child:after {
