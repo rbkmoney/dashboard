@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
 import { CancelReportService } from '../cancel-report';
@@ -14,7 +16,11 @@ export class ReportsListComponent implements OnInit, OnDestroy {
     @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
     @Output() refreshData: EventEmitter<void> = new EventEmitter();
 
-    constructor(private cancelReportService: CancelReportService) {}
+    constructor(
+        private cancelReportService: CancelReportService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService
+    ) {}
 
     cancelReport(reportID: number) {
         this.cancelReportService.cancelReport(reportID);
@@ -22,7 +28,14 @@ export class ReportsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.cancelReportService.init();
-        this.cancelReportService.reportCancelled$.subscribe(() => this.refreshData.emit());
+        this.cancelReportService.reportCancelled$.subscribe(() => {
+            this.snackBar.open(
+                this.transloco.translate('cancelReport.successfullyCanceled', null, 'reports|scoped'),
+                'OK',
+                { duration: 2000 }
+            );
+            this.refreshData.emit();
+        });
     }
 
     ngOnDestroy(): void {

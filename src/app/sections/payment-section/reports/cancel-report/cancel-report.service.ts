@@ -41,11 +41,19 @@ export class CancelReportService {
                             .pipe(filter((r) => r === 'confirm')),
                     ])
                 ),
-                switchMap(([reportID]) => this.reportsService.cancelReport(reportID)),
-                catchError((e) => {
-                    this.snackBar.open(this.transloco.translate('errors.cancelError', null, 'reports|scoped'), 'OK');
-                    return of(e);
-                })
+                switchMap(([reportID]) =>
+                    this.reportsService.cancelReport(reportID).pipe(
+                        catchError((e) => {
+                            console.error(e);
+                            this.snackBar.open(
+                                this.transloco.translate('errors.cancelError', null, 'reports|scoped'),
+                                'OK'
+                            );
+                            return of('error');
+                        })
+                    )
+                ),
+                filter((result) => result !== 'error')
             )
             .subscribe(() => this.cancelled$.next());
     }

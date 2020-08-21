@@ -1,6 +1,6 @@
 <dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
     <dsh-row-label fxFlex="20">
-        {{ report.createdAt | date: 'dd MMMM yyyy' }}
+        {{ report.createdAt | date: 'dd.MM.yy, HH:mm' }}
     </dsh-row-label>
     <dsh-row-label fxFlex="20">
         <dsh-status [color]="report.status | reportStatusColor">{{ report.status | reportStatusName }}</dsh-status>

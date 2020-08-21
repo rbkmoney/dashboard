@@ -1,0 +1,32 @@
+<form
+    *transloco="let t; scope: 'reports'; read: 'reports.createReport.form'"
+    [formGroup]="form"
+    fxLayout="column"
+    fxLayoutGap="16px"
+>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px" fxLayoutGap.xs="16px">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.from }}</mat-label>
+            <input required formControlName="fromTime" matInput [matDatepicker]="from" [max]="form.value.toTime" />
+            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+            <mat-datepicker #from></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.to }}</mat-label>
+            <input required formControlName="toTime" matInput [matDatepicker]="to" [min]="form.value.fromTime" />
+            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+            <mat-datepicker #to></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <mat-form-field fxFill>
+        <mat-label>{{ t.shop }}</mat-label>
+        <mat-select formControlName="shopID">
+            <mat-option *transloco="let c">
+                {{ c.any }}
+            </mat-option>
+            <mat-option *ngFor="let item of shopsInfo" [value]="item.shopID">
+                {{ item.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
