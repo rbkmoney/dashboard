@@ -32,7 +32,8 @@
     "errors": {
         "downloadReportError": "Не удалось загрузить документы",
         "fetchError": "Не удалось получить отчеты",
-        "cancelError": "Не удалось отменить отчет"
+        "cancelError": "Не удалось отменить отчет",
+        "createError": "Не удалось создать отчет"
     },
     "type": {
         "provisionOfService": "Автоматический",
@@ -42,17 +43,20 @@
     "searchFilters": {
         "dateRangeDescription": "Период создания отчетов"
     },
-
-    "filter": {
-        "shopID": "Магазин",
-        "type": "Тип формирования"
+    "createReport": {
+        "title": "Параметры формирования отчета",
+        "subtitle": "Отчет с реестром операций за выбранный период",
+        "successfullyCreated": "Отчет успешно создан",
+        "form": {
+            "from": "Начало периода",
+            "to": "Конец периода",
+            "shop": "Магазин"
+        },
+        "cancel": "Отмена",
+        "create": "Сформировать"
     },
-    "create": {
-        "button": "Создать отчет",
-        "success": "Отчет формируется",
-        "dialog": {
-            "title": "Параметры формирования отчета",
-            "create": "Сформировать"
-        }
-    }
+    "cancelReport": {
+        "successfullyCanceled": "Отчет успешно отменен"
+    },
+    "openCreateReport": "Создать отчет"
 }

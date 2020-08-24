@@ -16,7 +16,7 @@ import { ConfirmActionDialogComponent } from './confirm-action-dialog.component'
         {
             provide: MAT_DIALOG_DEFAULT_OPTIONS,
             useValue: {
-                width: '450px',
+                width: '456px',
                 hasBackdrop: true,
                 disableClose: true,
             } as MatDialogConfig,

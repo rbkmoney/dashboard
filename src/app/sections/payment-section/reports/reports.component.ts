@@ -1,13 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { filter, pluck, take } from 'rxjs/operators';
+import { pluck, take } from 'rxjs/operators';
 
-import { ShopService } from '../../../api';
-import { filterShopsByEnv, mapToShopInfo } from '../operations/operators';
-import { CreateReportDialogComponent } from './create-report-dialog';
+import { CreateReportService } from './create-report';
 import { FetchReportsService } from './fetch-reports.service';
 import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
 import { SearchFiltersParams } from './reports-search-filters';
@@ -19,7 +16,7 @@ import { ReportsSearchFiltersStore } from './reports-search-filters-store.servic
     providers: [FetchReportsService, ReportsSearchFiltersStore, PayoutsExpandedIdManager],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit, OnDestroy {
     reports$ = this.fetchReportsService.searchResult$;
     isLoading$ = this.fetchReportsService.isLoading$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
@@ -27,27 +24,33 @@ export class ReportsComponent implements OnInit {
     initSearchParams$ = this.reportsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchReportsService.errors$;
 
-    private shopsInfo$ = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
-        mapToShopInfo
-    );
-
     constructor(
         private fetchReportsService: FetchReportsService,
         private payoutsExpandedIdManager: PayoutsExpandedIdManager,
         private reportsSearchFiltersStore: ReportsSearchFiltersStore,
-        private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private shopService: ShopService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private createReportService: CreateReportService
     ) {}
 
     ngOnInit() {
+        this.route.params.pipe(pluck('envID')).subscribe((envID) => this.createReportService.init(envID));
+        this.createReportService.reportCreated$.subscribe(() => {
+            this.snackBar.open(
+                this.transloco.translate('createReport.successfullyCreated', null, 'reports|scoped'),
+                'OK',
+                { duration: 2000 }
+            );
+            this.refresh();
+        });
         this.fetchReportsService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports|scoped'), 'OK')
         );
+    }
+
+    ngOnDestroy() {
+        this.createReportService.destroy();
     }
 
     searchParamsChanges(p: SearchFiltersParams) {
@@ -64,22 +67,6 @@ export class ReportsComponent implements OnInit {
     }
 
     create() {
-        return this.dialog
-            .open(CreateReportDialogComponent, {
-                width: '560px',
-                disableClose: true,
-                data: {
-                    shopsInfo$: this.shopsInfo$,
-                },
-            })
-            .afterClosed()
-            .pipe(filter((r) => r === 'create'))
-            .subscribe(() => {
-                this.snackBar.open(
-                    this.transloco.translate('create.success', null, 'reports|scoped'),
-                    this.transloco.translate('ok')
-                );
-                this.refresh();
-            });
+        this.createReportService.createReport();
     }
 }

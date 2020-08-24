@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { IndicatorsModule } from '@dsh/components/indicators';
@@ -16,6 +17,7 @@ import { ReportsListComponent } from './reports-list.component';
 @NgModule({
     imports: [
         TranslocoModule,
+        MatSnackBarModule,
         LayoutModule,
         FlexLayoutModule,
         CommonModule,
