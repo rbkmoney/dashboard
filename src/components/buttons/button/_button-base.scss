@@ -1,23 +1,19 @@
+$dsh-size-md: 32px;
+$dsh-size-lg: 48px;
+
 // Basic button standards
 $dsh-button-min-width: 64px !default;
 $dsh-button-margin: 0 !default;
-$dsh-button-line-height: 36px !default;
+$dsh-button-line-height: $dsh-size-md !default;
 $dsh-button-padding: 0 16px !default;
-$dsh-button-border-radius: 25px !default;
+$dsh-button-border-radius: 24px !default;
 
-// Stroked button padding is 2px less horizontally than default button's padding.
-$dsh-stroked-button-line-height: $dsh-button-line-height - 4;
 $dsh-stroked-button-border-width: 1px;
 
 // Icon Button standards
-$dsh-icon-button-size: 36px !default;
+$dsh-icon-button-size: $dsh-size-md !default;
 $dsh-icon-button-border-radius: 50% !default;
 $dsh-icon-button-line-height: 24px !default;
-
-// Fab standards
-$dsh-fab-border-radius: 50% !default;
-$dsh-fab-size: 36px !default;
-$dsh-fab-padding: 6px !default;
 
 // Mixin overriding default button styles like the gray background, the border, and the outline.
 @mixin dsh-button-reset {
@@ -33,6 +29,21 @@ $dsh-fab-padding: 6px !default;
     &::-moz-focus-inner {
         border: 0;
     }
+}
+
+@mixin dsh-button-size($size) {
+    line-height: $size;
+}
+
+@mixin dsh-stroked-button-size($size) {
+    // Stroked button padding is 2px less horizontally than default button's padding.
+    line-height: $size - 4;
+}
+
+@mixin dsh-icon-button-size($size) {
+    width: $size;
+    height: $size;
+    line-height: $size;
 }
 
 // Applies base styles to all button types.
@@ -68,19 +79,4 @@ $dsh-fab-padding: 6px !default;
     &::-moz-focus-inner {
         border: 0;
     }
-}
-
-// Applies styles to fab button type only
-@mixin dsh-fab($size, $padding) {
-    @include dsh-button-base();
-
-    // Reset the min-width from the button base.
-    min-width: 0;
-
-    border-radius: $dsh-fab-border-radius;
-    width: $size;
-    height: $size;
-    padding: 0;
-
-    flex-shrink: 0;
 }

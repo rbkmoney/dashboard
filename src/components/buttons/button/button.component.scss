@@ -6,13 +6,19 @@
         @include dsh-button-base();
     }
 
-    &-stroked-button {
-        border: $dsh-stroked-button-border-width solid currentColor;
-        line-height: $dsh-stroked-button-line-height;
+    &-button {
+        @include dsh-button-size($dsh-size-md);
+        &.dsh-size-lg {
+            @include dsh-button-size($dsh-size-lg);
+        }
     }
 
-    &-fab-button {
-        @include dsh-fab($dsh-fab-size, $dsh-fab-padding);
+    &-stroked-button {
+        border: $dsh-stroked-button-border-width solid currentColor;
+        @include dsh-stroked-button-size($dsh-size-md);
+        &.dsh-size-lg {
+            @include dsh-stroked-button-size($dsh-size-lg);
+        }
     }
 
     &-icon-button {
@@ -21,11 +27,9 @@
         // Reset the min-width from the button base.
         min-width: 0;
 
-        width: $dsh-icon-button-size;
-        height: $dsh-icon-button-size;
+        @include dsh-icon-button-size($dsh-size-md);
 
         flex-shrink: 0;
-        line-height: $dsh-icon-button-size;
         border-width: 0;
         border-radius: $dsh-icon-button-border-radius;
         cursor: pointer;
@@ -37,6 +41,10 @@
 
         &:disabled {
             cursor: auto;
+        }
+
+        &.dsh-size-lg {
+            @include dsh-icon-button-size($dsh-size-lg);
         }
     }
 

@@ -16,7 +16,7 @@ import { coerceBoolean } from '../../../utils';
 import { ColorManager } from './color-manager';
 import { FocusManager } from './focus-manager';
 
-const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button', 'dsh-icon-button', 'dsh-fab-button'];
+const BUTTON_HOST_ATTRIBUTES = ['dsh-button', 'dsh-stroked-button', 'dsh-icon-button'];
 
 // Boilerplate for applying mixins to MatButton.
 class MatButtonBase {
@@ -26,7 +26,7 @@ class MatButtonBase {
 const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled(MatButtonBase);
 
 @Component({
-    selector: 'button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button], button[dsh-fab-button]',
+    selector: 'button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button]',
     exportAs: 'dshButton',
     templateUrl: 'button.component.html',
     styleUrls: ['button.component.scss'],
@@ -41,9 +41,17 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
     @coerceBoolean
     disabled = false;
 
+    @Input()
+    size: 'lg' | 'md' = 'md';
+
     @HostBinding('attr.disabled')
     get attrDisabled() {
         return this.disabled ? 'disabled' : null;
+    }
+
+    @HostBinding('class.dsh-size-lg')
+    get sizeLg() {
+        return this.size === 'lg';
     }
 
     glowAllowed = false;
