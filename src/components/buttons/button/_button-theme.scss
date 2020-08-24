@@ -57,7 +57,6 @@
     .dsh {
         &-button,
         &-stroked-button,
-        &-fab-button,
         &-icon-button {
             background: transparent;
             color: map-get($foreground, text);
@@ -67,8 +66,7 @@
             }
         }
 
-        &-button,
-        &-fab-button {
+        &-button {
             &:hover {
                 background: mat-color($background, hover);
             }
@@ -145,8 +143,7 @@
     .dsh {
         &-button,
         &-stroked-button,
-        &-icon-button,
-        &-fab-button {
+        &-icon-button {
             font: {
                 family: mat-font-family($config, button);
                 size: mat-font-size($config, button);

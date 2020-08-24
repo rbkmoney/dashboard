@@ -22,6 +22,7 @@
             fxFlex.xs="none"
             dsh-button
             color="accent"
+            size="lg"
             [disabled]="(actionBtnContent$ | async).disabled"
             [routerLink]="(actionBtnContent$ | async).routerLink"
         >
@@ -32,6 +33,7 @@
                 fxFlex="100"
                 dsh-stroked-button
                 color="accent"
+                size="lg"
                 [disabled]="(testEnvBtnContent$ | async).disabled"
                 [routerLink]="(testEnvBtnContent$ | async).routerLink"
             >

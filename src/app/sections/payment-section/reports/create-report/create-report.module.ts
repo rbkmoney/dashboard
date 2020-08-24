@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -29,6 +30,7 @@ import { CreateReportService } from './create-report.service';
         MatDatepickerModule,
         MatSelectModule,
         ReactiveFormsModule,
+        MatInputModule,
     ],
     declarations: [CreateReportDialogComponent, CreateReportFormComponent],
     providers: [CreateReportService],
