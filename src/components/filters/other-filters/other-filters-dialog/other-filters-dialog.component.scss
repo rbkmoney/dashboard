@@ -1,0 +1,15 @@
+$dsh-other-filters-dialog-padding: 24px;
+$dsh-other-filters-dialog-header-top-bottom-padding: 20px;
+
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+}
+
+.header {
+    padding: $dsh-other-filters-dialog-header-top-bottom-padding $dsh-other-filters-dialog-padding;
+}
+
+.content,
+.footer {
+    padding: $dsh-other-filters-dialog-padding;
+}

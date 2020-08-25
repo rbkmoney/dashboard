@@ -1,0 +1,21 @@
+<ng-container *transloco="let t; scope: 'other-filters'; read: 'otherFilters'">
+    <div class="header" fxLayout fxLayoutAlign="space-between center">
+        <div class="dsh-headline">{{ data.title || t.title }}</div>
+        <button dsh-icon-button (click)="close()">
+            <dsh-colored-icon icon="cross"></dsh-colored-icon>
+        </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content">
+        <ng-container *ngComponentOutlet="data.content"></ng-container>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout fxLayoutAlign="space-between" class="footer">
+        <button dsh-button (click)="reset()">{{ t.reset }}</button>
+        <button dsh-button color="accent" (click)="save()">{{ t.save }}</button>
+    </div>
+</ng-container>

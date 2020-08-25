@@ -12,6 +12,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 
 import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
 import { getDefaultDaterange } from './get-default-daterange';
+import { ReportsSearchOtherFiltersComponent } from './reports-search-other-filters';
 import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';
 import { SearchFiltersParams } from './search-filters-params';
 
@@ -25,6 +26,8 @@ export class ReportsSearchFiltersComponent implements OnChanges {
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     daterange: Daterange;
+
+    ReportsSearchOtherFiltersComponent = ReportsSearchOtherFiltersComponent;
 
     ngOnChanges({ initParams }: SimpleChanges) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
