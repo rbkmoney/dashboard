@@ -22,7 +22,7 @@
             }})</dsh-details-item
         >
         <dsh-details-item fxFlex class="mat-body-1" [title]="t.total">{{
-            withdrawal.body.amount - withdrawal.fee.amount | toMajor | currency: withdrawal.body.currency
+            withdrawal.body.amount + withdrawal.fee.amount | toMajor | currency: withdrawal.body.currency
         }}</dsh-details-item>
     </div>
     <dsh-details-item *ngIf="withdrawal.failure" fxFlex [title]="t.error">
