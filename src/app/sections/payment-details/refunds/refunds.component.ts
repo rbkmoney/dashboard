@@ -19,6 +19,7 @@ export class RefundsComponent implements OnChanges {
     @Input() invoiceID: string;
     @Input() paymentID: string;
     @Input() shopID: string;
+    @Input() currency: string;
     @Input() status: PaymentSearchResult.StatusEnum;
     @Input() maxRefundAmount: number;
 
@@ -44,7 +45,13 @@ export class RefundsComponent implements OnChanges {
     }
 
     createRefund() {
-        this.refundsService.createRefund(this.shopID, this.invoiceID, this.paymentID, this.maxRefundAmount);
+        this.refundsService.createRefund(
+            this.shopID,
+            this.invoiceID,
+            this.paymentID,
+            this.maxRefundAmount,
+            this.currency
+        );
     }
 
     fetchMore() {

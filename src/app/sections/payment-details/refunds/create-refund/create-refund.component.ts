@@ -17,6 +17,7 @@ export interface CreateRefundData {
     shopID: string;
     invoiceID: string;
     paymentID: string;
+    currency: string;
     maxRefundAmount: number;
 }
 
@@ -56,7 +57,7 @@ export class CreateRefundComponent implements OnInit {
         const { reason, amount } = this.form.getRawValue();
         const params: RefundParams = {
             reason,
-            currency: 'RUB',
+            currency: this.createRefundData.currency,
         };
         if (amount) {
             params.amount = toMinor(amount);
@@ -66,7 +67,12 @@ export class CreateRefundComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 () => {
-                    this.dialogRef.close();
+                    this.snackBar.open(
+                        this.transloco.translate('refunds.createRefund.successful', null, 'payment-details|scoped'),
+                        'OK',
+                        { duration: 3000 }
+                    );
+                    this.dialogRef.close(true);
                 },
                 () => {
                     this.snackBar.open(this.transloco.translate('commonError'), 'OK', { duration: 3000 });

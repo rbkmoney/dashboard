@@ -32,16 +32,24 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         );
     }
 
-    createRefund(shopID: string, invoiceID: string, paymentID: string, maxRefundAmount: number) {
-        this.dialog.open(CreateRefundComponent, {
-            data: {
-                shopID,
-                invoiceID,
-                paymentID,
-                maxRefundAmount,
-            } as CreateRefundData,
-            width: '450px',
-            disableClose: true,
-        });
+    createRefund(shopID: string, invoiceID: string, paymentID: string, maxRefundAmount: number, currency: string) {
+        this.dialog
+            .open(CreateRefundComponent, {
+                data: {
+                    shopID,
+                    invoiceID,
+                    paymentID,
+                    currency,
+                    maxRefundAmount,
+                } as CreateRefundData,
+                width: '450px',
+                disableClose: true,
+            })
+            .afterClosed()
+            .subscribe((success) => {
+                if (success) {
+                    this.refresh();
+                }
+            });
     }
 }
