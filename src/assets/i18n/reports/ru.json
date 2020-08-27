@@ -36,7 +36,7 @@
         "createError": "Не удалось создать отчет"
     },
     "type": {
-        "provisionOfService": "Автоматический",
+        "provisionOfService": "Акт об оказании услуг",
         "paymentRegistry": "Реестр операций",
         "paymentRegistryByPayout": "Реестр операций выплаты"
     },
