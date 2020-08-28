@@ -30,11 +30,11 @@
             <div gdAuto gdGap="0 {{ layoutGap }}" gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr">
                 <mat-form-field>
                     <mat-label>{{ t.paymentAmountFrom }}</mat-label>
-                    <input matInput type="number" formControlName="paymentAmountFrom" />
+                    <dsh-format-input format="amount" formControlName="paymentAmountFrom"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ t.paymentAmountTo }}</mat-label>
-                    <input matInput type="number" formControlName="paymentAmountTo" />
+                    <dsh-format-input format="amount" formControlName="paymentAmountTo"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ t.rrn }}</mat-label>

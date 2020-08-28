@@ -43,7 +43,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
     }
 
     protected fetch(
-        params: PaymentSearchFormValue,
+        { paymentAmountFrom, paymentAmountTo, date: { begin, end }, ...params }: PaymentSearchFormValue,
         continuationToken: string
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.route.params.pipe(
@@ -51,9 +51,14 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
             getShopSearchParamsByEnv(this.shopService.shops$),
             switchMap(({ excludedShops, shopIDs }) =>
                 this.paymentSearchService.searchPayments(
-                    params.date.begin.utc().format(),
-                    params.date.end.utc().format(),
-                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
+                    begin.utc().format(),
+                    end.utc().format(),
+                    {
+                        ...params,
+                        shopIDs: shopIDs || params.shopIDs,
+                        paymentAmountFrom: typeof paymentAmountFrom === 'number' ? paymentAmountFrom * 100 : undefined,
+                        paymentAmountTo: typeof paymentAmountTo === 'number' ? paymentAmountTo * 100 : undefined,
+                    },
                     this.searchLimit,
                     continuationToken,
                     excludedShops
