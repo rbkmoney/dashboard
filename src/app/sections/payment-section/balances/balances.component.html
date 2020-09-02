@@ -1,0 +1,17 @@
+<div
+    class="dsh-balances"
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.balances'"
+    fxLayout="column"
+    fxLayoutGap="8px"
+>
+    <div class="dsh-balances-title">{{ t.title }}</div>
+    <ng-container *ngIf="(balances$ | async) && (balancesCount$ | async) > 0; else elseBlock">
+        <div
+            *ngFor="let balance of balances$ | async"
+            [ngClass]="(balancesCount$ | async) <= 3 ? 'dsh-balances-balance-lg' : 'dsh-balances-balance-md'"
+        >
+            {{ balance.amount | toMajor | currency: balance.currency:'symbol':'0.0-0' }}
+        </div>
+    </ng-container>
+    <ng-template #elseBlock><div class="dsh-balances-balance-lg">--/--</div></ng-template>
+</div>

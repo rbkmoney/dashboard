@@ -7,7 +7,10 @@
 >
     <dsh-expand-panel *ngFor="let shop of shops$ | async">
         <div fxLayout="column" fxLayoutGap="20px">
-            <div class="mat-body-1">{{ shop?.details?.name }}</div>
+            <div class="mat-body-1" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
+                <div>{{ shop?.details?.name }}</div>
+                <dsh-shop-balance [shopID]="shop?.id"></dsh-shop-balance>
+            </div>
             <div class="mat-caption" fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
                 <div>{{ shop?.id }}</div>
                 <div>{{ shop?.isBlocked ? p.blocked : shop?.isSuspended ? p.suspended : p.active }}</div>
@@ -29,6 +32,11 @@
             </dsh-details-item>
             <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
                 <div fxFlex>
+                    <dsh-details-item [title]="p.balance">
+                        <dsh-shop-balance [shopID]="shop?.id"></dsh-shop-balance>
+                    </dsh-details-item>
+                </div>
+                <div fxFlex>
                     <dsh-details-item [title]="p.createdAt">
                         {{ shop?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
                     </dsh-details-item>
@@ -38,7 +46,6 @@
                         {{ (shop?.categoryID | category)?.name }}
                     </dsh-details-item>
                 </div>
-                <div fxFlex></div>
             </div>
             <mat-divider></mat-divider>
 

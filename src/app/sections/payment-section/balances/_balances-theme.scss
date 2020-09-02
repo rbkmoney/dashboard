@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-balances-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-balances {
+        &-title {
+            color: mat-color($foreground, secondary-text);
+        }
+    }
+}
+
+@mixin dsh-balances-typography($config) {
+    .dsh-balances {
+        &-title {
+            @include mat-typography-level-to-styles($config, caption);
+        }
+        &-balance-lg {
+            @include mat-typography-level-to-styles($config, title);
+        }
+        &-balance-md {
+            @include mat-typography-level-to-styles($config, subheading-2);
+        }
+    }
+}

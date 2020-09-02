@@ -1,0 +1,4 @@
+<ng-container *ngIf="balance$ | async as b; else elseBlock">
+    {{ b.amount | toMajor | currency: b.currency:'symbol' }}
+</ng-container>
+<ng-template #elseBlock>--/--</ng-template>

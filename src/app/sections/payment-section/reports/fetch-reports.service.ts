@@ -19,7 +19,11 @@ export class FetchReportsService extends PartialFetcher<Report, SearchFiltersPar
     }
 
     protected fetch(params: SearchFiltersParams, continuationToken: string) {
-        const reportTypes = ['paymentRegistry', 'provisionOfService'] as Report.ReportTypeEnum[];
+        const reportTypes = [
+            'paymentRegistry',
+            'provisionOfService',
+            'paymentRegistryByPayout',
+        ] as Report.ReportTypeEnum[];
         return this.reportsService.searchReports({ ...params, reportTypes, continuationToken });
     }
 }

@@ -7,7 +7,7 @@ import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
 
-const SHOPS_LIMIT = 10;
+const SHOPS_LIMIT = 5;
 
 @Injectable()
 export class ShopsPanelsListService {

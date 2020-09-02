@@ -98,4 +98,8 @@ export class AnalyticsService {
             shopIDs
         );
     }
+
+    getCurrentBalances(shopIDs?: Array<string>) {
+        return this.analyticsService.getCurrentBalances(genXRequestID(), undefined, shopIDs);
+    }
 }

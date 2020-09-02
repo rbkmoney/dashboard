@@ -44,9 +44,9 @@
 @import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
-@import '../../app/sections/payment-section/nav/balances/balances-theme';
 @import '../../app/sections/payment-section/integrations/webhooks/webhooks-panels-list/webhooks-panels-list-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
+@import '../../app/sections/payment-section/balances/balances-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -83,7 +83,6 @@
         @include dsh-panel-theme($theme);
         @include dsh-bar-chart-theme($theme);
         @include dsh-percent-difference-theme($theme);
-        @include dsh-balances-theme($theme);
         @include dsh-range-datepicker-theme($theme);
         @include dsh-stat-item-theme($theme);
         @include dsh-expand-panel-theme($theme);
@@ -96,5 +95,6 @@
         @include dsh-row-theme($theme);
         @include dsh-accordion-theme($theme);
         @include dsh-last-updated-theme($theme);
+        @include dsh-balances-theme($theme);
     }
 }
