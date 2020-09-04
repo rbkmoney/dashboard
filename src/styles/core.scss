@@ -30,14 +30,14 @@
 @import '../components/navigation/navbar/navbar-theme';
 @import '../components/indicators/status/status-theme';
 @import '../components/indicators/last-updated/last-updated-theme';
+@import '../components/global-banner/global-banner-theme';
 
 @import '../app/container/container-theme';
 @import '../app/sections/main/main-theme';
 @import '../app/container/welcome-image/welcome-image-theme';
 @import '../app/dadata/dadata-theme';
 @import '../app/sections/payment-details/payment-details-theme';
-@import '../app/sections/payment-section/nav/balances/balances-theme';
-@import '../components/global-banner/global-banner-theme';
+@import '../app/sections/payment-section/balances/balances-theme';
 
 @mixin dsh-overrides() {
     @include body-override();
@@ -67,7 +67,6 @@
     @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
-    @include dsh-balances-typography($config);
     @include dsh-navbar-item-typography($config);
     @include dsh-global-banner-typography($config);
     @include dsh-row-typography($config);
@@ -75,6 +74,7 @@
     @include dsh-status-typography($config);
     @include dsh-details-item-typography($config);
     @include dsh-last-updated-typography($config);
+    @include dsh-balances-typography($config);
 }
 
 @include dsh-overrides();

@@ -6,6 +6,9 @@
         "payouts": "Возмещения",
         "integrations": "Интеграция"
     },
+    "balances": {
+        "title": "Доступные средства"
+    },
     "operations": {
         "headline": "Операции",
         "tabs": {

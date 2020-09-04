@@ -1,2 +1,2 @@
+export * from './balances.module';
 export * from './balances.component';
-export * from './balance-item';

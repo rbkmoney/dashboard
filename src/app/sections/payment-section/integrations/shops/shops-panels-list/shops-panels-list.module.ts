@@ -16,7 +16,9 @@ import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { CategoriesModule } from '../../../../../api';
+import { ToMajorModule } from '../../../../../to-major';
 import { CategoryPipe } from './category.pipe';
+import { ShopBalanceComponent } from './shop-balance';
 import { ShopsPanelsListComponent } from './shops-panels-list.component';
 
 @NgModule({
@@ -36,8 +38,9 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         ConfirmActionDialogModule,
         CategoriesModule,
         ShowMorePanelModule,
+        ToMajorModule,
     ],
-    declarations: [ShopsPanelsListComponent, CategoryPipe],
+    declarations: [ShopsPanelsListComponent, CategoryPipe, ShopBalanceComponent],
     exports: [ShopsPanelsListComponent],
 })
 export class ShopsPanelsListModule {}
