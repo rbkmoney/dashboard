@@ -1,9 +1,11 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 
+$dsh-dropdown-border-radius: 8px;
+
 $indent: 10px;
 
 .dsh-dropdown {
-    border-radius: 4px;
+    border-radius: $dsh-dropdown-border-radius;
     box-shadow: 0 8px 30px 0 rgba(174, 188, 230, 0.5);
     overflow: auto;
     width: auto;

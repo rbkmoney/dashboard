@@ -38,10 +38,13 @@
     "type": {
         "provisionOfService": "Акт об оказании услуг",
         "paymentRegistry": "Реестр операций",
-        "paymentRegistryByPayout": "Реестр операций выплаты"
+        "paymentRegistryByPayout": "Реестр операций возмещения"
     },
     "searchFilters": {
-        "dateRangeDescription": "Период создания отчетов"
+        "dateRangeDescription": "Период создания отчетов",
+        "reportTypes": {
+            "label": "Все типы формирования"
+        }
     },
     "createReport": {
         "title": "Параметры формирования отчета",

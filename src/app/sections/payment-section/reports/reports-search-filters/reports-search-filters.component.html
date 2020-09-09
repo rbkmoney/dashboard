@@ -4,9 +4,13 @@
     fxLayoutGap="16px"
     fxLayoutAlign="center center"
 >
-    <div class="dsh-body-1">{{ t.dateRangeDescription }}:</div>
+    <div class="dsh-body-1" fxHide.lt-md>{{ t.dateRangeDescription }}:</div>
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
+    <dsh-report-types-filter
+        [selected]="initParams?.reportTypes"
+        (selectionChange)="typesSelectionChange($event)"
+    ></dsh-report-types-filter>
 </div>

@@ -26,7 +26,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
                 switchMap((expandedId) => this.dataSet$.pipe(pluck(expandedId, 'id'))),
                 map(dataIdToFragment)
             )
-            .subscribe((fragment) => this.router.navigate([], { fragment, preserveQueryParams: true }));
+            .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }
 
     expandedIdChange(id: ExpandedID | null) {
