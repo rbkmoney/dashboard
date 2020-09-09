@@ -1,3 +1,6 @@
-.dsh-last-updated-update-link {
-    cursor: pointer;
+.dsh-last-updated {
+    height: 16px;
+    &-update-link {
+        cursor: pointer;
+    }
 }

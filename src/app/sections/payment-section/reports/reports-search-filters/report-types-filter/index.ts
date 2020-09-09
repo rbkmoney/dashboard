@@ -1,2 +1,1 @@
-
-export * from './report-types-filter.component'
+export * from './report-types-filter.component';
