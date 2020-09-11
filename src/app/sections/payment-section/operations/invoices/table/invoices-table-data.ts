@@ -7,4 +7,5 @@ export interface InvoicesTableData {
     createdAt: string;
     invoiceID: string;
     shopName: string;
+    product: string;
 }

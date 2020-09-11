@@ -12,7 +12,7 @@ import { InvoicesTableData } from './invoices-table-data';
 export class TableComponent {
     @Input() data: MatTableDataSource<InvoicesTableData>;
 
-    displayedColumns: string[] = ['invoiceID', 'amount', 'status', 'createdAt', 'shop', 'actions'];
+    displayedColumns: string[] = ['invoiceID', 'product', 'amount', 'status', 'createdAt', 'shop', 'actions'];
 
     constructor(private router: Router) {}
 

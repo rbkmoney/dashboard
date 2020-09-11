@@ -113,7 +113,11 @@
         "DigitalWalletDetailsQIWI": "QIWI"
     },
     "paymentTerminalProvider": {
-        "euroset": "Евросеть"
+        "euroset": "Евросеть",
+        "alipay": "Alipay",
+        "wechat": "WeChat",
+        "zotapay": "ZotaPay",
+        "qps": "Система быстрых платежей (СБП)"
     },
     "claimType": {
         "questionary": "Заявка на подключение"
