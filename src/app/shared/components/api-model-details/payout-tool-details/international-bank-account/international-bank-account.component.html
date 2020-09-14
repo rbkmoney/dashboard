@@ -1,0 +1,42 @@
+<div
+    *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.internationalBankAccount'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <dsh-details-item *ngIf="internationalBankAccount?.number" [title]="t.number">
+        {{ internationalBankAccount?.number }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="internationalBankAccount?.iban" [title]="t.iban">
+        {{ internationalBankAccount?.iban }}
+    </dsh-details-item>
+    <ng-container *ngIf="internationalBankAccount?.bankDetails as bankDetails">
+        <ng-container
+            *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.internationalBankAccount.bankDetails'"
+        >
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
+                <dsh-details-item *ngIf="bankDetails?.name" fxFlex="33" fxFlex.lt-md="100" [title]="d.name">
+                    {{ bankDetails?.name }}
+                </dsh-details-item>
+                <dsh-details-item *ngIf="bankDetails?.bic" fxFlex="33" fxFlex.lt-md="100" [title]="d.bic">
+                    {{ bankDetails?.bic }}
+                </dsh-details-item>
+                <dsh-details-item *ngIf="bankDetails?.abartn" fxFlex="33" fxFlex.lt-md="100" [title]="d.abartn">
+                    {{ bankDetails?.abartn }}
+                </dsh-details-item>
+            </div>
+            <dsh-details-item *ngIf="bankDetails?.address" [title]="d.address">
+                {{ bankDetails?.address }}
+            </dsh-details-item>
+            <dsh-details-item *ngIf="bankDetails?.countryCode" [title]="d.countryCode">
+                {{ bankDetails?.countryCode }}
+            </dsh-details-item>
+        </ng-container>
+    </ng-container>
+    <div *ngIf="internationalBankAccount?.correspondentBankAccount" fxLayout="column" fxLayoutGap="24px">
+        <mat-divider></mat-divider>
+        <div class="mat-title">{{ t.correspondentBankAccount }}</div>
+        <dsh-international-bank-account
+            [internationalBankAccount]="internationalBankAccount?.correspondentBankAccount"
+        ></dsh-international-bank-account>
+    </div>
+</div>

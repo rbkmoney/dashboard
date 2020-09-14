@@ -1,0 +1,41 @@
+{
+    "contract": {
+        "createdAt": "Дата и время создания"
+    },
+    "russianLegalEntity": {
+        "registeredName": "Наименование юр. лица",
+        "inn": "ИНН",
+        "registeredNumber": "ОГРН/ОГРНИП",
+        "actualAddress": "Почтовый адрес места нахождения",
+        "representativePosition": "Должность ЕИО/представителя",
+        "representativeFullName": "ФИО ЕИО/представителя",
+        "representativeDocument": "Документ ЕИО/представителя"
+    },
+    "internationalLegalEntity": {
+        "legalName": "Наименование",
+        "registeredOffice": "Адрес места регистрации",
+        "tradingName": "Торговое наименование",
+        "registeredNumber": "Регистрационный номер"
+    },
+    "internationalBankAccount": {
+        "number": "Номер счета",
+        "iban": "IBAN",
+        "bankDetails": {
+            "bic": "BIC",
+            "abartn": "ABA Routing Transit Number",
+            "name": "Наименование юр. лица",
+            "countryCode": "Страна резиденции",
+            "address": "Адрес юр. лица"
+        },
+        "correspondentBankAccount": "Корр. счет"
+    },
+    "bankAccount": {
+        "bankName": "Наименование банка",
+        "bankBik": "БИК",
+        "bankPostAccount": "Корр. счет",
+        "account": "Расчетный счет"
+    },
+    "payoutTool": {
+        "currency": "Валюта"
+    }
+}
