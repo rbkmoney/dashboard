@@ -1,28 +1,37 @@
 <div *transloco="let t; scope: 'operations'; read: 'operations.invoices.table'" class="table-container">
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="invoiceID">
-            <th dshHeaderCell fxFlex="160px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
                 {{ t.invoiceID }}
             </th>
-            <td dshCell fxFlex="160px" *dshCellDef="let element">
+            <td dshCell fxFlex="130px" *dshCellDef="let element">
                 {{ element.invoiceID }}
             </td>
         </ng-container>
 
+        <ng-container dshColumnDef="product">
+            <th dshHeaderCell fxFlex *dshHeaderCellDef>
+                {{ t.product }}
+            </th>
+            <td dshCell *dshCellDef="let element">
+                <span class="truncate">{{ element.product }}</span>
+            </td>
+        </ng-container>
+
         <ng-container dshColumnDef="amount">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell *dshHeaderCellDef>
                 {{ t.amount }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell *dshCellDef="let element">
                 {{ element.amount | toMajor | currency: element.currency }}
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="status">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
                 {{ t.status }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
+            <td dshCell fxFlex="130px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | invoiceStatusColor">{{
                     c.invoiceStatus[element.status]
                 }}</dsh-status>
@@ -30,11 +39,11 @@
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
-            <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
+            <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
                 {{ t.createdAt }}
             </th>
-            <td dshCell fxFlex="180px" *dshCellDef="let element">
-                {{ element.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+            <td dshCell fxFlex="130px" *dshCellDef="let element">
+                {{ element.createdAt | date: 'dd.MM.yyyy, HH:mm' }}
             </td>
         </ng-container>
 

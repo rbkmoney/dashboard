@@ -57,7 +57,7 @@
     },
     "invoiceDetails": {
         "title": "Инвойс",
-        "product": "Продукт",
+        "product": "Наименование предлагаемых товаров или услуг",
         "amount": "Стоимость"
     },
     "shopDetails": {

@@ -18,7 +18,14 @@ import {
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { InvoiceService, InvoiceTemplatesService, UrlShortenerService } from '../../api';
-import { BankCard, Invoice, InvoiceTemplateAndToken, LifetimeInterval, PaymentMethod } from '../../api-codegen/capi';
+import {
+    BankCard,
+    Invoice,
+    InvoiceTemplateAndToken,
+    LifetimeInterval,
+    PaymentMethod,
+    PaymentTerminal,
+} from '../../api-codegen/capi';
 import { ConfigService } from '../../config';
 import { filterError, filterPayload, progress, replaceError } from '../../custom-operators';
 
@@ -208,11 +215,12 @@ export class CreatePaymentLinkService {
             paymentMethods: this.fb.group({
                 bankCard: { value: true, disabled: true },
                 wallets: { value: false, disabled: true },
-                terminals: { value: false, disabled: true },
+                euroset: { value: false, disabled: true },
                 mobileCommerce: { value: false, disabled: true },
                 applePay: { value: false, disabled: true },
                 googlePay: { value: false, disabled: true },
                 samsungPay: { value: false, disabled: true },
+                qps: { value: false, disabled: true },
             }),
             paymentFlowHold: false,
             holdExpiration: HoldExpiration.cancel,
@@ -247,7 +255,19 @@ export class CreatePaymentLinkService {
                     paymentMethodsControls.wallets.enable();
                     break;
                 case 'PaymentTerminal':
-                    paymentMethodsControls.terminals.enable();
+                    (item as PaymentTerminal).providers.forEach((p) => {
+                        switch (p) {
+                            case 'euroset':
+                                paymentMethodsControls.euroset.enable();
+                                break;
+                            case 'qps':
+                                paymentMethodsControls.qps.enable();
+                                break;
+                            default:
+                                console.error(`Unhandled PaymentTerminal provider - ${p}`);
+                                break;
+                        }
+                    });
                     break;
                 case 'MobileCommerce':
                     paymentMethodsControls.mobileCommerce.enable();
