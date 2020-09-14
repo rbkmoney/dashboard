@@ -15,7 +15,6 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
 import { ToMajorModule } from '../../../../to-major';
-import { PayoutToolInfoModule } from '../../../payout-tool-info';
 import { CommonInfoComponent } from './common-info';
 import { CreateReportDialogComponent } from './create-report-dialog';
 import { PaymentsInfoComponent } from './payments-info';
@@ -37,7 +36,6 @@ import { RefundsInfoComponent } from './refunds-info';
         MatDialogModule,
         ReportsModule,
         MatSnackBarModule,
-        PayoutToolInfoModule,
         PayoutToolDetailsModule,
         ApiModelTypesModule,
     ],

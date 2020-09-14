@@ -8,12 +8,7 @@
         "shop": "Магазин",
         "payoutTool": "Инструмент вывода средств",
         "amount": "Сумма списания",
-        "created": "Заявка на выплату успешно создана",
-        "payoutToolType": {
-            "PayoutToolDetailsBankAccount": "Банковский счёт",
-            "PayoutToolDetailsInternationalBankAccount": "Международный банковский счёт",
-            "PayoutToolDetailsWalletInfo": "Кошелек"
-        }
+        "created": "Заявка на выплату успешно создана"
     },
     "filter": {
         "shopID": "Магазин"
@@ -37,34 +32,5 @@
         "successDescription": "Отчет успешно создан и находится в процессе формирования. Загрузить отчет, и отслеживать статус формирования возможно в разделе “Отчеты”.",
         "create": "Сформировать",
         "toReports": "Перейти в раздел \"Отчеты\""
-    },
-    "payoutToolType": {
-        "PayoutToolDetailsBankAccount": "Банковский счет",
-        "PayoutToolDetailsBankCard": "Банковская карта",
-        "PayoutToolDetailsInternationalBankAccount": "Международный банковский счет",
-        "PayoutToolDetailsWalletInfo": "Кошелек"
-    },
-    "payoutTool": {
-        "bankAccount": {
-            "title": "Банковский счет",
-            "bank": "Наименование банка",
-            "bankDetails": "БИК / Кор. счет / Расчетный счет"
-        },
-        "bankCard": {
-            "title": "Банковская карта",
-            "cardNumber": "Номер карты",
-            "paymentSystem": "Платежная система",
-            "tokenProvider": "Провайдер платежных токенов"
-        },
-        "internationalBankAccount": {
-            "title": "Международный банковский счет",
-            "name": "Наименование банка",
-            "number": "Номер счета",
-            "iban": "IBAN"
-        },
-        "wallet": {
-            "title": "Кошелек",
-            "id": "Идентификатор кошелька"
-        }
     }
 }
