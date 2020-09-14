@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, concat, ReplaySubject, Subject } from 'rxjs';
+import { combineLatest, merge, ReplaySubject, Subject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, take } from 'rxjs/operators';
 
 import { Shop } from '../../../../../api-codegen/capi';
@@ -19,7 +19,7 @@ export class ShopsPanelsListService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    private offset$ = concat(
+    private offset$ = merge(
         this.selectedPanelPosition$.pipe(map((idx) => getOffsetBySelectedPanelPosition(idx, SHOPS_LIMIT))),
         this.showMore$.pipe(mapTo(SHOPS_LIMIT))
     ).pipe(
