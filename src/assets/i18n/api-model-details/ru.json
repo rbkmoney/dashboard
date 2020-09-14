@@ -17,18 +17,6 @@
         "tradingName": "Торговое наименование",
         "registeredNumber": "Регистрационный номер"
     },
-    "internationalBankAccount": {
-        "number": "Номер счета",
-        "iban": "IBAN",
-        "bankDetails": {
-            "bic": "BIC",
-            "abartn": "ABA Routing Transit Number",
-            "name": "Наименование юр. лица",
-            "countryCode": "Страна резиденции",
-            "address": "Адрес юр. лица"
-        },
-        "correspondentBankAccount": "Корр. счет"
-    },
     "bankAccount": {
         "bankName": "Наименование банка",
         "bankBik": "БИК",
@@ -37,5 +25,25 @@
     },
     "payoutTool": {
         "currency": "Валюта"
+    },
+    "payoutToolDetails": {
+        "internationalBankAccount": {
+            "number": "Номер счета",
+            "iban": "IBAN",
+            "bankDetails": {
+                "bic": "BIC",
+                "abartn": "ABA Routing Transit Number",
+                "name": "Наименование юр. лица",
+                "countryCode": "Страна резиденции",
+                "address": "Адрес юр. лица"
+            },
+            "correspondentBankAccount": "Корр. счет"
+        },
+        "bankCard": {
+            "cardNumberMask": "Номер карты"
+        },
+        "wallet": {
+            "walletID": "Идентификатор кошелька"
+        }
     }
 }

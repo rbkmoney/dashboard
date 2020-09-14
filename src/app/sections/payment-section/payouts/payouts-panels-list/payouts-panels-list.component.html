@@ -17,8 +17,8 @@
                 <div>
                     {{ (getShopInfo(payout.shopID) | async)?.name }}
                 </div>
-                <div *transloco="let t; scope: 'payouts'; read: 'payouts.payoutToolType'">
-                    {{ t[payout?.payoutToolDetails?.detailsType] || payout?.payoutToolDetails?.detailsType }}
+                <div>
+                    {{ payout?.payoutToolDetails?.detailsType | payoutToolDetailsType }}
                 </div>
             </div>
         </div>
@@ -46,7 +46,8 @@
                 <mat-divider></mat-divider>
             </ng-container>
 
-            <dsh-payout-tool-info [payoutToolDetails]="payout?.payoutToolDetails"></dsh-payout-tool-info>
+            <div class="dsh-title">{{ payout?.payoutToolDetails?.detailsType | payoutToolDetailsType }}</div>
+            <dsh-payout-tool-details [payoutToolDetails]="payout?.payoutToolDetails"></dsh-payout-tool-details>
             <mat-divider></mat-divider>
 
             <div class="mat-title">{{ p.actions }}</div>

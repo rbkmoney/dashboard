@@ -1,17 +1,16 @@
-<div
-    *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.payoutTool'"
-    fxLayout="column"
-    fxLayoutGap="24px"
->
-    <dsh-details-item [title]="t.currency">
-        {{ payoutTool?.currency }}
-    </dsh-details-item>
-    <dsh-bank-account-details
-        *ngIf="payoutTool?.details?.detailsType === 'PayoutToolDetailsBankAccount'"
-        [bankAccount]="payoutTool?.details"
-    ></dsh-bank-account-details>
-    <dsh-international-bank-account
-        *ngIf="payoutTool?.details?.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
-        [internationalBankAccount]="payoutTool?.details"
-    ></dsh-international-bank-account>
-</div>
+<dsh-bank-account-details
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsBankAccount'"
+    [bankAccount]="payoutToolDetails"
+></dsh-bank-account-details>
+<dsh-international-bank-account
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
+    [internationalBankAccount]="payoutToolDetails"
+></dsh-international-bank-account>
+<dsh-bank-card
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsBankCard'"
+    [bankCard]="payoutToolDetails"
+></dsh-bank-card>
+<dsh-wallet
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsWalletInfo'"
+    [wallet]="payoutToolDetails"
+></dsh-wallet>

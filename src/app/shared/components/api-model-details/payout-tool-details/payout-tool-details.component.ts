@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PayoutTool } from '../../../../api-codegen/capi';
+import { PayoutToolDetails } from '../../../../api-codegen/capi';
 
 @Component({
     selector: 'dsh-payout-tool-details',
@@ -8,5 +8,5 @@ import { PayoutTool } from '../../../../api-codegen/capi';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PayoutToolDetailsComponent {
-    @Input() payoutTool: PayoutTool;
+    @Input() payoutToolDetails: PayoutToolDetails;
 }

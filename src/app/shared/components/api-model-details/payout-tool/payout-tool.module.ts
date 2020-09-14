@@ -7,10 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { BankAccountDetailsModule } from '../bank-account-details';
-import { BankCardComponent } from './bank-card';
-import { InternationalBankAccountComponent } from './international-bank-account';
-import { PayoutToolDetailsComponent } from './payout-tool-details.component';
-import { WalletComponent } from './wallet';
+import { PayoutToolDetailsModule } from '../payout-tool-details';
+import { PayoutToolComponent } from './payout-tool.component';
 
 @NgModule({
     imports: [
@@ -20,8 +18,9 @@ import { WalletComponent } from './wallet';
         LayoutModule,
         BankAccountDetailsModule,
         MatDividerModule,
+        PayoutToolDetailsModule,
     ],
-    declarations: [PayoutToolDetailsComponent, InternationalBankAccountComponent, BankCardComponent, WalletComponent],
-    exports: [PayoutToolDetailsComponent],
+    declarations: [PayoutToolComponent],
+    exports: [PayoutToolComponent],
 })
-export class PayoutToolDetailsModule {}
+export class PayoutToolModule {}

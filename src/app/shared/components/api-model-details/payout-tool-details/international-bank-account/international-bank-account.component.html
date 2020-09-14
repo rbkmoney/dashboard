@@ -1,5 +1,5 @@
 <div
-    *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.internationalBankAccount'"
+    *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.payoutToolDetails.internationalBankAccount'"
     fxLayout="column"
     fxLayoutGap="24px"
 >
@@ -11,7 +11,11 @@
     </dsh-details-item>
     <ng-container *ngIf="internationalBankAccount?.bankDetails as bankDetails">
         <ng-container
-            *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.internationalBankAccount.bankDetails'"
+            *transloco="
+                let d;
+                scope: 'api-model-details';
+                read: 'apiModelDetails.payoutToolDetails.internationalBankAccount.bankDetails'
+            "
         >
             <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
                 <dsh-details-item *ngIf="bankDetails?.name" fxFlex="33" fxFlex.lt-md="100" [title]="d.name">
