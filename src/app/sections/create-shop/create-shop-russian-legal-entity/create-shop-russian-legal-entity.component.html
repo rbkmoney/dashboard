@@ -94,11 +94,10 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <dsh-payout-tool-info
-                    [payoutToolDetails]="(payoutTool$ | async).details"
-                    *ngIf="payoutTool$ | async"
-                    hideTitle
-                ></dsh-payout-tool-info>
+                <dsh-payout-tool-details
+                    *ngIf="payoutTool$ | async as payoutTool"
+                    [payoutToolDetails]="payoutTool.details"
+                ></dsh-payout-tool-details>
             </div>
         </div>
     </div>

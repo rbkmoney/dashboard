@@ -9,16 +9,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { CategoriesModule } from '../../../../../api';
+import { CategoriesModule, ContractsModule, PayoutsModule } from '../../../../../api';
 import { ToMajorModule } from '../../../../../to-major';
 import { CategoryPipe } from './category.pipe';
 import { ShopBalanceComponent } from './shop-balance';
+import { ShopContractDetailsComponent } from './shop-contract-details';
+import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details';
 import { ShopsPanelsListComponent } from './shops-panels-list.component';
 
 @NgModule({
@@ -39,8 +42,18 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
         CategoriesModule,
         ShowMorePanelModule,
         ToMajorModule,
+        ContractsModule,
+        PayoutsModule,
+        ContractDetailsModule,
+        PayoutToolModule,
     ],
-    declarations: [ShopsPanelsListComponent, CategoryPipe, ShopBalanceComponent],
+    declarations: [
+        ShopsPanelsListComponent,
+        CategoryPipe,
+        ShopBalanceComponent,
+        ShopContractDetailsComponent,
+        ShopPayoutToolDetailsComponent,
+    ],
     exports: [ShopsPanelsListComponent],
 })
 export class ShopsPanelsListModule {}

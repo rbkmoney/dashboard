@@ -1,0 +1,8 @@
+<dsh-russian-legal-entity
+    *ngIf="legalEntity?.entityType === 'RussianLegalEntity'"
+    [russianLegalEntity]="legalEntity"
+></dsh-russian-legal-entity>
+<dsh-international-legal-entity
+    *ngIf="legalEntity?.entityType === 'InternationalLegalEntity'"
+    [internationalLegalEntity]="legalEntity"
+></dsh-international-legal-entity>
