@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { Payout } from '../../../../api-codegen/anapi';
+import { CreatePayoutReportService } from '../create-payout-report';
 import { PayoutsService } from '../payouts.service';
 import { PayoutsPanelsListService } from './payouts-panels-list.service';
 
@@ -11,14 +12,26 @@ import { PayoutsPanelsListService } from './payouts-panels-list.service';
     providers: [PayoutsPanelsListService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PayoutsPanelsListComponent {
+export class PayoutsPanelsListComponent implements OnInit, OnDestroy {
     payouts$ = this.payoutsService.searchResult$;
     selectedIdx$ = this.payoutsService.selectedIdx$;
 
-    constructor(private payoutPanelService: PayoutsPanelsListService, private payoutsService: PayoutsService) {}
+    constructor(
+        private payoutPanelService: PayoutsPanelsListService,
+        private payoutsService: PayoutsService,
+        private createPayoutReportService: CreatePayoutReportService
+    ) {}
+
+    ngOnInit() {
+        this.createPayoutReportService.init();
+    }
+
+    ngOnDestroy(): void {
+        this.createPayoutReportService.destroy();
+    }
 
     createReport(payout: Payout) {
-        this.payoutPanelService.createReport(payout);
+        this.createPayoutReportService.createPayoutReport(payout);
     }
 
     getPaymentSummary(payout: Payout) {

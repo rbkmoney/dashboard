@@ -1,0 +1,41 @@
+<div *transloco="let t; scope: 'payouts'; read: 'payouts.createPayoutReport'" fxLayout="column" fxLayoutGap="32px">
+    <div class="dsh-headline">{{ t.title }}</div>
+    <ng-container *ngIf="reportCreated$ | async; else elseBlock">
+        <div class="dsh-body-1">{{ t.descriptionStep2 }}</div>
+    </ng-container>
+    <ng-template #elseBlock
+        ><div class="dsh-body-1">{{ t.descriptionStep1 }}</div></ng-template
+    >
+    <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between stretch"
+        fxLayoutGap="24px"
+        fxLayoutGap.xs="16px"
+    >
+        <button
+            fxFlex="160px"
+            fxFlex.xs="none"
+            dsh-stroked-button
+            color="warn"
+            [disabled]="isLoading$ | async"
+            (click)="cancel()"
+        >
+            {{ t.cancel }}
+        </button>
+        <button
+            *ngIf="!(reportCreated$ | async)"
+            fxFlex="160px"
+            fxFlex.xs="none"
+            dsh-button
+            color="accent"
+            [disabled]="isLoading$ | async"
+            (click)="create()"
+        >
+            {{ t.create }}
+        </button>
+        <button *ngIf="reportCreated$ | async" fxFlex.xs="none" dsh-button color="accent" (click)="toReports()">
+            {{ t.toReports }}
+        </button>
+    </div>
+</div>

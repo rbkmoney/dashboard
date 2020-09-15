@@ -9,7 +9,12 @@
                 <textarea matInput rows="6" readonly [value]="token$ | async"></textarea>
             </mat-form-field>
             <div>
-                <button dsh-button [cdkCopyToClipboard]="token$ | async" (cdkCopyToClipboardCopied)="copied($event)">
+                <button
+                    dsh-button
+                    color="accent"
+                    [cdkCopyToClipboard]="token$ | async"
+                    (cdkCopyToClipboardCopied)="copied($event)"
+                >
                     {{ t.copy }}
                 </button>
             </div>
