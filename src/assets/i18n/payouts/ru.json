@@ -1,9 +1,9 @@
 {
     "title": "Возмещения",
     "payouts": {
-        "title": "Создание выплаты",
+        "title": "Создание выплаты на кошелек",
         "description": "Согласно расписанию вывода средств, система будет инициировать банковские переводы на основе суммы платежей, принятой по всем активным магазинам",
-        "createPayout": "Создать выплату на кошелек",
+        "createPayout": "Создать выплату",
         "noPayoutTools": "Отсутствуют доступные инструменты вывода средств",
         "shop": "Магазин",
         "payoutTool": "Инструмент вывода средств",
@@ -36,34 +36,5 @@
     },
     "errors": {
         "createReportError": "Не удалось создать отчет"
-    },
-    "payoutToolType": {
-        "PayoutToolDetailsBankAccount": "Банковский счет",
-        "PayoutToolDetailsBankCard": "Банковская карта",
-        "PayoutToolDetailsInternationalBankAccount": "Международный банковский счет",
-        "PayoutToolDetailsWalletInfo": "Кошелек"
-    },
-    "payoutTool": {
-        "bankAccount": {
-            "title": "Банковский счет",
-            "bank": "Наименование банка",
-            "bankDetails": "БИК / Кор. счет / Расчетный счет"
-        },
-        "bankCard": {
-            "title": "Банковская карта",
-            "cardNumber": "Номер карты",
-            "paymentSystem": "Платежная система",
-            "tokenProvider": "Провайдер платежных токенов"
-        },
-        "internationalBankAccount": {
-            "title": "Международный банковский счет",
-            "name": "Наименование банка",
-            "number": "Номер счета",
-            "iban": "IBAN"
-        },
-        "wallet": {
-            "title": "Кошелек",
-            "id": "Идентификатор кошелька"
-        }
     }
 }

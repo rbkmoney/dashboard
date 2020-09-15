@@ -25,8 +25,18 @@
             </mat-radio-group>
         </div>
         <div *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
-            <button dsh-button (click)="dialogRef.close('cancel')">{{ c.cancel }}</button>
-            <button dsh-button (click)="next()" color="accent" class="next-button" [disabled]="!selectedShopType">
+            <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="dialogRef.close('cancel')">
+                {{ c.cancel }}
+            </button>
+            <button
+                fxFlex="160px"
+                fxFlex.xs="none"
+                dsh-button
+                (click)="next()"
+                color="accent"
+                class="next-button"
+                [disabled]="!selectedShopType"
+            >
                 {{ c.next }}
             </button>
         </div>

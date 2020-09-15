@@ -25,8 +25,17 @@
         </section>
     </form>
     <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let m">
-        <button dsh-button (click)="cancel()">{{ m.cancel }}</button>
-        <button dsh-button color="accent" [disabled]="(isLoading$ | async) || !form.valid" (click)="save()">
+        <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
+            {{ m.cancel }}
+        </button>
+        <button
+            fxFlex="160px"
+            fxFlex.xs="none"
+            dsh-button
+            color="accent"
+            [disabled]="(isLoading$ | async) || !form.valid"
+            (click)="save()"
+        >
             {{ t.create.attach }}
         </button>
     </div>
