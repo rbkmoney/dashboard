@@ -1,9 +1,0 @@
-<div fxLayout="column" fxLayoutGap="24px" *transloco="let p; scope: 'payouts'; read: 'payouts.payoutTool.bankAccount'">
-    <div class="mat-title" *ngIf="!hideTitle">{{ p.title }}</div>
-    <dsh-details-item [title]="p.bank">
-        {{ payoutTool?.bankName || '-' }}
-    </dsh-details-item>
-    <dsh-details-item [title]="p.bankDetails">
-        {{ payoutTool?.bankBik || '-' }} / {{ payoutTool?.bankPostAccount || '-' }} / {{ payoutTool?.account || '-' }}
-    </dsh-details-item>
-</div>

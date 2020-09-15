@@ -8,13 +8,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ApiModelTypesModule, PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
 import { ToMajorModule } from '../../../../to-major';
-import { PayoutToolInfoModule } from '../../../payout-tool-info';
 import { CreatePayoutReportModule } from '../create-payout-report';
 import { CommonInfoComponent } from './common-info';
 import { PaymentsInfoComponent } from './payments-info';
@@ -36,8 +36,9 @@ import { RefundsInfoComponent } from './refunds-info';
         MatDialogModule,
         ReportsModule,
         MatSnackBarModule,
-        PayoutToolInfoModule,
         CreatePayoutReportModule,
+        PayoutToolDetailsModule,
+        ApiModelTypesModule,
     ],
     declarations: [PayoutsPanelsListComponent, PaymentsInfoComponent, RefundsInfoComponent, CommonInfoComponent],
     exports: [PayoutsPanelsListComponent],

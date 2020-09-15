@@ -56,6 +56,12 @@
                     {{ p.copy }}
                 </button>
             </div>
+            <mat-divider></mat-divider>
+            <dsh-shop-contract-details [contractID]="shop?.contractID"></dsh-shop-contract-details>
+            <mat-divider></mat-divider>
+            <dsh-shop-payout-tool-details
+                [payoutToolParams]="{ contractID: shop?.contractID, payoutToolID: shop?.payoutToolID }"
+            ></dsh-shop-payout-tool-details>
 
             <ng-container *ngIf="!shop?.isBlocked">
                 <mat-divider></mat-divider>

@@ -1,0 +1,16 @@
+<dsh-bank-account-details
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsBankAccount'"
+    [bankAccount]="payoutToolDetails"
+></dsh-bank-account-details>
+<dsh-international-bank-account
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsInternationalBankAccount'"
+    [internationalBankAccount]="payoutToolDetails"
+></dsh-international-bank-account>
+<dsh-bank-card
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsBankCard'"
+    [bankCard]="payoutToolDetails"
+></dsh-bank-card>
+<dsh-wallet
+    *ngIf="payoutToolDetails?.detailsType === 'PayoutToolDetailsWalletInfo'"
+    [wallet]="payoutToolDetails"
+></dsh-wallet>

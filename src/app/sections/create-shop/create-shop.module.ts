@@ -12,13 +12,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { PayoutsModule, QuestionaryModule } from '../../api';
 import { DaDataModule } from '../../dadata';
-import { PayoutToolInfoModule } from '../payout-tool-info';
 import {
     CreateShopInternationalLegalEntityComponent,
     InternationalPayoutToolFormComponent,
@@ -44,11 +44,11 @@ const EXPORTED_DECLARATIONS = [CreateShopRussianLegalEntityComponent, CreateShop
         FormControlsModule,
         LayoutModule,
         PayoutsModule,
-        PayoutToolInfoModule,
         MatSnackBarModule,
         QuestionaryModule,
         RouterModule,
         MatCheckboxModule,
+        PayoutToolDetailsModule,
     ],
     declarations: [...EXPORTED_DECLARATIONS, InternationalPayoutToolFormComponent],
     exports: EXPORTED_DECLARATIONS,

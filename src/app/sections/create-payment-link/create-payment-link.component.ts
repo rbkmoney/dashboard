@@ -10,7 +10,8 @@ import { CreatePaymentLinkService, HoldExpiration } from './create-payment-link.
 const OrderedPaymentMethodsNames = [
     'bankCard',
     'wallets',
-    'terminals',
+    'euroset',
+    'qps',
     'mobileCommerce',
     'applePay',
     'googlePay',

@@ -1,0 +1,9 @@
+<div
+    *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.payoutToolDetails.wallet'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <dsh-details-item [title]="t.walletID">
+        {{ wallet?.walletID }}
+    </dsh-details-item>
+</div>

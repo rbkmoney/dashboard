@@ -6,7 +6,7 @@ import { toShopName } from '../../../../api/shop/utils';
 import { InvoicesTableData } from './table';
 
 const toInvoiceTableData = (
-    { amount, status, createdAt, shopID, id, currency }: Invoice,
+    { amount, status, createdAt, shopID, id, currency, product }: Invoice,
     s: Shop[]
 ): InvoicesTableData | null => ({
     amount,
@@ -15,6 +15,7 @@ const toInvoiceTableData = (
     createdAt: createdAt as any,
     invoiceID: id,
     shopName: toShopName(s, shopID),
+    product,
 });
 
 const invoicesToTableData = (searchResult: Invoice[], s: Shop[]) => searchResult.map((r) => toInvoiceTableData(r, s));
