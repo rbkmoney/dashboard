@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-link-label-typography($config) {
+    .dsh-link-label-content {
+        text-decoration: underline;
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}
