@@ -29,7 +29,7 @@
                                         [value]="payoutTool.id"
                                         (onSelectionChange)="onPayoutToolSelectionChange(payoutTool.currency)"
                                     >
-                                        {{ p.payoutToolType[payoutTool.details.detailsType] }}:
+                                        {{ payoutTool.details.detailsType | payoutToolDetailsType }}:
                                         {{ payoutTool.details.walletID }} ({{ payoutTool.currency }})
                                     </mat-option>
                                 </mat-select>
