@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, concat, Subject } from 'rxjs';
 import { first, map, mapTo, pluck, scan, shareReplay } from 'rxjs/operators';
 
-import { ShopService } from '../../../../../api/shop';
+import { getOffsetBySelectedPanelPosition } from '../../../../../../utils';
 import { WalletService } from '../../../../../api/wallet';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
 import { ReceiveIdentitiesService } from '../receive-identities.service';
 import { ReceiveWebhooksService } from '../receive-webhooks.service';
 
@@ -45,7 +44,6 @@ export class WebhooksPanelsListService {
     wallets$ = this.walletService.wallets$.pipe(shareReplay(1));
 
     constructor(
-        private shopService: ShopService,
         private receiveWebhooksService: ReceiveWebhooksService,
         private receiveIdentitiesService: ReceiveIdentitiesService,
         private walletService: WalletService,

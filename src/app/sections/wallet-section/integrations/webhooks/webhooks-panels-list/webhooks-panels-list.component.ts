@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
+
 import { WebhooksPanelsListService } from './webhooks-panels-list.service';
 
 @Component({

@@ -16,7 +16,7 @@ export class CreateWebhookService {
             .pipe(
                 switchMap((identities) =>
                     this.dialog
-                        .open(CreateWebhookDialogComponent, { width: '560px', disableClose: true, data: identities })
+                        .open(CreateWebhookDialogComponent, { width: '552px', disableClose: true, data: identities })
                         .afterClosed()
                         .pipe(filter((r) => r === 'created'))
                 )

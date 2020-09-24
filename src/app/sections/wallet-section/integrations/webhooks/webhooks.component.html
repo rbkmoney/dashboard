@@ -1,10 +1,10 @@
-<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'">
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'">
     <div
         fxLayout.lt-md="column"
         fxLayout="row"
         fxLayoutAlign.lt-md="center stretch"
         fxLayoutAlign="space-between center"
-        [fxLayoutGap]="layoutGap"
+        fxLayoutGap="24px"
     >
         <div class="mat-caption">
             {{ t.description }}

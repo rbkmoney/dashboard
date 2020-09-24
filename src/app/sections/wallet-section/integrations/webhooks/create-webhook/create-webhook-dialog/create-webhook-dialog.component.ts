@@ -1,13 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
-import { ShopService } from '../../../../../../api/shop';
-import { LAYOUT_GAP } from '../../../../../constants';
-import { CreateWebhookDialogService } from './create-webhook-dialog.service';
-import { ReceiveIdentitiesService } from '../../receive-identities.service';
 import { WebhookScope } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import { ReceiveIdentitiesService } from '../../receive-identities.service';
+import { CreateWebhookDialogService } from './create-webhook-dialog.service';
 import TopicEnum = WebhookScope.TopicEnum;
 
 @Component({
@@ -21,17 +19,13 @@ export class CreateWebhookDialogComponent {
     destinationTypes = this.createWebhookDialogService.destinationTypes;
     activeTopic$ = this.createWebhookDialogService.activeTopic$;
     wallets$ = this.createWebhookDialogService.wallets$;
-    shops$ = this.shopService.shops$;
     identities$ = this.receiveIdentitiesService.identities$;
     isLoading$ = this.createWebhookDialogService.isLoading$;
-
-    log = console.log;
 
     constructor(
         private dialogRef: MatDialogRef<CreateWebhookDialogComponent>,
         private createWebhookDialogService: CreateWebhookDialogService,
-        private receiveIdentitiesService: ReceiveIdentitiesService,
-        private shopService: ShopService
+        private receiveIdentitiesService: ReceiveIdentitiesService
     ) {
         this.createWebhookDialogService.webhookCreated$.pipe(filter((r) => !!r)).subscribe((r) => {
             this.dialogRef.close(r);

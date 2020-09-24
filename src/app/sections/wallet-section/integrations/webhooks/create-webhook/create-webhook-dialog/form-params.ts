@@ -1,4 +1,9 @@
-import { DestinationsTopic, WithdrawalsTopic } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import {
+    DestinationsTopic,
+    WebhookScope,
+    WithdrawalsTopic,
+} from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import TopicEnum = WebhookScope.TopicEnum;
 
 interface EventType {
     eventName: WithdrawalsTopic.EventTypesEnum | DestinationsTopic.EventTypesEnum;
@@ -9,5 +14,6 @@ export interface FormParams {
     identityID: string;
     url: string;
     walletID?: string;
+    eventType: TopicEnum;
     eventTypes: EventType[];
 }

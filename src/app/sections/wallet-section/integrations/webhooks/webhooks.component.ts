@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { LAYOUT_GAP } from '../../../constants';
 import { ReceiveIdentitiesService } from './receive-identities.service';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 
@@ -16,11 +15,10 @@ export class WebhooksComponent implements OnInit {
 
     constructor(
         private receiveIdentitiesService: ReceiveIdentitiesService,
-        private receiveWebhooksService: ReceiveWebhooksService,
-        @Inject(LAYOUT_GAP) public layoutGap: string
+        private receiveWebhooksService: ReceiveWebhooksService
     ) {}
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.receiveWebhooksService.receiveWebhooks();
     }
 }

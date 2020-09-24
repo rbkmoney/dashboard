@@ -5,18 +5,19 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
-import { FormParams } from './form-params';
-import { formValuesToWebhook } from './form-values-to-webhook';
+import { oneMustBeSelected } from '@dsh/components/form-controls';
+
 import {
     DestinationsTopic,
     WebhookScope,
     WithdrawalsTopic,
 } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
-import { oneMustBeSelected } from '@dsh/components/form-controls';
-import { WalletWebhooksService } from '../../../../../../api/wallet-webhooks';
 import TopicEnum = WebhookScope.TopicEnum;
 import { WalletService } from '../../../../../../api/wallet';
+import { WalletWebhooksService } from '../../../../../../api/wallet-webhooks';
+import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
+import { FormParams } from './form-params';
+import { formValuesToWebhook } from './form-values-to-webhook';
 
 @Injectable()
 export class CreateWebhookDialogService {
@@ -46,7 +47,7 @@ export class CreateWebhookDialogService {
     ) {
         this.createWebhook$
             .pipe(
-                map((v) => formValuesToWebhook(v, this.activeTopic$.value)),
+                map(formValuesToWebhook),
                 switchMap((v) =>
                     this.walletWebhooksService.createWebhook(v).pipe(
                         catchError((err) => {
@@ -68,7 +69,6 @@ export class CreateWebhookDialogService {
             this.form.removeControl('eventTypes');
             this.form.addControl('eventTypes', this.initEventTypesForm());
         });
-        this.form.valueChanges.subscribe((v) => console.log('VALUES', v, this.form));
     }
 
     save() {

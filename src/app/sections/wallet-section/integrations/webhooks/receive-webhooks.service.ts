@@ -32,10 +32,6 @@ export class ReceiveWebhooksService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        // this.isLoading$.subscribe();
-
-        // this.identityService.listIdentities().subscribe(i => console.log('IDENTITITES', i))
-
         this.receiveWebhooks$
             .pipe(
                 switchMap(() => this.receiveIdentitiesService.identities$),

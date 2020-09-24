@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { CreateWebhookService } from './create-webhook.service';
+
 import { Identity } from '../../../../../api-codegen/wallet-api/swagger-codegen';
+import { CreateWebhookService } from './create-webhook.service';
 
 @Component({
     selector: 'dsh-create-webhook',

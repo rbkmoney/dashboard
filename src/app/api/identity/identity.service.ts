@@ -12,7 +12,7 @@ export class IdentityService {
 
     identities$: Observable<Identity[]> = this.reloadIdentities$.pipe(
         startWith(undefined as Identity[]),
-        switchMapTo(this.identityService.listIdentities(genXRequestID(), 10)),
+        switchMapTo(this.listIdentities()),
         pluck('result'),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -24,6 +24,6 @@ export class IdentityService {
     }
 
     listIdentities() {
-        return this.identityService.listIdentities(genXRequestID(), 100);
+        return this.identityService.listIdentities(genXRequestID(), 1000);
     }
 }

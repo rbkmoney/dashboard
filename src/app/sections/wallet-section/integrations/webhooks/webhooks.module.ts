@@ -15,14 +15,14 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
+import { IdentityModule } from '../../../../api/identity';
+import { WalletWebhooksModule } from '../../../../api/wallet-webhooks';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
+import { CreateWebhookModule } from './create-webhook';
+import { ReceiveIdentitiesService } from './receive-identities.service';
 import { WebhooksPanelsListModule } from './webhooks-panels-list';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
-import { WalletWebhooksModule } from '../../../../api/wallet-webhooks';
-import { IdentityModule } from '../../../../api/identity';
-import { ReceiveIdentitiesService } from './receive-identities.service';
-import { CreateWebhookModule } from './create-webhook';
 
 @NgModule({
     imports: [
