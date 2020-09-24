@@ -5,5 +5,11 @@
         "withdrawals": "Выводы",
         "reports": "Отчеты",
         "integrations": "Интеграция"
+    },
+    "integrations": {
+        "headline": "Интеграция",
+        "tabs": {
+            "webhooks": "Webhooks"
+        }
     }
 }

@@ -1,0 +1,27 @@
+<div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'">
+    <div
+        fxLayout.lt-md="column"
+        fxLayout="row"
+        fxLayoutAlign.lt-md="center stretch"
+        fxLayoutAlign="space-between center"
+        [fxLayoutGap]="layoutGap"
+    >
+        <div class="mat-caption">
+            {{ t.description }}
+        </div>
+        <dsh-create-webhook [identities]="identities$ | async"></dsh-create-webhook>
+    </div>
+
+    <ng-container *ngIf="(isLoading$ | async) || !(webhooks$ | async); else webhooksPanelsList">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
+        </div>
+    </ng-container>
+    <ng-template #webhooksPanelsList>
+        <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
+        <dsh-empty-search-result
+            *ngIf="(webhooks$ | async)?.length === 0"
+            [text]="t.emptyResult"
+        ></dsh-empty-search-result>
+    </ng-template>
+</div>

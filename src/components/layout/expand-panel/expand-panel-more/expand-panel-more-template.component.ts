@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { coerce } from '../../../../utils';
@@ -10,6 +10,9 @@ import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-head
     styleUrls: ['expand-panel-more-template.component.scss'],
 })
 export class ExpandPanelMoreTemplateComponent {
+    @Input()
+    fxLayoutGap = '20px';
+
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
 
     collapse$ = new Subject<MouseEvent>();
