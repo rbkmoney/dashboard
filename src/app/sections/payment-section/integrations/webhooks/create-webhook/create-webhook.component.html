@@ -1,32 +1,43 @@
 <div fxLayout="column" [fxLayoutGap]="layoutGap" *transloco="let t; scope: 'webhook'; read: 'webhook'">
-    <div class="mat-title">{{ t.create.title }}</div>
-    <form [formGroup]="form" fxLayout="column">
-        <mat-form-field fxFlex>
-            <mat-label>{{ t.details.shop }}</mat-label>
-            <mat-select formControlName="shop" required>
-                <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
-                    {{ shop.details.name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t.details.url }}</mat-label>
-            <input formControlName="url" matInput type="text" autocomplete="off" required />
-        </mat-form-field>
-        <section class="checkbox-section" fxLayout="column" fxLayoutGap="10px">
-            <label class="mat-body-2">{{ t.create.types }}:</label>
-            <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="10px">
-                <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
-                    <mat-checkbox formControlName="selected" class="mat-body-1">{{
-                        t.events.types[eventType.controls.eventName.value]
-                    }}</mat-checkbox>
+    <div class="dsh-headline">{{ t.create.title }}</div>
+    <mat-dialog-content>
+        <form [formGroup]="form" fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.details.shop }}</mat-label>
+                <mat-select formControlName="shop" required>
+                    <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
+                        {{ shop.details.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t.details.url }}</mat-label>
+                <input formControlName="url" matInput type="text" autocomplete="off" required />
+            </mat-form-field>
+            <section class="checkbox-section" fxLayout="column" fxLayoutGap="16px">
+                <label class="dsh-body-2">{{ t.create.types }}:</label>
+                <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">
+                    <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
+                        <mat-checkbox formControlName="selected" class="dsh-body-1">{{
+                            t.events.types[eventType.controls.eventName.value]
+                        }}</mat-checkbox>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </form>
+            </section>
+        </form>
+    </mat-dialog-content>
     <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let m">
-        <button dsh-button (click)="cancel()">{{ m.cancel }}</button>
-        <button dsh-button color="accent" [disabled]="(isLoading$ | async) || !form.valid" (click)="save()">
+        <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
+            {{ m.cancel }}
+        </button>
+        <button
+            fxFlex="160px"
+            fxFlex.xs="none"
+            dsh-button
+            color="accent"
+            [disabled]="(isLoading$ | async) || !form.valid"
+            (click)="save()"
+        >
             {{ t.create.attach }}
         </button>
     </div>

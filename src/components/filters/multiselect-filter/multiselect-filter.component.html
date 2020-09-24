@@ -6,7 +6,7 @@
             fxLayout="column"
             fxLayoutGap="8px"
         >
-            <mat-form-field fxFlex>
+            <mat-form-field *ngIf="searchPredicate" fxFlex>
                 <mat-label>{{ label }}</mat-label>
                 <input matInput [formControl]="searchControl" />
             </mat-form-field>

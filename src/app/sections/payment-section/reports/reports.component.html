@@ -1,6 +1,6 @@
 <div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="32px">
     <h1 class="dsh-display-1">{{ r.title }}</h1>
-    <div fxLayout="row" fxLayoutAlign="space-between">
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="16px">
         <dsh-reports-search-filters
             [initParams]="initSearchParams$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"

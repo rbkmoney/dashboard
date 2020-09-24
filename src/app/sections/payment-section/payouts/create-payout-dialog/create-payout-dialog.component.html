@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
     <ng-container *transloco="let p; scope: 'payouts'; read: 'payouts.payouts'">
-        <h3 class="mat-title">{{ p.title }}</h3>
+        <h3 class="mat-headline">{{ p.title }}</h3>
         <div [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
             <div fxLayout="column" fxLayoutGap="20px">
                 <mat-form-field fxFill>
@@ -29,7 +29,7 @@
                                         [value]="payoutTool.id"
                                         (onSelectionChange)="onPayoutToolSelectionChange(payoutTool.currency)"
                                     >
-                                        {{ p.payoutToolType[payoutTool.details.detailsType] }}:
+                                        {{ payoutTool.details.detailsType | payoutToolDetailsType }}:
                                         {{ payoutTool.details.walletID }} ({{ payoutTool.currency }})
                                     </mat-option>
                                 </mat-select>
@@ -53,10 +53,12 @@
                 </ng-container>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFill>
-                <button dsh-button (click)="cancel()">
+                <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
                     {{ t.cancel }}
                 </button>
                 <button
+                    fxFlex="160px"
+                    fxFlex.xs="none"
                     dsh-button
                     (click)="create()"
                     color="accent"

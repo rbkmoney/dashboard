@@ -9,6 +9,7 @@ import { ExpansionModule } from './expansion';
 import { FloatPanelModule } from './float-panel';
 import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
+import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
 import { RowModule } from './row';
 import { DshTabsModule } from './tabs';
@@ -28,6 +29,7 @@ const EXPORTED_MODULES = [
     ExpansionModule,
     RowModule,
     AccordionModule,
+    LinkLabelModule,
 ];
 
 @NgModule({

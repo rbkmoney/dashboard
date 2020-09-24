@@ -25,6 +25,7 @@
 @import '../components/layout/row/row-theme';
 @import '../components/layout/accordion/accordion-theme';
 @import '../components/layout/details-item/details-item-theme';
+@import '../components/layout/link-label/link-label-theme';
 @import '../components/charts/bar-chart/bar-chart-theme';
 @import '../components/navigation/state-nav/state-nav-theme';
 @import '../components/navigation/navbar/navbar-theme';
@@ -75,6 +76,7 @@
     @include dsh-details-item-typography($config);
     @include dsh-last-updated-typography($config);
     @include dsh-balances-typography($config);
+    @include dsh-link-label-typography($config);
 }
 
 @include dsh-overrides();

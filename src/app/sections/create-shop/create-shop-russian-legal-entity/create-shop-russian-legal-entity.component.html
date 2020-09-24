@@ -103,7 +103,16 @@
     </div>
 
     <div fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
-        <button dsh-button *transloco="let t" (click)="cancel.emit()">{{ t.cancel }}</button>
+        <button
+            fxFlex="160px"
+            fxFlex.xs="none"
+            dsh-stroked-button
+            color="warn"
+            *transloco="let t"
+            (click)="cancel.emit()"
+        >
+            {{ t.cancel }}
+        </button>
         <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t.send }}</button>
     </div>
 </form>

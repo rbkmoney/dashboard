@@ -43,7 +43,7 @@
             "cardNumberMask": "Номер карты"
         },
         "wallet": {
-            "walletID": "Идентификатор кошелька"
+            "walletName": "Наименование"
         }
     }
 }

@@ -15,8 +15,8 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { ReportsModule } from '../../../../api';
 import { ToMajorModule } from '../../../../to-major';
+import { CreatePayoutReportModule } from '../create-payout-report';
 import { CommonInfoComponent } from './common-info';
-import { CreateReportDialogComponent } from './create-report-dialog';
 import { PaymentsInfoComponent } from './payments-info';
 import { PayoutsPanelsListComponent } from './payouts-panels-list.component';
 import { RefundsInfoComponent } from './refunds-info';
@@ -36,17 +36,11 @@ import { RefundsInfoComponent } from './refunds-info';
         MatDialogModule,
         ReportsModule,
         MatSnackBarModule,
+        CreatePayoutReportModule,
         PayoutToolDetailsModule,
         ApiModelTypesModule,
     ],
-    declarations: [
-        PayoutsPanelsListComponent,
-        CreateReportDialogComponent,
-        PaymentsInfoComponent,
-        RefundsInfoComponent,
-        CommonInfoComponent,
-    ],
-    entryComponents: [CreateReportDialogComponent],
+    declarations: [PayoutsPanelsListComponent, PaymentsInfoComponent, RefundsInfoComponent, CommonInfoComponent],
     exports: [PayoutsPanelsListComponent],
 })
 export class PayoutPanelModule {}

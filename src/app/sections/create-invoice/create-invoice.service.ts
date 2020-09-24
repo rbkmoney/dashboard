@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import get from 'lodash.get';
 import moment from 'moment';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { InvoiceService } from '../../api';
-import { InvoiceLine, InvoiceLineTaxMode } from '../../api-codegen/capi';
+import { InvoiceLine, InvoiceLineTaxMode, Shop } from '../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 
 export const WITHOUT_VAT = Symbol('without VAT');
@@ -25,12 +26,15 @@ export class CreateInvoiceService {
 
     constructor(private invoiceService: InvoiceService, private fb: FormBuilder, private dialog: MatDialog) {}
 
-    createInvoice() {
+    createInvoice(shops: Shop[]) {
         const { value } = this.form;
         return this.invoiceService.createInvoice({
             shopID: value.shopID,
             dueDate: moment(value.dueDate).utc().format(),
-            currency: value.currency,
+            currency: get(
+                shops.find((s) => s.id === value.shopID),
+                ['account', 'currency']
+            ),
             product: value.product,
             cart: value.cart.map(this.getCartItemValue.bind(this)),
             metadata: {},
@@ -60,7 +64,7 @@ export class CreateInvoiceService {
             shopID: null,
             dueDate: null,
             product: '',
-            currency: 'RUB',
+            currency: '',
             cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)]),
         });
     }

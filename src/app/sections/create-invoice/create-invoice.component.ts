@@ -48,7 +48,7 @@ export class CreateInvoiceComponent {
     ) {}
 
     create() {
-        this.createInvoiceService.createInvoice().subscribe(
+        this.createInvoiceService.createInvoice(this.shops).subscribe(
             ({ invoice }) => {
                 this.next.emit(invoice);
             },

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
@@ -47,6 +48,7 @@ import { SearchFormComponent } from './search-form';
         ShopSelectorModule,
         ApiPayoutsModule,
         FormatInputModule,
+        ApiModelTypesModule,
     ],
     declarations: [PayoutsComponent, SearchFormComponent, CreatePayoutDialogComponent],
     exports: [PayoutsComponent],

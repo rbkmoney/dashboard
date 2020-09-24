@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import isEmpty from 'lodash.isempty';
+import moment from 'moment';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
@@ -8,6 +10,12 @@ import { booleanDebounceTime } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { mapToTimestamp } from '../operations/operators';
 import { SearchFiltersParams } from './reports-search-filters';
+
+const toMs = (date: Date | string): number => moment(date).valueOf();
+const byCreatedAt = (x: Report, y: Report): number => toMs(y.createdAt) - toMs(x.createdAt);
+const sortReports = ({ result }) => ({
+    result: result.sort(byCreatedAt),
+});
 
 @Injectable()
 export class FetchReportsService extends PartialFetcher<Report, SearchFiltersParams> {
@@ -18,12 +26,8 @@ export class FetchReportsService extends PartialFetcher<Report, SearchFiltersPar
         super();
     }
 
-    protected fetch(params: SearchFiltersParams, continuationToken: string) {
-        const reportTypes = [
-            'paymentRegistry',
-            'provisionOfService',
-            'paymentRegistryByPayout',
-        ] as Report.ReportTypeEnum[];
-        return this.reportsService.searchReports({ ...params, reportTypes, continuationToken });
+    protected fetch(p: SearchFiltersParams, continuationToken: string) {
+        const reportTypes = isEmpty(p.reportTypes) ? Object.values(Report.ReportTypeEnum) : p.reportTypes;
+        return this.reportsService.searchReports({ ...p, reportTypes, continuationToken }).pipe(map(sortReports));
     }
 }

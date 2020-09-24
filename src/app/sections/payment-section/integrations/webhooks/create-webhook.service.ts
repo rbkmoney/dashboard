@@ -22,7 +22,7 @@ export class CreateWebhookService {
 
     private openCreateClaimDialog() {
         return this.dialog
-            .open(CreateWebhookComponent, { width: '560px', disableClose: true })
+            .open(CreateWebhookComponent, { width: '552px', disableClose: true })
             .afterClosed()
             .pipe(filter((r) => r === 'created'));
     }
