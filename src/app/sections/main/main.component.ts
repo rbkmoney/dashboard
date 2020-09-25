@@ -11,7 +11,6 @@ import { ConfigService } from '../../config';
 export class MainComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
-    oldDashboardEndpoint = this.configService.ext.oldDashboardEndpoint;
     hasWallets$ = this.walletsService.hasWallets$;
 
     constructor(private configService: ConfigService, private walletsService: WalletService) {}
