@@ -5,7 +5,6 @@
     "ext": {
         "docsEndpoint": "https://rbkmoney.github.io/docs",
         "supportEmail": "support@rbkmoney.com",
-        "oldDashboardEndpoint": "https://dashboard.rbk.money",
         "paymentsApiSpecEndpoint": "https://developer.rbk.money/api/"
     },
     "yandexMetrika": {
