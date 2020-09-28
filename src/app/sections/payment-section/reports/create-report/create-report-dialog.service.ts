@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import moment from 'moment';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { ReportsService } from '../../../../api';
+import { formValueToCreateValue } from './form-value-to-create-value';
 
 @Injectable()
 export class CreateReportDialogService {
@@ -20,11 +20,7 @@ export class CreateReportDialogService {
         this.create$
             .pipe(
                 tap(() => this.loading$.next(true)),
-                map(({ fromTime, toTime, shopID }) => ({
-                    fromTime: moment(fromTime).startOf('day').utc().format(),
-                    toTime: moment(toTime).endOf('day').utc().format(),
-                    shopID: shopID || undefined,
-                })),
+                map(formValueToCreateValue),
                 switchMap((req) =>
                     this.reportsService.createReport(req).pipe(
                         catchError((e) => {

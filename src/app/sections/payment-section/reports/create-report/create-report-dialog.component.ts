@@ -10,6 +10,8 @@ import { ShopService } from '../../../../api';
 import { filterShopsByEnv, mapToShopInfo } from '../../operations/operators';
 import { CreateReportDialogService } from './create-report-dialog.service';
 
+const timePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+
 @Component({
     templateUrl: 'create-report-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,8 +21,10 @@ export class CreateReportDialogComponent implements OnInit {
     isLoading$ = this.createReportDialogService.isLoading$;
     shopsInfo$ = of(this.data.envID).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
     form = this.fb.group({
-        fromTime: [moment().startOf('month').format(), Validators.required],
-        toTime: [moment().endOf('month').format(), Validators.required],
+        fromDate: [moment().startOf('month').format(), Validators.required],
+        fromTime: ['', Validators.pattern(timePattern)],
+        toDate: [moment().endOf('month').format(), Validators.required],
+        toTime: ['', Validators.pattern(timePattern)],
         shopID: null,
     });
 
