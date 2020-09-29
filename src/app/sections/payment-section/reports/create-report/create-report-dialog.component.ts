@@ -22,9 +22,9 @@ export class CreateReportDialogComponent implements OnInit {
     shopsInfo$ = of(this.data.envID).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
     form = this.fb.group({
         fromDate: [moment().startOf('month').format(), Validators.required],
-        fromTime: ['', Validators.pattern(timePattern)],
+        fromTime: ['00:00:00', Validators.pattern(timePattern)],
         toDate: [moment().endOf('month').format(), Validators.required],
-        toTime: ['', Validators.pattern(timePattern)],
+        toTime: ['23:59:59', Validators.pattern(timePattern)],
         shopID: null,
     });
 

@@ -13,7 +13,7 @@
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.time }}</mat-label>
-            <input dshFormatTimeInput formControlName="fromTime" matInput placeholder="00:00:00" />
+            <input required dshFormatTimeInput formControlName="fromTime" matInput placeholder="00:00:00" />
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px" fxLayoutGap.xs="16px">
@@ -25,7 +25,7 @@
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t.time }}</mat-label>
-            <input dshFormatTimeInput formControlName="toTime" matInput placeholder="23:59:59" />
+            <input required dshFormatTimeInput formControlName="toTime" matInput placeholder="23:59:59" />
         </mat-form-field>
     </div>
     <mat-form-field fxFill>
