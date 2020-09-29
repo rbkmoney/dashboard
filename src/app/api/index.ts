@@ -21,3 +21,5 @@ export * from './withdrawals';
 export * from './payouts';
 export * from './wallet';
 export * from './contracts';
+export * from './wallet-webhooks';
+export * from './identity';

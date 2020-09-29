@@ -1,0 +1,8 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <dsh-row-label fxFlex="70" fxFlex.lt-md="70">
+        {{ url }}
+    </dsh-row-label>
+    <dsh-row-label fxFlex="30" fxFlex.lt-md="30">
+        {{ identityID }} {{ getIdentityName(identityID) | async }}
+    </dsh-row-label>
+</dsh-row>

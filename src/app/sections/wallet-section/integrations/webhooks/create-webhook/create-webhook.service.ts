@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { Identity } from '../../../../../api-codegen/wallet-api/swagger-codegen';
+import { IdentityService } from '../../../../../api/identity';
 import { ReceiveWebhooksService } from '../receive-webhooks.service';
-import { CreateWebhookDialogComponent } from './create-webhook-dialog';
+import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
 
 @Injectable()
 export class CreateWebhookService {
-    private createWebhook$ = new Subject<Identity[]>();
+    private createWebhook$ = new Subject<void>();
 
-    constructor(private dialog: MatDialog, private receiveWebhooksService: ReceiveWebhooksService) {
+    constructor(
+        private dialog: MatDialog,
+        private receiveWebhooksService: ReceiveWebhooksService,
+        private identityService: IdentityService
+    ) {
         this.createWebhook$
             .pipe(
+                switchMap(() => this.identityService.identities$.pipe(shareReplay(1), take(1))),
                 switchMap((identities) =>
                     this.dialog
                         .open(CreateWebhookDialogComponent, { width: '552px', disableClose: true, data: identities })
@@ -26,7 +31,7 @@ export class CreateWebhookService {
             });
     }
 
-    createWebhook(identities: Identity[]) {
-        this.createWebhook$.next(identities);
+    createWebhook() {
+        this.createWebhook$.next();
     }
 }

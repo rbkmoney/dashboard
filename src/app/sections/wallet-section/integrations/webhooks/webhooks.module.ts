@@ -19,8 +19,8 @@ import { IdentityModule } from '../../../../api/identity';
 import { WalletWebhooksModule } from '../../../../api/wallet-webhooks';
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
 import { CreateWebhookModule } from './create-webhook';
-import { ReceiveIdentitiesService } from './receive-identities.service';
-import { WebhooksPanelsListModule } from './webhooks-panels-list';
+import { ReceiveWebhooksService } from './receive-webhooks.service';
+import { WebhookListModule } from './webhook-list';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
 
@@ -43,13 +43,13 @@ import { WebhooksComponent } from './webhooks.component';
         ShowMorePanelModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
-        WebhooksPanelsListModule,
         ConfirmActionDialogModule,
         WalletWebhooksModule,
         IdentityModule,
         CreateWebhookModule,
+        WebhookListModule,
     ],
     declarations: [WebhooksComponent],
-    providers: [ReceiveIdentitiesService],
+    providers: [ReceiveWebhooksService],
 })
 export class WebhooksModule {}

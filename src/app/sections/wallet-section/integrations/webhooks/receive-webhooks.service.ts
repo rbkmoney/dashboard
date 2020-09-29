@@ -6,9 +6,10 @@ import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Webhook } from '../../../../api-codegen/wallet-api/swagger-codegen';
+import { IdentityService } from '../../../../api/identity';
 import { WalletWebhooksService } from '../../../../api/wallet-webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { ReceiveIdentitiesService } from './receive-identities.service';
+import { mapToTimestamp } from '../../../payment-section/operations/operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
@@ -26,15 +27,17 @@ export class ReceiveWebhooksService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    lastUpdated$: Observable<string> = this.webhooks$.pipe(mapToTimestamp, shareReplay(1));
+
     constructor(
         private walletWebhooksService: WalletWebhooksService,
-        private receiveIdentitiesService: ReceiveIdentitiesService,
+        private identityService: IdentityService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
         this.receiveWebhooks$
             .pipe(
-                switchMap(() => this.receiveIdentitiesService.identities$),
+                switchMap(() => this.identityService.identities$.pipe(shareReplay(1))),
                 map((identities) => identities.map((identity) => identity.id)),
                 switchMap((ids) =>
                     forkJoin(ids.map((id) => this.walletWebhooksService.getWebhooks(id))).pipe(

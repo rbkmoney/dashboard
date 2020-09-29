@@ -9,16 +9,24 @@
         <div class="mat-caption">
             {{ t.description }}
         </div>
-        <dsh-create-webhook [identities]="identities$ | async"></dsh-create-webhook>
+        <div>
+            <button dsh-button color="accent" (click)="createWebhook()">{{ t.create }}</button>
+        </div>
     </div>
 
-    <ng-container *ngIf="(isLoading$ | async) || !(webhooks$ | async); else webhooksPanelsList">
+    <ng-container *ngIf="(isLoading$ | async) || !(webhooks$ | async); else webhooksList">
         <div fxLayout fxFlexAlign="center">
             <dsh-spinner></dsh-spinner>
         </div>
     </ng-container>
-    <ng-template #webhooksPanelsList>
-        <dsh-webhooks-panels-list></dsh-webhooks-panels-list>
+    <ng-template #webhooksList>
+        <dsh-webhooks-list
+            [webhooks]="webhooks$ | async"
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            [lastUpdated]="lastUpdated$ | async"
+            (refreshData)="receiveWebhooks()"
+        ></dsh-webhooks-list>
         <dsh-empty-search-result
             *ngIf="(webhooks$ | async)?.length === 0"
             [text]="t.emptyResult"

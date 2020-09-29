@@ -1,0 +1,12 @@
+<div *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks.actions'" fxLayout="column" fxLayoutGap="24px">
+    <div class="mat-title">{{ t.title }}</div>
+    <div>
+        <button
+            dsh-stroked-button
+            color="warn"
+            (click)="deleteWebhook.emit({ webhookID: webhookID, identityID: identityID })"
+        >
+            {{ t.buttons.delete }}
+        </button>
+    </div>
+</div>

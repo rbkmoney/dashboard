@@ -39,7 +39,8 @@
         "title": "Действия",
         "buttons": {
             "delete": "Удалить webhook"
-        }
+        },
+        "webhookDeleted": "Webhook спешно удален"
     },
     "key": {
         "title": "Публичный ключ",
@@ -47,5 +48,12 @@
         "buttons": {
             "copy": "Скопировать ключ"
         }
+    },
+    "errors": {
+        "deleteError": "Произошла ошибка при удалении"
+    },
+    "headerRow": {
+        "url": "URL",
+        "identity": "Владелец кошелька"
     }
 }

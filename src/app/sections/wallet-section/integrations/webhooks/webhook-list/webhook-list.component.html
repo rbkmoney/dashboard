@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-webhook-row-header></dsh-webhook-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let webhook of webhooks" #accordionItem>
+            <dsh-webhook-row [url]="webhook.url" [identityID]="webhook.identityID"></dsh-webhook-row>
+            <dsh-accordion-item-content>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'"
+                        (collapse)="accordionItem.collapse($event)"
+                        >{{ t.header }} #{{ webhook.id }}</dsh-accordion-item-content-header
+                    >
+                    <dsh-webhook-details
+                        [webhook]="webhook"
+                        (deleteWebhook)="deleteWebhook($event)"
+                    ></dsh-webhook-details>
+                </dsh-card>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>
