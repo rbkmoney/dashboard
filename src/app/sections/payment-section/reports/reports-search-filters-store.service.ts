@@ -4,10 +4,8 @@ import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 
+import { wrapValuesToArray } from '../../../../utils';
 import { SearchFiltersParams } from './reports-search-filters';
-
-const wrapValuesToArray = (params: {}): {} =>
-    Object.entries(params).reduce((acc, [k, v]) => ({ ...acc, [k]: [v] }), {});
 
 const reportTypesAndPrimitives = (v, k) => (typeof v === 'string' || typeof v === 'number') && k === 'reportTypes';
 

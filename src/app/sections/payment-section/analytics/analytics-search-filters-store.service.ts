@@ -4,10 +4,8 @@ import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 
+import { wrapValuesToArray } from '../../../../utils';
 import { SearchParams } from './search-params';
-
-const wrapValuesToArray = (params: {}): {} =>
-    Object.entries(params).reduce((acc, [k, v]) => ({ ...acc, [k]: [v] }), {});
 
 const shopTypeToArray = (v, k) => typeof v === 'string' && k === 'shopIDs';
 

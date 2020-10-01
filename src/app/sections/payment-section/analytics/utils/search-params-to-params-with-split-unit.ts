@@ -12,11 +12,11 @@ export const searchParamsToParamsWithSplitUnit = ({
 }: SearchParams): SearchParamsWithSplitUnit => ({
     fromTime,
     toTime,
-    splitUnit: periodToSplitUnit(fromTime, toTime),
+    splitUnit: calculateSplitUnit(fromTime, toTime),
     shopIDs,
 });
 
-const periodToSplitUnit = (fromTime: string, toTime: string): SplitUnit => {
+const calculateSplitUnit = (fromTime: string, toTime: string): SplitUnit => {
     const daysCount = Math.abs(moment(fromTime).diff(toTime, 'd'));
     if (daysCount > 90) {
         return SplitUnitEnum.Month;
@@ -24,5 +24,8 @@ const periodToSplitUnit = (fromTime: string, toTime: string): SplitUnit => {
     if (daysCount > 35) {
         return SplitUnitEnum.Week;
     }
-    return SplitUnitEnum.Day;
+    if (daysCount > 1) {
+        return SplitUnitEnum.Day;
+    }
+    return SplitUnitEnum.Hour;
 };

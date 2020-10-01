@@ -6,3 +6,4 @@ export * from './to-optional';
 export * from './smooth-change-to';
 export * from './to-minor';
 export * from './to-major';
+export * from './wrap-values-to-array';

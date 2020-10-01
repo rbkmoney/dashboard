@@ -17,7 +17,7 @@ const getPreviousParams = (currentFromTime: string, currentToTime: string, shopI
     const currFrom = moment(currentFromTime);
     const currTo = moment(currentToTime);
     const timeDiff = currTo.diff(currFrom);
-    const toTime = currFrom.clone().subtract(1, 'ms').utc().format();
-    const fromTime = currTo.clone().subtract(timeDiff).utc().format();
-    return { fromTime, toTime, shopIDs };
+    const toTime = currFrom.clone().subtract(1, 'ms');
+    const fromTime = toTime.clone().subtract(timeDiff, 'ms');
+    return { fromTime: fromTime.utc().format(), toTime: toTime.utc().format(), shopIDs };
 };
