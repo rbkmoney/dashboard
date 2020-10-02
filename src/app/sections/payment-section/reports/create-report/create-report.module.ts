@@ -15,6 +15,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { ReportsModule } from '../../../../api';
 import { CreateReportDialogComponent } from './create-report-dialog.component';
 import { CreateReportFormComponent } from './create-report-form';
+import { FormatTimeInputDirective } from './create-report-form/format-time-input.directive';
 import { CreateReportService } from './create-report.service';
 
 @NgModule({
@@ -32,7 +33,7 @@ import { CreateReportService } from './create-report.service';
         ReactiveFormsModule,
         MatInputModule,
     ],
-    declarations: [CreateReportDialogComponent, CreateReportFormComponent],
+    declarations: [CreateReportDialogComponent, CreateReportFormComponent, FormatTimeInputDirective],
     providers: [CreateReportService],
     entryComponents: [CreateReportDialogComponent],
 })

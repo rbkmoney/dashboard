@@ -7,12 +7,12 @@
             report.reportType | reportTypeName
         }}</dsh-details-item>
         <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.createdAt">{{
-            report.createdAt | date: 'dd MMMM yyyy, HH:mm'
+            report.createdAt | date: 'dd MMMM yyyy, HH:mm:ss'
         }}</dsh-details-item>
     </div>
     <dsh-details-item [title]="t.period"
-        >{{ report.fromTime | date: 'dd MMMM yyyy, HH:mm' }} -
-        {{ report.toTime | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item
+        >{{ report.fromTime | date: 'dd MMMM yyyy, HH:mm:ss' }} -
+        {{ report.toTime | date: 'dd MMMM yyyy, HH:mm:ss' }}</dsh-details-item
     >
     <dsh-details-item *ngIf="report?.shopID" [title]="t.shop">
         {{ report?.shopID | shopDetails }}
