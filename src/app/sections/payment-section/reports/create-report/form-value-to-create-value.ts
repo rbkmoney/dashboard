@@ -9,6 +9,6 @@ export const formValueToCreateValue = ({ fromDate, fromTime, toDate, toTime, sho
 });
 
 const getDateWithTime = (date: string, time: string): string =>
-    moment(`${moment(date).utc().format().substring(0, 10)}, ${time}`, 'YYYY-MM-DD, HH:mm:ss')
+    moment(`${moment(date).format('YYYY-MM-DD')}, ${time}`, 'YYYY-MM-DD, HH:mm:ss')
         .utc()
         .format();
