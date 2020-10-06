@@ -12,7 +12,7 @@ export class ShopBalanceService {
 
     balance$: Observable<AmountResult | null> = this.shopIDChange$.pipe(
         distinctUntilChanged(),
-        switchMap((shopID) => combineLatest([of(shopID), timer(0, 60000)])),
+        switchMap((shopID) => combineLatest([of(shopID), timer(0, 120000)])),
         switchMap(([shopID]) =>
             this.analyticsService.getCurrentBalances([shopID]).pipe(
                 catchError((ex) => {
