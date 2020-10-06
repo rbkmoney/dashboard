@@ -25,20 +25,25 @@ import { daterangeToSearchParams } from './daterange-to-search-params';
 import { getDefaultDaterange } from './get-default-daterange';
 
 @Component({
-    selector: 'dsh-search-filters',
-    templateUrl: 'search-filters.component.html',
+    selector: 'dsh-analytics-search-filters',
+    templateUrl: 'analytics-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchFiltersComponent implements OnInit, OnChanges {
+export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     private searchParams$: Subject<Partial<SearchParams>> = new ReplaySubject(1);
 
     @Input() initParams: SearchParams;
 
+    @Input() set envID(envID: string) {
+        this.envID$.next(envID);
+    }
+
     @Output()
     searchParamsChanges = new EventEmitter<SearchParams>();
 
-    shops$: Observable<Shop[]> = this.route.params.pipe(
-        pluck('envID'),
+    private envID$ = new ReplaySubject();
+
+    shops$: Observable<Shop[]> = this.envID$.pipe(
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -57,7 +62,7 @@ export class SearchFiltersComponent implements OnInit, OnChanges {
         shareReplay(1)
     );
 
-    constructor(private route: ActivatedRoute, private shopService: ShopService) {}
+    constructor(private shopService: ShopService) {}
 
     ngOnInit() {
         this.selectedShopIDs$.subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));

@@ -22,7 +22,7 @@ import { PaymentsErrorDistributionModule } from './payments-error-distribution';
 import { PaymentsToolDistributionModule } from './payments-tool-distribution';
 import { PercentDifferenceModule } from './percent-difference';
 import { RefundsAmountModule } from './refunds-amount';
-import { SearchFiltersModule } from './search-filters';
+import { AnalyticsSearchFiltersModule } from './analytics-search-filters';
 
 @NgModule({
     imports: [
@@ -49,7 +49,7 @@ import { SearchFiltersModule } from './search-filters';
         RefundsAmountModule,
         PaymentSplitAmountModule,
         PaymentsErrorDistributionModule,
-        SearchFiltersModule,
+        AnalyticsSearchFiltersModule,
     ],
     declarations: [AnalyticsComponent],
 })

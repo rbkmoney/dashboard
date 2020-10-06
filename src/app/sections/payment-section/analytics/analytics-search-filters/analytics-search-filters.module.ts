@@ -5,11 +5,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { FilterShopsModule } from '@dsh/app/shared/*';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
-import { SearchFiltersComponent } from './search-filters.component';
+import { AnalyticsSearchFiltersComponent } from './analytics-search-filters.component';
 
 @NgModule({
     imports: [CommonModule, DaterangeFilterModule, FilterShopsModule, FlexModule],
-    exports: [SearchFiltersComponent],
-    declarations: [SearchFiltersComponent],
+    exports: [AnalyticsSearchFiltersComponent],
+    declarations: [AnalyticsSearchFiltersComponent],
 })
-export class SearchFiltersModule {}
+export class AnalyticsSearchFiltersModule {}
