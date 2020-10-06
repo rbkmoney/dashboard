@@ -23,7 +23,12 @@ export class CreateWebhookService {
                 switchMap(() => this.identityService.identities$.pipe(shareReplay(1), take(1))),
                 switchMap((identities) =>
                     this.dialog
-                        .open(CreateWebhookDialogComponent, { width: '552px', disableClose: true, data: identities })
+                        .open(CreateWebhookDialogComponent, {
+                            width: '552px',
+                            disableClose: true,
+                            autoFocus: false,
+                            data: identities,
+                        })
                         .afterClosed()
                         .pipe(filter((r) => r === 'created'))
                 )
