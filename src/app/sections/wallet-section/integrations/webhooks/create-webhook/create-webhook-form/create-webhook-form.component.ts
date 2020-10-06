@@ -1,14 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import TopicEnum = WebhookScope.TopicEnum;
+import { BehaviorSubject } from 'rxjs';
+
+import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { Identity, Wallet, WebhookScope } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
-import TopicEnum = WebhookScope.TopicEnum;
+import { getEventsByTopic } from '../get-events-by-topic';
 
 @Component({
     selector: 'dsh-create-webhook-form',
     templateUrl: 'create-webhook-form.component.html',
 })
-export class CreateWebhookFormComponent {
+export class CreateWebhookFormComponent implements OnInit {
     @Input()
     form: FormGroup;
 
@@ -18,14 +22,35 @@ export class CreateWebhookFormComponent {
     @Input()
     wallets: Wallet[];
 
-    @Input()
-    activeTopic: TopicEnum;
+    activeTopic$ = new BehaviorSubject<TopicEnum>('WithdrawalsTopic');
 
-    @Output()
-    activeTopicChange = new EventEmitter<TopicEnum>();
+    constructor(private fb: FormBuilder) {}
+
+    ngOnInit() {
+        this.activeTopic$.subscribe((activeTopic) => {
+            if (activeTopic === 'WithdrawalsTopic') {
+                this.form.addControl('walletID', this.fb.control(''));
+            } else {
+                this.form.removeControl('walletID');
+            }
+            this.form.removeControl('eventTypes');
+            this.form.addControl(
+                'eventTypes',
+                this.fb.array(
+                    getEventsByTopic(activeTopic).map((eventName) =>
+                        this.fb.group({
+                            eventName,
+                            selected: false,
+                        })
+                    ),
+                    [oneMustBeSelected]
+                )
+            );
+        });
+    }
 
     changeActiveTopic(topic: TopicEnum) {
-        this.activeTopicChange.emit(topic);
+        this.activeTopic$.next(topic);
     }
 
     get eventTypes() {

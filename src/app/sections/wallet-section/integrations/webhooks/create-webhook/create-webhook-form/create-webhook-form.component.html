@@ -9,7 +9,7 @@
             <mat-label>{{ t.createWebhook.identity }}</mat-label>
             <mat-select formControlName="identityID" required>
                 <mat-option *ngFor="let identity of identities" [value]="identity.id">
-                    {{ identity.name }}
+                    {{ identity.id }} {{ identity.name }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -19,16 +19,16 @@
         </mat-form-field>
     </div>
     <mat-divider></mat-divider>
-    <div class="mat-title">{{ t.createWebhook.eventType }}</div>
+    <div class="dsh-title">{{ t.createWebhook.eventType }}</div>
     <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="eventType" (change)="changeActiveTopic($event.value)">
-        <mat-radio-button fxFlex [checked]="activeTopic === 'WithdrawalsTopic'" value="WithdrawalsTopic">{{
+        <mat-radio-button fxFlex [checked]="(activeTopic$ | async) === 'WithdrawalsTopic'" value="WithdrawalsTopic">{{
             t.createWebhook.eventTypes.withdrawal
         }}</mat-radio-button>
-        <mat-radio-button fxFlex [checked]="activeTopic === 'DestinationsTopic'" value="DestinationsTopic">{{
+        <mat-radio-button fxFlex [checked]="(activeTopic$ | async) === 'DestinationsTopic'" value="DestinationsTopic">{{
             t.createWebhook.eventTypes.destination
         }}</mat-radio-button>
     </mat-radio-group>
-    <mat-form-field *ngIf="activeTopic === 'WithdrawalsTopic'" fxFlex>
+    <mat-form-field *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'" fxFlex>
         <mat-label>{{ t.createWebhook.wallet }}</mat-label>
         <mat-select formControlName="walletID">
             <mat-option *transloco="let c">
@@ -41,8 +41,8 @@
     </mat-form-field>
     <mat-divider></mat-divider>
     <div fxLayout="column" fxLayoutGap="8px">
-        <div class="mat-title">{{ t.createWebhook.events }}</div>
-        <div class="mat-caption">{{ t.createWebhook.types }}</div>
+        <div class="dsh-title">{{ t.createWebhook.events }}</div>
+        <div class="dsh-caption">{{ t.createWebhook.types }}</div>
     </div>
     <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">
         <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">

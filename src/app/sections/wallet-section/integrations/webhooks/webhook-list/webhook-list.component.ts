@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { Webhook } from '../../../../../api-codegen/wallet-api/swagger-codegen';
-import { WalletWebhooksService } from '../../../../../api/wallet-webhooks';
 import { DeleteWebhookService } from '../delete-webhook';
 import { DeleteWebhookParams } from '../webhook-details/webhook-actions';
 
@@ -17,17 +16,13 @@ export class WebhookListComponent implements OnInit, OnDestroy {
     @Input() lastUpdated: string;
     @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
     @Output() refreshData: EventEmitter<void> = new EventEmitter();
+    @Output() deleteWebhook: EventEmitter<DeleteWebhookParams> = new EventEmitter();
 
     constructor(
-        private walletWebhooksService: WalletWebhooksService,
         private deleteWebhookService: DeleteWebhookService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
-
-    deleteWebhook({ webhookID, identityID }: DeleteWebhookParams) {
-        this.walletWebhooksService.deleteWebhookByID(webhookID, identityID);
-    }
 
     ngOnInit() {
         this.deleteWebhookService.init();

@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 @Component({
     templateUrl: 'integrations.component.html',
@@ -12,10 +10,4 @@ export class IntegrationsComponent {
             path: 'webhooks',
         },
     ];
-
-    constructor(private router: Router) {
-        this.router.events
-            .pipe(filter((e: RouterEvent) => e.url && e.url.endsWith('integrations')))
-            .subscribe((e) => this.router.navigate([e.url, 'webhooks']));
-    }
 }

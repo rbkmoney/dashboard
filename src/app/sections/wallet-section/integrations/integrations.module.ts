@@ -10,7 +10,7 @@ import { IntegrationsRoutingModule } from './integrations-routing.module';
 import { IntegrationsComponent } from './integrations.component';
 
 @NgModule({
-    imports: [IntegrationsRoutingModule, CommonModule, FlexModule, LayoutModule, TranslocoModule, ScrollUpModule],
+    imports: [CommonModule, IntegrationsRoutingModule, FlexModule, LayoutModule, TranslocoModule, ScrollUpModule],
     declarations: [IntegrationsComponent],
 })
 export class IntegrationsModule {}

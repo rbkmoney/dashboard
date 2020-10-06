@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { DestinationsTopic, WithdrawalsTopic } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import {
+    DestinationsTopic,
+    WebhookScope,
+    WithdrawalsTopic,
+} from '../../../../../../api-codegen/wallet-api/swagger-codegen';
 
 @Component({
     selector: 'dsh-webhook-events',
@@ -10,5 +14,14 @@ import { DestinationsTopic, WithdrawalsTopic } from '../../../../../../api-codeg
 })
 export class WebhookEventsComponent {
     @Input()
-    events: WithdrawalsTopic.EventTypesEnum[] | DestinationsTopic.EventTypesEnum[];
+    scope: WebhookScope;
+
+    get events(): WithdrawalsTopic.EventTypesEnum[] | DestinationsTopic.EventTypesEnum[] {
+        switch (this.scope.topic) {
+            case 'WithdrawalsTopic':
+                return ((this.scope as any) as WithdrawalsTopic).eventTypes;
+            case 'DestinationsTopic':
+                return ((this.scope as any) as DestinationsTopic).eventTypes;
+        }
+    }
 }

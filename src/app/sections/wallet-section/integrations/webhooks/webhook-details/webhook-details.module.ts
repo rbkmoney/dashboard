@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { WebhookApiKeyModule } from '@dsh/app/shared/*';
 import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
@@ -14,7 +15,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { WebhookActionsComponent } from './webhook-actions';
 import { WebhookDetailsComponent } from './webhook-details.component';
 import { WebhookEventsComponent } from './webhook-events';
-import { WebhookKeyComponent } from './webhook-key';
 import { WebhookMainInfoComponent } from './webhook-main-info';
 
 @NgModule({
@@ -29,14 +29,9 @@ import { WebhookMainInfoComponent } from './webhook-main-info';
         IndicatorsModule,
         ApiModelRefsModule,
         ClipboardModule,
+        WebhookApiKeyModule,
     ],
-    declarations: [
-        WebhookDetailsComponent,
-        WebhookMainInfoComponent,
-        WebhookActionsComponent,
-        WebhookKeyComponent,
-        WebhookEventsComponent,
-    ],
+    declarations: [WebhookDetailsComponent, WebhookMainInfoComponent, WebhookActionsComponent, WebhookEventsComponent],
     exports: [WebhookDetailsComponent],
 })
 export class WebhookDetailsModule {}

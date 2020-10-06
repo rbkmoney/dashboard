@@ -1,36 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { filter } from 'rxjs/operators';
 
-import { WebhookScope } from '../../../../../api-codegen/wallet-api/swagger-codegen';
 import { CreateWebhookDialogService } from './create-webhook-dialog.service';
-import TopicEnum = WebhookScope.TopicEnum;
 
 @Component({
     templateUrl: 'create-webhook-dialog.component.html',
     styleUrls: ['create-webhook-dialog.component.scss'],
     providers: [CreateWebhookDialogService],
 })
-export class CreateWebhookDialogComponent {
+export class CreateWebhookDialogComponent implements OnInit {
     form = this.createWebhookDialogService.form;
-    withdrawalTypes = this.createWebhookDialogService.withdrawalTypes;
-    destinationTypes = this.createWebhookDialogService.destinationTypes;
-    activeTopic$ = this.createWebhookDialogService.activeTopic$;
     wallets$ = this.createWebhookDialogService.wallets$;
     identities$ = this.createWebhookDialogService.identities$;
     isLoading$ = this.createWebhookDialogService.isLoading$;
 
     constructor(
         private dialogRef: MatDialogRef<CreateWebhookDialogComponent>,
-        private createWebhookDialogService: CreateWebhookDialogService
+        private createWebhookDialogService: CreateWebhookDialogService,
+        private transloco: TranslocoService,
+        private snackBar: MatSnackBar
     ) {
         this.createWebhookDialogService.webhookCreated$.pipe(filter((r) => !!r)).subscribe((r) => {
             this.dialogRef.close(r);
         });
     }
 
-    changeActiveTopic(type: TopicEnum) {
-        this.createWebhookDialogService.changeActiveTopic(type);
+    ngOnInit() {
+        this.createWebhookDialogService.webhookCreated$.subscribe(() => this.dialogRef.close('created'));
+        this.createWebhookDialogService.errorOccurred$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('errors.createError', null, 'reports|scoped'), 'OK')
+        );
     }
 
     save() {

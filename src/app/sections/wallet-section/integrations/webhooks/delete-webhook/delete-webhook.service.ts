@@ -14,9 +14,9 @@ import { DeleteWebhookParams } from '../webhook-details/webhook-actions';
 export class DeleteWebhookService {
     private destroy$: Subject<void> = new Subject();
     private deleteWebhook$: Subject<DeleteWebhookParams> = new Subject();
-    private cancelled$: Subject<void> = new Subject();
+    private deleted$: Subject<void> = new Subject();
 
-    webhookDeleted$: Observable<void> = this.cancelled$.asObservable();
+    webhookDeleted$: Observable<void> = this.deleted$.asObservable();
 
     constructor(
         private dialog: MatDialog,
@@ -25,7 +25,7 @@ export class DeleteWebhookService {
         private snackBar: MatSnackBar
     ) {}
 
-    cancelReport(params: DeleteWebhookParams) {
+    deleteWebhook(params: DeleteWebhookParams) {
         this.deleteWebhook$.next(params);
     }
 
@@ -56,7 +56,7 @@ export class DeleteWebhookService {
                 ),
                 filter((result) => result !== 'error')
             )
-            .subscribe(() => this.cancelled$.next());
+            .subscribe(() => this.deleted$.next());
     }
 
     destroy() {

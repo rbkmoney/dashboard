@@ -6,7 +6,7 @@
         fxLayoutAlign="space-between center"
         fxLayoutGap="24px"
     >
-        <div class="mat-caption">
+        <div class="dsh-caption">
             {{ t.description }}
         </div>
         <div>
@@ -26,6 +26,7 @@
             (expandedIdChange)="expandedIdChange($event)"
             [lastUpdated]="lastUpdated$ | async"
             (refreshData)="receiveWebhooks()"
+            (deleteWebhook)="deleteWebhook($event)"
         ></dsh-webhooks-list>
         <dsh-empty-search-result
             *ngIf="(webhooks$ | async)?.length === 0"

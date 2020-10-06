@@ -12,6 +12,10 @@ const routes: Routes = [
                 path: 'webhooks',
                 loadChildren: () => import('./webhooks/webhooks.module').then((m) => m.WebhooksModule),
             },
+            {
+                path: '',
+                redirectTo: 'webhooks',
+            },
         ],
     },
 ];

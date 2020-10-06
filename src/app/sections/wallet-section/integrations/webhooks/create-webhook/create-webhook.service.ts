@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { filter, shareReplay, switchMap, take } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { filter, shareReplay, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { IdentityService } from '../../../../../api/identity';
-import { ReceiveWebhooksService } from '../receive-webhooks.service';
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
 
 @Injectable()
 export class CreateWebhookService {
     private createWebhook$ = new Subject<void>();
+    private created$: Subject<void> = new Subject();
+    private destroy$: Subject<void> = new Subject();
 
-    constructor(
-        private dialog: MatDialog,
-        private receiveWebhooksService: ReceiveWebhooksService,
-        private identityService: IdentityService
-    ) {
+    webhookCreated$: Observable<void> = this.created$.asObservable();
+
+    constructor(private dialog: MatDialog, private identityService: IdentityService) {}
+
+    init() {
         this.createWebhook$
             .pipe(
+                takeUntil(this.destroy$),
                 switchMap(() => this.identityService.identities$.pipe(shareReplay(1), take(1))),
                 switchMap((identities) =>
                     this.dialog
@@ -27,11 +29,15 @@ export class CreateWebhookService {
                 )
             )
             .subscribe(() => {
-                this.receiveWebhooksService.receiveWebhooks();
+                this.created$.next();
             });
     }
 
     createWebhook() {
         this.createWebhook$.next();
+    }
+
+    destroy() {
+        this.destroy$.next();
     }
 }

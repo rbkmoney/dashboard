@@ -1,8 +1,10 @@
 <div
     class="dsh-webhook-panel-events-section"
     *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks.events'"
+    fxLayout="column"
+    fxLayoutGap="24px"
 >
-    <div class="mat-title">{{ t.title }}</div>
+    <div class="dsh-title">{{ t.title }}</div>
     <ul fxLayout="column" fxLayoutGap="24px" class="dsh-webhooks-event-list">
         <li class="mat-body-1" *ngFor="let event of events">{{ t.types[event] }}</li>
     </ul>

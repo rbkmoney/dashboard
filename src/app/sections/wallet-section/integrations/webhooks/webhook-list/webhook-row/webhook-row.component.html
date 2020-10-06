@@ -1,8 +1,6 @@
 <dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
-    <dsh-row-label class="wrap-url" fxFlex="66" fxFlex.lt-md="66">
+    <dsh-row-label class="wrap-url" fxFlex="66" fxFlex.lt-md="100">
         {{ url }}
     </dsh-row-label>
-    <dsh-row-label fxFlex="34" fxFlex.lt-md="34">
-        {{ identityID }} {{ getIdentityName(identityID) | async }}
-    </dsh-row-label>
+    <dsh-row-label fxFlex="34" fxHide.lt-md> {{ identityID }} {{ getIdentityName(identityID) | async }} </dsh-row-label>
 </dsh-row>

@@ -5,17 +5,15 @@
     *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks.details'"
 >
     <dsh-details-item [title]="t.url">
-        <div class="mat-body-1">
+        <div class="dsh-body-1">
             {{ url }}
         </div>
     </dsh-details-item>
     <dsh-details-item [title]="t.identity">
-        <div class="mat-body-1">
-            {{ identityName }}
-        </div>
+        <div class="dsh-body-1">{{ identityID }} {{ identityName }}</div>
     </dsh-details-item>
     <dsh-details-item *ngIf="walletName" [title]="t.wallet">
-        <div class="mat-body-1">
+        <div class="dsh-body-1">
             {{ walletName }}
         </div>
     </dsh-details-item>

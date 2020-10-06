@@ -21,7 +21,7 @@ const walletSectionRoutes: Routes = [
                 loadChildren: () => import('./withdrawals').then((m) => m.WithdrawalsModule),
             },
             {
-                path: 'integrations',
+                path: 'wallet-integrations',
                 loadChildren: () => import('./integrations').then((m) => m.IntegrationsModule),
             },
             {
