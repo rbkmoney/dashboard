@@ -8,10 +8,9 @@ import {
     Output,
     SimpleChanges,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 

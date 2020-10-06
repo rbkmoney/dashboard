@@ -12,6 +12,7 @@ import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
 
 import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { AnalyticsRoutingModule } from './analytics-routing.module';
+import { AnalyticsSearchFiltersModule } from './analytics-search-filters';
 import { AnalyticsComponent } from './analytics.component';
 import { AveragePaymentModule } from './average-payment';
 import { PaymentSplitAmountModule } from './payment-split-amount';
@@ -22,7 +23,6 @@ import { PaymentsErrorDistributionModule } from './payments-error-distribution';
 import { PaymentsToolDistributionModule } from './payments-tool-distribution';
 import { PercentDifferenceModule } from './percent-difference';
 import { RefundsAmountModule } from './refunds-amount';
-import { AnalyticsSearchFiltersModule } from './analytics-search-filters';
 
 @NgModule({
     imports: [
