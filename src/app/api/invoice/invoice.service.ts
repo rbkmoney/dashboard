@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Replace } from '../../../type-utils';
+import { InvoicesService } from '../../api-codegen/capi/invoices.service';
 import { Invoice, InvoiceParams } from '../../api-codegen/capi/swagger-codegen';
 import { genXRequestID } from '../utils';
-import { InvoicesService } from './../../api-codegen/capi/invoices.service';
 
 @Injectable()
 export class InvoiceService {

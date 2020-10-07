@@ -36,6 +36,7 @@ export class CreateInvoiceService {
                 ['account', 'currency']
             ),
             product: value.product,
+            description: value.description,
             cart: value.cart.map(this.getCartItemValue.bind(this)),
             metadata: {},
         });
@@ -64,6 +65,7 @@ export class CreateInvoiceService {
             shopID: null,
             dueDate: null,
             product: '',
+            description: '',
             currency: '',
             cart: this.fb.array([this.fb.group(EMPTY_CART_ITEM)]),
         });
