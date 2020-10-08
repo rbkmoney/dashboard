@@ -23,7 +23,6 @@ import { FloatPanelModule } from './float-panel.module';
 })
 class SimpleFloatPanelComponent {
     @ViewChild('floatPanel') floatPanel: FloatPanelComponent;
-    pinned = true;
     expanded = true;
 }
 
