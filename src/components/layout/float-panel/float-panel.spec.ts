@@ -10,7 +10,7 @@ import { FloatPanelModule } from './float-panel.module';
 
 @Component({
     template: `
-        <dsh-float-panel [pinned]="pinned" [expanded]="expanded" #floatPanel>
+        <dsh-float-panel [expanded]="expanded" #floatPanel>
             Базовый фильтр
             <dsh-float-panel-actions>
                 <button>Сбросить</button>
@@ -44,32 +44,15 @@ describe('FloatPanelComponent', () => {
         return TestBed.createComponent<T>(component);
     }
 
-    describe('Pinned expand/collapse', () => {
-        it('should expanded', () => {
-            const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.detectChanges();
-            expect(fixture.debugElement.query(WRAPPER)).toBeDefined();
-        });
-
-        it('should collapsed', () => {
-            const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.componentInstance.expanded = false;
-            fixture.detectChanges();
-            expect(fixture.debugElement.query(WRAPPER)).toBeNull();
-        });
-    });
-
     describe('Float expand/collapse', () => {
         it('should expanded', () => {
             const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.componentInstance.pinned = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(WRAPPER)).toBeDefined();
         });
 
         it('should collapsed', () => {
             const fixture = createComponent(SimpleFloatPanelComponent);
-            fixture.componentInstance.pinned = false;
             fixture.componentInstance.expanded = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(WRAPPER)).toBeNull();

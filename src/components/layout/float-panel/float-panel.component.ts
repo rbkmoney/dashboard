@@ -20,11 +20,6 @@ export class FloatPanelComponent {
     @coerce((v) => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.expandedChange.emit(v))
     expanded = false;
 
-    @Output() pinnedChange = new EventEmitter<boolean>();
-    @Input()
-    @coerce((v) => coerceBooleanProperty(v), (v: boolean, self: FloatPanelComponent) => self.pinnedChange.emit(v))
-    pinned = false;
-
     @Input() layoutGap = '20px';
 
     @ContentChild(FloatPanelMoreTemplateComponent) floatPanelMore: FloatPanelMoreTemplateComponent;
@@ -43,10 +38,6 @@ export class FloatPanelComponent {
 
     expandToggle() {
         this.expanded = !this.expanded;
-    }
-
-    pinToggle() {
-        this.pinned = !this.pinned;
     }
 
     setBaseContentHeight(height: number) {
