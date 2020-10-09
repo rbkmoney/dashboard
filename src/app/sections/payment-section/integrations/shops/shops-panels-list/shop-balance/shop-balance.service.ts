@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of, Subject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, pluck, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../../../api';
@@ -12,8 +12,7 @@ export class ShopBalanceService {
 
     balance$: Observable<AmountResult | null> = this.shopIDChange$.pipe(
         distinctUntilChanged(),
-        switchMap((shopID) => combineLatest([of(shopID), timer(0, 120000)])),
-        switchMap(([shopID]) =>
+        switchMap((shopID) =>
             this.analyticsService.getCurrentBalances([shopID]).pipe(
                 catchError((ex) => {
                     console.error(ex);
