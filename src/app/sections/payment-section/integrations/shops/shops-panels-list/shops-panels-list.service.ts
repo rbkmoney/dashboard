@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, merge, ReplaySubject, Subject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, take } from 'rxjs/operators';
 
+import { getOffsetBySelectedPanelPosition } from '../../../../../../utils';
 import { Shop } from '../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
 
 const SHOPS_LIMIT = 5;
 

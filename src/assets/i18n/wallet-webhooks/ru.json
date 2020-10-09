@@ -1,0 +1,60 @@
+{
+    "webhook": "Webhook",
+    "description": "Webhook — это инструмент для получения асинхронных оповещений при наступлении одного или группы интересующих вас событий. Например: выплата успешно совершена.",
+    "emptyResult": "Webhook’и отсутствуют",
+    "create": "Установить webhook",
+    "createWebhook": {
+        "title": "Установить новый webhook",
+        "identity": "Владелец кошелька",
+        "url": "URL, на который будут поступать оповещения о произошедших событиях",
+        "eventType": "Предмет оповещений",
+        "eventTypes": {
+            "withdrawal": "События выплаты",
+            "destination": "События приемника средств"
+        },
+        "wallet": "Кошелек (не обязательно)",
+        "events": "События",
+        "types": "Набор типов событий, о которых следует оповещать",
+        "create": "Установить",
+        "successfullyCreated": "Webhook успешно создан"
+    },
+    "details": {
+        "active": "Активный",
+        "inactive": "Неактивный",
+        "url": "URL, на который будут поступать оповещения о произошедших событиях",
+        "identity": "Владелец кошелька",
+        "wallet": "Кошелек"
+    },
+    "events": {
+        "title": "Набор событий",
+        "types": {
+            "WithdrawalStarted": "WithdrawalStarted (Выплата создана)",
+            "WithdrawalSucceeded": "WithdrawalSucceeded (Выплата совершена успешно)",
+            "WithdrawalFailed": "WithdrawalFailed (Выплата завершилась неудачей)",
+            "DestinationCreated": "DestinationCreated (Приемник средств создан)",
+            "DestinationUnauthorized": "DestinationUnauthorized (Попытка авторизации приемника средств завершилась неудачей)",
+            "DestinationAuthorized": "DestinationAuthorized (Приемник средств успешно авторизован)"
+        }
+    },
+    "actions": {
+        "title": "Действия",
+        "buttons": {
+            "delete": "Удалить webhook"
+        },
+        "webhookDeleted": "Webhook спешно удален"
+    },
+    "key": {
+        "title": "Публичный ключ",
+        "publicKey": "Содержимое публичного ключа, служащего для проверки авторитативности приходящих на url оповещений",
+        "buttons": {
+            "copy": "Скопировать ключ"
+        }
+    },
+    "errors": {
+        "deleteError": "Произошла ошибка при удалении"
+    },
+    "headerRow": {
+        "url": "URL",
+        "identity": "Владелец кошелька"
+    }
+}

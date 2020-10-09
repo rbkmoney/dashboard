@@ -1,10 +1,10 @@
-<div class="dsh-webhook-panel-key-section" *transloco="let t; scope: 'webhook'; read: 'webhook.key'">
+<div *transloco="let t; scope: 'webhook'; read: 'webhook.key'">
     <div class="mat-title">{{ t.title }}</div>
     <div fxLayout="column" [fxLayoutGap]="layoutGap">
         <div class="mat-caption">
             {{ t.publicKey }}
         </div>
-        <div class="mat-body-1 pre-wrap">
+        <div class="dsh-body-1 wrap-key">
             {{ key }}
         </div>
         <div>

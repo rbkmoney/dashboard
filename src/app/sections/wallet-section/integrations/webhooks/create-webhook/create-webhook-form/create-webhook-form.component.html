@@ -1,0 +1,54 @@
+<form
+    *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'"
+    [formGroup]="form"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.createWebhook.identity }}</mat-label>
+            <mat-select formControlName="identityID" required>
+                <mat-option *ngFor="let identity of identities$ | async" [value]="identity.id">
+                    {{ identity.id }} {{ identity.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-label>{{ t.createWebhook.url }}</mat-label>
+            <input formControlName="url" matInput type="text" autocomplete="off" required />
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="dsh-title">{{ t.createWebhook.eventType }}</div>
+    <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="eventType" (change)="changeActiveTopic($event.value)">
+        <mat-radio-button fxFlex [checked]="(activeTopic$ | async) === 'WithdrawalsTopic'" value="WithdrawalsTopic">{{
+            t.createWebhook.eventTypes.withdrawal
+        }}</mat-radio-button>
+        <mat-radio-button fxFlex [checked]="(activeTopic$ | async) === 'DestinationsTopic'" value="DestinationsTopic">{{
+            t.createWebhook.eventTypes.destination
+        }}</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'" fxFlex>
+        <mat-label>{{ t.createWebhook.wallet }}</mat-label>
+        <mat-select formControlName="walletID">
+            <mat-option *transloco="let c">
+                {{ c.any }}
+            </mat-option>
+            <mat-option *ngFor="let wallet of wallets$ | async" [value]="wallet.id">
+                {{ wallet.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <div fxLayout="column" fxLayoutGap="8px">
+        <div class="dsh-title">{{ t.createWebhook.events }}</div>
+        <div class="dsh-caption">{{ t.createWebhook.types }}</div>
+    </div>
+    <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">
+        <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
+            <mat-checkbox formControlName="selected" class="dsh-body-1">{{
+                t.events.types[eventType.controls.eventName.value]
+            }}</mat-checkbox>
+        </div>
+    </div>
+</form>

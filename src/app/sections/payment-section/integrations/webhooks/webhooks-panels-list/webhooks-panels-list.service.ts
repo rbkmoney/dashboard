@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, concat, Subject } from 'rxjs';
 import { first, map, mapTo, pluck, scan, shareReplay } from 'rxjs/operators';
 
+import { getOffsetBySelectedPanelPosition } from '../../../../../../utils';
 import { ShopService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { mapToShopInfo } from '../../../operations/operators';
-import { getOffsetBySelectedPanelPosition } from '../../get-offset-by-selected-panel-position';
 import { ReceiveWebhooksService } from '../receive-webhooks.service';
 
 const WEBHOOKS_LIMIT = 10;

@@ -24,6 +24,10 @@ const routes: Routes = [
                 path: 'api-key',
                 loadChildren: () => import('./api-key').then((m) => m.ApiKeyModule),
             },
+            {
+                path: '',
+                redirectTo: 'shops',
+            },
         ],
     },
 ];

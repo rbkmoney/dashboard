@@ -1,5 +1,5 @@
 <ng-template>
-    <div class="dsh-expand-panel-more" fxLayout="column" fxLayoutGap="20px">
+    <div class="dsh-expand-panel-more" fxLayout="column" [fxLayoutGap]="fxLayoutGap">
         <ng-container *ngTemplateOutlet="expandPanelMoreHeader?.templateRef"></ng-container>
         <ng-content></ng-content>
     </div>

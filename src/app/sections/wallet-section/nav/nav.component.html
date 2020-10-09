@@ -23,4 +23,12 @@
         icon="output"
         >{{ t.withdrawals }}</dsh-navbar-item
     >
+    <dsh-navbar-item
+        routerLink="./integrations"
+        routerLinkActive
+        #integrations="routerLinkActive"
+        [active]="integrations.isActive"
+        icon="build"
+        >{{ t.integrations }}</dsh-navbar-item
+    >
 </dsh-navbar>

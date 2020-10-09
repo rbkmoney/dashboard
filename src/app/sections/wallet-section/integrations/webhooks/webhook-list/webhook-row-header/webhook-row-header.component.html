@@ -1,0 +1,10 @@
+<dsh-row
+    *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks.headerRow'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex="66" fxFlex.lt-md="100">{{ t.url }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="34" fxHide.lt-md>{{ t.identity }}</dsh-row-header-label>
+</dsh-row>
