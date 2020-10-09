@@ -3,9 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { CreateWebhookService } from './create-webhook';
-import { DeleteWebhookService } from './delete-webhook';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
-import { DeleteWebhookParams } from './webhook-details/webhook-actions';
 import { WebhooksExpandedIdManager } from './webhooks-expanded-id-manager.service';
 
 @Component({
@@ -21,7 +19,6 @@ export class WebhooksComponent implements OnInit, OnDestroy {
     constructor(
         private receiveWebhooksService: ReceiveWebhooksService,
         private createWebhookService: CreateWebhookService,
-        private deleteWebhookService: DeleteWebhookService,
         private webhooksExpandedIdManager: WebhooksExpandedIdManager,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
@@ -50,10 +47,6 @@ export class WebhooksComponent implements OnInit, OnDestroy {
 
     receiveWebhooks() {
         this.receiveWebhooksService.receiveWebhooks();
-    }
-
-    deleteWebhook(params: DeleteWebhookParams) {
-        this.deleteWebhookService.deleteWebhook(params);
     }
 
     expandedIdChange(id: number) {

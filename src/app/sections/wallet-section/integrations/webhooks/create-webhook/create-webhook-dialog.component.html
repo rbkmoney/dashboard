@@ -1,11 +1,7 @@
 <div fxLayout="column" fxLayoutGap="32px" *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'">
     <div class="dsh-headline">{{ t.createWebhook.title }}</div>
     <mat-dialog-content>
-        <dsh-create-webhook-form
-            [form]="form"
-            [identities]="identities$ | async"
-            [wallets]="wallets$ | async"
-        ></dsh-create-webhook-form>
+        <dsh-create-webhook-form [form]="form"></dsh-create-webhook-form>
     </mat-dialog-content>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center" *transloco="let c">
         <button fxFlex="126px" dsh-stroked-button color="warn" (click)="cancel()">{{ c.cancel }}</button>

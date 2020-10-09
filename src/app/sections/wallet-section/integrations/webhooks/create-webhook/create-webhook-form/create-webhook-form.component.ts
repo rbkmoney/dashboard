@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import TopicEnum = WebhookScope.TopicEnum;
 import { BehaviorSubject } from 'rxjs';
 
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { Identity, Wallet, WebhookScope } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import { WebhookScope } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
+import { IdentityService } from '../../../../../../api/identity';
+import { WalletService } from '../../../../../../api/wallet';
 import { getEventsByTopic } from '../get-events-by-topic';
+import TopicEnum = WebhookScope.TopicEnum;
 
 @Component({
     selector: 'dsh-create-webhook-form',
@@ -16,15 +18,17 @@ export class CreateWebhookFormComponent implements OnInit {
     @Input()
     form: FormGroup;
 
-    @Input()
-    identities: Identity[];
+    wallets$ = this.walletService.wallets$;
 
-    @Input()
-    wallets: Wallet[];
+    identities$ = this.identityService.identities$;
 
     activeTopic$ = new BehaviorSubject<TopicEnum>('WithdrawalsTopic');
 
-    constructor(private fb: FormBuilder) {}
+    constructor(
+        private walletService: WalletService,
+        private identityService: IdentityService,
+        private fb: FormBuilder
+    ) {}
 
     ngOnInit() {
         this.activeTopic$.subscribe((activeTopic) => {

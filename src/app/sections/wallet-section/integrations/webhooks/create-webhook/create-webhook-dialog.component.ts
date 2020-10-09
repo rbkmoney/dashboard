@@ -13,8 +13,6 @@ import { CreateWebhookDialogService } from './create-webhook-dialog.service';
 })
 export class CreateWebhookDialogComponent implements OnInit {
     form = this.createWebhookDialogService.form;
-    wallets$ = this.createWebhookDialogService.wallets$;
-    identities$ = this.createWebhookDialogService.identities$;
     isLoading$ = this.createWebhookDialogService.isLoading$;
 
     constructor(

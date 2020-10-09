@@ -26,7 +26,6 @@
             (expandedIdChange)="expandedIdChange($event)"
             [lastUpdated]="lastUpdated$ | async"
             (refreshData)="receiveWebhooks()"
-            (deleteWebhook)="deleteWebhook($event)"
         ></dsh-webhooks-list>
         <dsh-empty-search-result
             *ngIf="(webhooks$ | async)?.length === 0"

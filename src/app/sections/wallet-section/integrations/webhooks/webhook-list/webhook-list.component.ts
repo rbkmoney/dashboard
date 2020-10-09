@@ -16,7 +16,6 @@ export class WebhookListComponent implements OnInit, OnDestroy {
     @Input() lastUpdated: string;
     @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
     @Output() refreshData: EventEmitter<void> = new EventEmitter();
-    @Output() deleteWebhook: EventEmitter<DeleteWebhookParams> = new EventEmitter();
 
     constructor(
         private deleteWebhookService: DeleteWebhookService,
@@ -38,5 +37,9 @@ export class WebhookListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.deleteWebhookService.destroy();
+    }
+
+    deleteWebhook(params: DeleteWebhookParams) {
+        this.deleteWebhookService.deleteWebhook(params);
     }
 }

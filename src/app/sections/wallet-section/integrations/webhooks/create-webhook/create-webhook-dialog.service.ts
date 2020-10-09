@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { IdentityService } from '../../../../../api/identity';
-import { WalletService } from '../../../../../api/wallet';
 import { WalletWebhooksService } from '../../../../../api/wallet-webhooks';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
@@ -19,22 +17,13 @@ export class CreateWebhookDialogService {
     private error$ = new Subject();
     private created$ = new Subject();
 
-    wallets$ = this.walletService.wallets$.pipe(shareReplay(1));
-
-    identities$ = this.identityService.identities$.pipe(shareReplay(1));
-
     form = this.initForm();
 
     isLoading$ = this.loading$.asObservable();
     errorOccurred$ = this.error$.asObservable();
     webhookCreated$ = this.created$.asObservable();
 
-    constructor(
-        private fb: FormBuilder,
-        private walletService: WalletService,
-        private identityService: IdentityService,
-        private walletWebhooksService: WalletWebhooksService
-    ) {
+    constructor(private fb: FormBuilder, private walletWebhooksService: WalletWebhooksService) {
         this.create$
             .pipe(
                 map(formValuesToWebhook),

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { filter, shareReplay, switchMap, take, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { IdentityService } from '../../../../../api/identity';
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
@@ -20,7 +20,7 @@ export class CreateWebhookService {
         this.createWebhook$
             .pipe(
                 takeUntil(this.destroy$),
-                switchMap(() => this.identityService.identities$.pipe(shareReplay(1), take(1))),
+                switchMap(() => this.identityService.identities$.pipe(take(1))),
                 switchMap((identities) =>
                     this.dialog
                         .open(CreateWebhookDialogComponent, {
