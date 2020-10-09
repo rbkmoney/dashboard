@@ -1,0 +1,11 @@
+<div fxLayout fxLayout.lt-md="column" fxLayoutGap="16px">
+    <dsh-daterange-filter
+        [selected]="daterange"
+        (selectedChange)="daterangeSelectionChange($event)"
+    ></dsh-daterange-filter>
+    <dsh-filter-shops
+        [shops]="shops$ | async"
+        [selected]="selectedShops$ | async"
+        (selectedChange)="shopSelectionChange($event)"
+    ></dsh-filter-shops>
+</div>
