@@ -48,7 +48,7 @@
                 <mat-divider></mat-divider>
                 <dsh-events [events]="webhook.scope.eventTypes"></dsh-events>
                 <mat-divider></mat-divider>
-                <dsh-key [key]="webhook.publicKey"></dsh-key>
+                <dsh-webhook-api-key [key]="webhook.publicKey"></dsh-webhook-api-key>
                 <mat-divider *ngIf="webhook.active"></mat-divider>
                 <dsh-actions [webhookID]="webhook.id" *ngIf="webhook.active"></dsh-actions>
             </div>

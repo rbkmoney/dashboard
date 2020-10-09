@@ -2,14 +2,14 @@ import { Component, Inject, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { LAYOUT_GAP } from '../../../../../constants';
+import { LAYOUT_GAP } from '../../../../sections/constants';
 
 @Component({
-    selector: 'dsh-key',
-    templateUrl: 'key.component.html',
-    styleUrls: ['key.component.scss'],
+    selector: 'dsh-webhook-api-key',
+    templateUrl: 'webhook-api-key.component.html',
+    styleUrls: ['webhook-api-key.component.scss'],
 })
-export class KeyComponent {
+export class WebhookApiKeyComponent {
     @Input()
     key: string;
 
