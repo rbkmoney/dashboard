@@ -7,14 +7,6 @@ $card-without-actions-padding: $card-padding - $actions-padding;
 
     &-card {
         padding: 0;
-
-        &-unpinned {
-            position: absolute;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            right: 0;
-        }
     }
 
     &-base {
