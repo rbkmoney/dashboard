@@ -15,6 +15,7 @@
             "last4": "Последние цифры номера карты",
             "payerFingerprint": "Fingerprint плательщика",
             "payerIP": "IP-адрес плательщика",
+            "customerID": "Идентификатор плательщика",
             "paymentStatus": "Статус платежа",
             "paymentFlow": "Тип проведения платежа",
             "bankCardTokenProvider": "Провайдер платежных токенов",
