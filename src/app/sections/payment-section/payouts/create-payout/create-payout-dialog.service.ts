@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, merge, of, Subject } from 'rxjs';
-import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, merge, of, Subject } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { PayoutsService, ShopService } from '../../../../api';
 import { toPayoutParams } from './to-payout-params';
@@ -38,7 +38,16 @@ export class CreatePayoutDialogService {
                     this.loading$.next(true);
                     this.created$.next(false);
                 }),
-                map(toPayoutParams),
+                switchMap((params) =>
+                    forkJoin([
+                        of(params),
+                        this.shopsService.shops$.pipe(
+                            take(1),
+                            map((shops) => shops.find(({ id }) => id === params.shopID)?.account?.currency)
+                        ),
+                    ])
+                ),
+                map(([params, currency]) => toPayoutParams(params, currency)),
                 switchMap((params) =>
                     this.payoutsService.createPayout(params).pipe(
                         catchError((e) => {
