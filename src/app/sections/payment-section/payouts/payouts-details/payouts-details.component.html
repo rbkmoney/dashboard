@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <dsh-payout-main-info [payout]="payout"></dsh-payout-main-info>
+    <mat-divider></mat-divider>
+    <ng-container *ngFor="let summary of payout.payoutSummary">
+        <dsh-payout-summary-info [summary]="summary"></dsh-payout-summary-info>
+        <mat-divider></mat-divider>
+    </ng-container>
+    <dsh-payout-actions [payout]="payout" (createPayoutReport)="createPayoutReport.emit($event)"></dsh-payout-actions>
+</div>

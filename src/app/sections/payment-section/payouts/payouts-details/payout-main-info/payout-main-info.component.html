@@ -1,0 +1,39 @@
+<div
+    fxLayout
+    fxLayoutGap="10px"
+    fxLayoutAlign.gt-sm=" center"
+    fxLayout.lt-md="column"
+    fxLayoutGap.lt-md="20px"
+    *transloco="let p; scope: 'payouts'; read: 'payouts.panel'"
+>
+    <div fxFlex>
+        <span class="mat-headline dsh-common-info-amount">
+            {{ payout?.amount | toMajor | currency: payout?.currency }}
+        </span>
+    </div>
+    <div fxFlex="66.66">
+        <dsh-details-item [title]="p.shop">
+            {{ shopName || payout?.shopID }}
+        </dsh-details-item>
+    </div>
+</div>
+<!--<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'reports'; read: 'reports.reportDetails'">-->
+<!--    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" fxLayoutGap="24px">-->
+<!--        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.status">-->
+<!--            <dsh-status [color]="report.status | reportStatusColor">{{ report.status | reportStatusName }}</dsh-status>-->
+<!--        </dsh-details-item>-->
+<!--        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.type">{{-->
+<!--            report.reportType | reportTypeName-->
+<!--        }}</dsh-details-item>-->
+<!--        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.createdAt">{{-->
+<!--            report.createdAt | date: 'dd MMMM yyyy, HH:mm:ss'-->
+<!--        }}</dsh-details-item>-->
+<!--    </div>-->
+<!--    <dsh-details-item [title]="t.period"-->
+<!--        >{{ report.fromTime | date: 'dd MMMM yyyy, HH:mm:ss' }} - -->
+<!--        {{ report.toTime | date: 'dd MMMM yyyy, HH:mm:ss' }}</dsh-details-item-->
+<!--    >-->
+<!--    <dsh-details-item *ngIf="report?.shopID" [title]="t.shop">-->
+<!--        {{ report?.shopID | shopDetails }}-->
+<!--    </dsh-details-item>-->
+<!--</div>-->

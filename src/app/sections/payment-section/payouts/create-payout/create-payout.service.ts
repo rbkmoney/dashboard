@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subject } from 'rxjs';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+
+import { CreatePayoutDialogComponent } from './create-payout-dialog.component';
+
+@Injectable()
+export class CreatePayoutService {
+    private destroy$: Subject<void> = new Subject();
+    private createPayout$: Subject<void> = new Subject();
+    private created$: Subject<void> = new Subject();
+
+    payoutCreated$: Observable<void> = this.created$.asObservable();
+
+    constructor(private dialog: MatDialog) {}
+
+    createPayout() {
+        this.createPayout$.next();
+    }
+
+    init(envID: string) {
+        this.createPayout$
+            .pipe(
+                takeUntil(this.destroy$),
+                switchMap(() =>
+                    this.dialog
+                        .open(CreatePayoutDialogComponent, {
+                            width: '552px',
+                            disableClose: true,
+                            data: {
+                                envID,
+                            },
+                        })
+                        .afterClosed()
+                        .pipe(filter((r) => r === 'created'))
+                )
+            )
+            .subscribe(() => this.created$.next());
+    }
+
+    destroy() {
+        this.destroy$.next();
+    }
+}

@@ -1,32 +1,31 @@
-<dsh-scroll-up></dsh-scroll-up>
-<div
-    class="dsh-payouts"
-    *transloco="let p; scope: 'payouts'; read: 'payouts.payouts'"
-    fxLayout="column"
-    fxLayoutGap="20px"
->
-    <h1 class="mat-display-1" *transloco="let title; scope: 'payouts'; read: 'payouts.title'">{{ title }}</h1>
-    <div fxLayout="row" fxLayoutGap="20px">
-        <div fxFlex class="mat-body-1">
-            {{ p.description }}
-        </div>
-        <div>
-            <button dsh-button color="accent" (click)="createPayout()">
-                {{ p.createPayout }}
-            </button>
-        </div>
+<div class="dsh-payouts" *transloco="let t; scope: 'payouts'; read: 'payouts'" fxLayout="column" fxLayoutGap="32px">
+    <h1 class="dsh-display-1">{{ t.title }}</h1>
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="16px">
+        <dsh-payouts-search-filters
+            [initParams]="initSearchParams$ | async"
+            (searchParamsChanges)="searchParamsChanges($event)"
+        ></dsh-payouts-search-filters>
+        <button dsh-button color="accent" (click)="createPayout()">
+            {{ t.payouts.createPayout }}
+        </button>
     </div>
-
-    <dsh-payouts-search-form></dsh-payouts-search-form>
-    <ng-container *ngIf="!(isInit$ | async)">
-        <dsh-payouts-panels-list></dsh-payouts-panels-list>
-        <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
-        </dsh-show-more-panel>
-        <div *ngIf="!(payouts$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-payouts-empty">
-            <ng-container *transloco="let t">
-                {{ t.emptySearchResult }}
-            </ng-container>
-        </div>
-    </ng-container>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-payouts-list
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            [payouts]="payouts$ | async"
+            [lastUpdated]="lastUpdated$ | async"
+            (refreshData)="refresh()"
+        ></dsh-payouts-list>
+        <dsh-show-more-panel
+            *ngIf="hasMore$ | async"
+            [isLoading]="isLoading$ | async"
+            (showMore)="fetchMore()"
+        ></dsh-show-more-panel>
+    </div>
+    <dsh-empty-search-result
+        *ngIf="!(fetchErrors$ | async) && (payouts$ | async)?.length === 0"
+    ></dsh-empty-search-result>
     <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>
+<dsh-scroll-up></dsh-scroll-up>
