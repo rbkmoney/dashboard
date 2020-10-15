@@ -10,6 +10,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormatInputModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
@@ -18,11 +19,11 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { PayoutsModule as ApiPayoutsModule, SearchModule } from '../../../api';
 import { ShopSelectorModule } from '../../shop-selector';
-import { CreatePayoutDialogComponent } from './create-payout-dialog';
-import { PayoutPanelModule } from './payouts-panels-list';
+import { CreatePayoutModule } from './create-payout';
+import { PayoutsListModule } from './payouts-list';
 import { PayoutsRoutingModule } from './payouts-routing.module';
+import { PayoutsSearchFiltersModule } from './payouts-search-filters';
 import { PayoutsComponent } from './payouts.component';
-import { SearchFormComponent } from './search-form';
 
 @NgModule({
     imports: [
@@ -34,7 +35,6 @@ import { SearchFormComponent } from './search-form';
         ReactiveFormsModule,
         FormsModule,
         LayoutModule,
-        PayoutPanelModule,
         MatFormFieldModule,
         MatOptionModule,
         CommonModule,
@@ -49,9 +49,12 @@ import { SearchFormComponent } from './search-form';
         ApiPayoutsModule,
         FormatInputModule,
         ApiModelTypesModule,
+        PayoutsSearchFiltersModule,
+        PayoutsListModule,
+        EmptySearchResultModule,
+        CreatePayoutModule,
     ],
-    declarations: [PayoutsComponent, SearchFormComponent, CreatePayoutDialogComponent],
+    declarations: [PayoutsComponent],
     exports: [PayoutsComponent],
-    entryComponents: [CreatePayoutDialogComponent],
 })
 export class PayoutsModule {}

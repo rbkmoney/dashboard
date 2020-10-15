@@ -6,27 +6,27 @@ import { pluck, take } from 'rxjs/operators';
 
 import { CreateReportService } from './create-report';
 import { FetchReportsService } from './fetch-reports.service';
-import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
+import { ReportsExpandedIdManager } from './reports-expanded-id-manager.service';
 import { SearchFiltersParams } from './reports-search-filters';
 import { ReportsSearchFiltersStore } from './reports-search-filters-store.service';
 
 @Component({
     templateUrl: 'reports.component.html',
     styleUrls: ['reports.component.scss'],
-    providers: [FetchReportsService, ReportsSearchFiltersStore, PayoutsExpandedIdManager],
+    providers: [FetchReportsService, ReportsSearchFiltersStore, ReportsExpandedIdManager],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsComponent implements OnInit, OnDestroy {
     reports$ = this.fetchReportsService.searchResult$;
     isLoading$ = this.fetchReportsService.isLoading$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
-    expandedId$ = this.payoutsExpandedIdManager.expandedId$;
+    expandedId$ = this.reportsExpandedIdManager.expandedId$;
     initSearchParams$ = this.reportsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchReportsService.errors$;
 
     constructor(
         private fetchReportsService: FetchReportsService,
-        private payoutsExpandedIdManager: PayoutsExpandedIdManager,
+        private reportsExpandedIdManager: ReportsExpandedIdManager,
         private reportsSearchFiltersStore: ReportsSearchFiltersStore,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
@@ -59,7 +59,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     }
 
     expandedIdChange(id: number) {
-        this.payoutsExpandedIdManager.expandedIdChange(id);
+        this.reportsExpandedIdManager.expandedIdChange(id);
     }
 
     refresh() {

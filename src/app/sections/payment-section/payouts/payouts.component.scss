@@ -1,12 +1,8 @@
 .dsh-payouts {
-    max-width: 720px;
+    max-width: 936px;
     margin: auto;
+}
 
-    &-empty {
-        padding-top: 30px;
-        text-align: center;
-    }
-    &-show-more {
-        padding: 10px 20px;
-    }
+::ng-deep .dsh-show-more-panel {
+    padding: 6px 0 !important;
 }

@@ -1,0 +1,14 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <dsh-row-label fxFlex="25" fxFlex.lt-md="33">
+        {{ payout.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+    </dsh-row-label>
+    <dsh-row-label fxFlex="25" fxFlex.lt-md="33">
+        {{ payout.amount | toMajor | currency: payout.currency }}
+    </dsh-row-label>
+    <dsh-row-label fxFlex="25" fxFlex.lt-md="33">{{
+        payout?.payoutToolDetails?.detailsType | payoutToolDetailsType
+    }}</dsh-row-label>
+    <dsh-row-label fxFlex="25" fxHide.lt-md>
+        {{ payout.shopID | shopDetails }}
+    </dsh-row-label>
+</dsh-row>
