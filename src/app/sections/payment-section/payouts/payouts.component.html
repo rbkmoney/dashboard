@@ -3,6 +3,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="16px">
         <dsh-payouts-search-filters
             [initParams]="initSearchParams$ | async"
+            [envID]="envID$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-payouts-search-filters>
         <button dsh-button color="accent" (click)="createPayout()">

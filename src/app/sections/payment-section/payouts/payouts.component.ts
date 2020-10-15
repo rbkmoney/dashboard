@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { pluck, take } from 'rxjs/operators';
+import { pluck, shareReplay, take } from 'rxjs/operators';
 
 import { SearchFiltersParams } from '../reports/reports-search-filters';
 import { CreatePayoutService } from './create-payout';
@@ -26,6 +26,8 @@ export class PayoutsComponent implements OnInit, OnDestroy {
     initSearchParams$ = this.payoutsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchPayoutsService.errors$;
 
+    envID$ = this.route.params.pipe(pluck('envID'), shareReplay(1));
+
     constructor(
         private fetchPayoutsService: FetchPayoutsService,
         private createPayoutService: CreatePayoutService,
@@ -37,7 +39,7 @@ export class PayoutsComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.route.params.pipe(pluck('envID')).subscribe((envID) => this.createPayoutService.init(envID));
+        this.envID$.subscribe((envID) => this.createPayoutService.init(envID));
         this.createPayoutService.payoutCreated$.subscribe(() => {
             this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts|scoped'), 'OK', {
                 duration: 2000,
