@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-payout-row-header></dsh-payout-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let payout of payouts" #accordionItem>
+            <dsh-payout-row [payout]="payout"></dsh-payout-row>
+            <dsh-accordion-item-content>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'payouts'; read: 'payouts.panel'"
+                        (collapse)="accordionItem.collapse($event)"
+                        >{{ t.payoutID | translocoParams: { num: payout.id } }}</dsh-accordion-item-content-header
+                    >
+                    <dsh-payouts-details
+                        [payout]="payout"
+                        (createPayoutReport)="createPayoutReport($event)"
+                    ></dsh-payouts-details>
+                </dsh-card>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

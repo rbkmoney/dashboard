@@ -1,61 +1,78 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { filter, shareReplay } from 'rxjs/operators';
+import { pluck, shareReplay, take } from 'rxjs/operators';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { mapToTimestamp } from '../operations/operators';
-import { CreatePayoutDialogComponent } from './create-payout-dialog';
-import { PayoutsService } from './payouts.service';
+import { SearchFiltersParams } from '../reports/reports-search-filters';
+import { CreatePayoutService } from './create-payout';
+import { FetchPayoutsService } from './fetch-payouts.service';
+import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
+import { PayoutsSearchFiltersStore } from './payouts-search-filters-store.service';
 
 @Component({
     selector: 'dsh-payouts',
     templateUrl: 'payouts.component.html',
     styleUrls: ['payouts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [PayoutsService],
+    providers: [FetchPayoutsService, PayoutsSearchFiltersStore, PayoutsExpandedIdManager],
 })
-export class PayoutsComponent {
-    payouts$ = this.payoutsService.searchResult$;
-    doAction$ = this.payoutsService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
-    isInit$ = this.payoutsService.isInit$;
-    hasMore$ = this.payoutsService.hasMore$;
-    lastUpdated$ = this.payoutsService.searchResult$.pipe(mapToTimestamp, shareReplay(SHARE_REPLAY_CONF));
+export class PayoutsComponent implements OnInit, OnDestroy {
+    payouts$ = this.fetchPayoutsService.searchResult$;
+    isLoading$ = this.fetchPayoutsService.isLoading$;
+    hasMore$ = this.fetchPayoutsService.hasMore$;
+    lastUpdated$ = this.fetchPayoutsService.lastUpdated$;
+    expandedId$ = this.payoutsExpandedIdManager.expandedId$;
+    initSearchParams$ = this.payoutsSearchFiltersStore.data$.pipe(take(1));
+    fetchErrors$ = this.fetchPayoutsService.errors$;
+
+    envID$ = this.route.params.pipe(pluck('envID'), shareReplay(1));
 
     constructor(
-        private payoutsService: PayoutsService,
-        private dialog: MatDialog,
+        private fetchPayoutsService: FetchPayoutsService,
+        private createPayoutService: CreatePayoutService,
+        private payoutsExpandedIdManager: PayoutsExpandedIdManager,
+        private payoutsSearchFiltersStore: PayoutsSearchFiltersStore,
+        private route: ActivatedRoute,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {}
 
-    createPayout() {
-        return this.dialog
-            .open(CreatePayoutDialogComponent, {
-                width: '560px',
-                disableClose: true,
-                data: {
-                    shopsInfo$: this.payoutsService.shopsInfo$,
-                },
-            })
-            .afterClosed()
-            .pipe(filter((r) => r === 'create'))
-            .subscribe(() => {
-                this.snackBar.open(
-                    this.transloco.translate('payouts.created', null, 'payouts|scoped'),
-                    this.transloco.translate('ok')
-                );
-                this.refresh();
+    ngOnInit() {
+        this.envID$.subscribe((envID) => this.createPayoutService.init(envID));
+        this.createPayoutService.payoutCreated$.subscribe(() => {
+            this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts|scoped'), 'OK', {
+                duration: 2000,
             });
+            this.refresh();
+        });
+        this.fetchPayoutsService.errors$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('httpError'), 'OK')
+        );
+    }
+
+    ngOnDestroy() {
+        this.createPayoutService.destroy();
+    }
+
+    createPayout() {
+        this.createPayoutService.createPayout();
+    }
+
+    searchParamsChanges(p: SearchFiltersParams) {
+        this.fetchPayoutsService.search(p);
+        this.payoutsSearchFiltersStore.preserve(p);
+    }
+
+    expandedIdChange(id: number) {
+        this.payoutsExpandedIdManager.expandedIdChange(id);
     }
 
     fetchMore() {
-        this.payoutsService.fetchMore();
+        this.fetchPayoutsService.fetchMore();
     }
 
     refresh() {
-        this.payoutsService.refresh();
+        this.fetchPayoutsService.refresh();
     }
 }
