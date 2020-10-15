@@ -52,7 +52,7 @@ export class CreateInvoiceTemplateComponent implements OnInit {
     }
 
     nextStep() {
-        this.invoiceTemplateFormService.create();
+        this.invoiceTemplateFormService.create(this.shops);
     }
 
     clear() {

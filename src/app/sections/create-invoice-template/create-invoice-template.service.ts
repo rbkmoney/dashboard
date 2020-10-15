@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import get from 'lodash.get';
 import * as moment from 'moment';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, share, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
@@ -22,6 +23,7 @@ import {
     InvoiceTemplateMultiLine,
     InvoiceTemplateSingleLine,
     LifetimeInterval,
+    Shop,
 } from '../../api-codegen/capi';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
@@ -95,8 +97,8 @@ export class CreateInvoiceTemplateService {
         ).subscribe();
     }
 
-    create() {
-        this.nextInvoiceTemplate$.next(this.getInvoiceTemplateCreateParams());
+    create(shops: Shop[]) {
+        this.nextInvoiceTemplate$.next(this.getInvoiceTemplateCreateParams(shops));
     }
 
     clear() {
@@ -169,7 +171,6 @@ export class CreateInvoiceTemplateService {
                 upperBound: null,
             }),
             amount: null,
-            currency: 'RUB',
         });
     }
 
@@ -182,12 +183,12 @@ export class CreateInvoiceTemplateService {
         });
     }
 
-    private getInvoiceTemplateCreateParams(): InvoiceTemplateCreateParams {
+    private getInvoiceTemplateCreateParams(shops: Shop[]): InvoiceTemplateCreateParams {
         const { value } = this.form;
         return {
             shopID: value.shopID,
             lifetime: this.getLifetimeInterval(),
-            details: this.getInvoiceTemplateDetails(),
+            details: this.getInvoiceTemplateDetails(shops),
         };
     }
 
@@ -202,17 +203,18 @@ export class CreateInvoiceTemplateService {
         };
     }
 
-    private getInvoiceTemplateDetails(): InvoiceTemplateDetails {
+    private getInvoiceTemplateDetails(shops: Shop[]): InvoiceTemplateDetails {
         const {
             value,
-            value: { cart, currency },
+            value: { cart, shopID },
         } = this.form;
+        const currency = this.getCurrencyByShopID(shopID, shops);
         switch (value.templateType) {
             case TemplateType.singleLine:
                 return {
                     templateType: value.templateType,
                     product: value.product,
-                    price: this.getInvoiceTemplateLineCost(),
+                    price: this.getInvoiceTemplateLineCost(shops),
                     ...this.getInvoiceLineTaxMode(value.taxMode),
                 } as InvoiceTemplateSingleLine;
             case TemplateType.multiLine:
@@ -229,8 +231,9 @@ export class CreateInvoiceTemplateService {
         }
     }
 
-    private getInvoiceTemplateLineCost(): InvoiceTemplateLineCost {
-        const { costType, amount, range, currency } = this.form.value;
+    private getInvoiceTemplateLineCost(shops: Shop[]): InvoiceTemplateLineCost {
+        const { costType, amount, range, shopID } = this.form.value;
+        const currency = this.getCurrencyByShopID(shopID, shops);
         switch (costType) {
             case CostType.unlim:
                 return { costType } as InvoiceTemplateLineCostUnlim;
@@ -261,5 +264,12 @@ export class CreateInvoiceTemplateService {
                       rate,
                   },
               };
+    }
+
+    private getCurrencyByShopID(shopID: string, shops: Shop[]): string {
+        return get(
+            shops.find((s) => s.id === shopID),
+            ['account', 'currency']
+        );
     }
 }
