@@ -7,6 +7,11 @@
     </ng-container>
     <div class="dsh-title">{{ payout?.payoutToolDetails?.detailsType | payoutToolDetailsType }}</div>
     <dsh-payout-tool-details [payoutToolDetails]="payout?.payoutToolDetails"></dsh-payout-tool-details>
-    <mat-divider></mat-divider>
-    <dsh-payout-actions [payout]="payout" (createPayoutReport)="createPayoutReport.emit($event)"></dsh-payout-actions>
+    <ng-container *ngIf="payout.payoutSummary.length">
+        <mat-divider></mat-divider>
+        <dsh-payout-actions
+            [payout]="payout"
+            (createPayoutReport)="createPayoutReport.emit($event)"
+        ></dsh-payout-actions>
+    </ng-container>
 </div>
