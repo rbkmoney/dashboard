@@ -6,9 +6,10 @@ import { FilterShopsModule } from '@dsh/app/shared/*';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { AnalyticsSearchFiltersComponent } from './analytics-search-filters.component';
+import { CurrencyFilterModule } from '../../../../shared/components/filters/currency-filter';
 
 @NgModule({
-    imports: [CommonModule, DaterangeFilterModule, FilterShopsModule, FlexModule],
+    imports: [CommonModule, DaterangeFilterModule, FilterShopsModule, FlexModule, CurrencyFilterModule],
     exports: [AnalyticsSearchFiltersComponent],
     declarations: [AnalyticsSearchFiltersComponent],
 })

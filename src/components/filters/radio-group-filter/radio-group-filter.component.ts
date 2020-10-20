@@ -16,34 +16,29 @@ import { map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } 
 
 import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
-import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
+import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 
 @Component({
-    selector: 'dsh-multiselect-filter',
-    templateUrl: 'multiselect-filter.component.html',
-    styleUrls: ['multiselect-filter.component.scss'],
+    selector: 'dsh-radio-group-filter',
+    templateUrl: 'radio-group-filter.component.html',
+    styleUrls: ['radio-group-filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
-    @Input() label: string;
-    @Input() searchInputLabel?: string;
-    @Input() searchPredicate?: (value: T, searchStr: string) => boolean;
+export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
+    @Input() filterLabel: string;
 
-    @Input() selected?: T[];
-    @Output() selectedChange = new EventEmitter<T[]>();
+    @Input() selected?: T;
+    @Output() selectedChange = new EventEmitter<T>();
 
-    @ContentChildren(MultiselectFilterOptionComponent) options: QueryList<MultiselectFilterOptionComponent<T>>;
-
-    searchControl = this.fb.control('');
+    @ContentChildren(RadioGroupFilterOptionComponent) options: QueryList<RadioGroupFilterOptionComponent<T>>;
 
     private save$ = new Subject<void>();
-    private clear$ = new Subject<void>();
     private selectFromInput$ = new ReplaySubject<T[]>(1);
 
-    private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
-    private selectedValues$ = new BehaviorSubject<T[]>([]);
+    private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
+    private selectedValues$ = new ReplaySubject<T>();
 
-    savedSelectedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
+    savedSelectedOptions$: Observable<RadioGroupFilterOptionComponent<T>[]> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
     ]).pipe(
@@ -52,7 +47,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
-    displayedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
+    displayedOptions$: Observable<RadioGroupFilterOptionComponent<T>[]> = combineLatest([
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     ]).pipe(
@@ -61,10 +56,9 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     );
 
     title$: Observable<string> = this.savedSelectedOptions$.pipe(
-        map((selectedOptions) => ({
-            selectedItemsLabels: selectedOptions.map(({ label }) => label),
-            label: this.label,
-            searchInputLabel: this.searchInputLabel,
+        map((selectedOption) => ({
+            filterTitle: this.filterLabel,
+            label: selectedOption[0].label,
         })),
         mapItemsToLabel,
         shareReplay(1)
@@ -105,18 +99,18 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         this.options.changes
             .pipe(
                 startWith(this.options),
-                map((o: MultiselectFilterComponent<T>['options']) => o.toArray())
+                map((o: RadioGroupFilterComponent<T>['options']) => o.toArray())
             )
             .subscribe((o) => this.options$.next(o));
     }
 
-    ngOnChanges({ selected }: ComponentChanges<MultiselectFilterComponent>) {
+    ngOnChanges({ selected }: ComponentChanges<RadioGroupFilterComponent>) {
         if (selected && selected.currentValue) {
             this.selectFromInput$.next(selected.currentValue);
         }
     }
 
-    private checkDisplayOption(option: MultiselectFilterOptionComponent, searchStr: string) {
+    private checkDisplayOption(option: RadioGroupFilterOptionComponent, searchStr: string) {
         if (option.selected) {
             return true;
         } else if (this.searchPredicate) {
@@ -147,8 +141,4 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         this.save$.next();
     }
 
-    clear() {
-        this.searchControl.patchValue('');
-        this.clear$.next();
-    }
 }

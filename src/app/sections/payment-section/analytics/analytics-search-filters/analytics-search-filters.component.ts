@@ -97,4 +97,8 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
         const shopIDs = shops.map((shop) => shop.id);
         this.selectedShopIDs$.next(shopIDs);
     }
+
+    currencySelectionChange(currency: string) {
+        console.log(currency);
+    }
 }
