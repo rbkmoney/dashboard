@@ -29,6 +29,19 @@
             <dsh-details-item [title]="t?.product">
                 {{ invoice?.product }}
             </dsh-details-item>
+            <div
+                fxLayout="row"
+                fxLayout.xs="column"
+                fxLayoutGap="0"
+                [fxLayoutGap.xs]="layoutGap"
+                *ngIf="invoice.description"
+            >
+                <dsh-details-item [title]="t.description" fxFlex="100">
+                    <div class="mat-body-1">
+                        {{ invoice.description }}
+                    </div>
+                </dsh-details-item>
+            </div>
         </dsh-card-content>
     </ng-container>
 </dsh-card>
