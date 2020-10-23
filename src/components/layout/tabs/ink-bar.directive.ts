@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Inject, InjectionToken, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Inject, InjectionToken, NgZone } from '@angular/core';
 
 export type _DshInkBarPositioner = (element: HTMLElement, options?: StyleOptions) => { left: string; width: string };
 
