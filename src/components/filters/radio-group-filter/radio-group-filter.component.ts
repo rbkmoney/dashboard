@@ -24,7 +24,7 @@ import {
 } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
-import { mapItemsToLabel } from './map-items-to-label';
+import { mapItemToLabel } from './map-item-to-label';
 import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 
 @Component({
@@ -42,6 +42,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     @ContentChildren(RadioGroupFilterOptionComponent) options: QueryList<RadioGroupFilterOptionComponent<T>>;
 
     private save$ = new Subject<void>();
+    private clear$ = new Subject<void>();
     private selectFromInput$ = new ReplaySubject<T>(1);
 
     private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
@@ -62,7 +63,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
             label: this.label,
             formatSelectedLabel: this.formatSelectedLabel,
         })),
-        mapItemsToLabel,
+        mapItemToLabel,
         shareReplay(1)
     );
 
@@ -74,7 +75,9 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         combineLatest([this.selectedValue$, this.options$]).subscribe(([selectedValue, options]) =>
             options.forEach((o) => o.select(this.compareWith(selectedValue, o.value)))
         );
-        this.selectFromInput$.subscribe((selectedValue) => this.selectedValue$.next(selectedValue));
+        merge(this.selectFromInput$, this.clear$.pipe(mapTo(undefined))).subscribe((selectedValue) =>
+            this.selectedValue$.next(selectedValue)
+        );
         this.options$
             .pipe(switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))))
             .subscribe((selected) => this.selectedValue$.next(selected));
@@ -111,5 +114,9 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
 
     save() {
         this.save$.next();
+    }
+
+    clear() {
+        this.clear$.next();
     }
 }

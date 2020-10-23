@@ -1,11 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, ViewChild } from '@angular/core';
 import { MatRadioButton } from '@angular/material/radio';
 import { BehaviorSubject } from 'rxjs';
 

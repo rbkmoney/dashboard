@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export const mapItemsToLabel = (
+export const mapItemToLabel = (
     s: Observable<{
         selectedItemLabel: string;
         label: string;
