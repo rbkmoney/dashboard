@@ -5,13 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '../../buttons';
 import { FilterModule } from '../filter';
 import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 import { RadioGroupFilterComponent } from './radio-group-filter.component';
-import { MatRadioModule } from '@angular/material/radio';
 
 const EXPORTED_DECLARATIONS = [RadioGroupFilterComponent, RadioGroupFilterOptionComponent];
 
@@ -26,7 +26,7 @@ const EXPORTED_DECLARATIONS = [RadioGroupFilterComponent, RadioGroupFilterOption
         MatCheckboxModule,
         ReactiveFormsModule,
         FilterModule,
-        MatRadioModule
+        MatRadioModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
+import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
 import { CurrencyFilterComponent } from './currency-filter.component';
-import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
 const EXPORTED_DECLARATIONS = [CurrencyFilterComponent];
 

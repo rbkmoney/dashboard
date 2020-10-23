@@ -8,10 +8,10 @@ import {
     OnChanges,
     OnInit,
     Output,
-    QueryList
+    QueryList,
 } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { filter, map, mapTo, pluck, shareReplay, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
@@ -21,7 +21,7 @@ import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
     selector: 'dsh-radio-group-filter',
     templateUrl: 'radio-group-filter.component.html',
     styleUrls: ['radio-group-filter.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
     @Input() label: string;
@@ -39,7 +39,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
 
     savedSelectedOption$: Observable<RadioGroupFilterOptionComponent<T>> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValue$), pluck(1))),
-        this.options$
+        this.options$,
     ]).pipe(
         map(([selected]) => this.mapInputValueToOption(selected)),
         startWith(null),
@@ -50,7 +50,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         map((selectedOptions) => ({
             selectedItemLabel: selectedOptions?.label,
             label: this.label,
-            formatSelectedLabel: this.formatSelectedLabel
+            formatSelectedLabel: this.formatSelectedLabel,
         })),
         mapItemsToLabel,
         shareReplay(1)
@@ -64,19 +64,15 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         combineLatest([this.selectedValue$, this.options$]).subscribe(([selectedValues, options]) =>
             options.forEach((o) => o.select(this.compareWith(selectedValues, o.value)))
         );
-        this.selectFromInput$.subscribe((selectedValues) =>
-            this.selectedValue$.next(selectedValues)
-        );
+        this.selectFromInput$.subscribe((selectedValues) => this.selectedValue$.next(selectedValues));
         this.options$
-            .pipe(
-                switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value)))))
-            )
+            .pipe(switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))))
             .subscribe((selected) => this.selectedValue$.next(selected));
         this.save$
             .pipe(
                 withLatestFrom(this.selectedValue$),
                 pluck(1),
-                filter(v => !!v),
+                filter((v) => !!v),
                 map((selected) => this.mapInputValueToOption(selected)),
                 map((options) => options.value)
             )

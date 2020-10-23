@@ -9,5 +9,9 @@ export const mapItemsToLabel = (
     }>
 ): Observable<string> =>
     s.pipe(
-        map(({ selectedItemLabel, label, formatSelectedLabel }) => selectedItemLabel ? `${label} · ${formatSelectedLabel ? formatSelectedLabel(selectedItemLabel) : selectedItemLabel}` : label)
+        map(({ selectedItemLabel, label, formatSelectedLabel }) =>
+            selectedItemLabel
+                ? `${label} · ${formatSelectedLabel ? formatSelectedLabel(selectedItemLabel) : selectedItemLabel}`
+                : label
+        )
     );

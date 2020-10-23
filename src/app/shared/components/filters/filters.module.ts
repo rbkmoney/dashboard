@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { FilterShopsModule } from './filter-shops';
 import { CurrencyFilterModule } from './currency-filter';
+import { FilterShopsModule } from './filter-shops';
 
 const EXPORTED_MODULES = [FilterShopsModule, CurrencyFilterModule];
 
