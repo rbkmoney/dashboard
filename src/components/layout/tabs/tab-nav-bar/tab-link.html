@@ -1,0 +1,4 @@
+<div><ng-content></ng-content></div>
+<div *ngIf="badge" class="dsh-tab-link-badge" [ngClass]="{'dsh-tab-link-badge-long': badge?.toString()?.length > 1}">
+    {{badge}}
+</div>
