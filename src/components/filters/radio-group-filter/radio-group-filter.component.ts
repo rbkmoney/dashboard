@@ -13,7 +13,6 @@ import {
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,
-    filter,
     map,
     mapTo,
     pluck,
@@ -85,10 +84,9 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
             .pipe(
                 withLatestFrom(this.selectedValue$),
                 pluck(1),
-                filter((v) => !!v),
                 distinctUntilChanged(),
                 map((selected) => this.mapInputValueToOption(selected)),
-                pluck('value')
+                map((option) => option?.value)
             )
             .subscribe((selectedValue) => this.selectedChange.emit(selectedValue));
     }
