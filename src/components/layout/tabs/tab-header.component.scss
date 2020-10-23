@@ -16,9 +16,8 @@
 }
 
 @mixin tab-label {
-    min-width: 100px;
-    height: 40px;
-    padding: 0 24px;
+    height: 47px;
+    margin-right: 24px;
     cursor: pointer;
     box-sizing: border-box;
     text-align: center;
@@ -27,6 +26,10 @@
     align-items: center;
     white-space: nowrap;
     position: relative;
+
+    &:last-of-type {
+        margin-right: 0;
+    }
 }
 
 .dsh {
