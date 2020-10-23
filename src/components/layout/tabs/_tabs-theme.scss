@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 @import '../../../../node_modules/@angular/cdk/a11y';
 
 @mixin dsh-tabs-theme($theme) {
@@ -21,6 +22,10 @@
             border-color: map-get($foreground, divider);
         }
 
+        &-tab-link-badge {
+            background-color: mat-color($warn, 300);
+        }
+
         &-ink-bar {
             background-color: map-get($primary, 400);
         }
@@ -34,7 +39,21 @@
 @mixin dsh-tabs-typography($config) {
     .dsh {
         &-tab-label {
-            @include mat-typography-level-to-styles($config, subheading-2);
+            @include mat-typography-level-to-styles($config, body-1);
+        }
+
+        &-tab-link-badge {
+            @include mat-typography-level-to-styles($config, caption);
+        }
+
+        &-tab-links-main {
+            .dsh-tab-link {
+                @include mat-typography-level-to-styles($config, subheading-2);
+
+                &-badge {
+                    @include mat-typography-level-to-styles($config, body-2);
+                }
+            }
         }
     }
 }

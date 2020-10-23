@@ -12,7 +12,7 @@ import { DshTabGroupComponent } from './tab-group.component';
 import { DshTabHeaderComponent } from './tab-header.component';
 import { DshTabLabelWrapperDirective } from './tab-label-wrapper.directive';
 import { DshTabLabelDirective } from './tab-label.directive';
-import { TabLinkDirective, TabNavComponent } from './tab-nav-bar';
+import { TabLinkComponent, TabNavComponent } from './tab-nav-bar';
 import { DshTabComponent } from './tab.component';
 
 const EXPORTED_DECLARATIONS = [
@@ -21,7 +21,7 @@ const EXPORTED_DECLARATIONS = [
     DshTabHeaderComponent,
     DshTabBodyComponent,
     TabNavComponent,
-    TabLinkDirective,
+    TabLinkComponent,
 ];
 
 @NgModule({
