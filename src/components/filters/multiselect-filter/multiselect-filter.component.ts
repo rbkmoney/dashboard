@@ -20,7 +20,7 @@ import {
     shareReplay,
     startWith,
     switchMap,
-    withLatestFrom
+    withLatestFrom,
 } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';

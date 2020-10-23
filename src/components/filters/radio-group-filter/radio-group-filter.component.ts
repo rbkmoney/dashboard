@@ -20,7 +20,7 @@ import {
     shareReplay,
     startWith,
     switchMap,
-    withLatestFrom
+    withLatestFrom,
 } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
@@ -57,8 +57,8 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     );
 
     title$: Observable<string> = this.savedSelectedOption$.pipe(
-        map((selectedOptions) => ({
-            selectedItemLabel: selectedOptions?.label,
+        map((selectedOption) => ({
+            selectedItemLabel: selectedOption?.label,
             label: this.label,
             formatSelectedLabel: this.formatSelectedLabel,
         })),
@@ -71,10 +71,10 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
 
     ngOnInit() {
-        combineLatest([this.selectedValue$, this.options$]).subscribe(([selectedValues, options]) =>
-            options.forEach((o) => o.select(this.compareWith(selectedValues, o.value)))
+        combineLatest([this.selectedValue$, this.options$]).subscribe(([selectedValue, options]) =>
+            options.forEach((o) => o.select(this.compareWith(selectedValue, o.value)))
         );
-        this.selectFromInput$.subscribe((selectedValues) => this.selectedValue$.next(selectedValues));
+        this.selectFromInput$.subscribe((selectedValue) => this.selectedValue$.next(selectedValue));
         this.options$
             .pipe(switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))))
             .subscribe((selected) => this.selectedValue$.next(selected));
@@ -85,9 +85,9 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
                 filter((v) => !!v),
                 distinctUntilChanged(),
                 map((selected) => this.mapInputValueToOption(selected)),
-                map((options) => options.value),
+                pluck('value')
             )
-            .subscribe((selectedValues) => this.selectedChange.emit(selectedValues));
+            .subscribe((selectedValue) => this.selectedChange.emit(selectedValue));
     }
 
     ngAfterContentInit() {
@@ -105,8 +105,8 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         }
     }
 
-    private mapInputValueToOption(inputValues: T) {
-        return this.options.toArray().find((o) => this.compareWith(inputValues, o.value));
+    private mapInputValueToOption(inputValue: T) {
+        return this.options.toArray().find((o) => this.compareWith(inputValue, o.value));
     }
 
     save() {

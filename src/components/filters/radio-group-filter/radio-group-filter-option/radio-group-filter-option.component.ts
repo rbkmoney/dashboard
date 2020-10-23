@@ -3,7 +3,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    HostBinding,
     Input,
     ViewChild,
 } from '@angular/core';
@@ -20,8 +19,6 @@ export class RadioGroupFilterOptionComponent<T = any> {
 
     toggle = new EventEmitter<void>();
 
-    @HostBinding('style.display') styleDisplay = 'block';
-
     @ViewChild(MatRadioButton, { read: ElementRef }) private content: ElementRef;
 
     get label() {
@@ -33,12 +30,6 @@ export class RadioGroupFilterOptionComponent<T = any> {
     }
 
     selected$ = new BehaviorSubject(false);
-    displayed$ = new BehaviorSubject(true);
-
-    display(isDisplay: boolean) {
-        this.displayed$.next(isDisplay);
-        this.styleDisplay = isDisplay ? 'block' : 'none';
-    }
 
     select(isSelected: boolean) {
         this.selected$.next(isSelected);
