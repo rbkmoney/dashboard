@@ -11,7 +11,17 @@ import {
     QueryList,
 } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { filter, map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    filter,
+    map,
+    mapTo,
+    pluck,
+    shareReplay,
+    startWith,
+    switchMap,
+    withLatestFrom
+} from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
@@ -73,8 +83,9 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
                 withLatestFrom(this.selectedValue$),
                 pluck(1),
                 filter((v) => !!v),
+                distinctUntilChanged(),
                 map((selected) => this.mapInputValueToOption(selected)),
-                map((options) => options.value)
+                map((options) => options.value),
             )
             .subscribe((selectedValues) => this.selectedChange.emit(selectedValues));
     }

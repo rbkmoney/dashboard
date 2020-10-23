@@ -12,7 +12,16 @@ import {
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    map,
+    mapTo,
+    pluck,
+    shareReplay,
+    startWith,
+    switchMap,
+    withLatestFrom
+} from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
@@ -95,6 +104,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
             .pipe(
                 withLatestFrom(this.selectedValues$),
                 pluck(1),
+                distinctUntilChanged(),
                 map((selected) => this.mapInputValuesToOptions(selected)),
                 map((options) => options.map(({ value }) => value))
             )
