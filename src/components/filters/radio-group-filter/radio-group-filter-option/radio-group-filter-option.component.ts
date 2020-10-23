@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { BehaviorSubject } from 'rxjs';
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
     selector: 'dsh-radio-group-filter-option',
@@ -22,7 +23,7 @@ export class RadioGroupFilterOptionComponent<T = any> {
 
     @HostBinding('style.display') styleDisplay = 'block';
 
-    @ViewChild(MatCheckbox, { read: ElementRef }) private content: ElementRef;
+    @ViewChild(MatRadioButton, { read: ElementRef }) private content: ElementRef;
 
     get label() {
         return (this.content?.nativeElement?.textContent || '').trim();

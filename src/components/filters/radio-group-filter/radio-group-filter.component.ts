@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { map, mapTo, pluck, shareReplay, startWith, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mapTo, pluck, shareReplay, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
@@ -29,40 +29,32 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     @Input() searchInputLabel?: string;
     @Input() searchPredicate?: (value: T, searchStr: string) => boolean;
 
-    @Input() selected?: T[];
-    @Output() selectedChange = new EventEmitter<T[]>();
+    @Input() selected?: T;
+    @Output() selectedChange = new EventEmitter<T>();
 
     @ContentChildren(RadioGroupFilterOptionComponent) options: QueryList<RadioGroupFilterOptionComponent<T>>;
 
-    searchControl = this.fb.control('');
-
     private save$ = new Subject<void>();
     private clear$ = new Subject<void>();
-    private selectFromInput$ = new ReplaySubject<T[]>(1);
+    private selectFromInput$ = new ReplaySubject<T>(1);
 
     private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
-    private selectedValues$ = new BehaviorSubject<T[]>([]);
+    private selectedValues$ = new BehaviorSubject<T>(undefined);
 
-    savedSelectedOptions$: Observable<RadioGroupFilterOptionComponent<T>[]> = combineLatest([
+    savedSelectedOptions$: Observable<RadioGroupFilterOptionComponent<T>> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
     ]).pipe(
+        tap(c => console.log('SELECTED', c)),
         map(([selected]) => this.mapInputValuesToOptions(selected)),
-        startWith([]),
-        shareReplay(1)
-    );
-
-    displayedOptions$: Observable<RadioGroupFilterOptionComponent<T>[]> = combineLatest([
-        this.options$,
-        this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
-    ]).pipe(
-        map(([options, searchStr]) => options.filter((o) => this.checkDisplayOption(o, searchStr))),
+        // startWith(null),
         shareReplay(1)
     );
 
     title$: Observable<string> = this.savedSelectedOptions$.pipe(
+        tap(c => console.log('SDASDASD', c)),
         map((selectedOptions) => ({
-            selectedItemsLabels: selectedOptions.map(({ label }) => label),
+            selectedItemsLabels: selectedOptions.label,
             label: this.label,
             searchInputLabel: this.searchInputLabel,
         })),
@@ -75,28 +67,26 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        combineLatest([this.displayedOptions$, this.options$]).subscribe(([displayedOptions, options]) =>
-            options.forEach((o) => o.display(displayedOptions.includes(o)))
-        );
         combineLatest([this.selectedValues$, this.options$]).subscribe(([selectedValues, options]) =>
-            options.forEach((o) => o.select(this.includesValue(selectedValues, o.value)))
+            options.forEach((o) => o.select(this.compareWith(selectedValues, o.value)))
         );
-        merge(this.selectFromInput$, this.clear$.pipe(mapTo([]))).subscribe((selectedValues) =>
+        this.selectFromInput$.subscribe((selectedValues) =>
             this.selectedValues$.next(selectedValues)
         );
         this.options$
             .pipe(
                 switchMap((options) => merge(...options.map((option) => option.toggle.pipe(mapTo(option.value))))),
-                withLatestFrom(this.selectedValues$),
-                map(([o, selected]) => this.toggleValue(selected, o))
+                // withLatestFrom(this.selectedValues$),
+                // pluck(1)
             )
             .subscribe((selected) => this.selectedValues$.next(selected));
         this.save$
             .pipe(
                 withLatestFrom(this.selectedValues$),
                 pluck(1),
+                filter(v => !!v),
                 map((selected) => this.mapInputValuesToOptions(selected)),
-                map((options) => options.map(({ value }) => value))
+                map((options) => options.value)
             )
             .subscribe((selectedValues) => this.selectedChange.emit(selectedValues));
     }
@@ -116,39 +106,27 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         }
     }
 
-    private checkDisplayOption(option: RadioGroupFilterOptionComponent, searchStr: string) {
-        if (option.selected) {
-            return true;
-        } else if (this.searchPredicate) {
-            return this.searchPredicate(option.value, searchStr);
-        }
-        return option.label.toLowerCase().trim().includes(searchStr.toLowerCase().trim());
-    }
+    // private includesValue(values: T, value: T) {
+    //     return values.findIndex((s) => this.compareWith(s, value)) !== -1;
+    // }
+    //
+    // private toggleValue(values: T, value: T) {
+    //     const idx = values.findIndex((s) => this.compareWith(s, value));
+    //     const newSelected = values.slice();
+    //     idx === -1 ? newSelected.push(value) : newSelected.splice(idx, 1);
+    //     return newSelected;
+    // }
 
-    private includesValue(values: T[], value: T) {
-        return values.findIndex((s) => this.compareWith(s, value)) !== -1;
-    }
-
-    private toggleValue(values: T[], value: T) {
-        const idx = values.findIndex((s) => this.compareWith(s, value));
-        const newSelected = values.slice();
-        idx === -1 ? newSelected.push(value) : newSelected.splice(idx, 1);
-        return newSelected;
-    }
-
-    private mapInputValuesToOptions(inputValues: T[]) {
-        return inputValues
-            .map((s) => this.options.toArray().find((o) => this.compareWith(s, o.value)))
-            .filter((v) => v);
+    private mapInputValuesToOptions(inputValues: T) {
+        return this.options.toArray().find((o) => this.compareWith(inputValues, o.value));
     }
 
     save() {
-        this.searchControl.patchValue('');
+        console.log('SUKA')
         this.save$.next();
     }
 
     clear() {
-        this.searchControl.patchValue('');
         this.clear$.next();
     }
 }
