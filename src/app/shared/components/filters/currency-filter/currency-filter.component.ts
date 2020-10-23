@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Shop } from '../../../../api-codegen/capi';
+import { getCurrencySymbol } from '@angular/common';
 
 @Component({
     selector: 'dsh-currency-filter',
@@ -12,12 +12,7 @@ export class CurrencyFilterComponent {
     @Input() selected?: string;
     @Output() selectedChange = new EventEmitter<string>();
 
-    searchShopPredicate(data: Shop, searchStr: string): boolean {
-        const lowerSearchStr = searchStr.trim().toLowerCase();
-        return data.details.name.toLowerCase().includes(lowerSearchStr) || data.id.includes(lowerSearchStr);
-    }
-
-    compareWithShops(s1: Shop, s2: Shop): boolean {
-        return s1.id === s2.id;
+    formatCurrencyLabel(currency: string): string {
+        return getCurrencySymbol(currency, 'narrow');
     }
 }

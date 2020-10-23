@@ -3,21 +3,11 @@ import { map } from 'rxjs/operators';
 
 export const mapItemsToLabel = (
     s: Observable<{
-        selectedItemsLabels: string;
+        selectedItemLabel: string;
         label: string;
-        searchInputLabel: string;
-        itemsCountToDisplayLabel?: number;
+        formatSelectedLabel: <T>(o: T) => string;
     }>
 ): Observable<string> =>
     s.pipe(
-        map(({ selectedItemsLabels, label }) => {
-            // const { length } = selectedItemsLabels;
-            // if (length === 0) {
-            //     return label;
-            // } else if (length <= itemsCountToDisplayLabel) {
-            //     return selectedItemsLabels.join(', ');
-            // }
-            // return `${searchInputLabel} · ${length}`;
-            return label + selectedItemsLabels
-        })
+        map(({ selectedItemLabel, label, formatSelectedLabel }) => selectedItemLabel ? `${label} · ${formatSelectedLabel ? formatSelectedLabel(selectedItemLabel) : selectedItemLabel}` : label)
     );

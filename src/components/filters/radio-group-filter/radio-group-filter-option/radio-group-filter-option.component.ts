@@ -5,16 +5,15 @@ import {
     EventEmitter,
     HostBinding,
     Input,
-    ViewChild,
+    ViewChild
 } from '@angular/core';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { BehaviorSubject } from 'rxjs';
 import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
     selector: 'dsh-radio-group-filter-option',
     templateUrl: 'radio-group-filter-option.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioGroupFilterOptionComponent<T = any> {
     @Input() value: T;

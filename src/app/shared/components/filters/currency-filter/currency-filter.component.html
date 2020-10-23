@@ -2,6 +2,7 @@
     *transloco="let t; scope: 'currency-filter'; read: 'currencyFilter'"
     [label]="t.label"
     [selected]="selected"
+    [formatSelectedLabel]="formatCurrencyLabel"
     (selectedChange)="this.selectedChange.emit($event)"
 >
     <dsh-radio-group-filter-option *ngFor="let currency of currencies" [value]="currency">
