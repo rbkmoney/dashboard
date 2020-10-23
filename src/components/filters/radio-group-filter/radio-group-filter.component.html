@@ -4,5 +4,9 @@
             <ng-content></ng-content>
         </div>
     </dsh-filter-button-content>
-    <dsh-filter-button-actions (save)="filter.close()" (clear)="clear()"></dsh-filter-button-actions>
+    <dsh-filter-button-actions
+        [withoutClear]="withoutClear"
+        (save)="filter.close()"
+        (clear)="clear()"
+    ></dsh-filter-button-actions>
 </dsh-filter>

@@ -2,6 +2,7 @@
     *transloco="let t; scope: 'currency-filter'; read: 'currencyFilter'"
     [label]="t.label"
     [selected]="selected"
+    withoutClear
     [formatSelectedLabel]="formatCurrencyLabel"
     (selectedChange)="this.selectedChange.emit($event)"
 >

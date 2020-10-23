@@ -23,6 +23,7 @@ import {
 } from 'rxjs/operators';
 
 import { ComponentChanges } from '../../../type-utils';
+import { coerceBoolean } from '../../../utils/coerce';
 import { mapItemToLabel } from './map-item-to-label';
 import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 
@@ -34,6 +35,7 @@ import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 })
 export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
     @Input() label: string;
+    @Input() @coerceBoolean withoutClear = false;
 
     @Input() selected?: T;
     @Output() selectedChange = new EventEmitter<T>();

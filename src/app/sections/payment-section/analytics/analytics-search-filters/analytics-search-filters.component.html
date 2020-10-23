@@ -8,8 +8,4 @@
         [selected]="selectedShops$ | async"
         (selectedChange)="shopSelectionChange($event)"
     ></dsh-filter-shops>
-    <dsh-currency-filter
-        [currencies]="['RUB', 'USD', 'EUR']"
-        (selectedChange)="currencySelectionChange($event)"
-    ></dsh-currency-filter>
 </div>
