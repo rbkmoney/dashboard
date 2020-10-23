@@ -99,6 +99,6 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     }
 
     currencySelectionChange(currency: string) {
-        console.log(currency);
+        console.log('ANAL', currency);
     }
 }

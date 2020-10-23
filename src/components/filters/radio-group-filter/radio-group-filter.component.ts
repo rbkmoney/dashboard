@@ -25,18 +25,23 @@ import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, AfterContentInit {
-    @Input() filterLabel: string;
+    @Input() label: string;
+    @Input() searchInputLabel?: string;
+    @Input() searchPredicate?: (value: T, searchStr: string) => boolean;
 
-    @Input() selected?: T;
-    @Output() selectedChange = new EventEmitter<T>();
+    @Input() selected?: T[];
+    @Output() selectedChange = new EventEmitter<T[]>();
 
     @ContentChildren(RadioGroupFilterOptionComponent) options: QueryList<RadioGroupFilterOptionComponent<T>>;
 
+    searchControl = this.fb.control('');
+
     private save$ = new Subject<void>();
+    private clear$ = new Subject<void>();
     private selectFromInput$ = new ReplaySubject<T[]>(1);
 
     private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
-    private selectedValues$ = new ReplaySubject<T>();
+    private selectedValues$ = new BehaviorSubject<T[]>([]);
 
     savedSelectedOptions$: Observable<RadioGroupFilterOptionComponent<T>[]> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
@@ -56,9 +61,10 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     );
 
     title$: Observable<string> = this.savedSelectedOptions$.pipe(
-        map((selectedOption) => ({
-            filterTitle: this.filterLabel,
-            label: selectedOption[0].label,
+        map((selectedOptions) => ({
+            selectedItemsLabels: selectedOptions.map(({ label }) => label),
+            label: this.label,
+            searchInputLabel: this.searchInputLabel,
         })),
         mapItemsToLabel,
         shareReplay(1)
@@ -141,4 +147,8 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         this.save$.next();
     }
 
+    clear() {
+        this.searchControl.patchValue('');
+        this.clear$.next();
+    }
 }
