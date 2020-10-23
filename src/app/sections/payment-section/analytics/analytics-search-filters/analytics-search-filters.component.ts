@@ -9,7 +9,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
@@ -22,6 +22,7 @@ import { searchFilterParamsToDaterange } from '../../reports/reports-search-filt
 import { SearchParams } from '../search-params';
 import { daterangeToSearchParams } from './daterange-to-search-params';
 import { getDefaultDaterange } from './get-default-daterange';
+import { shopsToCurrencies } from './shops-to-currencies';
 
 @Component({
     selector: 'dsh-analytics-search-filters',
@@ -42,9 +43,18 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
 
     private envID$ = new ReplaySubject();
 
-    shops$: Observable<Shop[]> = this.envID$.pipe(
+    private shops$: Observable<Shop[]> = this.envID$.pipe(
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
+    );
+
+    currencies$: Observable<string[]> = this.shops$.pipe(map(shopsToCurrencies), shareReplay(1));
+
+    selectedCurrency$ = new ReplaySubject<string>(1);
+
+    shopsByCurrency$: Observable<Shop[]> = combineLatest([this.selectedCurrency$, this.shops$]).pipe(
+        map(([currency, shops]) => shops.filter((shop) => shop.account?.currency === currency)),
+        shareReplay(1)
     );
 
     daterange: Daterange;
@@ -64,6 +74,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     constructor(private shopService: ShopService) {}
 
     ngOnInit() {
+        this.selectedCurrency$.subscribe((currency) => this.searchParams$.next({ currency }));
         this.selectedShopIDs$.subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
         this.searchParams$
             .pipe(
@@ -79,6 +90,11 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
             const v = initParams.currentValue;
             this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(v);
             this.daterangeSelectionChange(this.daterange);
+            if (v.currency) {
+                this.selectedCurrency$.next(v.currency);
+            } else {
+                this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
+            }
             if (v.shopIDs) {
                 this.selectedShopIDs$.next(v.shopIDs);
             }
@@ -96,5 +112,9 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     shopSelectionChange(shops: Shop[]) {
         const shopIDs = shops.map((shop) => shop.id);
         this.selectedShopIDs$.next(shopIDs);
+    }
+
+    currencySelectionChange(currency: string) {
+        this.selectedCurrency$.next(currency);
     }
 }

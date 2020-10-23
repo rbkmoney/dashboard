@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, merge, of, Subject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -29,7 +29,8 @@ export class PaymentSplitAmountService {
         filterPayload,
         map(([fromTime, toTime, splitAmount]) => prepareSplitAmount(splitAmount?.result, fromTime, toTime)),
         map(splitAmountToChartData),
-        map((data) => data.find((d) => d.currency === 'RUB')),
+        withLatestFrom(this.initialSearchParams$),
+        map(([data, searchParams]) => data.find((d) => d.currency === searchParams.currency)),
         shareReplay(SHARE_REPLAY_CONF)
     );
     isLoading$ = progress(this.searchParams$, this.splitAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
