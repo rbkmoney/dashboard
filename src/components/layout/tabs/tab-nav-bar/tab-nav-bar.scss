@@ -1,6 +1,13 @@
 @import '../tabs-theme';
 @import '../tab-header.component.scss';
 
+$TAB_LINK_BADGE_SIZE: 16px;
+$TAB_LINK_BADGE_MARGIN: 8px;
+$TAB_LINK_BADGE_PADDING: 4px;
+
+$TAB_LINK_MAIN_BADGE_PADDING: 8px;
+$TAB_LINK_MAIN_BADGE_SIZE: 24px;
+
 .dsh-tab-nav-bar {
     @include tab-header;
 }
@@ -8,6 +15,20 @@
 .dsh-tab-links {
     width: 100%;
     border-bottom: 1px solid;
+
+    &-main {
+        border-color: transparent !important;
+
+        .dsh-tab-link-badge {
+            width: $TAB_LINK_MAIN_BADGE_SIZE;
+            height: $TAB_LINK_MAIN_BADGE_SIZE;
+            line-height: $TAB_LINK_MAIN_BADGE_SIZE;
+
+            &-long {
+                padding: 0 $TAB_LINK_MAIN_BADGE_PADDING;
+            }
+        }
+    }
 }
 
 .dsh-tab-link {
@@ -19,6 +40,21 @@
 
     &.dsh-tab-disabled {
         pointer-events: none;
+    }
+
+    &-badge {
+        color: #fff;
+        text-align: center;
+        margin-left: $TAB_LINK_BADGE_MARGIN;
+        border-radius: 9999px;
+        width: $TAB_LINK_BADGE_SIZE;
+        height: $TAB_LINK_BADGE_SIZE;
+        line-height: $TAB_LINK_BADGE_SIZE;
+
+        &-long {
+            padding: 0 $TAB_LINK_BADGE_PADDING;
+            width: auto;
+        }
     }
 }
 

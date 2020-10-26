@@ -1,4 +1,4 @@
-<div class="dsh-tab-links" (cdkObserveContent)="_alignInkBar()">
+<div [ngClass]="{'dsh-tab-links': true, 'dsh-tab-links-main': type === 'main'}" (cdkObserveContent)="_alignInkBar()">
     <ng-content></ng-content>
     <dsh-ink-bar></dsh-ink-bar>
 </div>

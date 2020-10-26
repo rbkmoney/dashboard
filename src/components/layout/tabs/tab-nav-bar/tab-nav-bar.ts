@@ -7,7 +7,6 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChildren,
-    Directive,
     ElementRef,
     forwardRef,
     HostBinding,
@@ -24,6 +23,9 @@ import { merge, of as observableOf, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { DshInkBarDirective } from '../ink-bar.directive';
+import { TabType } from '../tab-type';
+
+const TAB_LINK_QUERY_SELECTOR = 'div';
 
 @Component({
     selector: '[dsh-tab-nav-bar]',
@@ -33,6 +35,8 @@ import { DshInkBarDirective } from '../ink-bar.directive';
 })
 export class TabNavComponent implements AfterContentChecked, AfterContentInit, OnDestroy {
     @Input() color: string;
+    @Input() type: TabType;
+
     @HostBinding('class.dsh-tab-nav-bar') tabNavBar = true;
 
     private readonly _onDestroy = new Subject<void>();
@@ -43,8 +47,8 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
 
     // tslint:disable-next-line:no-use-before-declare
-    @ContentChildren(forwardRef(() => TabLinkDirective), { descendants: true })
-    _tabLinks: QueryList<TabLinkDirective>;
+    @ContentChildren(forwardRef(() => TabLinkComponent), { descendants: true })
+    _tabLinks: QueryList<TabLinkComponent>;
 
     constructor(
         @Optional() private _dir: Directionality,
@@ -86,22 +90,31 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     _alignInkBar(): void {
         if (this._activeLinkElement) {
             this._inkBar.show();
-            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+            this._inkBar.alignToElement(this._activeLinkElement.nativeElement, {
+                offset: {
+                    right:
+                        (this._activeLinkElement.nativeElement?.clientWidth || 0) -
+                        (this._activeLinkElement.nativeElement?.querySelector(TAB_LINK_QUERY_SELECTOR)?.clientWidth ||
+                            0),
+                },
+            });
         } else {
             this._inkBar.hide();
         }
     }
 }
 
-@Directive({
+@Component({
     selector: '[dsh-tab-link], [dshTabLink]',
+    templateUrl: 'tab-link.html',
     exportAs: 'dshTabLink',
 })
-export class TabLinkDirective implements CanDisable, HasTabIndex {
+export class TabLinkComponent implements CanDisable, HasTabIndex {
     private _isActive: boolean;
 
     @Input() disabled: boolean;
     @Input() tabIndex: number;
+    @Input() badge?: string | number;
 
     @Input()
     get active(): boolean {
