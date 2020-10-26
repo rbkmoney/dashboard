@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, merge, of, Subject } from 'rxjs';
-import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import isEqual from 'lodash.isequal';
+import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -14,6 +15,12 @@ export class PaymentSplitAmountService {
     private initialSearchParams$ = new Subject<SearchParams>();
     private searchParams$ = this.initialSearchParams$.pipe(
         map(searchParamsToParamsWithSplitUnit),
+        distinctUntilChanged(isEqual),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+    private currencyChange$ = this.initialSearchParams$.pipe(
+        pluck('currency'),
+        distinctUntilChanged(),
         shareReplay(SHARE_REPLAY_CONF)
     );
     private splitAmountOrError$ = this.searchParams$.pipe(
@@ -25,13 +32,14 @@ export class PaymentSplitAmountService {
             ]).pipe(replaceError)
         )
     );
-    splitAmount$ = this.splitAmountOrError$.pipe(
+    private splitAmountResult$ = this.splitAmountOrError$.pipe(
         filterPayload,
         map(([fromTime, toTime, splitAmount]) => prepareSplitAmount(splitAmount?.result, fromTime, toTime)),
         map(splitAmountToChartData),
-        withLatestFrom(this.initialSearchParams$),
-        map(([data, searchParams]) => data.find((d) => d.currency === searchParams.currency)),
         shareReplay(SHARE_REPLAY_CONF)
+    );
+    splitAmount$ = combineLatest([this.splitAmountResult$, this.currencyChange$]).pipe(
+        map(([result, currency]) => result.find((r) => r.currency === currency))
     );
     isLoading$ = progress(this.searchParams$, this.splitAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.splitAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));

@@ -74,7 +74,10 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     constructor(private shopService: ShopService) {}
 
     ngOnInit() {
-        this.selectedCurrency$.subscribe((currency) => this.searchParams$.next({ currency }));
+        this.selectedCurrency$.subscribe((currency) => {
+            this.searchParams$.next({ currency });
+            this.selectedShopIDs$.next([]);
+        });
         this.selectedShopIDs$.subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
         this.searchParams$
             .pipe(
