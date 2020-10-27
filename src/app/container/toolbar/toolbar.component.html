@@ -3,7 +3,13 @@
     <ng-container *ngIf="!(hideNav$ | async)">
         <nav *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'" dsh-tab-nav-bar type="main">
             <ng-container *ngFor="let link of links$ | async">
-                <a dsh-tab-link *ngIf="!link?.disabled" [routerLink]="link.path" [active]="(active$ | async) === link">
+                <a
+                    dsh-tab-link
+                    *ngIf="!link?.disabled"
+                    [routerLink]="link.path"
+                    [active]="(active$ | async) === link"
+                    [badge]="link === (links$ | async)[3] ? (claimsBadge$ | async) : undefined"
+                >
                     {{ t[link.id] }}
                 </a>
             </ng-container>

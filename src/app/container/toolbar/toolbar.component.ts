@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { WalletService } from '../../api';
+import { ClaimsService, WalletService } from '../../api';
 import { RouteEnv } from '../../sections/route-env';
 import { Link, NavigationService } from '../../shared';
+import { filterViewClaims } from '../../view-utils';
 import { BrandType } from '../brand';
 
 @Component({
@@ -52,5 +53,17 @@ export class ToolbarComponent {
         shareReplay(1)
     );
 
-    constructor(private walletsService: WalletService, private navigationService: NavigationService) {}
+    claimsBadge$ = this.claimsService.searchClaims(100, ['pending', 'review', 'pendingAcceptance']).pipe(
+        pluck('result'),
+        map(filterViewClaims),
+        map((claims) => claims.length || undefined),
+        distinctUntilChanged(),
+        shareReplay(1)
+    );
+
+    constructor(
+        private walletsService: WalletService,
+        private navigationService: NavigationService,
+        private claimsService: ClaimsService
+    ) {}
 }
