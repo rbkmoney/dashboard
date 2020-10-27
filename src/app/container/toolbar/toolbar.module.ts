@@ -6,7 +6,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { DshTabsModule } from '@dsh/components/layout';
 
-import { NavigationModule } from '../../shared';
 import { ActionbarModule } from '../actionbar/actionbar.module';
 import { BrandModule } from '../brand/brand.module';
 import { ToolbarComponent } from './toolbar.component';
@@ -20,7 +19,6 @@ import { ToolbarComponent } from './toolbar.component';
         DshTabsModule,
         RouterModule,
         TranslocoModule,
-        NavigationModule,
     ],
     declarations: [ToolbarComponent],
     exports: [ToolbarComponent],
