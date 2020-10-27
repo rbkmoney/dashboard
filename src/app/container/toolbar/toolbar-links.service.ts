@@ -13,6 +13,13 @@ export interface ToolbarLink extends Link {
     hidden?: boolean;
 }
 
+export enum LinkId {
+    main = 'main',
+    payments = 'payments',
+    wallets = 'wallets',
+    claims = 'claims',
+}
+
 @Injectable()
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
@@ -34,19 +41,19 @@ export class ToolbarLinksService {
 
     private createLinks(hasWallets: boolean): ToolbarLink[] {
         return [
-            { id: 'main', path: '', activateStartPaths: [''] },
+            { id: LinkId.main, path: '', activateStartPaths: [''] },
             {
-                id: 'payments',
+                id: LinkId.payments,
                 path: `payment-section/env/${RouteEnv.real}/operations/payments`,
                 activateStartPaths: ['payment-section'],
             },
             {
-                id: 'wallets',
+                id: LinkId.wallets,
                 path: 'wallet-section/wallets',
                 activateStartPaths: ['wallet-section'],
                 hidden: !hasWallets,
             },
-            { id: 'claims', path: 'claims', activateStartPaths: ['claims'] },
+            { id: LinkId.claims, path: 'claims', activateStartPaths: ['claims'] },
         ];
     }
 }

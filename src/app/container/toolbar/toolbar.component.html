@@ -1,8 +1,13 @@
 <div class="toolbar" fxLayout fxLayoutGap="24px" fxLayoutAlign="start center">
     <dsh-brand fxFlex="168px" [type]="brandType" class="dsh-side-section"></dsh-brand>
-    <nav *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'" dsh-tab-nav-bar type="main">
+    <nav
+        *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'"
+        dsh-tab-nav-bar
+        type="main"
+        [inverted]="inverted$ | async"
+    >
         <ng-container *ngFor="let link of links$ | async">
-            <a dsh-tab-link *ngIf="!link?.hidden" [routerLink]="link.path" [active]="(active$ | async) === link">
+            <a dsh-tab-link *ngIf="!link.hidden" [routerLink]="link.path" [active]="(active$ | async) === link">
                 {{ t[link.id] }}
             </a>
         </ng-container>

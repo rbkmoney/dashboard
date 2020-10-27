@@ -13,8 +13,8 @@ function countActivePaths(url: string, paths: string[]): ActivePathsCount {
     );
 }
 
-export function findActivePath(url: string, links: Link[]): Link {
-    return links.reduce<[Link, ActivePathsCount]>(
+export function findActivePath<L extends Pick<Link, 'activateStartPaths'>>(url: string, links: L[]): L {
+    return links.reduce<[L, ActivePathsCount]>(
         (max, link) => {
             const [, { count: maxCount, length: maxLength }] = max;
             const { count, length } = countActivePaths(url, link.activateStartPaths || []);
