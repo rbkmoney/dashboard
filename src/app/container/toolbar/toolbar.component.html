@@ -1,18 +1,13 @@
 <div class="toolbar" fxLayout fxLayoutGap="24px" fxLayoutAlign="start center">
     <dsh-brand fxFlex="168px" [type]="brandType" class="dsh-side-section"></dsh-brand>
-    <!-- <nav *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'" dsh-tab-nav-bar type="main">
-        <a dsh-tab-link>
-            {{ t.main }}
-        </a>
-        <a dsh-tab-link>
-            {{ t.payments }}
-        </a>
-        <a dsh-tab-link>
-            {{ t.wallets }}
-        </a>
-        <a dsh-tab-link badge="1" [active]="true">
-            {{ t.claims }}
-        </a>
-    </nav> -->
+    <ng-container *ngIf="!(hideNav$ | async)">
+        <nav *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'" dsh-tab-nav-bar type="main">
+            <ng-container *ngFor="let link of links$ | async">
+                <a dsh-tab-link *ngIf="!link?.disabled" [routerLink]="link.path" [active]="(active$ | async) === link">
+                    {{ t[link.id] }}
+                </a>
+            </ng-container>
+        </nav>
+    </ng-container>
     <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
 </div>
