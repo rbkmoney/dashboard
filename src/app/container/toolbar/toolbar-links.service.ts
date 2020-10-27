@@ -24,7 +24,7 @@ export enum LinkId {
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
         startWith(null),
-        map(() => (this.router.url || '').slice(1)),
+        map(() => this.router.url),
         distinctUntilChanged(),
         shareReplay(1)
     );
@@ -45,15 +45,15 @@ export class ToolbarLinksService {
             {
                 id: LinkId.payments,
                 path: `payment-section/env/${RouteEnv.real}/operations/payments`,
-                activateStartPaths: ['payment-section'],
+                activateStartPaths: ['/payment-section', '/invoice'],
             },
             {
                 id: LinkId.wallets,
                 path: 'wallet-section/wallets',
-                activateStartPaths: ['wallet-section'],
+                activateStartPaths: ['/wallet-section', '/wallet'],
                 hidden: !hasWallets,
             },
-            { id: LinkId.claims, path: 'claims', activateStartPaths: ['claims'] },
+            { id: LinkId.claims, path: 'claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
         ];
     }
 }
