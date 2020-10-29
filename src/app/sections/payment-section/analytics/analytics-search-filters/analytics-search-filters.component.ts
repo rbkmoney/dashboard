@@ -10,13 +10,20 @@ import {
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import {
+    delay,
+    distinctUntilChanged,
+    map,
+    scan,
+    shareReplay,
+    switchMap,
+    take,
+} from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
-import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { filterShopsByEnv, removeEmptyProperties } from '../../operations/operators';
 import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
@@ -43,10 +50,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
 
     private envID$ = new ReplaySubject();
 
-    private shops$: Observable<Shop[]> = this.envID$.pipe(
-        filterShopsByEnv(this.shopService.shops$),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+    private shops$: Observable<Shop[]> = this.envID$.pipe(filterShopsByEnv(this.shopService.shops$), shareReplay(1));
 
     currencies$: Observable<string[]> = this.shops$.pipe(map(shopsToCurrencies), shareReplay(1));
 
@@ -81,11 +85,14 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
         this.selectedShopIDs$.subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
         this.searchParams$
             .pipe(
-                distinctUntilChanged(isEqual),
                 scan((acc, current) => ({ ...acc, ...current }), this.initParams),
-                removeEmptyProperties
+                removeEmptyProperties,
+                distinctUntilChanged(isEqual),
+                shareReplay(1)
             )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
+            .subscribe((v) => {
+                this.searchParamsChanges.emit(v);
+            });
     }
 
     ngOnChanges({ initParams }: SimpleChanges) {
@@ -96,7 +103,9 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
             if (v.currency) {
                 this.selectedCurrency$.next(v.currency);
             } else {
-                this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
+                this.currencies$
+                    .pipe(delay(1), take(1))
+                    .subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
             }
             if (v.shopIDs) {
                 this.selectedShopIDs$.next(v.shopIDs);

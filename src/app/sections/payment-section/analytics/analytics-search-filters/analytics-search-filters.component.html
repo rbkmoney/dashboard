@@ -1,13 +1,14 @@
 <div fxLayout fxLayout.lt-md="column" fxLayoutGap="16px">
-    <dsh-currency-filter
-        [currencies]="currencies$ | async"
-        [selected]="selectedCurrency$ | async"
-        (selectedChange)="currencySelectionChange($event)"
-    ></dsh-currency-filter>
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
+    <dsh-currency-filter
+        *ngIf="(currencies$ | async)?.length > 1"
+        [currencies]="currencies$ | async"
+        [selected]="selectedCurrency$ | async"
+        (selectedChange)="currencySelectionChange($event)"
+    ></dsh-currency-filter>
     <dsh-filter-shops
         [shops]="shopsByCurrency$ | async"
         [selected]="selectedShops$ | async"
