@@ -9,20 +9,25 @@
     $foreground: map-get($theme, foreground);
 
     .dsh {
-        &-tab-label {
-            color: map-get($foreground, text);
-        }
-
-        &-tab-label-active {
-            color: map-get($primary, 400);
-        }
-
         &-tab-labels,
         &-tab-links {
             border-color: map-get($foreground, divider);
         }
 
+        &-tab-label {
+            color: map-get($foreground, text);
+
+            &-active {
+                color: map-get($primary, 400);
+            }
+
+            &-disabled {
+                color: map-get($foreground, disabled-text);
+            }
+        }
+
         &-tab-link-badge {
+            color: map-get($foreground, contrast-text);
             background-color: mat-color($warn, 300);
         }
 
@@ -30,8 +35,13 @@
             background-color: map-get($primary, 400);
         }
 
-        &-tab-label-disabled {
-            color: map-get($foreground, disabled-text);
+        &-tab-nav-bar-inverted {
+            .dsh-tab-label {
+                color: map-get($foreground, contrast-text);
+            }
+            .dsh-ink-bar {
+                background-color: map-get($foreground, contrast-text);
+            }
         }
     }
 }

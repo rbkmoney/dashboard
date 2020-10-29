@@ -15,7 +15,6 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { ClaimsService } from '../../api/claims';
 import { ActionItemComponent } from './action-item';
 import { ActionbarComponent } from './actionbar.component';
-import { ClaimsComponent, ClaimsListComponent, ClaimsListItemComponent } from './claims';
 import { UserComponent } from './user';
 
 @NgModule({
@@ -32,14 +31,7 @@ import { UserComponent } from './user';
         CommonModule,
         TranslocoModule,
     ],
-    declarations: [
-        ActionbarComponent,
-        ActionItemComponent,
-        ClaimsListComponent,
-        ClaimsListItemComponent,
-        UserComponent,
-        ClaimsComponent,
-    ],
+    declarations: [ActionbarComponent, ActionItemComponent, UserComponent],
     providers: [ClaimsService],
     exports: [ActionbarComponent],
 })
