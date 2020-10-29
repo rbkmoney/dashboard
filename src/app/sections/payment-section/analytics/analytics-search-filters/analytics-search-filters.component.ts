@@ -10,15 +10,7 @@ import {
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import {
-    delay,
-    distinctUntilChanged,
-    map,
-    scan,
-    shareReplay,
-    switchMap,
-    take,
-} from 'rxjs/operators';
+import { delay, distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 
