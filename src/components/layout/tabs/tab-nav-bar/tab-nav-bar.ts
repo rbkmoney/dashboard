@@ -22,6 +22,7 @@ import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { merge, of as observableOf, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { coerceBoolean } from '../../../../utils';
 import { DshInkBarDirective } from '../ink-bar.directive';
 import { TabType } from '../tab-type';
 
@@ -38,6 +39,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     @Input() type: TabType;
 
     @HostBinding('class.dsh-tab-nav-bar') tabNavBar = true;
+    @Input() @coerceBoolean @HostBinding('class.dsh-tab-nav-bar-inverted') inverted = false;
 
     private readonly _onDestroy = new Subject<void>();
 
