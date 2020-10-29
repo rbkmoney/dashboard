@@ -4,13 +4,12 @@ import {
     EventEmitter,
     Input,
     OnChanges,
-    OnInit,
     Output,
     SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import { delay, distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 
@@ -28,7 +27,7 @@ import { shopsToCurrencies } from './shops-to-currencies';
     templateUrl: 'analytics-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
+export class AnalyticsSearchFiltersComponent implements OnChanges {
     private searchParams$: Subject<Partial<SearchParams>> = new ReplaySubject(1);
 
     @Input() initParams: SearchParams;
@@ -67,9 +66,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
         shareReplay(1)
     );
 
-    constructor(private shopService: ShopService) {}
-
-    ngOnInit() {
+    constructor(private shopService: ShopService) {
         this.selectedCurrency$.subscribe((currency) => {
             this.searchParams$.next({ currency });
             this.selectedShopIDs$.next([]);
@@ -95,9 +92,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
             if (v.currency) {
                 this.selectedCurrency$.next(v.currency);
             } else {
-                this.currencies$
-                    .pipe(delay(1), take(1))
-                    .subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
+                this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
             }
             if (v.shopIDs) {
                 this.selectedShopIDs$.next(v.shopIDs);
