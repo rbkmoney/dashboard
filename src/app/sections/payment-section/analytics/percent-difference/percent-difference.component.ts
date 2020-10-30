@@ -11,7 +11,7 @@ export class PercentDifferenceComponent implements OnChanges {
     percents: number;
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.current.currentValue && changes.previous.currentValue) {
+        if (changes.current?.currentValue && changes.previous?.currentValue) {
             this.percents = this.current / this.previous - 1;
         } else {
             this.percents = undefined;

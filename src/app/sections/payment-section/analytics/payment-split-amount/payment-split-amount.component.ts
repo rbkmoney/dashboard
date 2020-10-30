@@ -16,20 +16,20 @@ export class PaymentSplitAmountComponent implements OnChanges {
 
     @Input() searchParams: SearchParams;
 
-    splitAmount$ = this.statsBarsService.splitAmount$;
-    isLoading$ = this.statsBarsService.isLoading$;
-    error$ = this.statsBarsService.error$;
+    splitAmount$ = this.paymentSplitAmountService.splitAmount$;
+    isLoading$ = this.paymentSplitAmountService.isLoading$;
+    error$ = this.paymentSplitAmountService.error$;
 
     color = barChartColor;
 
-    constructor(private statsBarsService: PaymentSplitAmountService) {}
+    constructor(private paymentSplitAmountService: PaymentSplitAmountService) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (
             changes.searchParams.currentValue &&
             changes.searchParams.currentValue !== changes.searchParams.previousValue
         ) {
-            this.statsBarsService.updateSearchParams(this.searchParams);
+            this.paymentSplitAmountService.updateSearchParams(this.searchParams);
         }
     }
 }

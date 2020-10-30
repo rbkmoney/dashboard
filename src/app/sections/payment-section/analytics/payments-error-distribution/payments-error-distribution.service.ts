@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import isEqual from 'lodash.isequal';
 import { BehaviorSubject, merge, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
+import { searchParamsToDistributionSearchParams } from '../utils';
 import { errorsDistributionToChartData } from './errors-distribution-to-chart-data';
 import { filterSubError } from './filter-sub-error';
 import { getErrorTitle } from './get-error-title';
@@ -12,7 +14,12 @@ import { subErrorsToErrorDistribution } from './sub-errors-to-error-distribution
 
 @Injectable()
 export class PaymentsErrorDistributionService {
-    private searchParams$ = new Subject<SearchParams>();
+    private initSearchParams$ = new Subject<SearchParams>();
+    private searchParams$ = this.initSearchParams$.pipe(
+        map(searchParamsToDistributionSearchParams),
+        distinctUntilChanged(isEqual),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     private selectedSubError$ = new BehaviorSubject<number[]>([]);
 
@@ -46,7 +53,7 @@ export class PaymentsErrorDistributionService {
     }
 
     updateSearchParams(searchParams: SearchParams) {
-        this.searchParams$.next(searchParams);
+        this.initSearchParams$.next(searchParams);
     }
 
     updateDataSelection(value: number) {

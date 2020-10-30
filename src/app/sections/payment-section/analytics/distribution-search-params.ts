@@ -1,6 +1,5 @@
-export interface SearchParams {
+export interface DistributionSearchParams {
     fromTime: string;
     toTime: string;
-    currency: string;
     shopIDs?: string[];
 }
