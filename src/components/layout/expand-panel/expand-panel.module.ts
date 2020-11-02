@@ -10,12 +10,14 @@ import { CardModule } from '../card';
 import { ExpandPanelAccordionComponent } from './expand-panel-accordion.component';
 import { ExpandPanelMoreHeaderTemplateComponent, ExpandPanelMoreTemplateComponent } from './expand-panel-more';
 import { ExpandPanelComponent } from './expand-panel.component';
+import { LazyPanelContentDirective } from './lazy-panel-content.directive';
 
 const EXPORTED_DECLARATIONS = [
     ExpandPanelComponent,
     ExpandPanelMoreTemplateComponent,
     ExpandPanelMoreHeaderTemplateComponent,
     ExpandPanelAccordionComponent,
+    LazyPanelContentDirective,
 ];
 
 @NgModule({
