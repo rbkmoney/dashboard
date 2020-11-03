@@ -1,13 +1,5 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    EventEmitter,
-    Input,
-    Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
 import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/lazy-panel-content.directive';
 
@@ -23,7 +15,7 @@ import { expandAnimation, ExpandState } from './expand-animation';
     animations: [expandAnimation],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccordionItemComponent implements AfterViewInit {
+export class AccordionItemComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
     @Input()
     @coerce(coerceBooleanProperty, (v: boolean, self: AccordionItemComponent) => self.expandedChange.emit(v))
@@ -37,11 +29,6 @@ export class AccordionItemComponent implements AfterViewInit {
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;
-
-    ngAfterViewInit() {
-        this.expandedChange.subscribe((d) => console.log('expanded change', d));
-        console.log('accordion item content ', this.accordionItemContent, this.lazyContent);
-    }
 
     expand() {
         if (!this.expanded) {
