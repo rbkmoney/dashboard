@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, merge, Subject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import isEqual from 'lodash.isequal';
+import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -12,6 +13,12 @@ export class RefundsAmountService {
     private initialSearchParams$ = new Subject<SearchParams>();
     private searchParams$ = this.initialSearchParams$.pipe(
         map(searchParamsToStatSearchParams),
+        distinctUntilChanged(isEqual),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
+    private currencyChange$ = this.initialSearchParams$.pipe(
+        pluck('currency'),
+        distinctUntilChanged(),
         shareReplay(SHARE_REPLAY_CONF)
     );
     private refundsAmountOrError$ = this.searchParams$.pipe(
@@ -22,12 +29,14 @@ export class RefundsAmountService {
             ]).pipe(replaceError)
         )
     );
-    refundsAmount$ = this.refundsAmountOrError$.pipe(
+    refundsAmountResult$ = this.refundsAmountOrError$.pipe(
         filterPayload,
         map((res) => res.map((r) => r.result)),
         map(amountResultToStatData),
-        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
+    );
+    refundsAmount$ = combineLatest([this.refundsAmountResult$, this.currencyChange$]).pipe(
+        map(([result, currency]) => result.find((r) => r.currency === currency))
     );
     isLoading$ = progress(this.searchParams$, this.refundsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.refundsAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));

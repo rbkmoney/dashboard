@@ -7,12 +7,6 @@ const operationsRoutes: Routes = [
     {
         path: '',
         component: AnalyticsComponent,
-        children: [
-            {
-                path: 'analytics',
-                loadChildren: () => import('./analytics.module').then((mod) => mod.AnalyticsModule),
-            },
-        ],
     },
 ];
 

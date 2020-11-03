@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, merge, of, Subject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import isEqual from 'lodash.isequal';
+import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -14,9 +15,14 @@ export class PaymentSplitCountService {
     private initialSearchParams$ = new Subject<SearchParams>();
     private searchParams$ = this.initialSearchParams$.pipe(
         map(searchParamsToParamsWithSplitUnit),
+        distinctUntilChanged(isEqual),
         shareReplay(SHARE_REPLAY_CONF)
     );
-
+    private currencyChange$ = this.initialSearchParams$.pipe(
+        pluck('currency'),
+        distinctUntilChanged(),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
     private splitCountOrError$ = this.searchParams$.pipe(
         switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
             forkJoin([
@@ -26,12 +32,14 @@ export class PaymentSplitCountService {
             ]).pipe(replaceError)
         )
     );
-    splitCount$ = this.splitCountOrError$.pipe(
+    splitCountResult$ = this.splitCountOrError$.pipe(
         filterPayload,
         map(([fromTime, toTime, splitCount]) => prepareSplitCount(splitCount?.result, fromTime, toTime)),
         map(splitCountToChartData),
-        map((data) => data.find((d) => d.currency === 'RUB')),
         shareReplay(SHARE_REPLAY_CONF)
+    );
+    splitCount$ = combineLatest([this.splitCountResult$, this.currencyChange$]).pipe(
+        map(([result, currency]) => result.find((r) => r.currency === currency))
     );
     isLoading$ = progress(this.searchParams$, this.splitCount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.splitCountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
