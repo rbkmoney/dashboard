@@ -1,6 +1,8 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
+import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/lazy-panel-content.directive';
+
 import { coerce } from '../../../../utils';
 import { ResizedEvent } from '../../../indicators';
 import { AccordionItemContentComponent } from '../accordion-item-content';
@@ -21,6 +23,9 @@ export class AccordionItemComponent {
 
     @ContentChild(AccordionItemContentComponent)
     accordionItemContent: AccordionItemContentComponent;
+
+    @ContentChild(LazyPanelContentDirective)
+    lazyContent: LazyPanelContentDirective;
 
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;

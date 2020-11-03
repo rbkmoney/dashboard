@@ -1,6 +1,8 @@
 import { Component, ContentChild, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/lazy-panel-content.directive';
+
 import { coerce } from '../../../../utils';
 import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-header-template';
 
@@ -23,4 +25,7 @@ export class ExpandPanelMoreTemplateComponent {
             v && v.collapse$.subscribe((e) => self.collapse$.next(e))
     )
     expandPanelMoreHeader: ExpandPanelMoreHeaderTemplateComponent;
+
+    @ContentChild(LazyPanelContentDirective)
+    lazyContent: LazyPanelContentDirective;
 }

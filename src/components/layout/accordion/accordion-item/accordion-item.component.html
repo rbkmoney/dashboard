@@ -3,11 +3,16 @@
     (click)="expand()"
     [ngClass]="{ 'dsh-accordion-item-expanded': expandedChange | async }"
 >
-    <div class="dsh-accordion-item-expand" *ngIf="expandedChange | async; else panelBase" [@expand]="expandTrigger">
-        <div (dshResized)="setExpandedContentHeight($event)" fxLayout>
-            <ng-container *ngTemplateOutlet="accordionItemContent?.templateRef"></ng-container>
+    <div *ngIf="expandedChange | async; then content; else panelBase"></div>
+    <ng-template #content>
+        <div class="dsh-accordion-item-expand" [@expand]="expandTrigger">
+            <div (dshResized)="setExpandedContentHeight($event)" fxLayout>
+                <ng-container
+                    *ngTemplateOutlet="accordionItemContent?.templateRef || lazyContent?._template"
+                ></ng-container>
+            </div>
         </div>
-    </div>
+    </ng-template>
     <ng-template #panelBase>
         <div class="dsh-accordion-item-base" [@expand]="collapseTrigger">
             <div (dshResized)="setBaseContentHeight($event)">
