@@ -1,27 +1,3 @@
-<!--<form *transloco="let t; scope: 'webhook'; read: 'webhook'" [formGroup]="form" fxLayout="column" fxLayoutGap="16px">-->
-<!--    <mat-form-field fxFlex>-->
-<!--        <mat-label>{{ t.details.shop }}</mat-label>-->
-<!--        <mat-select formControlName="shop" required>-->
-<!--            <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">-->
-<!--                {{ shop.details?.name }}-->
-<!--            </mat-option>-->
-<!--        </mat-select>-->
-<!--    </mat-form-field>-->
-<!--    <mat-form-field fxFlex>-->
-<!--        <mat-label>{{ t.details.url }}</mat-label>-->
-<!--        <input formControlName="url" matInput type="text" autocomplete="off" required />-->
-<!--    </mat-form-field>-->
-<!--    <section class="checkbox-section" fxLayout="column" fxLayoutGap="16px">-->
-<!--        <label class="dsh-body-2">{{ t.create.types }}:</label>-->
-<!--        <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">-->
-<!--            <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">-->
-<!--                <mat-checkbox formControlName="selected" class="dsh-body-1">{{-->
-<!--                    t.events.types[eventType.controls.eventName.value]-->
-<!--                    }}</mat-checkbox>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--</form>-->
 <form *transloco="let t; scope: 'webhook'; read: 'webhook'" [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
     <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field fxFlex>
