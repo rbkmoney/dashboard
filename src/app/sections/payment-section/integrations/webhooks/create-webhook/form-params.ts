@@ -1,12 +1,14 @@
-import { InvoicesTopic } from '../../../../../api-codegen/capi/swagger-codegen';
+import { CustomersTopic, InvoicesTopic, WebhookScope } from '../../../../../api-codegen/capi';
+import TopicEnum = WebhookScope.TopicEnum;
 
 interface EventType {
-    eventName: InvoicesTopic.EventTypesEnum;
+    eventName: InvoicesTopic.EventTypesEnum | CustomersTopic.EventTypesEnum;
     selected: boolean;
 }
 
 export interface FormParams {
-    shop: string;
+    shopID: string;
     url: string;
+    eventType: TopicEnum;
     eventTypes: EventType[];
 }

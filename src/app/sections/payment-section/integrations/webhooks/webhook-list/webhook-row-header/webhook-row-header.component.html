@@ -1,0 +1,10 @@
+<dsh-row
+    *transloco="let t; scope: 'webhook'; read: 'webhook.headerRow'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex fxFlex.lt-md="100">{{ t.url }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex fxHide.lt-md>{{ t.shop }}</dsh-row-header-label>
+</dsh-row>

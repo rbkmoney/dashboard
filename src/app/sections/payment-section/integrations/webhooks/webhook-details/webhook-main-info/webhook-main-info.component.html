@@ -1,17 +1,15 @@
 <div
     class="dsh-webhook-panel-details-section"
     fxLayout="column"
-    [fxLayoutGap]="layoutGap"
+    fxLayoutGap="24px"
     *transloco="let t; scope: 'webhook'; read: 'webhook.details'"
 >
     <dsh-details-item [title]="t.url">
-        <div class="mat-body-1">
-            {{ webhook.url }}
+        <div class="dsh-body-1">
+            {{ url }}
         </div>
     </dsh-details-item>
     <dsh-details-item [title]="t.shop">
-        <div class="mat-body-1">
-            {{ shopName }}
-        </div>
+        <div class="dsh-body-1">{{ shopName }}</div>
     </dsh-details-item>
 </div>

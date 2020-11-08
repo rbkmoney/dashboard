@@ -8,6 +8,7 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
 import { WebhooksService } from '../../../../api/webhooks';
 import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { mapToTimestamp } from '../../operations/operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
@@ -24,6 +25,8 @@ export class ReceiveWebhooksService {
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
     );
+
+    lastUpdated$: Observable<string> = this.webhooks$.pipe(mapToTimestamp, shareReplay(1));
 
     constructor(
         private webhooksService: WebhooksService,

@@ -17,8 +17,8 @@ import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WebhooksModule as ApiWebhooksModule } from '../../../../api/webhooks';
-import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
-import { WebhooksPanelsListModule } from './webhooks-panels-list/webhooks-panels-list.module';
+import { CreateWebhookModule } from './create-webhook/';
+import { WebhookListModule } from './webhook-list';
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksComponent } from './webhooks.component';
 
@@ -39,13 +39,11 @@ import { WebhooksComponent } from './webhooks.component';
         SpinnerModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
-        EmptySearchResultModule,
-        ShowMorePanelModule,
-        WebhooksPanelsListModule,
         ConfirmActionDialogModule,
         MatDividerModule,
+        CreateWebhookModule,
+        WebhookListModule,
     ],
-    declarations: [WebhooksComponent, CreateWebhookComponent],
-    entryComponents: [CreateWebhookComponent],
+    declarations: [WebhooksComponent],
 })
 export class WebhooksModule {}
