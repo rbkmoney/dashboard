@@ -1,0 +1,11 @@
+<dsh-filter #filter [title]="label$ | async" [active]="active$ | async" (closed)="save()">
+    <dsh-filter-button-content class="value-filter">
+        <dsh-justify-wrapper>
+            <mat-form-field fxFlex>
+                <mat-label>{{ placeholder || label }}</mat-label>
+                <input matInput [formControl]="control" type="text" autocomplete="off" />
+            </mat-form-field>
+        </dsh-justify-wrapper>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions (clear)="clear()" (save)="filter.close()"></dsh-filter-button-actions>
+</dsh-filter>

@@ -1,0 +1,19 @@
+<dsh-filter #filter [title]="label$ | async" [active]="active$ | async" (closed)="save()">
+    <dsh-filter-button-content class="multi-value-filter" fxLayout="column" fxLayoutGap="8px">
+        <div *ngFor="let control of form.controls; let idx = index" fxLayout fxLayoutGap="24px">
+            <mat-form-field fxFlex>
+                <mat-label>{{ placeholder || label }}</mat-label>
+                <input matInput [formControl]="control" type="text" autocomplete="off" />
+            </mat-form-field>
+            <dsh-colored-icon
+                icon="cross"
+                class="remove-icon action-icon"
+                (click)="removeControl(idx)"
+                *ngIf="form.controls.length > 1"
+            ></dsh-colored-icon>
+        </div>
+
+        <dsh-colored-icon icon="add" class="action-icon" fxFlexAlign="end" (click)="addControl()"></dsh-colored-icon>
+    </dsh-filter-button-content>
+    <dsh-filter-button-actions (clear)="clear()" (save)="filter.close()"></dsh-filter-button-actions>
+</dsh-filter>
