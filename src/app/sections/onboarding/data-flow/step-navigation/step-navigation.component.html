@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" *transloco="let t">
     <div>
         <button *ngIf="hasPreviousStep$ | async" fxFlex="100px" dsh-stroked-button color="accent" (click)="back()">
-            {{ t.back }}
+            {{ t('back') }}
         </button>
     </div>
     <div>

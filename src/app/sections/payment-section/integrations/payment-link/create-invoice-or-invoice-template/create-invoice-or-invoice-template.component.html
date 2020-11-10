@@ -1,10 +1,10 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <div *transloco="let c; scope: 'payment-link'; read: 'paymentLink.createInvoiceOrInvoiceTemplate.paymentLinkType'">
-        <h1 class="mat-title">{{ c.title }}</h1>
+        <h1 class="mat-title">{{ c('title') }}</h1>
         <form [formGroup]="form">
             <mat-radio-group fxLayout="column" fxLayoutGap="20px" formControlName="type">
-                <mat-radio-button [value]="type.invoice">{{ c.types.personal }}</mat-radio-button>
-                <mat-radio-button [value]="type.tempalte">{{ c.types.reusable }}</mat-radio-button>
+                <mat-radio-button [value]="type.invoice">{{ c('types.personal') }}</mat-radio-button>
+                <mat-radio-button [value]="type.tempalte">{{ c('types.reusable') }}</mat-radio-button>
             </mat-radio-group>
         </form>
     </div>

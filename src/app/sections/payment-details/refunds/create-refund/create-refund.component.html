@@ -25,9 +25,9 @@
             </div>
         </form>
         <div *transloco="let c" [fxLayoutGap]="layoutGap">
-            <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c.cancel }}</button>
+            <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
             <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
-                {{ c.confirm }}
+                {{ c('confirm') }}
             </button>
         </div>
     </div>

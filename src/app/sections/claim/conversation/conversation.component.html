@@ -2,7 +2,7 @@
     <dsh-timeline>
         <dsh-timeline-item>
             <dsh-timeline-item-title>
-                <span>{{ t.timeline.claimCreated }}&nbsp;</span>
+                <span>{{ t('timeline.claimCreated') }}&nbsp;</span>
                 <span *transloco="let root"
                     >{{ claimCreatedAt$ | async | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
                 >

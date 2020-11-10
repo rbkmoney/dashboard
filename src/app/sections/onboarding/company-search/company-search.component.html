@@ -1,10 +1,10 @@
 <div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-display-1">{{ t.onboarding.headline }}</h1>
+    <h1 class="mat-display-1">{{ t('onboarding.headline') }}</h1>
     <dsh-card>
-        <h2 class="mat-title">{{ t.onboarding.companySearch.title }}</h2>
+        <h2 class="mat-title">{{ t('onboarding.companySearch.title') }}</h2>
         <form fxLayout="column" [formGroup]="form">
             <mat-form-field>
-                <mat-label>{{ t.onboarding.companySearch.searchFieldLabel }}</mat-label>
+                <mat-label>{{ t('onboarding.companySearch.searchFieldLabel') }}</mat-label>
                 <dsh-dadata-autocomplete
                     formControlName="searchStr"
                     type="party"

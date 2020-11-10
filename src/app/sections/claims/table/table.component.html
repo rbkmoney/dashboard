@@ -2,7 +2,7 @@
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="claimID">
             <th dshHeaderCell fxFlex="100px" *dshHeaderCellDef>
-                {{ t.id }}
+                {{ t('id') }}
             </th>
             <td dshCell fxFlex="100px" *dshCellDef="let element">
                 {{ element.claimID }}
@@ -11,7 +11,7 @@
 
         <ng-container *transloco="let c" dshColumnDef="claimType">
             <th dshHeaderCell *dshHeaderCellDef>
-                {{ t.type }}
+                {{ t('type') }}
             </th>
             <td dshCell *dshCellDef="let element">
                 {{ c.claimType[element.changeset | changesetToType] }}
@@ -20,7 +20,7 @@
 
         <ng-container dshColumnDef="claimStatus">
             <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
-                {{ t.status }}
+                {{ t('status') }}
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
@@ -31,7 +31,7 @@
 
         <ng-container dshColumnDef="updatedAt">
             <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
-                {{ t.updatedAt }}
+                {{ t('updatedAt') }}
             </th>
             <td dshCell fxFlex="180px" *dshCellDef="let element">
                 {{ element.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}
@@ -49,7 +49,7 @@
                         <dsh-dropdown-actions>
                             <dsh-state-nav flat>
                                 <dsh-state-nav-item (click)="goToClaimDetails(element)">{{
-                                    t.actions.claimDetails
+                                    t('actions.claimDetails')
                                 }}</dsh-state-nav-item>
                             </dsh-state-nav>
                         </dsh-dropdown-actions>

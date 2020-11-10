@@ -8,8 +8,8 @@
     fxLayoutGap="10px"
 >
     <ng-container *transloco="let common">
-        <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
-        <div *ngIf="error$ | async">{{ common.httpError }}</div>
+        <div *ngIf="isLoading$ | async">{{ common('loading') }}</div>
+        <div *ngIf="error$ | async">{{ common('httpError') }}</div>
     </ng-container>
     <dsh-document-container-panel
         *ngFor="let infoItem of panelInfo$ | async"

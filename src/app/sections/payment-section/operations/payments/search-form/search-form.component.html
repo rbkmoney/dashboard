@@ -12,7 +12,7 @@
                 <mat-label>{{ t.paymentStatus }}</mat-label>
                 <mat-select formControlName="paymentStatus">
                     <mat-option>
-                        {{ c.any }}
+                        {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of paymentStatuses" [value]="status">
                         {{ c.paymentStatus[status] }}
@@ -22,7 +22,7 @@
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
-                {{ c.resetSearchParams }}
+                {{ c('resetSearchParams') }}
             </button>
         </dsh-float-panel-actions>
         <dsh-float-panel-more>
@@ -43,7 +43,7 @@
                     <mat-label>{{ t.paymentFlow }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
-                            {{ c.any }}
+                            {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let flow of paymentFlows" [value]="flow">
                             {{ c.paymentFlow[flow] }}
@@ -62,7 +62,7 @@
                     <mat-label>{{ t.paymentMethod }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
-                            {{ c.any }}
+                            {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of paymentMethods" [value]="method">
                             {{ c.paymentMethod[method] }}
@@ -81,7 +81,7 @@
                     <mat-label>{{ t.bankCardTokenProvider }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
-                            {{ c.any }}
+                            {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
                             {{ c.bankCardTokenProvider[tokenProvider] }}
@@ -92,7 +92,7 @@
                     <mat-label>{{ t.bankCardPaymentSystem }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
-                            {{ c.any }}
+                            {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
                             {{ c.bankCardPaymentSystem[method] }}

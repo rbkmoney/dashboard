@@ -32,7 +32,7 @@
         <mat-label>{{ t.createWebhook.wallet }}</mat-label>
         <mat-select formControlName="walletID">
             <mat-option *transloco="let c">
-                {{ c.any }}
+                {{ c('any') }}
             </mat-option>
             <mat-option *ngFor="let wallet of wallets$ | async" [value]="wallet.id">
                 {{ wallet.name }}

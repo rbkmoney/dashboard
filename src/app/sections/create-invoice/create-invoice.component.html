@@ -1,9 +1,9 @@
 <ng-container *transloco="let d; scope: 'create-invoice'; read: 'createInvoice'">
-    <h1 class="mat-title">{{ d.title }}</h1>
+    <h1 class="mat-title">{{ d('title') }}</h1>
     <div fxLayout="column" fxLayoutGap="20px" [formGroup]="form">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
-                <mat-label>{{ d.form.shop }}</mat-label>
+                <mat-label>{{ d('form.shop') }}</mat-label>
                 <mat-select formControlName="shopID" required>
                     <mat-option *ngFor="let shop of shops" [value]="shop.id">
                         {{ shop.details.name }}
@@ -11,32 +11,32 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ d.form.dueDate }}</mat-label>
+                <mat-label>{{ d('form.dueDate') }}</mat-label>
                 <input required matInput formControlName="dueDate" [matDatepicker]="dueDate" [min]="minDate" />
                 <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
                 <mat-datepicker #dueDate></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ d.form.product }}</mat-label>
+                <mat-label>{{ d('form.product') }}</mat-label>
                 <input required matInput formControlName="product" autocomplete="off" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ d.form.description }}</mat-label>
+                <mat-label>{{ d('form.description') }}</mat-label>
                 <input matInput formControlName="description" autocomplete="off" />
             </mat-form-field>
         </dsh-justify-wrapper>
 
-        <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d.productsList }}</h2>
+        <h2 class="mat-subheading-1" *ngIf="cart.controls.length">{{ d('productsList') }}</h2>
 
         <ng-container *ngFor="let removeGroup of cart.controls; index as i" [formGroup]="removeGroup">
             <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
                 <mat-form-field>
-                    <mat-label>{{ d.removeFormGroup.product }}</mat-label>
+                    <mat-label>{{ d('removeFormGroup.product') }}</mat-label>
                     <input required matInput formControlName="product" autocomplete="off" />
                 </mat-form-field>
                 <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
                     <mat-form-field fxFlex>
-                        <mat-label>{{ d.removeFormGroup.price }}</mat-label>
+                        <mat-label>{{ d('removeFormGroup.price') }}</mat-label>
                         <dsh-format-input
                             required
                             formControlName="price"
@@ -45,7 +45,7 @@
                         ></dsh-format-input>
                     </mat-form-field>
                     <mat-form-field fxFlex>
-                        <mat-label>{{ d.removeFormGroup.quantity }}</mat-label>
+                        <mat-label>{{ d('removeFormGroup.quantity') }}</mat-label>
                         <dsh-format-input
                             required
                             formControlName="quantity"
@@ -54,9 +54,9 @@
                         ></dsh-format-input>
                     </mat-form-field>
                     <mat-form-field fxFlex>
-                        <mat-label>{{ d.removeFormGroup.taxMode }}</mat-label>
+                        <mat-label>{{ d('removeFormGroup.taxMode') }}</mat-label>
                         <mat-select formControlName="taxVatRate" required>
-                            <mat-option [value]="withoutVAT">{{ d.removeFormGroup.withoutVAT }}</mat-option>
+                            <mat-option [value]="withoutVAT">{{ d('removeFormGroup.withoutVAT') }}</mat-option>
                             <mat-option *ngFor="let taxVatRate of taxVatRates" [value]="taxVatRate">
                                 {{ taxVatRate }}
                             </mat-option>
@@ -65,7 +65,7 @@
                 </dsh-justify-wrapper>
                 <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
                     <button dsh-stroked-button color="warn" (click)="remove(i)">
-                        {{ d.remove }}
+                        {{ d('remove') }}
                     </button>
                 </div>
             </dsh-justify-wrapper>
@@ -86,7 +86,7 @@
                 {{ backButton }}
             </button>
             <button *ngIf="!backButton" dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
-                {{ t.clearForm }}
+                {{ t('clearForm') }}
             </button>
             <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">
                 {{ buttonType === 'create' ? t.create : t.next }}

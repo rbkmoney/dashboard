@@ -1,9 +1,9 @@
 <div *transloco="let t; scope: 'claim'; read: 'claim.revokeClaimDialog'" fxLayout="column" fxLayoutGap="20px">
-    <h2 class="mat-title">{{ t.subheading }}</h2>
+    <h2 class="mat-title">{{ t('subheading') }}</h2>
     <div mat-dialog-content>
         <form [formGroup]="form">
             <mat-form-field fxFlex>
-                <mat-label>{{ t.reason }}</mat-label>
+                <mat-label>{{ t('reason') }}</mat-label>
                 <input formControlName="reason" matInput type="text" autocomplete="off" />
             </mat-form-field>
         </form>

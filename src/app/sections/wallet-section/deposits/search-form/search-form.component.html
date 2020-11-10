@@ -10,7 +10,7 @@
                 <mat-label>{{ t.depositStatus }}</mat-label>
                 <mat-select formControlName="status">
                     <mat-option>
-                        {{ c.any }}
+                        {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of depositStatuses" [value]="status">
                         {{ c.depositStatus[status] }}
@@ -20,7 +20,7 @@
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
-                {{ c.resetSearchParams }}
+                {{ c('resetSearchParams') }}
             </button>
         </dsh-float-panel-actions>
         <dsh-float-panel-more>

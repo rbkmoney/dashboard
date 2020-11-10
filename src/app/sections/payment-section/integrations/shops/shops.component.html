@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlex="720px" fxLayoutGap="32px" *transloco="let s; scope: 'shops'; read: 'shops'">
     <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign=" center">
         <div class="dsh-caption" fxFlex>
-            {{ s.description }}
+            {{ s('description') }}
         </div>
         <mat-divider vertical fxFlexAlign="stretch"></mat-divider>
         <div>
@@ -20,7 +20,7 @@
             (activateShop)="activate($event)"
         ></dsh-shops-panels-list>
         <div *ngIf="!(shops$ | async)?.length" class="mat-headline dsh-payouts-empty">
-            <dsh-empty-search-result *transloco="let t">{{ t.emptySearchResult }}</dsh-empty-search-result>
+            <dsh-empty-search-result *transloco="let t">{{ t('emptySearchResult') }}</dsh-empty-search-result>
         </div>
     </ng-template>
 </div>

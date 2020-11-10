@@ -7,7 +7,7 @@
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
             <div class="mat-body-1">
-                {{ t.holdDate }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
+                {{ t('holdDate') }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
                 }}{{
                     (holdDate | holdActive: payment?.status)
                         ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')'
@@ -15,7 +15,7 @@
                 }}.
                 <ng-container *ngIf="holdDate | holdActive: payment?.status; else expiredHold">
                     {{ t[getActiveHoldText()] }}
-                    {{ t.activeHoldTutorial }}
+                    {{ t('activeHoldTutorial') }}
                 </ng-container>
                 <ng-template #expiredHold>
                     {{ t[getExpiredHoldText()] }}

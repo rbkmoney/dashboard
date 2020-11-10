@@ -12,7 +12,7 @@
     </dsh-show-more-panel>
     <div *ngIf="!(withdrawals$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-withdrawals-empty">
         <ng-container *transloco="let t">
-            {{ t.emptySearchResult }}
+            {{ t('emptySearchResult') }}
         </ng-container>
     </div>
     <div *ngIf="isLoading$ | async" fxLayout fxFlexAlign="center">

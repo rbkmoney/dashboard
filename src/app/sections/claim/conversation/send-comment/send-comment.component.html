@@ -1,7 +1,7 @@
 <div *transloco="let t; scope: 'claim'; read: 'claim.conversation'">
     <form [formGroup]="form" fxLayout="row" fxLayoutGap="10px" xLayoutAlign="space-between center">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.sendComment }}</mat-label>
+            <mat-label>{{ t('sendComment') }}</mat-label>
             <input formControlName="comment" matInput type="text" autocomplete="off" />
         </mat-form-field>
         <div class="action">
