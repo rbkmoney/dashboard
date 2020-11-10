@@ -2,7 +2,7 @@
     <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
         <dsh-card-title>
             <h2 class="mat-title">
-                {{ t?.title }}
+                {{ t('title') }}
             </h2>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
@@ -30,10 +30,10 @@
                 [fxLayoutGap.xs]="layoutGap"
             >
                 <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn" (click)="cancelHoldDialog()">
-                    {{ t.actions.deny }}
+                    {{ t('actions.deny') }}
                 </button>
                 <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent" (click)="confirmHoldDialog()">
-                    {{ t.actions.accept }}
+                    {{ t('actions.accept') }}
                 </button>
             </div>
         </dsh-card-content>

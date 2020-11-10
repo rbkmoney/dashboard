@@ -8,8 +8,8 @@
             </mat-form-field>
         </form>
         <div *ngIf="errorCode$ | async">
-            <div *transloco="let common" class="mat-caption">
-                {{ common.errors[errorCode$ | async] }}
+            <div *transloco="let c" class="mat-caption">
+                {{ c('errors.' + (errorCode$ | async)) }}
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         fxLayoutGap.xs="10px"
     >
         <button fxFlex fxFlex.xs="none" dsh-button (click)="back()" [disabled]="inProgress$ | async">
-            {{ t.back }}
+            {{ t('back') }}
         </button>
         <button
             fxFlex
@@ -32,7 +32,7 @@
             (click)="revoke(form.value.reason)"
             [disabled]="!form.valid || (inProgress$ | async)"
         >
-            {{ t.revoke }}
+            {{ t('revoke') }}
         </button>
     </div>
 </div>

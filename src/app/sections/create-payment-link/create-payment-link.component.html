@@ -4,50 +4,50 @@
             <h1 class="dsh-title">{{ c('title') }}</h1>
             <mat-icon class="close-icon" svgIcon="cross" (click)="cancel.emit()" *ngIf="cancelButton"></mat-icon>
         </div>
-        <div class="dsh-body-1">{{ c.description }}</div>
+        <div class="dsh-body-1">{{ c('description') }}</div>
     </div>
     <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="40px">
         <dsh-justify-wrapper fxLayout="column" fxLayoutGap="20px">
             <mat-form-field>
-                <mat-label>{{ c.form.name }}</mat-label>
+                <mat-label>{{ c('form.name') }}</mat-label>
                 <input formControlName="name" matInput />
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ c.form.description }}</mat-label>
+                <mat-label>{{ c('form.description') }}</mat-label>
                 <input formControlName="description" matInput />
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ c.form.email }}</mat-label>
+                <mat-label>{{ c('form.email') }}</mat-label>
                 <input formControlName="email" matInput type="email" />
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>{{ c.form.redirectUrl }}</mat-label>
+                <mat-label>{{ c('form.redirectUrl') }}</mat-label>
                 <input formControlName="redirectUrl" matInput type="url" />
             </mat-form-field>
 
             <ng-container formGroupName="paymentMethods">
-                <h2 class="mat-body-2">{{ c.form.paymentMethods }}:</h2>
+                <h2 class="mat-body-2">{{ c('form.paymentMethods') }}:</h2>
                 <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
                     <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
-                        {{ c.form[methodName] }}
+                        {{ c('form.' + methodName) }}
                     </mat-checkbox>
                 </ng-container>
             </ng-container>
 
             <mat-divider></mat-divider>
-            <mat-checkbox formControlName="paymentFlowHold">{{ c.form.paymentFlowHold }}</mat-checkbox>
+            <mat-checkbox formControlName="paymentFlowHold">{{ c('form.paymentFlowHold') }}</mat-checkbox>
             <ng-container *ngIf="form.value.paymentFlowHold">
-                <label class="mat-subheading-1">{{ c.form.paymentFlowHoldPolicy }}:</label>
+                <label class="mat-subheading-1">{{ c('form.paymentFlowHoldPolicy') }}:</label>
                 <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="holdExpiration">
                     <mat-radio-button
                         *ngFor="let holdExpiration of holdExpirations"
                         fxFlex="0 1 calc((100% - 20px * 2)/3)"
                         [value]="holdExpiration[1]"
                     >
-                        {{ c.form.holdExpiration[holdExpiration[0]] }}
+                        {{ c('form.holdExpiration.' + holdExpiration[0]) }}
                     </mat-radio-button>
                 </mat-radio-group>
             </ng-container>
@@ -56,7 +56,7 @@
                 <mat-divider></mat-divider>
                 <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
                     <mat-form-field fxFlex>
-                        <mat-label>{{ c.form.link }}</mat-label>
+                        <mat-label>{{ c('form.link') }}</mat-label>
                         <input [value]="link$ | async" matInput readonly disabled />
                     </mat-form-field>
                     <div>
@@ -66,7 +66,7 @@
                             [cdkCopyToClipboard]="link$ | async"
                             (cdkCopyToClipboardCopied)="copied($event)"
                         >
-                            {{ c.form.copy }}
+                            {{ c('form.copy') }}
                         </button>
                     </div>
                 </dsh-justify-wrapper>
@@ -94,12 +94,12 @@
 
                     <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
                         <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
-                            {{ c.form.create }}
+                            {{ c('form.create') }}
                         </button>
                     </ng-container>
                     <ng-template #clearButton>
                         <button dsh-button (click)="clear()" [disabled]="isLoading$ | async">
-                            {{ t.clearForm }}
+                            {{ t('clearForm') }}
                         </button>
                     </ng-template>
                 </ng-container>

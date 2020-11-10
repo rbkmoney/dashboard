@@ -15,7 +15,7 @@
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let refund">
                 <dsh-status *transloco="let c" [color]="refund.status | refundStatusColor">{{
-                    c.refundStatus[refund.status]
+                    c('refundStatus.' + refund.status)
                 }}</dsh-status>
             </td>
         </ng-container>

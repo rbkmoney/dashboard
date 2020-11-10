@@ -8,11 +8,11 @@
         <mat-icon fxHide.xs="true" fxFlex="180px" class="bill-icon" svgIcon="bill"></mat-icon>
         <div fxLayout="column" fxLayoutGap="24px">
             <div fxLayout fxLayoutAlign="space-between">
-                <h2 class="dsh-headline">{{ t.title }}</h2>
+                <h2 class="dsh-headline">{{ t('title') }}</h2>
                 <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="32"></dsh-spinner>
             </div>
             <h4 class="dsh-subheading-1 subheading">
-                {{ t.subheading[subheading$ | async] }}
+                {{ t('subheading.' + (subheading$ | async)) }}
             </h4>
         </div>
     </div>
@@ -26,7 +26,7 @@
             [disabled]="(actionBtnContent$ | async).disabled"
             [routerLink]="(actionBtnContent$ | async).routerLink"
         >
-            {{ t.action[(actionBtnContent$ | async).actionLabel] }}
+            {{ t('action.' + (actionBtnContent$ | async).actionLabel) }}
         </button>
         <div fxFlex="50" fxFlex.xs="none">
             <button
@@ -37,7 +37,7 @@
                 [disabled]="(testEnvBtnContent$ | async).disabled"
                 [routerLink]="(testEnvBtnContent$ | async).routerLink"
             >
-                {{ t.testEnvironment }}
+                {{ t('testEnvironment') }}
             </button>
         </div>
     </div>

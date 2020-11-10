@@ -6,7 +6,7 @@
     <dsh-card-title>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxLayoutGap="0" fxLayoutGap.xs="10px">
             <div fxFlex.xs fxFlex="none" class="dsh-payment-details-refunds-title">
-                {{ t.title }}
+                {{ t('title') }}
             </div>
             <button
                 fxFlex.xs="100"
@@ -16,7 +16,7 @@
                 color="accent"
                 (click)="createRefund()"
             >
-                {{ t.createRefund.title }}
+                {{ t('createRefund.title') }}
             </button>
         </div>
     </dsh-card-title>
@@ -26,7 +26,7 @@
             <div class="dsh-payment-details-refunds-divider"></div>
         </ng-container>
         <div *ngIf="(refunds$ | async).length === 0">
-            {{ t.noRefunds }}
+            {{ t('noRefunds') }}
         </div>
         <button
             *ngIf="hasMoreRefunds$ | async"

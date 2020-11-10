@@ -5,7 +5,7 @@
         </div>
         <mat-divider vertical fxFlexAlign="stretch"></mat-divider>
         <div>
-            <button dsh-button color="accent" (click)="createShop()">{{ s.createShop }}</button>
+            <button dsh-button color="accent" (click)="createShop()">{{ s('createShop') }}</button>
         </div>
     </div>
     <ng-container *ngIf="(isLoading$ | async) || !(shops$ | async); else shopsPanelsList">

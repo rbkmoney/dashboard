@@ -5,28 +5,28 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.authorityConfirmingDocument'"
 >
     <mat-form-field>
-        <mat-label>{{ t.typeSelector }}</mat-label>
+        <mat-label>{{ t('typeSelector') }}</mat-label>
         <mat-select required formControlName="type">
             <mat-option *ngFor="let option of selectOptionTypes" [value]="option">
-                {{ t.documentTypes[option] }}
+                {{ t('documentTypes.' + option) }}
             </mat-option>
-            <mat-option [value]="customType"> {{ t.documentTypes.custom }}</mat-option>
+            <mat-option [value]="customType"> {{ t('documentTypes.custom') }}</mat-option>
         </mat-select>
     </mat-form-field>
     <div *ngIf="isCustom$ | async" fxLayout="column" fxLayoutGap="10px">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.customDocumentType }}</mat-label>
+            <mat-label>{{ t('customDocumentType') }}</mat-label>
             <input matInput formControlName="customType" required />
         </mat-form-field>
         <div fxLayout [fxLayoutGap]="layoutGap">
             <mat-form-field fxFlex>
-                <mat-label>{{ t.date }}</mat-label>
+                <mat-label>{{ t('date') }}</mat-label>
                 <input matInput formControlName="date" [matDatepicker]="dateDatepicker" required />
                 <mat-datepicker-toggle matSuffix [for]="dateDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #dateDatepicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex>
-                <mat-label>{{ t.number }}</mat-label>
+                <mat-label>{{ t('number') }}</mat-label>
                 <input matInput formControlName="number" />
             </mat-form-field>
         </div>

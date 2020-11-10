@@ -7,7 +7,7 @@
         <div *ngIf="!error; else onError">
             <dsh-bar-chart *ngIf="chartData; else noData" [series]="chartData.series" [colors]="colors"></dsh-bar-chart>
             <ng-template #noData>
-                {{ t.noData }}
+                {{ t('noData') }}
             </ng-template>
         </div>
         <ng-template #onError>

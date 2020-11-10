@@ -74,10 +74,10 @@
 
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
             <div>
-                <h2 class="mat-subheading-1 total-amount">{{ d.totalAmount }} {{ totalAmount$ | async }}</h2>
+                <h2 class="mat-subheading-1 total-amount">{{ d('totalAmount') }} {{ totalAmount$ | async }}</h2>
             </div>
             <button dsh-stroked-button color="accent" (click)="add()">
-                {{ d.addProduct }}
+                {{ d('addProduct') }}
             </button>
         </div>
 
@@ -89,7 +89,7 @@
                 {{ t('clearForm') }}
             </button>
             <button dsh-button cdkFocusInitial (click)="create()" color="accent" [disabled]="form.invalid">
-                {{ buttonType === 'create' ? t.create : t.next }}
+                {{ buttonType === 'create' ? t('create') : t('next') }}
             </button>
         </div>
     </div>

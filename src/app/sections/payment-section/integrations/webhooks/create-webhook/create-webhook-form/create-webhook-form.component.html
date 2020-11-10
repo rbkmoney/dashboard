@@ -31,7 +31,7 @@
     <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">
         <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
             <mat-checkbox formControlName="selected" class="dsh-body-1">{{
-                t.events.types[eventType.controls.eventName.value]
+                t('events.types.' + eventType.controls.eventName.value)
             }}</mat-checkbox>
         </div>
     </div>

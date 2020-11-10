@@ -9,13 +9,13 @@
             <dsh-range-datepicker fxFlex formControlName="date"></dsh-range-datepicker>
             <dsh-shop-selector formControlName="shopIDs" fxFlex></dsh-shop-selector>
             <mat-form-field fxFlex>
-                <mat-label>{{ t.paymentStatus }}</mat-label>
+                <mat-label>{{ t('paymentStatus') }}</mat-label>
                 <mat-select formControlName="paymentStatus">
                     <mat-option>
                         {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of paymentStatuses" [value]="status">
-                        {{ c.paymentStatus[status] }}
+                        {{ c('paymentStatus.' + status) }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -28,79 +28,79 @@
         <dsh-float-panel-more>
             <div gdAuto gdGap="0 {{ layoutGap }}" gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr">
                 <mat-form-field>
-                    <mat-label>{{ t.paymentAmountFrom }}</mat-label>
+                    <mat-label>{{ t('paymentAmountFrom') }}</mat-label>
                     <dsh-format-input format="amount" formControlName="paymentAmountFrom"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.paymentAmountTo }}</mat-label>
+                    <mat-label>{{ t('paymentAmountTo') }}</mat-label>
                     <dsh-format-input format="amount" formControlName="paymentAmountTo"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.rrn }}</mat-label>
+                    <mat-label>{{ t('rrn') }}</mat-label>
                     <input matInput formControlName="rrn" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.paymentFlow }}</mat-label>
+                    <mat-label>{{ t('paymentFlow') }}</mat-label>
                     <mat-select formControlName="paymentFlow">
                         <mat-option>
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let flow of paymentFlows" [value]="flow">
-                            {{ c.paymentFlow[flow] }}
+                            {{ c('paymentFlow.' + flow) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.invoiceID }}</mat-label>
+                    <mat-label>{{ t('invoiceID') }}</mat-label>
                     <input matInput formControlName="invoiceID" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.payerEmail }}</mat-label>
+                    <mat-label>{{ t('payerEmail') }}</mat-label>
                     <input matInput type="email" formControlName="payerEmail" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.paymentMethod }}</mat-label>
+                    <mat-label>{{ t('paymentMethod') }}</mat-label>
                     <mat-select formControlName="paymentMethod">
                         <mat-option>
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of paymentMethods" [value]="method">
-                            {{ c.paymentMethod[method] }}
+                            {{ c('paymentMethod.' + method) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field *ngIf="isBankCard$ | async">
-                    <mat-label>{{ t.first6 }}</mat-label>
+                    <mat-label>{{ t('first6') }}</mat-label>
                     <dsh-format-input format="bin" formControlName="first6"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field *ngIf="isBankCard$ | async">
-                    <mat-label>{{ t.last4 }}</mat-label>
+                    <mat-label>{{ t('last4') }}</mat-label>
                     <dsh-format-input format="lastDigits" formControlName="last4"></dsh-format-input>
                 </mat-form-field>
                 <mat-form-field *ngIf="isBankCard$ | async">
-                    <mat-label>{{ t.bankCardTokenProvider }}</mat-label>
+                    <mat-label>{{ t('bankCardTokenProvider') }}</mat-label>
                     <mat-select formControlName="bankCardTokenProvider">
                         <mat-option>
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
-                            {{ c.bankCardTokenProvider[tokenProvider] }}
+                            {{ c('bankCardTokenProvider.' + tokenProvider) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field *ngIf="isBankCard$ | async">
-                    <mat-label>{{ t.bankCardPaymentSystem }}</mat-label>
+                    <mat-label>{{ t('bankCardPaymentSystem') }}</mat-label>
                     <mat-select formControlName="bankCardPaymentSystem">
                         <mat-option>
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
-                            {{ c.bankCardPaymentSystem[method] }}
+                            {{ c('bankCardPaymentSystem.' + method) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ t.customerID }}</mat-label>
+                    <mat-label>{{ t('customerID') }}</mat-label>
                     <input matInput formControlName="customerID" />
                 </mat-form-field>
             </div>

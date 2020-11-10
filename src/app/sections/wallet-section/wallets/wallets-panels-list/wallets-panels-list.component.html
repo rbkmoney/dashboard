@@ -13,7 +13,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <span class="mat-caption">
-                    {{ !wallet.isBlocked ? t.status.active : t.status.inactive }}
+                    {{ !wallet.isBlocked ? t('status.active') : t('status.inactive') }}
                 </span>
                 <span class="mat-caption">{{ (accounts[wallet.id] | async)?.available.currency }}</span>
             </div>
@@ -21,10 +21,10 @@
         <dsh-expand-panel-more>
             <dsh-expand-panel-more-header>
                 <div fxFlex fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                    <div class="mat-caption dsh-wallet-header">{{ t.wallet_details }} #{{ wallet.id }}</div>
+                    <div class="mat-caption dsh-wallet-header">{{ t('wallet_details') }} #{{ wallet.id }}</div>
                     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
                         <div class="mat-caption dsh-wallet-header">
-                            {{ !wallet.isBlocked ? t.status.active : t.status.inactive }}
+                            {{ !wallet.isBlocked ? t('status.active') : t('status.inactive') }}
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
                     fxFlex="0 1 calc((100% - 20px * 2)/3)"
                     [value]="template[1]"
                 >
-                    {{ c.form.templateType[template[0]] }}
+                    {{ c('form.templateType.' + template[0]) }}
                 </mat-radio-button>
             </mat-radio-group>
 
@@ -71,36 +71,36 @@
                 </ng-container>
                 <mat-divider></mat-divider>
                 <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
-                    <div>{{ c.form.cart.summary }}: {{ summary$ | async | currency: form.value.currency }}</div>
+                    <div>{{ c('form.cart.summary') }}: {{ summary$ | async | currency: form.value.currency }}</div>
                     <button dsh-stroked-button color="accent" (click)="addProduct()">
-                        {{ c.form.cart.add }}
+                        {{ c('form.cart.add') }}
                     </button>
                 </div>
             </ng-container>
 
             <ng-template #singleLine>
                 <mat-form-field>
-                    <mat-label>{{ c.form.product }}</mat-label>
+                    <mat-label>{{ c('form.product') }}</mat-label>
                     <input formControlName="product" matInput maxlength="1000" required />
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>{{ c.form.taxMode }}</mat-label>
+                    <mat-label>{{ c('form.taxMode') }}</mat-label>
                     <mat-select required formControlName="taxMode">
-                        <mat-option [value]="withoutVAT">{{ c.form.withoutVAT }}</mat-option>
+                        <mat-option [value]="withoutVAT">{{ c('form.withoutVAT') }}</mat-option>
                         <mat-option *ngFor="let taxMode of taxModes" [value]="taxMode">{{ taxMode }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <label class="mat-subheading-1">{{ c.form.costType.label }}:</label>
+                <label class="mat-subheading-1">{{ c('form.costType.label') }}:</label>
                 <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="costType">
                     <mat-radio-button *ngFor="let cost of costTypes" fxFlex [value]="cost[1]">
-                        {{ c.form.costType[cost[0]] }}
+                        {{ c('form.costType.' + cost[0]) }}
                     </mat-radio-button>
                 </mat-radio-group>
 
                 <mat-form-field *ngIf="form.value.costType === costType.fixed">
-                    <mat-label>{{ c.form.cost }}</mat-label>
+                    <mat-label>{{ c('form.cost') }}</mat-label>
                     <dsh-format-input format="amount" formControlName="amount" required></dsh-format-input>
                 </mat-form-field>
 
@@ -111,11 +111,11 @@
                     formGroupName="range"
                 >
                     <mat-form-field fxFlex>
-                        <mat-label>{{ c.form.lowerBound }}</mat-label>
+                        <mat-label>{{ c('form.lowerBound') }}</mat-label>
                         <dsh-format-input format="amount" formControlName="lowerBound" required></dsh-format-input>
                     </mat-form-field>
                     <mat-form-field fxFlex>
-                        <mat-label>{{ c.form.upperBound }}</mat-label>
+                        <mat-label>{{ c('form.upperBound') }}</mat-label>
                         <dsh-format-input format="amount" formControlName="upperBound" required></dsh-format-input>
                     </mat-form-field>
                 </dsh-justify-wrapper>

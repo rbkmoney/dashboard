@@ -12,7 +12,7 @@ const errorsToSeries = (errors: ErrorDistribution[]): number[] => {
 };
 
 const errorsToLabels = (errors: ErrorDistribution[]): string[] =>
-    errors.map((d) => translate(`analytics.errorCodes.${d.errorCode}`, null, 'payment-section|scoped'));
+    errors.map((d) => translate(`analytics.errorCodes.${d.errorCode}`, null, 'payment-section'));
 
 export const errorsDistributionToChartData = (distribution: ErrorDistribution[]): DistributionChartData => {
     const filtered = filterErrors(distribution);

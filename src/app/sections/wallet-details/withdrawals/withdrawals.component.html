@@ -18,7 +18,7 @@
             (click)="fetchMore()"
         >
             <ng-container *transloco="let c">
-                {{ c.showMore }}
+                {{ c('showMore') }}
             </ng-container>
         </button>
         <div *ngIf="!(error$ | async) && (isLoading$ | async)" fxFlexAlign="center"><dsh-spinner></dsh-spinner></div>

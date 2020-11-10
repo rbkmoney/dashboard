@@ -27,8 +27,8 @@
         </div>
     </form>
     <div *ngIf="errorCode$ | async">
-        <div *transloco="let common" class="mat-caption">
-            {{ common.errors[errorCode$ | async] }}
+        <div *transloco="let c" class="mat-caption">
+            {{ c('errors.' + (errorCode$ | async)) }}
         </div>
     </div>
 </div>

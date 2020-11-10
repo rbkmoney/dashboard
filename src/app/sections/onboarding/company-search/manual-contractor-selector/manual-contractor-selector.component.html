@@ -2,7 +2,7 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'"
     class="container"
 >
-    <p class="mat-body-1">{{ t.description }}</p>
+    <p class="mat-body-1">{{ t('description') }}</p>
     <mat-radio-group
         (change)="selected($event)"
         fxLayout
@@ -12,7 +12,7 @@
         fxLayoutGap.sm="10px"
         fxLayoutGap.xs="10px"
     >
-        <mat-radio-button value="IndividualEntityContractor">{{ t.individualEntity }}</mat-radio-button>
-        <mat-radio-button value="LegalEntityContractor">{{ t.legalEntity }}</mat-radio-button>
+        <mat-radio-button value="IndividualEntityContractor">{{ t('individualEntity') }}</mat-radio-button>
+        <mat-radio-button value="LegalEntityContractor">{{ t('legalEntity') }}</mat-radio-button>
     </mat-radio-group>
 </div>

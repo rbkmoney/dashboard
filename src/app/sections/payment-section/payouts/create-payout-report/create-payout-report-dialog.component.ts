@@ -27,7 +27,7 @@ export class CreatePayoutReportDialogComponent implements OnInit {
 
     ngOnInit() {
         this.createPayoutReportDialogService.errorOccurred$.subscribe(() =>
-            this.snackBar.open(this.transloco.translate('errors.createReportError', null, 'payouts|scoped'), 'OK')
+            this.snackBar.open(this.transloco.translate('errors.createReportError', null, 'payouts'), 'OK')
         );
     }
 

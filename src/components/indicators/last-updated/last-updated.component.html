@@ -1,6 +1,6 @@
 <div class="dsh-last-updated" *transloco="let t" fxLayout fxLayoutAlign="space-between center" dir="rtl">
     <ng-container *ngIf="lastUpdated">
-        <a (click)="update.emit()" class="dsh-last-updated-update-link">{{ t.update }}</a>
-        <span> {{ t.lastUpdate }}: {{ lastUpdated | humanizedDuration: { largest: 1, hasAgoEnding: true } }} </span>
+        <a (click)="update.emit()" class="dsh-last-updated-update-link">{{ t('update') }}</a>
+        <span> {{ t('lastUpdate') }}: {{ lastUpdated | humanizedDuration: { largest: 1, hasAgoEnding: true } }} </span>
     </ng-container>
 </div>

@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'payment-details'">
     <dsh-details-item *ngIf="paymentTerminal" [title]="t('paymentDetails.paymentTool.terminal')">
-        {{ t.paymentTerminalProvider[paymentTerminal.provider] || paymentTerminal.provider }}
+        {{ t('paymentTerminalProvider.' + paymentTerminal.provider) || paymentTerminal.provider }}
     </dsh-details-item>
 </ng-container>

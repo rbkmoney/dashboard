@@ -1,30 +1,30 @@
 <div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
-    <div class="mat-title">{{ p.summaryTypes[summary.type] }}</div>
+    <div class="mat-title">{{ p('summaryTypes.' + summary.type) }}</div>
     <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <div fxFlex>
-            <dsh-details-item [title]="p.count">
+            <dsh-details-item [title]="p('count')">
                 {{ summary?.count }}
             </dsh-details-item>
         </div>
         <div fxFlex>
-            <dsh-details-item [title]="p.amount">
+            <dsh-details-item [title]="p('amount')">
                 {{ summary?.amount | toMajor | currency: summary?.currency }}
             </dsh-details-item>
         </div>
         <div fxFlex>
-            <dsh-details-item [title]="p.fee">
+            <dsh-details-item [title]="p('fee')">
                 {{ summary?.fee | toMajor | currency: summary?.currency }}
             </dsh-details-item>
         </div>
     </div>
     <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <div fxFlex>
-            <dsh-details-item [title]="p.firstConfirmationTime">
+            <dsh-details-item [title]="p('firstConfirmationTime')">
                 {{ summary?.fromTime | date: 'd MMMM y, HH:mm:ss' }}
             </dsh-details-item>
         </div>
         <div fxFlex>
-            <dsh-details-item [title]="p.lastConfirmationTime">
+            <dsh-details-item [title]="p('lastConfirmationTime')">
                 {{ summary?.toTime | date: 'd MMMM y, HH:mm:ss' }}
             </dsh-details-item>
         </div>

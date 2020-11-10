@@ -29,7 +29,7 @@ export class CreateWebhookDialogComponent implements OnInit {
     ngOnInit() {
         this.createWebhookDialogService.webhookCreated$.subscribe(() => this.dialogRef.close('created'));
         this.createWebhookDialogService.errorOccurred$.subscribe(() =>
-            this.snackBar.open(this.transloco.translate('errors.createError', null, 'webhook|scoped'), 'OK')
+            this.snackBar.open(this.transloco.translate('errors.createError', null, 'webhook'), 'OK')
         );
     }
 

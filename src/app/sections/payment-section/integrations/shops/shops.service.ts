@@ -39,12 +39,12 @@ export class ShopsService {
             )
             .subscribe(
                 () => {
-                    this.snackBar.open(this.transloco.translate('suspend.success', null, 'shops|scoped'), 'OK', {
+                    this.snackBar.open(this.transloco.translate('suspend.success', null, 'shops'), 'OK', {
                         duration: 3000,
                     });
                     this.shopService.reloadShops();
                 },
-                () => this.snackBar.open(this.transloco.translate('suspend.error', null, 'shops|scoped'), 'OK')
+                () => this.snackBar.open(this.transloco.translate('suspend.error', null, 'shops'), 'OK')
             );
     }
 
@@ -58,12 +58,12 @@ export class ShopsService {
             )
             .subscribe(
                 () => {
-                    this.snackBar.open(this.transloco.translate('activate.success', null, 'shops|scoped'), 'OK', {
+                    this.snackBar.open(this.transloco.translate('activate.success', null, 'shops'), 'OK', {
                         duration: 3000,
                     });
                     this.shopService.reloadShops();
                 },
-                () => this.snackBar.open(this.transloco.translate('activate.error', null, 'shops|scoped'), 'OK')
+                () => this.snackBar.open(this.transloco.translate('activate.error', null, 'shops'), 'OK')
             );
     }
 }

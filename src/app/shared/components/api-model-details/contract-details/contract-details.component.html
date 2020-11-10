@@ -3,7 +3,7 @@
     fxLayout="column"
     fxLayoutGap="24px"
 >
-    <dsh-details-item [title]="t.createdAt">
+    <dsh-details-item [title]="t('createdAt')">
         {{ contract?.createdAt | date: 'd MMMM y, HH:mm:ss' }}
     </dsh-details-item>
     <dsh-contractor-details [contractor]="contract?.contractor"></dsh-contractor-details>

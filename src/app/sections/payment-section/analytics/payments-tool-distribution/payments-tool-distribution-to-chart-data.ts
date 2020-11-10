@@ -12,7 +12,7 @@ const getLabels = (distribution: PaymentsToolDistributionResult[]): string[] =>
     translate(
         distribution.map((d) => `analytics.paymentToolsList.${d.name}`),
         null,
-        'payment-section|scoped'
+        'payment-section'
     );
 
 export const paymentsToolDistributionToChartData = (

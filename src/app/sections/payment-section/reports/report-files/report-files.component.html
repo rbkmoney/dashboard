@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <div class="dsh-title">{{ t('title') }}</div>
         <button dsh-stroked-button color="accent" [disabled]="isLoading$ | async" (click)="downloadAll()">
-            {{ t.downloadAll }}
+            {{ t('downloadAll') }}
         </button>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">

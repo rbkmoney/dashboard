@@ -10,11 +10,11 @@
             report.createdAt | date: 'dd MMMM yyyy, HH:mm:ss'
         }}</dsh-details-item>
     </div>
-    <dsh-details-item [title]="t.period"
+    <dsh-details-item [title]="t('period')"
         >{{ report.fromTime | date: 'dd MMMM yyyy, HH:mm:ss' }} -
         {{ report.toTime | date: 'dd MMMM yyyy, HH:mm:ss' }}</dsh-details-item
     >
-    <dsh-details-item *ngIf="report?.shopID" [title]="t.shop">
+    <dsh-details-item *ngIf="report?.shopID" [title]="t('shop')">
         {{ report?.shopID | shopDetails }}
     </dsh-details-item>
 </div>

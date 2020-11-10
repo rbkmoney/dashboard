@@ -25,9 +25,9 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
-                {{ t.back }}
+                {{ t('back') }}
             </button>
-            <button dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">{{ t.next }}</button>
+            <button dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">{{ t('next') }}</button>
         </div>
     </dsh-card>
 </div>

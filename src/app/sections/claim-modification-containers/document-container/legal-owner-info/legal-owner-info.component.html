@@ -12,27 +12,27 @@
         [russianPrivateEntity]="legalOwnerInfo?.russianPrivateEntity"
     ></dsh-russian-private-entity-info>
     <div fxLayout="row">
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.snils" [title]="t.snils">
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.snils" [title]="t('snils')">
             {{ legalOwnerInfo?.snils }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.inn" [title]="t.innfl">
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.inn" [title]="t('innfl')">
             {{ legalOwnerInfo?.inn }}
         </dsh-details-item>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row">
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.headPosition" [title]="t.headPosition">
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.headPosition" [title]="t('headPosition')">
             {{ legalOwnerInfo?.headPosition }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.termOfOffice" [title]="t.termOfOffice">
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.termOfOffice" [title]="t('termOfOffice')">
             {{ legalOwnerInfo?.termOfOffice }}
         </dsh-details-item>
     </div>
     <div fxLayout="row" *ngIf="legalOwnerInfo?.pdlCategory || legalOwnerInfo?.pdlRelationDegree">
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.pdlCategory" [title]="t.pdlCategory">
-            {{ t.pdlCategoryFlag }}
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.pdlCategory" [title]="t('pdlCategory')">
+            {{ t('pdlCategoryFlag') }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.pdlRelationDegree" [title]="t.pdlRelationDegree">
+        <dsh-details-item fxFlex="50" *ngIf="legalOwnerInfo?.pdlRelationDegree" [title]="t('pdlRelationDegree')">
             {{ legalOwnerInfo?.pdlRelationDegree }}
         </dsh-details-item>
     </div>

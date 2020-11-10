@@ -6,7 +6,7 @@
     </div>
     <div>
         <button *ngIf="hasNextStep$ | async" fxFlex="100px" dsh-button color="accent" (click)="forward()">
-            {{ t.next }}
+            {{ t('next') }}
         </button>
     </div>
 </div>

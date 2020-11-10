@@ -16,7 +16,7 @@
                 *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
             ></dsh-empty-search-result>
             <button *ngIf="hasMoreInvoices$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? t.loading : t.showMore }}
+                {{ (isLoading$ | async) ? t('loading') : t('showMore') }}
             </button>
         </dsh-card-content>
     </dsh-card>

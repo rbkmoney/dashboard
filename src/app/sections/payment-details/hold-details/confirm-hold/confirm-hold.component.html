@@ -12,7 +12,7 @@
                 }}</mat-checkbox>
             </div>
             <mat-form-field *ngIf="isPartialAccept">
-                <mat-label>{{ t.amount }}</mat-label>
+                <mat-label>{{ t('amount') }}</mat-label>
                 <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
             </mat-form-field>
         </form>

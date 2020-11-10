@@ -9,14 +9,14 @@
         [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === 'today' }"
         (click)="this.selectToday()"
     >
-        {{ t.today }}
+        {{ t('today') }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
         [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentWeek }"
         (click)="this.selectCurrentWeek()"
     >
-        {{ t.currentWeek }}
+        {{ t('currentWeek') }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
@@ -30,19 +30,19 @@
         [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.threeMonths }"
         (click)="this.selectThreeMonths()"
     >
-        {{ t.threeMonths }}
+        {{ t('threeMonths') }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
         [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentYear }"
         (click)="this.selectCurrentYear()"
     >
-        {{ t.year | translocoParams: { year: current | date: 'y' } }}
+        {{ t('year', { year: current | date: 'y' }) }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item-another"
         [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.another }"
     >
-        {{ t.anotherPeriod }}
+        {{ t('anotherPeriod') }}
     </div>
 </div>

@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; scope: 'shop-selector'; read: 'shopSelector'">
     <dsh-justify-wrapper>
         <mat-form-field fxFlex>
-            <mat-label>{{ (selectLabel | async) ? t.testShops : t.shops }}</mat-label>
+            <mat-label>{{ (selectLabel | async) ? t('testShops') : t('shops') }}</mat-label>
             <mat-select
                 (openedChange)="shopsIDsOpenedChange($event)"
                 [formControl]="formControl"

@@ -5,22 +5,22 @@
 >
     <div class="mat-subheading-1 title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
         <span>
-            {{ t?.title }}
+            {{ t('title') }}
         </span>
         <span dshSecondaryTitle>#{{ payment.id }}</span>
         <mat-icon class="dsh-forward-icon go-to-payment" (click)="goToPaymentDetails()">arrow_forward</mat-icon>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
         <dsh-details-status-item
-            *transloco="let c; read: 'paymentStatus'"
+            *transloco="let c"
             [color]="color"
-            [text]="c[status]"
+            [text]="c('paymentStatus.' + status)"
             fxFlex="33"
         ></dsh-details-status-item>
-        <dsh-details-item [title]="t?.amount" fxFlex="33">
+        <dsh-details-item [title]="t('amount')" fxFlex="33">
             <div class="mat-body-1">{{ payment.amount | toMajor | currency: payment.currency }}</div>
         </dsh-details-item>
-        <dsh-details-item [title]="t?.createdAt" fxFlex="33">
+        <dsh-details-item [title]="t('createdAt')" fxFlex="33">
             <div class="mat-body-1">
                 {{ payment.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
             </div>

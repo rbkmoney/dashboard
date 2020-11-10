@@ -4,19 +4,19 @@
     [formGroup]="form"
     *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'"
 >
-    <h1 class="dsh-headline">{{ t.title }}</h1>
+    <h1 class="dsh-headline">{{ t('title') }}</h1>
     <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field>
-            <mat-label>{{ t.url }}</mat-label>
+            <mat-label>{{ t('url') }}</mat-label>
             <input matInput formControlName="url" required />
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{ t.name }}</mat-label>
+            <mat-label>{{ t('name') }}</mat-label>
             <input matInput formControlName="name" required maxlength="100" />
             <mat-hint>{{ form.value.name.length }} / 100</mat-hint>
         </mat-form-field>
 
-        <div *ngIf="t.payoutTool as p" fxLayout="column" fxLayoutGap="24px">
+        <div *ngIf="t('payoutTool') as p" fxLayout="column" fxLayoutGap="24px">
             <mat-divider></mat-divider>
 
             <div fxLayout="column" fxLayoutGap="16px">
@@ -111,8 +111,8 @@
             *transloco="let t"
             (click)="cancel.emit()"
         >
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </button>
-        <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t.send }}</button>
+        <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t('send') }}</button>
     </div>
 </form>

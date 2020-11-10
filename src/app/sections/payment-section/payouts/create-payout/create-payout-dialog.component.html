@@ -1,10 +1,10 @@
 <ng-container *transloco="let t">
     <ng-container *transloco="let p; scope: 'payouts'; read: 'payouts.payouts'">
-        <h3 class="mat-headline">{{ p.title }}</h3>
+        <h3 class="mat-headline">{{ p('title') }}</h3>
         <div [formGroup]="form" fxLayout="column" fxLayoutGap="32px">
             <div fxLayout="column" fxLayoutGap="20px">
                 <mat-form-field fxFill>
-                    <mat-label>{{ p.shop }}</mat-label>
+                    <mat-label>{{ p('shop') }}</mat-label>
                     <mat-select
                         formControlName="shopID"
                         required
@@ -22,7 +22,7 @@
                     <ng-container *ngIf="!(isPayoutToolsLoading$ | async); else loading">
                         <ng-container *ngIf="hasPayoutTools$ | async; else noPayoutTools">
                             <mat-form-field fxFill>
-                                <mat-label>{{ p.payoutTool }}</mat-label>
+                                <mat-label>{{ p('payoutTool') }}</mat-label>
                                 <mat-select formControlName="payoutToolID">
                                     <mat-option
                                         *ngFor="let payoutTool of payoutTools$ | async"
@@ -35,13 +35,13 @@
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field fxFill>
-                                <mat-label>{{ p.amount }}</mat-label>
+                                <mat-label>{{ p('amount') }}</mat-label>
                                 <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
                             </mat-form-field>
                         </ng-container>
                         <ng-template #noPayoutTools>
                             <div class="mat-body-1" fxFlexFill fxLayoutAlign="center">
-                                {{ p.noPayoutTools }}
+                                {{ p('noPayoutTools') }}
                             </div>
                         </ng-template>
                     </ng-container>
@@ -54,7 +54,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFill>
                 <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
-                    {{ t.cancel }}
+                    {{ t('cancel') }}
                 </button>
                 <button
                     fxFlex="160px"
@@ -64,7 +64,7 @@
                     color="accent"
                     [disabled]="form.invalid || !(hasPayoutTools$ | async)"
                 >
-                    {{ p.createPayout }}
+                    {{ p('createPayout') }}
                 </button>
             </div>
         </div>

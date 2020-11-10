@@ -14,7 +14,7 @@
                 {{ t('type') }}
             </th>
             <td dshCell *dshCellDef="let element">
-                {{ c.claimType[element.changeset | changesetToType] }}
+                {{ c('claimType.' + (element.changeset | changesetToType)) }}
             </td>
         </ng-container>
 
@@ -24,7 +24,7 @@
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let element">
                 <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
-                    c.claimStatus[element.status]
+                    c('claimStatus.' + element.status)
                 }}</dsh-status>
             </td>
         </ng-container>

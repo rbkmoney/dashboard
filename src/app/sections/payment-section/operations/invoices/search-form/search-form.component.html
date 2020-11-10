@@ -9,13 +9,13 @@
             <dsh-range-datepicker formControlName="date" fxFlex></dsh-range-datepicker>
             <dsh-shop-selector formControlName="shopIDs" fxFlex></dsh-shop-selector>
             <mat-form-field fxFlex>
-                <mat-label>{{ t.invoiceStatus }}</mat-label>
+                <mat-label>{{ t('invoiceStatus') }}</mat-label>
                 <mat-select formControlName="invoiceStatus">
                     <mat-option>
                         {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of statuses" [value]="status">
-                        {{ c.invoiceStatus[status] }}
+                        {{ c('invoiceStatus.' + status) }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -28,7 +28,7 @@
         <dsh-float-panel-more>
             <div gdAuto gdGap="0 {{ layoutGap }}" gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr">
                 <mat-form-field>
-                    <mat-label>{{ t.invoiceID }}</mat-label>
+                    <mat-label>{{ t('invoiceID') }}</mat-label>
                     <input matInput formControlName="invoiceID" />
                 </mat-form-field>
             </div>

@@ -3,5 +3,5 @@
     [shops]="data?.shops$ | async"
     (next)="create($event)"
     (back)="cancel()"
-    [backButton]="t.cancel"
+    [backButton]="t('cancel')"
 ></dsh-create-invoice>

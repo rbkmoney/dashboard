@@ -1,5 +1,5 @@
 <div *transloco="let t; scope: 'shops'; read: 'shops.shopPayoutTool'" fxLayout="column" fxLayoutGap="24px">
     <div class="dsh-title">{{ t('title') }}</div>
     <dsh-payout-tool *ngIf="payoutTool$ | async as payoutTool" [payoutTool]="payoutTool"></dsh-payout-tool>
-    <div *ngIf="errorOccurred$ | async" class="dsh-body-1">{{ t.error }}</div>
+    <div *ngIf="errorOccurred$ | async" class="dsh-body-1">{{ t('error') }}</div>
 </div>

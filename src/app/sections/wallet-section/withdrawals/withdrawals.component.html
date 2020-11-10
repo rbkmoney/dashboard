@@ -5,7 +5,7 @@
     fxLayout="column"
     fxLayoutGap="20px"
 >
-    <h1 class="mat-display-1" *transloco="let title; scope: 'withdrawals'; read: 'withdrawals.title'">{{ title }}</h1>
+    <h1 class="mat-display-1" *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'">{{ t('title') }}</h1>
     <dsh-search-form></dsh-search-form>
     <dsh-deposit-list [withdrawals]="withdrawals$ | async"></dsh-deposit-list>
     <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">

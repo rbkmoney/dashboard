@@ -45,10 +45,7 @@ export class CancelReportService {
                     this.reportsService.cancelReport(reportID).pipe(
                         catchError((e) => {
                             console.error(e);
-                            this.snackBar.open(
-                                this.transloco.translate('errors.cancelError', null, 'reports|scoped'),
-                                'OK'
-                            );
+                            this.snackBar.open(this.transloco.translate('errors.cancelError', null, 'reports'), 'OK');
                             return of('error');
                         })
                     )

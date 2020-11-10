@@ -59,7 +59,7 @@ export class ReviewClaimService {
             )
             .subscribe(() => {
                 this.receiveClaimService.receiveClaim();
-                this.snackBar.open(this.transloco.translate('reviewed', null, 'claim|scoped'), 'OK', {
+                this.snackBar.open(this.transloco.translate('reviewed', null, 'claim'), 'OK', {
                     duration: 2000,
                 });
             });

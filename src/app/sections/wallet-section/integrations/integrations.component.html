@@ -5,7 +5,7 @@
     fxLayout="column"
     fxLayoutGap="32px"
 >
-    <h1 class="dsh-display-1">{{ t.headline }}</h1>
+    <h1 class="dsh-display-1">{{ t('headline') }}</h1>
     <nav dsh-tab-nav-bar>
         <a
             dsh-tab-link
@@ -15,7 +15,7 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ t.tabs[link.path] }}
+            {{ t('tabs.' + link.path) }}
         </a>
     </nav>
     <div>

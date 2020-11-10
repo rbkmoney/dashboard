@@ -1,7 +1,7 @@
 <div *transloco="let t; scope: 'reports'; read: 'reports.createReport'" fxLayout="column" fxLayoutGap="32px">
     <div fxLayout="column" fxLayoutGap="16px">
         <div class="dsh-headline">{{ t('title') }}</div>
-        <div class="dsh-body-1">{{ t.subtitle }}</div>
+        <div class="dsh-body-1">{{ t('subtitle') }}</div>
     </div>
     <dsh-create-report-form [form]="form" [shopsInfo]="shopsInfo$ | async"></dsh-create-report-form>
     <div
@@ -19,7 +19,7 @@
             [disabled]="isLoading$ | async"
             (click)="cancel()"
         >
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </button>
         <button
             fxFlex="160px"
@@ -29,7 +29,7 @@
             [disabled]="!form.valid || (isLoading$ | async)"
             (click)="create(form.value)"
         >
-            {{ t.create }}
+            {{ t('create') }}
         </button>
     </div>
 </div>

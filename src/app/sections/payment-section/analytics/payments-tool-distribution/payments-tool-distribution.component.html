@@ -2,7 +2,7 @@
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
     fxFlex
     [spinnerType]="spinnerType"
-    [title]="t.paymentTools"
+    [title]="t('paymentTools')"
     [colors]="colors"
     [chartData]="toolDistribution$ | async"
     [isLoading]="isLoading$ | async"

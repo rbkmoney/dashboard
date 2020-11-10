@@ -7,25 +7,25 @@
     fxLayout="column"
     fxLayoutGap="20px"
 >
-    <dsh-details-item *ngIf="bankAccount?.bank?.name" [title]="t.name">
+    <dsh-details-item *ngIf="bankAccount?.bank?.name" [title]="t('name')">
         {{ bankAccount.bank.name }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.number" [title]="t.number">
+    <dsh-details-item *ngIf="bankAccount?.number" [title]="t('number')">
         {{ bankAccount.number }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.bank?.country" [title]="t.country">
+    <dsh-details-item *ngIf="bankAccount?.bank?.country" [title]="t('country')">
         {{ getCountryCodeText(bankAccount.bank.country) }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.bank?.address" [title]="t.address">
+    <dsh-details-item *ngIf="bankAccount?.bank?.address" [title]="t('address')">
         {{ bankAccount.bank.address }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.bank?.bic" [title]="t.bic">
+    <dsh-details-item *ngIf="bankAccount?.bank?.bic" [title]="t('bic')">
         {{ bankAccount.bank.bic }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.bank?.abaRtn" [title]="t.abaRtn">
+    <dsh-details-item *ngIf="bankAccount?.bank?.abaRtn" [title]="t('abaRtn')">
         {{ bankAccount.bank.abaRtn }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="bankAccount?.iban" [title]="t.iban">
+    <dsh-details-item *ngIf="bankAccount?.iban" [title]="t('iban')">
         {{ bankAccount.iban }}
     </dsh-details-item>
     <ng-container
@@ -34,7 +34,7 @@
         fxLayoutGap="20px"
     >
         <mat-divider></mat-divider>
-        <div class="dsh-title">{{ t.correspondentAccount }}</div>
+        <div class="dsh-title">{{ t('correspondentAccount') }}</div>
         <dsh-international-bank-account-info
             [bankAccount]="bankAccount['correspondentAccount']"
         ></dsh-international-bank-account-info>

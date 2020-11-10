@@ -7,19 +7,19 @@
     fxLayout="column"
     fxLayoutGap="20px"
 >
-    <dsh-details-item *ngIf="internationalLegalEntity?.legalName" [title]="t.legalName">
+    <dsh-details-item *ngIf="internationalLegalEntity?.legalName" [title]="t('legalName')">
         {{ internationalLegalEntity.legalName }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="internationalLegalEntity?.tradingName" [title]="t.tradingName">
+    <dsh-details-item *ngIf="internationalLegalEntity?.tradingName" [title]="t('tradingName')">
         {{ internationalLegalEntity.tradingName }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="internationalLegalEntity?.registeredAddress" [title]="t.registeredAddress">
+    <dsh-details-item *ngIf="internationalLegalEntity?.registeredAddress" [title]="t('registeredAddress')">
         {{ internationalLegalEntity.registeredAddress }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="internationalLegalEntity?.actualAddress" [title]="t.actualAddress">
+    <dsh-details-item *ngIf="internationalLegalEntity?.actualAddress" [title]="t('actualAddress')">
         {{ internationalLegalEntity.actualAddress }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="internationalLegalEntity?.registeredNumber" [title]="t.registeredNumber">
+    <dsh-details-item *ngIf="internationalLegalEntity?.registeredNumber" [title]="t('registeredNumber')">
         {{ internationalLegalEntity.registeredNumber }}
     </dsh-details-item>
 </div>

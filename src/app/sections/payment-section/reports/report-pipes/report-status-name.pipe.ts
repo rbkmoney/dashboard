@@ -13,7 +13,7 @@ export class ReportStatusNamePipe implements PipeTransform {
         switch (status) {
             case 'pending':
             case 'created':
-                return this.transloco.translate(`status.${status}`, null, 'reports|scoped');
+                return this.transloco.translate(`status.${status}`, null, 'reports');
             default:
                 return status;
         }
