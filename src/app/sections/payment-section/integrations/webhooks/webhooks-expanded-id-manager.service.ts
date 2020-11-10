@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { ExpandedIdManager } from '@dsh/app/shared/services';
+
+import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
+import { ReceiveWebhooksService } from './receive-webhooks.service';
+
+@Injectable()
+// @ts-ignore:next-line
+export class WebhooksExpandedIdManager extends ExpandedIdManager<Webhook> {
+    constructor(
+        protected route: ActivatedRoute,
+        protected router: Router,
+        private receiveWebhooksService: ReceiveWebhooksService
+    ) {
+        super(route, router);
+    }
+
+    protected get dataSet$(): Observable<Webhook[]> {
+        return this.receiveWebhooksService.webhooks$;
+    }
+}

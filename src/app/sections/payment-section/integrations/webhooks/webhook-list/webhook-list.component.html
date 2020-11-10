@@ -8,11 +8,11 @@
         [expanded]="expandedId"
     >
         <dsh-accordion-item *ngFor="let webhook of webhooks" #accordionItem>
-            <dsh-webhook-row [url]="webhook.url" [identityID]="webhook.identityID"></dsh-webhook-row>
+            <dsh-webhook-row [url]="webhook.url" [shopID]="getShopID(webhook.scope)"></dsh-webhook-row>
             <dsh-accordion-item-content>
                 <dsh-card fxLayout="column" fxLayoutGap="32px">
                     <dsh-accordion-item-content-header
-                        *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'"
+                        *transloco="let t; scope: 'webhook'; read: 'webhook'"
                         (collapse)="accordionItem.collapse($event)"
                         >{{ t.webhook }} #{{ webhook.id }}</dsh-accordion-item-content-header
                     >

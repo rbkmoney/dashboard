@@ -16,11 +16,11 @@ export class WebhooksService {
         return this.apiWebhooksService.getWebhooks(genXRequestID());
     }
 
-    getWebhookByID(weebhookID: string): Observable<Webhook> {
-        return this.apiWebhooksService.getWebhookByID(genXRequestID(), weebhookID);
+    getWebhookByID(webhookID: string): Observable<Webhook> {
+        return this.apiWebhooksService.getWebhookByID(genXRequestID(), webhookID);
     }
 
-    deleteWebhookByID(weebhookID: string): Observable<any> {
-        return this.apiWebhooksService.deleteWebhookByID(genXRequestID(), weebhookID);
+    deleteWebhookByID(webhookID: string): Observable<any> {
+        return this.apiWebhooksService.deleteWebhookByID(genXRequestID(), webhookID);
     }
 }

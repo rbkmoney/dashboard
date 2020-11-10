@@ -1,7 +1,7 @@
 {
     "webhook": "Webhook",
     "description": "Webhook – это инструмент для получения асинхронных оповещений при наступлении одного или группы интересующих вас событий. Например: платеж успешно завершен.",
-    "attach": "Установить webhook",
+    "create": "Установить webhook",
     "emptyResult": "Webhook’и отсутствуют",
     "details": {
         "status": {
@@ -37,8 +37,9 @@
     },
     "actions": {
         "title": "Действия",
-        "buttons": {
-            "delete": "Удалить webhook"
+        "delete": {
+            "buttonTitle": "Удалить webhook",
+            "success": "Webhook спешно удален"
         }
     },
     "key": {
@@ -48,9 +49,26 @@
             "copy": "Скопировать ключ"
         }
     },
-    "create": {
+    "createWebhook": {
         "title": "Установить новый webhook",
+        "shop": "Магазин",
+        "url": "URL, на который будут поступать оповещения о произошедших событиях",
+        "eventType": "Предмет оповещений",
+        "eventTypes": {
+            "invoices": "События инвойса",
+            "customers": "События плательщика"
+        },
+        "events": "События",
         "types": "Набор типов событий, о которых следует оповещать",
-        "attach": "Установить"
+        "create": "Установить",
+        "successfullyCreated": "Webhook успешно создан"
+    },
+    "errors": {
+        "deleteError": "Произошла ошибка при удалении",
+        "createError": "Произошла ошибка при попытке создать webhook"
+    },
+    "headerRow": {
+        "url": "URL",
+        "shop": "Магазин"
     }
 }
