@@ -45,7 +45,8 @@ export class ReceiveWebhooksService {
                             return of([]);
                         })
                     )
-                )
+                ),
+                map((webhooks) => webhooks.filter((webhook) => webhook.active))
             )
             .subscribe((webhooks) => {
                 this.webhooksState$.next(webhooks);
