@@ -4,24 +4,27 @@ import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 export type PaymentsSearchParams = MapTuple<
     Parameters<SearchService['searchPayments']>,
     {
-        shopIDs?: 6;
-        paymentStatus?: 7;
-        paymentFlow?: 8;
-        paymentMethod?: 9;
-        paymentTerminalProvider?: 10;
-        invoiceID?: 11;
-        paymentID?: 12;
-        payerEmail?: 13;
-        payerIP?: 14;
-        payerFingerprint?: 15;
-        customerID?: 16;
-        first6?: 17;
-        last4?: 18;
-        rrn?: 19;
-        approvalCode?: 20;
-        bankCardTokenProvider?: 21;
-        bankCardPaymentSystem?: 22;
-        paymentAmountFrom?: 23;
-        paymentAmountTo?: 24;
+        shopID?: 6;
+        shopIDs?: 7;
+        paymentInstitutionRealm?: 8;
+        paymentStatus?: 9;
+        paymentFlow?: 10;
+        paymentMethod?: 11;
+        paymentTerminalProvider?: 12;
+        invoiceID?: 13;
+        paymentID?: 14;
+        externalID?: 15;
+        payerEmail?: 16;
+        payerIP?: 17;
+        payerFingerprint?: 18;
+        customerID?: 19;
+        first6?: 20;
+        last4?: 21;
+        rrn?: 22;
+        approvalCode?: 23;
+        bankCardTokenProvider?: 24;
+        bankCardPaymentSystem?: 25;
+        paymentAmountFrom?: 26;
+        paymentAmountTo?: 27;
     }
 >;

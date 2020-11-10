@@ -33,6 +33,8 @@ export class ReportsService {
             undefined,
             undefined,
             undefined,
+            undefined,
+            undefined,
             continuationToken
         );
     }

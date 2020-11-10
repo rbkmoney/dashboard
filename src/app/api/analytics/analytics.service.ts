@@ -13,6 +13,7 @@ export class AnalyticsService {
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
+            undefined,
             shopIDs
         );
     }
@@ -22,6 +23,7 @@ export class AnalyticsService {
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
+            undefined,
             undefined,
             shopIDs
         );
@@ -33,6 +35,7 @@ export class AnalyticsService {
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
+            undefined,
             shopIDs
         );
     }
@@ -42,6 +45,7 @@ export class AnalyticsService {
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
+            undefined,
             undefined,
             shopIDs
         );
@@ -53,6 +57,7 @@ export class AnalyticsService {
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
+            undefined,
             shopIDs
         );
     }
@@ -63,6 +68,7 @@ export class AnalyticsService {
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
+            undefined,
             shopIDs
         );
     }
@@ -72,6 +78,7 @@ export class AnalyticsService {
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
+            undefined,
             undefined,
             shopIDs
         );
@@ -84,6 +91,7 @@ export class AnalyticsService {
             toDateLike(toTime),
             splitUnit,
             undefined,
+            undefined,
             shopIDs
         );
     }
@@ -95,11 +103,12 @@ export class AnalyticsService {
             toDateLike(toTime),
             splitUnit,
             undefined,
+            undefined,
             shopIDs
         );
     }
 
     getCurrentBalances(shopIDs?: Array<string>) {
-        return this.analyticsService.getCurrentBalances(genXRequestID(), undefined, shopIDs);
+        return this.analyticsService.getCurrentBalances(genXRequestID(), undefined, undefined, shopIDs);
     }
 }
