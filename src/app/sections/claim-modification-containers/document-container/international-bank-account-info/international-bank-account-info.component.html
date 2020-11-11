@@ -28,15 +28,11 @@
     <dsh-details-item *ngIf="bankAccount?.iban" [title]="t('iban')">
         {{ bankAccount.iban }}
     </dsh-details-item>
-    <ng-container
-        *ngIf="hasCorrespondentAccount(bankAccount['correspondentAccount'])"
-        fxLayout="column"
-        fxLayoutGap="20px"
-    >
+    <div *ngIf="hasCorrespondentAccount(bankAccount['correspondentAccount'])" fxLayout="column" fxLayoutGap="20px">
         <mat-divider></mat-divider>
         <div class="dsh-title">{{ t('correspondentAccount') }}</div>
         <dsh-international-bank-account-info
             [bankAccount]="bankAccount['correspondentAccount']"
         ></dsh-international-bank-account-info>
-    </ng-container>
+    </div>
 </div>
