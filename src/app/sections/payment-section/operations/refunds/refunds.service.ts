@@ -3,13 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, switchMap } from 'rxjs/operators';
+import { catchError, pluck, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
+import { getId, getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { mapToTimestamp } from '../operators';
 import { mapToRefundsTableData } from './map-to-refunds-table-data';
 import { RefundsSearchFormValue } from './search-form';
@@ -48,14 +48,17 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.route.params.pipe(
             pluck('envID'),
-            getShopSearchParamsByEnv(this.shopService.shops$),
-            switchMap(({ excludedShops, shopIDs }) =>
+            withLatestFrom(this.shopService.shops$),
+            switchMap(([env, shops]) =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
+                    {
+                        ...params,
+                        paymentInstitutionRealm: getPaymentInstitutionRealm(env),
+                        shopIDs: shops ? shops.map(getId) : params.shopIDs,
+                    },
                     this.searchLimit,
-                    excludedShops,
                     continuationToken
                 )
             )

@@ -12,5 +12,6 @@ export type InvoicesSearchParams = MapTuple<
         externalID?: 11;
         invoiceAmountFrom?: 12;
         invoiceAmountTo?: 13;
+        excludedShops?: 14;
     }
 >;

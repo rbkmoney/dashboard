@@ -15,8 +15,7 @@ export class PaymentSearchService {
         toTime: string,
         params: PaymentsSearchParams,
         limit: number,
-        continuationToken?: string,
-        excludedShops?: string[]
+        continuationToken?: string
     ) {
         return this.searchService.searchPayments(
             genXRequestID(),
@@ -47,7 +46,7 @@ export class PaymentSearchService {
             params.bankCardPaymentSystem,
             params.paymentAmountFrom,
             params.paymentAmountTo,
-            excludedShops,
+            params.excludedShops,
             continuationToken
         );
     }

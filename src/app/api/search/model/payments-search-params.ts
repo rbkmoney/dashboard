@@ -26,5 +26,6 @@ export type PaymentsSearchParams = MapTuple<
         bankCardPaymentSystem?: 25;
         paymentAmountFrom?: 26;
         paymentAmountTo?: 27;
+        excludedShops?: 28;
     }
 >;

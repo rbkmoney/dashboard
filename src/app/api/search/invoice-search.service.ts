@@ -15,8 +15,7 @@ export class InvoiceSearchService {
         toTime: string,
         params: InvoicesSearchParams,
         limit: number,
-        continuationToken?: string,
-        excludedShops?: string[]
+        continuationToken?: string
     ) {
         return this.searchService.searchInvoices(
             genXRequestID(),
@@ -33,7 +32,7 @@ export class InvoiceSearchService {
             params.externalID,
             params.invoiceAmountFrom,
             params.invoiceAmountTo,
-            excludedShops,
+            params.excludedShops,
             continuationToken
         );
     }

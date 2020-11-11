@@ -6,8 +6,6 @@ import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
 import { genXRequestID, toDateLike } from '../utils';
 import { Duration, RefundsSearchParams } from './model';
 
-type x = Parameters<SearchService['searchRefunds']>;
-
 @Injectable()
 export class RefundSearchService {
     constructor(private searchService: SearchService) {}
@@ -17,7 +15,6 @@ export class RefundSearchService {
         toTime: string,
         params: RefundsSearchParams,
         limit: number,
-        excludedShops: string[],
         continuationToken?: string
     ) {
         return this.searchService.searchRefunds(
@@ -36,7 +33,7 @@ export class RefundSearchService {
             params.refundID,
             params.externalID,
             params.refundStatus,
-            excludedShops,
+            params.excludedShops,
             continuationToken
         );
     }
@@ -45,12 +42,11 @@ export class RefundSearchService {
         { amount, unit }: Duration,
         params: RefundsSearchParams,
         limit?: number,
-        excludedShops?: string[],
         continuationToken?: string
     ) {
         const from = moment().subtract(amount, unit).startOf('d').utc().format();
         const to = moment().endOf('d').utc().format();
-        return this.searchRefunds(from, to, params, limit, excludedShops, continuationToken);
+        return this.searchRefunds(from, to, params, limit, continuationToken);
     }
 
     getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string) {

@@ -12,5 +12,6 @@ export type RefundsSearchParams = MapTuple<
         refundID?: 12;
         externalID?: 13;
         refundStatus?: 14;
+        excludedShops?: 15;
     }
 >;
