@@ -15,7 +15,9 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ t('tabs.' + link.path) }}
+            <span *transloco="let tabs; scope: 'wallet-section'; read: 'walletSection.integrations.tabs'">{{
+                tabs(link.path)
+            }}</span>
         </a>
     </nav>
     <div>

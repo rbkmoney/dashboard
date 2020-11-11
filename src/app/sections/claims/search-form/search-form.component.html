@@ -7,9 +7,9 @@
     <dsh-justify-wrapper fxLayout="row" [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex="350px">
             <mat-label>{{ t('claimStatus') }}</mat-label>
-            <mat-select multiple *transloco="let c" formControlName="claimStatus">
+            <mat-select multiple *transloco="let claimStatus; read: 'claimStatus'" formControlName="claimStatus">
                 <mat-option *ngFor="let status of statuses" [value]="status">
-                    {{ c('claimStatus.' + status) }}
+                    {{ claimStatus(status) }}
                 </mat-option>
             </mat-select>
         </mat-form-field>

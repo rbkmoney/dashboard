@@ -25,7 +25,14 @@
                     fxFlex="0 1 calc((100% - 20px * 2)/3)"
                     [value]="template[1]"
                 >
-                    {{ c('form.templateType.' + template[0]) }}
+                    <span
+                        *transloco="
+                            let templateType;
+                            scope: 'create-invoice-template';
+                            read: 'createInvoiceTemplate.form.templateType'
+                        "
+                        >{{ templateType(template[0]) }}</span
+                    >
                 </mat-radio-button>
             </mat-radio-group>
 
@@ -95,7 +102,14 @@
                 <label class="mat-subheading-1">{{ c('form.costType.label') }}:</label>
                 <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="costType">
                     <mat-radio-button *ngFor="let cost of costTypes" fxFlex [value]="cost[1]">
-                        {{ c('form.costType.' + cost[0]) }}
+                        <span
+                            *transloco="
+                                let costType;
+                                scope: 'create-invoice-template';
+                                read: 'createInvoiceTemplate.form.costType'
+                            "
+                            >{{ costType(cost[0]) }}</span
+                        >
                     </mat-radio-button>
                 </mat-radio-group>
 

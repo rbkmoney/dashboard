@@ -23,7 +23,14 @@
                     (selectionChange)="accountantTypeSelectionChange($event)"
                 >
                     <mat-option *ngFor="let option of accountantOptionTypes" [value]="option">
-                        {{ t('accountantTypes.' + option) }}
+                        <span
+                            *transloco="
+                                let accountantTypes;
+                                scope: 'onboarding';
+                                read: 'onboarding.dataFlow.financialAndEconomicActivity.accountantTypes'
+                            "
+                            >{{ accountantTypes(option) }}</span
+                        >
                     </mat-option>
                 </mat-select>
             </mat-form-field>

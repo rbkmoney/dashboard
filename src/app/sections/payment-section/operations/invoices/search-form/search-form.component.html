@@ -15,7 +15,7 @@
                         {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of statuses" [value]="status">
-                        {{ c('invoiceStatus.' + status) }}
+                        <span *transloco="let invoiceStatus; read: 'invoiceStatus'">{{ invoiceStatus(status) }}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>

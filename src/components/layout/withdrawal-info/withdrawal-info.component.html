@@ -1,11 +1,11 @@
 <div *transloco="let t; scope: 'withdrawal-info'; read: 'withdrawalInfo'" fxLayout="column" fxLayoutGap="20px">
     <div fxLayout fxLayout.sm="column" fxLayoutGap="10px">
         <dsh-details-status-item
-            *transloco="let t"
+            *transloco="let withdrawalStatus; read: 'withdrawalStatus'"
             fxFlex
             class="mat-body-1"
             [color]="withdrawal.status | statusToColor"
-            [text]="t('withdrawalStatus.' + withdrawal.status)"
+            [text]="withdrawalStatus(withdrawal.status)"
         ></dsh-details-status-item>
         <dsh-details-item fxFlex class="mat-body-1" [title]="t('createdAt')">{{
             withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm'
@@ -26,6 +26,8 @@
         }}</dsh-details-item>
     </div>
     <dsh-details-item *ngIf="withdrawal.failure" fxFlex [title]="t('error')">
-        <div class="mat-body-1">{{ t('errors.' + withdrawal.failure.code) }}</div>
+        <div *transloco="let errors; scope: 'withdrawal-info'; read: 'withdrawalInfo.errors'" class="mat-body-1">
+            {{ errors(withdrawal.failure.code) }}
+        </div>
     </dsh-details-item>
 </div>

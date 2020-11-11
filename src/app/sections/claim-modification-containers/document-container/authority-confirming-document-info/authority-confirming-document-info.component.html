@@ -9,7 +9,14 @@
 >
     <dsh-details-item *ngIf="authorityConfirmingDocument?.type" [title]="t('label')">
         <div *ngIf="isKnownDocumentType(authorityConfirmingDocument.type)">
-            {{ t('documentTypes.' + authorityConfirmingDocument.type) }}
+            <span
+                *transloco="
+                    let documentTypes;
+                    scope: 'claim-modification-containers';
+                    read: 'claimModificationContainers.documentContainer.authorityConfirmingDocumentInfo.documentTypes'
+                "
+                >{{ documentTypes(authorityConfirmingDocument.type) }}</span
+            >
         </div>
         <div *ngIf="!isKnownDocumentType(authorityConfirmingDocument.type)">
             {{ authorityConfirmingDocument.type }}

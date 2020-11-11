@@ -12,7 +12,9 @@
                 <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="32"></dsh-spinner>
             </div>
             <h4 class="dsh-subheading-1 subheading">
-                {{ t('subheading.' + (subheading$ | async)) }}
+                <span *transloco="let subheading; scope: 'main'; read: 'main.payments.subheading'">{{
+                    subheading(subheading$ | async)
+                }}</span>
             </h4>
         </div>
     </div>
@@ -26,7 +28,9 @@
             [disabled]="(actionBtnContent$ | async).disabled"
             [routerLink]="(actionBtnContent$ | async).routerLink"
         >
-            {{ t('action.' + (actionBtnContent$ | async).actionLabel) }}
+            <span *transloco="let action; scope: 'main'; read: 'main.payments.action'">{{
+                action((actionBtnContent$ | async).actionLabel)
+            }}</span>
         </button>
         <div fxFlex="50" fxFlex.xs="none">
             <button

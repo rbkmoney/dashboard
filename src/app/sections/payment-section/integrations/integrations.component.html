@@ -15,7 +15,9 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ t('tabs.' + link.path) }}
+            <span *transloco="let tabs; scope: 'payment-section'; read: 'paymentSection.integrations.tabs'">{{
+                tabs(link.path)
+            }}</span>
         </a>
     </nav>
     <div fxLayout fxLayoutAlign="center center">

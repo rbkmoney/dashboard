@@ -1,5 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px" *transloco="let p; scope: 'payouts'; read: 'payouts.panel'">
-    <div class="mat-title">{{ p('summaryTypes.' + summary.type) }}</div>
+    <div class="mat-title" *transloco="let summaryTypes; scope: 'payouts'; read: 'payouts.panel.summaryTypes'">
+        {{ p(summary.type) }}
+    </div>
     <div fxLayout fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px">
         <div fxFlex>
             <dsh-details-item [title]="p('count')">

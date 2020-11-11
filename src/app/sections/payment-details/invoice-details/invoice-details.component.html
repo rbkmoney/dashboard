@@ -14,11 +14,11 @@
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
-                <ng-container *transloco="let c">
+                <ng-container *transloco="let c; read: 'invoiceStatus'">
                     <dsh-details-status-item
                         *ngIf="getStatusViewInfo(invoice.status) as statusInfo"
                         [color]="statusInfo.color"
-                        [text]="c('invoiceStatus.' + statusInfo.text)"
+                        [text]="c(statusInfo.text)"
                         fxFlex="33"
                     ></dsh-details-status-item>
                 </ng-container>

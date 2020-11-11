@@ -46,9 +46,11 @@
     </div>
     <div formArrayName="eventTypes" fxLayout="column" fxLayoutGap="16px">
         <div *ngFor="let eventType of eventTypes.controls; let i = index" [formGroupName]="i">
-            <mat-checkbox formControlName="selected" class="dsh-body-1">{{
-                t('events.types.' + eventType.controls.eventName.value)
-            }}</mat-checkbox>
+            <mat-checkbox formControlName="selected" class="dsh-body-1"
+                ><span *transloco="let types; scope: 'wallet-webhooks'; read: 'walletWebhooks.events.types'">{{
+                    types(eventType.controls.eventName.value)
+                }}</span></mat-checkbox
+            >
         </div>
     </div>
 </form>

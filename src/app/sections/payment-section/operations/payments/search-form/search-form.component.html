@@ -15,7 +15,7 @@
                         {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of paymentStatuses" [value]="status">
-                        {{ c('paymentStatus.' + status) }}
+                        <span *transloco="let paymentStatus; read: 'paymentStatus'">{{ paymentStatus(status) }}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -46,7 +46,7 @@
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let flow of paymentFlows" [value]="flow">
-                            {{ c('paymentFlow.' + flow) }}
+                            <span *transloco="let paymentFlow; read: 'paymentFlow'">{{ paymentFlow(flow) }}</span>
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -65,7 +65,9 @@
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of paymentMethods" [value]="method">
-                            {{ c('paymentMethod.' + method) }}
+                            <span *transloco="let paymentMethod; read: 'paymentMethod'">{{
+                                paymentMethod(method)
+                            }}</span>
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -84,7 +86,9 @@
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let tokenProvider of tokenProviders" [value]="tokenProvider">
-                            {{ c('bankCardTokenProvider.' + tokenProvider) }}
+                            <span *transloco="let bankCardTokenProvider; read: 'bankCardTokenProvider'">{{
+                                bankCardTokenProvider(tokenProvider)
+                            }}</span>
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -95,7 +99,9 @@
                             {{ c('any') }}
                         </mat-option>
                         <mat-option *ngFor="let method of bankCardPaymentSystems" [value]="method">
-                            {{ c('bankCardPaymentSystem.' + method) }}
+                            <span *transloco="let bankCardPaymentSystem; read: 'bankCardPaymentSystem'">{{
+                                bankCardPaymentSystem(method)
+                            }}</span>
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

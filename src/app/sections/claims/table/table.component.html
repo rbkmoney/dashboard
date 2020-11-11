@@ -9,12 +9,12 @@
             </td>
         </ng-container>
 
-        <ng-container *transloco="let c" dshColumnDef="claimType">
+        <ng-container *transloco="let claimType; read: 'claimType'" dshColumnDef="claimType">
             <th dshHeaderCell *dshHeaderCellDef>
                 {{ t('type') }}
             </th>
             <td dshCell *dshCellDef="let element">
-                {{ c('claimType.' + (element.changeset | changesetToType)) }}
+                {{ claimType(element.changeset | changesetToType) }}
             </td>
         </ng-container>
 
@@ -23,9 +23,11 @@
                 {{ t('status') }}
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let element">
-                <dsh-status *transloco="let c" [color]="element.status | claimStatusColor">{{
-                    c('claimStatus.' + element.status)
-                }}</dsh-status>
+                <dsh-status
+                    *transloco="let claimStatus; read: 'claimStatus'"
+                    [color]="element.status | claimStatusColor"
+                    >{{ claimStatus(element.status) }}</dsh-status
+                >
             </td>
         </ng-container>
 

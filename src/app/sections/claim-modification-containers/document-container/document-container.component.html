@@ -13,7 +13,7 @@
     </ng-container>
     <dsh-document-container-panel
         *ngFor="let infoItem of panelInfo$ | async"
-        [title]="t[infoItem.type]"
+        [title]="t(infoItem.type)"
         [expand]="expandAll"
     >
         <dsh-org-info *ngIf="infoItem.type === 'orgInfo'" [orgInfo]="infoItem.item"></dsh-org-info>

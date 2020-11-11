@@ -13,7 +13,14 @@
     </dsh-details-item>
     <div fxLayout="row" *ngIf="accountantInfo?.accountantInfoType !== 'WithChiefAccountant'">
         <dsh-details-item fxFlex="50" *ngIf="accountantInfo?.accountantInfoType" [title]="t('accountantTypeLabel')">
-            {{ t('accountantTypes.' + accountantInfo?.accountantInfoType) }}
+            <span
+                *transloco="
+                    let accountantTypes;
+                    scope: 'claim-modification-containers';
+                    read: 'claimModificationContainers.documentContainer.additionalInfo.accountantTypes'
+                "
+                >{{ accountantTypes(accountantInfo?.accountantInfoType) }}</span
+            >
         </dsh-details-item>
         <dsh-details-item fxFlex="50" *ngIf="accountantInfo?.inn" [title]="t('accountantOrgInn')">
             {{ accountantInfo?.inn }}
@@ -38,10 +45,24 @@
             *ngIf="additionalInfo?.monthOperationCount"
             [title]="t('monthOperationCountLabel')"
         >
-            {{ t('monthOperationCountTypes.' + additionalInfo.monthOperationCount) }}
+            <span
+                *transloco="
+                    let monthOperationCountTypes;
+                    scope: 'claim-modification-containers';
+                    read: 'claimModificationContainers.documentContainer.additionalInfo.monthOperationCountTypes'
+                "
+                >{{ monthOperationCountTypes(additionalInfo.monthOperationCount) }}</span
+            >
         </dsh-details-item>
         <dsh-details-item fxFlex="50" *ngIf="additionalInfo?.monthOperationSum" [title]="t('monthOperationSumLabel')">
-            {{ t('monthOperationSumTypes.' + additionalInfo.monthOperationSum) }}
+            <span
+                *transloco="
+                    let monthOperationSumTypes;
+                    scope: 'claim-modification-containers';
+                    read: 'claimModificationContainers.documentContainer.additionalInfo.monthOperationSumTypes'
+                "
+                >{{ monthOperationSumTypes(additionalInfo.monthOperationSum) }}</span
+            >
         </dsh-details-item>
     </div>
 </div>

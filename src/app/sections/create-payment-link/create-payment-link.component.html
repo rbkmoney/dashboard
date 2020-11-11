@@ -32,7 +32,9 @@
                 <h2 class="mat-body-2">{{ c('form.paymentMethods') }}:</h2>
                 <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
                     <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
-                        {{ c('form.' + methodName) }}
+                        <span *transloco="let form; scope: 'create-payment-link'; read: 'createPaymentLink.form'">{{
+                            form(methodName)
+                        }}</span>
                     </mat-checkbox>
                 </ng-container>
             </ng-container>
@@ -47,7 +49,14 @@
                         fxFlex="0 1 calc((100% - 20px * 2)/3)"
                         [value]="holdExpiration[1]"
                     >
-                        {{ c('form.holdExpiration.' + holdExpiration[0]) }}
+                        <span
+                            *transloco="
+                                let hold;
+                                scope: 'create-payment-link';
+                                read: 'createPaymentLink.form.holdExpiration'
+                            "
+                            >{{ hold(holdExpiration[0]) }}</span
+                        >
                     </mat-radio-button>
                 </mat-radio-group>
             </ng-container>

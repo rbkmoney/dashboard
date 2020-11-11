@@ -32,9 +32,11 @@
                 {{ t('status') }}
             </th>
             <td dshCell fxFlex="130px" *dshCellDef="let element">
-                <dsh-status *transloco="let c" [color]="element.status | invoiceStatusColor">{{
-                    c('invoiceStatus.' + element.status)
-                }}</dsh-status>
+                <dsh-status
+                    *transloco="let invoiceStatus; read: 'invoiceStatus'"
+                    [color]="element.status | invoiceStatusColor"
+                    >{{ invoiceStatus(element.status) }}</dsh-status
+                >
             </td>
         </ng-container>
 

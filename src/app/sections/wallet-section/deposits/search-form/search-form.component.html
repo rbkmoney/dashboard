@@ -13,7 +13,7 @@
                         {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of depositStatuses" [value]="status">
-                        {{ c('depositStatus.' + status) }}
+                        <span *transloco="let depositStatus; read: 'depositStatus'">{{ depositStatus(status) }}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>

@@ -8,7 +8,14 @@
         <mat-label>{{ t('typeSelector') }}</mat-label>
         <mat-select required formControlName="type">
             <mat-option *ngFor="let option of selectOptionTypes" [value]="option">
-                {{ t('documentTypes.' + option) }}
+                <span
+                    *transloco="
+                        let documentTypes;
+                        scope: 'onboarding';
+                        read: 'onboarding.dataFlow.authorityConfirmingDocument.documentTypes'
+                    "
+                    >{{ documentTypes(option) }}</span
+                >
             </mat-option>
             <mat-option [value]="customType"> {{ t('documentTypes.custom') }}</mat-option>
         </mat-select>

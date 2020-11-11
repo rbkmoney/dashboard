@@ -8,8 +8,8 @@
             </mat-form-field>
         </form>
         <div *ngIf="errorCode$ | async">
-            <div *transloco="let c" class="mat-caption">
-                {{ c('errors.' + (errorCode$ | async)) }}
+            <div *transloco="let errors; read: 'errors'" class="mat-caption">
+                {{ errors(errorCode$ | async) }}
             </div>
         </div>
     </div>

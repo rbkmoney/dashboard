@@ -6,9 +6,9 @@
     >
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-status-item
-                *transloco="let c"
+                *transloco="let invoiceStatus; read: 'invoiceStatus'"
                 [color]="color"
-                [text]="c('invoiceStatus.' + status)"
+                [text]="invoiceStatus(status)"
                 fxFlex="33"
             ></dsh-details-status-item>
             <dsh-details-item [title]="t('amount')" fxFlex="33">

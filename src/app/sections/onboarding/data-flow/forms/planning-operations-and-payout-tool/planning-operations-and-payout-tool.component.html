@@ -12,7 +12,14 @@
                     *ngFor="let monthOperationCount of monthOperationCounts"
                     [value]="monthOperationCount"
                 >
-                    {{ t('monthOperationCountTypes.' + monthOperationCount) }}
+                    <span
+                        *transloco="
+                            let monthOperationCountTypes;
+                            scope: 'onboarding';
+                            read: 'onboarding.dataFlow.planningOperationsAndPayoutTool.monthOperationCountTypes'
+                        "
+                        >{{ monthOperationCountTypes(monthOperationCount) }}</span
+                    >
                 </mat-radio-button>
             </mat-radio-group>
         </div>
@@ -20,7 +27,14 @@
             <label class="mat-body-1">{{ t('monthOperationSumLabel') }}</label>
             <mat-radio-group formControlName="monthOperationSum" fxLayout fxLayoutGap="30px" required>
                 <mat-radio-button *ngFor="let monthOperationSum of monthOperationSums" [value]="monthOperationSum">
-                    {{ t('monthOperationSumTypes.' + monthOperationSum) }}
+                    <span
+                        *transloco="
+                            let monthOperationSumTypes;
+                            scope: 'onboarding';
+                            read: 'onboarding.dataFlow.planningOperationsAndPayoutTool.monthOperationSumTypes'
+                        "
+                        >{{ monthOperationSumTypes(monthOperationSum) }}</span
+                    >
                 </mat-radio-button>
             </mat-radio-group>
         </div>

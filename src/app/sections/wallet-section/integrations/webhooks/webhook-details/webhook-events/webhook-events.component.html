@@ -6,6 +6,10 @@
 >
     <div class="dsh-title">{{ t('title') }}</div>
     <ul fxLayout="column" fxLayoutGap="24px" class="dsh-webhooks-event-list">
-        <li class="dsh-body-1" *ngFor="let event of events">{{ t('types.' + event) }}</li>
+        <li class="dsh-body-1" *ngFor="let event of events">
+            <span *transloco="let types; scope: 'wallet-webhooks'; read: 'walletWebhooks.events.types'">{{
+                types(event)
+            }}</span>
+        </li>
     </ul>
 </div>
