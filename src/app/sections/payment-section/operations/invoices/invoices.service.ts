@@ -3,14 +3,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { getId, getPaymentInstitutionRealm } from '../../../../shared/utils';
+import { getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { filterShopsByEnv, mapToTimestamp } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
@@ -53,15 +53,13 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
             pluck('envID'),
-            withLatestFrom(this.shopService.shops$),
-            switchMap(([env, shops]) =>
+            switchMap((env) =>
                 this.invoiceSearchService.searchInvoices(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
                     {
                         ...params,
                         paymentInstitutionRealm: getPaymentInstitutionRealm(env),
-                        shopIDs: shops ? shops.map(getId) : params.shopIDs,
                     },
                     this.searchLimit,
                     continuationToken

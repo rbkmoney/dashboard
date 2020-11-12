@@ -3,13 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { catchError, pluck, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { toMinor } from '../../../../../utils';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { getId, getPaymentInstitutionRealm } from '../../../../shared/utils';
+import { getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
@@ -49,15 +49,13 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.route.params.pipe(
             pluck('envID'),
-            withLatestFrom(this.shopService.shops$),
-            switchMap(([env, shops]) =>
+            switchMap((env) =>
                 this.paymentSearchService.searchPayments(
                     begin.utc().format(),
                     end.utc().format(),
                     {
                         ...params,
                         paymentInstitutionRealm: getPaymentInstitutionRealm(env),
-                        shopIDs: shops ? shops.map(getId) : params.shopIDs,
                         paymentAmountFrom:
                             typeof paymentAmountFrom === 'number' ? toMinor(paymentAmountFrom) : undefined,
                         paymentAmountTo: typeof paymentAmountTo === 'number' ? toMinor(paymentAmountTo) : undefined,
