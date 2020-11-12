@@ -3,7 +3,7 @@ import negate from 'lodash/negate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay, startWith, tap } from 'rxjs/operators';
 
-import { filterBattleShops, filterTestShops } from '../../../../../api';
+import { toLiveShops, toTestShops } from '../../../../../api';
 import { Shop } from '../../../../../api-codegen/capi';
 import { Claim } from '../../../../../api-codegen/claim-management';
 import { ContentConfig } from '../content-config';
@@ -27,12 +27,12 @@ const initialConf = {
 };
 
 export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Claim[]>): Observable<ContentConfig> => {
-    const hasRealEnv$ = shops.pipe(filterBattleShops, map(negate(isEmpty)), shareReplay(1));
+    const hasRealEnv$ = shops.pipe(map(toLiveShops), map(negate(isEmpty)), shareReplay(1));
     const targetClaim$ = claims.pipe(mapToTargetClaim, shareReplay(1));
     const actionBtnContent$ = hasRealEnv$.pipe(mapToActionBtnContent(targetClaim$));
     const subheading$ = hasRealEnv$.pipe(mapToSubheading(targetClaim$));
     const testEnvBtnContent$ = shops.pipe(
-        filterTestShops,
+        map(toTestShops),
         map(negate(isEmpty)),
         mapToTestEnvBtnContent(initialConf.testEnvBtnContent)
     );

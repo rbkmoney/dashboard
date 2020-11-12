@@ -1,21 +1,21 @@
 import { Observable, throwError } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
-import { filterBattleShops, filterTestShops, PaymentInstitutionRealm } from '../../../../api';
+import { PaymentInstitutionRealm, toLiveShops, toTestShops } from '../../../../api';
 import { Shop } from '../../../../api-codegen/capi';
 
 export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (
     s: Observable<PaymentInstitutionRealm>
 ): Observable<Shop[]> =>
     s.pipe(
-        switchMap((paymentInstitutionRealm) => {
-            switch (paymentInstitutionRealm) {
+        switchMap((realm) => {
+            switch (realm) {
                 case PaymentInstitutionRealm.test:
-                    return shops$.pipe(filterTestShops);
+                    return shops$.pipe(map(toTestShops));
                 case PaymentInstitutionRealm.live:
-                    return shops$.pipe(filterBattleShops);
+                    return shops$.pipe(map(toLiveShops));
                 default:
-                    return throwError(`Unknown PaymentInstitutionRealm: ${paymentInstitutionRealm}`);
+                    return throwError(`Unknown PaymentInstitutionRealm: ${realm}`);
             }
         })
     );

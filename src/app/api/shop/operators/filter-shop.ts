@@ -1,12 +1,7 @@
 import negate from 'lodash.negate';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Shop } from '../../../api-codegen/capi';
 
 export const isTestShop = ({ categoryID }: Shop): boolean => categoryID === 1;
-const toTestShops = (s: Shop[]): Shop[] => s.filter(isTestShop);
-const toBattleShops = (s: Shop[]): Shop[] => s.filter(negate(isTestShop));
-
-export const filterTestShops = (s: Observable<Shop[]>): Observable<Shop[]> => s.pipe(map(toTestShops));
-export const filterBattleShops = (s: Observable<Shop[]>): Observable<Shop[]> => s.pipe(map(toBattleShops));
+export const toTestShops = (s: Shop[]): Shop[] => s.filter(isTestShop);
+export const toLiveShops = (s: Shop[]): Shop[] => s.filter(negate(isTestShop));
