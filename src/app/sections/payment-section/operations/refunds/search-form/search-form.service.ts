@@ -4,9 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
+import { filter, shareReplay, startWith, take } from 'rxjs/operators';
 
-import { RouteEnv } from '../../../../route-env';
 import { removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
@@ -35,13 +34,6 @@ export class SearchFormService {
     }
 
     private init() {
-        this.route.params
-            .pipe(
-                pluck('envID'),
-                take(1),
-                filter((e) => e === RouteEnv.test)
-            )
-            .subscribe(() => this.searchForm.controls.shopIDs.disable());
         this.route.queryParams
             .pipe(
                 take(1),
