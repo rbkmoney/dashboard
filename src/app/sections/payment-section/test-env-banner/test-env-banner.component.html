@@ -1,8 +1,8 @@
 <dsh-global-banner
     *transloco="let t; scope: 'test-env-banner'; read: 'testEnvBanner'"
     [mascot]="mascots.patrick"
-    [title]="t.title"
+    [title]="t('title')"
     (closed)="onClose()"
 >
-    {{ t.text }}
+    {{ t('text') }}
 </dsh-global-banner>

@@ -1,10 +1,10 @@
 <div *transloco="let t; scope: 'payouts'; read: 'payouts.createPayoutReport'" fxLayout="column" fxLayoutGap="32px">
-    <div class="dsh-headline">{{ t.title }}</div>
+    <div class="dsh-headline">{{ t('title') }}</div>
     <ng-container *ngIf="reportCreated$ | async; else elseBlock">
-        <div class="dsh-body-1">{{ t.descriptionStep2 }}</div>
+        <div class="dsh-body-1">{{ t('descriptionStep2') }}</div>
     </ng-container>
     <ng-template #elseBlock
-        ><div class="dsh-body-1">{{ t.descriptionStep1 }}</div></ng-template
+        ><div class="dsh-body-1">{{ t('descriptionStep1') }}</div></ng-template
     >
     <div
         fxLayout="row"
@@ -21,7 +21,7 @@
             [disabled]="isLoading$ | async"
             (click)="cancel()"
         >
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </button>
         <button
             *ngIf="!(reportCreated$ | async)"
@@ -32,10 +32,10 @@
             [disabled]="isLoading$ | async"
             (click)="create()"
         >
-            {{ t.create }}
+            {{ t('create') }}
         </button>
         <button *ngIf="reportCreated$ | async" fxFlex.xs="none" dsh-button color="accent" (click)="toReports()">
-            {{ t.toReports }}
+            {{ t('toReports') }}
         </button>
     </div>
 </div>

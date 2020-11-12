@@ -28,11 +28,9 @@ export class WebhooksComponent implements OnInit, OnDestroy {
         this.createWebhookService.init();
         this.receiveWebhooksService.receiveWebhooks();
         this.createWebhookService.webhookCreated$.subscribe(() => {
-            this.snackBar.open(
-                this.transloco.translate('createWebhook.successfullyCreated', null, 'webhook|scoped'),
-                'OK',
-                { duration: 2000 }
-            );
+            this.snackBar.open(this.transloco.translate('createWebhook.successfullyCreated', null, 'webhook'), 'OK', {
+                duration: 2000,
+            });
             this.receiveWebhooks();
         });
     }

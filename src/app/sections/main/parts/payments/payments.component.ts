@@ -18,5 +18,7 @@ export class PaymentsComponent {
     testEnvBtnContent$ = this.paymentsService.testEnvBtnContent$;
     subheading$ = this.paymentsService.subheading$;
 
+    log = console.log;
+
     constructor(private paymentsService: PaymentsService) {}
 }

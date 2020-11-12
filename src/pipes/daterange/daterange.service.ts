@@ -101,7 +101,7 @@ export class DaterangeService {
     }
 
     private translate(key: string) {
-        return this.transloco.selectTranslate(key, null, 'daterange|scoped');
+        return this.transloco.selectTranslate(key, null, 'daterange');
     }
 
     private loadTranslations() {

@@ -45,10 +45,7 @@ export class DeleteWebhookService {
                     this.webhooksService.deleteWebhookByID(webhookID).pipe(
                         catchError((e) => {
                             console.error(e);
-                            this.snackBar.open(
-                                this.transloco.translate('errors.deleteError', null, 'webhook|scoped'),
-                                'OK'
-                            );
+                            this.snackBar.open(this.transloco.translate('errors.deleteError', null, 'webhook'), 'OK');
                             return of('error');
                         })
                     )

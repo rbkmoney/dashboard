@@ -41,7 +41,7 @@ export class PayoutsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.envID$.subscribe((envID) => this.createPayoutService.init(envID));
         this.createPayoutService.payoutCreated$.subscribe(() => {
-            this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts|scoped'), 'OK', {
+            this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts'), 'OK', {
                 duration: 2000,
             });
             this.refresh();

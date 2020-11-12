@@ -14,7 +14,7 @@
                     <dsh-accordion-item-content-header
                         *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'"
                         (collapse)="accordionItem.collapse($event)"
-                        >{{ t.webhook }} #{{ webhook.id }}</dsh-accordion-item-content-header
+                        >{{ t('webhook') }} #{{ webhook.id }}</dsh-accordion-item-content-header
                     >
                     <dsh-webhook-details
                         [webhook]="webhook"

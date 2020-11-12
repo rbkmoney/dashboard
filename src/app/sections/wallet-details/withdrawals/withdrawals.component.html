@@ -1,11 +1,11 @@
 <dsh-card *transloco="let t; scope: 'wallet-details'; read: 'walletDetails.withdrawals'">
     <dsh-card-title>
-        <div class="mat-title">{{ t.title }}</div>
+        <div class="mat-title">{{ t('title') }}</div>
     </dsh-card-title>
     <dsh-card-content fxLayout="column" fxLayoutGap="20px">
         <div *ngFor="let withdrawal of withdrawals$ | async" fxLayout="column" fxLayoutGap="20px">
             <div class="mat-subheading-1">
-                {{ t.withdrawal }}
+                {{ t('withdrawal') }}
                 <span dshSecondaryTitle>#{{ withdrawal.id }}</span>
             </div>
             <dsh-withdrawal-info [withdrawal]="withdrawal"></dsh-withdrawal-info>
@@ -18,13 +18,13 @@
             (click)="fetchMore()"
         >
             <ng-container *transloco="let c">
-                {{ c.showMore }}
+                {{ c('showMore') }}
             </ng-container>
         </button>
         <div *ngIf="!(error$ | async) && (isLoading$ | async)" fxFlexAlign="center"><dsh-spinner></dsh-spinner></div>
-        <div *ngIf="error$ | async" fxFlexAlign="center">{{ t.error }}</div>
+        <div *ngIf="error$ | async" fxFlexAlign="center">{{ t('error') }}</div>
         <div *ngIf="!(error$ | async) && (withdrawals$ | async)?.length === 0" fxFlexAlign="center">
-            {{ t.noWithdrawals }}
+            {{ t('noWithdrawals') }}
         </div>
     </dsh-card-content>
 </dsh-card>

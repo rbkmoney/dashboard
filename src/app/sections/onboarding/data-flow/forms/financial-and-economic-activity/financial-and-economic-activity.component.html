@@ -6,29 +6,36 @@
 >
     <div fxLayout>
         <mat-form-field fxFlex="48.5%">
-            <mat-label>{{ t.staffCount }}</mat-label>
+            <mat-label>{{ t('staffCount') }}</mat-label>
             <input matInput type="number" formControlName="staffCount" required />
         </mat-form-field>
     </div>
     <div fxLayout="column" fxLayoutGap="20px">
         <mat-checkbox formControlName="withoutAccountant" (change)="withoutAccountantChange($event)">{{
-            t.withoutAccountant
+            t('withoutAccountant')
         }}</mat-checkbox>
         <div fxLayout="column" fxLayoutGap="10px" *ngIf="isAccountantInfoVisible$ | async">
             <mat-form-field>
-                <mat-label>{{ t.accountantTypeSelector }}</mat-label>
+                <mat-label>{{ t('accountantTypeSelector') }}</mat-label>
                 <mat-select
                     formControlName="accountantType"
                     required
                     (selectionChange)="accountantTypeSelectionChange($event)"
                 >
                     <mat-option *ngFor="let option of accountantOptionTypes" [value]="option">
-                        {{ t.accountantTypes[option] }}
+                        <span
+                            *transloco="
+                                let accountantTypes;
+                                scope: 'onboarding';
+                                read: 'onboarding.dataFlow.financialAndEconomicActivity.accountantTypes'
+                            "
+                            >{{ accountantTypes(option) }}</span
+                        >
                     </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field fxFlex *ngIf="isAccountantOrgInnVisible$ | async">
-                <mat-label>{{ t.accountantOrgInn }}</mat-label>
+                <mat-label>{{ t('accountantOrgInn') }}</mat-label>
                 <dsh-format-input
                     format="legalEntityInn"
                     formControlName="accountantOrgInn"
@@ -36,8 +43,8 @@
                 ></dsh-format-input>
             </mat-form-field>
         </div>
-        <mat-checkbox formControlName="hasBeneficiary">{{ t.hasBeneficiary }}</mat-checkbox>
-        <mat-checkbox formControlName="hasLiquidationProcess">{{ t.hasLiquidationProcess }}</mat-checkbox>
+        <mat-checkbox formControlName="hasBeneficiary">{{ t('hasBeneficiary') }}</mat-checkbox>
+        <mat-checkbox formControlName="hasLiquidationProcess">{{ t('hasLiquidationProcess') }}</mat-checkbox>
         <dsh-legal-residency-info
             *ngIf="isResidencyInfoVisible$ | async"
             [form]="(form$ | async).get('residencyInfo')"

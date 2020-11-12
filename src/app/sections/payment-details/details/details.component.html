@@ -6,30 +6,30 @@
     >
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
             <dsh-details-status-item
-                *transloco="let c; read: 'paymentStatus'"
+                *transloco="let paymentStatus; read: 'paymentStatus'"
                 [color]="color"
-                [text]="c[status]"
+                [text]="paymentStatus(status)"
                 fxFlex="33"
             ></dsh-details-status-item>
-            <dsh-details-item [title]="t?.createdAt" fxFlex="33">
+            <dsh-details-item [title]="t('createdAt')" fxFlex="33">
                 <div class="mat-body-1">{{ payment?.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
             </dsh-details-item>
-            <dsh-details-item *ngIf="payment?.statusChangedAt" [title]="t?.statusChangedAt" fxFlex="33">
+            <dsh-details-item *ngIf="payment?.statusChangedAt" [title]="t('statusChangedAt')" fxFlex="33">
                 <div class="mat-body-1">{{ payment?.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
             </dsh-details-item>
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
-            <dsh-details-item [title]="t?.amount" fxFlex="33">
+            <dsh-details-item [title]="t('amount')" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount | toMajor | currency: payment?.currency }}
                 </div>
             </dsh-details-item>
-            <dsh-details-item [title]="t?.chargeAmount" fxFlex="33">
+            <dsh-details-item [title]="t('chargeAmount')" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount - (payment?.fee || 0) | toMajor | currency: payment?.currency }}
                 </div>
             </dsh-details-item>
-            <dsh-details-item *ngIf="payment?.fee" [title]="t?.fee" fxFlex="33">
+            <dsh-details-item *ngIf="payment?.fee" [title]="t('fee')" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.fee | toMajor | currency: payment?.currency }} ({{
                         payment?.fee / payment?.amount | percent: '1.0-2':'en'
@@ -44,18 +44,18 @@
             fxLayoutGap="0"
             [fxLayoutGap.xs]="layoutGap"
         >
-            <dsh-details-item *ngIf="payment?.shortID" [title]="t?.spid" fxFlex="33">
+            <dsh-details-item *ngIf="payment?.shortID" [title]="t('spid')" fxFlex="33">
                 <div class="mat-body-1">{{ payment.shortID }}</div>
             </dsh-details-item>
-            <dsh-details-item *ngIf="payment?.transactionInfo?.rrn" [title]="t?.rrn" fxFlex="33">
+            <dsh-details-item *ngIf="payment?.transactionInfo?.rrn" [title]="t('rrn')" fxFlex="33">
                 <div class="mat-body-1">{{ payment.transactionInfo.rrn }}</div>
             </dsh-details-item>
-            <dsh-details-item *ngIf="payment?.transactionInfo?.approvalCode" [title]="t?.approvalCode" fxFlex="33">
+            <dsh-details-item *ngIf="payment?.transactionInfo?.approvalCode" [title]="t('approvalCode')" fxFlex="33">
                 <div class="mat-body-1">{{ payment.transactionInfo.approvalCode }}</div>
             </dsh-details-item>
         </div>
         <div *ngIf="payment?.error?.code" fxLayout="row" fxLayout.xs="column">
-            <dsh-details-item [title]="t?.error">
+            <dsh-details-item [title]="t('error')">
                 <div class="mat-body-1">{{ payment.error | errorToMessage }}</div>
             </dsh-details-item>
         </div>

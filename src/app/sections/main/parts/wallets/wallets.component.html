@@ -6,16 +6,16 @@
 >
     <div fxLayout fxLayoutGap="32px" fxLayoutAlign="space-between">
         <div fxLayout="column" fxLayoutGap="24px">
-            <h2 class="dsh-headline">{{ t.title }}</h2>
+            <h2 class="dsh-headline">{{ t('title') }}</h2>
             <h4 class="dsh-subheading-1 subheading">
-                {{ t.subheading }}
+                {{ t('subheading') }}
             </h4>
         </div>
         <mat-icon fxHide.xs="true" fxFlex="138px" class="wallet-icon" svgIcon="wallet"></mat-icon>
     </div>
     <div fxLayout>
         <button fxFlex="50" fxFlex.xs="100" dsh-button color="accent" size="lg" routerLink="wallet-section">
-            {{ t.action }}
+            {{ t('action') }}
         </button>
     </div>
 </dsh-card>

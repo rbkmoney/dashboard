@@ -3,7 +3,7 @@
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
     fxFlex
     [spinnerType]="spinnerType"
-    [title]="t.unsuccessfulPaymentReasons"
+    [title]="t('unsuccessfulPaymentReasons')"
     [selectedErrorTitle]="currentErrorTitle$ | async"
     [colors]="colors"
     [chartData]="errorDistribution$ | async"

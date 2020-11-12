@@ -6,18 +6,18 @@
 >
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.fio }}</mat-label>
+            <mat-label>{{ t('fio') }}</mat-label>
             <dsh-dadata-autocomplete formControlName="fio" type="fio" required></dsh-dadata-autocomplete>
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ t.birthDate }}</mat-label>
+            <mat-label>{{ t('birthDate') }}</mat-label>
             <input matInput formControlName="birthDate" [matDatepicker]="birthDateDatepicker" required />
             <mat-datepicker-toggle matSuffix [for]="birthDateDatepicker"></mat-datepicker-toggle>
             <mat-datepicker #birthDateDatepicker></mat-datepicker>
         </mat-form-field>
     </div>
     <mat-form-field fxFlex>
-        <mat-label>{{ t.birthPlace }}</mat-label>
+        <mat-label>{{ t('birthPlace') }}</mat-label>
         <dsh-dadata-autocomplete
             formControlName="birthPlace"
             type="address"
@@ -26,17 +26,17 @@
         ></dsh-dadata-autocomplete>
     </mat-form-field>
     <mat-form-field fxFlex>
-        <mat-label>{{ t.residenceAddress }}</mat-label>
+        <mat-label>{{ t('residenceAddress') }}</mat-label>
         <dsh-dadata-autocomplete formControlName="residenceAddress" type="address" required></dsh-dadata-autocomplete>
     </mat-form-field>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.snils }}</mat-label>
+            <mat-label>{{ t('snils') }}</mat-label>
             <dsh-format-input format="snils" formControlName="snils" required></dsh-format-input>
         </mat-form-field>
         <div fxFlex fxLayout>
             <mat-form-field fxFlex *ngIf="isAdditionalFieldActive('innfl')">
-                <mat-label>{{ t.innfl }}</mat-label>
+                <mat-label>{{ t('innfl') }}</mat-label>
                 <dsh-format-input format="individualEntityInn" formControlName="innfl"></dsh-format-input>
             </mat-form-field>
         </div>

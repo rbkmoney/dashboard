@@ -37,15 +37,13 @@ export class ReportsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.route.params.pipe(pluck('envID')).subscribe((envID) => this.createReportService.init(envID));
         this.createReportService.reportCreated$.subscribe(() => {
-            this.snackBar.open(
-                this.transloco.translate('createReport.successfullyCreated', null, 'reports|scoped'),
-                'OK',
-                { duration: 2000 }
-            );
+            this.snackBar.open(this.transloco.translate('createReport.successfullyCreated', null, 'reports'), 'OK', {
+                duration: 2000,
+            });
             this.refresh();
         });
         this.fetchReportsService.errors$.subscribe(() =>
-            this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports|scoped'), 'OK')
+            this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports'), 'OK')
         );
     }
 

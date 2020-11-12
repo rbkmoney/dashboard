@@ -2,9 +2,9 @@
     <dsh-timeline>
         <dsh-timeline-item>
             <dsh-timeline-item-title>
-                <span>{{ t.timeline.claimCreated }}&nbsp;</span>
-                <span *transloco="let root"
-                    >{{ claimCreatedAt$ | async | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
+                <span>{{ t('timeline.claimCreated') }}&nbsp;</span>
+                <span *transloco="let c"
+                    >{{ claimCreatedAt$ | async | humanizedDuration: { largest: 1 } }} {{ c('ago') }}</span
                 >
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge>
@@ -15,10 +15,18 @@
             <dsh-timeline-item-title>
                 <div fxFlex fxLayout="row" fxLayoutAlign="space-between end">
                     <div>
-                        <span class="mat-body-2">{{ t.timeline.userInfo[item.userInfo.userType] }}</span>
-                        {{ t.timeline.action[item.action] }}
-                        <span *transloco="let root"
-                            >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ root.ago }}</span
+                        <span
+                            class="mat-body-2"
+                            *transloco="let userInfo; scope: 'claim'; read: 'claim.conversation.timeline.userInfo'"
+                            >{{ userInfo(item.userInfo.userType) }}
+                        </span>
+                        <span
+                            class="mat-body-2"
+                            *transloco="let action; scope: 'claim'; read: 'claim.conversation.timeline.action'"
+                            >{{ action(item.action) }}
+                        </span>
+                        <span *transloco="let c"
+                            >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ c('ago') }}</span
                         >
                     </div>
                     <mat-icon
@@ -29,8 +37,8 @@
                     ></mat-icon>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item (click)="editDocument(item)">{{ t.action.edit }}</button>
-                    <button mat-menu-item (click)="expandAll = !expandAll">{{ t.action.toggleDetails }}</button>
+                    <button mat-menu-item (click)="editDocument(item)">{{ t('action.edit') }}</button>
+                    <button mat-menu-item (click)="expandAll = !expandAll">{{ t('action.toggleDetails') }}</button>
                 </mat-menu>
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge [color]="item.action | actionColor">

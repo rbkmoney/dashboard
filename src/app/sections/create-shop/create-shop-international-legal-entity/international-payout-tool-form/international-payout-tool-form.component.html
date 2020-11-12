@@ -5,40 +5,40 @@
     [formGroup]="form"
 >
     <mat-form-field>
-        <mat-label>{{ t.accountNumber }}</mat-label>
+        <mat-label>{{ t('accountNumber') }}</mat-label>
         <input matInput formControlName="number" />
     </mat-form-field>
 
-    <div class="dsh-body-1">{{ t.description }}</div>
+    <div class="dsh-body-1">{{ t('description') }}</div>
 
     <mat-form-field>
-        <mat-label>{{ t.iban }}</mat-label>
+        <mat-label>{{ t('iban') }}</mat-label>
         <input matInput formControlName="iban" />
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>{{ t.bic }}</mat-label>
+        <mat-label>{{ t('bic') }}</mat-label>
         <input matInput formControlName="bic" />
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>{{ t.abaRtn }}</mat-label>
+        <mat-label>{{ t('abaRtn') }}</mat-label>
         <input matInput formControlName="abaRtn" />
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>{{ t.bankName }}</mat-label>
+        <mat-label>{{ t('bankName') }}</mat-label>
         <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>{{ t.bankCountry }}</mat-label>
+        <mat-label>{{ t('bankCountry') }}</mat-label>
         <input matInput formControlName="country" />
-        <mat-hint>{{ t.countryHint }}</mat-hint>
+        <mat-hint>{{ t('countryHint') }}</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>{{ t.bankAddress }}</mat-label>
+        <mat-label>{{ t('bankAddress') }}</mat-label>
         <input matInput formControlName="address" />
     </mat-form-field>
 </form>

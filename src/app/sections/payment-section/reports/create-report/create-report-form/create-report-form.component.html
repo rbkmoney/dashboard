@@ -6,33 +6,33 @@
 >
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px" fxLayoutGap.xs="16px">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.from }}</mat-label>
+            <mat-label>{{ t('from') }}</mat-label>
             <input required formControlName="fromDate" matInput [matDatepicker]="from" [max]="form.value.toDate" />
             <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
             <mat-datepicker #from></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ t.time }}</mat-label>
+            <mat-label>{{ t('time') }}</mat-label>
             <input required dshFormatTimeInput formControlName="fromTime" matInput placeholder="00:00:00" />
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px" fxLayoutGap.xs="16px">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.to }}</mat-label>
+            <mat-label>{{ t('to') }}</mat-label>
             <input required formControlName="toDate" matInput [matDatepicker]="to" [min]="form.value.fromDate" />
             <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
             <mat-datepicker #to></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ t.time }}</mat-label>
+            <mat-label>{{ t('time') }}</mat-label>
             <input required dshFormatTimeInput formControlName="toTime" matInput placeholder="23:59:59" />
         </mat-form-field>
     </div>
     <mat-form-field fxFill>
-        <mat-label>{{ t.shop }}</mat-label>
+        <mat-label>{{ t('shop') }}</mat-label>
         <mat-select formControlName="shopID">
             <mat-option *transloco="let c">
-                {{ c.any }}
+                {{ c('any') }}
             </mat-option>
             <mat-option *ngFor="let item of shopsInfo" [value]="item.shopID">
                 {{ item.name }}

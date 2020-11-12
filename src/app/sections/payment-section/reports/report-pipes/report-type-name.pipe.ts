@@ -14,7 +14,7 @@ export class ReportTypeNamePipe implements PipeTransform {
             case 'provisionOfService':
             case 'paymentRegistry':
             case 'paymentRegistryByPayout':
-                return this.transloco.translate(`type.${status}`, null, 'reports|scoped');
+                return this.transloco.translate(`type.${status}`, null, 'reports');
             default:
                 return status;
         }

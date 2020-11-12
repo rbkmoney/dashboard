@@ -4,7 +4,7 @@
     fxLayout="column"
     fxLayoutGap="8px"
 >
-    <div class="dsh-balances-title">{{ t.title }}</div>
+    <div class="dsh-balances-title">{{ t('title') }}</div>
     <ng-container *ngIf="(balances$ | async) && (balancesCount$ | async) > 0; else elseBlock">
         <div
             *ngFor="let balance of balances$ | async"

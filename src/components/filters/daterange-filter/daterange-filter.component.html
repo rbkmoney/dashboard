@@ -1,7 +1,7 @@
 <dsh-filter
     #filter
     *transloco="let t; scope: 'daterange-filter'; read: 'daterangeFilter'"
-    [title]="(savedSelected$ | async | daterange) || t.title"
+    [title]="(savedSelected$ | async | daterange) || t('title')"
     [active]="!!(savedSelected$ | async)"
     (closed)="save()"
 >
@@ -11,7 +11,7 @@
             (selectedChange)="this.select$.next($event)"
         ></dsh-daterange-filter-menu>
         <div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign=" center">
-            <div class="dsh-body-2">{{ (selected$ | async | daterange) || t.title }}</div>
+            <div class="dsh-body-2">{{ (selected$ | async | daterange) || t('title') }}</div>
             <div fxLayout fxLayoutGap="48px">
                 <mat-calendar
                     class="calendar"

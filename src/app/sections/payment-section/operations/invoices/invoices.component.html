@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px" *transloco="let i; scope: 'invoices'; read: 'invoices'">
     <div fxLayout="column" fxLayoutAlign=" end">
-        <button dsh-stroked-button color="accent" (click)="create()">{{ i.create.button }}</button>
+        <button dsh-stroked-button color="accent" (click)="create()">{{ i('create.button') }}</button>
     </div>
     <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
     <dsh-card>
@@ -16,7 +16,7 @@
                 *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
             ></dsh-empty-search-result>
             <button *ngIf="hasMoreInvoices$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? t.loading : t.showMore }}
+                {{ (isLoading$ | async) ? t('loading') : t('showMore') }}
             </button>
         </dsh-card-content>
     </dsh-card>

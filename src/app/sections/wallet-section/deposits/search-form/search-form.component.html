@@ -7,56 +7,56 @@
         <dsh-justify-wrapper fxLayout fxLayout.sm="column" fxLayoutGap="20px">
             <dsh-range-datepicker fxFlex formControlName="date"></dsh-range-datepicker>
             <mat-form-field fxFlex>
-                <mat-label>{{ t.depositStatus }}</mat-label>
+                <mat-label>{{ t('depositStatus') }}</mat-label>
                 <mat-select formControlName="status">
                     <mat-option>
-                        {{ c.any }}
+                        {{ c('any') }}
                     </mat-option>
                     <mat-option *ngFor="let status of depositStatuses" [value]="status">
-                        {{ c.depositStatus[status] }}
+                        <span *transloco="let depositStatus; read: 'depositStatus'">{{ depositStatus(status) }}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </dsh-justify-wrapper>
         <dsh-float-panel-actions>
             <button dsh-button (click)="reset()">
-                {{ c.resetSearchParams }}
+                {{ c('resetSearchParams') }}
             </button>
         </dsh-float-panel-actions>
         <dsh-float-panel-more>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.depositID }}</mat-label>
+                    <mat-label>{{ t('depositID') }}</mat-label>
                     <input matInput type="text" formControlName="depositID" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.walletID }}</mat-label>
+                    <mat-label>{{ t('walletID') }}</mat-label>
                     <input matInput type="text" formControlName="walletID" />
                 </mat-form-field>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.identityID }}</mat-label>
+                    <mat-label>{{ t('identityID') }}</mat-label>
                     <input matInput type="text" formControlName="identityID" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.sourceID }}</mat-label>
+                    <mat-label>{{ t('sourceID') }}</mat-label>
                     <input matInput type="text" formControlName="sourceID" />
                 </mat-form-field>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.amountFrom }}</mat-label>
+                    <mat-label>{{ t('amountFrom') }}</mat-label>
                     <input matInput type="number" formControlName="amountFrom" />
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.amountTo }}</mat-label>
+                    <mat-label>{{ t('amountTo') }}</mat-label>
                     <input matInput type="number" formControlName="amountTo" />
                 </mat-form-field>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
-                    <mat-label>{{ t.currencyID }}</mat-label>
+                    <mat-label>{{ t('currencyID') }}</mat-label>
                     <input matInput type="text" formControlName="currencyID" />
                 </mat-form-field>
             </div>

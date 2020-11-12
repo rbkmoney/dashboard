@@ -2,7 +2,7 @@
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="amount">
             <th dshHeaderCell fxFlex="150px" *dshHeaderCellDef>
-                {{ t.amount }}
+                {{ t('amount') }}
             </th>
             <td dshCell fxFlex="150px" *dshCellDef="let refund">
                 {{ refund.amount | toMajor | currency: refund.currency }}
@@ -11,18 +11,20 @@
 
         <ng-container dshColumnDef="status">
             <th dshHeaderCell fxFlex="140px" *dshHeaderCellDef>
-                {{ t.status }}
+                {{ t('status') }}
             </th>
             <td dshCell fxFlex="140px" *dshCellDef="let refund">
-                <dsh-status *transloco="let c" [color]="refund.status | refundStatusColor">{{
-                    c.refundStatus[refund.status]
-                }}</dsh-status>
+                <dsh-status
+                    *transloco="let refundStatus; read: 'refundStatus'"
+                    [color]="refund.status | refundStatusColor"
+                    >{{ refundStatus(refund.status) }}</dsh-status
+                >
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
             <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
-                {{ t.createdAt }}
+                {{ t('createdAt') }}
             </th>
             <td dshCell fxFlex="180px" *dshCellDef="let refund">
                 {{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
@@ -30,7 +32,7 @@
         </ng-container>
 
         <ng-container dshColumnDef="shopName">
-            <th dshHeaderCell *dshHeaderCellDef>{{ t.shop }}</th>
+            <th dshHeaderCell *dshHeaderCellDef>{{ t('shop') }}</th>
             <td dshCell *dshCellDef="let refund">
                 <span class="truncate">{{ refund.shopName }}</span>
             </td>
@@ -44,7 +46,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="goToPaymentDetails(refund)">
-                        {{ t.actions.paymentDetails }}
+                        {{ t('actions.paymentDetails') }}
                     </button>
                 </mat-menu>
             </td>

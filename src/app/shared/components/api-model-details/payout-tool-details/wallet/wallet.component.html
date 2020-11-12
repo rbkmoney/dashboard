@@ -3,7 +3,7 @@
     fxLayout="column"
     fxLayoutGap="24px"
 >
-    <dsh-details-item [title]="t.walletName">
+    <dsh-details-item [title]="t('walletName')">
         <dsh-link-label (click)="goToWalletDetails(wallet?.walletID)">{{
             wallet?.walletID | walletDetails
         }}</dsh-link-label>

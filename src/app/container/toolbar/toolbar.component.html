@@ -8,7 +8,7 @@
     >
         <ng-container *ngFor="let link of links$ | async">
             <a dsh-tab-link *ngIf="!link.hidden" [routerLink]="link.path" [active]="(active$ | async) === link">
-                {{ t[link.id] }}
+                {{ t(link.id) }}
             </a>
         </ng-container>
     </nav>

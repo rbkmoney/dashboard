@@ -1,15 +1,15 @@
 <div *transloco="let t; scope: 'claim'; read: 'claim.revokeClaimDialog'" fxLayout="column" fxLayoutGap="20px">
-    <h2 class="mat-title">{{ t.subheading }}</h2>
+    <h2 class="mat-title">{{ t('subheading') }}</h2>
     <div mat-dialog-content>
         <form [formGroup]="form">
             <mat-form-field fxFlex>
-                <mat-label>{{ t.reason }}</mat-label>
+                <mat-label>{{ t('reason') }}</mat-label>
                 <input formControlName="reason" matInput type="text" autocomplete="off" />
             </mat-form-field>
         </form>
         <div *ngIf="errorCode$ | async">
-            <div *transloco="let common" class="mat-caption">
-                {{ common.errors[errorCode$ | async] }}
+            <div *transloco="let errors; read: 'errors'" class="mat-caption">
+                {{ errors(errorCode$ | async) }}
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         fxLayoutGap.xs="10px"
     >
         <button fxFlex fxFlex.xs="none" dsh-button (click)="back()" [disabled]="inProgress$ | async">
-            {{ t.back }}
+            {{ t('back') }}
         </button>
         <button
             fxFlex
@@ -32,7 +32,7 @@
             (click)="revoke(form.value.reason)"
             [disabled]="!form.valid || (inProgress$ | async)"
         >
-            {{ t.revoke }}
+            {{ t('revoke') }}
         </button>
     </div>
 </div>
