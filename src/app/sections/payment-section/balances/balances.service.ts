@@ -8,7 +8,7 @@ import { filterShopsByRealm } from '../operations/operators';
 
 @Injectable()
 export class BalancesService {
-    private env$: Subject<string> = new ReplaySubject(1);
+    private realm$: Subject<string> = new ReplaySubject(1);
     private destroy$: Subject<void> = new Subject();
 
     balances$: Observable<AmountResult[]>;
@@ -16,7 +16,7 @@ export class BalancesService {
     balancesCount$: Observable<number>;
 
     constructor(private analyticsService: AnalyticsService, private shopService: ShopService) {
-        const shopIds$ = this.env$.pipe(
+        const shopIds$ = this.realm$.pipe(
             filterShopsByRealm(this.shopService.shops$),
             map((shops) => shops.map((shop) => shop.id))
         );
@@ -37,8 +37,8 @@ export class BalancesService {
         this.balancesCount$ = this.balances$.pipe(pluck('length'), shareReplay(1));
     }
 
-    init(env: string) {
-        this.env$.next(env);
+    init(realm: string) {
+        this.realm$.next(realm);
     }
 
     destroy() {
