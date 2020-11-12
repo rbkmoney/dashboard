@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -19,8 +20,11 @@ export class PaymentsToolDistributionService {
     );
 
     private toolDistributionOrError$ = this.searchParams$.pipe(
-        switchMap(({ fromTime, toTime, shopIDs }) =>
-            this.analyticsService.getPaymentsToolDistribution(fromTime, toTime, shopIDs).pipe(replaceError)
+        withLatestFrom(this.route.params.pipe(pluck('realm'))),
+        switchMap(([{ fromTime, toTime, shopIDs }, paymentInstitutionRealm]) =>
+            this.analyticsService
+                .getPaymentsToolDistribution(fromTime, toTime, { paymentInstitutionRealm, shopIDs })
+                .pipe(replaceError)
         )
     );
     toolDistribution$ = this.toolDistributionOrError$.pipe(
@@ -32,7 +36,7 @@ export class PaymentsToolDistributionService {
     isLoading$ = progress(this.searchParams$, this.toolDistribution$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.toolDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService) {
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         merge(this.toolDistribution$, this.isLoading$, this.error$).subscribe();
     }
 

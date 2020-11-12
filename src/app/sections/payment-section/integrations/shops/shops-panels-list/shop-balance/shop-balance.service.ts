@@ -13,7 +13,7 @@ export class ShopBalanceService {
     balance$: Observable<AmountResult | null> = this.shopIDChange$.pipe(
         distinctUntilChanged(),
         switchMap((shopID) =>
-            this.analyticsService.getCurrentBalances([shopID]).pipe(
+            this.analyticsService.getCurrentBalances({ shopIDs: [shopID] }).pipe(
                 catchError((ex) => {
                     console.error(ex);
                     return of({ result: [] });

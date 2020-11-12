@@ -1,29 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject, Subject, timer } from 'rxjs';
-import { catchError, map, pluck, shareReplay, switchMap, switchMapTo, takeUntil } from 'rxjs/operators';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of, Subject, timer } from 'rxjs';
+import { catchError, pluck, shareReplay, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 
-import { AnalyticsService, ShopService } from '../../../api';
+import { AnalyticsService } from '../../../api';
 import { AmountResult } from '../../../api-codegen/anapi';
-import { filterShopsByRealm } from '../operations/operators';
 
 @Injectable()
-export class BalancesService {
-    private realm$: Subject<string> = new ReplaySubject(1);
+export class BalancesService implements OnDestroy {
     private destroy$: Subject<void> = new Subject();
 
     balances$: Observable<AmountResult[]>;
 
     balancesCount$: Observable<number>;
 
-    constructor(private analyticsService: AnalyticsService, private shopService: ShopService) {
-        const shopIds$ = this.realm$.pipe(
-            filterShopsByRealm(this.shopService.shops$),
-            map((shops) => shops.map((shop) => shop.id))
-        );
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         this.balances$ = timer(0, 60000).pipe(
-            switchMapTo(shopIds$),
-            switchMap((shopIDs) =>
-                this.analyticsService.getCurrentBalances(shopIDs).pipe(
+            withLatestFrom(this.route.params),
+            pluck('1', 'realm'),
+            switchMap((paymentInstitutionRealm) =>
+                this.analyticsService.getCurrentBalances({ paymentInstitutionRealm }).pipe(
                     catchError((ex) => {
                         console.error(ex);
                         return of({ result: [] });
@@ -37,11 +33,7 @@ export class BalancesService {
         this.balancesCount$ = this.balances$.pipe(pluck('length'), shareReplay(1));
     }
 
-    init(realm: string) {
-        this.realm$.next(realm);
-    }
-
-    destroy() {
+    ngOnDestroy() {
         this.destroy$.next();
     }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -22,10 +23,17 @@ export class RefundsAmountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private refundsAmountOrError$ = this.searchParams$.pipe(
-        switchMap(({ current, previous }) =>
+        withLatestFrom(this.route.params.pipe(pluck('realm'))),
+        switchMap(([{ current, previous }, paymentInstitutionRealm]) =>
             forkJoin([
-                this.analyticsService.getRefundsAmount(current.fromTime, current.toTime, current.shopIDs),
-                this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, previous.shopIDs),
+                this.analyticsService.getRefundsAmount(current.fromTime, current.toTime, {
+                    paymentInstitutionRealm,
+                    shopIDs: current.shopIDs,
+                }),
+                this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, {
+                    paymentInstitutionRealm,
+                    shopIDs: previous.shopIDs,
+                }),
             ]).pipe(replaceError)
         )
     );
@@ -41,7 +49,7 @@ export class RefundsAmountService {
     isLoading$ = progress(this.searchParams$, this.refundsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.refundsAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService) {
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         merge(this.searchParams$, this.refundsAmount$, this.isLoading$, this.error$).subscribe();
     }
 
