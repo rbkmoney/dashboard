@@ -4,10 +4,10 @@
     fxLayout.xs="column"
     [fxLayoutGap.xs]="layoutGap"
 >
-    <dsh-details-item [title]="t?.fingerprint" fxFlex>
+    <dsh-details-item [title]="t('fingerprint')" fxFlex>
         {{ paymentResourcePayer.clientInfo?.fingerprint }}
     </dsh-details-item>
-    <dsh-details-item *ngIf="paymentResourcePayer.clientInfo?.ip" [title]="t?.ip" fxFlex>
+    <dsh-details-item *ngIf="paymentResourcePayer.clientInfo?.ip" [title]="t('ip')" fxFlex>
         {{ paymentResourcePayer.clientInfo.ip }}
     </dsh-details-item>
 </div>

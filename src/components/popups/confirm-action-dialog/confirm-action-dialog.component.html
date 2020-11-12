@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; read: 'confirmActionDialog'">
-    <h2 class="dsh-headline">{{ t.subheading }}</h2>
+    <h2 class="dsh-headline">{{ t('subheading') }}</h2>
     <div
         class="dialog-actions"
         fxLayout="row"
@@ -9,10 +9,10 @@
         fxLayoutGap.xs="16px"
     >
         <button fxFlex fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </button>
         <button fxFlex fxFlex.xs="none" dsh-button color="accent" (click)="confirm()">
-            {{ t.confirm }}
+            {{ t('confirm') }}
         </button>
     </div>
 </ng-container>

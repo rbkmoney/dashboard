@@ -29,11 +29,9 @@ export class ReportsListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.cancelReportService.init();
         this.cancelReportService.reportCancelled$.subscribe(() => {
-            this.snackBar.open(
-                this.transloco.translate('cancelReport.successfullyCanceled', null, 'reports|scoped'),
-                'OK',
-                { duration: 2000 }
-            );
+            this.snackBar.open(this.transloco.translate('cancelReport.successfullyCanceled', null, 'reports'), 'OK', {
+                duration: 2000,
+            });
             this.refreshData.emit();
         });
     }

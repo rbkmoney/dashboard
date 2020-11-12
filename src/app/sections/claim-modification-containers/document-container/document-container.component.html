@@ -8,12 +8,12 @@
     fxLayoutGap="10px"
 >
     <ng-container *transloco="let common">
-        <div *ngIf="isLoading$ | async">{{ common.loading }}</div>
-        <div *ngIf="error$ | async">{{ common.httpError }}</div>
+        <div *ngIf="isLoading$ | async">{{ common('loading') }}</div>
+        <div *ngIf="error$ | async">{{ common('httpError') }}</div>
     </ng-container>
     <dsh-document-container-panel
         *ngFor="let infoItem of panelInfo$ | async"
-        [title]="t[infoItem.type]"
+        [title]="t(infoItem.type)"
         [expand]="expandAll"
     >
         <dsh-org-info *ngIf="infoItem.type === 'orgInfo'" [orgInfo]="infoItem.item"></dsh-org-info>
@@ -42,7 +42,7 @@
     </dsh-document-container-panel>
     <dsh-document-container-panel
         *ngFor="let beneficialOwner of beneficialOwners$ | async; index as i"
-        [title]="t.beneficialOwnerInfo | translocoParams: { num: i + 1 }"
+        [title]="t('beneficialOwnerInfo', { num: i + 1 })"
     >
         <dsh-beneficial-owner-info [beneficialOwner]="beneficialOwner"></dsh-beneficial-owner-info>
     </dsh-document-container-panel>

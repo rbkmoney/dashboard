@@ -1,11 +1,11 @@
 <div *transloco="let a; scope: 'wallets'; read: 'wallets.account'" fxLayout="column" [fxLayoutGap]="layoutGap">
-    <div class="mat-title">{{ a.status }}</div>
-    <div class="mat-caption">{{ a.description }}</div>
+    <div class="mat-title">{{ a('status') }}</div>
+    <div class="mat-caption">{{ a('description') }}</div>
     <div fxLayout="row">
-        <dsh-details-item [title]="a.own" fxFlex="50">
+        <dsh-details-item [title]="a('own')" fxFlex="50">
             <div class="mat-body-1">{{ account.own.amount | toMajor | currency: account.own.currency }}</div>
         </dsh-details-item>
-        <dsh-details-item [title]="a.available" fxFlex="50">
+        <dsh-details-item [title]="a('available')" fxFlex="50">
             <div class="mat-body-1">{{ account.available.amount | toMajor | currency: account.own.currency }}</div>
         </dsh-details-item>
     </div>

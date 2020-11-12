@@ -72,11 +72,11 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         {
             provide: TRANSLOCO_CONFIG,
             useValue: {
-                listenToLangChange: false,
+                reRenderOnLangChange: false,
                 defaultLang: 'ru',
+                availableLangs: ['ru'],
                 fallbackLang: 'ru',
                 prodMode: environment.production,
-                scopeStrategy: 'shared',
             } as TranslocoConfig,
         },
         translocoLoader,

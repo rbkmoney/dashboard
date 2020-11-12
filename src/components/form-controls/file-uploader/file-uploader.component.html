@@ -10,12 +10,12 @@
 >
     <div *transloco="let t; scope: 'file-uploader'; read: 'fileUploader'">
         <div *ngIf="!(isUploading$ | async); else uploading">
-            {{ t.forUpload }}
+            {{ t('forUpload') }}
             <span ngfSelect (filesChange)="startUploading($event)" class="dsh-file-uploader-choose-files">{{
-                t.choose
+                t('choose')
             }}</span
             >.
         </div>
-        <ng-template #uploading>{{ t.uploading }}</ng-template>
+        <ng-template #uploading>{{ t('uploading') }}</ng-template>
     </div>
 </div>

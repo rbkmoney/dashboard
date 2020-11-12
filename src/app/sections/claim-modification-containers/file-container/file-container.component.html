@@ -1,7 +1,7 @@
 <dsh-panel *transloco="let c" color="accent">
     <dsh-panel-header>
-        <div *ngIf="isLoading$ | async">{{ c.loading }}</div>
-        <div *ngIf="error$ | async">{{ c.httpError }}</div>
+        <div *ngIf="isLoading$ | async">{{ c('loading') }}</div>
+        <div *ngIf="error$ | async">{{ c('httpError') }}</div>
         <div *ngIf="fileInfo$ | async as fileInfo" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
             <div>{{ fileInfo.fileName }}</div>
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign=" center">

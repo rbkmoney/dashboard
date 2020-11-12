@@ -1,6 +1,6 @@
 <dsh-multiselect-filter
     *transloco="let t; scope: 'reports'; read: 'reports.searchFilters.reportTypes'"
-    [label]="t.label"
+    [label]="t('label')"
     [compareWith]="compareWithReportType"
     [selected]="selected"
     (selectedChange)="this.selectionChange.emit($event)"

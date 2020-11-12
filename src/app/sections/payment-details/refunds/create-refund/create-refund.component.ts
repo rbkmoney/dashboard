@@ -68,7 +68,7 @@ export class CreateRefundComponent implements OnInit {
             .subscribe(
                 () => {
                     this.snackBar.open(
-                        this.transloco.translate('refunds.createRefund.successful', null, 'payment-details|scoped'),
+                        this.transloco.translate('refunds.createRefund.successful', null, 'payment-details'),
                         'OK',
                         { duration: 3000 }
                     );

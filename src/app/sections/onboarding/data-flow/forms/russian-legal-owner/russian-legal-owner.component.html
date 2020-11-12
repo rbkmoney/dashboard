@@ -4,20 +4,20 @@
     fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianLegalOwner'"
 >
-    <label class="mat-body-2">{{ t.legalOwnerDescription }}</label>
+    <label class="mat-body-2">{{ t('legalOwnerDescription') }}</label>
     <dsh-private-entity-info
         [form]="(form$ | async).get('privateEntityInfo')"
         [additionalFields]="['innfl']"
     ></dsh-private-entity-info>
     <div fxLayout [fxLayoutGap]="layoutGap">
         <mat-form-field fxFlex>
-            <mat-label>{{ t.headPosition }}</mat-label>
+            <mat-label>{{ t('headPosition') }}</mat-label>
             <input matInput formControlName="headPosition" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-label>{{ t.termOfOffice }}</mat-label>
+            <mat-label>{{ t('termOfOffice') }}</mat-label>
             <input matInput formControlName="termOfOffice" required />
-            <mat-hint>{{ t.termOfOfficeHint }}</mat-hint>
+            <mat-hint>{{ t('termOfOfficeHint') }}</mat-hint>
         </mat-form-field>
     </div>
     <dsh-authority-confirming-document

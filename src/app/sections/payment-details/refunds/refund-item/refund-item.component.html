@@ -4,27 +4,27 @@
     [fxLayoutGap]="layoutGap"
 >
     <div class="mat-subheading-1">
-        {{ t?.title }}
+        {{ t('title') }}
         <span dshSecondaryTitle>#{{ refund?.id }}</span>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
         <dsh-details-status-item
-            *transloco="let c; read: 'refundStatus'"
+            *transloco="let refundStatus; read: 'refundStatus'"
             [color]="color"
-            [text]="c[status]"
+            [text]="refundStatus(status)"
             fxFlex="33"
         ></dsh-details-status-item>
-        <dsh-details-item [title]="t?.amount" fxFlex="33">
+        <dsh-details-item [title]="t('amount')" fxFlex="33">
             <div class="mat-body-1">{{ refund?.amount | toMajor | currency: refund?.currency }}</div>
         </dsh-details-item>
-        <dsh-details-item [title]="t?.createdAt" fxFlex="33">
+        <dsh-details-item [title]="t('createdAt')" fxFlex="33">
             <div class="mat-body-1">{{ refund?.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
         </dsh-details-item>
     </div>
-    <dsh-details-item *ngIf="refund?.reason" [title]="t?.reason">
+    <dsh-details-item *ngIf="refund?.reason" [title]="t('reason')">
         <div class="mat-body-1">{{ refund?.reason }}</div>
     </dsh-details-item>
-    <dsh-details-item *ngIf="refund?.error" [title]="t?.error">
+    <dsh-details-item *ngIf="refund?.error" [title]="t('error')">
         <div class="mat-body-1">{{ refund?.error.message }}</div>
     </dsh-details-item>
 </div>

@@ -14,7 +14,7 @@
                     <dsh-accordion-item-content-header
                         *transloco="let t; scope: 'payouts'; read: 'payouts.panel'"
                         (collapse)="accordionItem.collapse($event)"
-                        >{{ t.payoutID | translocoParams: { num: payout.id } }}</dsh-accordion-item-content-header
+                        >{{ t('payoutID', { num: payout.id }) }}</dsh-accordion-item-content-header
                     >
                     <dsh-payouts-details
                         [payout]="payout"

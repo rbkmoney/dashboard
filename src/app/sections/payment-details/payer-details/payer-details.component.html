@@ -1,7 +1,8 @@
 <dsh-card *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.payerDetails'">
     <dsh-card-title>
         <h2 class="mat-title">
-            {{ t?.title }}<span *ngIf="paymentResourcePayer()">: {{ paymentResourcePayer()?.contactInfo?.email }}</span>
+            {{ t('title')
+            }}<span *ngIf="paymentResourcePayer()">: {{ paymentResourcePayer()?.contactInfo?.email }}</span>
         </h2>
     </dsh-card-title>
     <dsh-card-content>

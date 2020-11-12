@@ -2,7 +2,7 @@
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="invoiceID">
             <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
-                {{ t.invoiceID }}
+                {{ t('invoiceID') }}
             </th>
             <td dshCell fxFlex="130px" *dshCellDef="let element">
                 {{ element.invoiceID }}
@@ -11,7 +11,7 @@
 
         <ng-container dshColumnDef="product">
             <th dshHeaderCell fxFlex *dshHeaderCellDef>
-                {{ t.product }}
+                {{ t('product') }}
             </th>
             <td dshCell *dshCellDef="let element">
                 <span class="truncate">{{ element.product }}</span>
@@ -20,7 +20,7 @@
 
         <ng-container dshColumnDef="amount">
             <th dshHeaderCell *dshHeaderCellDef>
-                {{ t.amount }}
+                {{ t('amount') }}
             </th>
             <td dshCell *dshCellDef="let element">
                 {{ element.amount | toMajor | currency: element.currency }}
@@ -29,18 +29,20 @@
 
         <ng-container dshColumnDef="status">
             <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
-                {{ t.status }}
+                {{ t('status') }}
             </th>
             <td dshCell fxFlex="130px" *dshCellDef="let element">
-                <dsh-status *transloco="let c" [color]="element.status | invoiceStatusColor">{{
-                    c.invoiceStatus[element.status]
-                }}</dsh-status>
+                <dsh-status
+                    *transloco="let invoiceStatus; read: 'invoiceStatus'"
+                    [color]="element.status | invoiceStatusColor"
+                    >{{ invoiceStatus(element.status) }}</dsh-status
+                >
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="createdAt">
             <th dshHeaderCell fxFlex="130px" *dshHeaderCellDef>
-                {{ t.createdAt }}
+                {{ t('createdAt') }}
             </th>
             <td dshCell fxFlex="130px" *dshCellDef="let element">
                 {{ element.createdAt | date: 'dd.MM.yyyy, HH:mm' }}
@@ -48,7 +50,7 @@
         </ng-container>
 
         <ng-container dshColumnDef="shop">
-            <th dshHeaderCell *dshHeaderCellDef>{{ t.shop }}</th>
+            <th dshHeaderCell *dshHeaderCellDef>{{ t('shop') }}</th>
             <td dshCell *dshCellDef="let element">
                 <span class="truncate">{{ element.shopName }}</span>
             </td>
@@ -62,7 +64,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="goToInvoiceDetails(element)">
-                        {{ t.actions.invoiceDetails }}
+                        {{ t('actions.invoiceDetails') }}
                     </button>
                 </mat-menu>
             </td>

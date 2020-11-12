@@ -24,7 +24,7 @@
         <dsh-expand-panel-more>
             <dsh-expand-panel-more-header>
                 <div *transloco="let t; scope: 'deposits'; read: 'deposits'" class="mat-caption" fxFlex>
-                    {{ t.deposit }} #{{ deposit.id }}
+                    {{ t('deposit') }} #{{ deposit.id }}
                 </div>
             </dsh-expand-panel-more-header>
 
@@ -35,7 +35,7 @@
                 fxLayoutGap="20px"
             >
                 <div class="mat-headline">{{ deposit.body.amount | toMajor | currency: deposit.body.currency }}</div>
-                <dsh-details-item fxFlex [title]="t.walletName">
+                <dsh-details-item fxFlex [title]="t('walletName')">
                     <div class="mat-body-1">
                         <span *ngIf="getWallet(deposit.wallet) | async as wallet; else noWallet">{{
                             wallet.name

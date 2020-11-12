@@ -4,12 +4,12 @@
     </div>
     <div *ngIf="(claimReceived$ | async) && !(error$ | async)" fxLayout="column" fxLayoutGap="20px">
         <h1 class="mat-display-1">
-            {{ t?.details }} <span dshSecondaryTitle> #{{ claimID$ | async }} </span>
+            {{ t('details') }} <span dshSecondaryTitle> #{{ claimID$ | async }} </span>
         </h1>
         <dsh-card>
             <div fxLayout="row" fxLayoutAlign="space-between">
                 <h2 *transloco="let claimType; read: 'claimType'" class="mat-title">
-                    {{ claimType[claimType$ | async] }}
+                    {{ claimType(claimType$ | async) }}
                 </h2>
                 <dsh-status
                     *transloco="let claimStatus; read: 'claimStatus'"
@@ -17,7 +17,7 @@
                     class="mat-title"
                     mark="false"
                 >
-                    {{ claimStatus[claimStatus$ | async] }}
+                    {{ claimStatus(claimStatus$ | async) }}
                 </dsh-status>
             </div>
             <div fxLayout="column" fxLayoutGap="20px">
@@ -30,7 +30,7 @@
                             color="warn"
                             (click)="revokeClaim()"
                         >
-                            {{ t.revokeClaim }}
+                            {{ t('revokeClaim') }}
                         </button>
                     </div>
                     <div>
@@ -41,7 +41,7 @@
                             color="accent"
                             (click)="reviewClaim()"
                         >
-                            {{ t.reviewClaim }}
+                            {{ t('reviewClaim') }}
                         </button>
                     </div>
                 </div>

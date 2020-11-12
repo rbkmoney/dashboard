@@ -2,7 +2,7 @@
     <table dshTable [dataSource]="data">
         <ng-container dshColumnDef="amount">
             <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
-                {{ t.amount }}
+                {{ t('amount') }}
             </th>
             <td dshCell fxFlex="180px" *dshCellDef="let element">
                 {{ element.amount | toMajor | currency: element.currency }}
@@ -11,18 +11,20 @@
 
         <ng-container dshColumnDef="status">
             <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
-                {{ t.status }}
+                {{ t('status') }}
             </th>
             <td dshCell fxFlex="180px" *dshCellDef="let element">
-                <dsh-status *transloco="let c" [color]="element.status | paymentStatusColor">{{
-                    c.paymentStatus[element.status]
-                }}</dsh-status>
+                <dsh-status
+                    *transloco="let paymentStatus; read: 'paymentStatus'"
+                    [color]="element.status | paymentStatusColor"
+                    >{{ paymentStatus(element.status) }}</dsh-status
+                >
             </td>
         </ng-container>
 
         <ng-container dshColumnDef="statusChanged">
             <th dshHeaderCell fxFlex="180px" *dshHeaderCellDef>
-                {{ t.statusChanged }}
+                {{ t('statusChanged') }}
             </th>
             <td dshCell fxFlex="180px" *dshCellDef="let element">
                 {{ element.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}
@@ -30,7 +32,7 @@
         </ng-container>
 
         <ng-container dshColumnDef="shopName">
-            <th dshHeaderCell *dshHeaderCellDef>{{ t.shop }}</th>
+            <th dshHeaderCell *dshHeaderCellDef>{{ t('shop') }}</th>
             <td dshCell *dshCellDef="let element">
                 <span class="truncate">{{ element.shopName }}</span>
             </td>
@@ -44,7 +46,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="goToPaymentDetails(element)">
-                        {{ t.actions.paymentDetails }}
+                        {{ t('actions.paymentDetails') }}
                     </button>
                 </mat-menu>
             </td>

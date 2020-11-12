@@ -4,17 +4,17 @@
     fxLayoutGap="24px"
 >
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.bankName">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('bankName')">
             {{ bankAccount?.bankName }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.bankBik">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('bankBik')">
             {{ bankAccount?.bankBik }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.bankPostAccount">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('bankPostAccount')">
             {{ bankAccount?.bankPostAccount }}
         </dsh-details-item>
     </div>
-    <dsh-details-item [title]="t.account">
+    <dsh-details-item [title]="t('account')">
         {{ bankAccount?.account }}
     </dsh-details-item>
 </div>

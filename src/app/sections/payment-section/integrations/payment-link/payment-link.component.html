@@ -1,6 +1,6 @@
 <div fxLayout="column" fxFlex="720px" fxLayoutGap="20px">
     <div *transloco="let t; scope: 'payment-link'; read: 'paymentLink'" class="mat-body-1">
-        {{ t.description }}
+        {{ t('description') }}
     </div>
     <dsh-card>
         <dsh-create-invoice-or-invoice-template

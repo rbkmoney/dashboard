@@ -4,14 +4,14 @@
     fxLayoutGap="10px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
-    <label class="mat-caption beneficial-owner-description">{{ t.beneficialOwnerDescription }}</label>
+    <label class="mat-caption beneficial-owner-description">{{ t('beneficialOwnerDescription') }}</label>
     <section class="checkbox-section">
         <mat-checkbox
             [checked]="!(isBeneficialOwnersVisible$ | async)"
             formControlName="noOwners"
             (change)="noOwnersChange($event)"
         >
-            {{ t.noOwners }}
+            {{ t('noOwners') }}
         </mat-checkbox>
     </section>
     <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
@@ -22,10 +22,10 @@
             *ngFor="let beneficialOwner of (beneficialOwners$ | async).controls; let i = index"
             [formGroupName]="i"
         >
-            <div class="owner-count mat-body-2">{{ t.owner }} #{{ i + 1 }}</div>
+            <div class="owner-count mat-body-2">{{ t('owner') }} #{{ i + 1 }}</div>
             <div fxLayout>
                 <mat-form-field fxFlex="48.5%">
-                    <mat-label>{{ t.ownershipPercentage }}</mat-label>
+                    <mat-label>{{ t('ownershipPercentage') }}</mat-label>
                     <input matInput type="number" formControlName="ownershipPercentage" required />
                 </mat-form-field>
             </div>
@@ -41,14 +41,14 @@
             </section>
             <div class="beneficial-owner-actions" fxLayout="row" fxLayoutAlign="end">
                 <button dsh-stroked-button color="warn" (click)="removeOwner(i)">
-                    {{ t.removeOwner }}
+                    {{ t('removeOwner') }}
                 </button>
             </div>
             <mat-divider></mat-divider>
         </div>
         <div class="beneficial-owner-actions" fxLayout="row" fxLayoutAlign="end">
             <button dsh-stroked-button color="accent" (click)="addOwner()">
-                {{ t.addOwner }}
+                {{ t('addOwner') }}
             </button>
         </div>
     </div>

@@ -4,15 +4,15 @@
     fxLayoutGap="24px"
     *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks.details'"
 >
-    <dsh-details-item [title]="t.url">
+    <dsh-details-item [title]="t('url')">
         <div class="dsh-body-1">
             {{ url }}
         </div>
     </dsh-details-item>
-    <dsh-details-item [title]="t.identity">
+    <dsh-details-item [title]="t('identity')">
         <div class="dsh-body-1">{{ identityID }} {{ identityName }}</div>
     </dsh-details-item>
-    <dsh-details-item *ngIf="walletName" [title]="t.wallet">
+    <dsh-details-item *ngIf="walletName" [title]="t('wallet')">
         <div class="dsh-body-1">
             {{ walletName }}
         </div>

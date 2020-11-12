@@ -2,12 +2,12 @@
     <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
         <dsh-card-title>
             <h2 class="mat-title">
-                {{ t?.title }}
+                {{ t('title') }}
             </h2>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
             <div class="mat-body-1">
-                {{ t.holdDate }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
+                {{ t('holdDate') }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
                 }}{{
                     (holdDate | holdActive: payment?.status)
                         ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')'
@@ -15,7 +15,7 @@
                 }}.
                 <ng-container *ngIf="holdDate | holdActive: payment?.status; else expiredHold">
                     {{ t[getActiveHoldText()] }}
-                    {{ t.activeHoldTutorial }}
+                    {{ t('activeHoldTutorial') }}
                 </ng-container>
                 <ng-template #expiredHold>
                     {{ t[getExpiredHoldText()] }}
@@ -30,10 +30,10 @@
                 [fxLayoutGap.xs]="layoutGap"
             >
                 <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn" (click)="cancelHoldDialog()">
-                    {{ t.actions.deny }}
+                    {{ t('actions.deny') }}
                 </button>
                 <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="accent" (click)="confirmHoldDialog()">
-                    {{ t.actions.accept }}
+                    {{ t('actions.accept') }}
                 </button>
             </div>
         </dsh-card-content>

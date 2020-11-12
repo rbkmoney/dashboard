@@ -4,33 +4,37 @@
     [formGroup]="form"
     *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'"
 >
-    <h1 class="dsh-headline">{{ t.title }}</h1>
+    <h1 class="dsh-headline">{{ t('title') }}</h1>
     <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field>
-            <mat-label>{{ t.url }}</mat-label>
+            <mat-label>{{ t('url') }}</mat-label>
             <input matInput formControlName="url" required />
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{ t.name }}</mat-label>
+            <mat-label>{{ t('name') }}</mat-label>
             <input matInput formControlName="name" required maxlength="100" />
             <mat-hint>{{ form.value.name.length }} / 100</mat-hint>
         </mat-form-field>
 
-        <div *ngIf="t.payoutTool as p" fxLayout="column" fxLayoutGap="24px">
+        <div
+            *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
+            fxLayout="column"
+            fxLayoutGap="24px"
+        >
             <mat-divider></mat-divider>
 
             <div fxLayout="column" fxLayoutGap="16px">
-                <h2 class="dsh-title">{{ p.title }}</h2>
-                <div class="dsh-body-1">{{ p.description }}</div>
+                <h2 class="dsh-title">{{ p('title') }}</h2>
+                <div class="dsh-body-1">{{ p('description') }}</div>
             </div>
 
             <div>
                 <mat-radio-group formControlName="bankAccountType" fxLayout fxLayoutGap="24px" required>
                     <mat-radio-button [value]="bankAccountType.new" fxFlex>{{
-                        p.bankAccountType.new
+                        p('bankAccountType.new')
                     }}</mat-radio-button>
                     <mat-radio-button [value]="bankAccountType.existing" fxFlex>{{
-                        p.bankAccountType.existing
+                        p('bankAccountType.existing')
                     }}</mat-radio-button>
                 </mat-radio-group>
             </div>
@@ -42,7 +46,7 @@
                 fxLayoutGap="16px"
             >
                 <mat-form-field>
-                    <mat-label>{{ p.new.search }}</mat-label>
+                    <mat-label>{{ p('new.search') }}</mat-label>
                     <dsh-dadata-autocomplete
                         formControlName="search"
                         type="bank"
@@ -60,16 +64,16 @@
                     "
                 >
                     <mat-form-field>
-                        <mat-label>{{ p.new.name }}</mat-label>
+                        <mat-label>{{ p('new.name') }}</mat-label>
                         <input matInput formControlName="bankName" required />
                     </mat-form-field>
                     <div fxLayout fxLayoutGap="24px">
                         <mat-form-field fxFlex>
-                            <mat-label>{{ p.new.bik }}</mat-label>
+                            <mat-label>{{ p('new.bik') }}</mat-label>
                             <dsh-format-input format="bik" formControlName="bankBik" required></dsh-format-input>
                         </mat-form-field>
                         <mat-form-field fxFlex>
-                            <mat-label>{{ p.new.postAccount }}</mat-label>
+                            <mat-label>{{ p('new.postAccount') }}</mat-label>
                             <dsh-format-input
                                 format="bankPostAccount"
                                 matInput
@@ -79,7 +83,7 @@
                         </mat-form-field>
                     </div>
                     <mat-form-field>
-                        <mat-label>{{ p.new.account }}</mat-label>
+                        <mat-label>{{ p('new.account') }}</mat-label>
                         <dsh-format-input format="bankAccount" formControlName="account" required></dsh-format-input>
                     </mat-form-field>
                 </div>
@@ -87,7 +91,7 @@
 
             <div *ngIf="form.value.bankAccountType === bankAccountType.existing" fxLayout="column" fxLayoutGap="16px">
                 <mat-form-field>
-                    <mat-label>{{ p.existing.label }}</mat-label>
+                    <mat-label>{{ p('existing.label') }}</mat-label>
                     <mat-select formControlName="shop" required>
                         <mat-option *ngFor="let shop of shops$ | async" [value]="shop.id">
                             {{ shop.details.name }}
@@ -111,8 +115,8 @@
             *transloco="let t"
             (click)="cancel.emit()"
         >
-            {{ t.cancel }}
+            {{ t('cancel') }}
         </button>
-        <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t.send }}</button>
+        <button dsh-button color="accent" (click)="createShop()" [disabled]="form.invalid">{{ t('send') }}</button>
     </div>
 </form>

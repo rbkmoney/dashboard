@@ -24,7 +24,7 @@ const offsetToX = (offset: number, unit: SplitUnit, index: number, length: numbe
 
 const statusOffsetCountsToSeries = (statusOffsetCounts: StatusOffsetCount[], unit: SplitUnit) => {
     return statusOffsetCounts.map(({ status, offsetCount }) => ({
-        name: translate(`analytics.paymentStatuses.${status.toString()}`, null, 'payment-section|scoped'),
+        name: translate(`analytics.paymentStatuses.${status.toString()}`, null, 'payment-section'),
         data: offsetCount.map((c, i) => ({
             x: offsetToX(c.offset, unit, i, offsetCount.length),
             y: c.count,

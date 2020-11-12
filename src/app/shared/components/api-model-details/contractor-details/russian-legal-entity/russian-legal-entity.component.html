@@ -4,27 +4,27 @@
     fxLayoutGap="24px"
 >
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.registeredName">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('registeredName')">
             {{ russianLegalEntity?.registeredName }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.inn">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('inn')">
             {{ russianLegalEntity?.inn }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.registeredNumber">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('registeredNumber')">
             {{ russianLegalEntity?.registeredNumber }}
         </dsh-details-item>
     </div>
-    <dsh-details-item [title]="t.actualAddress">
+    <dsh-details-item [title]="t('actualAddress')">
         {{ russianLegalEntity?.actualAddress }}
     </dsh-details-item>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.representativePosition">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativePosition')">
             {{ russianLegalEntity?.representativePosition }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.representativeFullName">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativeFullName')">
             {{ russianLegalEntity?.representativeFullName }}
         </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t.representativeDocument">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativeDocument')">
             {{ russianLegalEntity?.representativeDocument }}
         </dsh-details-item>
     </div>

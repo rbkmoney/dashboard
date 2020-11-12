@@ -4,30 +4,30 @@
         fxLayout="column"
         [fxLayoutGap]="layoutGap"
     >
-        <h2 class="mat-title">{{ t.title }}</h2>
+        <h2 class="mat-title">{{ t('title') }}</h2>
         <form fxLayout="column" [formGroup]="form">
             <mat-form-field>
-                <mat-label>{{ t.reason }}</mat-label>
+                <mat-label>{{ t('reason') }}</mat-label>
                 <input matInput type="text" formControlName="reason" />
             </mat-form-field>
             <div fxLayout="column" [fxLayoutGap]="layoutGap">
                 <mat-checkbox [checked]="isPartialRefund" (change)="onCheckboxChange(!isPartialRefund)">{{
-                    t.partialRefund
+                    t('partialRefund')
                 }}</mat-checkbox>
                 <mat-form-field *ngIf="isPartialRefund">
-                    <mat-label>{{ t.amount }}</mat-label>
+                    <mat-label>{{ t('amount') }}</mat-label>
                     <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
                     <mat-hint *ngIf="account$ | async as account">
-                        {{ t.balance }}
+                        {{ t('balance') }}
                         : {{ account.availableAmount | toMajor | currency: account.currency }}
                     </mat-hint>
                 </mat-form-field>
             </div>
         </form>
         <div *transloco="let c" [fxLayoutGap]="layoutGap">
-            <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c.cancel }}</button>
+            <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
             <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
-                {{ c.confirm }}
+                {{ c('confirm') }}
             </button>
         </div>
     </div>

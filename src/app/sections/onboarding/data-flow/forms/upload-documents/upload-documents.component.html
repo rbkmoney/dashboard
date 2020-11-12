@@ -4,12 +4,12 @@
     fxLayoutGap="20px"
 >
     <div fxLayout="column" fxLayoutGap="10px">
-        <div class="mat-body-2">{{ t.requiredDocs }}:</div>
-        <div class="mat-body-1">- {{ t.passport }};</div>
-        <div class="mat-body-1">- {{ t.registrationDoc }}.</div>
+        <div class="mat-body-2">{{ t('requiredDocs') }}:</div>
+        <div class="mat-body-1">- {{ t('passport') }};</div>
+        <div class="mat-body-1">- {{ t('registrationDoc') }}.</div>
     </div>
-    <div class="mat-body-2">{{ t.uploadedDocs }}:</div>
-    <div *ngIf="!(fileUnits$ | async)?.length; else files" class="mat-body-1">{{ t.noDocs }}</div>
+    <div class="mat-body-2">{{ t('uploadedDocs') }}:</div>
+    <div *ngIf="!(fileUnits$ | async)?.length; else files" class="mat-body-1">{{ t('noDocs') }}</div>
     <ng-template #files>
         <div fxLayout="column" fxLayoutGap="10px">
             <dsh-file-container

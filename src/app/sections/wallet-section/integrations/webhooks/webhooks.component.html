@@ -7,10 +7,10 @@
         fxLayoutGap="24px"
     >
         <div class="dsh-caption">
-            {{ t.description }}
+            {{ t('description') }}
         </div>
         <div>
-            <button dsh-button color="accent" (click)="createWebhook()">{{ t.create }}</button>
+            <button dsh-button color="accent" (click)="createWebhook()">{{ t('create') }}</button>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
         ></dsh-webhooks-list>
         <dsh-empty-search-result
             *ngIf="(webhooks$ | async)?.length === 0"
-            [text]="t.emptyResult"
+            [text]="t('emptyResult')"
         ></dsh-empty-search-result>
     </ng-template>
 </div>
