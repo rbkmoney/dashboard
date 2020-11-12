@@ -33,16 +33,16 @@ export class PayoutsSearchFiltersComponent implements OnInit, OnChanges {
 
     @Input() initParams: SearchParams;
 
-    @Input() set envID(envID: string) {
-        this.envID$.next(envID);
+    @Input() set realm(realm: string) {
+        this.realm$.next(realm);
     }
 
     @Output()
     searchParamsChanges = new EventEmitter<SearchParams>();
 
-    private envID$ = new ReplaySubject();
+    private realm$ = new ReplaySubject();
 
-    shops$: Observable<Shop[]> = this.envID$.pipe(
+    shops$: Observable<Shop[]> = this.realm$.pipe(
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );

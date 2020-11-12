@@ -26,7 +26,7 @@ export class PayoutsComponent implements OnInit, OnDestroy {
     initSearchParams$ = this.payoutsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchPayoutsService.errors$;
 
-    envID$ = this.route.params.pipe(pluck('envID'), shareReplay(1));
+    realm$ = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(
         private fetchPayoutsService: FetchPayoutsService,
@@ -39,7 +39,7 @@ export class PayoutsComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.envID$.subscribe((envID) => this.createPayoutService.init(envID));
+        this.realm$.subscribe((realm) => this.createPayoutService.init(realm));
         this.createPayoutService.payoutCreated$.subscribe(() => {
             this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts'), 'OK', {
                 duration: 2000,

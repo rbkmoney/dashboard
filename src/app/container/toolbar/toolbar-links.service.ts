@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
-import { WalletService } from '../../api';
-import { RouteEnv } from '../../sections/route-env';
+import { PaymentInstitutionRealm, WalletService } from '../../api';
 import { Link } from '../../shared';
 import { findActivePath } from '../../shared/utils';
 
@@ -44,7 +43,7 @@ export class ToolbarLinksService {
             { id: LinkId.main, path: '', activateStartPaths: [''] },
             {
                 id: LinkId.payments,
-                path: `payment-section/env/${RouteEnv.real}/operations/payments`,
+                path: `payment-section/env/${PaymentInstitutionRealm.live}/operations/payments`,
                 activateStartPaths: ['/payment-section', '/invoice'],
             },
             {

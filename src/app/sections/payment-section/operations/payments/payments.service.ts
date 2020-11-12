@@ -9,7 +9,6 @@ import { toMinor } from '../../../../../utils';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
@@ -48,14 +47,14 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         continuationToken: string
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.route.params.pipe(
-            pluck('envID'),
-            switchMap((env) =>
+            pluck('realm'),
+            switchMap((paymentInstitutionRealm) =>
                 this.paymentSearchService.searchPayments(
                     begin.utc().format(),
                     end.utc().format(),
                     {
                         ...params,
-                        paymentInstitutionRealm: getPaymentInstitutionRealm(env),
+                        paymentInstitutionRealm,
                         paymentAmountFrom:
                             typeof paymentAmountFrom === 'number' ? toMinor(paymentAmountFrom) : undefined,
                         paymentAmountTo: typeof paymentAmountTo === 'number' ? toMinor(paymentAmountTo) : undefined,

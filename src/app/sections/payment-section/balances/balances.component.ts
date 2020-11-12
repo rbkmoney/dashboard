@@ -17,7 +17,7 @@ export class BalancesComponent implements OnInit, OnDestroy {
     constructor(private balancesService: BalancesService, private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.route.params.pipe(pluck('envID')).subscribe((envID) => this.balancesService.init(envID));
+        this.route.params.pipe(pluck('realm')).subscribe((realm) => this.balancesService.init(realm));
     }
 
     ngOnDestroy() {

@@ -12,7 +12,7 @@ export class CreateInvoiceOrInvoiceTemplateService {
     form = this.fb.group({ type: null });
 
     shops$ = this.route.params.pipe(
-        pluck('envID'),
+        pluck('realm'),
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );

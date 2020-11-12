@@ -19,7 +19,7 @@ export class CreateReportService {
         this.createReport$.next();
     }
 
-    init(envID: string) {
+    init(realm: string) {
         this.createReport$
             .pipe(
                 takeUntil(this.destroy$),
@@ -29,7 +29,7 @@ export class CreateReportService {
                             width: '552px',
                             disableClose: true,
                             data: {
-                                envID,
+                                realm,
                             },
                         })
                         .afterClosed()

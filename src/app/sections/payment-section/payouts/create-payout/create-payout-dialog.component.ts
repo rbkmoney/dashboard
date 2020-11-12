@@ -25,7 +25,7 @@ export class CreatePayoutDialogComponent implements OnInit {
 
     currentPayoutToolCurrency: string;
 
-    shopsInfo$ = of(this.data.envID).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
+    shopsInfo$ = of(this.data.realm).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
 
     isPayoutToolsLoading$ = this.createPayoutDialogService.isLoading$;
     payoutTools$ = this.createPayoutDialogService.payoutTools$;
@@ -38,7 +38,7 @@ export class CreatePayoutDialogComponent implements OnInit {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private shopService: ShopService,
-        @Inject(MAT_DIALOG_DATA) private data: { envID: string }
+        @Inject(MAT_DIALOG_DATA) private data: { realm: string }
     ) {}
 
     ngOnInit() {

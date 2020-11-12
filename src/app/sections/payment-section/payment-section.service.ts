@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { filter, pluck, take } from 'rxjs/operators';
 
+import { PaymentInstitutionRealm } from '../../api';
 import { SettingsService } from '../../settings';
-import { RouteEnv } from '../route-env';
 
 @Injectable()
 export class PaymentSectionService {
@@ -17,8 +17,8 @@ export class PaymentSectionService {
     constructor(private settingsService: SettingsService, private route: ActivatedRoute) {
         this.route.params
             .pipe(
-                pluck('envID'),
-                filter((envID) => envID === RouteEnv.test),
+                pluck('realm'),
+                filter((realm) => realm === PaymentInstitutionRealm.test),
                 filter(() => {
                     const v = this.settingsService.getSessionStorageItem(this.bannerName);
                     return v === 'true' || v === null;

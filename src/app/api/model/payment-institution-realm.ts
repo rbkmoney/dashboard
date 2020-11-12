@@ -1,1 +1,4 @@
-export type PaymentInstitutionRealm = 'live' | 'test';
+export enum PaymentInstitutionRealm {
+    live = 'live',
+    test = 'test',
+}

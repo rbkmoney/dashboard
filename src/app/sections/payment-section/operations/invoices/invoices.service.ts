@@ -10,7 +10,6 @@ import { Invoice } from '../../../../api-codegen/anapi';
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { filterShopsByEnv, mapToTimestamp } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
@@ -35,7 +34,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     );
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
-        pluck('envID'),
+        pluck('realm'),
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
@@ -52,14 +51,14 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
-            pluck('envID'),
-            switchMap((env) =>
+            pluck('realm'),
+            switchMap((paymentInstitutionRealm) =>
                 this.invoiceSearchService.searchInvoices(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
                     {
                         ...params,
-                        paymentInstitutionRealm: getPaymentInstitutionRealm(env),
+                        paymentInstitutionRealm,
                     },
                     this.searchLimit,
                     continuationToken

@@ -8,7 +8,6 @@ import { catchError, pluck, switchMap } from 'rxjs/operators';
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
-import { getPaymentInstitutionRealm } from '../../../../shared/utils';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToRefundsTableData } from './map-to-refunds-table-data';
@@ -47,14 +46,14 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.route.params.pipe(
-            pluck('envID'),
-            switchMap((env) =>
+            pluck('realm'),
+            switchMap((paymentInstitutionRealm) =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
                     {
                         ...params,
-                        paymentInstitutionRealm: getPaymentInstitutionRealm(env),
+                        paymentInstitutionRealm,
                     },
                     this.searchLimit,
                     continuationToken

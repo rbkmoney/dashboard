@@ -19,7 +19,7 @@ const timePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 })
 export class CreateReportDialogComponent implements OnInit {
     isLoading$ = this.createReportDialogService.isLoading$;
-    shopsInfo$ = of(this.data.envID).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
+    shopsInfo$ = of(this.data.realm).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
     form = this.fb.group({
         fromDate: [moment().startOf('month').format(), Validators.required],
         fromTime: ['00:00:00', Validators.pattern(timePattern)],
@@ -35,7 +35,7 @@ export class CreateReportDialogComponent implements OnInit {
         private createReportDialogService: CreateReportDialogService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
-        @Inject(MAT_DIALOG_DATA) private data: { envID: string }
+        @Inject(MAT_DIALOG_DATA) private data: { realm: string }
     ) {}
 
     ngOnInit() {

@@ -8,7 +8,6 @@ import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 import { ReportsService as ReportsApiService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
 import { booleanDebounceTime } from '../../../custom-operators';
-import { getPaymentInstitutionRealm } from '../../../shared/utils';
 import { PartialFetcher } from '../../partial-fetcher';
 import { mapToTimestamp } from '../operations/operators';
 import { SearchFiltersParams } from './reports-search-filters';
@@ -30,8 +29,7 @@ export class FetchReportsService extends PartialFetcher<Report, SearchFiltersPar
 
     protected fetch(p: SearchFiltersParams, continuationToken: string) {
         return this.route.params.pipe(
-            pluck('envID'),
-            map(getPaymentInstitutionRealm),
+            pluck('realm'),
             take(1),
             switchMap((paymentInstitutionRealm) =>
                 this.reportsService.searchReports({

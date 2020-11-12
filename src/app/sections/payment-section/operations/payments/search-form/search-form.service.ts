@@ -27,7 +27,7 @@ export class SearchFormService {
     );
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
-        pluck('envID'),
+        pluck('realm'),
         filterShopsByEnv(this.shopService.shops$),
         shareReplay(1)
     );
