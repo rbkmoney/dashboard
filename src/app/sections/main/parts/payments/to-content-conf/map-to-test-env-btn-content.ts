@@ -5,7 +5,7 @@ import { PaymentInstitutionRealm } from '../../../../../api';
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
-    routerLink: `/payment-section/env/${PaymentInstitutionRealm.test}/analytics`,
+    routerLink: `/payment-section/realm/${PaymentInstitutionRealm.test}/analytics`,
     disabled: false,
 });
 
