@@ -24,7 +24,7 @@ export class ReportsService {
         return this.reportsService.getReport(genXRequestID(), reportID);
     }
 
-    searchReports({ fromTime, toTime, reportTypes, continuationToken }: SearchReportsReq) {
+    searchReports({ fromTime, toTime, reportTypes, continuationToken, paymentInstitutionRealm }: SearchReportsReq) {
         return this.reportsService.searchReports(
             genXRequestID(),
             toDateLike(fromTime),
@@ -34,7 +34,7 @@ export class ReportsService {
             undefined,
             undefined,
             undefined,
-            undefined,
+            paymentInstitutionRealm,
             continuationToken
         );
     }
