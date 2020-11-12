@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import isEmpty from 'lodash.isempty';
 import moment from 'moment';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { ReportsService as ReportsApiService } from '../../../api';
 import { Report } from '../../../api-codegen/anapi';
@@ -29,14 +29,19 @@ export class FetchReportsService extends PartialFetcher<Report, SearchFiltersPar
     }
 
     protected fetch(p: SearchFiltersParams, continuationToken: string) {
-        const reportTypes = isEmpty(p.reportTypes) ? Object.values(Report.ReportTypeEnum) : p.reportTypes;
-        return this.reportsService
-            .searchReports({
-                ...p,
-                reportTypes,
-                continuationToken,
-                paymentInstitutionRealm: getPaymentInstitutionRealm(this.route.snapshot.params.envID),
-            })
-            .pipe(map(sortReports));
+        return this.route.params.pipe(
+            pluck('envID'),
+            map(getPaymentInstitutionRealm),
+            take(1),
+            switchMap((paymentInstitutionRealm) =>
+                this.reportsService.searchReports({
+                    ...p,
+                    reportTypes: isEmpty(p.reportTypes) ? Object.values(Report.ReportTypeEnum) : p.reportTypes,
+                    continuationToken,
+                    paymentInstitutionRealm,
+                })
+            ),
+            map(sortReports)
+        );
     }
 }
