@@ -9,7 +9,7 @@ import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { ShopService } from '../../../api';
 import { BankContent } from '../../../api-codegen/aggr-proxy';
 import { BankAccount } from '../../../api-codegen/capi';
-import { filterShopsByEnv } from '../../payment-section/operations/operators';
+import { filterShopsByRealm } from '../../payment-section/operations/operators';
 import { CreateShopRussianLegalEntityService } from './create-shop-russian-legal-entity.service';
 
 enum BankAccountType {
@@ -51,7 +51,7 @@ export class CreateShopRussianLegalEntityComponent {
         shareReplay(1)
     );
 
-    shops$ = this.realm$.pipe(filterShopsByEnv(this.shopService.shops$), shareReplay(1));
+    shops$ = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(1));
 
     bankAccountType = BankAccountType;
 

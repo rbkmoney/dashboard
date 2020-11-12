@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { ShopService } from '../../../../api/shop';
-import { filterShopsByEnv, mapToShopInfo } from '../../operations/operators';
+import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreatePayoutDialogService } from './create-payout-dialog.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class CreatePayoutDialogComponent implements OnInit {
 
     currentPayoutToolCurrency: string;
 
-    shopsInfo$ = of(this.data.realm).pipe(filterShopsByEnv(this.shopService.shops$), mapToShopInfo);
+    shopsInfo$ = of(this.data.realm).pipe(filterShopsByRealm(this.shopService.shops$), mapToShopInfo);
 
     isPayoutToolsLoading$ = this.createPayoutDialogService.isLoading$;
     payoutTools$ = this.createPayoutDialogService.payoutTools$;

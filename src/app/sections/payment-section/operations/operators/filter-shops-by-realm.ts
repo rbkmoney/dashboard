@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators';
 import { filterBattleShops, filterTestShops, PaymentInstitutionRealm } from '../../../../api';
 import { Shop } from '../../../../api-codegen/capi';
 
-export const filterShopsByEnv = (shops$: Observable<Shop[]>) => (
+export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (
     s: Observable<PaymentInstitutionRealm>
 ): Observable<Shop[]> =>
     s.pipe(

@@ -13,7 +13,7 @@ import { CustomFormControl } from '@dsh/components/form-controls/utils';
 import { PaymentInstitutionRealm } from '../../api';
 import { ShopService } from '../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { filterShopsByEnv, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
+import { filterShopsByRealm, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
 import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 
 @Component({
@@ -25,7 +25,7 @@ import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 export class ShopSelectorComponent extends CustomFormControl implements OnChanges {
     private shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
         pluck('realm'),
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         mapToShopInfo,
         shareReplay(1)
     );

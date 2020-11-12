@@ -9,13 +9,13 @@ import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { ShopService } from '../../../../api';
 import { progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { filterShopsByEnv } from '../../operations/operators';
+import { filterShopsByRealm } from '../../operations/operators';
 
 @Injectable()
 export class ShopsService {
     shops$ = this.route.params.pipe(
         pluck('realm'),
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

@@ -17,7 +17,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { filterShopsByEnv, removeEmptyProperties } from '../../operations/operators';
+import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
 import { daterangeToSearchParams } from './daterange-to-search-params';
@@ -43,7 +43,7 @@ export class PayoutsSearchFiltersComponent implements OnInit, OnChanges {
     private realm$ = new ReplaySubject();
 
     shops$: Observable<Shop[]> = this.realm$.pipe(
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

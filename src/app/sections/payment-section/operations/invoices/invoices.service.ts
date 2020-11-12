@@ -11,7 +11,7 @@ import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { filterShopsByEnv, mapToTimestamp } from '../operators';
+import { filterShopsByRealm, mapToTimestamp } from '../operators';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
 import { InvoiceSearchFormValue } from './search-form';
 import { InvoicesTableData } from './table';
@@ -35,7 +35,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
         pluck('realm'),
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

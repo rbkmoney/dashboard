@@ -4,7 +4,7 @@ import { catchError, map, pluck, shareReplay, switchMap, switchMapTo, takeUntil 
 
 import { AnalyticsService, ShopService } from '../../../api';
 import { AmountResult } from '../../../api-codegen/anapi';
-import { filterShopsByEnv } from '../operations/operators';
+import { filterShopsByRealm } from '../operations/operators';
 
 @Injectable()
 export class BalancesService {
@@ -17,7 +17,7 @@ export class BalancesService {
 
     constructor(private analyticsService: AnalyticsService, private shopService: ShopService) {
         const shopIds$ = this.env$.pipe(
-            filterShopsByEnv(this.shopService.shops$),
+            filterShopsByRealm(this.shopService.shops$),
             map((shops) => shops.map((shop) => shop.id))
         );
         this.balances$ = timer(0, 60000).pipe(

@@ -5,7 +5,7 @@ import { pluck, shareReplay } from 'rxjs/operators';
 
 import { ShopService } from '../../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { filterShopsByEnv } from '../../../operations/operators';
+import { filterShopsByRealm } from '../../../operations/operators';
 
 @Injectable()
 export class CreateInvoiceOrInvoiceTemplateService {
@@ -13,7 +13,7 @@ export class CreateInvoiceOrInvoiceTemplateService {
 
     shops$ = this.route.params.pipe(
         pluck('realm'),
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

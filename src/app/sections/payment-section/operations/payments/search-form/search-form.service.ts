@@ -10,7 +10,7 @@ import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls
 
 import { ShopService } from '../../../../../api';
 import { Shop } from '../../../../../api-codegen/capi';
-import { filterShopsByEnv, removeEmptyProperties } from '../../operators';
+import { filterShopsByRealm, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { PaymentSearchFormValue } from './payment-search-form-value';
@@ -28,7 +28,7 @@ export class SearchFormService {
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
         pluck('realm'),
-        filterShopsByEnv(this.shopService.shops$),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(1)
     );
 
