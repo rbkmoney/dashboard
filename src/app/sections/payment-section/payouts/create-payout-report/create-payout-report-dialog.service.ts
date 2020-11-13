@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import moment from 'moment';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
@@ -6,8 +7,12 @@ import { ReportsService } from '../../../../api';
 import { Payout } from '../../../../api-codegen/anapi';
 import { CreateReportReq } from '../../../../api/reports/create-reports';
 
-const daterangeReducer = (_, { fromTime, toTime }) => ({ fromTime, toTime } as any);
-const toCreateReportParams = ({ shopID, payoutSummary }: Payout): CreateReportReq => ({
+const daterangeReducer = (_, { fromTime, toTime }) =>
+    ({
+        fromTime,
+        toTime: moment(toTime).add(1, 'ms').utc().format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]'),
+    } as any);
+export const toCreateReportParams = ({ shopID, payoutSummary }: Payout): CreateReportReq => ({
     ...payoutSummary.reduce(daterangeReducer, null),
     shopID,
 });

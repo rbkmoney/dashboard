@@ -23,8 +23,8 @@ export class CreateReportDialogComponent implements OnInit {
     form = this.fb.group({
         fromDate: [moment().startOf('month').format(), Validators.required],
         fromTime: ['00:00:00', Validators.pattern(timePattern)],
-        toDate: [moment().endOf('month').format(), Validators.required],
-        toTime: ['23:59:59', Validators.pattern(timePattern)],
+        toDate: [moment().endOf('month').add(1).format(), Validators.required],
+        toTime: ['00:00:00', Validators.pattern(timePattern)],
         shopID: null,
     });
 
