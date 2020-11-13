@@ -2,9 +2,9 @@ import last from 'lodash.last';
 import { iif, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { PaymentInstitutionRealm } from '../../../../../api';
 import { Claim, ClaimChangeset, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
 import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
-import { RouteEnv } from '../../../../route-env';
 import { ActionBtnContent } from '../content-config';
 
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({
@@ -35,7 +35,9 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
 export const mapToActionBtnContent = (claim: Observable<Claim>) => (
     s: Observable<boolean>
 ): Observable<ActionBtnContent> => {
-    const realEnvContent = of(toActionBtnContent('details', `/payment-section/env/${RouteEnv.real}/analytics`));
+    const realEnvContent = of(
+        toActionBtnContent('details', `/payment-section/realm/${PaymentInstitutionRealm.live}/analytics`)
+    );
     const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
     return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
 };

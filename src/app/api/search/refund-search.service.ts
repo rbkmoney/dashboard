@@ -15,7 +15,6 @@ export class RefundSearchService {
         toTime: string,
         params: RefundsSearchParams,
         limit: number,
-        excludedShops: string[],
         continuationToken?: string
     ) {
         return this.searchService.searchRefunds(
@@ -25,13 +24,16 @@ export class RefundSearchService {
             limit,
             undefined,
             undefined,
+            params.shopID,
             params.shopIDs,
+            params.paymentInstitutionRealm,
             undefined,
             params.invoiceID,
             params.paymentID,
             params.refundID,
+            params.externalID,
             params.refundStatus,
-            excludedShops,
+            params.excludedShops,
             continuationToken
         );
     }
@@ -40,12 +42,11 @@ export class RefundSearchService {
         { amount, unit }: Duration,
         params: RefundsSearchParams,
         limit?: number,
-        excludedShops?: string[],
         continuationToken?: string
     ) {
         const from = moment().subtract(amount, unit).startOf('d').utc().format();
         const to = moment().endOf('d').utc().format();
-        return this.searchRefunds(from, to, params, limit, excludedShops, continuationToken);
+        return this.searchRefunds(from, to, params, limit, continuationToken);
     }
 
     getRefundByDuration(duration: Duration, invoiceID: string, paymentID: string) {

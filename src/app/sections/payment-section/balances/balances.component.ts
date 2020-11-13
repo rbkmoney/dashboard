@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { BalancesService } from './balances.service';
 
@@ -10,17 +8,9 @@ import { BalancesService } from './balances.service';
     providers: [BalancesService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BalancesComponent implements OnInit, OnDestroy {
+export class BalancesComponent {
     balances$ = this.balancesService.balances$;
     balancesCount$ = this.balancesService.balancesCount$;
 
-    constructor(private balancesService: BalancesService, private route: ActivatedRoute) {}
-
-    ngOnInit() {
-        this.route.params.pipe(pluck('envID')).subscribe((envID) => this.balancesService.init(envID));
-    }
-
-    ngOnDestroy() {
-        this.balancesService.destroy();
-    }
+    constructor(private balancesService: BalancesService) {}
 }

@@ -9,7 +9,6 @@ import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { mapToTimestamp } from '../operators';
 import { mapToRefundsTableData } from './map-to-refunds-table-data';
 import { RefundsSearchFormValue } from './search-form';
@@ -47,15 +46,16 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         continuationToken: string
     ): Observable<FetchResult<RefundSearchResult>> {
         return this.route.params.pipe(
-            pluck('envID'),
-            getShopSearchParamsByEnv(this.shopService.shops$),
-            switchMap(({ excludedShops, shopIDs }) =>
+            pluck('realm'),
+            switchMap((paymentInstitutionRealm) =>
                 this.refundSearchService.searchRefunds(
                     params.date.begin.utc().format(),
                     params.date.end.utc().format(),
-                    { ...params, shopIDs: shopIDs ? shopIDs : params.shopIDs },
+                    {
+                        ...params,
+                        paymentInstitutionRealm,
+                    },
                     this.searchLimit,
-                    excludedShops,
                     continuationToken
                 )
             )

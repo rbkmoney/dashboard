@@ -39,7 +39,7 @@ export class ShopsComponent {
                 maxHeight: '90vh',
                 disableClose: true,
                 data: {
-                    envID: this.route.snapshot.params.envID,
+                    realm: this.route.snapshot.params.realm,
                 },
             })
             .afterClosed()

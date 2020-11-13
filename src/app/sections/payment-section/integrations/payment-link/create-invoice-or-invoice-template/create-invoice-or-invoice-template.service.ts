@@ -5,15 +5,15 @@ import { pluck, shareReplay } from 'rxjs/operators';
 
 import { ShopService } from '../../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { filterShopsByEnv } from '../../../operations/operators';
+import { filterShopsByRealm } from '../../../operations/operators';
 
 @Injectable()
 export class CreateInvoiceOrInvoiceTemplateService {
     form = this.fb.group({ type: null });
 
     shops$ = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
+        pluck('realm'),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

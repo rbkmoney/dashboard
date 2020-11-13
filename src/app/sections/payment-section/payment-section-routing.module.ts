@@ -5,7 +5,7 @@ import { PaymentSectionComponent } from './payment-section.component';
 
 const paymentSectionRoutes: Routes = [
     {
-        path: 'env/:envID',
+        path: 'realm/:realm',
         component: PaymentSectionComponent,
         children: [
             {

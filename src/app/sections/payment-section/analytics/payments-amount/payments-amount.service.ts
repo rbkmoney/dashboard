@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -22,10 +23,17 @@ export class PaymentsAmountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private paymentsAmountOrError$ = this.searchParams$.pipe(
-        switchMap(({ current, previous }) =>
+        withLatestFrom(this.route.params.pipe(pluck('realm'))),
+        switchMap(([{ current, previous }, paymentInstitutionRealm]) =>
             forkJoin([
-                this.analyticsService.getPaymentsAmount(current.fromTime, current.toTime, current.shopIDs),
-                this.analyticsService.getPaymentsAmount(previous.fromTime, previous.toTime, previous.shopIDs),
+                this.analyticsService.getPaymentsAmount(current.fromTime, current.toTime, {
+                    shopIDs: current.shopIDs,
+                    paymentInstitutionRealm,
+                }),
+                this.analyticsService.getPaymentsAmount(previous.fromTime, previous.toTime, {
+                    shopIDs: previous.shopIDs,
+                    paymentInstitutionRealm,
+                }),
             ]).pipe(replaceError)
         )
     );
@@ -41,7 +49,7 @@ export class PaymentsAmountService {
     isLoading$ = progress(this.searchParams$, this.paymentsAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.paymentsAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService) {
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         merge(this.searchParams$, this.paymentsAmount$, this.isLoading$, this.error$).subscribe();
     }
 

@@ -19,7 +19,7 @@ export class CreatePayoutService {
         this.createPayout$.next();
     }
 
-    init(envID: string) {
+    init(realm: string) {
         this.createPayout$
             .pipe(
                 takeUntil(this.destroy$),
@@ -29,7 +29,7 @@ export class CreatePayoutService {
                             width: '552px',
                             disableClose: true,
                             data: {
-                                envID,
+                                realm,
                             },
                         })
                         .afterClosed()

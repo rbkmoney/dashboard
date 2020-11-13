@@ -15,7 +15,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
-import { filterShopsByEnv, removeEmptyProperties } from '../../operations/operators';
+import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
 import { daterangeToSearchParams } from './daterange-to-search-params';
@@ -32,16 +32,16 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
 
     @Input() initParams: SearchParams;
 
-    @Input() set envID(envID: string) {
-        this.envID$.next(envID);
+    @Input() set realm(realm: string) {
+        this.realm$.next(realm);
     }
 
     @Output()
     searchParamsChanges = new EventEmitter<SearchParams>();
 
-    private envID$ = new ReplaySubject();
+    private realm$ = new ReplaySubject();
 
-    private shops$: Observable<Shop[]> = this.envID$.pipe(filterShopsByEnv(this.shopService.shops$), shareReplay(1));
+    private shops$: Observable<Shop[]> = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(1));
 
     currencies$: Observable<string[]> = this.shops$.pipe(map(shopsToCurrencies), shareReplay(1));
 

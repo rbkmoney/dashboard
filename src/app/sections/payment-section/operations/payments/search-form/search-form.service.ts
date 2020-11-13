@@ -10,8 +10,7 @@ import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls
 
 import { ShopService } from '../../../../../api';
 import { Shop } from '../../../../../api-codegen/capi';
-import { RouteEnv } from '../../../../route-env';
-import { filterShopsByEnv, removeEmptyProperties } from '../../operators';
+import { filterShopsByRealm, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
 import { PaymentSearchFormValue } from './payment-search-form-value';
@@ -28,8 +27,8 @@ export class SearchFormService {
     );
 
     shops$: Observable<Shop[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
+        pluck('realm'),
+        filterShopsByRealm(this.shopService.shops$),
         shareReplay(1)
     );
 
@@ -51,13 +50,6 @@ export class SearchFormService {
     }
 
     private init() {
-        this.route.params
-            .pipe(
-                pluck('envID'),
-                take(1),
-                filter((e) => e === RouteEnv.test)
-            )
-            .subscribe(() => this.searchForm.controls.shopIDs.disable());
         this.route.queryParams
             .pipe(
                 take(1),

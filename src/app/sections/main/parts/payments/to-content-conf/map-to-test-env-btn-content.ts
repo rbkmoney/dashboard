@@ -1,11 +1,11 @@
 import { iif, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RouteEnv } from '../../../../route-env';
+import { PaymentInstitutionRealm } from '../../../../../api';
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({
-    routerLink: `/payment-section/env/${RouteEnv.test}/analytics`,
+    routerLink: `/payment-section/realm/${PaymentInstitutionRealm.test}/analytics`,
     disabled: false,
 });
 

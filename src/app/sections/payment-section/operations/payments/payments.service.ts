@@ -5,11 +5,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { catchError, pluck, switchMap } from 'rxjs/operators';
 
+import { toMinor } from '../../../../../utils';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
 import { ShopService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { getShopSearchParamsByEnv } from '../get-shop-search-params-by-env';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
 import { PaymentSearchFormValue } from './search-form';
@@ -47,21 +47,20 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
         continuationToken: string
     ): Observable<FetchResult<PaymentSearchResult>> {
         return this.route.params.pipe(
-            pluck('envID'),
-            getShopSearchParamsByEnv(this.shopService.shops$),
-            switchMap(({ excludedShops, shopIDs }) =>
+            pluck('realm'),
+            switchMap((paymentInstitutionRealm) =>
                 this.paymentSearchService.searchPayments(
                     begin.utc().format(),
                     end.utc().format(),
                     {
                         ...params,
-                        shopIDs: shopIDs || params.shopIDs,
-                        paymentAmountFrom: typeof paymentAmountFrom === 'number' ? paymentAmountFrom * 100 : undefined,
-                        paymentAmountTo: typeof paymentAmountTo === 'number' ? paymentAmountTo * 100 : undefined,
+                        paymentInstitutionRealm,
+                        paymentAmountFrom:
+                            typeof paymentAmountFrom === 'number' ? toMinor(paymentAmountFrom) : undefined,
+                        paymentAmountTo: typeof paymentAmountTo === 'number' ? toMinor(paymentAmountTo) : undefined,
                     },
                     this.searchLimit,
-                    continuationToken,
-                    excludedShops
+                    continuationToken
                 )
             )
         );

@@ -23,7 +23,7 @@ export class CreateShopDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<CreateShopDialogComponent, 'cancel' | 'send'>,
-        @Inject(MAT_DIALOG_DATA) public data: { envID: string },
+        @Inject(MAT_DIALOG_DATA) public data: { realm: string },
         private router: Router
     ) {}
 

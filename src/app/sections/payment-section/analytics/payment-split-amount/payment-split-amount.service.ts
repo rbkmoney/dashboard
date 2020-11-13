@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -24,11 +25,15 @@ export class PaymentSplitAmountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private splitAmountOrError$ = this.searchParams$.pipe(
-        switchMap(({ fromTime, toTime, splitUnit, shopIDs }) =>
+        withLatestFrom(this.route.params.pipe(pluck('realm'))),
+        switchMap(([{ fromTime, toTime, splitUnit, shopIDs }, paymentInstitutionRealm]) =>
             forkJoin([
                 of(fromTime),
                 of(toTime),
-                this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, shopIDs),
+                this.analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit, {
+                    paymentInstitutionRealm,
+                    shopIDs,
+                }),
             ]).pipe(replaceError)
         )
     );
@@ -44,7 +49,7 @@ export class PaymentSplitAmountService {
     isLoading$ = progress(this.searchParams$, this.splitAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.splitAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService) {
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         merge(this.splitAmount$, this.isLoading$, this.error$).subscribe();
     }
 

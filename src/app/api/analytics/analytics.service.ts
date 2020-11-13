@@ -1,105 +1,218 @@
 import { Injectable } from '@angular/core';
 
 import { AnalyticsService as APIAnalyticsService, SplitUnit } from '../../api-codegen/anapi';
+import { PaymentInstitutionRealm } from '../model';
 import { genXRequestID, toDateLike } from '../utils';
 
 @Injectable()
 export class AnalyticsService {
     constructor(private analyticsService: APIAnalyticsService) {}
 
-    getAveragePayment(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getAveragePayment(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getAveragePayment(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsAmount(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getPaymentsAmount(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsAmount(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsCount(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getPaymentsCount(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsCount(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsErrorDistribution(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getPaymentsErrorDistribution(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsErrorDistribution(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsSubErrorDistribution(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getPaymentsSubErrorDistribution(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsSubErrorDistribution(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsToolDistribution(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getPaymentsToolDistribution(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsToolDistribution(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getRefundsAmount(fromTime: string, toTime: string, shopIDs?: Array<string>) {
+    getRefundsAmount(
+        fromTime: string,
+        toTime: string,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getRefundsAmount(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsSplitAmount(fromTime: string, toTime: string, splitUnit: SplitUnit, shopIDs?: Array<string>) {
+    getPaymentsSplitAmount(
+        fromTime: string,
+        toTime: string,
+        splitUnit: SplitUnit,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsSplitAmount(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             splitUnit,
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getPaymentsSplitCount(fromTime: string, toTime: string, splitUnit: SplitUnit, shopIDs?: Array<string>) {
+    getPaymentsSplitCount(
+        fromTime: string,
+        toTime: string,
+        splitUnit: SplitUnit,
+        params: {
+            shopIDs?: string[];
+            excludeShopIDs?: string[];
+            paymentInstitutionRealm?: PaymentInstitutionRealm;
+        }
+    ) {
         return this.analyticsService.getPaymentsSplitCount(
             genXRequestID(),
             toDateLike(fromTime),
             toDateLike(toTime),
             splitUnit,
             undefined,
-            shopIDs
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
         );
     }
 
-    getCurrentBalances(shopIDs?: Array<string>) {
-        return this.analyticsService.getCurrentBalances(genXRequestID(), undefined, shopIDs);
+    getCurrentBalances(params: {
+        shopIDs?: string[];
+        excludeShopIDs?: string[];
+        paymentInstitutionRealm?: PaymentInstitutionRealm;
+    }) {
+        return this.analyticsService.getCurrentBalances(
+            genXRequestID(),
+            undefined,
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs,
+            params.paymentInstitutionRealm
+        );
     }
 }

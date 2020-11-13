@@ -4,11 +4,13 @@ import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 export type PayoutsSearchParams = MapTuple<
     Parameters<SearchService['searchPayouts']>,
     {
-        shopIDs?: 6;
-        offset?: 7;
-        payoutID?: 8;
-        payoutToolType?: 9;
-        excludedShops?: 10;
-        continuationToken?: 11;
+        shopID?: 6;
+        shopIDs?: 7;
+        paymentInstitutionRealm?: 8;
+        offset?: 9;
+        payoutID?: 10;
+        payoutToolType?: 11;
+        excludedShops?: 12;
+        continuationToken?: 13;
     }
 >;

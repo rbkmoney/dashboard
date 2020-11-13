@@ -20,7 +20,7 @@ export class AnalyticsComponent {
 
     initSearchParams$ = this.analyticsSearchFiltersStore.data$.pipe(take(1));
 
-    envID$: Observable<Shop[]> = this.route.params.pipe(pluck('envID'), shareReplay(1));
+    realm$: Observable<Shop[]> = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(private analyticsSearchFiltersStore: AnalyticsSearchFiltersStore, private route: ActivatedRoute) {}
 

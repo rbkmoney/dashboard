@@ -4,10 +4,14 @@ import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 export type InvoicesSearchParams = MapTuple<
     Parameters<SearchService['searchInvoices']>,
     {
-        shopIDs?: 6;
-        invoiceStatus?: 7;
-        invoiceID?: 8;
-        invoiceAmountFrom?: 9;
-        invoiceAmountTo?: 10;
+        shopID?: 6;
+        shopIDs?: 7;
+        paymentInstitutionRealm?: 8;
+        invoiceStatus?: 9;
+        invoiceID?: 10;
+        externalID?: 11;
+        invoiceAmountFrom?: 12;
+        invoiceAmountTo?: 13;
+        excludedShops?: 14;
     }
 >;

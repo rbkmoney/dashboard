@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import isEqual from 'lodash.isequal';
 import { BehaviorSubject, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../api/analytics';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
@@ -26,8 +27,11 @@ export class PaymentsErrorDistributionService {
     currentErrorTitle$ = new Subject<string>();
 
     private errorDistributionOrError$ = this.searchParams$.pipe(
-        switchMap(({ fromTime, toTime, shopIDs }) =>
-            this.analyticsService.getPaymentsSubErrorDistribution(fromTime, toTime, shopIDs).pipe(replaceError)
+        withLatestFrom(this.route.params.pipe(pluck('realm'))),
+        switchMap(([{ fromTime, toTime, shopIDs }, paymentInstitutionRealm]) =>
+            this.analyticsService
+                .getPaymentsSubErrorDistribution(fromTime, toTime, { paymentInstitutionRealm, shopIDs })
+                .pipe(replaceError)
         )
     );
 
@@ -48,7 +52,7 @@ export class PaymentsErrorDistributionService {
     isLoading$ = progress(this.searchParams$, this.errorDistribution$).pipe(shareReplay(SHARE_REPLAY_CONF));
     error$ = this.errorDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService) {
+    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
         merge(this.errorDistribution$, this.isLoading$, this.error$).subscribe();
     }
 

@@ -15,8 +15,8 @@ import { InternationalPayoutToolFormService } from './international-payout-tool-
     providers: [CreateShopInternationalLegalEntityService, InternationalPayoutToolFormService],
 })
 export class CreateShopInternationalLegalEntityComponent {
-    @Input() set envID(envID: string) {
-        this.envID$.next(envID);
+    @Input() set realm(realm: string) {
+        this.realm$.next(realm);
     }
 
     @Output() cancel = new EventEmitter<void>();
@@ -24,7 +24,7 @@ export class CreateShopInternationalLegalEntityComponent {
 
     hasCorrespondentAccount = false;
 
-    envID$ = new ReplaySubject<string>(1);
+    realm$ = new ReplaySubject<string>(1);
 
     form = this.fb.group({
         shopUrl: '',

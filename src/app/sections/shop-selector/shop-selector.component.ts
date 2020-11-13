@@ -10,10 +10,10 @@ import { debounceTime, map, pluck, shareReplay, startWith, switchMap } from 'rxj
 
 import { CustomFormControl } from '@dsh/components/form-controls/utils';
 
+import { PaymentInstitutionRealm } from '../../api';
 import { ShopService } from '../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { filterShopsByEnv, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
-import { RouteEnv } from '../route-env';
+import { filterShopsByRealm, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
 import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 
 @Component({
@@ -24,8 +24,8 @@ import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';
 })
 export class ShopSelectorComponent extends CustomFormControl implements OnChanges {
     private shopInfos$: Observable<ShopInfo[]> = this.route.params.pipe(
-        pluck('envID'),
-        filterShopsByEnv(this.shopService.shops$),
+        pluck('realm'),
+        filterShopsByRealm(this.shopService.shops$),
         mapToShopInfo,
         shareReplay(1)
     );
@@ -41,8 +41,8 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
         shareReplay(SHARE_REPLAY_CONF)
     );
     selectLabel = this.route.params.pipe(
-        pluck('envID'),
-        map((e) => e === RouteEnv.test)
+        pluck('realm'),
+        map((e) => e === PaymentInstitutionRealm.test)
     );
 
     constructor(

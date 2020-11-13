@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { PayoutSearchService } from '../../../api';
 import { Payout } from '../../../api-codegen/anapi';
@@ -14,11 +15,21 @@ export class FetchPayoutsService extends PartialFetcher<Payout, SearchParams> {
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 
-    constructor(private payoutSearchService: PayoutSearchService) {
+    constructor(private payoutSearchService: PayoutSearchService, private route: ActivatedRoute) {
         super();
     }
 
     protected fetch({ fromTime, toTime, ...restParams }: SearchParams, continuationToken: string) {
-        return this.payoutSearchService.searchPayouts(fromTime, toTime, 10, { ...restParams, continuationToken });
+        return this.route.params.pipe(
+            pluck('realm'),
+            take(1),
+            switchMap((paymentInstitutionRealm) =>
+                this.payoutSearchService.searchPayouts(fromTime, toTime, 10, {
+                    ...restParams,
+                    paymentInstitutionRealm,
+                    continuationToken,
+                })
+            )
+        );
     }
 }
