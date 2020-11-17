@@ -26,7 +26,7 @@ export class AuthorityConfirmingDocumentComponent {
         switchMap((form) =>
             form
                 ? form.valueChanges.pipe(
-                      startWith(form.value),
+                      startWith<any, any>(form.value),
                       map((v) => v.type === this.customType)
                   )
                 : of(false)

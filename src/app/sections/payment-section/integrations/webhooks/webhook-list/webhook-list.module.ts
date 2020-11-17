@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ApiModelRefsModule } from '@dsh/app/shared/*';
+import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
@@ -13,6 +13,8 @@ import { WebhookDetailsModule } from '../webhook-details';
 import { WebhookListComponent } from './webhook-list.component';
 import { WebhookRowComponent } from './webhook-row';
 import { WebhookRowHeaderComponent } from './webhook-row-header';
+
+// import { ApiModelRefsModule } from '@dsh/app/shared/*';
 
 @NgModule({
     imports: [

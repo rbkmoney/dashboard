@@ -1,9 +1,5 @@
-<div fxLayout="column" fxFlex="720px" fxLayoutGap="32px" *transloco="let s; scope: 'shops'; read: 'shops'">
-    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign=" center">
-        <div class="dsh-caption" fxFlex>
-            {{ s('description') }}
-        </div>
-        <mat-divider vertical fxFlexAlign="stretch"></mat-divider>
+<div fxLayout="column" fxLayoutGap="32px" *transloco="let s; scope: 'shops'; read: 'shops'">
+    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="flex-end">
         <div>
             <button dsh-button color="accent" (click)="createShop()">{{ s('createShop') }}</button>
         </div>
@@ -14,11 +10,8 @@
         </div>
     </ng-container>
     <ng-template #shopsPanelsList>
-        <dsh-shops-panels-list
-            [shops]="shops$ | async"
-            (suspendShop)="suspend($event)"
-            (activateShop)="activate($event)"
-        ></dsh-shops-panels-list>
+        <dsh-shops-list [shopList]="shops$ | async" (suspendShop)="suspend($event)" (activateShop)="activate($event)">
+        </dsh-shops-list>
         <div *ngIf="!(shops$ | async)?.length" class="mat-headline dsh-payouts-empty">
             <dsh-empty-search-result *transloco="let t">{{ t('emptySearchResult') }}</dsh-empty-search-result>
         </div>

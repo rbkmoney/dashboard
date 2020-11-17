@@ -1,0 +1,55 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <ng-container *ngTemplateOutlet="mainInfo; context: { $implicit: shop }"></ng-container>
+    <mat-divider></mat-divider>
+    <ng-container *ngTemplateOutlet="shopID; context: { $implicit: shop }"></ng-container>
+    <mat-divider></mat-divider>
+    <dsh-shop-contract-details [contractID]="shop.contractID"></dsh-shop-contract-details>
+    <mat-divider></mat-divider>
+    <dsh-shop-payout-tool-details
+        [payoutToolParams]="{ contractID: shop.contractID, payoutToolID: shop.payoutToolID }"
+    ></dsh-shop-payout-tool-details>
+    <ng-container *ngIf="!shop.isBlocked">
+        <mat-divider></mat-divider>
+        <ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+            <div class="mat-title">{{ p('actions') }}</div>
+            <div>
+                <button *ngIf="!shop.isSuspended" dsh-stroked-button color="warn" (click)="suspend(shop.id)">
+                    {{ p('suspend') }}
+                </button>
+                <button *ngIf="shop.isSuspended" dsh-stroked-button color="accent" (click)="activate(shop.id)">
+                    {{ p('activate') }}
+                </button>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #mainInfo let-shop>
+    <div fxLayout="column" fxLayoutGap="24px" *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="p('name')">{{ shop.details.name }}</dsh-details-item>
+        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="p('url')">{{ shop.location.url }}</dsh-details-item>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
+            <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="p('balance')">
+                <dsh-shop-balance [shop]="shop"></dsh-shop-balance>
+            </dsh-details-item>
+            <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="p('createdAt')">{{
+                shop.createdAt | date: 'dd MMMM yyyy, HH:mm:ss'
+            }}</dsh-details-item>
+            <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="p('category')">{{
+                (shop.categoryID | category)?.name
+            }}</dsh-details-item>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #shopID let-shop>
+    <ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+        <div class="mat-title">{{ p('id') }}</div>
+        <div class="mat-subheading-2">{{ shop.id }}</div>
+        <div>
+            <button dsh-button [cdkCopyToClipboard]="shop.id" (cdkCopyToClipboardCopied)="copied($event)">
+                {{ p('copy') }}
+            </button>
+        </div>
+    </ng-container>
+</ng-template>

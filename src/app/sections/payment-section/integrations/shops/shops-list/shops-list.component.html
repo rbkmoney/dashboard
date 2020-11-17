@@ -1,0 +1,26 @@
+<div fxLayout="column" fxLayoutGap="16px" *transloco="let s; scope: 'shops'; read: 'shops'">
+    <dsh-last-updated (update)="refreshData.emit()" [lastUpdated]="lastUpdated"></dsh-last-updated>
+    <dsh-shop-row-header></dsh-shop-row-header>
+    <dsh-accordion
+        (expandedChange)="select($event)"
+        [expanded]="selectedPanelPosition$ | async"
+        fxLayout="column"
+        fxLayoutGap="16px"
+    >
+        <dsh-accordion-item #accordionItem *ngFor="let shop of shops$ | async">
+            <dsh-shop-row [shop]="shop"></dsh-shop-row>
+            <dsh-accordion-item-content>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        (collapse)="accordionItem.collapse($event)"
+                        *transloco="let s; scope: 'shops'; read: 'shops'"
+                        >{{ s('panel.details') }}</dsh-accordion-item-content-header
+                    >
+                    <dsh-shop-details [shop]="shop" (activateShop)="activate($event)" (suspendShop)="suspend($event)">
+                    </dsh-shop-details>
+                </dsh-card>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
+</div>

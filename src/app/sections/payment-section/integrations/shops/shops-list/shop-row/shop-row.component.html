@@ -1,0 +1,14 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <ng-container *ngTemplateOutlet="shop ? tableGrid : loading; context: { $implicit: shop }"></ng-container>
+</dsh-row>
+
+<ng-template #loading>
+    <dsh-row-label>Loading ...</dsh-row-label>
+</ng-template>
+
+<ng-template #tableGrid let-item>
+    <dsh-row-label fxFlex="50" fxFlex.lt-md="33">{{ item.details.name }}</dsh-row-label>
+    <dsh-row-label fxFlex="50">
+        <dsh-shop-balance [shop]="shop"></dsh-shop-balance>
+    </dsh-row-label>
+</ng-template>

@@ -12,6 +12,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 
 import { CreateShopModule } from '../../../create-shop';
 import { CreateShopDialogComponent } from './create-shop-dialog';
+import { ShopListModule } from './shops-list/shop-list.module';
 import { ShopsPanelsListModule } from './shops-panels-list';
 import { ShopsRoutingModule } from './shops-routing.module';
 import { ShopsComponent } from './shops.component';
@@ -30,6 +31,7 @@ import { ShopsComponent } from './shops.component';
         CreateShopModule,
         RouterModule,
         MatRadioModule,
+        ShopListModule,
     ],
     declarations: [ShopsComponent, CreateShopDialogComponent],
     exports: [ShopsComponent],

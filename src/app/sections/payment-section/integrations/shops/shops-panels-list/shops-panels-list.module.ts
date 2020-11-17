@@ -18,7 +18,6 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { CategoriesModule, ContractsModule, PayoutsModule } from '../../../../../api';
 import { ToMajorModule } from '../../../../../to-major';
-import { CategoryPipe } from './category.pipe';
 import { ShopBalanceComponent } from './shop-balance';
 import { ShopContractDetailsComponent } from './shop-contract-details';
 import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details';
@@ -49,7 +48,7 @@ import { ShopsPanelsListComponent } from './shops-panels-list.component';
     ],
     declarations: [
         ShopsPanelsListComponent,
-        CategoryPipe,
+        // CategoryPipe,
         ShopBalanceComponent,
         ShopContractDetailsComponent,
         ShopPayoutToolDetailsComponent,

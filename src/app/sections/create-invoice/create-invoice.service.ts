@@ -19,7 +19,7 @@ export class CreateInvoiceService {
     form = this.createForm();
 
     totalAmount$ = this.form.controls.cart.valueChanges.pipe(
-        startWith(this.form.controls.cart.value),
+        startWith<any, any>(this.form.controls.cart.value),
         map((v) => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
         shareReplay(SHARE_REPLAY_CONF)
     );

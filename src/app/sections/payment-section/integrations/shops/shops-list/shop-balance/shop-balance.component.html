@@ -1,0 +1,8 @@
+<ng-container
+    *ngTemplateOutlet="shop.balance ? balanceRow : emptyBalance; context: { $implicit: shop.balance }"
+></ng-container>
+
+<ng-template #balanceRow let-balance>
+    {{ balance.amount | toMajor | currency: balance.currency:'symbol' }}
+</ng-template>
+<ng-template #emptyBalance>--/--</ng-template>

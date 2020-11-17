@@ -10,6 +10,14 @@ import { ShopsService } from './shops.service';
 @Component({
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
+    styles: [
+        `
+            :host {
+                display: block;
+                width: 100%;
+            }
+        `,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ShopsService],
 })

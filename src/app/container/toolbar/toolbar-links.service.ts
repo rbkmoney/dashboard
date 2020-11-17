@@ -22,7 +22,8 @@ export enum LinkId {
 @Injectable()
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
-        startWith(null),
+        // cause simple startWith was deprecated(using one scheduler). This two generics hack works :)
+        startWith<any, any>(null),
         map(() => this.router.url),
         distinctUntilChanged(),
         shareReplay(1)

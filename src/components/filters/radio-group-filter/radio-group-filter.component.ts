@@ -54,7 +54,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         this.options$,
     ]).pipe(
         map(([selected]) => this.mapInputValueToOption(selected)),
-        startWith(null),
+        startWith<any, any>(null),
         shareReplay(1)
     );
 

@@ -215,4 +215,13 @@ export class AnalyticsService {
             params.paymentInstitutionRealm
         );
     }
+
+    getGroupBalances(params: { shopIDs?: string[]; excludeShopIDs?: string[] }) {
+        return this.analyticsService.getCurrentBalancesGroupByShop(
+            genXRequestID(),
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs
+        );
+    }
 }

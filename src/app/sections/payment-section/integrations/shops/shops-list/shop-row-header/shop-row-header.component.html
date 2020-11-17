@@ -1,0 +1,10 @@
+<dsh-row
+    *transloco="let s; scope: 'shops'; read: 'shops'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex="50" fxFlex.lt-md="33">{{ s('panel.name') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="50" fxHide.lt-md> {{ s('panel.balance') }} </dsh-row-header-label>
+</dsh-row>
