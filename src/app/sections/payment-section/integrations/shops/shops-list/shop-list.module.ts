@@ -1,23 +1,17 @@
-import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
-import { ButtonModule } from '@dsh/components/buttons';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
+import { SpinnerModule } from '@dsh/components/indicators';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
-import { AccordionModule, CardModule, DetailsItemModule, RowModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ToMajorModule } from '../../../../../to-major';
-import { CategoryPipe } from '../shops-panels-list/category.pipe';
-import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
-import { ShopBalanceComponent } from './shop-balance/shop-balance.component';
-import { ShopContractDetailsComponent } from './shop-contract-details';
-import { ShopDetailsComponent } from './shop-details/shop-details.component';
-import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details';
+import { ShopBalanceModule } from './shop-balance';
+import { ShopDetailsModule } from './shop-details';
 import { ShopRowComponent } from './shop-row';
 import { ShopRowHeaderComponent } from './shop-row-header';
 import { ShopsListComponent } from './shops-list.component';
@@ -28,29 +22,17 @@ import { ShopsListComponent } from './shops-list.component';
         LastUpdatedModule,
         AccordionModule,
         CardModule,
-        FlexLayoutModule,
-        ButtonModule,
-        TranslocoModule,
         RowModule,
         ToMajorModule,
-        DetailsItemModule,
-        MatDividerModule,
-        ContractDetailsModule,
-        ClipboardModule,
-        PayoutToolModule,
         ShowMorePanelModule,
+        EmptySearchResultModule,
+        SpinnerModule,
+        ShopDetailsModule,
+        FlexLayoutModule,
+        TranslocoModule,
+        ShopBalanceModule,
     ],
-    declarations: [
-        CategoryPipe,
-        ShopsListComponent,
-        ShopRowHeaderComponent,
-        ShopRowComponent,
-        ShopDetailsComponent,
-        ShopBalanceComponent,
-        ShopContractDetailsComponent,
-        ShopPayoutToolDetailsComponent,
-    ],
+    declarations: [ShopsListComponent, ShopRowHeaderComponent, ShopRowComponent],
     exports: [ShopsListComponent],
-    providers: [ShopsBalanceService],
 })
 export class ShopListModule {}

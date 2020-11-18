@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ShopItem } from '../../interfaces';
+import { ShopItem } from '../../../interfaces';
 
 @Component({
-    selector: 'dsh-shop-details',
-    templateUrl: './shop-details.component.html',
+    selector: 'dsh-shop-actions',
+    templateUrl: './shop-actions.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopDetailsComponent {
+export class ShopActionsComponent {
     @Input() shop: ShopItem;
 
     @Output() activateShop = new EventEmitter<string>();
     @Output() suspendShop = new EventEmitter<string>();
 
-    activate(id: string) {
-        this.activateShop.emit(id);
+    suspend(id: string): void {
+        this.suspendShop.emit(id);
     }
 
-    suspend(id: string) {
-        this.suspendShop.emit(id);
+    activate(id: string): void {
+        this.activateShop.emit(id);
     }
 }

@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { isNil, TranslocoService } from '@ngneat/transloco';
 import cloneDeep from 'lodash.clonedeep';
-import { filter, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, pluck, shareReplay, skip, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { Dict } from '@dsh/app/shared/interfaces';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
@@ -12,40 +13,44 @@ import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 import { ShopService } from '../../../../api';
 import { Shop } from '../../../../api-codegen/anapi/swagger-codegen';
 import { progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { filterShopsByRealm } from '../../operations/operators';
-import { ShopBalance } from './shops-list/interfaces';
-import { ShopsBalanceService } from './shops-list/services/shops-balance/shops-balance.service';
+import { filterShopsByRealm, mapToTimestamp } from '../../operations/operators';
+import { ShopBalance, ShopItem } from './interfaces';
+import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 
-@Injectable()
-export class ShopsService {
-    shops$ = this.route.params.pipe(
-        pluck('realm'),
-        filterShopsByRealm(this.shopService.shops$),
+export const combineShopItem = (balances$: Observable<ShopBalance[]>) => (
+    shops$: Observable<Shop[]>
+): Observable<ShopItem[]> => {
+    return shops$.pipe(
         switchMap((shops: Shop[]) => {
-            const shopIds = shops.map(({ id }) => id);
-            this.shopsBalance.setShopIds(shopIds);
-            return this.shopsBalance.balances$.pipe(
+            return balances$.pipe(
                 map((balances: ShopBalance[]) => {
                     const balancesMap = balances.reduce((acc: Dict<ShopBalance>, el: ShopBalance) => {
                         acc[el.id] = cloneDeep(el);
                         return acc;
                     }, {});
 
-                    return shops.map(({ id, ...shopData }) => {
-                        const balance = balancesMap[id];
-                        return {
-                            id,
-                            ...shopData,
-                            balance: isNil(balance) ? null : balance.data,
-                        };
-                    });
+                    return shops
+                        .map((shop: Shop) => {
+                            const balance = balancesMap[shop.id];
+                            return {
+                                ...shop,
+                                balance: isNil(balance) ? null : balance.data,
+                            };
+                        })
+                        .map((shop: ShopItem) => cloneDeep(shop));
                 })
             );
-        }),
-        shareReplay(SHARE_REPLAY_CONF)
+        })
     );
+};
 
-    isLoading$ = progress(this.route.params, this.shops$).pipe(shareReplay(SHARE_REPLAY_CONF));
+@Injectable()
+export class ShopsService {
+    shops$: Observable<ShopItem[]>;
+    lastUpdated$: Observable<string>;
+    isLoading$: Observable<boolean>;
+
+    private refreshData$ = new Subject<void>();
 
     constructor(
         private route: ActivatedRoute,
@@ -54,7 +59,30 @@ export class ShopsService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private shopsBalance: ShopsBalanceService
-    ) {}
+    ) {
+        const initLoadData$ = this.refreshData$.pipe(startWith<any, void>(null));
+
+        this.shops$ = this.route.params.pipe(
+            pluck('realm'),
+            filterShopsByRealm(this.shopService.shops$),
+            tap((shops: Shop[]) => {
+                const shopIds = shops.map(({ id }) => id);
+                this.shopsBalance.setShopIds(shopIds);
+            }),
+            combineShopItem(this.shopsBalance.balances$.pipe(distinctUntilChanged())),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.lastUpdated$ = this.shops$.pipe(mapToTimestamp, shareReplay(1));
+        this.isLoading$ = progress(initLoadData$, this.shops$).pipe(shareReplay(SHARE_REPLAY_CONF));
+
+        initLoadData$.pipe(skip(1)).subscribe(() => {
+            this.shopService.reloadShops();
+        });
+    }
+
+    refreshData(): void {
+        this.refreshData$.next();
+    }
 
     suspend(id: string) {
         this.dialog

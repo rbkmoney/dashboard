@@ -1,21 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import isNil from 'lodash.isnil';
 
-import { ShopItem } from './interfaces';
-import { ShopsListService } from './services/shops-list/shops-list.service';
+import { ShopItem } from '../interfaces';
+import { ShopsListService } from './shops-list.service';
 
 @Component({
     selector: 'dsh-shops-list',
     templateUrl: 'shops-list.component.html',
-    styleUrls: ['shops-list.component.scss'],
     providers: [ShopsListService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopsListComponent {
     @Input()
-    set shopList(shops: ShopItem[]) {
+    set shopList(shops: ShopItem[] | null) {
+        if (isNil(shops)) {
+            return;
+        }
         this.shopsPanelsListService.updateShops(shops);
     }
 
     @Input() lastUpdated: string;
+    @Input() isLoading: boolean;
 
     @Output() refreshData: EventEmitter<void> = new EventEmitter();
     @Output() activateShop = new EventEmitter<string>();
@@ -27,19 +32,19 @@ export class ShopsListComponent {
 
     constructor(private shopsPanelsListService: ShopsListService) {}
 
-    suspend(id: string) {
+    suspend(id: string): void {
         this.suspendShop.emit(id);
     }
 
-    activate(id: string) {
+    activate(id: string): void {
         this.activateShop.emit(id);
     }
 
-    showMore() {
+    showMore(): void {
         this.shopsPanelsListService.showMore();
     }
 
-    select(idx: number) {
+    select(idx: number): void {
         this.shopsPanelsListService.select(idx);
     }
 }

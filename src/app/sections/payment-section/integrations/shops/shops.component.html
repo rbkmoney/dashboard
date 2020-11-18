@@ -4,16 +4,13 @@
             <button dsh-button color="accent" (click)="createShop()">{{ s('createShop') }}</button>
         </div>
     </div>
-    <ng-container *ngIf="(isLoading$ | async) || !(shops$ | async); else shopsPanelsList">
-        <div fxLayout fxFlexAlign="center">
-            <dsh-spinner></dsh-spinner>
-        </div>
-    </ng-container>
-    <ng-template #shopsPanelsList>
-        <dsh-shops-list [shopList]="shops$ | async" (suspendShop)="suspend($event)" (activateShop)="activate($event)">
-        </dsh-shops-list>
-        <div *ngIf="!(shops$ | async)?.length" class="mat-headline dsh-payouts-empty">
-            <dsh-empty-search-result *transloco="let t">{{ t('emptySearchResult') }}</dsh-empty-search-result>
-        </div>
-    </ng-template>
+    <dsh-shops-list
+        [shopList]="shops$ | async"
+        [lastUpdated]="lastUpdated$ | async"
+        [isLoading]="isLoading$ | async"
+        (refreshData)="refreshData()"
+        (suspendShop)="suspend($event)"
+        (activateShop)="activate($event)"
+    >
+    </dsh-shops-list>
 </div>

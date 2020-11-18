@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopItem } from '../interfaces';
+import { ShopItem } from '../../interfaces';
 
 @Component({
     selector: 'dsh-shop-row',
-    templateUrl: 'shop-row.component.html',
+    templateUrl: './shop-row.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopRowComponent {

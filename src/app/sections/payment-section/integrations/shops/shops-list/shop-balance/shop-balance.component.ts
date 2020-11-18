@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopItem } from '../interfaces';
+import { ShopItem } from '../../interfaces';
 
 @Component({
     selector: 'dsh-shop-balance',
     templateUrl: './shop-balance.component.html',
-    styleUrls: ['./shop-balance.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopBalanceComponent {
     @Input() shop: ShopItem;

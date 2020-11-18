@@ -1,6 +1,14 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let s; scope: 'shops'; read: 'shops'">
     <dsh-last-updated (update)="refreshData.emit()" [lastUpdated]="lastUpdated"></dsh-last-updated>
     <dsh-shop-row-header></dsh-shop-row-header>
+    <ng-container *ngIf="isLoading || !(shops$ | async); else shopsPanelsList">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #shopsPanelsList>
     <dsh-accordion
         (expandedChange)="select($event)"
         [expanded]="selectedPanelPosition$ | async"
@@ -23,4 +31,7 @@
         </dsh-accordion-item>
     </dsh-accordion>
     <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
-</div>
+    <div *ngIf="!(shops$ | async).length" class="mat-headline dsh-payouts-empty">
+        <dsh-empty-search-result *transloco="let t">{{ t('emptySearchResult') }}</dsh-empty-search-result>
+    </div>
+</ng-template>
