@@ -47,6 +47,7 @@ init:
 
 build:
 	npx run-p --aggregate-output --print-label check lint
+	npm run test
 	npm run build
 
 clean:
