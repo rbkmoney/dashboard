@@ -16,6 +16,7 @@ export class ReportsService {
             toDateLike(fromTime),
             toDateLike(toTime),
             undefined,
+            undefined,
             shopID
         );
     }
