@@ -42,12 +42,14 @@ submodules: $(SUBTARGETS)
 
 init:
 	echo -e "//npm.pkg.github.com/:_authToken=$(NPM_TOKEN)" >> .npmrc
+	sudo apt-get update
+	sudo apt-get install libnss3-dev
 	npm ci
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint
 	npm run test-ci
+	npx run-p --aggregate-output --print-label check lint
 	npm run build
 
 clean:
