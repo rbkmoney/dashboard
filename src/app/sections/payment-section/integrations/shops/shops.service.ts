@@ -2,47 +2,18 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { isNil, TranslocoService } from '@ngneat/transloco';
-import cloneDeep from 'lodash.clonedeep';
+import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, map, pluck, shareReplay, skip, startWith, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pluck, shareReplay, skip, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { Dict } from '../../../../../type-utils';
 import { ShopService } from '../../../../api';
 import { Shop } from '../../../../api-codegen/anapi/swagger-codegen';
 import { progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { filterShopsByRealm, mapToTimestamp } from '../../operations/operators';
-import { ShopBalance, ShopItem } from './interfaces';
+import { combineShopItem, filterShopsByRealm, mapToTimestamp } from '../../operations/operators';
+import { ShopItem } from './interfaces';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
-
-export const combineShopItem = (balances$: Observable<ShopBalance[]>) => (
-    shops$: Observable<Shop[]>
-): Observable<ShopItem[]> => {
-    return shops$.pipe(
-        switchMap((shops: Shop[]) => {
-            return balances$.pipe(
-                map((balances: ShopBalance[]) => {
-                    const balancesMap = balances.reduce((acc: Dict<ShopBalance>, el: ShopBalance) => {
-                        acc[el.id] = cloneDeep(el);
-                        return acc;
-                    }, {});
-
-                    return shops
-                        .map((shop: Shop) => {
-                            const balance = balancesMap[shop.id];
-                            return {
-                                ...shop,
-                                balance: isNil(balance) ? null : balance.data,
-                            };
-                        })
-                        .map((shop: ShopItem) => cloneDeep(shop));
-                })
-            );
-        })
-    );
-};
 
 @Injectable()
 export class ShopsService {
