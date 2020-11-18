@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
@@ -23,7 +23,7 @@ export enum LinkId {
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
         // cause simple startWith was deprecated(using one scheduler). This two generics hack works :)
-        startWith<any, any>(null),
+        startWith<Event, null>(null),
         map(() => this.router.url),
         distinctUntilChanged(),
         shareReplay(1)

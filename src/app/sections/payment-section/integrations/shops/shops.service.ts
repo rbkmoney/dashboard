@@ -60,7 +60,7 @@ export class ShopsService {
         private transloco: TranslocoService,
         private shopsBalance: ShopsBalanceService
     ) {
-        const initLoadData$ = this.refreshData$.pipe(startWith<any, void>(null));
+        const initLoadData$ = this.refreshData$.pipe(startWith<void, null>(null));
 
         this.shops$ = this.route.params.pipe(
             pluck('realm'),

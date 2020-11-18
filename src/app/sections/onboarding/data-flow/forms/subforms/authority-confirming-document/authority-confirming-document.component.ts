@@ -26,6 +26,7 @@ export class AuthorityConfirmingDocumentComponent {
         switchMap((form) =>
             form
                 ? form.valueChanges.pipe(
+                      // TODO: add form types
                       startWith<any, any>(form.value),
                       map((v) => v.type === this.customType)
                   )
