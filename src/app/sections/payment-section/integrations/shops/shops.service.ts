@@ -7,9 +7,9 @@ import cloneDeep from 'lodash.clonedeep';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, pluck, shareReplay, skip, startWith, switchMap, tap } from 'rxjs/operators';
 
-import { Dict } from '@dsh/app/shared/interfaces';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
+import { Dict } from '../../../../../type-utils';
 import { ShopService } from '../../../../api';
 import { Shop } from '../../../../api-codegen/anapi/swagger-codegen';
 import { progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';

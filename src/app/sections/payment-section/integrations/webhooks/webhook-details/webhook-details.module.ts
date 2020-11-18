@@ -17,8 +17,6 @@ import { WebhookDetailsComponent } from './webhook-details.component';
 import { WebhookEventsComponent } from './webhook-events';
 import { WebhookMainInfoComponent } from './webhook-main-info';
 
-// import { WebhookApiKeyModule } from '@dsh/app/shared/*';
-
 @NgModule({
     imports: [
         TranslocoModule,
