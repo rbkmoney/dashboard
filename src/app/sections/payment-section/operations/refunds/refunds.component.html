@@ -1,20 +1,26 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
-    <dsh-card>
-        <dsh-card-content *transloco="let t" fxLayout="column" fxLayoutGap="15px">
-            <dsh-last-updated
-                *ngIf="!(isLoading$ | async)"
-                (update)="refresh()"
-                [lastUpdated]="lastUpdated$ | async"
-            ></dsh-last-updated>
-            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
-            <dsh-refunds-table [data]="tableData$ | async"></dsh-refunds-table>
-            <dsh-empty-search-result
-                *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
-            ></dsh-empty-search-result>
-            <button *ngIf="hasMoreRefunds$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? t('loading') : t('showMore') }}
-            </button>
-        </dsh-card-content>
-    </dsh-card>
+<div fxLayout="column" fxLayoutGap="32px">
+    <dsh-refunds-search-filters
+        [initParams]="initSearchParams$ | async"
+        [realm]="realm$ | async"
+        (searchParamsChanges)="searchParamsChanges($event)"
+    ></dsh-refunds-search-filters>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-refunds-list
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            [refunds]="refunds$ | async"
+            [lastUpdated]="lastUpdated$ | async"
+            (refreshData)="refresh()"
+        ></dsh-refunds-list>
+        <dsh-show-more-panel
+            *ngIf="hasMore$ | async"
+            [isLoading]="isLoading$ | async"
+            (showMore)="fetchMore()"
+        ></dsh-show-more-panel>
+    </div>
+    <dsh-empty-search-result
+        *ngIf="!(fetchErrors$ | async) && (refunds$ | async)?.length === 0"
+    ></dsh-empty-search-result>
+    <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>
+<dsh-scroll-up></dsh-scroll-up>

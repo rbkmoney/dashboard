@@ -1,0 +1,4 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.refunds'">
+    <div class="mat-title">{{ t('payment') }}</div>
+    <dsh-payment-details *ngIf="payment$ | async as payment" [payment]="payment"></dsh-payment-details>
+</div>
