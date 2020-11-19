@@ -65,15 +65,16 @@ npm ci
     git submodule add -b <SCHEME_BRANCH> <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
     ```
 
-2.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes3` (or `schemes` for swagger 2) property
-3.  [Regenerate Angular modules from swags](#Generate-Angular-modules-from-swags)
-4.  (\*) Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
-5.  Add in `src/api-codegen/<SCHEME_NAME>` files:
+1.  Add `schemes/<SCHEME_NAME>/<VER:VX>` to `Makefile` `SWAGGER_SCHEMES_PATH` property
+1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `openapi-codegen-config.json` `schemes` property
+1.  [Regenerate Angular modules from swags](#Generate-Angular-modules-from-swags)
+1.  (\*) Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
+1.  Add in `src/api-codegen/<SCHEME_NAME>` files:
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`
     -   `<SCHEME_NAME>-config.service.ts`
-6.  Add `<SCHEME_NAME>.module.ts` to `src/app/api/api.module.ts` `imports`
-7.  Create `src/api/<SCHEME_NAME>` module
+1.  Add `<SCHEME_NAME>.module.ts` to `src/app/api/api.module.ts` `imports`
+1.  Create `src/api/<SCHEME_NAME>` module
 
 ## Tests
 
