@@ -16,14 +16,14 @@ import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { TableModule } from '@dsh/components/table';
 
 import { ShopSelectorModule } from '../../../shop-selector';
-import { RefundsRoutingModule } from './refunds-routing.module';
-import { RefundsComponent } from './refunds.component';
 import { RefundsListModule } from './refunds-list';
+import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsSearchFiltersModule } from './refunds-search-filters';
-import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
+import { RefundsComponent } from './refunds.component';
 
 @NgModule({
     imports: [

@@ -20,16 +20,17 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
         shareReplay(1)
     );
 
-    // tslint:disable-next-line:no-shadowed-variable
-    protected dataIdToFragment<T extends DataSetItemID>(data: T): string {
+    protected dataIdToFragment(data: T): string {
         return !!data?.id ? data.id + '' : '';
     }
 
-    protected byFragment = (fragment: string) => ({ id }: DataSetItemID) => id + '' === fragment;
+    protected byFragment(fragment: string) {
+        return ({ id }: DataSetItemID) => id + '' === fragment;
+    }
 
-    // tslint:disable-next-line:no-shadowed-variable
-    protected findExpandedId = <T extends DataSetItemID>(fragment: string) => (d: T[]) =>
-        d.findIndex(this.byFragment(fragment));
+    protected findExpandedId(fragment: string) {
+        return (d: T[]) => d.findIndex(this.byFragment(fragment));
+    }
 
     constructor(protected route: ActivatedRoute, protected router: Router) {
         this.expandedIdChange$

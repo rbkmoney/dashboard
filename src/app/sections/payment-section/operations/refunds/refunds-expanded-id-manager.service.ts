@@ -7,6 +7,9 @@ import { ExpandedIdManager } from '@dsh/app/shared/services';
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { FetchRefundsService } from './fetch-refunds.service';
 
+const refundToFragment = (refund: RefundSearchResult): string => `${refund.invoiceID}-${refund.paymentID}-${refund.id}`;
+const byFragment = (fragment: string) => (refund: RefundSearchResult) => refundToFragment(refund) === fragment;
+
 @Injectable()
 export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResult> {
     constructor(
@@ -17,11 +20,13 @@ export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResu
         super(route, router);
     }
 
-    dataIdToFragment = (data: RefundSearchResult): string => (!!data?.id ? data.id + '' : '');
+    dataIdToFragment(refund: RefundSearchResult): string {
+        return !!refund ? refundToFragment(refund) : '';
+    }
 
-    byFragment = (fragment: string) => ({ id }: RefundSearchResult) => id + '' === fragment;
-
-    findExpandedId = (fragment: string) => (d: RefundSearchResult[]) => d.findIndex(this.byFragment(fragment));
+    findExpandedId(fragment: string) {
+        return (d: RefundSearchResult[]) => d.findIndex(byFragment(fragment));
+    }
 
     protected get dataSet$(): Observable<RefundSearchResult[]> {
         return this.fetchRefundsService.searchResult$;

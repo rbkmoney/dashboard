@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
 
 @Component({

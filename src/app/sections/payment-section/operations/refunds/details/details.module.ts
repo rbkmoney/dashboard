@@ -10,14 +10,14 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { DetailsComponent } from './details.component';
-import { RefundPipesModule } from '../refund-pipes';
-import { MainInfoComponent } from './main-info';
-import { RefundDetailsModule } from '../../../../../shared/components/api-model-details/refund-details';
-import { InvoiceInfoComponent } from './invoice-info';
 import { InvoiceDetailsModule } from '../../../../../shared/components/api-model-details/invoice-details';
-import { PaymentInfoComponent } from './payment-info';
 import { PaymentDetailsModule } from '../../../../../shared/components/api-model-details/payment-details';
+import { RefundDetailsModule } from '../../../../../shared/components/api-model-details/refund-details';
+import { RefundPipesModule } from '../refund-pipes';
+import { DetailsComponent } from './details.component';
+import { InvoiceInfoComponent } from './invoice-info';
+import { MainInfoComponent } from './main-info';
+import { PaymentInfoComponent } from './payment-info';
 
 @NgModule({
     imports: [

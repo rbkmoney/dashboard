@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
+
+import { StatusModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
+import { ToMajorModule } from '../../../../to-major';
+import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentStatusColorPipe } from './payment-status-color.pipe';
 import { PaymentStatusNamePipe } from './payment-status-name.pipe';
-import { PaymentDetailsComponent } from './payment-details.component';
-import { StatusModule } from '@dsh/components/indicators';
-import { ToMajorModule } from '../../../../to-major';
 
 @NgModule({
     imports: [TranslocoModule, LayoutModule, FlexLayoutModule, CommonModule, StatusModule, ToMajorModule],

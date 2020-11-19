@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StatusColor } from '../../../../theme-manager';
+
 import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
+import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({
     name: 'paymentStatusColor',

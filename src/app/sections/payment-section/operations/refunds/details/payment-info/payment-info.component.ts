@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
+
 import { PaymentSearchResult } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentService } from '../../../../../../api/payment';
 
