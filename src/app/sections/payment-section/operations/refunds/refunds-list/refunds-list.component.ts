@@ -10,6 +10,6 @@ export class RefundsListComponent {
     @Input() refunds: RefundSearchResult[];
     @Input() expandedId: number;
     @Input() lastUpdated: string;
-    @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
-    @Output() refreshData: EventEmitter<void> = new EventEmitter();
+    @Output() expandedIdChange = new EventEmitter<number>();
+    @Output() refreshData = new EventEmitter<void>();
 }

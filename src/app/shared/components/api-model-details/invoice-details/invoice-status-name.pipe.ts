@@ -10,11 +10,12 @@ export class InvoiceStatusNamePipe implements PipeTransform {
     constructor(private transloco: TranslocoService) {}
 
     transform(status: Invoice.StatusEnum): string {
+        const statuses = Invoice.StatusEnum;
         switch (status) {
-            case 'unpaid':
-            case 'cancelled':
-            case 'paid':
-            case 'fulfilled':
+            case statuses.Cancelled:
+            case statuses.Unpaid:
+            case statuses.Paid:
+            case statuses.Fulfilled:
                 return this.transloco.translate(`invoiceStatus.${status}`);
             default:
                 return status;

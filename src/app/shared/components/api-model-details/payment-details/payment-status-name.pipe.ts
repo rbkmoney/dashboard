@@ -10,13 +10,14 @@ export class PaymentStatusNamePipe implements PipeTransform {
     constructor(private transloco: TranslocoService) {}
 
     transform(status: PaymentSearchResult.StatusEnum): string {
+        const statuses = PaymentSearchResult.StatusEnum;
         switch (status) {
-            case 'processed':
-            case 'captured':
-            case 'cancelled':
-            case 'refunded':
-            case 'failed':
-            case 'pending':
+            case statuses.Cancelled:
+            case statuses.Processed:
+            case statuses.Captured:
+            case statuses.Refunded:
+            case statuses.Failed:
+            case statuses.Pending:
                 return this.transloco.translate(`paymentStatus.${status}`);
             default:
                 return status;

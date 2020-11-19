@@ -8,14 +8,15 @@ import { StatusColor } from '../../../../theme-manager';
 })
 export class InvoiceStatusColorPipe implements PipeTransform {
     transform(status: Invoice.StatusEnum): StatusColor {
+        const statuses = Invoice.StatusEnum;
         switch (status) {
-            case 'paid':
-            case 'fulfilled':
+            case statuses.Paid:
+            case statuses.Fulfilled:
                 return StatusColor.success;
-            case 'unpaid':
-                return StatusColor.pending;
-            case 'cancelled':
+            case statuses.Cancelled:
                 return StatusColor.warn;
+            case statuses.Unpaid:
+                return StatusColor.pending;
             default:
                 return StatusColor.neutral;
         }

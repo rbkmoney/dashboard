@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { shareReplay, take } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../../api-codegen/capi';
 import { InvoiceService } from '../../../../../../api/invoice';
@@ -13,14 +13,11 @@ import { InvoiceService } from '../../../../../../api/invoice';
 export class InvoiceInfoComponent implements OnInit {
     @Input() invoiceID: string;
 
-    invoice$ = new Subject<Invoice>();
+    invoice$: Observable<Invoice>;
 
     constructor(private invoiceService: InvoiceService) {}
 
     ngOnInit() {
-        this.invoiceService
-            .getInvoiceByID(this.invoiceID)
-            .pipe(take(1))
-            .subscribe((invoice) => this.invoice$.next(invoice));
+        this.invoice$ = this.invoiceService.getInvoiceByID(this.invoiceID).pipe(take(1), shareReplay(1));
     }
 }

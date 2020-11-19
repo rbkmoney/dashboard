@@ -5,7 +5,7 @@
     ></dsh-daterange-filter>
     <dsh-filter-shops
         [shops]="shops$ | async"
-        [selected]="initParams?.shopIDs"
+        [selected]="selectedShops$ | async"
         (selectedChange)="shopSelectionChange($event)"
     ></dsh-filter-shops>
     <dsh-invoices-filter
