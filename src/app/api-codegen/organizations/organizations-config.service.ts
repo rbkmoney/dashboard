@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ConfigService } from '../../config';
-import { Configuration } from './swagger-codegen';
+import { Configuration } from './openapi-codegen';
 
 @Injectable()
 export class OrganizationsConfigService extends Configuration {

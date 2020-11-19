@@ -1,2 +1,2 @@
 export * from './messages.module';
-export * from './swagger-codegen';
+export * from './openapi-codegen';

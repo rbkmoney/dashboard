@@ -1,7 +1,6 @@
 {
     "rootDir": "swagger-codegen",
     "cli": "swagger-codegen-cli-2.4.9.jar",
-    "cli3": "swagger-codegen-cli-3.0.13-20191015.162315-7.jar",
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "swagger-codegen",
     "schemes": {
@@ -13,9 +12,5 @@
         "dark-api": "schemes/dark-api/v0/swagger.json",
         "wallet-api": "schemes/swag-wallets/v0/api/wallet/swagger.json",
         "url-shortener": "schemes/url-shortener/v0/swagger.json"
-    },
-    "schemes3": {
-        "messages": "schemes/messages/v0/swagger.json",
-        "organizations": "schemes/organizations/v0/openapi.json"
     }
 }

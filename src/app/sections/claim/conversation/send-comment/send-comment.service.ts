@@ -6,18 +6,18 @@ import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import { createSingleMessageConversationParams, MessagesService } from '../../../../api';
-import { ConversationID } from '../../../../api-codegen/messages';
+import { Conversation } from '../../../../api-codegen/messages';
 import { progress } from '../../../../custom-operators';
 import { UIError } from '../../../ui-error';
 
 @Injectable()
 export class SendCommentService {
-    private conversationId$: BehaviorSubject<ConversationID | null> = new BehaviorSubject(null);
+    private conversationId$: BehaviorSubject<Conversation['conversationId'] | null> = new BehaviorSubject(null);
     private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;
-    conversationSaved$: Observable<ConversationID> = this.conversationId$.pipe(filter((id) => !!id));
+    conversationSaved$: Observable<Conversation['conversationId']> = this.conversationId$.pipe(filter((id) => !!id));
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
     inProgress$: Observable<boolean> = progress(this.sendComment$, merge(this.conversationId$, this.error$));
 

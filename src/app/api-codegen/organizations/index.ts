@@ -1,2 +1,2 @@
 export * from './organizations.module';
-export * from './swagger-codegen';
+export * from './openapi-codegen';

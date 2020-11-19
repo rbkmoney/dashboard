@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { ApiModule, Configuration } from './openapi-codegen';
 import { OrganizationsConfigService } from './organizations-config.service';
-import { ApiModule, Configuration } from './swagger-codegen';
 
 @NgModule({
     imports: [
