@@ -15,6 +15,7 @@
         "url-shortener": "schemes/url-shortener/v0/swagger.json"
     },
     "schemes3": {
-        "messages": "schemes/messages/v0/swagger.json"
+        "messages": "schemes/messages/v0/swagger.json",
+        "organizations": "schemes/organizations/v0/openapi.json"
     }
 }
