@@ -16,11 +16,10 @@ import { Daterange } from '@dsh/pipes/daterange';
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
-import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
-import { daterangeToSearchParams } from './daterange-to-search-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { shopsToCurrencies } from './shops-to-currencies';
+import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
 
 @Component({
     selector: 'dsh-analytics-search-filters',
@@ -87,7 +86,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
     ngOnChanges({ initParams }: SimpleChanges) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
             const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(v);
+            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : timesToDaterange(v);
             this.daterangeSelectionChange(this.daterange);
             if (v.currency) {
                 this.selectedCurrency$.next(v.currency);
@@ -105,7 +104,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         if (v === null) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToSearchParams(daterange));
+        this.searchParams$.next(daterangeToTimes(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {

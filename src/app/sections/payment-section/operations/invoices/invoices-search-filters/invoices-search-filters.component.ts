@@ -14,7 +14,7 @@ import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { RefundSearchResult } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { ShopService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
@@ -23,12 +23,13 @@ import { getDefaultDaterange } from './get-default-daterange';
 import { SearchFiltersParams } from './search-filters-params';
 import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
 
+
 @Component({
-    selector: 'dsh-refunds-search-filters',
-    templateUrl: 'refunds-search-filters.component.html',
+    selector: 'dsh-invoices-search-filters',
+    templateUrl: 'invoices-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
+export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
     @Input() initParams: SearchFiltersParams;
@@ -83,7 +84,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
         this.searchParams$.next({ invoiceIDs: invoiceIDs?.length ? invoiceIDs : null });
     }
 
-    statusSelectionChange(refundStatus: RefundSearchResult.StatusEnum) {
-        this.searchParams$.next({ refundStatus });
+    statusSelectionChange(invoiceStatus: Invoice.StatusEnum) {
+        this.searchParams$.next({ invoiceStatus });
     }
 }

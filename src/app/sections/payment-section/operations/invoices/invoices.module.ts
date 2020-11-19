@@ -32,6 +32,7 @@ import { InvoicesComponent } from './invoices.component';
 import { SearchFormComponent } from './search-form';
 import { InvoiceStatusColorPipe } from './status-color.pipe';
 import { TableComponent } from './table';
+import { InvoicesSearchFiltersModule } from './invoices-search-filters';
 
 @NgModule({
     imports: [
@@ -62,6 +63,7 @@ import { TableComponent } from './table';
         MatDividerModule,
         ShopSelectorModule,
         CreateInvoiceModule,
+        InvoicesSearchFiltersModule
     ],
     declarations: [
         InvoicesComponent,
