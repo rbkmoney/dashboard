@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShopLocation } from '../../../../../../api-codegen/anapi/swagger-codegen';
+import { ToMajorModule } from '../../../../../../to-major';
 import { ShopItem } from '../../models';
 import { ShopBalanceComponent } from './shop-balance.component';
 
@@ -32,12 +33,13 @@ const mockShop: ShopItem = {
     },
 };
 
-fdescribe('ShopBalanceComponent', () => {
+describe('ShopBalanceComponent', () => {
     let component: ShopBalanceComponent;
     let fixture: ComponentFixture<ShopBalanceComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [ToMajorModule],
             declarations: [ShopBalanceComponent],
         }).compileComponents();
     }));

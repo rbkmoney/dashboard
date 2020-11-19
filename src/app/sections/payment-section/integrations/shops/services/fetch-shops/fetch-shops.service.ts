@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, mapTo, pluck, scan, shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
+import {
+    distinctUntilChanged,
+    map,
+    mapTo,
+    pluck,
+    scan,
+    shareReplay,
+    switchMap,
+    tap,
+    withLatestFrom,
+} from 'rxjs/operators';
 
-import { getOffsetBySelectedPanelPosition } from '../../../../../../../utils';
-import { Shop as ApiShop } from '../../../../../../api-codegen/anapi/swagger-codegen';
+import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
 import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
@@ -16,13 +25,13 @@ const LIST_OFFSET = 5;
 
 @Injectable()
 export class FetchShopsService {
+    allShops$: Observable<ApiShop[]>;
     shops$: Observable<ShopItem[]>;
     lastUpdated$: Observable<string>;
     isLoading$: Observable<boolean>;
     hasMore$: Observable<boolean>;
 
-    private allShops$: Observable<ShopItem[]>;
-    private selectedID$ = new ReplaySubject<string>(1);
+    private selectedIndex$ = new ReplaySubject<number>(1);
     private listOffset$: Observable<number>;
 
     private realmData$ = new ReplaySubject<PaymentInstitutionRealm>(1);
@@ -35,8 +44,9 @@ export class FetchShopsService {
         this.init();
     }
 
-    setSelectedID(id: string): void {
-        this.selectedID$.next(id);
+    setSelectedIndex(index: number): void {
+        this.selectedIndex$.next(index);
+        this.showMore$.next();
     }
 
     setRealm(realm: PaymentInstitutionRealm): void {
@@ -49,6 +59,7 @@ export class FetchShopsService {
     }
 
     showMore(): void {
+        this.startLoading();
         this.showMore$.next();
     }
 
@@ -75,6 +86,23 @@ export class FetchShopsService {
     private initAllShopsFetching(): void {
         this.allShops$ = this.realmData$.pipe(
             filterShopsByRealm(this.apiShopsService.shops$),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+    }
+
+    private initOffsetListeners(): void {
+        this.listOffset$ = this.showMore$.pipe(
+            mapTo(LIST_OFFSET),
+            withLatestFrom(this.selectedIndex$),
+            map(([curOffset]: [number, number]) => curOffset),
+            scan((offset, limit) => offset + limit, 0),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+    }
+
+    private initShownShopsListeners(): void {
+        this.shops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
+            map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
             tap((shops: ApiShop[]) => {
                 this.updateShopsBalances(shops);
             }),
@@ -85,28 +113,6 @@ export class FetchShopsService {
                 );
             }),
             tap(() => this.stopLoading()),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
-    }
-
-    private initOffsetListeners(): void {
-        const selectedPanelPosition$ = combineLatest([this.selectedID$.pipe(take(1)), this.allShops$]).pipe(
-            map(([selectedId, shops]: [string, ShopItem[]]) => shops.findIndex(({ id }) => id === selectedId)),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
-
-        this.listOffset$ = merge(
-            selectedPanelPosition$.pipe(map((idx: number) => getOffsetBySelectedPanelPosition(idx, LIST_OFFSET))),
-            this.showMore$.pipe(mapTo(LIST_OFFSET))
-        ).pipe(
-            scan((offset, limit) => offset + limit, 0),
-            shareReplay(SHARE_REPLAY_CONF)
-        );
-    }
-
-    private initShownShopsListeners(): void {
-        this.shops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
-            map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
             shareReplay(SHARE_REPLAY_CONF)
         );
     }

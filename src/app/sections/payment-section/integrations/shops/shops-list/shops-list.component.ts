@@ -9,7 +9,6 @@ import { ShopsExpandedIdManagerService } from './services/shops-expanded-id-mana
     selector: 'dsh-shops-list',
     templateUrl: './shops-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopsExpandedIdManagerService],
 })
 export class ShopsListComponent {
     @Input() shopList: ShopItem[];

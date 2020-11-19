@@ -7,6 +7,7 @@ import { PaymentInstitutionRealm } from '../../../../api/model';
 import { CreateShopDialogComponent } from './components/create-shop-dialog';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
+import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-shops',
@@ -20,7 +21,7 @@ import { ShopsBalanceService } from './services/shops-balance/shops-balance.serv
         `,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchShopsService, ShopsBalanceService],
+    providers: [FetchShopsService, ShopsBalanceService, ShopsExpandedIdManagerService],
 })
 export class ShopsComponent implements OnInit {
     shops$ = this.shopsService.shops$;
@@ -28,14 +29,19 @@ export class ShopsComponent implements OnInit {
     lastUpdated$ = this.shopsService.lastUpdated$;
     hasMore$ = this.shopsService.hasMore$;
 
-    constructor(private shopsService: FetchShopsService, private dialog: MatDialog, private route: ActivatedRoute) {}
+    constructor(
+        private shopsService: FetchShopsService,
+        private expandedIdManager: ShopsExpandedIdManagerService,
+        private dialog: MatDialog,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit(): void {
         this.route.params.pipe(take(1), pluck('realm')).subscribe((realm: PaymentInstitutionRealm) => {
             this.shopsService.setRealm(realm);
         });
-        this.route.fragment.pipe(take(1)).subscribe((selectedID: string) => {
-            this.shopsService.setSelectedID(selectedID);
+        this.expandedIdManager.expandedId$.pipe(take(1)).subscribe((index: number) => {
+            this.shopsService.setSelectedIndex(index);
         });
     }
 

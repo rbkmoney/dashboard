@@ -17,8 +17,8 @@
     >
         <dsh-accordion-item #accordionItem *ngFor="let shop of shopList">
             <dsh-shop-row [shop]="shop"></dsh-shop-row>
-            <dsh-accordion-item-content>
-                <dsh-card fxLayout="column" fxLayoutGap="32px">
+            <ng-template dshLazyPanelContent>
+                <dsh-card [style.width]="'100%'" fxLayout="column" fxLayoutGap="32px">
                     <dsh-accordion-item-content-header
                         (collapse)="accordionItem.collapse($event)"
                         *transloco="let s; scope: 'shops'; read: 'shops'"
@@ -26,7 +26,7 @@
                     >
                     <dsh-shop-details [shop]="shop" (updateData)="refreshList()"></dsh-shop-details>
                 </dsh-card>
-            </dsh-accordion-item-content>
+            </ng-template>
         </dsh-accordion-item>
     </dsh-accordion>
     <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"></dsh-show-more-panel>

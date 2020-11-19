@@ -2,7 +2,7 @@ import { isNil } from '@ngneat/transloco';
 import cloneDeep from 'lodash.clonedeep';
 
 import { Dict } from '../../../../../../type-utils';
-import { Shop as ApiShop } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { Shop as ApiShop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { ShopBalance, ShopItem } from '../models';
 
 export function combineShopItem(shops: ApiShop[], balances: ShopBalance[]): ShopItem[] {
