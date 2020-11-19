@@ -18,8 +18,8 @@ function countExactPath(url: string, path: string): ActivePathsCount {
     return path === url ? { count: 1, length: path.length } : { count: 0, length: 0 };
 }
 
-export function findActivePath(url: string, links: Link[]): Link {
-    return links.reduce<[Link, ActivePathsCount]>(
+export function findActivePath<L extends Link>(url: string, links: L[]): L {
+    return links.reduce<[L, ActivePathsCount]>(
         (max, link) => {
             const [, { count: maxCount, length: maxLength }] = max;
             const { count, length } = link.activateStartPaths?.length
