@@ -4,11 +4,11 @@ import { map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import {
+    ApiShopsService,
     ClaimsService,
     createDocumentModificationUnit,
     PayoutsService,
     QuestionaryService,
-    ShopService,
 } from '../../../api';
 import {
     BankAccount,
@@ -22,7 +22,7 @@ import {
 export class CreateShopRussianLegalEntityService {
     constructor(
         private claimsService: ClaimsService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private payoutsService: PayoutsService,
         private questionaryService: QuestionaryService
     ) {}

@@ -8,11 +8,11 @@ import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 
 @Injectable()
-export class ShopService {
+export class ApiShopsService {
     private reloadShops$ = new Subject<void>();
 
     shops$: Observable<Shop[]> = this.reloadShops$.pipe(
-        startWith(undefined as Shop[]),
+        startWith<void, null>(null),
         switchMapTo(this.shopsService.getShops(genXRequestID())),
         shareReplay(SHARE_REPLAY_CONF)
     );

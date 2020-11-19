@@ -14,8 +14,6 @@ import { PayoutRowComponent } from './payout-row';
 import { PayoutRowHeaderComponent } from './payout-row-header';
 import { PayoutsListComponent } from './payouts-list.component';
 
-// import { ApiModelRefsModule, ApiModelTypesModule } from '@dsh/app/shared/*';
-
 @NgModule({
     imports: [
         TranslocoModule,

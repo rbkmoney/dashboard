@@ -7,8 +7,6 @@ import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter'
 
 import { PayoutsSearchFiltersComponent } from './payouts-search-filters.component';
 
-// import { FilterShopsModule } from '@dsh/app/shared/*';
-
 @NgModule({
     imports: [CommonModule, DaterangeFilterModule, FilterShopsModule, FlexModule],
     exports: [PayoutsSearchFiltersComponent],

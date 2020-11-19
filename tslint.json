@@ -4,14 +4,7 @@
         "directive-selector": [true, ["attribute", "element"], "dsh", ["camelCase", "kebab-case"]],
         "component-selector": [true, ["attribute", "element"], "dsh", "kebab-case"],
         "template-no-negated-async": false,
-        "import-blacklist": [
-            true,
-            "rxjs/Rx",
-            "lodash",
-            "lodash-es",
-            ".",
-            [".*\\./components/.*", ".*\\./pipes/.*", "src/.+"]
-        ],
+        "import-blacklist": [true, "rxjs/Rx", "lodash", "lodash-es", ".", [".*\\./pipes/.*", "src/.+"]],
         "no-unused-variable": [true, { "ignore-pattern": "^_" }],
         "variable-name": {
             "options": ["allow-leading-underscore", "ban-keywords", "check-format", "allow-pascal-case"]

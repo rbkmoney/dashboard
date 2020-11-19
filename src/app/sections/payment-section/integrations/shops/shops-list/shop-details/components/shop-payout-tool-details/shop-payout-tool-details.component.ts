@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PayoutToolParams } from './payout-tool-params';
-import { ShopPayoutToolDetailsService } from './shop-payout-tool-details.service';
+import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { PayoutToolParams } from '../../types';
 
 @Component({
     selector: 'dsh-shop-payout-tool-details',

@@ -12,13 +12,13 @@ import { DetailsItemModule } from '@dsh/components/layout';
 import { CategoriesModule } from '../../../../../../api/categories';
 import { ContractsModule } from '../../../../../../api/contracts';
 import { ShopBalanceModule } from '../shop-balance';
-import { CategoryService } from './category.service';
-import { ShopActionsComponent } from './shop-actions';
-import { ShopContractDetailsComponent } from './shop-contract-details';
+import { ShopActionsComponent } from './components/shop-actions';
+import { ShopContractDetailsComponent } from './components/shop-contract-details';
+import { ShopIdComponent } from './components/shop-id';
+import { ShopInfoComponent } from './components/shop-info';
+import { ShopPayoutToolDetailsComponent } from './components/shop-payout-tool-details';
+import { CategoryService } from './services/category/category.service';
 import { ShopDetailsComponent } from './shop-details.component';
-import { ShopIdComponent } from './shop-id';
-import { ShopInfoComponent } from './shop-info';
-import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details';
 
 @NgModule({
     imports: [

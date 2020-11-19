@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ShopItem } from '../../interfaces';
+import { ShopItem } from '../../models';
 
 @Component({
     selector: 'dsh-shop-details',
@@ -10,14 +10,9 @@ import { ShopItem } from '../../interfaces';
 export class ShopDetailsComponent {
     @Input() shop: ShopItem;
 
-    @Output() activateShop = new EventEmitter<string>();
-    @Output() suspendShop = new EventEmitter<string>();
+    @Output() updateData = new EventEmitter<void>();
 
-    activate(id: string) {
-        this.activateShop.emit(id);
-    }
-
-    suspend(id: string) {
-        this.suspendShop.emit(id);
+    requestUpdateData(): void {
+        this.updateData.emit();
     }
 }

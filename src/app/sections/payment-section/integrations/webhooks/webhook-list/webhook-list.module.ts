@@ -14,8 +14,6 @@ import { WebhookListComponent } from './webhook-list.component';
 import { WebhookRowComponent } from './webhook-row';
 import { WebhookRowHeaderComponent } from './webhook-row-header';
 
-// import { ApiModelRefsModule } from '@dsh/app/shared/*';
-
 @NgModule({
     imports: [
         TranslocoModule,

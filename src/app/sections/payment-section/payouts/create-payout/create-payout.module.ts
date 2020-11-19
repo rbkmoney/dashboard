@@ -16,8 +16,6 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { CreatePayoutDialogComponent } from './create-payout-dialog.component';
 import { CreatePayoutService } from './create-payout.service';
 
-// import { ApiModelTypesModule } from '@dsh/app/shared/*';
-
 @NgModule({
     imports: [
         CommonModule,

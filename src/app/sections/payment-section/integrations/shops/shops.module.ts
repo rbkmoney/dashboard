@@ -8,7 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateShopModule } from '../../../create-shop';
-import { CreateShopDialogComponent } from './create-shop-dialog';
+import { CreateShopDialogComponent } from './components/create-shop-dialog';
 import { ShopListModule } from './shops-list/shop-list.module';
 import { ShopsRoutingModule } from './shops-routing.module';
 import { ShopsComponent } from './shops.component';

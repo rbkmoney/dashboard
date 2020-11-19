@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
-import { PayoutsService } from '../../../../../../../api';
-import { PayoutTool } from '../../../../../../../api-codegen/capi';
-import { PayoutToolParams } from './payout-tool-params';
+import { PayoutsService } from '../../../../../../../../api';
+import { PayoutTool } from '../../../../../../../../api-codegen/capi';
+import { PayoutToolParams } from '../../types';
 
 @Injectable()
 export class ShopPayoutToolDetailsService {

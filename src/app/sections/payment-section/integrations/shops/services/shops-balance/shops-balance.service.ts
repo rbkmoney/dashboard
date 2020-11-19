@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { isNil } from '@ngneat/transloco';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '../../../../../../api/analytics';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
-import { ShopBalance } from '../../interfaces';
+import { ShopBalance } from '../../models';
 
 @Injectable()
 export class ShopsBalanceService {
     balances$: Observable<ShopBalance[]>;
 
-    private shopIDsChange$: Subject<string[]> = new BehaviorSubject([]);
+    private shopIDsChange$ = new ReplaySubject<string[]>(1);
 
     constructor(private analyticsService: AnalyticsService) {
         this.balances$ = this.shopIDsChange$.pipe(
@@ -24,13 +24,13 @@ export class ShopsBalanceService {
                             .map(({ id, amountResults = [] }) => {
                                 return {
                                     id,
-                                    data: isNil(amountResults) ? null : amountResults[0],
+                                    data: isNil(amountResults) || isNil(amountResults[0]) ? null : amountResults[0],
                                 };
                             });
                     }),
                     catchError((err) => {
                         console.error(err);
-                        return of([] as ShopBalance[]);
+                        return of([]);
                     })
                 );
             }),

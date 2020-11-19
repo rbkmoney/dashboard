@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 import { amountValidator } from '@dsh/components/form-controls';
 
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreatePayoutDialogService } from './create-payout-dialog.service';
 
@@ -37,7 +37,7 @@ export class CreatePayoutDialogComponent implements OnInit {
         private createPayoutDialogService: CreatePayoutDialogService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         @Inject(MAT_DIALOG_DATA) private data: { realm: string }
     ) {}
 

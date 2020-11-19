@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { pluck, take } from 'rxjs/operators';
 
-import { booleanDebounceTime } from '../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../constants';
-import { CreateShopDialogComponent } from './create-shop-dialog';
+import { PaymentInstitutionRealm } from '../../../../api/model';
+import { CreateShopDialogComponent } from './components/create-shop-dialog';
+import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
-import { ShopsService } from './shops.service';
 
 @Component({
     selector: 'dsh-shops',
-    templateUrl: 'shops.component.html',
+    templateUrl: './shops.component.html',
     styles: [
         `
             :host {
@@ -21,30 +20,31 @@ import { ShopsService } from './shops.service';
         `,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopsService, ShopsBalanceService],
+    providers: [FetchShopsService, ShopsBalanceService],
 })
-export class ShopsComponent {
+export class ShopsComponent implements OnInit {
     shops$ = this.shopsService.shops$;
-    isLoading$ = this.shopsService.isLoading$.pipe(booleanDebounceTime());
+    isLoading$ = this.shopsService.isLoading$;
     lastUpdated$ = this.shopsService.lastUpdated$;
+    hasMore$ = this.shopsService.hasMore$;
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private shopsService: ShopsService,
-        private dialog: MatDialog,
-        private route: ActivatedRoute
-    ) {}
+    constructor(private shopsService: FetchShopsService, private dialog: MatDialog, private route: ActivatedRoute) {}
 
-    activate(id: string): void {
-        this.shopsService.activate(id);
-    }
-
-    suspend(id: string): void {
-        this.shopsService.suspend(id);
+    ngOnInit(): void {
+        this.route.params.pipe(take(1), pluck('realm')).subscribe((realm: PaymentInstitutionRealm) => {
+            this.shopsService.setRealm(realm);
+        });
+        this.route.fragment.pipe(take(1)).subscribe((selectedID: string) => {
+            this.shopsService.setSelectedID(selectedID);
+        });
     }
 
     refreshData(): void {
         this.shopsService.refreshData();
+    }
+
+    showMore(): void {
+        this.shopsService.showMore();
     }
 
     createShop(): void {

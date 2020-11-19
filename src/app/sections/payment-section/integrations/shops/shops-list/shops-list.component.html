@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let s; scope: 'shops'; read: 'shops'">
-    <dsh-last-updated (update)="refreshData.emit()" [lastUpdated]="lastUpdated"></dsh-last-updated>
+    <dsh-last-updated (update)="refreshList()" [lastUpdated]="lastUpdated"></dsh-last-updated>
     <dsh-shop-row-header></dsh-shop-row-header>
-    <ng-container *ngIf="isLoading || !(shops$ | async); else shopsPanelsList">
+    <ng-container *ngIf="isLoading || !isListExist; else shopsPanelsList">
         <div fxLayout fxFlexAlign="center">
             <dsh-spinner></dsh-spinner>
         </div>
@@ -10,12 +10,12 @@
 
 <ng-template #shopsPanelsList>
     <dsh-accordion
-        (expandedChange)="select($event)"
-        [expanded]="selectedPanelPosition$ | async"
+        (expandedChange)="expandedIdChange($event)"
+        [expanded]="expandedId$ | async"
         fxLayout="column"
         fxLayoutGap="16px"
     >
-        <dsh-accordion-item #accordionItem *ngFor="let shop of shops$ | async">
+        <dsh-accordion-item #accordionItem *ngFor="let shop of shopList">
             <dsh-shop-row [shop]="shop"></dsh-shop-row>
             <dsh-accordion-item-content>
                 <dsh-card fxLayout="column" fxLayoutGap="32px">
@@ -24,14 +24,13 @@
                         *transloco="let s; scope: 'shops'; read: 'shops'"
                         >{{ s('panel.details') }}</dsh-accordion-item-content-header
                     >
-                    <dsh-shop-details [shop]="shop" (activateShop)="activate($event)" (suspendShop)="suspend($event)">
-                    </dsh-shop-details>
+                    <dsh-shop-details [shop]="shop" (updateData)="refreshList()"></dsh-shop-details>
                 </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>
     </dsh-accordion>
-    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
-    <div *ngIf="!(shops$ | async).length" class="mat-headline dsh-payouts-empty">
+    <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"></dsh-show-more-panel>
+    <div *ngIf="isEmptyList" class="mat-headline dsh-payouts-empty">
         <dsh-empty-search-result *transloco="let t">{{ t('emptySearchResult') }}</dsh-empty-search-result>
     </div>
 </ng-template>

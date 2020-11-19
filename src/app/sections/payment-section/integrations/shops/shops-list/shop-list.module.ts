@@ -10,10 +10,10 @@ import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ToMajorModule } from '../../../../../to-major';
+import { ShopRowComponent } from './components/shop-row';
+import { ShopRowHeaderComponent } from './components/shop-row-header';
 import { ShopBalanceModule } from './shop-balance';
 import { ShopDetailsModule } from './shop-details';
-import { ShopRowComponent } from './shop-row';
-import { ShopRowHeaderComponent } from './shop-row-header';
 import { ShopsListComponent } from './shops-list.component';
 
 @NgModule({

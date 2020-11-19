@@ -10,7 +10,6 @@
     ></dsh-shop-payout-tool-details>
     <ng-container *ngIf="!shop.isBlocked">
         <mat-divider></mat-divider>
-        <dsh-shop-actions [shop]="shop" (suspendShop)="suspend($event)" (activateShop)="activate($event)">
-        </dsh-shop-actions>
+        <dsh-shop-actions [shop]="shop" (updateData)="requestUpdateData()"></dsh-shop-actions>
     </ng-container>
 </div>

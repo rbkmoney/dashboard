@@ -1,50 +1,47 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import isNil from 'lodash.isnil';
+import { Observable } from 'rxjs';
 
-import { ShopItem } from '../interfaces';
-import { ShopsListService } from './shops-list.service';
+import { ShopItem } from '../models';
+import { ShopsExpandedIdManagerService } from './services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-shops-list',
-    templateUrl: 'shops-list.component.html',
-    providers: [ShopsListService],
+    templateUrl: './shops-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [ShopsExpandedIdManagerService],
 })
 export class ShopsListComponent {
-    @Input()
-    set shopList(shops: ShopItem[] | null) {
-        if (isNil(shops)) {
-            return;
-        }
-        this.shopsPanelsListService.updateShops(shops);
-    }
+    @Input() shopList: ShopItem[];
 
     @Input() lastUpdated: string;
     @Input() isLoading: boolean;
+    @Input() hasMore: boolean;
 
-    @Output() refreshData: EventEmitter<void> = new EventEmitter();
-    @Output() activateShop = new EventEmitter<string>();
-    @Output() suspendShop = new EventEmitter<string>();
+    @Output() refresh = new EventEmitter<void>();
+    @Output() showMore = new EventEmitter<void>();
 
-    shops$ = this.shopsPanelsListService.shops$;
-    selectedPanelPosition$ = this.shopsPanelsListService.selectedPanelPosition$;
-    hasMore$ = this.shopsPanelsListService.hasMore$;
+    expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
 
-    constructor(private shopsPanelsListService: ShopsListService) {}
+    constructor(private expandedIdManager: ShopsExpandedIdManagerService) {}
 
-    suspend(id: string): void {
-        this.suspendShop.emit(id);
+    get isListExist(): boolean {
+        return !isNil(this.shopList);
     }
 
-    activate(id: string): void {
-        this.activateShop.emit(id);
+    get isEmptyList(): boolean {
+        return this.isListExist && this.shopList.length === 0;
     }
 
-    showMore(): void {
-        this.shopsPanelsListService.showMore();
+    refreshList(): void {
+        this.refresh.emit();
     }
 
-    select(idx: number): void {
-        this.shopsPanelsListService.select(idx);
+    showMoreElements(): void {
+        this.showMore.emit();
+    }
+
+    expandedIdChange(id: number) {
+        this.expandedIdManager.expandedIdChange(id);
     }
 }

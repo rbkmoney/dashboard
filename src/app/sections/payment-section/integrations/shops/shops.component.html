@@ -8,9 +8,9 @@
         [shopList]="shops$ | async"
         [lastUpdated]="lastUpdated$ | async"
         [isLoading]="isLoading$ | async"
-        (refreshData)="refreshData()"
-        (suspendShop)="suspend($event)"
-        (activateShop)="activate($event)"
+        [hasMore]="hasMore$ | async"
+        (refresh)="refreshData()"
+        (showMore)="showMore()"
     >
     </dsh-shops-list>
 </div>

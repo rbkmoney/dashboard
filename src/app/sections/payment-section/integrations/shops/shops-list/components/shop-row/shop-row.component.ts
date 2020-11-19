@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopItem } from '../../interfaces';
+import { ShopItem } from '../../../models';
 
 @Component({
     selector: 'dsh-shop-row',

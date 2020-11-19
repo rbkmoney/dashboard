@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
-import { Category } from '../../../../../../../api-codegen/capi/swagger-codegen';
-import { ShopItem } from '../../../interfaces';
-import { CategoryService } from '../category.service';
+import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
+import { ShopItem } from '../../../../models';
+import { CategoryService } from '../../services/category/category.service';
 
 @Component({
     selector: 'dsh-shop-info',
