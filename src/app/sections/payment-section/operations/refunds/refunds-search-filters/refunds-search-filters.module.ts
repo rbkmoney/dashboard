@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { FilterShopsModule, InvoicesFilterModule } from '@dsh/app/shared/*';
+import { FilterShopsModule, InvoicesFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
 import { FiltersModule } from '@dsh/components/filters';
 
-import { RefundStatusFilterModule } from '../../../../../shared/components/filters/refund-status-filter';
 import { RefundsSearchFiltersComponent } from './refunds-search-filters.component';
 
 @NgModule({

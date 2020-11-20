@@ -4,21 +4,23 @@
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.operations'"
 >
     <h1 class="dsh-display-1">{{ t('headline') }}</h1>
-    <nav dsh-tab-nav-bar>
-        <a
-            dsh-tab-link
-            *ngFor="let link of links"
-            [routerLink]="link.path"
-            routerLinkActive
-            #rla="routerLinkActive"
-            [active]="rla.isActive"
-        >
-            <span *transloco="let tabs; scope: 'payment-section'; read: 'paymentSection.operations.tabs'">{{
-                tabs(link.path)
-            }}</span>
-        </a>
-    </nav>
-    <div>
-        <router-outlet></router-outlet>
+    <div fxLayout="column" fxLayoutGap="32px">
+        <nav dsh-tab-nav-bar>
+            <a
+                dsh-tab-link
+                *ngFor="let link of links"
+                [routerLink]="link.path"
+                routerLinkActive
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+            >
+                <span *transloco="let tabs; scope: 'payment-section'; read: 'paymentSection.operations.tabs'">{{
+                    tabs(link.path)
+                }}</span>
+            </a>
+        </nav>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

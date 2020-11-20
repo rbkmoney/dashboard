@@ -5,6 +5,6 @@
 >
     <div class="mat-title">{{ t('title') }}</div>
     <dsh-payment-details *ngIf="payment$ | async as payment" [payment]="payment"></dsh-payment-details>
-    <div *ngIf="isLoading">{{ t('loading') }}</div>
-    <div *ngIf="isError">{{ t('error') }}</div>
+    <div *ngIf="isLoading$ | async">{{ t('loading') }}</div>
+    <div *ngIf="errorOccurred$ | async">{{ t('error') }}</div>
 </div>

@@ -4,7 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ApiModelRefsModule, RefundDetailsModule as ApiRefundDetailsModule } from '@dsh/app/shared/*';
+import { RefundDetailsModule as ApiRefundDetailsModule } from '@dsh/app/shared/components';
+import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 

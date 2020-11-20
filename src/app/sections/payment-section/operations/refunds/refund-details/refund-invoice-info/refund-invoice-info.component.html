@@ -7,6 +7,6 @@
         {{ t('title') }} <span dshSecondaryTitle>#{{ (invoice$ | async)?.id }}</span>
     </div>
     <dsh-invoice-details *ngIf="invoice$ | async as invoice" [invoice]="invoice"></dsh-invoice-details>
-    <div *ngIf="isLoading">{{ t('loading') }}</div>
-    <div *ngIf="isError">{{ t('error') }}</div>
+    <div *ngIf="isLoading$ | async">{{ t('loading') }}</div>
+    <div *ngIf="errorOccurred$ | async">{{ t('error') }}</div>
 </div>
