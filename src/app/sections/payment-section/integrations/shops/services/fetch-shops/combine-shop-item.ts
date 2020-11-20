@@ -1,13 +1,12 @@
 import { isNil } from '@ngneat/transloco';
-import cloneDeep from 'lodash.clonedeep';
 
-import { Dict } from '../../../../../../type-utils';
-import { Shop as ApiShop } from '../../../../../api-codegen/capi/swagger-codegen';
-import { ShopBalance, ShopItem } from '../models';
+import { Dict } from '../../../../../../../type-utils';
+import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
+import { ShopBalance, ShopItem } from '../../types';
 
 export function combineShopItem(shops: ApiShop[], balances: ShopBalance[]): ShopItem[] {
     const balancesMap = balances.reduce((acc: Dict<ShopBalance>, el: ShopBalance) => {
-        acc[el.id] = cloneDeep(el);
+        acc[el.id] = el;
         return acc;
     }, {});
 

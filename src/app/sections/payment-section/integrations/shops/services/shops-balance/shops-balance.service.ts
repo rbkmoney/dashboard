@@ -5,7 +5,7 @@ import { catchError, distinctUntilChanged, map, shareReplay, switchMap } from 'r
 
 import { AnalyticsService } from '../../../../../../api/analytics';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
-import { ShopBalance } from '../../models';
+import { ShopBalance } from '../../types';
 
 @Injectable()
 export class ShopsBalanceService {

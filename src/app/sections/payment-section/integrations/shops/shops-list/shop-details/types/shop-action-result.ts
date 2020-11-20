@@ -1,4 +1,4 @@
-export enum ShopActionResultEnum {
+export enum ShopActionResult {
     SUCCESS = 'success',
     ERROR = 'error',
 }

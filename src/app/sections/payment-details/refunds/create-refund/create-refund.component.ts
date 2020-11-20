@@ -23,7 +23,7 @@ export interface CreateRefundData {
 
 @Component({
     selector: 'dsh-create-refund',
-    templateUrl: './create-refund.component.html',
+    templateUrl: 'create-refund.component.html',
     providers: [CreateRefundService],
 })
 export class CreateRefundComponent implements OnInit {

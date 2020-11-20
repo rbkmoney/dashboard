@@ -3,12 +3,12 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
 import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ShopItem } from '../../../../models';
+import { ShopItem } from '../../../../types';
 import { CategoryService } from '../../services/category/category.service';
 
 @Component({
     selector: 'dsh-shop-info',
-    templateUrl: './shop-info.component.html',
+    templateUrl: 'shop-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopInfoComponent {

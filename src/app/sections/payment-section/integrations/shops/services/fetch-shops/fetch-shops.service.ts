@@ -17,16 +17,16 @@ import { PaymentInstitutionRealm } from '../../../../../../api/model';
 import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm, mapToTimestamp } from '../../../../operations/operators';
-import { ShopBalance, ShopItem } from '../../models';
-import { combineShopItem } from '../../utils';
+import { ShopBalance, ShopItem } from '../../types';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
+import { combineShopItem } from './combine-shop-item';
 
 const LIST_OFFSET = 5;
 
 @Injectable()
 export class FetchShopsService {
     allShops$: Observable<ApiShop[]>;
-    shops$: Observable<ShopItem[]>;
+    loadedShops$: Observable<ShopItem[]>;
     lastUpdated$: Observable<string>;
     isLoading$: Observable<boolean>;
     hasMore$: Observable<boolean>;
@@ -36,21 +36,23 @@ export class FetchShopsService {
 
     private realmData$ = new ReplaySubject<PaymentInstitutionRealm>(1);
 
-    // actions
     private showMore$ = new Subject<void>();
     private loader$ = new BehaviorSubject<boolean>(true);
 
     constructor(private apiShopsService: ApiShopsService, private shopsBalance: ShopsBalanceService) {
-        this.init();
+        this.initAllShopsFetching();
+        this.initOffsetObservable();
+        this.initShownShopsObservable();
+        this.initIndicators();
     }
 
-    setSelectedIndex(index: number): void {
-        this.selectedIndex$.next(index);
-        this.showMore$.next();
-    }
-
-    setRealm(realm: PaymentInstitutionRealm): void {
+    initRealm(realm: PaymentInstitutionRealm): void {
         this.realmData$.next(realm);
+    }
+
+    initOffsetIndex(offsetIndex: number): void {
+        this.selectedIndex$.next(offsetIndex);
+        this.showMore$.next();
     }
 
     refreshData(): void {
@@ -71,16 +73,9 @@ export class FetchShopsService {
         this.loader$.next(false);
     }
 
-    protected updateShopsBalances(shops: ApiShop[]) {
-        const shopIds = shops.map(({ id }: ApiShop) => id);
+    protected updateShopsBalances(shops: ApiShop[]): void {
+        const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
         this.shopsBalance.setShopIds(shopIds);
-    }
-
-    protected init(): void {
-        this.initAllShopsFetching();
-        this.initOffsetListeners();
-        this.initShownShopsListeners();
-        this.initIndicators();
     }
 
     private initAllShopsFetching(): void {
@@ -90,18 +85,18 @@ export class FetchShopsService {
         );
     }
 
-    private initOffsetListeners(): void {
+    private initOffsetObservable(): void {
         this.listOffset$ = this.showMore$.pipe(
             mapTo(LIST_OFFSET),
             withLatestFrom(this.selectedIndex$),
             map(([curOffset]: [number, number]) => curOffset),
-            scan((offset, limit) => offset + limit, 0),
+            scan((offset: number, limit: number) => offset + limit, 0),
             shareReplay(SHARE_REPLAY_CONF)
         );
     }
 
-    private initShownShopsListeners(): void {
-        this.shops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
+    private initShownShopsObservable(): void {
+        this.loadedShops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
             map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
             tap((shops: ApiShop[]) => {
                 this.updateShopsBalances(shops);

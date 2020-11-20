@@ -7,7 +7,7 @@ import { PayerType } from './payer-details';
 import { ReceivePaymentService } from './receive-payment.service';
 
 @Component({
-    templateUrl: './payment-details.component.html',
+    templateUrl: 'payment-details.component.html',
     styleUrls: ['./payment-details.component.scss'],
     providers: [ReceivePaymentService],
 })

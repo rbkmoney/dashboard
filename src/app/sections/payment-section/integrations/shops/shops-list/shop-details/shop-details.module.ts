@@ -12,11 +12,11 @@ import { DetailsItemModule } from '@dsh/components/layout';
 import { CategoriesModule } from '../../../../../../api/categories';
 import { ContractsModule } from '../../../../../../api/contracts';
 import { ShopBalanceModule } from '../shop-balance';
-import { ShopActionsComponent } from './components/shop-actions';
-import { ShopContractDetailsComponent } from './components/shop-contract-details';
-import { ShopIdComponent } from './components/shop-id';
-import { ShopInfoComponent } from './components/shop-info';
-import { ShopPayoutToolDetailsComponent } from './components/shop-payout-tool-details';
+import { ShopActionsComponent } from './components/shop-actions/shop-actions.component';
+import { ShopContractDetailsComponent } from './components/shop-contract-details/shop-contract-details.component';
+import { ShopIdComponent } from './components/shop-id/shop-id.component';
+import { ShopInfoComponent } from './components/shop-info/shop-info.component';
+import { ShopPayoutToolDetailsComponent } from './components/shop-payout-tool-details/shop-payout-tool-details.component';
 import { CategoryService } from './services/category/category.service';
 import { ShopDetailsComponent } from './shop-details.component';
 

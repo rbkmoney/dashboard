@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ShopItem } from '../../models';
+import { ShopItem } from '../../types';
 
 @Component({
     selector: 'dsh-shop-details',
-    templateUrl: './shop-details.component.html',
+    templateUrl: 'shop-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopDetailsComponent {

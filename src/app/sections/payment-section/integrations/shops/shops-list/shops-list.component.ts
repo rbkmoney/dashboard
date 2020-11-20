@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
-import { ShopItem } from '../models';
+import { ShopItem } from '../types';
 import { ShopsExpandedIdManagerService } from './services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-shops-list',
-    templateUrl: './shops-list.component.html',
+    templateUrl: 'shops-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopsListComponent {

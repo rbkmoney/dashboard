@@ -10,8 +10,8 @@ import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ToMajorModule } from '../../../../../to-major';
-import { ShopRowComponent } from './components/shop-row';
-import { ShopRowHeaderComponent } from './components/shop-row-header';
+import { ShopRowHeaderComponent } from './components/shop-row-header/shop-row-header.component';
+import { ShopRowComponent } from './components/shop-row/shop-row.component';
 import { ShopBalanceModule } from './shop-balance';
 import { ShopDetailsModule } from './shop-details';
 import { ShopsListComponent } from './shops-list.component';

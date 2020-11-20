@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
-import { ShopItem } from '../../../../models';
+import { ShopItem } from '../../../../types';
+import { isSuccessfulShopAction } from '../../services/shop-actions/is-successful-shop-action';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
-import { isSuccessfulShopAction } from '../../services/shop-actions/utils';
 
 @Component({
     selector: 'dsh-shop-actions',
-    templateUrl: './shop-actions.component.html',
+    templateUrl: 'shop-actions.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ShopActionsService],
 })

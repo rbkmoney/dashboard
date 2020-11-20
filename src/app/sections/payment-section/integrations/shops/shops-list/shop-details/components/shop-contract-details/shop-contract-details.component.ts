@@ -4,7 +4,7 @@ import { ShopContractDetailsService } from '../../services/shop-contract-details
 
 @Component({
     selector: 'dsh-shop-contract-details',
-    templateUrl: './shop-contract-details.component.html',
+    templateUrl: 'shop-contract-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ShopContractDetailsService],
 })

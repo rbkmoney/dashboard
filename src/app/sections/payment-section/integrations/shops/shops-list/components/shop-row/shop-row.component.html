@@ -7,8 +7,8 @@
 </ng-template>
 
 <ng-template #tableGrid let-item>
-    <dsh-row-label fxFlex="50" fxFlex.lt-md="33">{{ item.details.name }}</dsh-row-label>
-    <dsh-row-label fxFlex="50">
+    <dsh-row-label fxFlex>{{ item.details.name }}</dsh-row-label>
+    <dsh-row-label fxFlex fxHide.lt-md>
         <dsh-shop-balance [shop]="shop"></dsh-shop-balance>
     </dsh-row-label>
 </ng-template>

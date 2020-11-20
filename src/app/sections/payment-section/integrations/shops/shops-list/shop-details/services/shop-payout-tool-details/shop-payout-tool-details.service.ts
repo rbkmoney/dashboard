@@ -4,7 +4,7 @@ import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/o
 
 import { PayoutsService } from '../../../../../../../../api';
 import { PayoutTool } from '../../../../../../../../api-codegen/capi';
-import { PayoutToolParams } from '../../types';
+import { PayoutToolParams } from '../../types/payout-tool-params';
 
 @Injectable()
 export class ShopPayoutToolDetailsService {

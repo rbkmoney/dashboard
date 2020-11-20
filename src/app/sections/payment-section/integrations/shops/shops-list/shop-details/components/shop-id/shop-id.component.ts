@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'dsh-shop-id',
-    templateUrl: './shop-id.component.html',
+    templateUrl: 'shop-id.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopIdComponent {
