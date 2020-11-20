@@ -2,38 +2,41 @@ import * as del from 'del';
 import * as path from 'path';
 
 import * as config from '../swagger-codegen-config.json';
-import { execWithLog } from './exec-with-log';
+import { createLog } from './utils/create-log';
+import { execWithLog } from './utils/exec-with-log';
 
 type Schemes = { [name: string]: string };
 
-async function swaggerCodegenAngularCli({ schemes, outputDir }: { schemes: Schemes; outputDir: string }) {
-    const log = (text: string) => console.log(`[Swagger Codegen 2]: ${text}`);
-    log('generate...');
+async function swaggerCodegenAngularCli({
+    schemes,
+    outputDir,
+    outputRootDir,
+    cliPath,
+}: {
+    schemes: Schemes;
+    outputDir: string;
+    outputRootDir: string;
+    cliPath: string;
+}) {
+    const swaggerLog = createLog('Swagger 2 Codegen');
+    swaggerLog('Generate...');
     await Promise.all(
         Object.entries(schemes).map(async ([specName, specPath]) => {
-            const cliPath = path.join(config.rootDir, config.cli);
             const inputPath = specPath;
-            const outputDirPath = path.join(config.outputRootDir, specName, outputDir);
+            const outputDirPath = path.join(outputRootDir, specName, outputDir);
 
             await del([outputDirPath]);
-            log(`${outputDirPath} deleted`);
+            swaggerLog(`${outputDirPath} deleted`);
+
             const cmd = `java -jar ${cliPath} generate -l typescript-angular --additional-properties ngVersion=7 -i ${inputPath} -o ${outputDirPath}`;
-            log(`> ${cmd}`);
+            swaggerLog(`> ${cmd}`);
             return execWithLog(cmd);
         })
     );
-    log('Successfully generated 😀');
+    swaggerLog('Successfully generated 😀');
 }
 
 (async () => {
-    const { outputDir } = config;
-    try {
-        await swaggerCodegenAngularCli({
-            schemes: config.schemes,
-            outputDir,
-        });
-    } catch (e) {
-        console.error(e);
-        throw new Error('Not generated 😞');
-    }
+    const cliPath = path.join(config.rootDir, config.cli);
+    await swaggerCodegenAngularCli({ ...config, cliPath });
 })();
