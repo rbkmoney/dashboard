@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RefundSearchResult } from '../../../../../api-codegen/anapi';
 
 @Component({
-    selector: 'dsh-details',
-    templateUrl: 'details.component.html',
+    selector: 'dsh-refund-refund-details',
+    templateUrl: 'refund-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent {
+export class RefundDetailsComponent {
     @Input() refund: RefundSearchResult;
 }

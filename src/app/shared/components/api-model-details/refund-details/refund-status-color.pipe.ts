@@ -8,12 +8,13 @@ import { StatusColor } from '../../../../theme-manager';
 })
 export class RefundStatusColorPipe implements PipeTransform {
     transform(status: RefundSearchResult.StatusEnum): StatusColor {
+        const statuses = RefundSearchResult.StatusEnum;
         switch (status) {
-            case 'succeeded':
+            case statuses.Succeeded:
                 return StatusColor.success;
-            case 'failed':
+            case statuses.Failed:
                 return StatusColor.warn;
-            case 'pending':
+            case statuses.Pending:
                 return StatusColor.pending;
             default:
                 return StatusColor.neutral;

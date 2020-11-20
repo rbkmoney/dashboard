@@ -28,6 +28,7 @@ export class RefundSearchService {
             params.shopIDs,
             params.paymentInstitutionRealm,
             undefined,
+            params.invoiceIDs,
             params.invoiceID,
             params.paymentID,
             params.refundID,

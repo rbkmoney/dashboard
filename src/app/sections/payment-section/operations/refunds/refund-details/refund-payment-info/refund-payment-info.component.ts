@@ -1,28 +1,27 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { shareReplay, take } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentService } from '../../../../../../api/payment';
 
 @Component({
-    selector: 'dsh-payment-info',
-    templateUrl: 'payment-info.component.html',
+    selector: 'dsh-refund-payment-info',
+    templateUrl: 'refund-payment-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [PaymentService],
 })
-export class PaymentInfoComponent implements OnInit {
+export class RefundPaymentInfoComponent implements OnInit {
     @Input() invoiceID: string;
     @Input() paymentID: string;
 
-    payment$ = new Subject<PaymentSearchResult>();
+    payment$: Observable<PaymentSearchResult>;
 
     constructor(private paymentService: PaymentService) {}
 
     ngOnInit() {
-        this.paymentService
+        this.payment$ = this.paymentService
             .getPaymentByID(this.invoiceID, this.paymentID)
-            .pipe(take(1))
-            .subscribe((payment) => this.payment$.next(payment));
+            .pipe(take(1), shareReplay(1));
     }
 }

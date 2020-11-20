@@ -6,11 +6,6 @@ export type ExpandedID = number;
 
 export type DataSetItemID = { id: string | number };
 
-// const dataIdToFragment = <T extends DataSetItemID>(id: T['id']): string => (!!id ? id + '' : '');
-//
-// const byFragment = (fragment: string) => ({ id }: DataSetItemID) => id + '' === fragment;
-// const findExpandedId = <T extends DataSetItemID>(fragment: string) => (d: T[]) => d.findIndex(byFragment(fragment));
-
 export abstract class ExpandedIdManager<T extends DataSetItemID> {
     private expandedIdChange$: Subject<ExpandedID> = new Subject();
 

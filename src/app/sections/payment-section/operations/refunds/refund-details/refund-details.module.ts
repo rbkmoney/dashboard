@@ -5,19 +5,20 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import {
+    InvoiceDetailsModule,
+    PaymentDetailsModule,
+    RefundDetailsModule as ApiRefundDetailsModule,
+} from '@dsh/app/shared/*';
 import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { InvoiceDetailsModule } from '../../../../../shared/components/api-model-details/invoice-details';
-import { PaymentDetailsModule } from '../../../../../shared/components/api-model-details/payment-details';
-import { RefundDetailsModule } from '../../../../../shared/components/api-model-details/refund-details';
-import { RefundPipesModule } from '../refund-pipes';
-import { DetailsComponent } from './details.component';
-import { InvoiceInfoComponent } from './invoice-info';
-import { MainInfoComponent } from './main-info';
-import { PaymentInfoComponent } from './payment-info';
+import { RefundDetailsComponent } from './refund-details.component';
+import { RefundInvoiceInfoComponent } from './refund-invoice-info';
+import { RefundMainInfoComponent } from './refund-main-info';
+import { RefundPaymentInfoComponent } from './refund-payment-info';
 
 @NgModule({
     imports: [
@@ -30,12 +31,16 @@ import { PaymentInfoComponent } from './payment-info';
         MatDividerModule,
         IndicatorsModule,
         ApiModelRefsModule,
-        RefundPipesModule,
-        RefundDetailsModule,
+        ApiRefundDetailsModule,
         InvoiceDetailsModule,
         PaymentDetailsModule,
     ],
-    declarations: [DetailsComponent, MainInfoComponent, InvoiceInfoComponent, PaymentInfoComponent],
-    exports: [DetailsComponent],
+    declarations: [
+        RefundDetailsComponent,
+        RefundMainInfoComponent,
+        RefundInvoiceInfoComponent,
+        RefundPaymentInfoComponent,
+    ],
+    exports: [RefundDetailsComponent],
 })
-export class DetailsModule {}
+export class RefundDetailsModule {}
