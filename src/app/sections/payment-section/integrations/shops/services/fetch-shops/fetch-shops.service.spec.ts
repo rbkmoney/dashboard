@@ -29,12 +29,11 @@ class MockApiShopsService {
     setMockShops(shops: Shop[]): void {
         this.mockShops = shops;
     }
-
 }
 
 class MockAnalyticsService {
     private innerResponse: InlineResponse200 = {
-        result: []
+        result: [],
     };
 
     getGroupBalances(): Observable<InlineResponse200> {
@@ -56,7 +55,7 @@ describe('FetchShopsService', () => {
     beforeEach(() => {
         apiShopsService = new MockApiShopsService();
         analyticsService = new MockAnalyticsService();
-    })
+    });
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -70,15 +69,15 @@ describe('FetchShopsService', () => {
                 {
                     provide: AnalyticsService,
                     useValue: analyticsService,
-                }
-            ]
+                },
+            ],
         });
     });
 
     beforeEach(() => {
         service = TestBed.inject(FetchShopsService);
         balancesService = TestBed.inject(ShopsBalanceService);
-    })
+    });
 
     it('should be created', () => {
         expect(service).toBeTruthy();
@@ -152,25 +151,24 @@ describe('FetchShopsService', () => {
                         guaranteeID: 2,
                         settlementID: 2,
                     },
-                }
+                },
             ]);
 
             const expectedShops$ = cold('a', {
-                a: [
-                    'mock1',
-                    'mock2',
-                ]
-            })
+                a: ['mock1', 'mock2'],
+            });
 
             apiShopsService.reloadShops();
             service.initRealm(PaymentInstitutionRealm.test);
 
-            expect(service.allShops$.pipe(
-                map((list) => {
-                    return list.map(({ id }) => id);
-                })
-            )).toBeObservable(expectedShops$);
-        })
+            expect(
+                service.allShops$.pipe(
+                    map((list) => {
+                        return list.map(({ id }) => id);
+                    })
+                )
+            ).toBeObservable(expectedShops$);
+        });
     });
 
     describe('initOffsetIndex', () => {
@@ -329,29 +327,25 @@ describe('FetchShopsService', () => {
                         guaranteeID: 2,
                         settlementID: 2,
                     },
-                }
+                },
             ]);
 
             const expectedShops$ = cold('a', {
-                a: [
-                    'mock1',
-                    'mock2',
-                    'mock3',
-                    'mock4',
-                    'mock5',
-                ]
+                a: ['mock1', 'mock2', 'mock3', 'mock4', 'mock5'],
             });
 
             apiShopsService.reloadShops();
             service.initRealm(PaymentInstitutionRealm.test);
             service.initOffsetIndex(3);
 
-            expect(service.loadedShops$.pipe(
-                map((list) => {
-                    return list.map(({ id }) => id);
-                })
-            )).toBeObservable(expectedShops$);
-        })
+            expect(
+                service.loadedShops$.pipe(
+                    map((list) => {
+                        return list.map(({ id }) => id);
+                    })
+                )
+            ).toBeObservable(expectedShops$);
+        });
     });
 
     describe('refreshData', () => {
@@ -436,23 +430,22 @@ describe('FetchShopsService', () => {
                         guaranteeID: 2,
                         settlementID: 2,
                     },
-                }
+                },
             ]);
 
             service.refreshData();
 
             const expectedShops$ = cold('a', {
-                a: [
-                    'mock6',
-                    'mock16',
-                ]
+                a: ['mock6', 'mock16'],
             });
 
-            expect(service.allShops$.pipe(
-                map((list) => {
-                    return list.map(({ id }) => id);
-                })
-            )).toBeObservable(expectedShops$);
+            expect(
+                service.allShops$.pipe(
+                    map((list) => {
+                        return list.map(({ id }) => id);
+                    })
+                )
+            ).toBeObservable(expectedShops$);
         });
 
         it('should update loading value', () => {
@@ -464,11 +457,13 @@ describe('FetchShopsService', () => {
 
             service.refreshData();
 
-            expect(service.isLoading$).toBeObservable(cold('a', {
-                a: true,
-            }));
+            expect(service.isLoading$).toBeObservable(
+                cold('a', {
+                    a: true,
+                })
+            );
         });
-    })
+    });
 
     describe('showMore', () => {
         it('should update loading value', () => {
@@ -480,9 +475,11 @@ describe('FetchShopsService', () => {
 
             service.showMore();
 
-            expect(service.isLoading$).toBeObservable(cold('a', {
-                a: true,
-            }));
+            expect(service.isLoading$).toBeObservable(
+                cold('a', {
+                    a: true,
+                })
+            );
         });
-    })
+    });
 });
