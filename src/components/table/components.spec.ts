@@ -25,7 +25,7 @@ class FakeDataSource extends DataSource<TestData> {
 
     constructor() {
         super();
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i += 1) {
             this.addData();
         }
     }

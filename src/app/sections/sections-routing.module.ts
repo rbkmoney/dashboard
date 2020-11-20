@@ -41,6 +41,10 @@ const routes: Routes = [
         loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
     {
+        path: 'organizations',
+        loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
+    },
+    {
         path: '**',
         loadChildren: () => import('./page-not-found').then((m) => m.PageNotFoundModule),
     },

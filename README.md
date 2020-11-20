@@ -13,15 +13,22 @@
 
 ## Initialization
 
+### Init submodules
+
 ```sh
-# Init submodules
 git submodule init
 git submodule update
+```
 
-# Generate Angular modules from swags
+### Generate Angular modules from swags
+
+```sh
 npm run codegen
+```
 
-# Install packages
+### Install packages
+
+```sh
 npm ci
 ```
 
@@ -55,13 +62,13 @@ npm ci
 1.  Add submodule
 
     ```sh
-    git submodule -b <SCHEME_BRANCH> add <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
+    git submodule add -b <SCHEME_BRANCH> <SCHEME_REPO> schemes/<SCHEME_NAME>/<VER:VX>
     ```
 
 1.  Add `schemes/<SCHEME_NAME>/<VER:VX>` to `Makefile` `SWAGGER_SCHEMES_PATH` property
-1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `swagger-codegen-config.json` `schemes`/`schemes3` property
-1.  [Generate Angular modules from swags](#Generate-Angular-modules-from-swags)
-1.  Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
+1.  Add `"<SCHEME_NAME>": "schemes/<SCHEME_NAME>/<VER:VX>"` to `openapi-codegen-config.json` `schemes` property
+1.  [Regenerate Angular modules from swags](#Generate-Angular-modules-from-swags)
+1.  (\*) Add `"<SCHEME_NAME>Endpoint": "<URL>"` to `src/assets/appConfig.json` `api` property
 1.  Add in `src/api-codegen/<SCHEME_NAME>` files:
     -   `index.ts`
     -   `<SCHEME_NAME>.module.ts`
