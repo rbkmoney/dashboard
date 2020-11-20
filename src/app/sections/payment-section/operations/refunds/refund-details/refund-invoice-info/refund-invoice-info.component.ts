@@ -6,11 +6,11 @@ import { Invoice } from '../../../../../../api-codegen/capi';
 import { InvoiceService } from '../../../../../../api/invoice';
 
 @Component({
-    selector: 'dsh-invoice-info',
-    templateUrl: 'invoice-info.component.html',
+    selector: 'dsh-refund-invoice-info',
+    templateUrl: 'refund-invoice-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceInfoComponent implements OnInit {
+export class RefundInvoiceInfoComponent implements OnInit {
     @Input() invoiceID: string;
 
     invoice$: Observable<Invoice>;

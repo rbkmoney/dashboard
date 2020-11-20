@@ -6,12 +6,12 @@ import { PaymentSearchResult } from '../../../../../../api-codegen/capi/swagger-
 import { PaymentService } from '../../../../../../api/payment';
 
 @Component({
-    selector: 'dsh-payment-info',
-    templateUrl: 'payment-info.component.html',
+    selector: 'dsh-refund-payment-info',
+    templateUrl: 'refund-payment-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [PaymentService],
 })
-export class PaymentInfoComponent implements OnInit {
+export class RefundPaymentInfoComponent implements OnInit {
     @Input() invoiceID: string;
     @Input() paymentID: string;
 
