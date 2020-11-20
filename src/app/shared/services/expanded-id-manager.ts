@@ -21,7 +21,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
         this.expandedIdChange$
             .pipe(
                 switchMap((expandedId) => this.dataSet$.pipe(pluck(expandedId))),
-                map((dataSetItem) => this.toFragment(dataSetItem))
+                map((dataSetItem) => (!!dataSetItem ? this.toFragment(dataSetItem) : ''))
             )
             .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }
@@ -34,8 +34,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
     }
 
     protected toFragment(dataSetItem: T): Fragment {
-        const id = dataSetItem?.id;
-        return !!id ? id + '' : '';
+        return dataSetItem.id + '';
     }
 
     protected abstract get dataSet$(): Observable<T[]>;

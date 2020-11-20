@@ -17,8 +17,8 @@ export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResu
         super(route, router);
     }
 
-    toFragment(r: RefundSearchResult): Fragment {
-        return !!r ? `${r.invoiceID}${r.paymentID}${r.id}` : '';
+    protected toFragment(r: RefundSearchResult): Fragment {
+        return `${r.invoiceID}${r.paymentID}${r.id}`;
     }
 
     protected get dataSet$(): Observable<RefundSearchResult[]> {
