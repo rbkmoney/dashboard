@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
-import { PayoutsService, ShopService } from '../../../../api';
+import { ApiShopsService, PayoutsService } from '../../../../api';
 import { toPayoutParams } from './to-payout-params';
 
 @Injectable()
@@ -30,7 +30,7 @@ export class CreatePayoutDialogService {
         shareReplay(1)
     );
 
-    constructor(private shopsService: ShopService, private payoutsService: PayoutsService) {
+    constructor(private shopsService: ApiShopsService, private payoutsService: PayoutsService) {
         merge(this.payoutTools$, this.hasPayoutTools$).subscribe();
         this.create$
             .pipe(

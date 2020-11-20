@@ -5,7 +5,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ApiModelRefsModule, ApiModelTypesModule, PayoutToolDetailsModule } from '@dsh/app/shared/pipes';
+import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
+import { ApiModelRefsModule, ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';

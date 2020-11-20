@@ -8,7 +8,7 @@ import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { InvoiceSearchService } from '../../../../api';
 import { Invoice } from '../../../../api-codegen/anapi';
 import { Shop } from '../../../../api-codegen/capi';
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { filterShopsByRealm, mapToTimestamp } from '../operators';
@@ -42,7 +42,7 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
     constructor(
         private route: ActivatedRoute,
         private invoiceSearchService: InvoiceSearchService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {

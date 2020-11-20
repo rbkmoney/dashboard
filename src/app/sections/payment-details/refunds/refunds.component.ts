@@ -11,7 +11,7 @@ const PaymentStatuses = PaymentSearchResult.StatusEnum;
 
 @Component({
     selector: 'dsh-refunds',
-    templateUrl: './refunds.component.html',
+    templateUrl: 'refunds.component.html',
     styleUrls: ['./refunds.component.scss'],
     providers: [RefundsService],
 })

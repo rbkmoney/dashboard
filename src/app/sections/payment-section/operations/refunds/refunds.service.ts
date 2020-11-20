@@ -7,7 +7,7 @@ import { catchError, pluck, switchMap } from 'rxjs/operators';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { RefundSearchService } from '../../../../api/search';
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToRefundsTableData } from './map-to-refunds-table-data';
@@ -35,7 +35,7 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         private route: ActivatedRoute,
         private refundSearchService: RefundSearchService,
         private snackBar: MatSnackBar,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private transloco: TranslocoService
     ) {
         super();

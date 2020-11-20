@@ -11,7 +11,7 @@ export enum PayerType {
 
 @Component({
     selector: 'dsh-payer-details',
-    templateUrl: './payer-details.component.html',
+    templateUrl: 'payer-details.component.html',
 })
 export class PayerDetailsComponent {
     @Input() payer: Payer;

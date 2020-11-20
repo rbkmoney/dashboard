@@ -8,7 +8,7 @@ import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 
-import { ShopService } from '../../../../../api';
+import { ApiShopsService } from '../../../../../api';
 import { Shop } from '../../../../../api-codegen/capi';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
@@ -36,7 +36,7 @@ export class SearchFormService {
         private fb: FormBuilder,
         private router: Router,
         private route: ActivatedRoute,
-        private shopService: ShopService
+        private shopService: ApiShopsService
     ) {
         this.formValueChanges$.subscribe((formValues) =>
             this.router.navigate([location.pathname], { queryParams: toQueryParams(formValues) })

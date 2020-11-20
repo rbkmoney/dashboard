@@ -47,7 +47,8 @@ export class CreateInvoiceTemplateService {
     form = this.createForm();
 
     summary$ = this.cartForm.valueChanges.pipe(
-        startWith(this.cartForm.value),
+        // TODO: add form types
+        startWith<any, any>(this.cartForm.value),
         map((v) => v.reduce((sum, c) => sum + c.price * c.quantity, 0)),
         shareReplay(1)
     );
@@ -123,7 +124,7 @@ export class CreateInvoiceTemplateService {
 
     private subscribeFormChanges() {
         const templateType$ = this.form.controls.templateType.valueChanges.pipe(
-            startWith(this.form.value.templateType),
+            startWith<TemplateType, TemplateType>(this.form.value.templateType),
             shareReplay(SHARE_REPLAY_CONF)
         );
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));

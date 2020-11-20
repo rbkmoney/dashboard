@@ -6,7 +6,7 @@ import { DistributionChartData } from '../utils';
 
 @Component({
     selector: 'dsh-donut-chart-item',
-    templateUrl: './donut-chart-item.component.html',
+    templateUrl: 'donut-chart-item.component.html',
     styleUrls: ['donut-chart-item.component.scss'],
 })
 export class DonutChartItemComponent implements OnChanges {

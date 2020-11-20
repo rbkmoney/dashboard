@@ -7,7 +7,7 @@ import { ShopDetailsService } from './shop-details.service';
 
 @Component({
     selector: 'dsh-shop-details',
-    templateUrl: './shop-details.component.html',
+    templateUrl: 'shop-details.component.html',
 })
 export class ShopDetailsComponent implements OnInit {
     @Input() shopID: string;

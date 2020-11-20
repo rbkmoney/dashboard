@@ -5,13 +5,13 @@ import { switchMap } from 'rxjs/operators';
 import { Account, Refund, RefundParams, Shop } from '../../../../api-codegen/capi/swagger-codegen';
 import { AccountService } from '../../../../api/account';
 import { RefundService } from '../../../../api/refund';
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 
 @Injectable()
 export class CreateRefundService {
     constructor(
         private refundService: RefundService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private accountService: AccountService
     ) {}
 

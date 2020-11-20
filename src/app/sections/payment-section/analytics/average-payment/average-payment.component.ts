@@ -7,7 +7,7 @@ import { AveragePaymentService } from './average-payment.service';
 
 @Component({
     selector: 'dsh-average-payment',
-    templateUrl: './average-payment.component.html',
+    templateUrl: 'average-payment.component.html',
     providers: [AveragePaymentService],
 })
 export class AveragePaymentComponent implements OnChanges {
