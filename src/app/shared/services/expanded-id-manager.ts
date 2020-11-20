@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 export type ExpandedID = number;
-
+export type Fragment = string;
 export type DataSetItemID = { id: string | number };
 
 export abstract class ExpandedIdManager<T extends DataSetItemID> {
@@ -11,27 +11,17 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
 
     expandedId$: Observable<ExpandedID> = this.route.fragment.pipe(
         take(1),
-        switchMap((fragment) => this.dataSet$.pipe(map(this.findExpandedId(fragment)))),
+        switchMap((fragment) =>
+            this.dataSet$.pipe(map((d) => d.findIndex((item) => this.toFragment(item) === fragment)))
+        ),
         shareReplay(1)
     );
-
-    protected dataIdToFragment(data: T): string {
-        return !!data?.id ? data.id + '' : '';
-    }
-
-    protected byFragment(fragment: string) {
-        return ({ id }: DataSetItemID) => id + '' === fragment;
-    }
-
-    protected findExpandedId(fragment: string) {
-        return (d: T[]) => d.findIndex(this.byFragment(fragment));
-    }
 
     constructor(protected route: ActivatedRoute, protected router: Router) {
         this.expandedIdChange$
             .pipe(
                 switchMap((expandedId) => this.dataSet$.pipe(pluck(expandedId))),
-                map(this.dataIdToFragment)
+                map((dataSetItem) => this.toFragment(dataSetItem))
             )
             .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }
@@ -41,6 +31,11 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
             return;
         }
         this.expandedIdChange$.next(id);
+    }
+
+    protected toFragment(dataSetItem: T): Fragment {
+        const id = dataSetItem?.id;
+        return !!id ? id + '' : '';
     }
 
     protected abstract get dataSet$(): Observable<T[]>;

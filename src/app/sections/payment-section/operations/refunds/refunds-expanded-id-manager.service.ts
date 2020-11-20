@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ExpandedIdManager } from '@dsh/app/shared/services';
+import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
 import { FetchRefundsService } from './fetch-refunds.service';
-
-const refundToFragment = (refund: RefundSearchResult): string => `${refund.invoiceID}-${refund.paymentID}-${refund.id}`;
-const byFragment = (fragment: string) => (refund: RefundSearchResult) => refundToFragment(refund) === fragment;
 
 @Injectable()
 export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResult> {
@@ -20,12 +17,8 @@ export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResu
         super(route, router);
     }
 
-    dataIdToFragment(refund: RefundSearchResult): string {
-        return !!refund ? refundToFragment(refund) : '';
-    }
-
-    findExpandedId(fragment: string) {
-        return (d: RefundSearchResult[]) => d.findIndex(byFragment(fragment));
+    toFragment(r: RefundSearchResult): Fragment {
+        return !!r ? `${r.invoiceID}${r.paymentID}${r.id}` : '';
     }
 
     protected get dataSet$(): Observable<RefundSearchResult[]> {
