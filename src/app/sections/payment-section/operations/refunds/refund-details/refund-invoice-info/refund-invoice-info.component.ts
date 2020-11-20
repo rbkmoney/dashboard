@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { shareReplay, take } from 'rxjs/operators';
+import { EMPTY, Observable, ReplaySubject } from 'rxjs';
+import { catchError, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../../api-codegen/capi';
 import { InvoiceService } from '../../../../../../api/invoice';
@@ -13,11 +13,29 @@ import { InvoiceService } from '../../../../../../api/invoice';
 export class RefundInvoiceInfoComponent implements OnInit {
     @Input() invoiceID: string;
 
-    invoice$: Observable<Invoice>;
+    private receiveInvoice$ = new ReplaySubject<void>();
+
+    isLoading = false;
+    isError = false;
+
+    invoice$: Observable<Invoice> = this.receiveInvoice$.pipe(
+        tap(() => (this.isLoading = true)),
+        tap(() => console.log('NANI?')),
+        switchMap(() => this.invoiceService.getInvoiceByID(this.invoiceID)),
+        catchError(() => {
+            this.isLoading = false;
+            this.isError = true;
+            return EMPTY;
+        }),
+        tap((invoice) => console.log('invoiuce?', invoice)),
+        take(1),
+        shareReplay(1)
+    );
 
     constructor(private invoiceService: InvoiceService) {}
 
     ngOnInit() {
-        this.invoice$ = this.invoiceService.getInvoiceByID(this.invoiceID).pipe(take(1), shareReplay(1));
+        this.receiveInvoice$.next();
+        this.invoice$.subscribe(() => (this.isLoading = false));
     }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { shareReplay, take } from 'rxjs/operators';
+import { EMPTY, Observable, ReplaySubject } from 'rxjs';
+import { catchError, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentService } from '../../../../../../api/payment';
@@ -15,13 +15,27 @@ export class RefundPaymentInfoComponent implements OnInit {
     @Input() invoiceID: string;
     @Input() paymentID: string;
 
-    payment$: Observable<PaymentSearchResult>;
+    private receivePayment$ = new ReplaySubject<void>();
+
+    isLoading = false;
+    isError = false;
+
+    payment$: Observable<PaymentSearchResult> = this.receivePayment$.pipe(
+        tap(() => (this.isLoading = true)),
+        switchMap(() => this.paymentService.getPaymentByID(this.invoiceID, this.paymentID)),
+        catchError(() => {
+            this.isLoading = false;
+            this.isError = true;
+            return EMPTY;
+        }),
+        take(1),
+        shareReplay(1)
+    );
 
     constructor(private paymentService: PaymentService) {}
 
     ngOnInit() {
-        this.payment$ = this.paymentService
-            .getPaymentByID(this.invoiceID, this.paymentID)
-            .pipe(take(1), shareReplay(1));
+        this.receivePayment$.next();
+        this.payment$.subscribe(() => (this.isLoading = false));
     }
 }
