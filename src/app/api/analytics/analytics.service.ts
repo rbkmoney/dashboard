@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AnalyticsService as APIAnalyticsService, SplitUnit } from '../../api-codegen/anapi';
+import { AnalyticsService as APIAnalyticsService, InlineResponse200, SplitUnit } from '../../api-codegen/anapi';
 import { PaymentInstitutionRealm } from '../model';
 import { genXRequestID, toDateLike } from '../utils';
 
@@ -213,6 +214,15 @@ export class AnalyticsService {
             params.shopIDs,
             params.excludeShopIDs,
             params.paymentInstitutionRealm
+        );
+    }
+
+    getGroupBalances(params: { shopIDs?: string[]; excludeShopIDs?: string[] }): Observable<InlineResponse200> {
+        return this.analyticsService.getCurrentBalancesGroupByShop(
+            genXRequestID(),
+            undefined,
+            params.shopIDs,
+            params.excludeShopIDs
         );
     }
 }

@@ -1,38 +1,59 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { pluck, take } from 'rxjs/operators';
 
-import { booleanDebounceTime } from '../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../constants';
-import { CreateShopDialogComponent } from './create-shop-dialog';
-import { ShopsService } from './shops.service';
+import { PaymentInstitutionRealm } from '../../../../api/model';
+import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
+import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
+import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
+    styles: [
+        `
+            :host {
+                display: block;
+                width: 100%;
+            }
+        `,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopsService],
+    providers: [FetchShopsService, ShopsBalanceService, ShopsExpandedIdManagerService],
 })
-export class ShopsComponent {
-    shops$ = this.shopsService.shops$;
-    isLoading$ = this.shopsService.isLoading$.pipe(booleanDebounceTime());
+export class ShopsComponent implements OnInit {
+    shops$ = this.shopsService.loadedShops$;
+    isLoading$ = this.shopsService.isLoading$;
+    lastUpdated$ = this.shopsService.lastUpdated$;
+    hasMore$ = this.shopsService.hasMore$;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private shopsService: ShopsService,
+        private shopsService: FetchShopsService,
+        private expandedIdManager: ShopsExpandedIdManagerService,
         private dialog: MatDialog,
         private route: ActivatedRoute
     ) {}
 
-    activate(id: string) {
-        this.shopsService.activate(id);
+    ngOnInit(): void {
+        this.route.params.pipe(take(1), pluck('realm')).subscribe((realm: PaymentInstitutionRealm) => {
+            this.shopsService.initRealm(realm);
+        });
+        this.expandedIdManager.expandedId$.pipe(take(1)).subscribe((offsetIndex: number) => {
+            this.shopsService.initOffsetIndex(offsetIndex);
+        });
     }
 
-    suspend(id: string) {
-        this.shopsService.suspend(id);
+    refreshData(): void {
+        this.shopsService.refreshData();
     }
 
-    createShop() {
+    showMore(): void {
+        this.shopsService.showMore();
+    }
+
+    createShop(): void {
         this.dialog
             .open(CreateShopDialogComponent, {
                 width: '552px',
@@ -43,6 +64,7 @@ export class ShopsComponent {
                 },
             })
             .afterClosed()
+            .pipe(take(1))
             .subscribe();
     }
 }

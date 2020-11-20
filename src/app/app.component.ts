@@ -5,7 +5,7 @@ import { TestShopService } from './test-shop.service';
 
 @Component({
     selector: 'dsh-root',
-    templateUrl: './app.component.html',
+    templateUrl: 'app.component.html',
     providers: [TestShopService],
 })
 export class AppComponent implements OnInit {

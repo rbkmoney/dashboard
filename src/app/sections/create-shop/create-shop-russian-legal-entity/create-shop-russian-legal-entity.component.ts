@@ -6,7 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { of, ReplaySubject } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { ShopService } from '../../../api';
+import { ApiShopsService } from '../../../api';
 import { BankContent } from '../../../api-codegen/aggr-proxy';
 import { BankAccount } from '../../../api-codegen/capi';
 import { filterShopsByRealm } from '../../payment-section/operations/operators';
@@ -58,7 +58,7 @@ export class CreateShopRussianLegalEntityComponent {
     constructor(
         private fb: FormBuilder,
         private createShopRussianLegalEntityService: CreateShopRussianLegalEntityService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
         private router: Router

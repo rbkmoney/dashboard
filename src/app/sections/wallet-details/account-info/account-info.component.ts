@@ -4,7 +4,7 @@ import { WalletAccount } from '../../../api-codegen/wallet-api/swagger-codegen';
 
 @Component({
     selector: 'dsh-account-info',
-    templateUrl: './account-info.component.html',
+    templateUrl: 'account-info.component.html',
     styleUrls: ['./account-info.component.scss'],
 })
 export class AccountInfoComponent {

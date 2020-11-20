@@ -15,7 +15,7 @@ import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 import { AccountService } from '../../../api/account';
 import { RefundService } from '../../../api/refund';
 import { RefundSearchService } from '../../../api/search';
-import { ShopService } from '../../../api/shop';
+import { ApiShopsService } from '../../../api/shop';
 import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { CreateRefundComponent } from './create-refund';
@@ -41,7 +41,7 @@ import { RefundsComponent } from './refunds.component';
     ],
     declarations: [CreateRefundComponent, RefundsComponent, RefundItemComponent],
     exports: [RefundsComponent],
-    providers: [RefundSearchService, RefundService, ShopService, AccountService],
+    providers: [RefundSearchService, RefundService, ApiShopsService, AccountService],
     entryComponents: [CreateRefundComponent],
 })
 export class RefundsModule {}

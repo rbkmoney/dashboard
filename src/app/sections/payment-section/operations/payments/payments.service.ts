@@ -8,7 +8,7 @@ import { catchError, pluck, switchMap } from 'rxjs/operators';
 import { toMinor } from '../../../../../utils';
 import { PaymentSearchResult } from '../../../../api-codegen/capi';
 import { PaymentSearchService } from '../../../../api/search';
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
@@ -35,7 +35,7 @@ export class PaymentsService extends PartialFetcher<PaymentSearchResult, Payment
     constructor(
         private route: ActivatedRoute,
         private paymentSearchService: PaymentSearchService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {

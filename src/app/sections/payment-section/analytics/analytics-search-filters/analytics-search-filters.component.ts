@@ -14,7 +14,7 @@ import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'r
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { Shop } from '../../../../api-codegen/capi';
-import { ShopService } from '../../../../api/shop';
+import { ApiShopsService } from '../../../../api/shop';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
@@ -66,7 +66,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         shareReplay(1)
     );
 
-    constructor(private shopService: ShopService) {
+    constructor(private shopService: ApiShopsService) {
         this.selectedCurrency$.subscribe((currency) => {
             this.searchParams$.next({ currency });
             this.selectedShopIDs$.next([]);

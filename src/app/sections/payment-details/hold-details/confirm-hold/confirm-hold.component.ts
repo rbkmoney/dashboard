@@ -21,7 +21,7 @@ export interface ConfirmHoldData {
 
 @Component({
     selector: 'dsh-confirm-hold',
-    templateUrl: './confirm-hold.component.html',
+    templateUrl: 'confirm-hold.component.html',
     providers: [PaymentService],
 })
 export class ConfirmHoldComponent {
