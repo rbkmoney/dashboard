@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import {
     distinctUntilChanged,
     map,
@@ -36,7 +36,7 @@ export class FetchShopsService {
 
     private realmData$ = new ReplaySubject<PaymentInstitutionRealm>(1);
 
-    private showMore$ = new Subject<void>();
+    private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
 
     constructor(private apiShopsService: ApiShopsService, private shopsBalance: ShopsBalanceService) {
