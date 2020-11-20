@@ -27,6 +27,7 @@
                 ]
             }
         ],
-        "no-duplicate-imports": [true, { "allow-namespace-imports": true }]
+        "no-duplicate-imports": [true, { "allow-namespace-imports": true }],
+        "increment-decrement": true
     }
 }

@@ -5,7 +5,7 @@ import random from 'lodash.random';
  */
 export function randomString(length: number): string {
     let result = '';
-    for (let i = 0; i < length; ++i) {
+    for (let i = 0; i < length; i += 1) {
         result += random(35).toString(36);
     }
     return result;

@@ -9,7 +9,7 @@ function countActivePaths(url: string, paths: string[]): ActivePathsCount {
     const [urlPath] = url.split(/[?#]/);
     return paths.reduce<ActivePathsCount>(
         ({ count, length }, p) =>
-            urlPath.indexOf(p) === 0 ? { count: ++count, length: length + p.length } : { count, length },
+            urlPath.indexOf(p) === 0 ? { count: count + 1, length: length + p.length } : { count, length },
         { count: 0, length: 0 }
     );
 }

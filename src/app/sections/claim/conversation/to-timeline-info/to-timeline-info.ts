@@ -28,7 +28,7 @@ const concatLastItem = (acc: TimelineItemInfo[], info: TimelineItemInfo): Timeli
         : [...acc, info];
 
 const deleteAddedFile = (info: TimelineItemInfo[], deletedFileId: string) => {
-    for (let i = 0, item = info[0]; i < info.length; item = info[++i]) {
+    for (let i = 0, item = info[0]; i < info.length; i += 1, item = info[i]) {
         if (item.action !== TimelineAction.filesAdded) {
             continue;
         }
