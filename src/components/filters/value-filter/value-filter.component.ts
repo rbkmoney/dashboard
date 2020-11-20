@@ -23,7 +23,7 @@ export class ValueFilterComponent implements OnChanges {
 
     control = new FormControl();
     label$ = this.savedValue$.pipe(
-        startWith(undefined),
+        startWith<string, undefined>(undefined),
         map((v) => {
             if (!v) {
                 return this.label;

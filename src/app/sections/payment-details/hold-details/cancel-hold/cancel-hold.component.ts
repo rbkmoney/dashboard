@@ -15,7 +15,7 @@ export interface CancelHoldData {
 
 @Component({
     selector: 'dsh-cancel-hold',
-    templateUrl: './cancel-hold.component.html',
+    templateUrl: 'cancel-hold.component.html',
     providers: [PaymentService],
 })
 export class CancelHoldComponent {

@@ -6,7 +6,7 @@ import { ThemeManager, ThemeName } from '../../theme-manager';
 
 @Component({
     selector: 'dsh-actionbar',
-    templateUrl: './actionbar.component.html',
+    templateUrl: 'actionbar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionbarComponent {

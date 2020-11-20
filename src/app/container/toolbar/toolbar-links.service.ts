@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ export enum LinkId {
 @Injectable()
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
-        startWith(null),
+        startWith<Event, null>(null),
         map(() => this.router.url),
         distinctUntilChanged(),
         shareReplay(1)

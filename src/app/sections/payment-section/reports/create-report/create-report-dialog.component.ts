@@ -6,7 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 import { of } from 'rxjs';
 
-import { ShopService } from '../../../../api';
+import { ApiShopsService } from '../../../../api';
 import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreateReportDialogService } from './create-report-dialog.service';
 
@@ -30,7 +30,7 @@ export class CreateReportDialogComponent implements OnInit {
 
     constructor(
         private dialogRef: MatDialogRef<CreateReportDialogComponent, 'cancel' | 'created'>,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private fb: FormBuilder,
         private createReportDialogService: CreateReportDialogService,
         private transloco: TranslocoService,

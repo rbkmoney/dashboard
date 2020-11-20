@@ -8,7 +8,7 @@ import { PaymentsToolDistributionService } from './payments-tool-distribution.se
 
 @Component({
     selector: 'dsh-payments-tool-distribution',
-    templateUrl: './payments-tool-distribution.component.html',
+    templateUrl: 'payments-tool-distribution.component.html',
     providers: [PaymentsToolDistributionService],
 })
 export class PaymentsToolDistributionComponent implements OnChanges {

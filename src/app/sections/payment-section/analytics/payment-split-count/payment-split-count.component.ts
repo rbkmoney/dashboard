@@ -8,7 +8,7 @@ import { PaymentSplitCountService } from './payment-split-count.service';
 
 @Component({
     selector: 'dsh-payment-split-count',
-    templateUrl: './payment-split-count.component.html',
+    templateUrl: 'payment-split-count.component.html',
     providers: [PaymentSplitCountService],
 })
 export class PaymentSplitCountComponent implements OnChanges {

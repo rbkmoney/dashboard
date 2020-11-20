@@ -4,7 +4,7 @@ import { BrandType } from './brand-type';
 
 @Component({
     selector: 'dsh-brand',
-    templateUrl: './brand.component.html',
+    templateUrl: 'brand.component.html',
     styleUrls: ['./brand.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
