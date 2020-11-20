@@ -1,14 +1,11 @@
 import { exec } from 'child_process';
-import * as path from 'path';
-
-const ROOT_DIR = path.join(__dirname, '..');
 
 export function execWithLog(cmd: string) {
     return new Promise((res, rej) =>
         exec(
             cmd,
             {
-                cwd: ROOT_DIR,
+                cwd: process.cwd(),
             },
             (error, stdout, stderr) => {
                 if (error === null) {
