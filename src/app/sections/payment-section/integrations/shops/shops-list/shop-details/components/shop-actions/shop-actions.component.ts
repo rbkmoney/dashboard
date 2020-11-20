@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
-import { ShopItem } from '../../../../types';
+import { ShopItem } from '../../../../types/shop-item';
 import { isSuccessfulShopAction } from '../../services/shop-actions/is-successful-shop-action';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
 

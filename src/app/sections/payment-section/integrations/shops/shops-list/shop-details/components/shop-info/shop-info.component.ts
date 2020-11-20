@@ -3,7 +3,7 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
 import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ShopItem } from '../../../../types';
+import { ShopItem } from '../../../../types/shop-item';
 import { CategoryService } from '../../services/category/category.service';
 
 @Component({

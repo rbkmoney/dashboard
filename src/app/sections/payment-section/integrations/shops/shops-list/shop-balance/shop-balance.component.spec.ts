@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShopLocation } from '../../../../../../api-codegen/anapi/swagger-codegen';
 import { ToMajorModule } from '../../../../../../to-major';
-import { ShopItem } from '../../types';
+import { ShopItem } from '../../types/shop-item';
 import { ShopBalanceComponent } from './shop-balance.component';
 
 const mockShop: ShopItem = {

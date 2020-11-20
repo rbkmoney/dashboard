@@ -17,7 +17,8 @@ import { PaymentInstitutionRealm } from '../../../../../../api/model';
 import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm, mapToTimestamp } from '../../../../operations/operators';
-import { ShopBalance, ShopItem } from '../../types';
+import { ShopBalance } from '../../types/shop-balance';
+import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
 import { combineShopItem } from './combine-shop-item';
 

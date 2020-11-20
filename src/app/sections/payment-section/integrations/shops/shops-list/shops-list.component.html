@@ -18,7 +18,7 @@
         <dsh-accordion-item #accordionItem *ngFor="let shop of shopList">
             <dsh-shop-row [shop]="shop"></dsh-shop-row>
             <ng-template dshLazyPanelContent>
-                <dsh-card [style.width]="'100%'" fxLayout="column" fxLayoutGap="32px">
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
                     <dsh-accordion-item-content-header
                         (collapse)="accordionItem.collapse($event)"
                         *transloco="let s; scope: 'shops'; read: 'shops'"

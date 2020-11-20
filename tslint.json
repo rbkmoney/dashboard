@@ -1,6 +1,27 @@
 {
     "extends": ["./tslint.angular.json", "tslint-config-prettier"],
     "rules": {
+        "ban": [
+            true,
+            "eval",
+            "debugger",
+            {
+                "name": "fdescribe",
+                "message": "Do not focus tests."
+            },
+            {
+                "name": "fit",
+                "message": "Do not focus tests."
+            },
+            {
+                "name": "xdescribe",
+                "message": "Do not exclude tests."
+            },
+            {
+                "name": "xit",
+                "message": "Do not exclude tests."
+            }
+        ],
         "directive-selector": [true, ["attribute", "element"], "dsh", ["camelCase", "kebab-case"]],
         "component-selector": [true, ["attribute", "element"], "dsh", "kebab-case"],
         "template-no-negated-async": false,

@@ -2,7 +2,8 @@ import { isNil } from '@ngneat/transloco';
 
 import { Dict } from '../../../../../../../type-utils';
 import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { ShopBalance, ShopItem } from '../../types';
+import { ShopBalance } from '../../types/shop-balance';
+import { ShopItem } from '../../types/shop-item';
 
 export function combineShopItem(shops: ApiShop[], balances: ShopBalance[]): ShopItem[] {
     const balancesMap = balances.reduce((acc: Dict<ShopBalance>, el: ShopBalance) => {

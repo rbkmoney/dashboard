@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
-import { ShopItem } from '../types';
+import { ShopItem } from '../types/shop-item';
 import { ShopsExpandedIdManagerService } from './services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ShopItem } from '../../types';
+import { ShopItem } from '../../types/shop-item';
 
 @Component({
     selector: 'dsh-shop-details',

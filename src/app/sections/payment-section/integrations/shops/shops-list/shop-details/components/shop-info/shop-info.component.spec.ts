@@ -5,10 +5,40 @@ import { Subject } from 'rxjs';
 
 import { DetailsItemModule } from '@dsh/components/layout';
 
+import { ShopLocation } from '../../../../../../../../api-codegen/anapi/swagger-codegen';
 import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
+import { ShopItem } from '../../../../types/shop-item';
 import { ShopBalanceModule } from '../../../shop-balance';
 import { CategoryService } from '../../services/category/category.service';
 import { ShopInfoComponent } from './shop-info.component';
+
+const mockShop: ShopItem = {
+    id: 'mock',
+    createdAt: new Date(),
+    isBlocked: false,
+    isSuspended: false,
+    categoryID: 1,
+    location: {
+        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
+        url: 'example.com',
+    },
+    details: {
+        name: 'my name',
+        description: 'some description',
+    },
+    contractID: 'contractID',
+    payoutToolID: 'payoutToolID',
+    scheduleID: 1,
+    account: {
+        currency: 'USD',
+        guaranteeID: 2,
+        settlementID: 2,
+    },
+    balance: {
+        amount: 20,
+        currency: 'USD',
+    },
+};
 
 class MockCategoryService {
     category$ = new Subject<Category>();
@@ -21,7 +51,7 @@ class MockCategoryService {
     }
 }
 
-fdescribe('ShopInfoComponent', () => {
+describe('ShopInfoComponent', () => {
     let component: ShopInfoComponent;
     let fixture: ComponentFixture<ShopInfoComponent>;
     let mockCategoryService: MockCategoryService;
@@ -61,6 +91,8 @@ fdescribe('ShopInfoComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopInfoComponent);
         component = fixture.componentInstance;
+
+        component.shop = mockShop;
         fixture.detectChanges();
     });
 

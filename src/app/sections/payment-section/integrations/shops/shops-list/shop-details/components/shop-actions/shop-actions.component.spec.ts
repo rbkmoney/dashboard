@@ -10,9 +10,9 @@ import { ShopLocation } from '../../../../../../../../api-codegen/anapi/swagger-
 import { ShopsService } from '../../../../../../../../api-codegen/capi/shops.service';
 import { Shop } from '../../../../../../../../api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '../../../../../../../../api/shop';
-import { ShopItem } from '../../../../models';
-import { ShopActionResultEnum } from '../../enums';
+import { ShopItem } from '../../../../types/shop-item';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
+import { ShopActionResult } from '../../types/shop-action-result';
 import { ShopActionsComponent } from './shop-actions.component';
 
 const mockShop: ShopItem = {
@@ -164,7 +164,7 @@ describe('ShopActionsComponent', () => {
 
     describe('suspend', () => {
         it('should call service suspend method', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResultEnum.SUCCESS));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.SUCCESS));
 
             component.suspend('id');
 
@@ -173,7 +173,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if suspend was successful', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResultEnum.SUCCESS));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.SUCCESS));
             const spyOnUpdateData = spyOn(component.updateData, 'emit');
 
             component.suspend('id');
@@ -183,7 +183,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if suspend was not successful', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResultEnum.ERROR));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.ERROR));
             const spyOnUpdateData = spyOn(component.updateData, 'emit');
 
             component.suspend('id');
@@ -195,7 +195,7 @@ describe('ShopActionsComponent', () => {
 
     describe('activate', () => {
         it('should call service activate method', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResultEnum.SUCCESS));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.SUCCESS));
 
             component.activate('id');
 
@@ -204,7 +204,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if activate was successful', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResultEnum.SUCCESS));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.SUCCESS));
             const spyOnUpdateData = spyOn(component.updateData, 'emit');
 
             component.activate('id');
@@ -214,7 +214,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if activate was not successful', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResultEnum.ERROR));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.ERROR));
             const spyOnUpdateData = spyOn(component.updateData, 'emit');
 
             component.activate('id');
