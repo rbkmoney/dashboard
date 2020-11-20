@@ -33,6 +33,6 @@ async function openAPICodegenAngular({ schemes, outputDir }: { schemes: Schemes;
         });
     } catch (e) {
         console.error(e);
-        console.error('Not generated 😞');
+        throw new Error('Not generated 😞');
     }
 })();

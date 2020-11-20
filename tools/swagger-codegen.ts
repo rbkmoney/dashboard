@@ -34,6 +34,6 @@ async function swaggerCodegenAngularCli({ schemes, outputDir }: { schemes: Schem
         });
     } catch (e) {
         console.error(e);
-        console.error('Not generated 😞');
+        throw new Error('Not generated 😞');
     }
 })();
