@@ -12,12 +12,12 @@ import { ShopService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { filterShopsByRealm, mapToTimestamp } from '../operators';
+import { SearchFiltersParams } from './invoices-search-filters';
 import { mapToInvoicesTableData } from './map-to-invoices-table-data';
-import { InvoiceSearchFormValue } from './search-form';
 import { InvoicesTableData } from './table';
 
 @Injectable()
-export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormValue> {
+export class InvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
     private readonly searchLimit = 20;
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
@@ -49,13 +49,13 @@ export class InvoicesService extends PartialFetcher<Invoice, InvoiceSearchFormVa
         super();
     }
 
-    protected fetch(params: InvoiceSearchFormValue, continuationToken: string): Observable<FetchResult<Invoice>> {
+    protected fetch(params: SearchFiltersParams, continuationToken: string): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
             pluck('realm'),
             switchMap((paymentInstitutionRealm) =>
                 this.invoiceSearchService.searchInvoices(
-                    params.date.begin.utc().format(),
-                    params.date.end.utc().format(),
+                    params.fromTime,
+                    params.toTime,
                     {
                         ...params,
                         paymentInstitutionRealm,

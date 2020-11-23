@@ -15,11 +15,11 @@ import { Daterange } from '@dsh/pipes/daterange';
 
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
+import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { shopsToCurrencies } from './shops-to-currencies';
-import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
 
 @Component({
     selector: 'dsh-analytics-search-filters',

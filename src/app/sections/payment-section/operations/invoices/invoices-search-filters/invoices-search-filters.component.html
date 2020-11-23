@@ -4,12 +4,12 @@
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
     <dsh-invoices-filter
-            [selected]="initParams?.invoiceIDs"
-            (selectedChange)="invoiceSelectionChange($event)"
+        [selected]="initParams?.invoiceIDs"
+        (selectedChange)="invoiceSelectionChange($event)"
     ></dsh-invoices-filter>
     <dsh-filter-shops
         [shops]="shops$ | async"
-        [selected]="initParams?.shopIDs"
+        [selected]="selectedShops$ | async"
         (selectedChange)="shopSelectionChange($event)"
     ></dsh-filter-shops>
     <dsh-invoice-status-filter

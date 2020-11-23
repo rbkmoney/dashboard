@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Daterange } from '@dsh/pipes/daterange';
 
@@ -18,11 +18,10 @@ import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { ShopService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
 import { getDefaultDaterange } from './get-default-daterange';
 import { SearchFiltersParams } from './search-filters-params';
-import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
-
 
 @Component({
     selector: 'dsh-invoices-search-filters',
@@ -48,9 +47,24 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    private selectedShopIDs$ = new ReplaySubject<string[]>(1);
+
+    selectedShops$ = this.selectedShopIDs$.pipe(
+        switchMap((ids) =>
+            this.shops$.pipe(
+                take(1),
+                map((shops) => shops.filter((shop) => ids.includes(shop.id)))
+            )
+        ),
+        shareReplay(1)
+    );
+
     constructor(private shopService: ShopService) {}
 
     ngOnInit() {
+        this.selectedShopIDs$
+            .pipe(map((ids) => (ids.length ? ids : null)))
+            .subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
         this.searchParams$
             .pipe(
                 distinctUntilChanged(isEqual),
@@ -64,6 +78,9 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             const v = initParams.currentValue;
             this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : timesToDaterange(v);
             this.daterangeSelectionChange(this.daterange);
+            if (v.shopIDs) {
+                this.selectedShopIDs$.next(v.shopIDs);
+            }
         }
     }
 
@@ -77,7 +94,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
 
     shopSelectionChange(shops: Shop[]) {
         const shopIDs = shops.map((shop) => shop.id);
-        this.searchParams$.next({ shopIDs: shopIDs?.length ? shopIDs : null });
+        this.selectedShopIDs$.next(shopIDs);
     }
 
     invoiceSelectionChange(invoiceIDs: string[]) {

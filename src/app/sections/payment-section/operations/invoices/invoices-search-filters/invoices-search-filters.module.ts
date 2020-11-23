@@ -6,9 +6,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { FilterShopsModule, InvoicesFilterModule } from '@dsh/app/shared/*';
 import { FiltersModule } from '@dsh/components/filters';
 
+import { InvoiceStatusFilterModule } from '../../../../../shared/components/filters/invoice-status-filter';
 import { RefundStatusFilterModule } from '../../../../../shared/components/filters/refund-status-filter';
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';
-import { InvoiceStatusFilterModule } from '../../../../../shared/components/filters/invoice-status-filter';
 
 @NgModule({
     imports: [
@@ -19,7 +19,7 @@ import { InvoiceStatusFilterModule } from '../../../../../shared/components/filt
         InvoicesFilterModule,
         FilterShopsModule,
         RefundStatusFilterModule,
-        InvoiceStatusFilterModule
+        InvoiceStatusFilterModule,
     ],
     declarations: [InvoicesSearchFiltersComponent],
     exports: [InvoicesSearchFiltersComponent],

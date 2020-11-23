@@ -28,11 +28,11 @@ import { CreateInvoiceModule } from '../../../create-invoice';
 import { ShopSelectorModule } from '../../../shop-selector';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { InvoicesRoutingModule } from './invoices-routing.module';
+import { InvoicesSearchFiltersModule } from './invoices-search-filters';
 import { InvoicesComponent } from './invoices.component';
 import { SearchFormComponent } from './search-form';
 import { InvoiceStatusColorPipe } from './status-color.pipe';
 import { TableComponent } from './table';
-import { InvoicesSearchFiltersModule } from './invoices-search-filters';
 
 @NgModule({
     imports: [
@@ -63,7 +63,7 @@ import { InvoicesSearchFiltersModule } from './invoices-search-filters';
         MatDividerModule,
         ShopSelectorModule,
         CreateInvoiceModule,
-        InvoicesSearchFiltersModule
+        InvoicesSearchFiltersModule,
     ],
     declarations: [
         InvoicesComponent,
