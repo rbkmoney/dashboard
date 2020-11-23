@@ -6,6 +6,7 @@ build_utils
 coverage
 schemes
 src/app/**/swagger-codegen
+src/app/**/openapi-codegen
 src/app/**/gen-model
 .vscode
 .swagger-codegen

@@ -9,7 +9,7 @@ import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWal
 
 @Component({
     selector: 'dsh-digital-wallet',
-    templateUrl: './digital-wallet.component.html',
+    templateUrl: 'digital-wallet.component.html',
 })
 export class DigitalWalletComponent implements OnChanges {
     @Input() digitalWallet: DigitalWalletDetails;

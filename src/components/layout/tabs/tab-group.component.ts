@@ -73,7 +73,8 @@ export class DshTabGroupComponent extends _MatTabGroupMixinBase implements After
 
     constructor(elementRef: ElementRef, private _changeDetectorRef: ChangeDetectorRef) {
         super(elementRef);
-        this._groupId = nextId++;
+        nextId += 1;
+        this._groupId = nextId;
     }
 
     ngAfterContentChecked() {

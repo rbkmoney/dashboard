@@ -11,6 +11,7 @@ import {
     QueryList,
 } from '@angular/core';
 import isEmpty from 'lodash.isempty';
+import isNil from 'lodash.isnil';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -54,13 +55,13 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         this.options$,
     ]).pipe(
         map(([selected]) => this.mapInputValueToOption(selected)),
-        startWith(null),
+        startWith<RadioGroupFilterOptionComponent<T>, null>(null),
         shareReplay(1)
     );
 
     title$: Observable<string> = this.savedSelectedOption$.pipe(
-        map((selectedOption) => {
-            if (isEmpty(selectedOption?.value)) {
+        map((selectedOption: RadioGroupFilterOptionComponent<T> | null) => {
+            if (isNil(selectedOption) || isEmpty(selectedOption.value)) {
                 return this.label;
             }
             return this.formatSelectedLabel(selectedOption.label);

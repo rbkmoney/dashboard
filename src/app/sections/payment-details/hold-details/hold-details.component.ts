@@ -11,7 +11,7 @@ const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
 
 @Component({
     selector: 'dsh-hold-details',
-    templateUrl: './hold-details.component.html',
+    templateUrl: 'hold-details.component.html',
 })
 export class HoldDetailsComponent {
     @Input() payment: PaymentSearchResult;

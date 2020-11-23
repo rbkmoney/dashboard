@@ -5,7 +5,7 @@ import { PaymentToolDetails } from '../../../api-codegen/capi';
 
 @Component({
     selector: 'dsh-payment-tool',
-    templateUrl: './payment-tool.component.html',
+    templateUrl: 'payment-tool.component.html',
 })
 export class PaymentToolComponent {
     @Input() paymentToolDetails: PaymentToolDetails;

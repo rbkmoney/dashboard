@@ -7,7 +7,7 @@ import { StatData } from '../utils';
 
 @Component({
     selector: 'dsh-stat-item',
-    templateUrl: './stat-item.component.html',
+    templateUrl: 'stat-item.component.html',
     styleUrls: ['./stat-item.component.scss'],
 })
 export class StatItemComponent implements OnChanges {

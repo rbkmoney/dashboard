@@ -16,6 +16,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 import { Shop } from '../../../../api-codegen/capi';
 import { ShopService } from '../../../../api/shop';
 import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
+import { ApiShopsService } from '../../../../api/shop';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { getDefaultDaterange } from './get-default-daterange';
@@ -65,7 +66,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         shareReplay(1)
     );
 
-    constructor(private shopService: ShopService) {
+    constructor(private shopService: ApiShopsService) {
         this.selectedCurrency$.subscribe((currency) => {
             this.searchParams$.next({ currency });
             this.selectedShopIDs$.next([]);

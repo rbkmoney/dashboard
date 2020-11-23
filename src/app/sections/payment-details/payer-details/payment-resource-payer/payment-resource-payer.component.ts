@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../../constants';
 
 @Component({
     selector: 'dsh-payment-resource-payer',
-    templateUrl: './payment-resource-payer.component.html',
+    templateUrl: 'payment-resource-payer.component.html',
 })
 export class PaymentResourcePayerComponent {
     @Input() paymentResourcePayer: PaymentResourcePayer;

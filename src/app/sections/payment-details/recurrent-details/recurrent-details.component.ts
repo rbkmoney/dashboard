@@ -5,7 +5,7 @@ import { LAYOUT_GAP } from '../../constants';
 
 @Component({
     selector: 'dsh-recurrent-details',
-    templateUrl: './recurrent-details.component.html',
+    templateUrl: 'recurrent-details.component.html',
 })
 export class RecurrentDetailsComponent {
     @Input() recurrentPayer: RecurrentPayer;

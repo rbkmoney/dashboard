@@ -265,7 +265,7 @@ describe('DshTable', () => {
 
         it('should be able to page the table contents', fakeAsync(() => {
             // Add 100 rows, should only display first 5 since page length is 5
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 100; i += 1) {
                 component.underlyingDataSource.addData();
             }
             fixture.detectChanges();

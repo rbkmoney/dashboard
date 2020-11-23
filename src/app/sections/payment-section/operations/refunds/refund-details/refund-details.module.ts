@@ -9,12 +9,13 @@ import {
     InvoiceDetailsModule,
     PaymentDetailsModule,
     RefundDetailsModule as ApiRefundDetailsModule,
-} from '@dsh/app/shared/*';
+} from '@dsh/app/shared/components';
 import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
+import { PaymentModule } from '../../../../../api/payment';
 import { RefundDetailsComponent } from './refund-details.component';
 import { RefundInvoiceInfoComponent } from './refund-invoice-info';
 import { RefundMainInfoComponent } from './refund-main-info';
@@ -34,6 +35,7 @@ import { RefundPaymentInfoComponent } from './refund-payment-info';
         ApiRefundDetailsModule,
         InvoiceDetailsModule,
         PaymentDetailsModule,
+        PaymentModule,
     ],
     declarations: [
         RefundDetailsComponent,

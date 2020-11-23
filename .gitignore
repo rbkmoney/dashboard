@@ -46,6 +46,7 @@ Thumbs.db
 # Swagger Codegen
 swagger-codegen-cli.jar
 src/app/**/swagger-codegen
+src/app/**/openapi-codegen
 
 # Generated models
 src/app/**/gen-model

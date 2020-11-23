@@ -12,7 +12,7 @@ import { SearchFiltersParams } from './refunds-search-filters';
 
 @Injectable()
 export class FetchRefundsService extends PartialFetcher<RefundSearchResult, SearchFiltersParams> {
-    private readonly SEARCH_LIMIT = 20;
+    private readonly SEARCH_LIMIT = 10;
 
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));

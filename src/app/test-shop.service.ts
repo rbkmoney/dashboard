@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
 import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
-import { CAPIClaimsService, createTestShopClaimChangeset, ShopService } from './api';
+import { ApiShopsService, CAPIClaimsService, createTestShopClaimChangeset } from './api';
 
 @Injectable()
 export class TestShopService {
@@ -12,7 +12,7 @@ export class TestShopService {
 
     constructor(
         private capiClaimsService: CAPIClaimsService,
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {

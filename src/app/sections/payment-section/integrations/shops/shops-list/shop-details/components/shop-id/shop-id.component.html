@@ -1,0 +1,9 @@
+<ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+    <div class="mat-title">{{ p('id') }}</div>
+    <div class="mat-subheading-2">{{ id }}</div>
+    <div>
+        <button dsh-button [cdkCopyToClipboard]="id" (cdkCopyToClipboardCopied)="copied($event)">
+            {{ p('copy') }}
+        </button>
+    </div>
+</ng-container>

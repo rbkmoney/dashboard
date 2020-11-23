@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { ShopService } from '../../../../../../api';
+import { ApiShopsService } from '../../../../../../api';
 import TopicEnum = WebhookScope.TopicEnum;
 import { WebhookScope } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { getEventsByTopic } from '../get-events-by-topic';
@@ -12,7 +12,7 @@ import { getEventsByTopic } from '../get-events-by-topic';
 @Component({
     selector: 'dsh-create-webhook-form',
     templateUrl: 'create-webhook-form.component.html',
-    providers: [ShopService],
+    providers: [ApiShopsService],
 })
 export class CreateWebhookFormComponent implements OnInit {
     @Input()
@@ -22,7 +22,7 @@ export class CreateWebhookFormComponent implements OnInit {
 
     activeTopic$ = new BehaviorSubject<TopicEnum>('InvoicesTopic');
 
-    constructor(private shopService: ShopService, private fb: FormBuilder) {}
+    constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
 
     ngOnInit() {
         this.activeTopic$.subscribe((activeTopic) => {

@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { ClaimsService, ShopService } from '../../../../api';
+import { ApiShopsService, ClaimsService } from '../../../../api';
 import { ClaimStatus } from '../../../../api/claims';
 import { booleanDelay, takeError } from '../../../../custom-operators';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
@@ -18,7 +18,7 @@ export class PaymentsService {
     isLoading$: Observable<boolean>;
 
     constructor(
-        private shopService: ShopService,
+        private shopService: ApiShopsService,
         private claimService: ClaimsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService

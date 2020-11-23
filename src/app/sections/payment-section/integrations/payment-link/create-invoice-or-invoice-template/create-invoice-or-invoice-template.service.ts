@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { ShopService } from '../../../../../api';
+import { ApiShopsService } from '../../../../../api';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { filterShopsByRealm } from '../../../operations/operators';
 
@@ -17,5 +17,5 @@ export class CreateInvoiceOrInvoiceTemplateService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private fb: FormBuilder, private route: ActivatedRoute, private shopService: ShopService) {}
+    constructor(private fb: FormBuilder, private route: ActivatedRoute, private shopService: ApiShopsService) {}
 }

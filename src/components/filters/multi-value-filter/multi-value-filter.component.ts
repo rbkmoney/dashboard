@@ -28,10 +28,10 @@ export class MultiValueFilterComponent implements OnChanges {
     private savedValue$ = new ReplaySubject<string[]>();
 
     form = new FormArray([]);
-    active$ = this.savedValue$.pipe(startWith(undefined), map(negate(isEmpty)), shareReplay(1));
+    active$ = this.savedValue$.pipe(startWith<string[], undefined>(undefined), map(negate(isEmpty)), shareReplay(1));
     label$ = this.savedValue$.pipe(
-        startWith(undefined),
-        map((v) => {
+        startWith<string[], undefined>(undefined),
+        map((v: string[]) => {
             if (isEmpty(v)) {
                 return this.label;
             }

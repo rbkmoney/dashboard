@@ -9,7 +9,7 @@ import { InvoiceDetailsService } from './invoice-details.service';
 
 @Component({
     selector: 'dsh-invoice-details',
-    templateUrl: './invoice-details.component.html',
+    templateUrl: 'invoice-details.component.html',
     styleUrls: ['./invoice-details.component.scss'],
     providers: [InvoiceDetailsService],
 })

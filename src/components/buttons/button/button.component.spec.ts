@@ -27,7 +27,7 @@ class TestAppComponent {
     tabIndex: number;
 
     increment() {
-        this.clickCount++;
+        this.clickCount += 1;
     }
 }
 

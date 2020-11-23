@@ -6,7 +6,7 @@ import { LinkId, ToolbarLinksService } from './toolbar-links.service';
 
 @Component({
     selector: 'dsh-toolbar',
-    templateUrl: './toolbar.component.html',
+    templateUrl: 'toolbar.component.html',
     styleUrls: ['./toolbar.component.scss'],
     providers: [ToolbarLinksService],
     changeDetection: ChangeDetectionStrategy.OnPush,

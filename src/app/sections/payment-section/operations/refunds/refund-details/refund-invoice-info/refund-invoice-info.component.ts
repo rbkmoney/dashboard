@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { shareReplay, take } from 'rxjs/operators';
 
-import { Invoice } from '../../../../../../api-codegen/capi';
-import { InvoiceService } from '../../../../../../api/invoice';
+import { RefundInvoiceInfoService } from './refund-invoice-info.service';
 
 @Component({
     selector: 'dsh-refund-invoice-info',
     templateUrl: 'refund-invoice-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [RefundInvoiceInfoService],
 })
 export class RefundInvoiceInfoComponent implements OnInit {
     @Input() invoiceID: string;
 
-    invoice$: Observable<Invoice>;
+    invoice$ = this.refundPaymentInfoService.invoice$;
+    isLoading$ = this.refundPaymentInfoService.isLoading$;
+    errorOccurred$ = this.refundPaymentInfoService.errorOccurred$;
 
-    constructor(private invoiceService: InvoiceService) {}
+    constructor(private refundPaymentInfoService: RefundInvoiceInfoService) {}
 
     ngOnInit() {
-        this.invoice$ = this.invoiceService.getInvoiceByID(this.invoiceID).pipe(take(1), shareReplay(1));
+        this.refundPaymentInfoService.receivePayment(this.invoiceID);
     }
 }

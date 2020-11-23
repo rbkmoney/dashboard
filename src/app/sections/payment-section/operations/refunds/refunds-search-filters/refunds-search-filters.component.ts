@@ -17,7 +17,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 
 import { RefundSearchResult } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
-import { ShopService } from '../../../../../api/shop';
+import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
@@ -60,7 +60,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
         shareReplay(1)
     );
 
-    constructor(private shopService: ShopService) {}
+    constructor(private shopService: ApiShopsService) {}
 
     ngOnInit() {
         this.selectedShopIDs$

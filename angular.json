@@ -120,14 +120,19 @@
                             }
                         ],
                         "scripts": [],
-                        "codeCoverageExclude": ["src/**/swagger-codegen/**/*"]
+                        "codeCoverageExclude": ["src/**/swagger-codegen/**/*", "src/**/openapi-codegen/**"]
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
-                        "exclude": ["**/node_modules/**", "**/*.json", "src/**/swagger-codegen/**"]
+                        "exclude": [
+                            "**/node_modules/**",
+                            "**/*.json",
+                            "src/**/swagger-codegen/**",
+                            "src/**/openapi-codegen/**"
+                        ]
                     }
                 },
                 "e2e": {

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-    ConversationID,
+    Conversation,
+    ConversationParam,
     ConversationResponse,
     ConversationsService,
     ConversationStatus,
-    SaveConversationParams,
 } from '../../api-codegen/messages';
 
 @Injectable()
@@ -14,13 +14,13 @@ export class MessagesService {
     constructor(private conversationsService: ConversationsService) {}
 
     getConversations(
-        conversationId: ConversationID[],
+        conversationId: Conversation['conversationId'][],
         conversationStatus?: ConversationStatus
     ): Observable<ConversationResponse> {
         return this.conversationsService.getConversations(conversationId, conversationStatus);
     }
 
-    saveConversations(params: SaveConversationParams): Observable<any> {
+    saveConversations(params: ConversationParam[]): Observable<any> {
         return this.conversationsService.saveConversations(params);
     }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MessagesConfigService } from './messages-config.service';
-import { ApiModule, Configuration } from './swagger-codegen';
+import { ApiModule, Configuration } from './openapi-codegen';
 
 @NgModule({
     imports: [

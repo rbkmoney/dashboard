@@ -1,0 +1,22 @@
+<ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+    <div class="mat-title">{{ p('actions') }}</div>
+    <div>
+        <ng-container *ngTemplateOutlet="shop.isSuspended ? activateButton : suspendButton"></ng-container>
+    </div>
+</ng-container>
+
+<ng-template #activateButton>
+    <ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+        <button (click)="activate(shop.id)" color="accent" dsh-stroked-button>
+            {{ p('activate') }}
+        </button>
+    </ng-container>
+</ng-template>
+
+<ng-template #suspendButton>
+    <ng-container *transloco="let p; scope: 'shops'; read: 'shops.panel'">
+        <button (click)="suspend(shop.id)" color="warn" dsh-stroked-button>
+            {{ p('suspend') }}
+        </button>
+    </ng-container>
+</ng-template>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ export enum LinkId {
 @Injectable()
 export class ToolbarLinksService {
     private url$ = this.router.events.pipe(
-        startWith(null),
+        startWith<Event, null>(null),
         map(() => this.router.url),
         distinctUntilChanged(),
         shareReplay(1)
@@ -40,19 +40,22 @@ export class ToolbarLinksService {
 
     private createLinks(hasWallets: boolean): ToolbarLink[] {
         return [
-            { id: LinkId.main, path: '', activateStartPaths: [''] },
+            {
+                id: LinkId.main,
+                path: '/',
+            },
             {
                 id: LinkId.payments,
-                path: `payment-section/realm/${PaymentInstitutionRealm.live}/operations/payments`,
+                path: `/payment-section/realm/${PaymentInstitutionRealm.live}/operations/payments`,
                 activateStartPaths: ['/payment-section', '/invoice'],
             },
             {
                 id: LinkId.wallets,
-                path: 'wallet-section/wallets',
+                path: '/wallet-section/wallets',
                 activateStartPaths: ['/wallet-section', '/wallet'],
                 hidden: !hasWallets,
             },
-            { id: LinkId.claims, path: 'claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
+            { id: LinkId.claims, path: '/claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
         ];
     }
 }

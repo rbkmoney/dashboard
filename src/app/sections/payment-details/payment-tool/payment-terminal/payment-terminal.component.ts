@@ -4,7 +4,7 @@ import { PaymentTerminalDetails } from '../../../../api-codegen/capi/swagger-cod
 
 @Component({
     selector: 'dsh-payment-terminal',
-    templateUrl: './payment-terminal.component.html',
+    templateUrl: 'payment-terminal.component.html',
 })
 export class PaymentTerminalComponent {
     @Input() paymentTerminal: PaymentTerminalDetails;
