@@ -48,7 +48,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
     }
 
     addOwner(ownerCount = 1) {
-        for (let i = 0; i < ownerCount; i++) {
+        for (let i = 0; i < ownerCount; i += 1) {
             (this.form.controls.beneficialOwners as FormArray).push(this.constructBeneficialOwnerForm());
         }
     }

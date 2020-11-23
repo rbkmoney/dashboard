@@ -6,6 +6,7 @@ import { CAPIModule } from './capi';
 import { ClaimManagementModule } from './claim-management';
 import { DarkApiModule } from './dark-api';
 import { MessagesModule } from './messages';
+import { OrganizationsModule } from './organizations';
 import { QuestionaryModule } from './questionary';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { QuestionaryModule } from './questionary';
         AggrProxyModule,
         DarkApiModule,
         MessagesModule,
+        OrganizationsModule,
     ],
 })
 export class APICodegenModule {}

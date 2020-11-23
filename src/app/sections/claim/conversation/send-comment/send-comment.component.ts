@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { ConversationID } from '../../../../api-codegen/messages';
+import { Conversation } from '../../../../api-codegen/messages';
 import { SendCommentService } from './send-comment.service';
 import { UploadFilesService } from './upload-files.service';
 
@@ -15,7 +15,7 @@ import { UploadFilesService } from './upload-files.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SendCommentComponent {
-    @Output() conversationSaved: EventEmitter<ConversationID> = new EventEmitter();
+    @Output() conversationSaved: EventEmitter<Conversation['conversationId']> = new EventEmitter();
 
     form: FormGroup = this.sendCommentService.form;
     errorCode$ = this.sendCommentService.errorCode$;

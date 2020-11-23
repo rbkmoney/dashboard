@@ -6,7 +6,7 @@ import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators
 
 import { ClaimsService } from '../../../api';
 import { FileModification } from '../../../api-codegen/claim-management';
-import { ConversationID } from '../../../api-codegen/messages';
+import { Conversation } from '../../../api-codegen/messages';
 import { progress } from '../../../custom-operators';
 import { UIError } from '../../ui-error';
 import { ReceiveClaimService } from '../receive-claim.service';
@@ -58,7 +58,7 @@ export class UpdateClaimService {
         );
     }
 
-    updateByConversation(conversationId: ConversationID) {
+    updateByConversation(conversationId: Conversation['conversationId']) {
         this.updateBy$.next({
             type: 'updateConversation',
             conversationId,

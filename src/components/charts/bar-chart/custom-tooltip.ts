@@ -6,7 +6,7 @@ const getGetTooltipTitle = (x: string | null): string =>
 
 export const customTooltip = ({ series, dataPointIndex, w }) => {
     let values = '';
-    for (let i = 0; i < series.length; i++) {
+    for (let i = 0; i < series.length; i += 1) {
         const formattedAmount = formatNumber(series[i][dataPointIndex], locale());
         const tooltipValue = w.globals.initialSeries[i].name
             ? `${w.globals.seriesNames[i]} - ${formattedAmount}`

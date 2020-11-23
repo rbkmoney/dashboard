@@ -71,7 +71,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     private _multiple = false;
     private _disabled = false;
     private _selectionModel: SelectionModel<ButtonToggleComponent>;
-    private _name = `dsh-button-toggle-group-${_uniqueIdCounter++}`;
+    private _name = `dsh-button-toggle-group-${(_uniqueIdCounter += 1)}`;
 
     private _rawValue: any;
 
@@ -406,7 +406,7 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     ngOnInit() {
         this._isSingleSelector = this.buttonToggleGroup && !this.buttonToggleGroup.multiple;
         this._type = this._isSingleSelector ? 'radio' : 'checkbox';
-        this.id = this.id || `dsh-button-toggle-${_uniqueIdCounter++}`;
+        this.id = this.id || `dsh-button-toggle-${(_uniqueIdCounter += 1)}`;
 
         if (this._isSingleSelector) {
             this.name = this.buttonToggleGroup.name;

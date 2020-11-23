@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 
 import { FileModification } from '../../../api-codegen/claim-management';
-import { ConversationID } from '../../../api-codegen/messages';
+import { Conversation } from '../../../api-codegen/messages';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { UpdateClaimService } from '../update-claim';
 import { toTimelineInfo } from './to-timeline-info';
@@ -14,7 +14,7 @@ export class ConversationService {
 
     constructor(private receiveClaimService: ReceiveClaimService, private updateClaimService: UpdateClaimService) {}
 
-    commentSaved(id: ConversationID) {
+    commentSaved(id: Conversation['conversationId']) {
         this.updateClaimService.updateByConversation(id);
     }
 

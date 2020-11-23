@@ -14,7 +14,9 @@
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
     "fix": "run-p lint-fix prettify",
-    "codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
+    "swagger-codegen": "ts-node --project tools/tsconfig.json tools/swagger-codegen.ts",
+    "openapi-codegen": "ts-node --project tools/tsconfig.json tools/openapi-codegen.ts",
+    "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts"
   },
@@ -76,6 +78,7 @@
     "@angular/cli": "~9.1.1",
     "@angular/compiler-cli": "~9.1.1",
     "@angular/language-service": "~9.1.1",
+    "@openapitools/openapi-generator-cli": "^2.1.4",
     "@rbkmoney/angular-templates": "^0.1.2",
     "@types/d3": "^5.7.0",
     "@types/del": "^4.0.0",
