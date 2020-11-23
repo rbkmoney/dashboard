@@ -14,9 +14,8 @@ import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'r
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { Shop } from '../../../../api-codegen/capi';
-import { ShopService } from '../../../../api/shop';
-import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
 import { ApiShopsService } from '../../../../api/shop';
+import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { getDefaultDaterange } from './get-default-daterange';
