@@ -3,23 +3,26 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { FilterShopsModule, InvoicesFilterModule } from '@dsh/app/shared/*';
-import { FiltersModule } from '@dsh/components/filters';
+import {
+    FilterShopsModule,
+    InvoicesFilterModule,
+    InvoiceStatusFilterModule,
+    RefundStatusFilterModule,
+} from '@dsh/app/shared/components';
+import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
-import { InvoiceStatusFilterModule } from '../../../../../shared/components/filters/invoice-status-filter';
-import { RefundStatusFilterModule } from '../../../../../shared/components/filters/refund-status-filter';
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';
 
 @NgModule({
     imports: [
         CommonModule,
         TranslocoModule,
-        FiltersModule,
         FlexLayoutModule,
         InvoicesFilterModule,
         FilterShopsModule,
         RefundStatusFilterModule,
         InvoiceStatusFilterModule,
+        DaterangeFilterModule,
     ],
     declarations: [InvoicesSearchFiltersComponent],
     exports: [InvoicesSearchFiltersComponent],
