@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import {
-    distinctUntilChanged,
-    map,
-    mapTo,
-    pluck,
-    scan,
-    shareReplay,
-    switchMap,
-    tap,
-    withLatestFrom,
-} from 'rxjs/operators';
+import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
@@ -74,11 +64,6 @@ export class FetchShopsService {
         this.loader$.next(false);
     }
 
-    protected updateShopsBalances(shops: ApiShop[]): void {
-        const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
-        this.shopsBalance.setShopIds(shopIds);
-    }
-
     private initAllShopsFetching(): void {
         this.allShops$ = this.realmData$.pipe(
             filterShopsByRealm(this.apiShopsService.shops$),
@@ -99,14 +84,11 @@ export class FetchShopsService {
     private initShownShopsObservable(): void {
         this.loadedShops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
             map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
-            tap((shops: ApiShop[]) => {
-                this.updateShopsBalances(shops);
-            }),
             switchMap((shops: ApiShop[]) => {
-                return this.shopsBalance.balances$.pipe(
-                    distinctUntilChanged(),
-                    map((balances: ShopBalance[]) => combineShopItem(shops, balances))
-                );
+                const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
+                return this.shopsBalance
+                    .getBalances(shopIds)
+                    .pipe(map((balances: ShopBalance[]) => combineShopItem(shops, balances)));
             }),
             tap(() => this.stopLoading()),
             shareReplay(SHARE_REPLAY_CONF)
