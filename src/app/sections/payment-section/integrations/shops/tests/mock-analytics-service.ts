@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { Observable, of, scheduled } from 'rxjs';
 
 import { InlineResponse200 } from '../../../../../api-codegen/anapi/swagger-codegen';
 
-@Injectable()
 export class MockAnalyticsService {
     private innerResponse: InlineResponse200 = {
         result: [],

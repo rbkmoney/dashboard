@@ -114,7 +114,7 @@ describe('CreateShopDialogComponent', () => {
         });
 
         it('should navigate to onboarding if selectedShopType is new', () => {
-            const spyOnNavigate = spyOn(router, 'navigate');
+            const spyOnNavigate = spyOn(router, 'navigate').and.callThrough();
 
             component.onTypeChange(ShopType.new);
             component.next();

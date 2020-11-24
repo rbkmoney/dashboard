@@ -1,5 +1,4 @@
 import { generateMockBalance } from '../../tests/generate-mock-balance';
-import { generateMockShop } from '../../tests/generate-mock-shop';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { combineShopItem } from './combine-shop-item';
 
@@ -16,35 +15,35 @@ describe('combineShopItem', () => {
 
         expect(combineShopItem(shopsList, balancesList)).toEqual([
             {
-                ...generateMockShop(1),
+                ...shopsList[0],
                 balance: {
                     amount: 15,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(2),
+                ...shopsList[1],
                 balance: {
                     amount: 20,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(3),
+                ...shopsList[2],
                 balance: {
                     amount: 200,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(4),
+                ...shopsList[3],
                 balance: {
                     amount: 500,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(5),
+                ...shopsList[4],
                 balance: {
                     amount: 23,
                     currency: 'USD',
@@ -59,29 +58,29 @@ describe('combineShopItem', () => {
 
         expect(combineShopItem(shopsList, balancesList)).toEqual([
             {
-                ...generateMockShop(1),
+                ...shopsList[0],
                 balance: {
                     amount: 15,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(2),
+                ...shopsList[1],
                 balance: {
                     amount: 20,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(3),
+                ...shopsList[2],
                 balance: null,
             },
             {
-                ...generateMockShop(4),
+                ...shopsList[3],
                 balance: null,
             },
             {
-                ...generateMockShop(5),
+                ...shopsList[4],
                 balance: {
                     amount: 23,
                     currency: 'USD',
@@ -109,23 +108,23 @@ describe('combineShopItem', () => {
 
         expect(combineShopItem(shopsList, balancesList)).toEqual([
             {
-                ...generateMockShop(1),
+                ...shopsList[0],
                 balance: null,
             },
             {
-                ...generateMockShop(2),
+                ...shopsList[1],
                 balance: null,
             },
             {
-                ...generateMockShop(3),
+                ...shopsList[2],
                 balance: null,
             },
             {
-                ...generateMockShop(4),
+                ...shopsList[3],
                 balance: null,
             },
             {
-                ...generateMockShop(5),
+                ...shopsList[4],
                 balance: null,
             },
         ]);
@@ -143,29 +142,29 @@ describe('combineShopItem', () => {
 
         expect(combineShopItem(shopsList, balancesList)).toEqual([
             {
-                ...generateMockShop(1),
+                ...shopsList[0],
                 balance: {
                     amount: 15,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(2),
+                ...shopsList[1],
                 balance: {
                     amount: 20,
                     currency: 'USD',
                 },
             },
             {
-                ...generateMockShop(3),
+                ...shopsList[2],
                 balance: null,
             },
             {
-                ...generateMockShop(4),
+                ...shopsList[3],
                 balance: null,
             },
             {
-                ...generateMockShop(5),
+                ...shopsList[4],
                 balance: {
                     amount: 23,
                     currency: 'USD',

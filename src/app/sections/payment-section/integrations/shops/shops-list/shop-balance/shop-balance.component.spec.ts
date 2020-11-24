@@ -1,37 +1,12 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShopLocation } from '../../../../../../api-codegen/anapi/swagger-codegen';
 import { ToMajorModule } from '../../../../../../to-major';
-import { ShopItem } from '../../types/shop-item';
+import { generateMockBalance } from '../../tests/generate-mock-balance';
+import { generateMockShop } from '../../tests/generate-mock-shop';
 import { ShopBalanceComponent } from './shop-balance.component';
 
-const mockShop: ShopItem = {
-    id: 'mock',
-    createdAt: new Date(),
-    isBlocked: false,
-    isSuspended: false,
-    categoryID: 1,
-    location: {
-        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-        url: 'example.com',
-    },
-    details: {
-        name: 'my name',
-        description: 'some description',
-    },
-    contractID: 'contractID',
-    payoutToolID: 'payoutToolID',
-    scheduleID: 1,
-    account: {
-        currency: 'USD',
-        guaranteeID: 2,
-        settlementID: 2,
-    },
-    balance: {
-        amount: 20,
-        currency: 'USD',
-    },
-};
+const EMPTY_BALANCE_SYMBOL = '--/--';
 
 describe('ShopBalanceComponent', () => {
     let component: ShopBalanceComponent;
@@ -41,18 +16,56 @@ describe('ShopBalanceComponent', () => {
         TestBed.configureTestingModule({
             imports: [ToMajorModule],
             declarations: [ShopBalanceComponent],
-        }).compileComponents();
+        })
+            .overrideComponent(ShopBalanceComponent, {
+                set: {
+                    changeDetection: ChangeDetectionStrategy.Default,
+                },
+            })
+            .compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopBalanceComponent);
         component = fixture.componentInstance;
 
-        component.shop = mockShop;
+        const shop = generateMockShop(1);
+        component.shop = {
+            ...shop,
+            balance: null,
+        };
+
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    describe('template', () => {
+        it('should render empty balance symbol if balance data is null', () => {
+            const shop = generateMockShop(1);
+            component.shop = {
+                ...shop,
+                balance: null,
+            };
+
+            fixture.detectChanges();
+
+            expect(fixture.nativeElement.textContent.trim()).toBe(EMPTY_BALANCE_SYMBOL);
+        });
+
+        it('should render balance amount if balance data exists', () => {
+            const { data } = generateMockBalance(1, 500);
+            const shop = generateMockShop(1);
+            component.shop = {
+                ...shop,
+                balance: data,
+            };
+
+            fixture.detectChanges();
+
+            expect(fixture.nativeElement.textContent.trim()).toBe('$5.00');
+        });
     });
 });

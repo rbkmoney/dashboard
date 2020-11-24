@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -12,7 +12,9 @@ import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
 import { combineShopItem } from './combine-shop-item';
 
-const LIST_OFFSET = 5;
+const DEFAULT_LIST_PAGINATION_OFFSET = 20;
+
+export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
 @Injectable()
 export class FetchShopsService {
@@ -30,7 +32,13 @@ export class FetchShopsService {
     private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
 
-    constructor(private apiShopsService: ApiShopsService, private shopsBalance: ShopsBalanceService) {
+    constructor(
+        private apiShopsService: ApiShopsService,
+        private shopsBalance: ShopsBalanceService,
+        @Optional()
+        @Inject(SHOPS_LIST_PAGINATION_OFFSET)
+        private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
+    ) {
         this.initAllShopsFetching();
         this.initOffsetObservable();
         this.initShownShopsObservable();
@@ -73,7 +81,7 @@ export class FetchShopsService {
 
     private initOffsetObservable(): void {
         this.listOffset$ = this.showMore$.pipe(
-            mapTo(LIST_OFFSET),
+            mapTo(this.paginationOffset),
             withLatestFrom(this.selectedIndex$),
             map(([curOffset]: [number, number]) => curOffset),
             scan((offset: number, limit: number) => offset + limit, 0),

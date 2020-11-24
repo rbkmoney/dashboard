@@ -18,6 +18,7 @@ export class PaymentsComponent {
     testEnvBtnContent$ = this.paymentsService.testEnvBtnContent$;
     subheading$ = this.paymentsService.subheading$;
 
+    // tslint:disable-next-line:no-console
     log = console.log;
 
     constructor(private paymentsService: PaymentsService) {}

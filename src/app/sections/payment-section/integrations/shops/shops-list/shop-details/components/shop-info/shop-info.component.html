@@ -1,6 +1,6 @@
 <div *transloco="let p; scope: 'shops'; read: 'shops.panel'" fxLayout="column" fxLayoutGap="24px">
     <dsh-details-item [title]="p('name')" fxFlex fxFlex.lt-md="100">{{ shop.details.name }}</dsh-details-item>
-    <dsh-details-item [title]="p('url')" fxFlex fxFlex.lt-md="100">{{ shop.location.url }}</dsh-details-item>
+    <dsh-details-item [title]="p('url')" fxFlex fxFlex.lt-md="100">{{ shopUrl }}</dsh-details-item>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
         <dsh-details-item [title]="p('balance')" fxFlex fxFlex.lt-md="100">
             <dsh-shop-balance [shop]="shop"></dsh-shop-balance>

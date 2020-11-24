@@ -11,7 +11,7 @@ import { ShopBalanceModule } from '../../shops-list/shop-balance';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
-import { FetchShopsService } from './fetch-shops.service';
+import { FetchShopsService, SHOPS_LIST_PAGINATION_OFFSET } from './fetch-shops.service';
 
 class MockApiShopsService {
     shops$: Observable<Shop[]>;
@@ -55,6 +55,10 @@ describe('FetchShopsService', () => {
                 {
                     provide: AnalyticsService,
                     useValue: analyticsService,
+                },
+                {
+                    provide: SHOPS_LIST_PAGINATION_OFFSET,
+                    useValue: 5,
                 },
             ],
         });
