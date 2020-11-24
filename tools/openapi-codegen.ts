@@ -26,7 +26,10 @@ async function openAPICodegenAngular({
             await del([outputDirPath]);
             openApiLog(`${outputDirPath} deleted`);
 
-            const cmd = `npx @openapitools/openapi-generator-cli generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
+            const cmd = `java -jar ${path.join(
+                __dirname,
+                '../node_modules/@openapitools/openapi-generator-cli/versions/4.3.0.jar'
+            )} generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
             openApiLog(`> ${cmd}`);
             return execWithLog(cmd);
         })
