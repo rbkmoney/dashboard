@@ -2,31 +2,26 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { PaymentService } from '../../../../../../api/payment';
-
-export interface ReceivePaymentParams {
-    invoiceID: string;
-    paymentID: string;
-}
+import { Invoice } from '../../../../../../../../api-codegen/capi';
+import { InvoiceService } from '../../../../../../../../api/invoice';
 
 @Injectable()
-export class RefundPaymentInfoService {
-    private receivePayment$ = new Subject<ReceivePaymentParams>();
+export class ReceiveInvoiceService {
+    private receiveInvoice$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
     private error$ = new Subject();
-    private receivedPayment$ = new Subject<PaymentSearchResult>();
+    private receivedPayment$ = new Subject<Invoice>();
 
     isLoading$ = this.loading$.asObservable();
     errorOccurred$ = this.error$.asObservable();
-    payment$ = this.receivedPayment$.asObservable();
+    invoice$ = this.receivedPayment$.asObservable();
 
-    constructor(private paymentService: PaymentService) {
-        this.receivePayment$
+    constructor(private invoiceService: InvoiceService) {
+        this.receiveInvoice$
             .pipe(
                 tap(() => this.loading$.next(true)),
-                switchMap(({ invoiceID, paymentID }) =>
-                    this.paymentService.getPaymentByID(invoiceID, paymentID).pipe(
+                switchMap((invoiceID: string) =>
+                    this.invoiceService.getInvoiceByID(invoiceID).pipe(
                         catchError((e) => {
                             console.error(e);
                             this.loading$.next(false);
@@ -36,15 +31,15 @@ export class RefundPaymentInfoService {
                     )
                 ),
                 filter((result) => result !== 'error'),
-                map((r) => r as PaymentSearchResult)
+                map((r) => r as Invoice)
             )
-            .subscribe((payment: PaymentSearchResult) => {
+            .subscribe((payment: Invoice) => {
                 this.loading$.next(false);
                 this.receivedPayment$.next(payment);
             });
     }
 
-    receivePayment(params: ReceivePaymentParams) {
-        this.receivePayment$.next(params);
+    receivePayment(invoiceID: string) {
+        this.receiveInvoice$.next(invoiceID);
     }
 }

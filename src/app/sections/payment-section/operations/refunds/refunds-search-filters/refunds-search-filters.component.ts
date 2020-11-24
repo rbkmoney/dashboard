@@ -20,10 +20,10 @@ import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { filterShopsByRealm } from '../../operators';
+import { SearchFiltersParams } from '../types/search-filters-params';
 import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';
-import { SearchFiltersParams } from './search-filters-params';
 
 @Component({
     selector: 'dsh-refunds-search-filters',

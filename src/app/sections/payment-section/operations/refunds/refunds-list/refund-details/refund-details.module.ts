@@ -15,11 +15,11 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { PaymentModule } from '../../../../../api/payment';
+import { PaymentModule } from '../../../../../../api/payment';
+import { RefundInvoiceInfoComponent } from './components/refund-invoice-info';
+import { RefundMainInfoComponent } from './components/refund-main-info';
+import { RefundPaymentInfoComponent } from './components/refund-payment-info';
 import { RefundDetailsComponent } from './refund-details.component';
-import { RefundInvoiceInfoComponent } from './refund-invoice-info';
-import { RefundMainInfoComponent } from './refund-main-info';
-import { RefundPaymentInfoComponent } from './refund-payment-info';
 
 @NgModule({
     imports: [

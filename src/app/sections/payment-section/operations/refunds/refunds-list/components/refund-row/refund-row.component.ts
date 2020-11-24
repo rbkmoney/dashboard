@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { RefundSearchResult } from '../../../../../../api-codegen/anapi/swagger-codegen';
+import { RefundSearchResult } from '../../../../../../../api-codegen/anapi/swagger-codegen';
 
 @Component({
     selector: 'dsh-refund-row',
