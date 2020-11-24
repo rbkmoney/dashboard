@@ -6,4 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     styleUrls: ['organizations.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationsComponent {}
+export class OrganizationsComponent {
+    createPayout() {}
+}

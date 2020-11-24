@@ -2,15 +2,34 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { LayoutModule } from '@dsh/components/layout';
+import { AccordionModule, LayoutModule } from '@dsh/components/layout';
 
+import { ButtonModule } from '../../../components/buttons';
+import { EmptySearchResultModule } from '../../../components/empty-search-result';
+import { SpinnerModule } from '../../../components/indicators';
+import { CollapseModule } from '../../../components/layout/collapse';
+import { ScrollUpModule } from '../../../components/navigation';
+import { ShowMorePanelModule } from '../../../components/show-more-panel';
+import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 
-const EXPORTED_DECLARATIONS = [OrganizationsComponent];
+const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponent];
 
 @NgModule({
-    imports: [OrganizationsRoutingModule, TranslocoModule, FlexLayoutModule, LayoutModule],
+    imports: [
+        OrganizationsRoutingModule,
+        TranslocoModule,
+        FlexLayoutModule,
+        LayoutModule,
+        ScrollUpModule,
+        ShowMorePanelModule,
+        EmptySearchResultModule,
+        SpinnerModule,
+        ButtonModule,
+        AccordionModule,
+        CollapseModule,
+    ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })

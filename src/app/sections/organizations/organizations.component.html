@@ -1,5 +1,20 @@
-<div *transloco="let t; scope: 'organizations'; read: 'organizations'" class="dsh-organizations">
-    <div class="dsh-display-1">
-        {{ t('header') }}
+<div
+    class="dsh-organizations"
+    *transloco="let t; scope: 'organizations'; read: 'organizations'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <h1 class="dsh-display-1">{{ t('header') }}</h1>
+    <div fxLayout fxLayoutAlign="end">
+        <button dsh-button color="accent" (click)="createPayout()">
+            {{ t('createOrganization') }}
+        </button>
     </div>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-organizations-list></dsh-organizations-list>
+        <!-- <dsh-show-more-panel></dsh-show-more-panel> -->
+    </div>
+    <!-- <dsh-empty-search-result></dsh-empty-search-result> -->
+    <!-- <dsh-spinner></dsh-spinner> -->
 </div>
+<dsh-scroll-up></dsh-scroll-up>
