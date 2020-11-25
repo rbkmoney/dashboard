@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '../../../../../../../../api-codegen/capi/swagger-codegen';
@@ -12,16 +12,19 @@ export interface ReceivePaymentParams {
 
 @Injectable()
 export class ReceivePaymentService {
+    isLoading$: Observable<boolean>;
+    errorOccurred$: Observable<boolean>;
+    payment$: Observable<PaymentSearchResult>;
+
     private receivePayment$ = new Subject<ReceivePaymentParams>();
     private loading$ = new BehaviorSubject(false);
-    private error$ = new Subject();
-    private receivedPayment$ = new Subject<PaymentSearchResult>();
-
-    isLoading$ = this.loading$.asObservable();
-    errorOccurred$ = this.error$.asObservable();
-    payment$ = this.receivedPayment$.asObservable();
+    private error$ = new Subject<boolean>();
+    private receivedPayment$ = new ReplaySubject<PaymentSearchResult>();
 
     constructor(private paymentService: PaymentService) {
+        this.isLoading$ = this.loading$.asObservable();
+        this.errorOccurred$ = this.error$.asObservable();
+        this.payment$ = this.receivedPayment$.asObservable();
         this.receivePayment$
             .pipe(
                 tap(() => this.loading$.next(true)),

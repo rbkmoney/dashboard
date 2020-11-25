@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../../../../api-codegen/capi';
@@ -7,16 +7,19 @@ import { InvoiceService } from '../../../../../../../../api/invoice';
 
 @Injectable()
 export class ReceiveInvoiceService {
+    isLoading$: Observable<boolean>;
+    errorOccurred$: Observable<boolean>;
+    invoice$: Observable<Invoice>;
+
     private receiveInvoice$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
-    private error$ = new Subject();
-    private receivedPayment$ = new Subject<Invoice>();
-
-    isLoading$ = this.loading$.asObservable();
-    errorOccurred$ = this.error$.asObservable();
-    invoice$ = this.receivedPayment$.asObservable();
+    private error$ = new Subject<boolean>();
+    private receivedInvoice$ = new ReplaySubject<Invoice>();
 
     constructor(private invoiceService: InvoiceService) {
+        this.isLoading$ = this.loading$.asObservable();
+        this.errorOccurred$ = this.error$.asObservable();
+        this.invoice$ = this.receivedInvoice$.asObservable();
         this.receiveInvoice$
             .pipe(
                 tap(() => this.loading$.next(true)),
@@ -33,9 +36,9 @@ export class ReceiveInvoiceService {
                 filter((result) => result !== 'error'),
                 map((r) => r as Invoice)
             )
-            .subscribe((payment: Invoice) => {
+            .subscribe((invoice: Invoice) => {
                 this.loading$.next(false);
-                this.receivedPayment$.next(payment);
+                this.receivedInvoice$.next(invoice);
             });
     }
 

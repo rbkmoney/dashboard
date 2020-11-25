@@ -16,9 +16,9 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { PaymentModule } from '../../../../../../api/payment';
-import { RefundInvoiceInfoComponent } from './components/refund-invoice-info';
-import { RefundMainInfoComponent } from './components/refund-main-info';
-import { RefundPaymentInfoComponent } from './components/refund-payment-info';
+import { RefundInvoiceInfoComponent } from './components/refund-invoice-info/refund-invoice-info.component';
+import { RefundMainInfoComponent } from './components/refund-main-info/refund-main-info.component';
+import { RefundPaymentInfoComponent } from './components/refund-payment-info/refund-payment-info.component';
 import { RefundDetailsComponent } from './refund-details.component';
 
 @NgModule({

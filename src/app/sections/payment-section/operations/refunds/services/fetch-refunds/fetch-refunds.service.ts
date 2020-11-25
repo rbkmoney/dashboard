@@ -10,10 +10,10 @@ import { PartialFetcher } from '../../../../../partial-fetcher';
 import { mapToTimestamp } from '../../../operators';
 import { SearchFiltersParams } from '../../refunds-search-filters';
 
+const SEARCH_LIMIT = 10;
+
 @Injectable()
 export class FetchRefundsService extends PartialFetcher<RefundSearchResult, SearchFiltersParams> {
-    private readonly SEARCH_LIMIT = 10;
-
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 
@@ -32,7 +32,7 @@ export class FetchRefundsService extends PartialFetcher<RefundSearchResult, Sear
                         ...params,
                         paymentInstitutionRealm,
                     },
-                    this.SEARCH_LIMIT,
+                    SEARCH_LIMIT,
                     continuationToken
                 )
             )
