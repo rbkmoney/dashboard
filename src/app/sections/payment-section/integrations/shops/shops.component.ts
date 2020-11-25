@@ -7,6 +7,8 @@ import { PaymentInstitutionRealm } from '../../../../api/model';
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
+import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
+import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
@@ -21,10 +23,16 @@ import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expan
         `,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchShopsService, ShopsBalanceService, ShopsExpandedIdManagerService],
+    providers: [
+        FetchShopsService,
+        ShopsBalanceService,
+        ShopsExpandedIdManagerService,
+        ShopsFiltersService,
+        ShopsFiltersStoreService,
+    ],
 })
 export class ShopsComponent implements OnInit {
-    shops$ = this.shopsService.loadedShops$;
+    shops$ = this.shopsService.shownShops$;
     isLoading$ = this.shopsService.isLoading$;
     lastUpdated$ = this.shopsService.lastUpdated$;
     hasMore$ = this.shopsService.hasMore$;

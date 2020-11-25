@@ -339,7 +339,7 @@ describe('FetchShopsService', () => {
             service.initOffsetIndex(3);
 
             expect(
-                service.loadedShops$.pipe(
+                service.shownShops$.pipe(
                     map((list) => {
                         return list.map(({ id }) => id);
                     })

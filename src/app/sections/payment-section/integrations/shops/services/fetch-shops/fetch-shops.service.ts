@@ -18,8 +18,11 @@ import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm, mapToTimestamp } from '../../../../operations/operators';
 import { ShopBalance } from '../../types/shop-balance';
+import { ShopFiltersData } from '../../types/shop-filters-data';
 import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
+import { ShopsFiltersStoreService } from '../shops-filters-store/shops-filters-store.service';
+import { ShopsFiltersService } from '../shops-filters/shops-filters.service';
 import { combineShopItem } from './combine-shop-item';
 
 const LIST_OFFSET = 5;
@@ -27,7 +30,7 @@ const LIST_OFFSET = 5;
 @Injectable()
 export class FetchShopsService {
     allShops$: Observable<ApiShop[]>;
-    loadedShops$: Observable<ShopItem[]>;
+    shownShops$: Observable<ShopItem[]>;
     lastUpdated$: Observable<string>;
     isLoading$: Observable<boolean>;
     hasMore$: Observable<boolean>;
@@ -39,12 +42,19 @@ export class FetchShopsService {
 
     private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
+    private filters$ = new ReplaySubject<ShopFiltersData>(1);
 
-    constructor(private apiShopsService: ApiShopsService, private shopsBalance: ShopsBalanceService) {
+    constructor(
+        private apiShopsService: ApiShopsService,
+        private shopsBalance: ShopsBalanceService,
+        private filtersStore: ShopsFiltersStoreService,
+        private filtersService: ShopsFiltersService
+    ) {
         this.initAllShopsFetching();
         this.initOffsetObservable();
         this.initShownShopsObservable();
         this.initIndicators();
+        this.initFiltersStore();
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
@@ -79,6 +89,11 @@ export class FetchShopsService {
         this.shopsBalance.setShopIds(shopIds);
     }
 
+    protected updateFilters(data: ShopFiltersData): void {
+        this.startLoading();
+        this.filters$.next(data);
+    }
+
     private initAllShopsFetching(): void {
         this.allShops$ = this.realmData$.pipe(
             filterShopsByRealm(this.apiShopsService.shops$),
@@ -97,8 +112,11 @@ export class FetchShopsService {
     }
 
     private initShownShopsObservable(): void {
-        this.loadedShops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
-            map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
+        this.shownShops$ = combineLatest([this.allShops$, this.listOffset$, this.filters$]).pipe(
+            map(([shops, showedCount, filters]: [ShopItem[], number, ShopFiltersData]) => {
+                const slicedShops = this.sliceOffset(shops, showedCount);
+                return this.filtersService.filterShops(slicedShops, filters);
+            }),
             tap((shops: ApiShop[]) => {
                 this.updateShopsBalances(shops);
             }),
@@ -120,5 +138,15 @@ export class FetchShopsService {
             map(([count, showedCount]: [number, number]) => count > showedCount),
             shareReplay(SHARE_REPLAY_CONF)
         );
+    }
+
+    private initFiltersStore(): void {
+        this.filtersStore.data$.subscribe((filtersData: ShopFiltersData) => {
+            this.updateFilters(filtersData);
+        });
+    }
+
+    private sliceOffset(list: ShopItem[], offset: number): ShopItem[] {
+        return list.slice(0, offset);
     }
 }
