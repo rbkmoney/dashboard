@@ -76,7 +76,7 @@
     "@angular/cli": "~9.1.1",
     "@angular/compiler-cli": "~9.1.1",
     "@angular/language-service": "~9.1.1",
-    "@openapitools/openapi-generator-cli": "^2.1.4",
+    "@openapitools/openapi-generator-cli": "^2.1.7",
     "@rbkmoney/angular-templates": "^0.1.2",
     "@types/d3": "^5.7.0",
     "@types/del": "^4.0.0",
