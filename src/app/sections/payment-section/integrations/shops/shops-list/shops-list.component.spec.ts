@@ -40,8 +40,8 @@ describe('ShopsListComponent', () => {
     beforeEach(() => {
         mockExpandedIdManager = mock(ShopsExpandedIdManagerService);
 
-        when(mockExpandedIdManager.expandedId$).thenReturn(of(1))
-    })
+        when(mockExpandedIdManager.expandedId$).thenReturn(of(1));
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -68,7 +68,7 @@ describe('ShopsListComponent', () => {
             providers: [
                 {
                     provide: ShopsExpandedIdManagerService,
-                    useFactory: () => instance(mockExpandedIdManager)
+                    useFactory: () => instance(mockExpandedIdManager),
                 },
             ],
         })
