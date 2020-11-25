@@ -18,19 +18,17 @@ async function openAPICodegenAngular({
 }) {
     const openApiLog = createLog('OpenAPI Codegen');
     openApiLog('Generate...');
-    await Promise.all(
-        Object.entries(schemes).map(async ([specName, specPath]) => {
-            const inputPath = specPath;
-            const outputDirPath = path.join(outputRootDir, specName, outputDir);
+    for (const [specName, specPath] of Object.entries(schemes)) {
+        const inputPath = specPath;
+        const outputDirPath = path.join(outputRootDir, specName, outputDir);
 
-            await del([outputDirPath]);
-            openApiLog(`${outputDirPath} deleted`);
+        await del([outputDirPath]);
+        openApiLog(`${outputDirPath} deleted`);
 
-            const cmd = `npx @openapitools/openapi-generator-cli generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
-            openApiLog(`> ${cmd}`);
-            return execWithLog(cmd);
-        })
-    );
+        const cmd = `npx @openapitools/openapi-generator-cli generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
+        openApiLog(`> ${cmd}`);
+        return execWithLog(cmd);
+    }
     openApiLog('Successfully generated 😀');
 }
 
