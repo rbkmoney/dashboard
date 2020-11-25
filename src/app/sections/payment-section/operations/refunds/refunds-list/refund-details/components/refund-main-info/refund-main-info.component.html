@@ -1,0 +1,6 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.refunds'">
+    <dsh-refund-details [refund]="refund"></dsh-refund-details>
+    <dsh-details-item [title]="t('shop')">
+        {{ refund.shopID | shopDetails }}
+    </dsh-details-item>
+</div>

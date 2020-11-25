@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
-import { FetchRefundsService } from './fetch-refunds.service';
-import { RefundsExpandedIdManager } from './refunds-expanded-id-manager.service';
 import { SearchFiltersParams } from './refunds-search-filters';
-import { RefundsSearchFiltersStore } from './refunds-search-filters-store.service';
+import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
+import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';
+import { RefundsSearchFiltersStore } from './services/refunds-search-filters-store/refunds-search-filters-store.service';
 
 @Component({
     selector: 'dsh-refunds',

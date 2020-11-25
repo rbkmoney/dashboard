@@ -11,9 +11,9 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { InvoiceModule } from '../../../../../api/invoice';
 import { ToMajorModule } from '../../../../../to-major';
-import { RefundDetailsModule } from '../refund-details';
-import { RefundRowComponent } from './refund-row';
-import { RefundRowHeaderComponent } from './refund-row-header';
+import { RefundRowHeaderComponent } from './components/refund-row-header/refund-row-header.component';
+import { RefundRowComponent } from './components/refund-row/refund-row.component';
+import { RefundDetailsModule } from './refund-details';
 import { RefundsListComponent } from './refunds-list.component';
 
 @NgModule({
