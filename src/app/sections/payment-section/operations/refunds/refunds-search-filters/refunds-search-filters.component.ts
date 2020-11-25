@@ -33,11 +33,12 @@ import { searchFilterParamsToDaterange } from './search-filter-params-to-dateran
 })
 export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
     @Input() initParams: SearchFiltersParams;
-    @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     @Input() set realm(realm: string) {
         this.realm$.next(realm);
     }
+
+    @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     daterange: Daterange;
 
