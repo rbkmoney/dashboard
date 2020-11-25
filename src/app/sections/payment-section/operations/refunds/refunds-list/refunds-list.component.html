@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-refund-row-header></dsh-refund-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let refund of refunds" #accordionItem>
+            <dsh-refund-row [refund]="refund"></dsh-refund-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'operations'; read: 'operations.refunds'"
+                        (collapse)="accordionItem.collapse($event)"
+                        >{{ t('header') }} #{{ refund.id }}</dsh-accordion-item-content-header
+                    >
+                    <dsh-refund-refund-details [refund]="refund"></dsh-refund-refund-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

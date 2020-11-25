@@ -15,16 +15,15 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
-import { StateNavModule } from '@dsh/components/navigation';
+import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { TableModule } from '@dsh/components/table';
 
-import { ToMajorModule } from '../../../../to-major';
 import { ShopSelectorModule } from '../../../shop-selector';
+import { RefundsListModule } from './refunds-list';
 import { RefundsRoutingModule } from './refunds-routing.module';
+import { RefundsSearchFiltersModule } from './refunds-search-filters';
 import { RefundsComponent } from './refunds.component';
-import { SearchFormComponent } from './search-form';
-import { RefundStatusColorPipe } from './status-color.pipe';
-import { TableComponent } from './table';
 
 @NgModule({
     imports: [
@@ -41,7 +40,6 @@ import { TableComponent } from './table';
         MatSelectModule,
         FormControlsModule,
         IndicatorsModule,
-        ToMajorModule,
         MatSnackBarModule,
         TranslocoModule,
         StateNavModule,
@@ -49,8 +47,12 @@ import { TableComponent } from './table';
         RangeDatepickerModule,
         EmptySearchResultModule,
         ShopSelectorModule,
+        ScrollUpModule,
+        RefundsListModule,
+        RefundsSearchFiltersModule,
+        ShowMorePanelModule,
     ],
-    declarations: [RefundsComponent, SearchFormComponent, RefundStatusColorPipe, TableComponent],
+    declarations: [RefundsComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class RefundsModule {}

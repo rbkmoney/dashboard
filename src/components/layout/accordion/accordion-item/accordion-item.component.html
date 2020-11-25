@@ -5,7 +5,7 @@
 >
     <div *ngIf="expandedChange | async; then content; else panelBase"></div>
     <ng-template #content>
-        <div class="dsh-accordion-item-expand" [@expand]="expandTrigger">
+        <div class="dsh-accordion-item-expand" [@expand]="expandTrigger" (@expand.done)="expandDone()">
             <div (dshResized)="setExpandedContentHeight($event)" fxLayout>
                 <ng-container
                     *ngTemplateOutlet="accordionItemContent?.templateRef || lazyContent?._template"
