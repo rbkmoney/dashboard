@@ -70,24 +70,29 @@
     },
     "refunds": {
         "title": "Возвраты",
-        "filter": {
-            "shopID": "Магазин",
-            "fromTime": "Начало периода",
-            "toTime": "Конец периода",
-            "paymentID": "Идентификатор платежа",
-            "invoiceID": "Идентификатор инвойса",
-            "refundStatus": "Статус возврата",
-            "refundID": "Идентификатор возврата"
+        "header": "Возврат",
+        "shop": "Магазин",
+        "invoiceInfo": {
+            "title": "Инвойс",
+            "loading": "Загрузка...",
+            "error": "Не удалось получить инвойс"
         },
-        "table": {
+        "paymentInfo": {
+            "title": "Платеж",
+            "loading": "Загрузка...",
+            "error": "Не удалось получить платеж"
+        },
+        "fetchError": "Произошла ошибка при поиске возвратов",
+        "headerRow": {
             "amount": "Сумма возврата",
-            "createdAt": "Создан",
-            "shop": "Магазин",
             "status": "Статус",
-            "actions": {
-                "paymentDetails": "Детали платежа",
-                "invoiceDetails": "Детали инвойса"
-            }
+            "updatedAt": "Статус изменен",
+            "shop": "Магазин"
+        },
+        "status": {
+            "succeeded": "Успешен",
+            "failed": "Неуспешен",
+            "pending": "Запущен"
         }
     }
 }

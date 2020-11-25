@@ -1,0 +1,18 @@
+<div
+    fxLayout="column"
+    fxLayoutGap="24px"
+    *transloco="let t; scope: 'operations'; read: 'operations.refunds.invoiceInfo'"
+>
+    <div class="mat-title">
+        {{ t('title') }} <span dshSecondaryTitle>#{{ (invoice$ | async)?.id }}</span>
+    </div>
+    <ng-container *ngIf="isLoading$ | async; else afterLoading">
+        <div class="dsh-body-1">{{ t('loading') }}</div>
+    </ng-container>
+    <ng-template #afterLoading>
+        <div *ngIf="errorOccurred$ | async; else content" class="dsh-body-1">{{ t('error') }}</div>
+    </ng-template>
+    <ng-template #content>
+        <dsh-invoice-details *ngIf="invoice$ | async as invoice" [invoice]="invoice"></dsh-invoice-details>
+    </ng-template>
+</div>

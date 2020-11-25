@@ -7,11 +7,12 @@ export type RefundsSearchParams = MapTuple<
         shopID?: 6;
         shopIDs?: 7;
         paymentInstitutionRealm?: 8;
-        invoiceID?: 10;
-        paymentID?: 11;
-        refundID?: 12;
-        externalID?: 13;
-        refundStatus?: 14;
-        excludedShops?: 15;
+        invoiceIDs?: 10;
+        invoiceID?: 11;
+        paymentID?: 12;
+        refundID?: 13;
+        externalID?: 14;
+        refundStatus?: 15;
+        excludedShops?: 16;
     }
 >;

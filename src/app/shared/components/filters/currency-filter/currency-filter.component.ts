@@ -1,5 +1,6 @@
 import { getCurrencySymbol } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'dsh-currency-filter',
@@ -11,7 +12,8 @@ export class CurrencyFilterComponent {
     @Input() selected?: string;
     @Output() selectedChange = new EventEmitter<string>();
 
-    formatCurrencyLabel(currency: string): string {
-        return getCurrencySymbol(currency, 'narrow');
-    }
+    constructor(private transloco: TranslocoService) {}
+
+    formatCurrencyLabel = (currency: string): string =>
+        `${this.transloco.translate('label', null, 'currency-filter')} · ${getCurrencySymbol(currency, 'narrow')}`;
 }
