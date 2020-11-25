@@ -63,7 +63,7 @@ describe('ShopContractDetailsService', () => {
 
             service.getContract('my_id');
 
-            expect(service.shopContract$).toBeTruthy();
+            expect().nothing();
         });
 
         it('should tick errors value if contracts came with errors', () => {

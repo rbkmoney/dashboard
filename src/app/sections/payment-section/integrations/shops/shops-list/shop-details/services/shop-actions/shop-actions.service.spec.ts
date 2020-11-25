@@ -91,7 +91,7 @@ describe('ShopActionsService', () => {
 
         afterEach(() => {
             // ts mockito not work properly with jasmine expectations so we need to make expect like that
-            expect(mockMatDialog).toBeTruthy();
+            expect().nothing();
         });
 
         it('should open confirm component dialog', () => {
@@ -161,7 +161,7 @@ describe('ShopActionsService', () => {
 
         afterEach(() => {
             // ts mockito not work properly with jasmine expectations so we need to make expect like that
-            expect(mockMatDialog).toBeTruthy();
+            expect().nothing();
         });
 
         it('should open confirm component dialog', () => {

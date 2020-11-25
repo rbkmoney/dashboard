@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
+import { of } from 'rxjs';
+import { instance, mock, verify, when } from 'ts-mockito';
 
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
@@ -12,18 +13,13 @@ import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { ToMajorModule } from '../../../../../to-major';
-import { FetchShopsService } from '../services/fetch-shops/fetch-shops.service';
-import { generateMockShopId } from '../tests/generate-mock-shop-id';
 import { generateMockShopsItemList } from '../tests/generate-mock-shops-item-list';
-import { generateMockShopsList } from '../tests/generate-mock-shops-list';
 import { ShopRowHeaderComponent } from './components/shop-row-header/shop-row-header.component';
 import { ShopRowComponent } from './components/shop-row/shop-row.component';
 import { ShopsExpandedIdManagerService } from './services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopBalanceModule } from './shop-balance';
 import { ShopDetailsModule } from './shop-details';
 import { ShopsListComponent } from './shops-list.component';
-import { MockActivatedRoute } from './tests/mock-activated-route';
-import { MockFetchShops } from './tests/mock-fetch-shops';
 
 const translationConfig = {
     en: {
@@ -39,7 +35,13 @@ const translationConfig = {
 describe('ShopsListComponent', () => {
     let component: ShopsListComponent;
     let fixture: ComponentFixture<ShopsListComponent>;
-    let expandedIdManager: ShopsExpandedIdManagerService;
+    let mockExpandedIdManager: ShopsExpandedIdManagerService;
+
+    beforeEach(() => {
+        mockExpandedIdManager = mock(ShopsExpandedIdManagerService);
+
+        when(mockExpandedIdManager.expandedId$).thenReturn(of(1))
+    })
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -64,14 +66,9 @@ describe('ShopsListComponent', () => {
             ],
             declarations: [ShopsListComponent, ShopRowHeaderComponent, ShopRowComponent],
             providers: [
-                ShopsExpandedIdManagerService,
                 {
-                    provide: ActivatedRoute,
-                    useFactory: () => new MockActivatedRoute(generateMockShopId(3)),
-                },
-                {
-                    provide: FetchShopsService,
-                    useFactory: () => new MockFetchShops(generateMockShopsList(6)),
+                    provide: ShopsExpandedIdManagerService,
+                    useFactory: () => instance(mockExpandedIdManager)
                 },
             ],
         })
@@ -86,7 +83,6 @@ describe('ShopsListComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopsListComponent);
         component = fixture.componentInstance;
-        expandedIdManager = TestBed.inject(ShopsExpandedIdManagerService);
         fixture.detectChanges();
     });
 
@@ -146,12 +142,12 @@ describe('ShopsListComponent', () => {
 
     describe('expandedIdChange', () => {
         it('should call expandedIdChange method from expandedIdManager', () => {
-            const spyOnExpandedIdChange = spyOn(expandedIdManager, 'expandedIdChange').and.callThrough();
+            when(mockExpandedIdManager.expandedIdChange(1)).thenReturn();
 
             component.expandedIdChange(1);
 
-            expect(spyOnExpandedIdChange).toHaveBeenCalledTimes(1);
-            expect(spyOnExpandedIdChange).toHaveBeenCalledWith(1);
+            expect().nothing();
+            verify(mockExpandedIdManager.expandedIdChange(1)).once();
         });
     });
 });

@@ -61,7 +61,7 @@ describe('ShopPayoutToolDetailsService', () => {
                 payoutToolID: 'payout_tool_id',
             });
 
-            expect(service.shopPayoutTool$).toBeTruthy();
+            expect().nothing();
         });
 
         it('should tick errors value if contracts came with errors', () => {

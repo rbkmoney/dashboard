@@ -109,7 +109,7 @@ describe('CreateShopDialogComponent', () => {
                 component.next();
             });
 
-            expect(mockDialogRef).toBeTruthy();
+            expect().nothing();
             verify(mockDialogRef.close()).once();
         });
 
@@ -117,7 +117,9 @@ describe('CreateShopDialogComponent', () => {
             const spyOnNavigate = spyOn(router, 'navigate').and.callThrough();
 
             component.onTypeChange(ShopType.new);
-            component.next();
+            fixture.ngZone.run(() => {
+                component.next();
+            });
 
             expect(spyOnNavigate).toHaveBeenCalledTimes(1);
             expect(spyOnNavigate).toHaveBeenCalledWith(['onboarding']);

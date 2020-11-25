@@ -35,13 +35,13 @@ describe('DshTable', () => {
 
     afterEach(() => {
         // hack for non jasmine expectations
-        expect(TestBed).toBeTruthy();
+        expect().nothing();
     });
 
     describe('with basic data source', () => {
         afterEach(() => {
             // hack for non jasmine expectations
-            expect(TestBed).toBeTruthy();
+            expect().nothing();
         });
 
         it('should be able to create a table with the right content and without when row', () => {
@@ -107,7 +107,7 @@ describe('DshTable', () => {
             [data[3].a, data[3].b, data[3].c],
         ]);
 
-        expect(fixture).toBeTruthy();
+        expect().nothing();
     });
 
     it('should render with DshTableDataSource and pagination', () => {
@@ -159,7 +159,7 @@ describe('DshTable', () => {
 
         afterEach(() => {
             // hack for non jasmine expectations
-            expect(dataSource).toBeTruthy();
+            expect().nothing();
         });
 
         it('should create table and display data source contents', () => {
