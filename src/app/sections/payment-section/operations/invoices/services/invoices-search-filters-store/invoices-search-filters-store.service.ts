@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Params } from '@angular/router';
 import isString from 'lodash.isstring';
 import pickBy from 'lodash.pickby';
 
@@ -12,10 +12,6 @@ const shopsAndInvoicesToArray = (v: any, k: string) => isString(v) && ['shopIDs'
 
 @Injectable()
 export class InvoicesSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
-    constructor(protected route: ActivatedRoute, protected router: Router) {
-        super(router, route);
-    }
-
     mapToData(queryParams: Params): Partial<SearchFiltersParams> {
         return {
             ...queryParams,

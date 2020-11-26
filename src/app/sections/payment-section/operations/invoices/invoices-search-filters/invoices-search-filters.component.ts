@@ -6,8 +6,6 @@ import {
     OnChanges,
     OnInit,
     Output,
-    SimpleChange,
-    SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
@@ -15,8 +13,10 @@ import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'r
 
 import { Daterange } from '@dsh/pipes/daterange';
 
+import { ComponentChanges } from '../../../../../../type-utils';
 import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
+import { PaymentInstitutionRealm } from '../../../../../api/model';
 import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
@@ -32,7 +32,7 @@ import { SearchFiltersParams } from './search-filters-params';
 export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     @Input() initParams: SearchFiltersParams;
 
-    @Input() set realm(realm: string) {
+    @Input() set realm(realm: PaymentInstitutionRealm) {
         this.realm$.next(realm);
     }
 
@@ -44,7 +44,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
 
     selectedShops$: Observable<Shop[]>;
 
-    private realm$ = new ReplaySubject();
+    private realm$ = new ReplaySubject<PaymentInstitutionRealm>();
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
@@ -73,8 +73,10 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             .subscribe((v) => this.searchParamsChanges.emit(v));
     }
 
-    ngOnChanges({ initParams }: SimpleChanges) {
-        this.init(initParams);
+    ngOnChanges({ initParams }: ComponentChanges<InvoicesSearchFiltersComponent>) {
+        if (initParams && initParams.firstChange && initParams.currentValue) {
+            this.init(initParams.currentValue);
+        }
     }
 
     daterangeSelectionChange(v: Daterange | null) {
@@ -98,14 +100,11 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         this.searchParams$.next({ invoiceStatus });
     }
 
-    private init(initParams: SimpleChange) {
-        if (initParams && initParams.firstChange && initParams.currentValue) {
-            const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : timesToDaterange(v);
-            this.daterangeSelectionChange(this.daterange);
-            if (v.shopIDs) {
-                this.selectedShopIDs$.next(v.shopIDs);
-            }
+    private init({ fromTime, toTime, shopIDs }: SearchFiltersParams) {
+        this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterangeSelectionChange(this.daterange);
+        if (shopIDs) {
+            this.selectedShopIDs$.next(shopIDs);
         }
     }
 }

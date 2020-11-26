@@ -8,6 +8,7 @@ import { pluck, shareReplay, take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { PaymentInstitutionRealm } from '../../../../api/model';
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { SearchFiltersParams } from './invoices-search-filters';
@@ -28,7 +29,7 @@ export class InvoicesComponent {
     initSearchParams$ = this.refundsSearchFiltersStore.data$.pipe(take(1));
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    realm$: Observable<string> = this.route.params.pipe(pluck('realm'), shareReplay(1));
+    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(
         private invoicesService: FetchInvoicesService,

@@ -16,10 +16,10 @@ import { SearchFiltersParams } from '../../invoices-search-filters';
 import { mapToInvoicesTableData } from '../../map-to-invoices-table-data';
 import { InvoicesTableData } from '../../table';
 
+const SEARCH_LIMIT = 20;
+
 @Injectable()
 export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
-    private readonly searchLimit = 20;
-
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
     invoicesTableData$: Observable<InvoicesTableData[]> = combineLatest([
@@ -60,7 +60,7 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
                         ...params,
                         paymentInstitutionRealm,
                     },
-                    this.searchLimit,
+                    SEARCH_LIMIT,
                     continuationToken
                 )
             )

@@ -5,6 +5,7 @@ import { pluck, shareReplay, take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { PaymentInstitutionRealm } from '../../../api/model';
 import { AnalyticsSearchFiltersStore } from './analytics-search-filters-store.service';
 import { SearchParams } from './search-params';
 
@@ -19,7 +20,7 @@ export class AnalyticsComponent {
 
     initSearchParams$ = this.analyticsSearchFiltersStore.data$.pipe(take(1));
 
-    realm$: Observable<string> = this.route.params.pipe(pluck('realm'), shareReplay(1));
+    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(private analyticsSearchFiltersStore: AnalyticsSearchFiltersStore, private route: ActivatedRoute) {}
 
