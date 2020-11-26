@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 
 import { RefundSearchResult } from '../../../../api-codegen/capi';
-import { FetchRefundsService } from './fetch-refunds.service';
+import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 
 @Injectable()
 export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResult> {

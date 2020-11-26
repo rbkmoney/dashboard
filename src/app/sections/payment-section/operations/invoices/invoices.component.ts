@@ -11,13 +11,13 @@ import { SpinnerType } from '@dsh/components/indicators';
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { SearchFiltersParams } from './invoices-search-filters';
-import { InvoicesSearchFiltersStore } from './invoices-search-filters-store.service';
-import { InvoicesService } from './invoices.service';
+import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
+import { InvoicesSearchFiltersStore } from './services/invoices-search-filters-store/invoices-search-filters-store.service';
 
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [InvoicesService, InvoicesSearchFiltersStore],
+    providers: [FetchInvoicesService, InvoicesSearchFiltersStore],
 })
 export class InvoicesComponent {
     tableData$ = this.invoicesService.invoicesTableData$;
@@ -31,7 +31,7 @@ export class InvoicesComponent {
     realm$: Observable<string> = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(
-        private invoicesService: InvoicesService,
+        private invoicesService: FetchInvoicesService,
         private refundsSearchFiltersStore: InvoicesSearchFiltersStore,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,

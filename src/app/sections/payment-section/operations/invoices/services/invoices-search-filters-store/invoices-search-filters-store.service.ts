@@ -5,8 +5,8 @@ import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 
-import { wrapValuesToArray } from '../../../../../utils';
-import { SearchFiltersParams } from './invoices-search-filters';
+import { wrapValuesToArray } from '../../../../../../../utils';
+import { SearchFiltersParams } from '../../invoices-search-filters';
 
 const shopsAndInvoicesToArray = (v: any, k: string) => isString(v) && ['shopIDs', 'invoiceIDs'].includes(k);
 
