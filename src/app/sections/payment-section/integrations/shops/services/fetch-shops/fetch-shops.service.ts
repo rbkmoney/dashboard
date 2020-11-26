@@ -1,4 +1,5 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import isNil from 'lodash.isnil';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -39,6 +40,7 @@ export class FetchShopsService {
         @Inject(SHOPS_LIST_PAGINATION_OFFSET)
         private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
     ) {
+        this.initPaginationOffset();
         this.initAllShopsFetching();
         this.initOffsetObservable();
         this.initShownShopsObservable();
@@ -70,6 +72,12 @@ export class FetchShopsService {
 
     protected stopLoading(): void {
         this.loader$.next(false);
+    }
+
+    private initPaginationOffset(): void {
+        if (isNil(this.paginationOffset)) {
+            this.paginationOffset = DEFAULT_LIST_PAGINATION_OFFSET;
+        }
     }
 
     private initAllShopsFetching(): void {
