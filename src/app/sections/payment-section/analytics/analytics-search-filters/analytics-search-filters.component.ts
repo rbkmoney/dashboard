@@ -1,11 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
