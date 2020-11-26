@@ -6,6 +6,7 @@
     "stub": "ng serve --port 8000 --configuration=stub-keycloak",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
     "test": "ng test",
+    "test-ci": "ng run dashboard:test-ci",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
