@@ -5,7 +5,6 @@ import {
     Input,
     OnChanges,
     Output,
-    SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
@@ -13,6 +12,7 @@ import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'r
 
 import { Daterange } from '@dsh/pipes/daterange';
 
+import { ComponentChanges } from '../../../../../type-utils';
 import { Shop } from '../../../../api-codegen/capi';
 import { ApiShopsService } from '../../../../api/shop';
 import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
@@ -83,19 +83,9 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
             });
     }
 
-    ngOnChanges({ initParams }: SimpleChanges) {
+    ngOnChanges({ initParams }: ComponentChanges<AnalyticsSearchFiltersComponent>) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
-            const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : timesToDaterange(v);
-            this.daterangeSelectionChange(this.daterange);
-            if (v.currency) {
-                this.selectedCurrency$.next(v.currency);
-            } else {
-                this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
-            }
-            if (v.shopIDs) {
-                this.selectedShopIDs$.next(v.shopIDs);
-            }
+            this.init(initParams.currentValue);
         }
     }
 
@@ -114,5 +104,18 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
 
     currencySelectionChange(currency: string) {
         this.selectedCurrency$.next(currency);
+    }
+
+    init({ fromTime, toTime, shopIDs, currency }: SearchParams) {
+        this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterangeSelectionChange(this.daterange);
+        if (currency) {
+            this.selectedCurrency$.next(currency);
+        } else {
+            this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
+        }
+        if (shopIDs) {
+            this.selectedShopIDs$.next(shopIDs);
+        }
     }
 }
