@@ -27,6 +27,7 @@ export class PaymentSearchService {
             params.shopID,
             params.shopIDs,
             params.paymentInstitutionRealm,
+            params.invoiceIDs,
             params.paymentStatus,
             params.paymentFlow,
             params.paymentMethod,
