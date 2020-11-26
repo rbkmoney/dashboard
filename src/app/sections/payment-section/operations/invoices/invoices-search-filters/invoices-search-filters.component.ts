@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import isEqual from 'lodash.isequal';
+import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -71,9 +72,9 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         }
     }
 
-    daterangeSelectionChange(v: Daterange | null) {
-        const daterange = v === null ? getDefaultDaterange() : v;
-        if (v === null) {
+    daterangeSelectionChange(range: Daterange | null) {
+        const daterange = isNil(range) ? getDefaultDaterange() : range;
+        if (isNil(range)) {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeToTimes(daterange));
