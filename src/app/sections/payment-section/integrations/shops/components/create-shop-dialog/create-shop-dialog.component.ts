@@ -2,11 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-enum ShopType {
-    russian = 'RussianLegalEntity',
-    new = 'NewLegalEntity',
-    international = 'InternationalLegalEntity',
-}
+import { ShopType } from '../../types/shop-type';
 
 @Component({
     selector: 'dsh-create-shop-dialog',

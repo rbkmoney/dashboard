@@ -1,16 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import isNil from 'lodash.isnil';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import {
-    distinctUntilChanged,
-    map,
-    mapTo,
-    pluck,
-    scan,
-    shareReplay,
-    switchMap,
-    tap,
-    withLatestFrom,
-} from 'rxjs/operators';
+import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
@@ -22,7 +13,9 @@ import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
 import { combineShopItem } from './combine-shop-item';
 
-const LIST_OFFSET = 5;
+const DEFAULT_LIST_PAGINATION_OFFSET = 20;
+
+export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
 @Injectable()
 export class FetchShopsService {
@@ -40,7 +33,14 @@ export class FetchShopsService {
     private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
 
-    constructor(private apiShopsService: ApiShopsService, private shopsBalance: ShopsBalanceService) {
+    constructor(
+        private apiShopsService: ApiShopsService,
+        private shopsBalance: ShopsBalanceService,
+        @Optional()
+        @Inject(SHOPS_LIST_PAGINATION_OFFSET)
+        private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
+    ) {
+        this.initPaginationOffset();
         this.initAllShopsFetching();
         this.initOffsetObservable();
         this.initShownShopsObservable();
@@ -74,9 +74,10 @@ export class FetchShopsService {
         this.loader$.next(false);
     }
 
-    protected updateShopsBalances(shops: ApiShop[]): void {
-        const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
-        this.shopsBalance.setShopIds(shopIds);
+    private initPaginationOffset(): void {
+        if (isNil(this.paginationOffset)) {
+            this.paginationOffset = DEFAULT_LIST_PAGINATION_OFFSET;
+        }
     }
 
     private initAllShopsFetching(): void {
@@ -88,7 +89,7 @@ export class FetchShopsService {
 
     private initOffsetObservable(): void {
         this.listOffset$ = this.showMore$.pipe(
-            mapTo(LIST_OFFSET),
+            mapTo(this.paginationOffset),
             withLatestFrom(this.selectedIndex$),
             map(([curOffset]: [number, number]) => curOffset),
             scan((offset: number, limit: number) => offset + limit, 0),
@@ -99,14 +100,11 @@ export class FetchShopsService {
     private initShownShopsObservable(): void {
         this.loadedShops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
             map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
-            tap((shops: ApiShop[]) => {
-                this.updateShopsBalances(shops);
-            }),
             switchMap((shops: ApiShop[]) => {
-                return this.shopsBalance.balances$.pipe(
-                    distinctUntilChanged(),
-                    map((balances: ShopBalance[]) => combineShopItem(shops, balances))
-                );
+                const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
+                return this.shopsBalance
+                    .getBalances(shopIds)
+                    .pipe(map((balances: ShopBalance[]) => combineShopItem(shops, balances)));
             }),
             tap(() => this.stopLoading()),
             shareReplay(SHARE_REPLAY_CONF)

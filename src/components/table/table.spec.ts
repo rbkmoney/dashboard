@@ -33,7 +33,17 @@ describe('DshTable', () => {
         }).compileComponents();
     }));
 
+    afterEach(() => {
+        // hack for non jasmine expectations
+        expect().nothing();
+    });
+
     describe('with basic data source', () => {
+        afterEach(() => {
+            // hack for non jasmine expectations
+            expect().nothing();
+        });
+
         it('should be able to create a table with the right content and without when row', () => {
             const fixture = TestBed.createComponent(DshTableAppComponent);
             fixture.detectChanges();
@@ -96,6 +106,8 @@ describe('DshTable', () => {
             [data[2].a, data[2].b, data[2].c],
             [data[3].a, data[3].b, data[3].c],
         ]);
+
+        expect().nothing();
     });
 
     it('should render with DshTableDataSource and pagination', () => {
@@ -144,6 +156,11 @@ describe('DshTable', () => {
             component = fixture.componentInstance;
             dataSource = fixture.componentInstance.dataSource;
         }));
+
+        afterEach(() => {
+            // hack for non jasmine expectations
+            expect().nothing();
+        });
 
         it('should create table and display data source contents', () => {
             expectTableTodshChContent(tableElement, [

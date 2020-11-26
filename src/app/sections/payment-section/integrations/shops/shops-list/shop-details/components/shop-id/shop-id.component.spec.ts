@@ -13,12 +13,18 @@ describe('ShopIdComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                TranslocoTestingModule.withLangs({
-                    en: {
-                        copied: 'Copied!',
-                        copyFailed: 'CopyFailed!',
+                TranslocoTestingModule.withLangs(
+                    {
+                        en: {
+                            copied: 'Copied!',
+                            copyFailed: 'CopyFailed!',
+                        },
                     },
-                }),
+                    {
+                        availableLangs: ['en'],
+                        defaultLang: 'en',
+                    }
+                ),
                 MatSnackBarModule,
                 ClipboardModule,
             ],
@@ -45,7 +51,7 @@ describe('ShopIdComponent', () => {
             component.copied(true);
 
             expect(spyOnSnackBar).toHaveBeenCalledTimes(1);
-            expect(spyOnSnackBar).toHaveBeenCalledWith('en.copied', 'OK', { duration: 1000 });
+            expect(spyOnSnackBar).toHaveBeenCalledWith('Copied!', 'OK', { duration: 1000 });
         });
 
         it('should open snackbar with error copy text', () => {
@@ -54,7 +60,7 @@ describe('ShopIdComponent', () => {
             component.copied(false);
 
             expect(spyOnSnackBar).toHaveBeenCalledTimes(1);
-            expect(spyOnSnackBar).toHaveBeenCalledWith('en.copyFailed', 'OK', { duration: 1000 });
+            expect(spyOnSnackBar).toHaveBeenCalledWith('CopyFailed!', 'OK', { duration: 1000 });
         });
     });
 });

@@ -8,14 +8,17 @@ import { PayoutToolParams } from '../../types/payout-tool-params';
 
 @Injectable()
 export class ShopPayoutToolDetailsService {
+    shopPayoutTool$: Observable<PayoutTool>;
+    errorOccurred$: Observable<boolean>;
+
     private getPayoutTool$: Subject<PayoutToolParams> = new Subject();
     private error$: Subject<any> = new BehaviorSubject(false);
     private payoutTool$: Subject<PayoutTool> = new Subject();
 
-    shopPayoutTool$: Observable<PayoutTool> = this.payoutTool$.asObservable();
-    errorOccurred$: Observable<boolean> = this.error$.asObservable();
-
     constructor(private payoutsService: PayoutsService) {
+        this.shopPayoutTool$ = this.payoutTool$.asObservable();
+        this.errorOccurred$ = this.error$.asObservable();
+
         this.getPayoutTool$
             .pipe(
                 tap(() => this.error$.next(false)),
@@ -34,7 +37,7 @@ export class ShopPayoutToolDetailsService {
             .subscribe((payoutTool) => this.payoutTool$.next(payoutTool as PayoutTool));
     }
 
-    getPayoutTool(params: PayoutToolParams) {
+    getPayoutTool(params: PayoutToolParams): void {
         this.getPayoutTool$.next(params);
     }
 }

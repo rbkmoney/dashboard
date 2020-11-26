@@ -27,6 +27,7 @@ export class InvoiceSearchService {
             params.shopID,
             params.shopIDs,
             params.paymentInstitutionRealm,
+            params.invoiceIDs,
             params.invoiceStatus,
             params.invoiceID,
             params.externalID,
