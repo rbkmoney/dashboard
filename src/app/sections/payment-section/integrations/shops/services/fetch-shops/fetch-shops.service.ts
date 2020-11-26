@@ -16,7 +16,7 @@ import { ShopsFiltersStoreService } from '../shops-filters-store/shops-filters-s
 import { ShopsFiltersService } from '../shops-filters/shops-filters.service';
 import { combineShopItem } from './combine-shop-item';
 
-const DEFAULT_LIST_PAGINATION_OFFSET = 20;
+const DEFAULT_LIST_PAGINATION_OFFSET = 1;
 
 export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
@@ -36,6 +36,7 @@ export class FetchShopsService {
     private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
     private filters$ = new ReplaySubject<ShopFiltersData>(1);
+    private filteredShops$: Observable<ShopItem[]>;
 
     constructor(
         private apiShopsService: ApiShopsService,
@@ -49,6 +50,7 @@ export class FetchShopsService {
         this.initPaginationOffset();
         this.initAllShopsFetching();
         this.initOffsetObservable();
+        this.initFilteredShopsObservable();
         this.initShownShopsObservable();
         this.initIndicators();
         this.initFiltersStore();
@@ -109,11 +111,18 @@ export class FetchShopsService {
         );
     }
 
+    private initFilteredShopsObservable(): void {
+        this.filteredShops$ = combineLatest([this.allShops$, this.filters$, this.listOffset$]).pipe(
+            map(([shops, filters]: [ShopItem[], ShopFiltersData, number]) => {
+                return this.filtersService.filterShops(shops, filters);
+            })
+        );
+    }
+
     private initShownShopsObservable(): void {
-        this.shownShops$ = combineLatest([this.allShops$, this.listOffset$, this.filters$]).pipe(
-            map(([shops, showedCount, filters]: [ShopItem[], number, ShopFiltersData]) => {
-                const slicedShops = this.sliceOffset(shops, showedCount);
-                return this.filtersService.filterShops(slicedShops, filters);
+        this.shownShops$ = combineLatest([this.filteredShops$, this.listOffset$]).pipe(
+            map(([filteredShops, showedCount]: [ShopItem[], number]) => {
+                return this.sliceOffset(filteredShops, showedCount);
             }),
             switchMap((shops: ApiShop[]) => {
                 const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
@@ -130,14 +139,8 @@ export class FetchShopsService {
         this.lastUpdated$ = this.allShops$.pipe(mapToTimestamp, shareReplay(1));
         this.isLoading$ = this.loader$.asObservable();
 
-        const filteredShops$ = combineLatest([this.allShops$, this.filters$]).pipe(
-            map(([shops, filters]: [ShopItem[], ShopFiltersData]) => {
-                return this.filtersService.filterShops(shops, filters);
-            })
-        );
-
         this.hasMore$ = combineLatest([
-            filteredShops$.pipe(pluck('length')),
+            this.filteredShops$.pipe(pluck('length')),
             this.shownShops$.pipe(pluck('length')),
         ]).pipe(
             map(([count, showedCount]: [number, number]) => count > showedCount),
