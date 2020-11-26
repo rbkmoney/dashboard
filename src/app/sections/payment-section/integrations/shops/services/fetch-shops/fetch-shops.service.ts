@@ -16,7 +16,7 @@ import { ShopsFiltersStoreService } from '../shops-filters-store/shops-filters-s
 import { ShopsFiltersService } from '../shops-filters/shops-filters.service';
 import { combineShopItem } from './combine-shop-item';
 
-const DEFAULT_LIST_PAGINATION_OFFSET = 1;
+const DEFAULT_LIST_PAGINATION_OFFSET = 20;
 
 export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
