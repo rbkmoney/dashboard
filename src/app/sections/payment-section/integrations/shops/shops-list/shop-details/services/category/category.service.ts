@@ -8,15 +8,15 @@ import { SHARE_REPLAY_CONF } from '../../../../../../../../custom-operators';
 
 @Injectable()
 export class CategoryService {
-    category$: Observable<Category>;
+    category$: Observable<Category | undefined>;
 
     private categoryID$ = new Subject<number>();
 
     constructor(private categoriesService: CategoriesService) {
         this.category$ = combineLatest([this.categoryID$, this.categoriesService.categories$]).pipe(
-            map(([categoryID, categories]: [number, Category[]]) =>
-                categories.find((c) => c.categoryID === categoryID)
-            ),
+            map(([categoryID, categories]: [number, Category[]]) => {
+                return categories.find((c: Category) => c.categoryID === categoryID);
+            }),
             shareReplay(SHARE_REPLAY_CONF)
         );
     }

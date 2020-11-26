@@ -1,4 +1,4 @@
-<dsh-filter [title]="title$ | async" [active]="!!(savedSelectedOption$ | async)" (closed)="save()" #filter>
+<dsh-filter [title]="title$ | async" [active]="!!(savedSelectedOption$ | async)?.value" (closed)="save()" #filter>
     <dsh-filter-button-content class="content">
         <div fxLayout="column" fxLayoutGap="16px">
             <ng-content></ng-content>

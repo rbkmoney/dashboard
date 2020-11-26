@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutGap="16px">
+    <dsh-daterange-filter
+        [selected]="daterange"
+        (selectedChange)="daterangeSelectionChange($event)"
+    ></dsh-daterange-filter>
+    <dsh-filter-shops
+        [shops]="shops$ | async"
+        [selected]="selectedShops$ | async"
+        (selectedChange)="shopSelectionChange($event)"
+    ></dsh-filter-shops>
+    <dsh-invoices-filter
+        [selected]="initParams?.invoiceIDs"
+        (selectedChange)="invoiceSelectionChange($event)"
+    ></dsh-invoices-filter>
+    <dsh-refund-status-filter
+        [selected]="initParams?.refundStatus"
+        (selectedChange)="statusSelectionChange($event)"
+    ></dsh-refund-status-filter>
+</div>

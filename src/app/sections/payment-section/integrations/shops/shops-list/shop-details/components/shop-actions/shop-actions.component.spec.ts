@@ -6,42 +6,13 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import cloneDeep from 'lodash.clonedeep';
 import { Observable, of } from 'rxjs';
 
-import { ShopLocation } from '../../../../../../../../api-codegen/anapi/swagger-codegen';
 import { ShopsService } from '../../../../../../../../api-codegen/capi/shops.service';
 import { Shop } from '../../../../../../../../api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '../../../../../../../../api/shop';
-import { ShopItem } from '../../../../types/shop-item';
+import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
 import { ShopActionResult } from '../../types/shop-action-result';
 import { ShopActionsComponent } from './shop-actions.component';
-
-const mockShop: ShopItem = {
-    id: 'mock',
-    createdAt: new Date(),
-    isBlocked: false,
-    isSuspended: false,
-    categoryID: 1,
-    location: {
-        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-        url: 'example.com',
-    },
-    details: {
-        name: 'my name',
-        description: 'some description',
-    },
-    contractID: 'contractID',
-    payoutToolID: 'payoutToolID',
-    scheduleID: 1,
-    account: {
-        currency: 'USD',
-        guaranteeID: 2,
-        settlementID: 2,
-    },
-    balance: {
-        amount: 20,
-        currency: 'USD',
-    },
-};
 
 class MockShopsService {
     getShops(): Observable<Shop[]> {
@@ -154,7 +125,7 @@ describe('ShopActionsComponent', () => {
         component = fixture.componentInstance;
         actionsService = TestBed.inject(ShopActionsService);
 
-        component.shop = mockShop;
+        component.shop = generateMockShopItem(1);
         fixture.detectChanges();
     });
 
@@ -174,7 +145,7 @@ describe('ShopActionsComponent', () => {
 
         it('should emit update data if suspend was successful', () => {
             const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.SUCCESS));
-            const spyOnUpdateData = spyOn(component.updateData, 'emit');
+            const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.suspend('id');
 
@@ -184,7 +155,7 @@ describe('ShopActionsComponent', () => {
 
         it('should emit update data if suspend was not successful', () => {
             const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.ERROR));
-            const spyOnUpdateData = spyOn(component.updateData, 'emit');
+            const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.suspend('id');
 
@@ -205,7 +176,7 @@ describe('ShopActionsComponent', () => {
 
         it('should emit update data if activate was successful', () => {
             const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.SUCCESS));
-            const spyOnUpdateData = spyOn(component.updateData, 'emit');
+            const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.activate('id');
 
@@ -215,7 +186,7 @@ describe('ShopActionsComponent', () => {
 
         it('should emit update data if activate was not successful', () => {
             const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.ERROR));
-            const spyOnUpdateData = spyOn(component.updateData, 'emit');
+            const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.activate('id');
 

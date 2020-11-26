@@ -7,11 +7,12 @@ export type InvoicesSearchParams = MapTuple<
         shopID?: 6;
         shopIDs?: 7;
         paymentInstitutionRealm?: 8;
-        invoiceStatus?: 9;
-        invoiceID?: 10;
-        externalID?: 11;
-        invoiceAmountFrom?: 12;
-        invoiceAmountTo?: 13;
-        excludedShops?: 14;
+        invoiceIDs?: 9;
+        invoiceStatus?: 10;
+        invoiceID?: 11;
+        externalID?: 12;
+        invoiceAmountFrom?: 13;
+        invoiceAmountTo?: 14;
+        excludedShops?: 15;
     }
 >;

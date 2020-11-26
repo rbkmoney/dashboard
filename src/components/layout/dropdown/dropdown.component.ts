@@ -53,7 +53,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy)
             )
             .subscribe(() => {
-                console.log('opened!');
                 this.opened.emit();
             });
     }

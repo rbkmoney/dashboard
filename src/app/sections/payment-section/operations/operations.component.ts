@@ -11,10 +11,10 @@ export class OperationsComponent {
             path: 'payments',
         },
         {
-            path: 'refunds',
+            path: 'invoices',
         },
         {
-            path: 'invoices',
+            path: 'refunds',
         },
     ];
 
