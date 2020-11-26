@@ -46,5 +46,13 @@
         "инвойса"
     ],
     "cSpell.language": "en,ru",
-    "prettier.prettierPath": "node_modules/prettier"
+    "prettier.prettierPath": "node_modules/prettier",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": false
+    }
 }

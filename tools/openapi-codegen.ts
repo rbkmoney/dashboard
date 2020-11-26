@@ -11,10 +11,12 @@ async function openAPICodegenAngular({
     schemes,
     outputDir,
     outputRootDir,
+    cliPath,
 }: {
     schemes: Schemes;
     outputDir: string;
     outputRootDir: string;
+    cliPath: string;
 }) {
     const openApiLog = createLog('OpenAPI Codegen');
     openApiLog('Generate...');
@@ -26,7 +28,7 @@ async function openAPICodegenAngular({
             await del([outputDirPath]);
             openApiLog(`${outputDirPath} deleted`);
 
-            const cmd = `npx @openapitools/openapi-generator-cli generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
+            const cmd = `java -jar ${cliPath} generate -i ${inputPath} -g typescript-angular -o ${outputDirPath}`;
             openApiLog(`> ${cmd}`);
             return execWithLog(cmd);
         })
