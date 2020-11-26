@@ -18,6 +18,8 @@ import isNil from 'lodash.isnil';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
+import { FilterComponent } from '@dsh/components/filters/filter';
+
 const DEFAULT_LABEL = 'Name';
 
 @Component({
@@ -27,6 +29,7 @@ const DEFAULT_LABEL = 'Name';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
+    @ViewChild(FilterComponent, { static: true }) filter: FilterComponent;
     @ViewChild(MatInput, { read: ElementRef, static: true }) inputRef: ElementRef;
 
     get input(): HTMLInputElement {
@@ -101,15 +104,23 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         this.updateQuery(this.input.value);
     }
 
+    onClosed(): void {
+        this.saveData();
+    }
+
     onSave(): void {
-        this.innerSearchValue = this.query$.value;
-        this.updateTitleValue();
-        this.updateActiveStatus();
-        this.filterChanged.emit(this.searchValue);
+        this.filter.close();
     }
 
     onClear(): void {
         this.clearQuery();
+    }
+
+    saveData(): void {
+        this.innerSearchValue = this.query$.value;
+        this.updateTitleValue();
+        this.updateActiveStatus();
+        this.filterChanged.emit(this.searchValue);
     }
 
     private initListeners(): void {

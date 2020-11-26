@@ -5,7 +5,7 @@ import { ShopItem } from '../../types/shop-item';
 
 @Injectable()
 export class ShopsFiltersService {
-    filterShops(shops: ShopItem[], filters: ShopFiltersData): ShopItem[] {
+    filterShops(shops: ShopItem[], filters: Partial<ShopFiltersData>): ShopItem[] {
         return Object.entries(filters).reduce(
             (acc: ShopItem[], [filterName, filterData]: [keyof ShopFiltersData, any]) => {
                 switch (filterName) {
@@ -20,8 +20,9 @@ export class ShopsFiltersService {
     }
 
     private filterQuery(shops: ShopItem[], query: ShopFiltersData['query']): ShopItem[] {
+        const queryValue = query.toLowerCase();
         return shops.filter(({ id, details: { name } }: ShopItem) => {
-            return id.toLowerCase().includes(query) || name.toLowerCase().includes(query);
+            return id.toLowerCase().includes(queryValue) || name.toLowerCase().includes(queryValue);
         });
     }
 }

@@ -130,22 +130,15 @@ export class FetchShopsService {
         this.lastUpdated$ = this.allShops$.pipe(mapToTimestamp, shareReplay(1));
         this.isLoading$ = this.loader$.asObservable();
 
-        const filteredShops$ = combineLatest([
-            this.allShops$,
-            this.filters$
-        ]).pipe(
+        const filteredShops$ = combineLatest([this.allShops$, this.filters$]).pipe(
             map(([shops, filters]: [ShopItem[], ShopFiltersData]) => {
                 return this.filtersService.filterShops(shops, filters);
             })
-        )
+        );
 
         this.hasMore$ = combineLatest([
-            filteredShops$.pipe(
-                pluck('length')
-            ),
-            this.shownShops$.pipe(
-                pluck('length')
-            )
+            filteredShops$.pipe(pluck('length')),
+            this.shownShops$.pipe(pluck('length')),
         ]).pipe(
             map(([count, showedCount]: [number, number]) => count > showedCount),
             shareReplay(SHARE_REPLAY_CONF)
