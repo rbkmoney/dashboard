@@ -44,7 +44,7 @@ export class FetchShopsService {
         private filtersService: ShopsFiltersService,
         @Optional()
         @Inject(SHOPS_LIST_PAGINATION_OFFSET)
-        private paginationOffset: number
+        private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
     ) {
         this.initPaginationOffset();
         this.initAllShopsFetching();
