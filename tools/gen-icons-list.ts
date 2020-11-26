@@ -12,5 +12,6 @@ const ICONS_LIST_FILE = path.join(ROOT_DIR, 'src/app/icons.json');
     const options = await prettier.resolveConfig(filePath);
     const formatted = prettier.format(JSON.stringify(icons), { ...options, parser: 'json' });
     fs.writeFileSync(ICONS_LIST_FILE, formatted);
+    // tslint:disable-next-line:no-console
     console.log(`Icons list generated: ${ICONS_LIST_FILE}`);
 })();
