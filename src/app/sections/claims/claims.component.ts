@@ -13,7 +13,7 @@ import { ClaimSearchFormValue } from './search-form';
     providers: [ClaimsService],
 })
 export class ClaimsComponent {
-    tableData$ = this.claimsService.claimsTableData$;
+    tableData$ = this.claimsService.searchResult$;
     isLoading$ = this.claimsService.isLoading$;
     lastUpdated$ = this.claimsService.lastUpdated$;
     hasMore$ = this.claimsService.hasMore$;

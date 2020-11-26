@@ -1,0 +1,38 @@
+<div fxLayout="column" fxLayoutGap="16px" *transloco="let claims; scope: 'claims'; read: 'claims'">
+    <dsh-last-updated (update)="refreshList()" [lastUpdated]="lastUpdated"></dsh-last-updated>
+    <dsh-claim-row-header></dsh-claim-row-header>
+    <ng-container *ngIf="isLoading || !isListExist; else shopsPanelsList">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #shopsPanelsList>
+    <dsh-accordion
+        (expandedChange)="expandedIdChange($event)"
+        [expanded]="expandedId$ | async"
+        fxLayout="column"
+        fxLayoutGap="16px"
+    >
+        <dsh-accordion-item #accordionItem *ngFor="let claim of claimList">
+            <dsh-claim-row [claim]="claim"></dsh-claim-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="24px">
+                    <dsh-accordion-item-content-header
+                        (collapse)="accordionItem.collapse($event)"
+                        *transloco="let claims; scope: 'claims'; read: 'claims'"
+                        ><span class="mat-caption"
+                            >{{ claims('panel.claim') }} #{{ claim.id }}</span
+                        ></dsh-accordion-item-content-header
+                    >
+                    <dsh-claim-details [claim]="claim"></dsh-claim-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+    <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"></dsh-show-more-panel>
+    <div *ngIf="isEmptyList" class="mat-headline">
+        <dsh-empty-search-result *transloco="let common">{{ common('emptySearchResult') }}</dsh-empty-search-result>
+    </div>
+</ng-template>

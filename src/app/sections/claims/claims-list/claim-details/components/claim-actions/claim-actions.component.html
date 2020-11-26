@@ -1,0 +1,6 @@
+<div fxLayout="row" fxLayoutAlign="end center" *transloco="let p; scope: 'claims'; read: 'claims'">
+    <div (click)="goToClaimDetails(claim)" class="go-to-claim mat-body-1" fxLayout="row">
+        <span class="underlined">{{ p('details') }}</span>
+        <mat-icon svgIcon="arrow_forward">arrow_forward</mat-icon>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <ng-container *ngTemplateOutlet="claim ? tableGrid : loading; context: { $implicit: claim }"></ng-container>
+</dsh-row>
+
+<ng-template #loading>
+    <dsh-row-label>Loading ...</dsh-row-label>
+</ng-template>
+
+<ng-template #tableGrid let-item>
+    <dsh-row-label fxFlex>{{ item.id }}</dsh-row-label>
+    <dsh-row-label fxFlex>
+        <dsh-status *transloco="let claimStatus; read: 'claimStatus'" [color]="item.status | claimStatusColor">{{
+            claimStatus(item.status)
+        }}</dsh-status>
+    </dsh-row-label>
+    <dsh-row-label fxFlex>{{ item.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex>{{ item.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+</ng-template>
