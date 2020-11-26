@@ -9,6 +9,7 @@ export function execWithLog(cmd: string) {
             },
             (error, stdout, stderr) => {
                 if (error === null) {
+                    // tslint:disable-next-line:no-console
                     console.log(stderr);
                     res(stdout);
                 } else {

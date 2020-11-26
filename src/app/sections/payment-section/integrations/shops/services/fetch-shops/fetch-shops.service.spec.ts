@@ -1,16 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { InlineResponse200, ShopLocation } from '../../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { AnalyticsService } from '../../../../../../api/analytics';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
 import { ApiShopsService } from '../../../../../../api/shop';
 import { ShopBalanceModule } from '../../shops-list/shop-balance';
+import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
+import { MockAnalyticsService } from '../../tests/mock-analytics-service';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
-import { FetchShopsService } from './fetch-shops.service';
+import { FetchShopsService, SHOPS_LIST_PAGINATION_OFFSET } from './fetch-shops.service';
 
 class MockApiShopsService {
     shops$: Observable<Shop[]>;
@@ -28,21 +29,6 @@ class MockApiShopsService {
 
     setMockShops(shops: Shop[]): void {
         this.mockShops = shops;
-    }
-}
-
-class MockAnalyticsService {
-    private innerResponse: InlineResponse200 = {
-        result: [],
-    };
-
-    getGroupBalances(): Observable<InlineResponse200> {
-        console.log('getGroupBalances');
-        return of(this.innerResponse);
-    }
-
-    setMockBalancesResponse(response: InlineResponse200): void {
-        this.innerResponse = response;
     }
 }
 
@@ -70,6 +56,10 @@ describe('FetchShopsService', () => {
                     provide: AnalyticsService,
                     useValue: analyticsService,
                 },
+                {
+                    provide: SHOPS_LIST_PAGINATION_OFFSET,
+                    useValue: 5,
+                },
             ],
         });
     });
@@ -85,77 +75,17 @@ describe('FetchShopsService', () => {
 
     describe('initRealm', () => {
         it('should init realm and init allShops$ work', () => {
-            apiShopsService.setMockShops([
-                {
-                    id: 'mock1',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
+            apiShopsService.setMockShops(
+                generateMockShopsList(3, 1, [
+                    {
+                        index: 2,
+                        categoryID: 2,
                     },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock2',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock3',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 3,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-            ]);
+                ])
+            );
 
             const expectedShops$ = cold('a', {
-                a: ['mock1', 'mock2'],
+                a: ['mock_shop_1', 'mock_shop_2'],
             });
 
             apiShopsService.reloadShops();
@@ -173,165 +103,10 @@ describe('FetchShopsService', () => {
 
     describe('initOffsetIndex', () => {
         it('should init shop$ working', () => {
-            apiShopsService.setMockShops([
-                {
-                    id: 'mock1',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock2',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock3',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock4',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock5',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock6',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock7',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-            ]);
+            apiShopsService.setMockShops(generateMockShopsList(7));
 
             const expectedShops$ = cold('a', {
-                a: ['mock1', 'mock2', 'mock3', 'mock4', 'mock5'],
+                a: ['mock_shop_1', 'mock_shop_2', 'mock_shop_3', 'mock_shop_4', 'mock_shop_5'],
             });
 
             apiShopsService.reloadShops();
@@ -349,6 +124,10 @@ describe('FetchShopsService', () => {
     });
 
     describe('refreshData', () => {
+        beforeEach(() => {
+            service.loadedShops$.subscribe();
+        });
+
         it('should call apiShopService reload method', () => {
             const spyOnApiShopService = spyOn(apiShopsService, 'reloadShops').and.callThrough();
 
@@ -358,85 +137,17 @@ describe('FetchShopsService', () => {
         });
 
         it('should update allShops list', () => {
-            apiShopsService.setMockShops([
-                {
-                    id: 'mock6',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-            ]);
+            apiShopsService.setMockShops(generateMockShopsList(1));
 
             service.initRealm(PaymentInstitutionRealm.test);
             apiShopsService.reloadShops();
 
-            apiShopsService.setMockShops([
-                {
-                    id: 'mock6',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-                {
-                    id: 'mock16',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    },
-                    details: {
-                        name: 'my name',
-                        description: 'some description',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                },
-            ]);
+            apiShopsService.setMockShops(generateMockShopsList(2));
 
             service.refreshData();
 
             const expectedShops$ = cold('a', {
-                a: ['mock6', 'mock16'],
+                a: ['mock_shop_1', 'mock_shop_2'],
             });
 
             expect(
@@ -449,37 +160,83 @@ describe('FetchShopsService', () => {
         });
 
         it('should update loading value', () => {
-            apiShopsService.setMockShops([]);
+            apiShopsService.setMockShops(generateMockShopsList(2));
 
-            apiShopsService.reloadShops();
             service.initRealm(PaymentInstitutionRealm.test);
             service.initOffsetIndex(-1);
+
+            apiShopsService.reloadShops();
+
+            expect(service.isLoading$).toBeObservable(
+                cold('(ab)', {
+                    a: true,
+                    b: false,
+                })
+            );
 
             service.refreshData();
 
             expect(service.isLoading$).toBeObservable(
-                cold('a', {
+                cold('(ab)', {
                     a: true,
+                    b: false,
                 })
             );
         });
     });
 
     describe('showMore', () => {
-        it('should update loading value', () => {
-            apiShopsService.setMockShops([]);
+        beforeEach(() => {
+            service.loadedShops$.subscribe();
+        });
 
-            apiShopsService.reloadShops();
+        it('should tick more data', () => {
+            const mockList = generateMockShopsList(12);
+            const mockListIds = mockList.map(({ id }) => id);
+            apiShopsService.setMockShops(mockList);
+
             service.initRealm(PaymentInstitutionRealm.test);
             service.initOffsetIndex(-1);
+            apiShopsService.reloadShops();
+
+            service.showMore();
+
+            expect(
+                service.loadedShops$.pipe(
+                    map((list) => {
+                        return list.map(({ id }) => id);
+                    })
+                )
+            ).toBeObservable(
+                cold('a', {
+                    a: mockListIds.slice(0, 10),
+                })
+            );
+        });
+
+        it('should update loading value', async(() => {
+            apiShopsService.setMockShops(generateMockShopsList(2));
+
+            service.initRealm(PaymentInstitutionRealm.test);
+            service.initOffsetIndex(-1);
+
+            apiShopsService.reloadShops();
+
+            expect(service.isLoading$).toBeObservable(
+                cold('(ab)', {
+                    a: true,
+                    b: false,
+                })
+            );
 
             service.showMore();
 
             expect(service.isLoading$).toBeObservable(
-                cold('a', {
+                cold('(ab)', {
                     a: true,
+                    b: false,
                 })
             );
-        });
+        }));
     });
 });
