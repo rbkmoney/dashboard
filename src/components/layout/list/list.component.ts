@@ -2,6 +2,8 @@ import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, 
 
 import { ListItemComponent } from './components/list-item/list-item.component';
 
+const DISPLAYED_COUNT = 5;
+
 @Component({
     selector: 'dsh-list',
     templateUrl: 'list.component.html',
@@ -10,7 +12,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 })
 export class ListComponent implements AfterContentInit {
     @Input() title: string;
-    @Input() displayedCount = 5;
+    @Input() displayedCount = DISPLAYED_COUNT;
 
     displayedAll = false;
 

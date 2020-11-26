@@ -12,8 +12,22 @@ import { CollapseModule } from './collapse.module';
 class MockCollapseComponent {}
 
 describe('CollapseComponent', () => {
+    class Selector {
+        constructor(private _fixture: ComponentFixture<MockCollapseComponent>) {}
+
+        selectCollapse = () => fixture.debugElement.query(By.directive(CollapseComponent));
+        selectCollapseInstance = (): CollapseComponent => this.selectCollapse().componentInstance;
+        selectHeader = () => this.selectCollapse().query(By.css('.dsh-collapse-header'));
+        selectIndicator = () => this.selectCollapse().query(By.directive(MatIcon));
+        selectContent = () => {
+            const elements = this._fixture.debugElement.queryAll(By.css('div'));
+            return elements[elements.length - 1];
+        };
+    }
+
     let component: MockCollapseComponent;
     let fixture: ComponentFixture<MockCollapseComponent>;
+    let selector: Selector;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -31,28 +45,8 @@ describe('CollapseComponent', () => {
         fixture = TestBed.createComponent(MockCollapseComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        selector = new Selector(fixture);
     });
-
-    function selectCollapse() {
-        return fixture.debugElement.query(By.directive(CollapseComponent));
-    }
-
-    function selectCollapseInstance(): CollapseComponent {
-        return selectCollapse().componentInstance;
-    }
-
-    function selectHeader() {
-        return selectCollapse().query(By.css('.dsh-collapse-header'));
-    }
-
-    function selectIndicator() {
-        return selectCollapse().query(By.directive(MatIcon));
-    }
-
-    function selectContent() {
-        const elements = fixture.debugElement.queryAll(By.css('div'));
-        return elements[elements.length - 1];
-    }
 
     it('should create', () => {
         expect(component).toBeTruthy();
@@ -60,30 +54,30 @@ describe('CollapseComponent', () => {
 
     describe('template', () => {
         it('should render title', () => {
-            const header = selectHeader();
+            const header = selector.selectHeader();
             expect(header.nativeElement.textContent).toBe('Title');
         });
         it('should render indicator', () => {
-            const icon = selectIndicator();
+            const icon = selector.selectIndicator();
             expect(icon).toBeTruthy();
         });
         it('should render content', () => {
-            const content = selectContent();
+            const content = selector.selectContent();
             expect(content.nativeElement.textContent).toBe('Test');
         });
         it('should init collapsed', () => {
-            const collapseComponent = selectCollapseInstance();
+            const collapseComponent = selector.selectCollapseInstance();
             expect(collapseComponent.expanded).toBeFalsy();
         });
         it('should expand on click', () => {
-            const collapseComponent = selectCollapseInstance();
-            const header = selectHeader();
+            const collapseComponent = selector.selectCollapseInstance();
+            const header = selector.selectHeader();
             header.nativeElement.click();
             expect(collapseComponent.expanded).toBeTruthy();
         });
         it('should collapse after second click', () => {
-            const collapseComponent = selectCollapseInstance();
-            const header = selectHeader();
+            const collapseComponent = selector.selectCollapseInstance();
+            const header = selector.selectHeader();
             header.nativeElement.click();
             header.nativeElement.click();
             expect(collapseComponent.expanded).toBeFalsy();
