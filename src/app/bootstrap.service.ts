@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { iif, Observable, of, ReplaySubject } from 'rxjs';
-import { first, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { catchError, first, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
 
 import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from './api';
 
@@ -25,7 +25,12 @@ export class BootstrapService {
                     this.createTestShop().pipe(tap(() => this.shopService.reloadShops())),
                     of(true)
                 )
-            )
+            ),
+            catchError((err) => {
+                console.error(err);
+                return of(false);
+            }),
+            shareReplay(1)
         );
     }
 
