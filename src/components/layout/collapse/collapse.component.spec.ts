@@ -19,10 +19,7 @@ describe('CollapseComponent', () => {
         selectCollapseInstance = (): CollapseComponent => this.selectCollapse().componentInstance;
         selectHeader = () => this.selectCollapse().query(By.css('.dsh-collapse-header'));
         selectIndicator = () => this.selectCollapse().query(By.directive(MatIcon));
-        selectContent = () => {
-            const elements = this._fixture.debugElement.queryAll(By.css('div'));
-            return elements[elements.length - 1];
-        };
+        selectContent = () => this._fixture.debugElement.query(By.css('dsh-collapse-body'));
     }
 
     let component: MockCollapseComponent;
@@ -61,9 +58,9 @@ describe('CollapseComponent', () => {
             const icon = selector.selectIndicator();
             expect(icon).toBeTruthy();
         });
-        it('should render content', () => {
+        it("shouldn't render content", () => {
             const content = selector.selectContent();
-            expect(content.nativeElement.textContent).toBe('Test');
+            expect(content).toBeNull();
         });
         it('should init collapsed', () => {
             const collapseComponent = selector.selectCollapseInstance();
