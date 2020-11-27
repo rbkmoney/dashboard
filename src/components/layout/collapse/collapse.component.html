@@ -1,12 +1,26 @@
-<div class="dsh-collapse" fxLayout="column" fxLayoutGap="16px" style="border: 1px;">
+<ng-template #body>
+    <div
+        class="dsh-collapse-body"
+        *ngIf="expanded"
+        [@bodyExpansion]="animationState"
+        [ngClass]="{ 'dsh-collapse-body-up': expandDirection === 'up' }"
+    >
+        <ng-content></ng-content>
+    </div>
+</ng-template>
+
+<div class="dsh-collapse" fxLayout="column">
+    <ng-container *ngIf="expandDirection === 'up'">
+        <ng-container *ngTemplateOutlet="body"></ng-container>
+    </ng-container>
     <!-- Header wrapper for limiting the clickable area with the title and indicator -->
     <div fxLayout>
         <div class="dsh-collapse-header" fxLayout fxLayoutGap="4px" (click)="toggle()">
             <div class="dsh-body-1">{{ title }}</div>
-            <mat-icon svgIcon="keyboard_arrow_up" [@indicatorRotate]="expandedState"></mat-icon>
+            <mat-icon svgIcon="keyboard_arrow_up" [@indicatorRotate]="animationState"></mat-icon>
         </div>
     </div>
-    <div [@bodyExpansion]="expandedState">
-        <ng-content></ng-content>
-    </div>
+    <ng-container *ngIf="expandDirection === 'down'">
+        <ng-container *ngTemplateOutlet="body"></ng-container>
+    </ng-container>
 </div>

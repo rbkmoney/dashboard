@@ -1,8 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { bodyExpansion, indicatorRotate } from './collapse-animation';
+import { CollapseAnimationState } from './types/collapse-animation-state';
 
-export type CollapseAnimationState = 'expanded' | 'collapsed';
+type ExpandDirection = 'up' | 'down';
+type AnimationState = { value: CollapseAnimationState; params: { rotateDeg: number } };
+
+const EXPAND_DIRECTION: ExpandDirection = 'down';
+const EXPANDED = false;
 
 @Component({
     selector: 'dsh-collapse',
@@ -13,11 +18,15 @@ export type CollapseAnimationState = 'expanded' | 'collapsed';
 })
 export class CollapseComponent {
     @Input() title: string;
+    @Input() expandDirection: ExpandDirection = EXPAND_DIRECTION;
 
-    expanded = false;
+    expanded: boolean = EXPANDED;
 
-    get expandedState(): CollapseAnimationState {
-        return this.expanded ? 'expanded' : 'collapsed';
+    get animationState(): AnimationState {
+        return {
+            value: this.expanded ? CollapseAnimationState.expanded : CollapseAnimationState.collapsed,
+            params: { rotateDeg: this.expandDirection === 'down' ? 180 : 0 },
+        };
     }
 
     toggle() {
