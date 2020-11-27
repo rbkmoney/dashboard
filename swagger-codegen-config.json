@@ -1,6 +1,5 @@
 {
-    "rootDir": "swagger-codegen",
-    "cli": "swagger-codegen-cli-2.4.9.jar",
+    "cliPath": "tools/codegens/swagger-codegen-cli-2.4.9.jar",
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "swagger-codegen",
     "schemes": {

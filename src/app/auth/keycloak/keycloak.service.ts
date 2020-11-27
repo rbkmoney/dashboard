@@ -15,10 +15,12 @@ export class KeycloakService {
     }
 
     async login(_options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {
+        // tslint:disable-next-line:no-console
         console.log('login');
     }
 
     async logout(_redirectUri?: string): Promise<void> {
+        // tslint:disable-next-line:no-console
         console.log('logout');
     }
 

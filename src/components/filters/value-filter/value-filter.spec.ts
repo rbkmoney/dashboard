@@ -2,6 +2,7 @@ import { Component, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslocoTestingModule } from '@ngneat/transloco';
 import { ReplaySubject } from 'rxjs';
 
 import { ValueFilterComponent } from './value-filter.component';
@@ -14,7 +15,16 @@ describe('ValueFilter', () => {
         declarations: any[] = []
     ): ComponentFixture<T> {
         TestBed.configureTestingModule({
-            imports: [ValueFilterModule, NoopAnimationsModule],
+            imports: [
+                ValueFilterModule,
+                NoopAnimationsModule,
+                TranslocoTestingModule.withLangs({
+                    en: {
+                        save: 'Save',
+                        clear: 'Clear',
+                    },
+                }),
+            ],
             declarations: [component, ...declarations],
             providers,
         }).compileComponents();
