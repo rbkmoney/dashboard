@@ -11,15 +11,20 @@ import { CollapseModule } from './collapse.module';
 @Component({ template: '<dsh-collapse title="Title">Test</dsh-collapse>' })
 class MockCollapseComponent {}
 
+@Component({ template: '<dsh-collapse title="Title Up" expandDirection="up">Test Up</dsh-collapse>' })
+class MockCollapseUpComponent {}
+
 describe('CollapseComponent', () => {
     class Selector {
         constructor(private _fixture: ComponentFixture<MockCollapseComponent>) {}
 
-        selectCollapse = () => fixture.debugElement.query(By.directive(CollapseComponent));
+        selectCollapse = () => this._fixture.debugElement.query(By.directive(CollapseComponent));
         selectCollapseInstance = (): CollapseComponent => this.selectCollapse().componentInstance;
         selectHeader = () => this.selectCollapse().query(By.css('.dsh-collapse-header'));
         selectIndicator = () => this.selectCollapse().query(By.directive(MatIcon));
-        selectContent = () => this._fixture.debugElement.query(By.css('dsh-collapse-body'));
+        selectBody = () => this.selectCollapse().query(By.css('.dsh-collapse-body'));
+        selectWrapper = () => this.selectCollapse().query(By.css('.dsh-collapse'));
+        selectChildren = () => Array.from((this.selectWrapper().nativeElement as HTMLElement).children);
     }
 
     let component: MockCollapseComponent;
@@ -29,7 +34,7 @@ describe('CollapseComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [CollapseModule, NoopAnimationsModule, HttpClientTestingModule],
-            declarations: [MockCollapseComponent],
+            declarations: [MockCollapseComponent, MockCollapseUpComponent],
         }).compileComponents();
     }));
 
@@ -38,46 +43,76 @@ describe('CollapseComponent', () => {
         mir.addSvgIcon('keyboard_arrow_up', sanitizedUrl);
     }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(MockCollapseComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        selector = new Selector(fixture);
+    describe('collapse down', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(MockCollapseComponent);
+            component = fixture.componentInstance;
+            selector = new Selector(fixture);
+            fixture.detectChanges();
+        });
+        it('should create', () => {
+            expect(component).toBeTruthy();
+        });
+        describe('template', () => {
+            it('should render title', () => {
+                const header = selector.selectHeader();
+                expect(header.nativeElement.textContent).toBe('Title');
+            });
+            it('should render indicator', () => {
+                const icon = selector.selectIndicator();
+                expect(icon).toBeTruthy();
+            });
+            it("shouldn't render content", () => {
+                const body = selector.selectBody();
+                expect(body).toBeNull();
+            });
+            it('should init collapsed', () => {
+                const collapseComponent = selector.selectCollapseInstance();
+                expect(collapseComponent.expanded).toBeFalsy();
+            });
+            it('should expand on click', () => {
+                const collapseComponent = selector.selectCollapseInstance();
+                const header = selector.selectHeader();
+                header.nativeElement.click();
+                fixture.detectChanges();
+                const body = selector.selectBody();
+                expect(collapseComponent.expanded).toBeTruthy();
+                expect(body).toBeTruthy();
+            });
+            it('should collapse after second click', () => {
+                const collapseComponent = selector.selectCollapseInstance();
+                const header = selector.selectHeader();
+                header.nativeElement.click();
+                header.nativeElement.click();
+                expect(collapseComponent.expanded).toBeFalsy();
+            });
+            it('should expand on click down', () => {
+                selector.selectHeader().nativeElement.click();
+                fixture.detectChanges();
+                const body = selector.selectBody();
+                const children = selector.selectChildren();
+                expect(children[1]).toEqual(body.nativeElement);
+            });
+        });
     });
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    describe('template', () => {
-        it('should render title', () => {
-            const header = selector.selectHeader();
-            expect(header.nativeElement.textContent).toBe('Title');
+    describe('collapse up', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(MockCollapseUpComponent);
+            component = fixture.componentInstance;
+            selector = new Selector(fixture);
+            fixture.detectChanges();
         });
-        it('should render indicator', () => {
-            const icon = selector.selectIndicator();
-            expect(icon).toBeTruthy();
+        it('should create', () => {
+            expect(component).toBeTruthy();
         });
-        it("shouldn't render content", () => {
-            const content = selector.selectContent();
-            expect(content).toBeNull();
-        });
-        it('should init collapsed', () => {
-            const collapseComponent = selector.selectCollapseInstance();
-            expect(collapseComponent.expanded).toBeFalsy();
-        });
-        it('should expand on click', () => {
-            const collapseComponent = selector.selectCollapseInstance();
-            const header = selector.selectHeader();
-            header.nativeElement.click();
-            expect(collapseComponent.expanded).toBeTruthy();
-        });
-        it('should collapse after second click', () => {
-            const collapseComponent = selector.selectCollapseInstance();
-            const header = selector.selectHeader();
-            header.nativeElement.click();
-            header.nativeElement.click();
-            expect(collapseComponent.expanded).toBeFalsy();
+        describe('template', () => {
+            it('should expand on click upward', () => {
+                selector.selectHeader().nativeElement.click();
+                fixture.detectChanges();
+                const body = selector.selectBody();
+                const children = selector.selectChildren();
+                expect(children[0]).toEqual(body.nativeElement);
+            });
         });
     });
 });
