@@ -8,7 +8,7 @@ import { ButtonModule } from '../../../components/buttons';
 import { EmptySearchResultModule } from '../../../components/empty-search-result';
 import { SpinnerModule } from '../../../components/indicators';
 import { CollapseModule } from '../../../components/layout/collapse';
-import { ListModule } from '../../../components/layout/list';
+import { LimitedListModule } from '../../../components/layout/limited-list';
 import { ScrollUpModule } from '../../../components/navigation';
 import { ShowMorePanelModule } from '../../../components/show-more-panel';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
@@ -30,7 +30,7 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
         ButtonModule,
         AccordionModule,
         CollapseModule,
-        ListModule,
+        LimitedListModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

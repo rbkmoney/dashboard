@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { ListComponent } from './list.component';
+import { LimitedListItemComponent } from './components/limited-list-item/limited-list-item.component';
+import { LimitedListComponent } from './limited-list.component';
 
-const EXPORTED_DECLARATIONS = [ListComponent, ListItemComponent];
+const EXPORTED_DECLARATIONS = [LimitedListComponent, LimitedListItemComponent];
 
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, TranslocoModule],
@@ -14,4 +14,4 @@ const EXPORTED_DECLARATIONS = [ListComponent, ListItemComponent];
     exports: EXPORTED_DECLARATIONS,
     providers: [],
 })
-export class ListModule {}
+export class LimitedListModule {}

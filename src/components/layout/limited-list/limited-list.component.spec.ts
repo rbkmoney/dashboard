@@ -3,54 +3,54 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { ListComponent } from './list.component';
-import { ListModule } from './list.module';
+import { LimitedListItemComponent } from './components/limited-list-item/limited-list-item.component';
+import { LimitedListComponent } from './limited-list.component';
+import { LimitedListModule } from './limited-list.module';
 
 @Component({
     template: `
-        <dsh-list title="Title">
-            <dsh-list-item>item 1</dsh-list-item>
-            <dsh-list-item>item 2</dsh-list-item>
-            <dsh-list-item>item 3</dsh-list-item>
-            <dsh-list-item>item 4</dsh-list-item>
-            <dsh-list-item>item 5</dsh-list-item>
-            <dsh-list-item>item 6</dsh-list-item>
-        </dsh-list>
+        <dsh-limited-list title="Title">
+            <dsh-limited-list-item>item 1</dsh-limited-list-item>
+            <dsh-limited-list-item>item 2</dsh-limited-list-item>
+            <dsh-limited-list-item>item 3</dsh-limited-list-item>
+            <dsh-limited-list-item>item 4</dsh-limited-list-item>
+            <dsh-limited-list-item>item 5</dsh-limited-list-item>
+            <dsh-limited-list-item>item 6</dsh-limited-list-item>
+        </dsh-limited-list>
     `,
 })
-class MockCollapseComponent {}
+class MockLimitedListComponent {}
 
-describe('ListComponent', () => {
+describe('LimitedListComponent', () => {
     class Selector {
-        constructor(private _fixture: ComponentFixture<MockCollapseComponent>) {}
+        constructor(private _fixture: ComponentFixture<MockLimitedListComponent>) {}
 
-        selectList = () => this._fixture.debugElement.query(By.directive(ListComponent));
-        selectTitle = () => this.selectList().query(By.css('.dsh-list-title'));
-        selectItems = () => this.selectList().queryAll(By.directive(ListItemComponent));
-        selectShowMore = () => this.selectList().query(By.css('.dsh-list-show-more'));
+        selectList = () => this._fixture.debugElement.query(By.directive(LimitedListComponent));
+        selectTitle = () => this.selectList().query(By.css('.dsh-limited-list-title'));
+        selectItems = () => this.selectList().queryAll(By.directive(LimitedListItemComponent));
+        selectShowMore = () => this.selectList().query(By.css('.dsh-limited-list-show-more'));
     }
 
-    let component: MockCollapseComponent;
-    let fixture: ComponentFixture<MockCollapseComponent>;
+    let component: MockLimitedListComponent;
+    let fixture: ComponentFixture<MockLimitedListComponent>;
     let selector: Selector;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                ListModule,
+                LimitedListModule,
                 TranslocoTestingModule.withLangs({
                     en: {
                         showMore: 'Show more',
                     },
                 }),
             ],
-            declarations: [MockCollapseComponent],
+            declarations: [MockLimitedListComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MockCollapseComponent);
+        fixture = TestBed.createComponent(MockLimitedListComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         selector = new Selector(fixture);

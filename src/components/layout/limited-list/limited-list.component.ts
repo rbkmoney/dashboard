@@ -1,22 +1,22 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList } from '@angular/core';
 
-import { ListItemComponent } from './components/list-item/list-item.component';
+import { LimitedListItemComponent } from './components/limited-list-item/limited-list-item.component';
 
 const DISPLAYED_COUNT = 5;
 
 @Component({
-    selector: 'dsh-list',
-    templateUrl: 'list.component.html',
-    styleUrls: ['list.component.scss'],
+    selector: 'dsh-limited-list',
+    templateUrl: 'limited-list.component.html',
+    styleUrls: ['limited-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent implements AfterContentInit {
+export class LimitedListComponent implements AfterContentInit {
     @Input() title: string;
     @Input() displayedCount = DISPLAYED_COUNT;
 
     displayedAll = false;
 
-    @ContentChildren(ListItemComponent) contentChildren: QueryList<ListItemComponent>;
+    @ContentChildren(LimitedListItemComponent) contentChildren: QueryList<LimitedListItemComponent>;
 
     ngAfterContentInit() {
         this.display();

@@ -36,7 +36,7 @@
 @import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/layout/row/row-theme';
 @import '../../components/layout/accordion/accordion-theme';
-@import '../../components/layout/list/list-theme';
+@import '../../components/layout/limited-list/limited-list-theme';
 
 // App components
 @import '../../app/container/container-theme';
@@ -100,6 +100,6 @@
         @include dsh-accordion-theme($theme);
         @include dsh-last-updated-theme($theme);
         @include dsh-balances-theme($theme);
-        @include dsh-list-theme($theme);
+        @include dsh-limited-list-theme($theme);
     }
 }
