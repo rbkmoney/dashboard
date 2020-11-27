@@ -13,7 +13,10 @@ export class ClaimsExpandedIdManagerService extends ExpandedIdManager<Claim> {
     constructor(protected route: ActivatedRoute, protected router: Router, private claimsService: FetchClaimsService) {
         super(route, router);
         combineLatest([this.route.fragment.pipe(take(1)), this.expandedId$])
-            .pipe(filter(([itemID, expandedID]) => itemID && expandedID === -1))
+            .pipe(
+                take(5),
+                filter(([itemID, expandedID]) => itemID && expandedID === -1)
+            )
             .subscribe(() => this.claimsService.fetchMore());
     }
 
