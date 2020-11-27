@@ -1,36 +1,47 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { LAYOUT_GAP } from '../constants';
-import { ClaimsService } from './claims.service';
+import { FetchClaimsService } from './fetch-claims.service';
 import { ClaimSearchFormValue } from './search-form';
+import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
-    providers: [ClaimsService],
+    providers: [FetchClaimsService, ClaimsExpandedIdManagerService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsComponent {
-    tableData$ = this.claimsService.searchResult$;
-    isLoading$ = this.claimsService.isLoading$;
-    lastUpdated$ = this.claimsService.lastUpdated$;
-    hasMore$ = this.claimsService.hasMore$;
+    tableData$ = this.fetchClaimsService.searchResult$;
+    isLoading$ = this.fetchClaimsService.isLoading$;
+    lastUpdated$ = this.fetchClaimsService.lastUpdated$;
+    hasMore$ = this.fetchClaimsService.hasMore$;
+    expandedId$ = this.claimsExpandedIdManagerService.expandedId$;
 
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private claimsService: ClaimsService) {}
+    constructor(
+        @Inject(LAYOUT_GAP) public layoutGap: string,
+        private fetchClaimsService: FetchClaimsService,
+        private claimsExpandedIdManagerService: ClaimsExpandedIdManagerService
+    ) {}
 
     search(val: ClaimSearchFormValue) {
-        this.claimsService.search(val);
+        this.fetchClaimsService.search(val);
     }
 
     fetchMore() {
-        this.claimsService.fetchMore();
+        this.fetchClaimsService.fetchMore();
     }
 
     refresh() {
-        this.claimsService.refresh();
+        this.fetchClaimsService.refresh();
+    }
+
+    expandedIdChange(id: number) {
+        this.claimsExpandedIdManagerService.expandedIdChange(id);
     }
 }

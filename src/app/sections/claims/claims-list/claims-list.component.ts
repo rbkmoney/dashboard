@@ -1,26 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import isNil from 'lodash.isnil';
-import { Observable } from 'rxjs';
-
-import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-claims-list',
     templateUrl: 'claims-list.component.html',
-    providers: [ClaimsExpandedIdManagerService],
 })
 export class ClaimsListComponent {
     @Input() claimList: any[];
     @Input() lastUpdated: string;
     @Input() isLoading: boolean;
     @Input() hasMore: boolean;
+    @Input() expandedId: number;
 
     @Output() refresh = new EventEmitter<void>();
     @Output() showMore = new EventEmitter<void>();
-
-    expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
-
-    constructor(private expandedIdManager: ClaimsExpandedIdManagerService) {}
+    @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
 
     get isListExist(): boolean {
         return !isNil(this.claimList);
@@ -36,9 +30,5 @@ export class ClaimsListComponent {
 
     showMoreElements(): void {
         this.showMore.emit();
-    }
-
-    expandedIdChange(id: number) {
-        this.expandedIdManager.expandedIdChange(id);
     }
 }

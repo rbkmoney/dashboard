@@ -5,22 +5,22 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { Claim } from '../../api-codegen/claim-management/swagger-codegen';
-import { ClaimsService as ApiClaimsService } from '../../api/claims/claims.service';
+import { ClaimsService } from '../../api/claims';
 import { booleanDebounceTime, takeError } from '../../custom-operators';
 import { FetchResult, PartialFetcher } from '../partial-fetcher';
 import { mapToTimestamp } from '../payment-section/operations/operators';
 import { ClaimSearchFormValue } from './search-form';
 
 @Injectable()
-export class ClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
-    private readonly searchLimit = 20;
+export class FetchClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
+    private readonly searchLimit = 10;
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
     error$ = this.searchResult$.pipe(takeError);
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(
-        private claimsService: ApiClaimsService,
+        private claimsService: ClaimsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {

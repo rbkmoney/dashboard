@@ -1,18 +1,18 @@
 <div
-    *transloco="let p; scope: 'claims'; read: 'claims.panel'"
+    *transloco="let claims; scope: 'claims'; read: 'claims.panel'"
     fxLayout.lt-md="column"
     fxLayoutAlign="space-between"
     fxLayoutGap="24px"
 >
-    <dsh-details-item [title]="p('status')" fxFlex fxFlex.lt-md="100"
+    <dsh-details-item [title]="claims('status')" fxFlex fxFlex.lt-md="100"
         ><dsh-status *transloco="let claimStatus; read: 'claimStatus'" [color]="claim.status | claimStatusColor">{{
             claimStatus(claim.status)
         }}</dsh-status></dsh-details-item
     >
-    <dsh-details-item [title]="p('createdAt')" fxFlex fxFlex.lt-md="100">{{
+    <dsh-details-item [title]="claims('createdAt')" fxFlex fxFlex.lt-md="100">{{
         claim.createdAt | date: 'dd MMMM yyyy, HH:mm'
     }}</dsh-details-item>
-    <dsh-details-item [title]="p('updatedAt')" fxFlex fxFlex.lt-md="100">{{
+    <dsh-details-item [title]="claims('updatedAt')" fxFlex fxFlex.lt-md="100">{{
         claim.updatedAt | date: 'dd MMMM yyyy, HH:mm'
     }}</dsh-details-item>
 </div>

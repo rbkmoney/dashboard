@@ -15,6 +15,8 @@
             [hasMore]="hasMore$ | async"
             [isLoading]="isLoading$ | async"
             [claimList]="tableData$ | async"
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
             (refresh)="refresh()"
             (showMore)="fetchMore()"
         ></dsh-claims-list>
