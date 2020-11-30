@@ -14,7 +14,6 @@ import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
 import { combineShopItem } from './combine-shop-item';
 
-
 @Injectable()
 export class FetchShopsService {
     allShops$: Observable<ApiShop[]>;
