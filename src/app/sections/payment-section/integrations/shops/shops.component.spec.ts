@@ -12,7 +12,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { PaymentInstitutionRealm } from '../../../../api/model';
-import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { CreateShopDialogComponent } from './create-shop/components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
