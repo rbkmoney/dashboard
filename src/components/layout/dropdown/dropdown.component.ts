@@ -1,5 +1,16 @@
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+} from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import { coerceBoolean } from '../../../utils';
 import { openCloseAnimation, State } from './open-close-animation';
@@ -16,7 +27,7 @@ const FULL_WIDTH = '99.99%';
     animations: [openCloseAnimation],
     exportAs: 'dshDropdown',
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit, OnDestroy {
     @Input() width?: number | string;
     @Input() disableClose = false;
     @Input() @coerceBoolean hasArrow = true;
@@ -24,7 +35,9 @@ export class DropdownComponent {
     @Input() offset = '15px';
 
     @Output() backdropClick = new EventEmitter<MouseEvent>();
+    @Output() opened = new EventEmitter<void>();
     @Output() closed = new EventEmitter<void>();
+    @Output() destroy = new EventEmitter<void>();
 
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
     @ContentChild(TemplateRef, { static: true }) contentTemplateRef: TemplateRef<any>;
@@ -32,6 +45,21 @@ export class DropdownComponent {
     state$ = new BehaviorSubject(State.closed);
     triangleLeftOffset: string;
     animationDone$ = new Subject();
+
+    ngOnInit(): void {
+        this.state$
+            .pipe(
+                filter((state: State) => state === State.open),
+                takeUntil(this.destroy)
+            )
+            .subscribe(() => {
+                this.opened.emit();
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy.emit();
+    }
 
     getCorrectedWidth() {
         if (this.width === '100%') {

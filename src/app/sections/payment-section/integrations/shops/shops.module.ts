@@ -9,6 +9,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateShopModule } from '../../../create-shop';
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { ShopFiltersModule } from './shop-filters';
 import { ShopListModule } from './shops-list/shop-list.module';
 import { ShopsRoutingModule } from './shops-routing.module';
 import { ShopsComponent } from './shops.component';
@@ -24,6 +25,7 @@ import { ShopsComponent } from './shops.component';
         RouterModule,
         MatRadioModule,
         ShopListModule,
+        ShopFiltersModule,
     ],
     declarations: [ShopsComponent, CreateShopDialogComponent],
     exports: [ShopsComponent],

@@ -1,0 +1,11 @@
+<dsh-filter [title]="titleLabel" [active]="isActive" (opened)="onOpened()" (closed)="onClosed()">
+    <div class="query-filter-content">
+        <dsh-filter-button-content>
+            <mat-form-field fxFlex color="primary">
+                <mat-label>{{ searchLabel }}</mat-label>
+                <input matInput type="text" [value]="query$ | async" (input)="onInput()" />
+            </mat-form-field>
+        </dsh-filter-button-content>
+        <dsh-filter-button-actions (clear)="onClear()" (save)="onSave()"></dsh-filter-button-actions>
+    </div>
+</dsh-filter>
