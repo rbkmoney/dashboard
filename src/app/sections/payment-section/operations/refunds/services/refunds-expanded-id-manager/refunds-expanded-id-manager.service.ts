@@ -21,6 +21,10 @@ export class RefundsExpandedIdManager extends ExpandedIdManager<RefundSearchResu
         return `${refund.invoiceID}${refund.paymentID}${refund.id}`;
     }
 
+    protected fragmentNotFound(): void {
+        this.fetchRefundsService.fetchMore();
+    }
+
     protected get dataSet$(): Observable<RefundSearchResult[]> {
         return this.fetchRefundsService.searchResult$;
     }
