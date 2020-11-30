@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 
 @Component({
     selector: 'dsh-shop-contract-details',

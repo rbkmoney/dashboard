@@ -1,0 +1,16 @@
+<form
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
+    fxLayout="column"
+    fxLayoutGap="16px"
+    [formGroup]="form"
+>
+    <mat-form-field>
+        <mat-label>{{ p('existing.label') }}</mat-label>
+        <mat-select formControlName="shop" required>
+            <mat-option *ngFor="let shop of shopsList" [value]="shop.id">
+                {{ shop.details.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <dsh-payout-tool-details *ngIf="payoutTool" [payoutToolDetails]="payoutTool.details"></dsh-payout-tool-details>
+</form>

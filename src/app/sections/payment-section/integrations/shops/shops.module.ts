@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
-import { TranslocoModule } from '@ngneat/transloco';
 
-import { ButtonModule } from '@dsh/components/buttons';
-
-import { CreateShopModule } from '../../../create-shop';
-import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { CreateShopModule } from './create-shop';
+import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
+import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
+import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
+import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
 import { ShopFiltersModule } from './shop-filters';
+import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';
 import { ShopsRoutingModule } from './shops-routing.module';
 import { ShopsComponent } from './shops.component';
@@ -18,16 +18,20 @@ import { ShopsComponent } from './shops.component';
     imports: [
         ShopsRoutingModule,
         FlexLayoutModule,
-        TranslocoModule,
         CommonModule,
-        ButtonModule,
-        CreateShopModule,
         RouterModule,
-        MatRadioModule,
         ShopListModule,
         ShopFiltersModule,
+        CreateShopModule,
     ],
-    declarations: [ShopsComponent, CreateShopDialogComponent],
+    declarations: [ShopsComponent],
     exports: [ShopsComponent],
+    providers: [
+        FetchShopsService,
+        ShopsBalanceService,
+        ShopsExpandedIdManagerService,
+        ShopsFiltersService,
+        ShopsFiltersStoreService,
+    ],
 })
 export class ShopsModule {}
