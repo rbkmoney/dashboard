@@ -16,9 +16,10 @@ export class ValueFilterComponent implements OnChanges {
     @Input() selectedLabel?: string;
     @Input() selectedLabelPredicate?: (value: string) => string;
     @Input() placeholder?: string;
+    @Input() type?: 'number' | 'text' = 'text';
 
-    @Input() value: string;
-    @Output() valueChanges = new EventEmitter<string>();
+    @Input() value: string | number;
+    @Output() valueChanges = new EventEmitter<string | number>();
     private savedValue$ = new ReplaySubject<string>();
 
     control = new FormControl();

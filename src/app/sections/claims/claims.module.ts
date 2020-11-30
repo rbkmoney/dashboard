@@ -20,6 +20,7 @@ import { LAYOUT_GAP } from '../constants';
 import { ChangesetToTypePipe } from './changeset-to-type.pipe';
 import { ClaimStatusColorPipe } from './claim-status-color.pipe';
 import { ClaimsRoutingModule } from './claims-routing.module';
+import { ClaimsSearchFiltersModule } from './claims-search-filters';
 import { ClaimsComponent } from './claims.component';
 import { SearchFormComponent } from './search-form';
 import { TableComponent } from './table';
@@ -41,6 +42,7 @@ import { TableComponent } from './table';
         MatIconModule,
         StateNavModule,
         ButtonModule,
+        ClaimsSearchFiltersModule,
     ],
     declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
     exports: [ClaimsComponent],
