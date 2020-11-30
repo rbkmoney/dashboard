@@ -19,7 +19,8 @@
         "paths": {
             "@dsh/components/*": ["src/components/*"],
             "@dsh/pipes/*": ["src/pipes/*"],
-            "@dsh/app/shared/*": ["src/app/shared/*"]
+            "@dsh/app/shared/*": ["src/app/shared/*"],
+            "@dsh/app/sections/constants": ["src/app/sections/constants.ts"]
         }
     },
     "angularCompilerOptions": {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -10,13 +10,12 @@ import { Invoice } from '../../../../../../api-codegen/anapi';
 import { Shop } from '../../../../../../api-codegen/capi';
 import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
+import { SEARCH_LIMIT } from '../../../../../constants';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
 import { filterShopsByRealm, mapToTimestamp } from '../../../operators';
 import { SearchFiltersParams } from '../../invoices-search-filters';
 import { mapToInvoicesTableData } from '../../map-to-invoices-table-data';
 import { InvoicesTableData } from '../../table';
-
-const SEARCH_LIMIT = 20;
 
 @Injectable()
 export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
@@ -44,7 +43,9 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
         private invoiceSearchService: InvoiceSearchService,
         private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        @Inject(SEARCH_LIMIT)
+        private searchLimit: number
     ) {
         super();
     }
@@ -60,7 +61,7 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
                         ...params,
                         paymentInstitutionRealm,
                     },
-                    SEARCH_LIMIT,
+                    this.searchLimit,
                     continuationToken
                 )
             )
