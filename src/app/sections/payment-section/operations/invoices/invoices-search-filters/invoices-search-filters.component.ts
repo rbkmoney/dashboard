@@ -68,7 +68,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
 
     ngOnChanges({ initParams }: ComponentChanges<InvoicesSearchFiltersComponent>) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
-            this.init(initParams.currentValue);
+            this.initSearchParams(initParams.currentValue);
         }
     }
 
@@ -93,7 +93,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         this.searchParams$.next({ invoiceStatus });
     }
 
-    private init({ fromTime, toTime, shopIDs }: SearchFiltersParams) {
+    private initSearchParams({ fromTime, toTime, shopIDs }: SearchFiltersParams) {
         this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
         this.daterangeSelectionChange(this.daterange);
         if (shopIDs) {

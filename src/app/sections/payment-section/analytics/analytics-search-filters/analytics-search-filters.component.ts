@@ -78,7 +78,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
 
     ngOnChanges({ initParams }: ComponentChanges<AnalyticsSearchFiltersComponent>) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
-            this.init(initParams.currentValue);
+            this.initSearchParams(initParams.currentValue);
         }
     }
 
@@ -99,7 +99,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         this.selectedCurrency$.next(currency);
     }
 
-    init({ fromTime, toTime, shopIDs, currency }: SearchParams) {
+    initSearchParams({ fromTime, toTime, shopIDs, currency }: SearchParams) {
         this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
         this.daterangeSelectionChange(this.daterange);
         if (currency) {
