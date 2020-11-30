@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import isNil from 'lodash.isnil';
 
+import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
+
 @Component({
     selector: 'dsh-claims-list',
     templateUrl: 'claims-list.component.html',
 })
 export class ClaimsListComponent {
-    @Input() claimList: any[];
+    @Input() claimList: Claim[];
     @Input() lastUpdated: string;
     @Input() isLoading: boolean;
     @Input() hasMore: boolean;

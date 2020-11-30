@@ -1,14 +1,6 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let claims; scope: 'claims'; read: 'claims'">
     <dsh-last-updated (update)="refreshList()" [lastUpdated]="lastUpdated"></dsh-last-updated>
     <dsh-claim-row-header></dsh-claim-row-header>
-    <ng-container *ngIf="isLoading && !isListExist; else claimsPanelsList">
-        <div fxLayout fxFlexAlign="center">
-            <dsh-spinner></dsh-spinner>
-        </div>
-    </ng-container>
-</div>
-
-<ng-template #claimsPanelsList>
     <dsh-accordion
         (expandedChange)="expandedIdChange.emit($event)"
         [expanded]="expandedId"
@@ -35,4 +27,9 @@
     <div *ngIf="isEmptyList" class="mat-headline">
         <dsh-empty-search-result *transloco="let common">{{ common('emptySearchResult') }}</dsh-empty-search-result>
     </div>
-</ng-template>
+    <ng-container *ngIf="isLoading">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
+        </div>
+    </ng-container>
+</div>
