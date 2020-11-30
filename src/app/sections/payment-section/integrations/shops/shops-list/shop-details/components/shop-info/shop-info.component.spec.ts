@@ -1,50 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import { Subject } from 'rxjs';
+import { getTestScheduler } from 'jasmine-marbles';
+import { Observable, ReplaySubject } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { ShopLocation } from '../../../../../../../../api-codegen/anapi/swagger-codegen';
-import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ShopItem } from '../../../../types/shop-item';
+import { Category, ShopLocationUrl } from '../../../../../../../../api-codegen/capi/swagger-codegen';
+import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../../../shop-balance';
 import { CategoryService } from '../../services/category/category.service';
 import { ShopInfoComponent } from './shop-info.component';
 
-const mockShop: ShopItem = {
-    id: 'mock',
-    createdAt: new Date(),
-    isBlocked: false,
-    isSuspended: false,
-    categoryID: 1,
-    location: {
-        locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-        url: 'example.com',
-    },
-    details: {
-        name: 'my name',
-        description: 'some description',
-    },
-    contractID: 'contractID',
-    payoutToolID: 'payoutToolID',
-    scheduleID: 1,
-    account: {
-        currency: 'USD',
-        guaranteeID: 2,
-        settlementID: 2,
-    },
-    balance: {
-        amount: 20,
-        currency: 'USD',
-    },
-};
-
 class MockCategoryService {
-    category$ = new Subject<Category>();
+    category$: Observable<Category>;
 
-    updateID(categoryID: number) {
-        this.category$.next({
+    private _category$ = new ReplaySubject<Category>(1);
+
+    constructor() {
+        this.category$ = this._category$.pipe(delay(0, getTestScheduler()));
+    }
+
+    updateID(categoryID: number): void {
+        this._category$.next({
             categoryID,
             name: 'Mock Category',
         });
@@ -92,11 +71,55 @@ describe('ShopInfoComponent', () => {
         fixture = TestBed.createComponent(ShopInfoComponent);
         component = fixture.componentInstance;
 
-        component.shop = mockShop;
+        component.shop = generateMockShopItem(1);
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    describe('shop', () => {
+        it('should return inner shop value', () => {
+            const shop = generateMockShopItem(15);
+            component.shop = shop;
+
+            expect(component.shop).toEqual(shop);
+        });
+
+        it('should update categoryID on every shop change', () => {
+            const spyOnUpdateID = spyOn(mockCategoryService, 'updateID').and.callThrough();
+
+            const shops = [generateMockShopItem(2), generateMockShopItem(3)];
+
+            shops[0].categoryID = 250;
+            shops[1].categoryID = 100500;
+
+            component.shop = shops[0];
+            expect(spyOnUpdateID).toHaveBeenCalledWith(250);
+
+            component.shop = shops[1];
+            expect(spyOnUpdateID).toHaveBeenCalledWith(100500);
+
+            expect(spyOnUpdateID).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('shopUrl', () => {
+        it('should return empty balance symbol if shop item has no url', () => {
+            const shop = generateMockShopItem(15);
+            (shop.location as ShopLocationUrl).url = null;
+            component.shop = shop;
+
+            expect(component.shopUrl).toBe('--/--');
+        });
+
+        it('should return shop url if shop item has its own url', () => {
+            const shop = generateMockShopItem(15);
+            (shop.location as ShopLocationUrl).url = 'my_url.com';
+            component.shop = shop;
+
+            expect(component.shopUrl).toBe('my_url.com');
+        });
     });
 });

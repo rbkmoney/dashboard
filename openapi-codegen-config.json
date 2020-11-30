@@ -1,4 +1,5 @@
 {
+    "cliPath": "tools/codegens/openapi-generator-cli-4.3.0.jar",
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "openapi-codegen",
     "schemes": {

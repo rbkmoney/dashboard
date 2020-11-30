@@ -1,29 +1,21 @@
-import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
-import { Observable, of } from 'rxjs';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { of, scheduled } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnalyticsService as APIAnalyticsService } from '../../../../../../api-codegen/anapi';
-import { InlineResponse200 } from '../../../../../../api-codegen/anapi/swagger-codegen';
 import { AnalyticsService } from '../../../../../../api/analytics';
+import { generateMockBalance } from '../../tests/generate-mock-balance';
+import { generateMockShopId } from '../../tests/generate-mock-shop-id';
+import { MockAnalyticsService } from '../../tests/mock-analytics-service';
 import { ShopsBalanceService } from './shops-balance.service';
-
-@Injectable()
-class MockAnalyticsService extends AnalyticsService {
-    set mockGroupBalances(value: InlineResponse200) {
-        this._mockGroupBalances = value;
-    }
-    private _mockGroupBalances: InlineResponse200;
-
-    getGroupBalances(): Observable<InlineResponse200> {
-        return of(this._mockGroupBalances);
-    }
-}
 
 describe('ShopsBalanceService', () => {
     let service: ShopsBalanceService;
     let analyticsService: MockAnalyticsService;
+
+    beforeEach(() => {
+        analyticsService = new MockAnalyticsService();
+    });
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -31,56 +23,29 @@ describe('ShopsBalanceService', () => {
                 ShopsBalanceService,
                 {
                     provide: AnalyticsService,
-                    useClass: MockAnalyticsService,
-                },
-                {
-                    provide: APIAnalyticsService,
-                    useValue: null, // not used
+                    useValue: analyticsService,
                 },
             ],
         });
         service = TestBed.inject(ShopsBalanceService);
-        analyticsService = TestBed.inject(AnalyticsService) as MockAnalyticsService;
     });
 
     it('should be created', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('balances$', () => {
+    describe('getBalances', () => {
         it('should return balances list from AnalyticsService', () => {
-            const expected$ = cold('a', {
-                a: [
-                    {
-                        id: 'first-shop',
-                        data: {
-                            amount: 20,
-                            currency: 'USD',
-                        },
-                    },
-                    {
-                        id: 'second-shop',
-                        data: {
-                            amount: 4,
-                            currency: 'USD',
-                        },
-                    },
-                    {
-                        id: 'third-shop',
-                        data: {
-                            amount: 2,
-                            currency: 'USD',
-                        },
-                    },
-                ],
+            const expected$ = cold('(a|)', {
+                a: [generateMockBalance(1, 20), generateMockBalance(2, 4), generateMockBalance(3, 2)],
             });
 
-            analyticsService.mockGroupBalances = {
+            analyticsService.setMockBalancesResponse({
                 result: [
                     {
                         groupBySHopResults: [
                             {
-                                id: 'first-shop',
+                                id: generateMockShopId(1),
                                 amountResults: [
                                     {
                                         amount: 20,
@@ -89,7 +54,7 @@ describe('ShopsBalanceService', () => {
                                 ],
                             },
                             {
-                                id: 'second-shop',
+                                id: generateMockShopId(2),
                                 amountResults: [
                                     {
                                         amount: 4,
@@ -98,7 +63,7 @@ describe('ShopsBalanceService', () => {
                                 ],
                             },
                             {
-                                id: 'third-shop',
+                                id: generateMockShopId(3),
                                 amountResults: [
                                     {
                                         amount: 2,
@@ -109,45 +74,31 @@ describe('ShopsBalanceService', () => {
                         ],
                     },
                 ],
-            };
+            });
 
-            expect(service.balances$).toBeObservable(expected$);
+            expect(
+                service.getBalances([generateMockShopId(1), generateMockShopId(2), generateMockShopId(3)])
+            ).toBeObservable(expected$);
         });
 
         it('should return list with nullable data if api has no data for some shops', () => {
-            const expected$ = cold('a', {
-                a: [
-                    {
-                        id: 'first-shop',
-                        data: null,
-                    },
-                    {
-                        id: 'second-shop',
-                        data: null,
-                    },
-                    {
-                        id: 'third-shop',
-                        data: {
-                            amount: 2,
-                            currency: 'USD',
-                        },
-                    },
-                ],
+            const expected$ = cold('(a|)', {
+                a: [generateMockBalance(1), generateMockBalance(2), generateMockBalance(3, 2)],
             });
 
-            analyticsService.mockGroupBalances = {
+            analyticsService.setMockBalancesResponse({
                 result: [
                     {
                         groupBySHopResults: [
                             {
-                                id: 'first-shop',
+                                id: generateMockShopId(1),
                                 amountResults: [],
                             },
                             {
-                                id: 'second-shop',
+                                id: generateMockShopId(2),
                             },
                             {
-                                id: 'third-shop',
+                                id: generateMockShopId(3),
                                 amountResults: [
                                     {
                                         amount: 2,
@@ -158,44 +109,52 @@ describe('ShopsBalanceService', () => {
                         ],
                     },
                 ],
-            };
+            });
 
-            expect(service.balances$).toBeObservable(expected$);
+            expect(
+                service.getBalances([generateMockShopId(1), generateMockShopId(2), generateMockShopId(3)])
+            ).toBeObservable(expected$);
         });
 
         it('should return empty balances list if api has no data', () => {
-            const expected$ = cold('a', {
+            const expected$ = cold('(a|)', {
                 a: [],
             });
 
-            analyticsService.mockGroupBalances = {
+            analyticsService.setMockBalancesResponse({
                 result: [
                     {
                         groupBySHopResults: [],
                     },
                 ],
-            };
+            });
 
-            expect(service.balances$).toBeObservable(expected$);
+            expect(
+                service.getBalances([generateMockShopId(1), generateMockShopId(2), generateMockShopId(3)])
+            ).toBeObservable(expected$);
         });
 
         it('should return empty balances list if there was an error', () => {
-            const expected$ = cold('a', {
+            const expected$ = cold('(a|)', {
                 a: [],
             });
 
             analyticsService.getGroupBalances = () => {
-                return of({
-                    result: [],
-                }).pipe(
+                return scheduled(
+                    of({
+                        result: [],
+                    }),
+                    getTestScheduler()
+                ).pipe(
                     map(() => {
                         throw new Error('[TEST ERROR] Mock Error');
                     })
                 );
             };
 
-            expect(service.balances$).toBeObservable(expected$);
+            expect(
+                service.getBalances([generateMockShopId(1), generateMockShopId(2), generateMockShopId(3)])
+            ).toBeObservable(expected$);
         });
     });
-    // setShopIds
 });

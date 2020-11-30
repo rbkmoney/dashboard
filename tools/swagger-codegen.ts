@@ -37,6 +37,5 @@ async function swaggerCodegenAngularCli({
 }
 
 (async () => {
-    const cliPath = path.join(config.rootDir, config.cli);
-    await swaggerCodegenAngularCli({ ...config, cliPath });
+    await swaggerCodegenAngularCli(config);
 })();
