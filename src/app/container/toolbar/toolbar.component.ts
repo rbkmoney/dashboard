@@ -15,7 +15,7 @@ export class ToolbarComponent {
     @Input() brandType: BrandType = BrandType.normal;
 
     links$ = this.toolbarLinksService.links$;
-    inverted$ = this.toolbarLinksService.active$.pipe(map((active) => active.id === LinkId.main));
+    inverted$ = this.toolbarLinksService.active$.pipe(map((active) => active?.id === LinkId.main));
     active$ = this.toolbarLinksService.active$;
 
     constructor(private toolbarLinksService: ToolbarLinksService) {}

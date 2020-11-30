@@ -1,0 +1,5 @@
+.dsh-limited-list-item {
+    ::ng-deep &-hidden {
+        display: none;
+    }
+}

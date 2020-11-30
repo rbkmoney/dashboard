@@ -1,0 +1,32 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-accordion fxLayout="column" fxLayoutGap="16px" [expanded]="0">
+        <dsh-accordion-item #accordionItem>
+            <dsh-accordion-item-content>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header></dsh-accordion-item-content-header>
+                    <div fxLayout>
+                        <dsh-collapse fxFlex title="Администратор">
+                            <dsh-limited-list title="Магазины">
+                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
+                            </dsh-limited-list>
+                        </dsh-collapse>
+                        <dsh-collapse fxFlex title="Менеджер" expandDirection="up">
+                            <dsh-limited-list title="Магазины">
+                                <dsh-limited-list-item>Shop name 1</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 3</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 4</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 5</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 6</dsh-limited-list-item>
+                                <dsh-limited-list-item>Shop name 7</dsh-limited-list-item>
+                            </dsh-limited-list>
+                        </dsh-collapse>
+                    </div>
+                </dsh-card>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>
