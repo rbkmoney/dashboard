@@ -5,10 +5,10 @@ import pickBy from 'lodash.pickby';
 import { QueryParamsStore } from '@dsh/app/shared/services';
 
 import { wrapValuesToArray } from '../../../../../../../utils';
-import { SearchFiltersParams } from '../../refunds-search-filters';
+import { SearchFiltersParams } from '../../invoices-search-filters';
 
 @Injectable()
-export class RefundsSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
+export class InvoicesSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
     mapToData(queryParams: Params): Partial<SearchFiltersParams> {
         return {
             ...queryParams,
@@ -20,7 +20,7 @@ export class RefundsSearchFiltersStore extends QueryParamsStore<SearchFiltersPar
         return data;
     }
 
-    private pickShopsAndInvoices(params: any) {
+    pickShopsAndInvoices(params: any) {
         return pickBy(params, (v, k) => typeof v === 'string' && ['shopIDs', 'invoiceIDs'].includes(k));
     }
 }

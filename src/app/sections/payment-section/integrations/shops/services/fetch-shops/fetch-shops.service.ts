@@ -1,7 +1,8 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import isNil from 'lodash.isnil';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+
+import { SEARCH_LIMIT } from '@dsh/app/sections/constants';
 
 import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
@@ -12,10 +13,6 @@ import { ShopBalance } from '../../types/shop-balance';
 import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
 import { combineShopItem } from './combine-shop-item';
-
-const DEFAULT_LIST_PAGINATION_OFFSET = 20;
-
-export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
 @Injectable()
 export class FetchShopsService {
@@ -36,11 +33,9 @@ export class FetchShopsService {
     constructor(
         private apiShopsService: ApiShopsService,
         private shopsBalance: ShopsBalanceService,
-        @Optional()
-        @Inject(SHOPS_LIST_PAGINATION_OFFSET)
-        private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
+        @Inject(SEARCH_LIMIT)
+        private searchLimit: number
     ) {
-        this.initPaginationOffset();
         this.initAllShopsFetching();
         this.initOffsetObservable();
         this.initShownShopsObservable();
@@ -74,12 +69,6 @@ export class FetchShopsService {
         this.loader$.next(false);
     }
 
-    private initPaginationOffset(): void {
-        if (isNil(this.paginationOffset)) {
-            this.paginationOffset = DEFAULT_LIST_PAGINATION_OFFSET;
-        }
-    }
-
     private initAllShopsFetching(): void {
         this.allShops$ = this.realmData$.pipe(
             filterShopsByRealm(this.apiShopsService.shops$),
@@ -89,7 +78,7 @@ export class FetchShopsService {
 
     private initOffsetObservable(): void {
         this.listOffset$ = this.showMore$.pipe(
-            mapTo(this.paginationOffset),
+            mapTo(this.searchLimit),
             withLatestFrom(this.selectedIndex$),
             map(([curOffset]: [number, number]) => curOffset),
             scan((offset: number, limit: number) => offset + limit, 0),

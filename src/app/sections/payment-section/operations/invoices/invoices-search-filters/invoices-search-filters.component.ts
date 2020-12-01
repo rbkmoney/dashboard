@@ -1,14 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChange,
-    SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
@@ -16,24 +6,26 @@ import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'r
 
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { RefundSearchResult } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { ComponentChanges } from '../../../../../../type-utils';
+import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
+import { PaymentInstitutionRealm } from '../../../../../api/model';
 import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
-import { SearchFiltersParams } from '../types/search-filters-params';
 import { getDefaultDaterange } from './get-default-daterange';
+import { SearchFiltersParams } from './search-filters-params';
 
 @Component({
-    selector: 'dsh-refunds-search-filters',
-    templateUrl: 'refunds-search-filters.component.html',
+    selector: 'dsh-invoices-search-filters',
+    templateUrl: 'invoices-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
+export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     @Input() initParams: SearchFiltersParams;
 
-    @Input() set realm(realm: string) {
+    @Input() set realm(realm: PaymentInstitutionRealm) {
         this.realm$.next(realm);
     }
 
@@ -45,7 +37,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
 
     selectedShops$: Observable<Shop[]>;
 
-    private realm$ = new ReplaySubject();
+    private realm$ = new ReplaySubject<PaymentInstitutionRealm>();
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
@@ -74,8 +66,10 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
             .subscribe((v) => this.searchParamsChanges.emit(v));
     }
 
-    ngOnChanges({ initParams }: SimpleChanges) {
-        this.init(initParams);
+    ngOnChanges({ initParams }: ComponentChanges<InvoicesSearchFiltersComponent>) {
+        if (initParams && initParams.firstChange && initParams.currentValue) {
+            this.initSearchParams(initParams.currentValue);
+        }
     }
 
     daterangeSelectionChange(range: Daterange | null) {
@@ -95,18 +89,15 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
         this.searchParams$.next({ invoiceIDs: invoiceIDs?.length ? invoiceIDs : null });
     }
 
-    statusSelectionChange(refundStatus: RefundSearchResult.StatusEnum) {
-        this.searchParams$.next({ refundStatus });
+    statusSelectionChange(invoiceStatus: Invoice.StatusEnum) {
+        this.searchParams$.next({ invoiceStatus });
     }
 
-    private init(initParams: SimpleChange) {
-        if (initParams && initParams.firstChange && initParams.currentValue) {
-            const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : strToDaterange(v);
-            this.daterangeSelectionChange(this.daterange);
-            if (Array.isArray(v.shopIDs)) {
-                this.selectedShopIDs$.next(v.shopIDs);
-            }
+    private initSearchParams({ fromTime, toTime, shopIDs }: SearchFiltersParams) {
+        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterangeSelectionChange(this.daterange);
+        if (shopIDs) {
+            this.selectedShopIDs$.next(shopIDs);
         }
     }
 }

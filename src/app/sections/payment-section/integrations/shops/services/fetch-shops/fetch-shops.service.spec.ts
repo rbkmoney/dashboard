@@ -3,6 +3,8 @@ import { cold } from 'jasmine-marbles';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_LIMIT } from '@dsh/app/sections/constants';
+
 import { Shop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { AnalyticsService } from '../../../../../../api/analytics';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
@@ -11,7 +13,7 @@ import { ShopBalanceModule } from '../../shops-list/shop-balance';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
-import { FetchShopsService, SHOPS_LIST_PAGINATION_OFFSET } from './fetch-shops.service';
+import { FetchShopsService } from './fetch-shops.service';
 
 class MockApiShopsService {
     shops$: Observable<Shop[]>;
@@ -57,7 +59,7 @@ describe('FetchShopsService', () => {
                     useValue: analyticsService,
                 },
                 {
-                    provide: SHOPS_LIST_PAGINATION_OFFSET,
+                    provide: SEARCH_LIMIT,
                     useValue: 5,
                 },
             ],
