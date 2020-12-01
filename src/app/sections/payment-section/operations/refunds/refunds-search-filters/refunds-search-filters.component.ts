@@ -20,7 +20,7 @@ import { RefundSearchResult } from '../../../../../api-codegen/anapi/swagger-cod
 import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
+import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
 import { SearchFiltersParams } from '../types/search-filters-params';
 import { getDefaultDaterange } from './get-default-daterange';
@@ -83,7 +83,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
         if (isNil(range)) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToTimes(daterange));
+        this.searchParams$.next(daterangeFromStr(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {
@@ -102,7 +102,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
     private init(initParams: SimpleChange) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
             const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : timesToDaterange(v);
+            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : strToDaterange(v);
             this.daterangeSelectionChange(this.daterange);
             if (Array.isArray(v.shopIDs)) {
                 this.selectedShopIDs$.next(v.shopIDs);

@@ -12,7 +12,7 @@ import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../api/model';
 import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
-import { daterangeToTimes, timesToDaterange } from '../../../../../shared/utils';
+import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
 import { getDefaultDaterange } from './get-default-daterange';
 import { SearchFiltersParams } from './search-filters-params';
@@ -77,7 +77,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         if (isNil(range)) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToTimes(daterange));
+        this.searchParams$.next(daterangeFromStr(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {
@@ -94,7 +94,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     }
 
     private initSearchParams({ fromTime, toTime, shopIDs }: SearchFiltersParams) {
-        this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
         this.daterangeSelectionChange(this.daterange);
         if (shopIDs) {
             this.selectedShopIDs$.next(shopIDs);

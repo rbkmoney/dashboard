@@ -8,7 +8,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '../../../../../type-utils';
 import { Shop } from '../../../../api-codegen/capi';
 import { ApiShopsService } from '../../../../api/shop';
-import { daterangeToTimes, timesToDaterange } from '../../../../shared/utils';
+import { daterangeFromStr, strToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { getDefaultDaterange } from './get-default-daterange';
@@ -87,7 +87,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         if (v === null) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToTimes(daterange));
+        this.searchParams$.next(daterangeFromStr(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {
@@ -100,7 +100,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
     }
 
     initSearchParams({ fromTime, toTime, shopIDs, currency }: SearchParams) {
-        this.daterange = fromTime && toTime ? timesToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
         this.daterangeSelectionChange(this.daterange);
         if (currency) {
             this.selectedCurrency$.next(currency);
