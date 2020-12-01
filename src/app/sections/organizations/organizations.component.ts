@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+import { FetchOrganizationsService } from './services/fetch-organizations.service';
+
 @Component({
     selector: 'dsh-organizations',
     templateUrl: 'organizations.component.html',
@@ -7,5 +9,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationsComponent {
-    createPayout() {}
+    organizations$ = this.fetchOrganizationsService.searchResult$.subscribe();
+
+    constructor(private fetchOrganizationsService: FetchOrganizationsService) {
+        fetchOrganizationsService.search({});
+    }
+
+    createOrganization() {}
 }

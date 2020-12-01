@@ -11,9 +11,11 @@ import { CollapseModule } from '../../../components/layout/collapse';
 import { LimitedListModule } from '../../../components/layout/limited-list';
 import { ScrollUpModule } from '../../../components/navigation';
 import { ShowMorePanelModule } from '../../../components/show-more-panel';
+import { OrganizationsModule as OrganizationsAPIModule } from '../../api/organizations';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
+import { FetchOrganizationsService } from './services/fetch-organizations.service';
 
 const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponent];
 
@@ -31,8 +33,10 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
         AccordionModule,
         CollapseModule,
         LimitedListModule,
+        OrganizationsAPIModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
+    providers: [FetchOrganizationsService],
 })
 export class OrganizationsModule {}
