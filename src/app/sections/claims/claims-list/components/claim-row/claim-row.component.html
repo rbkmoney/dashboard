@@ -14,5 +14,5 @@
         }}</dsh-status>
     </dsh-row-label>
     <dsh-row-label fxFlex>{{ item.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
-    <dsh-row-label fxFlex>{{ item.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex fxHide.lt-md>{{ item.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
 </ng-template>

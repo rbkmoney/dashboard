@@ -5,16 +5,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { StatusModule } from '@dsh/components/indicators';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { ClaimsListPipesModule } from '../pipes/claims-list-pipes.module';
 import { ClaimDetailsComponent } from './claim-details.component';
-import { ClaimActionsComponent } from './components/claim-actions/claim-actions.component';
 import { ClaimInfoComponent } from './components/claim-info/claim-info.component';
 
 @NgModule({
-    declarations: [ClaimDetailsComponent, ClaimInfoComponent, ClaimActionsComponent],
+    declarations: [ClaimDetailsComponent, ClaimInfoComponent],
     imports: [
         FlexModule,
         MatDividerModule,
@@ -23,7 +22,7 @@ import { ClaimInfoComponent } from './components/claim-info/claim-info.component
         StatusModule,
         CommonModule,
         MatIconModule,
-        ClaimsListPipesModule,
+        ApiModelTypesModule,
     ],
     exports: [ClaimDetailsComponent],
 })

@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { LAYOUT_GAP } from '../constants';
-import { FetchClaimsService } from './fetch-claims.service';
 import { ClaimSearchFormValue } from './search-form';
 import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
+import { FetchClaimsService } from './services/fetch-claims.service';
 
 @Component({
     selector: 'dsh-claims',
@@ -15,7 +15,7 @@ import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-ma
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsComponent {
-    tableData$ = this.fetchClaimsService.searchResult$;
+    claimsList$ = this.fetchClaimsService.searchResult$;
     isLoading$ = this.fetchClaimsService.isLoading$;
     lastUpdated$ = this.fetchClaimsService.lastUpdated$;
     hasMore$ = this.fetchClaimsService.hasMore$;

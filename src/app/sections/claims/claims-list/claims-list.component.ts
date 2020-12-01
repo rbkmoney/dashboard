@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import isNil from 'lodash.isnil';
 
 import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
@@ -6,6 +7,8 @@ import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
 @Component({
     selector: 'dsh-claims-list',
     templateUrl: 'claims-list.component.html',
+    styleUrls: ['claims-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsListComponent {
     @Input() claimList: Claim[];
@@ -26,11 +29,17 @@ export class ClaimsListComponent {
         return this.isListExist && this.claimList.length === 0;
     }
 
+    constructor(private router: Router) {}
+
     refreshList(): void {
         this.refresh.emit();
     }
 
     showMoreElements(): void {
         this.showMore.emit();
+    }
+
+    goToClaimDetails({ id }: Claim) {
+        this.router.navigate(['claim', id]);
     }
 }

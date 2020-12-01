@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
 
@@ -8,4 +9,10 @@ import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen'
 })
 export class ClaimDetailsComponent {
     @Input() claim: Claim;
+
+    constructor(private router: Router) {}
+
+    goToClaimDetails({ id }: Claim) {
+        this.router.navigate(['claim', id]);
+    }
 }

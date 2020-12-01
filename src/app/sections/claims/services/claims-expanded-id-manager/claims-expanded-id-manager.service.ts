@@ -6,7 +6,7 @@ import { filter, take } from 'rxjs/operators';
 import { ExpandedIdManager } from '@dsh/app/shared/services';
 
 import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
-import { FetchClaimsService } from '../../fetch-claims.service';
+import { FetchClaimsService } from '../fetch-claims.service';
 
 @Injectable()
 export class ClaimsExpandedIdManagerService extends ExpandedIdManager<Claim> {
