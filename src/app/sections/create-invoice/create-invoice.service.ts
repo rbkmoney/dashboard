@@ -7,6 +7,7 @@ import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
+import { toMinor } from '../../../utils';
 import { InvoiceService } from '../../api';
 import { InvoiceLine, InvoiceLineTaxMode, Shop } from '../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
@@ -21,7 +22,12 @@ export class CreateInvoiceService {
     totalAmount$ = this.form.controls.cart.valueChanges.pipe(
         // TODO: add form types
         startWith<any, any>(this.form.controls.cart.value),
-        map((v) => v.map(({ price, quantity }) => price * quantity).reduce((sum, s) => (sum += s), 0)),
+        map((v: any[]) =>
+            v
+                .map(({ price, quantity }) => price * quantity)
+                .reduce((sum, s) => (sum += s), 0)
+                .toFixed(2)
+        ),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
@@ -76,7 +82,7 @@ export class CreateInvoiceService {
         const product: InvoiceLine = {
             product: v.product,
             quantity: v.quantity,
-            price: v.price * 100,
+            price: toMinor(v.price),
         };
         if (v.taxVatRate !== WITHOUT_VAT) {
             product.taxMode = {
