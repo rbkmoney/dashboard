@@ -28,42 +28,18 @@ import {
 } from '../../api-codegen/capi';
 import { ConfigService } from '../../config';
 import { filterError, filterPayload, progress, replaceError } from '../../custom-operators';
+import { HoldExpiration } from './types/hold-expiration';
+import { InvoiceType } from './types/invoice-type';
+import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
+import { PaymentLinkParams } from './types/payment-link-params';
 
-export class PaymentLinkParams {
-    invoiceID?: string;
-    invoiceAccessToken?: string;
-    invoiceTemplateID?: string;
-    invoiceTemplateAccessToken?: string;
-    name?: string;
-    description?: string;
-    email?: string;
-    redirectUrl?: string;
-    paymentFlowHold?: boolean;
-    holdExpiration?: string;
-    terminals?: boolean;
-    wallets?: boolean;
-    bankCard?: boolean;
-    mobileCommerce?: boolean;
-    applePay?: boolean;
-    googlePay?: boolean;
-    samsungPay?: boolean;
-}
-
-export enum HoldExpiration {
-    cancel = 'cancel',
-    capture = 'capture',
-}
-
+const Method = PaymentMethod.MethodEnum;
 const TokenProvider = BankCard.TokenProvidersEnum;
-
-export enum Type {
-    invoice,
-    template,
-}
+const TerminalProvider = PaymentTerminal.ProvidersEnum;
 
 @Injectable()
 export class CreatePaymentLinkService {
-    private create$ = new Subject<Type>();
+    private create$ = new Subject<InvoiceType>();
     private changeTemplate$ = new Subject<InvoiceTemplateAndToken>();
     private changeInvoice$ = new Subject<Invoice>();
 
@@ -101,14 +77,14 @@ export class CreatePaymentLinkService {
 
         const invoicePaymentLinkWithErrors$ = merge(
             this.create$.pipe(
-                filter((type) => type === Type.template),
+                filter((type) => type === InvoiceType.template),
                 switchMapTo(template$.pipe(take(1))),
                 switchMap((invoiceTemplateAndToken) =>
                     this.shortenUrlByTemplate(invoiceTemplateAndToken).pipe(replaceError)
                 )
             ),
             this.create$.pipe(
-                filter((type) => type === Type.invoice),
+                filter((type) => type === InvoiceType.invoice),
                 switchMapTo(invoice$.pipe(take(1))),
                 switchMap((invoice) =>
                     combineLatest([
@@ -151,11 +127,11 @@ export class CreatePaymentLinkService {
     }
 
     createByTemplate() {
-        this.create$.next(Type.template);
+        this.create$.next(InvoiceType.template);
     }
 
     createByInvoice() {
-        this.create$.next(Type.invoice);
+        this.create$.next(InvoiceType.invoice);
     }
 
     clear() {
@@ -186,7 +162,7 @@ export class CreatePaymentLinkService {
         );
     }
 
-    private buildUrl(params: Partial<PaymentLinkParams>) {
+    private buildUrl(params: PaymentLinkParams) {
         const queryParamsStr = Object.entries({ ...this.getPaymentLinkParamsFromFormValue(), ...params })
             .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&');
@@ -212,16 +188,9 @@ export class CreatePaymentLinkService {
             description: '',
             email: ['', Validators.email],
             redirectUrl: '',
-            paymentMethods: this.fb.group({
-                bankCard: { value: true, disabled: true },
-                wallets: { value: false, disabled: true },
-                euroset: { value: false, disabled: true },
-                mobileCommerce: { value: false, disabled: true },
-                applePay: { value: false, disabled: true },
-                googlePay: { value: false, disabled: true },
-                samsungPay: { value: false, disabled: true },
-                qps: { value: false, disabled: true },
-            }),
+            paymentMethods: this.fb.group(
+                Object.fromEntries(orderedPaymentMethodsNames.map((name) => [name, { value: true, disabled: true }]))
+            ),
             paymentFlowHold: false,
             holdExpiration: HoldExpiration.cancel,
         });
@@ -232,10 +201,9 @@ export class CreatePaymentLinkService {
         Object.values(paymentMethodsControls).forEach((c) => c.disable());
         paymentMethods.forEach((item) => {
             switch (item.method) {
-                case 'BankCard':
+                case Method.BankCard:
                     const bankCard = item as BankCard;
-                    paymentMethodsControls.bankCard.enable();
-                    if (Array.isArray(bankCard.tokenProviders)) {
+                    if (Array.isArray(bankCard.tokenProviders) && bankCard.tokenProviders.length) {
                         for (const provider of bankCard.tokenProviders) {
                             switch (provider) {
                                 case TokenProvider.Applepay:
@@ -247,21 +215,29 @@ export class CreatePaymentLinkService {
                                 case TokenProvider.Samsungpay:
                                     paymentMethodsControls.samsungPay.enable();
                                     break;
+                                default:
+                                    console.error(`Unhandled TokenProvider - ${provider}`);
+                                    break;
                             }
                         }
+                    } else {
+                        paymentMethodsControls.bankCard.enable();
                     }
                     break;
-                case 'DigitalWallet':
+                case Method.DigitalWallet:
                     paymentMethodsControls.wallets.enable();
                     break;
-                case 'PaymentTerminal':
+                case Method.PaymentTerminal:
                     (item as PaymentTerminal).providers.forEach((p) => {
                         switch (p) {
-                            case 'euroset':
+                            case TerminalProvider.Euroset:
                                 paymentMethodsControls.euroset.enable();
                                 break;
-                            case 'qps':
+                            case TerminalProvider.Qps:
                                 paymentMethodsControls.qps.enable();
+                                break;
+                            case TerminalProvider.Uzcard:
+                                paymentMethodsControls.uzcard.enable();
                                 break;
                             default:
                                 console.error(`Unhandled PaymentTerminal provider - ${p}`);
@@ -269,7 +245,7 @@ export class CreatePaymentLinkService {
                         }
                     });
                     break;
-                case 'MobileCommerce':
+                case Method.MobileCommerce:
                     paymentMethodsControls.mobileCommerce.enable();
                     break;
                 default:
