@@ -17,6 +17,10 @@ export class PayoutsExpandedIdManager extends ExpandedIdManager<Payout> {
         super(route, router);
     }
 
+    protected fragmentNotFound(): void {
+        this.fetchPayoutsService.fetchMore();
+    }
+
     protected get dataSet$(): Observable<Payout[]> {
         return this.fetchPayoutsService.searchResult$;
     }
