@@ -4,13 +4,13 @@
     fxLayoutGap="16px"
     [formGroup]="form"
 >
-    <mat-form-field>
-        <mat-label>{{ p('existing.label') }}</mat-label>
-        <mat-select formControlName="shop" required>
-            <mat-option *ngFor="let shop of shopsList" [value]="shop.id">
-                {{ shop.details.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+    <dsh-autocomplete-virtual-scroll
+        required
+        [label]="p('existing.label')"
+        [control]="innerShopControl"
+        [optionsList]="shopsList$ | async"
+        [scrollableWindow]="contentWindow"
+    >
+    </dsh-autocomplete-virtual-scroll>
     <dsh-payout-tool-details *ngIf="payoutTool" [payoutToolDetails]="payoutTool.details"></dsh-payout-tool-details>
 </form>

@@ -6,10 +6,11 @@
 >
     <h1 class="dsh-headline">{{ t('title') }}</h1>
     <mat-dialog-content>
-        <dsh-shop-form [form]="form" [payoutTool]="payoutTool$ | async"></dsh-shop-form>
+        <dsh-shop-form [form]="form" [payoutTool]="payoutTool$ | async" [contentWindow]="contentElement">
+        </dsh-shop-form>
     </mat-dialog-content>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button *transloco="let t" dsh-stroked-button color="warn" fxFlex="126px" (click)="cancel.emit()">
+        <button *transloco="let t" dsh-stroked-button color="warn" fxFlex="126px" (click)="cancelCreation()">
             {{ t('cancel') }}
         </button>
         <button dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">{{ t('send') }}</button>

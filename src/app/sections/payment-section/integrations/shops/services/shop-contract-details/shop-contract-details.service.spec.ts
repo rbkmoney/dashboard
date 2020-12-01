@@ -4,8 +4,9 @@ import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { Contract } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { ContractsService } from '../../../../../../api/contracts';
+import { ContractsService } from '@dsh/api/contracts';
+
+import { Contract } from '../../../../../../api-codegen/capi';
 import { ShopContractDetailsService } from './shop-contract-details.service';
 
 describe('ShopContractDetailsService', () => {
@@ -61,7 +62,7 @@ describe('ShopContractDetailsService', () => {
                 })
             );
 
-            service.getContract('my_id');
+            service.requestContract('my_id');
 
             expect().nothing();
         });
@@ -75,7 +76,7 @@ describe('ShopContractDetailsService', () => {
                 )
             );
 
-            service.getContract('my_id');
+            service.requestContract('my_id');
 
             expect(service.errorOccurred$).toBeObservable(
                 cold('a', {

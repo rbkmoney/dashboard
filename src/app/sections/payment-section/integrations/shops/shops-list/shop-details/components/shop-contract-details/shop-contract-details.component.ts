@@ -11,7 +11,7 @@ import { ShopContractDetailsService } from '../../../../services/shop-contract-d
 export class ShopContractDetailsComponent {
     @Input()
     set contractID(contractID: string) {
-        this.shopContractDetailsService.getContract(contractID);
+        this.shopContractDetailsService.requestContract(contractID);
     }
 
     contract$ = this.shopContractDetailsService.shopContract$;

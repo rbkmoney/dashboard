@@ -16,7 +16,7 @@
         </mat-form-field>
 
         <mat-divider></mat-divider>
-        <dsh-shop-contract></dsh-shop-contract>
+        <dsh-shop-contract [control]="contractControl" [contentWindow]="contentWindow"> </dsh-shop-contract>
 
         <div
             *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
@@ -32,12 +32,9 @@
 
             <div>
                 <mat-radio-group formControlName="bankAccountType" fxLayout fxLayoutGap="24px" required>
-                    <mat-radio-button [value]="bankAccountTypeEnum.new" fxFlex>{{
-                        p('bankAccountType.new')
-                    }}</mat-radio-button>
-                    <mat-radio-button [value]="bankAccountTypeEnum.existing" fxFlex>{{
-                        p('bankAccountType.existing')
-                    }}</mat-radio-button>
+                    <mat-radio-button *ngFor="let type of bankAccountTypes" [value]="type.id" fxFlex>
+                        {{ type.name }}
+                    </mat-radio-button>
                 </mat-radio-group>
             </div>
 
@@ -46,8 +43,8 @@
             <dsh-existing-bank-account
                 *ngIf="isExistingBankAccount"
                 [form]="form"
-                [shopsList]="shops$ | async"
                 [payoutTool]="payoutTool"
+                [contentWindow]="contentWindow"
             ></dsh-existing-bank-account>
         </div>
     </div>

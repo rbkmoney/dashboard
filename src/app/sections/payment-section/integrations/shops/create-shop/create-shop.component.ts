@@ -12,7 +12,7 @@ import { CreateShopDialogComponent } from './components/create-shop-dialog/creat
 export class CreateShopComponent {
     constructor(private dialog: MatDialog, private route: ActivatedRoute) {}
 
-    onCreateShop(): void {
+    createShop(): void {
         this.dialog
             .open(CreateShopDialogComponent, {
                 width: '552px',

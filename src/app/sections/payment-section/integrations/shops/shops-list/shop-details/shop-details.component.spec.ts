@@ -7,14 +7,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { Observable, of } from 'rxjs';
 
+import { CategoriesModule } from '@dsh/api/categories';
+import { ContractsModule } from '@dsh/api/contracts';
 import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Category } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { CategoriesModule } from '../../../../../../api/categories';
-import { ContractsModule } from '../../../../../../api/contracts';
+import { Category } from '../../../../../../api-codegen/capi';
 import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
+import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';
 import { MockShopContractDetailsService } from '../tests/mock-shop-contract-details-service';
@@ -26,7 +27,6 @@ import { ShopInfoComponent } from './components/shop-info/shop-info.component';
 import { ShopPayoutToolDetailsComponent } from './components/shop-payout-tool-details/shop-payout-tool-details.component';
 import { CategoryService } from './services/category/category.service';
 import { ShopActionsService } from './services/shop-actions/shop-actions.service';
-import { ShopPayoutToolDetailsService } from './services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ShopDetailsComponent } from './shop-details.component';
 import { ShopActionResult } from './types/shop-action-result';
 

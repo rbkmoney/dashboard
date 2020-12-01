@@ -3,8 +3,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
+import { ContractsService } from '@dsh/api/contracts';
+
 import { Contract } from '../../../../../../api-codegen/capi';
-import { ContractsService } from '../../../../../../api/contracts';
 
 @UntilDestroy()
 @Injectable()
@@ -12,15 +13,15 @@ export class ShopContractDetailsService {
     shopContract$: Observable<Contract>;
     errorOccurred$: Observable<boolean>;
 
-    private getContract$: Subject<string> = new Subject();
+    private contractRequest$: Subject<string> = new Subject();
     private error$: Subject<any> = new BehaviorSubject(false);
     private contract$: Subject<Contract> = new Subject();
 
     constructor(private contractsService: ContractsService) {
-        this.shopContract$ = this.contract$.pipe(untilDestroyed(this));
-        this.errorOccurred$ = this.error$.pipe(untilDestroyed(this));
+        this.shopContract$ = this.contract$.asObservable();
+        this.errorOccurred$ = this.error$.asObservable();
 
-        this.getContract$
+        this.contractRequest$
             .pipe(
                 tap(() => this.error$.next(false)),
                 distinctUntilChanged(),
@@ -39,7 +40,7 @@ export class ShopContractDetailsService {
             .subscribe((contract) => this.contract$.next(contract as Contract));
     }
 
-    getContract(contractID: string): void {
-        this.getContract$.next(contractID);
+    requestContract(contractID: string): void {
+        this.contractRequest$.next(contractID);
     }
 }

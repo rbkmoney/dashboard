@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ClaimPartyModificationModule } from '@dsh/api/claims/claim-party-modification';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
 import { ButtonModule } from '@dsh/components/buttons';
@@ -17,6 +18,7 @@ import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
 
 import { DaDataModule } from '../../../../../../dadata';
+import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
 import { NewBankAccountComponent } from './components/new-bank-account/new-bank-account.component';
 import { ShopContractComponent } from './components/shop-contract/shop-contract.component';
@@ -42,6 +44,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         DetailsItemModule,
         AutocompleteVirtualScrollModule,
         MatDialogModule,
+        ClaimPartyModificationModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,
@@ -51,6 +54,6 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         NewBankAccountComponent,
     ],
     exports: [CreateRussianShopEntityComponent],
-    providers: [CreateRussianShopEntityService],
+    providers: [CreateRussianShopEntityService, ShopPayoutToolDetailsService],
 })
 export class CreateRussianShopEntityModule {}

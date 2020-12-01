@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
+import { ShopPayoutToolDetailsService } from '../../../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { MockShopPayoutToolDetailsService } from '../../../tests/mock-shop-payout-tool-details-service';
-import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details.component';
 
 describe('ShopPayoutToolDetailsComponent', () => {

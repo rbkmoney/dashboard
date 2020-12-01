@@ -5,12 +5,14 @@
 >
     <h2 class="dsh-title">{{ p('title') }}</h2>
     <dsh-autocomplete-virtual-scroll
+        required
         [label]="p('useShop')"
         [control]="shopControl"
-        [optionsList]="shopsOptions$ | async"
+        [optionsList]="shopsList$ | async"
+        [scrollableWindow]="contentWindow"
     >
     </dsh-autocomplete-virtual-scroll>
-    <ng-container *ngTemplateOutlet="contractDetails; context: { $implicit: contractor$ | async }"></ng-container>
+    <ng-container *ngTemplateOutlet="contractDetails; context: { $implicit: contract$ | async }"></ng-container>
 </div>
 
 <ng-template #contractDetails let-data>

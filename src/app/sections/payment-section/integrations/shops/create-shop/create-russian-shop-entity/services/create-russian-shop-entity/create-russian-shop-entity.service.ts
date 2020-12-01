@@ -1,82 +1,76 @@
 import { Injectable } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
-import { filter, map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
+import { pluck, switchMap } from 'rxjs/operators';
 import uuid from 'uuid';
 
-import {
-    ClaimsService,
-    createDocumentModificationUnit,
-    PayoutsService,
-    QuestionaryService,
-} from '../../../../../../../../api';
-import { Shop } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import {
-    BankAccount,
-    QuestionaryData,
-    RussianBankAccount,
-    ShopLocation,
-    ShopLocationUrl,
-} from '../../../../../../../../api-codegen/questionary';
-import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
+import { ClaimsService } from '@dsh/api/claims';
+import { ClaimContractModificationService } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/claim-contract-modification.service';
+import { ClaimContractorModificationService } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification/claim-contractor-modification.service';
+import { ClaimShopModificationService } from '@dsh/api/claims/claim-party-modification/claim-shop-modification/claim-shop-modification.service';
 
+import { Claim, PartyModification, RussianLegalEntity } from '../../../../../../../../api-codegen/claim-management';
+import { RussianShopCreateData } from '../../types/russian-shop-create-data';
+
+@UntilDestroy()
 @Injectable()
 export class CreateRussianShopEntityService {
     constructor(
         private claimsService: ClaimsService,
-        private shopService: FetchShopsService,
-        private payoutsService: PayoutsService,
-        private questionaryService: QuestionaryService
+        private contractorModificationService: ClaimContractorModificationService,
+        private shopModificationService: ClaimShopModificationService,
+        private contractModificationService: ClaimContractModificationService
     ) {}
 
     createShop({
         url,
         name,
-        bankName,
-        bankBik,
-        bankPostAccount,
-        account,
-    }: {
-        url: string;
-        name: string;
-        bankName: string;
-        bankBik: string;
-        bankPostAccount: string;
-        account: string;
-    }) {
-        const initialDocumentID = uuid();
-        const changeset = [createDocumentModificationUnit(initialDocumentID)];
-        const questionaryData: QuestionaryData = {
-            shopInfo: {
-                location: {
-                    locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    url,
-                } as ShopLocationUrl,
-                details: {
-                    name,
-                },
-            },
-            bankAccount: {
-                bankAccountType: BankAccount.BankAccountTypeEnum.RussianBankAccount,
-                account,
-                bankName,
-                bankPostAccount,
-                bankBik,
-            } as RussianBankAccount,
-        };
-        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMapTo(this.claimsService.createClaim(changeset)),
-            switchMap((claim) =>
-                forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
-            ),
-            pluck(0)
-        );
-    }
+        contract,
+        payoutToolID: shopPayoutToolID,
+        bankAccount: { account, bankName, bankPostAccount, bankBik },
+    }: RussianShopCreateData) {
+        const contractorID = uuid();
+        const contractID = uuid();
+        const shopID = uuid();
 
-    getPayoutToolByShopID(shopID: string) {
-        return this.shopService.allShops$.pipe(
-            map((shops: Shop[]) => shops.find(({ id }: Shop) => id === shopID)),
-            filter(Boolean),
-            switchMap(({ contractID, payoutToolID }) => this.payoutsService.getPayoutToolByID(contractID, payoutToolID))
+        let payoutToolID = uuid();
+        const payoutChangeset: PartyModification[] = [];
+
+        if (isNil(shopPayoutToolID)) {
+            payoutChangeset.push(
+                this.contractModificationService.createRussianContractPayoutToolModification(payoutToolID, {
+                    account,
+                    bankName,
+                    bankPostAccount,
+                    bankBik,
+                })
+            );
+        } else {
+            payoutToolID = shopPayoutToolID;
+        }
+
+        const changeset = [
+            this.contractorModificationService.createRussianLegalEntityModification(contractorID, {
+                ...((contract.contractor as any) as RussianLegalEntity),
+            }),
+            this.contractModificationService.createContractorParamsModification(contractID, {
+                contractorID,
+            }),
+            ...payoutChangeset,
+            this.shopModificationService.createShopCreationModification(shopID, {
+                location: this.shopModificationService.makeShopLocation({ url }),
+                details: this.shopModificationService.makeShopDetails({ name }),
+                contractID,
+                payoutToolID,
+            }),
+        ];
+
+        return this.claimsService.createClaim(changeset).pipe(
+            switchMap((claim: Claim) => {
+                return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
+            }),
+            pluck(0)
         );
     }
 }

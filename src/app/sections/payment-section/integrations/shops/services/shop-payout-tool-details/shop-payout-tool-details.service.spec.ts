@@ -4,8 +4,9 @@ import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { PayoutTool } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { PayoutsService } from '../../../../../../../../api/payouts';
+import { PayoutsService } from '@dsh/api/payouts';
+
+import { PayoutTool } from '../../../../../../api-codegen/capi';
 import { ShopPayoutToolDetailsService } from './shop-payout-tool-details.service';
 
 describe('ShopPayoutToolDetailsService', () => {
@@ -56,7 +57,7 @@ describe('ShopPayoutToolDetailsService', () => {
                 })
             );
 
-            service.getPayoutTool({
+            service.requestPayoutTool({
                 contractID: 'contract_id',
                 payoutToolID: 'payout_tool_id',
             });
@@ -73,7 +74,7 @@ describe('ShopPayoutToolDetailsService', () => {
                 )
             );
 
-            service.getPayoutTool({
+            service.requestPayoutTool({
                 contractID: 'contract_id',
                 payoutToolID: 'payout_tool_id',
             });

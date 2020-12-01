@@ -1,10 +1,12 @@
-import { BankAccount } from '../../../../../../../api-codegen/capi/swagger-codegen';
+import { Contract } from '../../../../../../../api-codegen/capi';
+import { BankAccountFormData } from './bank-account-form-data';
 import { BankAccountType } from './bank-account-type';
 
 export interface RussianShopEntity {
     url: string;
     name: string;
     bankAccountType: BankAccountType;
-    newBankAccount: BankAccount;
-    shop: string;
+    newBankAccount: BankAccountFormData;
+    bankShopID: string;
+    contract: Contract;
 }

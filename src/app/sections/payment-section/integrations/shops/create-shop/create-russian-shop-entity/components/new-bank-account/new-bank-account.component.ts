@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import isNil from 'lodash.isnil';
 
-import { BankContent } from '../../../../../../../../api-codegen/aggr-proxy/swagger-codegen';
+import { BankContent } from '../../../../../../../../api-codegen/aggr-proxy';
+import { NEW_BANK_ACCOUNT_BANK_NAME_FIELD, NEW_BANK_ACCOUNT_FIELD } from '../../consts';
 
 @Component({
     selector: 'dsh-new-bank-account',
@@ -14,19 +15,21 @@ export class NewBankAccountComponent {
 
     get bankAccountForm(): FormGroup {
         this.chekFormProvided();
-        if (isNil(this.form.get('newBankAccount'))) {
-            throw new Error(`Form doesn't contains newBankAccount control`);
+        if (isNil(this.form.get(NEW_BANK_ACCOUNT_FIELD))) {
+            throw new Error(`Form doesn't contains "${NEW_BANK_ACCOUNT_FIELD}" control`);
         }
-        return this.form.get('newBankAccount') as FormGroup;
+        return this.form.get(NEW_BANK_ACCOUNT_FIELD) as FormGroup;
     }
 
     get bankAccountNameControl(): FormControl {
         this.chekFormProvided();
-        if (isNil(this.form.get('newBankAccount.bankName'))) {
-            throw new Error(`Form doesn't contains newBankAccount.bankName control`);
+        if (isNil(this.form.get(`${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`))) {
+            throw new Error(
+                `Form doesn't contains "${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}" control`
+            );
         }
 
-        return this.form.get('newBankAccount.bankName') as FormControl;
+        return this.form.get(`${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`) as FormControl;
     }
 
     bankSelected({ bic: bankBik, correspondentAccount: bankPostAccount, value: bankName }: BankContent): void {

@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
-import { PayoutsService } from '../../../../../../../../api';
-import { PayoutTool } from '../../../../../../../../api-codegen/capi';
-import { PayoutToolParams } from '../../types/payout-tool-params';
+import { PayoutsService } from '@dsh/api/payouts';
 
+import { PayoutTool } from '../../../../../../api-codegen/capi';
+import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
+
+@UntilDestroy()
 @Injectable()
 export class ShopPayoutToolDetailsService {
     shopPayoutTool$: Observable<PayoutTool>;
     errorOccurred$: Observable<boolean>;
 
-    private getPayoutTool$: Subject<PayoutToolParams> = new Subject();
-    private error$: Subject<any> = new BehaviorSubject(false);
-    private payoutTool$: Subject<PayoutTool> = new Subject();
+    private getPayoutTool$ = new Subject<PayoutToolParams>();
+    private error$ = new BehaviorSubject<boolean>(false);
+    private payoutTool$ = new ReplaySubject<PayoutTool>(1);
 
     constructor(private payoutsService: PayoutsService) {
         this.shopPayoutTool$ = this.payoutTool$.asObservable();
@@ -32,12 +35,13 @@ export class ShopPayoutToolDetailsService {
                         })
                     )
                 ),
-                filter((result) => result !== 'error')
+                filter((result) => result !== 'error'),
+                untilDestroyed(this)
             )
-            .subscribe((payoutTool) => this.payoutTool$.next(payoutTool as PayoutTool));
+            .subscribe((payoutTool: PayoutTool) => this.payoutTool$.next(payoutTool as PayoutTool));
     }
 
-    getPayoutTool(params: PayoutToolParams): void {
+    requestPayoutTool(params: PayoutToolParams): void {
         this.getPayoutTool$.next(params);
     }
 }
