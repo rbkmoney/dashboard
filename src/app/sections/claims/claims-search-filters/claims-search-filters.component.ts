@@ -31,7 +31,7 @@ export class ClaimsSearchFiltersComponent implements OnInit {
         this.searchParams$.next({ claimID });
     }
 
-    statusesSelectionChange(claimStatuses: StatusModificationUnit.StatusEnum) {
+    statusesSelectionChange(claimStatuses: StatusModificationUnit.StatusEnum[]) {
         this.searchParams$.next({ claimStatuses });
     }
 }

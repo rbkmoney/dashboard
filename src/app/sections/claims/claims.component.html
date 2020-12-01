@@ -9,11 +9,6 @@
             [initParams]="initSearchParams$ | async"
             (searchParamsChanges)="search($event)"
         ></dsh-claims-search-filters>
-<!--        <dsh-card>-->
-<!--            <dsh-card-content>-->
-<!--                <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>-->
-<!--            </dsh-card-content>-->
-<!--        </dsh-card>-->
         <dsh-card>
             <dsh-card-content *transloco="let c" fxLayout="column" fxLayoutGap="15px">
                 <dsh-last-updated

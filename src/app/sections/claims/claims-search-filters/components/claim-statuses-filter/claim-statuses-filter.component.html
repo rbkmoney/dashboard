@@ -1,17 +1,13 @@
-<ng-container *transloco="let claimStatus; read: 'claimStatus'">
-    <dsh-multiselect-filter
-        *transloco="let t; scope: 'claim-status-filter'; read: 'claimStatusFilter'"
-        [label]="t('label')"
-        [selected]="selected"
-        (selectedChange)="this.selectedChange.emit($event)"
-    >
-        <dsh-radio-group-filter-option *transloco="let c" [value]="undefined">
-            {{ c('any') }}
-        </dsh-radio-group-filter-option>
-        <dsh-radio-group-filter-option *ngFor="let status of statuses" [value]="status">
-            <span *transloco="let statuses; scope: 'claim-status-filter'; read: 'claimStatusFilter.statuses'">{{
-                statuses(status)
-            }}</span>
-        </dsh-radio-group-filter-option>
-    </dsh-multiselect-filter>
-</ng-container>
+<dsh-multiselect-filter
+    *transloco="let t; scope: 'claim-status-filter'; read: 'claimStatusFilter'"
+    [label]="t('label')"
+    [selected]="selected"
+    [searchInputLabel]="t('label')"
+    (selectedChange)="this.selectedChange.emit($event)"
+>
+    <dsh-multiselect-filter-option *ngFor="let status of statuses" [value]="status">
+        <span *transloco="let filterStatuses; scope: 'claim-status-filter'; read: 'claimStatusFilter.statuses'">{{
+            filterStatuses(status)
+        }}</span>
+    </dsh-multiselect-filter-option>
+</dsh-multiselect-filter>

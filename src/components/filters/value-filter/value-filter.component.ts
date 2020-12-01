@@ -15,6 +15,7 @@ export class ValueFilterComponent implements OnChanges {
     @Input() label: string;
     @Input() selectedLabel?: string;
     @Input() selectedLabelPredicate?: (value: string) => string;
+    @Input() searchInputLabel?: string;
     @Input() placeholder?: string;
     @Input() type?: 'number' | 'text' = 'text';
 
