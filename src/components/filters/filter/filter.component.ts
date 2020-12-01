@@ -15,6 +15,7 @@ export class FilterComponent {
     @Input() @coerceBoolean active = false;
     @Input() @coerceBoolean disabled = false;
 
+    @Output() opened = new EventEmitter<void>();
     @Output() closed = new EventEmitter<void>();
 
     @ViewChild(DropdownComponent) dropdown: DropdownComponent;
