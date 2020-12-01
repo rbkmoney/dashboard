@@ -20,19 +20,10 @@
                     >
                     <div fxLayout="column" fxLayoutGap="24px">
                         <dsh-claim-details [claim]="claim"></dsh-claim-details>
-                        <dsh-accordion-item-actions>
-                            <div fxLayout="row" fxLayoutAlign="end center">
-                                <div
-                                    (click)="goToClaimDetails(claim)"
-                                    class="go-to-claim mat-body-1"
-                                    fxLayout="row"
-                                    *transloco="let claims; scope: 'claims'; read: 'claims'"
-                                >
-                                    <span class="dsh-go-to-claim-details">{{ claims('details') }}</span>
-                                    <mat-icon svgIcon="arrow_forward">arrow_forward</mat-icon>
-                                </div>
-                            </div>
-                        </dsh-accordion-item-actions>
+                        <dsh-accordion-item-actions
+                            [text]="claims('details')"
+                            (action)="goToClaimDetails(claim)"
+                        ></dsh-accordion-item-actions>
                     </div>
                 </dsh-card>
             </ng-template>

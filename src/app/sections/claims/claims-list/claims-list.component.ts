@@ -7,7 +7,6 @@ import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
 @Component({
     selector: 'dsh-claims-list',
     templateUrl: 'claims-list.component.html',
-    styleUrls: ['claims-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsListComponent {

@@ -5,7 +5,7 @@ import { SpinnerType } from '@dsh/components/indicators';
 import { LAYOUT_GAP } from '../constants';
 import { ClaimSearchFormValue } from './search-form';
 import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
-import { FetchClaimsService } from './services/fetch-claims.service';
+import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
 
 @Component({
     selector: 'dsh-claims',

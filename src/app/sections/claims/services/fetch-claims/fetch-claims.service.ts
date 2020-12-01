@@ -4,12 +4,12 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
-import { ClaimsService } from '../../../api/claims';
-import { booleanDebounceTime } from '../../../custom-operators';
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
-import { mapToTimestamp } from '../../payment-section/operations/operators';
-import { ClaimSearchFormValue } from '../search-form';
+import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
+import { ClaimsService } from '../../../../api/claims';
+import { booleanDebounceTime } from '../../../../custom-operators';
+import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { mapToTimestamp } from '../../../payment-section/operations/operators';
+import { ClaimSearchFormValue } from '../../search-form';
 
 @Injectable()
 export class FetchClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {

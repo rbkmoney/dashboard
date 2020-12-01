@@ -1,0 +1,5 @@
+@mixin dsh-accordion-item-action-typography($config) {
+    .dsh-accordion-item-action {
+        text-decoration: underline;
+    }
+}
