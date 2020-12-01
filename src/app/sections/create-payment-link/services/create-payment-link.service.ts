@@ -17,7 +17,7 @@ import {
 
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { InvoiceService, InvoiceTemplatesService, UrlShortenerService } from '../../api';
+import { InvoiceService, InvoiceTemplatesService, UrlShortenerService } from '../../../api';
 import {
     BankCard,
     Invoice,
@@ -25,13 +25,13 @@ import {
     LifetimeInterval,
     PaymentMethod,
     PaymentTerminal,
-} from '../../api-codegen/capi';
-import { ConfigService } from '../../config';
-import { filterError, filterPayload, progress, replaceError } from '../../custom-operators';
-import { HoldExpiration } from './types/hold-expiration';
-import { InvoiceType } from './types/invoice-type';
-import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
-import { PaymentLinkParams } from './types/payment-link-params';
+} from '../../../api-codegen/capi';
+import { ConfigService } from '../../../config';
+import { filterError, filterPayload, progress, replaceError } from '../../../custom-operators';
+import { HoldExpiration } from '../types/hold-expiration';
+import { InvoiceType } from '../types/invoice-type';
+import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';
+import { PaymentLinkParams } from '../types/payment-link-params';
 
 const Method = PaymentMethod.MethodEnum;
 const TokenProvider = BankCard.TokenProvidersEnum;
@@ -189,7 +189,9 @@ export class CreatePaymentLinkService {
             email: ['', Validators.email],
             redirectUrl: '',
             paymentMethods: this.fb.group(
-                Object.fromEntries(orderedPaymentMethodsNames.map((name) => [name, { value: true, disabled: true }]))
+                Object.fromEntries(
+                    orderedPaymentMethodsNames.map((name) => [name, { value: name === 'bankCard', disabled: true }])
+                )
             ),
             paymentFlowHold: false,
             holdExpiration: HoldExpiration.cancel,

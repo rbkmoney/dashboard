@@ -5,7 +5,7 @@ import { map, shareReplay, startWith } from 'rxjs/operators';
 
 import { coerceBoolean } from '../../../utils';
 import { Invoice, InvoiceTemplateAndToken } from '../../api-codegen/capi';
-import { CreatePaymentLinkService } from './create-payment-link.service';
+import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';
 import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
