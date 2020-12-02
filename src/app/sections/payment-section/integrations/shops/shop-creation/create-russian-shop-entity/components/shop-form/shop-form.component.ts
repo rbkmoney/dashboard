@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
@@ -23,20 +22,7 @@ export class ShopFormComponent implements OnInit {
     @Input() contentWindow: HTMLElement;
 
     shops$: Observable<Shop[]> = this.shopService.allShops$;
-    bankAccountTypes: { id: BankAccountType; name: string }[] = [
-        {
-            id: BankAccountType.new,
-            name: this.transloco.translate('russianLegalEntity.payoutTool.bankAccountType.new', null, 'create-shop'),
-        },
-        {
-            id: BankAccountType.existing,
-            name: this.transloco.translate(
-                'russianLegalEntity.payoutTool.bankAccountType.existing',
-                null,
-                'create-shop'
-            ),
-        },
-    ];
+    bankAccountType = BankAccountType;
 
     get contractControl(): FormControl {
         this.chekFormProvided();
@@ -64,7 +50,7 @@ export class ShopFormComponent implements OnInit {
         return this.form.get(BANK_ACCOUNT_TYPE_FIELD).value as BankAccountType;
     }
 
-    constructor(private transloco: TranslocoService, private shopService: FetchShopsService) {}
+    constructor(private shopService: FetchShopsService) {}
 
     ngOnInit(): void {
         this.initBankAccount();

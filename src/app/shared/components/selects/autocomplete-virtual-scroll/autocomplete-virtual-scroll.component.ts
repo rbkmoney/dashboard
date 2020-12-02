@@ -1,13 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    NgZone,
-    OnChanges,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';

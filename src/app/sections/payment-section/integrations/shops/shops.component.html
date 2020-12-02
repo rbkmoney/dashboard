@@ -1,7 +1,9 @@
 <div fxLayout="column" fxLayoutGap="32px">
     <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between">
         <dsh-shop-filters></dsh-shop-filters>
-        <dsh-create-shop-button></dsh-create-shop-button>
+        <ng-container *transloco="let s; scope: 'shops'; read: 'shops'">
+            <button (click)="createShop()" color="accent" dsh-button>{{ s('createShop') }}</button>
+        </ng-container>
     </div>
     <dsh-shops-list
         [shopList]="shops$ | async"

@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ClaimsModule } from '@dsh/api/claims';
 import { ClaimPartyModificationModule } from '@dsh/api/claims/claim-party-modification';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
@@ -45,6 +46,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         AutocompleteVirtualScrollModule,
         MatDialogModule,
         ClaimPartyModificationModule,
+        ClaimsModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,

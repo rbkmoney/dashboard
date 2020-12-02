@@ -6,12 +6,10 @@ import {
     ContractParams,
     PartyModification,
     PartyModificationType,
-    PayoutToolInfo,
-    PayoutToolModification,
-    PayoutToolParams,
 } from '../../../../api-codegen/claim-management';
-import { PARTY_MODIFICATION } from '../consts';
 import PartyModificationTypeEnum = PartyModificationType.PartyModificationTypeEnum;
+import { PayoutToolInfo, PayoutToolParams } from '../../../../api-codegen/dark-api';
+import { PARTY_MODIFICATION } from '../consts';
 
 @Injectable()
 export class ClaimContractModificationService {
@@ -32,15 +30,15 @@ export class ClaimContractModificationService {
 
     createRussianContractPayoutToolModification(
         id: string,
+        payouToolID: string,
         params: Omit<PayoutToolInfo, 'payoutToolType' | 'payoutToolModificationType'>
     ): PartyModification {
-        return this.createContractPayoutToolModification(id, {
+        return this.createContractPayoutToolModification(id, payouToolID, {
             currency: {
                 symbolicCode: 'RUB',
             },
             toolInfo: {
                 payoutToolType: PayoutToolInfo.PayoutToolTypeEnum.RussianBankAccount,
-                payoutToolModificationType: 'Creation',
                 ...params,
             },
         });
@@ -48,6 +46,7 @@ export class ClaimContractModificationService {
 
     createContractPayoutToolModification(
         id: string,
+        payoutToolID: string,
         params: Omit<PayoutToolParams, 'payoutToolModificationType'>
     ): PartyModification {
         return {
@@ -56,8 +55,9 @@ export class ClaimContractModificationService {
                 modification: {
                     contractModificationType:
                         ContractModification.ContractModificationTypeEnum.PayoutToolModificationUnit,
+                    payoutToolID,
                     modification: {
-                        payoutToolModificationType: PayoutToolModification.PayoutToolModificationTypeEnum.Creation,
+                        payoutToolModificationType: 'PayoutToolParams', // api generates wrong enum
                         ...params,
                     } as PayoutToolParams,
                 } as ContractModification,

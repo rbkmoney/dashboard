@@ -32,8 +32,11 @@
 
             <div>
                 <mat-radio-group formControlName="bankAccountType" fxLayout fxLayoutGap="24px" required>
-                    <mat-radio-button *ngFor="let type of bankAccountTypes" [value]="type.id" fxFlex>
-                        {{ type.name }}
+                    <mat-radio-button fxFlex [value]="bankAccountType.new">
+                        {{ p('bankAccountType.new') }}
+                    </mat-radio-button>
+                    <mat-radio-button fxFlex [value]="bankAccountType.existing">
+                        {{ p('bankAccountType.existing') }}
                     </mat-radio-button>
                 </mat-radio-group>
             </div>
