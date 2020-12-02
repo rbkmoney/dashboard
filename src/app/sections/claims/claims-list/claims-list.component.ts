@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import isNil from 'lodash.isnil';
 
 import { Claim } from '../../../api-codegen/claim-management/swagger-codegen';
@@ -19,6 +18,7 @@ export class ClaimsListComponent {
     @Output() refresh = new EventEmitter<void>();
     @Output() showMore = new EventEmitter<void>();
     @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
+    @Output() goToClaimDetails: EventEmitter<number> = new EventEmitter();
 
     get isListExist(): boolean {
         return !isNil(this.claimList);
@@ -28,17 +28,11 @@ export class ClaimsListComponent {
         return this.isListExist && this.claimList.length === 0;
     }
 
-    constructor(private router: Router) {}
-
     refreshList(): void {
         this.refresh.emit();
     }
 
     showMoreElements(): void {
         this.showMore.emit();
-    }
-
-    goToClaimDetails({ id }: Claim) {
-        this.router.navigate(['claim', id]);
     }
 }

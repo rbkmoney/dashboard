@@ -20,10 +20,15 @@
                     >
                     <div fxLayout="column" fxLayoutGap="24px">
                         <dsh-claim-details [claim]="claim"></dsh-claim-details>
-                        <dsh-accordion-item-actions
-                            [text]="claims('details')"
-                            (action)="goToClaimDetails(claim)"
-                        ></dsh-accordion-item-actions>
+                        <div fxFlex fxLayout="column" fxLayoutGap="24px">
+                            <mat-divider></mat-divider>
+                            <div fxLayout="row" fxLayoutAlign="end">
+                                <dsh-navigation-link
+                                    [text]="claims('details')"
+                                    (click)="goToClaimDetails.emit(claim.id)"
+                                ></dsh-navigation-link>
+                            </div>
+                        </div>
                     </div>
                 </dsh-card>
             </ng-template>

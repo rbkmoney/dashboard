@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
@@ -26,7 +27,8 @@ export class ClaimsComponent {
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
         private fetchClaimsService: FetchClaimsService,
-        private claimsExpandedIdManagerService: ClaimsExpandedIdManagerService
+        private claimsExpandedIdManagerService: ClaimsExpandedIdManagerService,
+        private router: Router
     ) {}
 
     search(val: ClaimSearchFormValue) {
@@ -43,5 +45,9 @@ export class ClaimsComponent {
 
     expandedIdChange(id: number) {
         this.claimsExpandedIdManagerService.expandedIdChange(id);
+    }
+
+    goToClaimDetails(id: number) {
+        this.router.navigate(['claim', id]);
     }
 }
