@@ -17,13 +17,11 @@ import { TableModule } from '@dsh/components/table';
 
 import { ClaimsService } from '../../api/claims';
 import { LAYOUT_GAP } from '../constants';
-import { ChangesetToTypePipe } from './changeset-to-type.pipe';
-import { ClaimStatusColorPipe } from './claim-status-color.pipe';
+import { ClaimsListModule } from './claims-list';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsSearchFiltersModule } from './claims-search-filters';
 import { ClaimsComponent } from './claims.component';
 import { SearchFormComponent } from './search-form';
-import { TableComponent } from './table';
 
 @NgModule({
     imports: [
@@ -42,9 +40,10 @@ import { TableComponent } from './table';
         MatIconModule,
         StateNavModule,
         ButtonModule,
+        ClaimsListModule,
         ClaimsSearchFiltersModule,
     ],
-    declarations: [ClaimsComponent, SearchFormComponent, TableComponent, ChangesetToTypePipe, ClaimStatusColorPipe],
+    declarations: [ClaimsComponent, SearchFormComponent],
     exports: [ClaimsComponent],
     providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService],
 })
