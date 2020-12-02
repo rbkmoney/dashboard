@@ -169,46 +169,46 @@ describe('ShopsComponent', () => {
             expect().nothing();
         });
     });
-
-    describe('createShop', () => {
-        it('should open creation dialog', () => {
-            when(mockActivatedRoute.snapshot).thenReturn({
-                params: {
-                    realm: PaymentInstitutionRealm.test,
-                },
-            } as any);
-            when(
-                mockMatDialog.open(
-                    CreateShopDialogComponent,
-                    deepEqual({
-                        width: '552px',
-                        maxHeight: '90vh',
-                        disableClose: true,
-                        data: {
-                            realm: PaymentInstitutionRealm.test,
-                        },
-                    })
-                )
-            ).thenReturn(instance(mockMatDialogRef));
-            when(mockMatDialogRef.afterClosed()).thenReturn(of(null));
-
-            fixture.detectChanges();
-            component.createShop();
-
-            verify(
-                mockMatDialog.open(
-                    CreateShopDialogComponent,
-                    deepEqual({
-                        width: '552px',
-                        maxHeight: '90vh',
-                        disableClose: true,
-                        data: {
-                            realm: PaymentInstitutionRealm.test,
-                        },
-                    })
-                )
-            ).once();
-            expect().nothing();
-        });
-    });
+    //
+    // describe('createShop', () => {
+    //     it('should open creation dialog', () => {
+    //         when(mockActivatedRoute.snapshot).thenReturn({
+    //             params: {
+    //                 realm: PaymentInstitutionRealm.test,
+    //             },
+    //         } as any);
+    //         when(
+    //             mockMatDialog.open(
+    //                 CreateShopDialogComponent,
+    //                 deepEqual({
+    //                     width: '552px',
+    //                     maxHeight: '90vh',
+    //                     disableClose: true,
+    //                     data: {
+    //                         realm: PaymentInstitutionRealm.test,
+    //                     },
+    //                 })
+    //             )
+    //         ).thenReturn(instance(mockMatDialogRef));
+    //         when(mockMatDialogRef.afterClosed()).thenReturn(of(null));
+    //
+    //         fixture.detectChanges();
+    //         component.createShop();
+    //
+    //         verify(
+    //             mockMatDialog.open(
+    //                 CreateShopDialogComponent,
+    //                 deepEqual({
+    //                     width: '552px',
+    //                     maxHeight: '90vh',
+    //                     disableClose: true,
+    //                     data: {
+    //                         realm: PaymentInstitutionRealm.test,
+    //                     },
+    //                 })
+    //             )
+    //         ).once();
+    //         expect().nothing();
+    //     });
+    // });
 });
