@@ -11,7 +11,7 @@
         </button>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
-        <dsh-organizations-list></dsh-organizations-list>
+        <dsh-organizations-list [organizations]="organizations$ | async"></dsh-organizations-list>
         <!-- <dsh-show-more-panel></dsh-show-more-panel> -->
     </div>
     <!-- <dsh-empty-search-result></dsh-empty-search-result> -->

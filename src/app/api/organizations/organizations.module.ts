@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { OrganizationsService } from './services/organizations.service';
+import { OrganizationsService } from './organizations.service';
 
 const EXPORTED_DECLARATIONS = [];
 

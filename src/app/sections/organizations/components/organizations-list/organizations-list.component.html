@@ -1,29 +1,61 @@
-<div fxLayout="column" fxLayoutGap="16px">
-    <dsh-accordion fxLayout="column" fxLayoutGap="16px" [expanded]="0">
-        <dsh-accordion-item #accordionItem>
+<div fxLayout="column" fxLayoutGap="16px" *transloco="let t; scope: 'organizations'; read: 'organizations'">
+    <!-- <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated> -->
+    <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px" color="primary">
+        <dsh-row-header-label fxFlex="50">{{ t('headerRow.name') }}</dsh-row-header-label>
+        <dsh-row-header-label fxFlex="50">{{ t('headerRow.roles') }}</dsh-row-header-label>
+    </dsh-row>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let organization of organizations" #accordionItem>
+            <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px">
+                <dsh-row-label fxFlex="50">
+                    {{ organization.org.name }}
+                </dsh-row-label>
+                <dsh-row-label fxFlex="50">
+                    <!-- {{ organization.name }} -->
+                </dsh-row-label>
+            </dsh-row>
             <dsh-accordion-item-content>
                 <dsh-card fxLayout="column" fxLayoutGap="32px">
-                    <dsh-accordion-item-content-header></dsh-accordion-item-content-header>
-                    <div fxLayout>
-                        <dsh-collapse fxFlex title="Администратор">
-                            <dsh-limited-list title="Магазины">
-                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
-                            </dsh-limited-list>
-                        </dsh-collapse>
-                        <dsh-collapse fxFlex title="Менеджер" expandDirection="up">
-                            <dsh-limited-list title="Магазины">
-                                <dsh-limited-list-item>Shop name 1</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 2</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 3</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 4</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 5</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 6</dsh-limited-list-item>
-                                <dsh-limited-list-item>Shop name 7</dsh-limited-list-item>
-                            </dsh-limited-list>
-                        </dsh-collapse>
+                    <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
+                        <div fxLayout fxLayoutAlign="space-between">
+                            <div>{{ organization.org.id }}</div>
+                            <div>{{ organization.org.createdAt }}</div>
+                        </div>
+                    </dsh-accordion-item-content-header>
+                    <div fxLayout="column" fxLayoutGap="24px">
+                        <div class="dsh-headline">{{ organization.org.name }}</div>
+                        <dsh-details-item [title]="t('numberOfEmployees')">
+                            -
+                        </dsh-details-item>
+
+                        <mat-divider></mat-divider>
+                        <div class="dsh-title">{{ t('titles.roles') }}</div>
+                        <div gdGap="24px" gdColumns="1fr 1fr">
+                            <dsh-collapse
+                                *ngFor="let role of organization.member.roles"
+                                [title]="t('roles.' + role.roleId)"
+                            >
+                                <dsh-limited-list [title]="t('resources.' + role.scope?.id)"></dsh-limited-list>
+                            </dsh-collapse>
+                        </div>
+
+                        <mat-divider></mat-divider>
+                        <div class="dsh-title">{{ t('titles.actions') }}</div>
+                        <div fxLayout fxLayoutGap="24px">
+                            <button dsh-button color="accent">{{ t('actions.rename') }}</button>
+                            <button dsh-button color="warn">{{ t('actions.leave') }}</button>
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                        <div fxFlexAlign="end">
+                            {{ t('management') }}
+                        </div>
                     </div>
                 </dsh-card>
             </dsh-accordion-item-content>

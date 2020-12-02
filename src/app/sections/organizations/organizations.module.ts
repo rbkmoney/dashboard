@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AccordionModule, LayoutModule } from '@dsh/components/layout';
+import { AccordionModule, DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
 import { ButtonModule } from '../../../components/buttons';
 import { EmptySearchResultModule } from '../../../components/empty-search-result';
@@ -21,6 +23,7 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
 
 @NgModule({
     imports: [
+        CommonModule,
         OrganizationsRoutingModule,
         TranslocoModule,
         FlexLayoutModule,
@@ -34,6 +37,8 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
         CollapseModule,
         LimitedListModule,
         OrganizationsAPIModule,
+        MatDividerModule,
+        DetailsItemModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
