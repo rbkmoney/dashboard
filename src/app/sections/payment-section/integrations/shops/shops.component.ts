@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
+import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
@@ -28,6 +30,7 @@ export class ShopsComponent implements OnInit {
     constructor(
         private shopsService: FetchShopsService,
         private expandedIdManager: ShopsExpandedIdManagerService,
+        private createShopService: ShopCreationService,
         private route: ActivatedRoute
     ) {}
 
@@ -38,6 +41,10 @@ export class ShopsComponent implements OnInit {
         this.expandedIdManager.expandedId$.pipe(take(1)).subscribe((offsetIndex: number) => {
             this.shopsService.initOffsetIndex(offsetIndex);
         });
+    }
+
+    createShop(): void {
+        this.createShopService.createShop();
     }
 
     refreshData(): void {

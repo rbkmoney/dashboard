@@ -21,7 +21,7 @@ export class ClaimShopModificationService {
             ...this.createBaseModification({
                 id,
                 modification: {
-                    shopModificationType: ShopModificationTypeEnum.Creation,
+                    shopModificationType: 'ShopParams' as any,
                     ...params,
                 },
             }),
@@ -63,14 +63,14 @@ export class ClaimShopModificationService {
 
     makeShopLocation(params: Omit<ShopLocation, 'shopModificationType'>): ShopLocation {
         return {
-            shopModificationType: ShopModificationTypeEnum.LocationModification,
+            shopModificationType: 'ShopLocation' as any,
             ...params,
         };
     }
 
     makeShopDetails(params: Omit<ShopDetails, 'shopModificationType'>): ShopDetails {
         return {
-            shopModificationType: ShopModificationTypeEnum.DetailsModification,
+            shopModificationType: 'ShopDetails' as any,
             ...params,
         };
     }

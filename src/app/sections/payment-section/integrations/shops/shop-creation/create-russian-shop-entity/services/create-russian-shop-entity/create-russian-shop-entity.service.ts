@@ -23,13 +23,22 @@ export class CreateRussianShopEntityService {
         private contractModificationService: ClaimContractModificationService
     ) {}
 
-    createShop({
+    createShop(creationData: RussianShopCreateData) {
+        return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
+            switchMap((claim: Claim) => {
+                return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
+            }),
+            pluck(0)
+        );
+    }
+
+    private createShopCreationModifications({
         url,
         name,
         contract,
         payoutToolID: shopPayoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
-    }: RussianShopCreateData) {
+    }: RussianShopCreateData): PartyModification[] {
         const contractorID = uuid();
         const contractID = uuid();
         const shopID = uuid();
@@ -39,7 +48,7 @@ export class CreateRussianShopEntityService {
 
         if (isNil(shopPayoutToolID)) {
             payoutChangeset.push(
-                this.contractModificationService.createRussianContractPayoutToolModification(payoutToolID, {
+                this.contractModificationService.createRussianContractPayoutToolModification(contractID, payoutToolID, {
                     account,
                     bankName,
                     bankPostAccount,
@@ -50,7 +59,7 @@ export class CreateRussianShopEntityService {
             payoutToolID = shopPayoutToolID;
         }
 
-        const changeset = [
+        return [
             this.contractorModificationService.createRussianLegalEntityModification(contractorID, {
                 ...((contract.contractor as any) as RussianLegalEntity),
             }),
@@ -65,12 +74,5 @@ export class CreateRussianShopEntityService {
                 payoutToolID,
             }),
         ];
-
-        return this.claimsService.createClaim(changeset).pipe(
-            switchMap((claim: Claim) => {
-                return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
-            }),
-            pluck(0)
-        );
     }
 }

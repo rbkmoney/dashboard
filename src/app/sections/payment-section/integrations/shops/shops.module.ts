@@ -6,7 +6,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { CreateButtonShopComponent } from './components/create-shop-button/create-button-shop.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
@@ -30,7 +29,7 @@ import { ShopsComponent } from './shops.component';
         ButtonModule,
         TranslocoModule,
     ],
-    declarations: [ShopsComponent, CreateButtonShopComponent],
+    declarations: [ShopsComponent],
     exports: [ShopsComponent],
     providers: [
         FetchShopsService,
