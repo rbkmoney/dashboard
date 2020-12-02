@@ -98,6 +98,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        // need to provide scrollable window to autocomplete, to remove autocomplete scrollbug
         this.cdr.detectChanges();
     }
 
