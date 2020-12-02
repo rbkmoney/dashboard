@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusModificationUnit } from '../../api-codegen/claim-management/swagger-codegen';
-import { StatusColor } from '../../theme-manager';
+import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { StatusColor } from '../../../theme-manager';
 
 @Pipe({
     name: 'claimStatusColor',
 })
 export class ClaimStatusColorPipe implements PipeTransform {
-    transform(status: StatusModificationUnit.StatusEnum): StatusColor {
+    transform(status: StatusModificationUnit.StatusEnum | string): StatusColor {
         const statusEnum = StatusModificationUnit.StatusEnum;
         switch (status) {
             case statusEnum.Accepted:

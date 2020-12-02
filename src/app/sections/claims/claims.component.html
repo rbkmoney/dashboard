@@ -10,19 +10,16 @@
                 <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
             </dsh-card-content>
         </dsh-card>
-        <dsh-card>
-            <dsh-card-content *transloco="let c" fxLayout="column" fxLayoutGap="15px">
-                <dsh-last-updated
-                    *ngIf="!(isLoading$ | async)"
-                    (update)="refresh()"
-                    [lastUpdated]="lastUpdated$ | async"
-                ></dsh-last-updated>
-                <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
-                <dsh-claims-table [data]="tableData$ | async"></dsh-claims-table>
-                <button *ngIf="hasMore$ | async" (click)="fetchMore()" dsh-button>
-                    {{ (isLoading$ | async) ? c('loading') : c('showMore') }}
-                </button>
-            </dsh-card-content>
-        </dsh-card>
+        <dsh-claims-list
+            [lastUpdated]="lastUpdated$ | async"
+            [hasMore]="hasMore$ | async"
+            [isLoading]="isLoading$ | async"
+            [claimList]="claimsList$ | async"
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            (refresh)="refresh()"
+            (showMore)="fetchMore()"
+            (goToClaimDetails)="goToClaimDetails($event)"
+        ></dsh-claims-list>
     </div>
 </div>

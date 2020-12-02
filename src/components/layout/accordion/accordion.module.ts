@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ButtonModule } from '../../buttons';
@@ -18,7 +19,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, ResizedModule, MatIconModule, FlexLayoutModule, ButtonModule],
+    imports: [CommonModule, ResizedModule, MatIconModule, FlexLayoutModule, ButtonModule, MatDividerModule],
     declarations: [EXPORTED_DECLARATIONS],
     exports: [EXPORTED_DECLARATIONS],
 })

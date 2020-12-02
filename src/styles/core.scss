@@ -32,6 +32,7 @@
 @import '../components/indicators/status/status-theme';
 @import '../components/indicators/last-updated/last-updated-theme';
 @import '../components/global-banner/global-banner-theme';
+@import '../components/navigation-link/navigation-link-theme';
 
 @import '../app/container/container-theme';
 @import '../app/sections/main/main-theme';
@@ -77,6 +78,7 @@
     @include dsh-last-updated-typography($config);
     @include dsh-balances-typography($config);
     @include dsh-link-label-typography($config);
+    @include dsh-navigation-link-typography($config);
 }
 
 @include dsh-overrides();
