@@ -1,12 +1,21 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy, Component, Input, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    NgZone,
+    OnChanges,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
+import isObject from 'lodash.isobject';
 import { fromEvent } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
@@ -48,7 +57,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     }
 
     filteredOptions: BaseOption[];
-    innerControl = new FormControl();
+    searchControl = new FormControl();
 
     itemSize: number = ITEM_SIZE;
     listMultiplier: number = LIST_MULTIPLIER;
@@ -73,15 +82,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     constructor(private zone: NgZone) {}
 
     ngOnInit(): void {
-        this.innerControl.valueChanges
-            .pipe(
-                startWith(''),
-                map((search: string) => search.toLowerCase()),
-                untilDestroyed(this)
-            )
-            .subscribe((search: string) => {
-                this.filterOptions(search);
-            });
+        this.initControls();
     }
 
     ngOnChanges(changes: ComponentChanges<AutocompleteVirtualScrollComponent>): void {
@@ -112,6 +113,29 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
         this.control.setValue(option);
     }
 
+    clearValue(): void {
+        this.control.setValue('');
+        this.searchControl.setValue('');
+        // need to make update after cycle was completed once
+        setTimeout(() => {
+            this.openPanel();
+        }, 0);
+    }
+
+    private initControls(): void {
+        this.searchControl.valueChanges
+            .pipe(
+                map((search: string) => search.toLowerCase()),
+                untilDestroyed(this)
+            )
+            .subscribe((search: string) => {
+                this.filterOptions(search);
+            });
+
+        const initValue = isObject(this.control.value) ? this.control.value.label : '';
+        this.searchControl.setValue(initValue);
+    }
+
     private initScrollableClose(change: ComponentChange<AutocompleteVirtualScrollComponent, 'scrollableWindow'>): void {
         if (isNil(change.currentValue) || !isNil(this.scrollableElement)) {
             return;
@@ -122,11 +146,21 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
             fromEvent(this.scrollableWindow, 'scroll')
                 .pipe(untilDestroyed(this))
                 .subscribe(() => {
-                    if (this.autocomplete.isOpen) {
-                        this.trigger.closePanel();
-                    }
+                    this.closePanel();
                 });
         });
+    }
+
+    private openPanel(): void {
+        if (!this.autocomplete.isOpen) {
+            this.trigger.openPanel();
+        }
+    }
+
+    private closePanel(): void {
+        if (this.autocomplete.isOpen) {
+            this.trigger.closePanel();
+        }
     }
 
     private filterOptions(search: string): void {

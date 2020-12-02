@@ -47,7 +47,7 @@ export class ClaimContractorModificationService {
         return {
             ...PARTY_MODIFICATION,
             partyModificationType: {
-                partyModificationType: PartyModificationTypeEnum.ContractModificationUnit,
+                partyModificationType: PartyModificationTypeEnum.ContractorModificationUnit,
                 ...modification,
             },
         };

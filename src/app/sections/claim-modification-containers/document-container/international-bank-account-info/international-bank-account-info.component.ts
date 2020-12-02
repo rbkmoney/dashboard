@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { CorrespondentAccount, InternationalBankAccount } from '../../../../api-codegen/questionary';
-import { CountryCodes } from '../../../payment-section/integrations/shops/create-shop/create-international-shop-entity/types/country-codes';
+import { CountryCodes } from '../../../payment-section/integrations/shops/shop-creation/create-international-shop-entity/types/country-codes';
 
 @Component({
     selector: 'dsh-international-bank-account-info',

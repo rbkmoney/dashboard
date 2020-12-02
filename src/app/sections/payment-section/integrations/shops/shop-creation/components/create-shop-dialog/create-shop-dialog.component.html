@@ -25,7 +25,7 @@
             </mat-radio-group>
         </div>
         <div *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
-            <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="dialogRef.close('cancel')">
+            <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancelClaim()">
                 {{ c('cancel') }}
             </button>
             <button
@@ -44,12 +44,12 @@
 </ng-container>
 <dsh-create-russian-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.russian"
-    (cancel)="dialogRef.close('cancel')"
-    (send)="dialogRef.close('send')"
+    (cancel)="cancelClaim()"
+    (send)="sendClaim()"
 ></dsh-create-russian-shop-entity>
 <dsh-create-international-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.international"
     [realm]="data.realm"
-    (cancel)="dialogRef.close('cancel')"
-    (send)="dialogRef.close('send')"
+    (cancel)="cancelClaim()"
+    (send)="sendClaim()"
 ></dsh-create-international-shop-entity>

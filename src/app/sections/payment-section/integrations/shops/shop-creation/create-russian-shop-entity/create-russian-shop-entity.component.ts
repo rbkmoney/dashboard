@@ -62,7 +62,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
             [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
-        [BANK_SHOP_ID_FIELD]: '',
+        [BANK_SHOP_ID_FIELD]: ['', Validators.required],
         [CONTRACT_FORM_FIELD]: [null, Validators.required],
     });
 

@@ -5,17 +5,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PayoutsModule } from '@dsh/api/payouts';
+import { QuestionaryModule } from '@dsh/api/questionary';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { PayoutsModule } from '../../../../../api/payouts';
-import { QuestionaryModule } from '../../../../../api/questionary';
 import { DaDataModule } from '../../../../../dadata';
 import { ClaimsModule } from '../../../../claims';
-import { CreateButtonComponent } from './components/create-button/create-button.component';
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { CreateInternationalShopEntityModule } from './create-international-shop-entity';
 import { CreateRussianShopEntityModule } from './create-russian-shop-entity';
-import { CreateShopComponent } from './create-shop.component';
+import { ShopCreationService } from './shop-creation.service';
 
 @NgModule({
     imports: [
@@ -32,7 +31,7 @@ import { CreateShopComponent } from './create-shop.component';
         QuestionaryModule,
         ClaimsModule,
     ],
-    declarations: [CreateButtonComponent, CreateShopDialogComponent, CreateShopComponent],
-    exports: [CreateShopComponent],
+    declarations: [CreateShopDialogComponent],
+    providers: [ShopCreationService],
 })
-export class CreateShopModule {}
+export class ShopCreationModule {}

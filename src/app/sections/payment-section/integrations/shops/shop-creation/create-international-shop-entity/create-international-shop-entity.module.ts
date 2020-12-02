@@ -15,6 +15,7 @@ import { CreateInternationalShopEntityComponent } from './create-international-s
 import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
 import { InternationalPayoutToolFormService } from './services/international-payout-tool-form/international-payout-tool-form.service';
 
+// TODO: refactor this module
 @NgModule({
     imports: [
         CommonModule,

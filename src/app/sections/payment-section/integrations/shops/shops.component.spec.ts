@@ -9,14 +9,14 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
-import { CreateShopDialogComponent } from './create-shop/components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
+import { CreateShopDialogComponent } from './shop-creation/components/create-shop-dialog/create-shop-dialog.component';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';

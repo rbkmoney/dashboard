@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ShopType } from '../../../types/shop-type';
+import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
 
 @Component({
     selector: 'dsh-create-shop-dialog',
@@ -18,7 +19,7 @@ export class CreateShopDialogComponent {
     shopType = ShopType;
 
     constructor(
-        public dialogRef: MatDialogRef<CreateShopDialogComponent, 'cancel' | 'send'>,
+        public dialogRef: MatDialogRef<CreateShopDialogComponent, CreateShopDialogResponse>,
         @Inject(MAT_DIALOG_DATA) public data: { realm: string },
         private router: Router
     ) {}
@@ -33,5 +34,13 @@ export class CreateShopDialogComponent {
             this.router.navigate(['onboarding']);
         }
         this.selectionConfirmed = true;
+    }
+
+    sendClaim(): void {
+        this.dialogRef.close('send');
+    }
+
+    cancelClaim(): void {
+        this.dialogRef.close('canceled');
     }
 }

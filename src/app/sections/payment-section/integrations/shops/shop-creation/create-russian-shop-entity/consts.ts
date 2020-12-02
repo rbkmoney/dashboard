@@ -1,3 +1,4 @@
+// TODO: add typed form control lib to remove all of this constants
 export const CONTRACT_FORM_FIELD = 'contract';
 export const BANK_SHOP_ID_FIELD = 'bankShopID';
 export const BANK_ACCOUNT_TYPE_FIELD = 'bankAccountType';

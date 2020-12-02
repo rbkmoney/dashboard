@@ -2,12 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
 
-import { CreateShopModule } from './create-shop';
+import { ButtonModule } from '@dsh/components/buttons';
+
+import { CreateButtonShopComponent } from './components/create-shop-button/create-button-shop.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
+import { ShopCreationModule } from './shop-creation';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';
@@ -22,9 +26,11 @@ import { ShopsComponent } from './shops.component';
         RouterModule,
         ShopListModule,
         ShopFiltersModule,
-        CreateShopModule,
+        ShopCreationModule,
+        ButtonModule,
+        TranslocoModule,
     ],
-    declarations: [ShopsComponent],
+    declarations: [ShopsComponent, CreateButtonShopComponent],
     exports: [ShopsComponent],
     providers: [
         FetchShopsService,

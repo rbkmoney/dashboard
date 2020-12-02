@@ -6,16 +6,9 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { BankContent } from '../../../../../../../../api-codegen/aggr-proxy';
 import { PayoutTool, Shop } from '../../../../../../../../api-codegen/capi';
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
-import {
-    BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_ID_FIELD,
-    CONTRACT_FORM_FIELD,
-    NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
-    NEW_BANK_ACCOUNT_FIELD,
-} from '../../consts';
+import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_ID_FIELD, CONTRACT_FORM_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';
 
 @UntilDestroy()
@@ -44,17 +37,6 @@ export class ShopFormComponent implements OnInit {
             ),
         },
     ];
-
-    get bankAccountNameControl(): FormControl {
-        this.chekFormProvided();
-        if (isNil(this.form.get(`${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`))) {
-            throw new Error(
-                `Form doesn't contains "${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}" control`
-            );
-        }
-
-        return this.form.get(`${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`) as FormControl;
-    }
 
     get contractControl(): FormControl {
         this.chekFormProvided();
@@ -86,21 +68,6 @@ export class ShopFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initBankAccount();
-    }
-
-    bankSelected({ bic: bankBik, correspondentAccount: bankPostAccount, value: bankName }: BankContent): void {
-        this.form.patchValue(
-            {
-                newBankAccount: {
-                    bankName,
-                    bankBik,
-                    bankPostAccount,
-                },
-            },
-            {
-                emitEvent: true,
-            }
-        );
     }
 
     protected chekFormProvided(): void {
