@@ -5,15 +5,15 @@ import { pluck, switchMap } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import { ClaimsService } from '@dsh/api/claims';
-import { createContractorParamsModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-contractor-params-modification';
-import { createRussianContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-russian-contract-payout-tool-modification';
-import { createRussianBankAccountModification } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification';
-import { createRussianLegalEntityModification } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification/create-russian-legal-entity-modification';
 import {
+    createContractorParamsModification,
+    createRussianBankAccountModification,
+    createRussianContractPayoutToolModification,
+    createRussianLegalEntityModification,
     createShopCreationModification,
     makeShopDetails,
     makeShopLocation,
-} from '@dsh/api/claims/claim-party-modification/claim-shop-modification';
+} from '@dsh/api/claims/claim-party-modification';
 
 import { Claim, PartyModification } from '../../../../../../../../api-codegen/claim-management';
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';

@@ -4,10 +4,10 @@ import { createContractPayoutToolModification } from './create-contract-payout-t
 
 export function createRussianContractPayoutToolModification(
     id: string,
-    payouToolID: string,
+    payoutToolID: string,
     params: Omit<PayoutToolInfo, 'payoutToolType' | 'payoutToolModificationType'>
 ): PartyModification {
-    return createContractPayoutToolModification(id, payouToolID, {
+    return createContractPayoutToolModification(id, payoutToolID, {
         currency: {
             symbolicCode: 'RUB',
         },
