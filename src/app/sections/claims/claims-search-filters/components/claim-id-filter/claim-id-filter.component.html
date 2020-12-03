@@ -1,7 +1,7 @@
 <dsh-value-filter
     *transloco="let claims; scope: 'claims'; read: 'claims'"
     [label]="claims('claimID')"
-    [selectedLabel]="claims('claimID') + ' #' + selected"
+    [selectedLabel]="claims('claimID') + ' #'"
     [placeholder]="claims('claimID')"
     [value]="selected"
     (valueChanges)="selectionChange.emit($event)"
