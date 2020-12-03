@@ -88,6 +88,10 @@ export class CreateRussianShopEntityService {
             }),
             ...payoutChangeset,
             createShopCreationModification(shopID, {
+                category: {
+                    shopModificationType: 'CategoryRef' as any, // wrong enum
+                    id: 1,
+                },
                 location: makeShopLocation({ url }),
                 details: makeShopDetails({ name }),
                 contractID,

@@ -10,11 +10,7 @@ import { CreateShopDialogConfig } from './types/create-shop-dialog-config';
 
 @Injectable()
 export class ShopCreationService {
-    constructor(
-        private dialog: MatDialog,
-        private transloco: TranslocoService,
-        private snackBar: MatSnackBar
-    ) {}
+    constructor(private dialog: MatDialog, private transloco: TranslocoService, private snackBar: MatSnackBar) {}
 
     createShop(config: CreateShopDialogConfig): void {
         this.dialog
