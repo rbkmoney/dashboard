@@ -1,9 +1,14 @@
 <div fxLayout="column" fxLayoutGap="32px">
-    <dsh-invoices-search-filters
-        [initParams]="initSearchParams$ | async"
-        [realm]="realm$ | async"
-        (searchParamsChanges)="searchParamsChanges($event)"
-    ></dsh-invoices-search-filters>
+    <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="24px">
+        <dsh-invoices-search-filters
+            [initParams]="initSearchParams$ | async"
+            [realm]="realm$ | async"
+            (searchParamsChanges)="searchParamsChanges($event)"
+        ></dsh-invoices-search-filters>
+        <button *transloco="let i; scope: 'invoices'; read: 'invoices'" dsh-button color="accent" (click)="create()">
+            {{ i('create.button') }}
+        </button>
+    </div>
     <div fxLayout="column" fxLayoutGap="16px">
         <dsh-invoices-list
             [expandedId]="expandedId$ | async"
