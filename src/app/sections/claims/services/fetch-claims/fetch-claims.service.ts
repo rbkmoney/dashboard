@@ -9,11 +9,11 @@ import { ClaimsService } from '../../../../api/claims';
 import { booleanDebounceTime } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../../../payment-section/operations/operators';
-import { ClaimSearchFormValue } from '../../search-form';
+import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/claims-search-filters-search-params';
 
 @Injectable()
-export class FetchClaimsService extends PartialFetcher<Claim, ClaimSearchFormValue> {
-    private readonly searchLimit = 10;
+export class FetchClaimsService extends PartialFetcher<Claim, ClaimsSearchFiltersSearchParams> {
+    private readonly searchLimit = 20;
 
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
@@ -30,7 +30,15 @@ export class FetchClaimsService extends PartialFetcher<Claim, ClaimSearchFormVal
         });
     }
 
-    protected fetch(params: ClaimSearchFormValue, continuationToken: string): Observable<FetchResult<Claim>> {
-        return this.claimsService.searchClaims(this.searchLimit, params.claimStatus, params.claimID, continuationToken);
+    protected fetch(
+        params: ClaimsSearchFiltersSearchParams,
+        continuationToken: string
+    ): Observable<FetchResult<Claim>> {
+        return this.claimsService.searchClaims(
+            this.searchLimit,
+            params.claimStatuses,
+            params.claimID,
+            continuationToken
+        );
     }
 }

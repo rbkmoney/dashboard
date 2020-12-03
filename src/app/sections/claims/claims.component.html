@@ -1,15 +1,14 @@
 <div fxFlex fxLayoutAlign="center">
-    <div class="dsh-claims" fxLayout="column" [fxLayoutGap]="layoutGap">
-        <dsh-headline>
-            <div *transloco="let t; scope: 'claims'; read: 'claims'">
+    <div class="dsh-claims" fxLayout="column" fxLayoutGap="32px">
+        <div fxLayout="column" fxLayoutGap="48px">
+            <div class="mat-display-1" *transloco="let t; scope: 'claims'; read: 'claims'">
                 {{ t('title') }}
             </div>
-        </dsh-headline>
-        <dsh-card>
-            <dsh-card-content>
-                <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
-            </dsh-card-content>
-        </dsh-card>
+            <dsh-claims-search-filters
+                [initParams]="initSearchParams$ | async"
+                (searchParamsChanges)="search($event)"
+            ></dsh-claims-search-filters>
+        </div>
         <dsh-claims-list
             [lastUpdated]="lastUpdated$ | async"
             [hasMore]="hasMore$ | async"
