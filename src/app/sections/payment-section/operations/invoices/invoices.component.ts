@@ -9,31 +9,33 @@ import { pluck, shareReplay, take } from 'rxjs/operators';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { PaymentInstitutionRealm } from '../../../../api/model';
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
 import { SearchFiltersParams } from './invoices-search-filters';
 import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
+import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manager/invoices-expanded-id-manager.service';
 import { InvoicesSearchFiltersStore } from './services/invoices-search-filters-store/invoices-search-filters-store.service';
 
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [FetchInvoicesService, InvoicesSearchFiltersStore],
+    providers: [FetchInvoicesService, InvoicesSearchFiltersStore, InvoicesExpandedIdManager],
 })
 export class InvoicesComponent {
-    tableData$ = this.invoicesService.invoicesTableData$;
-    hasMoreInvoices$ = this.invoicesService.hasMore$;
+    invoices$ = this.invoicesService.searchResult$;
+    hasMore$ = this.invoicesService.hasMore$;
     lastUpdated$ = this.invoicesService.lastUpdated$;
-    doAction$ = this.invoicesService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
-    initSearchParams$ = this.refundsSearchFiltersStore.data$.pipe(take(1));
+    isLoading$ = this.invoicesService.isLoading$;
+    expandedId$ = this.invoicesExpandedIdManager.expandedId$;
+    initSearchParams$ = this.invoicesSearchFiltersStore.data$.pipe(take(1));
+    fetchErrors$ = this.invoicesService.errors$;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
 
     constructor(
         private invoicesService: FetchInvoicesService,
-        private refundsSearchFiltersStore: InvoicesSearchFiltersStore,
+        private invoicesSearchFiltersStore: InvoicesSearchFiltersStore,
+        private invoicesExpandedIdManager: InvoicesExpandedIdManager,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private route: ActivatedRoute,
@@ -42,9 +44,13 @@ export class InvoicesComponent {
         this.invoicesService.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    updateSearchParams(p: SearchFiltersParams) {
+    searchParamsChanges(p: SearchFiltersParams) {
         this.invoicesService.search(p);
-        this.refundsSearchFiltersStore.preserve(p);
+        this.invoicesSearchFiltersStore.preserve(p);
+    }
+
+    expandedIdChange(id: number) {
+        this.invoicesExpandedIdManager.expandedIdChange(id);
     }
 
     fetchMore() {
