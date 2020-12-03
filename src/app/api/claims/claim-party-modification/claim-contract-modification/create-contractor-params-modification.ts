@@ -1,0 +1,21 @@
+import {
+    ContractModification,
+    ContractParams,
+    PartyModification,
+} from '../../../../api-codegen/claim-management';
+import { createBaseContractModification } from './create-base-contract-modification';
+
+export function createContractorParamsModification(
+    id: string,
+    params: Omit<ContractParams, 'contractModificationType'>
+): PartyModification {
+    return {
+        ...createBaseContractModification({
+            id,
+            modification: {
+                contractModificationType: ContractModification.ContractModificationTypeEnum.ContractParams,
+                ...params,
+            },
+        }),
+    };
+}

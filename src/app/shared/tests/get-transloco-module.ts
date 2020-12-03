@@ -16,12 +16,11 @@ export function getTranslocoModule(config: Partial<TranslocoConfig> = {}) {
             // create-invoice                 file-uploader     payment-details  shops                 withdrawals
             // create-invoice-template        filter-shops      payment-info     shop-selector
             // create-payment-link            invoice           payment-link     test-env-banner
-
         },
         {
             availableLangs: ['ru'],
             defaultLang: 'ru',
-            ...config
+            ...config,
         }
     );
 }

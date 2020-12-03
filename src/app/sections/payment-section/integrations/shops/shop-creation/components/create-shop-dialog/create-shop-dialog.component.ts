@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { ShopType } from '../../../types/shop-type';
 import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
+import { CreateShopDialogConfig } from '../../types/create-shop-dialog-config';
 
 @Component({
     selector: 'dsh-create-shop-dialog',
@@ -20,15 +21,15 @@ export class CreateShopDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<CreateShopDialogComponent, CreateShopDialogResponse>,
-        @Inject(MAT_DIALOG_DATA) public data: { realm: string },
+        @Inject(MAT_DIALOG_DATA) public data: CreateShopDialogConfig,
         private router: Router
     ) {}
 
-    onTypeChange(type: ShopType) {
+    onTypeChange(type: ShopType): void {
         this.selectedShopType = type;
     }
 
-    next() {
+    next(): void {
         if (this.selectedShopType === ShopType.new) {
             this.dialogRef.close();
             this.router.navigate(['onboarding']);

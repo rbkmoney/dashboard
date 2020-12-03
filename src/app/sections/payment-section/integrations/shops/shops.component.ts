@@ -44,7 +44,9 @@ export class ShopsComponent implements OnInit {
     }
 
     createShop(): void {
-        this.createShopService.createShop();
+        this.createShopService.createShop({
+            realm: this.route.snapshot.params.realm,
+        });
     }
 
     refreshData(): void {

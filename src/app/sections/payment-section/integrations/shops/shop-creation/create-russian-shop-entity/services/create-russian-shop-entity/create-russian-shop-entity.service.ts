@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
-import { UntilDestroy } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import { ClaimsService } from '@dsh/api/claims';
-import { ClaimContractModificationService } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/claim-contract-modification.service';
-import { ClaimContractorModificationService } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification/claim-contractor-modification.service';
-import { ClaimShopModificationService } from '@dsh/api/claims/claim-party-modification/claim-shop-modification/claim-shop-modification.service';
+import { createContractorParamsModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-contractor-params-modification';
+import { createRussianContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-russian-contract-payout-tool-modification';
+import { createRussianBankAccountModification } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification';
+import { createRussianLegalEntityModification } from '@dsh/api/claims/claim-party-modification/claim-contractor-modification/create-russian-legal-entity-modification';
+import {
+    createShopCreationModification,
+    makeShopDetails,
+    makeShopLocation,
+} from '@dsh/api/claims/claim-party-modification/claim-shop-modification';
 
-import { Claim, PartyModification, RussianLegalEntity } from '../../../../../../../../api-codegen/claim-management';
+import { Claim, PartyModification } from '../../../../../../../../api-codegen/claim-management';
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 
-@UntilDestroy()
 @Injectable()
 export class CreateRussianShopEntityService {
-    constructor(
-        private claimsService: ClaimsService,
-        private contractorModificationService: ClaimContractorModificationService,
-        private shopModificationService: ClaimShopModificationService,
-        private contractModificationService: ClaimContractModificationService
-    ) {}
+    constructor(private claimsService: ClaimsService) {}
 
     createShop(creationData: RussianShopCreateData) {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
@@ -48,7 +47,7 @@ export class CreateRussianShopEntityService {
 
         if (isNil(shopPayoutToolID)) {
             payoutChangeset.push(
-                this.contractModificationService.createRussianContractPayoutToolModification(contractID, payoutToolID, {
+                createRussianContractPayoutToolModification(contractID, payoutToolID, {
                     account,
                     bankName,
                     bankPostAccount,
@@ -59,17 +58,38 @@ export class CreateRussianShopEntityService {
             payoutToolID = shopPayoutToolID;
         }
 
+        const {
+            actualAddress,
+            bankAccount: russianBankAccount,
+            inn,
+            postAddress,
+            registeredName,
+            registeredNumber,
+            representativeDocument,
+            representativeFullName,
+            representativePosition,
+        } = contract.contractor as any;
+        // TODO: add valid type for contractor object
+
         return [
-            this.contractorModificationService.createRussianLegalEntityModification(contractorID, {
-                ...((contract.contractor as any) as RussianLegalEntity),
-            }),
-            this.contractModificationService.createContractorParamsModification(contractID, {
+            createRussianLegalEntityModification(contractorID, {
+                actualAddress,
+                russianBankAccount: createRussianBankAccountModification(russianBankAccount),
+                inn,
+                postAddress,
+                registeredName,
+                registeredNumber,
+                representativeDocument,
+                representativeFullName,
+                representativePosition, // remove any cause representativePosition would be fixed in next update api
+            } as any),
+            createContractorParamsModification(contractID, {
                 contractorID,
             }),
             ...payoutChangeset,
-            this.shopModificationService.createShopCreationModification(shopID, {
-                location: this.shopModificationService.makeShopLocation({ url }),
-                details: this.shopModificationService.makeShopDetails({ name }),
+            createShopCreationModification(shopID, {
+                location: makeShopLocation({ url }),
+                details: makeShopDetails({ name }),
                 contractID,
                 payoutToolID,
             }),

@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ClaimsModule } from '@dsh/api/claims';
-import { ClaimPartyModificationModule } from '@dsh/api/claims/claim-party-modification';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
 import { ButtonModule } from '@dsh/components/buttons';
@@ -45,7 +44,6 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         DetailsItemModule,
         AutocompleteVirtualScrollModule,
         MatDialogModule,
-        ClaimPartyModificationModule,
         ClaimsModule,
     ],
     declarations: [

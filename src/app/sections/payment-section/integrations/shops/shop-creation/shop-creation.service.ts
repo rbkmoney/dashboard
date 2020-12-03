@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { filter, take } from 'rxjs/operators';
 
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { CreateShopDialogResponse } from './create-russian-shop-entity/types/create-shop-dialog-response';
+import { CreateShopDialogConfig } from './types/create-shop-dialog-config';
 
 @Injectable()
 export class ShopCreationService {
     constructor(
         private dialog: MatDialog,
-        private route: ActivatedRoute,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar
     ) {}
 
-    createShop(): void {
+    createShop(config: CreateShopDialogConfig): void {
         this.dialog
-            .open(CreateShopDialogComponent, {
+            .open<CreateShopDialogComponent, CreateShopDialogConfig>(CreateShopDialogComponent, {
                 width: '552px',
-                maxHeight: '90vh',
                 disableClose: true,
                 autoFocus: false,
-                data: {
-                    realm: this.route.snapshot.params.realm,
-                },
+                data: config,
             })
             .afterClosed()
             .pipe(
