@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 
+import { wrapValuesToArray } from '../../../utils';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 
-// const claimTypesAndPrimitives = (v, k) => (typeof v === 'string' || typeof v === 'number') && k === 'reportTypes';
+const claimTypesAndPrimitives = (v, k) => (typeof v === 'string' || typeof v === 'number') && k === 'claimStatuses';
 
 @Injectable()
 export class ClaimsSearchFiltersStore extends QueryParamsStore<ClaimsSearchFiltersSearchParams> {
@@ -16,7 +18,7 @@ export class ClaimsSearchFiltersStore extends QueryParamsStore<ClaimsSearchFilte
     mapToData(queryParams: Params): Partial<ClaimsSearchFiltersSearchParams> {
         return {
             ...queryParams,
-            // ...wrapValuesToArray(pickBy(queryParams, claimTypesAndPrimitives)),
+            ...wrapValuesToArray(pickBy(queryParams, claimTypesAndPrimitives)),
         };
     }
 

@@ -14,8 +14,6 @@ import { ComponentChanges } from '../../../type-utils';
 export class ValueFilterComponent implements OnChanges {
     @Input() label: string;
     @Input() selectedLabel?: string;
-    @Input() selectedLabelPredicate?: (value: string) => string;
-    @Input() searchInputLabel?: string;
     @Input() placeholder?: string;
     @Input() type?: 'number' | 'text' = 'text';
 
@@ -30,8 +28,8 @@ export class ValueFilterComponent implements OnChanges {
             if (!v) {
                 return this.label;
             }
-            if (this.selectedLabelPredicate) {
-                return this.selectedLabelPredicate(v);
+            if (this.selectedLabel) {
+                return this.selectedLabel + v;
             }
             return this.selectedLabel || this.label;
         }),

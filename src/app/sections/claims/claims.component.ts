@@ -36,6 +36,7 @@ export class ClaimsComponent {
     ) {}
 
     search(val: ClaimsSearchFiltersSearchParams) {
+        this.claimsSearchFiltersStore.preserve(val);
         this.fetchClaimsService.search(val);
     }
 

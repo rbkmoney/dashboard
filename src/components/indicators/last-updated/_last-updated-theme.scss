@@ -9,6 +9,10 @@
 }
 
 @mixin dsh-last-updated-typography($config) {
+    .dsh-last-updated-update-link {
+        text-decoration: underline;
+    }
+
     .dsh-last-updated {
         @include mat-typography-level-to-styles($config, caption);
     }

@@ -21,7 +21,6 @@ import { ClaimsListModule } from './claims-list';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsSearchFiltersModule } from './claims-search-filters';
 import { ClaimsComponent } from './claims.component';
-import { SearchFormComponent } from './search-form';
 
 @NgModule({
     imports: [
@@ -43,7 +42,7 @@ import { SearchFormComponent } from './search-form';
         ClaimsListModule,
         ClaimsSearchFiltersModule,
     ],
-    declarations: [ClaimsComponent, SearchFormComponent],
+    declarations: [ClaimsComponent],
     exports: [ClaimsComponent],
     providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService],
 })
