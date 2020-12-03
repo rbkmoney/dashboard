@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.invoices.cartInfo'">
+    <div class="mat-title">
+        {{ t('title') }}
+    </div>
+    <ng-container *ngFor="let line of cart">
+        <dsh-invoice-cart-line [line]="line" [currency]="currency"></dsh-invoice-cart-line>
+        <mat-divider></mat-divider>
+    </ng-container>
+</div>
