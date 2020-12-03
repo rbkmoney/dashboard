@@ -7,7 +7,7 @@ import { QueryParamsStore } from '@dsh/app/shared/services';
 import { wrapValuesToArray } from '../../../utils';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 
-const claimTypesAndPrimitives = (v, k) => (typeof v === 'string' || typeof v === 'number') && k === 'claimStatuses';
+const claimTypesAndPrimitives = (v, k) => typeof v === 'string' && k === 'claimStatuses';
 
 @Injectable()
 export class ClaimsSearchFiltersStore extends QueryParamsStore<ClaimsSearchFiltersSearchParams> {
