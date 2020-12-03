@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
+import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 import { MockShopContractDetailsService } from '../../../tests/mock-shop-contract-details-service';
-import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
 import { ShopContractDetailsComponent } from './shop-contract-details.component';
 
 describe('ShopContractDetailsComponent', () => {
