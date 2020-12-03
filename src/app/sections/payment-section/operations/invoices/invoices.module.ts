@@ -19,7 +19,8 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
-import { StateNavModule } from '@dsh/components/navigation';
+import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { TableModule } from '@dsh/components/table';
 
 import { InvoiceModule } from '../../../../api';
@@ -28,10 +29,10 @@ import { ToMajorModule } from '../../../../to-major';
 import { CreateInvoiceModule } from '../../../create-invoice';
 import { ShopSelectorModule } from '../../../shop-selector';
 import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
+import { InvoicesListModule } from './invoices-list';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { InvoicesSearchFiltersModule } from './invoices-search-filters';
 import { InvoicesComponent } from './invoices.component';
-import { TableComponent } from './table';
 
 @NgModule({
     imports: [
@@ -64,8 +65,11 @@ import { TableComponent } from './table';
         CreateInvoiceModule,
         InvoicesSearchFiltersModule,
         InvoiceDetailsModule,
+        InvoicesListModule,
+        ScrollUpModule,
+        ShowMorePanelModule,
     ],
-    declarations: [InvoicesComponent, TableComponent, CreateInvoiceDialogComponent],
+    declarations: [InvoicesComponent, CreateInvoiceDialogComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class InvoicesModule {}
