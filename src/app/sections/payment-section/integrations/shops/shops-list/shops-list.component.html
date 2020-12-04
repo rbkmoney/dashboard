@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let s; scope: 'shops'; read: 'shops'">
     <dsh-last-updated (update)="refreshList()" [lastUpdated]="lastUpdated"></dsh-last-updated>
     <dsh-shop-row-header></dsh-shop-row-header>
-    <ng-container *ngIf="isLoading || !isListExist; else shopsPanelsList">
+    <ng-container *ngIf="isLoading && !isListExist; else shopsPanelsList">
         <div fxLayout fxFlexAlign="center">
             <dsh-spinner></dsh-spinner>
         </div>
