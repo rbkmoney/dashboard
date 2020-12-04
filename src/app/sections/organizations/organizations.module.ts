@@ -4,7 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { IndicatorsModule } from '@dsh/components/indicators';
 import { AccordionModule, DetailsItemModule, LayoutModule } from '@dsh/components/layout';
+import { NavigationLinkModule } from '@dsh/components/navigation-link';
 
 import { ButtonModule } from '../../../components/buttons';
 import { EmptySearchResultModule } from '../../../components/empty-search-result';
@@ -39,6 +41,8 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
         OrganizationsAPIModule,
         MatDividerModule,
         DetailsItemModule,
+        NavigationLinkModule,
+        IndicatorsModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

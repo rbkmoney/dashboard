@@ -21,7 +21,7 @@ export class FetchOrganizationsService extends PartialFetcher<OrganizationMember
         params: OrganizationsSearchParams,
         continuationToken?: string
     ): Observable<FetchResult<OrganizationMembership>> {
-        return this.organizationsService.getOrganizations(params.limit, continuationToken).pipe(
+        return this.organizationsService.getOrganizations(params?.limit, continuationToken).pipe(
             // TODO: Need UserService
             withLatestFrom(this.keycloakService.loadUserProfile()),
             switchMap(([{ results, continuationToken: newContinuationToken }, { id: userId }]) =>

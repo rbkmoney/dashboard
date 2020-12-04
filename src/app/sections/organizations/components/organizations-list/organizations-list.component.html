@@ -1,5 +1,4 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let t; scope: 'organizations'; read: 'organizations'">
-    <!-- <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated> -->
     <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px" color="primary">
         <dsh-row-header-label fxFlex="50">{{ t('headerRow.name') }}</dsh-row-header-label>
         <dsh-row-header-label fxFlex="50">{{ t('headerRow.roles') }}</dsh-row-header-label>
@@ -53,12 +52,11 @@
 
                         <mat-divider></mat-divider>
 
-                        <div fxFlexAlign="end">
-                            {{ t('management') }}
-                        </div>
+                        <dsh-navigation-link fxFlexAlign="end" [text]="t('management')"></dsh-navigation-link>
                     </div>
                 </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>
     </dsh-accordion>
+    <dsh-show-more-panel></dsh-show-more-panel>
 </div>

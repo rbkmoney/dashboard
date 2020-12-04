@@ -6,9 +6,8 @@ import { shareReplay } from 'rxjs/operators';
 
 import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
 import { ClaimsService } from '../../../../api/claims';
-import { booleanDebounceTime } from '../../../../custom-operators';
+import { booleanDebounceTime, mapToTimestamp } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { mapToTimestamp } from '../../../payment-section/operations/operators';
 import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/claims-search-filters-search-params';
 
 @Injectable()

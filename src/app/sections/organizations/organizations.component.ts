@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { MemberRole, OrganizationMembership } from '../../api-codegen/organizations';
+import { mapToTimestamp } from '../../custom-operators';
 import { FetchOrganizationsService } from './services/fetch-organizations.service';
 
 @Component({
@@ -32,10 +33,15 @@ export class OrganizationsComponent {
             },
         })
     ); // this.fetchOrganizationsService.searchResult$;
+    lastUpdated$ = this.organizations$.pipe(mapToTimestamp);
 
     constructor(private fetchOrganizationsService: FetchOrganizationsService) {
         // fetchOrganizationsService.search({});
     }
 
     createOrganization() {}
+
+    refresh() {
+        this.fetchOrganizationsService.refresh();
+    }
 }

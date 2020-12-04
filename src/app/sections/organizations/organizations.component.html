@@ -11,8 +11,8 @@
         </button>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
         <dsh-organizations-list [organizations]="organizations$ | async"></dsh-organizations-list>
-        <!-- <dsh-show-more-panel></dsh-show-more-panel> -->
     </div>
     <!-- <dsh-empty-search-result></dsh-empty-search-result> -->
     <!-- <dsh-spinner></dsh-spinner> -->
