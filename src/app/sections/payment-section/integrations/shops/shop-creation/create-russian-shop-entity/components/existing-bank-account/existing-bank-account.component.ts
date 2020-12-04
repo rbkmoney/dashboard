@@ -36,7 +36,7 @@ export class ExistingBankAccountComponent implements OnInit {
     constructor(private shopOptionsService: ShopOptionsSelectionService) {}
 
     ngOnInit(): void {
-        const formShopId = this.shopControl.value as string;
+        const formShopId = this.shopControl.value as string | undefined;
         this.shopsList$
             .pipe(
                 map((shops: BaseOption<string>[]) => {

@@ -1,45 +1,29 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslocoTestingModule } from '@ngneat/transloco';
+import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { ShopPayoutToolDetailsService } from '../../../../services/shop-payout-tool-details/shop-payout-tool-details.service';
-import { MockShopPayoutToolDetailsService } from '../../../tests/mock-shop-payout-tool-details-service';
 import { ShopPayoutToolDetailsComponent } from './shop-payout-tool-details.component';
 
 describe('ShopPayoutToolDetailsComponent', () => {
     let component: ShopPayoutToolDetailsComponent;
     let fixture: ComponentFixture<ShopPayoutToolDetailsComponent>;
-    let mockPayoutsService: MockShopPayoutToolDetailsService;
+    let mockPayoutsService: ShopPayoutToolDetailsService;
 
     beforeEach(() => {
-        mockPayoutsService = new MockShopPayoutToolDetailsService();
+        mockPayoutsService = mock(ShopPayoutToolDetailsService);
     });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                TranslocoTestingModule.withLangs(
-                    {
-                        en: {
-                            shops: {
-                                shopPayoutTool: {
-                                    title: 'ShopPayoutTooltTitle',
-                                    error: 'ShopPayoutTooltError',
-                                },
-                            },
-                        },
-                    },
-                    {
-                        availableLangs: ['en'],
-                        defaultLang: 'en',
-                    }
-                ),
-            ],
+            imports: [getTranslocoModule()],
             declarations: [ShopPayoutToolDetailsComponent],
             providers: [
                 {
                     provide: ShopPayoutToolDetailsService,
-                    useValue: mockPayoutsService,
+                    useFactory: () => instance(mockPayoutsService),
                 },
             ],
         })
@@ -65,18 +49,29 @@ describe('ShopPayoutToolDetailsComponent', () => {
 
     describe('contractID', () => {
         it('should call getContract on id change', () => {
-            const spyOnGetContract = spyOn(mockPayoutsService, 'getPayoutTool').and.callThrough();
+            when(
+                mockPayoutsService.requestPayoutTool(
+                    deepEqual({
+                        contractID: 'my_contract_id',
+                        payoutToolID: 'my_payout_tool_id',
+                    })
+                )
+            ).thenReturn();
 
             component.payoutToolParams = {
                 contractID: 'my_contract_id',
                 payoutToolID: 'my_payout_tool_id',
             };
 
-            expect(spyOnGetContract).toHaveBeenCalledTimes(1);
-            expect(spyOnGetContract).toHaveBeenCalledWith({
-                contractID: 'my_contract_id',
-                payoutToolID: 'my_payout_tool_id',
-            });
+            verify(
+                mockPayoutsService.requestPayoutTool(
+                    deepEqual({
+                        contractID: 'my_contract_id',
+                        payoutToolID: 'my_payout_tool_id',
+                    })
+                )
+            ).once();
+            expect().nothing();
         });
     });
 });
