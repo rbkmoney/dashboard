@@ -43,10 +43,13 @@ export class ShopOptionsSelectionService {
         this.control.valueChanges
             .pipe(
                 withLatestFrom(this.shopsService.allShops$),
-                map(([selected, shopsList]: [BaseOption<string>, Shop[]]) => {
+                map(([selected, shopsList]: [BaseOption<string> | null, Shop[]]) => {
+                    if (isNil(selected)) {
+                        return null;
+                    }
                     return shopsList.find((shop: Shop) => shop.id === selected.id);
                 }),
-                map((shop: Shop | undefined) => (isNil(shop) ? null : shop)),
+                map((shop: Shop | undefined | null) => (isNil(shop) ? null : shop)),
                 shareReplay(SHARE_REPLAY_CONF),
                 untilDestroyed(this)
             )

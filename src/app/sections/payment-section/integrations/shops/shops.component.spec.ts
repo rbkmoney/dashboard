@@ -170,7 +170,9 @@ describe('ShopsComponent', () => {
     describe('createShop', () => {
         it('should call create shop with activated route realm', () => {
             when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.live } } as any);
-            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).thenReturn(null);
+            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).thenReturn(
+                null
+            );
 
             component.createShop();
 

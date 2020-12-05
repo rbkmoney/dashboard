@@ -13,6 +13,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ClaimsModule } from '@dsh/api/claims';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
+import { UuidGeneratorModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
@@ -45,6 +46,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         AutocompleteVirtualScrollModule,
         MatDialogModule,
         ClaimsModule,
+        UuidGeneratorModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,
