@@ -5,23 +5,25 @@
         "name": "Наименование организации",
         "roles": "Ваши роли"
     },
-    "titles": {
-        "roles": "Ваши роли",
-        "actions": "Действия"
-    },
-    "actions": {
-        "rename": "Переименовать организацию",
-        "leave": "Покинуть организацию"
-    },
-    "numberOfEmployees": "Количество сотрудников",
-    "management": "Управление сотрудниками и организациями",
-    "roles": {
-        "Administrator": "Администратор",
-        "Accountant": "Бухгалтер",
-        "Integrator": "Интегратор",
-        "Manager": "Менеджер"
-    },
-    "resources": {
-        "Shop": "Магазины"
+    "organization": {
+        "titles": {
+            "roles": "Ваши роли",
+            "actions": "Действия"
+        },
+        "roles": {
+            "Administrator": "Администратор",
+            "Accountant": "Бухгалтер",
+            "Integrator": "Интегратор",
+            "Manager": "Менеджер"
+        },
+        "scopes": {
+            "Shop": "Магазины"
+        },
+        "management": "Управление сотрудниками и организациями",
+        "numberOfEmployees": "Количество сотрудников",
+        "actions": {
+            "rename": "Переименовать организацию",
+            "leave": "Покинуть организацию"
+        }
     }
 }

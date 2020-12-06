@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { merge, Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
-import { MemberRole, OrganizationMembership } from '../../api-codegen/organizations';
+import { OrganizationMembership } from '../../api-codegen/organizations';
 import { mapToTimestamp } from '../../custom-operators';
-import { FetchOrganizationsService } from './services/fetch-organizations.service';
+import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
+import { mockMemeber } from './tests/mock-member';
+import { mockOrg } from './tests/mock-org';
 
 @Component({
     selector: 'dsh-organizations',
@@ -11,37 +14,35 @@ import { FetchOrganizationsService } from './services/fetch-organizations.servic
     styleUrls: ['organizations.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationsComponent {
+export class OrganizationsComponent implements OnInit {
+    // organizations$ = this.fetchOrganizationsService.searchResult$;
+    // hasMore$ = this.fetchOrganizationsService.hasMore$;
+    // isLoading$ = this.fetchOrganizationsService.doSearchAction$;
+    // lastUpdated$ = this.organizations$.pipe(mapToTimestamp);
+
     organizations$: Observable<OrganizationMembership[]> = of(
         new Array(10).fill({
-            org: {
-                id: '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                createdAt: '28 августа 2020, 19:14',
-                name: 'Organization name #3',
-                owner: 'Owner',
-            },
-            member: {
-                id: '8d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                userEmail: 'test@mail.com',
-                roles: new Array(5).fill({
-                    roleId: 'Integrator',
-                    scope: {
-                        id: 'Shop',
-                        resourceId: '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                    },
-                } as MemberRole),
-            },
+            org: mockOrg,
+            member: mockMemeber,
         })
-    ); // this.fetchOrganizationsService.searchResult$;
+    );
+    hasMore$ = of(true);
+    isLoading$ = merge(of(false).pipe(delay(2000)), of(true));
     lastUpdated$ = this.organizations$.pipe(mapToTimestamp);
 
-    constructor(private fetchOrganizationsService: FetchOrganizationsService) {
-        // fetchOrganizationsService.search({});
+    constructor(private fetchOrganizationsService: FetchOrganizationsService) {}
+
+    ngOnInit() {
+        // this.fetchOrganizationsService.search({});
     }
 
     createOrganization() {}
 
     refresh() {
         this.fetchOrganizationsService.refresh();
+    }
+
+    showMore() {
+        this.fetchOrganizationsService.fetchMore();
     }
 }

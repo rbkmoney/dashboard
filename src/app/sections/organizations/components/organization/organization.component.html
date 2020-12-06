@@ -1,0 +1,33 @@
+<div
+    *transloco="let t; scope: 'organizations'; read: 'organizations.organization'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <div class="dsh-headline">{{ organization.org.name }}</div>
+    <dsh-details-item [title]="t('numberOfEmployees')">
+        -
+    </dsh-details-item>
+
+    <mat-divider></mat-divider>
+    <div class="dsh-title">{{ t('titles.roles') }}</div>
+    <div gdGap="24px" gdColumns="1fr 1fr">
+        <dsh-collapse *ngFor="let role of rolesByGroup" [title]="t('roles.' + role.id)">
+            <dsh-limited-list *ngFor="let scope of role.scopes" [title]="t('scopes.' + scope.id)">
+                <dsh-limited-list-item *ngFor="let resourceId of scope.resourcesIds">{{
+                    resourceId
+                }}</dsh-limited-list-item>
+            </dsh-limited-list>
+        </dsh-collapse>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="dsh-title">{{ t('titles.actions') }}</div>
+    <div fxLayout fxLayoutGap="24px">
+        <button dsh-button color="accent">{{ t('actions.rename') }}</button>
+        <button dsh-button color="warn">{{ t('actions.leave') }}</button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <dsh-navigation-link fxFlexAlign="end" [text]="t('management')"></dsh-navigation-link>
+</div>

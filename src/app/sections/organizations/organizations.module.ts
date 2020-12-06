@@ -16,12 +16,13 @@ import { LimitedListModule } from '../../../components/layout/limited-list';
 import { ScrollUpModule } from '../../../components/navigation';
 import { ShowMorePanelModule } from '../../../components/show-more-panel';
 import { OrganizationsModule as OrganizationsAPIModule } from '../../api/organizations';
+import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
-import { FetchOrganizationsService } from './services/fetch-organizations.service';
+import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
-const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponent];
+const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponent, OrganizationComponent];
 
 @NgModule({
     imports: [
