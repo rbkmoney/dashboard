@@ -44,12 +44,11 @@
 </ng-container>
 <dsh-create-russian-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.russian"
-    (cancel)="cancelClaim()"
     (send)="sendClaim()"
+    (cancel)="cancelClaim()"
 ></dsh-create-russian-shop-entity>
 <dsh-create-international-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.international"
-    [realm]="data.realm"
-    (cancel)="cancelClaim()"
     (send)="sendClaim()"
+    (cancel)="cancelClaim()"
 ></dsh-create-international-shop-entity>

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
+
 import { CorrespondentAccount, InternationalBankAccount } from '../../../../api-codegen/questionary';
-import { CountryCodes } from '../../../payment-section/integrations/shops/shop-creation/create-international-shop-entity/types/country-codes';
 
 @Component({
     selector: 'dsh-international-bank-account-info',
@@ -11,11 +12,13 @@ import { CountryCodes } from '../../../payment-section/integrations/shops/shop-c
 export class InternationalBankAccountInfoComponent {
     @Input() bankAccount: InternationalBankAccount | CorrespondentAccount;
 
+    constructor(private countryCodes: CountryCodesService) {}
+
     hasCorrespondentAccount(acc: CorrespondentAccount): boolean {
         return !!Object.entries(acc?.bank || {}).length;
     }
 
-    getCountryCodeText(num): string {
-        return CountryCodes[num];
+    getCountryCodeText(code: number): string {
+        return this.countryCodes.getCountryByCode(code);
     }
 }

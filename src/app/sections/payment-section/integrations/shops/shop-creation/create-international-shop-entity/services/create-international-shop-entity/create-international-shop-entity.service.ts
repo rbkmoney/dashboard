@@ -3,6 +3,8 @@ import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
+import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
+
 import { ClaimsService, createDocumentModificationUnit, QuestionaryService } from '../../../../../../../../api';
 import {
     BankAccount,
@@ -14,12 +16,15 @@ import {
     ShopLocation,
     ShopLocationUrl,
 } from '../../../../../../../../api-codegen/questionary';
-import { CountryCodes } from '../../types/country-codes';
-import { FormValue } from '../../types/form-value';
+import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
-    constructor(private claimsService: ClaimsService, private questionaryService: QuestionaryService) {}
+    constructor(
+        private claimsService: ClaimsService,
+        private questionaryService: QuestionaryService,
+        private countryCodes: CountryCodesService
+    ) {}
 
     createShop({
         shopUrl,
@@ -29,8 +34,8 @@ export class CreateInternationalShopEntityService {
         registeredAddress,
         actualAddress,
         payoutTool,
-        correspondentPayoutTool,
-    }: FormValue) {
+        correspondentPayoutTool = null,
+    }: InternationalShopEntityFormValue) {
         const initialDocumentID = uuid();
         const changeset = [createDocumentModificationUnit(initialDocumentID)];
         const questionaryData: QuestionaryData = {
@@ -52,7 +57,7 @@ export class CreateInternationalShopEntityService {
                     address: payoutTool.address,
                     bic: payoutTool.bic,
                     name: payoutTool.name,
-                    country: this.getCountryCode(payoutTool.country),
+                    country: this.countryCodes.getCountryCode(payoutTool.country),
                 },
                 correspondentAccount: !correspondentPayoutTool
                     ? null
@@ -64,7 +69,7 @@ export class CreateInternationalShopEntityService {
                               address: correspondentPayoutTool.address,
                               bic: correspondentPayoutTool.bic,
                               name: correspondentPayoutTool.name,
-                              country: this.getCountryCode(correspondentPayoutTool.country),
+                              country: this.countryCodes.getCountryCode(correspondentPayoutTool.country),
                           },
                       },
             } as InternationalBankAccount,
@@ -86,9 +91,5 @@ export class CreateInternationalShopEntityService {
             ),
             pluck(0)
         );
-    }
-
-    getCountryCode(country: string): number {
-        return CountryCodes[country];
     }
 }

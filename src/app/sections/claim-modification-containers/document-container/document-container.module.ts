@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { CountryCodesModule } from '@dsh/app/shared/services';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { QuestionaryModule } from '../../../api';
@@ -25,7 +26,15 @@ import { ShopInfoComponent } from './shop-info';
 import { YesNoPipe } from './yes-no.pipe';
 
 @NgModule({
-    imports: [CommonModule, LayoutModule, FlexLayoutModule, TranslocoModule, QuestionaryModule, MatDividerModule],
+    imports: [
+        CommonModule,
+        LayoutModule,
+        FlexLayoutModule,
+        TranslocoModule,
+        QuestionaryModule,
+        MatDividerModule,
+        CountryCodesModule,
+    ],
     declarations: [
         OrgInfoComponent,
         ShopInfoComponent,
