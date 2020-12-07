@@ -15,8 +15,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
-import { ClaimsService } from '../../api/claims';
-import { LAYOUT_GAP } from '../constants';
 import { ClaimsListModule } from './claims-list';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsSearchFiltersModule } from './claims-search-filters';
@@ -44,6 +42,5 @@ import { ClaimsComponent } from './claims.component';
     ],
     declarations: [ClaimsComponent],
     exports: [ClaimsComponent],
-    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }, ClaimsService],
 })
 export class ClaimsModule {}

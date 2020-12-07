@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { LAYOUT_GAP } from '../constants';
-import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
+import { ClaimsSearchFiltersStore } from "./claims-search-filters-store.service";
 
 @Component({
     selector: 'dsh-claims',
@@ -28,7 +27,6 @@ export class ClaimsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         private claimsSearchFiltersStore: ClaimsSearchFiltersStore,
         private fetchClaimsService: FetchClaimsService,
         private claimsExpandedIdManagerService: ClaimsExpandedIdManagerService,
