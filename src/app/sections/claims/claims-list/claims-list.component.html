@@ -1,0 +1,46 @@
+<div fxLayout="column" fxLayoutGap="16px" *transloco="let claims; scope: 'claims'; read: 'claims'">
+    <dsh-last-updated (update)="refreshList()" [lastUpdated]="lastUpdated"></dsh-last-updated>
+    <dsh-claim-row-header></dsh-claim-row-header>
+    <dsh-accordion
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+        fxLayout="column"
+        fxLayoutGap="16px"
+    >
+        <dsh-accordion-item #accordionItem *ngFor="let claim of claimList">
+            <dsh-claim-row [claim]="claim"></dsh-claim-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="16px">
+                    <dsh-accordion-item-content-header
+                        (collapse)="accordionItem.collapse($event)"
+                        *transloco="let claims; scope: 'claims'; read: 'claims'"
+                        ><span class="mat-caption"
+                            >{{ claims('claim') }} #{{ claim.id }}</span
+                        ></dsh-accordion-item-content-header
+                    >
+                    <div fxLayout="column" fxLayoutGap="24px">
+                        <dsh-claim-details [claim]="claim"></dsh-claim-details>
+                        <div fxFlex fxLayout="column" fxLayoutGap="24px">
+                            <mat-divider></mat-divider>
+                            <div fxLayout="row" fxLayoutAlign="end">
+                                <dsh-navigation-link
+                                    [text]="claims('details')"
+                                    (click)="goToClaimDetails.emit(claim.id)"
+                                ></dsh-navigation-link>
+                            </div>
+                        </div>
+                    </div>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+    <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()" [isLoading]="isLoading"></dsh-show-more-panel>
+    <div *ngIf="isEmptyList" class="mat-headline">
+        <dsh-empty-search-result *transloco="let common">{{ common('emptySearchResult') }}</dsh-empty-search-result>
+    </div>
+    <ng-container *ngIf="isLoading">
+        <div fxLayout fxFlexAlign="center">
+            <dsh-spinner></dsh-spinner>
+        </div>
+    </ng-container>
+</div>

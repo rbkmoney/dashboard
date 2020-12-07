@@ -1,5 +1,6 @@
 <div fxLayout="column" fxLayoutGap="32px" *transloco="let s; scope: 'shops'; read: 'shops'">
-    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="flex-end">
+    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between">
+        <dsh-shop-filters></dsh-shop-filters>
         <div>
             <button dsh-button color="accent" (click)="createShop()">{{ s('createShop') }}</button>
         </div>

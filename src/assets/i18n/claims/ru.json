@@ -1,14 +1,13 @@
 {
     "title": "Заявки",
-    "claimID": "ID заявки",
+    "claim": "Заявка",
+    "claimID": "Идентификатор заявки",
     "claimStatus": "Статус заявки",
-    "table": {
-        "id": "ID заявки",
-        "type": "Тип",
-        "updatedAt": "Дата изменения",
+    "emptySearchResult": "Нет ни одной заявки",
+    "details": "Подробные детали заявки",
+    "panel": {
         "status": "Статус",
-        "actions": {
-            "claimDetails": "Детали заявки"
-        }
+        "createdAt": "Дата создания",
+        "updatedAt": "Дата изменения"
     }
 }
