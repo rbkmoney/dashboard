@@ -17,6 +17,10 @@ export class ReportsExpandedIdManager extends ExpandedIdManager<Report> {
         super(route, router);
     }
 
+    protected fragmentNotFound(): void {
+        this.fetchReportsService.fetchMore();
+    }
+
     protected get dataSet$(): Observable<Report[]> {
         return this.fetchReportsService.searchResult$;
     }

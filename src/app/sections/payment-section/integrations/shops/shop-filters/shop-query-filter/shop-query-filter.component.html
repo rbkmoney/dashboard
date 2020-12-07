@@ -1,0 +1,9 @@
+<ng-container *transloco="let s; scope: 'shops'; read: 'shops'">
+    <dsh-query-filter
+        [searchLabel]="s('panel.name')"
+        [badgeTitle]="s('title')"
+        [searchValue]="query"
+        (filterChanged)="onFilterChanged($event)"
+    >
+    </dsh-query-filter>
+</ng-container>

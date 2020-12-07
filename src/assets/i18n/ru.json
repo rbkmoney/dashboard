@@ -138,7 +138,8 @@
         "saveConversationsFailed": "Не удалось сохранить комментарий",
         "revokeClaimByIDFailed": "Не удалось отозвать заявку",
         "requestReviewClaimByIDFailed": "Не удалось отправить заявку на рассмотрение",
-        "updateClaimByIDFailed": " Не удалось обновить заявку"
+        "updateClaimByIDFailed": " Не удалось обновить заявку",
+        "bootstrapAppFailed": "Ошибка инициализации"
     },
     "yes": "Да",
     "no": "Нет",
