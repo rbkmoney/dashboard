@@ -1,0 +1,7 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+    <ng-container *ngTemplateOutlet="filters; context: { $implicit: filtersData$ | async }"></ng-container>
+</div>
+
+<ng-template #filters let-data>
+    <dsh-shop-query-filter [query]="data.query" (filterChanged)="onQueryChanged($event)"></dsh-shop-query-filter>
+</ng-template>

@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import isNil from 'lodash.isnil';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-
-import { SEARCH_LIMIT } from '@dsh/app/sections/constants';
 
 import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '../../../../../../api/model';
@@ -10,14 +9,21 @@ import { ApiShopsService } from '../../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm, mapToTimestamp } from '../../../../operations/operators';
 import { ShopBalance } from '../../types/shop-balance';
+import { ShopFiltersData } from '../../types/shop-filters-data';
 import { ShopItem } from '../../types/shop-item';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
+import { ShopsFiltersStoreService } from '../shops-filters-store/shops-filters-store.service';
+import { ShopsFiltersService } from '../shops-filters/shops-filters.service';
 import { combineShopItem } from './combine-shop-item';
+
+const DEFAULT_LIST_PAGINATION_OFFSET = 20;
+
+export const SHOPS_LIST_PAGINATION_OFFSET = new InjectionToken('shops-list-pagination-offset');
 
 @Injectable()
 export class FetchShopsService {
     allShops$: Observable<ApiShop[]>;
-    loadedShops$: Observable<ShopItem[]>;
+    shownShops$: Observable<ShopItem[]>;
     lastUpdated$: Observable<string>;
     isLoading$: Observable<boolean>;
     hasMore$: Observable<boolean>;
@@ -29,17 +35,25 @@ export class FetchShopsService {
 
     private showMore$ = new ReplaySubject<void>(1);
     private loader$ = new BehaviorSubject<boolean>(true);
+    private filters$ = new ReplaySubject<ShopFiltersData>(1);
+    private filteredShops$: Observable<ShopItem[]>;
 
     constructor(
         private apiShopsService: ApiShopsService,
         private shopsBalance: ShopsBalanceService,
-        @Inject(SEARCH_LIMIT)
-        private searchLimit: number
+        private filtersStore: ShopsFiltersStoreService,
+        private filtersService: ShopsFiltersService,
+        @Optional()
+        @Inject(SHOPS_LIST_PAGINATION_OFFSET)
+        private paginationOffset: number = DEFAULT_LIST_PAGINATION_OFFSET
     ) {
+        this.initPaginationOffset();
         this.initAllShopsFetching();
         this.initOffsetObservable();
+        this.initFilteredShopsObservable();
         this.initShownShopsObservable();
         this.initIndicators();
+        this.initFiltersStore();
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
@@ -69,6 +83,17 @@ export class FetchShopsService {
         this.loader$.next(false);
     }
 
+    protected updateFilters(data: ShopFiltersData): void {
+        this.startLoading();
+        this.filters$.next(data);
+    }
+
+    private initPaginationOffset(): void {
+        if (isNil(this.paginationOffset)) {
+            this.paginationOffset = DEFAULT_LIST_PAGINATION_OFFSET;
+        }
+    }
+
     private initAllShopsFetching(): void {
         this.allShops$ = this.realmData$.pipe(
             filterShopsByRealm(this.apiShopsService.shops$),
@@ -78,7 +103,7 @@ export class FetchShopsService {
 
     private initOffsetObservable(): void {
         this.listOffset$ = this.showMore$.pipe(
-            mapTo(this.searchLimit),
+            mapTo(this.paginationOffset),
             withLatestFrom(this.selectedIndex$),
             map(([curOffset]: [number, number]) => curOffset),
             scan((offset: number, limit: number) => offset + limit, 0),
@@ -86,9 +111,19 @@ export class FetchShopsService {
         );
     }
 
+    private initFilteredShopsObservable(): void {
+        this.filteredShops$ = combineLatest([this.allShops$, this.filters$, this.listOffset$]).pipe(
+            map(([shops, filters]: [ShopItem[], ShopFiltersData, number]) => {
+                return this.filtersService.filterShops(shops, filters);
+            })
+        );
+    }
+
     private initShownShopsObservable(): void {
-        this.loadedShops$ = combineLatest([this.allShops$, this.listOffset$]).pipe(
-            map(([shops, showedCount]: [ShopItem[], number]) => shops.slice(0, showedCount)),
+        this.shownShops$ = combineLatest([this.filteredShops$, this.listOffset$]).pipe(
+            map(([filteredShops, showedCount]: [ShopItem[], number]) => {
+                return this.sliceOffset(filteredShops, showedCount);
+            }),
             switchMap((shops: ApiShop[]) => {
                 const shopIds: string[] = shops.map(({ id }: ApiShop) => id);
                 return this.shopsBalance
@@ -103,9 +138,23 @@ export class FetchShopsService {
     private initIndicators(): void {
         this.lastUpdated$ = this.allShops$.pipe(mapToTimestamp, shareReplay(1));
         this.isLoading$ = this.loader$.asObservable();
-        this.hasMore$ = combineLatest([this.allShops$.pipe(pluck('length')), this.listOffset$]).pipe(
+
+        this.hasMore$ = combineLatest([
+            this.filteredShops$.pipe(pluck('length')),
+            this.shownShops$.pipe(pluck('length')),
+        ]).pipe(
             map(([count, showedCount]: [number, number]) => count > showedCount),
             shareReplay(SHARE_REPLAY_CONF)
         );
+    }
+
+    private initFiltersStore(): void {
+        this.filtersStore.data$.subscribe((filtersData: ShopFiltersData) => {
+            this.updateFilters(filtersData);
+        });
+    }
+
+    private sliceOffset(list: ShopItem[], offset: number): ShopItem[] {
+        return list.slice(0, offset);
     }
 }

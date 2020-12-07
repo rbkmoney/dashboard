@@ -1,9 +1,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { SEARCH_LIMIT } from '@dsh/app/sections/constants';
+import { instance, mock, when } from 'ts-mockito';
 
 import { Shop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { AnalyticsService } from '../../../../../../api/analytics';
@@ -13,7 +12,9 @@ import { ShopBalanceModule } from '../../shops-list/shop-balance';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';
 import { ShopsBalanceService } from '../shops-balance/shops-balance.service';
-import { FetchShopsService } from './fetch-shops.service';
+import { ShopsFiltersStoreService } from '../shops-filters-store/shops-filters-store.service';
+import { ShopsFiltersService } from '../shops-filters/shops-filters.service';
+import { FetchShopsService, SHOPS_LIST_PAGINATION_OFFSET } from './fetch-shops.service';
 
 class MockApiShopsService {
     shops$: Observable<Shop[]>;
@@ -39,10 +40,14 @@ describe('FetchShopsService', () => {
     let apiShopsService: MockApiShopsService;
     let analyticsService: MockAnalyticsService;
     let balancesService: ShopBalanceModule;
+    let mockShopsFiltersStoreService: ShopsFiltersStoreService;
 
     beforeEach(() => {
         apiShopsService = new MockApiShopsService();
         analyticsService = new MockAnalyticsService();
+        mockShopsFiltersStoreService = mock(ShopsFiltersStoreService);
+
+        when(mockShopsFiltersStoreService.data$).thenReturn(of({}));
     });
 
     beforeEach(() => {
@@ -50,6 +55,11 @@ describe('FetchShopsService', () => {
             providers: [
                 FetchShopsService,
                 ShopsBalanceService,
+                ShopsFiltersService,
+                {
+                    provide: ShopsFiltersStoreService,
+                    useFactory: () => instance(mockShopsFiltersStoreService),
+                },
                 {
                     provide: ApiShopsService,
                     useValue: apiShopsService,
@@ -59,7 +69,7 @@ describe('FetchShopsService', () => {
                     useValue: analyticsService,
                 },
                 {
-                    provide: SEARCH_LIMIT,
+                    provide: SHOPS_LIST_PAGINATION_OFFSET,
                     useValue: 5,
                 },
             ],
@@ -116,7 +126,7 @@ describe('FetchShopsService', () => {
             service.initOffsetIndex(3);
 
             expect(
-                service.loadedShops$.pipe(
+                service.shownShops$.pipe(
                     map((list) => {
                         return list.map(({ id }) => id);
                     })
@@ -127,7 +137,7 @@ describe('FetchShopsService', () => {
 
     describe('refreshData', () => {
         beforeEach(() => {
-            service.loadedShops$.subscribe();
+            service.shownShops$.subscribe();
         });
 
         it('should call apiShopService reload method', () => {
@@ -189,7 +199,7 @@ describe('FetchShopsService', () => {
 
     describe('showMore', () => {
         beforeEach(() => {
-            service.loadedShops$.subscribe();
+            service.shownShops$.subscribe();
         });
 
         it('should tick more data', () => {
@@ -204,7 +214,7 @@ describe('FetchShopsService', () => {
             service.showMore();
 
             expect(
-                service.loadedShops$.pipe(
+                service.shownShops$.pipe(
                     map((list) => {
                         return list.map(({ id }) => id);
                     })
