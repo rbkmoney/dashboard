@@ -1,5 +1,15 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy, Component, Inject, Input, NgZone, OnChanges, OnInit, Optional, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Inject,
+    Input,
+    NgZone,
+    OnChanges,
+    OnInit,
+    Optional,
+    ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -83,9 +93,11 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
 
     constructor(
         private zone: NgZone,
-        @Optional() @Inject(VIRTUAL_SCROLL_LIST_MULTIPLIER)
+        @Optional()
+        @Inject(VIRTUAL_SCROLL_LIST_MULTIPLIER)
         private innerListMultiplier: number,
-        @Optional() @Inject(VIRTUAL_SCROLL_ITEM_SIZE)
+        @Optional()
+        @Inject(VIRTUAL_SCROLL_ITEM_SIZE)
         private innerItemSize: number
     ) {}
 
