@@ -9,8 +9,11 @@
         <dsh-details-item [title]="t('quantity')" fxFlex>
             {{ line.quantity }}
         </dsh-details-item>
-        <dsh-details-item *ngIf="line.taxMode" [title]="t('tax')" fxFlex>
-            {{ line.taxMode }}
+        <dsh-details-item *ngIf="line.taxMode; else emptyBlock" [title]="t('tax')" fxFlex>
+            {{ line.taxMode | taxModeToTaxRate }}
         </dsh-details-item>
+        <ng-template #emptyBlock>
+            <div fxFlex></div>
+        </ng-template>
     </div>
 </div>

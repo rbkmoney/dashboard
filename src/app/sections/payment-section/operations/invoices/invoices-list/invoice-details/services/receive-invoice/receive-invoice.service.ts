@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { Invoice } from '../../../../../../../../api-codegen/capi';
 import { InvoiceService } from '../../../../../../../../api/invoice';
 
+@UntilDestroy()
 @Injectable()
 export class ReceiveInvoiceService {
     isLoading$: Observable<boolean>;
@@ -34,7 +36,8 @@ export class ReceiveInvoiceService {
                     )
                 ),
                 filter((result) => result !== 'error'),
-                map((r) => r as Invoice)
+                map((r) => r as Invoice),
+                untilDestroyed(this)
             )
             .subscribe((invoice: Invoice) => {
                 this.loading$.next(false);

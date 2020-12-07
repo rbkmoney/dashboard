@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
@@ -10,6 +11,7 @@ export interface ReceivePaymentParams {
     paymentID: string;
 }
 
+@UntilDestroy()
 @Injectable()
 export class ReceivePaymentService {
     isLoading$: Observable<boolean>;
@@ -39,7 +41,8 @@ export class ReceivePaymentService {
                     )
                 ),
                 filter((result) => result !== 'error'),
-                map((r) => r as PaymentSearchResult)
+                map((r) => r as PaymentSearchResult),
+                untilDestroyed(this)
             )
             .subscribe((payment: PaymentSearchResult) => {
                 this.loading$.next(false);

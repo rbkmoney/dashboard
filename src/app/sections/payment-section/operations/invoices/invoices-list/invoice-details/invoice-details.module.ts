@@ -21,6 +21,7 @@ import { InvoiceCartLineComponent } from './components/invoice-cart-info/cart-in
 import { InvoiceCartInfoComponent } from './components/invoice-cart-info/invoice-cart-info.component';
 import { InvoiceMainInfoComponent } from './components/invoice-main-info/invoice-main-info.component';
 import { InvoiceDetailsComponent } from './invoice-details.component';
+import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-tax-rate.pipe';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { InvoiceDetailsComponent } from './invoice-details.component';
         InvoiceMainInfoComponent,
         InvoiceCartInfoComponent,
         InvoiceCartLineComponent,
+        TaxModeToTaxRatePipe,
     ],
     exports: [InvoiceDetailsComponent],
 })
