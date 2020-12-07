@@ -1,0 +1,40 @@
+<form
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
+    fxLayout="column"
+    fxLayoutGap="16px"
+    [formGroup]="bankAccountForm"
+>
+    <mat-form-field>
+        <mat-label>{{ p('new.search') }}</mat-label>
+        <dsh-dadata-autocomplete
+            formControlName="search"
+            type="bank"
+            (optionSelected)="bankSelected($event)"
+        ></dsh-dadata-autocomplete>
+    </mat-form-field>
+
+    <div *ngIf="bankAccountNameControl.dirty || bankAccountNameControl.value" fxLayout="column" fxLayoutGap="8px">
+        <mat-form-field>
+            <mat-label>{{ p('new.name') }}</mat-label>
+            <input aria-label="bankName" formControlName="bankName" matInput required />
+        </mat-form-field>
+        <div fxLayout fxLayoutGap="24px">
+            <mat-form-field fxFlex>
+                <mat-label>{{ p('new.bik') }}</mat-label>
+                <dsh-format-input formControlName="bankBik" format="bik" required></dsh-format-input>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ p('new.postAccount') }}</mat-label>
+                <dsh-format-input
+                    formControlName="bankPostAccount"
+                    format="bankPostAccount"
+                    required
+                ></dsh-format-input>
+            </mat-form-field>
+        </div>
+        <mat-form-field>
+            <mat-label>{{ p('new.account') }}</mat-label>
+            <dsh-format-input formControlName="account" format="bankAccount" required></dsh-format-input>
+        </mat-form-field>
+    </div>
+</form>

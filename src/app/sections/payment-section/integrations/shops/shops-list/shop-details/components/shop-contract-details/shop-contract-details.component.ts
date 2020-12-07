@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 
 @Component({
     selector: 'dsh-shop-contract-details',
@@ -11,7 +11,7 @@ import { ShopContractDetailsService } from '../../services/shop-contract-details
 export class ShopContractDetailsComponent {
     @Input()
     set contractID(contractID: string) {
-        this.shopContractDetailsService.getContract(contractID);
+        this.shopContractDetailsService.requestContract(contractID);
     }
 
     contract$ = this.shopContractDetailsService.shopContract$;
