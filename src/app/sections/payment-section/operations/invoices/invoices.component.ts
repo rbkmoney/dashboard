@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
@@ -19,6 +20,7 @@ import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.s
 import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manager/invoices-expanded-id-manager.service';
 import { InvoicesSearchFiltersStore } from './services/invoices-search-filters-store/invoices-search-filters-store.service';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
@@ -51,7 +53,9 @@ export class InvoicesComponent {
         private route: ActivatedRoute,
         private dialog: MatDialog
     ) {
-        this.invoicesService.errors$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+        this.invoicesService.errors$
+            .pipe(untilDestroyed(this))
+            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
     searchParamsChanges(p: SearchFiltersParams) {

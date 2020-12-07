@@ -58,7 +58,7 @@
             "paymentMethod": "Метод оплаты"
         },
         "headerRow": {
-            "productName": "Наименовани",
+            "productName": "Наименование",
             "amount": "Стоимость",
             "status": "Статус",
             "createdAt": "Создан",
