@@ -12,7 +12,7 @@ export function createShopCreationModification(
         ...createBaseShopModification({
             id,
             modification: {
-                shopModificationType: 'ShopParams' as any,
+                shopModificationType: 'ShopParams',
                 ...params,
             },
         }),
@@ -27,7 +27,7 @@ export function createTestShopCreationModification(
 ): PartyModification {
     return createShopCreationModification(id, {
         category: {
-            shopModificationType: 'CategoryRef' as any, // wrong enum
+            shopModificationType: 'CategoryRef',
             id: 1,
         },
         location: makeShopLocation({ url }),

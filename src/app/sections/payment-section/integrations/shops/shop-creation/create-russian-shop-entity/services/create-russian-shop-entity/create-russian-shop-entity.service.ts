@@ -81,15 +81,15 @@ export class CreateRussianShopEntityService {
                 registeredNumber,
                 representativeDocument,
                 representativeFullName,
-                representativePosition, // remove any cause representativePosition would be fixed in next update api
-            } as any),
+                representativePosition,
+            }),
             createContractorParamsModification(contractID, {
                 contractorID,
             }),
             ...payoutChangeset,
             createShopCreationModification(shopID, {
                 category: {
-                    shopModificationType: 'CategoryRef' as any, // wrong enum
+                    shopModificationType: 'CategoryRef',
                     id: 1,
                 },
                 location: makeShopLocation({ url }),
