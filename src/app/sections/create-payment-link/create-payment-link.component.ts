@@ -6,23 +6,10 @@ import { map, shareReplay, startWith } from 'rxjs/operators';
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
 
 import { coerceBoolean } from '../../../utils';
-import { Invoice, InvoiceTemplateAndToken } from '../../api-codegen/capi';
 import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';
 import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
-import { CreatePaymentLinkService, HoldExpiration } from './create-payment-link.service';
-
-const OrderedPaymentMethodsNames = [
-    'bankCard',
-    'wallets',
-    'euroset',
-    'qps',
-    'mobileCommerce',
-    'applePay',
-    'googlePay',
-    'samsungPay',
-] as const;
 
 @Component({
     selector: 'dsh-create-payment-link',

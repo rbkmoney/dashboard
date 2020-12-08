@@ -23,13 +23,17 @@ import {
     PaymentMethod,
     PaymentTerminal,
 } from '@dsh/api-codegen/capi';
+import { ShortenedUrl } from '@dsh/api-codegen/url-shortener';
 import { InvoiceService } from '@dsh/api/invoice';
 import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
 import { UrlShortenerService } from '@dsh/api/url-shortener';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { ConfigService } from '../../config';
-import { filterError, filterPayload, progress, replaceError } from '../../custom-operators';
+import { ConfigService } from '../../../config';
+import { filterError, filterPayload, progress, replaceError } from '../../../custom-operators';
+import { HoldExpiration } from '../types/hold-expiration';
+import { InvoiceType } from '../types/invoice-type';
+import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';
 
 export class PaymentLinkParams {
     invoiceID?: string;
@@ -39,9 +43,9 @@ export class PaymentLinkParams {
     name?: string;
     description?: string;
     email?: string;
-    redirectUrl?: string;
+    redirectUrl?: string; // can be removed. not used
     paymentFlowHold?: boolean;
-    holdExpiration?: string;
+    holdExpiration?: string; // can be removed. not used
     terminals?: boolean;
     wallets?: boolean;
     bankCard?: boolean;
@@ -160,7 +164,7 @@ export class CreatePaymentLinkService {
             .subscribe(() => this.form.reset(this.createForm().value));
     }
 
-    private shortenUrlByTemplate(invoiceTemplateAndToken: InvoiceTemplateAndToken) {
+    private shortenUrlByTemplate(invoiceTemplateAndToken: InvoiceTemplateAndToken): Observable<ShortenedUrl> {
         return this.urlShortenerService.shortenUrl(
             this.buildUrl({
                 invoiceTemplateID: invoiceTemplateAndToken.invoiceTemplate.id,
@@ -170,7 +174,7 @@ export class CreatePaymentLinkService {
         );
     }
 
-    private shortenUrlByInvoice(invoice: Invoice, invoiceAccessToken: string) {
+    private shortenUrlByInvoice(invoice: Invoice, invoiceAccessToken: string): Observable<ShortenedUrl> {
         return this.urlShortenerService.shortenUrl(
             this.buildUrl({
                 invoiceID: invoice.id,
@@ -180,14 +184,14 @@ export class CreatePaymentLinkService {
         );
     }
 
-    private buildUrl(params: PaymentLinkParams) {
+    private buildUrl(params: PaymentLinkParams): string {
         const queryParamsStr = Object.entries({ ...this.getPaymentLinkParamsFromFormValue(), ...params })
             .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&');
         return `${this.configService.checkoutEndpoint}/v1/checkout.html?${queryParamsStr}`;
     }
 
-    private createDateFromLifetime(lifetime: LifetimeInterval) {
+    private createDateFromLifetime(lifetime: LifetimeInterval): string {
         return moment().add(moment.duration(lifetime)).utc().format();
     }
 
