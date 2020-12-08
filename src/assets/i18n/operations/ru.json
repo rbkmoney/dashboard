@@ -36,6 +36,7 @@
     },
     "invoices": {
         "title": "Инвойсы",
+        "header": "Инвойс",
         "filter": {
             "shopID": "Магазин",
             "fromTime": "Начало периода",
@@ -56,16 +57,12 @@
             "bankCardPaymentSystem": "Платежаня система",
             "paymentMethod": "Метод оплаты"
         },
-        "table": {
-            "product": "Наименование продукта",
-            "amount": "Сумма списания",
+        "headerRow": {
+            "productName": "Наименование",
+            "amount": "Стоимость",
             "status": "Статус",
             "createdAt": "Создан",
-            "invoiceID": "Идентификатор инвойса",
-            "shop": "Магазин",
-            "actions": {
-                "invoiceDetails": "Детали инвойса"
-            }
+            "shop": "Магазин"
         }
     },
     "refunds": {
