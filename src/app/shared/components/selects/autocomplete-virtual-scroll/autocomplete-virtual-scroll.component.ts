@@ -1,5 +1,15 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy, Component, Input, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Inject,
+    Input,
+    NgZone,
+    OnChanges,
+    OnInit,
+    Optional,
+    ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -12,8 +22,8 @@ import { map } from 'rxjs/operators';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
 import { ComponentChange, ComponentChanges } from '../../../../../type-utils';
+import { VIRTUAL_SCROLL_ITEM_SIZE, VIRTUAL_SCROLL_LIST_MULTIPLIER } from '../tokens';
 
-// TODO: make this constants as a dependency
 const ITEM_SIZE = 48;
 const LIST_MULTIPLIER = 5;
 const DEFAULT_PLACEHOLDER = 'Search ...';
@@ -51,8 +61,18 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     filteredOptions: BaseOption[];
     searchControl = new FormControl();
 
-    itemSize: number = ITEM_SIZE;
-    listMultiplier: number = LIST_MULTIPLIER;
+    get itemSize(): number {
+        if (isNil(this.innerItemSize)) {
+            return ITEM_SIZE;
+        }
+        return this.innerItemSize;
+    }
+    get listMultiplier(): number {
+        if (isNil(this.innerListMultiplier)) {
+            return LIST_MULTIPLIER;
+        }
+        return this.innerListMultiplier;
+    }
 
     get listSize(): number {
         if (isNil(this.filteredOptions)) {
@@ -61,17 +81,25 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
 
         const length = this.filteredOptions.length;
 
-        if (length >= LIST_MULTIPLIER) {
-            return LIST_MULTIPLIER * ITEM_SIZE;
+        if (length >= this.listMultiplier) {
+            return this.listMultiplier * this.itemSize;
         }
 
-        return length * ITEM_SIZE;
+        return length * this.itemSize;
     }
 
     private scrollableElement: HTMLElement;
     private innerPlaceholder = DEFAULT_PLACEHOLDER;
 
-    constructor(private zone: NgZone) {}
+    constructor(
+        private zone: NgZone,
+        @Optional()
+        @Inject(VIRTUAL_SCROLL_LIST_MULTIPLIER)
+        private innerListMultiplier: number,
+        @Optional()
+        @Inject(VIRTUAL_SCROLL_ITEM_SIZE)
+        private innerItemSize: number
+    ) {}
 
     ngOnInit(): void {
         this.initControls();
@@ -94,9 +122,9 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
             return '';
         }
 
-        const [error] = Object.entries<string | string[] | null>(this.control.errors).map(
-            ([, value]: [string, string | string[] | null]) => value
-        );
+        const [error] = Object.entries<string | string[] | null>(this.control.errors)
+            .map(([, value]: [string, string | string[] | null]) => value)
+            .filter(Boolean);
         const errorMessage = Array.isArray(error) ? error[0] : error;
         return isNil(errorMessage) ? '' : errorMessage;
     }
@@ -106,7 +134,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     }
 
     clearValue(): void {
-        this.control.setValue('');
+        this.control.setValue(null);
         this.searchControl.setValue('');
         // need to make update after cycle was completed once
         setTimeout(() => {
@@ -161,11 +189,11 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
             .map((option: BaseOption) => {
                 return {
                     ...option,
-                    indexOf: option.label.indexOf(search),
+                    indexOf: option.label.toLowerCase().indexOf(search),
                 };
             })
             .sort(({ indexOf: aIndex }, { indexOf: bIndex }) => {
-                return aIndex > bIndex ? 1 : -1;
+                return aIndex >= bIndex ? 1 : -1;
             })
             .map(({ id, label }) => ({ id, label }));
     }

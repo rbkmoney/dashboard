@@ -15,3 +15,9 @@ export function createContractorParamsModification(
         }),
     };
 }
+
+export function createTestContractorModification(id: string, contractorID: string): PartyModification {
+    return createContractorParamsModification(id, {
+        contractorID,
+    });
+}

@@ -5,7 +5,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
+import { instance, mock, when } from 'ts-mockito';
 
 import { CategoriesModule } from '@dsh/api/categories';
 import { ContractsModule } from '@dsh/api/contracts';
@@ -13,13 +14,10 @@ import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/compone
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Category } from '../../../../../../api-codegen/capi';
 import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';
-import { MockShopContractDetailsService } from '../tests/mock-shop-contract-details-service';
-import { MockShopPayoutToolDetailsService } from '../tests/mock-shop-payout-tool-details-service';
 import { ShopActionsComponent } from './components/shop-actions/shop-actions.component';
 import { ShopContractDetailsComponent } from './components/shop-contract-details/shop-contract-details.component';
 import { ShopIdComponent } from './components/shop-id/shop-id.component';
@@ -30,37 +28,19 @@ import { ShopActionsService } from './services/shop-actions/shop-actions.service
 import { ShopDetailsComponent } from './shop-details.component';
 import { ShopActionResult } from './types/shop-action-result';
 
-class MockCategoryService {
-    category$: Observable<Category | undefined> = of(undefined);
-
-    updateID(): void {
-        // do nothing
-    }
-}
-
-class MockShopActionsService {
-    suspend(): Observable<ShopActionResult> {
-        return of(ShopActionResult.SUCCESS);
-    }
-
-    activate(): Observable<ShopActionResult> {
-        return of(ShopActionResult.SUCCESS);
-    }
-}
-
 describe('ShopDetailsComponent', () => {
     let component: ShopDetailsComponent;
     let fixture: ComponentFixture<ShopDetailsComponent>;
-    let mockCategoryService: MockCategoryService;
-    let mockContractsService: MockShopContractDetailsService;
-    let mockPayoutsService: MockShopPayoutToolDetailsService;
-    let mockActionsService: MockShopActionsService;
+    let mockCategoryService: CategoryService;
+    let mockContractsService: ShopContractDetailsService;
+    let mockPayoutsService: ShopPayoutToolDetailsService;
+    let mockActionsService: ShopActionsService;
 
     beforeEach(() => {
-        mockCategoryService = new MockCategoryService();
-        mockContractsService = new MockShopContractDetailsService();
-        mockPayoutsService = new MockShopPayoutToolDetailsService();
-        mockActionsService = new MockShopActionsService();
+        mockCategoryService = mock(CategoryService);
+        mockContractsService = mock(ShopContractDetailsService);
+        mockPayoutsService = mock(ShopPayoutToolDetailsService);
+        mockActionsService = mock(ShopActionsService);
     });
 
     beforeEach(async(() => {
@@ -93,15 +73,15 @@ describe('ShopDetailsComponent', () => {
             providers: [
                 {
                     provide: CategoryService,
-                    useValue: mockCategoryService,
+                    useFactory: () => instance(mockCategoryService),
                 },
                 {
                     provide: ShopContractDetailsService,
-                    useValue: mockContractsService,
+                    useFactory: () => instance(mockContractsService),
                 },
                 {
                     provide: ShopPayoutToolDetailsService,
-                    useValue: mockPayoutsService,
+                    useFactory: () => instance(mockPayoutsService),
                 },
                 {
                     provide: ShopActionsService,
@@ -126,6 +106,16 @@ describe('ShopDetailsComponent', () => {
             })
             .compileComponents();
     }));
+
+    beforeEach(() => {
+        when(mockCategoryService.category$).thenReturn(of(undefined));
+        when(mockContractsService.shopContract$).thenReturn(of(null));
+        when(mockContractsService.errorOccurred$).thenReturn(of(false));
+        when(mockPayoutsService.shopPayoutTool$).thenReturn(of(null));
+        when(mockPayoutsService.errorOccurred$).thenReturn(of(false));
+        when(mockActionsService.suspend).thenReturn(() => of(ShopActionResult.SUCCESS));
+        when(mockActionsService.activate).thenReturn(() => of(ShopActionResult.SUCCESS));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopDetailsComponent);

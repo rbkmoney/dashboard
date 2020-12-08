@@ -3,7 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import isNil from 'lodash.isnil';
 
 import { BankContent } from '../../../../../../../../api-codegen/aggr-proxy';
-import { NEW_BANK_ACCOUNT_BANK_NAME_FIELD, NEW_BANK_ACCOUNT_FIELD } from '../../consts';
+import {
+    NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
+    NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
+    NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD,
+    NEW_BANK_ACCOUNT_FIELD,
+} from '../../consts';
 
 @Component({
     selector: 'dsh-new-bank-account',
@@ -35,10 +40,10 @@ export class NewBankAccountComponent {
     bankSelected({ bic: bankBik, correspondentAccount: bankPostAccount, value: bankName }: BankContent): void {
         this.form.patchValue(
             {
-                newBankAccount: {
-                    bankName,
-                    bankBik,
-                    bankPostAccount,
+                [NEW_BANK_ACCOUNT_FIELD]: {
+                    [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: bankName,
+                    [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: bankBik,
+                    [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: bankPostAccount,
                 },
             },
             {

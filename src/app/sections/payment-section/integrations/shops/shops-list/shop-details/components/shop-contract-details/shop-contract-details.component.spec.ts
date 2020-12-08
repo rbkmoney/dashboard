@@ -1,45 +1,29 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslocoTestingModule } from '@ngneat/transloco';
+import { instance, mock, verify, when } from 'ts-mockito';
+
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
-import { MockShopContractDetailsService } from '../../../tests/mock-shop-contract-details-service';
 import { ShopContractDetailsComponent } from './shop-contract-details.component';
 
 describe('ShopContractDetailsComponent', () => {
     let component: ShopContractDetailsComponent;
     let fixture: ComponentFixture<ShopContractDetailsComponent>;
-    let mockContractsService: MockShopContractDetailsService;
+    let mockContractsService: ShopContractDetailsService;
 
     beforeEach(() => {
-        mockContractsService = new MockShopContractDetailsService();
+        mockContractsService = mock(ShopContractDetailsService);
     });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                TranslocoTestingModule.withLangs(
-                    {
-                        en: {
-                            shops: {
-                                shopContract: {
-                                    title: 'ShopContractTitle',
-                                    error: 'ShopContractError',
-                                },
-                            },
-                        },
-                    },
-                    {
-                        availableLangs: ['en'],
-                        defaultLang: 'en',
-                    }
-                ),
-            ],
+            imports: [getTranslocoModule()],
             declarations: [ShopContractDetailsComponent],
             providers: [
                 {
                     provide: ShopContractDetailsService,
-                    useValue: mockContractsService,
+                    useFactory: () => instance(mockContractsService),
                 },
             ],
         })
@@ -65,12 +49,12 @@ describe('ShopContractDetailsComponent', () => {
 
     describe('contractID', () => {
         it('should call getContract on id change', () => {
-            const spyOnGetContract = spyOn(mockContractsService, 'getContract').and.callThrough();
+            when(mockContractsService.requestContract('my_id')).thenReturn();
 
             component.contractID = 'my_id';
 
-            expect(spyOnGetContract).toHaveBeenCalledTimes(1);
-            expect(spyOnGetContract).toHaveBeenCalledWith('my_id');
+            verify(mockContractsService.requestContract('my_id')).once();
+            expect().nothing();
         });
     });
 });

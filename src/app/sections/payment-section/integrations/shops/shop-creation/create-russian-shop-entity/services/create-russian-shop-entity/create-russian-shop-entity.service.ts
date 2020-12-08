@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import isNil from 'lodash.isnil';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
-import uuid from 'uuid';
 
 import { ClaimsService } from '@dsh/api/claims';
 import {
@@ -14,15 +13,16 @@ import {
     makeShopDetails,
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
+import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
 import { Claim, PartyModification } from '../../../../../../../../api-codegen/claim-management';
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 
 @Injectable()
 export class CreateRussianShopEntityService {
-    constructor(private claimsService: ClaimsService) {}
+    constructor(private claimsService: ClaimsService, private uuidGenerator: UuidGeneratorService) {}
 
-    createShop(creationData: RussianShopCreateData) {
+    createShop(creationData: RussianShopCreateData): Observable<Claim> {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
             switchMap((claim: Claim) => {
                 return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
@@ -38,11 +38,11 @@ export class CreateRussianShopEntityService {
         payoutToolID: shopPayoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
     }: RussianShopCreateData): PartyModification[] {
-        const contractorID = uuid();
-        const contractID = uuid();
-        const shopID = uuid();
+        const contractorID = this.uuidGenerator.generateUUID();
+        const contractID = this.uuidGenerator.generateUUID();
+        const shopID = this.uuidGenerator.generateUUID();
 
-        let payoutToolID = uuid();
+        let payoutToolID = this.uuidGenerator.generateUUID();
         const payoutChangeset: PartyModification[] = [];
 
         if (isNil(shopPayoutToolID)) {
