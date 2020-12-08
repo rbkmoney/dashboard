@@ -21,7 +21,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { CreatePaymentLinkComponent } from './create-payment-link.component';
-import { CreatePaymentLinkService } from './create-payment-link.service';
+import { CreatePaymentLinkService } from './services/create-payment-link.service';
 
 const EXPORTED_DECLARATIONS = [CreatePaymentLinkComponent];
 
