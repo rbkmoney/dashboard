@@ -1,6 +1,6 @@
 import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 
-export interface ClaimSearchFormValue {
+export interface ClaimsSearchFiltersSearchParams {
     claimID: number;
-    claimStatus: StatusModificationUnit.StatusEnum[];
+    claimStatuses: StatusModificationUnit.StatusEnum[];
 }

@@ -1,0 +1,5 @@
+@mixin dsh-navigation-link-typography($config) {
+    .dsh-navigation-link {
+        text-decoration: underline;
+    }
+}
