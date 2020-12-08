@@ -37,6 +37,7 @@
     "invoices": {
         "title": "Инвойсы",
         "header": "Инвойс",
+        "shop": "Магазин",
         "filter": {
             "shopID": "Магазин",
             "fromTime": "Начало периода",
@@ -56,6 +57,13 @@
             "bankCardTokenProvider": "Провайдер платежных токенов",
             "bankCardPaymentSystem": "Платежаня система",
             "paymentMethod": "Метод оплаты"
+        },
+        "cartInfo": {
+            "title": "Корзина с набором товаров и услуг",
+            "description": "Описание товара или услуги",
+            "price": "Цена",
+            "quantity": "Количество",
+            "tax": "Ставка налога"
         },
         "headerRow": {
             "productName": "Наименование",

@@ -9,15 +9,16 @@
     >
         <dsh-accordion-item *ngFor="let invoice of invoices" #accordionItem>
             <dsh-invoice-row [invoice]="invoice"></dsh-invoice-row>
-            <ng-template dshLazyPanelContent>
+            <dsh-accordion-item-content>
                 <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
                     <dsh-accordion-item-content-header
                         *transloco="let t; scope: 'operations'; read: 'operations.invoices'"
                         (collapse)="accordionItem.collapse($event)"
                         >{{ t('header') }} #{{ invoice.id }}</dsh-accordion-item-content-header
                     >
+                    <dsh-invoice-invoice-details [invoice]="invoice"></dsh-invoice-invoice-details>
                 </dsh-card>
-            </ng-template>
+            </dsh-accordion-item-content>
         </dsh-accordion-item>
     </dsh-accordion>
 </div>
