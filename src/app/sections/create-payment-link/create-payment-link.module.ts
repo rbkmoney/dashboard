@@ -12,12 +12,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { InvoiceModule } from '@dsh/api/invoice';
+import { InvoiceTemplatesModule } from '@dsh/api/invoice-templates';
+import { UrlShortenerModule } from '@dsh/api/url-shortener';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { InvoiceModule, InvoiceTemplatesModule, UrlShortenerModule } from '../../api';
 import { CreatePaymentLinkComponent } from './create-payment-link.component';
 import { CreatePaymentLinkService } from './create-payment-link.service';
 

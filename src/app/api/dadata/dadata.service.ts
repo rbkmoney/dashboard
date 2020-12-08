@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { DaDataRequest, DaDataService as DaDataApiService } from '../../api-codegen/aggr-proxy';
+import { DaDataRequest, DaDataService as DaDataApiService } from '@dsh/api-codegen/aggr-proxy';
+
 import { ParamsByRequestType } from './suggest-request';
 import { ResponseByRequestType, SuggestionsByRequestType } from './suggest-response';
 

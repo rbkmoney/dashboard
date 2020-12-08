@@ -4,7 +4,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
 import { map, share, shareReplay, switchMap } from 'rxjs/operators';
 
-import { FilesService } from '../../../../api';
+import { FilesService } from '@dsh/api/files';
+
 import { progress } from '../../../../custom-operators';
 import { filterError, filterPayload, replaceError } from '../../../../custom-operators/replace-error';
 import { UpdateClaimService } from '../../update-claim';

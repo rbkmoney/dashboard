@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Report, ReportLink, ReportsService as ReportsApiService } from '../../api-codegen/anapi';
+import { Report, ReportLink, ReportsService as ReportsApiService } from '@dsh/api-codegen/anapi';
+
 import { genXRequestID, toDateLike } from '../utils';
 import { CreateReportReq } from './create-reports';
 import { SearchReportsReq } from './search-reports';

@@ -5,8 +5,9 @@ import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs'
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 import uuid from 'uuid';
 
-import { createSingleMessageConversationParams, MessagesService } from '../../../../api';
-import { Conversation } from '../../../../api-codegen/messages';
+import { Conversation } from '@dsh/api-codegen/messages';
+import { createSingleMessageConversationParams, MessagesService } from '@dsh/api/messages';
+
 import { progress } from '../../../../custom-operators';
 import { UIError } from '../../../ui-error';
 

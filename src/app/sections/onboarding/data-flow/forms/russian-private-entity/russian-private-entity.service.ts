@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary/swagger-codegen';
+import { QuestionaryData } from '@dsh/api-codegen/questionary/swagger-codegen';
+
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';

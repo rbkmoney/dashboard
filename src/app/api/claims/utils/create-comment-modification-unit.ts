@@ -1,4 +1,5 @@
-import { CommentModificationUnit } from '../../../api-codegen/claim-management';
+import { CommentModificationUnit } from '@dsh/api-codegen/claim-management';
+
 import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 
 export const createCommentModificationUnit = (

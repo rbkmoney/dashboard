@@ -4,7 +4,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Claim } from '../../api-codegen/claim-management';
+import { Claim } from '@dsh/api-codegen/claim-management';
+
 import { booleanDelay } from '../../custom-operators';
 import { ClaimType, getClaimType } from '../../view-utils';
 import { RouteParamClaimService } from './route-param-claim.service';

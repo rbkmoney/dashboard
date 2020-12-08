@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
 
-import { Wallet } from '../../../../../api-codegen/wallet-api/swagger-codegen';
+import { Wallet } from '@dsh/api-codegen/wallet-api';
+
 import { LAYOUT_GAP } from '../../../../constants';
 
 @Component({

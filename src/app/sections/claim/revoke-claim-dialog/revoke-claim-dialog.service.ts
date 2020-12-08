@@ -5,7 +5,8 @@ import get from 'lodash.get';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
-import { ClaimsService } from '../../../api';
+import { ClaimsService } from '@dsh/api/claims';
+
 import { progress } from '../../../custom-operators';
 import { UIError } from '../../ui-error';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';

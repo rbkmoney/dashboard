@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { translate } from '@ngneat/transloco';
 
-import { PaymentError } from '../../../api-codegen/capi/swagger-codegen';
+import { PaymentError } from '@dsh/api-codegen/capi/swagger-codegen';
 
 @Pipe({
     name: 'errorToMessage',

@@ -4,10 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { AnalyticsModule } from '@dsh/api/analytics';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule } from '@dsh/components/layout';
 
-import { AnalyticsModule } from '../../../../api/analytics';
 import { PercentDifferenceModule } from '../percent-difference';
 import { StatItemModule } from '../stat-item/stat-item.module';
 import { RefundsAmountComponent } from './refunds-amount.component';

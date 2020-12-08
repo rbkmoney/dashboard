@@ -9,11 +9,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { KonturFocusModule } from '@dsh/api/kontur-focus';
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { KonturFocusModule } from '../../../api';
 import { DaDataModule } from '../../../dadata';
 import { CompanyDetailItemComponent } from './company-detail-item';
 import { CompanyDetailsComponent } from './company-details';

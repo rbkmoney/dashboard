@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PayoutToolDetailsBankCard } from '../../../../../api-codegen/anapi';
+import { PayoutToolDetailsBankCard } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-bank-card',

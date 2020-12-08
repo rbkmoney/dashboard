@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, merge, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
-import { ApiShopsService, PayoutsService } from '../../../../api';
+import { PayoutsService } from '@dsh/api/payouts';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { toPayoutParams } from './to-payout-params';
 
 @Injectable()

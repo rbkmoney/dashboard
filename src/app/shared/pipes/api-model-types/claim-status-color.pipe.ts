@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+
 import { StatusColor } from '../../../theme-manager';
 
 @Pipe({

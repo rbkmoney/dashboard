@@ -4,8 +4,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { ApiShopsService, ClaimsService } from '../../../../api';
-import { ClaimStatus } from '../../../../api/claims';
+import { ClaimsService, ClaimStatus } from '@dsh/api/claims';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { booleanDelay, takeError } from '../../../../custom-operators';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { toContentConf } from './to-content-conf';

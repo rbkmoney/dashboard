@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
-import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { InvoiceSearchFormValue } from './invoice-search-form-value';
 import { SearchFormService } from './search-form.service';
 

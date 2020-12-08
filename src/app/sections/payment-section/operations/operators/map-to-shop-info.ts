@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Shop } from '../../../../api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
 
 export interface ShopInfo {
     shopID: string;

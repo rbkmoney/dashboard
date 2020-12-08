@@ -15,9 +15,6 @@ import {
     take,
 } from 'rxjs/operators';
 
-import { ConfirmActionDialogComponent } from '@dsh/components/popups';
-
-import { InvoiceService, InvoiceTemplatesService, UrlShortenerService } from '../../api';
 import {
     BankCard,
     Invoice,
@@ -25,7 +22,12 @@ import {
     LifetimeInterval,
     PaymentMethod,
     PaymentTerminal,
-} from '../../api-codegen/capi';
+} from '@dsh/api-codegen/capi';
+import { InvoiceService } from '@dsh/api/invoice';
+import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
+import { UrlShortenerService } from '@dsh/api/url-shortener';
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
 import { ConfigService } from '../../config';
 import { filterError, filterPayload, progress, replaceError } from '../../custom-operators';
 

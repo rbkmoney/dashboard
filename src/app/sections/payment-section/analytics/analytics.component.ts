@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { Shop } from '../../../api-codegen/capi/swagger-codegen';
 import { AnalyticsSearchFiltersStore } from './analytics-search-filters-store.service';
 import { SearchParams } from './search-params';
 

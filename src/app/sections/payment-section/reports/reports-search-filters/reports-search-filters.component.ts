@@ -12,9 +12,9 @@ import isEqual from 'lodash.isequal';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
+import { Report } from '@dsh/api-codegen/anapi';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { Report } from '../../../../api-codegen/anapi';
 import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';

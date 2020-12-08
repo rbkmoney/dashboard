@@ -2,7 +2,7 @@ import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, takeUntil } from 'rxjs/operators';
 
-import { WalletService } from '../../../api';
+import { WalletService } from '@dsh/api/wallet';
 
 @Pipe({
     name: 'walletDetails',

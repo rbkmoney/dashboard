@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+import { FileModificationUnit, Modification } from '@dsh/api-codegen/claim-management';
+import { Conversation } from '@dsh/api-codegen/messages';
 import {
     isClaimModification,
     isCommentModificationUnit,
     isDocumentModificationUnit,
     isFileModificationUnit,
     SpecificClaimModificationUnit,
-} from '../../../api';
-import { FileModificationUnit, Modification } from '../../../api-codegen/claim-management';
-import { Conversation } from '../../../api-codegen/messages';
+} from '@dsh/api/claims';
+
 import { ConversationService } from './conversation.service';
 import { EditDocumentService } from './edit-document.service';
 import { TimelineItemInfo } from './to-timeline-info';

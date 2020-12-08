@@ -9,9 +9,9 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';

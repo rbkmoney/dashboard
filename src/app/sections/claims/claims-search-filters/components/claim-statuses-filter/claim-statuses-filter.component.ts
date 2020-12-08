@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { StatusModificationUnit } from '../../../../../api-codegen/claim-management/swagger-codegen';
+import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 
 @Component({
     selector: 'dsh-claim-statuses-filter',

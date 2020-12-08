@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 
-import { ResidencyInfo } from '../../../../../../api-codegen/questionary';
+import { ResidencyInfo } from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../../form-value';
 
 export const toResidencyInfo = (i: ResidencyInfo): FormValue => ({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { BeneficialOwner, IndividualResidencyInfo } from '../../../../api-codegen/questionary';
+import { BeneficialOwner, IndividualResidencyInfo } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-beneficial-owner-info',

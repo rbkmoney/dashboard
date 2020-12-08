@@ -4,8 +4,9 @@ import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { Contract } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ContractsService } from '../../../../../../../../api/contracts';
+import { Contract } from '@dsh/api-codegen/capi/swagger-codegen';
+import { ContractsService } from '@dsh/api/contracts';
+
 import { ShopContractDetailsService } from './shop-contract-details.service';
 
 describe('ShopContractDetailsService', () => {

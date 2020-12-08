@@ -1,12 +1,8 @@
 import sortBy from 'lodash.sortby';
 import moment from 'moment';
 
-import {
-    OffsetCount,
-    SplitCountResult,
-    SplitUnit,
-    StatusOffsetCount,
-} from '../../../../api-codegen/anapi/swagger-codegen';
+import { OffsetCount, SplitCountResult, SplitUnit, StatusOffsetCount } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { getOffsets } from '../utils';
 
 const statuses: StatusOffsetCount.StatusEnum[] = ['captured', 'cancelled', 'failed'];

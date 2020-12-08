@@ -3,7 +3,8 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of, scheduled } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnalyticsService } from '../../../../../../api/analytics';
+import { AnalyticsService } from '@dsh/api/analytics';
+
 import { generateMockBalance } from '../../tests/generate-mock-balance';
 import { generateMockShopId } from '../../tests/generate-mock-shop-id';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';

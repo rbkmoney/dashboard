@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';
