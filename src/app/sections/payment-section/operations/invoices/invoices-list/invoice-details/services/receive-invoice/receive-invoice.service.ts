@@ -16,7 +16,7 @@ export class ReceiveInvoiceService {
     private receiveInvoice$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
     private error$ = new Subject<boolean>();
-    private receivedInvoice$ = new ReplaySubject<Invoice>();
+    private receivedInvoice$ = new ReplaySubject<Invoice>(1);
 
     constructor(private invoiceService: InvoiceService) {
         this.isLoading$ = this.loading$.asObservable();

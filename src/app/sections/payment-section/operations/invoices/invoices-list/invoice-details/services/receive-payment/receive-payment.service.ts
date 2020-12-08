@@ -21,7 +21,7 @@ export class ReceivePaymentService {
     private receivePayment$ = new Subject<ReceivePaymentParams>();
     private loading$ = new BehaviorSubject(false);
     private error$ = new Subject<boolean>();
-    private receivedPayment$ = new ReplaySubject<PaymentSearchResult>();
+    private receivedPayment$ = new ReplaySubject<PaymentSearchResult>(1);
 
     constructor(private paymentService: PaymentService) {
         this.isLoading$ = this.loading$.asObservable();
