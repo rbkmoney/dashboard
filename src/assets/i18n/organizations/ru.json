@@ -2,8 +2,7 @@
     "header": "Организации",
     "createOrganization": "Создать организацию",
     "headerRow": {
-        "name": "Наименование организации",
-        "roles": "Ваши роли"
+        "name": "Наименование организации"
     },
     "organization": {
         "titles": {

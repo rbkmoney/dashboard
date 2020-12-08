@@ -1,48 +1,30 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
-import { Member, Organization, OrganizationMembership } from '../../../../api-codegen/organizations';
-import { KeycloakService } from '../../../../auth';
+import { Organization } from '../../../../api-codegen/organizations';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { mockOrg } from '../../tests/mock-org';
 
 export type PaginationLimit = number;
 export const PAGINATION_LIMIT = new InjectionToken<PaginationLimit>('paginationLimit');
 const DEFAULT_PAGINATION_LIMIT = 100;
 
 @Injectable()
-export class FetchOrganizationsService extends PartialFetcher<OrganizationMembership, void> {
+export class FetchOrganizationsService extends PartialFetcher<Organization, void> {
     constructor(
+        // tslint:disable-next-line
         private organizationsService: OrganizationsService,
-        private keycloakService: KeycloakService,
+        // tslint:disable-next-line
         @Optional() @Inject(PAGINATION_LIMIT) private paginationLimit: PaginationLimit
     ) {
         super();
         this.paginationLimit = paginationLimit ?? DEFAULT_PAGINATION_LIMIT;
     }
 
-    protected fetch(_params: void, continuationToken?: string): Observable<FetchResult<OrganizationMembership>> {
-        return this.organizationsService.getOrganizations(this.paginationLimit, continuationToken).pipe(
-            // TODO: Need UserService
-            withLatestFrom(this.keycloakService.loadUserProfile()),
-            switchMap(([{ results, continuationToken: newContinuationToken }, { id: userId }]) =>
-                this.getOrganizationsMembers(results, userId).pipe(
-                    map(
-                        (members, idx): FetchResult<OrganizationMembership> => ({
-                            result: members.map((member) => ({
-                                member,
-                                org: results[idx],
-                            })),
-                            continuationToken: newContinuationToken,
-                        })
-                    )
-                )
-            )
-        );
-    }
-
-    private getOrganizationsMembers(organizations: Organization[], userId: string): Observable<Member[]> {
-        return combineLatest(organizations.map(({ id }) => this.organizationsService.getMember(id, userId)));
+    protected fetch(_params: void, continuationToken?: string): Observable<FetchResult<Organization>> {
+        // return this.organizationsService.getOrganizations(this.paginationLimit, continuationToken);
+        return of({ result: new Array(10).fill(mockOrg) }).pipe(delay(1));
     }
 }

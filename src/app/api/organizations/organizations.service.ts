@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MembersService, OrgsService, RoleId, RolesService } from '../../api-codegen/organizations';
+import { MembersService, Organization, OrgsService, RoleId, RolesService } from '../../api-codegen/organizations';
 import { genXRequestID } from '../utils';
 
 @Injectable()
@@ -15,11 +15,15 @@ export class OrganizationsService {
         return this.orgsService.listOrgMembership(genXRequestID(), limit, continuationToken);
     }
 
-    getRole(orgId: string, roleId: RoleId) {
+    getRole(orgId: Organization['id'], roleId: RoleId) {
         return this.rolesService.getOrgRole(genXRequestID(), orgId, roleId);
     }
 
-    getMember(orgId: string, userId: string) {
+    getMember(orgId: Organization['id'], userId: string) {
         return this.membersService.getOrgMember(genXRequestID(), orgId, userId);
+    }
+
+    getMembers(orgId: Organization['id']) {
+        return this.membersService.listOrgMembers(genXRequestID(), orgId);
     }
 }

@@ -1,7 +1,6 @@
 <div fxLayout="column" fxLayoutGap="16px" *transloco="let t; scope: 'organizations'; read: 'organizations'">
     <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px" color="primary">
-        <dsh-row-header-label fxFlex="50">{{ t('headerRow.name') }}</dsh-row-header-label>
-        <dsh-row-header-label fxFlex="50">{{ t('headerRow.roles') }}</dsh-row-header-label>
+        <dsh-row-header-label>{{ t('headerRow.name') }}</dsh-row-header-label>
     </dsh-row>
     <dsh-accordion
         fxLayout="column"
@@ -11,11 +10,8 @@
     >
         <dsh-accordion-item *ngFor="let organization of organizations" #accordionItem>
             <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px">
-                <dsh-row-label fxFlex="50">
-                    {{ organization.org.name }}
-                </dsh-row-label>
-                <dsh-row-label fxFlex="50">
-                    <!-- {{ organization.name }} -->
+                <dsh-row-label>
+                    {{ organization.name }}
                 </dsh-row-label>
             </dsh-row>
             <dsh-accordion-item-content>
@@ -23,8 +19,11 @@
                     <div fxLayout="column" fxLayoutGap="32px">
                         <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                             <div fxLayout fxLayoutAlign="space-between">
-                                <div>{{ organization.org.id }}</div>
-                                <div>{{ organization.org.createdAt }}</div>
+                                <div>{{ organization.id }}</div>
+                                <div>
+                                    {{ organization.createdAt | date: 'longDate' }},
+                                    {{ organization.createdAt | date: 'shortTime' }}
+                                </div>
                             </div>
                         </dsh-accordion-item-content-header>
                         <dsh-organization [organization]="organization"></dsh-organization>

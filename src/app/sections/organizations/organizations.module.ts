@@ -16,13 +16,20 @@ import { LimitedListModule } from '../../../components/layout/limited-list';
 import { ScrollUpModule } from '../../../components/navigation';
 import { ShowMorePanelModule } from '../../../components/show-more-panel';
 import { OrganizationsModule as OrganizationsAPIModule } from '../../api/organizations';
+import { UserModule } from '../../shared';
+import { OrganizationRolesComponent } from './components/organization-roles/organization-roles.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
-const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponent, OrganizationComponent];
+const EXPORTED_DECLARATIONS = [
+    OrganizationsComponent,
+    OrganizationsListComponent,
+    OrganizationComponent,
+    OrganizationRolesComponent,
+];
 
 @NgModule({
     imports: [
@@ -44,6 +51,7 @@ const EXPORTED_DECLARATIONS = [OrganizationsComponent, OrganizationsListComponen
         DetailsItemModule,
         NavigationLinkModule,
         IndicatorsModule,
+        UserModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
