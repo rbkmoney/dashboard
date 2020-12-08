@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { PartiesService, Party } from '../../api-codegen/capi';
+import { PartiesService, Party } from '@dsh/api-codegen/capi';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

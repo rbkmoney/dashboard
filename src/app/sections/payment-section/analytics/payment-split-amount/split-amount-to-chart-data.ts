@@ -1,7 +1,8 @@
 import moment from 'moment';
 
+import { OffsetAmount, SplitAmountResult, SplitUnit } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { toMajor } from '../../../../../utils';
-import { OffsetAmount, SplitAmountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
 import { ChartData, Series, splitUnitToTimeFormat } from '../utils';
 
 const indexToVisibility = (index: number, length: number): 'show' | 'hide' =>

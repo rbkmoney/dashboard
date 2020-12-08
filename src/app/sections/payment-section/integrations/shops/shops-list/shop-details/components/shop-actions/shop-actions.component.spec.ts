@@ -6,9 +6,10 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import cloneDeep from 'lodash.clonedeep';
 import { Observable, of } from 'rxjs';
 
-import { ShopsService } from '../../../../../../../../api-codegen/capi/shops.service';
-import { Shop } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ApiShopsService } from '../../../../../../../../api/shop';
+import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
 import { ShopActionResult } from '../../types/shop-action-result';

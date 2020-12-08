@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaymentSearchResult, Shop } from '../../../../api-codegen/capi';
-import { toShopName } from '../../../../api/shop/utils';
+import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
+import { toShopName } from '@dsh/api/shop/utils';
+
 import { PaymentsTableData } from './table';
 
 const toPaymentTableData = (

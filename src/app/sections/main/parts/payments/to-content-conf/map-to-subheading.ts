@@ -1,7 +1,7 @@
 import { iif, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Claim, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
+import { Claim, StatusModificationUnit } from '@dsh/api-codegen/claim-management';
 
 const claimToSubheading = (claim: Claim | null): string => {
     if (claim === null) {

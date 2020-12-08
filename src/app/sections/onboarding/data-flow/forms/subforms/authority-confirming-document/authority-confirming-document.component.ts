@@ -3,7 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { AuthorityConfirmingDocumentType } from '../../../../../../api';
+import { AuthorityConfirmingDocumentType } from '@dsh/api/questionary';
+
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { LAYOUT_GAP } from '../../../../../constants';
 import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';

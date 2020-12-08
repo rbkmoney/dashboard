@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createCommentModificationUnit, createFileModificationUnit } from '../../../api';
-import { Modification } from '../../../api-codegen/claim-management';
+import { Modification } from '@dsh/api-codegen/claim-management';
+import { createCommentModificationUnit, createFileModificationUnit } from '@dsh/api/claims';
+
 import { UpdateParams } from './model';
 import { isUpdateConversation, isUpdateFiles } from './type-guards';
 

@@ -1,5 +1,6 @@
+import { ClaimModification, ClaimModificationType, Modification } from '@dsh/api-codegen/claim-management';
+
 import { Replace } from '../../../../type-utils';
-import { ClaimModification, ClaimModificationType, Modification } from '../../../api-codegen/claim-management';
 
 export type SpecificClaimModificationUnit<M extends ClaimModificationType = ClaimModificationType> = Replace<
     ClaimModification,

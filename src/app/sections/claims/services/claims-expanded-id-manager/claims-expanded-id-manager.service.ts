@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { Claim } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ExpandedIdManager } from '@dsh/app/shared/services';
 
-import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
 import { FetchClaimsService } from '../fetch-claims/fetch-claims.service';
 
 @Injectable()

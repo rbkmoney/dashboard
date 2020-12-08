@@ -4,19 +4,16 @@ import { map, pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
 import {
-    ApiShopsService,
-    ClaimsService,
-    createDocumentModificationUnit,
-    PayoutsService,
-    QuestionaryService,
-} from '../../../api';
-import {
     BankAccount,
     QuestionaryData,
     RussianBankAccount,
     ShopLocation,
     ShopLocationUrl,
-} from '../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+import { ClaimsService, createDocumentModificationUnit } from '@dsh/api/claims';
+import { PayoutsService } from '@dsh/api/payouts';
+import { QuestionaryService } from '@dsh/api/questionary';
+import { ApiShopsService } from '@dsh/api/shop';
 
 @Injectable()
 export class CreateShopRussianLegalEntityService {

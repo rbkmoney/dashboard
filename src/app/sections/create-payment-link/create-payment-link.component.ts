@@ -3,8 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 
+import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
+
 import { coerceBoolean } from '../../../utils';
-import { Invoice, InvoiceTemplateAndToken } from '../../api-codegen/capi';
 import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';

@@ -3,8 +3,9 @@ import isEqual from 'lodash.isequal';
 import { BehaviorSubject, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, first, pluck, switchMap, tap } from 'rxjs/operators';
 
-import { QuestionaryService } from '../../../api';
-import { QuestionaryData, Snapshot } from '../../../api-codegen/questionary';
+import { QuestionaryData, Snapshot } from '@dsh/api-codegen/questionary';
+import { QuestionaryService } from '@dsh/api/questionary';
+
 import { booleanDelay } from '../../../custom-operators';
 
 @Injectable()

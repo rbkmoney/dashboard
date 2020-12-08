@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Contract } from '../../../../api-codegen/capi';
+import { Contract } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-contract-details',

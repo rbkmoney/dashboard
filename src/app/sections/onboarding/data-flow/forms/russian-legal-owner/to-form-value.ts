@@ -1,7 +1,8 @@
 import get from 'lodash.get';
 
-import { AuthorityConfirmingDocumentType } from '../../../../../api';
-import { AuthorityConfirmingDocument, QuestionaryData } from '../../../../../api-codegen/questionary';
+import { AuthorityConfirmingDocument, QuestionaryData } from '@dsh/api-codegen/questionary';
+import { AuthorityConfirmingDocumentType } from '@dsh/api/questionary';
+
 import { FormValue } from '../form-value';
 import {
     AuthorityConfirmingDocumentService,

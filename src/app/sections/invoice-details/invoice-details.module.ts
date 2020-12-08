@@ -5,14 +5,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { InvoiceSearchService, PaymentSearchService } from '@dsh/api/search';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { InvoiceSearchService, PaymentSearchService } from '../../api/search';
 import { ToMajorModule } from '../../to-major';
+import { CreatePaymentLinkModule } from '../create-payment-link';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
-import { CreatePaymentLinkModule } from './../create-payment-link';
 import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './cart/item/item.component';
 import { DetailsComponent } from './details/details.component';

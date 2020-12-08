@@ -5,11 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { first } from 'rxjs/operators';
 
+import { CaptureParams } from '@dsh/api-codegen/capi/swagger-codegen';
+import { PaymentService } from '@dsh/api/payment';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
-import { CaptureParams } from '../../../../api-codegen/capi/swagger-codegen';
-import { PaymentService } from '../../../../api/payment';
 import { LAYOUT_GAP } from '../../../constants';
 
 export interface ConfirmHoldData {

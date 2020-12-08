@@ -1,5 +1,6 @@
-import { ReqResponse } from '../../../../../api-codegen/aggr-proxy';
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import { ReqResponse } from '@dsh/api-codegen/aggr-proxy';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { createIndividualEntityContractor } from './create-individual-entity-contractor';
 import { createLegalEntityContractor } from './create-legal-entity-contractor';
 

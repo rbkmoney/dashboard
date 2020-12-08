@@ -8,10 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
 import { debounceTime, map, pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ApiShopsService } from '@dsh/api/shop';
 import { CustomFormControl } from '@dsh/components/form-controls/utils';
 
-import { PaymentInstitutionRealm } from '../../api';
-import { ApiShopsService } from '../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { filterShopsByRealm, mapToShopInfo, ShopInfo } from '../payment-section/operations/operators';
 import { filterByNameAndId } from './filter-shop-infos-by-name-and-id';

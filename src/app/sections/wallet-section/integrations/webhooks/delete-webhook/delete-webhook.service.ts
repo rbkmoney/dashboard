@@ -5,9 +5,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 
+import { WalletWebhooksService } from '@dsh/api/wallet-webhooks';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { WalletWebhooksService } from '../../../../../api';
 import { DeleteWebhookParams } from '../webhook-details/webhook-actions';
 
 @Injectable()

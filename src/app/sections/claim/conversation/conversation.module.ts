@@ -9,11 +9,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TranslocoModule } from '@ngneat/transloco';
 import { ngfModule } from 'angular-file';
 
+import { FilesModule } from '@dsh/api/files';
+import { MessagesModule } from '@dsh/api/messages';
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { FilesModule, MessagesModule } from '../../../api';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import {
     CommentContainerModule,

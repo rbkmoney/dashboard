@@ -1,4 +1,5 @@
-import { ClaimChangeset, FileModification, FileModificationUnit } from '../../../api-codegen/claim-management';
+import { ClaimChangeset, FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-management';
+
 import { isClaimModification, isFileModificationUnit } from '../type-guards';
 import { sortUnitsByCreatedAtAsc } from './sort-units';
 

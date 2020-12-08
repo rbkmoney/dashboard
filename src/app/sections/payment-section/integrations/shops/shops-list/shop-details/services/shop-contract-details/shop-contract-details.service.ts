@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
-import { Contract } from '../../../../../../../../api-codegen/capi';
-import { ContractsService } from '../../../../../../../../api/contracts';
+import { Contract } from '@dsh/api-codegen/capi';
+import { ContractsService } from '@dsh/api/contracts';
 
 @Injectable()
 export class ShopContractDetailsService {

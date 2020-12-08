@@ -8,11 +8,13 @@ import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, filter, map, pluck, switchMap } from 'rxjs/operators';
 import * as uuid from 'uuid/v4';
 
+import { OrgType, PartyContent, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
+import { ClaimsService, createDocumentModificationUnit } from '@dsh/api/claims';
+import { KonturFocusService } from '@dsh/api/kontur-focus';
+import { QuestionaryService } from '@dsh/api/questionary';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { ClaimsService, createDocumentModificationUnit, KonturFocusService, QuestionaryService } from '../../../api';
-import { OrgType, PartyContent, ReqResponse } from '../../../api-codegen/aggr-proxy';
-import { QuestionaryData } from '../../../api-codegen/questionary';
 import { KeycloakService } from '../../../auth';
 
 @Injectable()

@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 
-import { FileMeta } from '../../../../api-codegen/anapi';
+import { FileMeta } from '@dsh/api-codegen/anapi';
+
 import { ReportFilesService } from './report-files.service';
 
 @Component({

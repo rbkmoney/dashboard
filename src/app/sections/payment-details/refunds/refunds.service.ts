@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { RefundSearchResult } from '../../../api-codegen/capi';
-import { RefundSearchService } from '../../../api/search';
+import { RefundSearchResult } from '@dsh/api-codegen/capi';
+import { RefundSearchService } from '@dsh/api/search';
+
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { CreateRefundComponent, CreateRefundData } from './create-refund';
 import { RefundsSearchParams } from './refunds-search-params';

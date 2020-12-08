@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { WalletService } from '../../api/wallet';
+import { WalletService } from '@dsh/api/wallet';
+
 import { ConfigService } from '../../config';
 
 @Component({

@@ -1,10 +1,11 @@
-import { Replace } from '../../../../../../type-utils';
-import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
+import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
     IndividualRegistrationInfo,
     RussianIndividualEntity,
-} from '../../../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
+import { Replace } from '../../../../../../type-utils';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,

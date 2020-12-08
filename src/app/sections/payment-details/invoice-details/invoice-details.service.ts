@@ -4,8 +4,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable, Subject } from 'rxjs';
 import { first, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Invoice } from '../../../api-codegen/capi/swagger-codegen';
-import { InvoiceSearchService } from '../../../api/search';
+import { Invoice } from '@dsh/api-codegen/capi/swagger-codegen';
+import { InvoiceSearchService } from '@dsh/api/search';
+
 import { takeError } from '../../../custom-operators';
 
 @Injectable()

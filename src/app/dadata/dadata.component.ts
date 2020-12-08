@@ -10,10 +10,10 @@ import get from 'lodash.get';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '@dsh/api-codegen/aggr-proxy';
+import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
 import { CustomFormControl } from '@dsh/components/form-controls';
 
-import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '../api';
-import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '../api-codegen/aggr-proxy';
 import { progress, takeError } from '../custom-operators';
 import { Type } from './type';
 

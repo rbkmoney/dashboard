@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { InternationalLegalEntity, RussianLegalEntity } from '../../../../../api-codegen/capi';
+import { InternationalLegalEntity, RussianLegalEntity } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-legal-entity',

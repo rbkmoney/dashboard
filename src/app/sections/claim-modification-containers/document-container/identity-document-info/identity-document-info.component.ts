@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { RussianDomesticPassport } from '../../../../api-codegen/questionary';
+import { RussianDomesticPassport } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-identity-document-info',

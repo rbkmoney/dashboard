@@ -1,4 +1,4 @@
-import { ParsedAddressRF, Toponim } from '../../../../../api-codegen/aggr-proxy';
+import { ParsedAddressRF, Toponim } from '@dsh/api-codegen/aggr-proxy';
 
 function getAddressPart(toponim: Toponim, isFullName = false): string {
     return toponim

@@ -7,13 +7,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { Observable, of } from 'rxjs';
 
+import { Category } from '@dsh/api-codegen/capi';
+import { CategoriesModule } from '@dsh/api/categories';
+import { ContractsModule } from '@dsh/api/contracts';
 import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Category } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { CategoriesModule } from '../../../../../../api/categories';
-import { ContractsModule } from '../../../../../../api/contracts';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';
 import { MockShopContractDetailsService } from '../tests/mock-shop-contract-details-service';

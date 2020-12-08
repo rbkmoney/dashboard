@@ -6,10 +6,10 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
+import { Account, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
-import { Account, RefundParams } from '../../../../api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '../../../constants';
 import { CreateRefundService } from './create-refund.service';
 

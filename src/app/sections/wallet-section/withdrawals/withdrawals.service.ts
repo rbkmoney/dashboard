@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
-import { WithdrawalsService as WithdrawalsApiService } from '../../../api';
-import { Withdrawal } from '../../../api-codegen/wallet-api/swagger-codegen';
-import { WithdrawalsSearchParams } from '../../../api/withdrawals';
+import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { WithdrawalsSearchParams, WithdrawalsService as WithdrawalsApiService } from '@dsh/api/withdrawals';
+
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 
