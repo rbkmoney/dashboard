@@ -19,13 +19,7 @@
     "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts",
-    "postinstall": "ngcc"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm run test-ci"
-    }
+    "postinstall": "ngcc && husky install"
   },
   "private": true,
   "dependencies": {
