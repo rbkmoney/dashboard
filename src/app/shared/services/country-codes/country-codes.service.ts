@@ -5,7 +5,6 @@ import { CountryCodes } from './types/country-codes';
 
 @Injectable()
 export class CountryCodesService {
-
     getCountryCode(country: string): number {
         const code = CountryCodes[country];
         if (isNil(code)) {
@@ -26,7 +25,7 @@ export class CountryCodesService {
         try {
             this.getCountryByCode(code);
             return true;
-        } catch(e) {
+        } catch (e) {
             return false;
         }
     }
@@ -35,9 +34,8 @@ export class CountryCodesService {
         try {
             this.getCountryCode(country);
             return true;
-        } catch(e) {
+        } catch (e) {
             return false;
         }
     }
-
 }

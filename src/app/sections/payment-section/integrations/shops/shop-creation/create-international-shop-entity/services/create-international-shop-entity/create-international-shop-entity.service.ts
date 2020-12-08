@@ -1,55 +1,62 @@
 import { Injectable } from '@angular/core';
+import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
-import { pluck, switchMap, switchMapTo } from 'rxjs/operators';
-import uuid from 'uuid';
+import { pluck, switchMap } from 'rxjs/operators';
 
-import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
-
-import { ClaimsService, createDocumentModificationUnit, QuestionaryService } from '../../../../../../../../api';
+import { ClaimsService } from '@dsh/api/claims';
 import {
-    BankAccount,
-    InternationalBankAccount,
-    InternationalLegalEntity,
-    LegalEntity,
-    LegalEntityContractor,
-    QuestionaryData,
-    ShopLocation,
-    ShopLocationUrl,
-} from '../../../../../../../../api-codegen/questionary';
+    createContractorParamsModification,
+    createInternationalLegalEntityModification,
+    createShopCreationModification,
+    makeShopDetails,
+    makeShopLocation,
+} from '@dsh/api/claims/claim-party-modification';
+import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
+import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
+
+import { Modification } from '../../../../../../../../api-codegen/claim-management';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
-    constructor(
-        private claimsService: ClaimsService,
-        private questionaryService: QuestionaryService,
-        private countryCodes: CountryCodesService
-    ) {}
+    constructor(private claimsService: ClaimsService, private uuidGenerator: UuidGeneratorService) {}
 
-    createShop({
-        shopUrl,
-        shopName,
-        organizationName,
+    createShop(creationData: InternationalShopEntityFormValue) {
+        return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
+            switchMap((claim) =>
+                forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
+            ),
+            pluck(0)
+        );
+    }
+
+    private createClaimsModifications({
+        shopUrl: url,
+        shopName: name,
+        organizationName: legalName,
         tradingName,
         registeredAddress,
         actualAddress,
         payoutTool,
         correspondentPayoutTool = null,
-    }: InternationalShopEntityFormValue) {
-        const initialDocumentID = uuid();
-        const changeset = [createDocumentModificationUnit(initialDocumentID)];
-        const questionaryData: QuestionaryData = {
-            shopInfo: {
-                location: {
-                    locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    url: shopUrl,
-                } as ShopLocationUrl,
-                details: {
-                    name: shopName,
-                },
-            },
-            bankAccount: {
-                bankAccountType: BankAccount.BankAccountTypeEnum.InternationalBankAccount,
+    }: InternationalShopEntityFormValue): Modification[] {
+        const contractorID = this.uuidGenerator.generateUUID();
+        const contractID = this.uuidGenerator.generateUUID();
+        const payoutToolID = this.uuidGenerator.generateUUID();
+        const shopID = this.uuidGenerator.generateUUID();
+
+        return [
+            createInternationalLegalEntityModification(contractorID, {
+                legalName,
+                registeredNumber: '', // add ui field or remove it
+                registeredAddress,
+                tradingName,
+                actualAddress,
+            }),
+            createContractorParamsModification(contractID, {
+                contractorID,
+            }),
+            createInternationalContractPayoutToolModification(contractID, payoutToolID, {
                 iban: payoutTool.iban,
                 number: payoutTool.number,
                 bank: {
@@ -57,11 +64,12 @@ export class CreateInternationalShopEntityService {
                     address: payoutTool.address,
                     bic: payoutTool.bic,
                     name: payoutTool.name,
-                    country: this.countryCodes.getCountryCode(payoutTool.country),
+                    country: payoutTool.country,
                 },
-                correspondentAccount: !correspondentPayoutTool
+                correspondentAccount: isNil(correspondentPayoutTool)
                     ? null
                     : {
+                          accountHolder: '', // add ui field or remove it
                           iban: correspondentPayoutTool.iban,
                           number: correspondentPayoutTool.number,
                           bank: {
@@ -69,27 +77,20 @@ export class CreateInternationalShopEntityService {
                               address: correspondentPayoutTool.address,
                               bic: correspondentPayoutTool.bic,
                               name: correspondentPayoutTool.name,
-                              country: this.countryCodes.getCountryCode(correspondentPayoutTool.country),
+                              country: correspondentPayoutTool.country,
                           },
                       },
-            } as InternationalBankAccount,
-            contractor: {
-                contractorType: 'LegalEntityContractor',
-                legalEntity: {
-                    legalEntityType: LegalEntity.LegalEntityTypeEnum.InternationalLegalEntity,
-                    legalName: organizationName,
-                    tradingName,
-                    registeredAddress,
-                    actualAddress,
-                } as InternationalLegalEntity,
-            } as LegalEntityContractor,
-        };
-        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMapTo(this.claimsService.createClaim(changeset)),
-            switchMap((claim) =>
-                forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
-            ),
-            pluck(0)
-        );
+            }),
+            createShopCreationModification(shopID, {
+                location: makeShopLocation({
+                    url,
+                }),
+                details: makeShopDetails({
+                    name,
+                }),
+                payoutToolID,
+                contractID,
+            }),
+        ];
     }
 }

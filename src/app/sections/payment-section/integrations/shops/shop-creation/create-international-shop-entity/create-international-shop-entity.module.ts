@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { QuestionaryModule } from '@dsh/api/questionary';
 import { CountryCodesModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -34,7 +33,6 @@ import { InternationalShopFormControllerService } from './services/international
         ButtonModule,
         CountryCodesModule,
         MatDialogModule,
-        QuestionaryModule,
     ],
     declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
     exports: [CreateInternationalShopEntityComponent],
