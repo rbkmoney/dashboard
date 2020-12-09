@@ -4,9 +4,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { instance, mock } from 'ts-mockito';
 
+import { DaDataService as DaDataApiService } from '@dsh/api-codegen/aggr-proxy';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { DaDataService as DaDataApiService } from '../../../../../../../../api-codegen/aggr-proxy';
 import { DaDataModule } from '../../../../../../../../dadata';
 import {
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,

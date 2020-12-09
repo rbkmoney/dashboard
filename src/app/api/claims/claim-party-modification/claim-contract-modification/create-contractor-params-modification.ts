@@ -1,4 +1,5 @@
-import { ContractModification, ContractParams, PartyModification } from '../../../../api-codegen/claim-management';
+import { ContractModification, ContractParams, PartyModification } from '@dsh/api-codegen/claim-management';
+
 import { createBaseContractModification } from './create-base-contract-modification';
 
 export function createContractorParamsModification(

@@ -4,11 +4,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
+import { Contract } from '@dsh/api-codegen/capi';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Contract } from '../../../../../../../../api-codegen/capi';
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 import { generateMockShop } from '../../../../tests/generate-mock-shop';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';

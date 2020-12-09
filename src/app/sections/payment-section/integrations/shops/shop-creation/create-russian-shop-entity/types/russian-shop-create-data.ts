@@ -1,4 +1,4 @@
-import { BankAccount, Contract } from '../../../../../../../api-codegen/capi';
+import { BankAccount, Contract } from '@dsh/api-codegen/capi';
 
 export interface RussianShopCreateData {
     url: string;
