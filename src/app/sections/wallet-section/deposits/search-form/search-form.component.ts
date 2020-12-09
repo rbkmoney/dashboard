@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { DepositStatus } from '../../../../api-codegen/wallet-api/swagger-codegen';
+import { DepositStatus } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { SearchFormService } from './search-form.service';
 
 @Component({

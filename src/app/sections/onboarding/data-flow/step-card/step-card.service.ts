@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
+import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { ClaimsService } from '../../../../api';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepFlowService } from '../step-flow';
 import { ValidityService } from '../validity';

@@ -17,9 +17,10 @@ import {
     tap,
 } from 'rxjs/operators';
 
-import { Wallet } from '../../../api-codegen/wallet-api/swagger-codegen';
-import { WalletService } from '../../../api/wallet';
-import { WalletsSearchParams } from '../../../api/wallet/wallets-search-params';
+import { Wallet } from '@dsh/api-codegen/wallet-api';
+import { WalletService } from '@dsh/api/wallet';
+import { WalletsSearchParams } from '@dsh/api/wallet/wallets-search-params';
+
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 

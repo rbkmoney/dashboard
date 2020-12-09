@@ -8,14 +8,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { AccountService } from '@dsh/api/account';
+import { RefundService } from '@dsh/api/refund';
+import { RefundSearchService } from '@dsh/api/search';
+import { ApiShopsService } from '@dsh/api/shop';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
-import { AccountService } from '../../../api/account';
-import { RefundService } from '../../../api/refund';
-import { RefundSearchService } from '../../../api/search';
-import { ApiShopsService } from '../../../api/shop';
 import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { CreateRefundComponent } from './create-refund';

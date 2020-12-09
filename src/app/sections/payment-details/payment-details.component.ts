@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import get from 'lodash.get';
 
-import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '../../api-codegen/capi/swagger-codegen';
+import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { LAYOUT_GAP } from '../constants';
 import { PayerType } from './payer-details';
 import { ReceivePaymentService } from './receive-payment.service';

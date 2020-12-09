@@ -40,7 +40,7 @@ export class ShopsListComponent {
         this.showMore.emit();
     }
 
-    expandedIdChange(id: number) {
+    expandedIdChange(id: number): void {
         this.expandedIdManager.expandedIdChange(id);
     }
 }

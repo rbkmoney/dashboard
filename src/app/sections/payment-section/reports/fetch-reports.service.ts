@@ -5,8 +5,9 @@ import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { ReportsService as ReportsApiService } from '../../../api';
-import { Report } from '../../../api-codegen/anapi';
+import { Report } from '@dsh/api-codegen/anapi';
+import { ReportsService as ReportsApiService } from '@dsh/api/reports';
+
 import { booleanDebounceTime, mapToTimestamp } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { SearchFiltersParams } from './reports-search-filters';

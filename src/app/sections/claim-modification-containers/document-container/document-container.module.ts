@@ -4,9 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { QuestionaryModule } from '@dsh/api/questionary';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { QuestionaryModule } from '../../../api';
 import { AdditionalInfoComponent } from './additional-info';
 import { AuthorityConfirmingDocumentInfoComponent } from './authority-confirming-document-info';
 import { BankAccountInfoComponent } from './bank-account-info';

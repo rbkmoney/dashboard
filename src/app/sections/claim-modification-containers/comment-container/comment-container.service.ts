@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { MessagesService } from '../../../api';
+import { MessagesService } from '@dsh/api/messages';
+
 import { booleanDelay, takeError } from '../../../custom-operators';
 
 @Injectable()

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
-import { Invoice, InvoiceTemplateAndToken } from '../../../../api-codegen/capi';
+import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
+
 import {
     CreateInvoiceOrInvoiceTemplateService,
     InvoiceOrInvoiceTemplate,

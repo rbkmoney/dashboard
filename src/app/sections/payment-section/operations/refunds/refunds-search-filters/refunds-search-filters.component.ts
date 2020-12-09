@@ -14,11 +14,11 @@ import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { RefundSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { RefundSearchResult } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
-import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { filterShopsByRealm } from '../../operators';
 import { SearchFiltersParams } from '../types/search-filters-params';

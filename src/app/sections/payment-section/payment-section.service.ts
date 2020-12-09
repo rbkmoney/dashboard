@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { filter, pluck, take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../api';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { SettingsService } from '../../settings';
 
 @Injectable()

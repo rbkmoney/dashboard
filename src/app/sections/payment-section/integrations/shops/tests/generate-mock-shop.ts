@@ -1,4 +1,5 @@
-import { Shop as ApiShop } from '../../../../../api-codegen/capi/swagger-codegen';
+import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { generateMockShopId } from './generate-mock-shop-id';
 
 export function generateMockShop(order: number, categoryID: number = 1): ApiShop {

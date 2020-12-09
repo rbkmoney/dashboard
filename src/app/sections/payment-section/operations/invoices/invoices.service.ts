@@ -5,10 +5,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoiceSearchService } from '../../../../api';
-import { Invoice } from '../../../../api-codegen/anapi';
-import { Shop } from '../../../../api-codegen/capi';
-import { ApiShopsService } from '../../../../api/shop';
+import { Invoice } from '@dsh/api-codegen/anapi';
+import { Shop } from '@dsh/api-codegen/capi';
+import { InvoiceSearchService } from '@dsh/api/search';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { mapToTimestamp, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { filterShopsByRealm } from '../operators';

@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';

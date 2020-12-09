@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { map } from 'rxjs/operators';
 
-import { SearchService } from '../../api-codegen/anapi/swagger-codegen';
+import { SearchService } from '@dsh/api-codegen/anapi';
+
 import { genXRequestID, toDateLike } from '../utils';
 import { Duration, InvoicesSearchParams } from './model';
 

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
-import { CategoriesService as CategoriesApiService } from '../../api-codegen/capi';
+import { CategoriesService as CategoriesApiService } from '@dsh/api-codegen/capi';
+
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 

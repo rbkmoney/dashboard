@@ -8,7 +8,8 @@ import {
     QuestionaryService as SaveQuestionaryService,
     Snapshot,
     Version,
-} from '../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
 import { KeycloakService } from '../../auth';
 
 @Injectable()

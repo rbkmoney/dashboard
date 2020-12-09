@@ -1,2 +1,2 @@
-export * from './value-filter.component';
-export * from './value-filter.module';
+export * from './multi-value-filter.component';
+export * from './multi-value-filter.module';

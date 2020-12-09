@@ -11,7 +11,8 @@ import {
     RussianIndividualEntity,
     RussianLegalEntity,
     WithoutChiefAccountingOrganization,
-} from '../../../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../form-value';
 
 const applyToWithoutAccountant = (

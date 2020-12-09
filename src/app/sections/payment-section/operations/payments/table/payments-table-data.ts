@@ -1,4 +1,4 @@
-import { PaymentSearchResult } from '../../../../../api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 
 export interface PaymentsTableData {
     amount: number;

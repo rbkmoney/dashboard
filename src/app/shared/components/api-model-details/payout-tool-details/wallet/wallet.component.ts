@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PayoutToolDetailsWalletInfo } from '../../../../../api-codegen/capi';
+import { PayoutToolDetailsWalletInfo } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-wallet',

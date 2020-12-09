@@ -1,6 +1,6 @@
 import { Observable, of, Subject } from 'rxjs';
 
-import { PayoutTool } from '../../../../../../api-codegen/capi/swagger-codegen';
+import { PayoutTool } from '@dsh/api-codegen/capi/swagger-codegen';
 
 export class MockShopPayoutToolDetailsService {
     shopPayoutTool$: Observable<PayoutTool>;

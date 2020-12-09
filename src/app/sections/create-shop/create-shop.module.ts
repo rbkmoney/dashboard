@@ -12,12 +12,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PayoutsModule } from '@dsh/api/payouts';
+import { QuestionaryModule } from '@dsh/api/questionary';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { PayoutsModule, QuestionaryModule } from '../../api';
 import { DaDataModule } from '../../dadata';
 import {
     CreateShopInternationalLegalEntityComponent,

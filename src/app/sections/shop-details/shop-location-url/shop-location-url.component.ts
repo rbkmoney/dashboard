@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopLocationUrl } from '../../../api-codegen/capi/swagger-codegen';
+import { ShopLocationUrl } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-shop-location-url',

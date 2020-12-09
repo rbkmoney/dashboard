@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { MobileCommerceDetails } from '../../../../api-codegen/anapi';
+import { MobileCommerceDetails } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-mobile-commerce',

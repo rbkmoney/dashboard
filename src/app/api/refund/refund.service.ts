@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { PaymentsService, Refund, RefundParams } from '../../api-codegen/capi/swagger-codegen';
+import { PaymentsService, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

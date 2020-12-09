@@ -1,5 +1,6 @@
-import { OrgType, PartyContent } from '../../../../../api-codegen/aggr-proxy';
-import { Contractor, QuestionaryData } from '../../../../../api-codegen/questionary';
+import { OrgType, PartyContent } from '@dsh/api-codegen/aggr-proxy';
+import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { createIndividualEntityContractor } from './create-individual-entity-contractor';
 import { createLegalEntityContractor } from './create-legal-entity-contractor';
 

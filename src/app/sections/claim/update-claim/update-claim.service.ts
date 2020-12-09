@@ -4,9 +4,10 @@ import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators';
 
-import { ClaimsService } from '../../../api';
-import { FileModification } from '../../../api-codegen/claim-management';
-import { Conversation } from '../../../api-codegen/messages';
+import { FileModification } from '@dsh/api-codegen/claim-management';
+import { Conversation } from '@dsh/api-codegen/messages';
+import { ClaimsService } from '@dsh/api/claims';
+
 import { progress } from '../../../custom-operators';
 import { UIError } from '../../ui-error';
 import { ReceiveClaimService } from '../receive-claim.service';

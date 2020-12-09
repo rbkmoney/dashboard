@@ -5,11 +5,11 @@ import get from 'lodash.get';
 import moment from 'moment';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 
+import { InvoiceLine, InvoiceLineTaxMode, Shop } from '@dsh/api-codegen/capi';
+import { InvoiceService } from '@dsh/api/invoice';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { toMinor } from '../../../utils';
-import { InvoiceService } from '../../api';
-import { InvoiceLine, InvoiceLineTaxMode, Shop } from '../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 
 export const WITHOUT_VAT = Symbol('without VAT');

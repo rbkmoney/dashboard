@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
+import { WebhooksService } from '@dsh/api/webhooks';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { WebhooksService } from '../../../../../api/webhooks';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 import { getEventsByTopic } from './get-events-by-topic';

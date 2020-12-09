@@ -1,11 +1,11 @@
-import { isClaimModification } from '../../../../api';
 import {
     ClaimModification,
     FileModificationUnit,
     Modification,
     ModificationUnit,
-} from '../../../../api-codegen/claim-management';
-import { sortUnitsByCreatedAtAsc } from '../../../../api/claims/utils';
+} from '@dsh/api-codegen/claim-management';
+import { isClaimModification, sortUnitsByCreatedAtAsc } from '@dsh/api/claims';
+
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { TimelineAction, TimelineItemInfo } from './model';
 

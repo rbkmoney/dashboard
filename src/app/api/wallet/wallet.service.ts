@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 
-import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '../../api-codegen/wallet-api';
+import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '@dsh/api-codegen/wallet-api';
+
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 import { WalletsSearchParams } from './wallets-search-params';

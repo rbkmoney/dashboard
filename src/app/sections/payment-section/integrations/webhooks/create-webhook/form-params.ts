@@ -1,4 +1,4 @@
-import { CustomersTopic, InvoicesTopic, WebhookScope } from '../../../../../api-codegen/capi';
+import { CustomersTopic, InvoicesTopic, WebhookScope } from '@dsh/api-codegen/capi';
 import TopicEnum = WebhookScope.TopicEnum;
 
 interface EventType {

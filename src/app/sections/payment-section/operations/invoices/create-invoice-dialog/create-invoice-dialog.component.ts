@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Invoice, Shop } from '../../../../../api-codegen/capi';
+import { Invoice, Shop } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-create-invoice-dialog',

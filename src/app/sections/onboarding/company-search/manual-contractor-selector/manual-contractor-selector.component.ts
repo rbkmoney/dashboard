@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 
-import { Contractor } from '../../../../api-codegen/questionary';
+import { Contractor } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-manual-contractor-selector',
