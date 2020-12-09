@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { PaymentInstitutionRealm } from '../../../api/model';

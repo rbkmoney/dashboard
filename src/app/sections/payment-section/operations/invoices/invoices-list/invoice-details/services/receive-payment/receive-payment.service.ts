@@ -3,8 +3,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { PaymentService } from '../../../../../../../../api/payment';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentService } from '@dsh/api/payment';
 
 export interface ReceivePaymentParams {
     invoiceID: string;
