@@ -15,6 +15,7 @@ import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
+import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';
@@ -37,7 +38,8 @@ describe('ShopsComponent', () => {
         mockShopsBalanceService = mock(ShopsBalanceService);
         mockShopsFiltersService = mock(ShopsFiltersService);
         mockShopsFiltersStoreService = mock(ShopsFiltersStoreService);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockActivatedRoute = mock(ActivatedRoute);
+        mockShopCreationService = mock(ShopCreationService);
     });
 
     beforeEach(async(() => {

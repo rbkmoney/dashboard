@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { QuestionaryModule } from '@dsh/api/questionary';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { InternationalPayoutToolFormComponent } from './components/international-payout-tool-form/international-payout-tool-form.component';
@@ -27,6 +28,7 @@ import { InternationalPayoutToolFormService } from './services/international-pay
         MatDividerModule,
         MatCheckboxModule,
         ButtonModule,
+        QuestionaryModule,
     ],
     declarations: [CreateInternationalShopEntityComponent, InternationalPayoutToolFormComponent],
     exports: [CreateInternationalShopEntityComponent],

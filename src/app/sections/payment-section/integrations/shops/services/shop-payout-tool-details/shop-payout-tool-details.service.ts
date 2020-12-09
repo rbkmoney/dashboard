@@ -3,9 +3,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
+import { PayoutTool } from '@dsh/api-codegen/capi';
 import { PayoutsService } from '@dsh/api/payouts';
 
-import { PayoutTool } from '@dsh/api-codegen/capi';
 import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
 
 @UntilDestroy()
