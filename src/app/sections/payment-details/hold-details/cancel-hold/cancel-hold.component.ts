@@ -5,7 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { first } from 'rxjs/operators';
 
-import { PaymentService } from '../../../../api/payment';
+import { PaymentService } from '@dsh/api/payment';
+
 import { LAYOUT_GAP } from '../../../constants';
 
 export interface CancelHoldData {

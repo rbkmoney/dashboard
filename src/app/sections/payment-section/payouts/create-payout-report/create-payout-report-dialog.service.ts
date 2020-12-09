@@ -3,9 +3,9 @@ import moment from 'moment';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { ReportsService } from '../../../../api';
-import { Payout } from '../../../../api-codegen/anapi';
-import { CreateReportReq } from '../../../../api/reports/create-reports';
+import { Payout } from '@dsh/api-codegen/anapi';
+import { ReportsService } from '@dsh/api/reports';
+import { CreateReportReq } from '@dsh/api/reports/create-reports';
 
 const daterangeReducer = (_, { fromTime, toTime }) =>
     ({

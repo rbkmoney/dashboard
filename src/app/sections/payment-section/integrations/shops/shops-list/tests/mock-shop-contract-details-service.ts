@@ -1,6 +1,6 @@
 import { Observable, of, Subject } from 'rxjs';
 
-import { Contract } from '../../../../../../api-codegen/capi/swagger-codegen';
+import { Contract } from '@dsh/api-codegen/capi/swagger-codegen';
 
 export class MockShopContractDetailsService {
     shopContract$: Observable<Contract>;

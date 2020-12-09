@@ -3,11 +3,11 @@ import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi';
+import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { ComponentChanges } from '../../../../../type-utils';
-import { Shop } from '../../../../api-codegen/capi';
-import { ApiShopsService } from '../../../../api/shop';
 import { daterangeFromStr, strToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';

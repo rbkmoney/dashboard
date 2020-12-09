@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { DepositsService as ApiDepositsService } from '../../api-codegen/wallet-api/swagger-codegen';
+import { DepositsService as ApiDepositsService } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { genXRequestID, toDateLike } from '../utils';
 import { DepositsSearchParams } from './deposits-search-params';
 

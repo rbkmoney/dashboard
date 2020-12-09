@@ -1,5 +1,6 @@
+import { SearchService } from '@dsh/api-codegen/anapi';
+
 import { MapTuple } from '../../../../type-utils';
-import { SearchService } from '../../../api-codegen/anapi/swagger-codegen';
 
 export type PaymentsSearchParams = MapTuple<
     Parameters<SearchService['searchPayments']>,

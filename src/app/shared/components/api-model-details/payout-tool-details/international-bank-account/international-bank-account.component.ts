@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
     InternationalCorrespondentBankAccount,
     PayoutToolDetailsInternationalBankAccount,
-} from '../../../../../api-codegen/capi';
+} from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-international-bank-account',

@@ -1,4 +1,4 @@
-import { PaymentStatus } from '../../../../api-codegen/anapi/swagger-codegen';
+import { PaymentStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 export const paymentStatuses: PaymentStatus.StatusEnum[] = [
     'pending',

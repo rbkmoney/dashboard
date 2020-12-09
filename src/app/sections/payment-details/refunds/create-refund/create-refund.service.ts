@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Account, Refund, RefundParams, Shop } from '../../../../api-codegen/capi/swagger-codegen';
-import { AccountService } from '../../../../api/account';
-import { RefundService } from '../../../../api/refund';
-import { ApiShopsService } from '../../../../api/shop';
+import { Account, Refund, RefundParams, Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { AccountService } from '@dsh/api/account';
+import { RefundService } from '@dsh/api/refund';
+import { ApiShopsService } from '@dsh/api/shop';
 
 @Injectable()
 export class CreateRefundService {

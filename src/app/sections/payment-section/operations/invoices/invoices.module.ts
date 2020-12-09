@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { InvoiceDetailsModule } from '@dsh/app/shared/components';
+import { InvoiceModule } from '@dsh/api/invoice';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
@@ -23,7 +24,6 @@ import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { TableModule } from '@dsh/components/table';
 
-import { InvoiceModule } from '../../../../api';
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
 import { CreateInvoiceModule } from '../../../create-invoice';

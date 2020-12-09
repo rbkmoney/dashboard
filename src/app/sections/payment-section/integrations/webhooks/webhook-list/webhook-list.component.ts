@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { Webhook, WebhookScope } from '../../../../../api-codegen/capi/swagger-codegen';
+import { Webhook, WebhookScope } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { DeleteWebhookService } from '../delete-webhook';
 import { getShopIdFromScope } from '../get-shop-id-from-scope';
 

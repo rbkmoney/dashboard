@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { ClaimsService } from '../../api';
+import { ClaimsService } from '@dsh/api/claims';
 
 @Injectable()
 export class RouteParamClaimService {

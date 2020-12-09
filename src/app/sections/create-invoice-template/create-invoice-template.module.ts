@@ -11,12 +11,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { InvoiceTemplatesModule } from '@dsh/api/invoice-templates';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { InvoiceTemplatesModule } from '../../api';
 import { CreatePaymentLinkModule } from '../create-payment-link';
 import { CreateInvoiceTemplateComponent } from './create-invoice-template.component';
 import { CreateInvoiceTemplateService } from './create-invoice-template.service';

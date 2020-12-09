@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '../../../api-codegen/capi/swagger-codegen';
+import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { LAYOUT_GAP } from '../../constants';
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';

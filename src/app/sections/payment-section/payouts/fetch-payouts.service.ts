@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { PayoutSearchService } from '../../../api';
-import { Payout } from '../../../api-codegen/anapi';
+import { Payout } from '@dsh/api-codegen/anapi';
+import { PayoutSearchService } from '@dsh/api/search';
+
 import { booleanDebounceTime } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { mapToTimestamp } from '../operations/operators';

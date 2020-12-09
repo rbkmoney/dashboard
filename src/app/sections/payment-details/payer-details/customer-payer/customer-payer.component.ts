@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { CustomerPayer } from '../../../../api-codegen/capi/swagger-codegen';
+import { CustomerPayer } from '@dsh/api-codegen/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-customer-payer',

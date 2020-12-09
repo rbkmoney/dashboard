@@ -4,7 +4,8 @@ import isEqual from 'lodash.isequal';
 import { combineLatest, forkJoin, merge, of, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { AnalyticsService } from '../../../../api/analytics';
+import { AnalyticsService } from '@dsh/api/analytics';
+
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
 import { searchParamsToParamsWithSplitUnit } from '../utils';

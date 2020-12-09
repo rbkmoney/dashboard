@@ -2,7 +2,8 @@ import { FormGroup } from '@angular/forms';
 import { forkJoin, of, Subscription } from 'rxjs';
 import { debounceTime, first, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { QuestionaryData } from '../../../../api-codegen/questionary';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepName } from '../step-flow';
 import { ValidationCheckService } from '../validation-check';

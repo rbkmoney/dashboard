@@ -1,4 +1,5 @@
-import { DocumentCreated, DocumentModification } from '../../../api-codegen/claim-management';
+import { DocumentCreated, DocumentModification } from '@dsh/api-codegen/claim-management';
+
 import { createUnionTypeGuardCreator } from '../../utils';
 
 const Type = DocumentModification.DocumentModificationTypeEnum;

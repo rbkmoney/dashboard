@@ -5,9 +5,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 
+import { WebhooksService } from '@dsh/api/webhooks';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
-
-import { WebhooksService } from '../../../../../api';
 
 @Injectable()
 export class DeleteWebhookService {

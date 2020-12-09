@@ -3,7 +3,9 @@ import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm, WalletService } from '../../api';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { WalletService } from '@dsh/api/wallet';
+
 import { Link } from '../../shared';
 import { findActivePath } from '../../shared/utils';
 

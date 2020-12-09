@@ -6,7 +6,8 @@ import {
     QuestionaryData,
     RussianIndividualEntity,
     RussianPrivateEntity,
-} from '../../../../../api-codegen/questionary/swagger-codegen';
+} from '@dsh/api-codegen/questionary/swagger-codegen';
+
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
 

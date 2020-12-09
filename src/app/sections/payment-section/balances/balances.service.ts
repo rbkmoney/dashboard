@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 
-import { AnalyticsService } from '../../../api';
-import { AmountResult } from '../../../api-codegen/anapi';
+import { AmountResult } from '@dsh/api-codegen/anapi';
+import { AnalyticsService } from '@dsh/api/analytics';
 
 @Injectable()
 export class BalancesService implements OnDestroy {

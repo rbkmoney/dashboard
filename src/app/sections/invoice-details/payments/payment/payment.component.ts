@@ -1,8 +1,9 @@
 import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PaymentStatus } from '../../../../api-codegen/anapi/swagger-codegen';
-import { PaymentSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
+import { PaymentStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { StatusColor as Color } from '../../../../theme-manager';
 import { LAYOUT_GAP } from '../../../constants';
 import { getPaymentStatusInfo } from '../../../get-payment-status-info';

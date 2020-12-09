@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
+import { ReportsService } from '@dsh/api/reports';
+
 import { multipleDownload } from '../../../../../utils';
-import { ReportsService } from '../../../../api';
 
 @Injectable()
 export class ReportFilesService {

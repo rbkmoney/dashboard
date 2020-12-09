@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Payout } from '../../../../../api-codegen/anapi';
+import { Payout } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-payout-main-info',

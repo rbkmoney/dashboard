@@ -6,7 +6,8 @@ import {
     LegalOwnerInfo,
     QuestionaryData,
     RussianLegalEntity,
-} from '../../../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
 

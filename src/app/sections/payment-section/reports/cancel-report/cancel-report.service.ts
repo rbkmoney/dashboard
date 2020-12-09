@@ -5,9 +5,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 
+import { ReportsService } from '@dsh/api/reports';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
-
-import { ReportsService } from '../../../../api';
 
 @Injectable()
 export class CancelReportService {

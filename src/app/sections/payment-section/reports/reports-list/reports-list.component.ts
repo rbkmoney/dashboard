@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { Report } from '../../../../api-codegen/anapi/swagger-codegen';
+import { Report } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { CancelReportService } from '../cancel-report';
 
 @Component({

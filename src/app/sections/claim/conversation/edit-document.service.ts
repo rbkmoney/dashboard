@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, of, Subject } from 'rxjs';
 import { filter, first, map, pluck, switchMap } from 'rxjs/operators';
 
+import { Modification } from '@dsh/api-codegen/claim-management';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { Modification } from '../../../api-codegen/claim-management';
 import { TimelineItemInfo } from './to-timeline-info';
 
 @Injectable()

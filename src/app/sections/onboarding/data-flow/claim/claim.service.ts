@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
-import { ClaimsService } from '../../../../api';
+import { ClaimsService } from '@dsh/api/claims';
 
 @Injectable()
 export class ClaimService {

@@ -1,7 +1,8 @@
 import { combineLatest, Observable } from 'rxjs';
 
-import { ClaimStatus } from '../../../../../api';
-import { Claim } from '../../../../../api-codegen/claim-management';
+import { Claim } from '@dsh/api-codegen/claim-management';
+import { ClaimStatus } from '@dsh/api/claims';
+
 import { filterByProp } from '../../../../../custom-operators';
 import { filterQuestionaryClaims, takeClaimByPriority } from '../operators';
 

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
+import { ShopModule } from '@dsh/api/shop';
+import { WalletModule } from '@dsh/api/wallet';
 import { DEFAULT_SEARCH_LIMIT, LAYOUT_GAP, SEARCH_LIMIT } from '@dsh/app/sections/constants';
 
-import { ShopModule } from '../api/shop';
-import { WalletModule } from '../api/wallet';
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';
 import { SectionsComponent } from './sections.component';

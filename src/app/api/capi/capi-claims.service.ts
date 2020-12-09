@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ClaimChangeset, ClaimsService } from '../../api-codegen/capi';
+import { ClaimChangeset, ClaimsService } from '@dsh/api-codegen/capi';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

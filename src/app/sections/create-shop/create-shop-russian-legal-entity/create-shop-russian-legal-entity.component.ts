@@ -6,9 +6,10 @@ import { TranslocoService } from '@ngneat/transloco';
 import { of, ReplaySubject } from 'rxjs';
 import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { ApiShopsService } from '../../../api';
-import { BankContent } from '../../../api-codegen/aggr-proxy';
-import { BankAccount } from '../../../api-codegen/capi';
+import { BankContent } from '@dsh/api-codegen/aggr-proxy';
+import { BankAccount } from '@dsh/api-codegen/capi';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { filterShopsByRealm } from '../../payment-section/operations/operators';
 import { CreateShopRussianLegalEntityService } from './create-shop-russian-legal-entity.service';
 
