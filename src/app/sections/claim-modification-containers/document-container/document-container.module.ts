@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CountryCodesModule } from '@dsh/app/shared/services';
 import { QuestionaryModule } from '@dsh/api/questionary';
+import { CountryCodesModule } from '@dsh/app/shared/services';
 import { LayoutModule } from '@dsh/components/layout';
 
 import { AdditionalInfoComponent } from './additional-info';

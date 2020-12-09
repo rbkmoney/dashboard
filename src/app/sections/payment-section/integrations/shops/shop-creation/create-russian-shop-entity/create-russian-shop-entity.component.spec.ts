@@ -9,11 +9,11 @@ import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { Contract, PayoutTool, PayoutToolDetails } from '@dsh/api-codegen/capi';
+import { Claim } from '@dsh/api-codegen/claim-management';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { Contract, PayoutTool, PayoutToolDetails } from '@dsh/api-codegen/capi';
-import { Claim } from '@dsh/api-codegen/claim-management';
 import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';

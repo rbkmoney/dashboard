@@ -2,11 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { CountryCodesService } from './country-codes.service';
 
-describe('ContryCodesService', () => {
+// TODO: implement unit test
+describe('CountryCodesService', () => {
     let service: CountryCodesService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            providers: [CountryCodesService],
+        });
         service = TestBed.inject(CountryCodesService);
     });
 

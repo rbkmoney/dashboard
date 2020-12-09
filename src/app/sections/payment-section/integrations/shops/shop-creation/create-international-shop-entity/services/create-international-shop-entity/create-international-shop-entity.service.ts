@@ -3,6 +3,7 @@ import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
+import { Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractorParamsModification,
@@ -14,7 +15,6 @@ import {
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
-import { Modification } from '@dsh/api-codegen/claim-management';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()

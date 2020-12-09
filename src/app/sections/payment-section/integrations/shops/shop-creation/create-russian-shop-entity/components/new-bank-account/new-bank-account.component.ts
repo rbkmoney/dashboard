@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import isNil from 'lodash.isnil';
 
 import { BankContent } from '@dsh/api-codegen/aggr-proxy';
+
 import {
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
     NEW_BANK_ACCOUNT_BANK_NAME_FIELD,

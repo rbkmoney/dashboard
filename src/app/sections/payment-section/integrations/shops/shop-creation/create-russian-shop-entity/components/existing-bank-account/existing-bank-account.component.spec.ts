@@ -5,11 +5,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
+import { Shop } from '@dsh/api-codegen/capi';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { Shop } from '@dsh/api-codegen/capi';
 import { generateMockShopsList } from '../../../../tests/generate-mock-shops-list';
 import { BANK_SHOP_ID_FIELD } from '../../consts';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
