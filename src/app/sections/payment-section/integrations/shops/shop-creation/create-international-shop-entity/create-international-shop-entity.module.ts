@@ -19,7 +19,6 @@ import { CreateInternationalShopEntityService } from './services/create-internat
 import { InternationalPayoutToolFormService } from './services/international-payout-tool-form/international-payout-tool-form.service';
 import { InternationalShopFormControllerService } from './services/international-shop-form-controller/international-shop-form-controller.service';
 
-// TODO: refactor this module
 @NgModule({
     imports: [
         CommonModule,

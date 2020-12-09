@@ -1,4 +1,3 @@
-// TODO: move to shared. Looks like it can be useful not only in international shop creation component
 export enum CountryCodes {
     ABH = 0 /*Abkhazia*/,
     AUS = 1 /*Australia*/,

@@ -82,6 +82,10 @@ export class CreateInternationalShopEntityService {
                       },
             }),
             createShopCreationModification(shopID, {
+                category: {
+                    shopModificationType: 'CategoryRef',
+                    id: 1,
+                },
                 location: makeShopLocation({
                     url,
                 }),

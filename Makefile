@@ -46,7 +46,6 @@ init:
 	npm run codegen
 
 build:
-	npm run test-ci
 	npx run-p --aggregate-output --print-label check lint
 	npm run build
 

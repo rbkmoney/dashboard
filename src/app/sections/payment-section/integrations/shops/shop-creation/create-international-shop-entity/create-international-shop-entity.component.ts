@@ -14,6 +14,7 @@ import { InternationalShopEntityFormValue } from './types/international-shop-ent
 @Component({
     selector: 'dsh-create-international-shop-entity',
     templateUrl: 'create-international-shop-entity.component.html',
+    styleUrls: ['create-international-shop-entity.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateInternationalShopEntityComponent {
