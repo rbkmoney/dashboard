@@ -6,10 +6,6 @@ import * as moment from 'moment';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, share, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
 
-import { ConfirmActionDialogComponent } from '@dsh/components/popups';
-
-import { toMinor } from '../../../utils';
-import { InvoiceTemplatesService } from '../../api';
 import {
     InvoiceLineTaxMode,
     InvoiceLineTaxVAT,
@@ -24,7 +20,11 @@ import {
     InvoiceTemplateSingleLine,
     LifetimeInterval,
     Shop,
-} from '../../api-codegen/capi';
+} from '@dsh/api-codegen/capi';
+import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
+import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+
+import { toMinor } from '../../../utils';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 export enum TemplateType {

@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 import { merge, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Invoice, InvoiceTemplateAndToken } from '../../../../../api-codegen/capi';
+import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
+
 import { CreateInvoiceOrInvoiceTemplateService } from './create-invoice-or-invoice-template.service';
 
 export enum Type {

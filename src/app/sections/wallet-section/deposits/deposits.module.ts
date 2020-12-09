@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { DepositsModule as DepositsApiModule } from '@dsh/api/deposits';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
@@ -15,7 +16,6 @@ import { DepositInfoModule } from '@dsh/components/layout/deposit-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { DepositsModule as DepositsApiModule } from '../../../api';
 import { ToMajorModule } from '../../../to-major';
 import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';

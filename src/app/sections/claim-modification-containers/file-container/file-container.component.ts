@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
+import { FileModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { coerceBoolean } from '../../../../utils';
-import { FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
 import { FileContainerService } from './file-container.service';
 
 @Component({

@@ -9,7 +9,7 @@ import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/sele
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { Shop } from '../../../../../../../../api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
 import { generateMockShopsList } from '../../../../tests/generate-mock-shops-list';
 import { BANK_SHOP_ID_FIELD } from '../../consts';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';

@@ -4,9 +4,9 @@ import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
+import { PayoutTool } from '@dsh/api-codegen/capi';
 import { PayoutsService } from '@dsh/api/payouts';
 
-import { PayoutTool } from '../../../../../../api-codegen/capi';
 import { ShopPayoutToolDetailsService } from './shop-payout-tool-details.service';
 
 describe('ShopPayoutToolDetailsService', () => {

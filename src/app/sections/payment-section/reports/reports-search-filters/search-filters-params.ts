@@ -1,4 +1,4 @@
-import { Report } from '../../../../api-codegen/anapi';
+import { Report } from '@dsh/api-codegen/anapi';
 
 export interface SearchFiltersParams {
     fromTime: string;

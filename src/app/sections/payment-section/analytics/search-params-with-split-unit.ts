@@ -1,4 +1,4 @@
-import { SplitUnit } from '../../../api-codegen/anapi/swagger-codegen';
+import { SplitUnit } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 export interface SearchParamsWithSplitUnit {
     fromTime: string;

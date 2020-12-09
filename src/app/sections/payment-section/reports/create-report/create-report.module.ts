@@ -10,9 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ReportsModule } from '@dsh/api/reports';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { ReportsModule } from '../../../../api';
 import { CreateReportDialogComponent } from './create-report-dialog.component';
 import { CreateReportFormComponent } from './create-report-form';
 import { FormatTimeInputDirective } from './create-report-form/format-time-input.directive';

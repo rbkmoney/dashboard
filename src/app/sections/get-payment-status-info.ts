@@ -1,4 +1,5 @@
-import { PaymentStatus } from '../api-codegen/capi/swagger-codegen';
+import { PaymentStatus } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { StatusColor as Color } from '../theme-manager';
 
 export interface PaymentStatusInfo {

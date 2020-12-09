@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { CreateReportReq } from '../../../../api/reports/create-reports';
+import { CreateReportReq } from '@dsh/api/reports/create-reports';
 
 export const formValueToCreateValue = ({ fromDate, fromTime, toDate, toTime, shopID }): CreateReportReq => ({
     fromTime: getDateWithTime(fromDate, fromTime),

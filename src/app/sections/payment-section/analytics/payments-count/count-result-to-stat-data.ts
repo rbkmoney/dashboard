@@ -1,4 +1,5 @@
-import { CountResult } from '../../../../api-codegen/anapi/swagger-codegen';
+import { CountResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { StatData } from '../utils';
 
 export function countResultToStatData([current, previous]: CountResult[][]): StatData[] {

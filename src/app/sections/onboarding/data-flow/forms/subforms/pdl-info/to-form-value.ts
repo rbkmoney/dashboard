@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 
-import { BeneficialOwner, LegalOwnerInfo } from '../../../../../../api-codegen/questionary';
+import { BeneficialOwner, LegalOwnerInfo } from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../../form-value';
 
 export const toPdlInfo = (i: BeneficialOwner | LegalOwnerInfo): FormValue => ({

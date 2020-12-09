@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ShortenerService } from '../../api-codegen/url-shortener';
+import { ShortenerService } from '@dsh/api-codegen/url-shortener';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

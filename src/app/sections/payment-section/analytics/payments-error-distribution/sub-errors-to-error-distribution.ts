@@ -1,5 +1,6 @@
-import { PaymentsSubErrorsDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
-import { SubError } from '../../../../api-codegen/capi/swagger-codegen';
+import { PaymentsSubErrorsDistributionResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { SubError } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { ErrorDistribution } from './error-distribution';
 import { knownErrors } from './known-errors';
 

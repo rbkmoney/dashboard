@@ -7,7 +7,7 @@ import {
     ConversationResponse,
     ConversationsService,
     ConversationStatus,
-} from '../../api-codegen/messages';
+} from '@dsh/api-codegen/messages';
 
 @Injectable()
 export class MessagesService {

@@ -3,7 +3,8 @@ import { isNil } from '@ngneat/transloco';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { AnalyticsService } from '../../../../../../api/analytics';
+import { AnalyticsService } from '@dsh/api/analytics';
+
 import { ShopBalance } from '../../types/shop-balance';
 
 @Injectable()

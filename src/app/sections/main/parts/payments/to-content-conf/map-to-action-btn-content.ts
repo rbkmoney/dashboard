@@ -2,9 +2,10 @@ import last from 'lodash.last';
 import { iif, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../../../../api';
-import { Claim, ClaimChangeset, StatusModificationUnit } from '../../../../../api-codegen/claim-management';
-import { takeDocumentModificationUnits } from '../../../../../api/claims/utils';
+import { Claim, ClaimChangeset, StatusModificationUnit } from '@dsh/api-codegen/claim-management';
+import { takeDocumentModificationUnits } from '@dsh/api/claims/utils';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { ActionBtnContent } from '../content-config';
 
 const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnContent => ({

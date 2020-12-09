@@ -1,4 +1,5 @@
-import { WithdrawalsSearchParams } from '../../../../api/withdrawals/withdrawals-search-params';
+import { WithdrawalsSearchParams } from '@dsh/api/withdrawals';
+
 import { FormParams } from './form-params';
 
 export function toSearchParams({ date, ...params }: FormParams): WithdrawalsSearchParams {

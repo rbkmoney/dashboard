@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { ShopModule } from '../api/shop';
-import { WalletModule } from '../api/wallet';
+import { ShopModule } from '@dsh/api/shop';
+import { WalletModule } from '@dsh/api/wallet';
+
 import { LAYOUT_GAP } from './constants';
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';

@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { of } from 'rxjs';
 
+import { ApiShopsService } from '@dsh/api/shop';
 import { amountValidator } from '@dsh/components/form-controls';
 
-import { ApiShopsService } from '../../../../api/shop';
 import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreatePayoutDialogService } from './create-payout-dialog.service';
 

@@ -1,4 +1,4 @@
-import { BankCardPaymentSystem } from '../../../../api-codegen/anapi/swagger-codegen';
+import { BankCardPaymentSystem } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 export const bankCardPaymentSystems: BankCardPaymentSystem[] = [
     'visa',

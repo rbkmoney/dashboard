@@ -14,7 +14,7 @@ import {
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
-import { Modification } from '../../../../../../../../api-codegen/claim-management';
+import { Modification } from '@dsh/api-codegen/claim-management';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()

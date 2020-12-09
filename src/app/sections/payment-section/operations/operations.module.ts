@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { SearchModule } from '@dsh/api/search';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { SearchModule } from '../../../api/search';
 import { OperationsRoutingModule } from './operations-routing.module';
 import { OperationsComponent } from './operations.component';
 

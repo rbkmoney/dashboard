@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../../api-codegen/anapi/swagger-codegen';
-import { PaymentSearchService } from '../../../api/search';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentSearchService } from '@dsh/api/search';
+
 import { booleanDebounceTime } from '../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';

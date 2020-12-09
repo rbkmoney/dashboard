@@ -5,9 +5,9 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { Observable, ReplaySubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
+import { Category, ShopLocationUrl } from '@dsh/api-codegen/capi/swagger-codegen';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Category, ShopLocationUrl } from '../../../../../../../../api-codegen/capi/swagger-codegen';
 import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../../../shop-balance';
 import { CategoryService } from '../../services/category/category.service';

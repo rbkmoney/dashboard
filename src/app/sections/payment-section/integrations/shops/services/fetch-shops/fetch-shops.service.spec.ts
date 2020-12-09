@@ -4,10 +4,11 @@ import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { Shop } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { AnalyticsService } from '../../../../../../api/analytics';
-import { PaymentInstitutionRealm } from '../../../../../../api/model';
-import { ApiShopsService } from '../../../../../../api/shop';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { AnalyticsService } from '@dsh/api/analytics';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { ShopBalanceModule } from '../../shops-list/shop-balance';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';

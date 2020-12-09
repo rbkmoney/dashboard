@@ -1,4 +1,5 @@
-import { AmountResult } from '../../../../api-codegen/anapi/swagger-codegen';
+import { AmountResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { StatData } from './stat-data';
 
 export function amountResultToStatData([current, previous]: AmountResult[][]): StatData[] {

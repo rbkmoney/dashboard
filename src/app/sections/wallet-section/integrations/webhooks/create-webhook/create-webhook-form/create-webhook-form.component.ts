@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
+import { WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { IdentityService } from '@dsh/api/identity';
+import { WalletService } from '@dsh/api/wallet';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { WebhookScope } from '../../../../../../api-codegen/wallet-api/swagger-codegen';
-import { IdentityService } from '../../../../../../api/identity';
-import { WalletService } from '../../../../../../api/wallet';
 import { getEventsByTopic } from '../get-events-by-topic';
 import TopicEnum = WebhookScope.TopicEnum;
 

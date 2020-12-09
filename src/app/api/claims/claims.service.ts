@@ -8,7 +8,8 @@ import {
     Modification,
     Reason,
     StatusModificationUnit,
-} from '../../api-codegen/claim-management';
+} from '@dsh/api-codegen/claim-management';
+
 import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 

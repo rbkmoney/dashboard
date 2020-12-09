@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { Mapping } from '../../../type-utils';
 import {
     BeneficialOwnerQuery,
     BeneficialOwnerResponses,
@@ -15,7 +14,9 @@ import {
     LicencesResponses,
     ReqQuery,
     ReqResponses,
-} from '../../api-codegen/aggr-proxy';
+} from '@dsh/api-codegen/aggr-proxy';
+
+import { Mapping } from '../../../type-utils';
 
 const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;

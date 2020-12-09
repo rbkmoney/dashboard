@@ -1,7 +1,8 @@
 import { translate } from '@ngneat/transloco';
 import sortBy from 'lodash.sortby';
 
-import { PaymentsToolDistributionResult } from '../../../../api-codegen/anapi/swagger-codegen';
+import { PaymentsToolDistributionResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { DistributionChartData } from '../utils';
 
 const sortByPercents = (distribution: PaymentsToolDistributionResult[]) => sortBy(distribution, (d) => -d.percents);

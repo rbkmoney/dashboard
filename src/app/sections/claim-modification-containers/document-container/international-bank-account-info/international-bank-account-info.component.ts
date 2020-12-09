@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
 
-import { CorrespondentAccount, InternationalBankAccount } from '../../../../api-codegen/questionary';
+import { CorrespondentAccount, InternationalBankAccount } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-international-bank-account-info',

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { SearchService } from '../../api-codegen/anapi';
+import { SearchService } from '@dsh/api-codegen/anapi';
+
 import { genXRequestID, toDateLike } from '../utils';
 import { PayoutsSearchParams } from './model';
 

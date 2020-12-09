@@ -3,9 +3,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
+import { Contract } from '@dsh/api-codegen/capi';
 import { ContractsService } from '@dsh/api/contracts';
-
-import { Contract } from '../../../../../../api-codegen/capi';
 
 @UntilDestroy()
 @Injectable()

@@ -5,16 +5,16 @@ import { TranslocoService } from '@ngneat/transloco';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '../../../../../api';
-import { FileModification, FileModificationUnit } from '../../../../../api-codegen/claim-management';
-import { replaceError } from '../../../../../custom-operators';
+import { FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-management';
+import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '@dsh/api/claims';
+
+import { filterError, filterPayload, replaceError } from '../../../../../custom-operators';
 import { ClaimService } from '../../claim';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { QuestionaryFormService } from '../questionary-form.service';
-import { filterError, filterPayload } from './../../../../../custom-operators/replace-error';
 
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {

@@ -1,7 +1,8 @@
 import { iif, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../../../../api';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { TestEnvBtnContent } from '../content-config';
 
 const toTestEnvBtnContent = (): TestEnvBtnContent => ({

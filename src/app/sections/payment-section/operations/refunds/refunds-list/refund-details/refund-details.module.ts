@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PaymentModule } from '@dsh/api/payment';
 import {
     InvoiceDetailsModule,
     PaymentDetailsModule,
@@ -15,7 +16,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { PaymentModule } from '../../../../../../api/payment';
 import { RefundInvoiceInfoComponent } from './components/refund-invoice-info/refund-invoice-info.component';
 import { RefundMainInfoComponent } from './components/refund-main-info/refund-main-info.component';
 import { RefundPaymentInfoComponent } from './components/refund-payment-info/refund-payment-info.component';

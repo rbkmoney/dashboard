@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
 import { individualOrLegalEntityInnValidator, phoneNumberValidator } from '@dsh/components/form-controls';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';

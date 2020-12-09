@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { DepositStatus, WithdrawalStatus } from '../../api-codegen/wallet-api/swagger-codegen';
+import { DepositStatus, WithdrawalStatus } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { StatusColor as Color } from '../../theme-manager';
 
 type Status = DepositStatus.StatusEnum | WithdrawalStatus.StatusEnum;

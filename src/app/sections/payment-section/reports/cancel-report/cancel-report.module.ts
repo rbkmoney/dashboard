@@ -3,9 +3,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ReportsModule } from '@dsh/api/reports';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { ReportsModule } from '../../../../api';
 import { CancelReportService } from './cancel-report.service';
 
 @NgModule({

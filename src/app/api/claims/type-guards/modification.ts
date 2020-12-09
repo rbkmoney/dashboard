@@ -1,4 +1,5 @@
-import { ClaimModification, Modification, PartyModification } from '../../../api-codegen/claim-management';
+import { ClaimModification, Modification, PartyModification } from '@dsh/api-codegen/claim-management';
+
 import { createUnionTypeGuardCreator } from '../../utils';
 
 const Type = Modification.ModificationTypeEnum;

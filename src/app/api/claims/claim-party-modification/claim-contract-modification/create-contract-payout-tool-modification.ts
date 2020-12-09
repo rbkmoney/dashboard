@@ -1,5 +1,6 @@
-import { ContractModification, PartyModification } from '../../../../api-codegen/claim-management';
-import { PayoutToolParams } from '../../../../api-codegen/dark-api';
+import { ContractModification, PartyModification } from '@dsh/api-codegen/claim-management';
+import { PayoutToolParams } from '@dsh/api-codegen/dark-api';
+
 import { createBaseContractModification } from './create-base-contract-modification';
 
 export function createContractPayoutToolModification(

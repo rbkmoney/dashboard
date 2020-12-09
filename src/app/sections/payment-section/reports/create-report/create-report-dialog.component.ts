@@ -6,7 +6,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 import { of } from 'rxjs';
 
-import { ApiShopsService } from '../../../../api';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreateReportDialogService } from './create-report-dialog.service';
 

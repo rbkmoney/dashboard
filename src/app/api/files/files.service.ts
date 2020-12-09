@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { FilesService as FilesApiService } from '../../api-codegen/dark-api';
-import { FileData, FileDownload, FileUploadData } from '../../api-codegen/dark-api/swagger-codegen';
+import { FilesService as FilesApiService } from '@dsh/api-codegen/dark-api';
+import { FileData, FileDownload, FileUploadData } from '@dsh/api-codegen/dark-api/swagger-codegen';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

@@ -1,10 +1,11 @@
-import { Replace } from '../../../../type-utils';
 import {
     Contractor,
     InternationalLegalEntity,
     LegalEntity,
     LegalEntityContractor,
-} from '../../../api-codegen/questionary/swagger-codegen';
+} from '@dsh/api-codegen/questionary/swagger-codegen';
+
+import { Replace } from '../../../../type-utils';
 
 type InternationalLegalEntityContractor = Replace<
     LegalEntityContractor,

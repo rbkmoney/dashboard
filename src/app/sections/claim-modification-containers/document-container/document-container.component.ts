@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
+import { DocumentModificationUnit } from '@dsh/api-codegen/claim-management';
+
 import { DocumentContainerService } from './document-container.service';
 
 @Component({

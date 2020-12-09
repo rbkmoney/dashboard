@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { BankContent } from '../../../../../api-codegen/aggr-proxy';
+import { BankContent } from '@dsh/api-codegen/aggr-proxy';
+
 import { PlanningOperationsAndPayoutToolService } from './planning-operations-and-payout-tool.service';
 
 @Component({
