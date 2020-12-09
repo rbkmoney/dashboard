@@ -5,7 +5,8 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { PayoutTool, Shop } from '../../../../../../../../api-codegen/capi';
+import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
+
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
 import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_ID_FIELD, CONTRACT_FORM_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';

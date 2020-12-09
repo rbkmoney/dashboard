@@ -5,9 +5,9 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
+import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
-import { PayoutTool, Shop } from '../../../../../../../../api-codegen/capi';
 import { BANK_SHOP_ID_FIELD } from '../../consts';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
 

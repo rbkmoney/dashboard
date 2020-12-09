@@ -1,4 +1,5 @@
-import { LegalEntityType, PartyModification, RussianLegalEntity } from '../../../../api-codegen/claim-management';
+import { LegalEntityType, PartyModification, RussianLegalEntity } from '@dsh/api-codegen/claim-management';
+
 import { RussianShopCreateData } from '../../../../sections/payment-section/integrations/shops/shop-creation/create-russian-shop-entity/types/russian-shop-create-data';
 import { createContractorLegalEntityModification } from './create-contractor-legal-entity-modification';
 import { createRussianBankAccountModification } from './create-russian-bank-account-modification';

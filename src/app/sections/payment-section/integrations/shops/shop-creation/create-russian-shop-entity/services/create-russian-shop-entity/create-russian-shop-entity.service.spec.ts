@@ -4,6 +4,8 @@ import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { Contract } from '@dsh/api-codegen/capi';
+import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createTestContractorModification,
@@ -13,8 +15,6 @@ import {
 } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
-import { Contract } from '../../../../../../../../api-codegen/capi';
-import { Claim, Modification } from '../../../../../../../../api-codegen/claim-management';
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 import { CreateRussianShopEntityService } from './create-russian-shop-entity.service';
 

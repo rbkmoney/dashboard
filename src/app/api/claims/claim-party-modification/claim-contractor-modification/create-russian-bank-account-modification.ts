@@ -1,4 +1,4 @@
-import { RussianBankAccount } from '../../../../api-codegen/claim-management';
+import { RussianBankAccount } from '@dsh/api-codegen/claim-management';
 
 export function createRussianBankAccountModification(params: RussianBankAccount): RussianBankAccount {
     return {

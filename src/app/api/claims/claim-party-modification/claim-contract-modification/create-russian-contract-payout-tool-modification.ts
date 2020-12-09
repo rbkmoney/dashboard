@@ -1,5 +1,6 @@
-import { PartyModification } from '../../../../api-codegen/claim-management';
-import { PayoutToolInfo } from '../../../../api-codegen/dark-api';
+import { PartyModification } from '@dsh/api-codegen/claim-management';
+import { PayoutToolInfo } from '@dsh/api-codegen/dark-api';
+
 import { RussianShopCreateData } from '../../../../sections/payment-section/integrations/shops/shop-creation/create-russian-shop-entity/types/russian-shop-create-data';
 import { createContractPayoutToolModification } from './create-contract-payout-tool-modification';
 
