@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Invoice } from '../../../api-codegen/capi';
+import { Invoice } from '@dsh/api-codegen/capi';
+
 import { CreatePaymentLinkDialogComponent } from './create-payment-link-dialog';
 
 @Component({

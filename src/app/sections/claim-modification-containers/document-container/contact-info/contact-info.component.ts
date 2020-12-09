@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ContactInfo } from '../../../../api-codegen/questionary';
+import { ContactInfo } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-contact-info',

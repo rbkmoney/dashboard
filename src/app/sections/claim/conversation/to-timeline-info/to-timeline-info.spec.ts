@@ -4,7 +4,8 @@ import {
     ModificationUnit,
     StatusModificationUnit,
     UserInfo,
-} from '../../../../api-codegen/claim-management/swagger-codegen';
+} from '@dsh/api-codegen/claim-management/swagger-codegen';
+
 import { TimelineItemInfo } from './model';
 import { toTimelineInfo } from './to-timeline-info';
 

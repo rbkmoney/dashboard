@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { CommentModificationUnit } from '../../../api-codegen/claim-management';
+import { CommentModificationUnit } from '@dsh/api-codegen/claim-management';
+
 import { CommentContainerService } from './comment-container.service';
 
 @Component({

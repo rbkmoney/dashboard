@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AnalyticsService as APIAnalyticsService, InlineResponse200, SplitUnit } from '../../api-codegen/anapi';
+import { AnalyticsService as APIAnalyticsService, InlineResponse200, SplitUnit } from '@dsh/api-codegen/anapi';
+
 import { PaymentInstitutionRealm } from '../model';
 import { genXRequestID, toDateLike } from '../utils';
 

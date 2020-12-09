@@ -1,4 +1,5 @@
-import { Webhook } from '../../../../../api-codegen/wallet-api';
+import { Webhook } from '@dsh/api-codegen/wallet-api';
+
 import { FormParams } from './form-params';
 
 export const formValuesToWebhook = (v: FormParams): Webhook =>

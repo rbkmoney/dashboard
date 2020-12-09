@@ -6,6 +6,7 @@
     "stub": "ng serve --port 8000 --configuration=stub-keycloak",
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
     "test": "ng test",
+    "test-ci": "ng test --watch=false",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
@@ -18,7 +19,7 @@
     "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc && husky install"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "@angular/platform-browser": "~9.1.1",
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
+    "@ngneat/reactive-forms": "^1.5.0",
     "@ngneat/transloco": "^2.19.1",
     "@ngneat/until-destroy": "^8.0.3",
     "angular-epic-spinners": "^2.0.0",
@@ -106,6 +108,7 @@
     "@types/uuid": "^3.4.5",
     "codelyzer": "^5.1.2",
     "del": "^5.1.0",
+    "husky": "^5.0.4",
     "jasmine-core": "~3.5.0",
     "jasmine-marbles": "^0.6.0",
     "jasmine-spec-reporter": "~4.2.1",

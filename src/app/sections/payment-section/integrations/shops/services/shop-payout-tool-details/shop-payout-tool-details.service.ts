@@ -5,7 +5,7 @@ import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/o
 
 import { PayoutsService } from '@dsh/api/payouts';
 
-import { PayoutTool } from '../../../../../../api-codegen/capi';
+import { PayoutTool } from '@dsh/api-codegen/capi';
 import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
 
 @UntilDestroy()

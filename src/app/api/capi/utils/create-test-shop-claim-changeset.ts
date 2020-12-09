@@ -15,7 +15,7 @@ import {
     ShopCategoryChange,
     ShopCreation,
     ShopLocationUrl,
-} from '../../../api-codegen/capi';
+} from '@dsh/api-codegen/capi';
 
 const defaultClaimContractor: RussianLegalEntity = {
     contractorType: 'LegalEntity',

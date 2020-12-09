@@ -5,7 +5,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { merge, zip } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { WalletService } from '../../api/wallet';
+import { WalletService } from '@dsh/api/wallet';
+
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 @Injectable()

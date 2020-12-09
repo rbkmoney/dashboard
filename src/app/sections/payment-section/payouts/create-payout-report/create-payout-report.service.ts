@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { Payout } from '../../../../api-codegen/anapi';
+import { Payout } from '@dsh/api-codegen/anapi';
+
 import { CreatePayoutReportDialogComponent } from './create-payout-report-dialog.component';
 
 @Injectable()

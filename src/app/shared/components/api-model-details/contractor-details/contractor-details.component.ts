@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { LegalEntity } from '../../../../api-codegen/capi';
+import { LegalEntity } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-contractor-details',

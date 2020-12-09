@@ -4,12 +4,12 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, HeadlineModule } from '@dsh/components/layout';
 import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 
-import { WithdrawalsModule as WithdrawalsApiModule } from '../../../api/withdrawals';
 import { ToMajorModule } from '../../../to-major';
 import { WithdrawalsComponent } from './withdrawals.component';
 

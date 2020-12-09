@@ -1,4 +1,5 @@
-import { Webhook } from '../../../../../api-codegen/capi';
+import { Webhook } from '@dsh/api-codegen/capi';
+
 import { FormParams } from './form-params';
 
 export const formValuesToWebhook = (v: FormParams): Webhook =>

@@ -5,7 +5,7 @@ import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/o
 
 import { ContractsService } from '@dsh/api/contracts';
 
-import { Contract } from '../../../../../../api-codegen/capi';
+import { Contract } from '@dsh/api-codegen/capi';
 
 @UntilDestroy()
 @Injectable()

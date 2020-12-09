@@ -1,15 +1,16 @@
 import {
-    isCommentModificationUnit,
-    isDocumentModificationUnit,
-    isFileModificationUnit,
-    isStatusModificationUnit,
-} from '../../../../api';
-import {
     ClaimModificationType,
     FileModification,
     FileModificationUnit,
     StatusModificationUnit,
-} from '../../../../api-codegen/claim-management';
+} from '@dsh/api-codegen/claim-management';
+import {
+    isCommentModificationUnit,
+    isDocumentModificationUnit,
+    isFileModificationUnit,
+    isStatusModificationUnit,
+} from '@dsh/api/claims';
+
 import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {

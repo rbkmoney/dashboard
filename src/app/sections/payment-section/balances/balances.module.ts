@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AnalyticsModule } from '../../../api';
+import { AnalyticsModule } from '@dsh/api/analytics';
+
 import { ToMajorModule } from '../../../to-major';
 import { BalancesComponent } from './balances.component';
 

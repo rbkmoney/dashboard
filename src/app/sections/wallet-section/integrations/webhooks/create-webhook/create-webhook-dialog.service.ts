@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
+import { WalletWebhooksService } from '@dsh/api/wallet-webhooks';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { WalletWebhooksService } from '../../../../../api/wallet-webhooks';
 import { FormParams } from './form-params';
 import { formValuesToWebhook } from './form-values-to-webhook';
 import { getEventsByTopic } from './get-events-by-topic';

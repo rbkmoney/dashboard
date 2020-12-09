@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 
-import { QuestionaryData } from '../../../../../api-codegen/questionary';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../form-value';
 import { toPdlInfo, toPrivateEntityInfo, toResidencyInfo, toRussianDomesticPassport } from '../subforms';
 

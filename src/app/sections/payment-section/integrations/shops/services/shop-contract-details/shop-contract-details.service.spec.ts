@@ -6,7 +6,7 @@ import { instance, mock, when } from 'ts-mockito';
 
 import { ContractsService } from '@dsh/api/contracts';
 
-import { Contract } from '../../../../../../api-codegen/capi';
+import { Contract } from '@dsh/api-codegen/capi';
 import { ShopContractDetailsService } from './shop-contract-details.service';
 
 describe('ShopContractDetailsService', () => {

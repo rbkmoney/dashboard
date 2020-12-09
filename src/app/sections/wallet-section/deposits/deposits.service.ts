@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
-import { DepositsService as DepositsApiService } from '../../../api';
-import { Deposit } from '../../../api-codegen/wallet-api/swagger-codegen';
-import { DepositsSearchParams } from '../../../api/deposits';
+import { Deposit } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { DepositsSearchParams, DepositsService as DepositsApiService } from '@dsh/api/deposits';
+
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 

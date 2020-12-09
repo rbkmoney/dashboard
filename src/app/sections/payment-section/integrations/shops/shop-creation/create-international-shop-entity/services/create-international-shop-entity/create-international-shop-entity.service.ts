@@ -3,7 +3,6 @@ import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap, switchMapTo } from 'rxjs/operators';
 import uuid from 'uuid';
 
-import { ClaimsService, createDocumentModificationUnit, QuestionaryService } from '../../../../../../../../api';
 import {
     BankAccount,
     InternationalBankAccount,
@@ -13,7 +12,9 @@ import {
     QuestionaryData,
     ShopLocation,
     ShopLocationUrl,
-} from '../../../../../../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+import { ClaimsService, createDocumentModificationUnit } from '@dsh/api/claims';
+import { QuestionaryService } from '@dsh/api/questionary';
 import { CountryCodes } from '../../types/country-codes';
 import { FormValue } from '../../types/form-value';
 

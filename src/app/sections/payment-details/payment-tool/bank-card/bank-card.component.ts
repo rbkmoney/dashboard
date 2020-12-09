@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { BankCardDetails, PaymentToolDetailsBankCard } from '../../../../api-codegen/capi/swagger-codegen';
+import { BankCardDetails, PaymentToolDetailsBankCard } from '@dsh/api-codegen/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-bank-card',

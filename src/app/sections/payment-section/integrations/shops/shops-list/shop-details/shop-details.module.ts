@@ -7,12 +7,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { CategoriesModule } from '@dsh/api/categories';
+import { ContractsModule } from '@dsh/api/contracts';
 import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { CategoriesModule } from '../../../../../../api/categories';
-import { ContractsModule } from '../../../../../../api/contracts';
 import { ShopBalanceModule } from '../shop-balance';
 import { ShopActionsComponent } from './components/shop-actions/shop-actions.component';
 import { ShopContractDetailsComponent } from './components/shop-contract-details/shop-contract-details.component';

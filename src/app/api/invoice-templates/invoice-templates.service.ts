@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import {
     InvoiceTemplateCreateParams,
     InvoiceTemplatesService as InvoiceTemplatesApiService,
-} from '../../api-codegen/capi';
+} from '@dsh/api-codegen/capi';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

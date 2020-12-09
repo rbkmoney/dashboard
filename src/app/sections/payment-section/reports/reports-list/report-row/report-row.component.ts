@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Report } from '../../../../../api-codegen/anapi';
+import { Report } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-report-row',

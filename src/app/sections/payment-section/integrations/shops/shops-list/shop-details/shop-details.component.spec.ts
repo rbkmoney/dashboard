@@ -18,6 +18,8 @@ import { ShopContractDetailsService } from '../../services/shop-contract-details
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';
+import { MockShopContractDetailsService } from '../tests/mock-shop-contract-details-service';
+import { MockShopPayoutToolDetailsService } from '../tests/mock-shop-payout-tool-details-service';
 import { ShopActionsComponent } from './components/shop-actions/shop-actions.component';
 import { ShopContractDetailsComponent } from './components/shop-contract-details/shop-contract-details.component';
 import { ShopIdComponent } from './components/shop-id/shop-id.component';

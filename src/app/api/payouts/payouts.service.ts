@@ -6,7 +6,8 @@ import {
     PayoutParams,
     PayoutsService as PayoutsAPIService,
     PayoutTool,
-} from '../../api-codegen/capi/swagger-codegen';
+} from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

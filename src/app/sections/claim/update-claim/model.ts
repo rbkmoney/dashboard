@@ -1,5 +1,5 @@
-import { FileModification } from '../../../api-codegen/claim-management';
-import { Conversation } from '../../../api-codegen/messages';
+import { FileModification } from '@dsh/api-codegen/claim-management';
+import { Conversation } from '@dsh/api-codegen/messages';
 
 export interface UpdateParams {
     type: 'updateConversation' | 'updateFiles';

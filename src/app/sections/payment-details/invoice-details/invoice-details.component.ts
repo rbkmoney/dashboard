@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
+import { Invoice, InvoiceStatus } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { StatusColor as Color } from '../../../theme-manager';
 import { LAYOUT_GAP } from '../../constants';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Payout } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { Payout } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 @Component({
     selector: 'dsh-payout-actions',

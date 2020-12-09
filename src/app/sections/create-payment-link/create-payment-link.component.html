@@ -32,9 +32,14 @@
                 <h2 class="mat-body-2">{{ c('form.paymentMethods') }}:</h2>
                 <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
                     <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
-                        <span *transloco="let form; scope: 'create-payment-link'; read: 'createPaymentLink.form'">{{
-                            form(methodName)
-                        }}</span>
+                        <span
+                            *transloco="
+                                let m;
+                                scope: 'create-payment-link';
+                                read: 'createPaymentLink.form.paymentMethodsList'
+                            "
+                            >{{ m(methodName) }}</span
+                        >
                     </mat-checkbox>
                 </ng-container>
             </ng-container>

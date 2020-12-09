@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Invoice } from '../../../../api-codegen/capi';
+import { Invoice } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-create-payment-link-dialog',

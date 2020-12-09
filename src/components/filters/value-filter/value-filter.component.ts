@@ -14,11 +14,11 @@ import { ComponentChanges } from '../../../type-utils';
 export class ValueFilterComponent implements OnChanges {
     @Input() label: string;
     @Input() selectedLabel?: string;
-    @Input() selectedLabelPredicate?: (value: string) => string;
     @Input() placeholder?: string;
+    @Input() type?: 'number' | 'text' = 'text';
 
-    @Input() value: string;
-    @Output() valueChanges = new EventEmitter<string>();
+    @Input() value: string | number;
+    @Output() valueChanges = new EventEmitter<string | number>();
     private savedValue$ = new ReplaySubject<string>();
 
     control = new FormControl();
@@ -28,8 +28,9 @@ export class ValueFilterComponent implements OnChanges {
             if (!v) {
                 return this.label;
             }
-            if (this.selectedLabelPredicate) {
-                return this.selectedLabelPredicate(v);
+            if (this.selectedLabel) {
+                // there's can be a problem with logic
+                return this.selectedLabel + v;
             }
             return this.selectedLabel || this.label;
         }),
