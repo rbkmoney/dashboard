@@ -4,10 +4,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/anapi';
+import { Contract } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
-import { Shop } from '../../../../../../../../api-codegen/anapi';
-import { Contract } from '../../../../../../../../api-codegen/capi';
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
 

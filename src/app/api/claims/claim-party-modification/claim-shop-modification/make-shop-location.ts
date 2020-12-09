@@ -1,4 +1,4 @@
-import { ShopLocation } from '../../../../api-codegen/claim-management';
+import { ShopLocation } from '@dsh/api-codegen/claim-management';
 
 export function makeShopLocation(params: Omit<ShopLocation, 'shopModificationType'>): ShopLocation {
     return {

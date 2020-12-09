@@ -5,9 +5,9 @@ import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay, withLatestFrom } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
-import { Shop } from '../../../../../../../../api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '../../../../../../../../custom-operators';
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
 

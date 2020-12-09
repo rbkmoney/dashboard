@@ -1,4 +1,5 @@
-import { Contract } from '../../../../../../../api-codegen/capi';
+import { Contract } from '@dsh/api-codegen/capi';
+
 import { BankAccountFormData } from './bank-account-form-data';
 import { BankAccountType } from './bank-account-type';
 

@@ -18,7 +18,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, of } from 'rxjs';
 import { filter, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
-import { BankAccount, PayoutTool, Shop } from '../../../../../../api-codegen/capi';
+import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
+
 import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import {
