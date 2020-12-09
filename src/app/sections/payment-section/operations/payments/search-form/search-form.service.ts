@@ -6,10 +6,10 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, pluck, shareReplay, startWith, take } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi';
+import { ApiShopsService } from '@dsh/api/shop';
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 
-import { ApiShopsService } from '../../../../../api';
-import { Shop } from '../../../../../api-codegen/capi';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';

@@ -1,4 +1,5 @@
-import { Shop } from '../../../api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
+
 import { findShopByID } from './find-shop-by-id';
 import { getShopName } from './get-shop-name';
 

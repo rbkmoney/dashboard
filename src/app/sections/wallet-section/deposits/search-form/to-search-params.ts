@@ -1,4 +1,5 @@
-import { DepositsSearchParams } from '../../../../api/deposits';
+import { DepositsSearchParams } from '@dsh/api/deposits';
+
 import { FormParams } from './form-params';
 
 export function toSearchParams({ date, ...params }: FormParams): DepositsSearchParams {

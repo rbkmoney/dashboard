@@ -142,12 +142,12 @@ describe('ShopsListComponent', () => {
 
     describe('expandedIdChange', () => {
         it('should call expandedIdChange method from expandedIdManager', () => {
-            when(mockExpandedIdManager.expandedIdChange(1)).thenReturn();
+            when(mockExpandedIdManager.expandedIdChange(15)).thenReturn();
 
-            component.expandedIdChange(1);
+            component.expandedIdChange(15);
 
+            verify(mockExpandedIdManager.expandedIdChange(15)).once();
             expect().nothing();
-            verify(mockExpandedIdManager.expandedIdChange(1)).once();
         });
     });
 });

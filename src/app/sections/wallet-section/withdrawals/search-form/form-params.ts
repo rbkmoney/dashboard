@@ -1,6 +1,5 @@
+import { WithdrawalStatus } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { Range } from '@dsh/components/form-controls';
-
-import { WithdrawalStatus } from '../../../../api-codegen/wallet-api/swagger-codegen';
 
 export interface FormParams {
     date: Range;

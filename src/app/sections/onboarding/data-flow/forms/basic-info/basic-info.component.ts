@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { PartyContent } from '../../../../../api-codegen/aggr-proxy';
+import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
+
 import { BasicInfoService } from './basic-info.service';
 
 @Component({

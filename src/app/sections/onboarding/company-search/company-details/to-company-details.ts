@@ -1,4 +1,5 @@
-import { PartyContent } from '../../../../api-codegen/aggr-proxy';
+import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
+
 import { CompanyDetails } from './company-details';
 
 export const toCompanyDetails = ({ value, address, ogrn, inn, kpp }: PartyContent): CompanyDetails => ({

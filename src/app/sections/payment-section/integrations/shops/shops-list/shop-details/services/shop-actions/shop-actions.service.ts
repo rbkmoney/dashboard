@@ -5,9 +5,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable, of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
 
+import { ApiShopsService } from '@dsh/api/shop';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { ApiShopsService } from '../../../../../../../../api/shop';
 import { ShopActionResult } from '../../types/shop-action-result';
 
 @Injectable()

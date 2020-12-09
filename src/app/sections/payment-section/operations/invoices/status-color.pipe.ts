@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Invoice } from '../../../../api-codegen/anapi/swagger-codegen';
+import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { StatusColor } from '../../../../theme-manager';
 
 @Pipe({

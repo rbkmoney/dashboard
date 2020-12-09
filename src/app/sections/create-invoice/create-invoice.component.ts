@@ -4,8 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 
-import { InvoiceLineTaxVAT } from '../../api-codegen/anapi';
-import { Invoice, Shop } from '../../api-codegen/capi';
+import { InvoiceLineTaxVAT } from '@dsh/api-codegen/anapi';
+import { Invoice, Shop } from '@dsh/api-codegen/capi';
+
 import { CreateInvoiceService, WITHOUT_VAT } from './create-invoice.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { LegalOwnerInfo } from '../../../../api-codegen/questionary';
+import { LegalOwnerInfo } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-legal-owner-info',

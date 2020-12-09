@@ -5,10 +5,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { catchError, pluck, switchMap } from 'rxjs/operators';
 
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchService } from '@dsh/api/search';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { toMinor } from '../../../../../utils';
-import { PaymentSearchResult } from '../../../../api-codegen/capi';
-import { PaymentSearchService } from '../../../../api/search';
-import { ApiShopsService } from '../../../../api/shop';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';

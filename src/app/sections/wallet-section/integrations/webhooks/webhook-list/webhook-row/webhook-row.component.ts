@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { IdentityService } from '../../../../../../api/identity';
+import { IdentityService } from '@dsh/api/identity';
 
 @Component({
     selector: 'dsh-webhook-row',

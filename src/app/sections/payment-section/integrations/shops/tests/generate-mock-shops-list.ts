@@ -1,6 +1,7 @@
 import { isNil } from '@ngneat/transloco';
 
-import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { generateMockShop } from './generate-mock-shop';
 import { makeEmptyList } from './make-empty-list';
 

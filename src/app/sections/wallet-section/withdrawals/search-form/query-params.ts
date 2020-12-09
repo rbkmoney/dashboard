@@ -1,4 +1,4 @@
-import { DepositStatus } from '../../../../api-codegen/wallet-api/swagger-codegen';
+import { DepositStatus } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
 export interface QueryParams {
     fromTime: string;

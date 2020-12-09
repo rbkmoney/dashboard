@@ -1,4 +1,5 @@
-import { Claim } from '../../api-codegen/claim-management';
+import { Claim } from '@dsh/api-codegen/claim-management';
+
 import { getClaimType } from './get-claim-type';
 
 export function filterViewClaims(claims: Claim[]): Claim[] {

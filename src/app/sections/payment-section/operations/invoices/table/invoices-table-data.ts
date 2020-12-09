@@ -1,4 +1,4 @@
-import { InvoiceStatus } from '../../../../../api-codegen/anapi';
+import { InvoiceStatus } from '@dsh/api-codegen/anapi';
 
 export interface InvoicesTableData {
     amount: number;

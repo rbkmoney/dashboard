@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 
-import { Wallet } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { WalletService } from '../../../../api/wallet';
+import { Wallet } from '@dsh/api-codegen/wallet-api';
+import { WalletService } from '@dsh/api/wallet';
+
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { LAYOUT_GAP } from '../../../constants';
 import { ReceiveWalletsService } from '../receive-wallets.service';

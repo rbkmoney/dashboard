@@ -1,4 +1,3 @@
-import { Replace } from '../../../../type-utils';
 import {
     Contractor,
     IndividualEntity,
@@ -8,7 +7,9 @@ import {
     Questionary,
     QuestionaryData,
     RussianIndividualEntity,
-} from '../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
+import { Replace } from '../../../../type-utils';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,

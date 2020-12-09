@@ -4,7 +4,8 @@ import {
     DocumentModificationUnit,
     FileModificationUnit,
     StatusModificationUnit,
-} from '../../../api-codegen/claim-management';
+} from '@dsh/api-codegen/claim-management';
+
 import { createUnionTypeGuardCreator } from '../../utils';
 
 const Type = ClaimModificationType.ClaimModificationTypeEnum;

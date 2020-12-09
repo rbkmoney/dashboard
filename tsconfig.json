@@ -19,7 +19,9 @@
         "paths": {
             "@dsh/components/*": ["src/components/*"],
             "@dsh/pipes/*": ["src/pipes/*"],
-            "@dsh/app/shared/*": ["src/app/shared/*"]
+            "@dsh/app/shared/*": ["src/app/shared/*"],
+            "@dsh/api/*": ["src/app/api/*"],
+            "@dsh/api-codegen/*": ["src/app/api-codegen/*"]
         }
     },
     "angularCompilerOptions": {

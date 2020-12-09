@@ -3,8 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
-import { PartyContent } from '../../../api-codegen/aggr-proxy';
-import { Contractor, QuestionaryData } from '../../../api-codegen/questionary';
+import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
+import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { CompanyDetails } from './company-details';
 import { CompanySearchService } from './company-search.service';
 import {

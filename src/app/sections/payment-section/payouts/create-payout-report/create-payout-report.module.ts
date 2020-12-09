@@ -6,9 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ReportsModule } from '@dsh/api/reports';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { ReportsModule } from '../../../../api';
 import { CreatePayoutReportDialogComponent } from './create-payout-report-dialog.component';
 import { CreatePayoutReportService } from './create-payout-report.service';
 

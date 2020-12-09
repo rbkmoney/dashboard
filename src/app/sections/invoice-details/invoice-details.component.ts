@@ -2,7 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
-import { Invoice } from '../../api-codegen/capi';
+import { Invoice } from '@dsh/api-codegen/capi';
+
 import { LAYOUT_GAP } from '../constants';
 import { InvoiceDetailsService } from './invoice-details.service';
 

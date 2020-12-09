@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Withdrawal } from '../../../api-codegen/wallet-api/swagger-codegen';
-import { WithdrawalsService as ApiWithdrawalsService } from '../../../api/withdrawals';
+import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { WithdrawalsService as ApiWithdrawalsService } from '@dsh/api/withdrawals';
+
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()

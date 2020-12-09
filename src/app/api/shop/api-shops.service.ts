@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
-import { Shop } from '../../api-codegen/capi';
-import { ShopsService } from '../../api-codegen/capi/shops.service';
+import { Shop } from '@dsh/api-codegen/capi';
+import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
+
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 

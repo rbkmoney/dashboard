@@ -5,8 +5,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subject, timer } from 'rxjs';
 import { filter, first, shareReplay, startWith, switchMap, timeout } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../api-codegen/capi/swagger-codegen';
-import { Duration, PaymentSearchService } from '../../api/search';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
+import { Duration, PaymentSearchService } from '@dsh/api/search';
+
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 const completedStatuses: PaymentSearchResult.StatusEnum[] = [

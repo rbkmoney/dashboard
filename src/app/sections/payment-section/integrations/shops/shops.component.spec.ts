@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -9,14 +8,14 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
-import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
+import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';
@@ -27,22 +26,20 @@ describe('ShopsComponent', () => {
     let fixture: ComponentFixture<ShopsComponent>;
     let mockFetchShopsService: FetchShopsService;
     let mockShopsExpandedIdManagerService: ShopsExpandedIdManagerService;
-    let mockMatDialog: MatDialog;
-    let mockActivatedRoute: ActivatedRoute;
     let mockShopsBalanceService: ShopsBalanceService;
     let mockShopsFiltersService: ShopsFiltersService;
     let mockShopsFiltersStoreService: ShopsFiltersStoreService;
-    let mockMatDialogRef: MatDialogRef<CreateShopDialogComponent>;
+    let mockActivatedRoute: ActivatedRoute;
+    let mockShopCreationService: ShopCreationService;
 
     beforeEach(() => {
         mockFetchShopsService = mock(FetchShopsService);
         mockShopsExpandedIdManagerService = mock(ShopsExpandedIdManagerService);
-        mockMatDialog = mock(MatDialog);
-        mockActivatedRoute = mock(ActivatedRoute);
         mockShopsBalanceService = mock(ShopsBalanceService);
         mockShopsFiltersService = mock(ShopsFiltersService);
         mockShopsFiltersStoreService = mock(ShopsFiltersStoreService);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockActivatedRoute = mock(ActivatedRoute);
+        mockShopCreationService = mock(ShopCreationService);
     });
 
     beforeEach(async(() => {
@@ -78,8 +75,8 @@ describe('ShopsComponent', () => {
                     useFactory: () => instance(mockShopsExpandedIdManagerService),
                 },
                 {
-                    provide: MatDialog,
-                    useFactory: () => instance(mockMatDialog),
+                    provide: ShopCreationService,
+                    useFactory: () => instance(mockShopCreationService),
                 },
                 {
                     provide: ActivatedRoute,
@@ -171,43 +168,15 @@ describe('ShopsComponent', () => {
     });
 
     describe('createShop', () => {
-        it('should open creation dialog', () => {
-            when(mockActivatedRoute.snapshot).thenReturn({
-                params: {
-                    realm: PaymentInstitutionRealm.test,
-                },
-            } as any);
-            when(
-                mockMatDialog.open(
-                    CreateShopDialogComponent,
-                    deepEqual({
-                        width: '552px',
-                        maxHeight: '90vh',
-                        disableClose: true,
-                        data: {
-                            realm: PaymentInstitutionRealm.test,
-                        },
-                    })
-                )
-            ).thenReturn(instance(mockMatDialogRef));
-            when(mockMatDialogRef.afterClosed()).thenReturn(of(null));
+        it('should call create shop with activated route realm', () => {
+            when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.live } } as any);
+            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).thenReturn(
+                null
+            );
 
-            fixture.detectChanges();
             component.createShop();
 
-            verify(
-                mockMatDialog.open(
-                    CreateShopDialogComponent,
-                    deepEqual({
-                        width: '552px',
-                        maxHeight: '90vh',
-                        disableClose: true,
-                        data: {
-                            realm: PaymentInstitutionRealm.test,
-                        },
-                    })
-                )
-            ).once();
+            verify(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).once();
             expect().nothing();
         });
     });

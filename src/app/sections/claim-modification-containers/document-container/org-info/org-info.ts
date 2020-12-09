@@ -1,4 +1,4 @@
-import { AdditionalInfo, RegistrationInfo } from '../../../../api-codegen/questionary';
+import { AdditionalInfo, RegistrationInfo } from '@dsh/api-codegen/questionary';
 
 export interface OrgInfo {
     additionalInfo: AdditionalInfo;

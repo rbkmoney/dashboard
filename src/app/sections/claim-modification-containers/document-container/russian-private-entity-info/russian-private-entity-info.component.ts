@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { RussianPrivateEntity } from '../../../../api-codegen/questionary';
+import { RussianPrivateEntity } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-russian-private-entity-info',

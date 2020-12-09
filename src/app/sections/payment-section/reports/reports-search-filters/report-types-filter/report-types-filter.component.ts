@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Report } from '../../../../../api-codegen/anapi';
+import { Report } from '@dsh/api-codegen/anapi';
 
 type ReportType = Report.ReportTypeEnum;
 

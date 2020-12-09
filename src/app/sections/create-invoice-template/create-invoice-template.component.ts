@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 
-import { InvoiceLineTaxVAT, InvoiceTemplateAndToken, Shop } from '../../api-codegen/capi';
+import { InvoiceLineTaxVAT, InvoiceTemplateAndToken, Shop } from '@dsh/api-codegen/capi';
+
 import { CostType, CreateInvoiceTemplateService, TemplateType, withoutVAT } from './create-invoice-template.service';
 
 @Component({

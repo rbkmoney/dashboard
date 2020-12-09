@@ -3,7 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { catchError } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '../../../api-codegen/anapi/swagger-codegen';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { LAYOUT_GAP } from '../../constants';
 import { RefundsService } from './refunds.service';
 
