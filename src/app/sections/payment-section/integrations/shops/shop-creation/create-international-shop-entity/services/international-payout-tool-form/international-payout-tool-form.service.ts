@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
+import isEmpty from 'lodash.isempty';
 
-import { countryCodeValidator } from './country-code-validator';
-import { formValidator } from './form-valildator';
+import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
+
+import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
+import { payoutToolFormValidator } from './payout-tool-form-validator';
 
 @Injectable()
 export class InternationalPayoutToolFormService {
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private countryCodes: CountryCodesService) {}
 
-    getForm(): FormGroup {
+    getForm(): FormGroup<InternationalBankAccountFormValue> {
         return this.fb.group(
             {
                 number: ['', [Validators.pattern(/^[0-9A-Z]{8,40}$/)]],
@@ -16,10 +20,18 @@ export class InternationalPayoutToolFormService {
                 bic: ['', [Validators.pattern(/^([A-Z0-9]{8}|[A-Z0-9]{11})$/)]],
                 abaRtn: ['', [Validators.pattern(/^[0-9]{9}$/)]],
                 name: ['', [Validators.maxLength(100)]],
-                country: ['', [Validators.pattern(/^[A-Z]{3}$/), countryCodeValidator]],
+                country: ['', [Validators.pattern(/^[A-Z]{3}$/), this.countryCodeValidator.bind(this)]],
                 address: ['', [Validators.maxLength(1000)]],
             },
-            { validators: formValidator }
+            { validator: payoutToolFormValidator }
         );
+    }
+
+    private countryCodeValidator(
+        control: FormControl<InternationalBankAccountFormValue['country']>
+    ): { unknownCountryCode: boolean } | null {
+        return isEmpty(control.value) || this.countryCodes.isCountryExist(control.value)
+            ? null
+            : { unknownCountryCode: true };
     }
 }

@@ -1,88 +1,28 @@
 import { Injectable } from '@angular/core';
+import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
-import { pluck, switchMap, switchMapTo } from 'rxjs/operators';
-import uuid from 'uuid';
+import { pluck, switchMap } from 'rxjs/operators';
 
+import { Modification } from '@dsh/api-codegen/claim-management';
+import { ClaimsService } from '@dsh/api/claims';
 import {
-    BankAccount,
-    InternationalBankAccount,
-    InternationalLegalEntity,
-    LegalEntity,
-    LegalEntityContractor,
-    QuestionaryData,
-    ShopLocation,
-    ShopLocationUrl,
-} from '@dsh/api-codegen/questionary';
-import { ClaimsService, createDocumentModificationUnit } from '@dsh/api/claims';
-import { QuestionaryService } from '@dsh/api/questionary';
+    createContractorParamsModification,
+    createInternationalLegalEntityModification,
+    createShopCreationModification,
+    makeShopDetails,
+    makeShopLocation,
+} from '@dsh/api/claims/claim-party-modification';
+import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
+import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
-import { CountryCodes } from '../../types/country-codes';
-import { FormValue } from '../../types/form-value';
+import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
-    constructor(private claimsService: ClaimsService, private questionaryService: QuestionaryService) {}
+    constructor(private claimsService: ClaimsService, private uuidGenerator: UuidGeneratorService) {}
 
-    createShop({
-        shopUrl,
-        shopName,
-        organizationName,
-        tradingName,
-        registeredAddress,
-        actualAddress,
-        payoutTool,
-        correspondentPayoutTool,
-    }: FormValue) {
-        const initialDocumentID = uuid();
-        const changeset = [createDocumentModificationUnit(initialDocumentID)];
-        const questionaryData: QuestionaryData = {
-            shopInfo: {
-                location: {
-                    locationType: ShopLocation.LocationTypeEnum.ShopLocationUrl,
-                    url: shopUrl,
-                } as ShopLocationUrl,
-                details: {
-                    name: shopName,
-                },
-            },
-            bankAccount: {
-                bankAccountType: BankAccount.BankAccountTypeEnum.InternationalBankAccount,
-                iban: payoutTool.iban,
-                number: payoutTool.number,
-                bank: {
-                    abaRtn: payoutTool.abaRtn,
-                    address: payoutTool.address,
-                    bic: payoutTool.bic,
-                    name: payoutTool.name,
-                    country: this.getCountryCode(payoutTool.country),
-                },
-                correspondentAccount: !correspondentPayoutTool
-                    ? null
-                    : {
-                          iban: correspondentPayoutTool.iban,
-                          number: correspondentPayoutTool.number,
-                          bank: {
-                              abaRtn: correspondentPayoutTool.abaRtn,
-                              address: correspondentPayoutTool.address,
-                              bic: correspondentPayoutTool.bic,
-                              name: correspondentPayoutTool.name,
-                              country: this.getCountryCode(correspondentPayoutTool.country),
-                          },
-                      },
-            } as InternationalBankAccount,
-            contractor: {
-                contractorType: 'LegalEntityContractor',
-                legalEntity: {
-                    legalEntityType: LegalEntity.LegalEntityTypeEnum.InternationalLegalEntity,
-                    legalName: organizationName,
-                    tradingName,
-                    registeredAddress,
-                    actualAddress,
-                } as InternationalLegalEntity,
-            } as LegalEntityContractor,
-        };
-        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMapTo(this.claimsService.createClaim(changeset)),
+    createShop(creationData: InternationalShopEntityFormValue) {
+        return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
             switchMap((claim) =>
                 forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
             ),
@@ -90,7 +30,71 @@ export class CreateInternationalShopEntityService {
         );
     }
 
-    getCountryCode(country: string): number {
-        return CountryCodes[country];
+    private createClaimsModifications({
+        shopUrl: url,
+        shopName: name,
+        organizationName: legalName,
+        tradingName,
+        registeredAddress,
+        actualAddress,
+        payoutTool,
+        correspondentPayoutTool = null,
+    }: InternationalShopEntityFormValue): Modification[] {
+        const contractorID = this.uuidGenerator.generateUUID();
+        const contractID = this.uuidGenerator.generateUUID();
+        const payoutToolID = this.uuidGenerator.generateUUID();
+        const shopID = this.uuidGenerator.generateUUID();
+
+        return [
+            createInternationalLegalEntityModification(contractorID, {
+                legalName,
+                registeredNumber: '', // add ui field or remove it
+                registeredAddress,
+                tradingName,
+                actualAddress,
+            }),
+            createContractorParamsModification(contractID, {
+                contractorID,
+            }),
+            createInternationalContractPayoutToolModification(contractID, payoutToolID, {
+                iban: payoutTool.iban,
+                number: payoutTool.number,
+                bank: {
+                    abaRtn: payoutTool.abaRtn,
+                    address: payoutTool.address,
+                    bic: payoutTool.bic,
+                    name: payoutTool.name,
+                    country: payoutTool.country,
+                },
+                correspondentAccount: isNil(correspondentPayoutTool)
+                    ? null
+                    : {
+                          accountHolder: '', // add ui field or remove it
+                          iban: correspondentPayoutTool.iban,
+                          number: correspondentPayoutTool.number,
+                          bank: {
+                              abaRtn: correspondentPayoutTool.abaRtn,
+                              address: correspondentPayoutTool.address,
+                              bic: correspondentPayoutTool.bic,
+                              name: correspondentPayoutTool.name,
+                              country: correspondentPayoutTool.country,
+                          },
+                      },
+            }),
+            createShopCreationModification(shopID, {
+                category: {
+                    shopModificationType: 'CategoryRef',
+                    id: 1,
+                },
+                location: makeShopLocation({
+                    url,
+                }),
+                details: makeShopDetails({
+                    name,
+                }),
+                payoutToolID,
+                contractID,
+            }),
+        ];
     }
 }

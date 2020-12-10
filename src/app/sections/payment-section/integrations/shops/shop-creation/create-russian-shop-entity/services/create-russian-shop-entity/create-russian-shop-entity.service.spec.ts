@@ -7,14 +7,12 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { Contract } from '@dsh/api-codegen/capi';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
-import {
-    createTestContractorModification,
-    createTestLegalEntityModification,
-    createTestRussianContractPayoutToolModification,
-    createTestShopCreationModification,
-} from '@dsh/api/claims/claim-party-modification';
+import { createTestContractorModification } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
+import { createTestLegalEntityModification } from '../../tests/create-test-legal-entity-modification';
+import { createTestRussianContractPayoutToolModification } from '../../tests/create-test-russian-contract-payout-tool-modification';
+import { createTestShopCreationModification } from '../../tests/create-test-shop-creation-modification';
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 import { CreateRussianShopEntityService } from './create-russian-shop-entity.service';
 

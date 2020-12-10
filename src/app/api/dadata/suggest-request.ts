@@ -10,7 +10,6 @@ import {
 
 import { Mapping } from '../../../type-utils';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 type FullParamsByRequestType = Mapping<
