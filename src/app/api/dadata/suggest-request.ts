@@ -10,8 +10,6 @@ import {
 
 import { Mapping } from '../../../type-utils';
 
-// unused and can be removed
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 type FullParamsByRequestType = Mapping<
