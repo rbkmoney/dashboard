@@ -28,17 +28,10 @@ import { CreateOrganizationDialogComponent } from './components/create-organizat
 import { OrganizationRolesComponent } from './components/organization-roles/organization-roles.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
+import { RenameOrganizationDialogComponent } from './components/rename-organization-dialog/rename-organization-dialog.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
-
-const EXPORTED_DECLARATIONS = [
-    OrganizationsComponent,
-    OrganizationsListComponent,
-    OrganizationComponent,
-    OrganizationRolesComponent,
-    CreateOrganizationDialogComponent,
-];
 
 @NgModule({
     imports: [
@@ -70,8 +63,15 @@ const EXPORTED_DECLARATIONS = [
         ErrorModule,
         MatInputModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    declarations: [
+        OrganizationsComponent,
+        OrganizationsListComponent,
+        OrganizationComponent,
+        OrganizationRolesComponent,
+        CreateOrganizationDialogComponent,
+        RenameOrganizationDialogComponent,
+    ],
+    exports: [OrganizationsComponent],
     providers: [FetchOrganizationsService],
 })
 export class OrganizationsModule {}

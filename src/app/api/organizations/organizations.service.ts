@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { MembersService, Organization, OrgsService, RoleId, RolesService } from '../../api-codegen/organizations';
+import {
+    InlineObject,
+    MembersService,
+    Organization,
+    OrgsService,
+    RoleId,
+    RolesService,
+} from '../../api-codegen/organizations';
 import { UuidGeneratorService } from '../../shared/services/uuid-generator/uuid-generator.service';
 
 @Injectable()
@@ -20,6 +27,10 @@ export class OrganizationsService {
         return this.orgsService.createOrg(this.uuidGeneratorService.generateUUID(), org as Organization);
     }
 
+    patchOrganization(orgId: Organization['id'], org: InlineObject) {
+        return this.orgsService.patchOrg(this.uuidGeneratorService.generateUUID(), orgId, org);
+    }
+
     getRole(orgId: Organization['id'], roleId: RoleId) {
         return this.rolesService.getOrgRole(this.uuidGeneratorService.generateUUID(), orgId, roleId);
     }
@@ -30,5 +41,9 @@ export class OrganizationsService {
 
     getMembers(orgId: Organization['id']) {
         return this.membersService.listOrgMembers(this.uuidGeneratorService.generateUUID(), orgId);
+    }
+
+    expelMember(orgId: Organization['id'], userId: string) {
+        return this.membersService.expelOrgMember(this.uuidGeneratorService.generateUUID(), orgId, userId);
     }
 }
