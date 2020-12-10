@@ -1,0 +1,25 @@
+<div
+    *transloco="let t; scope: 'organizations'; read: 'organizations.createOrganizationDialog'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <div class="dsh-headline">{{ t('title') }}</div>
+    <mat-form-field>
+        <mat-label>{{ t('name') }}</mat-label>
+        <input [formControl]="nameControl" matInput type="text" autocomplete="off" required />
+    </mat-form-field>
+    <div fxLayout fxLayoutGap="24px">
+        <button fxFlex dsh-stroked-button color="warn" [disabled]="inProgress$ | async" (click)="cancel()">
+            {{ t('cancel') }}
+        </button>
+        <button
+            fxFlex
+            dsh-button
+            color="accent"
+            [disabled]="nameControl.invalid || (inProgress$ | async)"
+            (click)="create()"
+        >
+            {{ t('create') }}
+        </button>
+    </div>
+</div>

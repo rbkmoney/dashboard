@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ShopModule } from '@dsh/api/shop';
 import { WalletModule } from '@dsh/api/wallet';
 
-import { LAYOUT_GAP } from './constants';
+import { DialogConfig, DIALOG_CONFIG, LAYOUT_GAP } from './constants';
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';
 import { SectionsComponent } from './sections.component';
@@ -12,6 +12,28 @@ import { SectionsComponent } from './sections.component';
     imports: [MainModule, SectionsRoutingModule, ShopModule, WalletModule],
     declarations: [SectionsComponent],
     exports: [SectionsComponent],
-    providers: [{ provide: LAYOUT_GAP, useValue: '20px' }],
+    providers: [
+        { provide: LAYOUT_GAP, useValue: '20px' },
+        {
+            provide: DIALOG_CONFIG,
+            useValue: {
+                s: {
+                    width: '360px',
+                    maxHeight: '90vh',
+                    disableClose: true,
+                },
+                m: {
+                    width: '552px',
+                    maxHeight: '90vh',
+                    disableClose: true,
+                },
+                l: {
+                    width: '648px',
+                    maxHeight: '90vh',
+                    disableClose: true,
+                },
+            } as DialogConfig,
+        },
+    ],
 })
 export class SectionsModule {}

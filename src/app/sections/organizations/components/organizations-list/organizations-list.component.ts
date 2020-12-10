@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Organization } from '../../../../api-codegen/organizations';
+import { Organization } from '@dsh/api-codegen/organizations';
 
 @Component({
     selector: 'dsh-organizations-list',
