@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { instance, mock, when } from 'ts-mockito';
 
 import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
-import { getFormControl } from '@dsh/app/shared/utils';
+import { getAbstractControl } from '@dsh/app/shared/utils';
 
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 import { InternationalPayoutToolFormService } from './international-payout-tool-form.service';
@@ -61,7 +61,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "number" as a string of numbers or/and caps latin chars from 8 to 40 symbols', () => {
-                control = getFormControl(form, 'number');
+                control = getAbstractControl(form, 'number');
 
                 expect(control.valid).toBe(true);
 
@@ -115,7 +115,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "iban" as a string of numbers or/and caps latin chars from 14 to 35 symbols', () => {
-                control = getFormControl(form, 'iban');
+                control = getAbstractControl(form, 'iban');
 
                 expect(control.valid).toBe(true);
 
@@ -169,7 +169,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('it should validate "bic" as a string value of caps latin chars or/and number with length 8 or 11 together', () => {
-                control = getFormControl(form, 'bic');
+                control = getAbstractControl(form, 'bic');
 
                 expect(control.valid).toBe(true);
 
@@ -203,7 +203,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "abaRtn" as a string of numbers with length that equals 9', () => {
-                control = getFormControl(form, 'abaRtn');
+                control = getAbstractControl(form, 'abaRtn');
 
                 expect(control.valid).toBe(true);
 
@@ -229,7 +229,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "name" as a string with max value with length that less or equals 100', () => {
-                control = getFormControl(form, 'name');
+                control = getAbstractControl(form, 'name');
                 expect(control.valid).toBe(true);
 
                 control.setValue(generateStringLength('1', 100));
@@ -250,7 +250,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "country" as a country 3 letters code name', () => {
-                control = getFormControl(form, 'country');
+                control = getAbstractControl(form, 'country');
                 expect(control.valid).toBe(true);
 
                 when(mockCountryCodesService.isCountryExist('USA')).thenReturn(true);
@@ -276,7 +276,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('should validate "address" as a string with max value of 1000 letters', () => {
-                control = getFormControl(form, 'address');
+                control = getAbstractControl(form, 'address');
                 expect(control.valid).toBe(true);
 
                 control.setValue('addressName');
@@ -305,7 +305,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('form should be valid if "iban" is valid and filled', () => {
-                control = getFormControl(form, 'iban');
+                control = getAbstractControl(form, 'iban');
 
                 form.updateValueAndValidity();
                 expect(form.valid).toBe(false);
@@ -316,7 +316,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('form should be valid if "bic" is valid and filled', () => {
-                control = getFormControl(form, 'bic');
+                control = getAbstractControl(form, 'bic');
 
                 form.updateValueAndValidity();
                 expect(form.valid).toBe(false);
@@ -327,7 +327,7 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('form should be valid if "abaRtn" is valid and filled', () => {
-                control = getFormControl(form, 'abaRtn');
+                control = getAbstractControl(form, 'abaRtn');
 
                 form.updateValueAndValidity();
                 expect(form.valid).toBe(false);
@@ -338,9 +338,9 @@ describe('InternationalPayoutToolFormService', () => {
             });
 
             it('form should be valid if country & address & name is valid and filled', () => {
-                const countryControl = getFormControl(form, 'country');
-                const addressControl = getFormControl(form, 'address');
-                const nameControl = getFormControl(form, 'name');
+                const countryControl = getAbstractControl(form, 'country');
+                const addressControl = getAbstractControl(form, 'address');
+                const nameControl = getAbstractControl(form, 'name');
 
                 when(mockCountryCodesService.isCountryExist('USA')).thenReturn(true);
                 when(mockCountryCodesService.isCountryExist('AOG')).thenReturn(true);

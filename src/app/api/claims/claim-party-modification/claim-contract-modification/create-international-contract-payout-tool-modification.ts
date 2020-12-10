@@ -13,7 +13,7 @@ export function createInternationalContractPayoutToolModification(
         },
         toolInfo: {
             payoutToolModificationType: 'PayoutToolParams',
-            payoutToolType: 'InternationalBankAccount', // swag supports it
+            payoutToolType: 'InternationalBankAccount', // not available in interfaces now. Can be found in swag
             ...params,
         } as any,
     });

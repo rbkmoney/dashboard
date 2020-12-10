@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
-import { getFormGroup } from '@dsh/app/shared/utils';
+import { getAbstractControl } from '@dsh/app/shared/utils';
 
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
@@ -36,12 +36,12 @@ export class InternationalShopFormControllerService {
     }
 
     getPayoutTool(form: FormGroup<InternationalShopEntityFormValue>): FormGroup<InternationalBankAccountFormValue> {
-        return getFormGroup<FormGroup<InternationalBankAccountFormValue>>(form, 'payoutTool');
+        return getAbstractControl<FormGroup<InternationalBankAccountFormValue>>(form, 'payoutTool');
     }
 
     getCorrespondentPayoutTool(
         form: FormGroup<InternationalShopEntityFormValue>
     ): FormGroup<InternationalBankAccountFormValue> {
-        return getFormGroup<FormGroup<InternationalBankAccountFormValue>>(form, 'correspondentPayoutTool');
+        return getAbstractControl<FormGroup<InternationalBankAccountFormValue>>(form, 'correspondentPayoutTool');
     }
 }
