@@ -23,21 +23,6 @@
                 <dsh-empty-search-result></dsh-empty-search-result>
             </ng-template>
         </ng-template>
-
-        <div class="dsh-body-1">{{ t('invitations') }}</div>
-
-        <!-- TODO: UNKNOWN API -->
-        <!-- <dsh-spinner *ngIf="isLoading$ | async; else invitationsLoaded" fxFlexAlign="center"></dsh-spinner>
-        <ng-template #invitationsLoaded>
-            <div *ngIf="(organizations$ | async)?.length; else invitationsEmpty" fxLayout="column" fxLayoutGap="16px">
-                <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
-                <dsh-organizations-list [organizations]="organizations$ | async"></dsh-organizations-list>
-                <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
-            </div>
-            <ng-template #invitationsEmpty>
-                <dsh-empty-search-result></dsh-empty-search-result>
-            </ng-template>
-        </ng-template> -->
     </div>
 </div>
 <dsh-scroll-up></dsh-scroll-up>
