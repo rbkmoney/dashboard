@@ -4,6 +4,7 @@ import {
     InlineObject,
     MembersService,
     Organization,
+    OrganizationJoinRequest,
     OrgsService,
     RoleId,
     RolesService,
@@ -29,6 +30,10 @@ export class OrganizationsService {
 
     patchOrganization(orgId: Organization['id'], org: InlineObject) {
         return this.orgsService.patchOrg(this.uuidGeneratorService.generateUUID(), orgId, org);
+    }
+
+    joinOrganization(request: OrganizationJoinRequest) {
+        return this.orgsService.joinOrg(this.uuidGeneratorService.generateUUID(), request);
     }
 
     getRole(orgId: Organization['id'], roleId: RoleId) {

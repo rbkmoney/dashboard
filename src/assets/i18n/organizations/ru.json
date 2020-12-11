@@ -4,6 +4,7 @@
     "headerRow": {
         "name": "Наименование организации"
     },
+    "invitations": "Приглашения",
     "organization": {
         "titles": {
             "roles": "Ваши роли",
