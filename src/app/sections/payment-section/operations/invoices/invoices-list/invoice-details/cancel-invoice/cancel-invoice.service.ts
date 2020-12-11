@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceService } from '@dsh/api/invoice';
 
@@ -13,8 +13,9 @@ import { CancelInvoiceParams } from './types/cancel-invoice-params';
 @Injectable()
 export class CancelInvoiceService {
     private cancelInvoice$ = new Subject<CancelInvoiceParams>();
-    private invoiceCancelled$ = this.cancelInvoice$.pipe(
-        switchMap(({ invoiceID, reason }) => this.invoiceService.rescindInvoice(invoiceID, reason))
+    invoiceCancelled$ = this.cancelInvoice$.pipe(
+        switchMap(({ invoiceID, reason }) => this.invoiceService.rescindInvoice(invoiceID, reason)),
+        shareReplay(1)
     );
 
     constructor(

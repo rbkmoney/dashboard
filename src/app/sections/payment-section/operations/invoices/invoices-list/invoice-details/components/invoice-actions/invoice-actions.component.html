@@ -4,7 +4,11 @@
     </div>
     <div fxLayout fxLayoutGap="24px">
         <button dsh-button color="accent" (click)="createPaymentLink()">{{ t('createPaymentLink') }}</button>
-        <button dsh-button color="warn" (click)="cancelInvoice()">{{ t('cancelInvoice') }}</button>
-        <button dsh-button color="warn" (click)="fulfillInvoice()">{{ t('fulfillInvoice') }}</button>
+        <ng-container *ngIf="invoice.status === 'unpaid'">
+            <button dsh-button color="warn" (click)="cancelInvoice()">{{ t('cancelInvoice') }}</button>
+        </ng-container>
+        <ng-container *ngIf="invoice.status === 'paid'">
+            <button dsh-button color="warn" (click)="fulfillInvoice()">{{ t('fulfillInvoice') }}</button>
+        </ng-container>
     </div>
 </div>

@@ -16,7 +16,10 @@
                         (collapse)="accordionItem.collapse($event)"
                         >{{ t('header') }} #{{ invoice.id }}</dsh-accordion-item-content-header
                     >
-                    <dsh-invoice-invoice-details [invoice]="invoice"></dsh-invoice-invoice-details>
+                    <dsh-invoice-invoice-details
+                        [invoice]="invoice"
+                        (refreshData)="refreshData.emit()"
+                    ></dsh-invoice-invoice-details>
                 </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>

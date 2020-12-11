@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
-import { InvoiceService } from '@dsh/api/invoice';
-import { filter, switchMap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { FulfillInvoiceParams } from './types/fulfill-invoice-params';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { Subject } from 'rxjs';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
+
+import { InvoiceService } from '@dsh/api/invoice';
+
+import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
+import { FulfillInvoiceParams } from './types/fulfill-invoice-params';
 
 @Injectable()
 export class FulfillInvoiceService {
     private fulfillInvoice$ = new Subject<FulfillInvoiceParams>();
-    private invoiceFulfilled$ = this.fulfillInvoice$.pipe(
-        switchMap(({ invoiceID, reason }) => this.invoiceService.fulfillInvoice(invoiceID, reason))
+    invoiceFulfilled$ = this.fulfillInvoice$.pipe(
+        switchMap(({ invoiceID, reason }) => this.invoiceService.fulfillInvoice(invoiceID, reason)),
+        shareReplay(1)
     );
 
     constructor(

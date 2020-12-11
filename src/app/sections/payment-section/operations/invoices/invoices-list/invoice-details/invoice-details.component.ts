@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Invoice } from '@dsh/api-codegen/anapi';
 
@@ -9,4 +9,5 @@ import { Invoice } from '@dsh/api-codegen/anapi';
 })
 export class InvoiceDetailsComponent {
     @Input() invoice: Invoice;
+    @Output() refreshData = new EventEmitter<void>();
 }

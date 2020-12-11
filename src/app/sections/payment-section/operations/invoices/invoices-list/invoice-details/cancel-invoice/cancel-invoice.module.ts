@@ -11,7 +11,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateInvoiceModule as FormCreateInvoiceModule } from '../../../../../../create-invoice';
 import { CreatePaymentLinkModule as ApiCreatePaymentLinkModule } from '../../../../../../create-payment-link';
-import { CancelInvoiceService } from './cancel-invoice.service';
 import { CancelInvoiceDialogComponent } from './components/cancel-invoice-dialog/cancel-invoice-dialog.component';
 
 @NgModule({
@@ -28,6 +27,6 @@ import { CancelInvoiceDialogComponent } from './components/cancel-invoice-dialog
         ButtonModule,
     ],
     declarations: [CancelInvoiceDialogComponent],
-    providers: [CancelInvoiceService],
+    // providers: [CancelInvoiceService],
 })
 export class CancelInvoiceModule {}

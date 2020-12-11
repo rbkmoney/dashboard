@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FulfillInvoiceDialogResponse } from '../../types/fulfill-invoice-dialog-response';
 import { FormControl } from '@ngneat/reactive-forms';
+
+import { FulfillInvoiceDialogResponse } from '../../types/fulfill-invoice-dialog-response';
 
 @Component({
     templateUrl: 'fulfill-invoice-dialog.component.html',

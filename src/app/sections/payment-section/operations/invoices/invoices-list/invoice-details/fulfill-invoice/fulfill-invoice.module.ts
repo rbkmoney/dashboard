@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CreateInvoiceModule as FormCreateInvoiceModule } from '../../../../../../create-invoice';
-import { TranslocoModule } from '@ngneat/transloco';
 import { CommonModule } from '@angular/common';
-import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
-import { CreatePaymentLinkModule as ApiCreatePaymentLinkModule } from '../../../../../../create-payment-link';
-import { FulfillInvoiceService } from './fulfill-invoice.service';
+import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
+import { TranslocoModule } from '@ngneat/transloco';
+
 import { ButtonModule } from '@dsh/components/buttons';
+
+import { CreateInvoiceModule as FormCreateInvoiceModule } from '../../../../../../create-invoice';
+import { CreatePaymentLinkModule as ApiCreatePaymentLinkModule } from '../../../../../../create-payment-link';
+import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
 
 @NgModule({
     imports: [
@@ -26,6 +27,6 @@ import { ButtonModule } from '@dsh/components/buttons';
         ButtonModule,
     ],
     declarations: [FulfillInvoiceDialogComponent],
-    providers: [FulfillInvoiceService],
+    // providers: [FulfillInvoiceService],
 })
 export class FulfillInvoiceModule {}
