@@ -3,17 +3,20 @@ import { KeycloakService } from 'keycloak-angular';
 import { instance, mock } from 'ts-mockito';
 
 import { OrganizationsService } from '../../../../api';
+import { UserService } from '../../../../shared';
 import { FetchOrganizationsService, PAGINATION_LIMIT } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
     let mockOrganizationsService: OrganizationsService;
     let mockKeycloakService: KeycloakService;
+    let mockUserService: UserService;
 
     let service: FetchOrganizationsService;
 
     beforeEach(() => {
         mockOrganizationsService = mock(OrganizationsService);
         mockKeycloakService = mock(KeycloakService);
+        mockUserService = mock(UserService);
 
         TestBed.configureTestingModule({
             providers: [
@@ -25,6 +28,10 @@ describe('FetchOrganizationsService', () => {
                 {
                     provide: KeycloakService,
                     useValue: instance(mockKeycloakService),
+                },
+                {
+                    provide: UserService,
+                    useValue: instance(mockUserService),
                 },
                 {
                     provide: PAGINATION_LIMIT,

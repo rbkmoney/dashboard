@@ -1,6 +1,6 @@
 import { Member, MemberRole } from '../../../api-codegen/organizations';
 
-export const mockMemeber: Member = {
+export const mockMember: Member = {
     id: '8d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
     userEmail: 'test@mail.com',
     roles: [

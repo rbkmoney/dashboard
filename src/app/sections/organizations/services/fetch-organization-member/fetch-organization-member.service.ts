@@ -5,7 +5,7 @@ import { first, pluck, switchMap } from 'rxjs/operators';
 import { OrganizationsService } from '../../../../api';
 import { Member, Organization } from '../../../../api-codegen/organizations';
 import { UserService } from '../../../../shared';
-import { mockMemeber } from '../../tests/mock-member';
+import { mockMember } from '../../tests/mock-member';
 
 @Injectable()
 export class FetchOrganizationMemberService {
@@ -22,12 +22,12 @@ export class FetchOrganizationMemberService {
         //     take(1),
         //     switchMap((userId) => this.organizationsService.getMember(id, userId))
         // );
-        return of(mockMemeber);
+        return of(mockMember);
     }
 
     getMembers(id: Organization['id']): Observable<Member[]> {
         // return this.organizationsService.getMembers(id).pipe(pluck('results'));
-        return of(new Array(5).fill(mockMemeber));
+        return of(new Array(5).fill(mockMember));
     }
 
     leaveOrganization(orgId: Organization['id']) {
