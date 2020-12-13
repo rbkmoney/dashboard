@@ -7,8 +7,8 @@ import { NotificationService } from '../notification';
 export class ErrorService {
     constructor(private notificationService: NotificationService) {}
 
-    error(error: any, messageOrGetType?: Parameters<NotificationService['error']>[0]) {
+    error(error: any, message?: string) {
         // TODO: parse error by instance for error clarification (message)
-        return this.notificationService.error(messageOrGetType);
+        return this.notificationService.error(message);
     }
 }

@@ -37,12 +37,12 @@ export class RenameOrganizationDialogComponent {
             .subscribe(
                 () => {
                     this.inProgress$.next(false);
-                    this.notificationService.success((t) => t.update);
+                    this.notificationService.success();
                     this.dialogRef.close();
                 },
                 (err) => {
                     this.inProgress$.next(false);
-                    this.errorService.error(err, (t) => t.update);
+                    this.errorService.error(err);
                 }
             );
     }

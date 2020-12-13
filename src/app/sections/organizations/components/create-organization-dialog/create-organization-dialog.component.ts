@@ -3,7 +3,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
@@ -35,11 +34,11 @@ export class CreateOrganizationDialogComponent {
             .subscribe(
                 () => {
                     this.inProgress$.next(false);
-                    this.notificationService.success((t) => t.creation);
+                    this.notificationService.success();
                     this.dialogRef.close();
                 },
                 (err) => {
-                    this.errorService.error(err, (t) => t.creation);
+                    this.errorService.error(err);
                     this.inProgress$.next(false);
                 }
             );

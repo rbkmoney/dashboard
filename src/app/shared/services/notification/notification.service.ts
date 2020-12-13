@@ -2,26 +2,21 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { MessageOrGetType } from './types/get-type';
-import { Type } from './types/type';
+const DEFAULT_DURATION_MS = 3000;
 
 @Injectable()
 export class NotificationService {
     constructor(private snackBar: MatSnackBar, private transloco: TranslocoService) {}
 
-    success(messageOrGetType: MessageOrGetType = (t) => t.default) {
-        const message =
-            typeof messageOrGetType === 'string'
-                ? messageOrGetType
-                : this.transloco.translate(`notification.success.${messageOrGetType(Type)}`);
-        return this.snackBar.open(message, this.transloco.translate('notification.ok'), { duration: 3000 });
+    success(message: string = this.transloco.translate('notification.success')) {
+        return this.snackBar.open(message, this.transloco.translate('notification.ok'), {
+            duration: DEFAULT_DURATION_MS,
+        });
     }
 
-    error(messageOrGetType: MessageOrGetType = (t) => t.default) {
-        const message =
-            typeof messageOrGetType === 'string'
-                ? messageOrGetType
-                : this.transloco.translate(`notification.error.${messageOrGetType(Type)}`);
-        return this.snackBar.open(message, this.transloco.translate('notification.ok'), { duration: 3000 });
+    error(message: string = this.transloco.translate('notification.error')) {
+        return this.snackBar.open(message, this.transloco.translate('notification.ok'), {
+            duration: DEFAULT_DURATION_MS,
+        });
     }
 }
