@@ -21,7 +21,7 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
         super();
     }
 
-    create(organization: Omit<Organization, 'id' | 'createdAt' | 'owner'>) {
+    create(organization: Omit<Organization, 'id' | 'createdAt' | 'owner'>): Observable<Organization> {
         return this.userService.profile$.pipe(
             take(1),
             pluck('id'),
