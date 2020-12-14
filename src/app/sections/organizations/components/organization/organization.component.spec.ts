@@ -73,15 +73,17 @@ describe('OrganizationComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should display organization employees', () => {
-        const item = fixture.debugElement
-            .query(By.directive(DetailsItemComponent))
-            .query(By.css('.dsh-details-item-content'));
-        expect(item.nativeElement.textContent.trim()).toEqual('7');
-    });
+    describe('template', () => {
+        it('should display organization employees', () => {
+            const item = fixture.debugElement
+                .query(By.directive(DetailsItemComponent))
+                .query(By.css('.dsh-details-item-content'));
+            expect(item.nativeElement.textContent.trim()).toEqual('7');
+        });
 
-    it('should display roles', () => {
-        const roles = fixture.debugElement.query(By.directive(OrganizationRolesComponent));
-        expect(roles).toBeTruthy();
+        it('should display roles', () => {
+            const roles = fixture.debugElement.query(By.directive(OrganizationRolesComponent));
+            expect(roles).toBeTruthy();
+        });
     });
 });
