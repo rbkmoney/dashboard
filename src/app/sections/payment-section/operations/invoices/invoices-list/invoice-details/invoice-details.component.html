@@ -5,4 +5,8 @@
         <dsh-invoice-cart-info [cart]="invoice.cart" [currency]="invoice.currency"></dsh-invoice-cart-info>
     </ng-container>
     <dsh-invoice-actions [invoice]="invoice" (refreshData)="refreshData.emit()"></dsh-invoice-actions>
+    <ng-container *ngIf="(payments$ | async)?.length">
+        <mat-divider></mat-divider>
+        <dsh-invoice-payments [payments]="payments$ | async"></dsh-invoice-payments>
+    </ng-container>
 </div>

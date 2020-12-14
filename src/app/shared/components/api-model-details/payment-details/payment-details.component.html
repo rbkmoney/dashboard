@@ -2,16 +2,15 @@
     *transloco="let t; scope: 'payment-info'; read: 'paymentInfo'"
     fxLayout="row"
     fxLayout.lt-md="column"
-    fxLayoutAlign="space-between"
     fxLayoutGap="24px"
 >
-    <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('status')">
+    <dsh-details-item fxFlex [title]="t('status')">
         <dsh-status [color]="payment.status | paymentStatusColor">{{ payment.status | paymentStatusName }}</dsh-status>
     </dsh-details-item>
-    <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('amount')">{{
+    <dsh-details-item fxFlex [title]="t('amount')">{{
         payment.amount | toMajor | currency: payment.currency
     }}</dsh-details-item>
-    <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('statusChangedAt')">{{
+    <dsh-details-item fxFlex [title]="t('statusChangedAt')">{{
         payment.statusChangedAt || payment.createdAt | date: 'dd MMMM yyyy, HH:mm'
     }}</dsh-details-item>
 </div>

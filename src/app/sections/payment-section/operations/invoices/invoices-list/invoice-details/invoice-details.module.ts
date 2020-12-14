@@ -22,6 +22,7 @@ import { InvoiceActionsComponent } from './components/invoice-actions/invoice-ac
 import { InvoiceCartLineComponent } from './components/invoice-cart-info/cart-info/invoice-cart-line.component';
 import { InvoiceCartInfoComponent } from './components/invoice-cart-info/invoice-cart-info.component';
 import { InvoiceMainInfoComponent } from './components/invoice-main-info/invoice-main-info.component';
+import { InvoicePaymentsComponent } from './components/invoice-payments/invoice-payments.component';
 import { CreatePaymentLinkModule } from './create-payment-link';
 import { FulfillInvoiceModule } from './fulfill-invoice';
 import { InvoiceDetailsComponent } from './invoice-details.component';
@@ -54,6 +55,7 @@ import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-t
         InvoiceCartLineComponent,
         TaxModeToTaxRatePipe,
         InvoiceActionsComponent,
+        InvoicePaymentsComponent,
     ],
     exports: [InvoiceDetailsComponent],
 })

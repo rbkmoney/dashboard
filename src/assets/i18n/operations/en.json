@@ -1,0 +1,116 @@
+{
+    "title": "Operations",
+    "payments": {
+        "title": "Payments",
+        "filter": {
+            "shopID": "Shop",
+            "fromTime": "From time",
+            "toTime": "To time",
+            "payerEmail": "Email",
+            "paymentID": "Payment ID",
+            "invoiceID": "Invoice ID",
+            "paymentAmountFrom": "Payment amount from",
+            "paymentAmountTo": "Payment amount to",
+            "first6": "Card BIN",
+            "last4": "Card last digits",
+            "payerFingerprint": "Payer fingerprint",
+            "payerIP": "Payer IP-address",
+            "customerID": "Customer ID",
+            "paymentStatus": "Payment status",
+            "paymentFlow": "Payment flow",
+            "bankCardTokenProvider": "Bank card token provider",
+            "bankCardPaymentSystem": "Payment system",
+            "paymentMethod": "Payment method",
+            "rrn": "RRN"
+        },
+        "table": {
+            "amount": "Amount",
+            "status": "Status",
+            "statusChanged": "Status changed at",
+            "invoice": "Invoice",
+            "shop": "Shop",
+            "actions": {
+                "paymentDetails": "Payment details"
+            }
+        }
+    },
+    "invoices": {
+        "title": "Invoices",
+        "header": "Invoice",
+        "shop": "Shop",
+        "filter": {
+            "shopID": "Shop",
+            "fromTime": "From time",
+            "toTime": "To time",
+            "payerEmail": "Email",
+            "paymentID": "Payment ID",
+            "invoiceID": "Invoice ID",
+            "invoiceAmount": "Invoice amount",
+            "first6": "Card BIN",
+            "last4": "Card last digits",
+            "payerFingerprint": "Payer fingerprint",
+            "customerID": "Customer ID",
+            "payerIP": "Payer IP-address",
+            "invoiceStatus": "Invoice status",
+            "paymentStatus": "Payment status",
+            "paymentFlow": "Payment flow",
+            "bankCardTokenProvider": "Bank card token provider",
+            "bankCardPaymentSystem": "Payment system",
+            "paymentMethod": "Payment method"
+        },
+        "cartInfo": {
+            "title": "Products and services cart",
+            "description": "Description of a product or service",
+            "price": "Price",
+            "quantity": "Quantity",
+            "tax": "TAX"
+        },
+        "headerRow": {
+            "productName": "Product name",
+            "amount": "Amount",
+            "status": "Status",
+            "createdAt": "Created at",
+            "shop": "Shop"
+        },
+        "actions": {
+            "title": "Actions",
+            "createPaymentLink": "Create payment link",
+            "cancelInvoice": "Cancel invoice",
+            "invoiceCancelled": "Invoice cancelled successfully",
+            "fulfillInvoice": "Fulfill invoice",
+            "invoiceFulfilled": "Invoice fulfilled successfully",
+            "reason": "Reason"
+        },
+        "payments": {
+            "title": "Payments",
+            "showMore": "Show more"
+        }
+    },
+    "refunds": {
+        "title": "Refunds",
+        "header": "Refund",
+        "shop": "Shop",
+        "invoiceInfo": {
+            "title": "Invoice",
+            "loading": "Loading...",
+            "error": "Invoice loading error"
+        },
+        "paymentInfo": {
+            "title": "Payment",
+            "loading": "Loading...",
+            "error": "Payment loading error"
+        },
+        "fetchError": "An error occurred while searching for refunds",
+        "headerRow": {
+            "amount": "Amount",
+            "status": "Status",
+            "updatedAt": "Status changed at",
+            "shop": "Shop"
+        },
+        "status": {
+            "succeeded": "Succeeded",
+            "failed": "Failed",
+            "pending": "Pending"
+        }
+    }
+}

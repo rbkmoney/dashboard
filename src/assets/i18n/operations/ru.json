@@ -80,6 +80,10 @@
             "fulfillInvoice": "Погасить инвойс",
             "invoiceFulfilled": "Инвойс успешно погашен",
             "reason": "Причина"
+        },
+        "payments": {
+            "title": "Платежи",
+            "showMore": "Показать еще"
         }
     },
     "refunds": {
