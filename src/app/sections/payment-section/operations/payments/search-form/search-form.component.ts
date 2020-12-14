@@ -13,6 +13,7 @@ import {
 import { PaymentSearchFormValue } from './payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
+// TODO: remove this component
 @Component({
     selector: 'dsh-search-form',
     templateUrl: 'search-form.component.html',

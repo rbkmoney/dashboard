@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { toMajor } from '../../utils';
+import { toMajor } from '../../../../utils';
 
 @Pipe({
     name: 'toMajor',

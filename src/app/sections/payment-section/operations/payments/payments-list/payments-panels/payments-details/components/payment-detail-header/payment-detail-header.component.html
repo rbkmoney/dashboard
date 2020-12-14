@@ -1,0 +1,8 @@
+<div
+    *transloco="let t; scope: 'operations'; read: 'operations.payments.details'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+>
+    <div>{{ t('name') + ' ' + '#' + order }}</div>
+    <div>{{ changedDate | date: 'dd MMMM yyyy, HH:mm' }}</div>
+</div>
