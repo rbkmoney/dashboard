@@ -10,6 +10,7 @@ import { FetchOrganizationsService } from '../../services/fetch-organizations/fe
 
 @UntilDestroy()
 @Component({
+    selector: 'dsh-create-organization-dialog',
     templateUrl: 'create-organization-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

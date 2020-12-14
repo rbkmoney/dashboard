@@ -12,6 +12,7 @@ import { NotificationService } from '../../../../shared/services/notification';
 
 @UntilDestroy()
 @Component({
+    selector: 'dsh-rename-organization-dialog',
     templateUrl: 'rename-organization-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
