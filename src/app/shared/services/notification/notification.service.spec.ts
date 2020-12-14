@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslocoTestingModule } from '@ngneat/transloco';
+import { TranslocoService, TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock, objectContaining, verify } from 'ts-mockito';
 
 import { NotificationService } from './notification.service';
@@ -9,7 +9,7 @@ describe('NotificationService', () => {
     let mockMatSnackBar: MatSnackBar;
     let service: NotificationService;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         mockMatSnackBar = mock(MatSnackBar);
 
         TestBed.configureTestingModule({
@@ -39,6 +39,7 @@ describe('NotificationService', () => {
         });
 
         service = TestBed.inject(NotificationService);
+        await TestBed.inject(TranslocoService).load('en').toPromise();
     });
 
     it('should be created', () => {
@@ -47,11 +48,7 @@ describe('NotificationService', () => {
 
     it('success', () => {
         service.success();
-        // TODO
-        // verify(mockMatSnackBar.open('Success', 'OK', objectContaining({ duration: 3000 }))).once();
-        verify(
-            mockMatSnackBar.open('notification.success', 'notification.ok', objectContaining({ duration: 3000 }))
-        ).once();
+        verify(mockMatSnackBar.open('Success', 'OK', objectContaining({ duration: 3000 }))).once();
         expect().nothing();
     });
 });
