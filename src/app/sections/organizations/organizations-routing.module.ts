@@ -8,6 +8,10 @@ export const routes: Routes = [
         path: '',
         component: OrganizationsComponent,
     },
+    {
+        path: '',
+        loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
+    },
 ];
 
 @NgModule({
