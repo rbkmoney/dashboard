@@ -4,7 +4,8 @@ import { instance, mock } from 'ts-mockito';
 
 import { OrganizationsService } from '../../../../api';
 import { UserService } from '../../../../shared';
-import { FetchOrganizationsService, PAGINATION_LIMIT } from './fetch-organizations.service';
+import { SEARCH_LIMIT } from '../../../constants';
+import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
     let mockOrganizationsService: OrganizationsService;
@@ -34,7 +35,7 @@ describe('FetchOrganizationsService', () => {
                     useValue: instance(mockUserService),
                 },
                 {
-                    provide: PAGINATION_LIMIT,
+                    provide: SEARCH_LIMIT,
                     useValue: 5,
                 },
             ],

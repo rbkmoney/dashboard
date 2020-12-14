@@ -1,16 +1,13 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, pluck, switchMap, take } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
 import { Organization } from '../../../../api-codegen/organizations';
 import { UserService } from '../../../../shared';
+import { SEARCH_LIMIT } from '../../../constants';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mockOrg } from '../../tests/mock-org';
-
-export type PaginationLimit = number;
-export const PAGINATION_LIMIT = new InjectionToken<PaginationLimit>('paginationLimit');
-const DEFAULT_PAGINATION_LIMIT = 100;
 
 @Injectable()
 export class FetchOrganizationsService extends PartialFetcher<Organization, void> {
@@ -18,11 +15,10 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
         // tslint:disable-next-line
         private organizationsService: OrganizationsService,
         // tslint:disable-next-line
-        @Optional() @Inject(PAGINATION_LIMIT) private paginationLimit: PaginationLimit,
+        @Inject(SEARCH_LIMIT) private searchLimit: number,
         private userService: UserService
     ) {
         super();
-        this.paginationLimit = paginationLimit ?? DEFAULT_PAGINATION_LIMIT;
     }
 
     create(organization: Omit<Organization, 'id' | 'createdAt' | 'owner'>) {
