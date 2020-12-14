@@ -21,7 +21,11 @@ describe('CreateOrganizationDialogComponent', () => {
         mockFetchOrganizationsService = mock(FetchOrganizationsService);
 
         TestBed.configureTestingModule({
-            imports: [TranslocoTestingModule, FormsModule, ReactiveFormsModule],
+            imports: [
+                TranslocoTestingModule.withLangs({}, { missingHandler: { logMissingKey: false } }),
+                FormsModule,
+                ReactiveFormsModule,
+            ],
             declarations: [CreateOrganizationDialogComponent],
             providers: [
                 {

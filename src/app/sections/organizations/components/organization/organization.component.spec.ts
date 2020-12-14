@@ -35,7 +35,7 @@ describe('OrganizationComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [
-                TranslocoTestingModule,
+                TranslocoTestingModule.withLangs({}, { missingHandler: { logMissingKey: false } }),
                 FlexLayoutModule,
                 DetailsItemModule,
                 MatDialogModule,

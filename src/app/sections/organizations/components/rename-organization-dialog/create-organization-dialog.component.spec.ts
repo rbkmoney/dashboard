@@ -22,7 +22,11 @@ describe('RenameOrganizationDialogComponent', () => {
         mockOrganizationsService = mock(OrganizationsService);
 
         TestBed.configureTestingModule({
-            imports: [TranslocoTestingModule, FormsModule, ReactiveFormsModule],
+            imports: [
+                TranslocoTestingModule.withLangs({}, { missingHandler: { logMissingKey: false } }),
+                FormsModule,
+                ReactiveFormsModule,
+            ],
             declarations: [RenameOrganizationDialogComponent],
             providers: [
                 {
