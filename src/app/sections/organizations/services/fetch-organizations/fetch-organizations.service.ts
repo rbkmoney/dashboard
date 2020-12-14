@@ -4,6 +4,7 @@ import { delay, pluck, switchMap, take } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
 import { Organization } from '../../../../api-codegen/organizations';
+import { WritableOrganization } from '../../../../api/organizations/types/writable-organization';
 import { UserService } from '../../../../shared';
 import { SEARCH_LIMIT } from '../../../constants';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
@@ -21,7 +22,7 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
         super();
     }
 
-    create(organization: Omit<Organization, 'id' | 'createdAt' | 'owner'>): Observable<Organization> {
+    create(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
         return this.userService.profile$.pipe(
             take(1),
             pluck('id'),

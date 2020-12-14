@@ -10,6 +10,7 @@ import {
     RolesService,
 } from '../../api-codegen/organizations';
 import { UuidGeneratorService } from '../../shared/services/uuid-generator/uuid-generator.service';
+import { WritableOrganization } from './types/writable-organization';
 
 @Injectable()
 export class OrganizationsService {
@@ -24,7 +25,8 @@ export class OrganizationsService {
         return this.orgsService.listOrgMembership(this.uuidGeneratorService.generateUUID(), limit, continuationToken);
     }
 
-    createOrganization(org: Omit<Organization, 'id' | 'createdAt'>) {
+    createOrganization(org: WritableOrganization) {
+        // expects only non-readable fields
         return this.orgsService.createOrg(this.uuidGeneratorService.generateUUID(), org as Organization);
     }
 
