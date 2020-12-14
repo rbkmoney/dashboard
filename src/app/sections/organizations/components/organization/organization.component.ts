@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
-import { filter, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { ConfirmActionDialogComponent } from '../../../../../components/popups';
 import { ComponentChanges } from '../../../../../type-utils';
@@ -48,6 +48,7 @@ export class OrganizationComponent implements OnChanges {
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
+                take(1),
                 switchMap(() => this.fetchOrganizationMemberService.leaveOrganization(this.organization.id)),
                 untilDestroyed(this)
             )
