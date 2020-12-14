@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { mapToTimestamp } from '../../custom-operators';
-import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogConfig, DIALOG_CONFIG } from '../constants';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
-import { DIALOG_CONFIG, DialogConfig } from '../constants';
+import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
 @Component({
     selector: 'dsh-organizations',
