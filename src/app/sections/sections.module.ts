@@ -17,17 +17,17 @@ import { SectionsComponent } from './sections.component';
         {
             provide: DIALOG_CONFIG,
             useValue: {
-                s: {
+                small: {
                     width: '360px',
                     maxHeight: '90vh',
                     disableClose: true,
                 },
-                m: {
+                medium: {
                     width: '552px',
                     maxHeight: '90vh',
                     disableClose: true,
                 },
-                l: {
+                large: {
                     width: '648px',
                     maxHeight: '90vh',
                     disableClose: true,

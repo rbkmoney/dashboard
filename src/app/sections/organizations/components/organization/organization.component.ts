@@ -59,7 +59,7 @@ export class OrganizationComponent implements OnChanges {
 
     rename() {
         this.dialog.open(RenameOrganizationDialogComponent, {
-            ...this.dialogConfig.m,
+            ...this.dialogConfig.medium,
             data: { organization: this.organization },
         });
     }

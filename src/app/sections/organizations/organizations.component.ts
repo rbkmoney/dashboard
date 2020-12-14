@@ -29,7 +29,7 @@ export class OrganizationsComponent implements OnInit {
     }
 
     createOrganization() {
-        this.dialog.open(CreateOrganizationDialogComponent, this.dialogConfig.m);
+        this.dialog.open(CreateOrganizationDialogComponent, this.dialogConfig.medium);
     }
 
     refresh() {
