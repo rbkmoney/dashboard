@@ -52,19 +52,23 @@ describe('CreateOrganizationDialogComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should cancel', () => {
-        component.cancel();
-        verify(mockDialogRef.close()).once();
-        expect().nothing();
+    describe('methods', () => {
+        it('should cancel', () => {
+            component.cancel();
+            verify(mockDialogRef.close()).once();
+            expect().nothing();
+        });
     });
 
-    it('should create org', () => {
-        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-        input.value = 'Test';
-        input.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        fixture.debugElement.queryAll(By.css('button'))[1].nativeElement.click();
-        verify(mockFetchOrganizationsService.create(objectContaining({ name: 'Test' }))).once();
-        expect().nothing();
+    describe('template', () => {
+        it('should create org', () => {
+            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+            input.value = 'Test';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.debugElement.queryAll(By.css('button'))[1].nativeElement.click();
+            verify(mockFetchOrganizationsService.create(objectContaining({ name: 'Test' }))).once();
+            expect().nothing();
+        });
     });
 });
