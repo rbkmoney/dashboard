@@ -1,1 +1,22 @@
-<p>payments-filters works!</p>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+    <ng-container *ngIf="filtersData$ | async as filters">
+        <dsh-daterange-filter
+            [selected]="filters.dateRange"
+            (selectedChange)="dateRangeChange($event)"
+        ></dsh-daterange-filter>
+        <dsh-invoices-filter
+            [selected]="filters.invoiceIds"
+            (selectedChange)="invoiceSelectionChange($event)"
+        ></dsh-invoices-filter>
+        <dsh-filter-shops
+            [shops]="shops$ | async"
+            [selected]="selectedShops$ | async"
+            (selectedChange)="shopSelectionChange($event)"
+        ></dsh-filter-shops>
+        <ng-container *transloco="let t; read: 'filters'">
+            <dsh-filter-button [active]="isAdditionalFilterApplied" (click)="openFiltersDialog()">
+                {{ t('additionalFilters') }}
+            </dsh-filter-button>
+        </ng-container>
+    </ng-container>
+</div>

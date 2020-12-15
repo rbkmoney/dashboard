@@ -1,16 +1,16 @@
 // TODO: implement unit tests
-// describe('PaymentsFiltersComponent', () => {
-//     let component: PaymentsFiltersComponent;
-//     let fixture: ComponentFixture<PaymentsFiltersComponent>;
+// describe('DialogFiltersComponent', () => {
+//     let component: DialogFiltersComponent;
+//     let fixture: ComponentFixture<DialogFiltersComponent>;
 //
 //     beforeEach(async(() => {
 //         TestBed.configureTestingModule({
-//             declarations: [PaymentsFiltersComponent],
+//             declarations: [DialogFiltersComponent],
 //         }).compileComponents();
 //     }));
 //
 //     beforeEach(() => {
-//         fixture = TestBed.createComponent(PaymentsFiltersComponent);
+//         fixture = TestBed.createComponent(DialogFiltersComponent);
 //         component = fixture.componentInstance;
 //         fixture.detectChanges();
 //     });

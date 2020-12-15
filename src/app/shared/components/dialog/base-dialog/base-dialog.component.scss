@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.base-dialog {
+    mat-divider {
+        // to remove visually padding
+        margin-left: -24px;
+        margin-right: -24px;
+    }
+
+    &-title {
+        padding-bottom: 20px;
+    }
+
+    &-content {
+        padding: 20px 0;
+    }
+
+    &-actions {
+        padding-top: 24px;
+    }
+}
