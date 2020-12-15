@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { mapToTimestamp } from '../../custom-operators';
+import { DialogConfig, DIALOG_CONFIG } from '../constants';
+import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
 @Component({
@@ -15,13 +18,19 @@ export class OrganizationsComponent implements OnInit {
     isLoading$ = this.fetchOrganizationsService.doSearchAction$;
     lastUpdated$ = this.organizations$.pipe(mapToTimestamp);
 
-    constructor(private fetchOrganizationsService: FetchOrganizationsService) {}
+    constructor(
+        private fetchOrganizationsService: FetchOrganizationsService,
+        private dialog: MatDialog,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
+    ) {}
 
     ngOnInit() {
         this.fetchOrganizationsService.search();
     }
 
-    createOrganization() {}
+    createOrganization() {
+        this.dialog.open(CreateOrganizationDialogComponent, this.dialogConfig.medium);
+    }
 
     refresh() {
         this.fetchOrganizationsService.refresh();
