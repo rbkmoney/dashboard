@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { PaymentsTableData } from './payments-table-data';
 
+// TODO: remove this component
 @Component({
     selector: 'dsh-payments-table',
     templateUrl: 'table.component.html',

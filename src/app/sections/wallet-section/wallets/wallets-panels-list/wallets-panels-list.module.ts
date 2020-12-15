@@ -5,9 +5,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { DetailsItemModule, ExpandPanelModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../../to-major';
 import { AccountComponent } from './account/account.component';
 import { ActionsComponent } from './actions/actions.component';
 import { DetailsComponent } from './details/details.component';

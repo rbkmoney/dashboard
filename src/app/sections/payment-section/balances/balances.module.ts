@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { AnalyticsModule } from '@dsh/api/analytics';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 
-import { ToMajorModule } from '../../../to-major';
 import { BalancesComponent } from './balances.component';
 
 @NgModule({

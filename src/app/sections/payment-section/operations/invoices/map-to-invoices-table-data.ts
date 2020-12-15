@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Invoice, Shop } from '@dsh/api-codegen/anapi';
-import { toShopName } from '@dsh/api/shop/utils';
+import { getShopNameById } from '@dsh/api/shop/utils';
 
 import { InvoicesTableData } from './table';
 
@@ -15,7 +15,7 @@ const toInvoiceTableData = (
     status,
     createdAt: createdAt as any,
     invoiceID: id,
-    shopName: toShopName(s, shopID),
+    shopName: getShopNameById(s, shopID),
     product,
 });
 

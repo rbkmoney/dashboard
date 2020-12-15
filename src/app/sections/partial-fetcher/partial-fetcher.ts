@@ -1,3 +1,4 @@
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { EMPTY, merge, Observable, of, Subject } from 'rxjs';
 import {
     debounceTime,
@@ -18,6 +19,8 @@ import { FetchFn } from './fetch-fn';
 import { FetchResult } from './fetch-result';
 import { scanAction, scanFetchResult } from './operators';
 
+// TODO: make fetcher injectable
+@UntilDestroy()
 export abstract class PartialFetcher<R, P> {
     private action$ = new Subject<FetchAction<P>>();
 
@@ -29,6 +32,7 @@ export abstract class PartialFetcher<R, P> {
     readonly doSearchAction$: Observable<boolean>;
     readonly errors$: Observable<any>;
 
+    // TODO: make a dependency for DI
     constructor(debounceActionTime: number = 300) {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
@@ -69,7 +73,9 @@ export abstract class PartialFetcher<R, P> {
             this.doSearchAction$,
             this.errors$,
             this.fetchResultChanges$
-        ).subscribe();
+        )
+            .pipe(untilDestroyed(this))
+            .subscribe();
     }
 
     search(value: P) {

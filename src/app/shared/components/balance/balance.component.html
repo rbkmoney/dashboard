@@ -1,0 +1,5 @@
+<ng-container *ngIf="isBalanceProvided; else emptyBalance">
+    {{ amount | toMajor | currency: currency:'symbol' }}
+</ng-container>
+
+<ng-template #emptyBalance>--/--</ng-template>

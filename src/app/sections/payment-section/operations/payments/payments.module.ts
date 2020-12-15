@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FiltersModule } from '@dsh/components/filters';
@@ -20,12 +21,12 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
-import { ToMajorModule } from '../../../../to-major';
+import { SEARCH_LIMIT } from '../../../constants';
 import { ShopSelectorModule } from '../../../shop-selector';
+import { PaymentsListModule } from './payments-list';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
 import { SearchFormComponent } from './search-form';
-import { PaymentStatusColorPipe } from './status-color.pipe';
 import { TableComponent } from './table';
 
 @NgModule({
@@ -53,8 +54,13 @@ import { TableComponent } from './table';
         EmptySearchResultModule,
         ShopSelectorModule,
         FiltersModule,
+        PaymentsListModule,
     ],
-    declarations: [PaymentsComponent, SearchFormComponent, PaymentStatusColorPipe, TableComponent],
-    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
+    declarations: [PaymentsComponent, TableComponent, SearchFormComponent],
+    providers: [
+        { provide: TRANSLOCO_SCOPE, useValue: 'main' },
+        // TODO: remove this. Only for tests infinite scroll
+        { provide: SEARCH_LIMIT, useValue: 1 },
+    ],
 })
 export class PaymentsModule {}
