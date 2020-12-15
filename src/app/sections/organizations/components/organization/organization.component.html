@@ -19,8 +19,8 @@
     <mat-divider></mat-divider>
     <div class="dsh-title">{{ t('titles.actions') }}</div>
     <div fxLayout fxLayoutGap="24px">
-        <button dsh-button color="accent">{{ t('actions.rename') }}</button>
-        <button dsh-button color="warn">{{ t('actions.leave') }}</button>
+        <button (click)="rename()" dsh-button color="accent">{{ t('actions.rename') }}</button>
+        <button (click)="leave()" dsh-button color="warn">{{ t('actions.leave') }}</button>
     </div>
 
     <mat-divider></mat-divider>

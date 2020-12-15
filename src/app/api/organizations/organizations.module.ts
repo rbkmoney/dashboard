@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 
+import { UuidGeneratorModule } from '../../shared';
 import { OrganizationsService } from './organizations.service';
 
-const EXPORTED_DECLARATIONS = [];
-
 @NgModule({
-    imports: [],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    imports: [UuidGeneratorModule],
     providers: [OrganizationsService],
 })
 export class OrganizationsModule {}

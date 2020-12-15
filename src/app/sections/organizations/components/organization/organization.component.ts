@@ -1,12 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
-import { pluck, shareReplay } from 'rxjs/operators';
+import { filter, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { ConfirmActionDialogComponent } from '../../../../../components/popups';
 import { ComponentChanges } from '../../../../../type-utils';
 import { Member, Organization } from '../../../../api-codegen/organizations';
+import { ErrorService } from '../../../../shared/services/error';
+import { NotificationService } from '../../../../shared/services/notification';
+import { DialogConfig, DIALOG_CONFIG } from '../../../constants';
 import { FetchOrganizationMemberService } from '../../services/fetch-organization-member/fetch-organization-member.service';
+import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-organization',
     templateUrl: 'organization.component.html',
@@ -19,20 +27,51 @@ export class OrganizationComponent implements OnChanges {
     member$: Observable<Member>;
     membersCount$: Observable<number>;
 
-    constructor(private fetchOrganizationMemberService: FetchOrganizationMemberService) {}
+    constructor(
+        private fetchOrganizationMemberService: FetchOrganizationMemberService,
+        private dialog: MatDialog,
+        private notificationService: NotificationService,
+        private errorService: ErrorService,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
+    ) {}
 
     ngOnChanges({ organization }: ComponentChanges<OrganizationComponent>) {
         if (!isNil(organization?.currentValue)) {
-            this.initMember(organization.currentValue.id);
-            this.initMembersCount(organization.currentValue.id);
+            this.updateMember(organization.currentValue.id);
+            this.updateMembersCount(organization.currentValue.id);
         }
     }
 
-    private initMember(id: Organization['id']) {
-        this.member$ = this.fetchOrganizationMemberService.getMember(this.organization.id).pipe(shareReplay(1));
+    leave() {
+        this.dialog
+            .open(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(
+                filter((r) => r === 'confirm'),
+                take(1),
+                switchMap(() => this.fetchOrganizationMemberService.leaveOrganization(this.organization.id)),
+                untilDestroyed(this)
+            )
+            .subscribe(
+                () => this.notificationService.success(),
+                (err) => this.errorService.error(err)
+            );
     }
 
-    private initMembersCount(id: Organization['id']) {
-        this.membersCount$ = this.fetchOrganizationMemberService.getMembers(id).pipe(pluck('length'), shareReplay(1));
+    rename() {
+        this.dialog.open(RenameOrganizationDialogComponent, {
+            ...this.dialogConfig.medium,
+            data: { organization: this.organization },
+        });
+    }
+
+    private updateMember(orgId: Organization['id']) {
+        this.member$ = this.fetchOrganizationMemberService.getMember(orgId).pipe(shareReplay(1));
+    }
+
+    private updateMembersCount(orgId: Organization['id']) {
+        this.membersCount$ = this.fetchOrganizationMemberService
+            .getMembers(orgId)
+            .pipe(pluck('length'), shareReplay(1));
     }
 }
