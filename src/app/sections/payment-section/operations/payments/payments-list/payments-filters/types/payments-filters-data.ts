@@ -4,7 +4,7 @@ import { PaymentsAdditionalFilters } from './payments-additional-filters';
 
 export interface PaymentsFiltersData {
     dateRange: Daterange;
-    invoiceIds: string[];
-    shopIds: string[];
+    invoiceIDs: string[];
+    shopIDs: string[];
     additional: PaymentsAdditionalFilters;
 }

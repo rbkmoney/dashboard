@@ -5,8 +5,8 @@ import { PaymentsAdditionalFilters } from '../../types/payments-additional-filte
 
 @Component({
     selector: 'dsh-dialog-filters',
-    templateUrl: './dialog-filters.component.html',
-    styleUrls: ['./dialog-filters.component.scss'],
+    templateUrl: 'dialog-filters.component.html',
+    styleUrls: ['dialog-filters.component.scss'],
 })
 export class DialogFiltersComponent {
     constructor(

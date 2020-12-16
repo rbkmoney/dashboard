@@ -13,6 +13,7 @@ export interface PaymentSearchFormValue extends SearchFormValue {
     paymentFlow?: 'hold' | 'instant';
     paymentMethod?: 'bankCard' | 'paymentTerminal';
     paymentTerminalProvider?: PaymentTerminalProvider;
+    invoiceIDs?: string[];
     invoiceID?: string;
     paymentID?: string;
     payerEmail?: string;

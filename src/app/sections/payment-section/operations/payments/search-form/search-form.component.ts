@@ -10,7 +10,7 @@ import {
     paymentStatuses as paymentStatusesConsts,
     tokenProviders as tokenProvidersConsts,
 } from '../../constants';
-import { PaymentSearchFormValue } from './payment-search-form-value';
+import { PaymentSearchFormValue } from '../types/payment-search-form-value';
 import { SearchFormService } from './search-form.service';
 
 // TODO: remove this component

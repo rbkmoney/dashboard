@@ -3,13 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 
 import { ComponentChange, ComponentChanges } from '../../../../../../type-utils';
 import { Payment } from '../types/payment';
+import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 
 @UntilDestroy()
@@ -37,12 +37,7 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         });
 
         // TODO: change init search logic
-        this.fetchPayments.search({
-            date: {
-                begin: moment().startOf('month'),
-                end: moment().endOf('month'),
-            },
-        });
+        // this.requestList();
     }
 
     ngOnChanges(changes: ComponentChanges<PaymentsListComponent>): void {
@@ -59,9 +54,24 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         this.fetchPayments.fetchMore();
     }
 
+    filtersChanged(filtersData: PaymentsFiltersData): void {
+        this.requestList(filtersData);
+    }
+
     private initRealm(change: ComponentChange<PaymentsListComponent, 'realm'>): void {
         if (!isNil(change.currentValue)) {
             this.fetchPayments.initRealm(change.currentValue);
         }
+    }
+
+    private requestList({ dateRange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
+        this.fetchPayments.search({
+            date: {
+                begin: dateRange.begin,
+                end: dateRange.end,
+            },
+            invoiceIDs,
+            shopIDs
+        });
     }
 }

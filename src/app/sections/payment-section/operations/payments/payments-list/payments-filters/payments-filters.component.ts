@@ -1,84 +1,77 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash.isempty';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { map, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { filterShopsByRealm } from '../../../operators';
+import { ComponentChange, ComponentChanges } from '../../../../../../../type-utils';
 import { AdditionalFiltersService } from './additional-filters';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
+import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';
 import { PaymentsAdditionalFilters } from './types/payments-additional-filters';
 import { PaymentsFiltersData } from './types/payments-filters-data';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-payments-filters',
-    templateUrl: './payments-filters.component.html',
-    styleUrls: ['./payments-filters.component.scss'],
+    templateUrl: 'payments-filters.component.html',
+    styleUrls: ['payments-filters.component.scss'],
 })
-export class PaymentsFiltersComponent implements OnInit {
+export class PaymentsFiltersComponent implements OnInit, OnChanges {
     @Input() realm: PaymentInstitutionRealm;
+
+    @Output() filtersChanged = new EventEmitter<PaymentsFiltersData>();
 
     filtersData$: Observable<PaymentsFiltersData> = this.filtersHandler.filtersData$;
 
     isAdditionalFilterApplied: boolean;
 
-    shops$: Observable<Shop[]>;
-    selectedShops$: Observable<Shop[]>;
+    shops$: Observable<Shop[]> = this.shopService.shops$;
+    selectedShops$: Observable<Shop[]> = this.shopService.selectedShops$;
 
-    private filtersChange$ = new ReplaySubject<Partial<PaymentsFiltersData>>(1);
+    protected changes$ = new ReplaySubject<ComponentChanges<PaymentsFiltersComponent>>(1);
 
     constructor(
-        private shopService: ApiShopsService,
+        private shopService: ShopsSelectionManagerService,
         private filtersHandler: PaymentsFiltersService,
         private additionalFilters: AdditionalFiltersService
     ) {}
 
     ngOnInit(): void {
-        this.shops$ = of(this.realm).pipe(filterShopsByRealm(this.shopService.shops$));
-
-        this.selectedShops$ = this.filtersData$.pipe(
-            map(({ shopIds }: PaymentsFiltersData) => {
-                return shopIds.reduce((idsMap: Map<string, string>, id: string) => {
-                    idsMap.set(id, id);
-                    return idsMap;
-                }, new Map<string, string>());
-            }),
-            withLatestFrom(this.shops$),
-            map(([selectedIdsMap, shopsList]: [Map<string, string>, Shop[]]) => {
-                return shopsList.map((shop: Shop) => (selectedIdsMap.has(shop.id) ? shop : null)).filter(Boolean);
-            })
+        const realm$ = this.changes$.pipe(
+            map((changes) => changes.realm),
+            filter(Boolean),
+            map((change: ComponentChange<PaymentsFiltersComponent, 'realm'>) => change.currentValue),
+            filter(Boolean)
         );
 
-        this.filtersChange$
-            .pipe(
-                withLatestFrom(this.filtersData$),
-                map(([changes, currentData]: [Partial<PaymentsFiltersData>, PaymentsFiltersData]) => {
-                    return {
-                        ...currentData,
-                        ...changes,
-                    };
-                }),
-                untilDestroyed(this)
-            )
-            .subscribe((filtersData: PaymentsFiltersData) => {
-                this.filtersHandler.changeFilters(filtersData);
-            });
+        realm$.pipe(untilDestroyed(this)).subscribe((realm: PaymentInstitutionRealm) => {
+            this.shopService.setRealm(realm);
+        });
+
+        this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: PaymentsFiltersData) => {
+            this.filtersChanged.emit(filtersData);
+            this.shopService.setSelectedIds(filtersData.shopIDs);
+        });
+    }
+
+    ngOnChanges(changes: ComponentChanges<PaymentsFiltersComponent>): void {
+        this.changes$.next(changes);
     }
 
     openFiltersDialog() {
-        this.filtersChange$
+        this.filtersData$
             .pipe(
                 take(1),
                 map((filtersData: PaymentsFiltersData) => filtersData.additional),
                 switchMap((filters: PaymentsAdditionalFilters) => {
                     return this.additionalFilters.openFiltersDialog(filters);
-                })
+                }),
+                untilDestroyed(this)
             )
             .subscribe((filters: PaymentsAdditionalFilters) => {
                 this.isAdditionalFilterApplied = !isEmpty(filters);
@@ -90,17 +83,17 @@ export class PaymentsFiltersComponent implements OnInit {
     }
 
     invoiceSelectionChange(invoiceIds: string[]): void {
-        this.updateFilters({ invoiceIds });
+        this.updateFilters({ invoiceIDs: invoiceIds });
     }
 
     shopSelectionChange(selectedShops: Shop[]): void {
         this.updateFilters({
-            shopIds: selectedShops.map(({ id }: Shop) => id),
+            shopIDs: selectedShops.map(({ id }: Shop) => id),
         });
     }
 
     private updateFilters(change: Partial<PaymentsFiltersData>): void {
-        this.filtersChange$.next({
+        this.filtersHandler.changeFilters({
             ...change,
         });
     }
