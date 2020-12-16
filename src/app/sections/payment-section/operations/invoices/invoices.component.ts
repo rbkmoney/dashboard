@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -21,7 +21,7 @@ import { InvoicesSearchFiltersStore } from './services/invoices-search-filters-s
     templateUrl: 'invoices.component.html',
     providers: [FetchInvoicesService, InvoicesSearchFiltersStore, InvoicesExpandedIdManager],
 })
-export class InvoicesComponent {
+export class InvoicesComponent implements OnInit {
     invoices$ = this.invoicesService.searchResult$;
     hasMore$ = this.invoicesService.hasMore$;
     lastUpdated$ = this.invoicesService.lastUpdated$;
@@ -42,11 +42,15 @@ export class InvoicesComponent {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private route: ActivatedRoute
-    ) {
+    ) {}
+
+    ngOnInit() {
         this.invoicesService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-        this.invoiceCreated$.subscribe((invoiceID) => this.refreshAndShowNewInvoice(invoiceID));
+        this.invoiceCreated$
+            .pipe(untilDestroyed(this))
+            .subscribe((invoiceID) => this.refreshAndShowNewInvoice(invoiceID));
     }
 
     searchParamsChanges(p: SearchFiltersParams) {
