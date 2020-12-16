@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Invoice } from '@dsh/api-codegen/anapi';
+import { Invoice, InvoiceCart } from '@dsh/api-codegen/anapi';
 
 import { ReceivePaymentsService } from './services/receive-payments/receive-payments.service';
 
@@ -20,5 +20,13 @@ export class InvoiceDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.receivePaymentsService.receivePayments(this.invoice.id);
+    }
+
+    isActionsAvailable(status: Invoice.StatusEnum): boolean {
+        return ['paid', 'unpaid'].includes(status);
+    }
+
+    isCartAvailable(cart: InvoiceCart): boolean {
+        return !!cart && !!cart.length;
     }
 }

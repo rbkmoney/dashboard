@@ -2,32 +2,23 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { Subject } from 'rxjs';
-import { filter, shareReplay, switchMap } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
+import { filter, switchMap, take } from 'rxjs/operators';
 
 import { InvoiceService } from '@dsh/api/invoice';
 
 import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
-import { FulfillInvoiceParams } from './types/fulfill-invoice-params';
 
 @Injectable()
 export class FulfillInvoiceService {
-    private fulfillInvoice$ = new Subject<FulfillInvoiceParams>();
-    invoiceFulfilled$ = this.fulfillInvoice$.pipe(
-        switchMap(({ invoiceID, reason }) => this.invoiceService.fulfillInvoice(invoiceID, reason)),
-        shareReplay(1)
-    );
+    invoiceFulfilled$ = new ReplaySubject<void>(1);
 
     constructor(
         private invoiceService: InvoiceService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
-    ) {
-        this.invoiceFulfilled$.subscribe(() => {
-            this.snackBar.open(this.transloco.translate('invoices.actions.invoiceFulfilled', null, 'operations'), 'OK');
-        });
-    }
+    ) {}
 
     fulfillInvoice(invoiceID: string): void {
         this.dialog
@@ -37,9 +28,17 @@ export class FulfillInvoiceService {
                 disableClose: true,
             })
             .afterClosed()
-            .pipe(filter((value) => value !== 'cancel'))
-            .subscribe((reason) => {
-                this.fulfillInvoice$.next({ invoiceID, reason });
+            .pipe(
+                take(1),
+                filter((value) => value !== 'cancel'),
+                switchMap((reason) => this.invoiceService.fulfillInvoice(invoiceID, reason))
+            )
+            .subscribe(() => {
+                this.invoiceFulfilled$.next();
+                this.snackBar.open(
+                    this.transloco.translate('invoices.actions.invoiceFulfilled', null, 'operations'),
+                    'OK'
+                );
             });
     }
 }

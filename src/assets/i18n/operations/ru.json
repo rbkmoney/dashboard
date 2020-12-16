@@ -75,6 +75,7 @@
         "actions": {
             "title": "Действия",
             "createPaymentLink": "Сформировать сслыку на оплату",
+            "invoiceCreated": "Инвойс успешно создан",
             "cancelInvoice": "Отменить инвойс",
             "invoiceCancelled": "Инвойс успешно отменен",
             "fulfillInvoice": "Погасить инвойс",
