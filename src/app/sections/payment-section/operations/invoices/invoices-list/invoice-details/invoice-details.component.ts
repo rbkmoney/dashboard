@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Invoice } from '@dsh/api-codegen/anapi';
+import { Invoice, InvoiceCart } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-invoice-invoice-details',
@@ -10,4 +10,12 @@ import { Invoice } from '@dsh/api-codegen/anapi';
 export class InvoiceDetailsComponent {
     @Input() invoice: Invoice;
     @Output() refreshData = new EventEmitter<void>();
+
+    isActionsAvailable(status: Invoice.StatusEnum): boolean {
+        return ['paid', 'unpaid'].includes(status);
+    }
+
+    isCartAvailable(cart: InvoiceCart): boolean {
+        return !!cart && !!cart.length;
+    }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
-import { filter, pluck, switchMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { of, ReplaySubject } from 'rxjs';
+import { filter, pluck, switchMap, take } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -12,29 +14,42 @@ import { CreateInvoiceDialogComponent } from './components/create-invoice-dialog
 
 @Injectable()
 export class CreateInvoiceService {
-    invoiceCreated$: Observable<string>;
+    invoiceCreated$ = new ReplaySubject<string>(1);
 
-    private createInvoice$ = new Subject<PaymentInstitutionRealm>();
-    private dialogResult$ = this.createInvoice$.pipe(
-        filterShopsByRealm(this.apiShopsService.shops$),
-        switchMap((shops) =>
-            this.dialog
-                .open<CreateInvoiceDialogComponent, Shop[]>(CreateInvoiceDialogComponent, {
-                    width: '720px',
-                    maxHeight: '90vh',
-                    disableClose: true,
-                    data: shops,
-                })
-                .afterClosed()
-        ),
-        filter((res) => res !== 'cancel')
-    );
-
-    constructor(private apiShopsService: ApiShopsService, private dialog: MatDialog) {
-        this.invoiceCreated$ = this.dialogResult$.pipe(pluck('id'));
-    }
+    constructor(
+        private apiShopsService: ApiShopsService,
+        private dialog: MatDialog,
+        private transloco: TranslocoService,
+        private snackBar: MatSnackBar
+    ) {}
 
     createInvoice(realm: PaymentInstitutionRealm): void {
-        this.createInvoice$.next(realm);
+        of(realm)
+            .pipe(
+                filterShopsByRealm(this.apiShopsService.shops$),
+                switchMap((shops) =>
+                    this.dialog
+                        .open<CreateInvoiceDialogComponent, Shop[]>(CreateInvoiceDialogComponent, {
+                            width: '720px',
+                            maxHeight: '90vh',
+                            disableClose: true,
+                            data: shops,
+                        })
+                        .afterClosed()
+                ),
+                take(1),
+                filter((res) => res !== 'cancel'),
+                pluck('id')
+            )
+            .subscribe((id) => {
+                this.invoiceCreated$.next(id);
+                this.snackBar.open(
+                    this.transloco.translate('invoices.actions.invoiceCreated', null, 'operations'),
+                    'OK',
+                    {
+                        duration: 2000,
+                    }
+                );
+            });
     }
 }

@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { ApiShopsService } from '@dsh/api/shop';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { filterShopsByRealm } from '../operators';
 import { CreateInvoiceService } from './create-invoice';
 import { SearchFiltersParams } from './invoices-search-filters';
 import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
@@ -36,18 +33,15 @@ export class InvoicesComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
-    shops$: Observable<Shop[]> = this.realm$.pipe(filterShopsByRealm(this.apiShopsService.shops$), shareReplay(1));
 
     constructor(
         private invoicesService: FetchInvoicesService,
-        private apiShopsService: ApiShopsService,
         private createInvoiceService: CreateInvoiceService,
         private invoicesSearchFiltersStore: InvoicesSearchFiltersStore,
         private invoicesExpandedIdManager: InvoicesExpandedIdManager,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private route: ActivatedRoute,
-        protected router: Router
+        private route: ActivatedRoute
     ) {
         this.invoicesService.errors$
             .pipe(untilDestroyed(this))
