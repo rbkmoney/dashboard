@@ -27,6 +27,5 @@ import { CancelInvoiceDialogComponent } from './components/cancel-invoice-dialog
         ButtonModule,
     ],
     declarations: [CancelInvoiceDialogComponent],
-    // providers: [CancelInvoiceService],
 })
 export class CancelInvoiceModule {}

@@ -73,9 +73,9 @@ export class InvoicesComponent {
     }
 
     create() {
-        this.createInvoiceService.createInvoice({
-            shops$: this.shops$,
-        });
+        this.route.params
+            .pipe(pluck('realm'), take(1))
+            .subscribe((realm: PaymentInstitutionRealm) => this.createInvoiceService.createInvoice(realm));
     }
 
     refreshAndShowNewInvoice(invoiceID: string) {

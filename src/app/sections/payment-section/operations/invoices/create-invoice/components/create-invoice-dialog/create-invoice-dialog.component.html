@@ -1,6 +1,6 @@
 <dsh-create-invoice
     *transloco="let t"
-    [shops]="data?.shops$ | async"
+    [shops]="shops"
     (next)="create($event)"
     (back)="cancel()"
     [backButton]="t('cancel')"

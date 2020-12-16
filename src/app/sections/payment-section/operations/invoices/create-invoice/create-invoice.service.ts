@@ -1,27 +1,40 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { filter, pluck, switchMap } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ApiShopsService } from '@dsh/api/shop';
+
+import { filterShopsByRealm } from '../../operators';
 import { CreateInvoiceDialogComponent } from './components/create-invoice-dialog/create-invoice-dialog.component';
-import { CreateInvoiceDialogConfig } from './types/create-invoice-dialog-config';
 
 @Injectable()
 export class CreateInvoiceService {
-    invoiceCreated$ = new Subject<string>();
+    invoiceCreated$: Observable<string>;
 
-    constructor(private dialog: MatDialog) {}
+    private createInvoice$ = new Subject<PaymentInstitutionRealm>();
+    private dialogResult$ = this.createInvoice$.pipe(
+        filterShopsByRealm(this.apiShopsService.shops$),
+        switchMap((shops) =>
+            this.dialog
+                .open<CreateInvoiceDialogComponent, Shop[]>(CreateInvoiceDialogComponent, {
+                    width: '720px',
+                    maxHeight: '90vh',
+                    disableClose: true,
+                    data: shops,
+                })
+                .afterClosed()
+        ),
+        filter((res) => res !== 'cancel')
+    );
 
-    createInvoice(config: CreateInvoiceDialogConfig): void {
-        this.dialog
-            .open<CreateInvoiceDialogComponent, CreateInvoiceDialogConfig>(CreateInvoiceDialogComponent, {
-                width: '720px',
-                maxHeight: '90vh',
-                disableClose: true,
-                data: config,
-            })
-            .afterClosed()
-            .pipe(filter((res) => res !== 'cancel'))
-            .subscribe((invoice) => this.invoiceCreated$.next(invoice.id));
+    constructor(private apiShopsService: ApiShopsService, private dialog: MatDialog) {
+        this.invoiceCreated$ = this.dialogResult$.pipe(pluck('id'));
+    }
+
+    createInvoice(realm: PaymentInstitutionRealm): void {
+        this.createInvoice$.next(realm);
     }
 }

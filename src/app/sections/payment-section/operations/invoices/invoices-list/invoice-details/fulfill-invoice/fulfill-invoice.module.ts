@@ -27,6 +27,5 @@ import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialo
         ButtonModule,
     ],
     declarations: [FulfillInvoiceDialogComponent],
-    // providers: [FulfillInvoiceService],
 })
 export class FulfillInvoiceModule {}
