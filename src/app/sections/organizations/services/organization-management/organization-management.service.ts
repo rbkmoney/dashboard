@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { first, pluck, switchMap } from 'rxjs/operators';
+import { first, pluck, switchMap, take } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
 import { Member, Organization } from '../../../../api-codegen/organizations';
+import { WritableOrganization } from '../../../../api/organizations/types/writable-organization';
 import { UserService } from '../../../../shared';
 import { mockMember } from '../../tests/mock-member';
 import { mockOrg } from '../../tests/mock-org';
 
-// TODO: rename to OrganizationService
 @Injectable()
-export class FetchOrganizationMemberService {
+export class OrganizationManagementService {
     constructor(
         // tslint:disable-next-line
         private organizationsService: OrganizationsService,
@@ -32,6 +32,20 @@ export class FetchOrganizationMemberService {
         return of(new Array(5).fill(mockMember));
     }
 
+    createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
+        return this.userService.profile$.pipe(
+            take(1),
+            pluck('id'),
+            // TODO: change after fix Organization['owner'] type
+            switchMap((owner: never) =>
+                this.organizationsService.createOrganization({
+                    owner,
+                    ...organization,
+                })
+            )
+        );
+    }
+
     getOrganization(id: Organization['id']): Observable<Organization> {
         // return this.userService.profile$.pipe(
         //     pluck('id'),
@@ -47,5 +61,15 @@ export class FetchOrganizationMemberService {
             pluck('id'),
             switchMap((userId) => this.organizationsService.expelMember(orgId, userId))
         );
+    }
+
+    isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {
+        // const organization$ =
+        //     typeof orgOrOrgId === 'string' ? this.organizationsService.getOrganization(orgOrOrgId) : of(orgOrOrgId);
+        // return organization$.pipe(
+        //     withLatestFrom(this.userService.profile$),
+        //     map(([{ owner }, { id }]) => owner === id)
+        // );
+        return of(true);
     }
 }

@@ -12,7 +12,6 @@
             <div *ngIf="(members$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="16px">
                 <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
                 <dsh-members-list [members]="members$ | async"></dsh-members-list>
-                <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
             </div>
             <ng-template #empty>
                 <dsh-empty-search-result></dsh-empty-search-result>

@@ -12,7 +12,7 @@ import { ErrorModule } from '../../../../shared/services/error';
 import { NotificationModule } from '../../../../shared/services/notification';
 import { DIALOG_CONFIG } from '../../../constants';
 import { OrganizationRolesComponent, OrganizationRolesModule } from '../../organization-roles';
-import { FetchOrganizationMemberService } from '../../services/fetch-organization-member/fetch-organization-member.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { mockMember } from '../../tests/mock-member';
 import { mockOrg } from '../../tests/mock-org';
 import { OrganizationComponent } from './organization.component';
@@ -28,10 +28,10 @@ class HostComponent {
 describe('OrganizationComponent', () => {
     let component: HostComponent;
     let fixture: ComponentFixture<HostComponent>;
-    let mockFetchOrganizationMemberService: FetchOrganizationMemberService;
+    let mockOrganizationManagementService: OrganizationManagementService;
 
     beforeEach(() => {
-        mockFetchOrganizationMemberService = mock(FetchOrganizationMemberService);
+        mockOrganizationManagementService = mock(OrganizationManagementService);
 
         TestBed.configureTestingModule({
             imports: [
@@ -56,8 +56,8 @@ describe('OrganizationComponent', () => {
             set: {
                 providers: [
                     {
-                        provide: FetchOrganizationMemberService,
-                        useValue: instance(mockFetchOrganizationMemberService),
+                        provide: OrganizationManagementService,
+                        useValue: instance(mockOrganizationManagementService),
                     },
                 ],
             },
@@ -65,8 +65,8 @@ describe('OrganizationComponent', () => {
 
         fixture = TestBed.createComponent(HostComponent);
         component = fixture.componentInstance;
-        when(mockFetchOrganizationMemberService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
-        when(mockFetchOrganizationMemberService.getMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
+        when(mockOrganizationManagementService.getMember(anyString())).thenReturn(of(mockMember));
         fixture.detectChanges();
     });
 

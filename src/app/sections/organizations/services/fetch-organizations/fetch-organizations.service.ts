@@ -1,16 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay, pluck, switchMap, take } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
 import { Organization } from '../../../../api-codegen/organizations';
-import { WritableOrganization } from '../../../../api/organizations/types/writable-organization';
 import { UserService } from '../../../../shared';
 import { SEARCH_LIMIT } from '../../../constants';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mockOrg } from '../../tests/mock-org';
 
-// TODO: rename to OrganizationsService
 @Injectable()
 export class FetchOrganizationsService extends PartialFetcher<Organization, void> {
     constructor(
@@ -18,23 +16,10 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
         private organizationsService: OrganizationsService,
         // tslint:disable-next-line
         @Inject(SEARCH_LIMIT) private searchLimit: number,
+        // tslint:disable-next-line
         private userService: UserService
     ) {
         super();
-    }
-
-    create(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
-        return this.userService.profile$.pipe(
-            take(1),
-            pluck('id'),
-            // TODO: change after fix Organization['owner'] type
-            switchMap((owner: never) =>
-                this.organizationsService.createOrganization({
-                    owner,
-                    ...organization,
-                })
-            )
-        );
     }
 
     protected fetch(_params: void, continuationToken?: string): Observable<FetchResult<Organization>> {

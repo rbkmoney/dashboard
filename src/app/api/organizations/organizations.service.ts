@@ -25,6 +25,10 @@ export class OrganizationsService {
         return this.orgsService.listOrgMembership(this.uuidGeneratorService.generateUUID(), limit, continuationToken);
     }
 
+    getOrganization(orgId: Organization['id']) {
+        return this.orgsService.getOrg(this.uuidGeneratorService.generateUUID(), orgId);
+    }
+
     createOrganization(org: WritableOrganization) {
         // expects only non-readable fields
         return this.orgsService.createOrg(this.uuidGeneratorService.generateUUID(), org as Organization);

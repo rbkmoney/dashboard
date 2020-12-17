@@ -8,17 +8,18 @@ import { instance, mock, objectContaining, verify } from 'ts-mockito';
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
 import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
 describe('CreateOrganizationDialogComponent', () => {
     let component: CreateOrganizationDialogComponent;
     let fixture: ComponentFixture<CreateOrganizationDialogComponent>;
     let mockDialogRef: MatDialogRef<CreateOrganizationDialogComponent>;
-    let mockFetchOrganizationsService: FetchOrganizationsService;
+    let mockOrganizationManagementService: OrganizationManagementService;
 
     beforeEach(() => {
         mockDialogRef = mock(MatDialogRef);
-        mockFetchOrganizationsService = mock(FetchOrganizationsService);
+        mockOrganizationManagementService = mock(OrganizationManagementService);
 
         TestBed.configureTestingModule({
             imports: [
@@ -34,7 +35,7 @@ describe('CreateOrganizationDialogComponent', () => {
                 },
                 {
                     provide: FetchOrganizationsService,
-                    useFactory: () => instance(mockFetchOrganizationsService),
+                    useFactory: () => instance(mockOrganizationManagementService),
                 },
                 {
                     provide: NotificationService,
@@ -71,7 +72,7 @@ describe('CreateOrganizationDialogComponent', () => {
             input.dispatchEvent(new Event('input'));
             fixture.detectChanges();
             fixture.debugElement.queryAll(By.css('button'))[1].nativeElement.click();
-            verify(mockFetchOrganizationsService.create(objectContaining({ name: 'Test' }))).once();
+            verify(mockOrganizationManagementService.createOrganization(objectContaining({ name: 'Test' }))).once();
             expect().nothing();
         });
     });

@@ -12,7 +12,7 @@ import { AccordionModule, CardModule, HeadlineModule, RowModule } from '../../..
 import { ScrollUpModule } from '../../../../components/navigation';
 import { ShowMorePanelModule } from '../../../../components/show-more-panel';
 import { OrganizationRolesModule } from '../organization-roles';
-import { FetchOrganizationMemberService } from '../services/fetch-organization-member/fetch-organization-member.service';
+import { OrganizationManagementService } from '../services/organization-management/organization-management.service';
 import { MemberComponent } from './components/member/member.component';
 import { MembersListComponent } from './components/members-list/members-list.component';
 import { OrganizationDetailsRoutingModule } from './organization-details-routing.module';
@@ -39,6 +39,6 @@ import { OrganizationDetailsComponent } from './organization-details.component';
     ],
     declarations: [OrganizationDetailsComponent, MembersListComponent, MemberComponent],
     exports: [OrganizationDetailsComponent],
-    providers: [FetchOrganizationMemberService],
+    providers: [OrganizationManagementService],
 })
 export class OrganizationDetailsModule {}
