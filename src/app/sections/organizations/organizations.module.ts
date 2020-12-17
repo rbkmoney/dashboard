@@ -30,6 +30,7 @@ import { OrganizationRolesModule } from './organization-roles';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
+import { OrganizationManagementService } from './services/organization-management/organization-management.service';
 
 @NgModule({
     imports: [
@@ -68,6 +69,6 @@ import { FetchOrganizationsService } from './services/fetch-organizations/fetch-
         RenameOrganizationDialogComponent,
     ],
     exports: [OrganizationsComponent],
-    providers: [FetchOrganizationsService],
+    providers: [FetchOrganizationsService, OrganizationManagementService],
 })
 export class OrganizationsModule {}

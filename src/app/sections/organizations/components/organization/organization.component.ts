@@ -19,7 +19,6 @@ import { RenameOrganizationDialogComponent } from '../rename-organization-dialog
     selector: 'dsh-organization',
     templateUrl: 'organization.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [OrganizationManagementService],
 })
 export class OrganizationComponent implements OnChanges {
     @Input() organization: Organization;
@@ -38,12 +37,9 @@ export class OrganizationComponent implements OnChanges {
 
     ngOnChanges({ organization }: ComponentChanges<OrganizationComponent>) {
         if (!isNil(organization?.currentValue)) {
-            const orgId = organization.currentValue.id;
-            this.updateMember(orgId);
-            this.updateMembersCount(orgId);
-            this.isOrganizationOwner$ = this.organizationManagementService
-                .isOrganizationOwner(orgId)
-                .pipe(shareReplay(1));
+            this.updateMember(organization.currentValue.id);
+            this.updateMembersCount(organization.currentValue.id);
+            this.updateIsOrganizationOwner(organization.currentValue);
         }
     }
 
@@ -76,5 +72,9 @@ export class OrganizationComponent implements OnChanges {
 
     private updateMembersCount(orgId: Organization['id']) {
         this.membersCount$ = this.organizationManagementService.getMembers(orgId).pipe(pluck('length'), shareReplay(1));
+    }
+
+    private updateIsOrganizationOwner(org: Organization) {
+        this.isOrganizationOwner$ = this.organizationManagementService.isOrganizationOwner(org).pipe(shareReplay(1));
     }
 }

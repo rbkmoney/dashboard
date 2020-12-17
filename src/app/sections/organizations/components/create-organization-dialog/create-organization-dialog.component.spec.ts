@@ -7,7 +7,6 @@ import { instance, mock, objectContaining, verify } from 'ts-mockito';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
-import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
@@ -34,7 +33,7 @@ describe('CreateOrganizationDialogComponent', () => {
                     useFactory: () => instance(mockDialogRef),
                 },
                 {
-                    provide: FetchOrganizationsService,
+                    provide: OrganizationManagementService,
                     useFactory: () => instance(mockOrganizationManagementService),
                 },
                 {

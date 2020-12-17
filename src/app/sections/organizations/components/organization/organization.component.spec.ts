@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { anyString, instance, mock, when } from 'ts-mockito';
@@ -42,6 +43,7 @@ describe('OrganizationComponent', () => {
                 NotificationModule,
                 ErrorModule,
                 OrganizationRolesModule,
+                NoopAnimationsModule,
             ],
             declarations: [HostComponent, OrganizationComponent],
             providers: [
@@ -67,6 +69,7 @@ describe('OrganizationComponent', () => {
         component = fixture.componentInstance;
         when(mockOrganizationManagementService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
         when(mockOrganizationManagementService.getMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.isOrganizationOwner).thenReturn(() => of(true));
         fixture.detectChanges();
     });
 
