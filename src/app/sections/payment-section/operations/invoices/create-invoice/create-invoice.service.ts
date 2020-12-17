@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { of, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { filter, pluck, switchMap, take } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
@@ -14,8 +14,6 @@ import { CreateInvoiceDialogComponent } from './components/create-invoice-dialog
 
 @Injectable()
 export class CreateInvoiceService {
-    invoiceCreated$ = new ReplaySubject<string>(1);
-
     constructor(
         private apiShopsService: ApiShopsService,
         private dialog: MatDialog,
@@ -23,7 +21,8 @@ export class CreateInvoiceService {
         private snackBar: MatSnackBar
     ) {}
 
-    createInvoice(realm: PaymentInstitutionRealm): void {
+    createInvoice(realm: PaymentInstitutionRealm): Observable<string> {
+        const invoiceCreated$ = new ReplaySubject<string>(1);
         of(realm)
             .pipe(
                 filterShopsByRealm(this.apiShopsService.shops$),
@@ -42,7 +41,7 @@ export class CreateInvoiceService {
                 pluck('id')
             )
             .subscribe((id) => {
-                this.invoiceCreated$.next(id);
+                invoiceCreated$.next(id);
                 this.snackBar.open(
                     this.transloco.translate('invoices.actions.invoiceCreated', null, 'operations'),
                     'OK',
@@ -51,5 +50,6 @@ export class CreateInvoiceService {
                     }
                 );
             });
+        return invoiceCreated$;
     }
 }

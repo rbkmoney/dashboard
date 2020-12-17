@@ -29,7 +29,6 @@ export class InvoicesComponent implements OnInit {
     expandedId$ = this.invoicesExpandedIdManager.expandedId$;
     initSearchParams$ = this.invoicesSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.invoicesService.errors$;
-    invoiceCreated$ = this.createInvoiceService.invoiceCreated$;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
@@ -48,9 +47,6 @@ export class InvoicesComponent implements OnInit {
         this.invoicesService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-        this.invoiceCreated$
-            .pipe(untilDestroyed(this))
-            .subscribe((invoiceID) => this.refreshAndShowNewInvoice(invoiceID));
     }
 
     searchParamsChanges(p: SearchFiltersParams) {
@@ -71,9 +67,12 @@ export class InvoicesComponent implements OnInit {
     }
 
     create() {
-        this.route.params
-            .pipe(pluck('realm'), take(1))
-            .subscribe((realm: PaymentInstitutionRealm) => this.createInvoiceService.createInvoice(realm));
+        this.route.params.pipe(pluck('realm'), take(1)).subscribe((realm: PaymentInstitutionRealm) =>
+            this.createInvoiceService
+                .createInvoice(realm)
+                .pipe(untilDestroyed(this))
+                .subscribe((invoiceID) => this.refreshAndShowNewInvoice(invoiceID))
+        );
     }
 
     refreshAndShowNewInvoice(invoiceID: string) {
