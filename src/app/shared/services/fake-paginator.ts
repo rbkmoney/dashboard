@@ -1,44 +1,41 @@
 import { Injectable } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { map, pluck, scan, shareReplay, switchMapTo } from 'rxjs/operators';
 
-const DEFAULT_PAGINATION_OFFSET = 3;
+import { SHARE_REPLAY_CONF } from '../../custom-operators';
+
+const DEFAULT_PAGINATION_LIMIT = 3;
 
 @UntilDestroy()
 @Injectable()
-export class FakePaginator<T extends any[]> {
-    values$: Observable<T>;
+export class FakePaginator<T> {
+    values$: Observable<T[]>;
     hasMore$: Observable<boolean>;
 
-    private allValues: T;
-    private paginationOffset: number;
-
-    private showMore$ = new Subject<void>();
-    private paginationOffset$ = new BehaviorSubject<number>(0);
+    private allValues$ = new ReplaySubject<T[]>(1);
+    private paginationLimit$ = new ReplaySubject<number>(1);
+    private showMore$ = new ReplaySubject<void>(1);
+    private offset$ = this.showMore$.pipe(
+        switchMapTo(this.paginationLimit$),
+        scan((offset, limit) => offset + limit, 0),
+        shareReplay(SHARE_REPLAY_CONF)
+    );
 
     constructor() {
-        this.values$ = this.paginationOffset$.pipe(
-            map((offset) => this.allValues.slice(0, offset) as T),
-            shareReplay(1),
-            untilDestroyed(this)
+        this.values$ = combineLatest([this.allValues$, this.offset$]).pipe(
+            map(([values, showedCount]) => values.slice(0, showedCount)),
+            shareReplay(SHARE_REPLAY_CONF)
         );
-        this.hasMore$ = this.paginationOffset$.pipe(
-            map((offset) => offset < this.allValues.length),
-            shareReplay(1),
-            untilDestroyed(this)
+        this.hasMore$ = combineLatest([this.allValues$.pipe(pluck('length')), this.offset$]).pipe(
+            map(([count, showedCount]) => count > showedCount),
+            shareReplay(SHARE_REPLAY_CONF)
         );
-        this.showMore$
-            .pipe(
-                map(() => Math.min(this.allValues.length, this.paginationOffset$.value + this.paginationOffset)),
-                untilDestroyed(this)
-            )
-            .subscribe((offset) => this.paginationOffset$.next(offset));
     }
 
-    init(values: T, paginationOffset: number = DEFAULT_PAGINATION_OFFSET) {
-        this.allValues = values;
-        this.paginationOffset = paginationOffset;
+    init(values: T[], paginationLimit: number = DEFAULT_PAGINATION_LIMIT) {
+        this.allValues$.next(values);
+        this.paginationLimit$.next(paginationLimit);
         this.showMore();
     }
 

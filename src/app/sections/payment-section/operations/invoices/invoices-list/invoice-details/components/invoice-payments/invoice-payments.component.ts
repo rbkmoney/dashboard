@@ -15,7 +15,7 @@ export class InvoicePaymentsComponent implements OnInit {
     payments$ = this.paginationService.values$;
     hasMore$ = this.paginationService.hasMore$;
 
-    constructor(private paginationService: FakePaginator<Payment[]>) {}
+    constructor(private paginationService: FakePaginator<Payment>) {}
 
     ngOnInit() {
         this.paginationService.init(this.payments);
