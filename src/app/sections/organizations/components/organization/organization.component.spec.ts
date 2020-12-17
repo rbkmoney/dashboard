@@ -11,10 +11,10 @@ import { DetailsItemComponent, DetailsItemModule } from '../../../../../componen
 import { ErrorModule } from '../../../../shared/services/error';
 import { NotificationModule } from '../../../../shared/services/notification';
 import { DIALOG_CONFIG } from '../../../constants';
+import { OrganizationRolesComponent, OrganizationRolesModule } from '../../organization-roles';
 import { FetchOrganizationMemberService } from '../../services/fetch-organization-member/fetch-organization-member.service';
 import { mockMember } from '../../tests/mock-member';
 import { mockOrg } from '../../tests/mock-org';
-import { OrganizationRolesComponent } from '../organization-roles/organization-roles.component';
 import { OrganizationComponent } from './organization.component';
 
 @Component({
@@ -41,8 +41,9 @@ describe('OrganizationComponent', () => {
                 MatDialogModule,
                 NotificationModule,
                 ErrorModule,
+                OrganizationRolesModule,
             ],
-            declarations: [HostComponent, OrganizationComponent, OrganizationRolesComponent],
+            declarations: [HostComponent, OrganizationComponent],
             providers: [
                 {
                     provide: DIALOG_CONFIG,

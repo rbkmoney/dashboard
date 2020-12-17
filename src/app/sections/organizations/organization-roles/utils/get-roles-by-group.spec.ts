@@ -1,4 +1,4 @@
-import { mockMember } from '../tests/mock-member';
+import { mockMember } from '../../tests/mock-member';
 import { RoleGroup } from '../types/role-group';
 import { getRolesByGroup } from './get-roles-by-group';
 

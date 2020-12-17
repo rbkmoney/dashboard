@@ -16,8 +16,6 @@ import { NavigationLinkModule } from '@dsh/components/navigation-link';
 import { ButtonModule } from '../../../components/buttons';
 import { EmptySearchResultModule } from '../../../components/empty-search-result';
 import { SpinnerModule } from '../../../components/indicators';
-import { CollapseModule } from '../../../components/layout/collapse';
-import { LimitedListModule } from '../../../components/layout/limited-list';
 import { ScrollUpModule } from '../../../components/navigation';
 import { ShowMorePanelModule } from '../../../components/show-more-panel';
 import { OrganizationsModule as OrganizationsAPIModule } from '../../api/organizations';
@@ -25,10 +23,10 @@ import { UserModule } from '../../shared';
 import { ErrorModule } from '../../shared/services/error';
 import { NotificationModule } from '../../shared/services/notification';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
-import { OrganizationRolesComponent } from './components/organization-roles/organization-roles.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { RenameOrganizationDialogComponent } from './components/rename-organization-dialog/rename-organization-dialog.component';
+import { OrganizationRolesModule } from './organization-roles';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
@@ -46,8 +44,6 @@ import { FetchOrganizationsService } from './services/fetch-organizations/fetch-
         SpinnerModule,
         ButtonModule,
         AccordionModule,
-        CollapseModule,
-        LimitedListModule,
         OrganizationsAPIModule,
         MatDividerModule,
         DetailsItemModule,
@@ -62,12 +58,12 @@ import { FetchOrganizationsService } from './services/fetch-organizations/fetch-
         NotificationModule,
         ErrorModule,
         MatInputModule,
+        OrganizationRolesModule,
     ],
     declarations: [
         OrganizationsComponent,
         OrganizationsListComponent,
         OrganizationComponent,
-        OrganizationRolesComponent,
         CreateOrganizationDialogComponent,
         RenameOrganizationDialogComponent,
     ],

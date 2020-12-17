@@ -1,4 +1,4 @@
-import { ResourceScopeId, RoleId } from '../../../api-codegen/organizations';
+import { ResourceScopeId, RoleId } from '../../../../api-codegen/organizations';
 
 export type ResourceId = string;
 

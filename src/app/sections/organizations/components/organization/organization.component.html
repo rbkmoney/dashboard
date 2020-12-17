@@ -3,12 +3,11 @@
     fxLayout="column"
     fxLayoutGap="24px"
 >
-    <ng-container *ngIf="membersCount$ | async as membersCount">
-        <div class="dsh-headline">{{ organization?.name }}</div>
-        <dsh-details-item [title]="t('numberOfEmployees')">
-            {{ membersCount }}
-        </dsh-details-item>
-    </ng-container>
+    <div class="dsh-headline">{{ organization?.name }}</div>
+
+    <dsh-details-item *ngIf="membersCount$ | async as membersCount" [title]="t('numberOfEmployees')">
+        {{ membersCount }}
+    </dsh-details-item>
 
     <ng-container *ngIf="member$ | async as member">
         <mat-divider></mat-divider>
@@ -24,6 +23,9 @@
     </div>
 
     <mat-divider></mat-divider>
-
-    <dsh-navigation-link fxFlexAlign="end" [text]="t('management')"></dsh-navigation-link>
+    <dsh-navigation-link
+        fxFlexAlign="end"
+        [text]="t('management')"
+        [routerLink]="organization.id"
+    ></dsh-navigation-link>
 </div>

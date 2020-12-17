@@ -10,6 +10,7 @@ import { SEARCH_LIMIT } from '../../../constants';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mockOrg } from '../../tests/mock-org';
 
+// TODO: rename to OrganizationsService
 @Injectable()
 export class FetchOrganizationsService extends PartialFetcher<Organization, void> {
     constructor(
