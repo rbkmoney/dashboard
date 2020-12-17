@@ -16,6 +16,6 @@ export class InvoiceDetailsComponent {
     }
 
     isCartAvailable(cart: InvoiceCart): boolean {
-        return !!cart && !!cart.length;
+        return Boolean(cart?.length);
     }
 }
