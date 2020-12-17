@@ -4,12 +4,12 @@
     fxLayout.lt-md="column"
     fxLayoutGap="24px"
 >
-    <dsh-details-item fxFlex [title]="t('status')">
-        <dsh-status [color]="payment.status | paymentStatusColor">{{ payment.status | paymentStatusName }}</dsh-status>
-    </dsh-details-item>
     <dsh-details-item fxFlex [title]="t('amount')">{{
         payment.amount | toMajor | currency: payment.currency
     }}</dsh-details-item>
+    <dsh-details-item fxFlex [title]="t('status')">
+        <dsh-status [color]="payment.status | paymentStatusColor">{{ payment.status | paymentStatusName }}</dsh-status>
+    </dsh-details-item>
     <dsh-details-item fxFlex [title]="t('statusChangedAt')">{{
         payment.statusChangedAt || payment.createdAt | date: 'dd MMMM yyyy, HH:mm'
     }}</dsh-details-item>
