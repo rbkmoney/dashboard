@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PaymentModule } from '@dsh/api/payment';
 import {
     InvoiceDetailsModule as InvoiceInvoiceDetailsModule,
     PaymentDetailsModule,
@@ -15,11 +16,14 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { PaymentModule } from '../../../../../../api/payment';
 import { ToMajorModule } from '../../../../../../to-major';
+import { CancelInvoiceModule } from './cancel-invoice';
+import { InvoiceActionsComponent } from './components/invoice-actions/invoice-actions.component';
 import { InvoiceCartLineComponent } from './components/invoice-cart-info/cart-info/invoice-cart-line.component';
 import { InvoiceCartInfoComponent } from './components/invoice-cart-info/invoice-cart-info.component';
 import { InvoiceMainInfoComponent } from './components/invoice-main-info/invoice-main-info.component';
+import { CreatePaymentLinkModule } from './create-payment-link';
+import { FulfillInvoiceModule } from './fulfill-invoice';
 import { InvoiceDetailsComponent } from './invoice-details.component';
 import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-tax-rate.pipe';
 
@@ -39,6 +43,9 @@ import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-t
         PaymentModule,
         InvoiceInvoiceDetailsModule,
         ToMajorModule,
+        CreatePaymentLinkModule,
+        CancelInvoiceModule,
+        FulfillInvoiceModule,
     ],
     declarations: [
         InvoiceDetailsComponent,
@@ -46,6 +53,7 @@ import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-t
         InvoiceCartInfoComponent,
         InvoiceCartLineComponent,
         TaxModeToTaxRatePipe,
+        InvoiceActionsComponent,
     ],
     exports: [InvoiceDetailsComponent],
 })

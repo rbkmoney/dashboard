@@ -4,6 +4,6 @@ export interface SearchFiltersParams {
     fromTime: string;
     toTime: string;
     invoiceIDs: string[];
-    shopIDs: string[];
-    invoiceStatus: Invoice.StatusEnum;
+    shopIDs?: string[];
+    invoiceStatus?: Invoice.StatusEnum;
 }

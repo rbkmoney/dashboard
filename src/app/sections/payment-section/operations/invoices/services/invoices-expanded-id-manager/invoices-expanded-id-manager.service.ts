@@ -17,6 +17,10 @@ export class InvoicesExpandedIdManager extends ExpandedIdManager<Invoice> {
         super(route, router);
     }
 
+    protected fragmentNotFound(): void {
+        this.fetchInvoicesService.fetchMore();
+    }
+
     protected get dataSet$(): Observable<Invoice[]> {
         return this.fetchInvoicesService.searchResult$;
     }

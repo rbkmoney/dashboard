@@ -71,6 +71,16 @@
             "status": "Статус",
             "createdAt": "Создан",
             "shop": "Магазин"
+        },
+        "actions": {
+            "title": "Действия",
+            "createPaymentLink": "Сформировать сслыку на оплату",
+            "invoiceCreated": "Инвойс успешно создан",
+            "cancelInvoice": "Отменить инвойс",
+            "invoiceCancelled": "Инвойс успешно отменен",
+            "fulfillInvoice": "Погасить инвойс",
+            "invoiceFulfilled": "Инвойс успешно погашен",
+            "reason": "Причина"
         }
     },
     "refunds": {

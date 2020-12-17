@@ -13,8 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
-import { InvoiceDetailsModule } from '@dsh/app/shared/components';
 import { InvoiceModule } from '@dsh/api/invoice';
+import { InvoiceDetailsModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
@@ -26,9 +26,8 @@ import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
 import { ToMajorModule } from '../../../../to-major';
-import { CreateInvoiceModule } from '../../../create-invoice';
 import { ShopSelectorModule } from '../../../shop-selector';
-import { CreateInvoiceDialogComponent } from './create-invoice-dialog';
+import { CreateInvoiceModule } from './create-invoice';
 import { InvoicesListModule } from './invoices-list';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { InvoicesSearchFiltersModule } from './invoices-search-filters';
@@ -69,7 +68,7 @@ import { InvoicesComponent } from './invoices.component';
         ScrollUpModule,
         ShowMorePanelModule,
     ],
-    declarations: [InvoicesComponent, CreateInvoiceDialogComponent],
+    declarations: [InvoicesComponent],
     providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class InvoicesModule {}
