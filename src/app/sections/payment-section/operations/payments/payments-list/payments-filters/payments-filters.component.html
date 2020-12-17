@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
     <ng-container *ngIf="filtersData$ | async as filters">
         <dsh-daterange-filter
-            [selected]="filters.dateRange"
+            [selected]="filters.daterange"
             (selectedChange)="dateRangeChange($event)"
         ></dsh-daterange-filter>
         <dsh-invoices-filter

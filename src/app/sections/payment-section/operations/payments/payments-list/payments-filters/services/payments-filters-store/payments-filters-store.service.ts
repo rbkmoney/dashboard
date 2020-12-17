@@ -6,6 +6,7 @@ import isNil from 'lodash.isnil';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
+import { Daterange } from '@dsh/pipes/daterange';
 
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
 
@@ -22,18 +23,15 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     mapToData(params: Params): Partial<PaymentsFiltersData> {
         const { fromTime, toTime, invoiceIDs = [], shopIDs = [], ...restParams } = params;
         return this.removeUnusedFields({
-            dateRange:
-                isNil(fromTime) || isNil(toTime)
-                    ? null
-                    : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime }),
-            invoiceIDs: Array.isArray(invoiceIDs) ? invoiceIDs : [invoiceIDs],
-            shopIDs: Array.isArray(shopIDs) ? shopIDs : [shopIDs],
+            daterange: this.formatDaterange(fromTime, toTime),
+            invoiceIDs: this.formatListParams(invoiceIDs),
+            shopIDs: this.formatListParams(shopIDs),
             ...restParams,
         });
     }
 
-    mapToParams({ dateRange, additional, ...restData }: PaymentsFiltersData): Params {
-        const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(dateRange);
+    mapToParams({ daterange, additional, ...restData }: PaymentsFiltersData): Params {
+        const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(daterange);
         return this.removeUnusedFields({
             fromTime,
             toTime,
@@ -50,5 +48,23 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
             }
             return newData;
         }, {});
+    }
+
+    private formatListParams(listParam: string | string[] | undefined): string[] {
+        if (Array.isArray(listParam)) {
+            return listParam;
+        }
+
+        if (isEmpty(listParam)) {
+            return [];
+        }
+
+        return [listParam]
+    }
+
+    private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {
+        return isNil(fromTime) || isNil(toTime)
+            ? null
+            : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime })
     }
 }

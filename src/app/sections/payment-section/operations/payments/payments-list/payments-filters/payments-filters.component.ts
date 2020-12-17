@@ -79,7 +79,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     }
 
     dateRangeChange(dateRange: Daterange): void {
-        this.updateFilters({ dateRange });
+        this.updateFilters({ daterange: dateRange });
     }
 
     invoiceSelectionChange(invoiceIds: string[]): void {

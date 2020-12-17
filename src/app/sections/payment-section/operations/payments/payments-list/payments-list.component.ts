@@ -35,9 +35,6 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         this.fetchPayments.errors$.pipe(untilDestroyed(this)).subscribe(() => {
             this.snackBar.open(this.transloco.translate('commonError'), 'OK');
         });
-
-        // TODO: change init search logic
-        // this.requestList();
     }
 
     ngOnChanges(changes: ComponentChanges<PaymentsListComponent>): void {
@@ -64,14 +61,14 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         }
     }
 
-    private requestList({ dateRange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
+    private requestList({ daterange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
         this.fetchPayments.search({
             date: {
-                begin: dateRange.begin,
-                end: dateRange.end,
+                begin: daterange.begin,
+                end: daterange.end,
             },
             invoiceIDs,
-            shopIDs
+            shopIDs,
         });
     }
 }

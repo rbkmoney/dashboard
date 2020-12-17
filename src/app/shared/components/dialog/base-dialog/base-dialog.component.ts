@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+// TODO: add support directives ng-content selectors
+// TODO: add unit test for template with new ng-content
 @Component({
     selector: 'dsh-base-dialog',
     templateUrl: 'base-dialog.component.html',

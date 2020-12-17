@@ -9,7 +9,6 @@ import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter'
 import { FilterModule } from '@dsh/components/filters/filter';
 
 import { AdditionalFiltersModule } from './additional-filters';
-import { DEFAULT_PAYMENTS_FILTERS_DATA, DEFAULT_PAYMENTS_FILTERS_DATA_TOKEN } from './consts';
 import { PaymentsFiltersComponent } from './payments-filters.component';
 import { PaymentsFiltersStoreService } from './services/payments-filters-store/payments-filters-store.service';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
@@ -29,14 +28,6 @@ import { ShopsSelectionManagerService } from './services/shops-selection-manager
     ],
     declarations: [PaymentsFiltersComponent],
     exports: [PaymentsFiltersComponent],
-    providers: [
-        PaymentsFiltersService,
-        PaymentsFiltersStoreService,
-        ShopsSelectionManagerService,
-        {
-            provide: DEFAULT_PAYMENTS_FILTERS_DATA_TOKEN,
-            useValue: DEFAULT_PAYMENTS_FILTERS_DATA,
-        },
-    ],
+    providers: [PaymentsFiltersService, PaymentsFiltersStoreService, ShopsSelectionManagerService],
 })
 export class PaymentsFiltersModule {}
