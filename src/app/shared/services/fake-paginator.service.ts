@@ -9,7 +9,7 @@ const DEFAULT_PAGINATION_LIMIT = 3;
 
 @UntilDestroy()
 @Injectable()
-export class FakePaginator<T> {
+export class FakePaginatorService<T> {
     values$: Observable<T[]>;
     hasMore$: Observable<boolean>;
 
