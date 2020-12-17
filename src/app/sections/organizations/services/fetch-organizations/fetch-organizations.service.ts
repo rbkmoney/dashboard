@@ -15,9 +15,7 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
         // tslint:disable-next-line
         private organizationsService: OrganizationsService,
         // tslint:disable-next-line
-        @Inject(SEARCH_LIMIT) private searchLimit: number,
-        // tslint:disable-next-line
-        private userService: UserService
+        @Inject(SEARCH_LIMIT) private searchLimit: number
     ) {
         super();
     }
