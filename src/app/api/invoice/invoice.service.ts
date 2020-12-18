@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Invoice, InvoiceParams, Reason } from '@dsh/api-codegen/capi';
 import { InvoicesService } from '@dsh/api-codegen/capi/invoices.service';
-import { Invoice, InvoiceParams } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { Replace } from '../../../type-utils';
 import { genXRequestID } from '../utils';
@@ -28,5 +28,13 @@ export class InvoiceService {
 
     getInvoicePaymentMethods(invoiceID: string) {
         return this.invoicesService.getInvoicePaymentMethods(genXRequestID(), invoiceID);
+    }
+
+    fulfillInvoice(invoiceID: string, reason: Reason) {
+        return this.invoicesService.fulfillInvoice(genXRequestID(), invoiceID, reason);
+    }
+
+    rescindInvoice(invoiceID: string, reason: Reason) {
+        return this.invoicesService.rescindInvoice(genXRequestID(), invoiceID, reason);
     }
 }

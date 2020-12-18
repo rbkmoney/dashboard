@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-payment-details',

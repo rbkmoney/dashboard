@@ -1,0 +1,95 @@
+{
+    "title": "Operations",
+    "payments": {
+        "title": "Payments",
+        "filter": {
+            "shopID": "Shop",
+            "fromTime": "Start Date",
+            "toTime": "End Date",
+            "payerEmail": "Email",
+            "paymentID": "Payment ID",
+            "invoiceID": "Invoice ID",
+            "paymentAmountFrom": "Payment amount from",
+            "paymentAmountTo": "Payment amount to",
+            "first6": "Card BIN",
+            "last4": "Card last digits",
+            "payerFingerprint": "Payer fingerprint",
+            "payerIP": "Payer IP-address",
+            "customerID": "Customer ID",
+            "paymentStatus": "Payment status",
+            "paymentFlow": "Payment flow",
+            "bankCardTokenProvider": "Bank card token provider",
+            "bankCardPaymentSystem": "Payment system",
+            "paymentMethod": "Payment method",
+            "rrn": "RRN"
+        },
+        "table": {
+            "amount": "Amount",
+            "status": "Status",
+            "statusChanged": "Status changed at",
+            "invoice": "Invoice",
+            "shop": "Shop",
+            "actions": {
+                "paymentDetails": "Payment details"
+            }
+        }
+    },
+    "invoices": {
+        "title": "Invoices",
+        "header": "Invoice",
+        "shop": "Shop",
+        "cartInfo": {
+            "title": "Products and services cart",
+            "description": "Description of a product or service",
+            "price": "Price",
+            "quantity": "Quantity",
+            "tax": "TAX"
+        },
+        "headerRow": {
+            "productName": "Product name",
+            "amount": "Amount",
+            "status": "Status",
+            "createdAt": "Created at",
+            "shop": "Shop"
+        },
+        "actions": {
+            "title": "Actions",
+            "createPaymentLink": "Create payment link",
+            "invoiceCreated": "Invoice was created successfully",
+            "cancelInvoice": "Cancel invoice",
+            "invoiceCancelled": "Invoice was cancelled successfully",
+            "fulfillInvoice": "Fulfill invoice",
+            "invoiceFulfilled": "Invoice was fulfilled successfully",
+            "reason": "Reason"
+        },
+        "payments": {
+            "title": "Payments",
+            "showMore": "Show more"
+        }
+    },
+    "refunds": {
+        "title": "Refunds",
+        "header": "Refund",
+        "shop": "Shop",
+        "invoiceInfo": {
+            "title": "Invoice",
+            "error": "Invoice loading error"
+        },
+        "paymentInfo": {
+            "title": "Payment",
+            "error": "Payment loading error"
+        },
+        "fetchError": "An error occurred while searching for refunds",
+        "headerRow": {
+            "amount": "Amount",
+            "status": "Status",
+            "updatedAt": "Status changed at",
+            "shop": "Shop"
+        },
+        "status": {
+            "succeeded": "Succeeded",
+            "failed": "Failed",
+            "pending": "Pending"
+        }
+    }
+}

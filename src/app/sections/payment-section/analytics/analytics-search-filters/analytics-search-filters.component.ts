@@ -1,12 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import isEqual from 'lodash.isequal';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
@@ -15,10 +7,10 @@ import { Shop } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
+import { ComponentChanges } from '../../../../../type-utils';
+import { daterangeFromStr, strToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
-import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';
 import { SearchParams } from '../search-params';
-import { daterangeToSearchParams } from './daterange-to-search-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { shopsToCurrencies } from './shops-to-currencies';
 
@@ -84,19 +76,9 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
             });
     }
 
-    ngOnChanges({ initParams }: SimpleChanges) {
+    ngOnChanges({ initParams }: ComponentChanges<AnalyticsSearchFiltersComponent>) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
-            const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(v);
-            this.daterangeSelectionChange(this.daterange);
-            if (v.currency) {
-                this.selectedCurrency$.next(v.currency);
-            } else {
-                this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
-            }
-            if (v.shopIDs) {
-                this.selectedShopIDs$.next(v.shopIDs);
-            }
+            this.initSearchParams(initParams.currentValue);
         }
     }
 
@@ -105,7 +87,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         if (v === null) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToSearchParams(daterange));
+        this.searchParams$.next(daterangeFromStr(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {
@@ -115,5 +97,18 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
 
     currencySelectionChange(currency: string) {
         this.selectedCurrency$.next(currency);
+    }
+
+    initSearchParams({ fromTime, toTime, shopIDs, currency }: SearchParams) {
+        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterangeSelectionChange(this.daterange);
+        if (currency) {
+            this.selectedCurrency$.next(currency);
+        } else {
+            this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
+        }
+        if (shopIDs) {
+            this.selectedShopIDs$.next(shopIDs);
+        }
     }
 }

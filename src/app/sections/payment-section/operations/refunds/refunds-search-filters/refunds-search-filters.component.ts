@@ -20,11 +20,10 @@ import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
+import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';
 import { SearchFiltersParams } from '../types/search-filters-params';
-import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
 import { getDefaultDaterange } from './get-default-daterange';
-import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';
 
 @Component({
     selector: 'dsh-refunds-search-filters',
@@ -84,7 +83,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
         if (isNil(range)) {
             this.daterange = daterange;
         }
-        this.searchParams$.next(daterangeToSearchFilterParams(daterange));
+        this.searchParams$.next(daterangeFromStr(daterange));
     }
 
     shopSelectionChange(shops: Shop[]) {
@@ -103,7 +102,7 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
     private init(initParams: SimpleChange) {
         if (initParams && initParams.firstChange && initParams.currentValue) {
             const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(v);
+            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : strToDaterange(v);
             this.daterangeSelectionChange(this.daterange);
             if (Array.isArray(v.shopIDs)) {
                 this.selectedShopIDs$.next(v.shopIDs);

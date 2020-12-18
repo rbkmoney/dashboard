@@ -1,0 +1,15 @@
+<dsh-radio-group-filter
+    *transloco="let t; scope: 'invoice-status-filter'; read: 'invoiceStatusFilter'"
+    [label]="t('label')"
+    [selected]="selected"
+    (selectedChange)="this.selectedChange.emit($event)"
+>
+    <dsh-radio-group-filter-option *transloco="let c" [value]="undefined">
+        {{ c('any') }}
+    </dsh-radio-group-filter-option>
+    <dsh-radio-group-filter-option *ngFor="let status of statuses" [value]="status">
+        <span *transloco="let statuses; scope: 'invoice-status-filter'; read: 'invoiceStatusFilter.statuses'">{{
+            statuses(status)
+        }}</span>
+    </dsh-radio-group-filter-option>
+</dsh-radio-group-filter>
