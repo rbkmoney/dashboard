@@ -2,7 +2,7 @@
     <dsh-details-item [title]="t('description')" fxFlex>
         {{ line.product }}
     </dsh-details-item>
-    <div fxLayout fxLayoutGap="24px">
+    <div fxLayout fxLayout.xs="column" fxLayoutGap="24px">
         <dsh-details-item [title]="t('price')" fxFlex>
             {{ line.price | toMajor | currency: currency }}
         </dsh-details-item>

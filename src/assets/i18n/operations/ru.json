@@ -38,26 +38,6 @@
         "title": "Инвойсы",
         "header": "Инвойс",
         "shop": "Магазин",
-        "filter": {
-            "shopID": "Магазин",
-            "fromTime": "Начало периода",
-            "toTime": "Конец периода",
-            "payerEmail": "Email плательщика",
-            "paymentID": "Идентификатор платежа",
-            "invoiceID": "Идентификатор инвойса",
-            "invoiceAmount": "Сумма инвойса",
-            "first6": "BIN банка-эмитента карты",
-            "last4": "Последние цифры номера карты",
-            "payerFingerprint": "Fingerprint плательщика",
-            "customerID": "Идентификатор плательщика",
-            "payerIP": "IP-адрес плательщика",
-            "invoiceStatus": "Статус инвойса",
-            "paymentStatus": "Статус платежа",
-            "paymentFlow": "Тип проведения платежа",
-            "bankCardTokenProvider": "Провайдер платежных токенов",
-            "bankCardPaymentSystem": "Платежаня система",
-            "paymentMethod": "Метод оплаты"
-        },
         "cartInfo": {
             "title": "Корзина с набором товаров и услуг",
             "description": "Описание товара или услуги",
@@ -81,6 +61,11 @@
             "fulfillInvoice": "Погасить инвойс",
             "invoiceFulfilled": "Инвойс успешно погашен",
             "reason": "Причина"
+        },
+        "payments": {
+            "title": "Платежи",
+            "payment": "Платеж",
+            "showMore": "Показать еще"
         }
     },
     "refunds": {
@@ -89,12 +74,10 @@
         "shop": "Магазин",
         "invoiceInfo": {
             "title": "Инвойс",
-            "loading": "Загрузка...",
             "error": "Не удалось получить инвойс"
         },
         "paymentInfo": {
             "title": "Платеж",
-            "loading": "Загрузка...",
             "error": "Не удалось получить платеж"
         },
         "fetchError": "Произошла ошибка при поиске возвратов",

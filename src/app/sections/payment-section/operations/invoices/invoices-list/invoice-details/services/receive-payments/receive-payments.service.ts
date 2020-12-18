@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import moment from 'moment';
 import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { Payment } from '@dsh/api-codegen/capi';
 import { PaymentService } from '@dsh/api/payment';
-
-export interface ReceivePaymentParams {
-    invoiceID: string;
-    paymentID: string;
-}
 
 @UntilDestroy()
 @Injectable()
-export class ReceivePaymentService {
+export class ReceivePaymentsService {
     isLoading$: Observable<boolean>;
     errorOccurred$: Observable<boolean>;
-    payment$: Observable<PaymentSearchResult>;
+    payments$: Observable<Payment[]>;
 
-    private receivePayment$ = new Subject<ReceivePaymentParams>();
+    private receivePayments$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
     private error$ = new Subject<boolean>();
-    private receivedPayment$ = new ReplaySubject<PaymentSearchResult>(1);
+    private receivedPayments$ = new ReplaySubject<Payment[]>(1);
 
     constructor(private paymentService: PaymentService) {
         this.isLoading$ = this.loading$.asObservable();
         this.errorOccurred$ = this.error$.asObservable();
-        this.payment$ = this.receivedPayment$.asObservable();
-        this.receivePayment$
+        this.payments$ = this.receivedPayments$.asObservable();
+        this.receivePayments$
             .pipe(
                 tap(() => this.loading$.next(true)),
-                switchMap(({ invoiceID, paymentID }) =>
-                    this.paymentService.getPaymentByID(invoiceID, paymentID).pipe(
+                switchMap((invoiceID) =>
+                    this.paymentService.getPayments(invoiceID).pipe(
                         catchError((e) => {
                             console.error(e);
                             this.loading$.next(false);
@@ -41,16 +37,19 @@ export class ReceivePaymentService {
                     )
                 ),
                 filter((result) => result !== 'error'),
-                map((r) => r as PaymentSearchResult),
+                map((r) => r as Payment[]),
+                map((payments) =>
+                    payments.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf())
+                ),
                 untilDestroyed(this)
             )
-            .subscribe((payment: PaymentSearchResult) => {
+            .subscribe((payments: Payment[]) => {
                 this.loading$.next(false);
-                this.receivedPayment$.next(payment);
+                this.receivedPayments$.next(payments);
             });
     }
 
-    receivePayment(params: ReceivePaymentParams) {
-        this.receivePayment$.next(params);
+    receivePayments(invoiceID: string) {
+        this.receivePayments$.next(invoiceID);
     }
 }
