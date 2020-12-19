@@ -59,12 +59,12 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
             return [];
         }
 
-        return [listParam]
+        return [listParam];
     }
 
     private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {
         return isNil(fromTime) || isNil(toTime)
             ? null
-            : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime })
+            : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime });
     }
 }

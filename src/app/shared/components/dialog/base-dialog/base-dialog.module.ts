@@ -9,13 +9,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { BaseDialogComponent } from './base-dialog.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FlexLayoutModule,
-        ButtonModule,
-        NoContentModule,
-        MatDividerModule,
-    ],
+    imports: [CommonModule, FlexLayoutModule, ButtonModule, NoContentModule, MatDividerModule],
     declarations: [BaseDialogComponent],
     exports: [BaseDialogComponent],
 })

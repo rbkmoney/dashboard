@@ -19,7 +19,6 @@ import { PaymentsFiltersData } from './types/payments-filters-data';
 @Component({
     selector: 'dsh-payments-filters',
     templateUrl: 'payments-filters.component.html',
-    styleUrls: ['payments-filters.component.scss'],
 })
 export class PaymentsFiltersComponent implements OnInit, OnChanges {
     @Input() realm: PaymentInstitutionRealm;
