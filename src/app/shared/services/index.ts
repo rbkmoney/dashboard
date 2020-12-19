@@ -3,3 +3,4 @@ export * from './expanded-id-manager';
 export * from './user';
 export * from './logger';
 export * from './uuid-generator';
+export * from './fake-paginator.service';
