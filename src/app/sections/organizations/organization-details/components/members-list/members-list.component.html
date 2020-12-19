@@ -1,0 +1,31 @@
+<div
+    fxLayout="column"
+    fxLayoutGap="16px"
+    *transloco="let t; scope: 'organizations'; read: 'organizations.organizationDetails.membersList'"
+>
+    <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px" color="primary">
+        <dsh-row-header-label>{{ t('headerRow.email') }}</dsh-row-header-label>
+    </dsh-row>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let member of members" #accordionItem>
+            <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px">
+                <dsh-row-label>
+                    {{ member.userEmail }}
+                </dsh-row-label>
+            </dsh-row>
+            <dsh-accordion-item-content>
+                <dsh-card fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
+                        {{ member.id }}
+                    </dsh-accordion-item-content-header>
+                    <dsh-member [member]="member"></dsh-member>
+                </dsh-card>
+            </dsh-accordion-item-content>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

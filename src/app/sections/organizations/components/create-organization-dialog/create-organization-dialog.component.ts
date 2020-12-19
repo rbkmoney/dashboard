@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
-import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 
 @UntilDestroy()
 @Component({
@@ -20,15 +20,15 @@ export class CreateOrganizationDialogComponent {
 
     constructor(
         private dialogRef: MatDialogRef<CreateOrganizationDialogComponent>,
-        private organizationsService: FetchOrganizationsService,
+        private organizationManagementService: OrganizationManagementService,
         private notificationService: NotificationService,
         private errorService: ErrorService
     ) {}
 
     create() {
         this.inProgress$.next(true);
-        this.organizationsService
-            .create({
+        this.organizationManagementService
+            .createOrganization({
                 name: this.nameControl.value,
             })
             .pipe(untilDestroyed(this))

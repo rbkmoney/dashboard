@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { anyString, instance, mock, when } from 'ts-mockito';
@@ -11,10 +12,10 @@ import { DetailsItemComponent, DetailsItemModule } from '../../../../../componen
 import { ErrorModule } from '../../../../shared/services/error';
 import { NotificationModule } from '../../../../shared/services/notification';
 import { DIALOG_CONFIG } from '../../../constants';
-import { FetchOrganizationMemberService } from '../../services/fetch-organization-member/fetch-organization-member.service';
+import { OrganizationRolesComponent, OrganizationRolesModule } from '../../organization-roles';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { mockMember } from '../../tests/mock-member';
 import { mockOrg } from '../../tests/mock-org';
-import { OrganizationRolesComponent } from '../organization-roles/organization-roles.component';
 import { OrganizationComponent } from './organization.component';
 
 @Component({
@@ -28,10 +29,10 @@ class HostComponent {
 describe('OrganizationComponent', () => {
     let component: HostComponent;
     let fixture: ComponentFixture<HostComponent>;
-    let mockFetchOrganizationMemberService: FetchOrganizationMemberService;
+    let mockOrganizationManagementService: OrganizationManagementService;
 
     beforeEach(() => {
-        mockFetchOrganizationMemberService = mock(FetchOrganizationMemberService);
+        mockOrganizationManagementService = mock(OrganizationManagementService);
 
         TestBed.configureTestingModule({
             imports: [
@@ -41,8 +42,10 @@ describe('OrganizationComponent', () => {
                 MatDialogModule,
                 NotificationModule,
                 ErrorModule,
+                OrganizationRolesModule,
+                NoopAnimationsModule,
             ],
-            declarations: [HostComponent, OrganizationComponent, OrganizationRolesComponent],
+            declarations: [HostComponent, OrganizationComponent],
             providers: [
                 {
                     provide: DIALOG_CONFIG,
@@ -55,8 +58,8 @@ describe('OrganizationComponent', () => {
             set: {
                 providers: [
                     {
-                        provide: FetchOrganizationMemberService,
-                        useValue: instance(mockFetchOrganizationMemberService),
+                        provide: OrganizationManagementService,
+                        useValue: instance(mockOrganizationManagementService),
                     },
                 ],
             },
@@ -64,8 +67,9 @@ describe('OrganizationComponent', () => {
 
         fixture = TestBed.createComponent(HostComponent);
         component = fixture.componentInstance;
-        when(mockFetchOrganizationMemberService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
-        when(mockFetchOrganizationMemberService.getMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
+        when(mockOrganizationManagementService.getMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.isOrganizationOwner).thenReturn(() => of(true));
         fixture.detectChanges();
     });
 

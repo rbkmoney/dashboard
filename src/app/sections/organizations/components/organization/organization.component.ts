@@ -11,7 +11,7 @@ import { Member, Organization } from '../../../../api-codegen/organizations';
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
 import { DialogConfig, DIALOG_CONFIG } from '../../../constants';
-import { FetchOrganizationMemberService } from '../../services/fetch-organization-member/fetch-organization-member.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 
 @UntilDestroy()
@@ -19,16 +19,16 @@ import { RenameOrganizationDialogComponent } from '../rename-organization-dialog
     selector: 'dsh-organization',
     templateUrl: 'organization.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchOrganizationMemberService],
 })
 export class OrganizationComponent implements OnChanges {
     @Input() organization: Organization;
 
     member$: Observable<Member>;
     membersCount$: Observable<number>;
+    isOrganizationOwner$: Observable<boolean>;
 
     constructor(
-        private fetchOrganizationMemberService: FetchOrganizationMemberService,
+        private organizationManagementService: OrganizationManagementService,
         private dialog: MatDialog,
         private notificationService: NotificationService,
         private errorService: ErrorService,
@@ -39,6 +39,7 @@ export class OrganizationComponent implements OnChanges {
         if (!isNil(organization?.currentValue)) {
             this.updateMember(organization.currentValue.id);
             this.updateMembersCount(organization.currentValue.id);
+            this.updateIsOrganizationOwner(organization.currentValue);
         }
     }
 
@@ -49,7 +50,7 @@ export class OrganizationComponent implements OnChanges {
             .pipe(
                 filter((r) => r === 'confirm'),
                 take(1),
-                switchMap(() => this.fetchOrganizationMemberService.leaveOrganization(this.organization.id)),
+                switchMap(() => this.organizationManagementService.leaveOrganization(this.organization.id)),
                 untilDestroyed(this)
             )
             .subscribe(
@@ -66,12 +67,14 @@ export class OrganizationComponent implements OnChanges {
     }
 
     private updateMember(orgId: Organization['id']) {
-        this.member$ = this.fetchOrganizationMemberService.getMember(orgId).pipe(shareReplay(1));
+        this.member$ = this.organizationManagementService.getMember(orgId).pipe(shareReplay(1));
     }
 
     private updateMembersCount(orgId: Organization['id']) {
-        this.membersCount$ = this.fetchOrganizationMemberService
-            .getMembers(orgId)
-            .pipe(pluck('length'), shareReplay(1));
+        this.membersCount$ = this.organizationManagementService.getMembers(orgId).pipe(pluck('length'), shareReplay(1));
+    }
+
+    private updateIsOrganizationOwner(org: Organization) {
+        this.isOrganizationOwner$ = this.organizationManagementService.isOrganizationOwner(org).pipe(shareReplay(1));
     }
 }

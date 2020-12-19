@@ -9,15 +9,6 @@
             "roles": "Ваши роли",
             "actions": "Действия"
         },
-        "roles": {
-            "Administrator": "Администратор",
-            "Accountant": "Бухгалтер",
-            "Integrator": "Интегратор",
-            "Manager": "Менеджер"
-        },
-        "scopes": {
-            "Shop": "Магазины"
-        },
         "management": "Управление сотрудниками и организациями",
         "numberOfEmployees": "Количество сотрудников",
         "actions": {
@@ -36,5 +27,33 @@
         "name": "Название организации",
         "update": "Обновить",
         "cancel": "Отмена"
+    },
+    "organizationRoles": {
+        "roles": {
+            "Administrator": "Администратор",
+            "Accountant": "Бухгалтер",
+            "Integrator": "Интегратор",
+            "Manager": "Менеджер"
+        },
+        "scopes": {
+            "Shop": "Магазины"
+        }
+    },
+    "organizationDetails": {
+        "membersList": {
+            "headerRow": {
+                "email": "Email"
+            }
+        },
+        "member": {
+            "titles": {
+                "roles": "Роли",
+                "actions": "Действия"
+            },
+            "actions": {
+                "editRoles": "Редактировать",
+                "removeFromOrganization": "Исключить из организации"
+            }
+        }
     }
 }

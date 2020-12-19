@@ -1,4 +1,4 @@
-import { MemberRole, RoleId } from '../../../api-codegen/organizations';
+import { MemberRole, RoleId } from '../../../../api-codegen/organizations';
 import { RoleGroup } from '../types/role-group';
 
 const rolePriorityDesc: { [N in RoleId]: number } = {
