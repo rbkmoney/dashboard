@@ -22,6 +22,7 @@ import { InvoiceDetailsComponent } from './invoice-details.component';
 import { CreatePaymentLinkDialogComponent, PaymentLinkComponent } from './payment-link';
 import { PaymentComponent } from './payments/payment/payment.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { InvoiceDetailsService } from './invoice-details.service';
 
 @NgModule({
     imports: [
@@ -50,6 +51,6 @@ import { PaymentsComponent } from './payments/payments.component';
         CreatePaymentLinkDialogComponent,
     ],
     exports: [StatusDetailsItemComponent],
-    providers: [InvoiceSearchService, PaymentSearchService],
+    providers: [InvoiceSearchService, PaymentSearchService, InvoiceDetailsService],
 })
 export class InvoiceDetailsModule {}
