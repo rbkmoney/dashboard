@@ -1,0 +1,13 @@
+<dsh-row
+    *transloco="let t; scope: 'operations'; read: 'operations.invoices.headerRow'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex="40">{{ t('productName') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="10">{{ t('amount') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="10">{{ t('status') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="20">{{ t('createdAt') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="20" fxHide.lt-md> {{ t('shop') }} </dsh-row-header-label>
+</dsh-row>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { RefundSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
+import { RefundSearchResult } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-refund-status-filter',

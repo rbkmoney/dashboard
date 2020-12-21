@@ -1,23 +1,31 @@
-<div fxLayout="column" fxLayoutGap="20px" *transloco="let i; scope: 'invoices'; read: 'invoices'">
-    <div fxLayout="column" fxLayoutAlign=" end">
-        <button dsh-stroked-button color="accent" (click)="create()">{{ i('create.button') }}</button>
+<div fxLayout="column" fxLayoutGap="32px">
+    <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="24px">
+        <dsh-invoices-search-filters
+            [initParams]="initSearchParams$ | async"
+            [realm]="realm$ | async"
+            (searchParamsChanges)="searchParamsChanges($event)"
+        ></dsh-invoices-search-filters>
+        <button *transloco="let i; scope: 'invoices'; read: 'invoices'" dsh-button color="accent" (click)="create()">
+            {{ i('create.button') }}
+        </button>
     </div>
-    <dsh-search-form (formValueChanges)="search($event)"></dsh-search-form>
-    <dsh-card>
-        <dsh-card-content *transloco="let t" fxLayout="column" fxLayoutGap="15px">
-            <dsh-last-updated
-                *ngIf="!(isLoading$ | async)"
-                (update)="refresh()"
-                [lastUpdated]="lastUpdated$ | async"
-            ></dsh-last-updated>
-            <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
-            <dsh-invoices-table [data]="tableData$ | async"></dsh-invoices-table>
-            <dsh-empty-search-result
-                *ngIf="!(tableData$ | async)?.length && !(doAction$ | async)"
-            ></dsh-empty-search-result>
-            <button *ngIf="hasMoreInvoices$ | async" (click)="fetchMore()" dsh-button>
-                {{ (isLoading$ | async) ? t('loading') : t('showMore') }}
-            </button>
-        </dsh-card-content>
-    </dsh-card>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-invoices-list
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            [invoices]="invoices$ | async"
+            [lastUpdated]="lastUpdated$ | async"
+            (refreshData)="refresh()"
+        ></dsh-invoices-list>
+        <dsh-show-more-panel
+            *ngIf="hasMore$ | async"
+            [isLoading]="isLoading$ | async"
+            (showMore)="fetchMore()"
+        ></dsh-show-more-panel>
+    </div>
+    <dsh-empty-search-result
+        *ngIf="!(fetchErrors$ | async) && (invoices$ | async)?.length === 0"
+    ></dsh-empty-search-result>
+    <dsh-spinner *ngIf="isLoading$ | async" fxLayoutAlign="center"></dsh-spinner>
 </div>
+<dsh-scroll-up></dsh-scroll-up>
