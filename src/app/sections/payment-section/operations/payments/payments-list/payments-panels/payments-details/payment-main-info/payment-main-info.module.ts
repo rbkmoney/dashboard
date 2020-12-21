@@ -1,23 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaymentMainInfoComponent } from './payment-main-info.component';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
-import { DetailsItemModule } from '@dsh/components/layout';
-import { StatusModule } from '@dsh/components/indicators';
-import { ToMajorModule } from '@dsh/app/shared/pipes';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
+import { StatusModule } from '@dsh/components/indicators';
+import { DetailsItemModule } from '@dsh/components/layout';
+
+import { PaymentMainInfoComponent } from './payment-main-info.component';
 
 @NgModule({
     declarations: [PaymentMainInfoComponent],
-    imports: [
-        CommonModule,
-        FlexLayoutModule,
-        TranslocoModule,
-        DetailsItemModule,
-        StatusModule,
-        ToMajorModule
-    ]
+    imports: [CommonModule, FlexLayoutModule, TranslocoModule, DetailsItemModule, StatusModule, ToMajorModule],
 })
-export class PaymentMainInfoModule {
-}
+export class PaymentMainInfoModule {}
