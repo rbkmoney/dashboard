@@ -54,7 +54,8 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
 
         this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: PaymentsFiltersData) => {
             this.filtersChanged.emit(filtersData);
-            this.shopService.setSelectedIds(filtersData.shopIDs);
+            const { shopIDs = [] } = filtersData;
+            this.shopService.setSelectedIds(shopIDs);
         });
     }
 
