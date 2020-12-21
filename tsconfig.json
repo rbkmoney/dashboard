@@ -21,7 +21,8 @@
             "@dsh/pipes/*": ["src/pipes/*"],
             "@dsh/app/shared/*": ["src/app/shared/*"],
             "@dsh/api/*": ["src/app/api/*"],
-            "@dsh/api-codegen/*": ["src/app/api-codegen/*"]
+            "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
+            "@dsh/app/sections/constants": ["src/app/sections/constants.ts"]
         }
     },
     "angularCompilerOptions": {

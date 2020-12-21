@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CaptureParams, PaymentSearchResult, PaymentsService } from '@dsh/api-codegen/capi/swagger-codegen';
+import { CaptureParams, Payment, PaymentsService } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { genXRequestID } from '../utils';
 
@@ -17,7 +17,11 @@ export class PaymentService {
         return this.paymentsService.capturePayment(genXRequestID(), invoiceID, paymentID, params);
     }
 
-    getPaymentByID(invoiceID: string, paymentID: string): Observable<PaymentSearchResult> {
+    getPaymentByID(invoiceID: string, paymentID: string): Observable<Payment> {
         return this.paymentsService.getPaymentByID(genXRequestID(), invoiceID, paymentID);
+    }
+
+    getPayments(invoiceID: string): Observable<Payment[]> {
+        return this.paymentsService.getPayments(genXRequestID(), invoiceID);
     }
 }

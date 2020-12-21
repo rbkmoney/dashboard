@@ -39,36 +39,36 @@
     },
     "invoices": {
         "title": "Инвойсы",
-        "filter": {
-            "shopID": "Магазин",
-            "fromTime": "Начало периода",
-            "toTime": "Конец периода",
-            "payerEmail": "Email плательщика",
-            "paymentID": "Идентификатор платежа",
-            "invoiceID": "Идентификатор инвойса",
-            "invoiceAmount": "Сумма инвойса",
-            "first6": "BIN банка-эмитента карты",
-            "last4": "Последние цифры номера карты",
-            "payerFingerprint": "Fingerprint плательщика",
-            "customerID": "Идентификатор плательщика",
-            "payerIP": "IP-адрес плательщика",
-            "invoiceStatus": "Статус инвойса",
-            "paymentStatus": "Статус платежа",
-            "paymentFlow": "Тип проведения платежа",
-            "bankCardTokenProvider": "Провайдер платежных токенов",
-            "bankCardPaymentSystem": "Платежаня система",
-            "paymentMethod": "Метод оплаты"
+        "header": "Инвойс",
+        "shop": "Магазин",
+        "cartInfo": {
+            "title": "Корзина с набором товаров и услуг",
+            "description": "Описание товара или услуги",
+            "price": "Цена",
+            "quantity": "Количество",
+            "tax": "Ставка налога"
         },
-        "table": {
-            "product": "Наименование продукта",
-            "amount": "Сумма списания",
+        "headerRow": {
+            "productName": "Наименование",
+            "amount": "Стоимость",
             "status": "Статус",
             "createdAt": "Создан",
-            "invoiceID": "Идентификатор инвойса",
-            "shop": "Магазин",
-            "actions": {
-                "invoiceDetails": "Детали инвойса"
-            }
+            "shop": "Магазин"
+        },
+        "actions": {
+            "title": "Действия",
+            "createPaymentLink": "Сформировать сслыку на оплату",
+            "invoiceCreated": "Инвойс успешно создан",
+            "cancelInvoice": "Отменить инвойс",
+            "invoiceCancelled": "Инвойс успешно отменен",
+            "fulfillInvoice": "Погасить инвойс",
+            "invoiceFulfilled": "Инвойс успешно погашен",
+            "reason": "Причина"
+        },
+        "payments": {
+            "title": "Платежи",
+            "payment": "Платеж",
+            "showMore": "Показать еще"
         }
     },
     "refunds": {
@@ -77,12 +77,10 @@
         "shop": "Магазин",
         "invoiceInfo": {
             "title": "Инвойс",
-            "loading": "Загрузка...",
             "error": "Не удалось получить инвойс"
         },
         "paymentInfo": {
             "title": "Платеж",
-            "loading": "Загрузка...",
             "error": "Не удалось получить платеж"
         },
         "fetchError": "Произошла ошибка при поиске возвратов",

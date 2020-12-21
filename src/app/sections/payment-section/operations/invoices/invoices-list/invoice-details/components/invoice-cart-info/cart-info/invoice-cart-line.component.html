@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.invoices.cartInfo'">
+    <dsh-details-item [title]="t('description')" fxFlex>
+        {{ line.product }}
+    </dsh-details-item>
+    <div fxLayout fxLayout.xs="column" fxLayoutGap="24px">
+        <dsh-details-item [title]="t('price')" fxFlex>
+            {{ line.price | toMajor | currency: currency }}
+        </dsh-details-item>
+        <dsh-details-item [title]="t('quantity')" fxFlex>
+            {{ line.quantity }}
+        </dsh-details-item>
+        <dsh-details-item *ngIf="line.taxMode; else emptyBlock" [title]="t('tax')" fxFlex>
+            {{ line.taxMode | taxModeToTaxRate }}
+        </dsh-details-item>
+        <ng-template #emptyBlock>
+            <div fxFlex></div>
+        </ng-template>
+    </div>
+</div>
