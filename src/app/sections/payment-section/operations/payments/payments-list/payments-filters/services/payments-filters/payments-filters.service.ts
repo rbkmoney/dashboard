@@ -31,7 +31,7 @@ export class PaymentsFiltersService {
         this.filtersData$ = this.filtersParamsStore.data$.pipe(
             map((storeData: Partial<PaymentsFiltersData>) => {
                 return {
-                    daterange: this.daterangeManager.defaultDateRange,
+                    daterange: this.daterangeManager.defaultDaterange,
                     ...storeData,
                 };
             })
