@@ -12,7 +12,18 @@ export const formatPaymentsData = (
     return paymentsData.pipe(
         map(([searchResult, shops]: [PaymentSearchResult[], Shop[]]) => {
             return searchResult.map(
-                ({ amount, status, statusChangedAt, invoiceID, shopID, id, currency }: PaymentSearchResult) => {
+                ({
+                    amount,
+                    status,
+                    statusChangedAt,
+                    invoiceID,
+                    shopID,
+                    id,
+                    currency,
+                    fee = 0,
+                    payer,
+                    error,
+                }: PaymentSearchResult) => {
                     return {
                         amount,
                         status,
@@ -20,6 +31,9 @@ export const formatPaymentsData = (
                         invoiceID,
                         statusChangedAt: statusChangedAt as any,
                         paymentID: id,
+                        fee,
+                        error,
+                        payer: payer as Payment['payer'],
                         shopName: getShopNameById(shops, shopID),
                     };
                 }

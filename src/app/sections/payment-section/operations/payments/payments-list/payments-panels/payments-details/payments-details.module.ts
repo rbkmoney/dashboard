@@ -8,6 +8,7 @@ import { InvoiceDetailsModule as InvoiceDetailsSectionModule } from '../../../..
 import { PaymentDetailHeaderComponent } from './components/payment-detail-header/payment-detail-header.component';
 import { PaymentDetailInfoComponent } from './components/payment-detail-info/payment-detail-info.component';
 import { PaymentInvoiceInfoModule } from './payment-invoice-info/payment-invoice-info.module';
+import { PaymentMainInfoModule } from './payment-main-info/payment-main-info.module';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { PaymentInvoiceInfoModule } from './payment-invoice-info/payment-invoice
         PaymentInvoiceInfoModule,
         InvoiceDetailsSectionModule,
         MatDividerModule,
+        PaymentMainInfoModule,
     ],
     declarations: [PaymentDetailHeaderComponent, PaymentDetailInfoComponent],
     exports: [PaymentDetailHeaderComponent, PaymentDetailInfoComponent],

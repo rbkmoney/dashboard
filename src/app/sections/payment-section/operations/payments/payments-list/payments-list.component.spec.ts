@@ -57,7 +57,7 @@ xdescribe('PaymentsListComponent', () => {
                     shopName: 'my_name_1',
                     paymentID: 'payment_id_1',
                 },
-            ])
+            ] as any)
         );
         when(mockFetchPaymentsService.isLoading$).thenReturn(of(false));
         when(mockFetchPaymentsService.hasMore$).thenReturn(of(false));

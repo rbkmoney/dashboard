@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="paymentToolDetails.detailsType">
+    <dsh-bank-card *ngSwitchCase="Type.BankCard" [bankCard]="paymentToolDetails"></dsh-bank-card>
+    <dsh-digital-wallet *ngSwitchCase="Type.Wallet" [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
+    <dsh-payment-terminal *ngSwitchCase="Type.Terminal" [paymentTerminal]="paymentToolDetails"></dsh-payment-terminal>
+    <dsh-mobile-commerce *ngSwitchCase="Type.MobileCommerce" [details]="paymentToolDetails"></dsh-mobile-commerce>
+</ng-container>

@@ -22,7 +22,7 @@
                             [changedDate]="item.statusChangedAt"
                         ></dsh-payment-detail-header>
                     </dsh-accordion-item-content-header>
-                    <dsh-payment-detail-info></dsh-payment-detail-info>
+                    <dsh-payment-detail-info [payment]="item"></dsh-payment-detail-info>
                 </dsh-card>
             </ng-template>
         </dsh-accordion-item>

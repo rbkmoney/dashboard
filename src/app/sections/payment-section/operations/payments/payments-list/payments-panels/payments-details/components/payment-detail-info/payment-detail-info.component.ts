@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { Component, Input, OnChanges } from '@angular/core';
+import isNil from 'lodash.isnil';
+import isObject from 'lodash.isobject';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/capi';
 
@@ -14,7 +14,7 @@ import { Payment } from '../../../../../types/payment';
     templateUrl: './payment-detail-info.component.html',
     styleUrls: ['./payment-detail-info.component.scss'],
 })
-export class PaymentDetailInfoComponent implements OnInit, OnChanges {
+export class PaymentDetailInfoComponent implements OnChanges {
     @Input() payment: Payment;
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
@@ -24,21 +24,16 @@ export class PaymentDetailInfoComponent implements OnInit, OnChanges {
     constructor(private invoiceDetails: InvoiceDetailsService) {
     }
 
-    ngOnInit(): void {
-        const paymentChanges$ = this.changes.pipe(
-            map((changes: ComponentChanges<PaymentDetailInfoComponent>) => changes.payment),
-            filter(Boolean),
-            map((change: ComponentChange<PaymentDetailInfoComponent, 'payment'>) => change.currentValue),
-            filter(Boolean)
-        );
-
-        paymentChanges$.pipe(
-            untilDestroyed(this)
-        ).subscribe((payment: Payment) => {
-            this.invoiceDetails.initialize(payment.invoiceID);
-        })
+    ngOnChanges(changes: ComponentChanges<PaymentDetailInfoComponent>): void {
+        if (isObject(changes.payment)) {
+            this.updatePayment(changes.payment);
+        }
     }
 
-    ngOnChanges(changes: ComponentChanges<PaymentDetailInfoComponent>): void {
+    private updatePayment({ currentValue: payment }: ComponentChange<PaymentDetailInfoComponent, 'payment'>): void {
+        if (isNil(payment)) {
+            return;
+        }
+        this.invoiceDetails.initialize(payment.invoiceID);
     }
 }
