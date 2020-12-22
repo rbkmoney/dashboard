@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import cloneDeep from 'lodash.clonedeep';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
+import isString from 'lodash.isstring';
+import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
 
+import { wrapValuesToArray } from '../../../../../../../../../utils';
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
 
 @Injectable()
@@ -21,12 +23,11 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     mapToData(params: Params): Partial<PaymentsFiltersData> {
-        const { fromTime, toTime, invoiceIDs = [], shopIDs = [], ...restParams } = params;
+        const { fromTime, toTime, ...restParams } = params;
         return this.removeUnusedFields({
             daterange: this.formatDaterange(fromTime, toTime),
-            invoiceIDs: this.formatListParams(invoiceIDs),
-            shopIDs: this.formatListParams(shopIDs),
             ...restParams,
+            ...this.getListParams(restParams),
         });
     }
 
@@ -41,8 +42,7 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     private removeUnusedFields<T>(data: T): T | Partial<T> {
-        const copy = cloneDeep(data);
-        return Object.entries(copy).reduce((newData: T | Partial<T>, [key, value]: [string, any]) => {
+        return Object.entries(data).reduce((newData: T | Partial<T>, [key, value]: [string, any]) => {
             if (!isEmpty(value)) {
                 newData[key] = value;
             }
@@ -50,16 +50,15 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
         }, {});
     }
 
-    private formatListParams(listParam: string | string[] | undefined): string[] {
-        if (Array.isArray(listParam)) {
-            return listParam;
-        }
-
-        if (isEmpty(listParam)) {
-            return [];
-        }
-
-        return [listParam];
+    private getListParams(params: Params): Partial<PaymentsFiltersData> {
+        const listParams = pickBy(
+            params,
+            (value: unknown, key: keyof PaymentsFiltersData) =>
+                ['shopIDs', 'invoiceIDs'].includes(key) && isString(value) && !isEmpty(value)
+        );
+        return {
+            ...wrapValuesToArray(listParams),
+        };
     }
 
     private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {

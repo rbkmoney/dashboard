@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash.isempty';
-import { Observable, ReplaySubject } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import isNil from 'lodash.isnil';
+import isObject from 'lodash.isobject';
+import { Observable } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -32,8 +34,6 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     shops$: Observable<Shop[]> = this.shopService.shops$;
     selectedShops$: Observable<Shop[]> = this.shopService.selectedShops$;
 
-    protected changes$ = new ReplaySubject<ComponentChanges<PaymentsFiltersComponent>>(1);
-
     constructor(
         private shopService: ShopsSelectionManagerService,
         private filtersHandler: PaymentsFiltersService,
@@ -41,17 +41,6 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        const realm$ = this.changes$.pipe(
-            map((changes) => changes.realm),
-            filter(Boolean),
-            map((change: ComponentChange<PaymentsFiltersComponent, 'realm'>) => change.currentValue),
-            filter(Boolean)
-        );
-
-        realm$.pipe(untilDestroyed(this)).subscribe((realm: PaymentInstitutionRealm) => {
-            this.shopService.setRealm(realm);
-        });
-
         this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: PaymentsFiltersData) => {
             this.filtersChanged.emit(filtersData);
             const { shopIDs = [] } = filtersData;
@@ -60,7 +49,9 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: ComponentChanges<PaymentsFiltersComponent>): void {
-        this.changes$.next(changes);
+        if (isObject(changes.realm)) {
+            this.updateRealm(changes.realm);
+        }
     }
 
     openFiltersDialog() {
@@ -90,6 +81,15 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         this.updateFilters({
             shopIDs: selectedShops.map(({ id }: Shop) => id),
         });
+    }
+
+    private updateRealm(change: ComponentChange<PaymentsFiltersComponent, 'realm'>): void {
+        const realm = change.currentValue;
+        if (isNil(realm)) {
+            return;
+        }
+
+        this.shopService.setRealm(realm);
     }
 
     private updateFilters(change: Partial<PaymentsFiltersData>): void {

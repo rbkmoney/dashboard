@@ -13,9 +13,10 @@ export class AdditionalFiltersService {
     openFiltersDialog(data: PaymentsAdditionalFilters): Observable<PaymentsAdditionalFilters> {
         return this.dialog
             .open<DialogFiltersComponent, PaymentsAdditionalFilters>(DialogFiltersComponent, {
-                panelClass: 'full-bleed-dialog',
+                panelClass: 'fill-bleed-dialog',
                 width: '552px',
                 minHeight: '400px',
+                disableClose: true,
                 data,
             })
             .afterClosed()

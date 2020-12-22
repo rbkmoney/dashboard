@@ -4,7 +4,6 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
-import { cloneDeepOperator } from '@dsh/app/shared/utils';
 
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
 import { PaymentsFiltersStoreService } from '../payments-filters-store/payments-filters-store.service';
@@ -35,8 +34,7 @@ export class PaymentsFiltersService {
                     daterange: this.daterangeManager.defaultDateRange,
                     ...storeData,
                 };
-            }),
-            cloneDeepOperator()
+            })
         );
     }
 
@@ -50,7 +48,6 @@ export class PaymentsFiltersService {
                         ...dataChange,
                     };
                 }),
-                cloneDeepOperator(),
                 untilDestroyed(this)
             )
             .subscribe((updatedData: PaymentsFiltersData) => {
