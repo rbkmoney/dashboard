@@ -10,7 +10,7 @@ import { DATE_RANGE_TYPE, DEFAULT_RANGE_TYPE } from './consts';
 
 @Injectable()
 export class DaterangeManagerService {
-    get defaultDateRange(): Daterange {
+    get defaultDaterange(): Daterange {
         return {
             begin: moment().startOf(this.defaultRangeType),
             end: moment().endOf(this.defaultRangeType),
