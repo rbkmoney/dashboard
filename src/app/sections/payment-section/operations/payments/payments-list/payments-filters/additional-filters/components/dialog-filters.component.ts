@@ -15,6 +15,7 @@ export class DialogFiltersComponent {
     ) {}
 
     clear(): void {
+        // TODO: fix logic. Should not close dialog. Only reset params
         this.dialogRef.close({});
     }
 

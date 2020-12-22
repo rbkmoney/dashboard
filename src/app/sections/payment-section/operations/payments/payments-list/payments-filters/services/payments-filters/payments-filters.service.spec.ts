@@ -43,7 +43,7 @@ describe('PaymentsFiltersService', () => {
                 end: moment(),
             };
 
-            when(mockDaterangeManagerService.defaultDateRange).thenReturn(defaultDateRange);
+            when(mockDaterangeManagerService.defaultDaterange).thenReturn(defaultDateRange);
             when(mockPaymentsFiltersStoreService.data$).thenReturn(of({}));
 
             await configureTestingModule();
@@ -58,7 +58,7 @@ describe('PaymentsFiltersService', () => {
         };
 
         beforeEach(() => {
-            when(mockDaterangeManagerService.defaultDateRange).thenReturn(defaultDateRange);
+            when(mockDaterangeManagerService.defaultDaterange).thenReturn(defaultDateRange);
         });
 
         it('should merge default daterange and query params data', async () => {
@@ -134,7 +134,7 @@ describe('PaymentsFiltersService', () => {
         };
 
         beforeEach(() => {
-            when(mockDaterangeManagerService.defaultDateRange).thenReturn(defaultDateRange);
+            when(mockDaterangeManagerService.defaultDaterange).thenReturn(defaultDateRange);
             when(mockPaymentsFiltersStoreService.data$).thenReturn(
                 of({
                     shopIDs: [],

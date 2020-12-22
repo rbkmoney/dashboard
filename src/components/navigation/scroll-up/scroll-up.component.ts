@@ -9,6 +9,7 @@ const BOTTOM_OFFSET = 50;
 const MIN_OFFSET = 10;
 const SIZE = 36;
 
+// TODO: fix scroll up component(zone problems)
 @Component({
     selector: 'dsh-scroll-up',
     templateUrl: 'scroll-up.component.html',

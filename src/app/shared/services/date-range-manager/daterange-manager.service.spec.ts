@@ -23,11 +23,11 @@ describe('DaterangeManagerService', () => {
         });
     });
 
-    describe('defaultDateRange', () => {
+    describe('defaultDaterange', () => {
         it('should create new date using default range type', () => {
             createService();
 
-            expect(service.defaultDateRange).toEqual({
+            expect(service.defaultDaterange).toEqual({
                 begin: moment().startOf('M'),
                 end: moment().endOf('M'),
             });
@@ -44,7 +44,7 @@ describe('DaterangeManagerService', () => {
                 ],
             });
 
-            expect(service.defaultDateRange).toEqual({
+            expect(service.defaultDaterange).toEqual({
                 begin: moment().startOf('week'),
                 end: moment().endOf('week'),
             });

@@ -1,5 +1,5 @@
 @mixin mat-dialog-container-override() {
-    .full-bleed-dialog .mat-dialog-container {
+    .fill-bleed-dialog .mat-dialog-container {
         display: flex;
         flex-direction: column;
     }
