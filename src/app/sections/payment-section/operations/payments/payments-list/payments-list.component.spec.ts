@@ -1,19 +1,28 @@
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslocoTestingModule } from '@ngneat/transloco';
+import moment from 'moment';
 import { of } from 'rxjs';
-import { instance, mock, verify, when } from 'ts-mockito';
+import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentsFiltersModule } from './payments-filters';
 import { PaymentsListComponent } from './payments-list.component';
 import { PaymentsPanelsModule } from './payments-panels';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
+
+@Component({
+    selector: 'dsh-payments-filters',
+    template: '',
+})
+class PaymentsFiltersComponent {
+    @Input() realm;
+}
 
 describe('PaymentsListComponent', () => {
     let component: PaymentsListComponent;
@@ -59,15 +68,13 @@ describe('PaymentsListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                // TODO: add getTranslocoModule here
-                TranslocoTestingModule,
+                getTranslocoModule(),
                 NoopAnimationsModule,
-                PaymentsFiltersModule,
                 LastUpdatedModule,
                 PaymentsPanelsModule,
                 FlexLayoutModule,
             ],
-            declarations: [PaymentsListComponent],
+            declarations: [PaymentsListComponent, PaymentsFiltersComponent],
             providers: [
                 {
                     provide: FetchPaymentsService,
@@ -128,6 +135,32 @@ describe('PaymentsListComponent', () => {
             component.requestNextPage();
 
             verify(mockFetchPaymentsService.fetchMore()).once();
+            expect().nothing();
+        });
+    });
+
+    describe('filtersChanged', () => {
+        it('should request list using filters data', () => {
+            const filtersData = {
+                daterange: {
+                    begin: moment(),
+                    end: moment(),
+                },
+                invoiceIDs: ['invoice_id_1', 'invoice_id_2'],
+                shopIDs: [],
+            };
+
+            component.filtersChanged(filtersData);
+
+            verify(
+                mockFetchPaymentsService.search(
+                    deepEqual({
+                        date: filtersData.daterange,
+                        invoiceIDs: filtersData.invoiceIDs,
+                        shopIDs: filtersData.shopIDs,
+                    })
+                )
+            );
             expect().nothing();
         });
     });

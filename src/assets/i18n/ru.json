@@ -35,6 +35,11 @@
         "fromTime": "Начало периода",
         "toTime": "Конец периода"
     },
+    "filters": {
+        "additionalFilters": "Другие фильтры",
+        "save": "Сохранить",
+        "clearParams": "Сбросить параметры"
+    },
     "paymentStatus": {
         "pending": "Запущен",
         "processed": "Обработан",

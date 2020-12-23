@@ -3,19 +3,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 
 import { ComponentChange, ComponentChanges } from '../../../../../../type-utils';
 import { Payment } from '../types/payment';
+import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 
+// TODO: move payments list in payments if payments has no logic except list
 @UntilDestroy()
 @Component({
     selector: 'dsh-payments-list',
-    templateUrl: './payments-list.component.html',
+    templateUrl: 'payments-list.component.html',
 })
 export class PaymentsListComponent implements OnInit, OnChanges {
     @Input() realm: PaymentInstitutionRealm;
@@ -35,19 +36,11 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         this.fetchPayments.errors$.pipe(untilDestroyed(this)).subscribe(() => {
             this.snackBar.open(this.transloco.translate('commonError'), 'OK');
         });
-
-        // TODO: change init search logic
-        this.fetchPayments.search({
-            date: {
-                begin: moment().startOf('month'),
-                end: moment().endOf('month'),
-            },
-        });
     }
 
     ngOnChanges(changes: ComponentChanges<PaymentsListComponent>): void {
         if (!isNil(changes.realm)) {
-            this.initRealm(changes.realm);
+            this.updateRealm(changes.realm);
         }
     }
 
@@ -59,9 +52,24 @@ export class PaymentsListComponent implements OnInit, OnChanges {
         this.fetchPayments.fetchMore();
     }
 
-    private initRealm(change: ComponentChange<PaymentsListComponent, 'realm'>): void {
+    filtersChanged(filtersData: PaymentsFiltersData): void {
+        this.requestList(filtersData);
+    }
+
+    private updateRealm(change: ComponentChange<PaymentsListComponent, 'realm'>): void {
         if (!isNil(change.currentValue)) {
             this.fetchPayments.initRealm(change.currentValue);
         }
+    }
+
+    private requestList({ daterange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
+        this.fetchPayments.search({
+            date: {
+                begin: daterange.begin,
+                end: daterange.end,
+            },
+            invoiceIDs,
+            shopIDs,
+        });
     }
 }
