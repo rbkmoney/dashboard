@@ -23,8 +23,8 @@ import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.s
 class PaymentsFiltersComponent {
     @Input() realm;
 }
-// TODO: fix unit tests
-xdescribe('PaymentsListComponent', () => {
+
+describe('PaymentsListComponent', () => {
     let component: PaymentsListComponent;
     let fixture: ComponentFixture<PaymentsListComponent>;
     let mockFetchPaymentsService: FetchPaymentsService;
@@ -57,7 +57,7 @@ xdescribe('PaymentsListComponent', () => {
                     shopName: 'my_name_1',
                     paymentID: 'payment_id_1',
                 },
-            ] as any)
+            ] as any) // TODO: fix this
         );
         when(mockFetchPaymentsService.isLoading$).thenReturn(of(false));
         when(mockFetchPaymentsService.hasMore$).thenReturn(of(false));
