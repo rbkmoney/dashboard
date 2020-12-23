@@ -21,8 +21,7 @@ export class PaymentDetailInfoComponent implements OnChanges {
 
     protected changes = new ReplaySubject<ComponentChanges<PaymentDetailInfoComponent>>(1);
 
-    constructor(private invoiceDetails: InvoiceDetailsService) {
-    }
+    constructor(private invoiceDetails: InvoiceDetailsService) {}
 
     ngOnChanges(changes: ComponentChanges<PaymentDetailInfoComponent>): void {
         if (isObject(changes.payment)) {

@@ -1,6 +1,12 @@
-<ng-container [ngSwitch]="paymentToolDetails.detailsType">
-    <dsh-bank-card *ngSwitchCase="Type.BankCard" [bankCard]="paymentToolDetails"></dsh-bank-card>
-    <dsh-digital-wallet *ngSwitchCase="Type.Wallet" [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
-    <dsh-payment-terminal *ngSwitchCase="Type.Terminal" [paymentTerminal]="paymentToolDetails"></dsh-payment-terminal>
-    <dsh-mobile-commerce *ngSwitchCase="Type.MobileCommerce" [details]="paymentToolDetails"></dsh-mobile-commerce>
-</ng-container>
+<!-- TODO: use ngxd/core or alternatives for dynamic components here. ngSwitch has problems in cycles -->
+<dsh-details-item *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.paymentTool'" [title]="t('title')">
+    <ng-container [ngSwitch]="paymentToolDetails.detailsType">
+        <dsh-bank-card *ngSwitchCase="Type.BankCard" [bankCard]="paymentToolDetails"></dsh-bank-card>
+        <dsh-digital-wallet *ngSwitchCase="Type.Wallet" [digitalWallet]="paymentToolDetails"></dsh-digital-wallet>
+        <dsh-payment-terminal
+            *ngSwitchCase="Type.Terminal"
+            [paymentTerminal]="paymentToolDetails"
+        ></dsh-payment-terminal>
+        <dsh-mobile-commerce *ngSwitchCase="Type.MobileCommerce" [details]="paymentToolDetails"></dsh-mobile-commerce>
+    </ng-container>
+</dsh-details-item>

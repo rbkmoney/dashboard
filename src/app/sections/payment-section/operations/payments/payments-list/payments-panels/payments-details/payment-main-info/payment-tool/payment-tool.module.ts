@@ -8,12 +8,12 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { CardModule, DetailsItemModule } from '@dsh/components/layout';
 
 import { UtilsModule as PaymentDetailsModule } from '../../../../../../../../payment-details/utils';
-import { BankCardComponent } from './bank-card';
-import { DigitalWalletComponent } from './digital-wallet';
-import { MobileCommerceComponent } from './mobile-commerce';
-import { PaymentTerminalComponent } from './payment-terminal';
+import { BankCardComponent } from './components/bank-card/bank-card.component';
+import { DigitalWalletComponent } from './components/digital-wallet/digital-wallet.component';
+import { MobileCommerceComponent } from './components/mobile-commerce/mobile-commerce.component';
+import { PaymentTerminalComponent } from './components/payment-terminal';
 import { PaymentToolComponent } from './payment-tool.component';
-// TODO: fix payout tool for non bank payouts
+
 @NgModule({
     imports: [
         TranslocoModule,

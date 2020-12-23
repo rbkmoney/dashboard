@@ -9,25 +9,22 @@ import { StatusColor } from '../../../../../../../../../../theme-manager';
 import { getPaymentStatusInfo } from '../../../../../../../../../get-payment-status-info';
 
 @Component({
-    selector: 'dsh-payment-detail-status',
-    templateUrl: './payment-detail-status.component.html',
-    styleUrls: ['./payment-detail-status.component.scss'],
+    selector: 'dsh-payment-status',
+    templateUrl: './payment-status.component.html',
 })
-export class PaymentDetailStatusComponent implements OnChanges {
+export class PaymentStatusComponent implements OnChanges {
     @Input() status: PaymentStatus.StatusEnum;
 
     paymentColor: StatusColor;
     paymentStatus: string;
 
-    ngOnChanges(changes: ComponentChanges<PaymentDetailStatusComponent>): void {
+    ngOnChanges(changes: ComponentChanges<PaymentStatusComponent>): void {
         if (isObject(changes.status)) {
             this.updateStatusInfo(changes.status);
         }
     }
 
-    private updateStatusInfo({
-        currentValue: paymentStatus,
-    }: ComponentChange<PaymentDetailStatusComponent, 'status'>): void {
+    private updateStatusInfo({ currentValue: paymentStatus }: ComponentChange<PaymentStatusComponent, 'status'>): void {
         if (isNil(paymentStatus)) {
             return;
         }

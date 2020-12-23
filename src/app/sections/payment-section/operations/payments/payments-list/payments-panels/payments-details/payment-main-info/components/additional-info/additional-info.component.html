@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.additionalInfo'">
+    <dsh-collapse *ngIf="payment.transactionInfo || payment.externalID" [title]="t('title')">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <ng-container *ngIf="payment.transactionInfo as transactionInfo">
+                <dsh-details-item fxFlex [title]="t('rrn')">
+                    <div class="mat-body-1">{{ transactionInfo.rrn }}</div>
+                </dsh-details-item>
+                <dsh-details-item fxFlex [title]="t('approvalCode')">
+                    <div class="mat-body-1">{{ transactionInfo.approvalCode }}</div>
+                </dsh-details-item>
+            </ng-container>
+            <ng-container *ngIf="payment.externalID">
+                <dsh-details-item fxFlex [title]="t('externalId')">
+                    <div class="mat-body-1">{{ payment.externalID }}</div>
+                </dsh-details-item>
+            </ng-container>
+        </div>
+    </dsh-collapse>
+</ng-container>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AccordionModule } from './accordion';
 import { CardModule } from './card';
+import { CollapseModule } from './collapse';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpandPanelModule } from './expand-panel';
@@ -30,6 +31,7 @@ const EXPORTED_MODULES = [
     RowModule,
     AccordionModule,
     LinkLabelModule,
+    CollapseModule,
 ];
 
 @NgModule({

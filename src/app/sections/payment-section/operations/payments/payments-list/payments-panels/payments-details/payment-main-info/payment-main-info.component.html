@@ -1,41 +1,21 @@
 <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.details'">
-    <ng-container fxLayout="column" fxLayoutGap="24px">
+    <div fxLayout="column" fxLayoutGap="24px">
         <div fxLayout="row">
             <div class="payment-main-info-amount mat-body-1" fxFlex="33">
                 {{ payment.amount | toMajor | currency: payment.currency }}
             </div>
-            <dsh-details-item [title]="t('chargeAmount')" fxFlex="33">
-                <div class="mat-body-1">
-                    {{ chargeAmount | toMajor | currency: payment.currency }}
-                </div>
-            </dsh-details-item>
-            <dsh-details-item *ngIf="payment.fee" [title]="t('fee')" fxFlex="33">
-                <div class="mat-body-1">
-                    {{ payment.fee | toMajor | currency: payment.currency }}
-                    ({{ feePercent | percent: '1.0-2':'en' }})
-                </div>
-            </dsh-details-item>
+            <dsh-charge-amount fxFlex="33" [payment]="payment"></dsh-charge-amount>
+            <dsh-payment-fee *ngIf="payment.fee" fxFlex="33" [payment]="payment"> </dsh-payment-fee>
         </div>
         <div fxLayout="row">
-            <dsh-payment-detail-status fxFlex="33" [status]="payment.status"></dsh-payment-detail-status>
-            <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payment.payer.paymentToolDetails"></dsh-payment-tool>
-            <ng-container *transloco="let payerDetails; scope: 'payment-details'; read: 'paymentDetails.payerDetails'">
-                <dsh-details-item fxFlex="33" [title]="payerDetails('title')" *ngIf="resourcePayer">
-                    <div class="mat-body-1">
-                        {{ resourcePayer.contactInfo.email }}
-                    </div>
-                </dsh-details-item>
-            </ng-container>
+            <dsh-payment-status fxFlex="33" [status]="payment.status"> </dsh-payment-status>
+            <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payment.payer.paymentToolDetails"> </dsh-payment-tool>
+            <dsh-resource-payer *ngIf="resourcePayer" [payer]="resourcePayer"> </dsh-resource-payer>
         </div>
-        <ng-container *transloco="let shopT; scope: 'payment-details'; read: 'paymentDetails.shopDetails'">
-            <dsh-details-item [title]="shopT('title')">
-                <div class="mat-body-1">
-                    {{ payment.shopName }}
-                </div>
-            </dsh-details-item>
-        </ng-container>
+        <dsh-shop-name [shopName]="payment.shopName"></dsh-shop-name>
         <dsh-details-item *ngIf="payment.error?.code" [title]="t('error')">
-            <div class="mat-body-1">{{ payment.error | errorToMessage }}</div>
+            <div class="mat-body-1">{{ payment.error | paymentErrorMessage }}</div>
         </dsh-details-item>
-    </ng-container>
+        <dsh-additional-info [payment]="payment"></dsh-additional-info>
+    </div>
 </ng-container>

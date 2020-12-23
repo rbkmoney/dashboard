@@ -6,11 +6,12 @@ import { getShopNameById } from '@dsh/api/shop/utils';
 
 import { Payment } from '../../types/payment';
 
-export const formatPaymentsData = (
-    paymentsData: Observable<[PaymentSearchResult[], Shop[]]>
-): Observable<Payment[]> => {
+// TODO: remove after swag interfaces update
+type ApiPayment = PaymentSearchResult & { externalID: string };
+
+export const formatPaymentsData = (paymentsData: Observable<[ApiPayment[], Shop[]]>): Observable<Payment[]> => {
     return paymentsData.pipe(
-        map(([searchResult, shops]: [PaymentSearchResult[], Shop[]]) => {
+        map(([searchResult, shops]: [ApiPayment[], Shop[]]) => {
             return searchResult.map(
                 ({
                     amount,
@@ -22,8 +23,10 @@ export const formatPaymentsData = (
                     currency,
                     fee = 0,
                     payer,
+                    transactionInfo,
                     error,
-                }: PaymentSearchResult) => {
+                    externalID,
+                }: ApiPayment) => {
                     return {
                         amount,
                         status,
@@ -32,7 +35,9 @@ export const formatPaymentsData = (
                         statusChangedAt: statusChangedAt as any,
                         paymentID: id,
                         fee,
+                        externalID,
                         error,
+                        transactionInfo,
                         payer: payer as Payment['payer'],
                         shopName: getShopNameById(shops, shopID),
                     };

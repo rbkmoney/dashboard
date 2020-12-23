@@ -1,0 +1,7 @@
+<ng-container *transloco="let payerDetails; scope: 'payment-details'; read: 'paymentDetails.payerDetails'">
+    <dsh-details-item [title]="payerDetails('title')">
+        <div class="mat-body-1">
+            {{ payer.contactInfo.email }}
+        </div>
+    </dsh-details-item>
+</ng-container>

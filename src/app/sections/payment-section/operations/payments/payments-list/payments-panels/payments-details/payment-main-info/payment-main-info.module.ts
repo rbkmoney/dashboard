@@ -6,11 +6,17 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { StatusModule } from '@dsh/components/indicators';
 import { DetailsItemModule } from '@dsh/components/layout';
+import { CollapseModule } from '@dsh/components/layout/collapse';
 
-import { PaymentDetailStatusComponent } from './components/payment-detail-status/payment-detail-status.component';
+import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
+import { ChargeAmountComponent } from './components/charge-amount/charge-amount.component';
+import { PaymentFeeComponent } from './components/payment-fee/payment-fee.component';
+import { PaymentStatusComponent } from './components/payment-status/payment-status.component';
+import { ResourcePayerComponent } from './components/resource-payer/resource-payer.component';
+import { ShopNameComponent } from './components/shop-name/shop-name.component';
 import { PaymentMainInfoComponent } from './payment-main-info.component';
 import { PaymentToolModule } from './payment-tool';
-import { ErrorToMessagePipe } from './pipes/error-to-message/error-to-message.pipe';
+import { PaymentErrorMessagePipe } from './pipes/payment-error-message/payment-error-message.pipe';
 
 @NgModule({
     imports: [
@@ -21,8 +27,18 @@ import { ErrorToMessagePipe } from './pipes/error-to-message/error-to-message.pi
         StatusModule,
         ToMajorModule,
         PaymentToolModule,
+        CollapseModule,
     ],
-    declarations: [PaymentMainInfoComponent, PaymentDetailStatusComponent, ErrorToMessagePipe],
+    declarations: [
+        PaymentMainInfoComponent,
+        PaymentStatusComponent,
+        PaymentErrorMessagePipe,
+        ChargeAmountComponent,
+        PaymentFeeComponent,
+        ResourcePayerComponent,
+        ShopNameComponent,
+        AdditionalInfoComponent,
+    ],
     exports: [PaymentMainInfoComponent],
 })
 export class PaymentMainInfoModule {}
