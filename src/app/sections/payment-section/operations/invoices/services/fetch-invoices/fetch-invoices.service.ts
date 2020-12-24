@@ -3,13 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoiceSearchService } from '../../../../../../api';
+import { InvoiceSearchService } from '@dsh/api/search';
+
 import { Invoice } from '../../../../../../api-codegen/anapi';
 import { booleanDebounceTime } from '../../../../../../custom-operators';
 import { SEARCH_LIMIT } from '../../../../../constants';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
 import { mapToTimestamp } from '../../../operators';
 import { SearchFiltersParams } from '../../invoices-search-filters';
+
 
 @Injectable()
 export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
