@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { LAYOUT_GAP } from '../../../../../constants';
+import { LAYOUT_GAP } from '../../../../../tokens';
 
 @Component({
     selector: 'dsh-private-entity-info',

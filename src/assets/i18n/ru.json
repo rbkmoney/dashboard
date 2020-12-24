@@ -200,5 +200,10 @@
             "risk_score_is_too_high": "Операция с высоким риском"
         },
         "timeout": "Превышен лимит ожидания"
+    },
+    "notification": {
+        "ok": "OK",
+        "error": "Ошибка",
+        "success": "Успешно"
     }
 }

@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.invoices.payments'">
+    <div class="mat-title">
+        {{ t('title') }}
+    </div>
+    <div *ngFor="let payment of payments$ | async as payments; index as i" fxLayout="column" fxLayoutGap="24px">
+        <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.id }}</div>
+        <dsh-payment-details [payment]="payment"></dsh-payment-details>
+        <mat-divider *ngIf="i < payments.length - 1"></mat-divider>
+    </div>
+    <div *ngIf="hasMore$ | async">
+        <button dsh-button fxFlex (click)="showMore()">{{ t('showMore') }}</button>
+    </div>
+</div>

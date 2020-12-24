@@ -8,9 +8,8 @@ import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 import { Report } from '@dsh/api-codegen/anapi';
 import { ReportsService as ReportsApiService } from '@dsh/api/reports';
 
-import { booleanDebounceTime } from '../../../custom-operators';
+import { booleanDebounceTime, mapToTimestamp } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
-import { mapToTimestamp } from '../operations/operators';
 import { SearchFiltersParams } from './reports-search-filters';
 
 const toMs = (date: Date | string): number => moment(date).valueOf();

@@ -5,7 +5,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { from } from 'rxjs';
 
 import { ConfigService } from '../../../../config';
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     templateUrl: 'api-key.component.html',

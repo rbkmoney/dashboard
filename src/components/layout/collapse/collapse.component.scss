@@ -1,0 +1,16 @@
+$BODY_OFFSET: 16px;
+
+.dsh-collapse {
+    &-header {
+        cursor: pointer;
+    }
+
+    &-body {
+        overflow: hidden;
+        padding: $BODY_OFFSET 0 0;
+
+        &-up {
+            padding: 0 0 $BODY_OFFSET;
+        }
+    }
+}
