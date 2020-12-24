@@ -46,9 +46,11 @@ describe('NotificationService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('success', () => {
-        service.success();
-        verify(mockMatSnackBar.open('Success', 'OK', objectContaining({ duration: 3000 }))).once();
-        expect().nothing();
+    describe('methods', () => {
+        it('success', () => {
+            service.success();
+            verify(mockMatSnackBar.open('Success', 'OK', objectContaining({ duration: 3000 }))).once();
+            expect().nothing();
+        });
     });
 });

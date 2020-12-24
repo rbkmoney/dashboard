@@ -28,7 +28,7 @@ describe('ErrorService', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('message', () => {
+    describe('methods', () => {
         it('error without message', () => {
             service.error('error');
             verify(mockNotificationService.error(undefined)).once();
