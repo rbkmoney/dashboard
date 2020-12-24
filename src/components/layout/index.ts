@@ -12,3 +12,5 @@ export * from './details-item';
 export * from './row';
 export * from './accordion';
 export * from './link-label';
+export * from './limited-list';
+export * from './collapse';
