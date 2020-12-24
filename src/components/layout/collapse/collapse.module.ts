@@ -11,6 +11,5 @@ const EXPORTED_DECLARATIONS = [CollapseComponent];
     imports: [CommonModule, MatIconModule, FlexLayoutModule],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
-    providers: [],
 })
 export class CollapseModule {}

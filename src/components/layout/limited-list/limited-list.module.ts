@@ -12,6 +12,5 @@ const EXPORTED_DECLARATIONS = [LimitedListComponent, LimitedListItemComponent];
     imports: [CommonModule, FlexLayoutModule, TranslocoModule],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
-    providers: [],
 })
 export class LimitedListModule {}
