@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 
 import { Payer, PaymentResourcePayer } from '@dsh/api-codegen/capi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../tokens';
 
 export enum PayerType {
     CustomerPayer = 'CustomerPayer',

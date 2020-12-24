@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { LAYOUT_GAP } from '../../../../sections/constants';
+import { LAYOUT_GAP } from '../../../../sections/tokens';
 
 @Component({
     selector: 'dsh-webhook-api-key',

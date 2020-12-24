@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Invoice, InvoiceStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../theme-manager';
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-details',
