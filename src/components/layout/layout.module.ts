@@ -10,6 +10,7 @@ import { ExpansionModule } from './expansion';
 import { FloatPanelModule } from './float-panel';
 import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
+import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
 import { RowModule } from './row';
@@ -31,6 +32,7 @@ const EXPORTED_MODULES = [
     RowModule,
     AccordionModule,
     LinkLabelModule,
+    LimitedListModule,
     CollapseModule,
 ];
 

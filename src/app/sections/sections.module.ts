@@ -7,6 +7,7 @@ import { DEFAULT_SEARCH_LIMIT, LAYOUT_GAP, SEARCH_LIMIT } from './constants';
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';
 import { SectionsComponent } from './sections.component';
+import { DEFAULT_DIALOG_CONFIG, DEFAULT_SEARCH_LIMIT, DIALOG_CONFIG, LAYOUT_GAP, SEARCH_LIMIT } from './tokens';
 
 @NgModule({
     imports: [MainModule, SectionsRoutingModule, ShopModule, WalletModule],
@@ -15,6 +16,7 @@ import { SectionsComponent } from './sections.component';
     providers: [
         { provide: LAYOUT_GAP, useValue: '20px' },
         { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
+        { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
     ],
 })
 export class SectionsModule {}

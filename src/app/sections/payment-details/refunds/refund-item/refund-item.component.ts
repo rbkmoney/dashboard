@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { RefundSearchResult, RefundStatus } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../../theme-manager';
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     selector: 'dsh-refund-item',

@@ -3,13 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Invoice } from '@dsh/api-codegen/anapi';
 import { InvoiceSearchService } from '@dsh/api/search';
-
-import { booleanDebounceTime } from '../../../../../../custom-operators';
-import { SEARCH_LIMIT } from '../../../../../constants';
+import { Invoice } from '@dsh/api-codegen/anapi';
+import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
-import { mapToTimestamp } from '../../../operators';
+import { SEARCH_LIMIT } from '../../../../../tokens';
 import { SearchFiltersParams } from '../../invoices-search-filters';
 
 @Injectable()

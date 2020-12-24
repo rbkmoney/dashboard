@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core
 
 import { WalletAccount } from '@dsh/api-codegen/wallet-api';
 
-import { LAYOUT_GAP } from '../../../../constants';
+import { LAYOUT_GAP } from '../../../../tokens';
 
 @Component({
     selector: 'dsh-account',

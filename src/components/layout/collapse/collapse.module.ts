@@ -5,9 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CollapseComponent } from './collapse.component';
 
+const EXPORTED_DECLARATIONS = [CollapseComponent];
+
 @NgModule({
     imports: [CommonModule, MatIconModule, FlexLayoutModule],
-    declarations: [CollapseComponent],
-    exports: [CollapseComponent],
+    declarations: EXPORTED_DECLARATIONS,
+    exports: EXPORTED_DECLARATIONS,
 })
 export class CollapseModule {}

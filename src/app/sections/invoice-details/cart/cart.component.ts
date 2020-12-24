@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 
 import { InvoiceCart } from '@dsh/api-codegen/anapi';
 
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-cart',

@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 
 import { RecurrentPayer } from '@dsh/api-codegen/capi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-recurrent-details',

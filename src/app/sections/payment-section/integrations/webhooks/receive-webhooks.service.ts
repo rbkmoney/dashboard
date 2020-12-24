@@ -8,8 +8,7 @@ import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators'
 import { Webhook } from '@dsh/api-codegen/capi';
 import { WebhooksService } from '@dsh/api/webhooks';
 
-import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { mapToTimestamp } from '../../operations/operators';
+import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {
