@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
+import { DEFAULT_DIALOG_CONFIG, DEFAULT_SEARCH_LIMIT, DIALOG_CONFIG, LAYOUT_GAP, SEARCH_LIMIT } from './tokens';
 
 import { ShopModule } from '@dsh/api/shop';
 import { WalletModule } from '@dsh/api/wallet';
-import {
-    DEFAULT_DIALOG_CONFIG,
-    DEFAULT_SEARCH_LIMIT,
-    DIALOG_CONFIG,
-    LAYOUT_GAP,
-    SEARCH_LIMIT,
-} from 'src/app/sections/tokens';
 
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';

@@ -6,8 +6,8 @@ import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { InvoiceSearchService } from '../../../../../../api';
 import { Invoice } from '../../../../../../api-codegen/anapi';
 import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
-import { SEARCH_LIMIT } from '../../../../../tokens';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
+import { SEARCH_LIMIT } from '../../../../../tokens';
 import { SearchFiltersParams } from '../../invoices-search-filters';
 
 @Injectable()

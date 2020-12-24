@@ -10,11 +10,11 @@ import { PaymentSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
 
 import { toMinor } from '../../../../../utils';
+import { mapToTimestamp } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
 import { PaymentSearchFormValue } from './search-form';
 import { PaymentsTableData } from './table';
-import { mapToTimestamp } from '../../../../custom-operators';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
