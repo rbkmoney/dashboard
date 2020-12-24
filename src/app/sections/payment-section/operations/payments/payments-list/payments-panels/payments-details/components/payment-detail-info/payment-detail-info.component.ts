@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -12,7 +12,7 @@ import { Payment } from '../../../../../types/payment';
 @Component({
     selector: 'dsh-payment-detail-info',
     templateUrl: './payment-detail-info.component.html',
-    styleUrls: ['./payment-detail-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentDetailInfoComponent implements OnChanges {
     @Input() payment: Payment;

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 
@@ -11,6 +11,7 @@ import { getPaymentStatusInfo } from '../../../../../../../../../get-payment-sta
 @Component({
     selector: 'dsh-payment-status',
     templateUrl: './payment-status.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentStatusComponent implements OnChanges {
     @Input() status: PaymentStatus.StatusEnum;

@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import isNil from 'lodash.isnil';
 
 import { Payment } from '../../../../../../types/payment';
 
 @Component({
     selector: 'dsh-charge-amount',
-    templateUrl: './charge-amount.component.html',
+    templateUrl: 'charge-amount.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeAmountComponent {
     @Input()

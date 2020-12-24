@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import isNil from 'lodash.isnil';
 
 import { Payment } from '../../../../../../types/payment';
@@ -6,6 +6,7 @@ import { Payment } from '../../../../../../types/payment';
 @Component({
     selector: 'dsh-payment-fee',
     templateUrl: './payment-fee.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentFeeComponent implements OnInit {
     @Input()
