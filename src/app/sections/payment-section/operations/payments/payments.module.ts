@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -21,7 +22,6 @@ import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
-import { SEARCH_LIMIT } from '../../../constants';
 import { ShopSelectorModule } from '../../../shop-selector';
 import { PaymentsListModule } from './payments-list';
 import { PaymentsRoutingModule } from './payments-routing.module';
