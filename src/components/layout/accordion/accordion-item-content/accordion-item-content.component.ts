@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@ang
 @Component({
     selector: 'dsh-accordion-item-content',
     templateUrl: 'accordion-item-content.component.html',
-    styleUrls: ['accordion-item-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionItemContentComponent {
