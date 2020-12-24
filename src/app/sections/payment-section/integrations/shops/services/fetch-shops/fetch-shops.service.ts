@@ -7,8 +7,8 @@ import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ApiShopsService } from '@dsh/api/shop';
 
-import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
-import { filterShopsByRealm, mapToTimestamp } from '../../../../operations/operators';
+import { mapToTimestamp, SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
+import { filterShopsByRealm } from '../../../../operations/operators';
 import { ShopBalance } from '../../types/shop-balance';
 import { ShopFiltersData } from '../../types/shop-filters-data';
 import { ShopItem } from '../../types/shop-item';
