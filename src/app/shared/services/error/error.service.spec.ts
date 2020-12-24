@@ -28,15 +28,17 @@ describe('ErrorService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('error without message', () => {
-        service.error('error');
-        verify(mockNotificationService.error(undefined)).once();
-        expect().nothing();
-    });
+    describe('message', () => {
+        it('error without message', () => {
+            service.error('error');
+            verify(mockNotificationService.error(undefined)).once();
+            expect().nothing();
+        });
 
-    it('error with message', () => {
-        service.error('error', 'error message');
-        verify(mockNotificationService.error('error message')).once();
-        expect().nothing();
+        it('error with message', () => {
+            service.error('error', 'error message');
+            verify(mockNotificationService.error('error message')).once();
+            expect().nothing();
+        });
     });
 });
