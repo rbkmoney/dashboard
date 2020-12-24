@@ -18,16 +18,16 @@ export class LimitedListComponent implements AfterContentInit {
 
     @ContentChildren(LimitedListItemComponent) contentChildren: QueryList<LimitedListItemComponent>;
 
-    ngAfterContentInit() {
-        this.display();
+    ngAfterContentInit(): void {
+        this.displayContent();
     }
 
-    showMore() {
+    showMore(): void {
         this.displayedAll = true;
-        this.display();
+        this.displayContent();
     }
 
-    private display() {
+    private displayContent(): void {
         this.contentChildren.forEach((item, idx) => (item.hidden = !this.displayedAll && idx >= this.displayedCount));
     }
 }
