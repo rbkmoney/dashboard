@@ -8,13 +8,12 @@ import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 
 import { toMinor } from '../../../../../../../../utils';
-import { booleanDebounceTime } from '../../../../../../../custom-operators';
-import { SEARCH_LIMIT } from '../../../../../../constants';
+import { booleanDebounceTime, mapToTimestamp } from '../../../../../../../custom-operators';
 import { PartialFetcher } from '../../../../../../partial-fetcher';
-import { mapToTimestamp } from '../../../../operators';
 import { PaymentSearchFormValue } from '../../../search-form';
 import { Payment } from '../../../types/payment';
 import { DEBOUNCE_ACTION_TIME } from '../../consts';

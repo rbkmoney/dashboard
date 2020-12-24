@@ -11,8 +11,8 @@ import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { SEARCH_LIMIT } from '../../../../../../constants';
 import { DEBOUNCE_ACTION_TIME } from '../../consts';
 import { FetchPaymentsService } from './fetch-payments.service';
 
