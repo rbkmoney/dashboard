@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 import { InvoiceLine, InvoiceLineTaxVAT } from '@dsh/api-codegen/anapi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     selector: 'dsh-cart-item',

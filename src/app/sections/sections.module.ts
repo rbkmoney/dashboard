@@ -8,7 +8,7 @@ import {
     DIALOG_CONFIG,
     LAYOUT_GAP,
     SEARCH_LIMIT,
-} from '@dsh/app/sections/constants';
+} from 'src/app/sections/tokens';
 
 import { MainModule } from './main';
 import { SectionsRoutingModule } from './sections-routing.module';

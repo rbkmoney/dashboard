@@ -22,7 +22,7 @@
             "@dsh/app/shared/*": ["src/app/shared/*"],
             "@dsh/api/*": ["src/app/api/*"],
             "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
-            "@dsh/app/sections/constants": ["src/app/sections/constants.ts"]
+            "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"]
         }
     },
     "angularCompilerOptions": {

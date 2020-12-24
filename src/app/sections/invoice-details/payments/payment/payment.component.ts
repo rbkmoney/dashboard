@@ -5,7 +5,7 @@ import { PaymentStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { PaymentSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../../theme-manager';
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 import { getPaymentStatusInfo } from '../../../get-payment-status-info';
 
 @Component({
