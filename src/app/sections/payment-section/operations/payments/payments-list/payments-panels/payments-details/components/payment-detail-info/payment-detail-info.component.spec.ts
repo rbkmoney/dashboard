@@ -37,17 +37,13 @@ describe('PaymentDetailInfoComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MatDividerModule],
-            declarations: [
-                PaymentDetailInfoComponent,
-                MockPaymentMainInfoComponent,
-                MockPaymentInvoiceInfoComponent,
-            ],
+            declarations: [PaymentDetailInfoComponent, MockPaymentMainInfoComponent, MockPaymentInvoiceInfoComponent],
             providers: [
                 {
                     provide: InvoiceDetailsService,
                     useFactory: () => instance(mockInvoiceDetailsService),
-                }
-            ]
+                },
+            ],
         }).compileComponents();
     }));
 
@@ -75,12 +71,12 @@ describe('PaymentDetailInfoComponent', () => {
                 payer: {
                     payerType: 'mine',
                     paymentToolDetails: {
-                        detailsType: 'mine'
-                    }
-                }
+                        detailsType: 'mine',
+                    },
+                },
             };
             fixture.detectChanges();
-        })
+        });
 
         it('should initialize invoice service using payment invoice id', () => {
             component.ngOnChanges({
@@ -91,8 +87,8 @@ describe('PaymentDetailInfoComponent', () => {
                         return false;
                     },
                     firstChange: false,
-                }
-            })
+                },
+            });
 
             verify(mockInvoiceDetailsService.initialize('test_invoiceID')).once();
             expect().nothing();
@@ -107,7 +103,7 @@ describe('PaymentDetailInfoComponent', () => {
                         return false;
                     },
                     firstChange: false,
-                }
+                },
             });
 
             verify(mockInvoiceDetailsService.initialize('test_invoiceID')).never();

@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 
 import { PaymentResourcePayer } from '@dsh/api-codegen/capi';
-import { LAYOUT_GAP } from '@dsh/app/sections/constants';
+import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 
 import { PayerType } from '../../../../../../../payment-details/payer-details';
 import { Payment } from '../../../../types/payment';

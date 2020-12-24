@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoiceSearchService } from '@dsh/api/search';
 import { Invoice } from '@dsh/api-codegen/anapi';
+import { InvoiceSearchService } from '@dsh/api/search';
+
 import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../../../tokens';
