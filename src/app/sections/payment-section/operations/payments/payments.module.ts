@@ -27,7 +27,6 @@ import { PaymentsListModule } from './payments-list';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
 import { SearchFormComponent } from './search-form';
-import { TableComponent } from './table';
 
 @NgModule({
     imports: [
@@ -56,11 +55,9 @@ import { TableComponent } from './table';
         FiltersModule,
         PaymentsListModule,
     ],
-    declarations: [PaymentsComponent, TableComponent, SearchFormComponent],
+    declarations: [PaymentsComponent, SearchFormComponent],
     providers: [
         { provide: TRANSLOCO_SCOPE, useValue: 'main' },
-        // TODO: remove this. Only for tests infinite scroll
-        { provide: SEARCH_LIMIT, useValue: 1 },
     ],
 })
 export class PaymentsModule {}
