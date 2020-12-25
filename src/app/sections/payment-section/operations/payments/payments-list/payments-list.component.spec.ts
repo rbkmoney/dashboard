@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -23,8 +24,8 @@ import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.s
 class PaymentsFiltersComponent {
     @Input() realm;
 }
-// TODO: fix unit test
-xdescribe('PaymentsListComponent', () => {
+
+describe('PaymentsListComponent', () => {
     let component: PaymentsListComponent;
     let fixture: ComponentFixture<PaymentsListComponent>;
     let mockFetchPaymentsService: FetchPaymentsService;
@@ -47,6 +48,13 @@ xdescribe('PaymentsListComponent', () => {
                     invoiceID: 'invoiceID',
                     shopName: 'my_name_0',
                     paymentID: 'payment_id_0',
+                    payer: {
+                        payerType: '',
+                        paymentToolDetails: {
+                            detailsType: 'unknown',
+                        },
+                    },
+                    fee: 0,
                 },
                 {
                     amount: 20,
@@ -56,8 +64,15 @@ xdescribe('PaymentsListComponent', () => {
                     invoiceID: 'invoiceID',
                     shopName: 'my_name_1',
                     paymentID: 'payment_id_1',
+                    payer: {
+                        payerType: '',
+                        paymentToolDetails: {
+                            detailsType: 'unknown',
+                        },
+                    },
+                    fee: 0,
                 },
-            ] as any) // TODO: fix this
+            ])
         );
         when(mockFetchPaymentsService.isLoading$).thenReturn(of(false));
         when(mockFetchPaymentsService.hasMore$).thenReturn(of(false));
@@ -73,6 +88,7 @@ xdescribe('PaymentsListComponent', () => {
                 LastUpdatedModule,
                 PaymentsPanelsModule,
                 FlexLayoutModule,
+                HttpClientTestingModule,
             ],
             declarations: [PaymentsListComponent, PaymentsFiltersComponent],
             providers: [

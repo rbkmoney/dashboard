@@ -54,7 +54,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         }
     }
 
-    openFiltersDialog() {
+    openFiltersDialog(): void {
         this.filtersData$
             .pipe(
                 take(1),

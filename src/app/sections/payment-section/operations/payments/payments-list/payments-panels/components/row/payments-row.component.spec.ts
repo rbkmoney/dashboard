@@ -11,7 +11,7 @@ import { RowModule } from '@dsh/components/layout';
 import { PaymentStatusModule } from '../../payment-status';
 import { PaymentsRowComponent } from './payments-row.component';
 
-xdescribe('PaymentsRowComponent', () => {
+describe('PaymentsRowComponent', () => {
     let fixture: ComponentFixture<PaymentsRowComponent>;
     let component: PaymentsRowComponent;
 

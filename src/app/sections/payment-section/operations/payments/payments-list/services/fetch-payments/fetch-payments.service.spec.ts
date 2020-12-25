@@ -16,7 +16,7 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { DEBOUNCE_ACTION_TIME } from '../../consts';
 import { FetchPaymentsService } from './fetch-payments.service';
 
-xdescribe('FetchPaymentsService', () => {
+describe('FetchPaymentsService', () => {
     let service: FetchPaymentsService;
     let mockPaymentSearchService: PaymentSearchService;
     let mockApiShopsService: ApiShopsService;
@@ -273,6 +273,11 @@ xdescribe('FetchPaymentsService', () => {
                         invoiceID: 'invoiceID',
                         shopName: 'my_name_0',
                         paymentID: 'payment_id_0',
+                        fee: 0,
+                        externalID: undefined,
+                        error: undefined,
+                        transactionInfo: undefined,
+                        payer: null,
                     },
                     {
                         amount: 20,
@@ -282,6 +287,11 @@ xdescribe('FetchPaymentsService', () => {
                         invoiceID: 'invoiceID',
                         shopName: 'my_name_1',
                         paymentID: 'payment_id_1',
+                        fee: 0,
+                        externalID: undefined,
+                        error: undefined,
+                        transactionInfo: undefined,
+                        payer: null,
                     },
                 ],
             });

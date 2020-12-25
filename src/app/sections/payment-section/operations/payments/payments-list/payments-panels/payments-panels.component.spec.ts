@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,8 +30,7 @@ class MockRowComponent {
     @Input() payment: Payment;
 }
 
-// TODO: fix unit tests
-xdescribe('PaymentsPanelsComponent', () => {
+describe('PaymentsPanelsComponent', () => {
     let component: PaymentsPanelsComponent;
     let fixture: ComponentFixture<PaymentsPanelsComponent>;
 
@@ -46,6 +46,7 @@ xdescribe('PaymentsPanelsComponent', () => {
                 ExpandPanelModule,
                 PaymentsDetailsModule,
                 NoopAnimationsModule,
+                HttpClientTestingModule,
                 TranslocoTestingModule.withLangs(
                     {
                         ru: {
@@ -118,7 +119,21 @@ xdescribe('PaymentsPanelsComponent', () => {
         });
     });
 
-    //
-    // showMoreElements
-    // expandedIdChange
+    describe('showMoreElements', () => {
+        it('should emit output event showMore', () => {
+            const spyOnShowMore = spyOn(component.showMore, 'emit');
+
+            component.showMoreElements();
+
+            expect(spyOnShowMore).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('expandedIdChange', () => {
+        it('should update expanded id with using changed id', () => {
+            component.expandedIdChange(3);
+
+            expect(component.expandedId).toBe(3);
+        });
+    });
 });
