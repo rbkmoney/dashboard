@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { cold } from 'jasmine-marbles';
 import * as moment from 'moment';
 import { of } from 'rxjs';
-import { delay, map, take } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 import { deepEqual, instance, mock, when } from 'ts-mockito';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -52,94 +51,108 @@ describe('FetchInvoicesService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should fetch invoices', () => {
-        const expectedInvoices$ = cold('a', {
-            a: ['mock_invoice_0', 'mock_invoice_1'],
+    describe('searchResult$', () => {
+        it('should fetch invoices', (done) => {
+            when(
+                invoiceSearchService.searchInvoices(
+                    '',
+                    '',
+                    deepEqual({ paymentInstitutionRealm: 'test' }),
+                    5,
+                    undefined
+                )
+            ).thenReturn(of({ result: generateMockInvoiceList(2) }));
+
+            service.searchResult$.pipe(take(1)).subscribe((res) => {
+                expect(res).toEqual(generateMockInvoiceList(2));
+                done();
+            });
+
+            service.search({ fromTime: '', toTime: '' });
         });
 
-        when(
-            invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, undefined)
-        ).thenReturn(of({ result: generateMockInvoiceList(2) }));
+        it('should fetch and show more', (done) => {
+            when(
+                invoiceSearchService.searchInvoices(
+                    '',
+                    '',
+                    deepEqual({ paymentInstitutionRealm: 'test' }),
+                    5,
+                    undefined
+                )
+            ).thenReturn(of({ result: generateMockInvoiceList(5), continuationToken: 'token' }));
 
-        jasmine.clock().install();
+            when(
+                invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, 'token')
+            ).thenReturn(of({ result: generateMockInvoiceList(2, 5) }));
 
-        service.search({ fromTime: '', toTime: '' });
+            let count = 0;
+            service.searchResult$.pipe(take(2)).subscribe((res) => {
+                switch (count) {
+                    case 0:
+                        expect(res).toEqual(generateMockInvoiceList(5));
+                        service.fetchMore();
+                        break;
+                    case 1:
+                        expect(res).toEqual(generateMockInvoiceList(7));
+                        done();
+                        break;
+                }
+                count += 1;
+            });
 
-        jasmine.clock().tick(300);
-
-        jasmine.clock().uninstall();
-
-        expect(service.searchResult$.pipe(map((list) => list.map(({ id }) => id)))).toBeObservable(expectedInvoices$);
+            service.search({ fromTime: '', toTime: '' });
+        });
     });
 
-    it('should fetch and show more', () => {
-        const expectedInvoices$ = cold('a', {
-            a: generateMockInvoiceList(7),
+    describe('isLoading$', () => {
+        it('should trigger isLoading', (done) => {
+            when(
+                invoiceSearchService.searchInvoices(
+                    '',
+                    '',
+                    deepEqual({ paymentInstitutionRealm: 'test' }),
+                    5,
+                    undefined
+                )
+            ).thenReturn(of({ result: generateMockInvoiceList(1) }).pipe(delay(600)));
+
+            let count = 0;
+            service.isLoading$.pipe(take(2)).subscribe((d) => {
+                switch (count) {
+                    case 0:
+                        expect(d).toBe(true);
+                        break;
+                    case 1:
+                        expect(d).toBe(false);
+                        done();
+                        break;
+                }
+                count += 1;
+            });
+
+            service.search({ fromTime: '', toTime: '' });
         });
-
-        when(
-            invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, undefined)
-        ).thenReturn(of({ result: generateMockInvoiceList(5), continuationToken: 'token' }));
-
-        when(
-            invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, 'token')
-        ).thenReturn(of({ result: generateMockInvoiceList(2, 5) }));
-
-        jasmine.clock().install();
-
-        service.search({ fromTime: '', toTime: '' });
-
-        jasmine.clock().tick(300);
-
-        service.fetchMore();
-
-        jasmine.clock().tick(300);
-
-        jasmine.clock().uninstall();
-
-        expect(service.searchResult$).toBeObservable(expectedInvoices$);
     });
 
-    it('should trigger isLoading', (done) => {
-        when(
-            invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, undefined)
-        ).thenReturn(of({ result: generateMockInvoiceList(1) }).pipe(delay(600)));
+    describe('lastUpdated$', () => {
+        it('should trigger lastUpdated', (done) => {
+            when(
+                invoiceSearchService.searchInvoices(
+                    '',
+                    '',
+                    deepEqual({ paymentInstitutionRealm: 'test' }),
+                    5,
+                    undefined
+                )
+            ).thenReturn(of({ result: generateMockInvoiceList(1) }));
 
-        let count = 0;
-        service.isLoading$.pipe(take(2)).subscribe((d) => {
-            switch (count) {
-                case 0:
-                    expect(d).toBe(true);
-                    break;
-                case 1:
-                    expect(d).toBe(false);
-                    done();
-                    break;
-            }
-            count += 1;
+            service.lastUpdated$.pipe(take(1)).subscribe((res) => {
+                expect(res).toBe(moment().utc().format());
+                done();
+            });
+
+            service.search({ fromTime: '', toTime: '' });
         });
-
-        service.search({ fromTime: '', toTime: '' });
-    });
-
-    it('should trigger lastUpdated', () => {
-        when(
-            invoiceSearchService.searchInvoices('', '', deepEqual({ paymentInstitutionRealm: 'test' }), 5, undefined)
-        ).thenReturn(of({ result: generateMockInvoiceList(1) }));
-
-        jasmine.clock().install();
-
-        service.search({ fromTime: '', toTime: '' });
-
-        jasmine.clock().tick(300);
-
-        jasmine.clock().uninstall();
-
-        const expectedLastUpdated$ = cold('a', {
-            // TODO: fix it with mapToTimestamp
-            a: moment().utc().format(),
-        });
-
-        expect(service.lastUpdated$).toBeObservable(expectedLastUpdated$);
     });
 });
