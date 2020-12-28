@@ -10,8 +10,8 @@ import { PaymentSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
 
 import { toMinor } from '../../../../../utils';
+import { mapToTimestamp } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { mapToTimestamp } from '../operators';
 import { mapToPaymentsTableData } from './map-to-payments-table-data';
 import { PaymentSearchFormValue } from './search-form';
 import { PaymentsTableData } from './table';

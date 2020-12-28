@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../constants';
+import { LAYOUT_GAP } from '../../tokens';
 import { RefundsService } from './refunds.service';
 
 const PaymentStatuses = PaymentSearchResult.StatusEnum;

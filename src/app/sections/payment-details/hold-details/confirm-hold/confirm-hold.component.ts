@@ -10,7 +10,7 @@ import { PaymentService } from '@dsh/api/payment';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 
 export interface ConfirmHoldData {
     invoiceID: string;

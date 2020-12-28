@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AccordionModule } from './accordion';
 import { CardModule } from './card';
+import { CollapseModule } from './collapse';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpandPanelModule } from './expand-panel';
@@ -9,6 +10,7 @@ import { ExpansionModule } from './expansion';
 import { FloatPanelModule } from './float-panel';
 import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
+import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
 import { RowModule } from './row';
@@ -30,6 +32,8 @@ const EXPORTED_MODULES = [
     RowModule,
     AccordionModule,
     LinkLabelModule,
+    LimitedListModule,
+    CollapseModule,
 ];
 
 @NgModule({
