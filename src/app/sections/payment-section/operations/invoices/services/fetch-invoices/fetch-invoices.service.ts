@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { InvoiceSearchService } from '../../../../../../api';
+import { InvoiceSearchService } from '@dsh/api/search';
+
 import { Invoice } from '../../../../../../api-codegen/anapi';
 import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
@@ -13,6 +14,7 @@ import { SearchFiltersParams } from '../../invoices-search-filters';
 @Injectable()
 export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
+    // TODO: mapToTimestamp to service
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
     constructor(
@@ -24,13 +26,16 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
         super();
     }
 
-    protected fetch(params: SearchFiltersParams, continuationToken: string): Observable<FetchResult<Invoice>> {
+    protected fetch(
+        { fromTime, toTime, ...params }: SearchFiltersParams,
+        continuationToken: string
+    ): Observable<FetchResult<Invoice>> {
         return this.route.params.pipe(
             pluck('realm'),
             switchMap((paymentInstitutionRealm) =>
                 this.invoiceSearchService.searchInvoices(
-                    params.fromTime,
-                    params.toTime,
+                    fromTime,
+                    toTime,
                     {
                         ...params,
                         paymentInstitutionRealm,
