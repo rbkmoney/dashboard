@@ -94,6 +94,8 @@ describe('CreateInvoiceService', () => {
         });
 
         it('should open dialog', () => {
+            when(mockDialogRef.afterClosed()).thenReturn(of('cancel'));
+
             service.createInvoice(PaymentInstitutionRealm.test);
 
             verify(
