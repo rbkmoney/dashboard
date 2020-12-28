@@ -6,23 +6,20 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { Shop } from '@dsh/api-codegen/capi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { ApiShopsService } from '@dsh/api/shop';
+import { InvoiceService } from '@dsh/api/invoice';
 
-import { generateMockInvoice } from '../tests/generate-mock-invoice';
-import { CreateInvoiceDialogComponent } from './components/create-invoice-dialog/create-invoice-dialog.component';
-import { CreateInvoiceService } from './create-invoice.service';
+import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
+import { FulfillInvoiceService } from './fulfill-invoice.service';
 
-describe('CreateInvoiceService', () => {
-    let service: CreateInvoiceService;
-    let mockApiShopsService: ApiShopsService;
+describe('FulfillInvoiceService', () => {
+    let service: FulfillInvoiceService;
+    let mockInvoiceService: InvoiceService;
     let mockMatDialog: MatDialog;
     let mockSnackbar: MatSnackBar;
-    let mockDialogRef: MatDialogRef<CreateInvoiceDialogComponent>;
+    let mockDialogRef: MatDialogRef<FulfillInvoiceDialogComponent>;
 
     beforeEach(() => {
-        mockApiShopsService = mock(ApiShopsService);
+        mockInvoiceService = mock(InvoiceService);
         mockMatDialog = mock(MatDialog);
         mockSnackbar = mock(MatSnackBar);
         mockDialogRef = mock(MatDialogRef);
@@ -36,7 +33,7 @@ describe('CreateInvoiceService', () => {
                         operations: {
                             invoices: {
                                 actions: {
-                                    invoiceCreated: 'invoice created',
+                                    invoiceFulfilled: 'invoice was fulfilled',
                                 },
                             },
                         },
@@ -48,10 +45,10 @@ describe('CreateInvoiceService', () => {
                 ),
             ],
             providers: [
-                CreateInvoiceService,
+                FulfillInvoiceService,
                 {
-                    provide: ApiShopsService,
-                    useFactory: () => instance(mockApiShopsService),
+                    provide: InvoiceService,
+                    useFactory: () => instance(mockInvoiceService),
                 },
                 {
                     provide: MatDialog,
@@ -63,7 +60,7 @@ describe('CreateInvoiceService', () => {
                 },
             ],
         });
-        service = TestBed.inject(CreateInvoiceService);
+        service = TestBed.inject(FulfillInvoiceService);
         await TestBed.inject(TranslocoService).load('operations').toPromise();
     });
 
@@ -71,21 +68,20 @@ describe('CreateInvoiceService', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('createInvoice', () => {
+    describe('fulfillInvoice', () => {
         beforeEach(() => {
-            when(mockApiShopsService.shops$).thenReturn(of([]));
             when(
-                mockMatDialog.open<CreateInvoiceDialogComponent, Shop[]>(
-                    CreateInvoiceDialogComponent,
+                mockMatDialog.open(
+                    FulfillInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
                         maxHeight: '90vh',
                         disableClose: true,
-                        data: [],
                     })
                 )
             ).thenReturn(instance(mockDialogRef));
-            when(mockSnackbar.open('invoice created', 'OK', deepEqual({ duration: 2000 }))).thenReturn(null);
+            when(mockInvoiceService.fulfillInvoice('test', deepEqual({ reason: 'test' }))).thenReturn(of(null));
+            when(mockSnackbar.open('invoice was fulfilled', 'OK', deepEqual({ duration: 2000 }))).thenReturn(null);
         });
 
         afterEach(() => {
@@ -94,43 +90,44 @@ describe('CreateInvoiceService', () => {
         });
 
         it('should open dialog', () => {
-            service.createInvoice(PaymentInstitutionRealm.test);
+            when(mockDialogRef.afterClosed()).thenReturn(of(null));
+
+            service.fulfillInvoice('test');
 
             verify(
-                mockMatDialog.open<CreateInvoiceDialogComponent, Shop[]>(
-                    CreateInvoiceDialogComponent,
+                mockMatDialog.open(
+                    FulfillInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
                         maxHeight: '90vh',
                         disableClose: true,
-                        data: [],
                     })
                 )
             ).once();
         });
 
-        it('should not return invoice id if dialog was cancelled', () => {
+        it('should not return reason if dialog was cancelled', () => {
             when(mockDialogRef.afterClosed()).thenReturn(of('cancel'));
 
-            expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(cold(''));
+            expect(service.fulfillInvoice('test')).toBeObservable(cold(''));
         });
 
-        it('should return created invoice id', () => {
-            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice(0)));
+        it('should emit undefined after invoice fulfilling', () => {
+            when(mockDialogRef.afterClosed()).thenReturn(of({ reason: 'test' }));
 
-            expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(
+            expect(service.fulfillInvoice('test')).toBeObservable(
                 cold('a', {
-                    a: 'mock_invoice_0',
+                    a: undefined,
                 })
             );
         });
 
-        it('should show snack bar after invoice creation', () => {
-            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice(0)));
+        it('should show snack bar after invoice fulfilling', () => {
+            when(mockDialogRef.afterClosed()).thenReturn(of({ reason: 'test' }));
 
-            service.createInvoice(PaymentInstitutionRealm.test);
+            service.fulfillInvoice('test');
 
-            verify(mockSnackbar.open('invoice created', 'OK', deepEqual({ duration: 2000 }))).once();
+            verify(mockSnackbar.open('invoice was fulfilled', 'OK', deepEqual({ duration: 2000 }))).once();
         });
     });
 });
