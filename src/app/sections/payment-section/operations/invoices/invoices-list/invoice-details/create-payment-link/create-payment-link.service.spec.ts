@@ -54,7 +54,7 @@ describe('CreatePaymentLinkService', () => {
         });
 
         it('should open dialog', () => {
-            const config: CreatePaymentLinkDialogConfig = { invoice: generateMockInvoice(0) };
+            const config: CreatePaymentLinkDialogConfig = { invoice: generateMockInvoice('test') };
 
             service.createPaymentLink(config);
 

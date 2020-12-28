@@ -10,12 +10,12 @@ import { InvoiceService } from '@dsh/api/invoice';
 @Injectable()
 export class ReceiveInvoiceService {
     isLoading$: Observable<boolean>;
-    errorOccurred$: Observable<boolean>;
+    errorOccurred$: Observable<void>;
     invoice$: Observable<Invoice>;
 
     private receiveInvoice$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
-    private error$ = new Subject<boolean>();
+    private error$ = new Subject<void>();
     private receivedInvoice$ = new ReplaySubject<Invoice>(1);
 
     constructor(private invoiceService: InvoiceService) {
@@ -45,7 +45,7 @@ export class ReceiveInvoiceService {
             });
     }
 
-    receivePayment(invoiceID: string) {
+    receiveInvoice(invoiceID: string) {
         this.receiveInvoice$.next(invoiceID);
     }
 }

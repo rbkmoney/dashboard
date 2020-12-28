@@ -118,7 +118,7 @@ describe('CreateInvoiceService', () => {
         });
 
         it('should return created invoice id', () => {
-            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice(0)));
+            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice('test')));
 
             expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(
                 cold('a', {
@@ -128,7 +128,7 @@ describe('CreateInvoiceService', () => {
         });
 
         it('should show snack bar after invoice creation', () => {
-            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice(0)));
+            when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice('test')));
 
             service.createInvoice(PaymentInstitutionRealm.test);
 
