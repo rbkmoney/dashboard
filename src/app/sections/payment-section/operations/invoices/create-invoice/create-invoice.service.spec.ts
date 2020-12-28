@@ -122,7 +122,7 @@ describe('CreateInvoiceService', () => {
 
             expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(
                 cold('a', {
-                    a: 'mock_invoice_0',
+                    a: 'test',
                 })
             );
         });
