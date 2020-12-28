@@ -9,8 +9,7 @@ import { Webhook } from '@dsh/api-codegen/wallet-api';
 import { IdentityService } from '@dsh/api/identity';
 import { WalletWebhooksService } from '@dsh/api/wallet-webhooks';
 
-import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { mapToTimestamp } from '../../../payment-section/operations/operators';
+import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {

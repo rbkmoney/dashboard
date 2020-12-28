@@ -3,8 +3,8 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { PaymentSearchResult, PaymentStatus } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../theme-manager';
-import { LAYOUT_GAP } from '../../constants';
 import { getPaymentStatusInfo } from '../../get-payment-status-info';
+import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-details',

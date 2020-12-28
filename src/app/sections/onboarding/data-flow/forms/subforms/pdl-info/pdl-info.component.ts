@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import { LAYOUT_GAP } from '../../../../../constants';
+import { LAYOUT_GAP } from '../../../../../tokens';
 
 @Component({
     selector: 'dsh-pdl-info',

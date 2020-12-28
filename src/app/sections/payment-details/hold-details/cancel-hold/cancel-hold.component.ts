@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 
 import { PaymentService } from '@dsh/api/payment';
 
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 
 export interface CancelHoldData {
     invoiceID: string;

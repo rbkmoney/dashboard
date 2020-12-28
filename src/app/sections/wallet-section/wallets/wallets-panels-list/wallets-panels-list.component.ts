@@ -5,7 +5,7 @@ import { Wallet } from '@dsh/api-codegen/wallet-api';
 import { WalletService } from '@dsh/api/wallet';
 
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../constants';
+import { LAYOUT_GAP } from '../../../tokens';
 import { ReceiveWalletsService } from '../receive-wallets.service';
 
 @Component({

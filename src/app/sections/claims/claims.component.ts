@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { LAYOUT_GAP } from '../constants';
+import { LAYOUT_GAP } from '../tokens';
 import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
