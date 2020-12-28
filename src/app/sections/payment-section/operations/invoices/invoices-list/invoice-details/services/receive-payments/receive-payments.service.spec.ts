@@ -5,65 +5,65 @@ import { of, throwError } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { InvoiceService } from '@dsh/api/invoice';
+import { PaymentService } from '@dsh/api/payment';
 
-import { generateMockInvoice } from '../../../../tests/generate-mock-invoice';
-import { ReceiveInvoiceService } from './receive-invoice.service';
+import { generateMockPaymentList } from '../../../../tests/generate-mock-payment-list';
+import { ReceivePaymentsService } from './receive-payments.service';
 
-describe('ReceiveInvoiceService', () => {
-    let service: ReceiveInvoiceService;
-    let mockInvoiceService: InvoiceService;
+describe('ReceivePaymentsService', () => {
+    let service: ReceivePaymentsService;
+    let mockPaymentService: PaymentService;
     let mockSnackbar: MatSnackBar;
 
     beforeEach(() => {
-        mockInvoiceService = mock(InvoiceService);
+        mockPaymentService = mock(PaymentService);
         mockSnackbar = mock(MatSnackBar);
     });
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             providers: [
-                ReceiveInvoiceService,
+                ReceivePaymentsService,
                 {
-                    provide: InvoiceService,
-                    useFactory: () => instance(mockInvoiceService),
+                    provide: PaymentService,
+                    useFactory: () => instance(mockPaymentService),
                 },
             ],
         });
-        service = TestBed.inject(ReceiveInvoiceService);
+        service = TestBed.inject(ReceivePaymentsService);
     });
 
     it('should be created', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('invoice$', () => {
+    describe('payments$', () => {
         beforeEach(() => {
-            when(mockInvoiceService.getInvoiceByID('test')).thenReturn(of(generateMockInvoice('test')));
+            when(mockPaymentService.getPayments('test')).thenReturn(of(generateMockPaymentList(3)));
         });
 
-        it('should receive invoice', () => {
-            service.receiveInvoice('test');
+        it('should receive payments', () => {
+            service.receivePayments('test');
 
-            expect(service.invoice$).toBeObservable(cold('a', { a: generateMockInvoice('test') }));
+            expect(service.payments$).toBeObservable(cold('a', { a: generateMockPaymentList(3) }));
         });
     });
 
     describe('error$', () => {
         beforeEach(() => {
-            when(mockInvoiceService.getInvoiceByID('test')).thenReturn(throwError('error'));
+            when(mockPaymentService.getPayments('test')).thenReturn(throwError('error'));
         });
 
         it('should emit error', () => {
             service.errorOccurred$.subscribe((res) => expect(res).toBe(undefined));
 
-            service.receiveInvoice('test');
+            service.receivePayments('test');
         });
     });
 
     describe('isLoading$', () => {
-        it('should emit trigger isLoading by invoice', (done) => {
-            when(mockInvoiceService.getInvoiceByID('test')).thenReturn(of(generateMockInvoice('test')));
+        it('should emit trigger isLoading by payments', (done) => {
+            when(mockPaymentService.getPayments('test')).thenReturn(of(generateMockPaymentList(3)));
 
             let count = 0;
             service.isLoading$.pipe(take(3)).subscribe((res) => {
@@ -82,11 +82,11 @@ describe('ReceiveInvoiceService', () => {
                 count += 1;
             });
 
-            service.receiveInvoice('test');
+            service.receivePayments('test');
         });
 
         it('should emit trigger isLoading by error', (done) => {
-            when(mockInvoiceService.getInvoiceByID('test')).thenReturn(throwError('error'));
+            when(mockPaymentService.getPayments('test')).thenReturn(throwError('error'));
 
             let count = 0;
             service.isLoading$.pipe(take(3)).subscribe((res) => {
@@ -105,7 +105,7 @@ describe('ReceiveInvoiceService', () => {
                 count += 1;
             });
 
-            service.receiveInvoice('test');
+            service.receivePayments('test');
         });
     });
 });
