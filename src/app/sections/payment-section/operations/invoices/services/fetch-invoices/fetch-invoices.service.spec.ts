@@ -7,7 +7,7 @@ import { deepEqual, instance, mock, when } from 'ts-mockito';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { InvoiceSearchService } from '@dsh/api/search';
-import { SEARCH_LIMIT } from '@dsh/app/sections/constants';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { generateMockInvoiceList } from '../../tests/generate-mock-invoice-list';
 import { FetchInvoicesService } from './fetch-invoices.service';
@@ -148,6 +148,7 @@ describe('FetchInvoicesService', () => {
             ).thenReturn(of({ result: generateMockInvoiceList(1) }));
 
             service.lastUpdated$.pipe(take(1)).subscribe((res) => {
+                // TODO: fix it with mapToTimestamp refactoring
                 expect(res).toBe(moment().utc().format());
                 done();
             });
