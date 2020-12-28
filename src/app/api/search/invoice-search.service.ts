@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SearchService } from '@dsh/api-codegen/anapi';
+import { InlineResponse2009, SearchService } from '@dsh/api-codegen/anapi';
 
 import { genXRequestID, toDateLike } from '../utils';
 import { Duration, InvoicesSearchParams } from './model';
@@ -17,7 +18,7 @@ export class InvoiceSearchService {
         params: InvoicesSearchParams,
         limit: number,
         continuationToken?: string
-    ) {
+    ): Observable<InlineResponse2009> {
         return this.searchService.searchInvoices(
             genXRequestID(),
             toDateLike(fromTime),

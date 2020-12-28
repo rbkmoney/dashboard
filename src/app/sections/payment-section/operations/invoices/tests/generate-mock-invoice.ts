@@ -6,8 +6,8 @@ export function generateMockInvoice(order: number, status: Invoice.StatusEnum = 
     return {
         id: `mock_invoice_${order}`,
         shopID: 'testShopID',
-        createdAt: new Date(),
-        dueDate: new Date(),
+        createdAt: new Date(10000000),
+        dueDate: new Date(10000000),
         amount: 100,
         currency: 'RUB',
         product: 'Test product',
