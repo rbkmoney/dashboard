@@ -90,7 +90,7 @@ describe('CancelInvoiceService', () => {
         });
 
         it('should open dialog', () => {
-            when(mockDialogRef.afterClosed()).thenReturn(of(null));
+            when(mockDialogRef.afterClosed()).thenReturn(of('cancel'));
 
             service.cancelInvoice('test');
 
