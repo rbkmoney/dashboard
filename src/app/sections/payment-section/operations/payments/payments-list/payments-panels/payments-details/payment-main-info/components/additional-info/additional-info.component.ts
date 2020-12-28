@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Payment } from '../../../../../../types/payment';
+import { PaymentAdditionalInfo } from '../../types/payment-additional-info';
 
 @Component({
     selector: 'dsh-additional-info',
@@ -8,5 +8,5 @@ import { Payment } from '../../../../../../types/payment';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdditionalInfoComponent {
-    @Input() payment: Payment;
+    @Input() info: PaymentAdditionalInfo;
 }

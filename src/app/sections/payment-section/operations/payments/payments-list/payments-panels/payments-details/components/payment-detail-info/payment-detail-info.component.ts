@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Invoice } from '@dsh/api-codegen/capi';
+import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { ComponentChange, ComponentChanges } from '../../../../../../../../../../type-utils';
-import { InvoiceDetailsService } from '../../../../../../../../invoice-details/invoice-details.service';
 import { Payment } from '../../../../../types/payment';
+import { InvoiceDetailsService } from '../../services/invoice-details.service';
 
 @Component({
     selector: 'dsh-payment-detail-info',
@@ -18,8 +18,6 @@ export class PaymentDetailInfoComponent implements OnChanges {
     @Input() payment: Payment;
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
-
-    protected changes = new ReplaySubject<ComponentChanges<PaymentDetailInfoComponent>>(1);
 
     constructor(private invoiceDetails: InvoiceDetailsService) {}
 

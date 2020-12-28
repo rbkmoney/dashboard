@@ -5,8 +5,8 @@ import { instance, mock, verify } from 'ts-mockito';
 
 import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
 
-import { InvoiceDetailsService } from '../../../../../../../../invoice-details/invoice-details.service';
 import { Payment } from '../../../../../types/payment';
+import { InvoiceDetailsService } from '../../services/invoice-details.service';
 import { PaymentDetailInfoComponent } from './payment-detail-info.component';
 
 @Component({

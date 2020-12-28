@@ -3,8 +3,8 @@ import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 
 import { PaymentStatus } from '@dsh/api-codegen/capi';
+import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { ComponentChange, ComponentChanges } from '../../../../../../../../../../../type-utils';
 import { StatusColor } from '../../../../../../../../../../theme-manager';
 import { getPaymentStatusInfo } from '../../../../../../../../../get-payment-status-info';
 

@@ -9,8 +9,8 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { Daterange } from '@dsh/pipes/daterange';
+import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { ComponentChange, ComponentChanges } from '../../../../../../../type-utils';
 import { AdditionalFiltersService } from './additional-filters';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
 import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';

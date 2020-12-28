@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import isNil from 'lodash.isnil';
 
 import { Payment } from '../../../../../../types/payment';
 
 @Component({
     selector: 'dsh-payment-fee',
-    templateUrl: './payment-fee.component.html',
+    templateUrl: 'payment-fee.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaymentFeeComponent implements OnInit {
+export class PaymentFeeComponent {
     @Input()
     set payment(paymentValue: Payment) {
         if (isNil(paymentValue)) {
@@ -22,8 +22,4 @@ export class PaymentFeeComponent implements OnInit {
     fee: number;
     currency: string;
     feePercent: number;
-
-    constructor() {}
-
-    ngOnInit(): void {}
 }

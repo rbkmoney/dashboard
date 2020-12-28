@@ -14,12 +14,12 @@ export const formatPaymentsData = (paymentsData: Observable<[ApiPayment[], Shop[
         map(([searchResult, shops]: [ApiPayment[], Shop[]]) => {
             return searchResult.map(
                 ({
+                    id,
                     amount,
                     status,
                     statusChangedAt,
                     invoiceID,
                     shopID,
-                    id,
                     currency,
                     fee = 0,
                     payer,

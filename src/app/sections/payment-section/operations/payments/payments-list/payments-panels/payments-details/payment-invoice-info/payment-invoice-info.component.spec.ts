@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import StatusEnum = InvoiceStatusChanged.StatusEnum;
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { deepEqual, instance, mock, verify } from 'ts-mockito';
+import { instance, mock } from 'ts-mockito';
 
 import { Invoice, InvoiceStatusChanged } from '@dsh/api-codegen/capi';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -60,41 +60,5 @@ describe('PaymentInvoiceInfoComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    describe('navToInvoiceDetails', () => {
-        it('should navigate to invoice page using id', () => {
-            const invoices = [
-                {
-                    id: 'mine_id_1',
-                    shopID: 'id',
-                    createdAt: new Date(),
-                    amount: 2,
-                    currency: 'usd',
-                    product: 'mine',
-                    metadata: null,
-                    dueDate: new Date(),
-                    status: StatusEnum.Unpaid,
-                },
-                {
-                    id: 'mine_id_2',
-                    shopID: 'id',
-                    createdAt: new Date(),
-                    amount: 2,
-                    currency: 'usd',
-                    product: 'mine',
-                    metadata: null,
-                    dueDate: new Date(),
-                    status: StatusEnum.Unpaid,
-                },
-            ];
-
-            component.navToInvoiceDetails(invoices[0]);
-            component.navToInvoiceDetails(invoices[1]);
-
-            verify(mockRouter.navigate(deepEqual(['invoice', 'mine_id_1']))).once();
-            verify(mockRouter.navigate(deepEqual(['invoice', 'mine_id_2']))).once();
-            expect().nothing();
-        });
     });
 });

@@ -10,7 +10,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -56,8 +55,6 @@ import { SearchFormComponent } from './search-form';
         PaymentsListModule,
     ],
     declarations: [PaymentsComponent, SearchFormComponent],
-    providers: [
-        { provide: TRANSLOCO_SCOPE, useValue: 'main' },
-    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'main' }],
 })
 export class PaymentsModule {}

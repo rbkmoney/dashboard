@@ -6,7 +6,6 @@ import { By } from '@angular/platform-browser';
 import { getTextContent } from '@dsh/app/shared/tests/get-text-content';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { generateMockPayment } from '../../../../../../tests/generate-mock-payment';
 import { MockDetailsItemModule } from '../../../../../../tests/mock-details-item-component';
 import { AdditionalInfoComponent } from './additional-info.component';
 
@@ -38,7 +37,7 @@ describe('AdditionalInfoComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(AdditionalInfoComponent);
         component = fixture.componentInstance;
-        component.payment = generateMockPayment();
+        component.info = { externalID: null };
         fixture.detectChanges();
     });
 
@@ -48,7 +47,7 @@ describe('AdditionalInfoComponent', () => {
 
     describe('template', () => {
         it('should render nothing if there is no additional info', () => {
-            component.payment = generateMockPayment();
+            component.info = { externalID: null };
 
             fixture.detectChanges();
 
@@ -56,13 +55,13 @@ describe('AdditionalInfoComponent', () => {
         });
 
         it('should render rrn and approvalCode and externalId if there is all additional info', () => {
-            component.payment = generateMockPayment({
+            component.info = {
                 transactionInfo: {
                     rrn: 'my_rrn',
                     approvalCode: 'my_approvalCode',
                 },
                 externalID: 'my_external_id',
-            });
+            };
 
             fixture.detectChanges();
 
@@ -75,12 +74,12 @@ describe('AdditionalInfoComponent', () => {
         });
 
         it('should render rrn and approvalCode if there is only transactionInfo exist', () => {
-            component.payment = generateMockPayment({
+            component.info = {
                 transactionInfo: {
                     rrn: 'my_rrn',
                     approvalCode: 'my_approvalCode',
                 },
-            });
+            };
 
             fixture.detectChanges();
 
@@ -92,9 +91,9 @@ describe('AdditionalInfoComponent', () => {
         });
 
         it('should render externalId if there is only externalId exist', () => {
-            component.payment = generateMockPayment({
+            component.info = {
                 externalID: 'my_external_id',
-            });
+            };
 
             fixture.detectChanges();
 

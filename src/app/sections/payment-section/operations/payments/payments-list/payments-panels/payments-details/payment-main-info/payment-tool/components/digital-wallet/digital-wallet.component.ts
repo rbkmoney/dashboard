@@ -7,9 +7,9 @@ import {
     DigitalWalletDetailsQIWI,
     PaymentToolDetailsDigitalWallet,
 } from '@dsh/api-codegen/capi/swagger-codegen';
+import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWalletDetailsTypeEnum;
-import { ComponentChange, ComponentChanges } from '../../../../../../../../../../../../type-utils';
 
 @Component({
     selector: 'dsh-digital-wallet',

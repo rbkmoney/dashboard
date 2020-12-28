@@ -18,7 +18,7 @@
                 <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
                     <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                         <dsh-payment-detail-header
-                            [order]="i + 1"
+                            [id]="item.paymentID"
                             [changedDate]="item.statusChangedAt"
                         ></dsh-payment-detail-header>
                     </dsh-accordion-item-content-header>

@@ -6,8 +6,8 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { ComponentChange, ComponentChanges } from '../../../../../../type-utils';
 import { Payment } from '../types/payment';
 import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';

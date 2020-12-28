@@ -4,7 +4,9 @@
             {{ t('title') }}
             <span dshSecondaryTitle>#{{ invoice.id }}</span>
         </div>
-        <mat-icon class="dsh-forward-icon" (click)="navToInvoiceDetails(invoice)">launch</mat-icon>
+        <a [routerLink]="['../../../../../invoices']" [fragment]="invoice.id" preserveQueryParams target="_blank">
+            <mat-icon class="dsh-forward-icon">launch</mat-icon>
+        </a>
     </div>
     <dsh-invoice-details [invoice]="invoice"></dsh-invoice-details>
 </ng-container>
