@@ -36,7 +36,8 @@ export class CancelInvoiceService {
                 invoiceCancelled$.next();
                 this.snackBar.open(
                     this.transloco.translate('invoices.actions.invoiceCancelled', null, 'operations'),
-                    'OK'
+                    'OK',
+                    { duration: 2000 }
                 );
             });
         return invoiceCancelled$;
