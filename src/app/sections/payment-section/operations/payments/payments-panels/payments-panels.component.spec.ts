@@ -130,10 +130,13 @@ describe('PaymentsPanelsComponent', () => {
     });
 
     describe('expandedIdChange', () => {
-        it('should update expanded id with using changed id', () => {
+        it('should emit output that expanded id changed', () => {
+            const spyOnExpandedIdChanged = spyOn(component.expandedIdChanged, 'emit').and.callThrough();
+
             component.expandedIndexChange(3);
 
-            expect(component.expandedId).toBe(3);
+            expect(spyOnExpandedIdChanged).toHaveBeenCalledTimes(1);
+            expect(spyOnExpandedIdChanged).toHaveBeenCalledWith(3);
         });
     });
 });

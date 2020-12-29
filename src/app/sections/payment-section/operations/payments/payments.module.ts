@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
+import { NotificationModule } from '@dsh/app/shared/services';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
 import { DEBOUNCE_ACTION_TIME, DEFAULT_DEBOUNCE_ACTION_TIME } from './consts';
@@ -21,6 +22,7 @@ import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manag
         LastUpdatedModule,
         PaymentsPanelsModule,
         FlexLayoutModule,
+        NotificationModule,
     ],
     declarations: [PaymentsComponent],
     providers: [

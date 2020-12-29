@@ -266,6 +266,7 @@ describe('FetchPaymentsService', () => {
             const expected$ = cold('a', {
                 a: [
                     {
+                        id: 'invoiceID_payment_id_0',
                         amount: 20,
                         currency: 'USD',
                         status: PaymentSearchResult.StatusEnum.Pending,
@@ -280,6 +281,7 @@ describe('FetchPaymentsService', () => {
                         payer: null,
                     },
                     {
+                        id: 'invoiceID_payment_id_1',
                         amount: 20,
                         currency: 'USD',
                         status: PaymentSearchResult.StatusEnum.Pending,

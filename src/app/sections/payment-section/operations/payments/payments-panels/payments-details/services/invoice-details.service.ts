@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, ReplaySubject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchService } from '@dsh/api/search';
+import { NotificationService } from '@dsh/app/shared/services';
 import { takeError } from '@dsh/operators';
 
 @UntilDestroy()
@@ -17,11 +16,7 @@ export class InvoiceDetailsService {
 
     private invoiceId$ = new ReplaySubject<string>();
 
-    constructor(
-        private invoiceSearchService: InvoiceSearchService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {
+    constructor(private invoiceSearchService: InvoiceSearchService, private notificationService: NotificationService) {
         this.initInvoice();
         this.initInvoiceErrors();
     }
@@ -32,7 +27,7 @@ export class InvoiceDetailsService {
 
     private initInvoice(): void {
         this.invoice$ = this.invoiceId$.pipe(
-            switchMap((invoiceID) =>
+            switchMap((invoiceID: string) =>
                 this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)
             ),
             shareReplay(1)
@@ -41,8 +36,8 @@ export class InvoiceDetailsService {
 
     private initInvoiceErrors(): void {
         this.error$ = this.invoice$.pipe(takeError, shareReplay(1));
-        this.error$
-            .pipe(untilDestroyed(this))
-            .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+        this.error$.pipe(untilDestroyed(this)).subscribe(() => {
+            this.notificationService.error();
+        });
     }
 }

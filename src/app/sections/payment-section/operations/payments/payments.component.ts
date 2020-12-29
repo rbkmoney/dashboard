@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { pluck, take } from 'rxjs/operators';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { NotificationService } from '@dsh/app/shared/services';
 
 import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
@@ -19,7 +18,7 @@ import { Payment } from './types/payment';
     templateUrl: 'payments.component.html',
 })
 export class PaymentsComponent implements OnInit {
-    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'));
+    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
 
     payments$: Observable<Payment[]> = this.fetchPayments.paymentsList$;
     isLoading$: Observable<boolean> = this.fetchPayments.isLoading$;
@@ -29,18 +28,17 @@ export class PaymentsComponent implements OnInit {
 
     constructor(
         private fetchPayments: FetchPaymentsService,
-        private snackBar: MatSnackBar,
-        private transloco: TranslocoService,
+        private notificationService: NotificationService,
         private route: ActivatedRoute,
         private expandedIdManager: PaymentsExpandedIdManager
     ) {}
 
     ngOnInit(): void {
-        this.realm$.pipe(take(1)).subscribe((realm: PaymentInstitutionRealm) => {
+        this.realm$.subscribe((realm: PaymentInstitutionRealm) => {
             this.fetchPayments.initRealm(realm);
         });
         this.fetchPayments.errors$.pipe(untilDestroyed(this)).subscribe(() => {
-            this.snackBar.open(this.transloco.translate('commonError'), 'OK');
+            this.notificationService.error();
         });
     }
 

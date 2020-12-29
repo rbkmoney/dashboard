@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { instance, mock, verify } from 'ts-mockito';
 
-import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { Invoice } from '@dsh/api-codegen/capi';
 
+import { generateMockPayment } from '../../tests/generate-mock-payment';
 import { Payment } from '../../types/payment';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { InvoiceDetailsService } from './services/invoice-details.service';
@@ -25,7 +26,7 @@ class MockPaymentInvoiceInfoComponent {
     @Input() invoice: Invoice;
 }
 
-describe('PaymentDetailInfoComponent', () => {
+describe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;
@@ -59,22 +60,9 @@ describe('PaymentDetailInfoComponent', () => {
 
     describe('ngOnChanges', () => {
         beforeEach(() => {
-            component.payment = {
-                amount: 20,
-                currency: 'USD',
-                status: PaymentSearchResult.StatusEnum.Pending,
-                statusChangedAt: new Date().toDateString(),
+            component.payment = generateMockPayment({
                 invoiceID: 'test_invoiceID',
-                shopName: 'my_name_1',
-                paymentID: 'payment_id_1',
-                fee: 20,
-                payer: {
-                    payerType: 'mine',
-                    paymentToolDetails: {
-                        detailsType: 'mine',
-                    },
-                },
-            };
+            });
             fixture.detectChanges();
         });
 
