@@ -1,21 +1,73 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
 import { pluck, take } from 'rxjs/operators';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 
+import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
+import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
+import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
+import { Payment } from './types/payment';
+
+@UntilDestroy()
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
 })
 export class PaymentsComponent implements OnInit {
-    realm: PaymentInstitutionRealm;
+    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'));
 
-    constructor(private route: ActivatedRoute) {}
+    payments$: Observable<Payment[]> = this.fetchPayments.paymentsList$;
+    isLoading$: Observable<boolean> = this.fetchPayments.isLoading$;
+    hasMoreElements$: Observable<boolean> = this.fetchPayments.hasMore$;
+    lastUpdated$: Observable<string> = this.fetchPayments.lastUpdated$;
+    expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
+
+    constructor(
+        private fetchPayments: FetchPaymentsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService,
+        private route: ActivatedRoute,
+        private expandedIdManager: PaymentsExpandedIdManager
+    ) {}
 
     ngOnInit(): void {
-        this.route.params.pipe(pluck('realm'), take(1)).subscribe((realm: PaymentInstitutionRealm) => {
-            this.realm = realm;
+        this.realm$.pipe(take(1)).subscribe((realm: PaymentInstitutionRealm) => {
+            this.fetchPayments.initRealm(realm);
+        });
+        this.fetchPayments.errors$.pipe(untilDestroyed(this)).subscribe(() => {
+            this.snackBar.open(this.transloco.translate('commonError'), 'OK');
+        });
+    }
+
+    refreshList(): void {
+        this.fetchPayments.refresh();
+    }
+
+    requestNextPage(): void {
+        this.fetchPayments.fetchMore();
+    }
+
+    filtersChanged(filtersData: PaymentsFiltersData): void {
+        this.requestList(filtersData);
+    }
+
+    expandedIdChange(id: number): void {
+        this.expandedIdManager.expandedIdChange(id);
+    }
+
+    private requestList({ daterange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
+        this.fetchPayments.search({
+            date: {
+                begin: daterange.begin,
+                end: daterange.end,
+            },
+            invoiceIDs,
+            shopIDs,
         });
     }
 }
