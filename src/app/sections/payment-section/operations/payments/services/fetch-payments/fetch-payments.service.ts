@@ -11,7 +11,7 @@ import { ApiShopsService } from '@dsh/api/shop';
 import { getShopNameById } from '@dsh/api/shop/utils';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
-import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
+import { booleanDebounceTime, mapToTimestamp, SHARE_REPLAY_CONF } from '@dsh/operators';
 
 import { toMinor } from '../../../../../../../utils';
 import { PartialFetcher } from '../../../../../partial-fetcher';
@@ -29,7 +29,8 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 
     paymentsList$: Observable<Payment[]> = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
-        map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops))
+        map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops)),
+        shareReplay(SHARE_REPLAY_CONF)
     );
 
     private realm$ = new ReplaySubject<PaymentInstitutionRealm>(1);

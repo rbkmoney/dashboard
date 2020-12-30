@@ -8,6 +8,7 @@ import { Invoice } from '@dsh/api-codegen/capi';
     styleUrls: ['payment-invoice-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
+// TODO: implement dump component for this + shared one for operations
 export class PaymentInvoiceInfoComponent {
     @Input() invoice: Invoice;
 }

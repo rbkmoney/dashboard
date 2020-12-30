@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import isNil from 'lodash.isnil';
 
 import { Payment } from '../../../types/payment';
 
@@ -10,8 +9,4 @@ import { Payment } from '../../../types/payment';
 })
 export class PaymentsRowComponent {
     @Input() payment: Payment;
-
-    get isPaymentExist(): boolean {
-        return !isNil(this.payment);
-    }
 }

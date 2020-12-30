@@ -4,7 +4,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { NotificationModule } from '@dsh/app/shared/services';
+import { ErrorModule } from '@dsh/app/shared/services';
 
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentInvoiceInfoModule } from './payment-invoice-info';
@@ -19,7 +19,7 @@ import { InvoiceDetailsService } from './services/invoice-details.service';
         PaymentInvoiceInfoModule,
         MatDividerModule,
         PaymentMainInfoModule,
-        NotificationModule,
+        ErrorModule,
     ],
     declarations: [PaymentDetailsComponent],
     exports: [PaymentDetailsComponent],

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { NotificationModule } from '@dsh/app/shared/services';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
@@ -11,8 +12,6 @@ import { PaymentsFiltersModule } from './payments-filters';
 import { PaymentsPanelsModule } from './payments-panels';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsComponent } from './payments.component';
-import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
-import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
 
 @NgModule({
     imports: [
@@ -26,13 +25,12 @@ import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manag
     ],
     declarations: [PaymentsComponent],
     providers: [
-        FetchPaymentsService,
-        PaymentsExpandedIdManager,
         {
             provide: DEBOUNCE_ACTION_TIME,
             useValue: DEFAULT_DEBOUNCE_ACTION_TIME,
         },
         { provide: TRANSLOCO_SCOPE, useValue: 'main' },
+        { provide: SEARCH_LIMIT, useValue: 5 },
     ],
 })
 export class PaymentsModule {}

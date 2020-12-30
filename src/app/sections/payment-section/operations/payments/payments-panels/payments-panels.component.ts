@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import isEmpty from 'lodash.isempty';
+
 
 import { Payment } from '../types/payment';
 
 @Component({
     selector: 'dsh-payments-panels',
     templateUrl: 'payments-panels.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsPanelsComponent {
     @Input() list: Payment[];
@@ -25,7 +27,6 @@ export class PaymentsPanelsComponent {
     }
 
     expandedIndexChange(id: number): void {
-        // this.expandedId = id;
         this.expandedIdChanged.emit(id);
     }
 }

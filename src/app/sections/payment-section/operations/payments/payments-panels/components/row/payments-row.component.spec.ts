@@ -8,6 +8,7 @@ import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { BalanceModule } from '@dsh/app/shared/components/balance/balance.module';
 import { RowModule } from '@dsh/components/layout';
 
+import { generateMockPayment } from '../../../tests/generate-mock-payment';
 import { PaymentStatusModule } from '../../payment-status';
 import { PaymentsRowComponent } from './payments-row.component';
 
@@ -70,7 +71,7 @@ describe('PaymentsRowComponent', () => {
 
         it('should show balances component if shop was provided', () => {
             const date = moment();
-            component.payment = {
+            component.payment = generateMockPayment({
                 amount: 20,
                 currency: 'USD',
                 status: PaymentSearchResult.StatusEnum.Pending,
@@ -78,7 +79,7 @@ describe('PaymentsRowComponent', () => {
                 invoiceID: 'id',
                 shopName: 'My Shop',
                 paymentID: 'id',
-            } as any;
+            });
 
             fixture.detectChanges();
 

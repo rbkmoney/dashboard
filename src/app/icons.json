@@ -1,4 +1,5 @@
 [
+    "Vector",
     "account",
     "add",
     "apple_pay",
@@ -21,6 +22,7 @@
     "input",
     "keyboard_arrow_down",
     "keyboard_arrow_up",
+    "launch",
     "logo",
     "logo_white",
     "mastercard",

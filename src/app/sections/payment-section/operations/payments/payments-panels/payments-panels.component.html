@@ -1,9 +1,17 @@
 <div fxLayout="column" fxLayoutGap="16px">
     <dsh-payments-row-header></dsh-payments-row-header>
-    <ng-container *ngIf="isEmptyList && !isLoading; else panels">
-        <dsh-empty-search-result></dsh-empty-search-result>
+    <ng-container *ngTemplateOutlet="panels"></ng-container>
+    <ng-container *ngIf="!isLoading; else loading">
+        <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"> </dsh-show-more-panel>
+        <dsh-empty-search-result *ngIf="isEmptyList"></dsh-empty-search-result>
     </ng-container>
 </div>
+
+<ng-template #loading>
+    <div fxLayout fxFlexAlign="center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+</ng-template>
 
 <ng-template #panels>
     <dsh-accordion
@@ -12,7 +20,7 @@
         [expanded]="expandedId"
         (expandedChange)="expandedIndexChange($event)"
     >
-        <dsh-accordion-item #accordionItem *ngFor="let item of list; index as i">
+        <dsh-accordion-item *ngFor="let item of list; index as i" #accordionItem>
             <dsh-payments-row [payment]="item"></dsh-payments-row>
             <ng-template dshLazyPanelContent>
                 <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
@@ -27,10 +35,4 @@
             </ng-template>
         </dsh-accordion-item>
     </dsh-accordion>
-    <ng-container *ngIf="isLoading">
-        <div fxLayout fxFlexAlign="center">
-            <dsh-spinner></dsh-spinner>
-        </div>
-    </ng-container>
-    <dsh-show-more-panel *ngIf="hasMore && !isLoading" (showMore)="showMoreElements()"> </dsh-show-more-panel>
 </ng-template>

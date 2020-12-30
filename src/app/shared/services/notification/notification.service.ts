@@ -16,16 +16,6 @@ export class NotificationService {
         return this.openSnackBar(message);
     }
 
-    httpError(message: string = this.transloco.translate('notification.httpError')): MatSnackBarRef<SimpleSnackBar> {
-        return this.openSnackBar(message);
-    }
-
-    unknownError(
-        message: string = this.transloco.translate('notification.unknownError')
-    ): MatSnackBarRef<SimpleSnackBar> {
-        return this.openSnackBar(message);
-    }
-
     private openSnackBar(message: string, config: MatSnackBarConfig<unknown> = {}): MatSnackBarRef<SimpleSnackBar> {
         return this.snackBar.open(message, this.transloco.translate('notification.ok'), {
             duration: DEFAULT_DURATION_MS,

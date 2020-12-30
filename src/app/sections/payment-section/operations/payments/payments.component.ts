@@ -16,6 +16,7 @@ import { Payment } from './types/payment';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
+    providers: [FetchPaymentsService, PaymentsExpandedIdManager],
 })
 export class PaymentsComponent implements OnInit {
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));

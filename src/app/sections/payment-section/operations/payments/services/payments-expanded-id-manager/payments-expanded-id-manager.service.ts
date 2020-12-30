@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ExpandedIdManager } from '@dsh/app/shared/services';
+import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 
 import { Payment } from '../../types/payment';
 import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
@@ -17,6 +17,10 @@ export class PaymentsExpandedIdManager extends ExpandedIdManager<Payment> {
         private paymentsService: FetchPaymentsService
     ) {
         super(route, router);
+    }
+
+    protected toFragment({ paymentID, invoiceID }: Payment): Fragment {
+        return `${invoiceID}${paymentID}`;
     }
 
     protected fragmentNotFound(): void {
