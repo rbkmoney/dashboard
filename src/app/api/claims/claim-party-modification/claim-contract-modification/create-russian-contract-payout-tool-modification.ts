@@ -1,8 +1,8 @@
-import { PartyModification } from '@dsh/api-codegen/claim-management';
-import { PayoutToolInfo } from '@dsh/api-codegen/dark-api';
+import { PartyModification, PayoutToolInfo, PayoutToolModification } from '@dsh/api-codegen/claim-management';
 
 import { RussianShopCreateData } from '../../../../sections/payment-section/integrations/shops/shop-creation/create-russian-shop-entity/types/russian-shop-create-data';
 import { createContractPayoutToolModification } from './create-contract-payout-tool-modification';
+import PayoutToolModificationTypeEnum = PayoutToolModification.PayoutToolModificationTypeEnum;
 
 export function createRussianContractPayoutToolModification(
     id: string,
@@ -14,6 +14,7 @@ export function createRussianContractPayoutToolModification(
             symbolicCode: 'RUB',
         },
         toolInfo: {
+            payoutToolModificationType: PayoutToolModificationTypeEnum.Creation,
             payoutToolType: PayoutToolInfo.PayoutToolTypeEnum.RussianBankAccount,
             ...params,
         },

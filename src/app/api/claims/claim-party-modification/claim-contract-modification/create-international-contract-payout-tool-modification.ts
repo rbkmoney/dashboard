@@ -1,6 +1,13 @@
 import { createContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification';
 
-import { InternationalBankAccount, PartyModification } from '../../../../api-codegen/claim-management';
+import {
+    InternationalBankAccount,
+    PartyModification,
+    PayoutToolInfo,
+    PayoutToolModification,
+} from '../../../../api-codegen/claim-management';
+import PayoutToolTypeEnum = PayoutToolInfo.PayoutToolTypeEnum;
+import PayoutToolModificationTypeEnum = PayoutToolModification.PayoutToolModificationTypeEnum;
 
 export function createInternationalContractPayoutToolModification(
     id: string,
@@ -12,9 +19,9 @@ export function createInternationalContractPayoutToolModification(
             symbolicCode: 'USD',
         },
         toolInfo: {
-            payoutToolModificationType: 'PayoutToolParams',
-            payoutToolType: 'InternationalBankAccount', // not available in interfaces now. Can be found in swag
+            payoutToolModificationType: PayoutToolModificationTypeEnum.Creation,
+            payoutToolType: PayoutToolTypeEnum.InternationalBankAccount,
             ...params,
-        } as any,
+        },
     });
 }

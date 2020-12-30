@@ -9,7 +9,6 @@ import {
     createContractorParamsModification,
     createInternationalLegalEntityModification,
     createShopCreationModification,
-    makeShopDetails,
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
@@ -83,15 +82,14 @@ export class CreateInternationalShopEntityService {
             }),
             createShopCreationModification(shopID, {
                 category: {
-                    shopModificationType: 'CategoryRef',
-                    id: 1,
+                    categoryID: 1,
                 },
                 location: makeShopLocation({
                     url,
                 }),
-                details: makeShopDetails({
+                details: {
                     name,
-                }),
+                },
                 payoutToolID,
                 contractID,
             }),
