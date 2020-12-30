@@ -2,8 +2,8 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { LAYOUT_GAP } from '../../constants';
 import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';
+import { LAYOUT_GAP } from '../../tokens';
 import { PaymentsService } from './payments.service';
 
 @Component({
