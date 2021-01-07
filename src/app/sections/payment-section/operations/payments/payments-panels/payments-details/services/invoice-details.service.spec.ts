@@ -6,18 +6,18 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { InvoiceStatus } from '@dsh/api-codegen/capi';
 import { InvoiceSearchService } from '@dsh/api/search';
-import { NotificationService } from '@dsh/app/shared/services/notification';
+import { ErrorService } from '@dsh/app/shared/services';
 
 import { InvoiceDetailsService } from './invoice-details.service';
 
 describe('InvoiceDetailsService', () => {
     let service: InvoiceDetailsService;
     let mockInvoiceSearchService: InvoiceSearchService;
-    let mockNotificationService: NotificationService;
+    let mockErrorService: ErrorService;
 
     beforeEach(() => {
         mockInvoiceSearchService = mock(InvoiceSearchService);
-        mockNotificationService = mock(NotificationService);
+        mockErrorService = mock(ErrorService);
     });
 
     beforeEach(() => {
@@ -29,9 +29,9 @@ describe('InvoiceDetailsService', () => {
                     useFactory: () => instance(mockInvoiceSearchService),
                 },
                 {
-                    provide: NotificationService,
-                    useFactory: () => instance(mockNotificationService),
-                },
+                    provide: ErrorService,
+                    useFactory: () => instance(mockErrorService),
+                }
             ],
         });
         service = TestBed.inject(InvoiceDetailsService);
@@ -95,7 +95,7 @@ describe('InvoiceDetailsService', () => {
         });
 
         it('should notify about errors inside service', () => {
-            verify(mockNotificationService.error()).once();
+            verify(mockErrorService.error(deepEqual(testError))).once();
             expect().nothing();
         });
     });

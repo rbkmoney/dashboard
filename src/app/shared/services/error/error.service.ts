@@ -11,7 +11,6 @@ export class ErrorService {
     constructor(private notificationService: NotificationService, private transloco: TranslocoService) {}
 
     error(error: Error | any, message?: string): MatSnackBarRef<SimpleSnackBar> {
-        // TODO: parse error by instance for error clarification (message)
         if (error instanceof TypeError) {
             return this.notificationService.error(this.transloco.translate('notification.error'));
         }

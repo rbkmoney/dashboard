@@ -45,7 +45,7 @@ describe('PaymentsExpandedIdManager', () => {
     describe('expandedId$', () => {
         it('should return index position in payments list using fragment id', () => {
             when(mockFetchPaymentsService.paymentsList$).thenReturn(of(generateMockPaymentsList(3)));
-            when(mockActivatedRoute.fragment).thenReturn(of('invoiceID_mock_payment_1'));
+            when(mockActivatedRoute.fragment).thenReturn(of('invoiceIDmock_payment_1'));
             service = TestBed.inject(PaymentsExpandedIdManager);
 
             expect(service.expandedId$).toBeObservable(

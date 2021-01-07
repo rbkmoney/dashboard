@@ -54,6 +54,7 @@ describe('PaymentsRowComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentsRowComponent);
         component = fixture.componentInstance;
+        component.payment = generateMockPayment();
         fixture.detectChanges();
     });
 
@@ -62,13 +63,6 @@ describe('PaymentsRowComponent', () => {
     });
 
     describe('template', () => {
-        it('should show loading value if shop was not provided', () => {
-            const labels = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-label'));
-
-            expect(labels.length).toBe(1);
-            expect(labels[0].nativeElement.textContent.trim()).toBe('Loading ...');
-        });
-
         it('should show balances component if shop was provided', () => {
             const date = moment();
             component.payment = generateMockPayment({

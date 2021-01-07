@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import isEmpty from 'lodash.isempty';
 
-
 import { Payment } from '../types/payment';
 
 @Component({

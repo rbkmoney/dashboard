@@ -93,7 +93,13 @@ describe('PaymentsComponent', () => {
                     useFactory: () => instance(mockPaymentsExpandedIdManager),
                 },
             ],
-        }).compileComponents();
+        })
+            .overrideComponent(PaymentsComponent, {
+                set: {
+                    providers: [],
+                },
+            })
+            .compileComponents();
     }
 
     async function createComponent() {

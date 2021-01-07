@@ -68,28 +68,4 @@ describe('NotificationService', () => {
             expect().nothing();
         });
     });
-
-    describe('httpError', () => {
-        it('should open httpError snackbar', () => {
-            service.httpError();
-
-            verify(
-                mockMatSnackBar.open(
-                    'Произошла ошибка в процессе передачи / получения данных',
-                    'OK',
-                    deepEqual({ duration: 3000 })
-                )
-            ).once();
-            expect().nothing();
-        });
-    });
-
-    describe('unknownError', () => {
-        it('should open unknownError snackbar', () => {
-            service.unknownError();
-
-            verify(mockMatSnackBar.open('Неизвестная ошибка', 'OK', deepEqual({ duration: 3000 }))).once();
-            expect().nothing();
-        });
-    });
 });
