@@ -8,6 +8,7 @@ export interface Payment {
     statusChangedAt: string;
     invoiceID: string;
     paymentID: string;
+    shopID: string;
     shopName: string;
     fee: number;
     payer: Payer & { paymentToolDetails: PaymentToolDetails };

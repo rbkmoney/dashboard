@@ -104,6 +104,7 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
                     status,
                     currency,
                     invoiceID,
+                    shopID,
                     statusChangedAt: statusChangedAt as any,
                     fee,
                     externalID,

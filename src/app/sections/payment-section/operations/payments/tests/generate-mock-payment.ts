@@ -11,6 +11,7 @@ export function generateMockPayment(data: Partial<Payment> = {}): Payment {
         status: PaymentSearchResult.StatusEnum.Pending,
         statusChangedAt: new Date().toDateString(),
         invoiceID: 'invoiceID',
+        shopID: 'shopID',
         shopName: 'shopName',
         fee: 0,
         payer: {

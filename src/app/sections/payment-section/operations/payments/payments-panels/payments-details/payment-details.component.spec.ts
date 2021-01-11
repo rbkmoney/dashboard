@@ -26,7 +26,7 @@ class MockPaymentInvoiceInfoComponent {
     @Input() invoice: Invoice;
 }
 
-describe('PaymentDetailsComponent', () => {
+xdescribe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;

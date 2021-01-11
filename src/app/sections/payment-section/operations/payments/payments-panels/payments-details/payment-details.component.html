@@ -4,4 +4,11 @@
         <mat-divider></mat-divider>
         <dsh-payment-invoice-info [invoice]="invoice"></dsh-payment-invoice-info>
     </ng-container>
+    <dsh-refunds
+        [invoiceID]="payment.invoiceID"
+        [paymentID]="payment.id"
+        [shopID]="payment.shopID"
+        [currency]="payment.currency"
+        [maxRefundAmount]="payment.amount"
+    ></dsh-refunds>
 </div>

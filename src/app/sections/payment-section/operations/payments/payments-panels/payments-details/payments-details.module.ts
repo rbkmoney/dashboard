@@ -9,6 +9,7 @@ import { ErrorModule } from '@dsh/app/shared/services';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentInvoiceInfoModule } from './payment-invoice-info';
 import { PaymentMainInfoModule } from './payment-main-info';
+import { RefundsModule } from './refunds';
 import { InvoiceDetailsService } from './services/invoice-details.service';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { InvoiceDetailsService } from './services/invoice-details.service';
         MatDividerModule,
         PaymentMainInfoModule,
         ErrorModule,
+        RefundsModule,
     ],
     declarations: [PaymentDetailsComponent],
     exports: [PaymentDetailsComponent],
