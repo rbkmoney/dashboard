@@ -31,7 +31,7 @@ describe('InvoiceDetailsService', () => {
                 {
                     provide: ErrorService,
                     useFactory: () => instance(mockErrorService),
-                }
+                },
             ],
         });
         service = TestBed.inject(InvoiceDetailsService);
