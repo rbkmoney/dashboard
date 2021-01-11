@@ -1,21 +1,27 @@
-import { ContractModification, PartyModification, PayoutToolParams } from '@dsh/api-codegen/claim-management';
-// import { PayoutToolParams } from '@dsh/api-codegen/dark-api';
+import {
+    ContractModification,
+    ContractPayoutToolModification,
+    PartyModification,
+} from '@dsh/api-codegen/claim-management';
 
 import { createBaseContractModification } from './create-base-contract-modification';
 
 export function createContractPayoutToolModification(
     id: string,
     payoutToolID: string,
-    params: Omit<PayoutToolParams, 'payoutToolModificationType'>
+    params: Omit<ContractPayoutToolModification, 'payoutToolModificationType'>
 ): PartyModification {
     return {
         ...createBaseContractModification({
             id,
             modification: {
-                contractModificationType: ContractModification.ContractModificationTypeEnum.PayoutToolModificationUnit,
+                contractModificationType:
+                    ContractModification.ContractModificationTypeEnum.ContractPayoutToolModificationUnit,
                 payoutToolID,
                 modification: {
-                    payoutToolModificationType: 'PayoutToolParams', // api generates wrong enum
+                    payoutToolModificationType:
+                        ContractPayoutToolModification.PayoutToolModificationTypeEnum
+                            .ContractPayoutToolCreationModification,
                     ...params,
                 },
             } as ContractModification,

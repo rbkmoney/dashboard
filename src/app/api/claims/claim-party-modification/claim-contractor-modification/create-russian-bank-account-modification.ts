@@ -1,9 +1,10 @@
-import { RussianBankAccount } from '@dsh/api-codegen/claim-management';
+import { PayoutToolInfo, RussianBankAccount } from '@dsh/api-codegen/claim-management';
 
-export function createRussianBankAccountModification(params: RussianBankAccount): RussianBankAccount {
+export function createRussianBankAccountModification(
+    params: Omit<RussianBankAccount, 'payoutToolType'>
+): RussianBankAccount {
     return {
-        payoutToolModificationType: 'RussianBankAccount',
-        payoutToolType: 'RussianBankAccount',
+        payoutToolType: PayoutToolInfo.PayoutToolTypeEnum.RussianBankAccount,
         ...params,
     };
 }

@@ -15,8 +15,7 @@ export function createTestShopCreationModification(
 ): PartyModification {
     return createShopCreationModification(id, {
         category: {
-            shopModificationType: 'CategoryRef',
-            id: 1,
+            categoryID: 1,
         },
         location: makeShopLocation({ url }),
         details: makeShopDetails({ name }),
