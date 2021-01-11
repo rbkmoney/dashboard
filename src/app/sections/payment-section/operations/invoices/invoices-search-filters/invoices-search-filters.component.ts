@@ -4,13 +4,13 @@ import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { Shop } from '@dsh/api-codegen/capi';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
 import { ComponentChanges } from '../../../../../../type-utils';
-import { Invoice } from '../../../../../api-codegen/anapi/swagger-codegen';
-import { Shop } from '../../../../../api-codegen/capi/swagger-codegen';
-import { PaymentInstitutionRealm } from '../../../../../api/model';
-import { ApiShopsService } from '../../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';

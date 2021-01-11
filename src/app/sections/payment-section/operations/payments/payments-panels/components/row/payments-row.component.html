@@ -1,0 +1,10 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <dsh-row-label fxFlex>
+        <dsh-balance [amount]="payment.amount" [currency]="payment.currency"></dsh-balance>
+    </dsh-row-label>
+    <dsh-row-label fxFlex>
+        <dsh-payment-status [status]="payment.status"></dsh-payment-status>
+    </dsh-row-label>
+    <dsh-row-label fxFlex>{{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex fxHide.lt-md>{{ payment.shopName }}</dsh-row-label>
+</dsh-row>

@@ -19,6 +19,7 @@ import { DetailsComponent } from './details/details.component';
 import { StatusDetailsItemComponent } from './details/status-details-item';
 import { InvoiceDetailsRoutingModule } from './invoice-details-routing.module';
 import { InvoiceDetailsComponent } from './invoice-details.component';
+import { InvoiceDetailsService } from './invoice-details.service';
 import { CreatePaymentLinkDialogComponent, PaymentLinkComponent } from './payment-link';
 import { PaymentComponent } from './payments/payment/payment.component';
 import { PaymentsComponent } from './payments/payments.component';
@@ -50,6 +51,6 @@ import { PaymentsComponent } from './payments/payments.component';
         CreatePaymentLinkDialogComponent,
     ],
     exports: [StatusDetailsItemComponent],
-    providers: [InvoiceSearchService, PaymentSearchService],
+    providers: [InvoiceSearchService, PaymentSearchService, InvoiceDetailsService],
 })
 export class InvoiceDetailsModule {}

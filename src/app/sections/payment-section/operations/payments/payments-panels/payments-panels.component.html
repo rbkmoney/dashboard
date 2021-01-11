@@ -1,0 +1,38 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-payments-row-header></dsh-payments-row-header>
+    <ng-container *ngTemplateOutlet="panels"></ng-container>
+    <ng-container *ngIf="!isLoading; else loading">
+        <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"> </dsh-show-more-panel>
+        <dsh-empty-search-result *ngIf="isEmptyList"></dsh-empty-search-result>
+    </ng-container>
+</div>
+
+<ng-template #loading>
+    <div fxLayout fxFlexAlign="center">
+        <dsh-spinner></dsh-spinner>
+    </div>
+</ng-template>
+
+<ng-template #panels>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        [expanded]="expandedId"
+        (expandedChange)="expandedIndexChange($event)"
+    >
+        <dsh-accordion-item *ngFor="let item of list; index as i" #accordionItem>
+            <dsh-payments-row [payment]="item"></dsh-payments-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
+                        <dsh-payment-detail-header
+                            [id]="item.id"
+                            [changedDate]="item.statusChangedAt"
+                        ></dsh-payment-detail-header>
+                    </dsh-accordion-item-content-header>
+                    <dsh-payment-details [payment]="item"></dsh-payment-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</ng-template>

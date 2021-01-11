@@ -1,1 +1,15 @@
-<dsh-payments-list [realm]="realm"></dsh-payments-list>
+<div fxLayout="column" fxLayoutGap="32px">
+    <dsh-payments-filters [realm]="realm$ | async" (filtersChanged)="filtersChanged($event)"></dsh-payments-filters>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refreshList()"> </dsh-last-updated>
+        <dsh-payments-panels
+            [list]="payments$ | async"
+            [isLoading]="isLoading$ | async"
+            [hasMore]="hasMoreElements$ | async"
+            [expandedId]="expandedId$ | async"
+            (showMore)="requestNextPage()"
+            (expandedIdChanged)="expandedIdChange($event)"
+        >
+        </dsh-payments-panels>
+    </div>
+</div>

@@ -3,7 +3,8 @@
         {{ t('title') }}
     </div>
     <div *ngFor="let payment of payments$ | async as payments; index as i" fxLayout="column" fxLayoutGap="24px">
-        <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.id }}</div>
+        <!--        TODO: refactor payments display -->
+        <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.invoiceID + '_' + payment.id }}</div>
         <dsh-payment-details [payment]="payment"></dsh-payment-details>
         <mat-divider *ngIf="i < payments.length - 1"></mat-divider>
     </div>

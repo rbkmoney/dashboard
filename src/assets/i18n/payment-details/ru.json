@@ -88,5 +88,11 @@
     "makeRecurrent": {
         "title": "Платеж является родительским рекуррентным",
         "description": "Успешно проведенный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+    },
+    "additionalInfo": {
+        "title": "Дополнительная информация",
+        "rrn": "Retrieval Reference Number",
+        "approvalCode": "Authorization Approval Code",
+        "externalId": "External ID"
     }
 }
