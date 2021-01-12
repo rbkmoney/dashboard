@@ -26,7 +26,18 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['ChromeHeadless'],
+        browsers: ['ChromeHeadless_no_sandbox'],
+        customLaunchers: {
+          ChromeHeadless_no_sandbox: {
+            base: 'ChromeHeadless',
+            flags: [
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+              '--headless',
+              '--disable-gpu',
+            ],
+          },
+        },
         singleRun: false,
         restartOnFileChange: true,
         specReporter: {

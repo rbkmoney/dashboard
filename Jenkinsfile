@@ -27,6 +27,9 @@ build('dashboard', 'docker-host') {
     runStage('build image') {
       sh 'make build_image'
     }
+    runStage('test fe (karma.js)') {
+      sh 'make test'
+    }
     runFESecurityTools()
     try {
       if (env.BRANCH_NAME == 'master') {
