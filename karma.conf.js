@@ -28,15 +28,10 @@ module.exports = function (config) {
         autoWatch: true,
         browsers: ['ChromeHeadless_no_sandbox'],
         customLaunchers: {
-          ChromeHeadless_no_sandbox: {
-            base: 'ChromeHeadless',
-            flags: [
-              '--no-sandbox',
-              '--disable-setuid-sandbox',
-              '--headless',
-              '--disable-gpu',
-            ],
-          },
+            ChromeHeadless_no_sandbox: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox', '--disable-setuid-sandbox', '--headless', '--disable-gpu'],
+            },
         },
         singleRun: false,
         restartOnFileChange: true,
