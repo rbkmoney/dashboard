@@ -53,4 +53,4 @@ clean:
 	rm -rf dist
 
 test:
-	docker run -name $(SERVICE_NAME)$(RAND)_test --rm -v $(pwd):/usr/src/app:z zenika/alpine-chrome:with-node npm test
+	docker run --name $(SERVICE_NAME)$(RAND)_test --rm -v $(pwd):/usr/src/app:z zenika/alpine-chrome:with-node npm test
