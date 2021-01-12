@@ -33,7 +33,7 @@ module.exports = function (config) {
                 flags: ['--no-sandbox', '--disable-setuid-sandbox', '--headless', '--disable-gpu'],
             },
         },
-        singleRun: false,
+        singleRun: true,
         restartOnFileChange: true,
         specReporter: {
             maxLogLines: 5, // limit number of lines logged per test
