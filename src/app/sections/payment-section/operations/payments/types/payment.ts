@@ -7,7 +7,6 @@ export interface Payment {
     status: PaymentSearchResult.StatusEnum;
     statusChangedAt: string;
     invoiceID: string;
-    paymentID: string;
     shopID: string;
     shopName: string;
     fee: number;

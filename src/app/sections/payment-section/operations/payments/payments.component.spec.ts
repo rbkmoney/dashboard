@@ -49,12 +49,12 @@ describe('PaymentsComponent', () => {
                 generateMockPayment({
                     statusChangedAt: date.toDateString(),
                     shopName: 'my_name_0',
-                    paymentID: 'payment_id_0',
+                    id: 'payment_id_0',
                 }),
                 generateMockPayment({
                     statusChangedAt: date.toDateString(),
                     shopName: 'my_name_1',
-                    paymentID: 'payment_id_1',
+                    id: 'payment_id_1',
                 }),
             ])
         );

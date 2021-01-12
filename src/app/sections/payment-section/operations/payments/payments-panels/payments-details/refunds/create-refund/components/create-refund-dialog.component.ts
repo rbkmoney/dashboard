@@ -1,13 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import isEmpty from 'lodash.isempty';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import isNil from 'lodash.isnil';
+import { combineLatest, Observable } from 'rxjs';
+import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 
-import { Account, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
+import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { amountValidator } from '@dsh/components/form-controls';
@@ -17,7 +19,18 @@ import { AccountsService } from '../services/accounts/accounts.service';
 import { RefundsService } from '../services/refunds/refunds.service';
 import { CreateRefundDialogData } from '../types/create-refund-dialog-data';
 import { CreateRefundDialogResponse } from '../types/create-refund-dialog-response';
+import { CreateRefundDialogResponseStatus } from '../types/create-refund-dialog-response-status';
 import { CreateRefundForm } from '../types/create-refund-form';
+
+interface Balance {
+    amount: number;
+    currency: string;
+}
+
+interface RefundAvailableSum {
+    accountBalance: Balance;
+    refundedAmount: Balance;
+}
 
 @Component({
     selector: 'dsh-create-refund',
@@ -30,7 +43,10 @@ export class CreateRefundDialogComponent implements OnInit {
     });
 
     isPartialRefund = false;
-    account$: Observable<Account>;
+    availableRefundAmount$: Observable<Balance>;
+    amountControl: FormControl<number>;
+
+    balance$: Observable<RefundAvailableSum>;
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
@@ -45,9 +61,35 @@ export class CreateRefundDialogComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const { shopID } = this.dialogData;
+        const { shopID, invoiceID, paymentID, maxRefundAmount, currency } = this.dialogData;
 
-        this.account$ = this.accountService.getAccount(shopID);
+        const account$: Observable<Balance> = this.accountService.getAccount(shopID).pipe(
+            map((account: Account) => {
+                return {
+                    amount: account.availableAmount,
+                    currency: account.currency,
+                };
+            })
+        );
+        this.availableRefundAmount$ = this.refundsService.getRefundedAmountSum(invoiceID, paymentID).pipe(
+            map((refundedSum: number) => maxRefundAmount - refundedSum),
+            map((amount: number) => {
+                return {
+                    amount,
+                    currency,
+                };
+            }),
+            shareReplay(1)
+        );
+
+        this.balance$ = combineLatest([account$, this.availableRefundAmount$]).pipe(
+            map(([accountBalance, refundedAmount]: [Balance, Balance]) => {
+                return {
+                    accountBalance,
+                    refundedAmount,
+                };
+            })
+        );
     }
 
     confirm(): void {
@@ -56,23 +98,30 @@ export class CreateRefundDialogComponent implements OnInit {
 
         this.refundsService
             .createRefund(invoiceID, paymentID, params)
-            .pipe(take(1))
+            .pipe(withLatestFrom(this.availableRefundAmount$), take(1))
             .subscribe(
-                () => {
+                ([refund, { amount }]: [Refund, Balance]) => {
                     this.notificationService.success(
                         this.transloco.translate('refunds.createRefund.successful', null, 'payment-details')
                     );
-                    this.dialogRef.close(CreateRefundDialogResponse.SUCCESS);
+                    this.dialogRef.close({
+                        status: CreateRefundDialogResponseStatus.SUCCESS,
+                        availableAmount: amount - refund.amount,
+                    });
                 },
                 (err: unknown) => {
-                    this.errorService.error(err);
-                    this.dialogRef.close(CreateRefundDialogResponse.ERROR);
+                    this.handleResponseError(err);
+                    this.dialogRef.close({
+                        status: CreateRefundDialogResponseStatus.ERROR,
+                    });
                 }
             );
     }
 
     decline(): void {
-        this.dialogRef.close(CreateRefundDialogResponse.CANCELED);
+        this.dialogRef.close({
+            status: CreateRefundDialogResponseStatus.CANCELED,
+        });
     }
 
     togglePartialRefund(value: boolean): void {
@@ -87,35 +136,50 @@ export class CreateRefundDialogComponent implements OnInit {
 
     private formatRefundParams(): RefundParams {
         const { reason, amount = null } = this.form.value;
-        const amountNum = Number(amount);
         const params: RefundParams = {
             reason,
             currency: this.dialogData.currency,
         };
 
-        if (!isEmpty(amount) && !isNaN(amountNum)) {
-            params.amount = toMinor(amountNum);
+        if (!isNil(amount) && !isNaN(amount)) {
+            params.amount = toMinor(amount);
         }
 
         return params;
     }
 
     private addAmountControl(): void {
-        this.form.addControl(
-            'amount',
-            this.fb.control(null, [
-                Validators.required,
-                amountValidator,
-                Validators.min(1),
-                Validators.max(toMajor(this.dialogData.maxRefundAmount)),
-            ])
-        );
+        this.availableRefundAmount$.pipe(take(1)).subscribe(({ amount }) => {
+            this.form.addControl(
+                'amount',
+                this.fb.control(null, [
+                    Validators.required,
+                    amountValidator,
+                    Validators.min(1),
+                    Validators.max(toMajor(amount)),
+                ])
+            );
+            this.updateAmountControl();
+        });
     }
 
     private removeAmountControl(): void {
-        // TODO: fix this hack
-        setTimeout(() => {
-            this.form.removeControl('amount');
-        }, 0);
+        this.form.removeControl('amount');
+        this.updateAmountControl();
+    }
+
+    private updateAmountControl(): void {
+        const { amount = null } = this.form.controls;
+        this.amountControl = amount;
+    }
+
+    private handleResponseError(err: unknown | Error): void {
+        if (err instanceof HttpErrorResponse && !isEmpty(err.error?.code)) {
+            this.notificationService.error(
+                this.transloco.translate(`refunds.errors.${err.error.code}`, null, 'payment-details')
+            );
+            return;
+        }
+        this.errorService.error(err);
     }
 }

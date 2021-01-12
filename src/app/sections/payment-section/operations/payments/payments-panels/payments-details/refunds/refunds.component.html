@@ -3,6 +3,8 @@
         <div>
             {{ t('title') }}
         </div>
-        <button dsh-button color="accent" (click)="createRefund()">{{ t('createRefund.title') }}</button>
+        <button dsh-button color="accent" [disabled]="!isRefundAvailable" (click)="createRefund()">
+            {{ t('createRefund.title') }}
+        </button>
     </div>
 </div>

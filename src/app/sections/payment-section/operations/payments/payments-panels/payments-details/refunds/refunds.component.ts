@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
-import { CreateRefundDialogResponse, CreateRefundService } from './create-refund';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+
+import { CreateRefundDialogResponse, CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 
 @Component({
@@ -16,8 +18,15 @@ export class RefundsComponent {
     @Input() shopID: string;
     @Input() currency: string;
     @Input() maxRefundAmount: number;
+    @Input() status: PaymentSearchResult.StatusEnum;
+
+    @Output() statusChanged = new EventEmitter<void>();
 
     constructor(private refundsService: FetchRefundsService, private createRefundService: CreateRefundService) {}
+
+    get isRefundAvailable(): boolean {
+        return this.status === PaymentSearchResult.StatusEnum.Captured;
+    }
 
     createRefund(): void {
         this.createRefundService
@@ -30,10 +39,13 @@ export class RefundsComponent {
             })
             .pipe(
                 take(1),
-                filter((response: CreateRefundDialogResponse) => response === CreateRefundDialogResponse.SUCCESS)
+                filter(({ status }: CreateRefundDialogResponse) => status === CreateRefundDialogResponseStatus.SUCCESS)
             )
-            .subscribe(() => {
+            .subscribe(({ availableAmount }) => {
                 this.updateRefunds();
+                if (availableAmount === 0) {
+                    this.statusChanged.emit();
+                }
             });
     }
 

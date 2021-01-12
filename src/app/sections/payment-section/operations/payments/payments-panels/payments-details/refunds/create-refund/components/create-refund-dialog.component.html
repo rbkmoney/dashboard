@@ -13,12 +13,15 @@
             <mat-checkbox [checked]="isPartialRefund" (change)="togglePartialRefund(!isPartialRefund)">{{
                 t('partialRefund')
             }}</mat-checkbox>
-            <mat-form-field *ngIf="isPartialRefund">
+            <mat-form-field *ngIf="isPartialRefund && amountControl">
                 <mat-label>{{ t('amount') }}</mat-label>
-                <dsh-format-input formControlName="amount" format="amount" required></dsh-format-input>
-                <mat-hint *ngIf="account$ | async as account">
+                <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
+                <mat-hint *ngIf="balance$ | async as balance">
+                    {{ t('availableRefund') }}
+                    : {{ balance.refundedAmount.amount | toMajor | currency: balance.refundedAmount.currency }}
+                    <br />
                     {{ t('balance') }}
-                    : {{ account.availableAmount | toMajor | currency: account.currency }}
+                    : {{ balance.accountBalance.amount | toMajor | currency: balance.accountBalance.currency }}
                 </mat-hint>
             </mat-form-field>
         </div>

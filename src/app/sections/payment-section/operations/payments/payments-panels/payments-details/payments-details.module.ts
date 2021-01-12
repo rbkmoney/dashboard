@@ -10,7 +10,7 @@ import { PaymentDetailsComponent } from './payment-details.component';
 import { PaymentInvoiceInfoModule } from './payment-invoice-info';
 import { PaymentMainInfoModule } from './payment-main-info';
 import { RefundsModule } from './refunds';
-import { InvoiceDetailsService } from './services/invoice-details.service';
+import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
 @NgModule({
     imports: [

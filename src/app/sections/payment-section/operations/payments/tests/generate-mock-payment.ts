@@ -4,8 +4,7 @@ import { Payment } from '../types/payment';
 
 export function generateMockPayment(data: Partial<Payment> = {}): Payment {
     return {
-        id: 'invoiceID_paymentID',
-        paymentID: 'paymentID',
+        id: 'paymentID',
         amount: 0,
         currency: 'USD',
         status: PaymentSearchResult.StatusEnum.Pending,

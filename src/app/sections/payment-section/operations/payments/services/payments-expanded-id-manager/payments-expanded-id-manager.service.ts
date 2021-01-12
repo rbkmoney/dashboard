@@ -19,8 +19,8 @@ export class PaymentsExpandedIdManager extends ExpandedIdManager<Payment> {
         super(route, router);
     }
 
-    protected toFragment({ paymentID, invoiceID }: Payment): Fragment {
-        return `${invoiceID}${paymentID}`;
+    protected toFragment({ id, invoiceID }: Payment): Fragment {
+        return `${invoiceID}${id}`;
     }
 
     protected fragmentNotFound(): void {

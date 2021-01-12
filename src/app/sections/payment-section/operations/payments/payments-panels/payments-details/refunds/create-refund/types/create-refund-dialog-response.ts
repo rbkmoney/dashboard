@@ -1,5 +1,6 @@
-export enum CreateRefundDialogResponse {
-    SUCCESS = 'success',
-    ERROR = 'error',
-    CANCELED = 'canceled',
+import { CreateRefundDialogResponseStatus } from './create-refund-dialog-response-status';
+
+export interface CreateRefundDialogResponse {
+    status: CreateRefundDialogResponseStatus;
+    availableAmount?: number;
 }

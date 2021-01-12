@@ -8,7 +8,7 @@ import { Invoice } from '@dsh/api-codegen/capi';
 import { generateMockPayment } from '../../tests/generate-mock-payment';
 import { Payment } from '../../types/payment';
 import { PaymentDetailsComponent } from './payment-details.component';
-import { InvoiceDetailsService } from './services/invoice-details.service';
+import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
 @Component({
     selector: 'dsh-payment-main-info',

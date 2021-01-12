@@ -1,1 +1,1 @@
-export * from './uuid-generator.module';
+export * from './id-generator.module';

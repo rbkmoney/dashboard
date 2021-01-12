@@ -10,5 +10,7 @@
         [shopID]="payment.shopID"
         [currency]="payment.currency"
         [maxRefundAmount]="payment.amount"
+        [status]="payment.status"
+        (statusChanged)="updateStatus(payment)"
     ></dsh-refunds>
 </div>
