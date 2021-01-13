@@ -36,7 +36,8 @@ export class FulfillInvoiceService {
                 invoiceFulfilled$.next();
                 this.snackBar.open(
                     this.transloco.translate('invoices.actions.invoiceFulfilled', null, 'operations'),
-                    'OK'
+                    'OK',
+                    { duration: 2000 }
                 );
             });
         return invoiceFulfilled$;
