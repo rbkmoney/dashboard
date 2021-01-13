@@ -16,13 +16,18 @@
             <mat-form-field *ngIf="isPartialRefund && amountControl">
                 <mat-label>{{ t('amount') }}</mat-label>
                 <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
-                <mat-hint *ngIf="balance$ | async as balance">
+                <mat-hint *ngIf="balance$ | async as balance; else loadingBalanceHint">
                     {{ t('availableRefund') }}
                     : {{ balance.refundedAmount.amount | toMajor | currency: balance.refundedAmount.currency }}
                     <br />
                     {{ t('balance') }}
                     : {{ balance.accountBalance.amount | toMajor | currency: balance.accountBalance.currency }}
                 </mat-hint>
+                <ng-template #loadingBalanceHint>
+                    <mat-hint>
+                        {{ t('balanceLoading') }}
+                    </mat-hint>
+                </ng-template>
             </mat-form-field>
         </div>
     </form>

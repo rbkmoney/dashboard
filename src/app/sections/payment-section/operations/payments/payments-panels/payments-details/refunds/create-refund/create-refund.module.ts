@@ -13,7 +13,7 @@ import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 
-import { CreateRefundDialogComponent } from './components/create-refund-dialog.component';
+import { CreateRefundDialogComponent } from './components/create-refund-dialog/create-refund-dialog.component';
 import { CreateRefundService } from './create-refund.service';
 
 @NgModule({

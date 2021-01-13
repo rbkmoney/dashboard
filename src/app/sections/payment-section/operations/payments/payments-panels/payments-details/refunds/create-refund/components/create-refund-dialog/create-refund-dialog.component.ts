@@ -13,24 +13,17 @@ import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-cod
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { amountValidator } from '@dsh/components/form-controls';
+import { toMajor, toMinor } from '@dsh/utils';
 
-import { toMajor, toMinor } from '../../../../../../../../../../utils';
-import { AccountsService } from '../services/accounts/accounts.service';
-import { RefundsService } from '../services/refunds/refunds.service';
-import { CreateRefundDialogData } from '../types/create-refund-dialog-data';
-import { CreateRefundDialogResponse } from '../types/create-refund-dialog-response';
-import { CreateRefundDialogResponseStatus } from '../types/create-refund-dialog-response-status';
-import { CreateRefundForm } from '../types/create-refund-form';
-
-interface Balance {
-    amount: number;
-    currency: string;
-}
-
-interface RefundAvailableSum {
-    accountBalance: Balance;
-    refundedAmount: Balance;
-}
+import { AccountsService } from '../../services/accounts/accounts.service';
+import { RefundsService } from '../../services/refunds/refunds.service';
+import { Balance } from '../../types/balance';
+import { CreateRefundDialogData } from '../../types/create-refund-dialog-data';
+import { CreateRefundDialogResponse } from '../../types/create-refund-dialog-response';
+import { CreateRefundDialogResponseStatus } from '../../types/create-refund-dialog-response-status';
+import { CreateRefundForm } from '../../types/create-refund-form';
+import { RefundAvailableSum } from '../../types/refund-available-sum';
+import { maxAvailableAmountValidator } from '../../validators/max-available-amount-validator';
 
 @Component({
     selector: 'dsh-create-refund',
@@ -61,35 +54,8 @@ export class CreateRefundDialogComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const { shopID, invoiceID, paymentID, maxRefundAmount, currency } = this.dialogData;
-
-        const account$: Observable<Balance> = this.accountService.getAccount(shopID).pipe(
-            map((account: Account) => {
-                return {
-                    amount: account.availableAmount,
-                    currency: account.currency,
-                };
-            })
-        );
-        this.availableRefundAmount$ = this.refundsService.getRefundedAmountSum(invoiceID, paymentID).pipe(
-            map((refundedSum: number) => maxRefundAmount - refundedSum),
-            map((amount: number) => {
-                return {
-                    amount,
-                    currency,
-                };
-            }),
-            shareReplay(1)
-        );
-
-        this.balance$ = combineLatest([account$, this.availableRefundAmount$]).pipe(
-            map(([accountBalance, refundedAmount]: [Balance, Balance]) => {
-                return {
-                    accountBalance,
-                    refundedAmount,
-                };
-            })
-        );
+        this.initAvailableRefundAmount();
+        this.initBalance();
     }
 
     confirm(): void {
@@ -134,11 +100,51 @@ export class CreateRefundDialogComponent implements OnInit {
         }
     }
 
+    private initAvailableRefundAmount(): void {
+        const { invoiceID, paymentID, maxRefundAmount, currency } = this.dialogData;
+
+        this.availableRefundAmount$ = this.refundsService.getRefundedAmountSum(invoiceID, paymentID).pipe(
+            map((refundedSum: number) => maxRefundAmount - refundedSum),
+            map((amount: number) => {
+                return {
+                    amount,
+                    currency,
+                };
+            }),
+            shareReplay(1)
+        );
+    }
+
+    private initBalance(): void {
+        const { shopID } = this.dialogData;
+
+        const account$: Observable<Balance> = this.accountService.getAccount(shopID).pipe(
+            map((account: Account) => {
+                return {
+                    amount: account.availableAmount,
+                    currency: account.currency,
+                };
+            }),
+            shareReplay(1)
+        );
+
+
+        this.balance$ = combineLatest([account$, this.availableRefundAmount$]).pipe(
+            map(([accountBalance, refundedAmount]: [Balance, Balance]) => {
+                return {
+                    accountBalance,
+                    refundedAmount,
+                };
+            })
+        );
+    }
+
     private formatRefundParams(): RefundParams {
         const { reason, amount = null } = this.form.value;
+        const { currency } = this.dialogData;
         const params: RefundParams = {
             reason,
-            currency: this.dialogData.currency,
+            currency,
         };
 
         if (!isNil(amount) && !isNaN(amount)) {
@@ -149,18 +155,25 @@ export class CreateRefundDialogComponent implements OnInit {
     }
 
     private addAmountControl(): void {
-        this.availableRefundAmount$.pipe(take(1)).subscribe(({ amount }) => {
-            this.form.addControl(
-                'amount',
-                this.fb.control(null, [
+        this.form.addControl(
+            'amount',
+            this.fb.control(null, {
+                validators: [
                     Validators.required,
                     amountValidator,
                     Validators.min(1),
-                    Validators.max(toMajor(amount)),
-                ])
-            );
-            this.updateAmountControl();
-        });
+                ],
+                asyncValidators: [
+                    maxAvailableAmountValidator(this.balance$.pipe(
+                        map(({ refundedAmount: { amount: refundedAmount }, accountBalance: { amount: accountBalance } }: RefundAvailableSum) => {
+                            return refundedAmount >= accountBalance ? accountBalance : refundedAmount;
+                        }),
+                        map(toMajor),
+                    )),
+                ]
+            })
+        );
+        this.updateAmountControl();
     }
 
     private removeAmountControl(): void {

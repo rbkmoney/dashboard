@@ -41,7 +41,7 @@ export class RefundsComponent {
                 take(1),
                 filter(({ status }: CreateRefundDialogResponse) => status === CreateRefundDialogResponseStatus.SUCCESS)
             )
-            .subscribe(({ availableAmount }) => {
+            .subscribe(({ availableAmount }: CreateRefundDialogResponse) => {
                 this.updateRefunds();
                 if (availableAmount === 0) {
                     this.statusChanged.emit();

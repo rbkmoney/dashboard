@@ -11,7 +11,7 @@ export class AccountsService {
     constructor(private shopService: ApiShopsService, private accountService: AccountService) {}
 
     getAccount(shopID: string): Observable<Account> {
-        return this.getShopByID(shopID).pipe(switchMap((shop) => this.getAccountByID(shop.account.settlementID)));
+        return this.getShopByID(shopID).pipe(switchMap((shop: Shop) => this.getAccountByID(shop.account.settlementID)));
     }
 
     private getAccountByID(settlementID: number): Observable<Account> {

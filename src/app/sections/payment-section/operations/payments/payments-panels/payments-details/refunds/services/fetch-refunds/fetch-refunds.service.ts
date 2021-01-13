@@ -1,17 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RefundSearchResult } from '@dsh/api-codegen/capi';
 import { RefundSearchService, RefundsSearchParams } from '@dsh/api/search';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { FetchResult, PartialFetcher } from '../../../../../../../../partial-fetcher';
+import { DEBOUNCE_ACTION_TIME } from '../../../../../consts';
 
 @Injectable()
 export class FetchRefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchParams> {
-    private readonly searchLimit = 3;
-
-    constructor(private refundSearchService: RefundSearchService) {
-        super();
+    constructor(
+        private refundSearchService: RefundSearchService,
+        @Inject(SEARCH_LIMIT)
+        private searchLimit: number,
+        @Inject(DEBOUNCE_ACTION_TIME)
+        private debounceActionTime: number
+    ) {
+        super(debounceActionTime);
     }
 
     protected fetch(

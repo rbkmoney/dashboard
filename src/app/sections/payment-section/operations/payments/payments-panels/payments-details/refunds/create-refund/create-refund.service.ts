@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 
-import { CreateRefundDialogComponent } from './components/create-refund-dialog.component';
+import { CreateRefundDialogComponent } from './components/create-refund-dialog/create-refund-dialog.component';
 import { CreateRefundDialogData } from './types/create-refund-dialog-data';
 import { CreateRefundDialogResponse } from './types/create-refund-dialog-response';
 
