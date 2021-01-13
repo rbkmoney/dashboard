@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { instance, mock, verify } from 'ts-mockito';
 
-import { Invoice } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
 
 import { generateMockPayment } from '../../tests/generate-mock-payment';
 import { Payment } from '../../types/payment';
@@ -26,7 +26,22 @@ class MockPaymentInvoiceInfoComponent {
     @Input() invoice: Invoice;
 }
 
-xdescribe('PaymentDetailsComponent', () => {
+@Component({
+    selector: 'dsh-refunds',
+    template: '',
+})
+class MockRefundsComponent {
+    @Input() invoiceID: string;
+    @Input() paymentID: string;
+    @Input() shopID: string;
+    @Input() currency: string;
+    @Input() maxRefundAmount: number;
+    @Input() status: PaymentSearchResult.StatusEnum;
+
+    @Output() statusChanged = new EventEmitter<void>();
+}
+
+describe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;
@@ -38,7 +53,12 @@ xdescribe('PaymentDetailsComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MatDividerModule],
-            declarations: [PaymentDetailsComponent, MockPaymentMainInfoComponent, MockPaymentInvoiceInfoComponent],
+            declarations: [
+                PaymentDetailsComponent,
+                MockPaymentMainInfoComponent,
+                MockPaymentInvoiceInfoComponent,
+                MockRefundsComponent,
+            ],
             providers: [
                 {
                     provide: InvoiceDetailsService,
@@ -51,10 +71,13 @@ xdescribe('PaymentDetailsComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentDetailsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {
+        component.payment = generateMockPayment({
+            invoiceID: 'test_invoiceID',
+        });
+        fixture.detectChanges();
         expect(component).toBeTruthy();
     });
 

@@ -128,7 +128,6 @@ export class CreateRefundDialogComponent implements OnInit {
             shareReplay(1)
         );
 
-
         this.balance$ = combineLatest([account$, this.availableRefundAmount$]).pipe(
             map(([accountBalance, refundedAmount]: [Balance, Balance]) => {
                 return {
@@ -158,19 +157,22 @@ export class CreateRefundDialogComponent implements OnInit {
         this.form.addControl(
             'amount',
             this.fb.control(null, {
-                validators: [
-                    Validators.required,
-                    amountValidator,
-                    Validators.min(1),
-                ],
+                validators: [Validators.required, amountValidator, Validators.min(1)],
                 asyncValidators: [
-                    maxAvailableAmountValidator(this.balance$.pipe(
-                        map(({ refundedAmount: { amount: refundedAmount }, accountBalance: { amount: accountBalance } }: RefundAvailableSum) => {
-                            return refundedAmount >= accountBalance ? accountBalance : refundedAmount;
-                        }),
-                        map(toMajor),
-                    )),
-                ]
+                    maxAvailableAmountValidator(
+                        this.balance$.pipe(
+                            map(
+                                ({
+                                    refundedAmount: { amount: refundedAmount },
+                                    accountBalance: { amount: accountBalance },
+                                }: RefundAvailableSum) => {
+                                    return refundedAmount >= accountBalance ? accountBalance : refundedAmount;
+                                }
+                            ),
+                            map(toMajor)
+                        )
+                    ),
+                ],
             })
         );
         this.updateAmountControl();

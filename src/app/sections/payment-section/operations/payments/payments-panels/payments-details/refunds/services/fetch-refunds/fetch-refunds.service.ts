@@ -8,6 +8,8 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { FetchResult, PartialFetcher } from '../../../../../../../../partial-fetcher';
 import { DEBOUNCE_ACTION_TIME } from '../../../../../consts';
 
+// TODO: remove this disable after making partial fetcher with injectable debounce time
+/* tslint:disable:no-unused-variable */
 @Injectable()
 export class FetchRefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchParams> {
     constructor(
