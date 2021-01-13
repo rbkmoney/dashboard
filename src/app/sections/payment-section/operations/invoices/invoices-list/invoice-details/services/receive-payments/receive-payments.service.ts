@@ -11,12 +11,12 @@ import { PaymentService } from '@dsh/api/payment';
 @Injectable()
 export class ReceivePaymentsService {
     isLoading$: Observable<boolean>;
-    errorOccurred$: Observable<boolean>;
+    errorOccurred$: Observable<void>;
     payments$: Observable<Payment[]>;
 
     private receivePayments$ = new Subject<string>();
     private loading$ = new BehaviorSubject(false);
-    private error$ = new Subject<boolean>();
+    private error$ = new Subject<void>();
     private receivedPayments$ = new ReplaySubject<Payment[]>(1);
 
     constructor(private paymentService: PaymentService) {
