@@ -7,4 +7,10 @@
             {{ t('createRefund.title') }}
         </button>
     </div>
+    <dsh-refunds-list
+        [list]="refunds$ | async"
+        [hasMore]="hasMore$ | async"
+        [loading]="isLoading$ | async"
+        (showMore)="loadMoreRefunds()"
+    ></dsh-refunds-list>
 </div>

@@ -1,9 +1,8 @@
 <div fxLayout="column" fxLayoutGap="16px">
     <dsh-payments-row-header></dsh-payments-row-header>
+    <ng-container *ngTemplateOutlet="panelsList"></ng-container>
     <ng-container *ngIf="!isLoading; else loading">
-        <ng-container *ngIf="isEmptyList; else panelsList">
-            <dsh-empty-search-result></dsh-empty-search-result>
-        </ng-container>
+        <dsh-empty-search-result *ngIf="isEmptyList"></dsh-empty-search-result>
         <dsh-show-more-panel *ngIf="hasMore" (showMore)="showMoreElements()"> </dsh-show-more-panel>
     </ng-container>
 </div>

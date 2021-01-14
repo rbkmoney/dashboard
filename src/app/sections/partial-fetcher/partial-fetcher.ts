@@ -13,7 +13,8 @@ import {
     tap,
 } from 'rxjs/operators';
 
-import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '@dsh/operators';
+
 import { FetchAction } from './fetch-action';
 import { FetchFn } from './fetch-fn';
 import { FetchResult } from './fetch-result';
@@ -22,15 +23,17 @@ import { scanAction, scanFetchResult } from './operators';
 // TODO: make fetcher injectable
 @UntilDestroy()
 export abstract class PartialFetcher<R, P> {
-    private action$ = new Subject<FetchAction<P>>();
-
     readonly fetchResultChanges$: Observable<{ result: R[]; hasMore: boolean; continuationToken: string }>;
 
     readonly searchResult$: Observable<R[]>;
+    readonly isLoading$: Observable<boolean>;
+    readonly lastUpdated$: Observable<string>;
     readonly hasMore$: Observable<boolean>;
     readonly doAction$: Observable<boolean>;
     readonly doSearchAction$: Observable<boolean>;
     readonly errors$: Observable<any>;
+
+    private action$ = new Subject<FetchAction<P>>();
 
     // TODO: make a dependency for DI
     constructor(debounceActionTime: number = 300) {
@@ -39,7 +42,7 @@ export abstract class PartialFetcher<R, P> {
 
         this.fetchResultChanges$ = fetchResult$.pipe(
             map(({ result, continuationToken }) => ({
-                result,
+                result: result ?? [],
                 continuationToken,
                 hasMore: !!continuationToken,
             })),
@@ -66,13 +69,18 @@ export abstract class PartialFetcher<R, P> {
             share()
         );
 
+        this.isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
+        this.lastUpdated$ = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
+
         merge(
             this.searchResult$,
             this.hasMore$,
             this.doAction$,
             this.doSearchAction$,
             this.errors$,
-            this.fetchResultChanges$
+            this.fetchResultChanges$,
+            this.isLoading$,
+            this.lastUpdated$
         )
             .pipe(untilDestroyed(this))
             .subscribe();

@@ -1,9 +1,8 @@
 <div fxLayout="column" fxLayoutGap="24px">
     <dsh-payment-main-info [payment]="payment"></dsh-payment-main-info>
-    <ng-container *ngIf="invoiceInfo$ | async as invoice">
-        <mat-divider></mat-divider>
-        <dsh-payment-invoice-info [invoice]="invoice"></dsh-payment-invoice-info>
-    </ng-container>
+    <mat-divider></mat-divider>
+    <dsh-payment-invoice-info [invoice]="invoiceInfo$ | async"></dsh-payment-invoice-info>
+    <mat-divider></mat-divider>
     <dsh-refunds
         [invoiceID]="payment.invoiceID"
         [paymentID]="payment.id"

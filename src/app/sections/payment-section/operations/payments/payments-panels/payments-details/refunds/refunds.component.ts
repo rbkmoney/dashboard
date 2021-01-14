@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult, RefundSearchResult } from '@dsh/api-codegen/capi';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { CreateRefundDialogResponse, CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
@@ -11,8 +13,15 @@ import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.serv
     templateUrl: './refunds.component.html',
     styleUrls: ['./refunds.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        FetchRefundsService,
+        {
+            provide: SEARCH_LIMIT,
+            useValue: 1,
+        }
+    ]
 })
-export class RefundsComponent {
+export class RefundsComponent implements OnInit {
     @Input() invoiceID: string;
     @Input() paymentID: string;
     @Input() shopID: string;
@@ -22,10 +31,18 @@ export class RefundsComponent {
 
     @Output() statusChanged = new EventEmitter<void>();
 
+    refunds$: Observable<RefundSearchResult[]> = this.refundsService.searchResult$;
+    isLoading$: Observable<boolean> = this.refundsService.isLoading$;
+    hasMore$: Observable<boolean> = this.refundsService.hasMore$;
+
     constructor(private refundsService: FetchRefundsService, private createRefundService: CreateRefundService) {}
 
     get isRefundAvailable(): boolean {
         return this.status === PaymentSearchResult.StatusEnum.Captured;
+    }
+
+    ngOnInit(): void {
+        this.updateRefunds();
     }
 
     createRefund(): void {
@@ -47,6 +64,10 @@ export class RefundsComponent {
                     this.statusChanged.emit();
                 }
             });
+    }
+
+    loadMoreRefunds(): void {
+        this.refundsService.fetchMore();
     }
 
     private updateRefunds(): void {
