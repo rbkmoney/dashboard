@@ -75,8 +75,8 @@ export class CreateRefundDialogComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.initAvailableRefundAmount();
-        this.initBalance();
+        this.availableRefundAmount$ = this.initAvailableRefundAmount();
+        this.balance$ = this.initBalance();
     }
 
     confirm(): void {
@@ -121,10 +121,10 @@ export class CreateRefundDialogComponent implements OnInit {
         }
     }
 
-    private initAvailableRefundAmount(): void {
+    private initAvailableRefundAmount(): Observable<Balance> {
         const { invoiceID, paymentID, maxRefundAmount, currency } = this.dialogData;
 
-        this.availableRefundAmount$ = this.refundsService.getRefundedAmountSum(invoiceID, paymentID).pipe(
+        return this.refundsService.getRefundedAmountSum(invoiceID, paymentID).pipe(
             map((refundedSum: number) => maxRefundAmount - refundedSum),
             map((amount: number) => {
                 return {
@@ -136,7 +136,7 @@ export class CreateRefundDialogComponent implements OnInit {
         );
     }
 
-    private initBalance(): void {
+    private initBalance(): Observable<RefundAvailableSum> {
         const { shopID } = this.dialogData;
 
         const account$: Observable<Balance> = this.accountService.getAccount(shopID).pipe(
@@ -149,7 +149,7 @@ export class CreateRefundDialogComponent implements OnInit {
             shareReplay(1)
         );
 
-        this.balance$ = combineLatest([account$, this.availableRefundAmount$]).pipe(
+        return combineLatest([account$, this.availableRefundAmount$]).pipe(
             map(([accountBalance, refundedAmount]: [Balance, Balance]) => {
                 return {
                     accountBalance,
