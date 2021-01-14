@@ -5,15 +5,18 @@
 >
     <h2 class="mat-title">{{ t('title') }}</h2>
     <form fxLayout="column" [formGroup]="form">
-        <mat-form-field>
+        <mat-form-field class="create-refund-dialog-reason">
             <mat-label>{{ t('reason') }}</mat-label>
-            <input matInput type="text" formControlName="reason" aria-label="reason" />
+            <input matInput type="text" formControlName="reason" aria-label="reason" [errorStateMatcher]="matcher" />
+            <!--            need this like awful ng-ifs to work in formfield. Hint only when there's no error. Can be changed to empty strings inside -->
+            <mat-hint *ngIf="!reasonLengthError">{{ reasonLength }}</mat-hint>
+            <mat-error *ngIf="reasonLengthError">{{ reasonLength }}</mat-error>
         </mat-form-field>
         <div fxLayout="column" [fxLayoutGap]="layoutGap">
             <mat-checkbox [checked]="isPartialRefund" (change)="togglePartialRefund(!isPartialRefund)">{{
                 t('partialRefund')
             }}</mat-checkbox>
-            <mat-form-field *ngIf="isPartialRefund && amountControl">
+            <mat-form-field *ngIf="isPartialRefund && amountControl" class="create-refund-dialog-amount">
                 <mat-label>{{ t('amount') }}</mat-label>
                 <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
                 <mat-hint *ngIf="balance$ | async as balance; else loadingBalanceHint">
@@ -24,16 +27,14 @@
                     : {{ balance.accountBalance.amount | toMajor | currency: balance.accountBalance.currency }}
                 </mat-hint>
                 <ng-template #loadingBalanceHint>
-                    <mat-hint>
-                        {{ t('balanceLoading') }}
-                    </mat-hint>
+                    {{ t('balanceLoading') }}
                 </ng-template>
             </mat-form-field>
         </div>
     </form>
-    <div *transloco="let c" [fxLayoutGap]="layoutGap">
-        <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
-        <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+    <div *transloco="let c" fxLayout fxLayoutAlign="space-between">
+        <button dsh-button color="warn" (click)="decline()">{{ c('cancel') }}</button>
+        <button dsh-button color="accent" [disabled]="form.invalid" (click)="confirm()">
             {{ c('confirm') }}
         </button>
     </div>

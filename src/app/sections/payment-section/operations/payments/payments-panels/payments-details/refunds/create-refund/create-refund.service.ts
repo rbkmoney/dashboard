@@ -15,7 +15,7 @@ export class CreateRefundService {
     createRefund(data: CreateRefundDialogData): Observable<CreateRefundDialogResponse> {
         return this.dialog
             .open<CreateRefundDialogComponent, CreateRefundDialogData>(CreateRefundDialogComponent, {
-                ...this.dialogConfig.small,
+                ...this.dialogConfig.medium,
                 data,
             })
             .afterClosed();

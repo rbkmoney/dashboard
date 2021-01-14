@@ -12,6 +12,7 @@ import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { amountValidator } from '@dsh/components/form-controls';
 import { toMajor, toMinor } from '@dsh/utils';
 
@@ -25,21 +26,41 @@ import { CreateRefundForm } from '../../types/create-refund-form';
 import { RefundAvailableSum } from '../../types/refund-available-sum';
 import { maxAvailableAmountValidator } from '../../validators/max-available-amount-validator';
 
+const MAX_REASON_LENGTH = 100;
+
 @Component({
     selector: 'dsh-create-refund',
     templateUrl: 'create-refund-dialog.component.html',
+    styleUrls: ['create-refund-dialog.component.scss'],
     providers: [AccountsService, RefundsService],
 })
 export class CreateRefundDialogComponent implements OnInit {
     form: FormGroup<CreateRefundForm> = this.fb.group({
-        reason: [''],
+        reason: ['', Validators.maxLength(MAX_REASON_LENGTH)],
     });
 
     isPartialRefund = false;
     availableRefundAmount$: Observable<Balance>;
-    amountControl: FormControl<number>;
 
     balance$: Observable<RefundAvailableSum>;
+
+    // material needs this to work with error state properly
+    matcher = new ErrorMatcher();
+
+    get amountControl(): FormControl<number> | null {
+        return this.form.controls.amount ?? null;
+    }
+
+    get reasonLengthError(): boolean {
+        const reasonControl = this.form.controls.reason;
+        return Boolean(reasonControl.errors?.maxlength);
+    }
+
+    get reasonLength(): string {
+        const reason = this.form.controls.reason.value;
+        const length = reason.length ?? 0;
+        return `${length} / ${MAX_REASON_LENGTH}`;
+    }
 
     constructor(
         @Inject(LAYOUT_GAP) public layoutGap: string,
@@ -175,17 +196,10 @@ export class CreateRefundDialogComponent implements OnInit {
                 ],
             })
         );
-        this.updateAmountControl();
     }
 
     private removeAmountControl(): void {
         this.form.removeControl('amount');
-        this.updateAmountControl();
-    }
-
-    private updateAmountControl(): void {
-        const { amount = null } = this.form.controls;
-        this.amountControl = amount;
     }
 
     private handleResponseError(err: unknown | Error): void {
