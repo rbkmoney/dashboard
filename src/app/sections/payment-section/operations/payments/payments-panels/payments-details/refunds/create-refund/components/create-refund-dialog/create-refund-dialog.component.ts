@@ -11,6 +11,7 @@ import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 
 import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { CommonError } from '@dsh/app/shared/services/error/models/common-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { amountValidator } from '@dsh/components/form-controls';
 import { toMajor, toMinor } from '@dsh/utils';
@@ -94,7 +95,7 @@ export class CreateRefundDialogComponent implements OnInit {
                         availableAmount: amount - refund.amount,
                     });
                 },
-                (err: unknown) => {
+                (err: Error) => {
                     this.handleResponseError(err);
                     this.dialogRef.close({
                         status: CreateRefundDialogResponseStatus.ERROR,
@@ -200,13 +201,11 @@ export class CreateRefundDialogComponent implements OnInit {
         this.form.removeControl('amount');
     }
 
-    private handleResponseError(err: unknown | Error): void {
+    private handleResponseError(err: Error): void {
+        let handledError: Error = err;
         if (err instanceof HttpErrorResponse && !isEmpty(err.error?.code)) {
-            this.notificationService.error(
-                this.transloco.translate(`refunds.errors.${err.error.code}`, null, 'payment-details')
-            );
-            return;
+            handledError = new CommonError(this.transloco.translate(`refunds.errors.${err.error.code}`, null, 'payment-details'))
         }
-        this.errorService.error(err);
+        this.errorService.error(handledError);
     }
 }

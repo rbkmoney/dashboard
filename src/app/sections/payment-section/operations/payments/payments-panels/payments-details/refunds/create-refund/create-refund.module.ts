@@ -12,7 +12,6 @@ import { RefundModule } from '@dsh/api/refund';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
-import { HeadlineModule } from '@dsh/components/layout';
 
 import { CreateRefundDialogComponent } from './components/create-refund-dialog/create-refund-dialog.component';
 import { CreateRefundService } from './create-refund.service';
@@ -31,7 +30,6 @@ import { CreateRefundService } from './create-refund.service';
         FormatInputModule,
         AccountModule,
         RefundModule,
-        HeadlineModule,
     ],
     declarations: [CreateRefundDialogComponent],
     providers: [CreateRefundService],

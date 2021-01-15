@@ -15,7 +15,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Refund } from '@dsh/api-codegen/capi';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
-import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { CommonError, ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -355,7 +355,11 @@ describe('CreateRefundDialogComponent', () => {
 
             component.confirm();
 
-            verify(mockNotificationService.error('paymentDetails.refunds.errors.invoicePaymentAmountExceeded')).once();
+            verify(
+                mockErrorService.error(
+                    deepEqual(new CommonError('paymentDetails.refunds.errors.invoicePaymentAmountExceeded'))
+                )
+            ).once();
             expect().nothing();
         });
 
