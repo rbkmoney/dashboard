@@ -80,9 +80,14 @@
             "title": "Совершить возврат",
             "partialRefund": "Частичный возврат",
             "balance": "Ваш баланс",
+            "availableRefund": "Доступно к возврату",
+            "balanceLoading": "Данные баланса загружаются ...",
             "amount": "Сумма возврата",
             "reason": "Причина возврата",
             "successful": "Возврат успешно произведен"
+        },
+        "errors": {
+            "invoicePaymentAmountExceeded": "Превышена доступная к возврату сумма"
         }
     },
     "makeRecurrent": {

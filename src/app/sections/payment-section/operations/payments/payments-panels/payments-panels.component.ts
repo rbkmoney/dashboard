@@ -21,6 +21,10 @@ export class PaymentsPanelsComponent {
         return isEmpty(this.list);
     }
 
+    trackPayment(index: number, item: Payment): string {
+        return `${item.invoiceID}${item.id}`;
+    }
+
     showMoreElements(): void {
         this.showMore.emit();
     }

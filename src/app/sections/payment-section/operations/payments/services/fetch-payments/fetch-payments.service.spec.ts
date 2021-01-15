@@ -266,14 +266,14 @@ describe('FetchPaymentsService', () => {
             const expected$ = cold('a', {
                 a: [
                     {
-                        id: 'invoiceID_payment_id_0',
+                        id: 'payment_id_0',
                         amount: 20,
                         currency: 'USD',
                         status: PaymentSearchResult.StatusEnum.Pending,
                         statusChangedAt: dateRange[0].utc().format(),
                         invoiceID: 'invoiceID',
                         shopName: 'my_name_0',
-                        paymentID: 'payment_id_0',
+                        shopID: 'my_shop_id_0',
                         fee: 0,
                         externalID: undefined,
                         error: undefined,
@@ -281,14 +281,14 @@ describe('FetchPaymentsService', () => {
                         payer: null,
                     },
                     {
-                        id: 'invoiceID_payment_id_1',
+                        id: 'payment_id_1',
                         amount: 20,
                         currency: 'USD',
                         status: PaymentSearchResult.StatusEnum.Pending,
                         statusChangedAt: dateRange[0].utc().format(),
                         invoiceID: 'invoiceID',
                         shopName: 'my_name_1',
-                        paymentID: 'payment_id_1',
+                        shopID: 'my_shop_id_1',
                         fee: 0,
                         externalID: undefined,
                         error: undefined,

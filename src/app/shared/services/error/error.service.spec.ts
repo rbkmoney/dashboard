@@ -6,6 +6,7 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { NotificationService } from '../notification';
 import { ErrorService } from './error.service';
+import { CommonError } from './models/common-error';
 
 describe('ErrorService', () => {
     let mockNotificationService: NotificationService;
@@ -40,14 +41,9 @@ describe('ErrorService', () => {
             expect().nothing();
         });
 
-        it('error without message', () => {
-            service.error('error');
-            verify(mockNotificationService.error(undefined)).once();
-        });
-
-        it('error with message', () => {
-            service.error('error', 'error message');
-            verify(mockNotificationService.error('error message')).once();
+        it('should parse custom error and use its message to notify', () => {
+            service.error(new CommonError('my custom error'));
+            verify(mockNotificationService.error('my custom error')).once();
         });
 
         it('should parse type errors and show common error', () => {
@@ -56,7 +52,7 @@ describe('ErrorService', () => {
                 a['mine-property'] = null;
                 a = {};
             } catch (e) {
-                service.error(e, 'error message');
+                service.error(e);
             }
 
             verify(mockNotificationService.error('Что-то пошло не так')).once();

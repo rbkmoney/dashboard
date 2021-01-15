@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UuidGeneratorService } from './uuid-generator.service';
+import { IdGeneratorService } from './id-generator.service';
 
-describe('UuidGeneratorService', () => {
-    let service: UuidGeneratorService;
+describe('IdGeneratorService', () => {
+    let service: IdGeneratorService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [UuidGeneratorService],
+            providers: [IdGeneratorService],
         });
-        service = TestBed.inject(UuidGeneratorService);
+        service = TestBed.inject(IdGeneratorService);
     });
 
     it('should be created', () => {

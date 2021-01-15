@@ -72,7 +72,7 @@ describe('PaymentsRowComponent', () => {
                 statusChangedAt: date.format(),
                 invoiceID: 'id',
                 shopName: 'My Shop',
-                paymentID: 'id',
+                id: 'id',
             });
 
             fixture.detectChanges();

@@ -3,11 +3,11 @@ import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable } from 'rxjs';
 
-import { Invoice } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { Payment } from '../../types/payment';
-import { InvoiceDetailsService } from './services/invoice-details.service';
+import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
 @Component({
     selector: 'dsh-payment-details',
@@ -25,6 +25,10 @@ export class PaymentDetailsComponent implements OnChanges {
         if (isObject(changes.payment)) {
             this.updatePayment(changes.payment);
         }
+    }
+
+    updateStatus(payment: Payment): void {
+        payment.status = PaymentSearchResult.StatusEnum.Refunded;
     }
 
     private updatePayment({ currentValue: payment }: ComponentChange<PaymentDetailsComponent, 'payment'>): void {

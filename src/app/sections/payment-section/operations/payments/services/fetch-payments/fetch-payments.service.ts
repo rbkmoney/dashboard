@@ -98,12 +98,12 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
                 externalID,
             }: ApiPayment) => {
                 return {
-                    id: `${invoiceID}_${id}`,
-                    paymentID: id,
+                    id,
                     amount,
                     status,
                     currency,
                     invoiceID,
+                    shopID,
                     statusChangedAt: statusChangedAt as any,
                     fee,
                     externalID,
