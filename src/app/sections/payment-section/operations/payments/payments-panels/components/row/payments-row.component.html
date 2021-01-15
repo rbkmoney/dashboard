@@ -1,6 +1,8 @@
 <dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
     <dsh-row-label fxFlex>
-        <dsh-balance [amount]="payment.amount" [currency]="payment.currency"></dsh-balance>
+        <div class="dsh-body-2">
+            <dsh-balance [amount]="payment.amount" [currency]="payment.currency"></dsh-balance>
+        </div>
     </dsh-row-label>
     <dsh-row-label fxFlex>
         <dsh-payment-status [status]="payment.status"></dsh-payment-status>

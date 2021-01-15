@@ -10,7 +10,6 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 
 import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
-import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { amountValidator } from '@dsh/components/form-controls';
@@ -63,7 +62,6 @@ export class CreateRefundDialogComponent implements OnInit {
     }
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         @Inject(MAT_DIALOG_DATA) private dialogData: CreateRefundDialogData,
         private dialogRef: MatDialogRef<CreateRefundDialogComponent, CreateRefundDialogResponse>,
         private fb: FormBuilder,
