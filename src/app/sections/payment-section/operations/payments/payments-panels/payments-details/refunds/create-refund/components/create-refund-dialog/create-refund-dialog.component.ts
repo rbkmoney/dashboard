@@ -204,7 +204,9 @@ export class CreateRefundDialogComponent implements OnInit {
     private handleResponseError(err: Error): void {
         let handledError: Error = err;
         if (err instanceof HttpErrorResponse && !isEmpty(err.error?.code)) {
-            handledError = new CommonError(this.transloco.translate(`refunds.errors.${err.error.code}`, null, 'payment-details'))
+            handledError = new CommonError(
+                this.transloco.translate(`refunds.errors.${err.error.code}`, null, 'payment-details')
+            );
         }
         this.errorService.error(handledError);
     }
