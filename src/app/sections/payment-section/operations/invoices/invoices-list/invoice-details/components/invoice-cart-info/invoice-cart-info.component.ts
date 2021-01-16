@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { InvoiceCart } from '../../../../../../../../api-codegen/anapi';
+import { InvoiceCart } from '@dsh/api-codegen/anapi';
+
 import { ReceiveInvoiceService } from '../../services/receive-invoice/receive-invoice.service';
 
 @Component({

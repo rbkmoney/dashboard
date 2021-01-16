@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { ShopPayoutToolDetailsService } from '../../../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../types/payout-tool-params';
 
 @Component({
@@ -12,7 +12,7 @@ import { PayoutToolParams } from '../../types/payout-tool-params';
 export class ShopPayoutToolDetailsComponent {
     @Input()
     set payoutToolParams(p: PayoutToolParams) {
-        this.shopPayoutToolDetailsService.getPayoutTool(p);
+        this.shopPayoutToolDetailsService.requestPayoutTool(p);
     }
 
     payoutTool$ = this.shopPayoutToolDetailsService.shopPayoutTool$;

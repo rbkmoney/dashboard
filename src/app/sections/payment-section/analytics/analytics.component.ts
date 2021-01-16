@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { pluck, shareReplay, take } from 'rxjs/operators';
 
+import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { PaymentInstitutionRealm } from '../../../api/model';
 import { AnalyticsSearchFiltersStore } from './analytics-search-filters-store.service';
 import { SearchParams } from './search-params';
 

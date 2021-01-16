@@ -13,6 +13,8 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
+import { LoggerModule } from '@dsh/app/shared/services';
+
 import { ENV, environment } from '../environments';
 import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
@@ -45,6 +47,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         HttpClientModule,
         TranslocoModule,
         YandexMetrikaModule,
+        LoggerModule,
     ],
     providers: [
         LanguageService,
