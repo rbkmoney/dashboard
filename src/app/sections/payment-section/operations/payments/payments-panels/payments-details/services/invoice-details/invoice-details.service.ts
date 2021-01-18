@@ -44,7 +44,8 @@ export class InvoiceDetailsService {
                 (err: Error) => {
                     this.innerErrors$.next(err);
                     this.errorService.error(err);
-                });
+                }
+            );
     }
 
     private initInvoiceErrors(): void {
