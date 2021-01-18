@@ -1,3 +1,7 @@
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { filter, take } from 'rxjs/operators';
+
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';

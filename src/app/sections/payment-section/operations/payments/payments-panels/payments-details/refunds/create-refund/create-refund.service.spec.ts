@@ -28,7 +28,7 @@ describe('CreateRefundService', () => {
                 {
                     provide: DIALOG_CONFIG,
                     useValue: {
-                        small: {
+                        medium: {
                             width: '360px',
                         },
                     },

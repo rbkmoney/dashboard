@@ -6,3 +6,8 @@ $dsh-claim-details-max-width: 740px;
     max-width: $dsh-claim-details-max-width;
     margin: 0 auto;
 }
+
+.claim-status {
+    position: absolute;
+    right: 24px;
+}

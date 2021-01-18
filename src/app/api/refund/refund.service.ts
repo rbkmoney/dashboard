@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { PaymentsService, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
-import { IdGeneratorService } from '@dsh/app/shared/services/uuid-generator/id-generator.service';
+import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 @Injectable()
 export class RefundService {
