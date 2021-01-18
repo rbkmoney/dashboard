@@ -7,10 +7,7 @@
             {{ t('details') }} <span dshSecondaryTitle> #{{ claimID$ | async }} </span>
         </h1>
         <dsh-card>
-            <div fxLayout="row" fxLayoutAlign="space-between">
-                <h2 *transloco="let claimType; read: 'claimType'" class="mat-title">
-                    {{ claimType(claimType$ | async) }}
-                </h2>
+            <div class="claim-status">
                 <dsh-status
                     *transloco="let claimStatus; read: 'claimStatus'"
                     [color]="claimStatusColor$ | async"

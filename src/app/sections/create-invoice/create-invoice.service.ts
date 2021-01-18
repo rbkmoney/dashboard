@@ -25,7 +25,7 @@ export class CreateInvoiceService {
         map((v: any[]) =>
             v
                 .map(({ price, quantity }) => price * quantity)
-                .reduce((sum, s) => (sum += s), 0)
+                .reduce((sum, s) => (sum += s), 0) // change logic
                 .toFixed(2)
         ),
         shareReplay(SHARE_REPLAY_CONF)

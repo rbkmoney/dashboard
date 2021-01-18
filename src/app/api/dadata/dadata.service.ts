@@ -7,7 +7,6 @@ import { DaDataRequest, DaDataService as DaDataApiService } from '@dsh/api-codeg
 import { ParamsByRequestType } from './suggest-request';
 import { ResponseByRequestType, SuggestionsByRequestType } from './suggest-response';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 @Injectable()

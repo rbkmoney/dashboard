@@ -11,7 +11,7 @@ import {
 
 import { Mapping } from '../../../type-utils';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
+const RequestType = DaDataRequest.DaDataRequestTypeEnum; // can be safely removed
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 export type ResponseByRequestType = Mapping<

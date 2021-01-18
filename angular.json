@@ -123,6 +123,31 @@
                         "codeCoverageExclude": ["src/**/swagger-codegen/**/*", "src/**/openapi-codegen/**"]
                     }
                 },
+                "test-ci": {
+                    "builder": "ngx-build-plus:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma-ci.conf.js",
+                        "assets": ["src/favicon.ico", "src/assets", "src/appConfig.json", "src/authConfig.json"],
+                        "styles": [
+                            "src/styles/core.scss",
+                            {
+                                "input": "src/styles/themes/light.scss",
+                                "bundleName": "themes/light",
+                                "lazy": true
+                            },
+                            {
+                                "input": "src/styles/themes/dark.scss",
+                                "bundleName": "themes/dark",
+                                "lazy": true
+                            }
+                        ],
+                        "scripts": [],
+                        "codeCoverageExclude": ["src/**/swagger-codegen/**/*", "src/**/openapi-codegen/**"]
+                    }
+                },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
