@@ -1,10 +1,14 @@
-import { ContractModification, PartyModification } from '@dsh/api-codegen/claim-management';
+import {
+    ContractCreationModification,
+    ContractModification,
+    PartyModification,
+} from '@dsh/api-codegen/claim-management';
 
 import { createBaseContractModification } from './create-base-contract-modification';
 
-export function createContractorParamsModification(
+export function createContractCreationModification(
     id: string,
-    params: Omit<ContractModification, 'contractModificationType'>
+    params: Omit<ContractCreationModification, 'contractModificationType'>
 ): PartyModification {
     return {
         ...createBaseContractModification({
@@ -19,7 +23,7 @@ export function createContractorParamsModification(
 }
 
 export function createTestContractorModification(id: string, contractorID: string): PartyModification {
-    return createContractorParamsModification(id, {
+    return createContractCreationModification(id, {
         contractorID,
     });
 }

@@ -1,44 +1,55 @@
 import { Injectable } from '@angular/core';
-import { iif, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { defer, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, mapTo, shareReplay, switchMap, tap } from 'rxjs/operators';
 
-import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from './api';
+import { ApiShopsService, ClaimsService } from './api';
+import { createTestShopModifications } from './api/claims/claim-party-modification/create-test-shop-modifications/create-test-shop-modifications';
+import { ErrorService } from './shared';
+import { UuidGeneratorService } from './shared/services/uuid-generator/uuid-generator.service';
 
 @Injectable()
 export class BootstrapService {
-    bootstrapped$: Observable<boolean>;
+    bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
+        switchMap(() => this.bootstrapShop()),
+        shareReplay(1)
+    );
 
-    private bootstrap$ = new ReplaySubject(1);
+    private bootstrap$ = new ReplaySubject<void>(1);
 
     constructor(
-        private partiesService: CAPIPartiesService,
         private shopService: ApiShopsService,
-        private capiClaimsService: CAPIClaimsService
-    ) {
-        this.bootstrapped$ = this.bootstrap$.pipe(
-            first(),
-            switchMapTo(this.partiesService.getMyParty()),
-            switchMapTo(this.shopService.shops$.pipe(first())),
-            switchMap((shops) =>
-                iif(
-                    () => shops.length === 0,
-                    this.createTestShop().pipe(tap(() => this.shopService.reloadShops())),
-                    of(true)
-                )
-            ),
-            catchError((err) => {
-                console.error(err);
-                return of(false);
-            }),
-            shareReplay(1)
-        );
-    }
+        private claimsService: ClaimsService,
+        private idGeneratorService: UuidGeneratorService,
+        private errorService: ErrorService
+    ) {}
 
     bootstrap() {
         this.bootstrap$.next();
     }
 
-    private createTestShop(): Observable<boolean> {
-        return this.capiClaimsService.createClaim(createTestShopClaimChangeset()).pipe(map(() => true));
+    private bootstrapShop() {
+        return this.shopService.shops$.pipe(
+            first(),
+            switchMap((shops) =>
+                shops.length
+                    ? of(true)
+                    : this.createTestShop().pipe(
+                          mapTo(true),
+                          tap(() => this.shopService.reloadShops())
+                      )
+            ),
+            catchError((e) => (this.errorService.error(e), of(false)))
+        );
+    }
+
+    private createTestShop() {
+        return this.claimsService.createClaim(
+            createTestShopModifications({
+                contractorID: this.idGeneratorService.generateUUID(),
+                contractID: this.idGeneratorService.generateUUID(),
+                shopID: this.idGeneratorService.generateUUID(),
+                payoutToolID: this.idGeneratorService.generateUUID(),
+            })
+        );
     }
 }
