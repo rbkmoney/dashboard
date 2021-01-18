@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchService } from '@dsh/api/search';
 import { ErrorService } from '@dsh/app/shared/services';
-import { takeError } from '@dsh/operators';
 
 @UntilDestroy()
 @Injectable()
@@ -14,8 +13,9 @@ export class InvoiceDetailsService {
     invoice$: Observable<Invoice | null>;
     error$: Observable<Error>;
 
-    private invoiceId$ = new ReplaySubject<string>();
-    private invoiceData$ = new ReplaySubject<Invoice | null>();
+    private invoiceId$ = new ReplaySubject<string>(1);
+    private invoiceData$ = new ReplaySubject<Invoice | null>(1);
+    private innerErrors$ = new ReplaySubject<Error>(1);
 
     constructor(private invoiceSearchService: InvoiceSearchService, private errorService: ErrorService) {
         this.initInvoice();
@@ -37,15 +37,17 @@ export class InvoiceDetailsService {
                 }),
                 untilDestroyed(this)
             )
-            .subscribe((invoice: Invoice) => {
-                this.invoiceData$.next(invoice);
-            });
+            .subscribe(
+                (invoice: Invoice) => {
+                    this.invoiceData$.next(invoice);
+                },
+                (err: Error) => {
+                    this.innerErrors$.next(err);
+                    this.errorService.error(err);
+                });
     }
 
     private initInvoiceErrors(): void {
-        this.error$ = this.invoice$.pipe(takeError, shareReplay(1));
-        this.error$.pipe(untilDestroyed(this)).subscribe((err: Error) => {
-            this.errorService.error(err);
-        });
+        this.error$ = this.innerErrors$.asObservable();
     }
 }

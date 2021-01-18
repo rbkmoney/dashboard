@@ -1,13 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { filter, take } from 'rxjs/operators';
-
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import { PaymentSearchResult, RefundSearchResult } from '@dsh/api-codegen/capi';
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { CreateRefundDialogResponse, CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
@@ -17,13 +12,7 @@ import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.serv
     templateUrl: './refunds.component.html',
     styleUrls: ['./refunds.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        FetchRefundsService,
-        {
-            provide: SEARCH_LIMIT,
-            useValue: 1,
-        }
-    ]
+    providers: [FetchRefundsService],
 })
 export class RefundsComponent implements OnInit {
     @Input() invoiceID: string;

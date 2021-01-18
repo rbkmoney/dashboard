@@ -88,7 +88,7 @@ describe('InvoiceDetailsService', () => {
 
         it('should translate errors from invoice requests', () => {
             expect(service.error$).toBeObservable(
-                cold('(a|)', {
+                cold('a', {
                     a: testError,
                 })
             );

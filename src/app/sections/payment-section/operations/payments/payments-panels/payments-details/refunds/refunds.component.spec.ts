@@ -1,15 +1,28 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult, RefundSearchResult } from '@dsh/api-codegen/capi';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
 import { RefundsComponent } from './refunds.component';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
+
+@Component({
+    selector: 'dsh-refunds-list',
+    template: '',
+})
+class MockRefundsListComponent {
+    @Input() list: RefundSearchResult[];
+    @Input() loading: boolean;
+    @Input() hasMore: boolean;
+
+    @Output() showMore = new EventEmitter<void>();
+}
 
 describe('RefundsComponent', () => {
     let component: RefundsComponent;
@@ -25,7 +38,7 @@ describe('RefundsComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [getTranslocoModule(), FlexLayoutModule, ButtonModule],
-            declarations: [RefundsComponent],
+            declarations: [RefundsComponent, MockRefundsListComponent],
             providers: [
                 {
                     provide: FetchRefundsService,
@@ -36,7 +49,11 @@ describe('RefundsComponent', () => {
                     useFactory: () => instance(mockCreateRefundService),
                 },
             ],
-        }).compileComponents();
+        })
+            .overrideComponent(RefundsComponent, {
+                set: { providers: [] },
+            })
+            .compileComponents();
     }));
 
     beforeEach(() => {

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
+import { combineLatest, Observable, of, ReplaySubject, Subscriber } from 'rxjs';
 import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
@@ -12,14 +12,44 @@ import { getShopNameById } from '@dsh/api/shop/utils';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 import { booleanDebounceTime, mapToTimestamp, SHARE_REPLAY_CONF } from '@dsh/operators';
+import { toMinor } from '@dsh/utils';
 
-import { toMinor } from '../../../../../../../utils';
 import { PartialFetcher } from '../../../../../partial-fetcher';
 import { DEBOUNCE_ACTION_TIME } from '../../consts';
 import { PaymentSearchFormValue } from '../../search-form';
 import { Payment } from '../../types/payment';
 
 type ApiPayment = PaymentSearchResult & { externalID: string };
+
+const cacheLastOperator = <T>(startValue: T) => {
+    return (source: Observable<T>): Observable<[T, T]> => {
+        // const cache$ = new BehaviorSubject<T>(startValue);
+        let cachedValue = startValue;
+        return new Observable<[T, T]>((subscriber: Subscriber<[T, T]>) => {
+            const subscription = source.subscribe({
+                next(value) {
+                    subscriber.next([cachedValue, value]);
+                    cachedValue = value;
+                },
+                error(error) {
+                    subscriber.error(error);
+                },
+                complete() {
+                    subscriber.complete();
+                },
+            });
+
+            return () => subscription.unsubscribe();
+        });
+        // return source.pipe(
+        //     switchMap((value: T) => {
+        //         const cachedValue = cache$.value;
+        //         cache$.next(value);
+        //         return of([cachedValue, value] as [T, T])
+        //     })
+        // );
+    };
+};
 
 // TODO: remove this disable after making partial fetcher with injectable debounce time
 /* tslint:disable:no-unused-variable */
@@ -30,6 +60,26 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
 
     paymentsList$: Observable<Payment[]> = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
         map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops)),
+        cacheLastOperator([]),
+        map(([prevList, newList]) => {
+            const prevElementsMap = prevList.reduce((acc: Map<string, Payment>, prevEl: Payment) => {
+                acc.set(`${prevEl.invoiceID}${prevEl.id}`, prevEl);
+                return acc;
+            }, new Map());
+            return newList.map((newEl: Payment) => {
+                const newElId = `${newEl.invoiceID}${newEl.id}`;
+                if (prevElementsMap.has(newElId)) {
+                    const prevElement = prevElementsMap.get(newElId);
+                    return prevElement.status === PaymentSearchResult.StatusEnum.Refunded
+                        ? {
+                              ...newEl,
+                              status: prevElement.status,
+                          }
+                        : newEl;
+                }
+                return newEl;
+            });
+        }),
         shareReplay(SHARE_REPLAY_CONF)
     );
 

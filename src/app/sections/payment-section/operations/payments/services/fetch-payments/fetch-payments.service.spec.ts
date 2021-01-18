@@ -108,13 +108,7 @@ describe('FetchPaymentsService', () => {
                 },
             });
 
-            jasmine.clock().install();
-
-            jasmine.clock().tick(3000);
-
             service.initRealm(PaymentInstitutionRealm.live);
-
-            jasmine.clock().uninstall();
 
             verify(
                 mockPaymentSearchService.searchPayments(
@@ -149,18 +143,12 @@ describe('FetchPaymentsService', () => {
 
             service.initRealm(PaymentInstitutionRealm.test);
 
-            jasmine.clock().install();
-
-            jasmine.clock().tick(3000);
-
             service.search({
                 date: {
                     begin: dateRange[0],
                     end: dateRange[1],
                 },
             });
-
-            jasmine.clock().uninstall();
 
             verify(
                 mockPaymentSearchService.searchPayments(

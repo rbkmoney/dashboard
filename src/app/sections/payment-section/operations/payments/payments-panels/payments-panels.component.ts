@@ -22,7 +22,7 @@ export class PaymentsPanelsComponent {
     }
 
     trackPayment(index: number, item: Payment): string {
-        return `${item.invoiceID}${item.id}`;
+        return `${item.invoiceID}${item.id}${item.status}`;
     }
 
     showMoreElements(): void {
