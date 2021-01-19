@@ -9,6 +9,7 @@ import { MessagesModule } from './messages';
 import { OrganizationsModule } from './organizations';
 import { QuestionaryModule } from './questionary';
 
+// TODO: delete? there are intersections of services
 @NgModule({
     imports: [
         CAPIModule,
