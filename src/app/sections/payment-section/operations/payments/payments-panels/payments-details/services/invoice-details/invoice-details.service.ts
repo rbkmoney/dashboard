@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { InvoiceSearchService } from '@dsh/api/search';
@@ -18,37 +18,48 @@ export class InvoiceDetailsService {
     private innerErrors$ = new ReplaySubject<Error>(1);
 
     constructor(private invoiceSearchService: InvoiceSearchService, private errorService: ErrorService) {
-        this.initInvoice();
-        this.initInvoiceErrors();
+        this.invoice$ = this.invoiceData$.asObservable();
+        this.error$ = this.innerErrors$.asObservable();
+
+        this.initInvoiceListener();
     }
 
     setInvoiceID(invoiceID: string): void {
         this.invoiceId$.next(invoiceID);
     }
 
-    private initInvoice(): void {
-        this.invoice$ = this.invoiceData$.asObservable();
+    private initInvoiceListener(): void {
         this.invoiceId$
             .pipe(
                 distinctUntilChanged(),
+                tap(() => {
+                    this.resetInvoiceData();
+                }),
                 switchMap((invoiceID: string) => {
-                    this.invoiceData$.next(null);
                     return this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID);
                 }),
                 untilDestroyed(this)
             )
             .subscribe(
                 (invoice: Invoice) => {
-                    this.invoiceData$.next(invoice);
+                    this.updateInvoiceData(invoice);
                 },
                 (err: Error) => {
-                    this.innerErrors$.next(err);
-                    this.errorService.error(err);
+                    this.handleError(err);
                 }
             );
     }
 
-    private initInvoiceErrors(): void {
-        this.error$ = this.innerErrors$.asObservable();
+    private updateInvoiceData(invoice: Invoice): void {
+        this.invoiceData$.next(invoice);
+    }
+
+    private resetInvoiceData(): void {
+        this.invoiceData$.next(null);
+    }
+
+    private handleError(err: Error): void {
+        this.innerErrors$.next(err);
+        this.errorService.error(err);
     }
 }

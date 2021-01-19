@@ -4,7 +4,7 @@ import { instance, mock } from 'ts-mockito';
 import { RefundSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { DEBOUNCE_ACTION_TIME } from '../../../../../consts';
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../../../../../../partial-fetcher';
 import { FetchRefundsService } from './fetch-refunds.service';
 
 describe('FetchRefundsService', () => {
@@ -28,7 +28,7 @@ describe('FetchRefundsService', () => {
                     useValue: 2,
                 },
                 {
-                    provide: DEBOUNCE_ACTION_TIME,
+                    provide: DEBOUNCE_FETCHER_ACTION_TIME,
                     useValue: 0,
                 },
             ],

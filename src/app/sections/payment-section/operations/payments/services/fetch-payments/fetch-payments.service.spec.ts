@@ -13,7 +13,7 @@ import { PaymentSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { DEBOUNCE_ACTION_TIME } from '../../consts';
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../../../partial-fetcher';
 import { FetchPaymentsService } from './fetch-payments.service';
 
 describe('FetchPaymentsService', () => {
@@ -57,7 +57,7 @@ describe('FetchPaymentsService', () => {
                     useValue: 2,
                 },
                 {
-                    provide: DEBOUNCE_ACTION_TIME,
+                    provide: DEBOUNCE_FETCHER_ACTION_TIME,
                     useValue: 0,
                 },
             ],

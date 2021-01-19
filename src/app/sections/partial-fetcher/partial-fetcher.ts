@@ -13,7 +13,7 @@ import {
     tap,
 } from 'rxjs/operators';
 
-import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '@dsh/operators';
+import { progress, SHARE_REPLAY_CONF } from '@dsh/operators';
 
 import { FetchAction } from './fetch-action';
 import { FetchFn } from './fetch-fn';
@@ -69,18 +69,13 @@ export abstract class PartialFetcher<R, P> {
             share()
         );
 
-        this.isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-        this.lastUpdated$ = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
-
         merge(
             this.searchResult$,
             this.hasMore$,
             this.doAction$,
             this.doSearchAction$,
             this.errors$,
-            this.fetchResultChanges$,
-            this.isLoading$,
-            this.lastUpdated$
+            this.fetchResultChanges$
         )
             .pipe(untilDestroyed(this))
             .subscribe();

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, map, pairwise, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
 import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -11,47 +11,18 @@ import { ApiShopsService } from '@dsh/api/shop';
 import { getShopNameById } from '@dsh/api/shop/utils';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
-import { booleanDebounceTime, cacheLastElement, mapToTimestamp, SHARE_REPLAY_CONF } from '@dsh/operators';
+import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { toMinor } from '@dsh/utils';
 
-import { PartialFetcher } from '../../../../../partial-fetcher';
-import { DEBOUNCE_ACTION_TIME } from '../../consts';
+import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../search-form';
 import { Payment } from '../../types/payment';
 
 type ApiPayment = PaymentSearchResult & { externalID: string };
 
-// TODO: remove this disable after making partial fetcher with injectable debounce time
-/* tslint:disable:no-unused-variable */
 @Injectable()
-export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
-    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-    lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
-
-    paymentsList$: Observable<Payment[]> = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
-        map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops)),
-        cacheLastElement([]),
-        map(([prevList, newList]) => {
-            const prevElementsMap = prevList.reduce((acc: Map<string, Payment>, prevEl: Payment) => {
-                acc.set(`${prevEl.invoiceID}${prevEl.id}`, prevEl);
-                return acc;
-            }, new Map());
-            return newList.map((newEl: Payment) => {
-                const newElId = `${newEl.invoiceID}${newEl.id}`;
-                if (prevElementsMap.has(newElId)) {
-                    const prevElement = prevElementsMap.get(newElId);
-                    return prevElement.status === PaymentSearchResult.StatusEnum.Refunded
-                        ? {
-                              ...newEl,
-                              status: prevElement.status,
-                          }
-                        : newEl;
-                }
-                return newEl;
-            });
-        }),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
+    paymentsList$: Observable<Payment[]>;
 
     private realm$ = new ReplaySubject<PaymentInstitutionRealm>(1);
 
@@ -61,11 +32,13 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(SEARCH_LIMIT)
-        private searchLimit: number,
-        @Inject(DEBOUNCE_ACTION_TIME)
-        private debounceActionTime: number
+        protected searchLimit: number,
+        @Inject(DEBOUNCE_FETCHER_ACTION_TIME)
+        protected debounceActionTime: number
     ) {
-        super(debounceActionTime);
+        super(searchLimit, debounceActionTime);
+
+        this.paymentsList$ = this.initPaymentList();
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
@@ -98,6 +71,21 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
                         })
                     );
             })
+        );
+    }
+
+    private initPaymentList(): Observable<Payment[]> {
+        const paymentsList$ = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
+            startWith([[], []]),
+            map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops))
+        );
+
+        const cachedPayments$ = paymentsList$.pipe(pairwise());
+        return cachedPayments$.pipe(
+            map(([cachedPayments, curPayments]: [Payment[], Payment[]]) =>
+                this.updateCachedElements(cachedPayments, curPayments)
+            ),
+            shareReplay(SHARE_REPLAY_CONF)
         );
     }
 
@@ -134,5 +122,25 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
                 };
             }
         );
+    }
+
+    private updateCachedElements(cachedPayments: Payment[], curPayments: Payment[]): Payment[] {
+        const cachedPaymentsMap = cachedPayments.reduce((acc: Map<string, Payment>, prevEl: Payment) => {
+            acc.set(`${prevEl.invoiceID}${prevEl.id}`, prevEl);
+            return acc;
+        }, new Map());
+        return curPayments.map((curPaymentEl: Payment) => {
+            const newElId = `${curPaymentEl.invoiceID}${curPaymentEl.id}`;
+            if (cachedPaymentsMap.has(newElId)) {
+                const cachedPaymentEl = cachedPaymentsMap.get(newElId);
+                return cachedPaymentEl.status === PaymentSearchResult.StatusEnum.Refunded
+                    ? {
+                          ...curPaymentEl,
+                          status: cachedPaymentEl.status,
+                      }
+                    : curPaymentEl;
+            }
+            return curPaymentEl;
+        });
     }
 }

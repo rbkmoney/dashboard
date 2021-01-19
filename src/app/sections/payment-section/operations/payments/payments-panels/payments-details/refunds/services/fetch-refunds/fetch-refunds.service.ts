@@ -5,21 +5,22 @@ import { RefundSearchResult } from '@dsh/api-codegen/capi';
 import { RefundSearchService, RefundsSearchParams } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { FetchResult, PartialFetcher } from '../../../../../../../../partial-fetcher';
-import { DEBOUNCE_ACTION_TIME } from '../../../../../consts';
+import {
+    DEBOUNCE_FETCHER_ACTION_TIME,
+    FetchResult,
+    IndicatorsPartialFetcher,
+} from '../../../../../../../../partial-fetcher';
 
-// TODO: remove this disable after making partial fetcher with injectable debounce time
-/* tslint:disable:no-unused-variable */
 @Injectable()
-export class FetchRefundsService extends PartialFetcher<RefundSearchResult, RefundsSearchParams> {
+export class FetchRefundsService extends IndicatorsPartialFetcher<RefundSearchResult, RefundsSearchParams> {
     constructor(
         private refundSearchService: RefundSearchService,
         @Inject(SEARCH_LIMIT)
-        private searchLimit: number,
-        @Inject(DEBOUNCE_ACTION_TIME)
-        private debounceActionTime: number
+        protected searchLimit: number,
+        @Inject(DEBOUNCE_FETCHER_ACTION_TIME)
+        protected debounceActionTime: number
     ) {
-        super(debounceActionTime);
+        super(searchLimit, debounceActionTime);
     }
 
     protected fetch(
