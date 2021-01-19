@@ -42,3 +42,7 @@
 	path = schemes/organizations/v0
 	url = git@github.com:rbkmoney/swag-organizations.git
 	branch = release/master
+[submodule "schemes/sender/v0"]
+	path = schemes/sender/v0
+	url = https://github.com/rbkmoney/swag-sender.git
+	branch = release/master
