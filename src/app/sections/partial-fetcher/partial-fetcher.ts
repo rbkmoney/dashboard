@@ -26,8 +26,6 @@ export abstract class PartialFetcher<R, P> {
     readonly fetchResultChanges$: Observable<{ result: R[]; hasMore: boolean; continuationToken: string }>;
 
     readonly searchResult$: Observable<R[]>;
-    readonly isLoading$: Observable<boolean>;
-    readonly lastUpdated$: Observable<string>;
     readonly hasMore$: Observable<boolean>;
     readonly doAction$: Observable<boolean>;
     readonly doSearchAction$: Observable<boolean>;
