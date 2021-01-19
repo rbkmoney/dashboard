@@ -11,7 +11,6 @@ export function generateMockPayment(data: Partial<Payment> = {}): Payment {
         statusChangedAt: new Date().toDateString(),
         invoiceID: 'invoiceID',
         shopID: 'shopID',
-        shopName: 'shopName',
         fee: 0,
         payer: {
             payerType: 'mine',

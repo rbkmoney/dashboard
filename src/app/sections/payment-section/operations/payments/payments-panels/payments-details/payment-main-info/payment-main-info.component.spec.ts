@@ -10,6 +10,7 @@ import { StatusModule } from '@dsh/components/indicators';
 import { PayerType } from '../../../../../../payment-details/payer-details';
 import { generateMockPayment } from '../../../tests/generate-mock-payment';
 import { MockDetailsItemModule } from '../../../tests/mock-details-item-component';
+import { MockShopDetailsPipe } from '../../../tests/mock-shop-details-pipe';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { ChargeAmountComponent } from './components/charge-amount/charge-amount.component';
 import { PaymentFeeComponent } from './components/payment-fee/payment-fee.component';
@@ -43,6 +44,7 @@ describe('PaymentMainInfoComponent', () => {
                 ResourcePayerComponent,
                 ShopNameComponent,
                 AdditionalInfoComponent,
+                MockShopDetailsPipe,
             ],
             providers: [
                 {

@@ -7,10 +7,9 @@ import { Moment } from 'moment';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
-import { ApiShopsService } from '@dsh/api/shop';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../../../partial-fetcher';
@@ -19,7 +18,6 @@ import { FetchPaymentsService } from './fetch-payments.service';
 describe('FetchPaymentsService', () => {
     let service: FetchPaymentsService;
     let mockPaymentSearchService: PaymentSearchService;
-    let mockApiShopsService: ApiShopsService;
     let mockMatSnackBar: MatSnackBar;
 
     function makeTestingModule() {
@@ -45,10 +43,6 @@ describe('FetchPaymentsService', () => {
                     useFactory: () => instance(mockPaymentSearchService),
                 },
                 {
-                    provide: ApiShopsService,
-                    useFactory: () => instance(mockApiShopsService),
-                },
-                {
                     provide: MatSnackBar,
                     useFactory: () => instance(mockMatSnackBar),
                 },
@@ -67,7 +61,6 @@ describe('FetchPaymentsService', () => {
 
     beforeEach(() => {
         mockPaymentSearchService = mock(PaymentSearchService);
-        mockApiShopsService = mock(ApiShopsService);
         mockMatSnackBar = mock(MatSnackBar);
     });
 
@@ -190,39 +183,7 @@ describe('FetchPaymentsService', () => {
                         shopID: `my_shop_id_${index}`,
                     };
                 });
-            const shopsList = new Array(2)
-                .fill({
-                    id: '',
-                    createdAt: new Date(),
-                    isBlocked: false,
-                    isSuspended: false,
-                    categoryID: 1,
-                    location: {
-                        locationType: 'type',
-                    },
-                    details: {
-                        name: '',
-                    },
-                    contractID: 'contractID',
-                    payoutToolID: 'payoutToolID',
-                    scheduleID: 1,
-                    account: {
-                        currency: 'USD',
-                        guaranteeID: 2,
-                        settlementID: 2,
-                    },
-                })
-                .map((el: Shop, index: number) => {
-                    return {
-                        ...el,
-                        id: `my_shop_id_${index}`,
-                        details: {
-                            name: `my_name_${index}`,
-                        },
-                    };
-                });
 
-            when(mockApiShopsService.shops$).thenReturn(of(shopsList));
             when(
                 mockPaymentSearchService.searchPayments(
                     dateRange[0].utc().format(),
@@ -260,7 +221,6 @@ describe('FetchPaymentsService', () => {
                         status: PaymentSearchResult.StatusEnum.Pending,
                         statusChangedAt: dateRange[0].utc().format(),
                         invoiceID: 'invoiceID',
-                        shopName: 'my_name_0',
                         shopID: 'my_shop_id_0',
                         fee: 0,
                         externalID: undefined,
@@ -275,7 +235,6 @@ describe('FetchPaymentsService', () => {
                         status: PaymentSearchResult.StatusEnum.Pending,
                         statusChangedAt: dateRange[0].utc().format(),
                         invoiceID: 'invoiceID',
-                        shopName: 'my_name_1',
                         shopID: 'my_shop_id_1',
                         fee: 0,
                         externalID: undefined,

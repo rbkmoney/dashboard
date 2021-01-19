@@ -12,7 +12,7 @@
             <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payment.payer.paymentToolDetails"> </dsh-payment-tool>
             <dsh-resource-payer *ngIf="resourcePayer" [payer]="resourcePayer"> </dsh-resource-payer>
         </div>
-        <dsh-shop-name [shopName]="payment.shopName"></dsh-shop-name>
+        <dsh-shop-name [shopName]="payment.shopID | shopDetails"></dsh-shop-name>
         <dsh-details-item *ngIf="payment.error?.code" [title]="t('error')">
             <div class="mat-body-1">{{ payment.error | paymentErrorMessage }}</div>
         </dsh-details-item>

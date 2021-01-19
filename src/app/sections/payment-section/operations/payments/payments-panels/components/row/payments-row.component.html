@@ -8,5 +8,5 @@
         <dsh-payment-status [status]="payment.status"></dsh-payment-status>
     </dsh-row-label>
     <dsh-row-label fxFlex>{{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
-    <dsh-row-label fxFlex fxHide.lt-md>{{ payment.shopName }}</dsh-row-label>
+    <dsh-row-label fxFlex fxHide.lt-md>{{ payment.shopID | shopDetails }}</dsh-row-label>
 </dsh-row>

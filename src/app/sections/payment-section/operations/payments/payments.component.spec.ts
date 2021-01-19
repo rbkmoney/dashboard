@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,18 +13,32 @@ import { NotificationService } from '@dsh/app/shared/services';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentsPanelsModule } from './payments-panels';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
 import { generateMockPayment } from './tests/generate-mock-payment';
+import { Payment } from './types/payment';
 
 @Component({
     selector: 'dsh-payments-filters',
     template: '',
 })
-class PaymentsFiltersComponent {
+class MockPaymentsFiltersComponent {
     @Input() realm;
+}
+
+@Component({
+    selector: 'dsh-payments-panels',
+    template: '',
+})
+class MockPaymentsPanelsComponent {
+    @Input() list: Payment[];
+    @Input() isLoading: boolean;
+    @Input() hasMore: boolean;
+    @Input() expandedId: number;
+
+    @Output() showMore = new EventEmitter<void>();
+    @Output() expandedIdChanged = new EventEmitter<number>();
 }
 
 describe('PaymentsComponent', () => {
@@ -48,12 +62,10 @@ describe('PaymentsComponent', () => {
             of([
                 generateMockPayment({
                     statusChangedAt: date.toDateString(),
-                    shopName: 'my_name_0',
                     id: 'payment_id_0',
                 }),
                 generateMockPayment({
                     statusChangedAt: date.toDateString(),
-                    shopName: 'my_name_1',
                     id: 'payment_id_1',
                 }),
             ])
@@ -70,11 +82,10 @@ describe('PaymentsComponent', () => {
                 getTranslocoModule(),
                 NoopAnimationsModule,
                 LastUpdatedModule,
-                PaymentsPanelsModule,
                 FlexLayoutModule,
                 HttpClientTestingModule,
             ],
-            declarations: [PaymentsComponent, PaymentsFiltersComponent],
+            declarations: [PaymentsComponent, MockPaymentsFiltersComponent, MockPaymentsPanelsComponent],
             providers: [
                 {
                     provide: FetchPaymentsService,

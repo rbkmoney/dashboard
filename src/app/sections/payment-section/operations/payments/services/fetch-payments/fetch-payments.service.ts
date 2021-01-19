@@ -1,14 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, map, pairwise, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
-import { ApiShopsService } from '@dsh/api/shop';
-import { getShopNameById } from '@dsh/api/shop/utils';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
@@ -28,7 +26,6 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
 
     constructor(
         private paymentSearchService: PaymentSearchService,
-        private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(SEARCH_LIMIT)
@@ -75,21 +72,21 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
     }
 
     private initPaymentList(): Observable<Payment[]> {
-        const paymentsList$ = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
-            startWith([[], []]),
-            map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops))
+        const paymentsList$ = this.searchResult$.pipe(
+            startWith([]),
+            map((searchResults: ApiPayment[]) => this.formatPaymentsData(searchResults))
         );
 
         const cachedPayments$ = paymentsList$.pipe(pairwise());
         return cachedPayments$.pipe(
-            map(([cachedPayments, curPayments]: [Payment[], Payment[]]) =>
-                this.updateCachedElements(cachedPayments, curPayments)
-            ),
+            map(([cachedPayments, curPayments]: [Payment[], Payment[]]) => {
+                return this.updateCachedElements(cachedPayments, curPayments);
+            }),
             shareReplay(SHARE_REPLAY_CONF)
         );
     }
 
-    private formatPaymentsData(paymentsData: ApiPayment[], shops: Shop[]): Payment[] {
+    private formatPaymentsData(paymentsData: ApiPayment[]): Payment[] {
         return paymentsData.map(
             ({
                 id,
@@ -118,7 +115,6 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
                     error,
                     transactionInfo,
                     payer: payer as Payment['payer'],
-                    shopName: getShopNameById(shops, shopID),
                 };
             }
         );
