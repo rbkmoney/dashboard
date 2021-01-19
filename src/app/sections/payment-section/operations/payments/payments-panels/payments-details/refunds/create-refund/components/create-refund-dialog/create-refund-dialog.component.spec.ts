@@ -26,7 +26,7 @@ import { CreateRefundDialogResponse } from '../../types/create-refund-dialog-res
 import { CreateRefundDialogResponseStatus } from '../../types/create-refund-dialog-response-status';
 import { CreateRefundDialogComponent } from './create-refund-dialog.component';
 
-describe('CreateRefundDialogComponent', () => {
+xdescribe('CreateRefundDialogComponent', () => {
     let fixture: ComponentFixture<CreateRefundDialogComponent>;
     let component: CreateRefundDialogComponent;
     let mockMatDialogRef: MatDialogRef<CreateRefundDialogComponent, CreateRefundDialogResponse>;

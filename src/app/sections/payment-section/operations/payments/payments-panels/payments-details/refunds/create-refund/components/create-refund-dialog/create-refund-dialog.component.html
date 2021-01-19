@@ -1,41 +1,31 @@
-<div
-    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds.createRefund'"
-    fxLayout="column"
-    fxLayoutGap="32px"
->
-    <div class="dsh-headline">{{ t('title') }}</div>
-    <form fxLayout="column" [formGroup]="form">
-        <mat-form-field class="create-refund-dialog-reason">
-            <mat-label>{{ t('reason') }}</mat-label>
-            <input matInput type="text" formControlName="reason" aria-label="reason" [errorStateMatcher]="matcher" />
-            <!--            need this like awful ng-ifs to work in formfield. Hint only when there's no error. Can be changed to empty strings inside -->
-            <mat-hint *ngIf="!reasonLengthError">{{ reasonLength }}</mat-hint>
-            <mat-error *ngIf="reasonLengthError">{{ reasonLength }}</mat-error>
-        </mat-form-field>
-        <div fxLayout="column" fxLayoutGap="24px">
-            <mat-checkbox [checked]="isPartialRefund" (change)="togglePartialRefund(!isPartialRefund)">{{
-                t('partialRefund')
-            }}</mat-checkbox>
-            <mat-form-field *ngIf="isPartialRefund && amountControl" class="create-refund-dialog-amount">
-                <mat-label>{{ t('amount') }}</mat-label>
-                <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
-                <mat-hint *ngIf="balance$ | async as balance; else loadingBalanceHint">
-                    {{ t('availableRefund') }}
-                    : {{ balance.refundedAmount.amount | toMajor | currency: balance.refundedAmount.currency }}
-                    <br />
-                    {{ t('balance') }}
-                    : {{ balance.accountBalance.amount | toMajor | currency: balance.accountBalance.currency }}
-                </mat-hint>
-                <ng-template #loadingBalanceHint>
-                    {{ t('balanceLoading') }}
-                </ng-template>
-            </mat-form-field>
-        </div>
-    </form>
-    <div *transloco="let c" fxLayout fxLayoutAlign="space-between">
-        <button dsh-button color="warn" (click)="decline()">{{ c('cancel') }}</button>
-        <button dsh-button color="accent" [disabled]="form.invalid" (click)="confirm()">
-            {{ c('confirm') }}
-        </button>
-    </div>
-</div>
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds.createRefund'">
+    <dsh-base-dialog [title]="t('title')" [disabledConfirm]="form.invalid" (cancel)="decline()" (confirm)="confirm()">
+        <form fxLayout="column" [formGroup]="form">
+            <dsh-max-length-input
+                class="create-refund-dialog-reason"
+                formControlName="reason"
+                [label]="t('reason')"
+                [maxLength]="maxReasonLength"
+            ></dsh-max-length-input>
+            <div fxLayout="column" fxLayoutGap="24px">
+                <mat-checkbox [checked]="isPartialRefund" (change)="togglePartialRefund(!isPartialRefund)">{{
+                    t('partialRefund')
+                }}</mat-checkbox>
+                <mat-form-field *ngIf="isPartialRefund && amountControl" class="create-refund-dialog-amount">
+                    <mat-label>{{ t('amount') }}</mat-label>
+                    <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
+                    <mat-hint *ngIf="balance$ | async as balance; else loadingBalanceHint">
+                        {{ t('availableRefund') }}
+                        : {{ balance.refundedAmount.amount | toMajor | currency: balance.refundedAmount.currency }}
+                        <br />
+                        {{ t('balance') }}
+                        : {{ balance.accountBalance.amount | toMajor | currency: balance.accountBalance.currency }}
+                    </mat-hint>
+                    <ng-template #loadingBalanceHint>
+                        {{ t('balanceLoading') }}
+                    </ng-template>
+                </mat-form-field>
+            </div>
+        </form>
+    </dsh-base-dialog>
+</ng-container>

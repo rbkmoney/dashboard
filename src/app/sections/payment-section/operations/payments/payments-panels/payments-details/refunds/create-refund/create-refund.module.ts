@@ -9,6 +9,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { AccountModule } from '@dsh/api/account';
 import { RefundModule } from '@dsh/api/refund';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { MaxLengthInputModule } from '@dsh/app/shared/components/inputs/max-length-input/max-length-input.module';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
@@ -30,6 +32,8 @@ import { CreateRefundService } from './create-refund.service';
         FormatInputModule,
         AccountModule,
         RefundModule,
+        MaxLengthInputModule,
+        BaseDialogModule,
     ],
     declarations: [CreateRefundDialogComponent],
     providers: [CreateRefundService],

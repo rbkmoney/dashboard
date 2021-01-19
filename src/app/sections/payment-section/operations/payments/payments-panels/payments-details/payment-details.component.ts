@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable } from 'rxjs';
 
-import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentFlowHold, PaymentSearchResult } from '@dsh/api-codegen/capi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { Payment } from '../../types/payment';
@@ -16,6 +17,11 @@ import { InvoiceDetailsService } from './services/invoice-details/invoice-detail
 })
 export class PaymentDetailsComponent implements OnChanges {
     @Input() payment: Payment;
+
+    get isHoldShown(): boolean {
+        const heldUntil = (this.payment.flow as PaymentFlowHold)?.heldUntil;
+        return !isNil(heldUntil) && !isEmpty(heldUntil.toString());
+    }
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
 

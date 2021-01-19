@@ -12,7 +12,6 @@ import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { CommonError } from '@dsh/app/shared/services/error/models/common-error';
-import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { amountValidator } from '@dsh/components/form-controls';
 import { toMajor, toMinor } from '@dsh/utils';
 
@@ -35,8 +34,9 @@ const MAX_REASON_LENGTH = 100;
     providers: [AccountsService, RefundsService],
 })
 export class CreateRefundDialogComponent implements OnInit {
+    maxReasonLength: number = MAX_REASON_LENGTH;
     form: FormGroup<CreateRefundForm> = this.fb.group({
-        reason: ['', Validators.maxLength(MAX_REASON_LENGTH)],
+        reason: ['', Validators.maxLength(this.maxReasonLength)],
     });
 
     isPartialRefund = false;
@@ -44,22 +44,8 @@ export class CreateRefundDialogComponent implements OnInit {
 
     balance$: Observable<RefundAvailableSum>;
 
-    // material needs this to work with error state properly
-    matcher = new ErrorMatcher();
-
     get amountControl(): FormControl<number> | null {
         return this.form.controls.amount ?? null;
-    }
-
-    get reasonLengthError(): boolean {
-        const reasonControl = this.form.controls.reason;
-        return Boolean(reasonControl.errors?.maxlength);
-    }
-
-    get reasonLength(): string {
-        const reason = this.form.controls.reason.value;
-        const length = reason.length ?? 0;
-        return `${length} / ${MAX_REASON_LENGTH}`;
     }
 
     constructor(

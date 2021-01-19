@@ -8,7 +8,8 @@ export function generateMockPayment(data: Partial<Payment> = {}): Payment {
         amount: 0,
         currency: 'USD',
         status: PaymentSearchResult.StatusEnum.Pending,
-        statusChangedAt: new Date().toDateString(),
+        createdAt: new Date(),
+        statusChangedAt: new Date(),
         invoiceID: 'invoiceID',
         shopID: 'shopID',
         fee: 0,
@@ -17,6 +18,10 @@ export function generateMockPayment(data: Partial<Payment> = {}): Payment {
             paymentToolDetails: {
                 detailsType: 'mine',
             },
+        },
+        externalID: 'externalID',
+        flow: {
+            type: 'PaymentFlowHold',
         },
         ...data,
     };

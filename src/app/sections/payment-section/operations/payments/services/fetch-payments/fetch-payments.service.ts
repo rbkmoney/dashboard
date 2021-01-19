@@ -16,8 +16,6 @@ import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../..
 import { PaymentSearchFormValue } from '../../search-form';
 import { Payment } from '../../types/payment';
 
-type ApiPayment = PaymentSearchResult & { externalID: string };
-
 @Injectable()
 export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
     paymentsList$: Observable<Payment[]>;
@@ -72,10 +70,7 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
     }
 
     private initPaymentList(): Observable<Payment[]> {
-        const paymentsList$ = this.searchResult$.pipe(
-            startWith([]),
-            map((searchResults: ApiPayment[]) => this.formatPaymentsData(searchResults))
-        );
+        const paymentsList$ = this.searchResult$.pipe(startWith([]));
 
         const cachedPayments$ = paymentsList$.pipe(pairwise());
         return cachedPayments$.pipe(
@@ -83,40 +78,6 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
                 return this.updateCachedElements(cachedPayments, curPayments);
             }),
             shareReplay(SHARE_REPLAY_CONF)
-        );
-    }
-
-    private formatPaymentsData(paymentsData: ApiPayment[]): Payment[] {
-        return paymentsData.map(
-            ({
-                id,
-                amount,
-                status,
-                statusChangedAt,
-                invoiceID,
-                shopID,
-                currency,
-                fee = 0,
-                payer,
-                transactionInfo,
-                error,
-                externalID,
-            }: ApiPayment) => {
-                return {
-                    id,
-                    amount,
-                    status,
-                    currency,
-                    invoiceID,
-                    shopID,
-                    statusChangedAt: statusChangedAt as any,
-                    fee,
-                    externalID,
-                    error,
-                    transactionInfo,
-                    payer: payer as Payment['payer'],
-                };
-            }
         );
     }
 

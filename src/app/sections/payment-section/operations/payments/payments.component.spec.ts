@@ -61,11 +61,11 @@ describe('PaymentsComponent', () => {
         when(mockFetchPaymentsService.paymentsList$).thenReturn(
             of([
                 generateMockPayment({
-                    statusChangedAt: date.toDateString(),
+                    statusChangedAt: date,
                     id: 'payment_id_0',
                 }),
                 generateMockPayment({
-                    statusChangedAt: date.toDateString(),
+                    statusChangedAt: date,
                     id: 'payment_id_1',
                 }),
             ])
