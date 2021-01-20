@@ -26,10 +26,10 @@ import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
 import { SettingsModule } from './settings';
+import { FeedbackModule } from './shared/components';
 import { ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
-import { FeedbackModule } from './shared/components';
 
 @NgModule({
     declarations: [AppComponent],
