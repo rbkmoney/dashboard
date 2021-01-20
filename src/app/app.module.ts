@@ -29,6 +29,7 @@ import { SettingsModule } from './settings';
 import { ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
+import { FeedbackModule } from './shared/components';
 
 @NgModule({
     declarations: [AppComponent],
@@ -48,6 +49,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         TranslocoModule,
         YandexMetrikaModule,
         LoggerModule,
+        FeedbackModule,
     ],
     providers: [
         LanguageService,
