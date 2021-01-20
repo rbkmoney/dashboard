@@ -70,7 +70,7 @@ describe('PaymentsRowComponent', () => {
                 amount: 20,
                 currency: 'USD',
                 status: PaymentSearchResult.StatusEnum.Pending,
-                statusChangedAt: date.format(),
+                statusChangedAt: date.toDate(),
                 invoiceID: 'id',
                 id: 'id',
             });

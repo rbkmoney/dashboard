@@ -137,7 +137,7 @@ describe('RefundsComponent', () => {
                 })
             );
 
-            const spyOnsStatusChanged = spyOn(component.statusChanged, 'emit');
+            const spyOnsStatusChanged = spyOn(component.fullyRefunded, 'emit');
 
             component.createRefund();
 
@@ -161,7 +161,7 @@ describe('RefundsComponent', () => {
                 })
             );
 
-            const spyOnsStatusChanged = spyOn(component.statusChanged, 'emit');
+            const spyOnsStatusChanged = spyOn(component.fullyRefunded, 'emit');
 
             component.createRefund();
 

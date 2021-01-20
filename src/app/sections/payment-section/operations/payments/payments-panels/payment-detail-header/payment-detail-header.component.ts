@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class PaymentDetailHeaderComponent {
     @Input() id: string;
-    @Input() changedDate: string;
+    @Input() changedDate: Date;
 }

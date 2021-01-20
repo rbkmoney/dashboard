@@ -29,7 +29,7 @@ describe('ResourcePayerComponent', () => {
         fixture = TestBed.createComponent(ResourcePayerComponent);
         component = fixture.componentInstance;
         component.payer = {
-            payerType: '',
+            payerType: 'PaymentResourcePayer',
             paymentToolToken: '',
             paymentSession: '',
             contactInfo: {},
@@ -46,7 +46,7 @@ describe('ResourcePayerComponent', () => {
 
         it('should render nothing if contact info is empty', () => {
             component.payer = {
-                payerType: '',
+                payerType: 'PaymentResourcePayer',
                 paymentToolToken: '',
                 paymentSession: '',
                 contactInfo: {},
@@ -60,7 +60,7 @@ describe('ResourcePayerComponent', () => {
 
         it('should render contact email if contact email if it was provided', () => {
             component.payer = {
-                payerType: '',
+                payerType: 'PaymentResourcePayer',
                 paymentToolToken: '',
                 paymentSession: '',
                 contactInfo: {
@@ -76,7 +76,7 @@ describe('ResourcePayerComponent', () => {
 
         it('should render contact number if contact phone number', () => {
             component.payer = {
-                payerType: '',
+                payerType: 'PaymentResourcePayer',
                 paymentToolToken: '',
                 paymentSession: '',
                 contactInfo: {
@@ -92,7 +92,7 @@ describe('ResourcePayerComponent', () => {
 
         it('should render contact email if full contact info was provided', () => {
             component.payer = {
-                payerType: '',
+                payerType: 'PaymentResourcePayer',
                 paymentToolToken: '',
                 paymentSession: '',
                 contactInfo: {

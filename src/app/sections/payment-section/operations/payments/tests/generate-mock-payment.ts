@@ -1,22 +1,21 @@
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
-import { Payment } from '../types/payment';
-
-export function generateMockPayment(data: Partial<Payment> = {}): Payment {
+export function generateMockPayment(data: Partial<PaymentSearchResult> = {}): PaymentSearchResult {
     return {
         id: 'paymentID',
         amount: 0,
         currency: 'USD',
         status: PaymentSearchResult.StatusEnum.Pending,
-        statusChangedAt: new Date().toDateString(),
+        createdAt: new Date(),
+        statusChangedAt: new Date(),
         invoiceID: 'invoiceID',
         shopID: 'shopID',
         fee: 0,
         payer: {
-            payerType: 'mine',
-            paymentToolDetails: {
-                detailsType: 'mine',
-            },
+            payerType: 'CustomerPayer',
+        },
+        flow: {
+            type: 'PaymentFlowHold',
         },
         ...data,
     };

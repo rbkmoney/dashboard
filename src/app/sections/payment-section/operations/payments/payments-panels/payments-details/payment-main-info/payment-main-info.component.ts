@@ -2,11 +2,11 @@ import { Component, Inject, Input } from '@angular/core';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
 
-import { PaymentResourcePayer } from '@dsh/api-codegen/capi';
+import { PaymentResourcePayer, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 
 import { PayerType } from '../../../../../../payment-details/payer-details';
-import { Payment } from '../../../types/payment';
+import { CommonPayer } from './types/common-payer';
 import { PaymentAdditionalInfo } from './types/payment-additional-info';
 
 @Component({
@@ -15,14 +15,16 @@ import { PaymentAdditionalInfo } from './types/payment-additional-info';
     styleUrls: ['./payment-main-info.component.scss'],
 })
 export class PaymentMainInfoComponent {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
 
     constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
+    get payer(): CommonPayer {
+        return this.payment.payer as CommonPayer;
+    }
+
     get resourcePayer(): PaymentResourcePayer | null {
-        return this.payment.payer.payerType === PayerType.PaymentResourcePayer
-            ? (this.payment.payer as PaymentResourcePayer)
-            : null;
+        return this.payer.payerType === PayerType.PaymentResourcePayer ? (this.payer as PaymentResourcePayer) : null;
     }
 
     get additionalInfo(): PaymentAdditionalInfo | null {
