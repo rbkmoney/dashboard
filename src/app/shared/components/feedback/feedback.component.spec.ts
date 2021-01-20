@@ -1,7 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
+import { DIALOG_CONFIG } from '../../../sections/tokens';
 import { FeedbackComponent } from './feedback.component';
 
 @Component({
@@ -17,8 +20,9 @@ describe('FeedbackComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [],
+            imports: [MatDialogModule],
             declarations: [HostComponent, FeedbackComponent],
+            providers: [{ provide: DIALOG_CONFIG, useValue: {} }],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
@@ -31,8 +35,4 @@ describe('FeedbackComponent', () => {
     it('should be created', () => {
         expect(component).toBeTruthy();
     });
-
-    describe('methods', () => {});
-
-    describe('template', () => {});
 });

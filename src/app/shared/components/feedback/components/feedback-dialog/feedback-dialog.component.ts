@@ -3,7 +3,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { MessagesService } from '../../../../../api/sender';
+
+import { MessagesService } from '@dsh/api/sender';
+
 import { ErrorService, NotificationService } from '../../../../services';
 
 const MAX_LENGTH = 2000;

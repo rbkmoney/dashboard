@@ -5,11 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
+
 import { ButtonModule } from '../../../../components/buttons';
 import { SenderModule } from '../../../api/sender';
 import { ErrorModule } from '../../services';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
-
 import { FeedbackComponent } from './feedback.component';
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { DialogConfig, DIALOG_CONFIG } from '../../../sections/tokens';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
