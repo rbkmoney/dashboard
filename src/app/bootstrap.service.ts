@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { defer, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, mapTo, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { concat, defer, forkJoin, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, mapTo, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import {
     ApiShopsService,
@@ -16,9 +16,15 @@ import { UuidGeneratorService } from './shared/services/uuid-generator/uuid-gene
 @Injectable()
 export class BootstrapService {
     bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
-        switchMap(() => this.capiPartiesService.getMyParty()),
-        switchMap(() => this.initShop()),
-        switchMap(() => this.initOrganization()),
+        switchMap(() =>
+            concat(this.capiPartiesService.getMyParty(), this.initShop(), this.initOrganization()).pipe(
+                mapTo(true),
+                catchError((e) => {
+                    this.errorService.error(e);
+                    return of(false);
+                })
+            )
+        ),
         shareReplay(1)
     );
 
@@ -39,8 +45,7 @@ export class BootstrapService {
     }
 
     private initOrganization(): Observable<boolean> {
-        return this.organizationsService.getOrganizations(1).pipe(
-            withLatestFrom(this.userService.profile$),
+        return forkJoin([this.organizationsService.getOrganizations(1), this.userService.profile$.pipe(first())]).pipe(
             switchMap(([orgs, { username }]) =>
                 orgs.results.length
                     ? of(null)
@@ -48,9 +53,7 @@ export class BootstrapService {
                           name: MAIN_ORGANIZATION_NAME,
                           owner: username as never,
                       })
-            ),
-            mapTo(true),
-            catchError((e) => (this.errorService.error(e), of(false)))
+            )
         );
     }
 
@@ -59,9 +62,7 @@ export class BootstrapService {
             first(),
             switchMap((shops) =>
                 shops.length ? of(null) : this.createTestShop().pipe(tap(() => this.shopService.reloadShops()))
-            ),
-            mapTo(true),
-            catchError((e) => (this.errorService.error(e), of(false)))
+            )
         );
     }
 
