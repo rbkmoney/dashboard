@@ -10,7 +10,7 @@ import { ComponentChanges } from '../../../../../type-utils';
 import { Member, Organization } from '../../../../api-codegen/organizations';
 import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
-import { DialogConfig, DIALOG_CONFIG } from '../../../constants';
+import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 

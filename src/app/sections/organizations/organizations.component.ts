@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 
 import { mapToTimestamp } from '../../custom-operators';
-import { DialogConfig, DIALOG_CONFIG } from '../constants';
+import { DialogConfig, DIALOG_CONFIG } from '../tokens';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 

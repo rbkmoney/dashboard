@@ -11,7 +11,7 @@ import { anyString, instance, mock, when } from 'ts-mockito';
 import { DetailsItemComponent, DetailsItemModule } from '../../../../../components/layout';
 import { ErrorModule } from '../../../../shared/services/error';
 import { NotificationModule } from '../../../../shared/services/notification';
-import { DIALOG_CONFIG } from '../../../constants';
+import { DIALOG_CONFIG } from '../../../tokens';
 import { OrganizationRolesComponent, OrganizationRolesModule } from '../../organization-roles';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { mockMember } from '../../tests/mock-member';

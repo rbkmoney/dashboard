@@ -4,7 +4,7 @@ import { delay } from 'rxjs/operators';
 
 import { OrganizationsService } from '../../../../api';
 import { Organization } from '../../../../api-codegen/organizations';
-import { SEARCH_LIMIT } from '../../../constants';
+import { SEARCH_LIMIT } from '../../../tokens';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { mockOrg } from '../../tests/mock-org';
 

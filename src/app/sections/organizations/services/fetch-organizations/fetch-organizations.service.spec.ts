@@ -4,7 +4,7 @@ import { instance, mock } from 'ts-mockito';
 
 import { OrganizationsService } from '../../../../api';
 import { UserService } from '../../../../shared';
-import { SEARCH_LIMIT } from '../../../constants';
+import { SEARCH_LIMIT } from '../../../tokens';
 import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
