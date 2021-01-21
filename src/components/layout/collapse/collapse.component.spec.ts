@@ -43,15 +43,18 @@ describe('CollapseComponent', () => {
         mir.addSvgIcon('keyboard_arrow_up', sanitizedUrl);
     }));
 
+    it('should create', () => {
+        fixture = TestBed.createComponent(CollapseComponent);
+        fixture.detectChanges();
+        expect(fixture.componentInstance).toBeTruthy();
+    });
+
     describe('collapse down', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(MockCollapseComponent);
             component = fixture.componentInstance;
             selector = new Selector(fixture);
             fixture.detectChanges();
-        });
-        it('should create', () => {
-            expect(component).toBeTruthy();
         });
         describe('template', () => {
             it('should render title', () => {
@@ -101,9 +104,6 @@ describe('CollapseComponent', () => {
             component = fixture.componentInstance;
             selector = new Selector(fixture);
             fixture.detectChanges();
-        });
-        it('should create', () => {
-            expect(component).toBeTruthy();
         });
         describe('template', () => {
             it('should expand on click upward', () => {

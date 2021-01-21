@@ -7,6 +7,8 @@ SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
 UTILS_PATH := build_utils
 TEMPLATES_PATH := .
 
+WORKDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
 # Name of the service
 SERVICE_NAME := dashboard
 # Service image default tag
@@ -53,4 +55,4 @@ clean:
 	rm -rf dist
 
 test:
-	npm run test-silent
+	docker run --name $(SERVICE_NAME)$(RAND)_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run test-ci

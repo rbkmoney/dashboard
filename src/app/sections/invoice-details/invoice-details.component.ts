@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/capi';
 
-import { LAYOUT_GAP } from '../constants';
+import { LAYOUT_GAP } from '../tokens';
 import { InvoiceDetailsService } from './invoice-details.service';
 
 @Component({

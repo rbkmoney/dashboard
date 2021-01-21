@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { InvoiceLine } from '../../../../../../../../../api-codegen/anapi';
+import { InvoiceLine } from '@dsh/api-codegen/anapi';
+
 import { ReceiveInvoiceService } from '../../../services/receive-invoice/receive-invoice.service';
 
 @Component({

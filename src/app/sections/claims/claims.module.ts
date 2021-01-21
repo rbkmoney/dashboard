@@ -16,7 +16,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
 import { TableModule } from '@dsh/components/table';
 
-import { LAYOUT_GAP } from '../constants';
+import { LAYOUT_GAP } from '../tokens';
 import { ClaimsListModule } from './claims-list';
 import { ClaimsRoutingModule } from './claims-routing.module';
 import { ClaimsSearchFiltersModule } from './claims-search-filters';

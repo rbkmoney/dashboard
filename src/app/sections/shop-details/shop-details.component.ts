@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Shop } from '@dsh/api-codegen/capi';
 
-import { LAYOUT_GAP } from '../constants';
+import { LAYOUT_GAP } from '../tokens';
 import { ShopDetailsService } from './shop-details.service';
 
 @Component({
