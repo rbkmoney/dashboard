@@ -15,7 +15,7 @@ import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
 import { PaymentsCachingService } from '../payments-caching/payments-caching.service';
 
 // three years duration is enough now to find payment using invoiceID and paymentID
-const SINGLE_PAYMENT_REQUEST_DURATION: Duration = {
+export const SINGLE_PAYMENT_REQUEST_DURATION: Duration = {
     amount: 3,
     unit: 'y',
 };
@@ -80,6 +80,7 @@ export class PaymentsService {
     private initFetchedPaymentsCaching(): void {
         this.fetchPaymentsService.paymentsList$
             .pipe(
+                // last page - slice last searchLimit elements. Cache service won't update them on adding
                 map((payments: PaymentSearchResult[]) => this.getLastPaymentsPage(payments)),
                 untilDestroyed(this)
             )
