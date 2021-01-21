@@ -8,8 +8,8 @@ const rolePriorityDesc: { [N in RoleId]: number } = {
     Manager: 3,
 };
 
-export function getRolesByGroup(roles: MemberRole[]): RoleGroup[] {
-    return roles
+export function getRolesByGroup(roles: MemberRole[] | Set<MemberRole>): RoleGroup[] {
+    return Array.from(roles)
         .reduce((groups, role) => {
             let group = groups.find((g) => g.id === role.roleId);
             if (!group) {

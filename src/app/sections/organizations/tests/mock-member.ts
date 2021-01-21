@@ -18,5 +18,5 @@ export const mockMember: Member = {
                 resourceId: '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
             },
         } as MemberRole),
-    ],
+    ] as any,
 };

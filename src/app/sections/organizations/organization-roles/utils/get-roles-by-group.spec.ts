@@ -45,7 +45,7 @@ describe('getRolesByGroup', () => {
     });
 
     it('should sort', () => {
-        const actual = getRolesByGroup(mockMember.roles.reverse());
+        const actual = getRolesByGroup(Array.from(mockMember.roles).reverse());
         expect(actual).toEqual(expected);
     });
 
