@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, timer } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -96,10 +96,7 @@ export class PaymentsService {
     }
 
     private scheduleUpdate(): Observable<void> {
-        return timer(this.updateDelay).pipe(
-            map(() => null),
-            take(1)
-        );
+        return of(null).pipe(delay(this.updateDelay));
     }
 
     private getLastPaymentsPage(payments: PaymentSearchResult[]): PaymentSearchResult[] {

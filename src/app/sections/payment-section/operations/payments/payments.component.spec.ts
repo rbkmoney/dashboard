@@ -94,7 +94,7 @@ describe('PaymentsComponent', () => {
                 {
                     provide: PaymentsService,
                     useFactory: () => instance(mockPaymentsService),
-                }
+                },
             ],
         })
             .overrideComponent(PaymentsComponent, {

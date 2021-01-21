@@ -10,12 +10,13 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared/services';
 
 import { PAYMENTS_UPDATE_DELAY_TOKEN } from '../../consts';
+import { generateMockPayment } from '../../tests/generate-mock-payment';
 import { generateMockPaymentsList } from '../../tests/generate-mock-payments-list';
 import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
 import { PaymentsCachingService } from '../payments-caching/payments-caching.service';
 import { PaymentsService, SINGLE_PAYMENT_REQUEST_DURATION } from './payments.service';
 
-fdescribe('PaymentsService', () => {
+describe('PaymentsService', () => {
     let service: PaymentsService;
     let mockPaymentSearchService: PaymentSearchService;
     let mockFetchPaymentsService: FetchPaymentsService;
@@ -32,7 +33,7 @@ fdescribe('PaymentsService', () => {
     beforeEach(() => {
         when(mockFetchPaymentsService.paymentsList$).thenReturn(of());
         when(mockFetchPaymentsService.errors$).thenReturn(of());
-    })
+    });
 
     function createService() {
         TestBed.configureTestingModule({
@@ -62,7 +63,7 @@ fdescribe('PaymentsService', () => {
                     provide: PAYMENTS_UPDATE_DELAY_TOKEN,
                     useValue: 100,
                 },
-            ]
+            ],
         });
         service = TestBed.inject(PaymentsService);
     }
@@ -115,7 +116,7 @@ fdescribe('PaymentsService', () => {
                 createService();
 
                 expect(service.lastUpdated$).toBeObservable(updateDate$);
-            })
+            });
         });
 
         describe('hasMore$', () => {
@@ -136,12 +137,14 @@ fdescribe('PaymentsService', () => {
             it('should slice items from fetcher using search limit and send it to cache service', () => {
                 const mockPayments = generateMockPaymentsList(7);
 
-                when(mockFetchPaymentsService.paymentsList$).thenReturn(of(
-                    mockPayments.slice(0, 2),
-                    mockPayments.slice(0, 4),
-                    mockPayments.slice(0, 6),
-                    mockPayments.slice(),
-                ));
+                when(mockFetchPaymentsService.paymentsList$).thenReturn(
+                    of(
+                        mockPayments.slice(0, 2),
+                        mockPayments.slice(0, 4),
+                        mockPayments.slice(0, 6),
+                        mockPayments.slice()
+                    )
+                );
 
                 createService();
 
@@ -195,22 +198,20 @@ fdescribe('PaymentsService', () => {
             const searchParams = {
                 date: {
                     begin: moment(),
-                    end: moment()
-                }
-            }
+                    end: moment(),
+                },
+            };
 
             service.search(searchParams);
             verify(mockFetchPaymentsService.search(deepEqual(searchParams))).once();
         });
 
         it('should clear cache', () => {
-            createService();
-
             service.search({
                 date: {
                     begin: moment(),
-                    end: moment()
-                }
+                    end: moment(),
+                },
             });
 
             verify(mockPaymentsCachingService.clear()).once();
@@ -261,7 +262,7 @@ fdescribe('PaymentsService', () => {
         });
     });
 
-    xdescribe('updatePayment', () => {
+    describe('updatePayment', () => {
         beforeEach(() => {
             createService();
         });
@@ -272,14 +273,48 @@ fdescribe('PaymentsService', () => {
 
         it('should request load one element after delay', () => {
             const scheduler = getTestScheduler();
+            const mockPayment = generateMockPayment();
 
-            when(mockPaymentSearchService.getPaymentByDuration(
-                deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
-                'my_invoice_id',
-                'my_payment_id'
-            )).thenReturn(of());
+            when(
+                mockPaymentSearchService.getPaymentByDuration(
+                    deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
+                    'my_invoice_id',
+                    'my_payment_id'
+                )
+            ).thenReturn(of(mockPayment));
 
-            scheduler.createTime('----------')
+            scheduler.run(({ flush }) => {
+                service.updatePayment('my_invoice_id', 'my_payment_id');
+
+                flush();
+                verify(
+                    mockPaymentSearchService.getPaymentByDuration(
+                        deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
+                        'my_invoice_id',
+                        'my_payment_id'
+                    )
+                ).once();
+            });
+        });
+
+        it('should send a request to cache service to update payment', () => {
+            const scheduler = getTestScheduler();
+            const mockPayment = generateMockPayment();
+
+            when(
+                mockPaymentSearchService.getPaymentByDuration(
+                    deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
+                    'my_invoice_id',
+                    'my_payment_id'
+                )
+            ).thenReturn(of(mockPayment));
+
+            scheduler.run(({ flush }) => {
+                service.updatePayment('my_invoice_id', 'my_payment_id');
+
+                flush();
+                verify(mockPaymentsCachingService.updateElements(deepEqual(mockPayment))).once();
+            });
         });
     });
 });

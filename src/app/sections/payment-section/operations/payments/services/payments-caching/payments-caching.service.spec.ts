@@ -50,12 +50,14 @@ describe('PaymentsCachingService', () => {
                 service.addElements(...payments);
             });
 
-            expect(service.payments$).toBeObservable(cold('a--b-c--d', {
-                a: [],
-                b: mockPayments.slice(0, 2),
-                c: mockPayments.slice(0, 4),
-                d: mockPayments,
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b-c--d', {
+                    a: [],
+                    b: mockPayments.slice(0, 2),
+                    c: mockPayments.slice(0, 4),
+                    d: mockPayments,
+                })
+            );
         });
     });
 
@@ -64,13 +66,13 @@ describe('PaymentsCachingService', () => {
         beforeEach(() => {
             mockPayments = generateMockPaymentsList(5);
             service.addElements(...mockPayments);
-        })
+        });
 
         it('should update single element', () => {
             const newPayment = generateMockPayment({
                 id: mockPayments[2].id,
                 invoiceID: mockPayments[2].invoiceID,
-            })
+            });
             hot('^--a|', {
                 a: newPayment,
             }).subscribe((payment: PaymentSearchResult) => {
@@ -78,12 +80,14 @@ describe('PaymentsCachingService', () => {
             });
 
             const updatedList = mockPayments.slice();
-            updatedList.splice(2, 1, newPayment)
+            updatedList.splice(2, 1, newPayment);
 
-            expect(service.payments$).toBeObservable(cold('a--b', {
-                a: mockPayments,
-                b: updatedList,
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b', {
+                    a: mockPayments,
+                    b: updatedList,
+                })
+            );
         });
 
         it('should not update element if it does not exist in cache list', () => {
@@ -98,10 +102,12 @@ describe('PaymentsCachingService', () => {
                 service.updateElements(payment);
             });
 
-            expect(service.payments$).toBeObservable(cold('a--b', {
-                a: mockPayments,
-                b: mockPayments,
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b', {
+                    a: mockPayments,
+                    b: mockPayments,
+                })
+            );
         });
 
         it('should update a few items in list', () => {
@@ -115,7 +121,7 @@ describe('PaymentsCachingService', () => {
                     id: mockPayments[2].id,
                     invoiceID: mockPayments[2].invoiceID,
                     createdAt: new Date(),
-                })
+                }),
             ];
 
             hot('^--a|', {
@@ -127,10 +133,12 @@ describe('PaymentsCachingService', () => {
             const updatedList = mockPayments.slice();
             updatedList.splice(1, 2, ...newPayments);
 
-            expect(service.payments$).toBeObservable(cold('a--b', {
-                a: mockPayments,
-                b: updatedList,
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b', {
+                    a: mockPayments,
+                    b: updatedList,
+                })
+            );
         });
 
         it('should update only existing elements', () => {
@@ -138,17 +146,15 @@ describe('PaymentsCachingService', () => {
                 generateMockPayment({
                     id: mockPayments[1].id,
                     invoiceID: mockPayments[1].invoiceID,
-                    createdAt: new Date(),
                 }),
                 generateMockPayment({
                     id: mockPayments[2].id,
                     invoiceID: mockPayments[2].invoiceID,
-                    createdAt: new Date(),
                 }),
                 generateMockPayment({
                     id: 'mock_payment_10',
                     invoiceID: 'mine_invoice_id',
-                })
+                }),
             ];
 
             hot('^--a-b|', {
@@ -158,18 +164,17 @@ describe('PaymentsCachingService', () => {
                 service.updateElements(...payments);
             });
 
-            const updatedLists = [
-                mockPayments.slice(),
-                mockPayments.slice(),
-            ];
+            const updatedLists = [mockPayments.slice(), mockPayments.slice()];
             updatedLists[0].splice(1, 1, newPayments[0]);
             updatedLists[1].splice(2, 1, newPayments[1]);
 
-            expect(service.payments$).toBeObservable(cold('a--b-c', {
-                a: mockPayments,
-                b: updatedLists[0],
-                c: updatedLists[1],
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b-c', {
+                    a: mockPayments,
+                    b: updatedLists[0],
+                    c: updatedLists[1],
+                })
+            );
         });
     });
 
@@ -181,21 +186,25 @@ describe('PaymentsCachingService', () => {
                 a: mockPayments.slice(0, 2),
                 b: mockPayments.slice(2, 4),
                 c: mockPayments.slice(4),
-            }).pipe(
-                finalize(() => {
-                    service.clear();
-                })
-            ).subscribe((payments: PaymentSearchResult[]) => {
-                service.addElements(...payments);
-            });
+            })
+                .pipe(
+                    finalize(() => {
+                        service.clear();
+                    })
+                )
+                .subscribe((payments: PaymentSearchResult[]) => {
+                    service.addElements(...payments);
+                });
 
-            expect(service.payments$).toBeObservable(cold('a--b-c--d---e', {
-                a: [],
-                b: mockPayments.slice(0, 2),
-                c: mockPayments.slice(0, 4),
-                d: mockPayments,
-                e: [],
-            }));
+            expect(service.payments$).toBeObservable(
+                cold('a--b-c--d---e', {
+                    a: [],
+                    b: mockPayments.slice(0, 2),
+                    c: mockPayments.slice(0, 4),
+                    d: mockPayments,
+                    e: [],
+                })
+            );
         });
     });
 });
