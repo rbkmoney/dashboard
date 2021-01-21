@@ -4,10 +4,11 @@ import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable } from 'rxjs';
 
-import { Invoice, PaymentFlowHold, PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentFlowHold, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { Payment } from '../../types/payment';
+import { PaymentsService } from '../../services/payments/payments.service';
+import { PaymentIds } from '../../types/payment-ids';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
 @Component({
@@ -16,7 +17,7 @@ import { InvoiceDetailsService } from './services/invoice-details/invoice-detail
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentDetailsComponent implements OnChanges {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
 
     get isHoldShown(): boolean {
         const heldUntil = (this.payment.flow as PaymentFlowHold)?.heldUntil;
@@ -25,19 +26,19 @@ export class PaymentDetailsComponent implements OnChanges {
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
 
-    constructor(private invoiceDetails: InvoiceDetailsService) {}
+    constructor(private invoiceDetails: InvoiceDetailsService, private paymentsService: PaymentsService) {}
 
     ngOnChanges(changes: ComponentChanges<PaymentDetailsComponent>): void {
         if (isObject(changes.payment)) {
-            this.updatePayment(changes.payment);
+            this.changeInvoiceID(changes.payment);
         }
     }
 
-    updateStatus(payment: Payment): void {
-        payment.status = PaymentSearchResult.StatusEnum.Refunded;
+    updatePayment({ invoiceID, paymentID }: PaymentIds): void {
+        this.paymentsService.updatePayment(invoiceID, paymentID);
     }
 
-    private updatePayment({ currentValue: payment }: ComponentChange<PaymentDetailsComponent, 'payment'>): void {
+    private changeInvoiceID({ currentValue: payment }: ComponentChange<PaymentDetailsComponent, 'payment'>): void {
         if (isNil(payment)) {
             return;
         }

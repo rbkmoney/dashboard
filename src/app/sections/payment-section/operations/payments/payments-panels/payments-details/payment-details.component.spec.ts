@@ -3,10 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { instance, mock, verify } from 'ts-mockito';
 
-import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
+import { PaymentsService } from '../../services/payments/payments.service';
 import { generateMockPayment } from '../../tests/generate-mock-payment';
-import { Payment } from '../../types/payment';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
@@ -15,7 +15,7 @@ import { InvoiceDetailsService } from './services/invoice-details/invoice-detail
     template: '',
 })
 class MockPaymentMainInfoComponent {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
 }
 
 @Component({
@@ -45,9 +45,11 @@ xdescribe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;
+    let mockPaymentsService: PaymentsService;
 
     beforeEach(() => {
         mockInvoiceDetailsService = mock(InvoiceDetailsService);
+        mockPaymentsService = mock(PaymentsService);
     });
 
     beforeEach(async(() => {
@@ -63,6 +65,10 @@ xdescribe('PaymentDetailsComponent', () => {
                 {
                     provide: InvoiceDetailsService,
                     useFactory: () => instance(mockInvoiceDetailsService),
+                },
+                {
+                    provide: PaymentsService,
+                    useFactory: () => instance(mockPaymentsService),
                 },
             ],
         }).compileComponents();
@@ -121,4 +127,6 @@ xdescribe('PaymentDetailsComponent', () => {
             expect().nothing();
         });
     });
+
+    describe('updatePayment', () => {});
 });

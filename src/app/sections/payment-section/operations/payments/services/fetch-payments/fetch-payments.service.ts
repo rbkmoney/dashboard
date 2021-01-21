@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, map, pairwise, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
@@ -14,11 +14,10 @@ import { toMinor } from '@dsh/utils';
 
 import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../search-form';
-import { Payment } from '../../types/payment';
 
 @Injectable()
 export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
-    paymentsList$: Observable<Payment[]>;
+    paymentsList$: Observable<PaymentSearchResult[]>;
 
     private realm$ = new ReplaySubject<PaymentInstitutionRealm>(1);
 
@@ -69,24 +68,30 @@ export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearch
         );
     }
 
-    private initPaymentList(): Observable<Payment[]> {
+    private initPaymentList(): Observable<PaymentSearchResult[]> {
         const paymentsList$ = this.searchResult$.pipe(startWith([]));
 
         const cachedPayments$ = paymentsList$.pipe(pairwise());
         return cachedPayments$.pipe(
-            map(([cachedPayments, curPayments]: [Payment[], Payment[]]) => {
+            map(([cachedPayments, curPayments]: [PaymentSearchResult[], PaymentSearchResult[]]) => {
                 return this.updateCachedElements(cachedPayments, curPayments);
             }),
             shareReplay(SHARE_REPLAY_CONF)
         );
     }
 
-    private updateCachedElements(cachedPayments: Payment[], curPayments: Payment[]): Payment[] {
-        const cachedPaymentsMap = cachedPayments.reduce((acc: Map<string, Payment>, prevEl: Payment) => {
-            acc.set(`${prevEl.invoiceID}${prevEl.id}`, prevEl);
-            return acc;
-        }, new Map());
-        return curPayments.map((curPaymentEl: Payment) => {
+    private updateCachedElements(
+        cachedPayments: PaymentSearchResult[],
+        curPayments: PaymentSearchResult[]
+    ): PaymentSearchResult[] {
+        const cachedPaymentsMap = cachedPayments.reduce(
+            (acc: Map<string, PaymentSearchResult>, prevEl: PaymentSearchResult) => {
+                acc.set(`${prevEl.invoiceID}${prevEl.id}`, prevEl);
+                return acc;
+            },
+            new Map()
+        );
+        return curPayments.map((curPaymentEl: PaymentSearchResult) => {
             const newElId = `${curPaymentEl.invoiceID}${curPaymentEl.id}`;
             if (cachedPaymentsMap.has(newElId)) {
                 const cachedPaymentEl = cachedPaymentsMap.get(newElId);

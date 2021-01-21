@@ -5,6 +5,7 @@ import { filter, take } from 'rxjs/operators';
 import { PaymentSearchResult, RefundSearchResult } from '@dsh/api-codegen/capi';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
+import { PaymentIds } from '../../../types/payment-ids';
 import { CreateRefundDialogResponse, CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 
@@ -29,7 +30,7 @@ export class RefundsComponent implements OnInit {
     @Input() maxRefundAmount: number;
     @Input() status: PaymentSearchResult.StatusEnum;
 
-    @Output() statusChanged = new EventEmitter<void>();
+    @Output() fullyRefunded = new EventEmitter<PaymentIds>();
 
     refunds$: Observable<RefundSearchResult[]> = this.refundsService.searchResult$;
     isLoading$: Observable<boolean> = this.refundsService.isLoading$;
@@ -46,14 +47,15 @@ export class RefundsComponent implements OnInit {
     }
 
     createRefund(): void {
+        const createRefundData = {
+            invoiceID: this.invoiceID,
+            paymentID: this.paymentID,
+            shopID: this.shopID,
+            currency: this.currency,
+            maxRefundAmount: this.maxRefundAmount,
+        };
         this.createRefundService
-            .createRefund({
-                invoiceID: this.invoiceID,
-                paymentID: this.paymentID,
-                shopID: this.shopID,
-                currency: this.currency,
-                maxRefundAmount: this.maxRefundAmount,
-            })
+            .createRefund(createRefundData)
             .pipe(
                 take(1),
                 filter(({ status }: CreateRefundDialogResponse) => status === CreateRefundDialogResponseStatus.SUCCESS)
@@ -61,7 +63,10 @@ export class RefundsComponent implements OnInit {
             .subscribe(({ availableAmount }: CreateRefundDialogResponse) => {
                 this.updateRefunds();
                 if (availableAmount === 0) {
-                    this.statusChanged.emit();
+                    this.fullyRefunded.emit({
+                        invoiceID: createRefundData.invoiceID,
+                        paymentID: createRefundData.paymentID,
+                    });
                 }
             });
     }

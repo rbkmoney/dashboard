@@ -9,7 +9,7 @@
         </div>
         <div fxLayout="row">
             <dsh-payment-status fxFlex="33" [status]="payment.status"> </dsh-payment-status>
-            <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payment.payer.paymentToolDetails"> </dsh-payment-tool>
+            <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payer.paymentToolDetails"> </dsh-payment-tool>
             <dsh-resource-payer *ngIf="resourcePayer" [payer]="resourcePayer"> </dsh-resource-payer>
         </div>
         <dsh-shop-name [shopName]="payment.shopID | shopDetails"></dsh-shop-name>

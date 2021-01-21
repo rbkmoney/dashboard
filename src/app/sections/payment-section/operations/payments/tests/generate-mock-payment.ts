@@ -1,8 +1,6 @@
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
-import { Payment } from '../types/payment';
-
-export function generateMockPayment(data: Partial<Payment> = {}): Payment {
+export function generateMockPayment(data: Partial<PaymentSearchResult> = {}): PaymentSearchResult {
     return {
         id: 'paymentID',
         amount: 0,
@@ -14,10 +12,10 @@ export function generateMockPayment(data: Partial<Payment> = {}): Payment {
         shopID: 'shopID',
         fee: 0,
         payer: {
-            payerType: 'mine',
-            paymentToolDetails: {
-                detailsType: 'mine',
-            },
+            payerType: 'CustomerPayer',
+        },
+        flow: {
+            type: 'PaymentFlowHold',
         },
         externalID: 'externalID',
         flow: {

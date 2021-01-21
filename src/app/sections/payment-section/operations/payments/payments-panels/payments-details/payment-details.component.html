@@ -14,6 +14,6 @@
         [currency]="payment.currency"
         [maxRefundAmount]="payment.amount"
         [status]="payment.status"
-        (statusChanged)="updateStatus(payment)"
+        (fullyRefunded)="updatePayment($event)"
     ></dsh-refunds>
 </div>
