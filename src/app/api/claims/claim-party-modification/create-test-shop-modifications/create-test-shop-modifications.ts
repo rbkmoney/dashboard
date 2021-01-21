@@ -11,11 +11,11 @@ import {
     createContractCreationModification,
     createRussianContractPayoutToolModification,
 } from '../claim-contract-modification';
+import { createContractLegalAgreementBindingModification } from '../claim-contract-modification/create-contract-legal-agreement-binding-modification';
 import {
     createRussianBankAccountModification,
     createRussianLegalEntityModification,
 } from '../claim-contractor-modification';
-import { createContractLegalAgreementBindingModification } from '../claim-contractor-modification/create-contract-legal-agreement-binding-modification';
 import { createShopCreationModification, makeShopLocation } from '../claim-shop-modification';
 
 const testRussianBankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
@@ -65,8 +65,8 @@ export const createTestShopModifications = ({
     payoutToolID: string;
 }): Modification[] => [
     createRussianLegalEntityModification(contractorID, testRussianLegalEntity),
-    createRussianContractPayoutToolModification(contractID, payoutToolID, testRussianBankAccount),
-    createContractLegalAgreementBindingModification(createTestLegalAgreement()),
     createContractCreationModification(contractID, { contractorID }),
+    createContractLegalAgreementBindingModification(contractID, createTestLegalAgreement()),
+    createRussianContractPayoutToolModification(contractID, payoutToolID, testRussianBankAccount),
     createShopCreationModification(shopID, { ...testShopCreation, contractID, payoutToolID }),
 ];
