@@ -1,11 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { filter } from 'rxjs/operators';
 
 import { mapToTimestamp } from '../../custom-operators';
 import { DialogConfig, DIALOG_CONFIG } from '../tokens';
-import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
+import {
+    CreateOrganizationDialogComponent,
+    Status,
+} from './components/create-organization-dialog/create-organization-dialog.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-organizations',
     templateUrl: 'organizations.component.html',
@@ -29,7 +35,14 @@ export class OrganizationsComponent implements OnInit {
     }
 
     createOrganization() {
-        this.dialog.open(CreateOrganizationDialogComponent, this.dialogConfig.medium);
+        this.dialog
+            .open(CreateOrganizationDialogComponent, this.dialogConfig.medium)
+            .afterClosed()
+            .pipe(
+                filter((r: Status) => r === 'success'),
+                untilDestroyed(this)
+            )
+            .subscribe(() => this.refresh());
     }
 
     refresh() {

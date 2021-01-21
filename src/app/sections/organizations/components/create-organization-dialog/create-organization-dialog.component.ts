@@ -8,6 +8,8 @@ import { ErrorService } from '../../../../shared/services/error';
 import { NotificationService } from '../../../../shared/services/notification';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 
+export type Status = 'success' | 'cancel';
+
 @UntilDestroy()
 @Component({
     selector: 'dsh-create-organization-dialog',
@@ -19,7 +21,7 @@ export class CreateOrganizationDialogComponent {
     inProgress$ = new BehaviorSubject<boolean>(false);
 
     constructor(
-        private dialogRef: MatDialogRef<CreateOrganizationDialogComponent>,
+        private dialogRef: MatDialogRef<CreateOrganizationDialogComponent, Status>,
         private organizationManagementService: OrganizationManagementService,
         private notificationService: NotificationService,
         private errorService: ErrorService
@@ -36,7 +38,7 @@ export class CreateOrganizationDialogComponent {
                 () => {
                     this.inProgress$.next(false);
                     this.notificationService.success();
-                    this.dialogRef.close();
+                    this.dialogRef.close('success');
                 },
                 (err) => {
                     this.errorService.error(err);
@@ -46,6 +48,6 @@ export class CreateOrganizationDialogComponent {
     }
 
     cancel() {
-        this.dialogRef.close();
+        this.dialogRef.close('cancel');
     }
 }

@@ -30,8 +30,11 @@ export class OrganizationsService {
     }
 
     createOrganization(org: WritableOrganization) {
-        // expects only non-readable fields
-        return this.orgsService.createOrg(this.uuidGeneratorService.generateUUID(), org as Organization);
+        return this.orgsService.createOrg(
+            this.uuidGeneratorService.generateUUID(),
+            // expects only non-readable fields
+            org as Organization
+        );
     }
 
     patchOrganization(orgId: Organization['id'], org: InlineObject) {
