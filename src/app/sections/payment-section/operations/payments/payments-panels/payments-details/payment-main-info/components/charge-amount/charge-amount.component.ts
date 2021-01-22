@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import isNil from 'lodash.isnil';
 
-import { Payment } from '../../../../../types/payment';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-charge-amount',
@@ -10,11 +10,12 @@ import { Payment } from '../../../../../types/payment';
 })
 export class ChargeAmountComponent {
     @Input()
-    set payment(paymentValue: Payment) {
+    set payment(paymentValue: PaymentSearchResult) {
         if (isNil(paymentValue)) {
             return;
         }
-        this.chargeAmount = paymentValue.amount - paymentValue.fee;
+        const fee = paymentValue.fee ?? 0;
+        this.chargeAmount = paymentValue.amount - fee;
         this.currency = paymentValue.currency;
     }
 

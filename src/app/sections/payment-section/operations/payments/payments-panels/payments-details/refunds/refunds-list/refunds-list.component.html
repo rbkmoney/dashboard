@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.refunds'">
+    <div *ngFor="let item of list; index as i" fxLayout="column" fxLayoutGap="24px">
+        <div>
+            {{ t('header') }}
+            <span dshSecondaryTitle>#{{ item.id }}</span>
+        </div>
+        <dsh-refund-details [refund]="item"></dsh-refund-details>
+        <mat-divider *ngIf="i < list.length - 1"></mat-divider>
+    </div>
+    <ng-container *ngIf="!loading; else loader">
+        <div *ngIf="isEmptyList">
+            <div class="dsh-body-1">{{ t('emptyRefunds') }}</div>
+        </div>
+        <div *ngIf="hasMore">
+            <button *transloco="let s" dsh-button fxFlex (click)="showMoreElements()">{{ s('showMore') }}</button>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #loader>
+    <div *transloco="let c">
+        <div class="dsh-body-1">{{ c('loading') }}</div>
+    </div>
+</ng-template>

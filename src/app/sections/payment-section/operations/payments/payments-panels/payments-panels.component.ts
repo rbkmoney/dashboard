@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import isEmpty from 'lodash.isempty';
 
-import { Payment } from '../types/payment';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
+
+import { getPaymentId } from '../utils/get-payment-id';
 
 @Component({
     selector: 'dsh-payments-panels',
@@ -9,7 +11,7 @@ import { Payment } from '../types/payment';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsPanelsComponent {
-    @Input() list: Payment[];
+    @Input() list: PaymentSearchResult[];
     @Input() isLoading: boolean;
     @Input() hasMore: boolean;
     @Input() expandedId: number;
@@ -21,8 +23,8 @@ export class PaymentsPanelsComponent {
         return isEmpty(this.list);
     }
 
-    trackPayment(index: number, item: Payment): string {
-        return `${item.invoiceID}${item.id}`;
+    trackPayment(index: number, item: PaymentSearchResult): string {
+        return `${getPaymentId(item)}${item.status}`;
     }
 
     showMoreElements(): void {

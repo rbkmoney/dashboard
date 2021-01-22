@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
 
-export const DEBOUNCE_ACTION_TIME = new InjectionToken<number>('debounceActionTime');
-export const DEFAULT_DEBOUNCE_ACTION_TIME = 300;
+export const PAYMENTS_UPDATE_DELAY_TOKEN = new InjectionToken<number>('payments-update-delay-token');
+export const DEFAULT_PAYMENTS_UPDATE_DELAY = 300;

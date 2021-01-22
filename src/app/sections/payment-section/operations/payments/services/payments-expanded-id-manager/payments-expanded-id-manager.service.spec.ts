@@ -6,16 +6,16 @@ import { of } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
 
 import { generateMockPaymentsList } from '../../tests/generate-mock-payments-list';
-import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
+import { PaymentsService } from '../payments/payments.service';
 import { PaymentsExpandedIdManager } from './payments-expanded-id-manager.service';
 
 describe('PaymentsExpandedIdManager', () => {
     let service: PaymentsExpandedIdManager;
-    let mockFetchPaymentsService: FetchPaymentsService;
+    let mockPaymentsService: PaymentsService;
     let mockActivatedRoute: ActivatedRoute;
 
     beforeEach(() => {
-        mockFetchPaymentsService = mock(FetchPaymentsService);
+        mockPaymentsService = mock(PaymentsService);
         mockActivatedRoute = mock(ActivatedRoute);
     });
 
@@ -25,8 +25,8 @@ describe('PaymentsExpandedIdManager', () => {
             providers: [
                 PaymentsExpandedIdManager,
                 {
-                    provide: FetchPaymentsService,
-                    useFactory: () => instance(mockFetchPaymentsService),
+                    provide: PaymentsService,
+                    useFactory: () => instance(mockPaymentsService),
                 },
                 {
                     provide: ActivatedRoute,
@@ -44,7 +44,7 @@ describe('PaymentsExpandedIdManager', () => {
 
     describe('expandedId$', () => {
         it('should return index position in payments list using fragment id', () => {
-            when(mockFetchPaymentsService.paymentsList$).thenReturn(of(generateMockPaymentsList(3)));
+            when(mockPaymentsService.paymentsList$).thenReturn(of(generateMockPaymentsList(3)));
             when(mockActivatedRoute.fragment).thenReturn(of('invoiceIDmock_payment_1'));
             service = TestBed.inject(PaymentsExpandedIdManager);
 
@@ -56,7 +56,7 @@ describe('PaymentsExpandedIdManager', () => {
         });
 
         it('should return -1 if items was not found in list', () => {
-            when(mockFetchPaymentsService.paymentsList$).thenReturn(of(generateMockPaymentsList(3)));
+            when(mockPaymentsService.paymentsList$).thenReturn(of(generateMockPaymentsList(3)));
             when(mockActivatedRoute.fragment).thenReturn(of(''));
             service = TestBed.inject(PaymentsExpandedIdManager);
 
@@ -68,7 +68,7 @@ describe('PaymentsExpandedIdManager', () => {
         });
 
         it('should return -1 if list is empty', () => {
-            when(mockFetchPaymentsService.paymentsList$).thenReturn(of([]));
+            when(mockPaymentsService.paymentsList$).thenReturn(of([]));
             when(mockActivatedRoute.fragment).thenReturn(of('test'));
             service = TestBed.inject(PaymentsExpandedIdManager);
 

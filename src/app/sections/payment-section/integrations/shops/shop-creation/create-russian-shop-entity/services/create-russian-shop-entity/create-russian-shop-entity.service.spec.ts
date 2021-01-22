@@ -8,7 +8,7 @@ import { Contract } from '@dsh/api-codegen/capi';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import { createTestContractorModification } from '@dsh/api/claims/claim-party-modification';
-import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
+import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { createTestLegalEntityModification } from '../../tests/create-test-legal-entity-modification';
 import { createTestRussianContractPayoutToolModification } from '../../tests/create-test-russian-contract-payout-tool-modification';
@@ -21,11 +21,11 @@ const TEST_UUID = 'test-uuid';
 describe('CreateRussianShopEntityService', () => {
     let service: CreateRussianShopEntityService;
     let mockClaimsService: ClaimsService;
-    let mockUuidGeneratorService: UuidGeneratorService;
+    let mockIdGeneratorService: IdGeneratorService;
 
     beforeEach(() => {
         mockClaimsService = mock(ClaimsService);
-        mockUuidGeneratorService = mock(UuidGeneratorService);
+        mockIdGeneratorService = mock(IdGeneratorService);
     });
 
     beforeEach(() => {
@@ -37,8 +37,8 @@ describe('CreateRussianShopEntityService', () => {
                     useFactory: () => instance(mockClaimsService),
                 },
                 {
-                    provide: UuidGeneratorService,
-                    useFactory: () => instance(mockUuidGeneratorService),
+                    provide: IdGeneratorService,
+                    useFactory: () => instance(mockIdGeneratorService),
                 },
             ],
         });
@@ -90,7 +90,7 @@ describe('CreateRussianShopEntityService', () => {
         let modifications: Modification[];
 
         beforeEach(() => {
-            when(mockUuidGeneratorService.generateUUID()).thenReturn(TEST_UUID);
+            when(mockIdGeneratorService.generateUUID()).thenReturn(TEST_UUID);
         });
 
         afterEach(() => {

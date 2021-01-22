@@ -1,23 +1,26 @@
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
-import { Payment } from '../types/payment';
+// function was made to simplify to compare test dates
+function makeCurrentDate(): Date {
+    return new Date().toDateString() as any;
+}
 
-export function generateMockPayment(data: Partial<Payment> = {}): Payment {
+export function generateMockPayment(data: Partial<PaymentSearchResult> = {}): PaymentSearchResult {
     return {
         id: 'paymentID',
         amount: 0,
         currency: 'USD',
         status: PaymentSearchResult.StatusEnum.Pending,
-        statusChangedAt: new Date().toDateString(),
+        createdAt: makeCurrentDate(),
+        statusChangedAt: makeCurrentDate(),
         invoiceID: 'invoiceID',
         shopID: 'shopID',
-        shopName: 'shopName',
         fee: 0,
         payer: {
-            payerType: 'mine',
-            paymentToolDetails: {
-                detailsType: 'mine',
-            },
+            payerType: 'CustomerPayer',
+        },
+        flow: {
+            type: 'PaymentFlowHold',
         },
         ...data,
     };

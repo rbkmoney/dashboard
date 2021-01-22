@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,60 +8,68 @@ import moment from 'moment';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { NotificationService } from '@dsh/app/shared/services';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentsPanelsModule } from './payments-panels';
 import { PaymentsComponent } from './payments.component';
-import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
+import { PaymentsService } from './services/payments/payments.service';
 import { generateMockPayment } from './tests/generate-mock-payment';
 
 @Component({
     selector: 'dsh-payments-filters',
     template: '',
 })
-class PaymentsFiltersComponent {
+class MockPaymentsFiltersComponent {
     @Input() realm;
+}
+
+@Component({
+    selector: 'dsh-payments-panels',
+    template: '',
+})
+class MockPaymentsPanelsComponent {
+    @Input() list: PaymentSearchResult[];
+    @Input() isLoading: boolean;
+    @Input() hasMore: boolean;
+    @Input() expandedId: number;
+
+    @Output() showMore = new EventEmitter<void>();
+    @Output() expandedIdChanged = new EventEmitter<number>();
 }
 
 describe('PaymentsComponent', () => {
     let component: PaymentsComponent;
     let fixture: ComponentFixture<PaymentsComponent>;
-    let mockFetchPaymentsService: FetchPaymentsService;
-    let mockNotificationService: NotificationService;
     let mockActivatedRoute: ActivatedRoute;
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
+    let mockPaymentsService: PaymentsService;
 
     beforeEach(() => {
-        mockFetchPaymentsService = mock(FetchPaymentsService);
-        mockNotificationService = mock(NotificationService);
         mockActivatedRoute = mock(ActivatedRoute);
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
+        mockPaymentsService = mock(PaymentsService);
     });
 
     beforeEach(() => {
         const date = new Date();
-        when(mockFetchPaymentsService.paymentsList$).thenReturn(
+        when(mockPaymentsService.paymentsList$).thenReturn(
             of([
                 generateMockPayment({
-                    statusChangedAt: date.toDateString(),
-                    shopName: 'my_name_0',
+                    statusChangedAt: date,
                     id: 'payment_id_0',
                 }),
                 generateMockPayment({
-                    statusChangedAt: date.toDateString(),
-                    shopName: 'my_name_1',
+                    statusChangedAt: date,
                     id: 'payment_id_1',
                 }),
             ])
         );
-        when(mockFetchPaymentsService.isLoading$).thenReturn(of(false));
-        when(mockFetchPaymentsService.hasMore$).thenReturn(of(false));
-        when(mockFetchPaymentsService.lastUpdated$).thenReturn(of());
-        when(mockFetchPaymentsService.errors$).thenReturn(of());
+        when(mockPaymentsService.isLoading$).thenReturn(of(false));
+        when(mockPaymentsService.hasMore$).thenReturn(of(false));
+        when(mockPaymentsService.lastUpdated$).thenReturn(of());
     });
 
     async function configureTestingModule() {
@@ -70,20 +78,11 @@ describe('PaymentsComponent', () => {
                 getTranslocoModule(),
                 NoopAnimationsModule,
                 LastUpdatedModule,
-                PaymentsPanelsModule,
                 FlexLayoutModule,
                 HttpClientTestingModule,
             ],
-            declarations: [PaymentsComponent, PaymentsFiltersComponent],
+            declarations: [PaymentsComponent, MockPaymentsFiltersComponent, MockPaymentsPanelsComponent],
             providers: [
-                {
-                    provide: FetchPaymentsService,
-                    useFactory: () => instance(mockFetchPaymentsService),
-                },
-                {
-                    provide: NotificationService,
-                    useFactory: () => instance(mockNotificationService),
-                },
                 {
                     provide: ActivatedRoute,
                     useFactory: () => instance(mockActivatedRoute),
@@ -91,6 +90,10 @@ describe('PaymentsComponent', () => {
                 {
                     provide: PaymentsExpandedIdManager,
                     useFactory: () => instance(mockPaymentsExpandedIdManager),
+                },
+                {
+                    provide: PaymentsService,
+                    useFactory: () => instance(mockPaymentsService),
                 },
             ],
         })
@@ -135,7 +138,7 @@ describe('PaymentsComponent', () => {
 
             await createComponent();
 
-            verify(mockFetchPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
             expect().nothing();
         });
 
@@ -153,17 +156,8 @@ describe('PaymentsComponent', () => {
 
             await createComponent();
 
-            verify(mockFetchPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
-            verify(mockFetchPaymentsService.initRealm(PaymentInstitutionRealm.live)).never();
-            expect().nothing();
-        });
-
-        it('should notify about errors in fetcher', async () => {
-            when(mockFetchPaymentsService.errors$).thenReturn(of(new Error('mine')));
-
-            await createComponent();
-
-            verify(mockNotificationService.error()).once();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.live)).never();
             expect().nothing();
         });
     });
@@ -174,11 +168,11 @@ describe('PaymentsComponent', () => {
         });
 
         it('should call refresh data', () => {
-            when(mockFetchPaymentsService.refresh()).thenReturn();
+            when(mockPaymentsService.refresh()).thenReturn();
 
             component.refreshList();
 
-            verify(mockFetchPaymentsService.refresh()).once();
+            verify(mockPaymentsService.refresh()).once();
             expect().nothing();
         });
     });
@@ -189,11 +183,11 @@ describe('PaymentsComponent', () => {
         });
 
         it('should call fetch more data', () => {
-            when(mockFetchPaymentsService.fetchMore()).thenReturn();
+            when(mockPaymentsService.loadMore()).thenReturn();
 
             component.requestNextPage();
 
-            verify(mockFetchPaymentsService.fetchMore()).once();
+            verify(mockPaymentsService.loadMore()).once();
             expect().nothing();
         });
     });
@@ -216,7 +210,7 @@ describe('PaymentsComponent', () => {
             component.filtersChanged(filtersData);
 
             verify(
-                mockFetchPaymentsService.search(
+                mockPaymentsService.search(
                     deepEqual({
                         date: filtersData.daterange,
                         invoiceIDs: filtersData.invoiceIDs,

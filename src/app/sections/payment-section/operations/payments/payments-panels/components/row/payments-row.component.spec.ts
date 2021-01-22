@@ -9,6 +9,7 @@ import { BalanceModule } from '@dsh/app/shared/components/balance/balance.module
 import { RowModule } from '@dsh/components/layout';
 
 import { generateMockPayment } from '../../../tests/generate-mock-payment';
+import { MockShopDetailsPipe } from '../../../tests/mock-shop-details-pipe';
 import { PaymentStatusModule } from '../../payment-status';
 import { PaymentsRowComponent } from './payments-row.component';
 
@@ -41,7 +42,7 @@ describe('PaymentsRowComponent', () => {
                     }
                 ),
             ],
-            declarations: [PaymentsRowComponent],
+            declarations: [PaymentsRowComponent, MockShopDetailsPipe],
         })
             .overrideComponent(PaymentsRowComponent, {
                 set: {
@@ -69,9 +70,8 @@ describe('PaymentsRowComponent', () => {
                 amount: 20,
                 currency: 'USD',
                 status: PaymentSearchResult.StatusEnum.Pending,
-                statusChangedAt: date.format(),
+                statusChangedAt: date.toDate(),
                 invoiceID: 'id',
-                shopName: 'My Shop',
                 id: 'id',
             });
 
@@ -83,7 +83,7 @@ describe('PaymentsRowComponent', () => {
             expect(labels[0].nativeElement.textContent.trim()).toBe(`$0.20`);
             expect(labels[1].nativeElement.textContent.trim()).toBe(`Запущен`);
             expect(labels[2].nativeElement.textContent.trim()).toBe(date.format('DD MMMM YYYY, HH:mm'));
-            expect(labels[3].nativeElement.textContent.trim()).toBe(`My Shop`);
+            expect(labels[3].nativeElement.textContent.trim()).toBe(`shopID_name`);
         });
     });
 });

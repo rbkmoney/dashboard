@@ -6,13 +6,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import moment from 'moment';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { AccordionModule, CardModule, ExpandPanelModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { Payment } from '../types/payment';
 import { PaymentsDetailsModule } from './payments-details';
 import { PaymentsPanelsComponent } from './payments-panels.component';
 
@@ -27,7 +26,7 @@ class MockRowHeaderComponent {}
     template: '',
 })
 class MockRowComponent {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
 }
 
 describe('PaymentsPanelsComponent', () => {
@@ -95,7 +94,6 @@ describe('PaymentsPanelsComponent', () => {
                 status: PaymentSearchResult.StatusEnum.Pending,
                 statusChangedAt: date.format(),
                 invoiceID: 'id',
-                shopName: 'My Shop',
                 paymentID: 'id',
             });
 
@@ -109,7 +107,6 @@ describe('PaymentsPanelsComponent', () => {
                 status: PaymentSearchResult.StatusEnum.Pending,
                 statusChangedAt: date.format(),
                 invoiceID: 'id',
-                shopName: 'My Shop',
                 paymentID: 'id',
             });
 

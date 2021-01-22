@@ -5,14 +5,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { CreateRefundModule } from './create-refund/create-refund.module';
+import { CreateRefundModule } from './create-refund';
+import { RefundsListModule } from './refunds-list';
 import { RefundsComponent } from './refunds.component';
-import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 
 @NgModule({
-    imports: [CommonModule, TranslocoModule, FlexLayoutModule, ButtonModule, CreateRefundModule],
+    imports: [CommonModule, TranslocoModule, FlexLayoutModule, ButtonModule, CreateRefundModule, RefundsListModule],
     declarations: [RefundsComponent],
     exports: [RefundsComponent],
-    providers: [FetchRefundsService],
 })
 export class RefundsModule {}

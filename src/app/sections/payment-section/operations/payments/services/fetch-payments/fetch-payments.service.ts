@@ -1,51 +1,35 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
-import { PaymentSearchResult, Shop } from '@dsh/api-codegen/capi';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { PaymentSearchService } from '@dsh/api/search';
-import { ApiShopsService } from '@dsh/api/shop';
-import { getShopNameById } from '@dsh/api/shop/utils';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
-import { booleanDebounceTime, mapToTimestamp, SHARE_REPLAY_CONF } from '@dsh/operators';
+import { toMinor } from '@dsh/utils';
 
-import { toMinor } from '../../../../../../../utils';
-import { PartialFetcher } from '../../../../../partial-fetcher';
-import { DEBOUNCE_ACTION_TIME } from '../../consts';
+import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../search-form';
-import { Payment } from '../../types/payment';
 
-type ApiPayment = PaymentSearchResult & { externalID: string };
-
-// TODO: remove this disable after making partial fetcher with injectable debounce time
-/* tslint:disable:no-unused-variable */
 @Injectable()
-export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
-    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-    lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
-
-    paymentsList$: Observable<Payment[]> = combineLatest([this.searchResult$, this.shopService.shops$]).pipe(
-        map(([searchResults, shops]: [ApiPayment[], Shop[]]) => this.formatPaymentsData(searchResults, shops)),
-        shareReplay(SHARE_REPLAY_CONF)
-    );
+export class FetchPaymentsService extends IndicatorsPartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
+    paymentsList$: Observable<PaymentSearchResult[]> = this.searchResult$;
 
     private realm$ = new ReplaySubject<PaymentInstitutionRealm>(1);
 
     constructor(
         private paymentSearchService: PaymentSearchService,
-        private shopService: ApiShopsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(SEARCH_LIMIT)
-        private searchLimit: number,
-        @Inject(DEBOUNCE_ACTION_TIME)
-        private debounceActionTime: number
+        protected searchLimit: number,
+        @Inject(DEBOUNCE_FETCHER_ACTION_TIME)
+        protected debounceActionTime: number
     ) {
-        super(debounceActionTime);
+        super(searchLimit, debounceActionTime);
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
@@ -78,41 +62,6 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
                         })
                     );
             })
-        );
-    }
-
-    private formatPaymentsData(paymentsData: ApiPayment[], shops: Shop[]): Payment[] {
-        return paymentsData.map(
-            ({
-                id,
-                amount,
-                status,
-                statusChangedAt,
-                invoiceID,
-                shopID,
-                currency,
-                fee = 0,
-                payer,
-                transactionInfo,
-                error,
-                externalID,
-            }: ApiPayment) => {
-                return {
-                    id,
-                    amount,
-                    status,
-                    currency,
-                    invoiceID,
-                    shopID,
-                    statusChangedAt: statusChangedAt as any,
-                    fee,
-                    externalID,
-                    error,
-                    transactionInfo,
-                    payer: payer as Payment['payer'],
-                    shopName: getShopNameById(shops, shopID),
-                };
-            }
         );
     }
 }

@@ -1,54 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { pluck, take } from 'rxjs/operators';
 
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { NotificationService } from '@dsh/app/shared/services';
 
 import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
+import { PaymentsCachingService } from './services/payments-caching/payments-caching.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
-import { Payment } from './types/payment';
+import { PaymentsService } from './services/payments/payments.service';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [FetchPaymentsService, PaymentsExpandedIdManager],
+    providers: [PaymentsService, PaymentsCachingService, FetchPaymentsService, PaymentsExpandedIdManager],
 })
 export class PaymentsComponent implements OnInit {
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
 
-    payments$: Observable<Payment[]> = this.fetchPayments.paymentsList$;
-    isLoading$: Observable<boolean> = this.fetchPayments.isLoading$;
-    hasMoreElements$: Observable<boolean> = this.fetchPayments.hasMore$;
-    lastUpdated$: Observable<string> = this.fetchPayments.lastUpdated$;
+    payments$: Observable<PaymentSearchResult[]> = this.paymentsService.paymentsList$;
+    isLoading$: Observable<boolean> = this.paymentsService.isLoading$;
+    hasMoreElements$: Observable<boolean> = this.paymentsService.hasMore$;
+    lastUpdated$: Observable<string> = this.paymentsService.lastUpdated$;
     expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
 
     constructor(
-        private fetchPayments: FetchPaymentsService,
-        private notificationService: NotificationService,
+        private paymentsService: PaymentsService,
         private route: ActivatedRoute,
         private expandedIdManager: PaymentsExpandedIdManager
     ) {}
 
     ngOnInit(): void {
         this.realm$.subscribe((realm: PaymentInstitutionRealm) => {
-            this.fetchPayments.initRealm(realm);
-        });
-        this.fetchPayments.errors$.pipe(untilDestroyed(this)).subscribe(() => {
-            this.notificationService.error();
+            this.paymentsService.initRealm(realm);
         });
     }
 
     refreshList(): void {
-        this.fetchPayments.refresh();
+        this.paymentsService.refresh();
     }
 
     requestNextPage(): void {
-        this.fetchPayments.fetchMore();
+        this.paymentsService.loadMore();
     }
 
     filtersChanged(filtersData: PaymentsFiltersData): void {
@@ -60,7 +57,7 @@ export class PaymentsComponent implements OnInit {
     }
 
     private requestList({ daterange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
-        this.fetchPayments.search({
+        this.paymentsService.search({
             date: {
                 begin: daterange.begin,
                 end: daterange.end,

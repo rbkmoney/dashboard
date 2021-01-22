@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { PaymentResourcePayer, PaymentToolDetails } from '@dsh/api-codegen/capi';
+import { CustomerPayer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -10,6 +10,7 @@ import { StatusModule } from '@dsh/components/indicators';
 import { PayerType } from '../../../../../../payment-details/payer-details';
 import { generateMockPayment } from '../../../tests/generate-mock-payment';
 import { MockDetailsItemModule } from '../../../tests/mock-details-item-component';
+import { MockShopDetailsPipe } from '../../../tests/mock-shop-details-pipe';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { ChargeAmountComponent } from './components/charge-amount/charge-amount.component';
 import { PaymentFeeComponent } from './components/payment-fee/payment-fee.component';
@@ -43,6 +44,7 @@ describe('PaymentMainInfoComponent', () => {
                 ResourcePayerComponent,
                 ShopNameComponent,
                 AdditionalInfoComponent,
+                MockShopDetailsPipe,
             ],
             providers: [
                 {
@@ -60,6 +62,12 @@ describe('PaymentMainInfoComponent', () => {
             amount: 1000,
             fee: 200,
             currency: 'USD',
+            payer: {
+                payerType: PayerType.CustomerPayer,
+                paymentToolDetails: {
+                    detailsType: 'mine-1',
+                },
+            } as CustomerPayer,
         });
         fixture.detectChanges();
     });
@@ -76,7 +84,7 @@ describe('PaymentMainInfoComponent', () => {
                     paymentToolDetails: {
                         detailsType: 'mine',
                     },
-                },
+                } as CustomerPayer,
             });
             expect(component.resourcePayer).toBeNull();
         });
@@ -91,7 +99,7 @@ describe('PaymentMainInfoComponent', () => {
                     paymentToolToken: 'my_token',
                     paymentSession: 'session_token',
                     contactInfo: {},
-                } as PaymentResourcePayer & { paymentToolDetails: PaymentToolDetails },
+                } as PaymentResourcePayer,
             });
             expect(component.resourcePayer).toEqual({
                 payerType: PayerType.PaymentResourcePayer,

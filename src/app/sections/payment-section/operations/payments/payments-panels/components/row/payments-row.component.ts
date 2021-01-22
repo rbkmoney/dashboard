@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Payment } from '../../../types/payment';
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-payments-row',
@@ -8,5 +8,5 @@ import { Payment } from '../../../types/payment';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsRowComponent {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
 }

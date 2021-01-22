@@ -87,6 +87,7 @@
             "successful": "Возврат успешно произведен"
         },
         "errors": {
+            "invalidRequest": "Входные параметры неверные",
             "invoicePaymentAmountExceeded": "Превышена доступная к возврату сумма"
         }
     },
