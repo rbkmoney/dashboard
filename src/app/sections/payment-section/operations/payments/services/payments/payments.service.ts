@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, of } from 'rxjs';
-import { delay, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay, distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -24,9 +24,11 @@ export const SINGLE_PAYMENT_REQUEST_DURATION: Duration = {
 @Injectable()
 export class PaymentsService {
     paymentsList$: Observable<PaymentSearchResult[]> = this.cacheService.payments$;
-    isLoading$: Observable<boolean> = this.fetchPaymentsService.isLoading$;
+    isLoading$: Observable<boolean>;
     lastUpdated$: Observable<string> = this.fetchPaymentsService.lastUpdated$;
     hasMore$: Observable<boolean> = this.fetchPaymentsService.hasMore$;
+
+    private innerLoading$ = new BehaviorSubject<boolean>(false);
 
     constructor(
         private paymentSearchService: PaymentSearchService,
@@ -40,6 +42,8 @@ export class PaymentsService {
     ) {
         this.initFetchedPaymentsCaching();
         this.initFetcherErrorsHandling();
+
+        this.isLoading$ = this.innerLoading$.pipe(distinctUntilChanged());
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
@@ -47,16 +51,19 @@ export class PaymentsService {
     }
 
     search(data: PaymentSearchFormValue): void {
+        this.startLoading();
         this.clearCache();
         this.fetchPaymentsService.search(data);
     }
 
     refresh(): void {
+        this.startLoading();
         this.clearCache();
         this.fetchPaymentsService.refresh();
     }
 
     loadMore(): void {
+        this.startLoading();
         this.fetchPaymentsService.fetchMore();
     }
 
@@ -86,12 +93,14 @@ export class PaymentsService {
             )
             .subscribe((payments: PaymentSearchResult[]) => {
                 this.cacheService.addElements(...payments);
+                this.stopLoading();
             });
     }
 
     private initFetcherErrorsHandling(): void {
         this.fetchPaymentsService.errors$.pipe(untilDestroyed(this)).subscribe((error: Error) => {
             this.errorsService.error(error);
+            this.stopLoading();
         });
     }
 
@@ -105,5 +114,13 @@ export class PaymentsService {
 
     private clearCache(): void {
         this.cacheService.clear();
+    }
+
+    private startLoading(): void {
+        this.innerLoading$.next(true);
+    }
+
+    private stopLoading(): void {
+        this.innerLoading$.next(false);
     }
 }

@@ -65,13 +65,5 @@ export class PaymentsComponent implements OnInit {
             invoiceIDs,
             shopIDs,
         });
-        // this.fetchPayments.search({
-        //     date: {
-        //         begin: daterange.begin,
-        //         end: daterange.end,
-        //     },
-        //     invoiceIDs,
-        //     shopIDs,
-        // });
     }
 }
