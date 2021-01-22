@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { MessagesService } from '@dsh/api/sender';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 
-import { inProgressTo } from '../../../../utils/decorators';
+import { inProgressTo } from '../../../../utils';
 
 const MAX_LENGTH = 2000;
 
@@ -37,10 +37,17 @@ export class FeedbackDialogComponent {
         return this.messagesService
             .sendFeedbackEmailMsg(this.messageControl.value)
             .pipe(untilDestroyed(this))
-            .subscribe(() => {
-                this.dialogRef.close();
-                this.notificationService.success(this.translocoService.translate('dialog.success', null, 'feedback'));
-            }, this.errorService.error);
+            .subscribe(
+                () => {
+                    this.dialogRef.close();
+                    this.notificationService.success(
+                        this.translocoService.translate('dialog.success', null, 'feedback')
+                    );
+                },
+                (err) => {
+                    this.errorService.error(err);
+                }
+            );
     }
 
     cancel() {
