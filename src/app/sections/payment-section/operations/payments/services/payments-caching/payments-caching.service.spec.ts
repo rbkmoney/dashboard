@@ -63,6 +63,7 @@ describe('PaymentsCachingService', () => {
 
     describe('updateElements', () => {
         let mockPayments: PaymentSearchResult[];
+
         beforeEach(() => {
             mockPayments = generateMockPaymentsList(5);
             service.addElements(...mockPayments);
@@ -115,12 +116,10 @@ describe('PaymentsCachingService', () => {
                 generateMockPayment({
                     id: mockPayments[1].id,
                     invoiceID: mockPayments[1].invoiceID,
-                    createdAt: new Date(),
                 }),
                 generateMockPayment({
                     id: mockPayments[2].id,
                     invoiceID: mockPayments[2].invoiceID,
-                    createdAt: new Date(),
                 }),
             ];
 
@@ -164,15 +163,18 @@ describe('PaymentsCachingService', () => {
                 service.updateElements(...payments);
             });
 
-            const updatedLists = [mockPayments.slice(), mockPayments.slice()];
-            updatedLists[0].splice(1, 1, newPayments[0]);
-            updatedLists[1].splice(2, 1, newPayments[1]);
+            const updatedLists = {
+                a: mockPayments.slice(),
+                b: mockPayments.slice(),
+            };
+            updatedLists.a.splice(1, 1, newPayments[0]);
+            updatedLists.b.splice(2, 1, newPayments[1]);
 
             expect(service.payments$).toBeObservable(
                 cold('a--b-c', {
                     a: mockPayments,
-                    b: updatedLists[0],
-                    c: updatedLists[1],
+                    b: updatedLists.a,
+                    c: updatedLists.b,
                 })
             );
         });

@@ -10,7 +10,7 @@ import { getPaymentId } from '../../utils/get-payment-id';
 @UntilDestroy()
 @Injectable()
 export class PaymentsCachingService {
-    payments$: Observable<PaymentSearchResult[]>;
+    payments$: Observable<PaymentSearchResult[] | null>;
 
     private paymentsMap = new Map<string, CachedPayment>();
     private paymentsList$ = new BehaviorSubject<PaymentSearchResult[]>([]);

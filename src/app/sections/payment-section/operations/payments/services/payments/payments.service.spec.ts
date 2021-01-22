@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import moment from 'moment';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
@@ -91,17 +91,76 @@ describe('PaymentsService', () => {
         });
 
         describe('isLoading$', () => {
-            it('should return fetching status', () => {
-                const loadingStatus$ = cold('a-b-----(c|)', {
-                    a: false,
-                    b: true,
-                    c: false,
+            it('should tick true value on search', () => {
+                hot('^---(a|)').subscribe(() => {
+                    service.search({
+                        date: {
+                            begin: moment(),
+                            end: moment(),
+                        },
+                    });
                 });
-                when(mockFetchPaymentsService.isLoading$).thenReturn(loadingStatus$);
 
                 createService();
 
-                expect(service.isLoading$).toBeObservable(loadingStatus$);
+                expect(service.isLoading$).toBeObservable(
+                    cold('a---b', {
+                        a: false,
+                        b: true,
+                    })
+                );
+            });
+
+            it('should tick true value on refresh', () => {
+                hot('^---(a|)').subscribe(() => {
+                    service.refresh();
+                });
+
+                createService();
+
+                expect(service.isLoading$).toBeObservable(
+                    cold('a---b', {
+                        a: false,
+                        b: true,
+                    })
+                );
+            });
+
+            it('should tick true value on load more', () => {
+                hot('^---(a|)').subscribe(() => {
+                    service.loadMore();
+                });
+
+                createService();
+
+                expect(service.isLoading$).toBeObservable(
+                    cold('a---b', {
+                        a: false,
+                        b: true,
+                    })
+                );
+            });
+
+            it('should tick false when cached updated', () => {
+                hot('^---(a|)').subscribe(() => {
+                    service.loadMore();
+                });
+
+                when(mockFetchPaymentsService.paymentsList$).thenReturn(
+                    hot('^------(a|)', {
+                        a: generateMockPaymentsList(2),
+                    })
+                );
+
+                createService();
+
+                expect(service.isLoading$).toBeObservable(
+                    cold('a---b--c', {
+                        a: false,
+                        b: true,
+                        c: false,
+                    })
+                );
             });
         });
 

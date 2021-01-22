@@ -3,6 +3,8 @@ import isEmpty from 'lodash.isempty';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
+import { getPaymentId } from '../utils/get-payment-id';
+
 @Component({
     selector: 'dsh-payments-panels',
     templateUrl: 'payments-panels.component.html',
@@ -22,7 +24,7 @@ export class PaymentsPanelsComponent {
     }
 
     trackPayment(index: number, item: PaymentSearchResult): string {
-        return `${item.invoiceID}${item.id}${item.status}`;
+        return `${getPaymentId(item)}${item.status}`;
     }
 
     showMoreElements(): void {
