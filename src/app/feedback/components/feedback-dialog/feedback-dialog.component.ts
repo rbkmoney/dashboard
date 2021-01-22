@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 import { MessagesService } from '@dsh/api/sender';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 
+import { inProgressTo } from '../../../../utils/decorators';
+
 const MAX_LENGTH = 2000;
 
 @UntilDestroy()
@@ -30,24 +32,15 @@ export class FeedbackDialogComponent {
         private translocoService: TranslocoService
     ) {}
 
+    @inProgressTo('inProgress$')
     send() {
-        this.inProgress$.next(true);
-        this.messagesService
+        return this.messagesService
             .sendFeedbackEmailMsg(this.messageControl.value)
             .pipe(untilDestroyed(this))
-            .subscribe(
-                () => {
-                    this.dialogRef.close();
-                    this.notificationService.success(
-                        this.translocoService.translate('dialog.success', null, 'feedback')
-                    );
-                },
-                (err) => {
-                    this.inProgress$.next(false);
-                    this.errorService.error(err);
-                },
-                () => this.inProgress$.next(false)
-            );
+            .subscribe(() => {
+                this.dialogRef.close();
+                this.notificationService.success(this.translocoService.translate('dialog.success', null, 'feedback'));
+            }, this.errorService.error);
     }
 
     cancel() {

@@ -15,6 +15,6 @@ export class FeedbackComponent {
     constructor(private dialog: MatDialog, @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig) {}
 
     openFeedbackDialog() {
-        this.dialog.open(FeedbackDialogComponent, this.dialogConfig.medium);
+        return this.dialog.open(FeedbackDialogComponent, this.dialogConfig.medium);
     }
 }
