@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { DIALOG_CONFIG } from '../../../sections/tokens';
+import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+
 import { FeedbackComponent } from './feedback.component';
 
 @Component({
