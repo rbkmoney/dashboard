@@ -37,11 +37,7 @@ export class OrganizationManagementService {
     }
 
     leaveOrganization(orgId: Organization['id']) {
-        return this.userService.profile$.pipe(
-            first(),
-            pluck('id'),
-            switchMap((userId) => this.organizationsService.expelMember(orgId, userId))
-        );
+        return this.organizationsService.cancelOrgMembership(orgId);
     }
 
     isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {

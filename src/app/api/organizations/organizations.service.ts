@@ -45,6 +45,10 @@ export class OrganizationsService {
         return this.orgsService.joinOrg(this.uuidGeneratorService.generateUUID(), request);
     }
 
+    cancelOrgMembership(orgId: Organization['id']) {
+        return this.orgsService.cancelOrgMembership(this.uuidGeneratorService.generateUUID(), orgId);
+    }
+
     getRole(orgId: Organization['id'], roleId: RoleId) {
         return this.rolesService.getOrgRole(this.uuidGeneratorService.generateUUID(), orgId, roleId);
     }

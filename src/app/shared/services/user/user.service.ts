@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { BehaviorSubject, defer, Observable } from 'rxjs';
-import { shareReplay, switchMap } from 'rxjs/operators';
+import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -10,6 +10,7 @@ export class UserService {
         switchMap(() => this.keycloakService.loadUserProfile()),
         shareReplay(1)
     );
+    id$ = this.profile$.pipe(pluck('username'));
 
     private loadProfile$ = new BehaviorSubject<void>(undefined);
 
