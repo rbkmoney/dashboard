@@ -7,6 +7,7 @@ import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
 import { PaymentsService } from '../../services/payments/payments.service';
 import { generateMockPayment } from '../../tests/generate-mock-payment';
+import { PaymentIds } from '../../types/payment-ids';
 import { PaymentDetailsComponent } from './payment-details.component';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 
@@ -41,7 +42,17 @@ class MockRefundsComponent {
     @Output() statusChanged = new EventEmitter<void>();
 }
 
-xdescribe('PaymentDetailsComponent', () => {
+@Component({
+    selector: 'dsh-hold-details',
+    template: '',
+})
+class MockHoldDetailsComponent {
+    @Input() payment: PaymentSearchResult;
+
+    @Output() statusChanged = new EventEmitter<PaymentIds>();
+}
+
+describe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;
@@ -60,6 +71,7 @@ xdescribe('PaymentDetailsComponent', () => {
                 MockPaymentMainInfoComponent,
                 MockPaymentInvoiceInfoComponent,
                 MockRefundsComponent,
+                MockHoldDetailsComponent,
             ],
             providers: [
                 {
@@ -128,5 +140,15 @@ xdescribe('PaymentDetailsComponent', () => {
         });
     });
 
-    describe('updatePayment', () => {});
+    describe('updatePayment', () => {
+        it('should update payment', () => {
+            component.updatePayment({
+                paymentID: 'myPaymentId',
+                invoiceID: 'myInvoiceId',
+            });
+
+            verify(mockPaymentsService.updatePayment('myInvoiceId', 'myPaymentId')).once();
+            expect().nothing();
+        });
+    });
 });

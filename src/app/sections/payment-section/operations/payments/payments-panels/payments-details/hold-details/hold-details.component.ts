@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { filter, take } from 'rxjs/operators';
 
+import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentFlowHold, PaymentStatus } from '@dsh/api-codegen/capi';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 
-import { Payment } from '../../../types/payment';
+import { PaymentIds } from '../../../types/payment-ids';
 import { CancelHoldService } from './cancel-hold';
 import { CreateHoldService } from './create-hold';
 
@@ -12,7 +15,9 @@ import { CreateHoldService } from './create-hold';
     styleUrls: ['./hold-details.component.scss'],
 })
 export class HoldDetailsComponent {
-    @Input() payment: Payment;
+    @Input() payment: PaymentSearchResult;
+
+    @Output() statusChanged = new EventEmitter<PaymentIds>();
 
     get flowHold(): PaymentFlowHold {
         return this.payment.flow as PaymentFlowHold;
@@ -43,18 +48,40 @@ export class HoldDetailsComponent {
     constructor(private cancelHoldService: CancelHoldService, private createHoldService: CreateHoldService) {}
 
     cancelHold(): void {
-        this.cancelHoldService.openDialog({
-            invoiceID: this.payment.invoiceID,
-            paymentID: this.payment.id,
-        });
+        const payment = this.payment;
+        this.cancelHoldService
+            .openDialog({
+                invoiceID: payment.invoiceID,
+                paymentID: payment.id,
+            })
+            .pipe(
+                take(1),
+                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
+            )
+            .subscribe(() => {
+                this.requestStatusUpdate(payment);
+            });
     }
 
     confirmHold(): void {
-        this.createHoldService.openDialog({
-            invoiceID: this.payment.invoiceID,
-            paymentID: this.payment.id,
-            currency: this.payment.currency,
-            maxAllowedAmount: this.payment.amount,
-        });
+        const payment = this.payment;
+        this.createHoldService
+            .openDialog({
+                invoiceID: payment.invoiceID,
+                paymentID: payment.id,
+                currency: payment.currency,
+                maxAllowedAmount: payment.amount,
+            })
+            .pipe(
+                take(1),
+                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
+            )
+            .subscribe(() => {
+                this.requestStatusUpdate(payment);
+            });
+    }
+
+    private requestStatusUpdate({ invoiceID, id: paymentID }: PaymentSearchResult): void {
+        this.statusChanged.emit({ invoiceID, paymentID });
     }
 }

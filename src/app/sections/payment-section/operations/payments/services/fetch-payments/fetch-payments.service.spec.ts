@@ -15,7 +15,7 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../../../partial-fetcher';
 import { FetchPaymentsService } from './fetch-payments.service';
 
-xdescribe('FetchPaymentsService', () => {
+describe('FetchPaymentsService', () => {
     let service: FetchPaymentsService;
     let mockPaymentSearchService: PaymentSearchService;
     let mockMatSnackBar: MatSnackBar;

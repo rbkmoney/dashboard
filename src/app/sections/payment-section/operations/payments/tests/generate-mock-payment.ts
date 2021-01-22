@@ -23,9 +23,6 @@ export function generateMockPayment(data: Partial<PaymentSearchResult> = {}): Pa
             type: 'PaymentFlowHold',
         },
         externalID: 'externalID',
-        flow: {
-            type: 'PaymentFlowHold',
-        },
         ...data,
     };
 }
