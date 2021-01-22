@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
 import { ContainerModule } from './container';
+import { FeedbackModule } from './feedback';
 import icons from './icons.json';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
@@ -48,6 +49,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         TranslocoModule,
         YandexMetrikaModule,
         LoggerModule,
+        FeedbackModule,
     ],
     providers: [
         LanguageService,
