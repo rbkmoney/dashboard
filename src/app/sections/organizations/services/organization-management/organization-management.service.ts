@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { first, pluck, switchMap, take } from 'rxjs/operators';
 
-import { OrganizationsService } from '../../../../api';
-import { Member, Organization } from '../../../../api-codegen/organizations';
-import { WritableOrganization } from '../../../../api/organizations/types/writable-organization';
-import { UserService } from '../../../../shared';
+import { OrganizationsService, WritableOrganization } from '@dsh/api';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
+import { UserService } from '@dsh/app/shared';
+
 import { mockMember } from '../../tests/mock-member';
 import { mockOrg } from '../../tests/mock-org';
 
@@ -38,7 +38,7 @@ export class OrganizationManagementService {
             pluck('id'),
             // TODO: change after fix Organization['owner'] type
             switchMap((owner: never) =>
-                this.organizationsService.createOrganization({
+                this.organizationsService.createOrg({
                     owner,
                     ...organization,
                 })
@@ -59,7 +59,7 @@ export class OrganizationManagementService {
         return this.userService.profile$.pipe(
             first(),
             pluck('id'),
-            switchMap((userId) => this.organizationsService.expelMember(orgId, userId))
+            switchMap((userId) => this.organizationsService.expelOrgMember(orgId, userId))
         );
     }
 
