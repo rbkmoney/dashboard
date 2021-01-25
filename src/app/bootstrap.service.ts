@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core';
-import { concat, defer, forkJoin, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, mapTo, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { combineLatest, concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, mapTo, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
 
 import {
     ApiShopsService,
+    CAPIClaimsService,
     CAPIPartiesService,
-    ClaimsService,
+    createTestShopClaimChangeset,
     MAIN_ORGANIZATION_NAME,
     OrganizationsService,
-} from './api';
-import { createTestShopModifications } from './api/claims/claim-party-modification/create-test-shop-modifications/create-test-shop-modifications';
-import { ErrorService, UserService } from './shared';
-import { UuidGeneratorService } from './shared/services/uuid-generator/uuid-generator.service';
+} from '@dsh/api';
+import { Organization } from '@dsh/api-codegen/organizations';
+import { ErrorService, UserService } from '@dsh/app/shared';
 
+@UntilDestroy()
 @Injectable()
 export class BootstrapService {
     bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
-        switchMap(() =>
-            concat(this.capiPartiesService.getMyParty(), this.initShop(), this.initOrganization()).pipe(
-                mapTo(true),
-                catchError((e) => {
-                    this.errorService.error(e);
-                    return of(false);
-                })
-            )
-        ),
+        switchMap(() => this.getBootstrapped()),
+        untilDestroyed(this),
         shareReplay(1)
     );
 
@@ -32,29 +28,41 @@ export class BootstrapService {
 
     constructor(
         private shopService: ApiShopsService,
-        private claimsService: ClaimsService,
+        private capiClaimsService: CAPIClaimsService,
         private capiPartiesService: CAPIPartiesService,
-        private idGeneratorService: UuidGeneratorService,
         private errorService: ErrorService,
         private organizationsService: OrganizationsService,
-        private userService: UserService
+        private userService: UserService,
+        private transloco: TranslocoService
     ) {}
 
     bootstrap() {
         this.bootstrap$.next();
     }
 
-    private initOrganization(): Observable<boolean> {
-        return forkJoin([this.organizationsService.getOrganizations(1), this.userService.profile$.pipe(first())]).pipe(
-            switchMap(([orgs, { username }]) =>
-                orgs.results.length
-                    ? of(null)
-                    : this.organizationsService.createOrganization({
-                          name: MAIN_ORGANIZATION_NAME,
-                          owner: username as never,
-                      })
-            )
+    private getBootstrapped() {
+        return concat(this.capiPartiesService.getMyParty(), this.initShop(), this.initOrganization()).pipe(
+            takeLast(1),
+            mapTo(true),
+            catchError((err) => {
+                this.errorService.error(err, this.transloco.translate('errors.bootstrapAppFailed'));
+                return of(false);
+            })
         );
+    }
+
+    private initOrganization(): Observable<boolean> {
+        return combineLatest([this.organizationsService.getOrganizations(1), this.userService.id$]).pipe(
+            first(),
+            switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
+        );
+    }
+
+    private createOrganization(id: Organization['id']) {
+        return this.organizationsService.createOrganization({
+            name: MAIN_ORGANIZATION_NAME,
+            owner: id as never,
+        });
     }
 
     private initShop(): Observable<boolean> {
@@ -67,13 +75,6 @@ export class BootstrapService {
     }
 
     private createTestShop() {
-        return this.claimsService.createClaim(
-            createTestShopModifications({
-                contractorID: this.idGeneratorService.generateUUID(),
-                contractID: this.idGeneratorService.generateUUID(),
-                shopID: this.idGeneratorService.generateUUID(),
-                payoutToolID: this.idGeneratorService.generateUUID(),
-            })
-        );
+        return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 }
