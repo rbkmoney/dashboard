@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest, concat, defer, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, mapTo, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
+import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
 
 import {
     ApiShopsService,
     CAPIClaimsService,
     CAPIPartiesService,
     createTestShopClaimChangeset,
-    MAIN_ORGANIZATION_NAME,
+    DEFAULT_ORGANIZATION_NAME,
     OrganizationsService,
 } from '@dsh/api';
+import { Claim } from '@dsh/api-codegen/capi';
 import { Organization } from '@dsh/api-codegen/organizations';
 import { ErrorService, UserService } from '@dsh/app/shared';
 
@@ -19,7 +20,7 @@ import { ErrorService, UserService } from '@dsh/app/shared';
 @Injectable()
 export class BootstrapService {
     bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
-        switchMap(() => this.getBootstrapped()),
+        switchMapTo(this.getBootstrapped()),
         untilDestroyed(this),
         shareReplay(1)
     );
@@ -40,8 +41,8 @@ export class BootstrapService {
         this.bootstrap$.next();
     }
 
-    private getBootstrapped() {
-        return concat(this.capiPartiesService.getMyParty(), this.initShop(), this.initOrganization()).pipe(
+    private getBootstrapped(): Observable<boolean> {
+        return concat(this.capiPartiesService.getMyParty(), this.initOrganization(), this.initShop()).pipe(
             takeLast(1),
             mapTo(true),
             catchError((err) => {
@@ -51,21 +52,21 @@ export class BootstrapService {
         );
     }
 
-    private initOrganization(): Observable<boolean> {
-        return combineLatest([this.organizationsService.getOrganizations(1), this.userService.id$]).pipe(
+    private initOrganization(): Observable<Organization | null> {
+        return combineLatest([this.organizationsService.listOrgMembership(10), this.userService.id$]).pipe(
             first(),
             switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
         );
     }
 
-    private createOrganization(id: Organization['id']) {
-        return this.organizationsService.createOrganization({
-            name: MAIN_ORGANIZATION_NAME,
+    private createOrganization(id: Organization['id']): Observable<Organization> {
+        return this.organizationsService.createOrg({
+            name: DEFAULT_ORGANIZATION_NAME,
             owner: id as never,
         });
     }
 
-    private initShop(): Observable<boolean> {
+    private initShop(): Observable<Claim | null> {
         return this.shopService.shops$.pipe(
             first(),
             switchMap((shops) =>
@@ -74,7 +75,7 @@ export class BootstrapService {
         );
     }
 
-    private createTestShop() {
+    private createTestShop(): Observable<Claim> {
         return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 }
