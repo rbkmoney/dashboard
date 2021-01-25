@@ -1,19 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
 
-import {
-    ApiShopsService,
-    CAPIClaimsService,
-    CAPIPartiesService,
-    createTestShopClaimChangeset,
-    DEFAULT_ORGANIZATION_NAME,
-    OrganizationsService,
-} from '@dsh/api';
+import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
-import { Organization } from '@dsh/api-codegen/organizations';
 import { ErrorService, UserService } from '@dsh/app/shared';
 
 @UntilDestroy()
@@ -32,8 +24,9 @@ export class BootstrapService {
         private capiClaimsService: CAPIClaimsService,
         private capiPartiesService: CAPIPartiesService,
         private errorService: ErrorService,
-        private organizationsService: OrganizationsService,
-        private userService: UserService,
+        // TODO: Wait access check
+        // private organizationsService: OrganizationsService,
+        // private userService: UserService,
         private transloco: TranslocoService
     ) {}
 
@@ -57,19 +50,20 @@ export class BootstrapService {
         );
     }
 
-    private initOrganization(): Observable<Organization | null> {
-        return combineLatest([this.organizationsService.listOrgMembership(1), this.userService.id$]).pipe(
-            first(),
-            switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
-        );
-    }
+    // TODO: Wait access check
+    // private initOrganization(): Observable<Organization | null> {
+    //     return combineLatest([this.organizationsService.listOrgMembership(1), this.userService.id$]).pipe(
+    //         first(),
+    //         switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
+    //     );
+    // }
 
-    private createOrganization(id: Organization['id']): Observable<Organization> {
-        return this.organizationsService.createOrg({
-            name: DEFAULT_ORGANIZATION_NAME,
-            owner: id as never,
-        });
-    }
+    // private createOrganization(id: Organization['id']): Observable<Organization> {
+    //     return this.organizationsService.createOrg({
+    //         name: DEFAULT_ORGANIZATION_NAME,
+    //         owner: id as never,
+    //     });
+    // }
 
     private initShop(): Observable<Claim | null> {
         return this.shopService.shops$.pipe(
