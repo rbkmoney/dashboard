@@ -15,6 +15,8 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Refund } from '@dsh/api-codegen/capi';
 import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { MaxLengthInputModule } from '@dsh/app/shared/components/inputs/max-length-input/max-length-input.module';
 import { CommonError, ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
@@ -54,6 +56,8 @@ describe('CreateRefundDialogComponent', () => {
                 MatInputModule,
                 ButtonModule,
                 FlexLayoutModule,
+                BaseDialogModule,
+                MaxLengthInputModule,
             ],
             declarations: [CreateRefundDialogComponent],
             providers: [

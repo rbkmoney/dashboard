@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable } from 'rxjs';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { Invoice } from '@dsh/api-codegen/capi';
+import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { PaymentsService } from '../../services/payments/payments.service';
 import { PaymentIds } from '../../types/payment-ids';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
+import { isPaymentFlowHold } from './types/is-payment-flow-hold';
 
 @Component({
     selector: 'dsh-payment-details',
@@ -18,6 +19,13 @@ import { InvoiceDetailsService } from './services/invoice-details/invoice-detail
 })
 export class PaymentDetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;
+
+    get isHoldShown(): boolean {
+        if (isPaymentFlowHold(this.payment.flow)) {
+            return !isEmpty(this.payment.flow.heldUntil?.toString());
+        }
+        return false;
+    }
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
 
