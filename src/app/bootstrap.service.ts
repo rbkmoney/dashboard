@@ -42,7 +42,12 @@ export class BootstrapService {
     }
 
     private getBootstrapped(): Observable<boolean> {
-        return concat(this.capiPartiesService.getMyParty(), this.initOrganization(), this.initShop()).pipe(
+        return concat(
+            this.capiPartiesService.getMyParty(),
+            // TODO: Wait access check
+            // this.initOrganization(),
+            this.initShop()
+        ).pipe(
             takeLast(1),
             mapTo(true),
             catchError((err) => {
