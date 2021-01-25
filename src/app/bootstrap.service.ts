@@ -53,7 +53,7 @@ export class BootstrapService {
     }
 
     private initOrganization(): Observable<Organization | null> {
-        return combineLatest([this.organizationsService.listOrgMembership(10), this.userService.id$]).pipe(
+        return combineLatest([this.organizationsService.listOrgMembership(1), this.userService.id$]).pipe(
             first(),
             switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
         );
