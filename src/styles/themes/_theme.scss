@@ -1,29 +1,16 @@
 @import '~@angular/material/theming';
 
-// Overrides
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
 @import '../overrides/mat-select-panel';
 @import '../overrides/mat-datepicker';
 @import '../overrides/mat-divider';
 
-// Components
 @import '../../components/table/table-theme';
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
-@import '../../components/charts/bar-chart/bar-chart-theme';
-@import '../../components/indicators/status/status-theme';
-@import '../../components/indicators/colored-icon/colored-icon-theme';
-@import '../../components/indicators/last-updated/last-updated-theme';
-@import '../../components/navigation/state-nav/state-nav-theme';
-@import '../../components/filters/filter/filter-theme';
-@import '../../components/filters/daterange-filter/daterange-filter-theme';
-@import '../../components/navigation/navbar/navbar-theme';
-@import '../../components/global-banner/global-banner-theme';
-
-// Components/Layout
 @import '../../components/layout/card/card-theme';
 @import '../../components/layout/float-panel/float-panel-theme';
 @import '../../components/layout/panel/panel-theme';
@@ -37,8 +24,16 @@
 @import '../../components/layout/row/row-theme';
 @import '../../components/layout/accordion/accordion-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
+@import '../../components/charts/bar-chart/bar-chart-theme';
+@import '../../components/indicators/status/status-theme';
+@import '../../components/indicators/colored-icon/colored-icon-theme';
+@import '../../components/indicators/last-updated/last-updated-theme';
+@import '../../components/navigation/state-nav/state-nav-theme';
+@import '../../components/filters/filter/filter-theme';
+@import '../../components/filters/daterange-filter/daterange-filter-theme';
+@import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/global-banner/global-banner-theme';
 
-// App components
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
 @import '../../app/container/welcome-image/welcome-image-theme';
@@ -52,6 +47,7 @@
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
+@import '../../app/feedback/feedback-theme';
 
 @mixin dsh-theme($theme) {
     body.#{map-get($theme, name)} {
@@ -100,6 +96,7 @@
         @include dsh-accordion-theme($theme);
         @include dsh-last-updated-theme($theme);
         @include dsh-balances-theme($theme);
+        @include dsh-feedback-theme($theme);
         @include dsh-limited-list-theme($theme);
     }
 }

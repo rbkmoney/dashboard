@@ -1,0 +1,29 @@
+<div fxLayout='column' fxLayoutGap='32px' *transloco="let t; scope: 'feedback'; read: 'feedback.dialog'">
+    <h1 class='dsh-headline'>{{ t('title') }}</h1>
+    <mat-form-field>
+        <textarea
+            required
+            [maxlength]='maxLength'
+            [placeholder]="t('message')"
+            [formControl]='messageControl'
+            matInput
+            rows='6'
+        ></textarea>
+        <mat-hint>{{ messageControl.value?.length || 0 }} / {{ maxLength }}</mat-hint>
+    </mat-form-field>
+    <div *transloco='let c' fxLayout='row' fxLayout.xs='column' fxLayoutAlign='space-between' fxLayoutGap='16px'>
+        <button fxFlex='150px' fxFlex.xs='none' dsh-stroked-button color='warn' (click)='cancel()'>
+            {{ c('cancel') }}
+        </button>
+        <button
+            fxFlex='150px'
+            fxFlex.xs='none'
+            dsh-button
+            (click)='send()'
+            color='accent'
+            [disabled]='messageControl.invalid || (inProgress$ | async)'
+        >
+            {{ c('send') }}
+        </button>
+    </div>
+</div>

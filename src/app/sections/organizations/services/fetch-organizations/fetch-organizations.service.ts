@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { OrganizationsService } from '../../../../api';
-import { Organization } from '../../../../api-codegen/organizations';
+import { OrganizationsService } from '@dsh/api';
+import { Organization } from '@dsh/api-codegen/organizations';
+
 import { SEARCH_LIMIT } from '../../../tokens';
 import { FetchResult, PartialFetcher } from '../partial-fetcher';
 
@@ -13,6 +14,6 @@ export class FetchOrganizationsService extends PartialFetcher<Organization, void
     }
 
     protected fetch(_params: void, continuationToken?: string): Observable<FetchResult<Organization>> {
-        return this.organizationsService.getOrganizations(this.searchLimit, continuationToken);
+        return this.organizationsService.listOrgMembership(this.searchLimit, continuationToken);
     }
 }

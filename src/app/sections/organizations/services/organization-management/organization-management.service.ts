@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { first, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { first, map, pluck, switchMap, take } from 'rxjs/operators';
 
-import { OrganizationsService } from '../../../../api';
-import { Member, Organization } from '../../../../api-codegen/organizations';
-import { WritableOrganization } from '../../../../api/organizations/types/writable-organization';
-import { UserService } from '../../../../shared';
+import { OrganizationsService, WritableOrganization } from '@dsh/api';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
+import { UserService } from '@dsh/app/shared';
 
 @Injectable()
 export class OrganizationManagementService {
     constructor(private organizationsService: OrganizationsService, private userService: UserService) {}
 
     getMember(id: Organization['id']): Observable<Member> {
-        return this.userService.profile$.pipe(
-            pluck('username'),
+        return this.userService.id$.pipe(
             first(),
-            switchMap((userId) => this.organizationsService.getMember(id, userId))
+            switchMap((userId) => this.organizationsService.getOrgMember(id, userId))
         );
     }
 
     getMembers(id: Organization['id']): Observable<Member[]> {
-        return this.organizationsService.getMembers(id).pipe(pluck('results'));
+        return this.organizationsService.listOrgMembers(id).pipe(pluck('results'));
     }
 
     createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
@@ -28,7 +26,7 @@ export class OrganizationManagementService {
             take(1),
             pluck('username'),
             switchMap((owner) =>
-                this.organizationsService.createOrganization({
+                this.organizationsService.createOrg({
                     owner,
                     ...organization,
                 })
@@ -36,16 +34,12 @@ export class OrganizationManagementService {
         );
     }
 
-    leaveOrganization(orgId: Organization['id']) {
-        return this.organizationsService.cancelOrgMembership(orgId);
-    }
-
     isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {
         const organization$ =
-            typeof orgOrOrgId === 'string' ? this.organizationsService.getOrganization(orgOrOrgId) : of(orgOrOrgId);
-        return organization$.pipe(
-            withLatestFrom(this.userService.profile$),
-            map(([{ owner }, { id }]) => owner === id)
+            typeof orgOrOrgId === 'string' ? this.organizationsService.getOrg(orgOrOrgId) : of(orgOrOrgId);
+        return combineLatest([organization$, this.userService.id$]).pipe(
+            first(),
+            map(([{ owner }, id]) => owner === id)
         );
     }
 }

@@ -4,11 +4,9 @@ import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 
+import { Organization } from '@dsh/api-codegen/organizations';
 import { OrganizationsService } from '@dsh/api/organizations';
-
-import { Organization } from '../../../../api-codegen/organizations';
-import { ErrorService } from '../../../../shared/services/error';
-import { NotificationService } from '../../../../shared/services/notification';
+import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 
 @UntilDestroy()
 @Component({
@@ -33,7 +31,7 @@ export class RenameOrganizationDialogComponent {
     create() {
         this.inProgress$.next(true);
         this.organizationsService
-            .patchOrganization(this.data.organization.id, { name: this.nameControl.value })
+            .patchOrg(this.data.organization.id, { name: this.nameControl.value })
             .pipe(untilDestroyed(this))
             .subscribe(
                 () => {

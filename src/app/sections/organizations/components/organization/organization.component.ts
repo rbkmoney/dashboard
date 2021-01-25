@@ -5,11 +5,12 @@ import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { filter, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
+import { OrganizationsService } from '@dsh/api';
+import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '../../../../../components/popups';
 import { ComponentChanges } from '../../../../../type-utils';
 import { Member, Organization } from '../../../../api-codegen/organizations';
-import { ErrorService } from '../../../../shared/services/error';
-import { NotificationService } from '../../../../shared/services/notification';
 import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
@@ -29,6 +30,7 @@ export class OrganizationComponent implements OnChanges {
 
     constructor(
         private organizationManagementService: OrganizationManagementService,
+        private organizationsService: OrganizationsService,
         private dialog: MatDialog,
         private notificationService: NotificationService,
         private errorService: ErrorService,
@@ -49,7 +51,7 @@ export class OrganizationComponent implements OnChanges {
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
-                switchMap(() => this.organizationManagementService.leaveOrganization(this.organization.id)),
+                switchMap(() => this.organizationsService.cancelOrgMembership(this.organization.id)),
                 untilDestroyed(this)
             )
             .subscribe(

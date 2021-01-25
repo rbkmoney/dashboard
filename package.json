@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg,huskyrc}\"",
+    "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",
     "prettify": "npm run prettier -- --write",
     "check": "npm run prettier -- --list-different",
     "fix": "run-p lint-fix prettify",
@@ -19,7 +19,7 @@
     "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts",
-    "postinstall": "ngcc && husky install"
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -108,7 +108,6 @@
     "@types/uuid": "^3.4.5",
     "codelyzer": "^5.1.2",
     "del": "^5.1.0",
-    "husky": "^5.0.4",
     "jasmine-core": "~3.5.0",
     "jasmine-marbles": "^0.6.0",
     "jasmine-spec-reporter": "~4.2.1",
