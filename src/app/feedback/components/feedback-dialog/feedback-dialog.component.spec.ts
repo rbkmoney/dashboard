@@ -71,10 +71,11 @@ describe('FeedbackDialogComponent', () => {
         });
 
         it("shouldn't send message", () => {
-            when(mockMessagesService.sendFeedbackEmailMsg(anyString())).thenReturn(throwError('Test error'));
+            const error = new Error('Test error');
+            when(mockMessagesService.sendFeedbackEmailMsg(anyString())).thenReturn(throwError(error));
             component.send();
             verify(mockMessagesService.sendFeedbackEmailMsg('')).once();
-            verify(mockErrorService.error('Test error')).once();
+            verify(mockErrorService.error(error)).once();
             verify(mockMatDialogRef.close()).never();
             expect().nothing();
         });
