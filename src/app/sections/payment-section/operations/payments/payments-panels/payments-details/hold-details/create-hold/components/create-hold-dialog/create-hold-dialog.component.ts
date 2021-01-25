@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 
 import { CaptureParams } from '@dsh/api-codegen/capi';
@@ -15,6 +16,7 @@ import { CreateRefundForm } from '../../../../refunds/create-refund/types/create
 import { MAX_REASON_LENGTH } from '../../../consts';
 import { CreateHoldDialogData } from '../../types/create-hold-dialog-data';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-create-hold-dialog',
     templateUrl: './create-hold-dialog.component.html',
@@ -53,15 +55,18 @@ export class CreateHoldDialogComponent {
         const params = this.formatParams();
         const { invoiceID, paymentID } = this.dialogData;
 
-        this.paymentService.capturePayment(invoiceID, paymentID, params).subscribe(
-            () => {
-                this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
-            },
-            (err: Error) => {
-                this.errorService.error(err);
-                this.dialogRef.close(BaseDialogResponseStatus.ERROR);
-            }
-        );
+        this.paymentService
+            .capturePayment(invoiceID, paymentID, params)
+            .pipe(untilDestroyed(this))
+            .subscribe(
+                () => {
+                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
+                },
+                (err: Error) => {
+                    this.errorService.error(err);
+                    this.dialogRef.close(BaseDialogResponseStatus.ERROR);
+                }
+            );
     }
 
     decline(): void {

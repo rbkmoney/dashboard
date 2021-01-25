@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { filter, take } from 'rxjs/operators';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { filter } from 'rxjs/operators';
 
 import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '@dsh/api-codegen/anapi';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
@@ -8,6 +9,7 @@ import { PaymentIds } from '../../../types/payment-ids';
 import { CancelHoldService } from './cancel-hold';
 import { CreateHoldService } from './create-hold';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-hold-details',
     templateUrl: './hold-details.component.html',
@@ -56,7 +58,7 @@ export class HoldDetailsComponent {
                 paymentID: payment.id,
             })
             .pipe(
-                take(1),
+                untilDestroyed(this),
                 filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
             )
             .subscribe(() => {
@@ -74,7 +76,7 @@ export class HoldDetailsComponent {
                 maxAllowedAmount: payment.amount,
             })
             .pipe(
-                take(1),
+                untilDestroyed(this),
                 filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
             )
             .subscribe(() => {
