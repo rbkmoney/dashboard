@@ -11,6 +11,7 @@
             "invoiceID": "Идентификатор инвойса",
             "paymentAmountFrom": "Минимальная сумма платежа",
             "paymentAmountTo": "Максимальная сумма платежа",
+            "binPan": "Карта",
             "first6": "BIN банка-эмитента карты",
             "last4": "Последние цифры номера карты",
             "payerFingerprint": "Fingerprint плательщика",

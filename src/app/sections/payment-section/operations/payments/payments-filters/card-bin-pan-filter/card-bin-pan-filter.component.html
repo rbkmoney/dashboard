@@ -1,0 +1,24 @@
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
+    <dsh-filter
+        [title]="titleValues ? t('binPan') + ': ' + titleValues : t('binPan')"
+        [active]="isActive"
+        (opened)="onOpened()"
+        (closed)="onClosed()"
+    >
+        <div class="query-filter-content">
+            <dsh-filter-button-content>
+                <form [formGroup]="form" fxLayout="column">
+                    <mat-form-field>
+                        <mat-label>{{ t('first6') }}</mat-label>
+                        <dsh-format-input format="bin" formControlName="bin"></dsh-format-input>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>{{ t('last4') }}</mat-label>
+                        <dsh-format-input format="lastDigits" formControlName="pan"></dsh-format-input>
+                    </mat-form-field>
+                </form>
+            </dsh-filter-button-content>
+            <dsh-filter-button-actions (clear)="onClear()" (save)="onSave()"></dsh-filter-button-actions>
+        </div>
+    </dsh-filter>
+</ng-container>

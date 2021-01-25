@@ -8,8 +8,9 @@ import pickBy from 'lodash.pickby';
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
+import { wrapValuesToArray } from '@dsh/utils';
 
-import { wrapValuesToArray } from '../../../../../../../../utils';
+import { BIN_LENGTH, PAN_LENGTH } from '../../card-bin-pan-filter';
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
 
 @Injectable()
@@ -23,21 +24,26 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     mapToData(params: Params): Partial<PaymentsFiltersData> {
-        const { fromTime, toTime, ...restParams } = params;
+        const { fromTime, toTime } = params;
         return this.removeUnusedFields({
             daterange: this.formatDaterange(fromTime, toTime),
-            ...restParams,
-            ...this.getListParams(restParams),
+            binPan: this.getBinPanParams(params),
+            ...this.getListParams(params),
         });
     }
 
-    mapToParams({ daterange, additional, ...restData }: PaymentsFiltersData): Params {
+    mapToParams({
+        daterange,
+        binPan: { paymentMethod, bin = null, pan = null },
+        additional,
+    }: PaymentsFiltersData): Params {
         const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(daterange);
         return this.removeUnusedFields({
             fromTime,
             toTime,
+            first6: bin,
+            last4: pan,
             ...additional,
-            ...restData,
         });
     }
 
@@ -48,6 +54,17 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
             }
             return newData;
         }, {});
+    }
+
+    private getBinPanParams({ first6, last4 }: Params): PaymentsFiltersData['binPan'] {
+        const bin = Number(first6);
+        const pan = Number(last4);
+
+        return {
+            paymentMethod: 'bankCard',
+            bin: isNaN(bin) || first6.length !== BIN_LENGTH ? null : first6,
+            pan: isNaN(pan) || last4.length !== PAN_LENGTH ? null : last4,
+        };
     }
 
     private getListParams(params: Params): Partial<PaymentsFiltersData> {

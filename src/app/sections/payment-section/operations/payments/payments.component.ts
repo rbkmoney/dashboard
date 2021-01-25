@@ -12,6 +12,7 @@ import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.s
 import { PaymentsCachingService } from './services/payments-caching/payments-caching.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
 import { PaymentsService } from './services/payments/payments.service';
+import { PaymentSearchFormValue } from './types/payment-search-form-value';
 
 @UntilDestroy()
 @Component({
@@ -56,7 +57,7 @@ export class PaymentsComponent implements OnInit {
         this.expandedIdManager.expandedIdChange(id);
     }
 
-    private requestList({ daterange, shopIDs, invoiceIDs }: PaymentsFiltersData): void {
+    private requestList({ daterange, shopIDs, invoiceIDs, binPan }: PaymentsFiltersData): void {
         this.paymentsService.search({
             date: {
                 begin: daterange.begin,
@@ -64,6 +65,34 @@ export class PaymentsComponent implements OnInit {
             },
             invoiceIDs,
             shopIDs,
+            ...this.formatBinPanParams(binPan),
         });
+    }
+
+    private formatBinPanParams(
+        binPan: PaymentsFiltersData['binPan']
+    ): Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>> {
+        const { bin = null, pan = null, paymentMethod } = binPan ?? {};
+        const binPanFilterData =
+            Boolean(bin) || Boolean(pan)
+                ? {
+                      paymentMethod,
+                      first6: bin,
+                      last4: pan,
+                  }
+                : {};
+
+        return Object.entries(binPanFilterData).reduce(
+            (
+                filtersData: Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>>,
+                [key, value]: [string, string]
+            ) => {
+                if (Boolean(value)) {
+                    filtersData[key] = value;
+                }
+                return filtersData;
+            },
+            {}
+        );
     }
 }
