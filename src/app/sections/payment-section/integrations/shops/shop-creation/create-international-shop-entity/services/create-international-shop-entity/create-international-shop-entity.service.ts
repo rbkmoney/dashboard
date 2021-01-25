@@ -6,7 +6,7 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createInternationalLegalEntityModification,
     createShopCreationModification,
     makeShopLocation,
@@ -52,7 +52,7 @@ export class CreateInternationalShopEntityService {
                 tradingName,
                 actualAddress,
             }),
-            createContractorParamsModification(contractID, {
+            createContractCreationModification(contractID, {
                 contractorID,
             }),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, {

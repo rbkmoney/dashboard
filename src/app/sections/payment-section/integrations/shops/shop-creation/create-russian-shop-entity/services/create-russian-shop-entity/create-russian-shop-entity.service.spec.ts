@@ -7,7 +7,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { Contract } from '@dsh/api-codegen/capi';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
-import { createTestContractorModification } from '@dsh/api/claims/claim-party-modification';
+import { createTestContractCreationModification } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
 import { createTestLegalEntityModification } from '../../tests/create-test-legal-entity-modification';
@@ -130,7 +130,7 @@ describe('CreateRussianShopEntityService', () => {
 
             modifications = [
                 createTestLegalEntityModification(TEST_UUID, creationData),
-                createTestContractorModification(TEST_UUID, TEST_UUID),
+                createTestContractCreationModification(TEST_UUID, TEST_UUID),
                 createTestShopCreationModification(TEST_UUID, TEST_UUID, 'my_id', creationData),
             ];
 
@@ -175,7 +175,7 @@ describe('CreateRussianShopEntityService', () => {
 
             modifications = [
                 createTestLegalEntityModification(TEST_UUID, creationData),
-                createTestContractorModification(TEST_UUID, TEST_UUID),
+                createTestContractCreationModification(TEST_UUID, TEST_UUID),
                 createTestRussianContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
                 createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
             ];

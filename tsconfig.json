@@ -18,10 +18,15 @@
         "resolveJsonModule": true,
         "paths": {
             "@dsh/components/*": ["src/components/*"],
+            "@dsh/components": ["src/components"],
             "@dsh/pipes/*": ["src/pipes/*"],
+            "@dsh/pipes": ["src/pipes"],
             "@dsh/app/shared/*": ["src/app/shared/*"],
+            "@dsh/app/shared": ["src/app/shared"],
             "@dsh/api/*": ["src/app/api/*"],
+            "@dsh/api": ["src/app/api"],
             "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
+            "@dsh/api-codegen": ["src/app/api-codegen"],
             "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"]
         }
     },
