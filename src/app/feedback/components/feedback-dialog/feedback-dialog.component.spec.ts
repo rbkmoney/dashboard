@@ -75,7 +75,7 @@ describe('FeedbackDialogComponent', () => {
             component.send();
             verify(mockMessagesService.sendFeedbackEmailMsg('')).once();
             verify(mockErrorService.error('Test error')).once();
-            verify(mockMatDialogRef.close()).never();
+            verify(mockMatDialogRef.close()).once();
             expect().nothing();
         });
 
