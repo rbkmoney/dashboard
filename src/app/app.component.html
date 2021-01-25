@@ -1,5 +1,6 @@
 <dsh-container>
     <dsh-sections *ngIf="bootstrapped$ | async"></dsh-sections>
 </dsh-container>
+<dsh-feedback></dsh-feedback>
 
 <dsh-yandex-metrika *ngIf="env.production"></dsh-yandex-metrika>
