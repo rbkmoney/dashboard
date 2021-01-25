@@ -8,8 +8,8 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { HumanizeDurationModule } from '../../../../../../../humanize-duration';
 import { CancelHoldModule } from './cancel-hold';
 import { CreateHoldModule } from './create-hold';
-import { HoldActivePipe } from './hold-active.pipe';
 import { HoldDetailsComponent } from './hold-details.component';
+import { HoldActivePipe } from './pipes/hold-active/hold-active.pipe';
 
 @NgModule({
     imports: [

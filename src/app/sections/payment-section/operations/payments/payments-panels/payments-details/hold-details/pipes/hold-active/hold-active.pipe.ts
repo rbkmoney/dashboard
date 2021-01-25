@@ -7,7 +7,7 @@ import { PaymentStatus } from '@dsh/api-codegen/capi/swagger-codegen';
     name: 'holdActive',
 })
 export class HoldActivePipe implements PipeTransform {
-    transform(date: string, status: PaymentStatus.StatusEnum): boolean {
+    transform(date: string | Date, status: PaymentStatus.StatusEnum): boolean {
         return moment(date).diff(moment()) > 0 && status === PaymentStatus.StatusEnum.Processed;
     }
 }

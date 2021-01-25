@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 
-import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { PaymentFlowHold, PaymentStatus } from '@dsh/api-codegen/capi';
+import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '@dsh/api-codegen/anapi';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 
 import { PaymentIds } from '../../../types/payment-ids';
@@ -24,7 +23,7 @@ export class HoldDetailsComponent {
     }
 
     get holdDate(): string {
-        return this.flowHold.heldUntil.toString();
+        return this.flowHold.heldUntil?.toString() ?? '';
     }
 
     get activeHoldText(): string {
@@ -42,6 +41,8 @@ export class HoldDetailsComponent {
                 return 'capturedHoldMessage';
             case PaymentStatus.StatusEnum.Cancelled:
                 return 'cancelledHoldMessage';
+            default:
+                return '';
         }
     }
 
