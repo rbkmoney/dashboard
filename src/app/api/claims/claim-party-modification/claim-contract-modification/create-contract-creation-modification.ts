@@ -22,7 +22,7 @@ export function createContractCreationModification(
     };
 }
 
-export function createTestContractorModification(id: string, contractorID: string): PartyModification {
+export function createTestContractCreationModification(id: string, contractorID: string): PartyModification {
     return createContractCreationModification(id, {
         contractorID,
     });
