@@ -1,6 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { MatDialogConfig } from '@angular/material/dialog';
 
+/**
+ * @deprecated
+ */
 export const LAYOUT_GAP = new InjectionToken<string>('layoutGap');
 
 export const SEARCH_LIMIT = new InjectionToken<number>('searchLimit');

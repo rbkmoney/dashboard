@@ -6,7 +6,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
-import { createTestContractorModification } from '@dsh/api/claims/claim-party-modification';
+import { createTestContractCreationModification } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
 import { createTestContractPayoutToolModification } from '../../tests/create-test-contract-payout-tool-modification';
@@ -76,9 +76,9 @@ describe('CreateInternationalShopEntityService', () => {
         };
         let modifications: Modification[] = [
             createTestInternationalLegalEntityModification(TEST_UUID, creationData),
-            createTestContractorModification(TEST_UUID, TEST_UUID),
+            createTestContractCreationModification(TEST_UUID, TEST_UUID),
             createTestContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
-            createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
+            createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData)
         ];
 
         beforeEach(() => {
@@ -127,9 +127,9 @@ describe('CreateInternationalShopEntityService', () => {
 
             modifications = [
                 createTestInternationalLegalEntityModification(TEST_UUID, creationData),
-                createTestContractorModification(TEST_UUID, TEST_UUID),
+                createTestContractCreationModification(TEST_UUID, TEST_UUID),
                 createTestContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
-                createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
+                createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData)
             ];
 
             when(mockClaimsService.createClaim(deepEqual(modifications))).thenReturn(of(claim));

@@ -6,12 +6,12 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createRussianBankAccountModification,
     createRussianContractPayoutToolModification,
     createRussianLegalEntityModification,
     createShopCreationModification,
-    makeShopLocation,
+    makeShopLocation
 } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
@@ -82,8 +82,8 @@ export class CreateRussianShopEntityService {
                 representativeFullName,
                 representativePosition,
             }),
-            createContractorParamsModification(contractID, {
-                contractorID,
+            createContractCreationModification(contractID, {
+                contractorID
             }),
             ...payoutChangeset,
             createShopCreationModification(shopID, {

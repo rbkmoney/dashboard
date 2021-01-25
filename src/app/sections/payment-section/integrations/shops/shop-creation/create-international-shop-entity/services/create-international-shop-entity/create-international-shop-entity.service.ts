@@ -6,10 +6,10 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createInternationalLegalEntityModification,
     createShopCreationModification,
-    makeShopLocation,
+    makeShopLocation
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
@@ -52,8 +52,8 @@ export class CreateInternationalShopEntityService {
                 tradingName,
                 actualAddress,
             }),
-            createContractorParamsModification(contractID, {
-                contractorID,
+            createContractCreationModification(contractID, {
+                contractorID
             }),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, {
                 iban: payoutTool.iban,
