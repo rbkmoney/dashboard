@@ -6,7 +6,7 @@ import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast
 
 import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
-import { ErrorService, UserService } from '@dsh/app/shared';
+import { ErrorService } from '@dsh/app/shared';
 
 @UntilDestroy()
 @Injectable()
