@@ -8,14 +8,15 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { anyString, instance, mock, when } from 'ts-mockito';
 
-import { DetailsItemComponent, DetailsItemModule } from '../../../../../components/layout';
-import { ErrorModule } from '../../../../shared/services/error';
-import { NotificationModule } from '../../../../shared/services/notification';
-import { DIALOG_CONFIG } from '../../../tokens';
-import { OrganizationRolesComponent, OrganizationRolesModule } from '../../organization-roles';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
-import { mockMember } from '../../tests/mock-member';
-import { mockOrg } from '../../tests/mock-org';
+import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { ErrorModule } from '@dsh/app/shared/services/error';
+import { NotificationModule } from '@dsh/app/shared/services/notification';
+import { DetailsItemComponent, DetailsItemModule } from '@dsh/components/layout';
+
+import { OrganizationRolesComponent, OrganizationRolesModule } from '../../../organization-roles';
+import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
+import { mockMember } from '../../../tests/mock-member';
+import { mockOrg } from '../../../tests/mock-org';
 import { OrganizationComponent } from './organization.component';
 
 @Component({

@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div *ngIf="organization$ | async as organization" fxLayout="column" fxLayoutGap="32px">
+    <dsh-headline *transloco="let t; scope: 'organizations'; read: 'organizations'">{{
+        organization.name
+    }}</dsh-headline>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -5,9 +5,10 @@ import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock, objectContaining, verify } from 'ts-mockito';
 
-import { ErrorService } from '../../../../shared/services/error';
-import { NotificationService } from '../../../../shared/services/notification';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
+import { ErrorService } from '@dsh/app/shared/services/error';
+import { NotificationService } from '@dsh/app/shared/services/notification';
+
+import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
 describe('CreateOrganizationDialogComponent', () => {

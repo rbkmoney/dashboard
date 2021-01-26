@@ -11,7 +11,6 @@ import { OrganizationManagementService } from '../../services/organization-manag
 @Component({
     selector: 'dsh-members',
     templateUrl: 'members.component.html',
-    styleUrls: ['members.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MembersComponent {

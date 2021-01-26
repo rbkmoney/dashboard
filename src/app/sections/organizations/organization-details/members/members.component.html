@@ -1,12 +1,5 @@
-<div
-    class="dsh-organization-details"
-    *transloco="let t; scope: 'organizations'; read: 'organizations'"
-    fxLayout="column"
-    fxLayoutGap="32px"
->
+<ng-container *transloco="let t; scope: 'organizations'; read: 'organizations'">
     <ng-container *ngIf="organization$ | async as organization">
-        <h1 class="dsh-display-1">{{ t('header') }}</h1>
-        <dsh-headline>{{ organization.name }}</dsh-headline>
         <dsh-spinner *ngIf="isLoading$ | async; else loaded" fxFlexAlign="center"></dsh-spinner>
         <ng-template #loaded>
             <div *ngIf="(members$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="16px">
@@ -18,5 +11,5 @@
             </ng-template>
         </ng-template>
     </ng-container>
-</div>
+</ng-container>
 <dsh-scroll-up></dsh-scroll-up>

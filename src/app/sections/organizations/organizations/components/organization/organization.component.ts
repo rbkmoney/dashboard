@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 import { filter, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
+import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
 
-import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '../../../../../components/popups';
-import { ComponentChanges } from '../../../../../type-utils';
-import { Member, Organization } from '../../../../api-codegen/organizations';
-import { DialogConfig, DIALOG_CONFIG } from '../../../tokens';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
+import { ComponentChanges } from '../../../../../../type-utils';
+import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 
 @UntilDestroy()

@@ -5,10 +5,11 @@ import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock, objectContaining, verify } from 'ts-mockito';
 
-import { OrganizationsService } from '../../../../api';
-import { ErrorService } from '../../../../shared/services/error';
-import { NotificationService } from '../../../../shared/services/notification';
-import { mockOrg } from '../../tests/mock-org';
+import { OrganizationsService } from '@dsh/api';
+import { ErrorService } from '@dsh/app/shared/services/error';
+import { NotificationService } from '@dsh/app/shared/services/notification';
+
+import { mockOrg } from '../../../tests/mock-org';
 import { RenameOrganizationDialogComponent } from './rename-organization-dialog.component';
 
 describe('RenameOrganizationDialogComponent', () => {

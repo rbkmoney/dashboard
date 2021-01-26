@@ -4,9 +4,10 @@ import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 
-import { ErrorService } from '../../../../shared/services/error';
-import { NotificationService } from '../../../../shared/services/notification';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
+import { ErrorService } from '@dsh/app/shared/services/error';
+import { NotificationService } from '@dsh/app/shared/services/notification';
+
+import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
 
 export type Status = 'success' | 'cancel';
 
