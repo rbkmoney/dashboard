@@ -1,44 +1,80 @@
 import { Injectable } from '@angular/core';
-import { iif, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
 
-import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from './api';
+import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from '@dsh/api';
+import { Claim } from '@dsh/api-codegen/capi';
+import { NotificationService } from '@dsh/app/shared';
 
+@UntilDestroy()
 @Injectable()
 export class BootstrapService {
-    bootstrapped$: Observable<boolean>;
+    bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
+        switchMapTo(this.getBootstrapped()),
+        untilDestroyed(this),
+        shareReplay(1)
+    );
 
-    private bootstrap$ = new ReplaySubject(1);
+    private bootstrap$ = new ReplaySubject<void>(1);
 
     constructor(
-        private partiesService: CAPIPartiesService,
         private shopService: ApiShopsService,
-        private capiClaimsService: CAPIClaimsService
-    ) {
-        this.bootstrapped$ = this.bootstrap$.pipe(
-            first(),
-            switchMapTo(this.partiesService.getMyParty()),
-            switchMapTo(this.shopService.shops$.pipe(first())),
-            switchMap((shops) =>
-                iif(
-                    () => shops.length === 0,
-                    this.createTestShop().pipe(tap(() => this.shopService.reloadShops())),
-                    of(true)
-                )
-            ),
-            catchError((err) => {
-                console.error(err);
-                return of(false);
-            }),
-            shareReplay(1)
-        );
-    }
+        private capiClaimsService: CAPIClaimsService,
+        private capiPartiesService: CAPIPartiesService,
+        private notificationService: NotificationService,
+        // TODO: Wait access check
+        // private organizationsService: OrganizationsService,
+        // private userService: UserService,
+        private transloco: TranslocoService
+    ) {}
 
     bootstrap() {
         this.bootstrap$.next();
     }
 
-    private createTestShop(): Observable<boolean> {
-        return this.capiClaimsService.createClaim(createTestShopClaimChangeset()).pipe(map(() => true));
+    private getBootstrapped(): Observable<boolean> {
+        return concat(
+            this.capiPartiesService.getMyParty(),
+            // TODO: Wait access check
+            // this.initOrganization(),
+            this.initShop()
+        ).pipe(
+            takeLast(1),
+            mapTo(true),
+            catchError(() => {
+                this.notificationService.error(this.transloco.translate('errors.bootstrapAppFailed'));
+                return of(false);
+            })
+        );
+    }
+
+    // TODO: Wait access check
+    // private initOrganization(): Observable<Organization | null> {
+    //     return combineLatest([this.organizationsService.listOrgMembership(1), this.userService.id$]).pipe(
+    //         first(),
+    //         switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
+    //     );
+    // }
+
+    // private createOrganization(id: Organization['id']): Observable<Organization> {
+    //     return this.organizationsService.createOrg({
+    //         name: DEFAULT_ORGANIZATION_NAME,
+    //         owner: id as never,
+    //     });
+    // }
+
+    private initShop(): Observable<Claim | null> {
+        return this.shopService.shops$.pipe(
+            first(),
+            switchMap((shops) =>
+                shops.length ? of(null) : this.createTestShop().pipe(tap(() => this.shopService.reloadShops()))
+            )
+        );
+    }
+
+    private createTestShop(): Observable<Claim> {
+        return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 }

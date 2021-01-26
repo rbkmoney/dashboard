@@ -2,8 +2,8 @@ import { ContractModificationUnit, PartyModification, PartyModificationType } fr
 import { PARTY_MODIFICATION } from '@dsh/api/claims/claim-party-modification/consts';
 import PartyModificationTypeEnum = PartyModificationType.PartyModificationTypeEnum;
 
-export function createBaseContractModification(
-    modification: Omit<ContractModificationUnit, 'partyModificationType'>
+export function createBaseContractModification<M extends Omit<ContractModificationUnit, 'partyModificationType'>>(
+    modification: M
 ): PartyModification {
     return {
         ...PARTY_MODIFICATION,
