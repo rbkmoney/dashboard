@@ -34,14 +34,13 @@ export class CardBinPanFilterComponent implements OnChanges {
 
     ngOnChanges(changes: ComponentChanges<CardBinPanFilterComponent>): void {
         if (isObject(changes.binPan)) {
-            this.updateFilterData();
-            this.updateTitleValues();
-            this.updateActiveStatus();
+            this.updateFilterForm(changes.binPan.currentValue);
+            this.updateBadgePresentation();
         }
     }
 
     onOpened(): void {
-        this.updateFilterData();
+        this.updateFilterForm(this.binPan);
     }
 
     onClosed(): void {
@@ -57,18 +56,21 @@ export class CardBinPanFilterComponent implements OnChanges {
     }
 
     private saveFilterData(): void {
-        const cardBinPan = this.form.value;
-        this.updateTitleValues();
-        this.updateActiveStatus();
-        this.filterChanged.emit(cardBinPan);
+        this.updateBadgePresentation();
+        this.filterChanged.emit(this.form.value);
     }
 
-    private updateFilterData(): void {
-        const { bin = null, pan = null } = this.binPan ?? {};
+    private updateFilterForm(binPan: Partial<CardBinPan> | undefined): void {
+        const { bin = null, pan = null } = binPan ?? {};
         this.form.setValue({
             bin,
             pan,
         });
+    }
+
+    private updateBadgePresentation(): void {
+        this.updateTitleValues();
+        this.updateActiveStatus();
     }
 
     private updateActiveStatus(): void {
@@ -78,17 +80,17 @@ export class CardBinPanFilterComponent implements OnChanges {
 
     private updateTitleValues(): void {
         const { bin, pan } = this.form.controls;
-        const binString = bin.valid && bin.value ? bin.value : '';
-        const panString = pan.valid && pan.value ? pan.value : '';
+        const binString = bin.valid && Boolean(bin.value) ? bin.value : '';
+        const panString = pan.valid && Boolean(pan.value) ? pan.value : '';
         const maskedBinPart = binString.padEnd(6, '*');
         const maskedPanPart = panString.padStart(4, '*');
         const filterValues = `${maskedBinPart.slice(0, 4)} ${maskedBinPart.slice(4)}** **** ${maskedPanPart}`;
 
-        this.titleValues = Boolean(bin) || Boolean(pan) ? `${filterValues}` : '';
+        this.titleValues = Boolean(binString) || Boolean(panString) ? `${filterValues}` : '';
     }
 
     private clearForm(): void {
-        this.form.setValue({
+        this.updateFilterForm({
             bin: null,
             pan: null,
         });

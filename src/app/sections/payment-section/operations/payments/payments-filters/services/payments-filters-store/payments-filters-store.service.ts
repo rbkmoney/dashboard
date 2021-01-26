@@ -24,26 +24,26 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     mapToData(params: Params): Partial<PaymentsFiltersData> {
-        const { fromTime, toTime } = params;
+        const { fromTime, toTime, ...restParams } = params;
+
         return this.removeUnusedFields({
             daterange: this.formatDaterange(fromTime, toTime),
             binPan: this.getBinPanParams(params),
-            ...this.getListParams(params),
+            ...this.getListParams(restParams),
         });
     }
 
-    mapToParams({
-        daterange,
-        binPan: { paymentMethod, bin = null, pan = null },
-        additional,
-    }: PaymentsFiltersData): Params {
+    mapToParams({ daterange, binPan, additional, ...restData }: PaymentsFiltersData): Params {
         const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(daterange);
+        const { bin = null, pan = null } = binPan ?? {};
+
         return this.removeUnusedFields({
             fromTime,
             toTime,
             first6: bin,
             last4: pan,
             ...additional,
+            ...restData,
         });
     }
 
@@ -56,25 +56,34 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
         }, {});
     }
 
-    private getBinPanParams({ first6, last4 }: Params): PaymentsFiltersData['binPan'] {
+    private getBinPanParams({ first6, last4 }: Params): PaymentsFiltersData['binPan'] | null {
         const bin = Number(first6);
         const pan = Number(last4);
+        const isValidBin = !isNil(first6) && !isNaN(bin) && first6.length === BIN_LENGTH;
+        const isValidPan = !isNil(last4) && !isNaN(pan) && last4.length === PAN_LENGTH;
 
-        return {
-            paymentMethod: 'bankCard',
-            bin: isNaN(bin) || first6.length !== BIN_LENGTH ? null : first6,
-            pan: isNaN(pan) || last4.length !== PAN_LENGTH ? null : last4,
-        };
+        if (isValidBin || isValidPan) {
+            return {
+                paymentMethod: 'bankCard',
+                bin: isValidBin ? first6 : null,
+                pan: isValidPan ? last4 : null,
+            };
+        }
+
+        return null;
     }
 
     private getListParams(params: Params): Partial<PaymentsFiltersData> {
-        const listParams = pickBy(
+        const nonEmptyListParams = pickBy(
             params,
             (value: unknown, key: keyof PaymentsFiltersData) =>
-                ['shopIDs', 'invoiceIDs'].includes(key) && isString(value) && !isEmpty(value)
+                ['shopIDs', 'invoiceIDs'].includes(key) && !isEmpty(value)
         );
+        const stringListParams = pickBy(nonEmptyListParams, (value: unknown) => isString(value));
+
         return {
-            ...wrapValuesToArray(listParams),
+            ...nonEmptyListParams,
+            ...wrapValuesToArray(stringListParams),
         };
     }
 

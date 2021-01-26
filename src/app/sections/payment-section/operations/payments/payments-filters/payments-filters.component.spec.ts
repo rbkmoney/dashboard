@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import moment from 'moment';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
@@ -10,6 +11,7 @@ import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { AdditionalFiltersService } from './additional-filters';
+import { CardBinPanFilterModule } from './card-bin-pan-filter';
 import { PaymentsFiltersComponent } from './payments-filters.component';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
 import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';
@@ -73,7 +75,7 @@ describe('PaymentsFiltersComponent', () => {
 
     async function createComponent() {
         await TestBed.configureTestingModule({
-            imports: [getTranslocoModule(), FlexLayoutModule],
+            imports: [NoopAnimationsModule, getTranslocoModule(), FlexLayoutModule, CardBinPanFilterModule],
             declarations: [
                 MockDaterangeFilterComponent,
                 MockInvoicesFilterComponent,
@@ -345,6 +347,33 @@ describe('PaymentsFiltersComponent', () => {
                 mockPaymentsFiltersService.changeFilters(
                     deepEqual({
                         shopIDs: ['test_id_0', 'test_id_1', 'test_id_2', 'test_id_3'],
+                    })
+                )
+            ).once();
+            expect().nothing();
+        });
+    });
+
+    describe('binPanChanged', () => {
+        beforeEach(async () => {
+            await createComponent();
+            fixture.detectChanges();
+        });
+
+        it('should tick filters change', () => {
+            component.binPanChanged({
+                bin: '123456',
+                pan: null,
+            });
+
+            verify(
+                mockPaymentsFiltersService.changeFilters(
+                    deepEqual({
+                        binPan: {
+                            paymentMethod: 'bankCard',
+                            bin: '123456',
+                            pan: null,
+                        },
                     })
                 )
             ).once();
