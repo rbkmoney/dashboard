@@ -1,0 +1,22 @@
+<div
+    class="dsh-organization-details"
+    *transloco="let t; scope: 'organizations'; read: 'organizations'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <ng-container *ngIf="organization$ | async as organization">
+        <h1 class="dsh-display-1">{{ t('header') }}</h1>
+        <dsh-headline>{{ organization.name }}</dsh-headline>
+        <dsh-spinner *ngIf="isLoading$ | async; else loaded" fxFlexAlign="center"></dsh-spinner>
+        <ng-template #loaded>
+            <div *ngIf="(members$ | async)?.length; else empty" fxLayout="column" fxLayoutGap="16px">
+                <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
+                <dsh-members-list [members]="members$ | async"></dsh-members-list>
+            </div>
+            <ng-template #empty>
+                <dsh-empty-search-result></dsh-empty-search-result>
+            </ng-template>
+        </ng-template>
+    </ng-container>
+</div>
+<dsh-scroll-up></dsh-scroll-up>

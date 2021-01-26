@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ErrorModule, NotificationModule } from '@dsh/app/shared';
+import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api';
+import { ErrorModule, NotificationModule, UserModule } from '@dsh/app/shared';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
@@ -18,22 +19,16 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { NavigationLinkModule } from '@dsh/components/navigation-link';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { OrganizationsModule as OrganizationsAPIModule } from '../../api/organizations';
-import { UserModule } from '../../shared';
-import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
-import { OrganizationComponent } from './components/organization/organization.component';
-import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
-import { RenameOrganizationDialogComponent } from './components/rename-organization-dialog/rename-organization-dialog.component';
-import { OrganizationRolesModule } from './organization-roles';
-import { OrganizationsRoutingModule } from './organizations-routing.module';
-import { OrganizationsComponent } from './organizations.component';
-import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from './services/organization-management/organization-management.service';
+import { OrganizationRolesModule } from '../../organization-roles';
+import { MemberComponent } from './components/member/member.component';
+import { MembersListComponent } from './components/members-list/members-list.component';
+import { MembersRoutingModule } from './members-routing.module';
+import { MembersComponent } from './members.component';
 
 @NgModule({
     imports: [
+        MembersRoutingModule,
         CommonModule,
-        OrganizationsRoutingModule,
         TranslocoModule,
         FlexLayoutModule,
         LayoutModule,
@@ -59,14 +54,7 @@ import { OrganizationManagementService } from './services/organization-managemen
         MatInputModule,
         OrganizationRolesModule,
     ],
-    declarations: [
-        OrganizationsComponent,
-        OrganizationsListComponent,
-        OrganizationComponent,
-        CreateOrganizationDialogComponent,
-        RenameOrganizationDialogComponent,
-    ],
-    exports: [OrganizationsComponent],
-    providers: [FetchOrganizationsService, OrganizationManagementService],
+    declarations: [MembersComponent, MembersListComponent, MemberComponent],
+    exports: [MembersComponent],
 })
-export class OrganizationsModule {}
+export class MembersModule {}
