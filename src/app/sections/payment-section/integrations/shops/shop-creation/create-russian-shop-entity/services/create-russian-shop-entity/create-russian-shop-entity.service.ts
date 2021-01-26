@@ -6,7 +6,7 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createRussianBankAccountModification,
     createRussianContractPayoutToolModification,
     createRussianLegalEntityModification,
@@ -82,7 +82,7 @@ export class CreateRussianShopEntityService {
                 representativeFullName,
                 representativePosition,
             }),
-            createContractorParamsModification(contractID, {
+            createContractCreationModification(contractID, {
                 contractorID,
             }),
             ...payoutChangeset,
