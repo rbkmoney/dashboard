@@ -12,6 +12,7 @@ import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { AdditionalFiltersService } from './additional-filters';
+import { CardBinPan } from './card-bin-pan-filter';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
 import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';
 import { PaymentsAdditionalFilters } from './types/payments-additional-filters';
@@ -80,6 +81,15 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     shopSelectionChange(selectedShops: Shop[]): void {
         this.updateFilters({
             shopIDs: selectedShops.map(({ id }: Shop) => id),
+        });
+    }
+
+    binPanChanged(binPan: Partial<CardBinPan>): void {
+        this.updateFilters({
+            binPan: {
+                paymentMethod: 'bankCard',
+                ...binPan,
+            },
         });
     }
 

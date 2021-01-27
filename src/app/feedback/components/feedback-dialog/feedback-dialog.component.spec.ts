@@ -7,6 +7,7 @@ import { anyString, instance, mock, verify, when } from 'ts-mockito';
 
 import { MessagesService } from '@dsh/api/sender';
 import { ErrorModule, ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { FeedbackDialogComponent } from './feedback-dialog.component';
 
@@ -27,7 +28,7 @@ describe('FeedbackDialogComponent', () => {
         mockNotificationService = mock(NotificationService);
 
         await TestBed.configureTestingModule({
-            imports: [MatDialogModule, ErrorModule, NoopAnimationsModule],
+            imports: [getTranslocoModule(), MatDialogModule, ErrorModule, NoopAnimationsModule],
             declarations: [FeedbackDialogComponent],
             providers: [
                 {

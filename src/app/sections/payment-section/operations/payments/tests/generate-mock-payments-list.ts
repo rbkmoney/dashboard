@@ -1,11 +1,12 @@
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
+import { createArrayOfLength } from '@dsh/app/shared/utils';
 
 import { generateMockPayment } from './generate-mock-payment';
 
 export function generateMockPaymentsList(length: number): PaymentSearchResult[] {
-    return new Array(length).fill(generateMockPayment()).map((payment: PaymentSearchResult, index: number) => {
+    return createArrayOfLength(length).map((_: null, index: number) => {
         return {
-            ...payment,
+            ...generateMockPayment(),
             id: `mock_payment_${index}`,
         };
     });
