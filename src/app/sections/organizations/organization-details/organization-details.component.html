@@ -1,5 +1,5 @@
 <div *ngIf="organization$ | async as organization" fxLayout="column" fxLayoutGap="32px">
-    <dsh-headline *transloco="let t; scope: 'organizations'; read: 'organizations'">{{
+    <dsh-headline backRouterLink=".." *transloco="let t; scope: 'organizations'; read: 'organizations'">{{
         organization.name
     }}</dsh-headline>
     <div>

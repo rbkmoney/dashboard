@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import isNil from 'lodash.isnil';
 
 @Component({
     selector: 'dsh-headline',
@@ -7,10 +9,18 @@ import { Component } from '@angular/core';
     styleUrls: ['headline.component.scss'],
 })
 export class HeadlineComponent {
-    constructor(private location: Location) {}
+    @Input() backRouterLink: any[] | string;
 
-    // 1 and 2 is default history length
-    isBackAvailable = window.history.length > 2;
+    constructor(private location: Location, private router: Router, private route: ActivatedRoute) {}
+
+    get isRouterLink() {
+        return !isNil(this.backRouterLink);
+    }
+
+    get isLocationBack() {
+        // 1 and 2 is default history length
+        return !this.isRouterLink && window.history.length > 2;
+    }
 
     back() {
         this.location.back();
