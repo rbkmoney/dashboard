@@ -8,6 +8,7 @@ export class ErrorService {
     constructor(private notificationService: NotificationService) {}
 
     error(error: any, message?: string) {
+        console.error(error);
         // TODO: parse error by instance for error clarification (message)
         return this.notificationService.error(message);
     }

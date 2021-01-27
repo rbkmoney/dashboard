@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 
+import { ignoreBeforeCompletion } from '../../../../utils';
 import { mapToTimestamp } from '../../../custom-operators';
 import { DialogConfig, DIALOG_CONFIG } from '../../tokens';
 import { FetchOrganizationsService } from '../services/fetch-organizations/fetch-organizations.service';
@@ -33,8 +34,9 @@ export class OrganizationsComponent implements OnInit {
         this.fetchOrganizationsService.search();
     }
 
+    @ignoreBeforeCompletion
     createOrganization() {
-        this.dialog
+        return this.dialog
             .open(CreateOrganizationDialogComponent, this.dialogConfig.medium)
             .afterClosed()
             .pipe(

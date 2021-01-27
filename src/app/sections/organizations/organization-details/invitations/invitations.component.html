@@ -1,1 +1,12 @@
-Invitations
+<div
+    *transloco="let t; scope: 'organizations'; read: 'organizations.organizationDetails.invitations'"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <div fxLayout fxLayoutAlign="end">
+        <button dsh-button color="accent" (click)="createInvitation()">
+            {{ t('createInvitation') }}
+        </button>
+    </div>
+</div>
+<dsh-scroll-up></dsh-scroll-up>

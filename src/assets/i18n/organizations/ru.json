@@ -58,6 +58,17 @@
                 "editRoles": "Редактировать",
                 "removeFromOrganization": "Исключить из организации"
             }
+        },
+        "invitations": {
+            "createInvitation": "Сформировать приглашение"
         }
+    },
+    "createInvitationDialog": {
+        "title": "Сформировать приглашение",
+        "form": {
+            "expiresAt": "Дата истечения срока принятия",
+            "email": "Email"
+        },
+        "create": "Отправить приглашение"
     }
 }

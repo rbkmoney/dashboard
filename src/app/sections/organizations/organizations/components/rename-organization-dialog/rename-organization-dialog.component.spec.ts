@@ -74,7 +74,7 @@ describe('RenameOrganizationDialogComponent', () => {
         input.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         fixture.debugElement.queryAll(By.css('button'))[1].nativeElement.click();
-        verify(mockOrganizationsService.patchOrganization(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
+        verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
         expect().nothing();
     });
 });

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import {
     InlineObject,
+    Invitation,
+    InvitationsService,
     MembersService,
     Organization,
     OrganizationJoinRequest,
@@ -19,7 +21,8 @@ export class OrganizationsService {
         private orgsService: OrgsService,
         private rolesService: RolesService,
         private membersService: MembersService,
-        private uuidGeneratorService: UuidGeneratorService
+        private uuidGeneratorService: UuidGeneratorService,
+        private invitationsService: InvitationsService
     ) {}
 
     listOrgMembership(limit?: number, continuationToken?: string) {
@@ -61,5 +64,13 @@ export class OrganizationsService {
 
     cancelOrgMembership(orgId: Organization['id']) {
         return this.orgsService.cancelOrgMembership(this.uuidGeneratorService.generateUUID(), orgId);
+    }
+
+    createInvitation(orgId: Organization['id'], invitation: Omit<Invitation, 'id' | 'createdAt'>) {
+        return this.invitationsService.createInvitation(
+            this.uuidGeneratorService.generateUUID(),
+            orgId,
+            invitation as Invitation
+        );
     }
 }
