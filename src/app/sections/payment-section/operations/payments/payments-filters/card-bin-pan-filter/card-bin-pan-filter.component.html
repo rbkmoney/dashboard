@@ -1,11 +1,11 @@
 <ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
     <dsh-filter
-        [title]="titleValues ? t('binPan') + ': ' + titleValues : t('binPan')"
+        [title]="titleValues ? t('binPan') + ' · ' + titleValues : t('binPan')"
         [active]="isActive"
-        (opened)="onOpened()"
-        (closed)="onClosed()"
+        (opened)="popupOpened()"
+        (closed)="popupClosed()"
     >
-        <div class="query-filter-content">
+        <div class="card-bin-pan-filter-content">
             <dsh-filter-button-content>
                 <form [formGroup]="form" fxLayout="column">
                     <mat-form-field>
@@ -18,7 +18,7 @@
                     </mat-form-field>
                 </form>
             </dsh-filter-button-content>
-            <dsh-filter-button-actions (clear)="onClear()" (save)="onSave()"></dsh-filter-button-actions>
+            <dsh-filter-button-actions (clear)="clear()" (save)="save()"></dsh-filter-button-actions>
         </div>
     </dsh-filter>
 </ng-container>

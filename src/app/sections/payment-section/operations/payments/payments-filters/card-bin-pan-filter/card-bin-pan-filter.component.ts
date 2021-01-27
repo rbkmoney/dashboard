@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import isObject from 'lodash.isobject';
 
+import { makeMaskedCardEnd, makeMaskedCardStart, splitCardNumber } from '@dsh/app/shared/utils/card-formatter';
 import { FilterComponent } from '@dsh/components/filters/filter';
+import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
 import { ComponentChanges } from '@dsh/type-utils';
 
-import { BIN_LENGTH, PAN_LENGTH } from './consts';
 import { CardBinPan } from './types/card-bin-pan';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-card-bin-pan-filter',
     templateUrl: './card-bin-pan-filter.component.html',
+    styleUrls: ['./card-bin-pan-filter.component.scss'],
 })
 export class CardBinPanFilterComponent implements OnChanges {
     @ViewChild(FilterComponent) filter: FilterComponent;
@@ -23,8 +24,8 @@ export class CardBinPanFilterComponent implements OnChanges {
     @Output() filterChanged = new EventEmitter<Partial<CardBinPan>>();
 
     form: FormGroup<CardBinPan> = this.formBuilder.group({
-        bin: [null, Validators.minLength(BIN_LENGTH)],
-        pan: [null, Validators.minLength(PAN_LENGTH)],
+        bin: [null, binValidator],
+        pan: [null, lastDigitsValidator],
     });
 
     titleValues: string;
@@ -39,19 +40,19 @@ export class CardBinPanFilterComponent implements OnChanges {
         }
     }
 
-    onOpened(): void {
+    popupOpened(): void {
         this.updateFilterForm(this.binPan);
     }
 
-    onClosed(): void {
+    popupClosed(): void {
         this.saveFilterData();
     }
 
-    onSave(): void {
+    save(): void {
         this.filter.close();
     }
 
-    onClear(): void {
+    clear(): void {
         this.clearForm();
     }
 
@@ -82,9 +83,9 @@ export class CardBinPanFilterComponent implements OnChanges {
         const { bin, pan } = this.form.controls;
         const binString = bin.valid && Boolean(bin.value) ? bin.value : '';
         const panString = pan.valid && Boolean(pan.value) ? pan.value : '';
-        const maskedBinPart = binString.padEnd(6, '*');
-        const maskedPanPart = panString.padStart(4, '*');
-        const filterValues = `${maskedBinPart.slice(0, 4)} ${maskedBinPart.slice(4)}** **** ${maskedPanPart}`;
+        const maskedBinPart = makeMaskedCardStart(binString, 12);
+        const maskedPanPart = makeMaskedCardEnd(panString, 4);
+        const filterValues = splitCardNumber(`${maskedBinPart}${maskedPanPart}`);
 
         this.titleValues = Boolean(binString) || Boolean(panString) ? `${filterValues}` : '';
     }
