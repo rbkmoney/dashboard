@@ -57,7 +57,7 @@ export class PaymentsComponent implements OnInit {
         this.expandedIdManager.expandedIdChange(id);
     }
 
-    private requestList({ daterange, shopIDs, invoiceIDs, binPan }: PaymentsFiltersData): void {
+    private requestList({ daterange, shopIDs, invoiceIDs, binPan, additional }: PaymentsFiltersData): void {
         this.paymentsService.search({
             date: {
                 begin: daterange.begin,
@@ -66,6 +66,7 @@ export class PaymentsComponent implements OnInit {
             invoiceIDs,
             shopIDs,
             ...this.formatBinPanParams(binPan),
+            ...additional,
         });
     }
 

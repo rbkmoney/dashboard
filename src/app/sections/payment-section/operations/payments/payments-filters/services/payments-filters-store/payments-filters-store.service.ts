@@ -24,12 +24,15 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     mapToData(params: Params): Partial<PaymentsFiltersData> {
-        const { fromTime, toTime, ...restParams } = params;
+        const { fromTime, toTime, shopIDs, invoiceIDs, ...restParams } = params;
 
         return this.removeUnusedFields({
             daterange: this.formatDaterange(fromTime, toTime),
             binPan: this.getBinPanParams(params),
-            ...this.getListParams(restParams),
+            ...this.getListParams({ shopIDs, invoiceIDs }),
+            additional: {
+                ...restParams,
+            },
         });
     }
 

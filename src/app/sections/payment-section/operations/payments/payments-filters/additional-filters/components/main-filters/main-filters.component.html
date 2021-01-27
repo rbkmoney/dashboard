@@ -1,0 +1,22 @@
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="24px">
+            <mat-form-field fxFlex>
+                <mat-label>{{ t('payerEmail') }}</mat-label>
+                <input aria-label="payerEmail" matInput type="email" formControlName="payerEmail" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-label>{{ t('customerID') }}</mat-label>
+                <input aria-label="customerID" matInput formControlName="customerID" />
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="24px">
+            <mat-form-field fxFlex>
+                <mat-label>{{ t('rrn') }}</mat-label>
+                <input aria-label="rrn" matInput formControlName="rrn" />
+            </mat-form-field>
+            <!--            empty block for layout -->
+            <div fxFlex></div>
+        </div>
+    </form>
+</ng-container>
