@@ -165,7 +165,7 @@ describe('CardBinPanFilterComponent', () => {
             expect(component.form.value).toEqual({ bin: null, pan: null });
 
             component.binPan = { bin: '123456', pan: '1234' };
-            component.onOpened();
+            component.popupOpened();
 
             expect(component.form.value).toEqual({ bin: '123456', pan: '1234' });
         });
@@ -176,7 +176,7 @@ describe('CardBinPanFilterComponent', () => {
             const spyOnFilterChanged = spyOn(component.filterChanged, 'emit').and.callThrough();
 
             component.form.setValue({ bin: '123456', pan: null });
-            component.onClosed();
+            component.popupClosed();
 
             expect(spyOnFilterChanged).toHaveBeenCalledTimes(1);
             expect(spyOnFilterChanged).toHaveBeenCalledWith({ bin: '123456', pan: null });
@@ -184,7 +184,7 @@ describe('CardBinPanFilterComponent', () => {
 
         it('should update title and active status using form values', () => {
             component.form.setValue({ bin: null, pan: '1234' });
-            component.onClosed();
+            component.popupClosed();
 
             expect(component.titleValues).toBe('**** **** **** 1234');
             expect(component.isActive).toBe(true);
@@ -196,7 +196,7 @@ describe('CardBinPanFilterComponent', () => {
             const mockFilterComponent = mock(FilterComponent);
             component.filter = instance(mockFilterComponent);
 
-            component.onSave();
+            component.save();
 
             verify(mockFilterComponent.close()).once();
             expect().nothing();
@@ -207,7 +207,7 @@ describe('CardBinPanFilterComponent', () => {
         it('should reset form data', () => {
             component.form.setValue({ bin: '123456', pan: '1234' });
 
-            component.onClear();
+            component.clear();
 
             expect(component.form.value).toEqual({ bin: null, pan: null });
         });

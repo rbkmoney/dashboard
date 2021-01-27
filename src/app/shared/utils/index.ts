@@ -4,4 +4,4 @@ export * from './is-number';
 export * from './daterange-from-str';
 export * from './str-to-daterange';
 export * from './error-matcher';
-export * from './make-empty-array';
+export * from './create-array-of-length';
