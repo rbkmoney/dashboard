@@ -18,7 +18,7 @@ export class OrganizationManagementService {
     }
 
     getMembers(id: Organization['id']): Observable<Member[]> {
-        return this.organizationsService.listOrgMembers(id).pipe(pluck('results'));
+        return this.organizationsService.listOrgMembers(id).pipe(pluck('result'));
     }
 
     createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {

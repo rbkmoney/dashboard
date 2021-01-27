@@ -14,6 +14,14 @@ export class OrganizationDetailsComponent {
         switchMap(({ orgId }) => this.organizationsService.getOrg(orgId)),
         shareReplay(1)
     );
+    links = [
+        {
+            path: 'members',
+        },
+        {
+            path: 'invitations',
+        },
+    ];
 
     constructor(private organizationsService: OrganizationsService, private route: ActivatedRoute) {}
 }
