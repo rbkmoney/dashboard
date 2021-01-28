@@ -73,4 +73,8 @@ export class OrganizationsService {
             invitation as Invitation
         );
     }
+
+    listInvitations(orgId: Organization['id']) {
+        return this.invitationsService.listInvitations(this.uuidGeneratorService.generateUUID(), orgId);
+    }
 }

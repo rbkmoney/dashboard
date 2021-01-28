@@ -1,0 +1,9 @@
+<div
+    *transloco="let t; scope: 'organizations'; read: 'organizations.organizationDetails.invitation'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <div class="dsh-headline">{{ invitation.invitee?.contact?.email }}</div>
+
+    <mat-divider></mat-divider>
+</div>

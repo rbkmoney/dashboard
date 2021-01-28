@@ -2,12 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { first, shareReplay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, defer, of } from 'rxjs';
+import { catchError, first, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { ErrorService } from '@dsh/app/shared';
 
 import { ignoreBeforeCompletion } from '../../../../../utils';
+import { mapToTimestamp, progress } from '../../../../custom-operators';
 import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
 
 @UntilDestroy()
@@ -18,14 +21,37 @@ import { CreateInvitationDialogComponent } from './components/create-invitation-
 export class InvitationsComponent {
     organization$ = this.route.params.pipe(
         switchMap(({ orgId }) => this.organizationsService.getOrg(orgId)),
+        untilDestroyed(this),
         shareReplay(1)
     );
+    invitations$ = defer(() => this.loadInvitations$).pipe(
+        switchMapTo(this.route.params),
+        switchMap(({ orgId }) =>
+            this.organizationsService.listInvitations(orgId).pipe(
+                pluck('result'),
+                catchError((err) => {
+                    this.errorService.error(err);
+                    return of([]);
+                })
+            )
+        ),
+        untilDestroyed(this),
+        shareReplay(1)
+    );
+    lastUpdated$ = this.invitations$.pipe(mapToTimestamp, shareReplay(1));
+    isLoading$ = defer(() => progress(this.loadInvitations$, this.invitations$)).pipe(
+        untilDestroyed(this),
+        shareReplay(1)
+    );
+
+    private loadInvitations$ = new BehaviorSubject<void>(undefined);
 
     constructor(
         private dialog: MatDialog,
         @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
         private organizationsService: OrganizationsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private errorService: ErrorService
     ) {}
 
     @ignoreBeforeCompletion
@@ -35,5 +61,9 @@ export class InvitationsComponent {
             .subscribe(({ id: orgId }) =>
                 this.dialog.open(CreateInvitationDialogComponent, { ...this.dialogConfig.medium, data: { orgId } })
             );
+    }
+
+    refresh() {
+        this.loadInvitations$.next();
     }
 }

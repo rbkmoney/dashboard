@@ -68,8 +68,7 @@ describe('OrganizationComponent', () => {
 
         fixture = TestBed.createComponent(HostComponent);
         component = fixture.componentInstance;
-        when(mockOrganizationManagementService.getMembers(anyString())).thenReturn(of(new Array(7).fill(mockMember)));
-        when(mockOrganizationManagementService.getMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.getCurrentMember(anyString())).thenReturn(of(mockMember));
         when(mockOrganizationManagementService.isOrganizationOwner).thenReturn(() => of(true));
         fixture.detectChanges();
     });

@@ -39,9 +39,9 @@ export class OrganizationComponent implements OnChanges {
 
     ngOnChanges({ organization }: ComponentChanges<OrganizationComponent>) {
         if (!isNil(organization?.currentValue)) {
-            this.updateMember(organization.currentValue.id);
-            this.updateMembersCount(organization.currentValue.id);
-            this.updateIsOrganizationOwner(organization.currentValue);
+            this.member$ = this.getCurrentMember(organization.currentValue.id);
+            this.membersCount$ = this.getMembersCount(organization.currentValue.id);
+            this.isOrganizationOwner$ = this.getIsOrganizationOwner(organization.currentValue);
         }
     }
 
@@ -67,15 +67,15 @@ export class OrganizationComponent implements OnChanges {
         });
     }
 
-    private updateMember(orgId: Organization['id']) {
-        this.member$ = this.organizationManagementService.getMember(orgId).pipe(shareReplay(1));
+    private getCurrentMember(orgId: Organization['id']) {
+        return this.organizationManagementService.getCurrentMember(orgId).pipe(shareReplay(1));
     }
 
-    private updateMembersCount(orgId: Organization['id']) {
-        this.membersCount$ = this.organizationManagementService.getMembers(orgId).pipe(pluck('length'), shareReplay(1));
+    private getMembersCount(orgId: Organization['id']) {
+        return this.organizationsService.listOrgMembers(orgId).pipe(pluck('result', 'length'), shareReplay(1));
     }
 
-    private updateIsOrganizationOwner(org: Organization) {
-        this.isOrganizationOwner$ = this.organizationManagementService.isOrganizationOwner(org).pipe(shareReplay(1));
+    private getIsOrganizationOwner(org: Organization) {
+        return this.organizationManagementService.isOrganizationOwner(org).pipe(shareReplay(1));
     }
 }

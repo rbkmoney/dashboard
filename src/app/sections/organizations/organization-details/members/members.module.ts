@@ -55,6 +55,6 @@ import { MembersComponent } from './members.component';
         OrganizationRolesModule,
     ],
     declarations: [MembersComponent, MembersListComponent, MemberComponent],
-    exports: [MembersComponent],
+    exports: [MembersComponent, MemberComponent],
 })
 export class MembersModule {}

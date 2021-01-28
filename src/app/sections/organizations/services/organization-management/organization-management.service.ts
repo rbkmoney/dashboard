@@ -10,15 +10,11 @@ import { UserService } from '@dsh/app/shared';
 export class OrganizationManagementService {
     constructor(private organizationsService: OrganizationsService, private userService: UserService) {}
 
-    getMember(id: Organization['id']): Observable<Member> {
+    getCurrentMember(id: Organization['id']): Observable<Member> {
         return this.userService.id$.pipe(
             first(),
             switchMap((userId) => this.organizationsService.getOrgMember(id, userId))
         );
-    }
-
-    getMembers(id: Organization['id']): Observable<Member[]> {
-        return this.organizationsService.listOrgMembers(id).pipe(pluck('result'));
     }
 
     createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
