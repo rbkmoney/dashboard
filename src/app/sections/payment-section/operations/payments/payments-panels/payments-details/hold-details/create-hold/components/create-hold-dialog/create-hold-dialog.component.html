@@ -1,0 +1,28 @@
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
+    <dsh-base-dialog
+        [title]="t('acceptTitle')"
+        [disabledConfirm]="form.pristine || form.invalid"
+        (cancel)="decline()"
+        (confirm)="confirm()"
+    >
+        <form [formGroup]="form" fxLayout="column">
+            <dsh-max-length-input
+                class="create-hold-dialog-reason"
+                formControlName="reason"
+                [label]="t('reason')"
+                [maxLength]="maxReasonLength"
+                required
+            ></dsh-max-length-input>
+            <div fxLayout="column" fxLayoutGap="24px">
+                <mat-checkbox [checked]="isPartial" (change)="togglePartialRefund(!isPartial)">{{
+                    t('partialAccept')
+                }}</mat-checkbox>
+                <mat-form-field *ngIf="isPartial">
+                    <mat-label>{{ t('amount') }}</mat-label>
+                    <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
+                    <mat-hint>{{ t('availableAmount') }} {{ maxAllowedAmount | currency: currency }}</mat-hint>
+                </mat-form-field>
+            </div>
+        </form>
+    </dsh-base-dialog>
+</ng-container>

@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { CardModule, DetailsItemModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../to-major';
 import { AccountInfoComponent } from './account-info.component';
 
 @NgModule({

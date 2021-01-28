@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
@@ -16,7 +17,6 @@ import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ToMajorModule } from '../../../to-major';
 import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
 import { WalletSectionModule } from '../wallet-section.module';

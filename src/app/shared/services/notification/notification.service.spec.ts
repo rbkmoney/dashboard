@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService, TranslocoTestingModule } from '@ngneat/transloco';
-import { instance, mock, objectContaining, verify } from 'ts-mockito';
+import { deepEqual, instance, mock, verify } from 'ts-mockito';
 
 import { NotificationService } from './notification.service';
 
@@ -9,17 +9,22 @@ describe('NotificationService', () => {
     let mockMatSnackBar: MatSnackBar;
     let service: NotificationService;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         mockMatSnackBar = mock(MatSnackBar);
+    });
 
+    beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs(
                     {
                         en: {
                             notification: {
-                                success: 'Success',
                                 ok: 'OK',
+                                error: 'Что-то пошло не так',
+                                success: 'Успешно',
+                                httpError: 'Произошла ошибка в процессе передачи / получения данных',
+                                unknownError: 'Неизвестная ошибка',
                             },
                         },
                     },
@@ -46,10 +51,20 @@ describe('NotificationService', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('methods', () => {
-        it('success', () => {
+    describe('success', () => {
+        it('should open success snackbar', () => {
             service.success();
-            verify(mockMatSnackBar.open('Success', 'OK', objectContaining({ duration: 3000 }))).once();
+
+            verify(mockMatSnackBar.open('Успешно', 'OK', deepEqual({ duration: 3000 }))).once();
+            expect().nothing();
+        });
+    });
+
+    describe('error', () => {
+        it('should open error snackbar', () => {
+            service.error();
+
+            verify(mockMatSnackBar.open('Что-то пошло не так', 'OK', deepEqual({ duration: 3000 }))).once();
             expect().nothing();
         });
     });

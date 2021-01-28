@@ -10,7 +10,6 @@ import { InvoiceDetailsService } from './invoice-details.service';
 @Component({
     templateUrl: 'invoice-details.component.html',
     styleUrls: ['invoice-details.component.scss'],
-    providers: [InvoiceDetailsService],
 })
 export class InvoiceDetailsComponent implements OnInit {
     invoice$ = this.invoiceDetailsService.invoice$;

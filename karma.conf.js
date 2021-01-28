@@ -27,8 +27,8 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['ChromeHeadless_no_sandbox'],
-        browserNoActivityTimeout: 300000,
-        browserDisconnectTimeout: 300000,
+        browserNoActivityTimeout: 30 * 60 * 1000,
+        browserDisconnectTimeout: 30 * 60 * 1000,
         captureTimeout: 300000,
         customLaunchers: {
             ChromeHeadless_no_sandbox: {
@@ -36,7 +36,7 @@ module.exports = function (config) {
                 flags: ['--no-sandbox', '--disable-setuid-sandbox', '--headless', '--disable-gpu'],
             },
         },
-        singleRun: true,
+        singleRun: false,
         restartOnFileChange: true,
         specReporter: {
             maxLogLines: 5, // limit number of lines logged per test
