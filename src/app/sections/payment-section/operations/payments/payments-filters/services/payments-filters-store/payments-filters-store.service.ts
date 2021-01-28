@@ -8,7 +8,7 @@ import pickBy from 'lodash.pickby';
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
-import { wrapValuesToArray } from '@dsh/utils';
+import { removeDictEmptyFields, wrapValuesToArray } from '@dsh/utils';
 
 import { BIN_LENGTH, PAN_LENGTH } from '../../card-bin-pan-filter';
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
@@ -43,7 +43,7 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
         const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(daterange);
         const { bin = null, pan = null } = binPan ?? {};
 
-        return this.removeUnusedFields({
+        return removeDictEmptyFields({
             fromTime,
             toTime,
             first6: bin,

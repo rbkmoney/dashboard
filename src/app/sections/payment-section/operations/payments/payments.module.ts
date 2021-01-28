@@ -26,7 +26,7 @@ import { PaymentsComponent } from './payments.component';
     declarations: [PaymentsComponent],
     providers: [
         { provide: TRANSLOCO_SCOPE, useValue: 'main' },
-        { provide: SEARCH_LIMIT, useValue: 5 },
+        { provide: SEARCH_LIMIT, useValue: 10 },
         { provide: PAYMENTS_UPDATE_DELAY_TOKEN, useValue: DEFAULT_PAYMENTS_UPDATE_DELAY },
     ],
 })

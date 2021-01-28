@@ -5,7 +5,7 @@
             <mat-icon class="close-icon" svgIcon="cross" (click)="close()"></mat-icon>
         </dshBaseDialogTitle>
         <div>
-            <dsh-main-filters [data]="mainFilters" (filtersChanged)="mainFiltersChanged($event)"></dsh-main-filters>
+            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
         </div>
         <dshBaseDialogActions>
             <div fxLayout="row" fxLayoutAlign="space-between center">

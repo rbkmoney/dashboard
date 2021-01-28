@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import cloneDeep from 'lodash.clonedeep';
+import { AbstractControl, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+
+import { removeDictEmptyFields } from '@dsh/utils';
 
 import { AdditionalFilters } from '../../types/additional-filters';
+import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 import { MainFilters } from '../../types/main-filters';
 
 @Component({
@@ -11,22 +15,35 @@ import { MainFilters } from '../../types/main-filters';
     styleUrls: ['dialog-filters.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogFiltersComponent {
-    filtersData: AdditionalFilters = cloneDeep(this.data);
-
-    get mainFilters(): MainFilters {
-        const { payerEmail = '', customerID = '', rrn = '' } = this.filtersData;
-        return {
-            payerEmail,
-            customerID,
-            rrn,
-        };
+export class DialogFiltersComponent implements OnInit {
+    get mainFiltersGroup(): FormGroup<MainFilters> {
+        return this.form.controls.mainFilters as FormGroup<MainFilters>;
     }
+
+    form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
+        mainFilters: this.formBuilder.group<MainFilters>({
+            payerEmail: ['', Validators.email],
+            customerID: [''],
+            rrn: ['', Validators.pattern(new RegExp(/^\d+$/))],
+        }),
+    });
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private data: AdditionalFilters,
-        private dialogRef: MatDialogRef<DialogFiltersComponent, AdditionalFilters>
+        private dialogRef: MatDialogRef<DialogFiltersComponent, AdditionalFilters>,
+        private formBuilder: FormBuilder
     ) {}
+
+    ngOnInit(): void {
+        const { payerEmail = '', customerID = '', rrn = '' } = this.data;
+        this.form.setValue({
+            mainFilters: {
+                payerEmail,
+                customerID,
+                rrn,
+            },
+        });
+    }
 
     clear(): void {
         this.resetFiltersData();
@@ -37,21 +54,25 @@ export class DialogFiltersComponent {
     }
 
     confirm(): void {
-        this.dialogRef.close(this.filtersData);
+        this.dialogRef.close(this.getFiltersData());
     }
 
-    mainFiltersChanged(mainFilters: Partial<MainFilters>): void {
-        this.updateFiltersData(mainFilters);
+    private getFiltersData(): AdditionalFilters {
+        return removeDictEmptyFields({
+            ...this.extractGroupValidFields(this.mainFiltersGroup),
+        });
     }
 
-    private updateFiltersData(updatedFilters: Partial<AdditionalFilters>): void {
-        this.filtersData = {
-            ...this.filtersData,
-            ...updatedFilters,
-        };
+    private extractGroupValidFields<T>(group: FormGroup<T>): Partial<T> {
+        return Object.entries(group.controls).reduce((acc: Partial<T>, [key, control]: [string, AbstractControl]) => {
+            if (control.valid) {
+                acc[key] = control.value;
+            }
+            return acc;
+        }, {});
     }
 
     private resetFiltersData(): void {
-        this.filtersData = {};
+        this.mainFiltersGroup.reset();
     }
 }

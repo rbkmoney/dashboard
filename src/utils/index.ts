@@ -9,3 +9,4 @@ export * from './to-major';
 export * from './get-offset-by-selected-panel-position';
 export * from './wrap-values-to-array';
 export * from './decorators';
+export * from './dicts';
