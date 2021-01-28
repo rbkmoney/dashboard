@@ -7,7 +7,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import { createTestContractCreationModification } from '@dsh/api/claims/claim-party-modification';
-import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
+import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { createTestContractPayoutToolModification } from '../../tests/create-test-contract-payout-tool-modification';
 import { createTestInternationalLegalEntityModification } from '../../tests/create-test-international-legal-entity-modification';
@@ -20,11 +20,11 @@ const TEST_UUID = 'test-uuid';
 describe('CreateInternationalShopEntityService', () => {
     let service: CreateInternationalShopEntityService;
     let mockClaimsService: ClaimsService;
-    let mockUuidGeneratorService: UuidGeneratorService;
+    let mockIdGeneratorService: IdGeneratorService;
 
     beforeEach(() => {
         mockClaimsService = mock(ClaimsService);
-        mockUuidGeneratorService = mock(UuidGeneratorService);
+        mockIdGeneratorService = mock(IdGeneratorService);
     });
 
     beforeEach(() => {
@@ -36,8 +36,8 @@ describe('CreateInternationalShopEntityService', () => {
                     useFactory: () => instance(mockClaimsService),
                 },
                 {
-                    provide: UuidGeneratorService,
-                    useFactory: () => instance(mockUuidGeneratorService),
+                    provide: IdGeneratorService,
+                    useFactory: () => instance(mockIdGeneratorService),
                 },
             ],
         });
@@ -82,7 +82,7 @@ describe('CreateInternationalShopEntityService', () => {
         ];
 
         beforeEach(() => {
-            when(mockUuidGeneratorService.generateUUID()).thenReturn(TEST_UUID);
+            when(mockIdGeneratorService.generateUUID()).thenReturn(TEST_UUID);
             when(mockClaimsService.createClaim(deepEqual(modifications))).thenReturn(of(claim));
             when(mockClaimsService.requestReviewClaimByID(claim.id, claim.revision)).thenReturn(of(null));
         });

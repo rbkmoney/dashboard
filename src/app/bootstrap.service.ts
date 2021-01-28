@@ -6,7 +6,7 @@ import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast
 
 import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
-import { ErrorService } from '@dsh/app/shared';
+import { NotificationService } from '@dsh/app/shared';
 
 @UntilDestroy()
 @Injectable()
@@ -23,7 +23,7 @@ export class BootstrapService {
         private shopService: ApiShopsService,
         private capiClaimsService: CAPIClaimsService,
         private capiPartiesService: CAPIPartiesService,
-        private errorService: ErrorService,
+        private notificationService: NotificationService,
         // TODO: Wait access check
         // private organizationsService: OrganizationsService,
         // private userService: UserService,
@@ -43,8 +43,8 @@ export class BootstrapService {
         ).pipe(
             takeLast(1),
             mapTo(true),
-            catchError((err) => {
-                this.errorService.error(err, this.transloco.translate('errors.bootstrapAppFailed'));
+            catchError(() => {
+                this.notificationService.error(this.transloco.translate('errors.bootstrapAppFailed'));
                 return of(false);
             })
         );

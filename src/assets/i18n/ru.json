@@ -36,6 +36,11 @@
         "fromTime": "Начало периода",
         "toTime": "Конец периода"
     },
+    "filters": {
+        "additionalFilters": "Другие фильтры",
+        "save": "Сохранить",
+        "clearParams": "Сбросить параметры"
+    },
     "paymentStatus": {
         "pending": "Запущен",
         "processed": "Обработан",
@@ -199,7 +204,9 @@
     },
     "notification": {
         "ok": "OK",
-        "error": "Ошибка",
-        "success": "Успешно"
+        "error": "Что-то пошло не так",
+        "success": "Успешно",
+        "httpError": "Произошла ошибка в процессе передачи / получения данных",
+        "unknownError": "Неизвестная ошибка"
     }
 }

@@ -1,3 +1,4 @@
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { EMPTY, merge, Observable, of, Subject } from 'rxjs';
 import {
     debounceTime,
@@ -12,15 +13,16 @@ import {
     tap,
 } from 'rxjs/operators';
 
-import { progress, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { progress, SHARE_REPLAY_CONF } from '@dsh/operators';
+
 import { FetchAction } from './fetch-action';
 import { FetchFn } from './fetch-fn';
 import { FetchResult } from './fetch-result';
 import { scanAction, scanFetchResult } from './operators';
 
+// TODO: make fetcher injectable
+@UntilDestroy()
 export abstract class PartialFetcher<R, P> {
-    private action$ = new Subject<FetchAction<P>>();
-
     readonly fetchResultChanges$: Observable<{ result: R[]; hasMore: boolean; continuationToken: string }>;
 
     readonly searchResult$: Observable<R[]>;
@@ -29,13 +31,16 @@ export abstract class PartialFetcher<R, P> {
     readonly doSearchAction$: Observable<boolean>;
     readonly errors$: Observable<any>;
 
+    private action$ = new Subject<FetchAction<P>>();
+
+    // TODO: make a dependency for DI
     constructor(debounceActionTime: number = 300) {
         const actionWithParams$ = this.getActionWithParams(debounceActionTime);
         const fetchResult$ = this.getFetchResult(actionWithParams$);
 
         this.fetchResultChanges$ = fetchResult$.pipe(
             map(({ result, continuationToken }) => ({
-                result,
+                result: result ?? [],
                 continuationToken,
                 hasMore: !!continuationToken,
             })),
@@ -69,7 +74,9 @@ export abstract class PartialFetcher<R, P> {
             this.doSearchAction$,
             this.errors$,
             this.fetchResultChanges$
-        ).subscribe();
+        )
+            .pipe(untilDestroyed(this))
+            .subscribe();
     }
 
     search(value: P) {

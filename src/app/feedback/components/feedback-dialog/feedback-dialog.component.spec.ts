@@ -7,6 +7,7 @@ import { anyString, instance, mock, verify, when } from 'ts-mockito';
 
 import { MessagesService } from '@dsh/api/sender';
 import { ErrorModule, ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { FeedbackDialogComponent } from './feedback-dialog.component';
 
@@ -27,7 +28,7 @@ describe('FeedbackDialogComponent', () => {
         mockNotificationService = mock(NotificationService);
 
         await TestBed.configureTestingModule({
-            imports: [MatDialogModule, ErrorModule, NoopAnimationsModule],
+            imports: [getTranslocoModule(), MatDialogModule, ErrorModule, NoopAnimationsModule],
             declarations: [FeedbackDialogComponent],
             providers: [
                 {
@@ -71,10 +72,11 @@ describe('FeedbackDialogComponent', () => {
         });
 
         it("shouldn't send message", () => {
-            when(mockMessagesService.sendFeedbackEmailMsg(anyString())).thenReturn(throwError('Test error'));
+            const error = new Error('Test error');
+            when(mockMessagesService.sendFeedbackEmailMsg(anyString())).thenReturn(throwError(error));
             component.send();
             verify(mockMessagesService.sendFeedbackEmailMsg('')).once();
-            verify(mockErrorService.error('Test error')).once();
+            verify(mockErrorService.error(error)).once();
             verify(mockMatDialogRef.close()).never();
             expect().nothing();
         });

@@ -6,11 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceSearchService, PaymentSearchService } from '@dsh/api/search';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../to-major';
 import { CreatePaymentLinkModule } from '../create-payment-link';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { CartComponent } from './cart/cart.component';
@@ -19,6 +19,7 @@ import { DetailsComponent } from './details/details.component';
 import { StatusDetailsItemComponent } from './details/status-details-item';
 import { InvoiceDetailsRoutingModule } from './invoice-details-routing.module';
 import { InvoiceDetailsComponent } from './invoice-details.component';
+import { InvoiceDetailsService } from './invoice-details.service';
 import { CreatePaymentLinkDialogComponent, PaymentLinkComponent } from './payment-link';
 import { PaymentComponent } from './payments/payment/payment.component';
 import { PaymentsComponent } from './payments/payments.component';
@@ -50,6 +51,6 @@ import { PaymentsComponent } from './payments/payments.component';
         CreatePaymentLinkDialogComponent,
     ],
     exports: [StatusDetailsItemComponent],
-    providers: [InvoiceSearchService, PaymentSearchService],
+    providers: [InvoiceSearchService, PaymentSearchService, InvoiceDetailsService],
 })
 export class InvoiceDetailsModule {}

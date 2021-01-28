@@ -1,0 +1,8 @@
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.details'">
+    <dsh-details-item [title]="t('fee')">
+        <div class="mat-body-1">
+            {{ fee | toMajor | currency: currency }}
+            ({{ feePercent | percent: '1.0-2':'en' }})
+        </div>
+    </dsh-details-item>
+</ng-container>
