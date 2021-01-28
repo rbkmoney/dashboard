@@ -22,7 +22,7 @@ export class MainFiltersComponent implements OnInit, OnChanges {
     form: FormGroup<MainFilters> = this.formBuilder.group({
         payerEmail: ['', Validators.email],
         customerID: [''],
-        rrn: ['', Validators.pattern(`/\d+/`)],
+        rrn: ['', Validators.pattern(new RegExp(/^\d+$/))],
     });
 
     constructor(private formBuilder: FormBuilder) {}
