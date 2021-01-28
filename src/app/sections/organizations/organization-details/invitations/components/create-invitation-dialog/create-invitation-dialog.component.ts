@@ -11,8 +11,8 @@ import { Organization, ResourceScopeId } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 
-import { inProgressTo } from '../../../../../../utils';
-import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
+import { inProgressTo } from '../../../../../../../utils';
+import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 
 export type Status = 'success' | 'cancel';
 

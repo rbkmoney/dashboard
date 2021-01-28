@@ -11,7 +11,7 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { CreateInvitationDialogComponent } from './create-invitation-dialog/create-invitation-dialog.component';
+import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
 import { InvitationsRoutingModule } from './invitations-routing.module';
 import { InvitationsComponent } from './invitations.component';
 

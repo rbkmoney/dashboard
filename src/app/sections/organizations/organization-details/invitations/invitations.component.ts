@@ -8,7 +8,7 @@ import { OrganizationsService } from '@dsh/api';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 
 import { ignoreBeforeCompletion } from '../../../../../utils';
-import { CreateInvitationDialogComponent } from './create-invitation-dialog/create-invitation-dialog.component';
+import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
 
 @UntilDestroy()
 @Component({
