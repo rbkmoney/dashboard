@@ -9,13 +9,20 @@
             {{ r('openCreateReport') }}
         </button>
     </div>
-    <dsh-reports-list
-        [expandedId]="expandedId$ | async"
-        (expandedIdChange)="expandedIdChange($event)"
-        [reports]="reports$ | async"
-        [lastUpdated]="lastUpdated$ | async"
-        (refreshData)="refresh()"
-    ></dsh-reports-list>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-reports-list
+            [expandedId]="expandedId$ | async"
+            (expandedIdChange)="expandedIdChange($event)"
+            [reports]="reports$ | async"
+            [lastUpdated]="lastUpdated$ | async"
+            (refreshData)="refresh()"
+        ></dsh-reports-list>
+        <dsh-show-more-panel
+            *ngIf="hasMore$ | async"
+            [isLoading]="isLoading$ | async"
+            (showMore)="fetchMore()"
+        ></dsh-show-more-panel>
+    </div>
     <dsh-empty-search-result
         *ngIf="!(fetchErrors$ | async) && (reports$ | async)?.length === 0"
     ></dsh-empty-search-result>

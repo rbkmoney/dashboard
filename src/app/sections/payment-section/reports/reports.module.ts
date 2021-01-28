@@ -9,6 +9,7 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
+import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { CreateReportModule } from './create-report';
 import { ReportsListModule } from './reports-list';
@@ -31,6 +32,7 @@ import { ReportsComponent } from './reports.component';
         ScrollUpModule,
         ReportsSearchFiltersModule,
         CreateReportModule,
+        ShowMorePanelModule,
     ],
     declarations: [ReportsComponent],
 })

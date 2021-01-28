@@ -19,6 +19,7 @@ import { ReportsSearchFiltersStore } from './reports-search-filters-store.servic
 export class ReportsComponent implements OnInit, OnDestroy {
     reports$ = this.fetchReportsService.searchResult$;
     isLoading$ = this.fetchReportsService.isLoading$;
+    hasMore$ = this.fetchReportsService.hasMore$;
     lastUpdated$ = this.fetchReportsService.lastUpdated$;
     expandedId$ = this.reportsExpandedIdManager.expandedId$;
     initSearchParams$ = this.reportsSearchFiltersStore.data$.pipe(take(1));
@@ -58,6 +59,10 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     expandedIdChange(id: number) {
         this.reportsExpandedIdManager.expandedIdChange(id);
+    }
+
+    fetchMore() {
+        this.fetchReportsService.fetchMore();
     }
 
     refresh() {

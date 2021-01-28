@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import isEmpty from 'lodash.isempty';
-import moment from 'moment';
 import { Observable } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, take } from 'rxjs/operators';
+import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
 import { Report } from '@dsh/api-codegen/anapi';
 import { ReportsService as ReportsApiService } from '@dsh/api/reports';
@@ -11,12 +10,6 @@ import { ReportsService as ReportsApiService } from '@dsh/api/reports';
 import { booleanDebounceTime, mapToTimestamp } from '../../../custom-operators';
 import { PartialFetcher } from '../../partial-fetcher';
 import { SearchFiltersParams } from './reports-search-filters';
-
-const toMs = (date: Date | string): number => moment(date).valueOf();
-const byCreatedAt = (x: Report, y: Report): number => toMs(y.createdAt) - toMs(x.createdAt);
-const sortReports = ({ result }) => ({
-    result: result.sort(byCreatedAt),
-});
 
 @Injectable()
 export class FetchReportsService extends PartialFetcher<Report, SearchFiltersParams> {
@@ -38,8 +31,7 @@ export class FetchReportsService extends PartialFetcher<Report, SearchFiltersPar
                     continuationToken,
                     paymentInstitutionRealm,
                 })
-            ),
-            map(sortReports)
+            )
         );
     }
 }
