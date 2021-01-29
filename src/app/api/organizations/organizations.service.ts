@@ -11,6 +11,7 @@ import {
     RoleId,
     RolesService,
 } from '@dsh/api-codegen/organizations';
+import { WritableInvitation } from '@dsh/api/organizations/types/writable-invitation';
 import { IdGeneratorService } from '@dsh/app/shared';
 
 import { WritableOrganization } from './types/writable-organization';
@@ -26,55 +27,58 @@ export class OrganizationsService {
     ) {}
 
     listOrgMembership(limit?: number, continuationToken?: string) {
-        return this.orgsService.listOrgMembership(this.idGeneratorService.generateUUID(), limit, continuationToken);
+        return this.orgsService.listOrgMembership(
+            this.idGeneratorService.generateXRequestId(),
+            limit,
+            continuationToken
+        );
     }
 
     getOrg(orgId: Organization['id']) {
-        return this.orgsService.getOrg(this.idGeneratorService.generateUUID(), orgId);
+        return this.orgsService.getOrg(this.idGeneratorService.generateXRequestId(), orgId);
     }
 
     createOrg(org: WritableOrganization) {
-        // expects only non-readable fields
-        return this.orgsService.createOrg(this.idGeneratorService.generateUUID(), org as Organization);
+        return this.orgsService.createOrg(this.idGeneratorService.generateXRequestId(), org as Organization);
     }
 
     patchOrg(orgId: Organization['id'], org: InlineObject) {
-        return this.orgsService.patchOrg(this.idGeneratorService.generateUUID(), orgId, org);
+        return this.orgsService.patchOrg(this.idGeneratorService.generateXRequestId(), orgId, org);
     }
 
     joinOrg(request: OrganizationJoinRequest) {
-        return this.orgsService.joinOrg(this.idGeneratorService.generateUUID(), request);
+        return this.orgsService.joinOrg(this.idGeneratorService.generateXRequestId(), request);
     }
 
     getOrgRole(orgId: Organization['id'], roleId: RoleId) {
-        return this.rolesService.getOrgRole(this.idGeneratorService.generateUUID(), orgId, roleId);
+        return this.rolesService.getOrgRole(this.idGeneratorService.generateXRequestId(), orgId, roleId);
     }
 
     getOrgMember(orgId: Organization['id'], userId: string) {
-        return this.membersService.getOrgMember(this.idGeneratorService.generateUUID(), orgId, userId);
+        return this.membersService.getOrgMember(this.idGeneratorService.generateXRequestId(), orgId, userId);
     }
 
     listOrgMembers(orgId: Organization['id']) {
-        return this.membersService.listOrgMembers(this.idGeneratorService.generateUUID(), orgId);
+        return this.membersService.listOrgMembers(this.idGeneratorService.generateXRequestId(), orgId);
     }
 
     expelOrgMember(orgId: Organization['id'], userId: string) {
-        return this.membersService.expelOrgMember(this.idGeneratorService.generateUUID(), orgId, userId);
+        return this.membersService.expelOrgMember(this.idGeneratorService.generateXRequestId(), orgId, userId);
     }
 
     cancelOrgMembership(orgId: Organization['id']) {
-        return this.orgsService.cancelOrgMembership(this.idGeneratorService.generateUUID(), orgId);
+        return this.orgsService.cancelOrgMembership(this.idGeneratorService.generateXRequestId(), orgId);
     }
 
-    createInvitation(orgId: Organization['id'], invitation: Omit<Invitation, 'id' | 'createdAt'>) {
+    createInvitation(orgId: Organization['id'], invitation: WritableInvitation) {
         return this.invitationsService.createInvitation(
-            this.idGeneratorService.generateUUID(),
+            this.idGeneratorService.generateXRequestId(),
             orgId,
             invitation as Invitation
         );
     }
 
     listInvitations(orgId: Organization['id']) {
-        return this.invitationsService.listInvitations(this.idGeneratorService.generateUUID(), orgId);
+        return this.invitationsService.listInvitations(this.idGeneratorService.generateXRequestId(), orgId);
     }
 }
