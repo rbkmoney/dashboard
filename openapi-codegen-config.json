@@ -3,8 +3,8 @@
     "outputRootDir": "src/app/api-codegen",
     "outputDir": "openapi-codegen",
     "schemes": {
-      "messages": "schemes/messages/v0/swagger.json",
-      "organizations": "schemes/organizations/v0/openapi.json",
-      "sender": "schemes/sender/v0/openapi.json"
+        "messages": "schemes/messages/v0/swagger.json",
+        "organizations": "schemes/organizations/v0/openapi.json",
+        "sender": "schemes/sender/v0/openapi.json"
     }
 }

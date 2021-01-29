@@ -5,16 +5,16 @@ import {
     Modification,
     RussianBankAccount,
     RussianLegalEntity,
-    ShopCreationModification
+    ShopCreationModification,
 } from '../../../../api-codegen/claim-management';
 import {
     createContractCreationModification,
-    createRussianContractPayoutToolModification
+    createRussianContractPayoutToolModification,
 } from '../claim-contract-modification';
 import { createContractLegalAgreementBindingModification } from '../claim-contract-modification/create-contract-legal-agreement-binding-modification';
 import {
     createRussianBankAccountModification,
-    createRussianLegalEntityModification
+    createRussianLegalEntityModification,
 } from '../claim-contractor-modification';
 import { createShopCreationModification, makeShopLocation } from '../claim-shop-modification';
 
@@ -22,7 +22,7 @@ const testRussianBankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
     account: '00000000000000000000',
     bankName: 'Test bank name',
     bankPostAccount: '00000000000000000000',
-    bankBik: '000000000'
+    bankBik: '000000000',
 };
 
 const testRussianLegalEntity: Omit<RussianLegalEntity, 'legalEntityType'> = {
@@ -34,31 +34,31 @@ const testRussianLegalEntity: Omit<RussianLegalEntity, 'legalEntityType'> = {
     representativePosition: 'Test representative position',
     representativeFullName: 'Test representative full name',
     representativeDocument: 'Test representative document',
-    russianBankAccount: createRussianBankAccountModification(testRussianBankAccount)
+    russianBankAccount: createRussianBankAccountModification(testRussianBankAccount),
 };
 
 const createTestLegalAgreement = (): LegalAgreement => ({
     signedAt: moment().subtract(1, 'days').utc().format(),
-    legalAgreementID: '000000/00'
+    legalAgreementID: '000000/00',
 });
 
 const testShopCreation: Omit<ShopCreationModification, 'shopModificationType' | 'contractID' | 'payoutToolID'> = {
     category: {
-        categoryID: 1
+        categoryID: 1,
     },
     location: makeShopLocation({ url: 'http://test.url' }),
     details: {
         name: 'Test shop',
-        description: 'Shop for test integration'
-    }
+        description: 'Shop for test integration',
+    },
 };
 
 export const createTestShopModifications = ({
-                                                contractorID,
-                                                contractID,
-                                                shopID,
-                                                payoutToolID
-                                            }: {
+    contractorID,
+    contractID,
+    shopID,
+    payoutToolID,
+}: {
     contractorID: string;
     contractID: string;
     shopID: string;
@@ -68,5 +68,5 @@ export const createTestShopModifications = ({
     createContractCreationModification(contractID, { contractorID }),
     createContractLegalAgreementBindingModification(contractID, createTestLegalAgreement()),
     createRussianContractPayoutToolModification(contractID, payoutToolID, testRussianBankAccount),
-    createShopCreationModification(shopID, { ...testShopCreation, contractID, payoutToolID })
+    createShopCreationModification(shopID, { ...testShopCreation, contractID, payoutToolID }),
 ];

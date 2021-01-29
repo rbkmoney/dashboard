@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import isNil from 'lodash.isnil';
 
 @Component({
@@ -11,7 +10,7 @@ import isNil from 'lodash.isnil';
 export class HeadlineComponent {
     @Input() backRouterLink: any[] | string;
 
-    constructor(private location: Location, private router: Router, private route: ActivatedRoute) {}
+    constructor(private location: Location) {}
 
     get isRouterLink() {
         return !isNil(this.backRouterLink);

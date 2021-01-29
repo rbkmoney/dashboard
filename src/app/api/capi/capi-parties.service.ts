@@ -7,8 +7,7 @@ import { genXRequestID } from '../utils';
 
 @Injectable()
 export class CAPIPartiesService {
-    constructor(private partiesService: PartiesService) {
-    }
+    constructor(private partiesService: PartiesService) {}
 
     /**
      * Create if not exist and return party

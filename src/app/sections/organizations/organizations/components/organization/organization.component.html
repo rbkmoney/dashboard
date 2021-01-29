@@ -21,7 +21,9 @@
         <button *ngIf="isOrganizationOwner$ | async" (click)="rename()" dsh-button color="accent">
             {{ t('actions.rename') }}
         </button>
-        <button *ngIf="!(isOrganizationOwner$ | async)" (click)="leave()" dsh-button color="warn">{{ t('actions.leave') }}</button>
+        <button *ngIf="!(isOrganizationOwner$ | async)" (click)="leave()" dsh-button color="warn">
+            {{ t('actions.leave') }}
+        </button>
     </div>
 
     <ng-container *ngIf="isOrganizationOwner$ | async">

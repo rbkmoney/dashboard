@@ -78,7 +78,7 @@ describe('CreateInternationalShopEntityService', () => {
             createTestInternationalLegalEntityModification(TEST_UUID, creationData),
             createTestContractCreationModification(TEST_UUID, TEST_UUID),
             createTestContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
-            createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData)
+            createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
         ];
 
         beforeEach(() => {
@@ -129,7 +129,7 @@ describe('CreateInternationalShopEntityService', () => {
                 createTestInternationalLegalEntityModification(TEST_UUID, creationData),
                 createTestContractCreationModification(TEST_UUID, TEST_UUID),
                 createTestContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
-                createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData)
+                createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
             ];
 
             when(mockClaimsService.createClaim(deepEqual(modifications))).thenReturn(of(claim));

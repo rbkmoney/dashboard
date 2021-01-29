@@ -9,11 +9,10 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     selector: 'dsh-feedback',
     templateUrl: 'feedback.component.html',
     styleUrls: ['feedback.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackComponent {
-    constructor(private dialog: MatDialog, @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig) {
-    }
+    constructor(private dialog: MatDialog, @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig) {}
 
     openFeedbackDialog() {
         return this.dialog.open(FeedbackDialogComponent, this.dialogConfig.medium);

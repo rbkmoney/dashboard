@@ -28,8 +28,7 @@ export class BootstrapService {
         // private organizationsService: OrganizationsService,
         // private userService: UserService,
         private transloco: TranslocoService
-    ) {
-    }
+    ) {}
 
     bootstrap() {
         this.bootstrap$.next();
