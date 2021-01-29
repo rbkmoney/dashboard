@@ -251,8 +251,8 @@ describe('PaymentsFiltersStoreService', () => {
                     shopIDs: [],
                     invoiceIDs: ['my-invoice-id'],
                     additional: {
-                        mine: {},
-                        another: null,
+                        payerEmail: '',
+                        rrn: '',
                     },
                 })
             ).toEqual({
