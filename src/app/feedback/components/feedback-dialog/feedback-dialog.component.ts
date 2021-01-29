@@ -16,7 +16,7 @@ const MAX_LENGTH = 2000;
 @Component({
     selector: 'dsh-feedback-dialog',
     templateUrl: 'feedback-dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackDialogComponent {
     messageControl = this.fb.control('');
@@ -30,8 +30,7 @@ export class FeedbackDialogComponent {
         private errorService: ErrorService,
         private notificationService: NotificationService,
         private translocoService: TranslocoService
-    ) {
-    }
+    ) {}
 
     @inProgressTo('inProgress$')
     send() {

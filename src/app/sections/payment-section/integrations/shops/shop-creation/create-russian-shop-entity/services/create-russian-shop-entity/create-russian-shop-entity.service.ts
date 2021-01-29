@@ -11,7 +11,7 @@ import {
     createRussianContractPayoutToolModification,
     createRussianLegalEntityModification,
     createShopCreationModification,
-    makeShopLocation
+    makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
 
@@ -83,7 +83,7 @@ export class CreateRussianShopEntityService {
                 representativePosition,
             }),
             createContractCreationModification(contractID, {
-                contractorID
+                contractorID,
             }),
             ...payoutChangeset,
             createShopCreationModification(shopID, {

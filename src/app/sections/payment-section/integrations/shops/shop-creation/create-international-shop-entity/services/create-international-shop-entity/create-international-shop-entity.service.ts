@@ -9,7 +9,7 @@ import {
     createContractCreationModification,
     createInternationalLegalEntityModification,
     createShopCreationModification,
-    makeShopLocation
+    makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
@@ -53,7 +53,7 @@ export class CreateInternationalShopEntityService {
                 actualAddress,
             }),
             createContractCreationModification(contractID, {
-                contractorID
+                contractorID,
             }),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, {
                 iban: payoutTool.iban,

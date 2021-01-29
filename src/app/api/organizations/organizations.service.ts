@@ -7,7 +7,7 @@ import {
     OrganizationJoinRequest,
     OrgsService,
     RoleId,
-    RolesService
+    RolesService,
 } from '@dsh/api-codegen/organizations';
 import { UuidGeneratorService } from '@dsh/app/shared';
 

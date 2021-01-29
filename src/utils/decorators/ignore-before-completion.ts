@@ -7,7 +7,7 @@ export function ignoreBeforeCompletion<P extends PropertyKey, C extends { [N in 
 ) {
     let lastSubscription: Subscription;
     const original = descriptor.value;
-    descriptor.value = function(...args) {
+    descriptor.value = function (...args) {
         if (!lastSubscription || lastSubscription?.closed) {
             lastSubscription = original.call(this, ...args);
         }

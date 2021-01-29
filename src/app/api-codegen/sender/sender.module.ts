@@ -7,10 +7,9 @@ import { SenderConfigService } from './sender-config.service';
     imports: [
         {
             ngModule: ApiModule,
-            providers: [{ provide: Configuration, useClass: SenderConfigService }]
-        }
+            providers: [{ provide: Configuration, useClass: SenderConfigService }],
+        },
     ],
-    providers: [SenderConfigService]
+    providers: [SenderConfigService],
 })
-export class SenderModule {
-}
+export class SenderModule {}

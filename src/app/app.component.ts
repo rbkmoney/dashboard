@@ -11,8 +11,7 @@ import { BootstrapService } from './bootstrap.service';
 export class AppComponent implements OnInit {
     bootstrapped$ = this.bootstrapService.bootstrapped$;
 
-    constructor(private bootstrapService: BootstrapService, @Inject(ENV) public env: Env) {
-    }
+    constructor(private bootstrapService: BootstrapService, @Inject(ENV) public env: Env) {}
 
     ngOnInit() {
         this.bootstrapService.bootstrap();

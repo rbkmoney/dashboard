@@ -32,21 +32,21 @@ describe('FeedbackDialogComponent', () => {
             providers: [
                 {
                     provide: MessagesService,
-                    useFactory: () => instance(mockMessagesService)
+                    useFactory: () => instance(mockMessagesService),
                 },
                 {
                     provide: MatDialogRef,
-                    useFactory: () => instance(mockMatDialogRef)
+                    useFactory: () => instance(mockMatDialogRef),
                 },
                 {
                     provide: ErrorService,
-                    useFactory: () => instance(mockErrorService)
+                    useFactory: () => instance(mockErrorService),
                 },
                 {
                     provide: NotificationService,
-                    useFactory: () => instance(mockNotificationService)
-                }
-            ]
+                    useFactory: () => instance(mockNotificationService),
+                },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(FeedbackDialogComponent);
@@ -70,7 +70,7 @@ describe('FeedbackDialogComponent', () => {
             expect().nothing();
         });
 
-        it('shouldn\'t send message', () => {
+        it("shouldn't send message", () => {
             when(mockMessagesService.sendFeedbackEmailMsg(anyString())).thenReturn(throwError('Test error'));
             component.send();
             verify(mockMessagesService.sendFeedbackEmailMsg('')).once();

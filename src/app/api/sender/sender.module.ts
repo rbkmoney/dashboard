@@ -6,7 +6,6 @@ import { MessagesService } from './services/messages/messages.service';
 
 @NgModule({
     imports: [ApiSenderModule, UuidGeneratorModule],
-    providers: [MessagesService]
+    providers: [MessagesService],
 })
-export class SenderModule {
-}
+export class SenderModule {}

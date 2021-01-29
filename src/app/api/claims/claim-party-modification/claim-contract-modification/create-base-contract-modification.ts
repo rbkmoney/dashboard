@@ -9,7 +9,7 @@ export function createBaseContractModification<M extends Omit<ContractModificati
         ...PARTY_MODIFICATION,
         partyModificationType: {
             partyModificationType: PartyModificationTypeEnum.ContractModificationUnit,
-            ...modification
-        }
+            ...modification,
+        },
     };
 }

@@ -5,8 +5,7 @@ import { UuidGeneratorService } from '../../../../shared/services/uuid-generator
 
 @Injectable()
 export class MessagesService {
-    constructor(private messagesService: ApiMessagesService, private idGeneratorService: UuidGeneratorService) {
-    }
+    constructor(private messagesService: ApiMessagesService, private idGeneratorService: UuidGeneratorService) {}
 
     sendFeedbackEmailMsg(text: string) {
         return this.messagesService.sendFeedbackEmailMsg(this.idGeneratorService.generateUUID(), { text });

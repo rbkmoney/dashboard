@@ -4,13 +4,13 @@ $PADDING_BOTTOM: 80px;
 $BORDER_RADIUS: 29px;
 
 .dsh-feedback {
-  position: fixed;
-  right: 0;
-  bottom: $PADDING_BOTTOM;
-  height: $HEIGHT;
-  line-height: $HEIGHT;
-  border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
-  padding: 0 $PADDING_TEXT;
-  transform-origin: 100% 100%;
-  transform: rotate(-90deg) translate(100%, 0);
+    position: fixed;
+    right: 0;
+    bottom: $PADDING_BOTTOM;
+    height: $HEIGHT;
+    line-height: $HEIGHT;
+    border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
+    padding: 0 $PADDING_TEXT;
+    transform-origin: 100% 100%;
+    transform: rotate(-90deg) translate(100%, 0);
 }

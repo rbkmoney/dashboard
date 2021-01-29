@@ -24,10 +24,9 @@ import { FeedbackComponent } from './feedback.component';
         FormsModule,
         MatInputModule,
         SenderModule,
-        ErrorModule
+        ErrorModule,
     ],
     declarations: [FeedbackComponent, FeedbackDialogComponent],
-    exports: [FeedbackComponent]
+    exports: [FeedbackComponent],
 })
-export class FeedbackModule {
-}
+export class FeedbackModule {}

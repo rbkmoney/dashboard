@@ -17,8 +17,7 @@ export class UserService {
 
     private loadProfile$ = new BehaviorSubject<void>(undefined);
 
-    constructor(private keycloakService: KeycloakService) {
-    }
+    constructor(private keycloakService: KeycloakService) {}
 
     reloadProfile() {
         this.loadProfile$.next();

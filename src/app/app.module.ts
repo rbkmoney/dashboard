@@ -53,7 +53,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         ErrorModule,
         OrganizationsModule,
         UserModule,
-        FeedbackModule
+        FeedbackModule,
     ],
     providers: [
         LanguageService,

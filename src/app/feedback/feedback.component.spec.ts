@@ -9,10 +9,9 @@ import { FeedbackComponent } from './feedback.component';
 
 @Component({
     selector: 'dsh-host',
-    template: `<dsh-feedback></dsh-feedback>`
+    template: `<dsh-feedback></dsh-feedback>`,
 })
-class HostComponent {
-}
+class HostComponent {}
 
 describe('FeedbackComponent', () => {
     let fixture: ComponentFixture<HostComponent>;
@@ -23,7 +22,7 @@ describe('FeedbackComponent', () => {
         await TestBed.configureTestingModule({
             imports: [MatDialogModule],
             declarations: [HostComponent, FeedbackComponent],
-            providers: [{ provide: DIALOG_CONFIG, useValue: {} }]
+            providers: [{ provide: DIALOG_CONFIG, useValue: {} }],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
