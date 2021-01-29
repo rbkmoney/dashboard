@@ -27,7 +27,10 @@
             "@dsh/api": ["src/app/api"],
             "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
             "@dsh/api-codegen": ["src/app/api-codegen"],
-            "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"]
+            "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"],
+            "@dsh/type-utils": ["src/type-utils/index.ts"],
+            "@dsh/utils": ["src/utils/index.ts"],
+            "@dsh/operators": ["src/app/custom-operators/index.ts"]
         }
     },
     "angularCompilerOptions": {

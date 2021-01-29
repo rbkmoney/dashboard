@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { UuidGeneratorModule } from '../../shared';
+import { IdGeneratorModule } from '../../shared';
 import { OrganizationsService } from './organizations.service';
 
 @NgModule({
-    imports: [UuidGeneratorModule],
+    imports: [IdGeneratorModule],
     providers: [OrganizationsService],
 })
 export class OrganizationsModule {}

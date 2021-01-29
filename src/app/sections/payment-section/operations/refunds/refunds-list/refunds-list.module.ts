@@ -6,11 +6,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceModule } from '@dsh/api/invoice';
 import { RefundDetailsModule as ApiRefundDetailsModule } from '@dsh/app/shared/components';
-import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
+import { ApiModelRefsModule, ToMajorModule } from '@dsh/app/shared/pipes';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../../../to-major';
 import { RefundRowHeaderComponent } from './components/refund-row-header/refund-row-header.component';
 import { RefundRowComponent } from './components/refund-row/refund-row.component';
 import { RefundDetailsModule } from './refund-details';

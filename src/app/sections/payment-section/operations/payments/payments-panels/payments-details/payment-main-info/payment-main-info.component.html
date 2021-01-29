@@ -1,0 +1,21 @@
+<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.details'">
+    <div fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="row">
+            <div class="payment-main-info-amount mat-body-1" fxFlex="33">
+                {{ payment.amount | toMajor | currency: payment.currency }}
+            </div>
+            <dsh-charge-amount fxFlex="33" [payment]="payment"></dsh-charge-amount>
+            <dsh-payment-fee *ngIf="payment.fee" fxFlex="33" [payment]="payment"> </dsh-payment-fee>
+        </div>
+        <div fxLayout="row">
+            <dsh-payment-status fxFlex="33" [status]="payment.status"> </dsh-payment-status>
+            <dsh-payment-tool fxFlex="33" [paymentToolDetails]="payer.paymentToolDetails"> </dsh-payment-tool>
+            <dsh-resource-payer *ngIf="resourcePayer" [payer]="resourcePayer"> </dsh-resource-payer>
+        </div>
+        <dsh-shop-name [shopName]="payment.shopID | shopDetails"></dsh-shop-name>
+        <dsh-details-item *ngIf="payment.error?.code" [title]="t('error')">
+            <div class="mat-body-1">{{ payment.error | paymentErrorMessage }}</div>
+        </dsh-details-item>
+        <dsh-additional-info *ngIf="additionalInfo as info" [info]="info"></dsh-additional-info>
+    </div>
+</ng-container>
