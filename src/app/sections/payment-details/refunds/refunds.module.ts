@@ -12,11 +12,11 @@ import { AccountService } from '@dsh/api/account';
 import { RefundService } from '@dsh/api/refund';
 import { RefundSearchService } from '@dsh/api/search';
 import { ApiShopsService } from '@dsh/api/shop';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { CreateRefundComponent } from './create-refund';
 import { RefundItemComponent } from './refund-item';

@@ -11,7 +11,7 @@ import {
     RoleId,
     RolesService,
 } from '@dsh/api-codegen/organizations';
-import { UuidGeneratorService } from '@dsh/app/shared';
+import { IdGeneratorService } from '@dsh/app/shared';
 
 import { WritableOrganization } from './types/writable-organization';
 
@@ -21,7 +21,7 @@ export class OrganizationsService {
         private orgsService: OrgsService,
         private rolesService: RolesService,
         private membersService: MembersService,
-        private uuidGeneratorService: UuidGeneratorService,
+        private uuidGeneratorService: IdGeneratorService,
         private invitationsService: InvitationsService
     ) {}
 

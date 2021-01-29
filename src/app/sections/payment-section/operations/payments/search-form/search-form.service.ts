@@ -13,7 +13,7 @@ import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls
 import { filterShopsByRealm, removeEmptyProperties } from '../../operators';
 import { toFormValue } from '../../to-form-value';
 import { toQueryParams } from '../../to-query-params';
-import { PaymentSearchFormValue } from './payment-search-form-value';
+import { PaymentSearchFormValue } from '../types/payment-search-form-value';
 
 @Injectable()
 export class SearchFormService {

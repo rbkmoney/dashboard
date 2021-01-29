@@ -1,2 +1,2 @@
-export * from './payment-search-form-value';
+export * from '../types/payment-search-form-value';
 export * from './search-form.component';

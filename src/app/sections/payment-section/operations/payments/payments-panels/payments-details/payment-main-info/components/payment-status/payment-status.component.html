@@ -1,0 +1,7 @@
+<ng-container *transloco="let ps; read: 'paymentStatus'">
+    <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.statusDetailItem'">
+        <dsh-details-item [title]="t('status')">
+            <dsh-status [color]="paymentColor">{{ ps(paymentStatus) }}</dsh-status>
+        </dsh-details-item>
+    </ng-container>
+</ng-container>

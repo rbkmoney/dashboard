@@ -11,12 +11,11 @@ import {
     PaymentDetailsModule,
     RefundDetailsModule as ApiRefundDetailsModule,
 } from '@dsh/app/shared/components';
-import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
+import { ApiModelRefsModule, ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../../../../to-major';
 import { CancelInvoiceModule } from './cancel-invoice';
 import { InvoiceActionsComponent } from './components/invoice-actions/invoice-actions.component';
 import { InvoiceCartLineComponent } from './components/invoice-cart-info/cart-info/invoice-cart-line.component';
