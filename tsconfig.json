@@ -1,40 +1,40 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["esnext", "dom"],
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "@dsh/components/*": ["src/components/*"],
-      "@dsh/components": ["src/components"],
-      "@dsh/pipes/*": ["src/pipes/*"],
-      "@dsh/pipes": ["src/pipes"],
-      "@dsh/app/shared/*": ["src/app/shared/*"],
-      "@dsh/app/shared": ["src/app/shared"],
-      "@dsh/api/*": ["src/app/api/*"],
-      "@dsh/api": ["src/app/api"],
-      "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
-      "@dsh/api-codegen": ["src/app/api-codegen"],
-      "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"],
-      "@dsh/type-utils": ["src/type-utils/index.ts"],
-      "@dsh/utils": ["src/utils/index.ts"],
-      "@dsh/operators": ["src/app/custom-operators/index.ts"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "downlevelIteration": true,
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["esnext", "dom"],
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "@dsh/components/*": ["src/components/*"],
+            "@dsh/components": ["src/components"],
+            "@dsh/pipes/*": ["src/pipes/*"],
+            "@dsh/pipes": ["src/pipes"],
+            "@dsh/app/shared/*": ["src/app/shared/*"],
+            "@dsh/app/shared": ["src/app/shared"],
+            "@dsh/api/*": ["src/app/api/*"],
+            "@dsh/api": ["src/app/api"],
+            "@dsh/api-codegen/*": ["src/app/api-codegen/*"],
+            "@dsh/api-codegen": ["src/app/api-codegen"],
+            "@dsh/app/sections/tokens": ["src/app/sections/tokens.ts"],
+            "@dsh/type-utils": ["src/type-utils/index.ts"],
+            "@dsh/utils": ["src/utils/index.ts"],
+            "@dsh/operators": ["src/app/custom-operators/index.ts"]
+        }
+    },
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
     }
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
 }

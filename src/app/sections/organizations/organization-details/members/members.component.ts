@@ -6,9 +6,7 @@ import { catchError, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/ope
 
 import { OrganizationsService } from '@dsh/api';
 import { ErrorService } from '@dsh/app/shared';
-
-import { mapToTimestamp, progress } from '../../../../custom-operators';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
+import { mapToTimestamp, progress } from '@dsh/operators';
 
 @UntilDestroy()
 @Component({
@@ -42,7 +40,6 @@ export class MembersComponent {
     private loadMembers$ = new BehaviorSubject<void>(undefined);
 
     constructor(
-        private organizationManagementService: OrganizationManagementService,
         private organizationsService: OrganizationsService,
         private route: ActivatedRoute,
         private errorService: ErrorService
