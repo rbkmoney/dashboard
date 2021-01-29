@@ -9,6 +9,6 @@ export class MessagesService {
     constructor(private messagesService: ApiMessagesService, private idGeneratorService: IdGeneratorService) {}
 
     sendFeedbackEmailMsg(text: string) {
-        return this.messagesService.sendFeedbackEmailMsg(this.idGeneratorService.generateXRequestId(), { text });
+        return this.messagesService.sendFeedbackEmailMsg(this.idGeneratorService.generateRequestID(), { text });
     }
 }
