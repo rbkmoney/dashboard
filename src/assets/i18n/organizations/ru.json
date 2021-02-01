@@ -61,6 +61,11 @@
         },
         "invitations": {
             "createInvitation": "Сформировать приглашение"
+        },
+        "invitationsList": {
+            "headerRow": {
+                "email": "Email"
+            }
         }
     },
     "createInvitationDialog": {
