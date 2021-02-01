@@ -14,8 +14,8 @@ import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog'
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
+import { MainFiltersComponent } from '../../main-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
-import { MainFiltersComponent } from '../main-filters/main-filters.component';
 import { DialogFiltersComponent } from './dialog-filters.component';
 
 describe('DialogFiltersComponent', () => {

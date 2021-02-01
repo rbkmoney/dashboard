@@ -39,7 +39,8 @@
     "filters": {
         "additionalFilters": "Другие фильтры",
         "save": "Сохранить",
-        "clearParams": "Сбросить параметры"
+        "clearParams": "Сбросить параметры",
+        "showAllStatuses": "Показать все статусы"
     },
     "paymentStatus": {
         "pending": "Запущен",

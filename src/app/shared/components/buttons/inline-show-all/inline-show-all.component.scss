@@ -1,0 +1,9 @@
+.inline-show-all {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .mat-icon {
+        transform: rotate(90deg);
+    }
+}

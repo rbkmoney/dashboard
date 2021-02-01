@@ -8,8 +8,8 @@ import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { MainFilters } from '../../types/main-filters';
 import { MainFiltersComponent } from './main-filters.component';
+import { MainFilters } from './types/main-filters';
 
 describe('MainFiltersComponent', () => {
     let component: MainFiltersComponent;
