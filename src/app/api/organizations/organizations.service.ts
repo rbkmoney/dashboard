@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
     InlineObject,
-    Invitation,
+    InvitationRequest,
     InvitationsService,
     MembersService,
     Organization,
@@ -11,10 +11,8 @@ import {
     RoleId,
     RolesService,
 } from '@dsh/api-codegen/organizations';
-import { WritableInvitation } from '@dsh/api/organizations/types/writable-invitation';
 import { IdGeneratorService } from '@dsh/app/shared';
-
-import { WritableOrganization } from './types/writable-organization';
+import { PickMutable } from '@dsh/type-utils';
 
 @Injectable()
 export class OrganizationsService {
@@ -38,7 +36,7 @@ export class OrganizationsService {
         return this.orgsService.getOrg(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    createOrg(org: WritableOrganization) {
+    createOrg(org: PickMutable<Organization>) {
         return this.orgsService.createOrg(this.idGeneratorService.generateRequestID(), org as Organization);
     }
 
@@ -70,12 +68,8 @@ export class OrganizationsService {
         return this.orgsService.cancelOrgMembership(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    createInvitation(orgId: Organization['id'], invitation: WritableInvitation) {
-        return this.invitationsService.createInvitation(
-            this.idGeneratorService.generateRequestID(),
-            orgId,
-            invitation as Invitation
-        );
+    createInvitation(orgId: Organization['id'], invitation: InvitationRequest) {
+        return this.invitationsService.createInvitation(this.idGeneratorService.generateRequestID(), orgId, invitation);
     }
 
     listInvitations(orgId: Organization['id']) {

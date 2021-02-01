@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
 import { first, map, pluck, switchMap, take } from 'rxjs/operators';
 
-import { OrganizationsService, WritableOrganization } from '@dsh/api';
+import { OrganizationsService } from '@dsh/api';
 import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { UserService } from '@dsh/app/shared';
+import { PickMutable } from '@dsh/type-utils';
 
 @Injectable()
 export class OrganizationManagementService {
@@ -17,7 +18,7 @@ export class OrganizationManagementService {
         );
     }
 
-    createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
+    createOrganization(organization: Omit<PickMutable<Organization>, 'owner'>): Observable<Organization> {
         return this.userService.profile$.pipe(
             take(1),
             pluck('username'),

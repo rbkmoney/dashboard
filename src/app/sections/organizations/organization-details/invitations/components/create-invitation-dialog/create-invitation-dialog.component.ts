@@ -10,8 +10,8 @@ import { ApiShopsService, OrganizationsService } from '@dsh/api';
 import { Organization, ResourceScopeId } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
+import { inProgressTo } from '@dsh/utils';
 
-import { inProgressTo } from '../../../../../../../utils';
 import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 
 export type Status = 'success' | 'cancel';
@@ -52,7 +52,7 @@ export class CreateInvitationDialogComponent {
                 first(),
                 switchMap((shops) =>
                     this.organizationsService.createInvitation(this.data.orgId, {
-                        expiresAt: this.form.value.expiresAt.utc().format(),
+                        // expiresAt: this.form.value.expiresAt.utc().format(),
                         invitee: {
                             contact: {
                                 type: 'EMail',
