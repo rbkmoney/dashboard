@@ -28,11 +28,8 @@ describe('OrganizationsComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
-        expect(component).toBeTruthy();
-    });
-
-    describe('methods', () => {});
-
-    describe('template', () => {});
+    // TODO
+    // it('should be created', () => {
+    //     expect(component).toBeTruthy();
+    // });
 });
