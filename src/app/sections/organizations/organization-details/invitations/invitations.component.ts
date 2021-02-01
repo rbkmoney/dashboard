@@ -13,7 +13,7 @@ import { mapToTimestamp, progress } from '@dsh/operators';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
-import { CreateInvitationDialogData } from './components/create-invitation-dialog/types/create-invitation-dialog-form';
+import { CreateInvitationDialogData } from './components/create-invitation-dialog/types/create-invitation-dialog-data';
 
 @UntilDestroy()
 @Component({
