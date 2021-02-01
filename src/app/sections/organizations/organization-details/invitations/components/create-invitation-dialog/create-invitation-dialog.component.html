@@ -2,27 +2,13 @@
     *transloco="let t; scope: 'organizations'; read: 'organizations.createInvitationDialog'"
     fxLayout="column"
     fxLayoutGap="32px"
+    [formGroup]="form"
 >
     <div class="dsh-headline">{{ t('title') }}</div>
-    <div fxLayout fxLayoutGap="24px" [formGroup]="form">
-        <mat-form-field fxFlex>
-            <mat-label>{{ t('form.email') }}</mat-label>
-            <input formControlName="email" matInput type="text" autocomplete="off" required />
-        </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t('form.expiresAt') }}</mat-label>
-            <input
-                formControlName="expiresAt"
-                matInput
-                [matDatepicker]="dateDatepicker"
-                type="text"
-                autocomplete="off"
-                required
-            />
-            <mat-datepicker-toggle matSuffix [for]="dateDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #dateDatepicker></mat-datepicker>
-        </mat-form-field>
-    </div>
+    <mat-form-field fxFlex>
+        <mat-label>{{ t('form.email') }}</mat-label>
+        <input formControlName="email" matInput type="email" required />
+    </mat-form-field>
     <div fxLayout fxLayoutGap="24px">
         <button
             *transloco="let c"

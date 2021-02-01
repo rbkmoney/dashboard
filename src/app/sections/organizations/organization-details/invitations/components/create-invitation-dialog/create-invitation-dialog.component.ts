@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Moment } from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 
@@ -14,10 +14,10 @@ import { inProgressTo } from '@dsh/utils';
 
 import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 
-export type Status = 'success' | 'cancel';
+export type CreateInvitationDialogResult = 'success' | 'cancel';
+export type CreateInvitationDialogData = { orgId: Organization['id'] };
 
 interface CreateInvitationForm {
-    expiresAt: Moment;
     email: string;
 }
 
@@ -30,13 +30,12 @@ interface CreateInvitationForm {
 })
 export class CreateInvitationDialogComponent {
     form = this.fb.group<CreateInvitationForm>({
-        expiresAt: null,
-        email: null,
+        email: ['', Validators.email],
     });
     inProgress$ = new BehaviorSubject<boolean>(false);
 
     constructor(
-        private dialogRef: MatDialogRef<CreateInvitationDialogComponent, Status>,
+        private dialogRef: MatDialogRef<CreateInvitationDialogComponent, CreateInvitationDialogResult>,
         @Inject(MAT_DIALOG_DATA) private data: { orgId: Organization['id'] },
         private organizationsService: OrganizationsService,
         private errorService: ErrorService,
@@ -52,12 +51,12 @@ export class CreateInvitationDialogComponent {
                 first(),
                 switchMap((shops) =>
                     this.organizationsService.createInvitation(this.data.orgId, {
-                        // expiresAt: this.form.value.expiresAt.utc().format(),
                         invitee: {
                             contact: {
                                 type: 'EMail',
                                 email: this.form.value.email,
                             },
+                            // TODO
                             roles: shops.slice(0, 1).map((shop) => ({
                                 roleId: 'Administrator',
                                 scope: {

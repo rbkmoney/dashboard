@@ -68,6 +68,7 @@ export class OrganizationsService {
         return this.orgsService.cancelOrgMembership(this.idGeneratorService.generateRequestID(), orgId);
     }
 
+    // TODO: roles: Set<MemberRole> replace with Array type
     createInvitation(orgId: Organization['id'], invitation: InvitationRequest) {
         return this.invitationsService.createInvitation(this.idGeneratorService.generateRequestID(), orgId, invitation);
     }

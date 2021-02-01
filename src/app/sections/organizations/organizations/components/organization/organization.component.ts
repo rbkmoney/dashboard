@@ -10,8 +10,10 @@ import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
+import { ComponentChanges } from '@dsh/type-utils';
+import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { ComponentChanges } from '../../../../../../type-utils';
+import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 
@@ -34,7 +36,8 @@ export class OrganizationComponent implements OnChanges {
         private dialog: MatDialog,
         private notificationService: NotificationService,
         private errorService: ErrorService,
-        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
+        private fetchOrganizationsService: FetchOrganizationsService
     ) {}
 
     ngOnChanges({ organization }: ComponentChanges<OrganizationComponent>) {
@@ -60,11 +63,16 @@ export class OrganizationComponent implements OnChanges {
             );
     }
 
+    @ignoreBeforeCompletion
     rename() {
-        this.dialog.open(RenameOrganizationDialogComponent, {
-            ...this.dialogConfig.medium,
-            data: { organization: this.organization },
-        });
+        return this.dialog
+            .open(RenameOrganizationDialogComponent, {
+                ...this.dialogConfig.medium,
+                data: { organization: this.organization },
+            })
+            .afterClosed()
+            .pipe(untilDestroyed(this))
+            .subscribe(() => this.fetchOrganizationsService.refresh());
     }
 
     private getCurrentMember(orgId: Organization['id']) {

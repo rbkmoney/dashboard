@@ -3,15 +3,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, defer, of } from 'rxjs';
-import { catchError, first, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
+import { catchError, filter, first, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared';
+import { mapToTimestamp, progress } from '@dsh/operators';
+import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { ignoreBeforeCompletion } from '../../../../../utils';
-import { mapToTimestamp, progress } from '../../../../custom-operators';
-import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
+import {
+    CreateInvitationDialogComponent,
+    CreateInvitationDialogData,
+    CreateInvitationDialogResult,
+} from './components/create-invitation-dialog/create-invitation-dialog.component';
 
 @UntilDestroy()
 @Component({
@@ -57,10 +61,21 @@ export class InvitationsComponent {
     @ignoreBeforeCompletion
     createInvitation() {
         return this.organization$
-            .pipe(first(), untilDestroyed(this))
-            .subscribe(({ id: orgId }) =>
-                this.dialog.open(CreateInvitationDialogComponent, { ...this.dialogConfig.medium, data: { orgId } })
-            );
+            .pipe(
+                first(),
+                switchMap(({ id: orgId }) =>
+                    this.dialog
+                        .open<
+                            CreateInvitationDialogComponent,
+                            CreateInvitationDialogData,
+                            CreateInvitationDialogResult
+                        >(CreateInvitationDialogComponent, { ...this.dialogConfig.medium, data: { orgId } })
+                        .afterClosed()
+                ),
+                filter((r) => r === 'success'),
+                untilDestroyed(this)
+            )
+            .subscribe(() => this.refresh());
     }
 
     refresh() {
