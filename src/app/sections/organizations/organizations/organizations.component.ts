@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, shareReplay } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
-import { ignoreBeforeCompletion } from '../../../../utils';
-import { mapToTimestamp } from '../../../custom-operators';
+import { ignoreBeforeCompletion } from '@dsh/utils';
+
 import { DialogConfig, DIALOG_CONFIG } from '../../tokens';
 import { FetchOrganizationsService } from '../services/fetch-organizations/fetch-organizations.service';
 import {
@@ -22,7 +22,7 @@ export class OrganizationsComponent implements OnInit {
     organizations$ = this.fetchOrganizationsService.searchResult$;
     hasMore$ = this.fetchOrganizationsService.hasMore$;
     isLoading$ = this.fetchOrganizationsService.doSearchAction$;
-    lastUpdated$ = this.organizations$.pipe(mapToTimestamp, untilDestroyed(this), shareReplay(1));
+    lastUpdated$ = this.fetchOrganizationsService.lastUpdated$;
 
     constructor(
         private fetchOrganizationsService: FetchOrganizationsService,
