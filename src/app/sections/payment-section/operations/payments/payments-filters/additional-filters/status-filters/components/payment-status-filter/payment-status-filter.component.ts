@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 
 import { PaymentStatus } from '@dsh/api-codegen/anapi';
@@ -13,7 +13,7 @@ const INDEX_ITEM_SLICE_COEFFICIENT = 1;
 @Component({
     selector: 'dsh-payment-status-filter',
     templateUrl: './payment-status-filter.component.html',
-    styleUrls: ['./payment-status-filter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentStatusFilterComponent implements OnInit {
     @Input() control: FormControl<PaymentStatusFilterValue>;

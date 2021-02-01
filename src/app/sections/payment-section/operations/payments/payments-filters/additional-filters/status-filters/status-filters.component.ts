@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
@@ -9,7 +9,7 @@ import { StatusFilters } from './types/status-filters';
 @Component({
     selector: 'dsh-status-filters',
     templateUrl: './status-filters.component.html',
-    styleUrls: ['./status-filters.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatusFiltersComponent {
     @Input()
