@@ -3,14 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { DialogConfig, DIALOG_CONFIG } from '../../tokens';
 import { FetchOrganizationsService } from '../services/fetch-organizations/fetch-organizations.service';
-import {
-    CreateOrganizationDialogComponent,
-    Status,
-} from './components/create-organization-dialog/create-organization-dialog.component';
+import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
 
 @UntilDestroy()
 @Component({
@@ -37,10 +35,13 @@ export class OrganizationsComponent implements OnInit {
     @ignoreBeforeCompletion
     createOrganization() {
         return this.dialog
-            .open(CreateOrganizationDialogComponent, this.dialogConfig.medium)
+            .open<CreateOrganizationDialogComponent, void, BaseDialogResponseStatus>(
+                CreateOrganizationDialogComponent,
+                this.dialogConfig.medium
+            )
             .afterClosed()
             .pipe(
-                filter((r: Status) => r === 'success'),
+                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
                 untilDestroyed(this)
             )
             .subscribe(() => this.refresh());

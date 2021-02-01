@@ -8,6 +8,7 @@ import { filter, pluck, shareReplay, switchMap } from 'rxjs/operators';
 import { OrganizationsService } from '@dsh/api';
 import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
 import { ComponentChanges } from '@dsh/type-utils';
@@ -15,7 +16,10 @@ import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
-import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
+import {
+    RenameOrganizationDialogComponent,
+    RenameOrganizationDialogData,
+} from '../rename-organization-dialog/rename-organization-dialog.component';
 
 @UntilDestroy()
 @Component({
@@ -66,12 +70,18 @@ export class OrganizationComponent implements OnChanges {
     @ignoreBeforeCompletion
     rename() {
         return this.dialog
-            .open(RenameOrganizationDialogComponent, {
-                ...this.dialogConfig.medium,
-                data: { organization: this.organization },
-            })
+            .open<RenameOrganizationDialogComponent, RenameOrganizationDialogData, BaseDialogResponseStatus>(
+                RenameOrganizationDialogComponent,
+                {
+                    ...this.dialogConfig.medium,
+                    data: { organization: this.organization },
+                }
+            )
             .afterClosed()
-            .pipe(untilDestroyed(this))
+            .pipe(
+                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
+                untilDestroyed(this)
+            )
             .subscribe(() => this.fetchOrganizationsService.refresh());
     }
 

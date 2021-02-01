@@ -1,12 +1,18 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 
+import { OrganizationsService } from '@dsh/api';
 import { Organization } from '@dsh/api-codegen/organizations';
-import { OrganizationsService } from '@dsh/api/organizations';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { inProgressTo } from '@dsh/utils';
+
+export type RenameOrganizationDialogData = {
+    organization: Organization;
+};
 
 @UntilDestroy()
 @Component({
@@ -15,38 +21,37 @@ import { ErrorService, NotificationService } from '@dsh/app/shared/services';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RenameOrganizationDialogComponent {
-    nameControl: FormControl<string>;
+    form: FormGroup<{ name: string }>;
     inProgress$ = new BehaviorSubject<boolean>(false);
 
     constructor(
-        private dialogRef: MatDialogRef<RenameOrganizationDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) private data: { organization: Organization },
+        private dialogRef: MatDialogRef<RenameOrganizationDialogComponent, BaseDialogResponseStatus>,
         private organizationsService: OrganizationsService,
         private notificationService: NotificationService,
-        private errorService: ErrorService
+        private errorService: ErrorService,
+        private fb: FormBuilder,
+        @Inject(MAT_DIALOG_DATA) private data: RenameOrganizationDialogData
     ) {
-        this.nameControl = new FormControl<string>(data.organization.name);
+        this.form = this.fb.group({ name: data.organization.name });
     }
 
-    create() {
-        this.inProgress$.next(true);
-        this.organizationsService
-            .patchOrg(this.data.organization.id, { name: this.nameControl.value })
+    @inProgressTo('inProgress$')
+    update() {
+        return this.organizationsService
+            .patchOrg(this.data.organization.id, {
+                name: this.form.value.name,
+            })
             .pipe(untilDestroyed(this))
             .subscribe(
                 () => {
-                    this.inProgress$.next(false);
                     this.notificationService.success();
-                    this.dialogRef.close();
+                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
                 },
-                (err) => {
-                    this.inProgress$.next(false);
-                    this.errorService.error(err);
-                }
+                (err) => this.errorService.error(err)
             );
     }
 
     cancel() {
-        this.dialogRef.close();
+        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
     }
 }

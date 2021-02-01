@@ -8,13 +8,13 @@ import { first, switchMap } from 'rxjs/operators';
 
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
 import { Organization, ResourceScopeId } from '@dsh/api-codegen/organizations';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { inProgressTo } from '@dsh/utils';
 
 import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 
-export type CreateInvitationDialogResult = 'success' | 'cancel';
 export type CreateInvitationDialogData = { orgId: Organization['id'] };
 
 interface CreateInvitationForm {
@@ -35,7 +35,7 @@ export class CreateInvitationDialogComponent {
     inProgress$ = new BehaviorSubject<boolean>(false);
 
     constructor(
-        private dialogRef: MatDialogRef<CreateInvitationDialogComponent, CreateInvitationDialogResult>,
+        private dialogRef: MatDialogRef<CreateInvitationDialogComponent, BaseDialogResponseStatus>,
         @Inject(MAT_DIALOG_DATA) private data: { orgId: Organization['id'] },
         private organizationsService: OrganizationsService,
         private errorService: ErrorService,
@@ -72,7 +72,7 @@ export class CreateInvitationDialogComponent {
             .subscribe(
                 () => {
                     this.notificationService.success();
-                    this.dialogRef.close('success');
+                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
                 },
                 (err) => {
                     this.errorService.error(err);
@@ -81,6 +81,6 @@ export class CreateInvitationDialogComponent {
     }
 
     cancel() {
-        this.dialogRef.close('cancel');
+        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
     }
 }

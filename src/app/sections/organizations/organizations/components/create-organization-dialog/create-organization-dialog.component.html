@@ -1,25 +1,14 @@
-<div
+<dsh-base-dialog
     *transloco="let t; scope: 'organizations'; read: 'organizations.createOrganizationDialog'"
-    fxLayout="column"
-    fxLayoutGap="32px"
+    [title]="t('title')"
+    (cancel)="cancel()"
+    (confirm)="create()"
+    [disabledConfirm]="form.invalid || (inProgress$ | async)"
 >
-    <div class="dsh-headline">{{ t('title') }}</div>
-    <mat-form-field>
-        <mat-label>{{ t('name') }}</mat-label>
-        <input [formControl]="nameControl" matInput type="text" autocomplete="off" required />
-    </mat-form-field>
-    <div fxLayout fxLayoutGap="24px">
-        <button fxFlex dsh-stroked-button color="warn" [disabled]="inProgress$ | async" (click)="cancel()">
-            {{ t('cancel') }}
-        </button>
-        <button
-            fxFlex
-            dsh-button
-            color="accent"
-            [disabled]="nameControl.invalid || (inProgress$ | async)"
-            (click)="create()"
-        >
-            {{ t('create') }}
-        </button>
-    </div>
-</div>
+    <form fxLayout="column" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{ t('name') }}</mat-label>
+            <input formControlName="name" matInput type="text" autocomplete="off" required />
+        </mat-form-field>
+    </form>
+</dsh-base-dialog>

@@ -11,6 +11,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api/organizations';
 import { ErrorModule, NotificationModule, UserModule } from '@dsh/app/shared';
+import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
@@ -55,6 +56,7 @@ import { OrganizationsComponent } from './organizations.component';
         ErrorModule,
         MatInputModule,
         OrganizationRolesModule,
+        DialogModule,
     ],
     declarations: [
         OrganizationsComponent,

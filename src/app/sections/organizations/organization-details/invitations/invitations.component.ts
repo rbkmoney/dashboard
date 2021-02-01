@@ -8,13 +8,13 @@ import { catchError, filter, first, pluck, shareReplay, switchMap, switchMapTo }
 import { OrganizationsService } from '@dsh/api';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { mapToTimestamp, progress } from '@dsh/operators';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import {
     CreateInvitationDialogComponent,
     CreateInvitationDialogData,
-    CreateInvitationDialogResult,
 } from './components/create-invitation-dialog/create-invitation-dialog.component';
 
 @UntilDestroy()
@@ -65,14 +65,13 @@ export class InvitationsComponent {
                 first(),
                 switchMap(({ id: orgId }) =>
                     this.dialog
-                        .open<
+                        .open<CreateInvitationDialogComponent, CreateInvitationDialogData, BaseDialogResponseStatus>(
                             CreateInvitationDialogComponent,
-                            CreateInvitationDialogData,
-                            CreateInvitationDialogResult
-                        >(CreateInvitationDialogComponent, { ...this.dialogConfig.medium, data: { orgId } })
+                            { ...this.dialogConfig.medium, data: { orgId } }
+                        )
                         .afterClosed()
                 ),
-                filter((r) => r === 'success'),
+                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
                 untilDestroyed(this)
             )
             .subscribe(() => this.refresh());

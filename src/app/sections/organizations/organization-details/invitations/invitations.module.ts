@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
@@ -39,6 +40,7 @@ import { InvitationsComponent } from './invitations.component';
         MatDividerModule,
         SpinnerModule,
         IndicatorsModule,
+        DialogModule,
     ],
     declarations: [
         InvitationsComponent,
