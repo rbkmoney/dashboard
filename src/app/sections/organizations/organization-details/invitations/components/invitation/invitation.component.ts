@@ -4,7 +4,7 @@ import { Invitation } from '@dsh/api-codegen/organizations';
 
 @Component({
     selector: 'dsh-invitation',
-    templateUrl: 'invitationz.component.html',
+    templateUrl: 'invitation.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvitationComponent {
