@@ -12,10 +12,8 @@ import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base
 import { mapToTimestamp, progress } from '@dsh/operators';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import {
-    CreateInvitationDialogComponent,
-    CreateInvitationDialogData,
-} from './components/create-invitation-dialog/create-invitation-dialog.component';
+import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
+import { CreateInvitationDialogData } from './components/create-invitation-dialog/types/create-invitation-dialog-form';
 
 @UntilDestroy()
 @Component({

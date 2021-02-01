@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import { instance, mock, objectContaining, verify } from 'ts-mockito';
+import { instance, mock } from 'ts-mockito';
 
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';

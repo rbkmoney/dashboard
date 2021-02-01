@@ -7,19 +7,15 @@ import { BehaviorSubject } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
-import { Organization, ResourceScopeId } from '@dsh/api-codegen/organizations';
+import { ResourceScopeId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { inProgressTo } from '@dsh/utils';
 
 import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
-
-export type CreateInvitationDialogData = { orgId: Organization['id'] };
-
-interface CreateInvitationForm {
-    email: string;
-}
+import { CreateInvitationDialogData } from './types/create-invitation-dialog-data';
+import { CreateInvitationDialogForm } from './types/create-invitation-dialog-form';
 
 @UntilDestroy()
 @Component({
@@ -29,14 +25,14 @@ interface CreateInvitationForm {
     providers: [OrganizationManagementService],
 })
 export class CreateInvitationDialogComponent {
-    form = this.fb.group<CreateInvitationForm>({
+    form = this.fb.group<CreateInvitationDialogForm>({
         email: ['', Validators.email],
     });
     inProgress$ = new BehaviorSubject<boolean>(false);
 
     constructor(
         private dialogRef: MatDialogRef<CreateInvitationDialogComponent, BaseDialogResponseStatus>,
-        @Inject(MAT_DIALOG_DATA) private data: { orgId: Organization['id'] },
+        @Inject(MAT_DIALOG_DATA) private data: CreateInvitationDialogData,
         private organizationsService: OrganizationsService,
         private errorService: ErrorService,
         private notificationService: NotificationService,
@@ -56,7 +52,6 @@ export class CreateInvitationDialogComponent {
                                 type: 'EMail',
                                 email: this.form.value.email,
                             },
-                            // TODO
                             roles: shops.slice(0, 1).map((shop) => ({
                                 roleId: 'Administrator',
                                 scope: {

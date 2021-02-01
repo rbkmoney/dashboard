@@ -16,10 +16,8 @@ import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
-import {
-    RenameOrganizationDialogComponent,
-    RenameOrganizationDialogData,
-} from '../rename-organization-dialog/rename-organization-dialog.component';
+import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
+import { RenameOrganizationDialogData } from '../rename-organization-dialog/types/rename-organization-dialog-data';
 
 @UntilDestroy()
 @Component({

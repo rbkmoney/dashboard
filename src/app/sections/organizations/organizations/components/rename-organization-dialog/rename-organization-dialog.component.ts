@@ -5,14 +5,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 
 import { OrganizationsService } from '@dsh/api';
-import { Organization } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { inProgressTo } from '@dsh/utils';
 
-export type RenameOrganizationDialogData = {
-    organization: Organization;
-};
+import { RenameOrganizationDialogData } from './types/rename-organization-dialog-data';
 
 @UntilDestroy()
 @Component({
