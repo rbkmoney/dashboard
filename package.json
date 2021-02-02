@@ -68,7 +68,7 @@
     "lodash.template": "^4.4.0",
     "moment": "^2.24.0",
     "ng-apexcharts": "^1.3.0",
-    "ng-yandex-metrika": "^3.0.2",
+    "ng-yandex-metrika": "^4.0.0",
     "rxjs": "~6.5.5",
     "saturn-datepicker": "8.0.5",
     "ts-keycode-enum": "^1.0.6",
