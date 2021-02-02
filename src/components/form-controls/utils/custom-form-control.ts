@@ -2,19 +2,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import {
-    AfterViewInit,
-    DoCheck,
-    ElementRef,
-    HostBinding,
-    HostListener,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Optional,
-    Self,
-    SimpleChanges,
-} from '@angular/core';
+import { AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, HostListener, Input, OnChanges, OnDestroy, Optional, Self, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -25,6 +13,8 @@ import uuid from 'uuid';
 import { InputMixinBase } from './input-base';
 
 // tslint:disable-next-line: no-conflicting-lifecycle
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
