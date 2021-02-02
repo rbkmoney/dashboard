@@ -47,7 +47,7 @@
     "humanize-duration": "^3.19.0",
     "is-url-superb": "^3.0.0",
     "keycloak-angular": "^8.1.0",
-    "keycloak-js": "^4.8.3",
+    "keycloak-js": "^10.0.2",
     "libphonenumber-js": "^1.7.27",
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
