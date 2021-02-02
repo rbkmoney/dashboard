@@ -13,7 +13,7 @@ const INDEX_ITEM_SLICE_COEFFICIENT = 1;
 @Component({
     selector: 'dsh-payment-status-filter',
     templateUrl: './payment-status-filter.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentStatusFilterComponent implements OnInit {
     @Input() control: FormControl<PaymentStatusFilterValue>;

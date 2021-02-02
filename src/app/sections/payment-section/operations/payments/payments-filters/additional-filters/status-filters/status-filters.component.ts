@@ -9,7 +9,7 @@ import { StatusFilters } from './types/status-filters';
 @Component({
     selector: 'dsh-status-filters',
     templateUrl: './status-filters.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusFiltersComponent {
     @Input()

@@ -1,24 +1,108 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormControl } from '@ngneat/reactive-forms';
 
+import { InlineShowAllModule } from '@dsh/app/shared/components/buttons/inline-show-all';
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
+
+import { PAYMENT_STATUSES_LIST } from '../../consts';
+import { PaymentStatusFilterValue } from '../../types/payment-status-filter-value';
 import { PaymentStatusFilterComponent } from './payment-status-filter.component';
 
 describe('StatusFilterComponent', () => {
     let component: PaymentStatusFilterComponent;
     let fixture: ComponentFixture<PaymentStatusFilterComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    async function createComponent() {
+        await TestBed.configureTestingModule({
+            imports: [
+                getTranslocoModule(),
+                MatRadioModule,
+                InlineShowAllModule,
+                ReactiveFormsModule,
+                MatIconTestingModule,
+            ],
             declarations: [PaymentStatusFilterComponent],
         }).compileComponents();
-    }));
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(PaymentStatusFilterComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+    }
+
+    beforeEach(async () => {
+        await createComponent();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    describe('creation', () => {
+        it('should create', async () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(null);
+
+            fixture.detectChanges();
+
+            expect(component).toBeTruthy();
+        });
+    });
+
+    describe('ngOnInit', () => {
+        it('should init availableStatuses using default slice offset', () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(null);
+
+            fixture.detectChanges();
+
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 2));
+        });
+
+        it('should init availableStatuses using current index of control value in original list', () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[3]);
+
+            fixture.detectChanges();
+
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 4));
+        });
+
+        it('should init availableStatuses using even slice original list', () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[4]);
+
+            fixture.detectChanges();
+
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice());
+        });
+
+        it('should set isAllStatusesVisible to false if not all original statuses is available', () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[3]);
+
+            fixture.detectChanges();
+
+            expect(component.isAllStatusesVisible).toBe(false);
+        });
+
+        it('should set isAllStatusesVisible to true if all original statuses is available', () => {
+            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[5]);
+
+            fixture.detectChanges();
+
+            expect(component.isAllStatusesVisible).toBe(true);
+        });
+    });
+
+    describe('showAllStatuses', () => {
+        beforeEach(() => {
+            component.control = new FormControl<PaymentStatusFilterValue>(null);
+            fixture.detectChanges();
+        });
+
+        it('should update availableStatuses using full original list', () => {
+            component.showAllStatuses();
+
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice());
+        });
+
+        it('should update isAllStatusesVisible to true', () => {
+            component.showAllStatuses();
+
+            expect(component.isAllStatusesVisible).toBe(true);
+        });
     });
 });
