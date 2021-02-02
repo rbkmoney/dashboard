@@ -5,10 +5,10 @@
     <dsh-accordion
         fxLayout="column"
         fxLayoutGap="16px"
-        (expandedChange)="expandedIdChange.emit($event)"
-        [expanded]="expandedId"
+        (expandedChange)="expandedIdChange($event)"
+        [expanded]="expandedId$ | async"
     >
-        <dsh-accordion-item *ngFor="let organization of organizations" #accordionItem>
+        <dsh-accordion-item *ngFor="let organization of organizations; trackBy: trackOrganization" #accordionItem>
             <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px">
                 <dsh-row-label>
                     {{ organization.name }}

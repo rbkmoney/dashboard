@@ -1,14 +1,26 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Organization } from '@dsh/api-codegen/organizations';
+
+import { OrganizationsExpandedIdManager } from '../../services/organizations-expanded-id-manager/organizations-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-organizations-list',
     templateUrl: 'organizations-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [OrganizationsExpandedIdManager],
 })
 export class OrganizationsListComponent {
     @Input() organizations: Organization[];
-    @Input() expandedId: number;
-    @Output() expandedIdChange = new EventEmitter<number>();
+    expandedId$ = this.expandedIdManager.expandedId$;
+
+    constructor(private expandedIdManager: OrganizationsExpandedIdManager) {}
+
+    trackOrganization(idx: number, item: Organization): string {
+        return item.id;
+    }
+
+    expandedIdChange(id: number) {
+        this.expandedIdManager.expandedIdChange(id);
+    }
 }
