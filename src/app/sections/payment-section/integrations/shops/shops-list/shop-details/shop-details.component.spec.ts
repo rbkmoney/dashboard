@@ -1,5 +1,5 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -43,69 +43,71 @@ describe('ShopDetailsComponent', () => {
         mockActionsService = mock(ShopActionsService);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                FlexLayoutModule,
-                ButtonModule,
-                TranslocoTestingModule.withLangs({
-                    en: {},
-                }),
-                MatDividerModule,
-                DetailsItemModule,
-                ClipboardModule,
-                ContractDetailsModule,
-                PayoutToolModule,
-                ShopBalanceModule,
-                CategoriesModule,
-                ContractsModule,
-                MatSnackBarModule,
-                MatDialogModule,
-            ],
-            declarations: [
-                ShopDetailsComponent,
-                ShopContractDetailsComponent,
-                ShopPayoutToolDetailsComponent,
-                ShopActionsComponent,
-                ShopIdComponent,
-                ShopInfoComponent,
-            ],
-            providers: [
-                {
-                    provide: CategoryService,
-                    useFactory: () => instance(mockCategoryService),
-                },
-                {
-                    provide: ShopContractDetailsService,
-                    useFactory: () => instance(mockContractsService),
-                },
-                {
-                    provide: ShopPayoutToolDetailsService,
-                    useFactory: () => instance(mockPayoutsService),
-                },
-                {
-                    provide: ShopActionsService,
-                    useValue: mockActionsService,
-                },
-            ],
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [
+                    FlexLayoutModule,
+                    ButtonModule,
+                    TranslocoTestingModule.withLangs({
+                        en: {},
+                    }),
+                    MatDividerModule,
+                    DetailsItemModule,
+                    ClipboardModule,
+                    ContractDetailsModule,
+                    PayoutToolModule,
+                    ShopBalanceModule,
+                    CategoriesModule,
+                    ContractsModule,
+                    MatSnackBarModule,
+                    MatDialogModule,
+                ],
+                declarations: [
+                    ShopDetailsComponent,
+                    ShopContractDetailsComponent,
+                    ShopPayoutToolDetailsComponent,
+                    ShopActionsComponent,
+                    ShopIdComponent,
+                    ShopInfoComponent,
+                ],
+                providers: [
+                    {
+                        provide: CategoryService,
+                        useFactory: () => instance(mockCategoryService),
+                    },
+                    {
+                        provide: ShopContractDetailsService,
+                        useFactory: () => instance(mockContractsService),
+                    },
+                    {
+                        provide: ShopPayoutToolDetailsService,
+                        useFactory: () => instance(mockPayoutsService),
+                    },
+                    {
+                        provide: ShopActionsService,
+                        useValue: mockActionsService,
+                    },
+                ],
+            })
+                .overrideComponent(ShopActionsComponent, {
+                    set: {
+                        providers: [],
+                    },
+                })
+                .overrideComponent(ShopContractDetailsComponent, {
+                    set: {
+                        providers: [],
+                    },
+                })
+                .overrideComponent(ShopPayoutToolDetailsComponent, {
+                    set: {
+                        providers: [],
+                    },
+                })
+                .compileComponents();
         })
-            .overrideComponent(ShopActionsComponent, {
-                set: {
-                    providers: [],
-                },
-            })
-            .overrideComponent(ShopContractDetailsComponent, {
-                set: {
-                    providers: [],
-                },
-            })
-            .overrideComponent(ShopPayoutToolDetailsComponent, {
-                set: {
-                    providers: [],
-                },
-            })
-            .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
         when(mockCategoryService.category$).thenReturn(of(undefined));

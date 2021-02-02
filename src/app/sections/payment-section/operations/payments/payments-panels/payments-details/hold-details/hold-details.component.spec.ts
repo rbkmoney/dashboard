@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
@@ -26,22 +26,24 @@ describe('HoldComponent', () => {
         mockCreateHoldService = mock(CreateHoldService);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [getTranslocoModule(), FlexLayoutModule, HumanizeDurationModule, ButtonModule],
-            declarations: [HoldDetailsComponent, HoldActivePipe],
-            providers: [
-                {
-                    provide: CancelHoldService,
-                    useFactory: () => instance(mockCancelHoldService),
-                },
-                {
-                    provide: CreateHoldService,
-                    useFactory: () => instance(mockCreateHoldService),
-                },
-            ],
-        }).compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [getTranslocoModule(), FlexLayoutModule, HumanizeDurationModule, ButtonModule],
+                declarations: [HoldDetailsComponent, HoldActivePipe],
+                providers: [
+                    {
+                        provide: CancelHoldService,
+                        useFactory: () => instance(mockCancelHoldService),
+                    },
+                    {
+                        provide: CreateHoldService,
+                        useFactory: () => instance(mockCreateHoldService),
+                    },
+                ],
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(HoldDetailsComponent);

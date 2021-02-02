@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ThemePalette } from '@angular/material/core';
 import { By } from '@angular/platform-browser';
 
@@ -32,14 +32,16 @@ class TestAppComponent {
 }
 
 describe('DshButton', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ButtonModule],
-            declarations: [TestAppComponent],
-        });
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ButtonModule],
+                declarations: [TestAppComponent],
+            });
 
-        TestBed.compileComponents();
-    }));
+            TestBed.compileComponents();
+        })
+    );
 
     // General button tests
     it('should apply color class attribute', () => {

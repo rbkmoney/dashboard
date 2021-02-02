@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
@@ -10,25 +10,27 @@ describe('ShopNameFilterComponent', () => {
     let component: ShopQueryFilterComponent;
     let fixture: ComponentFixture<ShopQueryFilterComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                QueryFilterModule,
-                TranslocoTestingModule.withLangs({
-                    en: {
-                        shops: {
-                            panel: {
-                                name: 'Name',
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [
+                    NoopAnimationsModule,
+                    QueryFilterModule,
+                    TranslocoTestingModule.withLangs({
+                        en: {
+                            shops: {
+                                panel: {
+                                    name: 'Name',
+                                },
+                                title: 'Title',
                             },
-                            title: 'Title',
                         },
-                    },
-                }),
-            ],
-            declarations: [ShopQueryFilterComponent],
-        }).compileComponents();
-    }));
+                    }),
+                ],
+                declarations: [ShopQueryFilterComponent],
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopQueryFilterComponent);

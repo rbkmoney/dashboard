@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 
@@ -13,18 +13,20 @@ describe('ShopBalanceComponent', () => {
     let component: ShopBalanceComponent;
     let fixture: ComponentFixture<ShopBalanceComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ToMajorModule],
-            declarations: [ShopBalanceComponent],
-        })
-            .overrideComponent(ShopBalanceComponent, {
-                set: {
-                    changeDetection: ChangeDetectionStrategy.Default,
-                },
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ToMajorModule],
+                declarations: [ShopBalanceComponent],
             })
-            .compileComponents();
-    }));
+                .overrideComponent(ShopBalanceComponent, {
+                    set: {
+                        changeDetection: ChangeDetectionStrategy.Default,
+                    },
+                })
+                .compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopBalanceComponent);

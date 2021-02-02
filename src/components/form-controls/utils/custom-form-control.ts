@@ -2,17 +2,32 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import { AfterViewInit, Directive, DoCheck, ElementRef, HostBinding, HostListener, Input, OnChanges, OnDestroy, Optional, Self, SimpleChanges } from '@angular/core';
+import {
+    AfterViewInit,
+    Directive,
+    DoCheck,
+    ElementRef,
+    HostBinding,
+    HostListener,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Optional,
+    Self,
+    SimpleChanges,
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Subject } from 'rxjs';
 import uuid from 'uuid';
 
 import { InputMixinBase } from './input-base';
 
 // tslint:disable-next-line: no-conflicting-lifecycle
+@UntilDestroy()
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
@@ -176,7 +191,7 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
 
     registerOnChange(onChange: (value: P) => void): void {
         // TODO: иногда передаются public value в toPublicValue и возникают ошибки
-        this.formControl.valueChanges.subscribe((v) => onChange(this.toPublicValue(v)));
+        this.formControl.valueChanges.pipe(untilDestroyed(this)).subscribe((v) => onChange(this.toPublicValue(v)));
     }
 
     registerOnTouched(onTouched: () => void): void {
@@ -188,14 +203,20 @@ export class CustomFormControl<I extends any = any, P extends any = I> extends I
         if (!this.monitorsRegistered && this.inputRef.nativeElement) {
             this.monitorsRegistered = true;
             if (this.platform.isBrowser) {
-                this.autofillMonitor.monitor(this.inputRef).subscribe((event) => {
-                    this.autofilled = event.isAutofilled;
-                    this.stateChanges.next();
-                });
+                this.autofillMonitor
+                    .monitor(this.inputRef)
+                    .pipe(untilDestroyed(this))
+                    .subscribe((event) => {
+                        this.autofilled = event.isAutofilled;
+                        this.stateChanges.next();
+                    });
             }
-            this.focusMonitor.monitor(this.elementRef.nativeElement, true).subscribe((focusOrigin) => {
-                this.focused = !!focusOrigin;
-            });
+            this.focusMonitor
+                .monitor(this.elementRef.nativeElement, true)
+                .pipe(untilDestroyed(this))
+                .subscribe((focusOrigin) => {
+                    this.focused = !!focusOrigin;
+                });
         }
     }
 

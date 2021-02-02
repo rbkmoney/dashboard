@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -43,42 +43,44 @@ describe('ShopsListComponent', () => {
         when(mockExpandedIdManager.expandedId$).thenReturn(of(1));
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                LastUpdatedModule,
-                AccordionModule,
-                CardModule,
-                RowModule,
-                ToMajorModule,
-                ShowMorePanelModule,
-                EmptySearchResultModule,
-                SpinnerModule,
-                ShopDetailsModule,
-                FlexLayoutModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
-                    availableLangs: ['en'],
-                    defaultLang: 'en',
-                }),
-                ShopBalanceModule,
-                ExpandPanelModule,
-                RouterTestingModule.withRoutes([]),
-            ],
-            declarations: [ShopsListComponent, ShopRowHeaderComponent, ShopRowComponent],
-            providers: [
-                {
-                    provide: ShopsExpandedIdManagerService,
-                    useFactory: () => instance(mockExpandedIdManager),
-                },
-            ],
-        })
-            .overrideComponent(ShopsListComponent, {
-                set: {
-                    changeDetection: ChangeDetectionStrategy.Default,
-                },
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [
+                    LastUpdatedModule,
+                    AccordionModule,
+                    CardModule,
+                    RowModule,
+                    ToMajorModule,
+                    ShowMorePanelModule,
+                    EmptySearchResultModule,
+                    SpinnerModule,
+                    ShopDetailsModule,
+                    FlexLayoutModule,
+                    TranslocoTestingModule.withLangs(translationConfig, {
+                        availableLangs: ['en'],
+                        defaultLang: 'en',
+                    }),
+                    ShopBalanceModule,
+                    ExpandPanelModule,
+                    RouterTestingModule.withRoutes([]),
+                ],
+                declarations: [ShopsListComponent, ShopRowHeaderComponent, ShopRowComponent],
+                providers: [
+                    {
+                        provide: ShopsExpandedIdManagerService,
+                        useFactory: () => instance(mockExpandedIdManager),
+                    },
+                ],
             })
-            .compileComponents();
-    }));
+                .overrideComponent(ShopsListComponent, {
+                    set: {
+                        changeDetection: ChangeDetectionStrategy.Default,
+                    },
+                })
+                .compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopsListComponent);

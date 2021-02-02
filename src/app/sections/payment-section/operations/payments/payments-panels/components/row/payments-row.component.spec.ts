@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import moment from 'moment';
@@ -17,40 +17,42 @@ describe('PaymentsRowComponent', () => {
     let fixture: ComponentFixture<PaymentsRowComponent>;
     let component: PaymentsRowComponent;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                RowModule,
-                PaymentStatusModule,
-                BalanceModule,
-                TranslocoTestingModule.withLangs(
-                    {
-                        ru: {
-                            paymentStatus: {
-                                pending: 'Запущен',
-                                processed: 'Обработан',
-                                captured: 'Подтвержден',
-                                cancelled: 'Отменен',
-                                refunded: 'Возвращен',
-                                failed: 'Неуспешен',
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [
+                    RowModule,
+                    PaymentStatusModule,
+                    BalanceModule,
+                    TranslocoTestingModule.withLangs(
+                        {
+                            ru: {
+                                paymentStatus: {
+                                    pending: 'Запущен',
+                                    processed: 'Обработан',
+                                    captured: 'Подтвержден',
+                                    cancelled: 'Отменен',
+                                    refunded: 'Возвращен',
+                                    failed: 'Неуспешен',
+                                },
                             },
                         },
-                    },
-                    {
-                        availableLangs: ['ru'],
-                        defaultLang: 'ru',
-                    }
-                ),
-            ],
-            declarations: [PaymentsRowComponent, MockShopDetailsPipe],
-        })
-            .overrideComponent(PaymentsRowComponent, {
-                set: {
-                    changeDetection: ChangeDetectionStrategy.Default,
-                },
+                        {
+                            availableLangs: ['ru'],
+                            defaultLang: 'ru',
+                        }
+                    ),
+                ],
+                declarations: [PaymentsRowComponent, MockShopDetailsPipe],
             })
-            .compileComponents();
-    }));
+                .overrideComponent(PaymentsRowComponent, {
+                    set: {
+                        changeDetection: ChangeDetectionStrategy.Default,
+                    },
+                })
+                .compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentsRowComponent);

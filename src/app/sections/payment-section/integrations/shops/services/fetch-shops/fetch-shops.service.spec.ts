@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -227,29 +227,32 @@ describe('FetchShopsService', () => {
             );
         });
 
-        it('should update loading value', async(() => {
-            apiShopsService.setMockShops(generateMockShopsList(2));
+        it(
+            'should update loading value',
+            waitForAsync(() => {
+                apiShopsService.setMockShops(generateMockShopsList(2));
 
-            service.initRealm(PaymentInstitutionRealm.test);
-            service.initOffsetIndex(-1);
+                service.initRealm(PaymentInstitutionRealm.test);
+                service.initOffsetIndex(-1);
 
-            apiShopsService.reloadShops();
+                apiShopsService.reloadShops();
 
-            expect(service.isLoading$).toBeObservable(
-                cold('(ab)', {
-                    a: true,
-                    b: false,
-                })
-            );
+                expect(service.isLoading$).toBeObservable(
+                    cold('(ab)', {
+                        a: true,
+                        b: false,
+                    })
+                );
 
-            service.showMore();
+                service.showMore();
 
-            expect(service.isLoading$).toBeObservable(
-                cold('(ab)', {
-                    a: true,
-                    b: false,
-                })
-            );
-        }));
+                expect(service.isLoading$).toBeObservable(
+                    cold('(ab)', {
+                        a: true,
+                        b: false,
+                    })
+                );
+            })
+        );
     });
 });

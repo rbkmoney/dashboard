@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -19,32 +19,34 @@ describe('ShopFiltersComponent', () => {
         when(mockShopsFiltersStoreService.data$).thenReturn(of({}));
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                ShopQueryFilterModule,
-                FlexLayoutModule,
-                TranslocoTestingModule.withLangs({
-                    en: {
-                        shops: {
-                            panel: {
-                                name: 'Name',
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [
+                    NoopAnimationsModule,
+                    ShopQueryFilterModule,
+                    FlexLayoutModule,
+                    TranslocoTestingModule.withLangs({
+                        en: {
+                            shops: {
+                                panel: {
+                                    name: 'Name',
+                                },
+                                title: 'Title',
                             },
-                            title: 'Title',
                         },
+                    }),
+                ],
+                declarations: [ShopFiltersComponent],
+                providers: [
+                    {
+                        provide: ShopsFiltersStoreService,
+                        useFactory: () => instance(mockShopsFiltersStoreService),
                     },
-                }),
-            ],
-            declarations: [ShopFiltersComponent],
-            providers: [
-                {
-                    provide: ShopsFiltersStoreService,
-                    useFactory: () => instance(mockShopsFiltersStoreService),
-                },
-            ],
-        }).compileComponents();
-    }));
+                ],
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopFiltersComponent);

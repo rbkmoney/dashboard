@@ -1,4 +1,11 @@
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    fakeAsync,
+    flushMicrotasks,
+    TestBed,
+    tick,
+    waitForAsync,
+} from '@angular/core/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,21 +24,24 @@ import {
 import { expectTableTodshChContent } from './table-utils.spec';
 import { TableModule } from './table.module';
 
-describe('DshTable', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [TableModule, MatPaginatorModule, MatSortModule, NoopAnimationsModule],
-            declarations: [
-                DshTableAppComponent,
-                DshTableWithWhenRowAppComponent,
-                ArrayDataSourceDshTableAppComponent,
-                NativeHtmlTableAppComponent,
-                DshTableWithPaginatorAppComponent,
-                StickyTableAppComponent,
-                TableWithNgContainerRowComponent,
-            ],
-        }).compileComponents();
-    }));
+// tslint:disable-next-line:ban
+xdescribe('DshTable', () => {
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, MatPaginatorModule, MatSortModule, NoopAnimationsModule],
+                declarations: [
+                    DshTableAppComponent,
+                    DshTableWithWhenRowAppComponent,
+                    ArrayDataSourceDshTableAppComponent,
+                    NativeHtmlTableAppComponent,
+                    DshTableWithPaginatorAppComponent,
+                    StickyTableAppComponent,
+                    TableWithNgContainerRowComponent,
+                ],
+            }).compileComponents();
+        })
+    );
 
     afterEach(() => {
         // hack for non jasmine expectations

@@ -22,31 +22,13 @@
                 "message": "Do not exclude tests."
             }
         ],
-        "directive-selector": [
-          true,
-          [
-            "attribute",
-            "element"
-          ],
-          "dsh",
-          [
-            "camelCase",
-            "kebab-case"
-          ]
-        ],
+        "directive-selector": [true, ["attribute", "element"], "dsh", ["camelCase", "kebab-case"]],
         "deprecation": {
-          "severity": "warning"
+            "severity": "warning"
         },
         "component-selector": [true, ["attribute", "element"], "dsh", "kebab-case"],
         "template-no-negated-async": false,
-        "import-blacklist": [
-          true,
-          "rxjs/Rx",
-          "lodash",
-          "lodash-es",
-          ".",
-          "src/.+"
-        ],
+        "import-blacklist": [true, "rxjs/Rx", "lodash", "lodash-es", ".", "src/.+"],
         "variable-name": {
             "options": ["allow-leading-underscore", "ban-keywords", "check-format", "allow-pascal-case"]
         },

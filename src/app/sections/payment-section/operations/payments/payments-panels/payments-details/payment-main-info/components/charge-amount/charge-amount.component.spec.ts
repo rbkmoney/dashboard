@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { getTextContent } from '@dsh/app/shared/tests/get-text-content';
@@ -13,18 +13,20 @@ describe('ChargeAmountComponent', () => {
     let component: ChargeAmountComponent;
     let fixture: ComponentFixture<ChargeAmountComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [getTranslocoModule(), MockDetailsItemModule, ToMajorModule],
-            declarations: [ChargeAmountComponent],
-        })
-            .overrideComponent(ChargeAmountComponent, {
-                set: {
-                    changeDetection: ChangeDetectionStrategy.Default,
-                },
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [getTranslocoModule(), MockDetailsItemModule, ToMajorModule],
+                declarations: [ChargeAmountComponent],
             })
-            .compileComponents();
-    }));
+                .overrideComponent(ChargeAmountComponent, {
+                    set: {
+                        changeDetection: ChangeDetectionStrategy.Default,
+                    },
+                })
+                .compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ChargeAmountComponent);

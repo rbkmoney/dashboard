@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { instance, mock, verify } from 'ts-mockito';
 
@@ -63,28 +63,30 @@ describe('PaymentDetailsComponent', () => {
         mockPaymentsService = mock(PaymentsService);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [MatDividerModule],
-            declarations: [
-                PaymentDetailsComponent,
-                MockPaymentMainInfoComponent,
-                MockPaymentInvoiceInfoComponent,
-                MockRefundsComponent,
-                MockHoldDetailsComponent,
-            ],
-            providers: [
-                {
-                    provide: InvoiceDetailsService,
-                    useFactory: () => instance(mockInvoiceDetailsService),
-                },
-                {
-                    provide: PaymentsService,
-                    useFactory: () => instance(mockPaymentsService),
-                },
-            ],
-        }).compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [MatDividerModule],
+                declarations: [
+                    PaymentDetailsComponent,
+                    MockPaymentMainInfoComponent,
+                    MockPaymentInvoiceInfoComponent,
+                    MockRefundsComponent,
+                    MockHoldDetailsComponent,
+                ],
+                providers: [
+                    {
+                        provide: InvoiceDetailsService,
+                        useFactory: () => instance(mockInvoiceDetailsService),
+                    },
+                    {
+                        provide: PaymentsService,
+                        useFactory: () => instance(mockPaymentsService),
+                    },
+                ],
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentDetailsComponent);

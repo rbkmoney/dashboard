@@ -1,7 +1,10 @@
 import { CdkTable } from '@angular/cdk/table';
-import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
+// TODO: remove dsh-table mentions
+/**
+ * @deprecated
+ */
 @Component({
     selector: 'dsh-table, table[dshTable]',
     exportAs: 'dshTable',
@@ -17,6 +20,4 @@ export class TableComponent<T> extends CdkTable<T> {
     protected stickyCssClass = 'dsh-table-sticky';
 
     @HostBinding('class') classes = 'dsh-table';
-    // tslint:disable-next-line:no-input-rename
-    @Input('dataSource') dataSource: MatTableDataSource<T>;
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PaymentStatus } from '@dsh/api-codegen/capi';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -21,18 +21,20 @@ describe('PaymentDetailStatusComponent', () => {
     let component: PaymentStatusComponent;
     let fixture: ComponentFixture<PaymentStatusComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [getTranslocoModule(), MockDetailsItemModule],
-            declarations: [PaymentStatusComponent, MockStatusComponent],
-        })
-            .overrideComponent(ChargeAmountComponent, {
-                set: {
-                    changeDetection: ChangeDetectionStrategy.Default,
-                },
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [getTranslocoModule(), MockDetailsItemModule],
+                declarations: [PaymentStatusComponent, MockStatusComponent],
             })
-            .compileComponents();
-    }));
+                .overrideComponent(ChargeAmountComponent, {
+                    set: {
+                        changeDetection: ChangeDetectionStrategy.Default,
+                    },
+                })
+                .compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentStatusComponent);

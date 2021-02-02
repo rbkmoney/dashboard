@@ -1,9 +1,13 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DateRange } from '@angular/material/datepicker';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isNil from 'lodash.isnil';
 import moment, { Moment } from 'moment';
-import { map } from 'rxjs/operators';
-import { SatDatepickerRangeValue } from 'saturn-datepicker';
+import { Observable, zip } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
 import { SetIntersection } from 'utility-types';
 
 import { CustomFormControl } from '../utils';
@@ -11,16 +15,22 @@ import { CustomFormControl } from '../utils';
 type MomentPeriod = SetIntersection<moment.unitOfTime.StartOf, 'day' | 'week' | 'month' | 'year'>;
 export type Period = MomentPeriod | '3month';
 
-type InternalRange = SatDatepickerRangeValue<Date>;
-export type Range = SatDatepickerRangeValue<Moment> & { period?: Period };
+type MatDateRange<T> = Omit<DateRange<T>, '_disableStructuralEquivalency' | 'start'> & { begin: T };
+type InternalRange = MatDateRange<Date>;
+export type Range = MatDateRange<Moment> & { period?: Period };
 
+// TODO: remove all range datepicker usages
+/**
+ * @deprecated
+ */
+@UntilDestroy()
 @Component({
     selector: 'dsh-range-datepicker',
     templateUrl: 'range-datepicker.component.html',
     styleUrls: ['range-datepicker.component.scss'],
     providers: [{ provide: MatFormFieldControl, useExisting: RangeDatepickerComponent }],
 })
-export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnInit, OnDestroy {
+export class RangeDatepickerComponent extends CustomFormControl<InternalRange, Range> implements OnInit {
     minDate = moment().subtract(15, 'year').startOf('year').toDate();
     @Input()
     set min(min: Moment) {
@@ -48,30 +58,34 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this._disablePeriodSelect = coerceBooleanProperty(value);
     }
 
-    @ViewChild('input')
-    set input(input: ElementRef<HTMLInputElement>) {
-        if (input && input.nativeElement) {
-            this.setInputElement(input.nativeElement);
-        }
-    }
+    dateControl = new FormGroup<InternalRange>({
+        begin: new FormControl(),
+        end: new FormControl(),
+    });
 
     current = moment();
     period: Period = null;
-    formControlSubscription = this.formControl.valueChanges.pipe(map(this.toPublicValue.bind(this))).subscribe(() => {
-        if (!this.period) {
-            this.period = this.takeUnitOfTime();
-        }
-    });
+
+    private dateChanges$: Observable<InternalRange> = zip(
+        this.dateControl.controls.begin.valueChanges,
+        this.dateControl.controls.end.valueChanges
+    ).pipe(
+        map(([begin, end]: [Date, Date]) => {
+            return { begin, end };
+        }),
+        filter(({ begin, end }: InternalRange) => {
+            return !isNil(begin) && !isNil(end);
+        })
+    );
 
     ngOnInit() {
-        if (!this.period) {
-            this.period = this.takeUnitOfTime();
-        }
-    }
+        this.dateChanges$.pipe(untilDestroyed(this)).subscribe((range: InternalRange) => {
+            this.formControl.setValue(range);
+        });
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
-        this.formControlSubscription.unsubscribe();
+        this.formControl.valueChanges.pipe(startWith<null, InternalRange>(null), untilDestroyed(this)).subscribe(() => {
+            this.initPeriod();
+        });
     }
 
     get isMaxDate() {
@@ -87,7 +101,11 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
     }
 
     toInternalValue({ begin, end }: Range): InternalRange {
-        return { begin: begin.toDate(), end: end.toDate() };
+        return { begin: begin.toDate(), end: end.toDate() } as InternalRange;
+    }
+
+    pickerOpened(): void {
+        this.dateControl.setValue(this.value, { emitEvent: false });
     }
 
     back() {
@@ -176,6 +194,12 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
             case 'day':
                 this.changeRange(moment().startOf('day'), moment().endOf('day'));
                 break;
+        }
+    }
+
+    private initPeriod(): void {
+        if (!this.period) {
+            this.period = this.takeUnitOfTime();
         }
     }
 

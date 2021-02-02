@@ -7,7 +7,7 @@ import {
     CdkHeaderCell,
     CdkHeaderCellDef,
 } from '@angular/cdk/table';
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
     selector: '[dshCellDef]',
@@ -31,9 +31,7 @@ export class FooterCellDefDirective extends CdkFooterCellDef {}
     selector: '[dshColumnDef]',
     providers: [{ provide: CdkColumnDef, useExisting: ColumnDefDirective }],
 })
-export class ColumnDefDirective extends CdkColumnDef {
-    @Input('dshColumnDef') name: string;
-}
+export class ColumnDefDirective extends CdkColumnDef {}
 
 @Directive({
     selector: 'dshHeaderCell, th[dshHeaderCell]',

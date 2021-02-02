@@ -49,7 +49,10 @@ describe('inProgressTo', () => {
                         delay(1),
                         switchMap(() => throwError('Test'))
                     )
-                    .subscribe(null, () => expect(test.inProgress$.value).toBe(true));
+                    .subscribe(
+                        () => null,
+                        () => expect(test.inProgress$.value).toBe(true)
+                    );
             }
         }
         const test = new Test();

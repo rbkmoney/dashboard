@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -75,51 +75,53 @@ describe('ShopActionsComponent', () => {
     let mockDialog: MockMatDialog;
     let actionsService: ShopActionsService;
 
-    beforeEach(async(() => {
-        mockDialog = new MockMatDialog();
+    beforeEach(
+        waitForAsync(() => {
+            mockDialog = new MockMatDialog();
 
-        TestBed.configureTestingModule({
-            imports: [
-                TranslocoTestingModule.withLangs({
-                    en: {
-                        shops: {
-                            panel: {
-                                activate: 'activate',
-                                suspend: 'suspend',
-                            },
-                            suspend: {
-                                success: 'success suspend',
-                                error: 'error suspend',
-                            },
-                            activate: {
-                                success: 'success activate',
-                                error: 'error activate',
+            TestBed.configureTestingModule({
+                imports: [
+                    TranslocoTestingModule.withLangs({
+                        en: {
+                            shops: {
+                                panel: {
+                                    activate: 'activate',
+                                    suspend: 'suspend',
+                                },
+                                suspend: {
+                                    success: 'success suspend',
+                                    error: 'error suspend',
+                                },
+                                activate: {
+                                    success: 'success activate',
+                                    error: 'error activate',
+                                },
                             },
                         },
+                    }),
+                    MatSnackBarModule,
+                ],
+                declarations: [ShopActionsComponent],
+                providers: [
+                    ShopActionsService,
+                    {
+                        provide: ApiShopsService,
+                        useClass: MockApiShopsService,
                     },
-                }),
-                MatSnackBarModule,
-            ],
-            declarations: [ShopActionsComponent],
-            providers: [
-                ShopActionsService,
-                {
-                    provide: ApiShopsService,
-                    useClass: MockApiShopsService,
-                },
-                {
-                    provide: ShopsService,
-                    useClass: MockShopsService,
-                },
-                {
-                    provide: MatDialog,
-                    useValue: mockDialog,
-                },
-            ],
+                    {
+                        provide: ShopsService,
+                        useClass: MockShopsService,
+                    },
+                    {
+                        provide: MatDialog,
+                        useValue: mockDialog,
+                    },
+                ],
+            })
+                .overrideComponent(ShopActionsComponent, { set: { providers: [] } })
+                .compileComponents();
         })
-            .overrideComponent(ShopActionsComponent, { set: { providers: [] } })
-            .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopActionsComponent);
