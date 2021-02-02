@@ -1,43 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { first, pluck, switchMap, take } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { first, map, pluck, switchMap, take } from 'rxjs/operators';
 
-import { OrganizationsService, WritableOrganization } from '@dsh/api';
+import { OrganizationsService } from '@dsh/api';
 import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { UserService } from '@dsh/app/shared';
-
-import { mockMember } from '../../tests/mock-member';
-import { mockOrg } from '../../tests/mock-org';
+import { PickMutable } from '@dsh/type-utils';
 
 @Injectable()
 export class OrganizationManagementService {
-    constructor(
-        // tslint:disable-next-line
-        private organizationsService: OrganizationsService,
-        // tslint:disable-next-line
-        private userService: UserService
-    ) {}
+    constructor(private organizationsService: OrganizationsService, private userService: UserService) {}
 
-    getMember(id: Organization['id']): Observable<Member> {
-        // return this.userService.profile$.pipe(
-        //     pluck('id'),
-        //     take(1),
-        //     switchMap((userId) => this.organizationsService.getMember(id, userId))
-        // );
-        return of(mockMember);
+    getCurrentMember(id: Organization['id']): Observable<Member> {
+        return this.userService.id$.pipe(
+            first(),
+            switchMap((userId) => this.organizationsService.getOrgMember(id, userId))
+        );
     }
 
-    getMembers(id: Organization['id']): Observable<Member[]> {
-        // return this.organizationsService.getMembers(id).pipe(pluck('results'));
-        return of(new Array(5).fill(mockMember));
-    }
-
-    createOrganization(organization: Omit<WritableOrganization, 'owner'>): Observable<Organization> {
+    createOrganization(organization: Omit<PickMutable<Organization>, 'owner'>): Observable<Organization> {
         return this.userService.profile$.pipe(
             take(1),
-            pluck('id'),
-            // TODO: change after fix Organization['owner'] type
-            switchMap((owner: never) =>
+            pluck('username'),
+            switchMap((owner) =>
                 this.organizationsService.createOrg({
                     owner,
                     ...organization,
@@ -46,30 +31,12 @@ export class OrganizationManagementService {
         );
     }
 
-    getOrganization(id: Organization['id']): Observable<Organization> {
-        // return this.userService.profile$.pipe(
-        //     pluck('id'),
-        //     take(1),
-        //     switchMap((userId) => this.organizationsService.getMember(id, userId))
-        // );
-        return of(mockOrg);
-    }
-
-    leaveOrganization(orgId: Organization['id']) {
-        return this.userService.profile$.pipe(
-            first(),
-            pluck('id'),
-            switchMap((userId) => this.organizationsService.expelOrgMember(orgId, userId))
-        );
-    }
-
     isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {
-        // const organization$ =
-        //     typeof orgOrOrgId === 'string' ? this.organizationsService.getOrganization(orgOrOrgId) : of(orgOrOrgId);
-        // return organization$.pipe(
-        //     withLatestFrom(this.userService.profile$),
-        //     map(([{ owner }, { id }]) => owner === id)
-        // );
-        return of(true);
+        const organization$ =
+            typeof orgOrOrgId === 'string' ? this.organizationsService.getOrg(orgOrOrgId) : of(orgOrOrgId);
+        return combineLatest([organization$, this.userService.id$]).pipe(
+            first(),
+            map(([{ owner }, id]) => owner === id)
+        );
     }
 }

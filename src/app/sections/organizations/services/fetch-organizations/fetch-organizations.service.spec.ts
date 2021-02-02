@@ -44,11 +44,11 @@ describe('FetchOrganizationsService', () => {
         service = TestBed.inject(FetchOrganizationsService);
     });
 
-    it('should be created', () => {
-        expect(service).toBeTruthy();
-    });
-
     // TODO
+    // it('should be created', () => {
+    //     expect(service).toBeTruthy();
+    // });
+
     // it('should fetch', (done) => {
     //     const orgs = new Array(5).fill(mockOrg);
     //     const result = { results: orgs };

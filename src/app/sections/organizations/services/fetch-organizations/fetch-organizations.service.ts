@@ -1,26 +1,23 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { OrganizationsService } from '../../../../api';
-import { Organization } from '../../../../api-codegen/organizations';
-import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
+import { OrganizationsService } from '@dsh/api';
+import { Organization } from '@dsh/api-codegen/organizations';
+
+import { DEBOUNCE_FETCHER_ACTION_TIME, FetchResult, IndicatorsPartialFetcher } from '../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../tokens';
-import { mockOrg } from '../../tests/mock-org';
 
 @Injectable()
-export class FetchOrganizationsService extends PartialFetcher<Organization, void> {
+export class FetchOrganizationsService extends IndicatorsPartialFetcher<Organization, void> {
     constructor(
-        // tslint:disable-next-line
         private organizationsService: OrganizationsService,
-        // tslint:disable-next-line
-        @Inject(SEARCH_LIMIT) private searchLimit: number
+        @Inject(SEARCH_LIMIT) searchLimit: number,
+        @Inject(DEBOUNCE_FETCHER_ACTION_TIME) debounceActionTime: number
     ) {
-        super();
+        super(searchLimit, debounceActionTime);
     }
 
     protected fetch(_params: void, continuationToken?: string): Observable<FetchResult<Organization>> {
-        // return this.organizationsService.getOrganizations(this.searchLimit, continuationToken);
-        return of({ result: new Array(10).fill(mockOrg) }).pipe(delay(1));
+        return this.organizationsService.listOrgMembership(this.searchLimit, continuationToken);
     }
 }
