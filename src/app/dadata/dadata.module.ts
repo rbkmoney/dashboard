@@ -21,7 +21,6 @@ import { HighlightSearchPipe } from './highlight.pipe';
         DaDataApiModule,
     ],
     declarations: [DaDataAutocompleteComponent, HighlightSearchPipe],
-    entryComponents: [DaDataAutocompleteComponent],
     exports: [DaDataAutocompleteComponent],
 })
 export class DaDataModule {}

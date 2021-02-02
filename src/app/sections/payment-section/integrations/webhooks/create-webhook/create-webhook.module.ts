@@ -33,7 +33,6 @@ import { CreateWebhookService } from './create-webhook.service';
         MatInputModule,
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
-    entryComponents: [CreateWebhookDialogComponent],
     providers: [CreateWebhookService],
 })
 export class CreateWebhookModule {}

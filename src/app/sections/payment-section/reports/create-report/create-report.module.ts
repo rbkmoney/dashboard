@@ -35,6 +35,5 @@ import { CreateReportService } from './create-report.service';
     ],
     declarations: [CreateReportDialogComponent, CreateReportFormComponent, FormatTimeInputDirective],
     providers: [CreateReportService],
-    entryComponents: [CreateReportDialogComponent],
 })
 export class CreateReportModule {}

@@ -40,8 +40,7 @@ import { RefundsComponent } from './refunds.component';
         FormControlsModule,
     ],
     declarations: [CreateRefundComponent, RefundsComponent, RefundItemComponent],
-    exports: [RefundsComponent],
     providers: [RefundSearchService, RefundService, ApiShopsService, AccountService],
-    entryComponents: [CreateRefundComponent],
+    exports: [RefundsComponent],
 })
 export class RefundsModule {}
