@@ -4,7 +4,7 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormControl } from '@ngneat/reactive-forms';
 
-import { InlineShowAllModule } from '@dsh/app/shared/components/buttons/inline-show-all';
+import { InlineShowAllToggleModule } from '@dsh/app/shared/components/buttons/inline-show-all-toggle';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { PAYMENT_STATUSES_LIST } from '../../consts';
@@ -20,7 +20,7 @@ describe('StatusFilterComponent', () => {
             imports: [
                 getTranslocoModule(),
                 MatRadioModule,
-                InlineShowAllModule,
+                InlineShowAllToggleModule,
                 ReactiveFormsModule,
                 MatIconTestingModule,
             ],
@@ -54,55 +54,45 @@ describe('StatusFilterComponent', () => {
             expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 2));
         });
 
-        it('should init availableStatuses using current index of control value in original list', () => {
+        it('should init availableStatuses using default slice offset regardless selected item position in original list', () => {
             component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[3]);
 
             fixture.detectChanges();
 
-            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 4));
-        });
-
-        it('should init availableStatuses using even slice original list', () => {
-            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[4]);
-
-            fixture.detectChanges();
-
-            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice());
-        });
-
-        it('should set isAllStatusesVisible to false if not all original statuses is available', () => {
-            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[3]);
-
-            fixture.detectChanges();
-
-            expect(component.isAllStatusesVisible).toBe(false);
-        });
-
-        it('should set isAllStatusesVisible to true if all original statuses is available', () => {
-            component.control = new FormControl<PaymentStatusFilterValue>(PAYMENT_STATUSES_LIST[5]);
-
-            fixture.detectChanges();
-
-            expect(component.isAllStatusesVisible).toBe(true);
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 2));
         });
     });
 
-    describe('showAllStatuses', () => {
+    describe('toggleStatusesVisibility', () => {
         beforeEach(() => {
             component.control = new FormControl<PaymentStatusFilterValue>(null);
             fixture.detectChanges();
         });
 
         it('should update availableStatuses using full original list', () => {
-            component.showAllStatuses();
+            component.toggleStatusesVisibility();
 
             expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice());
         });
 
-        it('should update isAllStatusesVisible to true', () => {
-            component.showAllStatuses();
+        it('should update isAllStatusesVisible to true when openening', () => {
+            component.toggleStatusesVisibility();
 
             expect(component.isAllStatusesVisible).toBe(true);
+        });
+
+        it('should hide some elements from original list if list was opened', () => {
+            component.toggleStatusesVisibility();
+            component.toggleStatusesVisibility();
+
+            expect(component.availableStatuses).toEqual(PAYMENT_STATUSES_LIST.slice(0, 2));
+        });
+
+        it('should update isAllStatusesVisible to false when hiding', () => {
+            component.toggleStatusesVisibility();
+            component.toggleStatusesVisibility();
+
+            expect(component.isAllStatusesVisible).toBe(false);
         });
     });
 });

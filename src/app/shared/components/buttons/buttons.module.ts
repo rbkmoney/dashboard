@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { InlineShowAllModule } from '@dsh/app/shared/components/buttons/inline-show-all';
+import { InlineShowAllToggleModule } from '@dsh/app/shared/components/buttons/inline-show-all-toggle';
 
 @NgModule({
-    imports: [CommonModule, InlineShowAllModule],
-    exports: [InlineShowAllModule],
+    imports: [CommonModule, InlineShowAllToggleModule],
+    exports: [InlineShowAllToggleModule],
 })
 export class ButtonsModule {}

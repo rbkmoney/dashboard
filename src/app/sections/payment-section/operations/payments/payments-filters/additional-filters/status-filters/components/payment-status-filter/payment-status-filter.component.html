@@ -15,9 +15,9 @@
         </div>
     </ng-container>
     <ng-container *transloco="let t; read: 'filters'">
-        <dsh-inline-show-all *ngIf="!isAllStatusesVisible" (click)="showAllStatuses()">{{
-            t('showAllStatuses')
-        }}</dsh-inline-show-all>
+        <dsh-inline-show-all-toggle [opened]="isAllStatusesVisible" (click)="toggleStatusesVisibility()">{{
+            isAllStatusesVisible ? t('hideAllStatuses') : t('showAllStatuses')
+        }}</dsh-inline-show-all-toggle>
     </ng-container>
 </mat-radio-group>
 

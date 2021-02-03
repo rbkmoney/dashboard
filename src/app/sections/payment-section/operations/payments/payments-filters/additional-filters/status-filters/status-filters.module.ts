@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { InlineShowAllModule } from '@dsh/app/shared/components/buttons/inline-show-all';
+import { InlineShowAllToggleModule } from '@dsh/app/shared/components/buttons/inline-show-all-toggle';
 import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
 import { PaymentStatusFilterComponent } from './components/payment-status-filter/payment-status-filter.component';
@@ -19,7 +19,7 @@ import { StatusFiltersComponent } from './status-filters.component';
         ReactiveFormsModule,
         FlexLayoutModule,
         MatRadioModule,
-        InlineShowAllModule,
+        InlineShowAllToggleModule,
     ],
     declarations: [StatusFiltersComponent, PaymentStatusFilterComponent],
     exports: [StatusFiltersComponent],

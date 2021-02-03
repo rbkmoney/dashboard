@@ -40,7 +40,8 @@
         "additionalFilters": "Другие фильтры",
         "save": "Сохранить",
         "clearParams": "Сбросить параметры",
-        "showAllStatuses": "Показать все статусы"
+        "showAllStatuses": "Показать все статусы",
+        "hideAllStatuses": "Скрыть все статусы"
     },
     "paymentStatus": {
         "pending": "Запущен",

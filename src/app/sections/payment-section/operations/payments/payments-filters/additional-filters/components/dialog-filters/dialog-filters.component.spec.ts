@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
@@ -15,6 +16,7 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { MainFiltersComponent } from '../../main-filters';
+import { StatusFiltersModule } from '../../status-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { DialogFiltersComponent } from './dialog-filters.component';
 
@@ -39,6 +41,8 @@ describe('DialogFiltersComponent', () => {
                 ReactiveFormsModule,
                 MatFormFieldModule,
                 MatInputModule,
+                MatDividerModule,
+                StatusFiltersModule,
             ],
             declarations: [DialogFiltersComponent, MainFiltersComponent, MatIcon],
             providers: [
