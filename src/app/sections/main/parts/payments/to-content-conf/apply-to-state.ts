@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash.isequal';
 import { combineLatest, merge, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 

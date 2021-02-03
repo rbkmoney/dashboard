@@ -29,8 +29,11 @@ async function swaggerCodegenAngularCli({
             swaggerLog(`${outputDirPath} deleted`);
 
             const cmd = `java -jar ${cliPath} generate -l typescript-angular --additional-properties ngVersion=7 -i ${inputPath} -o ${outputDirPath}`;
+            // angular 10 requires change "ModuleWithProviders" with "ModuleWithProviders<ApiModule>"
+            // swagger-codegen has a fix in v2.4.17 but it breaks our backward compatibility
+            const postSwagger = `sed -i \'s/ModuleWithProviders {/ModuleWithProviders<ApiModule> {/\' ${outputDirPath}/api.module.ts\n`;
             swaggerLog(`> ${cmd}`);
-            return execWithLog(cmd);
+            return execWithLog(cmd).then(() => execWithLog(postSwagger));
         })
     );
     swaggerLog('Successfully generated 😀');

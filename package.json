@@ -45,7 +45,6 @@
     "core-js": "^2.5.4",
     "css-element-queries": "^1.2.0",
     "humanize-duration": "^3.19.0",
-    "is-url-superb": "^3.0.0",
     "keycloak-angular": "^8.1.0",
     "keycloak-js": "^10.0.2",
     "libphonenumber-js": "^1.7.27",

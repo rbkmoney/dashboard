@@ -43,6 +43,7 @@
                 ]
             }
         ],
+        "no-unused-variable": [true, { "ignore-pattern": "^_" }],
         "no-console": [true, "log", "dir"],
         "no-duplicate-imports": [true, { "allow-namespace-imports": true }],
         "increment-decrement": true
