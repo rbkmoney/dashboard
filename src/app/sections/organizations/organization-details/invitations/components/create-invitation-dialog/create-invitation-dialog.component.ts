@@ -13,7 +13,6 @@ import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { inProgressTo } from '@dsh/utils';
 
-import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 import { CreateInvitationDialogData } from './types/create-invitation-dialog-data';
 import { CreateInvitationDialogForm } from './types/create-invitation-dialog-form';
 
@@ -22,7 +21,6 @@ import { CreateInvitationDialogForm } from './types/create-invitation-dialog-for
     selector: 'dsh-create-invitation-dialog',
     templateUrl: 'create-invitation-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [OrganizationManagementService],
 })
 export class CreateInvitationDialogComponent {
     form = this.fb.group<CreateInvitationDialogForm>({
