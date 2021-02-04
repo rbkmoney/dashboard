@@ -3,11 +3,13 @@ import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
+import { getAbstractControl } from '@dsh/app/shared/utils';
 import { removeDictEmptyFields } from '@dsh/utils';
 
+import { MainFilters } from '../../main-filters';
+import { paymentStatusValidator, StatusFilters } from '../../status-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
-import { MainFilters } from '../../types/main-filters';
 
 @Component({
     selector: 'dsh-dialog-filters',
@@ -16,17 +18,24 @@ import { MainFilters } from '../../types/main-filters';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogFiltersComponent implements OnInit {
-    get mainFiltersGroup(): FormGroup<MainFilters> {
-        return this.form.controls.mainFilters as FormGroup<MainFilters>;
-    }
-
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
         mainFilters: this.formBuilder.group<MainFilters>({
             payerEmail: ['', Validators.email],
             customerID: [''],
             rrn: ['', Validators.pattern(new RegExp(/^\d+$/))],
         }),
+        statusFilters: this.formBuilder.group<StatusFilters>({
+            paymentStatus: [null, paymentStatusValidator],
+        }),
     });
+
+    get mainFiltersGroup(): FormGroup<MainFilters> {
+        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'mainFilters');
+    }
+
+    get statusFiltersGroup(): FormGroup<StatusFilters> {
+        return getAbstractControl<FormGroup<StatusFilters>>(this.form, 'statusFilters');
+    }
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private data: AdditionalFilters,
@@ -35,12 +44,15 @@ export class DialogFiltersComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const { payerEmail = '', customerID = '', rrn = '' } = this.data;
+        const { payerEmail = '', customerID = '', rrn = '', paymentStatus = null } = this.data;
         this.form.setValue({
             mainFilters: {
                 payerEmail,
                 customerID,
                 rrn,
+            },
+            statusFilters: {
+                paymentStatus,
             },
         });
     }
@@ -60,6 +72,7 @@ export class DialogFiltersComponent implements OnInit {
     private getFiltersData(): AdditionalFilters {
         return removeDictEmptyFields({
             ...this.extractGroupValidFields(this.mainFiltersGroup),
+            ...this.extractGroupValidFields(this.statusFiltersGroup),
         });
     }
 
@@ -74,5 +87,6 @@ export class DialogFiltersComponent implements OnInit {
 
     private resetFiltersData(): void {
         this.mainFiltersGroup.reset();
+        this.statusFiltersGroup.reset();
     }
 }
