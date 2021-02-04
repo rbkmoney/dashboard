@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -35,39 +35,37 @@ describe('ShopInfoComponent', () => {
     let fixture: ComponentFixture<ShopInfoComponent>;
     let mockCategoryService: MockCategoryService;
 
-    beforeEach(
-        waitForAsync(() => {
-            mockCategoryService = new MockCategoryService();
+    beforeEach(async () => {
+        mockCategoryService = new MockCategoryService();
 
-            TestBed.configureTestingModule({
-                imports: [
-                    TranslocoTestingModule.withLangs({
-                        en: {
-                            shops: {
-                                panel: {
-                                    name: 'PanelName',
-                                    url: 'PanelUrl',
-                                    balance: 'PanelBalance',
-                                    createdAt: 'PanelCreatedAt',
-                                    category: 'PanelCategory',
-                                },
+        await TestBed.configureTestingModule({
+            imports: [
+                TranslocoTestingModule.withLangs({
+                    en: {
+                        shops: {
+                            panel: {
+                                name: 'PanelName',
+                                url: 'PanelUrl',
+                                balance: 'PanelBalance',
+                                createdAt: 'PanelCreatedAt',
+                                category: 'PanelCategory',
                             },
                         },
-                    }),
-                    FlexLayoutModule,
-                    DetailsItemModule,
-                    ShopBalanceModule,
-                ],
-                declarations: [ShopInfoComponent],
-                providers: [
-                    {
-                        provide: CategoryService,
-                        useValue: mockCategoryService,
                     },
-                ],
-            }).compileComponents();
-        })
-    );
+                }),
+                FlexLayoutModule,
+                DetailsItemModule,
+                ShopBalanceModule,
+            ],
+            declarations: [ShopInfoComponent],
+            providers: [
+                {
+                    provide: CategoryService,
+                    useValue: mockCategoryService,
+                },
+            ],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopInfoComponent);

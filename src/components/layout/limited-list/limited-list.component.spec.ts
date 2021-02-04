@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
@@ -35,21 +35,19 @@ describe('LimitedListComponent', () => {
     let fixture: ComponentFixture<MockLimitedListComponent>;
     let selector: Selector;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    LimitedListModule,
-                    TranslocoTestingModule.withLangs({
-                        en: {
-                            showMore: 'Show more',
-                        },
-                    }),
-                ],
-                declarations: [MockLimitedListComponent],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                LimitedListModule,
+                TranslocoTestingModule.withLangs({
+                    en: {
+                        showMore: 'Show more',
+                    },
+                }),
+            ],
+            declarations: [MockLimitedListComponent],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(MockLimitedListComponent);

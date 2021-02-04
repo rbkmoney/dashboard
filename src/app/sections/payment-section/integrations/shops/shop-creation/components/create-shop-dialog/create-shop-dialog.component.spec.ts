@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router } from '@angular/router';
@@ -23,51 +23,49 @@ describe('CreateShopDialogComponent', () => {
         mockDialogRef = mock(MatDialogRef);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    MatRadioModule,
-                    TranslocoTestingModule.withLangs({
-                        en: {
-                            'create-shop': {
-                                title: 'Новая заявка',
-                                type: 'Выберите тип заявки',
-                                russianLegalEntityType: 'Создание магазина (текущее ЮЛ)',
-                                newLegalEntityType: 'Создание магазина (новое ЮЛ)',
-                                internationalLegalEntityType: 'Создание магазина (международное ЮЛ)',
-                            },
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                MatRadioModule,
+                TranslocoTestingModule.withLangs({
+                    en: {
+                        'create-shop': {
+                            title: 'Новая заявка',
+                            type: 'Выберите тип заявки',
+                            russianLegalEntityType: 'Создание магазина (текущее ЮЛ)',
+                            newLegalEntityType: 'Создание магазина (новое ЮЛ)',
+                            internationalLegalEntityType: 'Создание магазина (международное ЮЛ)',
                         },
-                    }),
-                    RouterTestingModule.withRoutes([
-                        {
-                            path: 'onboarding',
-                            component: MockOnBoardingComponent,
-                        },
-                    ]),
-                ],
-                declarations: [CreateShopDialogComponent, MockOnBoardingComponent],
-                providers: [
+                    },
+                }),
+                RouterTestingModule.withRoutes([
                     {
-                        provide: MatDialogRef,
-                        useFactory: () => instance(mockDialogRef),
+                        path: 'onboarding',
+                        component: MockOnBoardingComponent,
                     },
-                    {
-                        provide: MAT_DIALOG_DATA,
-                        useValue: {
-                            realm: 'my_realm',
-                        },
+                ]),
+            ],
+            declarations: [CreateShopDialogComponent, MockOnBoardingComponent],
+            providers: [
+                {
+                    provide: MatDialogRef,
+                    useFactory: () => instance(mockDialogRef),
+                },
+                {
+                    provide: MAT_DIALOG_DATA,
+                    useValue: {
+                        realm: 'my_realm',
                     },
-                ],
-            })
-                .overrideComponent(CreateShopDialogComponent, {
-                    set: {
-                        changeDetection: ChangeDetectionStrategy.Default,
-                    },
-                })
-                .compileComponents();
+                },
+            ],
         })
-    );
+            .overrideComponent(CreateShopDialogComponent, {
+                set: {
+                    changeDetection: ChangeDetectionStrategy.Default,
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(CreateShopDialogComponent);

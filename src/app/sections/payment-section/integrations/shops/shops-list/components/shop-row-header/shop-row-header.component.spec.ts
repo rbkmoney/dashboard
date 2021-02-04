@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
@@ -22,26 +22,24 @@ describe('ShopRowHeaderComponent', () => {
     let fixture: ComponentFixture<ShopRowHeaderComponent>;
     let component: ShopRowHeaderComponent;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    RowModule,
-                    TranslocoTestingModule.withLangs(translationConfig, {
-                        availableLangs: ['en'],
-                        defaultLang: 'en',
-                    }),
-                ],
-                declarations: [ShopRowHeaderComponent],
-            })
-                .overrideComponent(ShopRowHeaderComponent, {
-                    set: {
-                        changeDetection: ChangeDetectionStrategy.Default,
-                    },
-                })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                RowModule,
+                TranslocoTestingModule.withLangs(translationConfig, {
+                    availableLangs: ['en'],
+                    defaultLang: 'en',
+                }),
+            ],
+            declarations: [ShopRowHeaderComponent],
         })
-    );
+            .overrideComponent(ShopRowHeaderComponent, {
+                set: {
+                    changeDetection: ChangeDetectionStrategy.Default,
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopRowHeaderComponent);

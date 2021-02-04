@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -34,28 +34,26 @@ describe('ShopFormComponent', () => {
         mockInternationalShopFormControllerService = mock(InternationalShopFormControllerService);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    getTranslocoModule(),
-                    NoopAnimationsModule,
-                    ReactiveFormsModule,
-                    MatFormFieldModule,
-                    MatInputModule,
-                    MatCheckboxModule,
-                    MatDividerModule,
-                ],
-                declarations: [ShopFormComponent, MockPayoutToolFormComponent],
-                providers: [
-                    {
-                        provide: InternationalShopFormControllerService,
-                        useFactory: () => instance(mockInternationalShopFormControllerService),
-                    },
-                ],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                getTranslocoModule(),
+                NoopAnimationsModule,
+                ReactiveFormsModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatCheckboxModule,
+                MatDividerModule,
+            ],
+            declarations: [ShopFormComponent, MockPayoutToolFormComponent],
+            providers: [
+                {
+                    provide: InternationalShopFormControllerService,
+                    useFactory: () => instance(mockInternationalShopFormControllerService),
+                },
+            ],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopFormComponent);

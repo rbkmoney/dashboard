@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
@@ -35,28 +35,26 @@ describe('RefundsComponent', () => {
         mockCreateRefundService = mock(CreateRefundService);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [getTranslocoModule(), FlexLayoutModule, ButtonModule],
-                declarations: [RefundsComponent, MockRefundsListComponent],
-                providers: [
-                    {
-                        provide: FetchRefundsService,
-                        useFactory: () => instance(mockFetchRefundsService),
-                    },
-                    {
-                        provide: CreateRefundService,
-                        useFactory: () => instance(mockCreateRefundService),
-                    },
-                ],
-            })
-                .overrideComponent(RefundsComponent, {
-                    set: { providers: [] },
-                })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [getTranslocoModule(), FlexLayoutModule, ButtonModule],
+            declarations: [RefundsComponent, MockRefundsListComponent],
+            providers: [
+                {
+                    provide: FetchRefundsService,
+                    useFactory: () => instance(mockFetchRefundsService),
+                },
+                {
+                    provide: CreateRefundService,
+                    useFactory: () => instance(mockCreateRefundService),
+                },
+            ],
         })
-    );
+            .overrideComponent(RefundsComponent, {
+                set: { providers: [] },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(RefundsComponent);

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,26 +27,24 @@ describe('NewBankAccountComponent', () => {
         mockDaDataApiService = mock(DaDataApiService);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    ReactiveFormsModule,
-                    MatFormFieldModule,
-                    DaDataModule,
-                    NoopAnimationsModule,
-                    getTranslocoModule(),
-                ],
-                providers: [
-                    {
-                        provide: DaDataApiService,
-                        useFactory: () => instance(mockDaDataApiService),
-                    },
-                ],
-                declarations: [NewBankAccountComponent],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule,
+                MatFormFieldModule,
+                DaDataModule,
+                NoopAnimationsModule,
+                getTranslocoModule(),
+            ],
+            providers: [
+                {
+                    provide: DaDataApiService,
+                    useFactory: () => instance(mockDaDataApiService),
+                },
+            ],
+            declarations: [NewBankAccountComponent],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(NewBankAccountComponent);

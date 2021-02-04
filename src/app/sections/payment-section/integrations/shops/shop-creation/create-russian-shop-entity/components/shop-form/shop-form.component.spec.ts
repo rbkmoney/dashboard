@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,44 +51,42 @@ describe('ShopFormComponent', () => {
         when(mockShopContractDetailsService.shopContract$).thenReturn(of());
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    getTranslocoModule(),
-                    ReactiveFormsModule,
-                    MatFormFieldModule,
-                    MatInputModule,
-                    MatDividerModule,
-                    NoopAnimationsModule,
-                    AutocompleteVirtualScrollModule,
-                    DetailsItemModule,
-                    MatRadioModule,
-                ],
-                declarations: [ShopFormComponent, ShopContractComponent],
-                providers: [
-                    {
-                        provide: FetchShopsService,
-                        useFactory: () => instance(mockFetchShopsService),
-                    },
-                    {
-                        provide: ShopOptionsSelectionService,
-                        useFactory: () => instance(mockShopOptionsSelectionService),
-                    },
-                    {
-                        provide: ShopContractDetailsService,
-                        useFactory: () => instance(mockShopContractDetailsService),
-                    },
-                ],
-            })
-                .overrideComponent(ShopContractComponent, {
-                    set: {
-                        providers: [],
-                    },
-                })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                getTranslocoModule(),
+                ReactiveFormsModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatDividerModule,
+                NoopAnimationsModule,
+                AutocompleteVirtualScrollModule,
+                DetailsItemModule,
+                MatRadioModule,
+            ],
+            declarations: [ShopFormComponent, ShopContractComponent],
+            providers: [
+                {
+                    provide: FetchShopsService,
+                    useFactory: () => instance(mockFetchShopsService),
+                },
+                {
+                    provide: ShopOptionsSelectionService,
+                    useFactory: () => instance(mockShopOptionsSelectionService),
+                },
+                {
+                    provide: ShopContractDetailsService,
+                    useFactory: () => instance(mockShopContractDetailsService),
+                },
+            ],
         })
-    );
+            .overrideComponent(ShopContractComponent, {
+                set: {
+                    providers: [],
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopFormComponent);

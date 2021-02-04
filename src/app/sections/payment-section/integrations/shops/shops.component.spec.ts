@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,69 +42,67 @@ describe('ShopsComponent', () => {
         mockShopCreationService = mock(ShopCreationService);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    NoopAnimationsModule,
-                    FlexLayoutModule,
-                    ButtonModule,
-                    RouterModule,
-                    MatRadioModule,
-                    ShopListModule,
-                    ShopFiltersModule,
-                    RouterTestingModule.withRoutes([]),
-                    TranslocoTestingModule.withLangs({
-                        en: {
-                            shops: {
-                                panel: {
-                                    name: 'Name',
-                                },
-                                title: 'Title',
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                NoopAnimationsModule,
+                FlexLayoutModule,
+                ButtonModule,
+                RouterModule,
+                MatRadioModule,
+                ShopListModule,
+                ShopFiltersModule,
+                RouterTestingModule.withRoutes([]),
+                TranslocoTestingModule.withLangs({
+                    en: {
+                        shops: {
+                            panel: {
+                                name: 'Name',
                             },
+                            title: 'Title',
                         },
-                    }),
-                ],
-                declarations: [ShopsComponent],
-                providers: [
-                    {
-                        provide: FetchShopsService,
-                        useFactory: () => instance(mockFetchShopsService),
                     },
-                    {
-                        provide: ShopsExpandedIdManagerService,
-                        useFactory: () => instance(mockShopsExpandedIdManagerService),
-                    },
-                    {
-                        provide: ShopCreationService,
-                        useFactory: () => instance(mockShopCreationService),
-                    },
-                    {
-                        provide: ActivatedRoute,
-                        useFactory: () => instance(mockActivatedRoute),
-                    },
-                    {
-                        provide: ShopsBalanceService,
-                        useFactory: () => instance(mockShopsBalanceService),
-                    },
-                    {
-                        provide: ShopsFiltersService,
-                        useFactory: () => instance(mockShopsFiltersService),
-                    },
-                    {
-                        provide: ShopsFiltersStoreService,
-                        useFactory: () => instance(mockShopsFiltersStoreService),
-                    },
-                ],
-            })
-                .overrideComponent(ShopsComponent, {
-                    set: {
-                        providers: [],
-                    },
-                })
-                .compileComponents();
+                }),
+            ],
+            declarations: [ShopsComponent],
+            providers: [
+                {
+                    provide: FetchShopsService,
+                    useFactory: () => instance(mockFetchShopsService),
+                },
+                {
+                    provide: ShopsExpandedIdManagerService,
+                    useFactory: () => instance(mockShopsExpandedIdManagerService),
+                },
+                {
+                    provide: ShopCreationService,
+                    useFactory: () => instance(mockShopCreationService),
+                },
+                {
+                    provide: ActivatedRoute,
+                    useFactory: () => instance(mockActivatedRoute),
+                },
+                {
+                    provide: ShopsBalanceService,
+                    useFactory: () => instance(mockShopsBalanceService),
+                },
+                {
+                    provide: ShopsFiltersService,
+                    useFactory: () => instance(mockShopsFiltersService),
+                },
+                {
+                    provide: ShopsFiltersStoreService,
+                    useFactory: () => instance(mockShopsFiltersStoreService),
+                },
+            ],
         })
-    );
+            .overrideComponent(ShopsComponent, {
+                set: {
+                    providers: [],
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopsComponent);

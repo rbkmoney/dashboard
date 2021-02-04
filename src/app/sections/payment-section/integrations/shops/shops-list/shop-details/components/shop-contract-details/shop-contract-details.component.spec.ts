@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { instance, mock, verify, when } from 'ts-mockito';
 
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -16,27 +16,25 @@ describe('ShopContractDetailsComponent', () => {
         mockContractsService = mock(ShopContractDetailsService);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [getTranslocoModule()],
-                declarations: [ShopContractDetailsComponent],
-                providers: [
-                    {
-                        provide: ShopContractDetailsService,
-                        useFactory: () => instance(mockContractsService),
-                    },
-                ],
-            })
-                .overrideComponent(ShopContractDetailsComponent, {
-                    set: {
-                        providers: [],
-                        changeDetection: ChangeDetectionStrategy.Default,
-                    },
-                })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [getTranslocoModule()],
+            declarations: [ShopContractDetailsComponent],
+            providers: [
+                {
+                    provide: ShopContractDetailsService,
+                    useFactory: () => instance(mockContractsService),
+                },
+            ],
         })
-    );
+            .overrideComponent(ShopContractDetailsComponent, {
+                set: {
+                    providers: [],
+                    changeDetection: ChangeDetectionStrategy.Default,
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopContractDetailsComponent);

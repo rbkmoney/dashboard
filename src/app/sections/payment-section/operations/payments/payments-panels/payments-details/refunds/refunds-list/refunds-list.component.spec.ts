@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RefundSearchResult } from '@dsh/api-codegen/capi';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -9,14 +9,12 @@ describe('RefundsListComponent', () => {
     let component: RefundsListComponent;
     let fixture: ComponentFixture<RefundsListComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [getTranslocoModule()],
-                declarations: [RefundsListComponent],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [getTranslocoModule()],
+            declarations: [RefundsListComponent],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(RefundsListComponent);

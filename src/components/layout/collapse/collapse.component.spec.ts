@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { MatIcon, MatIconRegistry } from '@angular/material/icon';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,14 +31,12 @@ describe('CollapseComponent', () => {
     let fixture: ComponentFixture<MockCollapseComponent>;
     let selector: Selector;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [CollapseModule, NoopAnimationsModule, HttpClientTestingModule],
-                declarations: [MockCollapseComponent, MockCollapseUpComponent],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CollapseModule, NoopAnimationsModule, HttpClientTestingModule],
+            declarations: [MockCollapseComponent, MockCollapseUpComponent],
+        }).compileComponents();
+    });
 
     beforeEach(inject([MatIconRegistry, DomSanitizer], (mir: MatIconRegistry, sanitizer: DomSanitizer) => {
         const sanitizedUrl = sanitizer.bypassSecurityTrustResourceUrl('./test.svg');

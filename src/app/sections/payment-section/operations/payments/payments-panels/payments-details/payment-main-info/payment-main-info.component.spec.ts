@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CustomerPayer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
@@ -25,37 +25,35 @@ describe('PaymentMainInfoComponent', () => {
     let component: PaymentMainInfoComponent;
     let fixture: ComponentFixture<PaymentMainInfoComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    getTranslocoModule(),
-                    MockDetailsItemModule,
-                    PaymentToolModule,
-                    FlexLayoutModule,
-                    ToMajorModule,
-                    StatusModule,
-                ],
-                declarations: [
-                    PaymentMainInfoComponent,
-                    PaymentStatusComponent,
-                    PaymentErrorMessagePipe,
-                    ChargeAmountComponent,
-                    PaymentFeeComponent,
-                    ResourcePayerComponent,
-                    ShopNameComponent,
-                    AdditionalInfoComponent,
-                    MockShopDetailsPipe,
-                ],
-                providers: [
-                    {
-                        provide: LAYOUT_GAP,
-                        useValue: '0px',
-                    },
-                ],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                getTranslocoModule(),
+                MockDetailsItemModule,
+                PaymentToolModule,
+                FlexLayoutModule,
+                ToMajorModule,
+                StatusModule,
+            ],
+            declarations: [
+                PaymentMainInfoComponent,
+                PaymentStatusComponent,
+                PaymentErrorMessagePipe,
+                ChargeAmountComponent,
+                PaymentFeeComponent,
+                ResourcePayerComponent,
+                ShopNameComponent,
+                AdditionalInfoComponent,
+                MockShopDetailsPipe,
+            ],
+            providers: [
+                {
+                    provide: LAYOUT_GAP,
+                    useValue: '0px',
+                },
+            ],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentMainInfoComponent);

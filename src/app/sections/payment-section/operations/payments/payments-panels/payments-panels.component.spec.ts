@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -33,36 +33,34 @@ describe('PaymentsPanelsComponent', () => {
     let component: PaymentsPanelsComponent;
     let fixture: ComponentFixture<PaymentsPanelsComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [
-                    FlexLayoutModule,
-                    SpinnerModule,
-                    EmptySearchResultModule,
-                    AccordionModule,
-                    CardModule,
-                    ShowMorePanelModule,
-                    ExpandPanelModule,
-                    PaymentsDetailsModule,
-                    NoopAnimationsModule,
-                    HttpClientTestingModule,
-                    TranslocoTestingModule.withLangs(
-                        {
-                            ru: {
-                                emptySearchResult: 'Данные за указанный период отсутствуют',
-                            },
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                FlexLayoutModule,
+                SpinnerModule,
+                EmptySearchResultModule,
+                AccordionModule,
+                CardModule,
+                ShowMorePanelModule,
+                ExpandPanelModule,
+                PaymentsDetailsModule,
+                NoopAnimationsModule,
+                HttpClientTestingModule,
+                TranslocoTestingModule.withLangs(
+                    {
+                        ru: {
+                            emptySearchResult: 'Данные за указанный период отсутствуют',
                         },
-                        {
-                            availableLangs: ['ru'],
-                            defaultLang: 'ru',
-                        }
-                    ),
-                ],
-                declarations: [PaymentsPanelsComponent, MockRowHeaderComponent, MockRowComponent],
-            }).compileComponents();
-        })
-    );
+                    },
+                    {
+                        availableLangs: ['ru'],
+                        defaultLang: 'ru',
+                    }
+                ),
+            ],
+            declarations: [PaymentsPanelsComponent, MockRowHeaderComponent, MockRowComponent],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentsPanelsComponent);

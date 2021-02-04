@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { getTextContent } from '@dsh/app/shared/tests/get-text-content';
@@ -12,20 +12,18 @@ describe('ShopNameComponent', () => {
     let component: ShopNameComponent;
     let fixture: ComponentFixture<ShopNameComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [getTranslocoModule(), MockDetailsItemModule],
-                declarations: [ShopNameComponent],
-            })
-                .overrideComponent(ShopNameComponent, {
-                    set: {
-                        changeDetection: ChangeDetectionStrategy.Default,
-                    },
-                })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [getTranslocoModule(), MockDetailsItemModule],
+            declarations: [ShopNameComponent],
         })
-    );
+            .overrideComponent(ShopNameComponent, {
+                set: {
+                    changeDetection: ChangeDetectionStrategy.Default,
+                },
+            })
+            .compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopNameComponent);

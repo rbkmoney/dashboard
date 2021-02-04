@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import StatusEnum = InvoiceStatusChanged.StatusEnum;
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -27,20 +27,18 @@ describe('PaymentInvoiceInfoComponent', () => {
         mockRouter = mock(Router);
     });
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [getTranslocoModule(), MatIconModule],
-                declarations: [PaymentInvoiceInfoComponent, MockInvoiceDetailsComponent],
-                providers: [
-                    {
-                        provide: Router,
-                        useFactory: () => instance(mockRouter),
-                    },
-                ],
-            }).compileComponents();
-        })
-    );
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [getTranslocoModule(), MatIconModule],
+            declarations: [PaymentInvoiceInfoComponent, MockInvoiceDetailsComponent],
+            providers: [
+                {
+                    provide: Router,
+                    useFactory: () => instance(mockRouter),
+                },
+            ],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentInvoiceInfoComponent);
