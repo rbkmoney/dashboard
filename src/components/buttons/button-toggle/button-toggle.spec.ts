@@ -246,9 +246,9 @@ describe('DshButtonToggle without forms', () => {
             const fixture = TestBed.createComponent(ButtonToggleGroupWithInitialValueComponent);
             const testComponent = fixture.debugElement.componentInstance;
             const groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
-            const groupInstance: ButtonToggleGroupDirective = groupDebugElement.injector.get<
+            const groupInstance: ButtonToggleGroupDirective = groupDebugElement.injector.get<ButtonToggleGroupDirective>(
                 ButtonToggleGroupDirective
-            >(ButtonToggleGroupDirective);
+            );
 
             fixture.detectChanges();
 
