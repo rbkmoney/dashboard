@@ -22,7 +22,8 @@
                             "keycloak-js",
                             "css-element-queries",
                             "humanize-duration",
-                            "angular2-text-mask"
+                            "angular2-text-mask",
+                            "apexcharts"
                         ],
                         "outputPath": "dist",
                         "index": "src/index.html",
