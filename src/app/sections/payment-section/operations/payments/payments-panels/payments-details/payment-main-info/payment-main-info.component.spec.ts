@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CustomerPayer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
@@ -25,8 +25,8 @@ describe('PaymentMainInfoComponent', () => {
     let component: PaymentMainInfoComponent;
     let fixture: ComponentFixture<PaymentMainInfoComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 getTranslocoModule(),
                 MockDetailsItemModule,
@@ -53,7 +53,7 @@ describe('PaymentMainInfoComponent', () => {
                 },
             ],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentMainInfoComponent);

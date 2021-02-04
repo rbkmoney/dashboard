@@ -1,5 +1,5 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
@@ -10,8 +10,8 @@ describe('ShopIdComponent', () => {
     let fixture: ComponentFixture<ShopIdComponent>;
     let snackbar: MatSnackBar;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs(
                     {
@@ -30,7 +30,7 @@ describe('ShopIdComponent', () => {
             ],
             declarations: [ShopIdComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopIdComponent);

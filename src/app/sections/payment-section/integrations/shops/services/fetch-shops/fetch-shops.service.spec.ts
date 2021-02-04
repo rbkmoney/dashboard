@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -227,7 +227,7 @@ describe('FetchShopsService', () => {
             );
         });
 
-        it('should update loading value', async(() => {
+        it('should update loading value', () => {
             apiShopsService.setMockShops(generateMockShopsList(2));
 
             service.initRealm(PaymentInstitutionRealm.test);
@@ -250,6 +250,6 @@ describe('FetchShopsService', () => {
                     b: false,
                 })
             );
-        }));
+        });
     });
 });

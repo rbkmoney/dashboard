@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -35,10 +35,10 @@ describe('ShopInfoComponent', () => {
     let fixture: ComponentFixture<ShopInfoComponent>;
     let mockCategoryService: MockCategoryService;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         mockCategoryService = new MockCategoryService();
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs({
                     en: {
@@ -65,7 +65,7 @@ describe('ShopInfoComponent', () => {
                 },
             ],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopInfoComponent);

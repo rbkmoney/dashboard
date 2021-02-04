@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -75,10 +75,10 @@ describe('ShopActionsComponent', () => {
     let mockDialog: MockMatDialog;
     let actionsService: ShopActionsService;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         mockDialog = new MockMatDialog();
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs({
                     en: {
@@ -119,7 +119,7 @@ describe('ShopActionsComponent', () => {
         })
             .overrideComponent(ShopActionsComponent, { set: { providers: [] } })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopActionsComponent);

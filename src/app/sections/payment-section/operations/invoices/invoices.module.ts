@@ -23,7 +23,6 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
-import { TableModule } from '@dsh/components/table';
 
 import { LanguageModule } from '../../../../language';
 import { ShopSelectorModule } from '../../../shop-selector';
@@ -42,7 +41,6 @@ import { InvoicesComponent } from './invoices.component';
         ButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        TableModule,
         MatIconModule,
         ReactiveFormsModule,
         MatSelectModule,

@@ -16,14 +16,12 @@
                 <ng-template #placeholder>
                     {{ t('selectPeriod') }}
                 </ng-template>
-                <input
-                    #input
-                    matInput
-                    [formControl]="formControl"
-                    [satDatepicker]="picker"
-                    [min]="minDate"
-                    [max]="maxDate"
-                />
+                <form [formGroup]="dateControl">
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+                        <input matInput matStartDate formControlName="begin" />
+                        <input matInput matEndDate formControlName="end" />
+                    </mat-date-range-input>
+                </form>
             </div>
         </button>
         <button
@@ -51,5 +49,5 @@
         </ng-container>
     </mat-menu>
 
-    <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+    <mat-date-range-picker #picker (opened)="pickerOpened()"></mat-date-range-picker>
 </ng-container>

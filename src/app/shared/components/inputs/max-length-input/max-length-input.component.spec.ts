@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MaxLengthInputComponent } from './max-length-input.component';
 
@@ -6,11 +6,11 @@ describe('MaxLengthInputComponent', () => {
     let component: MaxLengthInputComponent;
     let fixture: ComponentFixture<MaxLengthInputComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             declarations: [MaxLengthInputComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(MaxLengthInputComponent);

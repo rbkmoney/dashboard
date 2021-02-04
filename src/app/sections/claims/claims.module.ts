@@ -14,7 +14,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
-import { TableModule } from '@dsh/components/table';
 
 import { LAYOUT_GAP } from '../tokens';
 import { ClaimsListModule } from './claims-list';
@@ -34,7 +33,6 @@ import { ClaimsComponent } from './claims.component';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        TableModule,
         IndicatorsModule,
         MatIconModule,
         StateNavModule,

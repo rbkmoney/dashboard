@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router } from '@angular/router';
@@ -23,8 +23,8 @@ describe('CreateShopDialogComponent', () => {
         mockDialogRef = mock(MatDialogRef);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 MatRadioModule,
                 TranslocoTestingModule.withLangs({
@@ -65,7 +65,7 @@ describe('CreateShopDialogComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(CreateShopDialogComponent);

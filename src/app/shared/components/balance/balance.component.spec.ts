@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 
@@ -11,8 +11,8 @@ describe('BalanceComponent', () => {
     let component: BalanceComponent;
     let fixture: ComponentFixture<BalanceComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [ToMajorModule],
             declarations: [BalanceComponent],
         })
@@ -22,7 +22,7 @@ describe('BalanceComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(BalanceComponent);

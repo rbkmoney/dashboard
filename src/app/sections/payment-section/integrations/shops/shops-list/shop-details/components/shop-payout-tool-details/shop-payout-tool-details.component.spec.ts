@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -16,8 +16,8 @@ describe('ShopPayoutToolDetailsComponent', () => {
         mockPayoutsService = mock(ShopPayoutToolDetailsService);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [getTranslocoModule()],
             declarations: [ShopPayoutToolDetailsComponent],
             providers: [
@@ -34,7 +34,7 @@ describe('ShopPayoutToolDetailsComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopPayoutToolDetailsComponent);
