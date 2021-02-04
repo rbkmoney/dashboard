@@ -1,7 +1,18 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { of } from 'rxjs';
+import { anything, instance, mock, verify, when } from 'ts-mockito';
 
+import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { ScrollUpModule } from '@dsh/components/navigation';
+
+import { FetchOrganizationsService } from '../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationsComponent } from './organizations.component';
 
 @Component({
@@ -14,11 +25,26 @@ describe('OrganizationsComponent', () => {
     let fixture: ComponentFixture<HostComponent>;
     let debugElement: DebugElement;
     let component: OrganizationsComponent;
+    let mockFetchOrganizationsService: FetchOrganizationsService;
+    let mockDialog: MatDialog;
 
     beforeEach(async () => {
+        mockFetchOrganizationsService = mock(FetchOrganizationsService);
+        mockDialog = mock(MatDialog);
+
         await TestBed.configureTestingModule({
-            imports: [],
+            imports: [
+                ScrollUpModule,
+                IndicatorsModule,
+                EmptySearchResultModule,
+                TranslocoTestingModule.withLangs({}, { missingHandler: { logMissingKey: false } }),
+            ],
             declarations: [HostComponent, OrganizationsComponent],
+            providers: [
+                { provide: FetchOrganizationsService, useValue: instance(mockFetchOrganizationsService) },
+                { provide: DIALOG_CONFIG, useValue: {} },
+                { provide: MatDialog, useValue: instance(mockDialog) },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
@@ -28,8 +54,33 @@ describe('OrganizationsComponent', () => {
         fixture.detectChanges();
     });
 
-    // TODO
-    // it('should be created', () => {
-    //     expect(component).toBeTruthy();
-    // });
+    it('should be created', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('should be init', () => {
+        verify(mockFetchOrganizationsService.search()).once();
+        expect().nothing();
+    });
+
+    describe('createOrganization', () => {
+        it('success', () => {
+            when(mockDialog.open(anything(), anything())).thenReturn({
+                afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
+            } as any);
+            component.createOrganization();
+            verify(mockDialog.open(anything(), anything())).once();
+            verify(mockFetchOrganizationsService.refresh()).once();
+            expect().nothing();
+        });
+        it('cancelled', () => {
+            when(mockDialog.open(anything(), anything())).thenReturn({
+                afterClosed: () => of(BaseDialogResponseStatus.CANCELED),
+            } as any);
+            component.createOrganization();
+            verify(mockDialog.open(anything(), anything())).once();
+            verify(mockFetchOrganizationsService.refresh()).never();
+            expect().nothing();
+        });
+    });
 });
