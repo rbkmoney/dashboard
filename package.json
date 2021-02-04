@@ -103,7 +103,7 @@
     "@types/node": "^12.12.32",
     "@types/prettier": "^2.0.0",
     "@types/uuid": "^3.4.5",
-    "codelyzer": "^5.1.2",
+    "codelyzer": "^6.0.1",
     "del": "^5.1.0",
     "jasmine-core": "~3.5.0",
     "jasmine-marbles": "^0.6.0",
