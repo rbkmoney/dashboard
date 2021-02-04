@@ -1,0 +1,23 @@
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <input
+        [formControl]="formControl"
+        [attr.disabled]="isDisabled"
+        [errorStateMatcher]="matcher"
+        [required]="required"
+        (focusout)="onTouched()"
+        aria-label="max-length-input"
+        matInput
+        type="text"
+    />
+    <mat-hint>
+        <ng-container *ngTemplateOutlet="hint"></ng-container>
+    </mat-hint>
+    <mat-error>
+        <ng-container *ngTemplateOutlet="error"></ng-container>
+    </mat-error>
+</mat-form-field>
+
+<!-- should be an empty string to show nothing -->
+<ng-template #hint>{{ lengthError ? '' : lengthMessage }}</ng-template>
+<ng-template #error>{{ lengthError ? lengthMessage : '' }}</ng-template>

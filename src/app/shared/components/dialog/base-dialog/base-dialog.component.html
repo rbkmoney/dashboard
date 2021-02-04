@@ -1,0 +1,40 @@
+<div class="base-dialog" fxLayout="column" fxFlex="grow">
+    <div class="base-dialog-title">
+        <div [dshNoContent]="titleBlock">
+            <ng-content select="dshBaseDialogTitle"></ng-content>
+            <ng-content select="[dshBaseDialogTitle]"></ng-content>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+    <div class="base-dialog-content" fxFlex="grow">
+        <ng-content></ng-content>
+    </div>
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+    <div class="base-dialog-actions">
+        <div [dshNoContent]="actionsBlock" fxFlex="grow">
+            <ng-content select="dshBaseDialogActions"></ng-content>
+            <ng-content select="[dshBaseDialogActions]"></ng-content>
+        </div>
+    </div>
+</div>
+
+<ng-template #contentDividerContent>
+    <mat-divider *ngIf="hasDivider"></mat-divider>
+</ng-template>
+
+<ng-template #titleBlock>
+    <div class="dsh-headline">{{ title }}</div>
+</ng-template>
+
+<ng-template #actionsBlock>
+    <ng-container *transloco="let c">
+        <div class="base-dialog-actions-block" fxLayout="row" fxLayoutAlign="space-between">
+            <button fxFlex="126px" dsh-button color="warn" (click)="cancelDialog()">
+                {{ cancelButton || c('cancel') }}
+            </button>
+            <button dsh-button color="accent" [disabled]="disabledConfirm" (click)="confirmDialog()">
+                {{ confirmButton || c('confirm') }}
+            </button>
+        </div>
+    </ng-container>
+</ng-template>

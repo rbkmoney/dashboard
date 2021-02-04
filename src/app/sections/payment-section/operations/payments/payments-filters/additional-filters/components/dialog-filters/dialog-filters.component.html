@@ -1,0 +1,23 @@
+<ng-container *transloco="let t; read: 'filters'">
+    <dsh-base-dialog hasDivider>
+        <dshBaseDialogTitle fxFlex="row" fxLayout="space-between">
+            <div class="dsh-headline">{{ t('additionalFilters') }}</div>
+            <mat-icon class="close-icon" svgIcon="cross" (click)="close()"></mat-icon>
+        </dshBaseDialogTitle>
+        <div class="dialog-filters-main">
+            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+            <mat-divider></mat-divider>
+            <dsh-status-filters [form]="statusFiltersGroup"></dsh-status-filters>
+        </div>
+        <dshBaseDialogActions>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button dsh-button (click)="clear()">
+                    {{ t('clearParams') }}
+                </button>
+                <button dsh-button color="accent" (click)="confirm()">
+                    {{ t('save') }}
+                </button>
+            </div>
+        </dshBaseDialogActions>
+    </dsh-base-dialog>
+</ng-container>

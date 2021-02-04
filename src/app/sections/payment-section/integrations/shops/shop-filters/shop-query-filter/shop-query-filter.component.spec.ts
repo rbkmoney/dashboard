@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
-import { QueryFilterModule } from '@dsh/components/filters/query-filter';
+import { QueryFilterModule } from '@dsh/app/shared/components/filters/query-filter';
 
 import { ShopQueryFilterComponent } from './shop-query-filter.component';
 

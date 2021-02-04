@@ -9,6 +9,9 @@ import { genXRequestID } from '../utils';
 export class CAPIPartiesService {
     constructor(private partiesService: PartiesService) {}
 
+    /**
+     * Create if not exist and return party
+     */
     getMyParty(): Observable<Party> {
         return this.partiesService.getMyParty(genXRequestID());
     }

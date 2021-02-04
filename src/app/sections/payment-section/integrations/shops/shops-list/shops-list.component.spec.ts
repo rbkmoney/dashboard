@@ -6,13 +6,13 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ToMajorModule } from '../../../../../to-major';
 import { generateMockShopsItemList } from '../tests/generate-mock-shops-item-list';
 import { ShopRowHeaderComponent } from './components/shop-row-header/shop-row-header.component';
 import { ShopRowComponent } from './components/shop-row/shop-row.component';

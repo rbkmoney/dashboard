@@ -6,19 +6,19 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createInternationalLegalEntityModification,
     createShopCreationModification,
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
-import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
+import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
-    constructor(private claimsService: ClaimsService, private uuidGenerator: UuidGeneratorService) {}
+    constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
     createShop(creationData: InternationalShopEntityFormValue) {
         return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
@@ -39,10 +39,10 @@ export class CreateInternationalShopEntityService {
         payoutTool,
         correspondentPayoutTool = null,
     }: InternationalShopEntityFormValue): Modification[] {
-        const contractorID = this.uuidGenerator.generateUUID();
-        const contractID = this.uuidGenerator.generateUUID();
-        const payoutToolID = this.uuidGenerator.generateUUID();
-        const shopID = this.uuidGenerator.generateUUID();
+        const contractorID = this.idGenerator.generateUUID();
+        const contractID = this.idGenerator.generateUUID();
+        const payoutToolID = this.idGenerator.generateUUID();
+        const shopID = this.idGenerator.generateUUID();
 
         return [
             createInternationalLegalEntityModification(contractorID, {
@@ -52,7 +52,7 @@ export class CreateInternationalShopEntityService {
                 tradingName,
                 actualAddress,
             }),
-            createContractorParamsModification(contractID, {
+            createContractCreationModification(contractID, {
                 contractorID,
             }),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, {

@@ -6,12 +6,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
-import { ApiModelRefsModule, ApiModelTypesModule } from '@dsh/app/shared/pipes';
+import { ApiModelRefsModule, ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { ToMajorModule } from '../../../../to-major';
 import { CreatePayoutReportModule } from '../create-payout-report';
 import { PayoutActionsComponent } from './payout-actions';
 import { PayoutMainInfoComponent } from './payout-main-info';

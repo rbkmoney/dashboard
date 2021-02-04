@@ -6,20 +6,20 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
-    createContractorParamsModification,
+    createContractCreationModification,
     createRussianBankAccountModification,
     createRussianContractPayoutToolModification,
     createRussianLegalEntityModification,
     createShopCreationModification,
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
-import { UuidGeneratorService } from '@dsh/app/shared/services/uuid-generator/uuid-generator.service';
+import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 
 @Injectable()
 export class CreateRussianShopEntityService {
-    constructor(private claimsService: ClaimsService, private uuidGenerator: UuidGeneratorService) {}
+    constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
     createShop(creationData: RussianShopCreateData): Observable<Claim> {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
@@ -37,11 +37,11 @@ export class CreateRussianShopEntityService {
         payoutToolID: shopPayoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
     }: RussianShopCreateData): PartyModification[] {
-        const contractorID = this.uuidGenerator.generateUUID();
-        const contractID = this.uuidGenerator.generateUUID();
-        const shopID = this.uuidGenerator.generateUUID();
+        const contractorID = this.idGenerator.generateUUID();
+        const contractID = this.idGenerator.generateUUID();
+        const shopID = this.idGenerator.generateUUID();
 
-        let payoutToolID = this.uuidGenerator.generateUUID();
+        let payoutToolID = this.idGenerator.generateUUID();
         const payoutChangeset: PartyModification[] = [];
 
         if (isNil(shopPayoutToolID)) {
@@ -82,7 +82,7 @@ export class CreateRussianShopEntityService {
                 representativeFullName,
                 representativePosition,
             }),
-            createContractorParamsModification(contractID, {
+            createContractCreationModification(contractID, {
                 contractorID,
             }),
             ...payoutChangeset,
