@@ -1,39 +1,27 @@
+import { ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
+
 import { mockMember } from '../../tests/mock-member';
+import { mockMemberRole } from '../../tests/mock-member-role';
 import { RoleGroup } from '../types/role-group';
 import { getRolesByGroup } from './get-roles-by-group';
 
 describe('getRolesByGroup', () => {
     const expected: RoleGroup[] = [
         {
-            id: 'Integrator',
+            id: RoleId.Administrator,
             scopes: [
                 {
-                    id: 'Shop',
-                    resourcesIds: [
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                    ],
+                    id: ResourceScopeId.Shop,
+                    resourcesIds: new Array(8).fill(mockMemberRole.scope.resourceId),
                 },
             ],
         },
         {
-            id: 'Manager',
+            id: RoleId.Manager,
             scopes: [
                 {
-                    id: 'Shop',
-                    resourcesIds: [
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                    ],
+                    id: ResourceScopeId.Shop,
+                    resourcesIds: new Array(5).fill(mockMemberRole.scope.resourceId),
                 },
             ],
         },

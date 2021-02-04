@@ -1,22 +1,9 @@
-import { Member, MemberRole } from '../../../api-codegen/organizations';
+import { Member, RoleId } from '@dsh/api-codegen/organizations';
+
+import { mockMemberRole } from './mock-member-role';
 
 export const mockMember: Member = {
-    id: '8d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
+    id: '574fff44-1b69-43fc-a93b-bfe415d72e81',
     userEmail: 'test@mail.com',
-    roles: [
-        ...new Array(8).fill({
-            roleId: 'Integrator',
-            scope: {
-                id: 'Shop',
-                resourceId: '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-            },
-        } as MemberRole),
-        ...new Array(5).fill({
-            roleId: 'Manager',
-            scope: {
-                id: 'Shop',
-                resourceId: '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-            },
-        } as MemberRole),
-    ] as any,
+    roles: [...new Array(8).fill(mockMemberRole), ...new Array(5).fill({ ...mockMemberRole, roleId: RoleId.Manager })],
 };

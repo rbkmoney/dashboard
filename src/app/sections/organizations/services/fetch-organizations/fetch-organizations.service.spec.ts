@@ -1,10 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { KeycloakService } from 'keycloak-angular';
-import { instance, mock } from 'ts-mockito';
+import { of } from 'rxjs';
+import { instance, mock, verify, when } from 'ts-mockito';
 
-import { OrganizationsService } from '../../../../api';
-import { UserService } from '../../../../shared';
+import { OrganizationsService } from '@dsh/api';
+import { UserService } from '@dsh/app/shared';
+import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
+
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../tokens';
+import { mockOrg } from '../../tests/mock-org';
+import { mockOrgs } from '../../tests/mock-orgs';
 import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
@@ -22,43 +28,28 @@ describe('FetchOrganizationsService', () => {
         TestBed.configureTestingModule({
             providers: [
                 FetchOrganizationsService,
-                {
-                    provide: OrganizationsService,
-                    useValue: instance(mockOrganizationsService),
-                },
-                {
-                    provide: KeycloakService,
-                    useValue: instance(mockKeycloakService),
-                },
-                {
-                    provide: UserService,
-                    useValue: instance(mockUserService),
-                },
-                {
-                    provide: SEARCH_LIMIT,
-                    useValue: 5,
-                },
+                provideMockService(OrganizationsService, mockOrganizationsService),
+                provideMockToken(SEARCH_LIMIT, 5),
+                provideMockToken(DEBOUNCE_FETCHER_ACTION_TIME, 0),
             ],
         });
 
         service = TestBed.inject(FetchOrganizationsService);
     });
 
-    // TODO
-    // it('should be created', () => {
-    //     expect(service).toBeTruthy();
-    // });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 
-    // it('should fetch', (done) => {
-    //     const orgs = new Array(5).fill(mockOrg);
-    //     const result = { results: orgs };
-    //     when(mockOrganizationsService.getOrganizations(5, undefined)).thenReturn(of(result));
-    //     const sub = service.searchResult$.subscribe((v) => {
-    //         verify(mockOrganizationsService.getOrganizations(5, undefined)).called();
-    //         expect(v).toEqual(orgs);
-    //         sub.unsubscribe();
-    //         done();
-    //     });
-    //     service.search();
-    // });
+    it('should fetch', (done) => {
+        const orgs = new Array(5).fill(mockOrg);
+        when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(mockOrgs));
+        const sub = service.searchResult$.subscribe((v) => {
+            verify(mockOrganizationsService.listOrgMembership(5, undefined)).called();
+            expect(v).toEqual(orgs);
+            sub.unsubscribe();
+            done();
+        });
+        service.search();
+    });
 });
