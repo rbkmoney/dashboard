@@ -1,0 +1,26 @@
+<mat-radio-group fxLayout="column" fxLayoutGap="24px" [formControl]="control">
+    <mat-radio-button fxFlex *transloco="let c" [value]="null">
+        {{ c('any') }}
+    </mat-radio-button>
+    <ng-container *ngFor="let status of availableStatuses; let i = index">
+        <div *ngIf="i % 2 === 0" fxLayout="row" fxLayoutAlign="space-between">
+            <mat-radio-button fxFlex [value]="status">
+                <ng-container *ngTemplateOutlet="statusValue; context: { $implicit: status }"></ng-container>
+            </mat-radio-button>
+            <mat-radio-button fxFlex [value]="availableStatuses[i + 1]">
+                <ng-container
+                    *ngTemplateOutlet="statusValue; context: { $implicit: availableStatuses[i + 1] }"
+                ></ng-container>
+            </mat-radio-button>
+        </div>
+    </ng-container>
+    <ng-container *transloco="let t; read: 'filters'">
+        <dsh-inline-show-all-toggle [opened]="isAllStatusesVisible" (click)="toggleStatusesVisibility()">{{
+            isAllStatusesVisible ? t('hideAllStatuses') : t('showAllStatuses')
+        }}</dsh-inline-show-all-toggle>
+    </ng-container>
+</mat-radio-group>
+
+<ng-template #statusValue let-status>
+    <span *transloco="let paymentStatus; read: 'paymentStatus'">{{ paymentStatus(status) }}</span>
+</ng-template>
