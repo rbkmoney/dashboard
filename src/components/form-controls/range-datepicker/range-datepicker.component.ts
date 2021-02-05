@@ -63,7 +63,7 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         end: new FormControl(),
     });
 
-    current = moment();
+    current = moment().toDate();
     period: Period = null;
 
     private dateChanges$: Observable<InternalRange> = zip(

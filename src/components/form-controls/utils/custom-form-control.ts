@@ -30,7 +30,8 @@ import { InputMixinBase } from './input-base';
 @UntilDestroy()
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
-export class CustomFormControl<I extends any = any, P extends any = I> extends InputMixinBase
+export class CustomFormControl<I extends any = any, P extends any = I>
+    extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;

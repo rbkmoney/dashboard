@@ -8,8 +8,7 @@ import {
     isDaterange,
     isMonthsRange,
 } from '@dsh/pipes/daterange';
-
-import { ComponentChanges } from '../../../../type-utils';
+import { ComponentChanges } from '@dsh/type-utils';
 
 enum Type {
     today = 'today',
@@ -30,7 +29,7 @@ export class DaterangeFilterMenuComponent implements OnChanges {
     @Input() selected: Daterange;
     @Output() selectedChange = new EventEmitter<Daterange>();
 
-    readonly current = moment();
+    readonly current = moment().toDate();
     readonly type = Type;
     selectedType: Type;
 
@@ -63,7 +62,7 @@ export class DaterangeFilterMenuComponent implements OnChanges {
         this.selectedChange.emit({ begin: moment().startOf('year'), end: moment().endOf('year') });
     }
 
-    private getType(s: Daterange) {
+    private getType(s: Daterange): Type {
         if (!isDaterange(s)) {
             return null;
         }
