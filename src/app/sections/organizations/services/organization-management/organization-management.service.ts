@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
-import { first, map, pluck, switchMap, take } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Member, Organization } from '@dsh/api-codegen/organizations';
@@ -11,17 +11,16 @@ import { PickMutable } from '@dsh/type-utils';
 export class OrganizationManagementService {
     constructor(private organizationsService: OrganizationsService, private userService: UserService) {}
 
-    getCurrentMember(id: Organization['id']): Observable<Member> {
+    getCurrentMember(orgId: Organization['id']): Observable<Member> {
         return this.userService.id$.pipe(
             first(),
-            switchMap((userId) => this.organizationsService.getOrgMember(id, userId))
+            switchMap((userId) => this.organizationsService.getOrgMember(orgId, userId))
         );
     }
 
     createOrganization(organization: Omit<PickMutable<Organization>, 'owner'>): Observable<Organization> {
-        return this.userService.profile$.pipe(
-            take(1),
-            pluck('username'),
+        return this.userService.id$.pipe(
+            first(),
             switchMap((owner) =>
                 this.organizationsService.createOrg({
                     owner,

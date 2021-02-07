@@ -1,10 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { KeycloakService } from 'keycloak-angular';
 import { of } from 'rxjs';
-import { instance, mock, verify, when } from 'ts-mockito';
+import { mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
-import { UserService } from '@dsh/app/shared';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
 import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../partial-fetcher';
@@ -15,15 +13,11 @@ import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
     let mockOrganizationsService: OrganizationsService;
-    let mockKeycloakService: KeycloakService;
-    let mockUserService: UserService;
 
     let service: FetchOrganizationsService;
 
     beforeEach(() => {
         mockOrganizationsService = mock(OrganizationsService);
-        mockKeycloakService = mock(KeycloakService);
-        mockUserService = mock(UserService);
 
         TestBed.configureTestingModule({
             providers: [

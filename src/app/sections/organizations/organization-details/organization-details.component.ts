@@ -3,6 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
+import { Link } from '@dsh/app/shared';
+
+const LINKS: Link[] = [
+    {
+        path: 'members',
+    },
+    {
+        path: 'invitations',
+    },
+];
 
 @Component({
     selector: 'dsh-organization-details',
@@ -14,14 +24,7 @@ export class OrganizationDetailsComponent {
         switchMap(({ orgId }) => this.organizationsService.getOrg(orgId)),
         shareReplay(1)
     );
-    links = [
-        {
-            path: 'members',
-        },
-        {
-            path: 'invitations',
-        },
-    ];
+    readonly links = LINKS;
 
     constructor(private organizationsService: OrganizationsService, private route: ActivatedRoute) {}
 }

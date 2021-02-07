@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
-import { ResourceScopeId } from '@dsh/api-codegen/organizations';
+import { InviteeContact, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
@@ -47,16 +47,16 @@ export class CreateInvitationDialogComponent {
                     this.organizationsService.createInvitation(this.data.orgId, {
                         invitee: {
                             contact: {
-                                type: 'EMail',
+                                type: InviteeContact.TypeEnum.EMail,
                                 email: this.form.value.email,
                             },
                             roles: shops.slice(0, 1).map((shop) => ({
-                                roleId: 'Administrator',
+                                roleId: RoleId.Administrator,
                                 scope: {
                                     id: ResourceScopeId.Shop,
                                     resourceId: shop.id,
                                 },
-                            })) as any,
+                            })),
                         },
                     })
                 ),
