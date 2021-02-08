@@ -13,6 +13,14 @@
 
     &-title {
         padding-bottom: 20px;
+
+        &-close {
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
     }
 
     &-content {
