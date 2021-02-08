@@ -85,18 +85,18 @@ describe('RenameOrganizationDialogComponent', () => {
 
     describe('update', () => {
         let input: HTMLInputElement;
-        
+
         beforeEach(() => {
             input = fixture.debugElement.query(By.css('input')).nativeElement;
         });
-        
+
         afterEach(() => {
             expect().nothing();
         });
 
         it('should update organization', () => {
             when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(of(mockOrg));
-            
+
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
 
@@ -107,10 +107,10 @@ describe('RenameOrganizationDialogComponent', () => {
             verify(mockNotificationsService.success()).once();
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
         });
-        
+
         it("shouldn't update organization", () => {
             when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(throwError('Error'));
-            
+
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
 
