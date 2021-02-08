@@ -30,7 +30,7 @@ describe('InvitationsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [InvitationsComponent],
             providers: [
-                provideMockToken(DIALOG_CONFIG, {} as any),
+                provideMockToken(DIALOG_CONFIG, { small: {}, medium: {}, large: {} }),
                 provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(ErrorService),
                 provideMockService(ActivatedRoute, mockRoute),
