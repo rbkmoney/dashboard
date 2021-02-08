@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { cold } from 'jasmine-marbles';
@@ -22,12 +22,12 @@ describe('InvitationsComponent', () => {
     let mockOrganizationsService: OrganizationsService;
     let mockDialog: MatDialog;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         mockRoute = mock(ActivatedRoute);
         mockOrganizationsService = mock(OrganizationsService);
         mockDialog = mock(MatDialog);
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [InvitationsComponent],
             providers: [
                 provideMockToken(DIALOG_CONFIG, { small: {}, medium: {}, large: {} }),
@@ -45,7 +45,7 @@ describe('InvitationsComponent', () => {
         fixture = TestBed.createComponent(InvitationsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    }));
+    });
 
     it('should create', () => {
         expect(component).toBeTruthy();
