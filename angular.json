@@ -17,6 +17,14 @@
                 "build": {
                     "builder": "ngx-build-plus:browser",
                     "options": {
+                        "allowedCommonJsDependencies": [
+                            "uuid",
+                            "keycloak-js",
+                            "css-element-queries",
+                            "humanize-duration",
+                            "angular2-text-mask",
+                            "apexcharts"
+                        ],
                         "outputPath": "dist",
                         "index": "src/index.html",
                         "main": "src/main.ts",

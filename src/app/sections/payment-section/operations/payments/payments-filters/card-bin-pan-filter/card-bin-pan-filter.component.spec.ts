@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,8 +17,8 @@ describe('CardBinPanFilterComponent', () => {
     let component: CardBinPanFilterComponent;
     let fixture: ComponentFixture<CardBinPanFilterComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 getTranslocoModule(),
                 NoopAnimationsModule,
@@ -30,7 +30,7 @@ describe('CardBinPanFilterComponent', () => {
             ],
             declarations: [CardBinPanFilterComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(CardBinPanFilterComponent);

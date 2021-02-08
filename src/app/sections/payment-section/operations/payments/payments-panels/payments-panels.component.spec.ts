@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Input } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
@@ -33,8 +33,8 @@ describe('PaymentsPanelsComponent', () => {
     let component: PaymentsPanelsComponent;
     let fixture: ComponentFixture<PaymentsPanelsComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 FlexLayoutModule,
                 SpinnerModule,
@@ -60,7 +60,7 @@ describe('PaymentsPanelsComponent', () => {
             ],
             declarations: [PaymentsPanelsComponent, MockRowHeaderComponent, MockRowComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentsPanelsComponent);

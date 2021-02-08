@@ -5,6 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
+import { skip } from 'rxjs/operators';
 
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
@@ -72,7 +73,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     }
 
     registerOnChange(onChange: (value: any) => void): void {
-        this.formControl.valueChanges.pipe(untilDestroyed(this)).subscribe((value: string) => {
+        this.formControl.valueChanges.pipe(skip(1), untilDestroyed(this)).subscribe((value: string) => {
             onChange(value);
         });
     }

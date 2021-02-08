@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { By } from '@angular/platform-browser';
 
@@ -21,8 +21,8 @@ describe('AdditionalInfoComponent', () => {
     let component: AdditionalInfoComponent;
     let fixture: ComponentFixture<AdditionalInfoComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [getTranslocoModule(), FlexLayoutModule, MockDetailsItemModule],
             declarations: [AdditionalInfoComponent, MockCollapseComponent],
         })
@@ -32,7 +32,7 @@ describe('AdditionalInfoComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(AdditionalInfoComponent);

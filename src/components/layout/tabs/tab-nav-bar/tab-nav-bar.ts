@@ -118,6 +118,8 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
     @Input() tabIndex: number;
     @Input() badge?: string | number;
 
+    defaultTabIndex: number;
+
     @Input()
     get active(): boolean {
         return this._isActive;
@@ -133,8 +135,8 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
 
     @HostBinding('class.dsh-tab-link') tabLinkClass = true;
     @HostBinding('class.dsh-tab-label') tabLabel = true;
-    @HostBinding('attr.tabIndex') tabIndexClass = this.tabIndex;
-    @HostBinding('class.dsh-tab-disabled') tabDisabledClass = this.disabled;
+    @HostBinding('attr.tabIndex') tabIndexClass;
+    @HostBinding('class.dsh-tab-disabled') tabDisabledClass;
     @HostBinding('class.dsh-tab-label-active') tabLabelActiveClass = this.active;
 
     constructor(
@@ -143,5 +145,7 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
         @Attribute('tabindex') tabIndex: string
     ) {
         this.tabIndex = parseInt(tabIndex, 10) || 0;
+        this.tabIndexClass = this.tabIndex;
+        this.tabDisabledClass = this.disabled;
     }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-// TODO: add support directives ng-content selectors
+import { coerceBoolean } from '@dsh/utils';
+
 // TODO: add unit test for template with new ng-content
 @Component({
     selector: 'dsh-base-dialog',
@@ -12,6 +13,10 @@ export class BaseDialogComponent {
     @Input() cancelButton: string;
     @Input() confirmButton: string;
     @Input() disabledConfirm: boolean;
+
+    @coerceBoolean
+    @Input()
+    hasDivider: boolean;
 
     @Output() cancel = new EventEmitter<void>();
     @Output() confirm = new EventEmitter<void>();

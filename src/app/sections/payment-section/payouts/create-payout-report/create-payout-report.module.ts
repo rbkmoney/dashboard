@@ -25,6 +25,5 @@ import { CreatePayoutReportService } from './create-payout-report.service';
     ],
     declarations: [CreatePayoutReportDialogComponent],
     providers: [CreatePayoutReportService],
-    entryComponents: [CreatePayoutReportDialogComponent],
 })
 export class CreatePayoutReportModule {}

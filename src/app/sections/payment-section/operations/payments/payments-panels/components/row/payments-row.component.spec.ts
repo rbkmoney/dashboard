@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import moment from 'moment';
@@ -17,8 +17,8 @@ describe('PaymentsRowComponent', () => {
     let fixture: ComponentFixture<PaymentsRowComponent>;
     let component: PaymentsRowComponent;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 RowModule,
                 PaymentStatusModule,
@@ -50,7 +50,7 @@ describe('PaymentsRowComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentsRowComponent);

@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-@import '~saturn-datepicker/bundle.css';
 
 @import './utils/typography';
 
@@ -13,7 +12,6 @@
 @import './overrides/mat-checkbox';
 @import './overrides/mat-dialog-container';
 
-@import '../components/table/table-theme';
 @import '../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../components/buttons/button/button-theme';
 @import '../components/buttons/button-toggle/button-toggle-theme';
@@ -64,7 +62,6 @@
     @include dsh-float-panel-typography($config);
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
-    @include dsh-table-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
     @include mat-radio-button-override-typography($config);
     @include dsh-payment-details-typography($config);

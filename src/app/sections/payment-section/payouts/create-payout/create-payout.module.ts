@@ -33,6 +33,5 @@ import { CreatePayoutService } from './create-payout.service';
     ],
     declarations: [CreatePayoutDialogComponent],
     providers: [CreatePayoutService],
-    entryComponents: [CreatePayoutDialogComponent],
 })
 export class CreatePayoutModule {}

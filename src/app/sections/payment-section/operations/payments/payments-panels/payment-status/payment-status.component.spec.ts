@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
@@ -12,8 +12,8 @@ describe('PaymentStatusComponent', () => {
     let component: PaymentStatusComponent;
     let fixture: ComponentFixture<PaymentStatusComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 StatusModule,
                 TranslocoTestingModule.withLangs(
@@ -37,7 +37,7 @@ describe('PaymentStatusComponent', () => {
             ],
             declarations: [PaymentStatusComponent, PaymentStatusColorPipe],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentStatusComponent);

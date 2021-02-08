@@ -15,9 +15,7 @@ import { FloatPanelModule } from './float-panel.module';
             <dsh-float-panel-actions>
                 <button>Сбросить</button>
             </dsh-float-panel-actions>
-            <dsh-float-panel-more>
-                Фильтр
-            </dsh-float-panel-more>
+            <dsh-float-panel-more> Фильтр </dsh-float-panel-more>
         </dsh-float-panel>
     `,
 })

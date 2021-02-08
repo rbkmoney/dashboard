@@ -11,11 +11,10 @@ import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { AdditionalFiltersService } from './additional-filters';
+import { AdditionalFilters, AdditionalFiltersService } from './additional-filters';
 import { CardBinPan } from './card-bin-pan-filter';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
 import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';
-import { PaymentsAdditionalFilters } from './types/payments-additional-filters';
 import { PaymentsFiltersData } from './types/payments-filters-data';
 
 @UntilDestroy()
@@ -44,8 +43,9 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: PaymentsFiltersData) => {
             this.filtersChanged.emit(filtersData);
-            const { shopIDs = [] } = filtersData;
+            const { shopIDs = [], additional = {} } = filtersData;
             this.shopService.setSelectedIds(shopIDs);
+            this.updateAdditionalFiltersStatus(additional);
         });
     }
 
@@ -59,14 +59,14 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         this.filtersData$
             .pipe(
                 take(1),
-                map((filtersData: PaymentsFiltersData) => filtersData.additional),
-                switchMap((filters: PaymentsAdditionalFilters) => {
+                map((filtersData: PaymentsFiltersData) => filtersData.additional ?? {}),
+                switchMap((filters: AdditionalFilters) => {
                     return this.additionalFilters.openFiltersDialog(filters);
                 }),
                 untilDestroyed(this)
             )
-            .subscribe((filters: PaymentsAdditionalFilters) => {
-                this.isAdditionalFilterApplied = !isEmpty(filters);
+            .subscribe((filters: AdditionalFilters) => {
+                this.updateAdditionalFiltersValues(filters);
             });
     }
 
@@ -106,5 +106,15 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         this.filtersHandler.changeFilters({
             ...change,
         });
+    }
+
+    private updateAdditionalFiltersValues(additional: AdditionalFilters): void {
+        this.updateFilters({
+            additional,
+        });
+    }
+
+    private updateAdditionalFiltersStatus(additional: AdditionalFilters): void {
+        this.isAdditionalFilterApplied = !isEmpty(additional);
     }
 }
