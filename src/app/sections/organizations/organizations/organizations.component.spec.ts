@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
@@ -64,23 +64,25 @@ describe('OrganizationsComponent', () => {
     });
 
     describe('createOrganization', () => {
+        afterEach(() => {
+            expect().nothing();
+        });
+
         it('success', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
-            } as any);
+            } as MatDialogRef<any>);
             component.createOrganization();
             verify(mockDialog.open(anything(), anything())).once();
             verify(mockFetchOrganizationsService.refresh()).once();
-            expect().nothing();
         });
         it('cancelled', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.CANCELED),
-            } as any);
+            } as MatDialogRef<any>);
             component.createOrganization();
             verify(mockDialog.open(anything(), anything())).once();
             verify(mockFetchOrganizationsService.refresh()).never();
-            expect().nothing();
         });
     });
 });

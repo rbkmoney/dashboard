@@ -16,10 +16,14 @@ export function getRolesByGroup(roles: MemberRole[]): RoleGroup[] {
                 group = { id: role.roleId, scopes: [] };
                 groups.push(group);
             }
-            const scope: RoleGroupScope = group.scopes.find((s) => s.id === role.scope.id) ?? {
-                id: role.scope.id,
-                resourcesIds: [],
-            };
+            let scope: RoleGroupScope = group.scopes.find((s) => s.id === role.scope.id);
+            if (!scope) {
+                scope = {
+                    id: role.scope.id,
+                    resourcesIds: [],
+                };
+                group.scopes.push(scope);
+            }
             scope.resourcesIds.push(role.scope.resourceId);
             return groups;
         }, [])
