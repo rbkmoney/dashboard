@@ -19,8 +19,7 @@
     "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts",
-    "postinstall": "ngcc",
-    "docker": "docker"
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -106,6 +105,7 @@
     "@types/prettier": "^2.0.0",
     "@types/uuid": "^3.4.5",
     "codelyzer": "^6.0.0",
+    "concurrently": "^5.3.0",
     "del": "^5.1.0",
     "jasmine-core": "~3.6.0",
     "jasmine-marbles": "^0.6.0",
