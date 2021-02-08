@@ -25,6 +25,7 @@ export const initializer = (
                 onLoad: 'login-required',
                 checkLoginIframe: true,
             },
+            loadUserProfileAtStartUp: true,
             enableBearerInterceptor: true,
             bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
             bearerPrefix: 'Bearer',
