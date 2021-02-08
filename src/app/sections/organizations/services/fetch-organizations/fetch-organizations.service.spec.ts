@@ -35,15 +35,17 @@ describe('FetchOrganizationsService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should fetch', (done) => {
-        const orgs = new Array(5).fill(mockOrg);
-        when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(mockOrgs));
-        const sub = service.searchResult$.subscribe((v) => {
-            verify(mockOrganizationsService.listOrgMembership(5, undefined)).called();
-            expect(v).toEqual(orgs);
-            sub.unsubscribe();
-            done();
+    describe('search', () => {
+        it('should be fetched', (done) => {
+            const orgs = new Array(5).fill(mockOrg);
+            when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(mockOrgs));
+            const sub = service.searchResult$.subscribe((v) => {
+                verify(mockOrganizationsService.listOrgMembership(5, undefined)).called();
+                expect(v).toEqual(orgs);
+                sub.unsubscribe();
+                done();
+            });
+            service.search();
         });
-        service.search();
     });
 });
