@@ -84,29 +84,42 @@ describe('RenameOrganizationDialogComponent', () => {
     });
 
     describe('update', () => {
+        let input: HTMLInputElement;
+
+        beforeEach(() => {
+            input = fixture.debugElement.query(By.css('input')).nativeElement;
+        });
+
+        afterEach(() => {
+            expect().nothing();
+        });
+
         it('should update organization', () => {
             when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(of(mockOrg));
-            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
+
             fixture.detectChanges();
             component.update();
+
             verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
             verify(mockNotificationsService.success()).once();
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
-            expect().nothing();
         });
+
         it("shouldn't update organization", () => {
             when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(throwError('Error'));
-            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
+
             fixture.detectChanges();
             component.update();
+
             verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
             verify(mockErrorService.error(anything())).once();
             verify(mockDialogRef.close(anyString())).never();
-            expect().nothing();
         });
     });
 });
