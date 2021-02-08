@@ -1,7 +1,7 @@
 import { MemberRole, RoleId } from '../../../../api-codegen/organizations';
 import { RoleGroup, RoleGroupScope } from '../types/role-group';
 
-const ROLE_PRIORITY_DESC: { [N in RoleId]: number } = {
+const ROLE_PRIORITY_DESC: Record<RoleId, number> = {
     Administrator: 0,
     Accountant: 1,
     Integrator: 2,

@@ -13,6 +13,7 @@ import { OrganizationsService } from '@dsh/api';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorModule, ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationModule, NotificationService } from '@dsh/app/shared/services/notification';
+import { getTextContent } from '@dsh/app/shared/tests';
 import { DetailsItemComponent, DetailsItemModule } from '@dsh/components/layout';
 
 import { OrganizationRolesComponent, OrganizationRolesModule } from '../../../organization-roles';
@@ -82,7 +83,7 @@ describe('OrganizationComponent', () => {
             const item = fixture.debugElement
                 .query(By.directive(DetailsItemComponent))
                 .query(By.css('.dsh-details-item-content'));
-            expect(item.nativeElement.textContent.trim()).toEqual('15');
+            expect(getTextContent(item.nativeElement.textContent)).toEqual('15');
         });
 
         it('should display roles', () => {
