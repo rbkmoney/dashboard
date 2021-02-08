@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaymentsAdditionalFilters } from '../types/payments-additional-filters';
-import { DialogFiltersComponent } from './components/dialog-filters.component';
+import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+
+import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
+import { AdditionalFilters } from './types/additional-filters';
 
 @Injectable()
 export class AdditionalFiltersService {
-    constructor(private dialog: MatDialog) {}
+    constructor(@Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig, private dialog: MatDialog) {}
 
-    openFiltersDialog(data: PaymentsAdditionalFilters): Observable<PaymentsAdditionalFilters> {
+    openFiltersDialog(data: AdditionalFilters): Observable<AdditionalFilters> {
         return this.dialog
-            .open<DialogFiltersComponent, PaymentsAdditionalFilters>(DialogFiltersComponent, {
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, {
                 panelClass: 'fill-bleed-dialog',
-                width: '552px',
-                minHeight: '400px',
-                disableClose: true,
+                ...this.dialogConfig.medium,
                 data,
             })
             .afterClosed()

@@ -6,7 +6,6 @@ import { StatusComponent } from './status.component';
 @NgModule({
     imports: [CommonModule],
     declarations: [StatusComponent],
-    entryComponents: [StatusComponent],
     exports: [StatusComponent],
 })
 export class StatusModule {}

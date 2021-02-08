@@ -17,8 +17,7 @@ const EXPORTED_DECLARATIONS = [
 
 @NgModule({
     imports: [CommonModule, OverlayModule, PortalModule, PortalModule],
-    exports: EXPORTED_DECLARATIONS,
     declarations: EXPORTED_DECLARATIONS,
-    entryComponents: [DropdownComponent],
+    exports: EXPORTED_DECLARATIONS,
 })
 export class DropdownModule {}

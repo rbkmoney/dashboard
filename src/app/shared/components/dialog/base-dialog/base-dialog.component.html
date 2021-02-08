@@ -1,20 +1,26 @@
 <div class="base-dialog" fxLayout="column" fxFlex="grow">
     <div class="base-dialog-title">
         <div [dshNoContent]="titleBlock">
-            <ng-content select="[title]"></ng-content>
+            <ng-content select="dshBaseDialogTitle"></ng-content>
+            <ng-content select="[dshBaseDialogTitle]"></ng-content>
         </div>
     </div>
-    <ng-content select="[contentDivider]"></ng-content>
-    <div class="base-dialog-content" fxFlex="grow">
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+    <div class="base-dialog-content">
         <ng-content></ng-content>
     </div>
-    <ng-content select="[contentDivider]"></ng-content>
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
     <div class="base-dialog-actions">
         <div [dshNoContent]="actionsBlock" fxFlex="grow">
-            <ng-content select="[actions]"></ng-content>
+            <ng-content select="dshBaseDialogActions"></ng-content>
+            <ng-content select="[dshBaseDialogActions]"></ng-content>
         </div>
     </div>
 </div>
+
+<ng-template #contentDividerContent>
+    <mat-divider *ngIf="hasDivider"></mat-divider>
+</ng-template>
 
 <ng-template #titleBlock>
     <div class="dsh-headline">{{ title }}</div>

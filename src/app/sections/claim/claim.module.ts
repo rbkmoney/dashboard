@@ -36,6 +36,5 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ConfirmActionDialogModule,
     ],
     declarations: [ClaimComponent, RevokeClaimDialogComponent],
-    entryComponents: [RevokeClaimDialogComponent],
 })
 export class ClaimModule {}

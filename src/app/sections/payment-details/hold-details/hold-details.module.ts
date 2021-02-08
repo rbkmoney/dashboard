@@ -36,7 +36,6 @@ import { HoldDetailsComponent } from './hold-details.component';
     ],
     declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent, HoldActivePipe],
     exports: [HoldDetailsComponent],
-    entryComponents: [ConfirmHoldComponent, CancelHoldComponent],
     providers: [PaymentService],
 })
 export class HoldDetailsModule {}

@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,8 +18,8 @@ describe('QueryFilterComponent', () => {
     let component: QueryFilterComponent;
     let fixture: ComponentFixture<QueryFilterComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,
                 FilterModule,
@@ -38,7 +38,7 @@ describe('QueryFilterComponent', () => {
             ],
             declarations: [QueryFilterComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(QueryFilterComponent);

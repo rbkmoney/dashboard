@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
 import { PaymentDetailHeaderComponent } from './payment-detail-header.component';
@@ -7,8 +7,8 @@ describe('PaymentDetailHeaderComponent', () => {
     let component: PaymentDetailHeaderComponent;
     let fixture: ComponentFixture<PaymentDetailHeaderComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs(
                     {
@@ -30,7 +30,7 @@ describe('PaymentDetailHeaderComponent', () => {
             ],
             declarations: [PaymentDetailHeaderComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentDetailHeaderComponent);

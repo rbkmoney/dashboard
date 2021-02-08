@@ -17,7 +17,6 @@ import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
-import { TableModule } from '@dsh/components/table';
 
 import { ShopSelectorModule } from '../../../shop-selector';
 import { RefundsListModule } from './refunds-list';
@@ -34,7 +33,6 @@ import { RefundsComponent } from './refunds.component';
         ButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        TableModule,
         MatIconModule,
         ReactiveFormsModule,
         MatSelectModule,

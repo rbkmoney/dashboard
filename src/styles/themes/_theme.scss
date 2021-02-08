@@ -6,7 +6,6 @@
 @import '../overrides/mat-datepicker';
 @import '../overrides/mat-divider';
 
-@import '../../components/table/table-theme';
 @import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
 @import '../../components/buttons/button/button-theme';
@@ -61,7 +60,6 @@
         @include dsh-container-theme($theme);
         @include dsh-actionbar-theme($theme);
         @include dsh-dropdown-theme($theme);
-        @include dsh-table-theme($theme);
         @include dsh-invoice-cart-theme($theme);
         @include dsh-invoice-payments-theme($theme);
         @include dsh-card-theme($theme);

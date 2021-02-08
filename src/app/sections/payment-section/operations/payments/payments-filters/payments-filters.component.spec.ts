@@ -151,6 +151,25 @@ describe('PaymentsFiltersComponent', () => {
             verify(mockShopsSelectionManagerService.setSelectedIds(deepEqual(['id_one', 'id_two']))).once();
             expect().nothing();
         });
+
+        it('should update isAdditionalFilterApplied using filters data changes', async () => {
+            const filtersData = {
+                daterange: {
+                    begin: moment(),
+                    end: moment(),
+                },
+                additional: {
+                    payerEmail: 'ada@ada',
+                },
+            };
+
+            when(mockPaymentsFiltersService.filtersData$).thenReturn(of(filtersData));
+
+            await createComponent();
+            fixture.detectChanges();
+
+            expect(component.isAdditionalFilterApplied).toBe(true);
+        });
     });
 
     describe('ngOnChanges', () => {
@@ -196,7 +215,7 @@ describe('PaymentsFiltersComponent', () => {
                         end: moment(),
                     },
                     additional: {
-                        myProperty: null,
+                        payerEmail: 'ada@ada',
                     },
                 })
             );
@@ -209,7 +228,7 @@ describe('PaymentsFiltersComponent', () => {
             when(
                 mockAdditionalFiltersService.openFiltersDialog(
                     deepEqual({
-                        myProperty: null,
+                        payerEmail: 'ada@ada',
                     })
                 )
             ).thenReturn(of());
@@ -219,44 +238,35 @@ describe('PaymentsFiltersComponent', () => {
             verify(
                 mockAdditionalFiltersService.openFiltersDialog(
                     deepEqual({
-                        myProperty: null,
+                        payerEmail: 'ada@ada',
                     })
                 )
             ).once();
             expect().nothing();
         });
 
-        it('should change isAdditionalFilterApplied using response from dialog', async () => {
+        it('should not change isAdditionalFilterApplied using response from dialog', async () => {
+            when(mockPaymentsFiltersService.filtersData$).thenReturn(
+                of({
+                    daterange: {
+                        begin: moment(),
+                        end: moment(),
+                    },
+                })
+            );
+
             await createComponent();
             fixture.detectChanges();
 
-            when(
-                mockAdditionalFiltersService.openFiltersDialog(
-                    deepEqual({
-                        myProperty: null,
-                    })
-                )
-            ).thenReturn(of({}));
-
-            component.openFiltersDialog();
-
-            expect(component.isAdditionalFilterApplied).toBe(false);
-
-            when(
-                mockAdditionalFiltersService.openFiltersDialog(
-                    deepEqual({
-                        myProperty: null,
-                    })
-                )
-            ).thenReturn(
+            when(mockAdditionalFiltersService.openFiltersDialog(deepEqual({}))).thenReturn(
                 of({
-                    something: null,
+                    rrn: '1234',
                 })
             );
 
             component.openFiltersDialog();
 
-            expect(component.isAdditionalFilterApplied).toBe(true);
+            expect(component.isAdditionalFilterApplied).toBe(false);
         });
     });
 

@@ -4,9 +4,7 @@
 
 ```html
 <dsh-panel>
-    <dsh-panel-header>
-        Some test
-    </dsh-panel-header>
+    <dsh-panel-header> Some test </dsh-panel-header>
 </dsh-panel>
 ```
 
@@ -14,9 +12,7 @@
 
 ```html
 <dsh-panel color="primary">
-    <dsh-panel-header>
-        Some test
-    </dsh-panel-header>
+    <dsh-panel-header> Some test </dsh-panel-header>
 </dsh-panel>
 ```
 
@@ -39,9 +35,7 @@
 
 ```html
 <dsh-panel>
-    <dsh-panel-header>
-        Some text
-    </dsh-panel-header>
+    <dsh-panel-header> Some text </dsh-panel-header>
     <dsh-panel-content>Content</dsh-panel-content>
 </dsh-panel>
 ```
