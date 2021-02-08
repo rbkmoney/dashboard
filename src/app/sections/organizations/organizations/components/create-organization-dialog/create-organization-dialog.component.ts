@@ -16,7 +16,6 @@ import { OrganizationManagementService } from '../../../services/organization-ma
     selector: 'dsh-create-organization-dialog',
     templateUrl: 'create-organization-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [OrganizationManagementService],
 })
 export class CreateOrganizationDialogComponent {
     form = this.fb.group<{ name: string }>({ name: '' });

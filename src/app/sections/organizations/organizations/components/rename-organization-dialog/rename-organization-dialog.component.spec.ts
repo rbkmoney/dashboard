@@ -1,14 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import { instance, mock } from 'ts-mockito';
+import { of, throwError } from 'rxjs';
+import { anyString, anything, instance, mock, objectContaining, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { BaseDialogModule, BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 
-import { mockOrg } from '../../../tests/mock-org';
+import { MOCK_ORG } from '../../../tests/mock-org';
 import { RenameOrganizationDialogComponent } from './rename-organization-dialog.component';
 
 describe('RenameOrganizationDialogComponent', () => {
@@ -16,16 +22,24 @@ describe('RenameOrganizationDialogComponent', () => {
     let fixture: ComponentFixture<RenameOrganizationDialogComponent>;
     let mockDialogRef: MatDialogRef<RenameOrganizationDialogComponent>;
     let mockOrganizationsService: OrganizationsService;
+    let mockErrorService: ErrorService;
+    let mockNotificationsService: NotificationService;
 
     beforeEach(() => {
         mockDialogRef = mock(MatDialogRef);
         mockOrganizationsService = mock(OrganizationsService);
+        mockErrorService = mock(ErrorService);
+        mockNotificationsService = mock(NotificationService);
 
         TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs({}, { missingHandler: { logMissingKey: false } }),
                 FormsModule,
                 ReactiveFormsModule,
+                BaseDialogModule,
+                MatFormFieldModule,
+                MatInputModule,
+                NoopAnimationsModule,
             ],
             declarations: [RenameOrganizationDialogComponent],
             providers: [
@@ -39,15 +53,15 @@ describe('RenameOrganizationDialogComponent', () => {
                 },
                 {
                     provide: NotificationService,
-                    useValue: instance(mock(NotificationService)),
+                    useValue: instance(mockNotificationsService),
                 },
                 {
                     provide: ErrorService,
-                    useValue: instance(mock(ErrorService)),
+                    useValue: instance(mockErrorService),
                 },
                 {
                     provide: MAT_DIALOG_DATA,
-                    useValue: { organization: mockOrg },
+                    useValue: { organization: MOCK_ORG },
                 },
             ],
         }).compileComponents();
@@ -61,20 +75,51 @@ describe('RenameOrganizationDialogComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // TODO
-    // it('should cancel', () => {
-    //     component.cancel();
-    //     verify(mockDialogRef.close()).once();
-    //     expect().nothing();
-    // });
-    //
-    // it('should rename org', () => {
-    //     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    //     input.value = 'Test 2';
-    //     input.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     fixture.debugElement.queryAll(By.css('button'))[1].nativeElement.click();
-    //     verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
-    //     expect().nothing();
-    // });
+    describe('cancel', () => {
+        it('should cancelled', () => {
+            component.cancel();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.CANCELED)).once();
+            expect().nothing();
+        });
+    });
+
+    describe('update', () => {
+        let input: HTMLInputElement;
+
+        beforeEach(() => {
+            input = fixture.debugElement.query(By.css('input')).nativeElement;
+        });
+
+        afterEach(() => {
+            expect().nothing();
+        });
+
+        it('should update organization', () => {
+            when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(of(MOCK_ORG));
+
+            input.value = 'Test 2';
+            input.dispatchEvent(new Event('input'));
+
+            fixture.detectChanges();
+            component.update();
+
+            verify(mockOrganizationsService.patchOrg(MOCK_ORG.id, objectContaining({ name: 'Test 2' }))).once();
+            verify(mockNotificationsService.success()).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
+        });
+
+        it("shouldn't update organization", () => {
+            when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(throwError('Error'));
+
+            input.value = 'Test 2';
+            input.dispatchEvent(new Event('input'));
+
+            fixture.detectChanges();
+            component.update();
+
+            verify(mockOrganizationsService.patchOrg(MOCK_ORG.id, objectContaining({ name: 'Test 2' }))).once();
+            verify(mockErrorService.error(anything())).once();
+            verify(mockDialogRef.close(anyString())).never();
+        });
+    });
 });

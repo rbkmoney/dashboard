@@ -2,27 +2,27 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MemberComponent } from './member.component';
+import { InvitationsListComponent } from './invitations-list.component';
 
 @Component({
     selector: 'dsh-host',
-    template: `<dsh-member></dsh-member>`,
+    template: `<dsh-invitations-list></dsh-invitations-list>`,
 })
 class HostComponent {}
 
-describe('MemberComponent', () => {
+describe('InvitationsListComponent', () => {
     let fixture: ComponentFixture<HostComponent>;
     let debugElement: DebugElement;
-    let component: MemberComponent;
+    let component: InvitationsListComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [],
-            declarations: [HostComponent, MemberComponent],
+            declarations: [HostComponent, InvitationsListComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
-        debugElement = fixture.debugElement.query(By.directive(MemberComponent));
+        debugElement = fixture.debugElement.query(By.directive(InvitationsListComponent));
         component = debugElement.componentInstance;
 
         fixture.detectChanges();

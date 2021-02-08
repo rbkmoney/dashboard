@@ -40,7 +40,7 @@ export class InvitationsComponent {
         untilDestroyed(this),
         shareReplay(1)
     );
-    lastUpdated$ = this.invitations$.pipe(mapToTimestamp, shareReplay(1));
+    lastUpdated$ = this.invitations$.pipe(mapToTimestamp, untilDestroyed(this), shareReplay(1));
     isLoading$ = defer(() => progress(this.loadInvitations$, this.invitations$)).pipe(
         untilDestroyed(this),
         shareReplay(1)

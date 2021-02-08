@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InlineShowAllToggleComponent } from './inline-show-all-toggle.component';
 
@@ -6,11 +6,11 @@ describe('InlineShowAllComponent', () => {
     let component: InlineShowAllToggleComponent;
     let fixture: ComponentFixture<InlineShowAllToggleComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             declarations: [InlineShowAllToggleComponent],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(InlineShowAllToggleComponent);

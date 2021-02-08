@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
+// TODO: replace with BaseDialogResponseStatus
 export type ConfirmActionDialogResult = 'cancel' | 'confirm';
 
 @Component({

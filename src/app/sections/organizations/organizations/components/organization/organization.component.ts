@@ -50,8 +50,9 @@ export class OrganizationComponent implements OnChanges {
         }
     }
 
+    @ignoreBeforeCompletion
     leave() {
-        this.dialog
+        return this.dialog
             .open<ConfirmActionDialogComponent, void, ConfirmActionDialogResult>(ConfirmActionDialogComponent)
             .afterClosed()
             .pipe(

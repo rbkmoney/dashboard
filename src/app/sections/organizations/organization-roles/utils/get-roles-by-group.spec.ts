@@ -1,51 +1,39 @@
-import { mockMember } from '../../tests/mock-member';
+import { ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
+
+import { MOCK_MEMBER } from '../../tests/mock-member';
+import { MOCK_MEMBER_ROLE } from '../../tests/mock-member-role';
 import { RoleGroup } from '../types/role-group';
 import { getRolesByGroup } from './get-roles-by-group';
 
 describe('getRolesByGroup', () => {
     const expected: RoleGroup[] = [
         {
-            id: 'Integrator',
+            id: RoleId.Administrator,
             scopes: [
                 {
-                    id: 'Shop',
-                    resourcesIds: [
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '7d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                    ],
+                    id: ResourceScopeId.Shop,
+                    resourcesIds: new Array(8).fill(MOCK_MEMBER_ROLE.scope.resourceId),
                 },
             ],
         },
         {
-            id: 'Manager',
+            id: RoleId.Manager,
             scopes: [
                 {
-                    id: 'Shop',
-                    resourcesIds: [
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                        '9d560cdb-ce17-4ba5-b5c6-cc9c0eb1ad19',
-                    ],
+                    id: ResourceScopeId.Shop,
+                    resourcesIds: new Array(5).fill(MOCK_MEMBER_ROLE.scope.resourceId),
                 },
             ],
         },
     ];
 
     it('should convert to roles by group', () => {
-        const actual = getRolesByGroup(mockMember.roles);
+        const actual = getRolesByGroup(MOCK_MEMBER.roles);
         expect(actual).toEqual(expected);
     });
 
     it('should sort', () => {
-        const actual = getRolesByGroup(Array.from(mockMember.roles).reverse());
+        const actual = getRolesByGroup(Array.from(MOCK_MEMBER.roles).reverse());
         expect(actual).toEqual(expected);
     });
 
