@@ -1,22 +1,22 @@
 import { Invitation, InvitationStatusName, Invitee, InviteeContact } from '@dsh/api-codegen/organizations';
 
-import { mockMemberRole } from './mock-member-role';
+import { MOCK_MEMBER_ROLE } from './mock-member-role';
 
-export const mockInviteeContact: InviteeContact = {
+export const MOCK_INVITEE_CONTACT: InviteeContact = {
     type: InviteeContact.TypeEnum.EMail,
     email: 'user@rbkmoney.com',
 };
 
-export const mockInvitee: Invitee = {
-    contact: mockInviteeContact,
-    roles: [mockMemberRole],
+export const MOCK_INVITEE: Invitee = {
+    contact: MOCK_INVITEE_CONTACT,
+    roles: [MOCK_MEMBER_ROLE],
 };
 
-export const mockInvitation: Invitation = {
+export const MOCK_INVITATION: Invitation = {
     id: 'acc87d05-3884-4789-bacc-5da299667409',
     createdAt: '2019-11-21T18:43:00.000000Z',
     expiresAt: '2020-11-21T18:43:00.000000Z',
-    invitee: mockInvitee,
+    invitee: MOCK_INVITEE,
     acceptToken: 'token',
     metadata: { metameta: 'postpost' },
     status: InvitationStatusName.Pending,

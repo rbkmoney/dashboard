@@ -13,8 +13,8 @@ import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { mockInvitation } from '../../../../tests/mock-invitation';
-import { mockOrg } from '../../../../tests/mock-org';
+import { MOCK_INVITATION } from '../../../../tests/mock-invitation';
+import { MOCK_ORG } from '../../../../tests/mock-org';
 import { CreateInvitationDialogComponent } from './create-invitation-dialog.component';
 
 describe('CreateInvitationDialogComponent', () => {
@@ -37,7 +37,7 @@ describe('CreateInvitationDialogComponent', () => {
         mockShopsService = mock(ApiShopsService);
 
         when(mockShopsService.shops$).thenReturn(of([{ id: SHOP_ID } as Shop]));
-        when(mockOrganizationsService.createInvitation(mockOrg.id, anything())).thenReturn(of(mockInvitation));
+        when(mockOrganizationsService.createInvitation(MOCK_ORG.id, anything())).thenReturn(of(MOCK_INVITATION));
 
         TestBed.configureTestingModule({
             imports: [
@@ -52,7 +52,7 @@ describe('CreateInvitationDialogComponent', () => {
                 provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(NotificationService, mockNotificationsService),
                 provideMockService(ErrorService, mockErrorService),
-                provideMockToken(MAT_DIALOG_DATA, { orgId: mockOrg.id }),
+                provideMockToken(MAT_DIALOG_DATA, { orgId: MOCK_ORG.id }),
             ],
         }).compileComponents();
 
@@ -79,7 +79,7 @@ describe('CreateInvitationDialogComponent', () => {
             component.create();
             verify(
                 mockOrganizationsService.createInvitation(
-                    mockOrg.id,
+                    MOCK_ORG.id,
                     deepEqual({
                         invitee: {
                             contact: {
@@ -106,7 +106,7 @@ describe('CreateInvitationDialogComponent', () => {
         it("shouldn't create", () => {
             const error = new Error('Error 1');
             component.form.patchValue({ email: SOME_EMAIL });
-            when(mockOrganizationsService.createInvitation(mockOrg.id, anything())).thenReturn(throwError(error));
+            when(mockOrganizationsService.createInvitation(MOCK_ORG.id, anything())).thenReturn(throwError(error));
             component.create();
             verify(mockErrorService.error(error)).once();
             verify(mockDialogRef.close(anyString())).never();

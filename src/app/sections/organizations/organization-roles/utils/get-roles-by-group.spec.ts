@@ -1,7 +1,7 @@
 import { ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 
-import { mockMember } from '../../tests/mock-member';
-import { mockMemberRole } from '../../tests/mock-member-role';
+import { MOCK_MEMBER } from '../../tests/mock-member';
+import { MOCK_MEMBER_ROLE } from '../../tests/mock-member-role';
 import { RoleGroup } from '../types/role-group';
 import { getRolesByGroup } from './get-roles-by-group';
 
@@ -12,7 +12,7 @@ describe('getRolesByGroup', () => {
             scopes: [
                 {
                     id: ResourceScopeId.Shop,
-                    resourcesIds: new Array(8).fill(mockMemberRole.scope.resourceId),
+                    resourcesIds: new Array(8).fill(MOCK_MEMBER_ROLE.scope.resourceId),
                 },
             ],
         },
@@ -21,19 +21,19 @@ describe('getRolesByGroup', () => {
             scopes: [
                 {
                     id: ResourceScopeId.Shop,
-                    resourcesIds: new Array(5).fill(mockMemberRole.scope.resourceId),
+                    resourcesIds: new Array(5).fill(MOCK_MEMBER_ROLE.scope.resourceId),
                 },
             ],
         },
     ];
 
     it('should convert to roles by group', () => {
-        const actual = getRolesByGroup(mockMember.roles);
+        const actual = getRolesByGroup(MOCK_MEMBER.roles);
         expect(actual).toEqual(expected);
     });
 
     it('should sort', () => {
-        const actual = getRolesByGroup(Array.from(mockMember.roles).reverse());
+        const actual = getRolesByGroup(Array.from(MOCK_MEMBER.roles).reverse());
         expect(actual).toEqual(expected);
     });
 

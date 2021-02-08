@@ -7,8 +7,8 @@ import { OrganizationsService } from '@dsh/api';
 import { UserService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { mockMember } from '../../tests/mock-member';
-import { mockOrg } from '../../tests/mock-org';
+import { MOCK_MEMBER } from '../../tests/mock-member';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { OrganizationManagementService } from './organization-management.service';
 
 describe('OrganizationManagementService', () => {
@@ -24,8 +24,8 @@ describe('OrganizationManagementService', () => {
         mockUserService = mock(UserService);
 
         when(mockUserService.id$).thenReturn(of(SOME_USER_ID));
-        when(mockOrganizationsService.getOrgMember(anyString(), anyString())).thenReturn(of(mockMember));
-        when(mockOrganizationsService.createOrg(anything())).thenReturn(of(mockOrg));
+        when(mockOrganizationsService.getOrgMember(anyString(), anyString())).thenReturn(of(MOCK_MEMBER));
+        when(mockOrganizationsService.createOrg(anything())).thenReturn(of(MOCK_ORG));
 
         TestBed.configureTestingModule({
             providers: [
@@ -44,28 +44,28 @@ describe('OrganizationManagementService', () => {
 
     describe('getCurrentMember', () => {
         it('should be return member', () => {
-            const member$ = service.getCurrentMember(mockOrg.id);
-            expect(member$).toBeObservable(cold('(a|)', { a: mockMember }));
-            verify(mockOrganizationsService.getOrgMember(mockOrg.id, SOME_USER_ID)).once();
+            const member$ = service.getCurrentMember(MOCK_ORG.id);
+            expect(member$).toBeObservable(cold('(a|)', { a: MOCK_MEMBER }));
+            verify(mockOrganizationsService.getOrgMember(MOCK_ORG.id, SOME_USER_ID)).once();
         });
     });
 
     describe('createOrganization', () => {
         it('should be return org', () => {
-            const org$ = service.createOrganization(mockOrg);
-            expect(org$).toBeObservable(cold('(a|)', { a: mockOrg }));
-            verify(mockOrganizationsService.createOrg(objectContaining({ owner: SOME_USER_ID, ...mockOrg }))).once();
+            const org$ = service.createOrganization(MOCK_ORG);
+            expect(org$).toBeObservable(cold('(a|)', { a: MOCK_ORG }));
+            verify(mockOrganizationsService.createOrg(objectContaining({ owner: SOME_USER_ID, ...MOCK_ORG }))).once();
         });
     });
 
     describe('isOrganizationOwner', () => {
         it('should be return false', () => {
-            const member$ = service.isOrganizationOwner(mockOrg);
+            const member$ = service.isOrganizationOwner(MOCK_ORG);
             expect(member$).toBeObservable(cold('(a|)', { a: false }));
         });
         it('should be return true', () => {
-            when(mockUserService.id$).thenReturn(of(mockOrg.owner));
-            const member$ = service.isOrganizationOwner(mockOrg);
+            when(mockUserService.id$).thenReturn(of(MOCK_ORG.owner));
+            const member$ = service.isOrganizationOwner(MOCK_ORG);
             expect(member$).toBeObservable(cold('(a|)', { a: true }));
         });
     });

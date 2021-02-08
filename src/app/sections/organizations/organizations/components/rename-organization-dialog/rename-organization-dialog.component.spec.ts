@@ -14,7 +14,7 @@ import { BaseDialogModule, BaseDialogResponseStatus } from '@dsh/app/shared/comp
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 
-import { mockOrg } from '../../../tests/mock-org';
+import { MOCK_ORG } from '../../../tests/mock-org';
 import { RenameOrganizationDialogComponent } from './rename-organization-dialog.component';
 
 describe('RenameOrganizationDialogComponent', () => {
@@ -61,7 +61,7 @@ describe('RenameOrganizationDialogComponent', () => {
                 },
                 {
                     provide: MAT_DIALOG_DATA,
-                    useValue: { organization: mockOrg },
+                    useValue: { organization: MOCK_ORG },
                 },
             ],
         }).compileComponents();
@@ -95,7 +95,7 @@ describe('RenameOrganizationDialogComponent', () => {
         });
 
         it('should update organization', () => {
-            when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(of(mockOrg));
+            when(mockOrganizationsService.patchOrg(anyString(), anything())).thenReturn(of(MOCK_ORG));
 
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
@@ -103,7 +103,7 @@ describe('RenameOrganizationDialogComponent', () => {
             fixture.detectChanges();
             component.update();
 
-            verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
+            verify(mockOrganizationsService.patchOrg(MOCK_ORG.id, objectContaining({ name: 'Test 2' }))).once();
             verify(mockNotificationsService.success()).once();
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
         });
@@ -117,7 +117,7 @@ describe('RenameOrganizationDialogComponent', () => {
             fixture.detectChanges();
             component.update();
 
-            verify(mockOrganizationsService.patchOrg(mockOrg.id, objectContaining({ name: 'Test 2' }))).once();
+            verify(mockOrganizationsService.patchOrg(MOCK_ORG.id, objectContaining({ name: 'Test 2' }))).once();
             verify(mockErrorService.error(anything())).once();
             verify(mockDialogRef.close(anyString())).never();
         });

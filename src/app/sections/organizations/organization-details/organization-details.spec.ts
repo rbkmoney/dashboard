@@ -8,7 +8,7 @@ import { anyString, mock, verify, when } from 'ts-mockito';
 import { OrganizationsService } from '@dsh/api';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { mockOrg } from '../tests/mock-org';
+import { MOCK_ORG } from '../tests/mock-org';
 import { OrganizationDetailsComponent } from './organization-details.component';
 
 describe('OrganizationDetailsComponent', () => {
@@ -21,9 +21,9 @@ describe('OrganizationDetailsComponent', () => {
         mockOrganizationsService = mock(OrganizationsService);
         mockActivatedRoute = mock(ActivatedRoute);
 
-        when(mockOrganizationsService.getOrg(anyString())).thenReturn(of(mockOrg));
-        when(mockOrganizationsService.getOrg(mockOrg.id)).thenReturn(of(mockOrg));
-        when(mockActivatedRoute.params).thenReturn(of({ orgId: mockOrg.id }));
+        when(mockOrganizationsService.getOrg(anyString())).thenReturn(of(MOCK_ORG));
+        when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
+        when(mockActivatedRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
         when(mockActivatedRoute.snapshot).thenReturn({} as any);
 
         await TestBed.configureTestingModule({
@@ -49,8 +49,8 @@ describe('OrganizationDetailsComponent', () => {
 
     describe('should be init', () => {
         it('organization$', () => {
-            expect(component.organization$).toBeObservable(cold('(a|)', { a: mockOrg }));
-            verify(mockOrganizationsService.getOrg(mockOrg.id)).once();
+            expect(component.organization$).toBeObservable(cold('(a|)', { a: MOCK_ORG }));
+            verify(mockOrganizationsService.getOrg(MOCK_ORG.id)).once();
         });
     });
 });

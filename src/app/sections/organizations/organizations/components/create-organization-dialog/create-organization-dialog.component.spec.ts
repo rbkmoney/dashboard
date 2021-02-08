@@ -12,7 +12,7 @@ import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService } from '@dsh/app/shared/tests';
 
 import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
-import { mockOrg } from '../../../tests/mock-org';
+import { MOCK_ORG } from '../../../tests/mock-org';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
 describe('CreateOrganizationDialogComponent', () => {
@@ -63,7 +63,7 @@ describe('CreateOrganizationDialogComponent', () => {
 
     describe('create', () => {
         it('should create organization', () => {
-            when(mockOrganizationManagementService.createOrganization(anything())).thenReturn(of(mockOrg));
+            when(mockOrganizationManagementService.createOrganization(anything())).thenReturn(of(MOCK_ORG));
             const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));

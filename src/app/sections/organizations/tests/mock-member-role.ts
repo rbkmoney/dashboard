@@ -1,6 +1,6 @@
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 
-export const mockMemberRole: MemberRole = {
+export const MOCK_MEMBER_ROLE: MemberRole = {
     roleId: RoleId.Administrator,
     scope: {
         id: ResourceScopeId.Shop,

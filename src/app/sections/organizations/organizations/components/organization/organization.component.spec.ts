@@ -19,8 +19,8 @@ import { DetailsItemComponent, DetailsItemModule } from '@dsh/components/layout'
 import { OrganizationRolesComponent, OrganizationRolesModule } from '../../../organization-roles';
 import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
-import { mockMember } from '../../../tests/mock-member';
-import { mockOrg } from '../../../tests/mock-org';
+import { MOCK_MEMBER } from '../../../tests/mock-member';
+import { MOCK_ORG } from '../../../tests/mock-org';
 import { OrganizationComponent } from './organization.component';
 
 @Component({
@@ -28,7 +28,7 @@ import { OrganizationComponent } from './organization.component';
     template: `<dsh-organization [organization]="organization"></dsh-organization>`,
 })
 class HostComponent {
-    organization = mockOrg;
+    organization = MOCK_ORG;
 }
 
 describe('OrganizationComponent', () => {
@@ -66,10 +66,10 @@ describe('OrganizationComponent', () => {
 
         fixture = TestBed.createComponent(HostComponent);
         component = fixture.componentInstance;
-        when(mockOrganizationManagementService.getCurrentMember(anyString())).thenReturn(of(mockMember));
+        when(mockOrganizationManagementService.getCurrentMember(anyString())).thenReturn(of(MOCK_MEMBER));
         when(mockOrganizationManagementService.isOrganizationOwner(anything())).thenReturn(of(true));
         when(mockOrganizationsService.listOrgMembers(anyString())).thenReturn(
-            of({ result: new Array(15).fill(mockMember) })
+            of({ result: new Array(15).fill(MOCK_MEMBER) })
         );
         fixture.detectChanges();
     });

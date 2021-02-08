@@ -7,11 +7,12 @@ import { of } from 'rxjs';
 import { mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { MemberOrgListResult } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { mockMembers } from '../../tests/mock-members';
-import { mockOrg } from '../../tests/mock-org';
+import { MOCK_MEMBER } from '../../tests/mock-member';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { MembersComponent } from './members.component';
 
 @Component({
@@ -27,6 +28,10 @@ describe('MembersComponent', () => {
     let mockOrganizationsService: OrganizationsService;
     let mockRoute: ActivatedRoute;
 
+    const MOCK_MEMBERS: MemberOrgListResult = {
+        result: new Array(11).fill(MOCK_MEMBER),
+    };
+
     beforeEach(async () => {
         mockOrganizationsService = mock(OrganizationsService);
         mockRoute = mock(ActivatedRoute);
@@ -40,9 +45,9 @@ describe('MembersComponent', () => {
             ],
         }).compileComponents();
 
-        when(mockRoute.params).thenReturn(of({ orgId: mockOrg.id }));
-        when(mockOrganizationsService.getOrg(mockOrg.id)).thenReturn(of(mockOrg));
-        when(mockOrganizationsService.listOrgMembers(mockOrg.id)).thenReturn(of(mockMembers));
+        when(mockRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
+        when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
+        when(mockOrganizationsService.listOrgMembers(MOCK_ORG.id)).thenReturn(of(MOCK_MEMBERS));
 
         fixture = TestBed.createComponent(HostComponent);
         debugElement = fixture.debugElement.query(By.directive(MembersComponent));
@@ -57,13 +62,13 @@ describe('MembersComponent', () => {
 
     describe('init', () => {
         it('should load organization$', () => {
-            const expected$ = cold('(a|)', { a: mockOrg });
+            const expected$ = cold('(a|)', { a: MOCK_ORG });
             component.organization$.subscribe();
-            verify(mockOrganizationsService.getOrg(mockOrg.id)).once();
+            verify(mockOrganizationsService.getOrg(MOCK_ORG.id)).once();
             expect(component.organization$).toBeObservable(expected$);
         });
         it('should load members$', () => {
-            const expected$ = cold('(a)', { a: mockMembers.result });
+            const expected$ = cold('(a)', { a: MOCK_MEMBERS.result });
             expect(component.members$).toBeObservable(expected$);
         });
         it('should load invitations$', () => {
@@ -76,8 +81,8 @@ describe('MembersComponent', () => {
         it('should load memebers$', () => {
             component.members$.subscribe();
             component.refresh();
-            verify(mockOrganizationsService.listOrgMembers(mockOrg.id)).twice();
-            const expected$ = cold('(a)', { a: mockMembers.result });
+            verify(mockOrganizationsService.listOrgMembers(MOCK_ORG.id)).twice();
+            const expected$ = cold('(a)', { a: MOCK_MEMBERS.result });
             expect(component.members$).toBeObservable(expected$);
         });
     });

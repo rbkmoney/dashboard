@@ -3,18 +3,21 @@ import { of } from 'rxjs';
 import { mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { OrganizationSearchResult } from '@dsh/api-codegen/organizations';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
 import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../tokens';
-import { mockOrg } from '../../tests/mock-org';
-import { mockOrgs } from '../../tests/mock-orgs';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
     let mockOrganizationsService: OrganizationsService;
-
     let service: FetchOrganizationsService;
+
+    const MOCK_ORGS: OrganizationSearchResult = {
+        result: new Array(5).fill(MOCK_ORG),
+    };
 
     beforeEach(() => {
         mockOrganizationsService = mock(OrganizationsService);
@@ -37,8 +40,8 @@ describe('FetchOrganizationsService', () => {
 
     describe('search', () => {
         it('should be fetched', (done) => {
-            const orgs = new Array(5).fill(mockOrg);
-            when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(mockOrgs));
+            const orgs = new Array(5).fill(MOCK_ORG);
+            when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(MOCK_ORGS));
             const sub = service.searchResult$.subscribe((v) => {
                 verify(mockOrganizationsService.listOrgMembership(5, undefined)).called();
                 expect(v).toEqual(orgs);

@@ -6,13 +6,14 @@ import { of } from 'rxjs';
 import { anything, mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { InvitationListResult } from '@dsh/api-codegen/organizations';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { mockInvitationsResult } from '../../tests/mock-invitations-result';
-import { mockOrg } from '../../tests/mock-org';
+import { MOCK_INVITATION } from '../../tests/mock-invitation';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { InvitationsComponent } from './invitations.component';
 
 describe('InvitationsComponent', () => {
@@ -21,6 +22,10 @@ describe('InvitationsComponent', () => {
     let mockRoute: ActivatedRoute;
     let mockOrganizationsService: OrganizationsService;
     let mockDialog: MatDialog;
+
+    const MOCK_INVITATIONS_RESULT: InvitationListResult = {
+        result: new Array(5).fill(MOCK_INVITATION),
+    };
 
     beforeEach(async () => {
         mockRoute = mock(ActivatedRoute);
@@ -38,9 +43,9 @@ describe('InvitationsComponent', () => {
             ],
         }).compileComponents();
 
-        when(mockRoute.params).thenReturn(of({ orgId: mockOrg.id }));
-        when(mockOrganizationsService.getOrg(mockOrg.id)).thenReturn(of(mockOrg));
-        when(mockOrganizationsService.listInvitations(mockOrg.id)).thenReturn(of(mockInvitationsResult));
+        when(mockRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
+        when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
+        when(mockOrganizationsService.listInvitations(MOCK_ORG.id)).thenReturn(of(MOCK_INVITATIONS_RESULT));
 
         fixture = TestBed.createComponent(InvitationsComponent);
         component = fixture.componentInstance;
@@ -53,13 +58,13 @@ describe('InvitationsComponent', () => {
 
     describe('init', () => {
         it('should load organization$', () => {
-            const expected$ = cold('(a|)', { a: mockOrg });
+            const expected$ = cold('(a|)', { a: MOCK_ORG });
             component.organization$.subscribe();
-            verify(mockOrganizationsService.getOrg(mockOrg.id)).once();
+            verify(mockOrganizationsService.getOrg(MOCK_ORG.id)).once();
             expect(component.organization$).toBeObservable(expected$);
         });
         it('should load invitations$', () => {
-            const expected$ = cold('(a)', { a: mockInvitationsResult.result });
+            const expected$ = cold('(a)', { a: MOCK_INVITATIONS_RESULT.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
         it('should load invitations$', () => {
@@ -72,8 +77,8 @@ describe('InvitationsComponent', () => {
         it('should load invitations$', () => {
             component.invitations$.subscribe();
             component.refresh();
-            verify(mockOrganizationsService.listInvitations(mockOrg.id)).twice();
-            const expected$ = cold('(a)', { a: mockInvitationsResult.result });
+            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id)).twice();
+            const expected$ = cold('(a)', { a: MOCK_INVITATIONS_RESULT.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
     });
@@ -85,7 +90,7 @@ describe('InvitationsComponent', () => {
             } as any);
             component.invitations$.subscribe();
             component.createInvitation();
-            verify(mockOrganizationsService.listInvitations(mockOrg.id)).twice();
+            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id)).twice();
             expect().nothing();
         });
     });
