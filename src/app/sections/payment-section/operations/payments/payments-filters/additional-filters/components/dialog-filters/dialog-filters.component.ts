@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import isNil from 'lodash.isnil';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
+import { formatMajorAmountToStr, getAmountNum } from '@dsh/app/shared/utils/amount-formatters';
 import { removeDictEmptyFields } from '@dsh/utils';
 
 import { MainFilters } from '../../main-filters';
@@ -12,31 +12,6 @@ import { PaymentSumFilter } from '../../payment-sum-filter';
 import { paymentStatusValidator, StatusFilters } from '../../status-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
-
-function formatNumDot(amount: string): string {
-    return amount.replace(',', '.');
-}
-
-function formatVisualDot(amount: string): string {
-    return amount.replace('.', ',');
-}
-
-function getAmountNum(amount: string | null): number | null {
-    if (isNil(amount)) {
-        return null;
-    }
-
-    const amountNum = Number(formatNumDot(amount));
-    return isNaN(amountNum) ? null : amountNum;
-}
-
-function formatMajorAmountToStr(amount: number | null): string {
-    if (isNil(amount)) {
-        return '';
-    }
-
-    return formatVisualDot(String(amount));
-}
 
 @Component({
     selector: 'dsh-dialog-filters',
