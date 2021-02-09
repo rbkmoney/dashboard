@@ -12,6 +12,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { AdditionalFiltersService } from './additional-filters.service';
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { MainFiltersModule } from './main-filters';
+import { PaymentSumFilterModule } from './payment-sum-filter';
 import { StatusFiltersModule } from './status-filters';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { StatusFiltersModule } from './status-filters';
         MainFiltersModule,
         StatusFiltersModule,
         MatDividerModule,
+        PaymentSumFilterModule,
     ],
     declarations: [DialogFiltersComponent],
     providers: [AdditionalFiltersService],
