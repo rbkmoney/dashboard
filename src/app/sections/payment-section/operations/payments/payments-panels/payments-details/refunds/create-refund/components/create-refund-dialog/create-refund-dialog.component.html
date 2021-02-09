@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds.createRefund'">
-    <dsh-base-dialog [title]="t('title')" [disabledConfirm]="form.invalid" (cancel)="decline()" (confirm)="confirm()">
+    <dsh-base-dialog [title]="t('title')" [confirmButtonDisabled]="form.invalid" (cancel)="decline()" (confirm)="confirm()">
         <form fxLayout="column" [formGroup]="form">
             <dsh-max-length-input
                 class="create-refund-dialog-reason"

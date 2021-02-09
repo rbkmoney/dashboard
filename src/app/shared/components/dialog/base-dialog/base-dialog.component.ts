@@ -11,7 +11,7 @@ import { coerceBoolean } from '@dsh/utils';
 export class BaseDialogComponent {
     @Input() title: string;
     @Input() confirmButtonName: string;
-    @Input() disabledConfirm: boolean;
+    @Input() confirmButtonDisabled: boolean;
 
     @coerceBoolean
     @Input()
