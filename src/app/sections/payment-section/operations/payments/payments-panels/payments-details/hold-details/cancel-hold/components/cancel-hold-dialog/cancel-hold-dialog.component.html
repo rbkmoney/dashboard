@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
     <dsh-base-dialog
         [title]="t('cancelTitle')"
-        [disabledConfirm]="form.pristine || form.invalid"
+        [confirmButtonDisabled]="form.pristine || form.invalid"
         (cancel)="decline()"
         (confirm)="confirm()"
     >
