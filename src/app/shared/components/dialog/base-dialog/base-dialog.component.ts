@@ -10,9 +10,8 @@ import { coerceBoolean } from '@dsh/utils';
 })
 export class BaseDialogComponent {
     @Input() title: string;
-    @Input() cancelButton: string;
-    @Input() confirmButton: string;
-    @Input() disabledConfirm: boolean;
+    @Input() confirmButtonName: string;
+    @Input() confirmButtonDisabled: boolean;
 
     @coerceBoolean
     @Input()
