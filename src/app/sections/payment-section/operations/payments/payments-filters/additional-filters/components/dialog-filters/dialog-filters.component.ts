@@ -4,9 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
+import { formatMajorAmountToStr, getAmountNum } from '@dsh/app/shared/utils/amount-formatters';
 import { removeDictEmptyFields } from '@dsh/utils';
 
 import { MainFilters } from '../../main-filters';
+import { PaymentSumFilter } from '../../payment-sum-filter';
 import { paymentStatusValidator, StatusFilters } from '../../status-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
@@ -19,22 +21,30 @@ import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 })
 export class DialogFiltersComponent implements OnInit {
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
-        mainFilters: this.formBuilder.group<MainFilters>({
+        main: this.formBuilder.group<MainFilters>({
             payerEmail: ['', Validators.email],
             customerID: [''],
             rrn: ['', Validators.pattern(new RegExp(/^\d+$/))],
         }),
-        statusFilters: this.formBuilder.group<StatusFilters>({
+        status: this.formBuilder.group<StatusFilters>({
             paymentStatus: [null, paymentStatusValidator],
+        }),
+        paymentSum: this.formBuilder.group<PaymentSumFilter>({
+            min: [''],
+            max: [''],
         }),
     });
 
     get mainFiltersGroup(): FormGroup<MainFilters> {
-        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'mainFilters');
+        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'main');
     }
 
     get statusFiltersGroup(): FormGroup<StatusFilters> {
-        return getAbstractControl<FormGroup<StatusFilters>>(this.form, 'statusFilters');
+        return getAbstractControl<FormGroup<StatusFilters>>(this.form, 'status');
+    }
+
+    get paymentSumFiltersGroup(): FormGroup {
+        return getAbstractControl<FormGroup<StatusFilters>>(this.form, 'paymentSum');
     }
 
     constructor(
@@ -44,17 +54,7 @@ export class DialogFiltersComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const { payerEmail = '', customerID = '', rrn = '', paymentStatus = null } = this.data;
-        this.form.setValue({
-            mainFilters: {
-                payerEmail,
-                customerID,
-                rrn,
-            },
-            statusFilters: {
-                paymentStatus,
-            },
-        });
+        this.initForm();
     }
 
     clear(): void {
@@ -69,10 +69,45 @@ export class DialogFiltersComponent implements OnInit {
         this.dialogRef.close(this.getFiltersData());
     }
 
+    private initForm(): void {
+        this.form.setValue(this.getInitFormValues());
+    }
+
+    private getInitFormValues(): AdditionalFiltersForm {
+        const {
+            payerEmail = '',
+            customerID = '',
+            rrn = '',
+            paymentStatus = null,
+            paymentAmountFrom = null,
+            paymentAmountTo = null,
+        } = this.data;
+        return {
+            main: {
+                payerEmail,
+                customerID,
+                rrn,
+            },
+            status: {
+                paymentStatus,
+            },
+            paymentSum: {
+                min: formatMajorAmountToStr(paymentAmountFrom),
+                max: formatMajorAmountToStr(paymentAmountTo),
+            },
+        };
+    }
+
     private getFiltersData(): AdditionalFilters {
+        const { min, max } = this.extractGroupValidFields(this.paymentSumFiltersGroup);
+
         return removeDictEmptyFields({
             ...this.extractGroupValidFields(this.mainFiltersGroup),
             ...this.extractGroupValidFields(this.statusFiltersGroup),
+            ...removeDictEmptyFields({
+                paymentAmountFrom: getAmountNum(String(min)),
+                paymentAmountTo: getAmountNum(String(max)),
+            }),
         });
     }
 
@@ -88,5 +123,6 @@ export class DialogFiltersComponent implements OnInit {
     private resetFiltersData(): void {
         this.mainFiltersGroup.reset();
         this.statusFiltersGroup.reset();
+        this.paymentSumFiltersGroup.reset();
     }
 }
