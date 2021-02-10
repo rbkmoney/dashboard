@@ -4,9 +4,8 @@ import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { StatusFiltersComponent } from './status-filters.component';
+import { PaymentStatusFilterComponent } from './payment-status-filter.component';
 import { PaymentStatusFilterValue } from './types/payment-status-filter-value';
-import { StatusFilters } from './types/status-filters';
 
 @Component({
     selector: 'dsh-payment-status-filter',
@@ -17,16 +16,16 @@ class MockPaymentStatusFilterComponent {
 }
 
 describe('StatusFilterComponent', () => {
-    let component: StatusFiltersComponent;
-    let fixture: ComponentFixture<StatusFiltersComponent>;
+    let component: PaymentStatusFilterComponent;
+    let fixture: ComponentFixture<PaymentStatusFilterComponent>;
 
     async function createComponent() {
         await TestBed.configureTestingModule({
             imports: [getTranslocoModule()],
-            declarations: [StatusFiltersComponent, MockPaymentStatusFilterComponent],
+            declarations: [PaymentStatusFilterComponent, MockPaymentStatusFilterComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(StatusFiltersComponent);
+        fixture = TestBed.createComponent(PaymentStatusFilterComponent);
         component = fixture.componentInstance;
     }
 
@@ -36,7 +35,7 @@ describe('StatusFilterComponent', () => {
 
     describe('creation', () => {
         it('should create', () => {
-            component.form = new FormGroup<StatusFilters>({
+            component.control = new FormGroup<StatusFilters>({
                 paymentStatus: new FormControl<PaymentStatusFilterValue>(),
             });
 
@@ -50,7 +49,7 @@ describe('StatusFilterComponent', () => {
         it('should have statusControl property if form was provided', () => {
             expect(component.statusControl).toBeFalsy();
 
-            component.form = new FormGroup<StatusFilters>({
+            component.control = new FormGroup<StatusFilters>({
                 paymentStatus: new FormControl<PaymentStatusFilterValue>(),
             });
 
@@ -63,7 +62,7 @@ describe('StatusFilterComponent', () => {
             expect(component.statusControl).toBeFalsy();
             const statusControl = new FormControl<PaymentStatusFilterValue>();
 
-            component.form = new FormGroup<StatusFilters>({
+            component.control = new FormGroup<StatusFilters>({
                 paymentStatus: statusControl,
             });
 

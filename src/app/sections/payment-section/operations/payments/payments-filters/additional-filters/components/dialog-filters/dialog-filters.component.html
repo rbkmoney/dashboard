@@ -3,7 +3,7 @@
         <div class="dialog-filters-main">
             <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
             <mat-divider></mat-divider>
-            <dsh-status-filters [form]="statusFiltersGroup"></dsh-status-filters>
+            <dsh-payment-status-filter [control]="statusFilterControl"></dsh-payment-status-filter>
             <mat-divider></mat-divider>
             <dsh-payment-sum-filter [form]="paymentSumFiltersGroup"></dsh-payment-sum-filter>
         </div>

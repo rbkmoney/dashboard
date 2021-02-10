@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InlineShowAllToggleComponent } from './inline-show-all-toggle.component';
+import { ExpandableRadioGroupComponent } from './expandable-radio-group.component';
 
-describe('InlineShowAllComponent', () => {
-    let component: InlineShowAllToggleComponent;
-    let fixture: ComponentFixture<InlineShowAllToggleComponent>;
+describe('ExpandableRadioGroupComponent', () => {
+    let component: ExpandableRadioGroupComponent;
+    let fixture: ComponentFixture<ExpandableRadioGroupComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [InlineShowAllToggleComponent],
+            declarations: [ExpandableRadioGroupComponent],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(InlineShowAllToggleComponent);
+        fixture = TestBed.createComponent(ExpandableRadioGroupComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

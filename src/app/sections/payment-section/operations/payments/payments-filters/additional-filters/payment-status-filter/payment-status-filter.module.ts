@@ -6,10 +6,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InlineShowAllToggleModule } from '@dsh/app/shared/components/buttons/inline-show-all-toggle';
+import { ExpandableRadioGroupModule } from '@dsh/app/shared/components/radio-buttons/expandable-radio-group';
 import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
-import { PaymentStatusFilterComponent } from './components/payment-status-filter/payment-status-filter.component';
-import { StatusFiltersComponent } from './status-filters.component';
+import { PaymentStatusFilterComponent } from './payment-status-filter.component';
 
 @NgModule({
     imports: [
@@ -20,8 +20,9 @@ import { StatusFiltersComponent } from './status-filters.component';
         FlexLayoutModule,
         MatRadioModule,
         InlineShowAllToggleModule,
+        ExpandableRadioGroupModule,
     ],
-    declarations: [StatusFiltersComponent, PaymentStatusFilterComponent],
-    exports: [StatusFiltersComponent],
+    declarations: [PaymentStatusFilterComponent],
+    exports: [PaymentStatusFilterComponent],
 })
-export class StatusFiltersModule {}
+export class PaymentStatusFilterModule {}

@@ -12,8 +12,8 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { AdditionalFiltersService } from './additional-filters.service';
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { MainFiltersModule } from './main-filters';
+import { PaymentStatusFilterModule } from './payment-status-filter';
 import { PaymentSumFilterModule } from './payment-sum-filter';
-import { StatusFiltersModule } from './status-filters';
 
 @NgModule({
     imports: [
@@ -25,7 +25,7 @@ import { StatusFiltersModule } from './status-filters';
         ReactiveFormsModule,
         MatIconModule,
         MainFiltersModule,
-        StatusFiltersModule,
+        PaymentStatusFilterModule,
         MatDividerModule,
         PaymentSumFilterModule,
     ],

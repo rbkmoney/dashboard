@@ -16,8 +16,8 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { MainFiltersComponent } from '../../main-filters';
+import { PaymentStatusFilterModule } from '../../payment-status-filter';
 import { PaymentSumFilterModule } from '../../payment-sum-filter';
-import { StatusFiltersModule } from '../../status-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { DialogFiltersComponent } from './dialog-filters.component';
 
@@ -43,7 +43,7 @@ describe('DialogFiltersComponent', () => {
                 MatFormFieldModule,
                 MatInputModule,
                 MatDividerModule,
-                StatusFiltersModule,
+                PaymentStatusFilterModule,
                 PaymentSumFilterModule,
             ],
             declarations: [DialogFiltersComponent, MainFiltersComponent, MatIcon],
@@ -158,8 +158,8 @@ describe('DialogFiltersComponent', () => {
         });
 
         it('should return main filters form group', () => {
-            expect(component.statusFiltersGroup instanceof FormGroup).toBe(true);
-            expect(component.statusFiltersGroup.value).toEqual({
+            expect(component.statusFilterControl instanceof FormGroup).toBe(true);
+            expect(component.statusFilterControl.value).toEqual({
                 paymentStatus: 'pending',
             });
         });
