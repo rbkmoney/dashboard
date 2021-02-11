@@ -13,6 +13,7 @@ export class UserService {
         untilDestroyed(this),
         shareReplay(1)
     );
+    // TODO: use id/subject from JWT
     id$: Observable<string> = this.profile$.pipe(pluck('username'));
 
     private loadProfile$ = new BehaviorSubject<void>(undefined);
