@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-nested-table-theme($theme) {
+    $foreground: map-get($theme, foreground);
+    $primary: map-get($theme, primary);
+
+    .dsh-nested-table {
+        &-group {
+            &-show-more {
+                color: mat-color($primary, 400);
+            }
+        }
+
+        &-item,
+        &-row-item {
+            border-color: map-get($foreground, dividers) !important;
+        }
+    }
+}

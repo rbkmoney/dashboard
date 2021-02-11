@@ -1,0 +1,16 @@
+:host {
+    display: grid;
+
+    & > ::ng-deep .dsh-nested-table-row-item {
+        border-right: 1px solid;
+        padding: 12px 8px;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+::ng-deep .dsh-nested-table-row-hidden {
+    display: none;
+}
