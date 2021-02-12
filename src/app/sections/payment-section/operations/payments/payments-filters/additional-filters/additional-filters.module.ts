@@ -12,8 +12,10 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { AdditionalFiltersService } from './additional-filters.service';
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { MainFiltersModule } from './main-filters';
+import { PaymentStatusFilterModule } from './payment-status-filter';
 import { PaymentSumFilterModule } from './payment-sum-filter';
-import { StatusFiltersModule } from './status-filters';
+import { PaymentSystemFilterModule } from './payment-system-filter/payment-system-filter.module';
+import { TokenProviderFilterModule } from './token-provider-filter/token-provider-filter.module';
 
 @NgModule({
     imports: [
@@ -25,9 +27,11 @@ import { StatusFiltersModule } from './status-filters';
         ReactiveFormsModule,
         MatIconModule,
         MainFiltersModule,
-        StatusFiltersModule,
+        PaymentStatusFilterModule,
         MatDividerModule,
         PaymentSumFilterModule,
+        TokenProviderFilterModule,
+        PaymentSystemFilterModule,
     ],
     declarations: [DialogFiltersComponent],
     providers: [AdditionalFiltersService],
