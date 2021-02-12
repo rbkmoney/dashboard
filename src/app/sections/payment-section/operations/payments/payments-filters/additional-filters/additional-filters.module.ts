@@ -14,6 +14,8 @@ import { DialogFiltersComponent } from './components/dialog-filters/dialog-filte
 import { MainFiltersModule } from './main-filters';
 import { PaymentStatusFilterModule } from './payment-status-filter';
 import { PaymentSumFilterModule } from './payment-sum-filter';
+import { PaymentSystemFilterModule } from './payment-system-filter/payment-system-filter.module';
+import { TokenProviderFilterModule } from './token-provider-filter/token-provider-filter.module';
 
 @NgModule({
     imports: [
@@ -28,6 +30,8 @@ import { PaymentSumFilterModule } from './payment-sum-filter';
         PaymentStatusFilterModule,
         MatDividerModule,
         PaymentSumFilterModule,
+        TokenProviderFilterModule,
+        PaymentSystemFilterModule,
     ],
     declarations: [DialogFiltersComponent],
     providers: [AdditionalFiltersService],

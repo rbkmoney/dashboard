@@ -1,19 +1,13 @@
-import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
+import { FormControl } from '@ngneat/reactive-forms';
 
+import { ExpandableRadioGroupModule } from '@dsh/app/shared/components/radio-buttons/expandable-radio-group';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { PaymentStatusFilterComponent } from './payment-status-filter.component';
 import { PaymentStatusFilterValue } from './types/payment-status-filter-value';
-
-@Component({
-    selector: 'dsh-payment-status-filter',
-    template: '',
-})
-class MockPaymentStatusFilterComponent {
-    @Input() control: FormControl<PaymentStatusFilterValue>;
-}
 
 describe('StatusFilterComponent', () => {
     let component: PaymentStatusFilterComponent;
@@ -21,8 +15,8 @@ describe('StatusFilterComponent', () => {
 
     async function createComponent() {
         await TestBed.configureTestingModule({
-            imports: [getTranslocoModule()],
-            declarations: [PaymentStatusFilterComponent, MockPaymentStatusFilterComponent],
+            imports: [getTranslocoModule(), ExpandableRadioGroupModule, MatIconTestingModule],
+            declarations: [PaymentStatusFilterComponent, MatIcon],
         }).compileComponents();
 
         fixture = TestBed.createComponent(PaymentStatusFilterComponent);
@@ -35,40 +29,11 @@ describe('StatusFilterComponent', () => {
 
     describe('creation', () => {
         it('should create', () => {
-            component.control = new FormGroup<StatusFilters>({
-                paymentStatus: new FormControl<PaymentStatusFilterValue>(),
-            });
+            component.control = new FormControl<PaymentStatusFilterValue>();
 
             fixture.detectChanges();
 
             expect(component).toBeTruthy();
-        });
-    });
-
-    describe('form', () => {
-        it('should have statusControl property if form was provided', () => {
-            expect(component.statusControl).toBeFalsy();
-
-            component.control = new FormGroup<StatusFilters>({
-                paymentStatus: new FormControl<PaymentStatusFilterValue>(),
-            });
-
-            fixture.detectChanges();
-
-            expect(component.statusControl).toBeTruthy();
-        });
-
-        it('should set statusControl property using provided form', () => {
-            expect(component.statusControl).toBeFalsy();
-            const statusControl = new FormControl<PaymentStatusFilterValue>();
-
-            component.control = new FormGroup<StatusFilters>({
-                paymentStatus: statusControl,
-            });
-
-            fixture.detectChanges();
-
-            expect(component.statusControl).toEqual(statusControl);
         });
     });
 });

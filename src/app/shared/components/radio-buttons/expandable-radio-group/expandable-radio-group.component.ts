@@ -17,7 +17,8 @@ import { Dict } from '@dsh/type-utils';
 import { coerceBoolean } from '@dsh/utils';
 
 import { ExpandableRadioGroupItemDirective } from './directives/expandable-radio-group-item/expandable-radio-group-item.directive';
-import { ExpandableRadioChoice } from './types/expandable-radio-choice';
+import { ExpandableRadioChoice, isExpandableRadioObjectChoice } from './types/expandable-radio-choice';
+import { ExpandableRadioChoiceId } from './types/expandable-radio-choice-id';
 
 @Component({
     selector: 'dsh-expandable-radio-group',
@@ -38,13 +39,17 @@ export class ExpandableRadioGroupComponent implements OnInit, AfterContentInit {
     @Output() opened = new EventEmitter<void>();
     @Output() closed = new EventEmitter<void>();
 
-    itemsList: ExpandableRadioChoice[];
+    displayedChoices: ExpandableRadioChoice[];
     isAllChoicesVisible: boolean;
 
     @ContentChildren(ExpandableRadioGroupItemDirective)
     private itemsQuery: QueryList<ExpandableRadioGroupItemDirective>;
 
     private itemsDict: Dict<TemplateRef<ExpandableRadioGroupItemDirective>>;
+
+    get isValidPreviewCount(): boolean {
+        return isNumber(this.previewCount) && this.previewCount >= 0;
+    }
 
     ngOnInit(): void {
         this.hideChoices();
@@ -60,8 +65,8 @@ export class ExpandableRadioGroupComponent implements OnInit, AfterContentInit {
         );
     }
 
-    getChoiceId(choice: ExpandableRadioChoice): string {
-        return (choice as any)?.id || choice;
+    getChoiceId(choice: ExpandableRadioChoice): ExpandableRadioChoiceId {
+        return isExpandableRadioObjectChoice(choice) ? choice.id : choice;
     }
 
     getChoiceTemplate(choice: ExpandableRadioChoice): TemplateRef<ExpandableRadioGroupItemDirective> | null {
@@ -78,25 +83,25 @@ export class ExpandableRadioGroupComponent implements OnInit, AfterContentInit {
         }
     }
 
-    getChoiceLabel(choiceItem: ExpandableRadioChoice): string {
-        return (choiceItem as any)?.label || choiceItem;
+    getChoiceLabel(choice: ExpandableRadioChoice): string {
+        return isExpandableRadioObjectChoice(choice) ? choice.label : choice;
     }
 
     protected showAllChoices(): void {
-        this.itemsList = this.choices.slice();
+        this.displayedChoices = this.choices.slice();
         this.checkIsAllStatusesAvailable();
     }
 
     protected hideChoices(): void {
-        if (isNumber(this.previewCount) && this.previewCount > 0) {
-            this.itemsList = this.choices.slice(0, this.previewCount);
+        if (this.isValidPreviewCount) {
+            this.displayedChoices = this.choices.slice(0, this.previewCount);
         } else {
-            this.itemsList = this.choices.slice();
+            this.displayedChoices = this.choices.slice();
         }
         this.checkIsAllStatusesAvailable();
     }
 
     private checkIsAllStatusesAvailable(): void {
-        this.isAllChoicesVisible = this.itemsList.length === this.choices.length;
+        this.isAllChoicesVisible = this.displayedChoices.length === this.choices.length;
     }
 }

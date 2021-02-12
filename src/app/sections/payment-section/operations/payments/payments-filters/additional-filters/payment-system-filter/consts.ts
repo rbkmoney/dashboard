@@ -1,6 +1,6 @@
-import { BankCardPaymentSystem } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentSystemFilterValue } from './types/payment-system-filter-value';
 
-export const bankCardPaymentSystems: BankCardPaymentSystem[] = [
+export const PAYMENT_SYSTEMS: PaymentSystemFilterValue[] = [
     'visa',
     'mastercard',
     'visaelectron',

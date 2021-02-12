@@ -8,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { deepEqual, instance, mock, verify } from 'ts-mockito';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
@@ -18,6 +18,8 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { MainFiltersComponent } from '../../main-filters';
 import { PaymentStatusFilterModule } from '../../payment-status-filter';
 import { PaymentSumFilterModule } from '../../payment-sum-filter';
+import { PaymentSystemFilterModule } from '../../payment-system-filter/payment-system-filter.module';
+import { TokenProviderFilterModule } from '../../token-provider-filter/token-provider-filter.module';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { DialogFiltersComponent } from './dialog-filters.component';
 
@@ -45,6 +47,8 @@ describe('DialogFiltersComponent', () => {
                 MatDividerModule,
                 PaymentStatusFilterModule,
                 PaymentSumFilterModule,
+                TokenProviderFilterModule,
+                PaymentSystemFilterModule,
             ],
             declarations: [DialogFiltersComponent, MainFiltersComponent, MatIcon],
             providers: [
@@ -157,14 +161,12 @@ describe('DialogFiltersComponent', () => {
             });
         });
 
-        it('should return main filters form group', () => {
-            expect(component.statusFilterControl instanceof FormGroup).toBe(true);
-            expect(component.statusFilterControl.value).toEqual({
-                paymentStatus: 'pending',
-            });
+        it('should return statusFilter form control', () => {
+            expect(component.statusFilterControl instanceof FormControl).toBe(true);
+            expect(component.statusFilterControl.value).toBe('pending');
         });
 
-        it('should return main filters form group', () => {
+        it('should return paymentSumFilters form group', () => {
             expect(component.paymentSumFiltersGroup instanceof FormGroup).toBe(true);
             expect(component.paymentSumFiltersGroup.value).toEqual({
                 min: '500',

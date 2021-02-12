@@ -11,6 +11,8 @@ import { MainFilters } from '../../main-filters';
 import { paymentStatusValidator } from '../../payment-status-filter';
 import { PaymentStatusFilterValue } from '../../payment-status-filter/types/payment-status-filter-value';
 import { PaymentSumFilter } from '../../payment-sum-filter';
+import { PaymentSystemFilterValue } from '../../payment-system-filter/types/payment-system-filter-value';
+import { TokenProviderFilterValue } from '../../token-provider-filter/types/token-provider-filter-value';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 
@@ -32,6 +34,8 @@ export class DialogFiltersComponent implements OnInit {
             min: [''],
             max: [''],
         }),
+        bankCardTokenProvider: [null],
+        bankCardPaymentSystem: [null],
     });
 
     get mainFiltersGroup(): FormGroup<MainFilters> {
@@ -44,6 +48,14 @@ export class DialogFiltersComponent implements OnInit {
 
     get paymentSumFiltersGroup(): FormGroup<PaymentSumFilter> {
         return getAbstractControl<FormGroup<PaymentSumFilter>>(this.form, 'paymentSum');
+    }
+
+    get tokenProviderFilterControl(): FormControl<TokenProviderFilterValue> {
+        return getAbstractControl<FormControl<TokenProviderFilterValue>>(this.form, 'bankCardTokenProvider');
+    }
+
+    get paymentSystemFilterControl(): FormControl<PaymentSystemFilterValue> {
+        return getAbstractControl<FormControl<PaymentSystemFilterValue>>(this.form, 'bankCardPaymentSystem');
     }
 
     constructor(
@@ -80,6 +92,8 @@ export class DialogFiltersComponent implements OnInit {
             paymentStatus = null,
             paymentAmountFrom = null,
             paymentAmountTo = null,
+            bankCardTokenProvider = null,
+            bankCardPaymentSystem = null,
         } = this.data;
         return {
             main: {
@@ -92,6 +106,8 @@ export class DialogFiltersComponent implements OnInit {
                 min: formatMajorAmountToStr(paymentAmountFrom),
                 max: formatMajorAmountToStr(paymentAmountTo),
             },
+            bankCardTokenProvider,
+            bankCardPaymentSystem,
         };
     }
 
@@ -100,11 +116,13 @@ export class DialogFiltersComponent implements OnInit {
 
         return removeDictEmptyFields({
             ...this.extractGroupValidFields(this.mainFiltersGroup),
-            paymentStatus: this.statusFilterControl.value,
             ...removeDictEmptyFields({
                 paymentAmountFrom: getAmountNum(String(min)),
                 paymentAmountTo: getAmountNum(String(max)),
             }),
+            paymentStatus: this.statusFilterControl.value,
+            bankCardTokenProvider: this.tokenProviderFilterControl.value,
+            bankCardPaymentSystem: this.paymentSystemFilterControl.value,
         });
     }
 
@@ -118,8 +136,9 @@ export class DialogFiltersComponent implements OnInit {
     }
 
     private resetFiltersData(): void {
-        this.mainFiltersGroup.reset();
-        this.statusFilterControl.reset();
-        this.paymentSumFiltersGroup.reset();
+        this.form.reset();
+        // this.mainFiltersGroup.reset();
+        // this.statusFilterControl.reset();
+        // this.paymentSumFiltersGroup.reset();
     }
 }
