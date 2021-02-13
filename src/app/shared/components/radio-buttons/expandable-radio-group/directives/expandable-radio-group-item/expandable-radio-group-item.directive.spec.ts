@@ -31,9 +31,9 @@ describe('ExpandableRadioGroupItemDirective', () => {
         });
     });
 
-    describe('template', () => {
+    describe('templateRef', () => {
         it('should return template ref of a directive', () => {
-            expect(directive.template).toEqual(instance(mockTemplateRef));
+            expect(directive.templateRef).toEqual(instance(mockTemplateRef));
         });
     });
 });
