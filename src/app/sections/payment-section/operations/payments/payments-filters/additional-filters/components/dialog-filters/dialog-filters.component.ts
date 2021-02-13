@@ -137,8 +137,5 @@ export class DialogFiltersComponent implements OnInit {
 
     private resetFiltersData(): void {
         this.form.reset();
-        // this.mainFiltersGroup.reset();
-        // this.statusFilterControl.reset();
-        // this.paymentSumFiltersGroup.reset();
     }
 }

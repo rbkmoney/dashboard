@@ -58,7 +58,7 @@ export class ExpandableRadioGroupComponent implements OnInit, AfterContentInit {
     ngAfterContentInit(): void {
         this.itemsDict = Array.from(this.itemsQuery).reduce(
             (acc: Dict<TemplateRef<ExpandableRadioGroupItemDirective>>, item: ExpandableRadioGroupItemDirective) => {
-                acc[item.dshExpandableRadioGroupItem] = item.template;
+                acc[item.dshExpandableRadioGroupItem] = item.templateRef;
                 return acc;
             },
             {}
