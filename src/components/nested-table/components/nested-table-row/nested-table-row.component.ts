@@ -4,20 +4,20 @@ import {
     Component,
     ContentChildren,
     HostBinding,
-    Inject,
     OnInit,
     QueryList,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
-import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import sumBy from 'lodash.sumby';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
 import { NestedTableHeaderColComponent } from '@dsh/components/nested-table/components/nested-table-header-col/nested-table-header-col.component';
 import { queryListArrayChanges } from '@dsh/utils';
 
 import { TABLE_ITEM_CLASS } from '../../classes/table-item-class';
-import { NestedTableComponent } from '../../nested-table.component';
+import { LayoutManagementService } from '../../services/layout-management/layout-management.service';
 
 @UntilDestroy()
 @Component({
@@ -27,36 +27,25 @@ import { NestedTableComponent } from '../../nested-table.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableRowComponent implements AfterContentInit, OnInit {
-    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
     @HostBinding('class.dsh-nested-table-row-hidden') hidden = false;
-    @HostBinding('style.grid-template-columns') gridTemplateColumns: string;
-    @ContentChildren(NestedTableColComponent) nestedTableColComponentChildren: QueryList<NestedTableColComponent>;
-    @ContentChildren(NestedTableHeaderColComponent) nestedTableHeaderColComponentChildren: QueryList<
+    colsCount$ = new ReplaySubject<number>(1);
+    fillCols$: Observable<null[]> = this.layoutManagementService.getFillCols(this.colsCount$);
+
+    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
+    @HostBinding('style.grid-template-columns') private gridTemplateColumns: string;
+    @ContentChildren(NestedTableColComponent) private nestedTableColComponentChildren: QueryList<
+        NestedTableColComponent
+    >;
+    @ContentChildren(NestedTableHeaderColComponent) private nestedTableHeaderColComponentChildren: QueryList<
         NestedTableHeaderColComponent
     >;
-    colsCount$ = new ReplaySubject<number>(1);
-    fillCols$: Observable<null[]> = combineLatest([this.nestedTableComponent.maxColsCount$, this.colsCount$]).pipe(
-        map(([maxCount, count]) => new Array(maxCount - count).fill(null)),
-        untilDestroyed(this),
-        shareReplay(1)
-    );
 
-    constructor(@Inject(NestedTableComponent) private nestedTableComponent: NestedTableComponent) {}
+    constructor(private layoutManagementService: LayoutManagementService) {}
 
     ngOnInit() {
-        this.nestedTableComponent.rowsGridTemplateColumns$
-            .pipe(
-                startWith(null),
-                switchMap((gridTemplateColumns) =>
-                    gridTemplateColumns
-                        ? of(gridTemplateColumns)
-                        : this.nestedTableComponent.maxColsCount$.pipe(
-                              map((count) => new Array(count).fill('1fr').join(' '))
-                          )
-                ),
-                untilDestroyed(this)
-            )
-            .subscribe((gridTemplateColumns) => (this.gridTemplateColumns = gridTemplateColumns));
+        this.layoutManagementService.gridTemplateColumns$.subscribe(
+            (gridTemplateColumns) => (this.gridTemplateColumns = gridTemplateColumns)
+        );
     }
 
     ngAfterContentInit() {
@@ -65,7 +54,7 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
             queryListArrayChanges(this.nestedTableHeaderColComponentChildren),
         ])
             .pipe(
-                map((arrs) => arrs.reduce((sum, { length }) => sum + length, 0)),
+                map((contents) => sumBy(contents, ({ length }) => length)),
                 untilDestroyed(this)
             )
             .subscribe((colsCount) => this.colsCount$.next(colsCount));

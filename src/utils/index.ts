@@ -11,3 +11,4 @@ export * from './wrap-values-to-array';
 export * from './decorators';
 export * from './dicts';
 export * from './query-list-started-changes/query-list-array-changes';
+export * from './change-to/change-to';
