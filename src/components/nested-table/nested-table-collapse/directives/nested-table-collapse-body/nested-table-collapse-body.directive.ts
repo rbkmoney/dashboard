@@ -1,7 +1,7 @@
 import { Directive, Inject, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { NestedTableCollapseDirective } from '@dsh/components/nested-table/directives/nested-table-group/nested-table-collapse.directive';
+import { NestedTableCollapseDirective } from '../../nested-table-collapse.directive';
 
 @UntilDestroy()
 @Directive({

@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { NestedTableCollapseDirective } from '@dsh/components/nested-table/directives/nested-table-group/nested-table-collapse.directive';
-
+import { NestedTableCollapseDirective } from '../../nested-table-collapse.directive';
 import { indicatorRotate, IndicatorRotateState } from './indicator-rotate';
 
 @UntilDestroy()

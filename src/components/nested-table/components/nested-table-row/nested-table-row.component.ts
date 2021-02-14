@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { NestedTableComponent } from '@dsh/components/nested-table';
-import { TABLE_ITEM_CLASS } from '@dsh/components/nested-table/classes/table-item-class';
+import { TABLE_ITEM_CLASS } from '../../classes/table-item-class';
+import { NestedTableComponent } from '../../nested-table.component';
 
 @UntilDestroy()
 @Component({
@@ -23,7 +23,7 @@ export class NestedTableRowComponent implements OnInit, AfterContentChecked {
     @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
     @HostBinding('class.dsh-nested-table-row-hidden') hidden = false;
     @HostBinding('style.grid-template-columns') gridTemplateColumns: string;
-    emptyCols = [];
+    fillCols: null[] = [];
 
     constructor(
         @Inject(NestedTableComponent) private nestedTableComponent: NestedTableComponent,
@@ -44,7 +44,7 @@ export class NestedTableRowComponent implements OnInit, AfterContentChecked {
     }
 
     private updateEmptyCols() {
-        this.emptyCols = new Array(
+        this.fillCols = new Array(
             Math.max(
                 0,
                 this.gridTemplateColumns.split(/ +/).length - (this.elementRef.nativeElement?.childElementCount ?? 0)

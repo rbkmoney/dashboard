@@ -8,8 +8,6 @@ import { ReplaySubject } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableComponent {
-    @HostBinding('class.dsh-nested-table-group') readonly groupClass = true;
-
     rowGridTemplateColumns$ = new ReplaySubject<string>(1);
 
     @Input() set rowGridTemplateColumns(rowGridTemplateColumns: string) {
