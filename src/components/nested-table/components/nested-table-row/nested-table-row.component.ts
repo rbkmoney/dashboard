@@ -31,19 +31,19 @@ export class NestedTableRowComponent implements OnInit, AfterContentChecked {
     ) {}
 
     ngOnInit() {
-        this.nestedTableComponent.rowGridTemplateColumns$
+        this.nestedTableComponent.rowsGridTemplateColumns$
             .pipe(untilDestroyed(this))
             .subscribe((gridTemplateColumns) => {
                 this.gridTemplateColumns = gridTemplateColumns;
-                this.updateEmptyCols();
+                this.updateFillCols();
             });
     }
 
     ngAfterContentChecked() {
-        this.updateEmptyCols();
+        this.updateFillCols();
     }
 
-    private updateEmptyCols() {
+    private updateFillCols() {
         this.fillCols = new Array(
             Math.max(
                 0,

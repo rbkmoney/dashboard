@@ -1,7 +1,7 @@
-import { Directive, Inject, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { NestedTableCollapseDirective } from '../../nested-table-collapse.directive';
+import { ExpansionService } from '../../services/expansion/expansion.service';
 
 @UntilDestroy()
 @Directive({
@@ -9,13 +9,13 @@ import { NestedTableCollapseDirective } from '../../nested-table-collapse.direct
 })
 export class NestedTableCollapseBodyDirective implements OnInit {
     constructor(
-        public templateRef: TemplateRef<any>,
+        private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef,
-        @Inject(NestedTableCollapseDirective) private collapseDirective: NestedTableCollapseDirective
+        private expansionService: ExpansionService
     ) {}
 
     ngOnInit() {
-        this.collapseDirective.expanded$.pipe(untilDestroyed(this)).subscribe((expanded) => this.expand(expanded));
+        this.expansionService.expanded$.pipe(untilDestroyed(this)).subscribe((expanded) => this.expand(expanded));
     }
 
     private expand(expanded: boolean) {

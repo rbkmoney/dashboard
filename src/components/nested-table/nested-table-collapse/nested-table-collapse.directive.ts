@@ -1,19 +1,15 @@
 import { Directive, Input } from '@angular/core';
-import { BehaviorSubject, defer } from 'rxjs';
+
+import { ExpansionService } from './services/expansion/expansion.service';
 
 @Directive({
     selector: '[dshNestedTableCollapse]',
+    providers: [ExpansionService],
 })
 export class NestedTableCollapseDirective {
     @Input() set dshNestedTableCollapse(expanded: boolean) {
-        this._expanded$.next(expanded);
+        this.expansionService.setExpanded(expanded);
     }
 
-    expanded$ = defer(() => this._expanded$.asObservable());
-
-    private _expanded$ = new BehaviorSubject(false);
-
-    toggle() {
-        this._expanded$.next(!this._expanded$.value);
-    }
+    constructor(private expansionService: ExpansionService) {}
 }

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { NestedTableCollapseDirective } from '../../nested-table-collapse.directive';
+import { ExpansionService } from '@dsh/components/nested-table/nested-table-collapse/services/expansion/expansion.service';
+
 import { indicatorRotate, IndicatorRotateState } from './indicator-rotate';
 
 @UntilDestroy()
@@ -14,15 +15,15 @@ import { indicatorRotate, IndicatorRotateState } from './indicator-rotate';
     animations: [indicatorRotate],
 })
 export class NestedTableCollapseButtonComponent {
-    constructor(@Inject(NestedTableCollapseDirective) private collapseDirective: NestedTableCollapseDirective) {}
+    constructor(private expansionService: ExpansionService) {}
 
-    animationState$ = this.collapseDirective.expanded$.pipe(
+    animationState$ = this.expansionService.expanded$.pipe(
         map((expanded) => (expanded ? IndicatorRotateState.expanded : IndicatorRotateState.collapsed)),
         untilDestroyed(this),
         shareReplay(1)
     );
 
     toggle() {
-        this.collapseDirective.toggle();
+        this.expansionService.toggle();
     }
 }

@@ -26,10 +26,11 @@ import { expansion } from './expansion';
     animations: [expansion],
 })
 export class NestedTableGroupComponent implements AfterContentInit {
+    @Input() @coerceNumber displayedCount = Infinity;
+
     @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
     @HostBinding('@expansion') expansion;
 
-    @Input() @coerceNumber displayedCount = Infinity;
     @ContentChildren(NestedTableRowComponent) rowChildren = new QueryList<NestedTableRowComponent>();
 
     showMoreDisplayed$ = defer(() => combineLatest([queryListArrayChanges(this.rowChildren), this.displayedAll$])).pipe(

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 @Component({
@@ -8,9 +8,9 @@ import { ReplaySubject } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableComponent {
-    rowGridTemplateColumns$ = new ReplaySubject<string>(1);
+    rowsGridTemplateColumns$ = new ReplaySubject<string>(1);
 
-    @Input() set rowGridTemplateColumns(rowGridTemplateColumns: string) {
-        this.rowGridTemplateColumns$.next(rowGridTemplateColumns);
+    @Input() set rowGridTemplateColumns(rowsGridTemplateColumns: string) {
+        this.rowsGridTemplateColumns$.next(rowsGridTemplateColumns);
     }
 }
