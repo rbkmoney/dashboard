@@ -1,3 +1,6 @@
 :host {
+    display: flex;
+    place-content: stretch space-between;
     cursor: pointer;
+    width: 100%;
 }

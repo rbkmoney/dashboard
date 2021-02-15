@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -15,15 +15,15 @@ import { indicatorRotate, IndicatorRotateState } from './indicator-rotate';
     animations: [indicatorRotate],
 })
 export class NestedTableCollapseButtonComponent {
-    constructor(private expansionService: ExpansionService) {}
-
     animationState$ = this.expansionService.expanded$.pipe(
         map((expanded) => (expanded ? IndicatorRotateState.expanded : IndicatorRotateState.collapsed)),
         untilDestroyed(this),
         shareReplay(1)
     );
 
-    toggle() {
+    constructor(private expansionService: ExpansionService) {}
+
+    @HostListener('click') onClick() {
         this.expansionService.toggle();
     }
 }
