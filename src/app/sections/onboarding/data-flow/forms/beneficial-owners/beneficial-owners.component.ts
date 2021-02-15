@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { FormArray, FormGroup } from '@ngneat/reactive-forms';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { getAbstractControl } from '@dsh/app/shared/utils';
 
 import { BeneficialOwnersService } from './beneficial-owners.service';
 
@@ -16,32 +17,26 @@ export class BeneficialOwnersComponent implements OnInit, OnDestroy {
     form$ = this.beneficialOwnersService.form$;
 
     beneficialOwners$: Observable<FormArray> = this.beneficialOwnersService.form$.pipe(
-        map((form) => form.controls.beneficialOwners as FormArray)
+        map((form: FormGroup) => getAbstractControl<FormArray>(form, 'beneficialOwners'))
     );
-
-    isBeneficialOwnersVisible$ = this.beneficialOwnersService.isBeneficialOwnersVisible$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
     constructor(private beneficialOwnersService: BeneficialOwnersService) {}
 
-    noOwnersChange({ checked }: MatCheckboxChange) {
-        this.beneficialOwnersService.noOwnersChange(checked);
-    }
-
-    addOwner() {
-        this.beneficialOwnersService.addOwner();
-    }
-
-    removeOwner(index: number) {
-        this.beneficialOwnersService.removeOwner(index);
-    }
-
-    ngOnInit() {
+    ngOnInit(): void {
         this.valuePersistentSub = this.beneficialOwnersService.startFormValuePersistent();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.valuePersistentSub.unsubscribe();
+    }
+
+    addOwner(): void {
+        this.beneficialOwnersService.addOwner();
+    }
+
+    removeOwner(index: number): void {
+        this.beneficialOwnersService.removeOwner(index);
     }
 }

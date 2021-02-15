@@ -5,16 +5,7 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
     <label class="mat-caption beneficial-owner-description">{{ t('beneficialOwnerDescription') }}</label>
-    <section class="checkbox-section">
-        <mat-checkbox
-            [checked]="!(isBeneficialOwnersVisible$ | async)"
-            formControlName="noOwners"
-            (change)="noOwnersChange($event)"
-        >
-            {{ t('noOwners') }}
-        </mat-checkbox>
-    </section>
-    <div *ngIf="isBeneficialOwnersVisible$ | async" formArrayName="beneficialOwners">
+    <div formArrayName="beneficialOwners">
         <div
             fxLayout="column"
             fxLayoutGap="10px"
@@ -26,7 +17,7 @@
             <div fxLayout>
                 <mat-form-field fxFlex="48.5%">
                     <mat-label>{{ t('ownershipPercentage') }}</mat-label>
-                    <input matInput type="number" formControlName="ownershipPercentage" required />
+                    <input aria-label="ownershipPercentage" matInput type="number" formControlName="ownershipPercentage" required />
                 </mat-form-field>
             </div>
             <dsh-private-entity-info [form]="beneficialOwner.get('privateEntityInfo')"></dsh-private-entity-info>
@@ -39,7 +30,12 @@
                     [form]="beneficialOwner.get('individualResidencyInfo')"
                 ></dsh-individual-residency-info>
             </section>
-            <div class="beneficial-owner-actions" fxLayout="row" fxLayoutAlign="end">
+            <div
+                class="beneficial-owner-actions"
+                *ngIf="(beneficialOwners$ | async).length > 1"
+                fxLayout="row"
+                fxLayoutAlign="end"
+            >
                 <button dsh-stroked-button color="warn" (click)="removeOwner(i)">
                     {{ t('removeOwner') }}
                 </button>

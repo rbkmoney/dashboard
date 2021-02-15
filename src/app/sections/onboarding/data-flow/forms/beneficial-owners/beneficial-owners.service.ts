@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
 import { QuestionaryData } from '@dsh/api-codegen/questionary';
+import { getAbstractControl } from '@dsh/app/shared/utils';
 
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
@@ -22,7 +23,6 @@ import { toFormValue } from './to-form-value';
 @Injectable()
 export class BeneficialOwnersService extends QuestionaryFormService {
     private form: FormGroup;
-    private beneficialOwnersVisible$ = new BehaviorSubject(true);
 
     constructor(
         protected fb: FormBuilder,
@@ -37,36 +37,20 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         super(questionaryStateService, validityService, validationCheckService);
     }
 
-    isBeneficialOwnersVisible$ = this.beneficialOwnersVisible$.asObservable();
-
-    noOwnersChange(noOwners: boolean, ownerCount = 1) {
-        this.beneficialOwnersVisible$.next(!noOwners);
-        noOwners ? this.clearOwners() : this.addOwner(ownerCount);
-    }
-
     clearOwners() {
-        (this.form.controls.beneficialOwners as FormArray).clear();
+        getAbstractControl<FormArray>(this.form, 'beneficialOwners').clear();
     }
 
     addOwner(ownerCount = 1) {
         for (let i = 0; i < ownerCount; i += 1) {
-            (this.form.controls.beneficialOwners as FormArray).push(this.constructBeneficialOwnerForm());
+            getAbstractControl<FormArray>(this.form, 'beneficialOwners').push(this.constructBeneficialOwnerForm());
         }
     }
 
     removeOwner(index: number) {
         const beneficialOwners = this.form.controls.beneficialOwners as FormArray;
         beneficialOwners.removeAt(index);
-        if (beneficialOwners.length === 0) {
-            this.noOwnersChange(true);
-        }
-    }
-
-    protected toFormValue(data: QuestionaryData): FormValue {
-        const formValue = toFormValue(data);
-        const ownersCount = formValue.beneficialOwners.length;
-        this.noOwnersChange(ownersCount === 0, ownersCount);
-        return formValue;
+        this.checkOwners();
     }
 
     protected applyToQuestionaryData(data: QuestionaryData, formValue: FormValue): QuestionaryData {
@@ -80,10 +64,17 @@ export class BeneficialOwnersService extends QuestionaryFormService {
     protected toForm(data: QuestionaryData): FormGroup {
         const formValue = toFormValue(data);
         this.form = this.constructForm();
-        const ownersCount = formValue.beneficialOwners.length;
-        this.noOwnersChange(ownersCount === 0, ownersCount);
+        this.checkOwners();
         this.form.patchValue(formValue);
         return this.form;
+    }
+
+    protected checkOwners(): void {
+        const ownersCount = getAbstractControl<FormArray>(this.form, 'beneficialOwners').length;
+
+        if (ownersCount === 0) {
+            this.addOwner(1);
+        }
     }
 
     private constructForm(): FormGroup {
