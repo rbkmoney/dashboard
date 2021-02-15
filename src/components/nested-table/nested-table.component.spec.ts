@@ -8,7 +8,6 @@ import { mock, verify, when } from 'ts-mockito';
 
 import { provideMockService } from '@dsh/app/shared/tests';
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
-import { NestedTableHeaderColComponent } from '@dsh/components/nested-table/components/nested-table-header-col/nested-table-header-col.component';
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
 import { LayoutManagementService } from '@dsh/components/nested-table/services/layout-management/layout-management.service';
 
@@ -19,7 +18,7 @@ import { NestedTableComponent } from './nested-table.component';
     template: `
         <dsh-nested-table [rowsGridTemplateColumns]="rowsGridTemplateColumns">
             <dsh-nested-table-row>
-                <dsh-nested-table-header-col></dsh-nested-table-header-col>
+                <dsh-nested-table-col></dsh-nested-table-col>
             </dsh-nested-table-row>
             <dsh-nested-table-row>
                 <dsh-nested-table-col></dsh-nested-table-col>
@@ -45,13 +44,7 @@ describe('NestedTableComponent', () => {
 
         await TestBed.configureTestingModule({
             imports: [CommonModule, NoopAnimationsModule],
-            declarations: [
-                HostComponent,
-                NestedTableComponent,
-                NestedTableRowComponent,
-                NestedTableColComponent,
-                NestedTableHeaderColComponent,
-            ],
+            declarations: [HostComponent, NestedTableComponent, NestedTableRowComponent, NestedTableColComponent],
         })
             .overrideComponent(NestedTableComponent, {
                 set: {

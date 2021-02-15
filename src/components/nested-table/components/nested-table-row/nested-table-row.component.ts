@@ -8,12 +8,10 @@ import {
     QueryList,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import sumBy from 'lodash.sumby';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
-import { NestedTableHeaderColComponent } from '@dsh/components/nested-table/components/nested-table-header-col/nested-table-header-col.component';
 import { queryListStartedArrayChanges } from '@dsh/utils';
 
 import { TABLE_ITEM_CLASS } from '../../classes/table-item-class';
@@ -35,8 +33,6 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
 
     @ContentChildren(NestedTableColComponent)
     private nestedTableColComponentChildren: QueryList<NestedTableColComponent>;
-    @ContentChildren(NestedTableHeaderColComponent)
-    private nestedTableHeaderColComponentChildren: QueryList<NestedTableHeaderColComponent>;
 
     constructor(private layoutManagementService: LayoutManagementService) {}
 
@@ -47,14 +43,8 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
     }
 
     ngAfterContentInit() {
-        combineLatest([
-            queryListStartedArrayChanges(this.nestedTableColComponentChildren),
-            queryListStartedArrayChanges(this.nestedTableHeaderColComponentChildren),
-        ])
-            .pipe(
-                map((contents) => sumBy(contents, ({ length }) => length)),
-                untilDestroyed(this)
-            )
+        queryListStartedArrayChanges(this.nestedTableColComponentChildren)
+            .pipe(pluck('length'), untilDestroyed(this))
             .subscribe((colsCount) => this.colsCount$.next(colsCount));
     }
 }

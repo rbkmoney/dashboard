@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { cold } from 'jasmine-marbles';
 
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
-import { NestedTableHeaderColComponent } from '@dsh/components/nested-table/components/nested-table-header-col/nested-table-header-col.component';
 import { LayoutManagementService } from '@dsh/components/nested-table/services/layout-management/layout-management.service';
 
 import { NestedTableRowComponent } from './nested-table-row.component';
@@ -13,7 +12,7 @@ import { NestedTableRowComponent } from './nested-table-row.component';
     selector: 'dsh-host',
     template: `
         <dsh-nested-table-row>
-            <dsh-nested-table-header-col></dsh-nested-table-header-col>
+            <dsh-nested-table-col></dsh-nested-table-col>
             <dsh-nested-table-col></dsh-nested-table-col>
             <dsh-nested-table-col></dsh-nested-table-col>
         </dsh-nested-table-row>
@@ -29,12 +28,7 @@ describe('NestedTableRowComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
-                HostComponent,
-                NestedTableRowComponent,
-                NestedTableColComponent,
-                NestedTableHeaderColComponent,
-            ],
+            declarations: [HostComponent, NestedTableRowComponent, NestedTableColComponent],
             providers: [LayoutManagementService],
         }).compileComponents();
 
