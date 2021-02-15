@@ -13,7 +13,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { TABLE_ITEM_CLASS } from '@dsh/components/nested-table/classes/table-item-class';
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
-import { coerceNumber, queryListArrayChanges } from '@dsh/utils';
+import { coerceNumber, queryListStartedArrayChanges } from '@dsh/utils';
 
 import { expansion } from './expansion';
 
@@ -30,7 +30,7 @@ export class NestedTableGroupComponent implements AfterContentInit {
         this.displayedCount$.next(displayedCount);
     }
     showMoreDisplayed$ = defer(() =>
-        combineLatest([queryListArrayChanges(this.rowChildren), this.displayedAll$, this.displayedCount$])
+        combineLatest([queryListStartedArrayChanges(this.rowChildren), this.displayedAll$, this.displayedCount$])
     ).pipe(
         // displayedCount + 1 - to show the last element instead of the "show all" link when the number of elements is only 1 more
         map(([rows, displayedAll, displayedCount]) => !displayedAll && rows.length > displayedCount + 1),
@@ -46,7 +46,7 @@ export class NestedTableGroupComponent implements AfterContentInit {
     private displayedCount$ = new BehaviorSubject(Infinity);
 
     ngAfterContentInit() {
-        combineLatest([queryListArrayChanges(this.rowChildren), this.showMoreDisplayed$])
+        combineLatest([queryListStartedArrayChanges(this.rowChildren), this.showMoreDisplayed$])
             .pipe(untilDestroyed(this))
             .subscribe(([rows, showMoreDisplayed]) => {
                 if (showMoreDisplayed) {

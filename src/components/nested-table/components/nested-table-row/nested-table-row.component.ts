@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
 import { NestedTableHeaderColComponent } from '@dsh/components/nested-table/components/nested-table-header-col/nested-table-header-col.component';
-import { queryListArrayChanges } from '@dsh/utils';
+import { queryListStartedArrayChanges } from '@dsh/utils';
 
 import { TABLE_ITEM_CLASS } from '../../classes/table-item-class';
 import { LayoutManagementService } from '../../services/layout-management/layout-management.service';
@@ -48,8 +48,8 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
 
     ngAfterContentInit() {
         combineLatest([
-            queryListArrayChanges(this.nestedTableColComponentChildren),
-            queryListArrayChanges(this.nestedTableHeaderColComponentChildren),
+            queryListStartedArrayChanges(this.nestedTableColComponentChildren),
+            queryListStartedArrayChanges(this.nestedTableHeaderColComponentChildren),
         ])
             .pipe(
                 map((contents) => sumBy(contents, ({ length }) => length)),
