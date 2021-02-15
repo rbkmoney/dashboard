@@ -26,21 +26,23 @@ import { expansion } from './expansion';
     animations: [expansion],
 })
 export class NestedTableGroupComponent implements AfterContentInit {
-    @Input() @coerceNumber displayedCount = Infinity;
-
-    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
-    @HostBinding('@expansion') expansion;
-
-    @ContentChildren(NestedTableRowComponent) rowChildren = new QueryList<NestedTableRowComponent>();
-
-    showMoreDisplayed$ = defer(() => combineLatest([queryListArrayChanges(this.rowChildren), this.displayedAll$])).pipe(
+    @Input() @coerceNumber set displayedCount(displayedCount: number) {
+        this.displayedCount$.next(displayedCount);
+    }
+    showMoreDisplayed$ = defer(() =>
+        combineLatest([queryListArrayChanges(this.rowChildren), this.displayedAll$, this.displayedCount$])
+    ).pipe(
         // displayedCount + 1 - to show the last element instead of the "show all" link when the number of elements is only 1 more
-        map(([rows, displayedAll]) => !displayedAll && rows.length > this.displayedCount + 1),
+        map(([rows, displayedAll, displayedCount]) => !displayedAll && rows.length > displayedCount + 1),
         untilDestroyed(this),
         shareReplay(1)
     );
 
+    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
+    @HostBinding('@expansion') private expansion;
+    @ContentChildren(NestedTableRowComponent) private rowChildren = new QueryList<NestedTableRowComponent>();
     private displayedAll$ = new BehaviorSubject<boolean>(false);
+    private displayedCount$ = new BehaviorSubject(Infinity);
 
     ngAfterContentInit() {
         combineLatest([queryListArrayChanges(this.rowChildren), this.showMoreDisplayed$])

@@ -6,7 +6,7 @@ import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
 @Injectable()
 export class LayoutManagementService {
-    layoutColsCount$ = new ReplaySubject<number>(1);
+    layoutColsCount$ = defer(() => this._layoutColsCount$.asObservable());
     gridTemplateColumns$ = defer(() => this.rowsGridTemplateColumns$).pipe(
         switchMap((gridTemplateColumns) =>
             gridTemplateColumns
@@ -18,6 +18,7 @@ export class LayoutManagementService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    private _layoutColsCount$ = new ReplaySubject<number>(1);
     private rowsGridTemplateColumns$ = new BehaviorSubject<string>(null);
 
     private static getDefaultGridTemplateColumns(colsCount: number) {
@@ -32,5 +33,9 @@ export class LayoutManagementService {
 
     setRowsGridTemplateColumns(rowsGridTemplateColumns: string) {
         this.rowsGridTemplateColumns$.next(rowsGridTemplateColumns);
+    }
+
+    setLayoutColsCount(colsCount: number) {
+        this._layoutColsCount$.next(colsCount);
     }
 }

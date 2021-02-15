@@ -33,12 +33,10 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
 
     @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
     @HostBinding('style.grid-template-columns') private gridTemplateColumns: string;
-    @ContentChildren(NestedTableColComponent) private nestedTableColComponentChildren: QueryList<
-        NestedTableColComponent
-    >;
-    @ContentChildren(NestedTableHeaderColComponent) private nestedTableHeaderColComponentChildren: QueryList<
-        NestedTableHeaderColComponent
-    >;
+    @ContentChildren(NestedTableColComponent)
+    private nestedTableColComponentChildren: QueryList<NestedTableColComponent>;
+    @ContentChildren(NestedTableHeaderColComponent)
+    private nestedTableHeaderColComponentChildren: QueryList<NestedTableHeaderColComponent>;
 
     constructor(private layoutManagementService: LayoutManagementService) {}
 

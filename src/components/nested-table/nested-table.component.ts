@@ -14,7 +14,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
 import { LayoutManagementService } from '@dsh/components/nested-table/services/layout-management/layout-management.service';
 import { ComponentChanges } from '@dsh/type-utils';
-import { changeTo, queryListArrayChanges } from '@dsh/utils';
+import { queryListArrayChanges } from '@dsh/utils';
 
 @UntilDestroy()
 @Component({
@@ -43,6 +43,6 @@ export class NestedTableComponent implements AfterContentInit, OnChanges {
                 map((rowsColsCounts) => Math.max(...rowsColsCounts)),
                 untilDestroyed(this)
             )
-            .subscribe((colsCount) => this.layoutManagementService.layoutColsCount$.next(colsCount));
+            .subscribe((colsCount) => this.layoutManagementService.setLayoutColsCount(colsCount));
     }
 }
