@@ -38,8 +38,9 @@ export class NestedTableGroupComponent implements AfterContentInit {
         shareReplay(1)
     );
 
-    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
-    @HostBinding('@expansion') private expansion;
+    @HostBinding(TABLE_ITEM_CLASS) readonly tableItemClass = true;
+    @HostBinding('@expansion') readonly expansion;
+
     @ContentChildren(NestedTableRowComponent) private rowChildren = new QueryList<NestedTableRowComponent>();
     private displayedAll$ = new BehaviorSubject<boolean>(false);
     private displayedCount$ = new BehaviorSubject(Infinity);

@@ -28,11 +28,11 @@ import { LayoutManagementService } from '../../services/layout-management/layout
 })
 export class NestedTableRowComponent implements AfterContentInit, OnInit {
     @HostBinding('class.dsh-nested-table-row-hidden') hidden = false;
+    @HostBinding(TABLE_ITEM_CLASS) readonly tableItemClass = true;
+    @HostBinding('style.grid-template-columns') gridTemplateColumns: string;
     colsCount$ = new ReplaySubject<number>(1);
     fillCols$: Observable<null[]> = this.layoutManagementService.getFillCols(this.colsCount$);
 
-    @HostBinding(TABLE_ITEM_CLASS) private readonly tableItemClass = true;
-    @HostBinding('style.grid-template-columns') private gridTemplateColumns: string;
     @ContentChildren(NestedTableColComponent)
     private nestedTableColComponentChildren: QueryList<NestedTableColComponent>;
     @ContentChildren(NestedTableHeaderColComponent)

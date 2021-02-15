@@ -8,5 +8,5 @@ import { ROW_ITEM_CLASS } from '@dsh/components/nested-table/classes/row-item-cl
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableHeaderColComponent {
-    @HostBinding(ROW_ITEM_CLASS) private readonly rowItemClass = true;
+    @HostBinding(ROW_ITEM_CLASS) readonly rowItemClass = true;
 }
