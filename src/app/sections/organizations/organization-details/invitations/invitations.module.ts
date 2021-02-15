@@ -13,6 +13,7 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
 import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
+import { NestedTableModule } from '@dsh/components/nested-table';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
@@ -41,6 +42,7 @@ import { InvitationsComponent } from './invitations.component';
         SpinnerModule,
         IndicatorsModule,
         DialogModule,
+        NestedTableModule,
     ],
     declarations: [
         InvitationsComponent,
