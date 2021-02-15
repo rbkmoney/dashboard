@@ -79,10 +79,9 @@ describe('NestedTableLimitedRowsComponent', () => {
             for (const row of rows.slice(0, 1)) {
                 expect((row.componentInstance as NestedTableRowComponent).hidden).toBeFalse();
             }
-            // TODO
-            // for (const row of rows.slice(2, 9)) {
-            //     expect((row.componentInstance as NestedTableRowComponent).hidden).toBeTrue();
-            // }
+            for (const row of rows.slice(2, 9)) {
+                expect((row.componentInstance as NestedTableRowComponent).hidden).toBeTrue();
+            }
             expect((rows[10].componentInstance as NestedTableRowComponent).hidden).toBeFalse();
         });
     });

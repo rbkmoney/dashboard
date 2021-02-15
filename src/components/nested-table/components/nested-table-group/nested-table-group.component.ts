@@ -5,14 +5,16 @@ import {
     ContentChildren,
     HostBinding,
     Input,
+    OnChanges,
     QueryList,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, combineLatest, defer } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
 import { TABLE_ITEM_CLASS } from '@dsh/components/nested-table/classes/table-item-class';
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
+import { ComponentChanges } from '@dsh/type-utils';
 import { coerceNumber, queryListStartedArrayChanges } from '@dsh/utils';
 
 import { expansion } from './expansion';
@@ -25,10 +27,8 @@ import { expansion } from './expansion';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [expansion],
 })
-export class NestedTableGroupComponent implements AfterContentInit {
-    @Input() @coerceNumber set displayedCount(displayedCount: number) {
-        this.displayedCount$.next(displayedCount);
-    }
+export class NestedTableGroupComponent implements AfterContentInit, OnChanges {
+    @Input() displayedCount: number;
     showMoreDisplayed$ = defer(() =>
         combineLatest([queryListStartedArrayChanges(this.rowChildren), this.displayedAll$, this.displayedCount$])
     ).pipe(
@@ -44,6 +44,12 @@ export class NestedTableGroupComponent implements AfterContentInit {
     @ContentChildren(NestedTableRowComponent) private rowChildren = new QueryList<NestedTableRowComponent>();
     private displayedAll$ = new BehaviorSubject<boolean>(false);
     private displayedCount$ = new BehaviorSubject(Infinity);
+
+    ngOnChanges({ displayedCount }: ComponentChanges<NestedTableGroupComponent>) {
+        if (displayedCount) {
+            this.displayedCount$.next(displayedCount.currentValue);
+        }
+    }
 
     ngAfterContentInit() {
         combineLatest([queryListStartedArrayChanges(this.rowChildren), this.showMoreDisplayed$])
