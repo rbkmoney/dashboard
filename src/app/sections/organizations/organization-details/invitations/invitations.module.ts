@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { DialogModule } from '@dsh/app/shared/components/dialog';
@@ -43,6 +45,8 @@ import { InvitationsComponent } from './invitations.component';
         IndicatorsModule,
         DialogModule,
         NestedTableModule,
+        MatCheckboxModule,
+        MatRadioModule,
     ],
     declarations: [
         InvitationsComponent,

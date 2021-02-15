@@ -5,6 +5,7 @@ import { ROW_ITEM_CLASS } from '@dsh/components/nested-table/classes/row-item-cl
 @Component({
     selector: 'dsh-nested-table-col',
     templateUrl: 'nested-table-col.component.html',
+    styleUrls: ['nested-table-col.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableColComponent {
