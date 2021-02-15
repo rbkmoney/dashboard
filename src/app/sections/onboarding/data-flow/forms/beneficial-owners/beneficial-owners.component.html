@@ -17,7 +17,13 @@
             <div fxLayout>
                 <mat-form-field fxFlex="48.5%">
                     <mat-label>{{ t('ownershipPercentage') }}</mat-label>
-                    <input aria-label="ownershipPercentage" matInput type="number" formControlName="ownershipPercentage" required />
+                    <input
+                        aria-label="ownershipPercentage"
+                        matInput
+                        type="number"
+                        formControlName="ownershipPercentage"
+                        required
+                    />
                 </mat-form-field>
             </div>
             <dsh-private-entity-info [form]="beneficialOwner.get('privateEntityInfo')"></dsh-private-entity-info>
