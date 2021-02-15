@@ -18,7 +18,7 @@ $background: (
     /*
      * Custom
      *
-    */ hover: map_get($mat-grey, 200),
+ */ hover: map_get($mat-grey, 200),
     selected-button: map_get($mat-grey, 100),
 );
 
@@ -39,12 +39,12 @@ $foreground: (
     /*
      * Overrides
      *
-    */ text: #475166,
+ */ text: #475166,
     slider-min: #475166,
     /*
-   * Custom
-   *
-*/ contrast-text: white,
+     * Custom
+     *
+ */ contrast-text: white,
 );
 
 $theme: (
@@ -55,9 +55,9 @@ $theme: (
     foreground: $foreground,
     background: $background,
     /*
-   * Custom
-   *
-   */ name: 'light',
+     * Custom
+     *
+ */ name: 'light',
     success: mat-palette($dsh-success),
     pending: mat-palette($dsh-pending),
     neutral: mat-palette($mat-grey),

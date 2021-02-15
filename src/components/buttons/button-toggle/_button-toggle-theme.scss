@@ -30,7 +30,7 @@
 
         &-checked {
             &.dsh-button-toggle {
-                @include fill(mat-color($primary, 400));
+                @include fill(mat-color($primary, 500));
             }
         }
 

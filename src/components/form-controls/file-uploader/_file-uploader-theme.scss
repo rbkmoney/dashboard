@@ -9,13 +9,13 @@
             border-color: mat-color($gray, 200);
 
             &-dragover {
-                border-color: mat-color($primary, 400);
+                border-color: mat-color($primary, 500);
                 transition: ease 1s;
             }
         }
 
         &-choose-files {
-            color: mat-color($primary, 400);
+            color: mat-color($primary, 500);
         }
     }
 }

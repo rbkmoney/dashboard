@@ -6,21 +6,21 @@ How to create palette
 0. Choose base color
 1. Enter in https://material.io/inline-tools/color/ base color - get 50-900 colors
 2. Enter color 500 (gotten at the previous step) into http://mcg.mbitson.com - get A100-A700 colors
-   and find out recommendation when to use a dark font color and in which light
+and find out recommendation when to use a dark font color and in which light
 */
 
-// base 400
+// base 500
 $dsh-slateblue: (
-    50: #ede8ff,
-    100: #d0c6fe,
-    200: #b0a1fe,
-    300: #8b79ff,
-    400: #695bff,
-    500: #3b3efd,
-    600: #2239f7,
-    700: #0032ee,
-    800: #002de8,
-    900: #0022d9,
+    50: #edebff,
+    100: #ede8ff,
+    200: #d0c6fe,
+    300: #b0a1fe,
+    400: #8b79ff,
+    500: #695bff,
+    600: #3b3efd,
+    700: #2239f7,
+    800: #0032ee,
+    900: #002de8,
     A100: #ffffff,
     A200: #fafaff,
     A400: #c7c7ff,
@@ -30,7 +30,7 @@ $dsh-slateblue: (
         100: $dark-text,
         200: $dark-text,
         300: $dark-text,
-        400: $light-text,
+        400: $dark-text,
         500: $light-text,
         600: $light-text,
         700: $light-text,
