@@ -3,7 +3,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ExpansionService } from '../../services/expansion/expansion.service';
-import { indicatorRotate} from './indicator-rotate';
+import { indicatorRotate } from './indicator-rotate';
 import { IndicatorRotateState } from './types/indicator-rotate';
 
 @UntilDestroy()
