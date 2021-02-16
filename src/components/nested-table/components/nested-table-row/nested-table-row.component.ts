@@ -25,9 +25,12 @@ import { LayoutManagementService } from '../../services/layout-management/layout
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NestedTableRowComponent implements AfterContentInit, OnInit {
-    @HostBinding('class.dsh-nested-table-row-hidden') hidden = false;
     @HostBinding(TABLE_ITEM_CLASS) readonly tableItemClass = true;
     @HostBinding('style.grid-template-columns') gridTemplateColumns: string;
+    @HostBinding('style.display') get display() {
+        return this.hidden ? 'none' : undefined;
+    }
+    hidden = false;
     colsCount$ = new ReplaySubject<number>(1);
     fillCols$: Observable<null[]> = this.layoutManagementService.getFillCols(this.colsCount$);
 
