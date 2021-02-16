@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../../../../node_modules/@angular/cdk/a11y';
+@import '~@angular/cdk/a11y';
 
 @mixin dsh-tabs-theme($theme) {
     $primary: map-get($theme, primary);
