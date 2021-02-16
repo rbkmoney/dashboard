@@ -22,7 +22,14 @@ build('dashboard', 'docker-host') {
       }
     }
     runStage('build') {
-      sh 'make wc_build'
+      parallel {
+        stage('build') {
+          sh 'make wc_build'
+        }
+        stage('build') {
+          sh 'make wc_test'
+        }
+      }
     }
     runStage('build image') {
       sh 'make build_image'
