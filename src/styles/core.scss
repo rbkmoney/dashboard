@@ -3,32 +3,21 @@
 @import 'utils/typography';
 
 @import 'app/typography';
+@import 'app/style';
 
-@import './overrides/mat-menu';
-@import './overrides/mat-theme-loaded-marker';
-@import './overrides/mat-dialog';
-@import './overrides/mat-snack-bar';
-@import './overrides/mat-radio-button';
-@import './overrides/mat-form-field';
-@import './overrides/mat-checkbox';
-@import './overrides/mat-dialog-container';
+@import 'material/typography';
+@import 'material/style';
 
 @mixin dsh-typography($config) {
     @include mat-core($config);
-    @include mat-radio-button-override-typography($config);
+    @include mat-typography($config);
     @include app-typography($config);
 }
 
 @mixin dsh-core() {
-    @include mat-menu-override();
-    @include mat-theme-loaded-marker-override();
-    @include mat-dialog-override();
-    @include mat-snack-bar-override();
-    @include mat-form-field-infix-override();
-    @include mat-checkbox-override();
-    @include mat-dialog-container-override();
-
     @include dsh-typography(dsh-typography-config());
+    @include mat-style();
+    @include app-style();
 }
 
 @include dsh-core();

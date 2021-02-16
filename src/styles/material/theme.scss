@@ -1,0 +1,13 @@
+@import 'mat-menu';
+@import 'mat-autocomplete-panel';
+@import 'mat-select-panel';
+@import 'mat-datepicker';
+@import 'mat-divider';
+
+@mixin mat-theme($theme) {
+    @include mat-menu-override-theme($theme);
+    @include mat-autocomplete-panel-override-theme($theme);
+    @include mat-select-panel-override-theme($theme);
+    @include mat-datepicker-override-theme($theme);
+    @include mat-divider-override-theme($theme);
+}

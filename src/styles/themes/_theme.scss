@@ -3,12 +3,7 @@
 @import '../utils/map-get-strict';
 
 @import '../app/theme';
-
-@import '../overrides/mat-menu';
-@import '../overrides/mat-autocomplete-panel';
-@import '../overrides/mat-select-panel';
-@import '../overrides/mat-datepicker';
-@import '../overrides/mat-divider';
+@import '../material/theme';
 
 @function project-theme($config, $background, $foreground) {
     $background: (
@@ -76,12 +71,7 @@
 
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
-        @include mat-menu-override-theme($theme);
-        @include mat-autocomplete-panel-override-theme($theme);
-        @include mat-select-panel-override-theme($theme);
-        @include mat-datepicker-override-theme($theme);
-        @include mat-divider-override-theme($theme);
-
+        @include mat-theme($theme);
         @include app-theme($theme);
     }
 }
