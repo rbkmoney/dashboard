@@ -33,6 +33,7 @@
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/layout/headline/headline-theme';
+@import '../../components/nested-table/nested-table-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -98,5 +99,6 @@
         @include dsh-feedback-theme($theme);
         @include dsh-limited-list-theme($theme);
         @include dsh-headline-theme($theme);
+        @include dsh-nested-table-theme($theme);
     }
 }

@@ -18,16 +18,9 @@ export class OrganizationManagementService {
         );
     }
 
+    // TODO: remove method and use organizationsService local
     createOrganization(organization: Omit<PickMutable<Organization>, 'owner'>): Observable<Organization> {
-        return this.userService.id$.pipe(
-            first(),
-            switchMap((owner) =>
-                this.organizationsService.createOrg({
-                    owner,
-                    ...organization,
-                })
-            )
-        );
+        return this.organizationsService.createOrg(organization);
     }
 
     isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {

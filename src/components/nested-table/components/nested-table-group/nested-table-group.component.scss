@@ -1,0 +1,10 @@
+:host {
+    overflow: hidden;
+
+    .dsh-nested-table-group {
+        &-show-more {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}

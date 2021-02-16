@@ -36,7 +36,8 @@ export class OrganizationsService {
         return this.orgsService.getOrg(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    createOrg(org: PickMutable<Organization>) {
+    // TODO: Organization.owner should be readonly (maybe fix swag)
+    createOrg(org: Omit<PickMutable<Organization>, 'owner'>) {
         return this.orgsService.createOrg(this.idGeneratorService.generateRequestID(), org as Organization);
     }
 

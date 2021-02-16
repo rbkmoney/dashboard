@@ -16,6 +16,10 @@ export const routes: Routes = [
                 path: '',
                 loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
             },
+            {
+                path: 'accept-invitation',
+                loadChildren: () => import('./accept-invitation').then((m) => m.AcceptInvitationModule),
+            },
         ],
     },
 ];

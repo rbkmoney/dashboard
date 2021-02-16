@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 8px;
+
+    & > ::ng-deep button,
+    & > ::ng-deep mat-checkbox,
+    & > ::ng-deep mat-radio-button {
+        margin: auto;
+    }
+
+    & > ::ng-deep mat-checkbox,
+    & > ::ng-deep mat-radio-button {
+        display: flex;
+
+        & * {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
