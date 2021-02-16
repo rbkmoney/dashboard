@@ -56,8 +56,8 @@
             // For CSS class name
             name: map-get-strict($config, name),
         // Palettes
-            //success: mat-palette($dsh-success),
-            //pending: mat-palette($dsh-pending),
+            //success: map-get-strict($config, success),
+            //pending: map-get-strict($config, pending),
             gray: map-get-strict($config, gray),
         // Palettes base color
             success-base: map-get-strict($config, success-base),
