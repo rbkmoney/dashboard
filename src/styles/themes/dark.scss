@@ -69,4 +69,5 @@ $theme: (
     warn-base: mat-color(mat-palette($dsh-warn), 300),
 );
 
-@include dsh-theme($theme);
+// TODO: Prepare for use
+//@include dsh-theme($theme, $background, $foreground);

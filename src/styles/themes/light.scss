@@ -41,22 +41,17 @@ $foreground: (
         contrast-text: $light-text,
 );
 
-$theme: (
+$config: (
     primary: mat-palette($dsh-slateblue),
     accent: mat-palette($dsh-palegreen),
     warn: mat-palette($dsh-warn),
     is-dark: false,
-    foreground: $foreground,
-    background: $background,
     // Custom
         name: 'light',
-    // Enable if necessary
-        //success: mat-palette($dsh-success),
-        //pending: mat-palette($dsh-pending),
-        gray: mat-palette($mat-grey),
+    gray: mat-palette($mat-grey),
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300),
 );
 
-@include dsh-theme($theme);
+@include dsh-theme($config, $background, $foreground);

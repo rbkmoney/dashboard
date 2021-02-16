@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../utils/map-get-strict';
 
 @import '../overrides/mat-menu';
 @import '../overrides/mat-autocomplete-panel';
@@ -47,7 +48,70 @@
 @import '../../app/sections/payment-section/balances/balances-theme';
 @import '../../app/feedback/feedback-theme';
 
-@mixin dsh-theme($theme) {
+@function project-theme($config, $background, $foreground) {
+    $background: (
+        status-bar: map-get-strict($background, status-bar),
+        app-bar: map-get-strict($background, app-bar),
+        background: map-get-strict($background, background),
+        card: map-get-strict($background, card),
+        dialog: map-get-strict($background, dialog),
+        disabled-button: map-get-strict($background, disabled-button),
+        raised-button: map-get-strict($background, raised-button),
+        focused-button: map-get-strict($background, focused-button),
+        selected-disabled-button: map-get-strict($background, selected-disabled-button),
+        disabled-button-toggle: map-get-strict($background, disabled-button-toggle),
+        unselected-chip: map-get-strict($background, unselected-chip),
+        disabled-list-option: map-get-strict($background, disabled-list-option),
+        // --- Custom ---
+            hover: map-get-strict($background, hover),
+        selected-button: map-get-strict($background, selected-button),
+    );
+
+    $foreground: (
+        base: map-get-strict($foreground, base),
+        divider: map-get-strict($foreground, divider),
+        dividers: map-get-strict($foreground, dividers),
+        disabled: map-get-strict($foreground, disabled),
+        disabled-button: map-get-strict($foreground, disabled-button),
+        disabled-text: map-get-strict($foreground, disabled-text),
+        elevation: map-get-strict($foreground, elevation),
+        hint-text: map-get-strict($foreground, hint-text),
+        secondary-text: map-get-strict($foreground, secondary-text),
+        icon: map-get-strict($foreground, icon),
+        icons: map-get-strict($foreground, icons),
+        slider-off: map-get-strict($foreground, slider-off),
+        slider-off-active: map-get-strict($foreground, slider-off-active),
+        // --- Overrides ---
+            text: map-get-strict($foreground, text),
+        slider-min: map-get-strict($foreground, slider-min),
+        // --- Custom ---
+            contrast-text: map-get-strict($foreground, contrast-text),
+    );
+
+    @return (
+        primary: map-get-strict($config, primary),
+        accent: map-get-strict($config, accent),
+        warn: map-get-strict($config, warn),
+        is-dark: map-get-strict($config, is-dark),
+        foreground: $foreground,
+        background: $background,
+        // --- Custom ---
+            // For CSS class name
+            name: map-get-strict($config, name),
+        // Palettes
+            //success: mat-palette($dsh-success),
+            //pending: mat-palette($dsh-pending),
+            gray: map-get-strict($config, gray),
+        // Palettes base color
+            success-base: map-get-strict($config, success-base),
+        pending-base: map-get-strict($config, pending-base),
+        warn-base: map-get-strict($config, warn-base)
+    );
+}
+
+@mixin dsh-theme($config, $background, $foreground) {
+    $theme: project-theme($config, $background, $foreground);
+
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
         @include mat-menu-override-theme($theme);
