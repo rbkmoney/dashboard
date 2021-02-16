@@ -5,7 +5,7 @@
 @import '../app/theme';
 @import '../material/theme';
 
-@function project-theme($config, $background, $foreground) {
+@mixin dsh-theme($config, $background, $foreground) {
     $background: (
         status-bar: map-get-strict($background, status-bar),
         app-bar: map-get-strict($background, app-bar),
@@ -45,7 +45,7 @@
             contrast-text: map-get-strict($foreground, contrast-text),
     );
 
-    @return (
+    $theme: (
         primary: map-get-strict($config, primary),
         accent: map-get-strict($config, accent),
         warn: map-get-strict($config, warn),
@@ -62,12 +62,8 @@
         // Palettes base color
             success-base: map-get-strict($config, success-base),
         pending-base: map-get-strict($config, pending-base),
-        warn-base: map-get-strict($config, warn-base)
+        warn-base: map-get-strict($config, warn-base),
     );
-}
-
-@mixin dsh-theme($config, $background, $foreground) {
-    $theme: project-theme($config, $background, $foreground);
 
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);

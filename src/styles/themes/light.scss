@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
-@import '../utils/palette';
-@import './theme';
+
+@import 'palette';
+@import 'theme';
 
 $background: (
     status-bar: map_get($mat-grey, 300),
