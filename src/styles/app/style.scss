@@ -1,0 +1,5 @@
+@import 'body';
+
+@mixin app-style() {
+    @include app-body();
+}
