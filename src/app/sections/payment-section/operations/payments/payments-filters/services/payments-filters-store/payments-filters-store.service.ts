@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
-import isString from 'lodash.isstring';
-import pickBy from 'lodash.pickby';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
-import { removeDictEmptyFields, wrapValuesToArray } from '@dsh/utils';
+import { removeDictEmptyFields } from '@dsh/utils';
 
-import { BIN_LENGTH, PAN_LENGTH } from '../../card-bin-pan-filter';
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
+import { formatPaymentAmountDataToParams } from '../../utils/format-payment-amount-data-to-params';
+import { getBinPanDataFromParams } from '../../utils/get-bin-pan-data-from-params';
+import { getListFiltersDataFromParams } from '../../utils/get-list-filters-data-from-params';
+import { getPaymentAmountDataFromParams } from '../../utils/get-payment-amount-data-from-params';
 
 @Injectable()
 export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFiltersData> {
@@ -24,16 +24,30 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     }
 
     mapToData(params: Params): Partial<PaymentsFiltersData> {
-        const { fromTime, toTime, shopIDs, invoiceIDs, first6, last4, ...restParams } = params;
+        const {
+            fromTime,
+            toTime,
+            shopIDs,
+            invoiceIDs,
+            first6,
+            last4,
+            paymentAmountFrom,
+            paymentAmountTo,
+            ...restParams
+        } = params;
 
-        return this.removeUnusedFields({
+        return removeDictEmptyFields({
             daterange: this.formatDaterange(fromTime, toTime),
-            binPan: this.getBinPanParams({
+            binPan: getBinPanDataFromParams({
                 first6,
                 last4,
             }),
-            ...this.getListParams({ shopIDs, invoiceIDs }),
+            ...getListFiltersDataFromParams({ shopIDs, invoiceIDs }),
             additional: {
+                ...getPaymentAmountDataFromParams({
+                    paymentAmountFrom,
+                    paymentAmountTo,
+                }),
                 ...restParams,
             },
         });
@@ -42,55 +56,20 @@ export class PaymentsFiltersStoreService extends QueryParamsStore<PaymentsFilter
     mapToParams({ daterange, binPan, additional, ...restData }: PaymentsFiltersData): Params {
         const { begin: fromTime, end: toTime } = this.daterangeManager.serializeDateRange(daterange);
         const { bin = null, pan = null } = binPan ?? {};
+        const { paymentAmountFrom, paymentAmountTo, ...restAdditional } = additional ?? {};
 
         return removeDictEmptyFields({
             fromTime,
             toTime,
             first6: bin,
             last4: pan,
-            ...additional,
+            ...formatPaymentAmountDataToParams({
+                paymentAmountFrom,
+                paymentAmountTo,
+            }),
+            ...restAdditional,
             ...restData,
         });
-    }
-
-    private removeUnusedFields<T>(data: T): T | Partial<T> {
-        return Object.entries(data).reduce((newData: T | Partial<T>, [key, value]: [string, any]) => {
-            if (!isEmpty(value)) {
-                newData[key] = value;
-            }
-            return newData;
-        }, {});
-    }
-
-    private getBinPanParams({ first6, last4 }: Params): PaymentsFiltersData['binPan'] | null {
-        const bin = Number(first6);
-        const pan = Number(last4);
-        const isValidBin = !isNil(first6) && !isNaN(bin) && first6.length === BIN_LENGTH;
-        const isValidPan = !isNil(last4) && !isNaN(pan) && last4.length === PAN_LENGTH;
-
-        if (isValidBin || isValidPan) {
-            return {
-                paymentMethod: 'bankCard',
-                bin: isValidBin ? first6 : null,
-                pan: isValidPan ? last4 : null,
-            };
-        }
-
-        return null;
-    }
-
-    private getListParams(params: Params): Partial<PaymentsFiltersData> {
-        const nonEmptyListParams = pickBy(
-            params,
-            (value: unknown, key: keyof PaymentsFiltersData) =>
-                ['shopIDs', 'invoiceIDs'].includes(key) && !isEmpty(value)
-        );
-        const stringListParams = pickBy(nonEmptyListParams, (value: unknown) => isString(value));
-
-        return {
-            ...nonEmptyListParams,
-            ...wrapValuesToArray(stringListParams),
-        };
     }
 
     private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {

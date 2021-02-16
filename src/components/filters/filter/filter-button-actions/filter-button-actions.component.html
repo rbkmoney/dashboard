@@ -4,7 +4,7 @@
     <ng-content></ng-content>
     <div *ngIf="!withoutClear; else saveOnly" fxFlex fxLayoutAlign="space-between" fxLayoutGap="20px">
         <div>
-            <button dsh-button (click)="clear.emit($event)">{{ t('clear') }}</button>
+            <button dsh-stroked-button color="accent" (click)="clear.emit($event)">{{ t('clear') }}</button>
         </div>
         <div>
             <button dsh-button color="accent" (click)="save.emit($event)">{{ t('save') }}</button>

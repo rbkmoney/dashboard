@@ -1,17 +1,19 @@
 <ng-container *transloco="let t; read: 'filters'">
-    <dsh-base-dialog hasDivider>
-        <dshBaseDialogTitle fxFlex="row" fxLayout="space-between">
-            <div class="dsh-headline">{{ t('additionalFilters') }}</div>
-            <mat-icon class="close-icon" svgIcon="cross" (click)="close()"></mat-icon>
-        </dshBaseDialogTitle>
+    <dsh-base-dialog hasDivider [title]="t('additionalFilters')" (cancel)="close()">
         <div class="dialog-filters-main">
             <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
             <mat-divider></mat-divider>
-            <dsh-status-filters [form]="statusFiltersGroup"></dsh-status-filters>
+            <dsh-payment-status-filter [control]="statusFilterControl"></dsh-payment-status-filter>
+            <mat-divider></mat-divider>
+            <dsh-payment-sum-filter [form]="paymentSumFiltersGroup"></dsh-payment-sum-filter>
+            <mat-divider></mat-divider>
+            <dsh-token-provider-filter [control]="tokenProviderFilterControl"></dsh-token-provider-filter>
+            <mat-divider></mat-divider>
+            <dsh-payment-system-filter [control]="paymentSystemFilterControl"></dsh-payment-system-filter>
         </div>
         <dshBaseDialogActions>
             <div fxLayout="row" fxLayoutAlign="space-between center">
-                <button dsh-button (click)="clear()">
+                <button dsh-stroked-button color="accent" (click)="clear()">
                     {{ t('clearParams') }}
                 </button>
                 <button dsh-button color="accent" (click)="confirm()">
