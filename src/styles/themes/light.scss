@@ -1,7 +1,6 @@
-@import '~@angular/material/theming';
-
 @import 'palette';
 @import 'theme';
+@import '~@angular/material/theming';
 
 $background: (
     status-bar: map_get($mat-grey, 300),
@@ -17,7 +16,7 @@ $background: (
     unselected-chip: map_get($mat-grey, 300),
     disabled-list-option: map_get($mat-grey, 200),
     // Custom
-        hover: map_get($mat-grey, 200),
+    hover: map_get($mat-grey, 200),
     selected-button: map_get($mat-grey, 100),
 );
 
@@ -36,10 +35,10 @@ $foreground: (
     slider-off: rgba(#000, 0.26),
     slider-off-active: rgba(#000, 0.38),
     // Overrides
-        text: #475166,
+    text: #475166,
     slider-min: #475166,
     // Custom
-        contrast-text: $light-text,
+    contrast-text: $light-text,
     light-text: mat-color(mat-palette($mat-grey), 500),
     border: map_get($mat-grey, 200),
 );
@@ -50,7 +49,7 @@ $config: (
     warn: mat-palette($dsh-warn),
     is-dark: false,
     // Custom
-        name: 'light',
+    name: 'light',
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300),

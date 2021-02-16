@@ -20,7 +20,7 @@
         unselected-chip: map-get-strict($background, unselected-chip),
         disabled-list-option: map-get-strict($background, disabled-list-option),
         // --- Custom ---
-            hover: map-get-strict($background, hover),
+        hover: map-get-strict($background, hover),
         selected-button: map-get-strict($background, selected-button),
     );
 
@@ -39,10 +39,10 @@
         slider-off: map-get-strict($foreground, slider-off),
         slider-off-active: map-get-strict($foreground, slider-off-active),
         // --- Overrides ---
-            text: map-get-strict($foreground, text),
+        text: map-get-strict($foreground, text),
         slider-min: map-get-strict($foreground, slider-min),
         // --- Custom ---
-            contrast-text: map-get-strict($foreground, contrast-text),
+        contrast-text: map-get-strict($foreground, contrast-text),
         light-text: map-get-strict($foreground, light-text),
         border: map-get-strict($foreground, border),
     );
@@ -55,10 +55,10 @@
         foreground: $foreground,
         background: $background,
         // --- Custom ---
-            // For CSS class name
-            name: map-get-strict($config, name),
+        // For CSS class name
+        name: map-get-strict($config, name),
         // Palettes base color
-            success-base: map-get-strict($config, success-base),
+        success-base: map-get-strict($config, success-base),
         pending-base: map-get-strict($config, pending-base),
         warn-base: map-get-strict($config, warn-base),
     );
