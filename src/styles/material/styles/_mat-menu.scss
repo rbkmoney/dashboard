@@ -1,5 +1,5 @@
-@import '~@angular/material/theming';
-@import '../utils/shadow';
+@import '../../../../node_modules/@angular/material/theming';
+@import '../../utils/shadow';
 
 $selector: '.mat-menu-panel.mat-menu-panel.mat-menu-panel';
 $height: 40px;

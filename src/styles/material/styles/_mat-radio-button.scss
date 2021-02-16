@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '../../../../node_modules/@angular/material/theming';
 
 @mixin mat-radio-button-override-typography($config) {
     .mat-radio-button {

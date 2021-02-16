@@ -1,4 +1,4 @@
-@import 'mat-radio-button';
+@import 'styles/mat-radio-button';
 
 @mixin mat-typography($config) {
     @include mat-radio-button-override-typography($config);
