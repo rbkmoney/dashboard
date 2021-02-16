@@ -11,7 +11,6 @@
     $accent-text: map-get($accent, contrast);
     $warn: map-get($theme, warn);
     $warn-text: map-get($warn, contrast);
-    $success: map-get($theme, success);
 
     .dsh-state-nav {
         &-item {
