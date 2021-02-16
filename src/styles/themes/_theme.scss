@@ -43,6 +43,8 @@
         slider-min: map-get-strict($foreground, slider-min),
         // --- Custom ---
             contrast-text: map-get-strict($foreground, contrast-text),
+        light-text: map-get-strict($foreground, light-text),
+        border: map-get-strict($foreground, border),
     );
 
     $theme: (
@@ -55,10 +57,6 @@
         // --- Custom ---
             // For CSS class name
             name: map-get-strict($config, name),
-        // Palettes
-            //success: map-get-strict($config, success),
-            //pending: map-get-strict($config, pending),
-            gray: map-get-strict($config, gray),
         // Palettes base color
             success-base: map-get-strict($config, success-base),
         pending-base: map-get-strict($config, pending-base),

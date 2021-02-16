@@ -2,11 +2,11 @@
 @import './timeline-item/timeline-item-badge/timeline-item-badge-theme';
 
 @mixin dsh-timeline-theme($theme) {
-    $gray: map-get($theme, gray);
+    $foreground: map-get($theme, foreground);
     $success-base: map-get($theme, success-base);
     $pending-base: map-get($theme, pending-base);
     $warn-base: map-get($theme, warn-base);
-    $line-color: mat-color($gray, 200);
+    $line-color: map-get($foreground, border);
 
     .dsh-timeline {
         border-bottom-color: $line-color;
