@@ -37,12 +37,16 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
     constructor(private layoutManagementService: LayoutManagementService) {}
 
     ngOnInit() {
-        this.layoutManagementService.gridTemplateColumns$.subscribe(
-            (gridTemplateColumns) => (this.gridTemplateColumns = gridTemplateColumns)
-        );
+        this.layoutManagementService.gridTemplateColumns$
+            .pipe(untilDestroyed(this))
+            .subscribe((gridTemplateColumns) => (this.gridTemplateColumns = gridTemplateColumns));
     }
 
     ngAfterContentInit() {
+        this.listenColsCount();
+    }
+
+    private listenColsCount() {
         queryListStartedArrayChanges(this.nestedTableColComponentChildren)
             .pipe(pluck('length'), untilDestroyed(this))
             .subscribe((colsCount) => this.colsCount$.next(colsCount));

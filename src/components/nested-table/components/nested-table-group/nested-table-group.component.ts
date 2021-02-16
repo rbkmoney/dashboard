@@ -52,6 +52,14 @@ export class NestedTableGroupComponent implements AfterContentInit, OnChanges {
     }
 
     ngAfterContentInit() {
+        this.listenShowAll();
+    }
+
+    showAll() {
+        this.displayedAll$.next(true);
+    }
+
+    private listenShowAll() {
         combineLatest([queryListStartedArrayChanges(this.rowChildren), this.showMoreDisplayed$])
             .pipe(untilDestroyed(this))
             .subscribe(([rows, showMoreDisplayed]) => {
@@ -61,9 +69,5 @@ export class NestedTableGroupComponent implements AfterContentInit, OnChanges {
                     rows.forEach((row) => (row.hidden = false));
                 }
             });
-    }
-
-    showAll() {
-        this.displayedAll$.next(true);
     }
 }

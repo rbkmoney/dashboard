@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { ExpansionService } from '@dsh/components/nested-table/nested-table-collapse/services/expansion/expansion.service';
-
-import { indicatorRotate, IndicatorRotateState } from './indicator-rotate';
+import { ExpansionService } from '../../services/expansion/expansion.service';
+import { indicatorRotate} from './indicator-rotate';
+import { IndicatorRotateState } from './types/indicator-rotate';
 
 @UntilDestroy()
 @Component({

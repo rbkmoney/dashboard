@@ -1,11 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export const ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+import { IndicatorRotateState } from './types/indicator-rotate';
 
-export enum IndicatorRotateState {
-    collapsed = 'collapsed',
-    expanded = 'expanded',
-}
+export const ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 
 export const indicatorRotate = trigger('indicatorRotate', [
     state([IndicatorRotateState.collapsed, 'void'].join(','), style({ transform: 'rotate(90deg)' })),
