@@ -28,7 +28,7 @@
                 }
             }
             &.selected {
-                color: mat-color($primary, 500);
+                color: mat-color($primary, 400);
             }
         }
 
@@ -48,8 +48,8 @@
                     color: map-get($warn-text, 300);
                 }
                 &.selected {
-                    background: mat-color($primary, 500);
-                    color: map-get($primary-text, 500);
+                    background: mat-color($primary, 400);
+                    color: map-get($primary-text, 400);
                 }
             }
         }

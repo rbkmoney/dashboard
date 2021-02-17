@@ -4,7 +4,7 @@
     $primary: map-get($theme, primary);
 
     .dsh-navbar-item-content-active {
-        color: mat-color($primary, 500);
+        color: mat-color($primary, 400);
     }
 }
 

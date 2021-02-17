@@ -1,6 +1,7 @@
+@import '~@angular/material/theming';
+
 @import 'palette';
 @import 'theme';
-@import '~@angular/material/theming';
 
 $background: (
     // Overrides
@@ -22,9 +23,9 @@ $foreground: (
 
 $config: (
     // Overrides
-    primary: mat-palette($dsh-slateblue),
-    accent: mat-palette($dsh-palegreen),
-    warn: mat-palette($dsh-warn),
+    primary: mat-palette($dsh-slateblue, 400),
+    accent: mat-palette($dsh-palegreen, 300),
+    warn: mat-palette($dsh-warn, 300),
     is-dark: false,
     // Custom
     name: 'light',

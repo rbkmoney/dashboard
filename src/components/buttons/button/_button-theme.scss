@@ -32,7 +32,7 @@
         @include glow-effect(map-get($background, hover), 1%);
 
         &.dsh-primary {
-            @include glow-effect(mat-color($primary, 500), 4%);
+            @include glow-effect(mat-color($primary, 400), 4%);
         }
 
         &.dsh-accent {
@@ -73,8 +73,8 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, 500));
-                @include focused-background(mat-color($primary, 400));
+                @include button(map-get($background, card), mat-color($primary, 400));
+                @include focused-background(mat-color($primary, 300));
             }
 
             &.dsh-accent {
@@ -94,8 +94,8 @@
 
         &-stroked-button {
             &.dsh-primary {
-                @include stroked-button(mat-color($primary, 500), mat-color($primary, 500));
-                @include focused-background(rgba(mat-color($primary, 400), 0.1));
+                @include stroked-button(mat-color($primary, 400), mat-color($primary, 400));
+                @include focused-background(rgba(mat-color($primary, 300), 0.1));
             }
 
             &.dsh-accent {
@@ -118,8 +118,8 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, 500));
-                @include focused-background(mat-color($primary, 400));
+                @include button(map-get($background, card), mat-color($primary, 400));
+                @include focused-background(mat-color($primary, 300));
             }
 
             &.dsh-accent {

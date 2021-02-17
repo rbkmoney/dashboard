@@ -47,7 +47,7 @@
     $foreground: map-get($theme, foreground);
 
     $default-color: map-get($foreground, text);
-    $primary-color: mat-color($primary, 500);
+    $primary-color: mat-color($primary, 400);
     $contrast-text: map-get($foreground, contrast-text);
 
     .dsh-colored-icon {
