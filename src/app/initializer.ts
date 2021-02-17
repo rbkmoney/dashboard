@@ -1,3 +1,5 @@
+import { YandexCounterConfig } from 'ng-yandex-metrika/lib/ng-yandex-metrika.config';
+
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { LanguageService } from './language';
@@ -11,14 +13,16 @@ export const initializer = (
     platformId: object
 ) => () =>
     Promise.all([
-        configService.init({ configUrl: '/appConfig.json' }).then(() =>
-            yandexMetrikaService.init(
+        configService.init({ configUrl: '/appConfig.json' }).then(() => {
+            const { id, ...settings } = configService.yandexMetrika as YandexCounterConfig;
+            return yandexMetrikaService.init(
                 {
-                    id: configService.yandexMetrika.id,
+                    id,
+                    ...settings
                 },
                 platformId
             )
-        ),
+        }),
         keycloakService.init({
             config: '/authConfig.json',
             initOptions: {
