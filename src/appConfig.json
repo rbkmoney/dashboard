@@ -13,5 +13,8 @@
         "trackLinks": true,
         "accurateTrackBounce": true,
         "webvisor": true
+    },
+    "theme": {
+        "default": "light"
     }
 }

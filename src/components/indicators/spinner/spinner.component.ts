@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import random from 'lodash.random';
 
-import { slateblue400 } from '../../../app/theme-manager';
+import { Theme, THEME } from '../../../styles/theme';
 import { SpinnerType } from './spinner-type';
 
 @Component({
@@ -14,9 +14,11 @@ export class SpinnerComponent implements OnChanges {
     @Input() size = 50;
     activeSpinner = SpinnerType.Spring;
     spinnersCount = 7;
-    color = slateblue400;
+    color = this.theme.primary.base;
 
     SpinnerType = SpinnerType;
+
+    constructor(@Inject(THEME) private theme: Theme) {}
 
     ngOnChanges({ type }: SimpleChanges) {
         this.activeSpinner = type && type.currentValue ? type.currentValue : random(0, this.spinnersCount);
