@@ -36,7 +36,7 @@
         }
 
         &.dsh-accent {
-            @include glow-effect(mat-color($accent, 300), 10%);
+            @include glow-effect(mat-color($accent, default), 10%);
         }
 
         &.dsh-warn {
@@ -78,7 +78,7 @@
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, 300));
+                @include button(map-get($background, card), mat-color($accent, default));
                 @include focused-background(mat-color($accent, 200));
             }
 
@@ -99,7 +99,7 @@
             }
 
             &.dsh-accent {
-                @include stroked-button(mat-color($accent, 300), mat-color($accent, 300));
+                @include stroked-button(mat-color($accent, default), mat-color($accent, default));
                 @include focused-background(rgba(mat-color($accent, 200), 0.1));
             }
 
@@ -123,7 +123,7 @@
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, 300));
+                @include button(map-get($background, card), mat-color($accent, default));
                 @include focused-background(mat-color($accent, 200));
             }
 

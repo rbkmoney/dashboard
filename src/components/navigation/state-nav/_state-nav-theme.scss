@@ -19,7 +19,7 @@
             // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
                 mat-icon {
-                    @include fill(mat-color($accent, 300));
+                    @include fill(mat-color($accent, default));
                 }
             }
             &.warn {
@@ -40,7 +40,7 @@
 
                 // The class order directly affects the order of applying styles (for example, both .warn and .selected)
                 &.success {
-                    background: mat-color($accent, 300);
+                    background: mat-color($accent, default);
                     color: map-get($accent-text, 300);
                 }
                 &.warn {
