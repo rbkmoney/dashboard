@@ -1,0 +1,36 @@
+@import 'palette';
+@import 'theme';
+@import '~@angular/material/theming';
+
+$background: (
+    // Overrides
+    background: #ecf4f4,
+    // Custom
+    hover: map_get($mat-grey, 200),
+    selected-button: map_get($mat-grey, 100)
+);
+
+$foreground: (
+    // Overrides
+    text: #475166,
+    slider-min: #475166,
+    // Custom
+    contrast-text: $light-text,
+    light-text: mat-color(mat-palette($mat-grey), 500),
+    border: map_get($mat-grey, 200)
+);
+
+$config: (
+    // Overrides
+    primary: mat-palette($dsh-slateblue),
+    accent: mat-palette($dsh-palegreen),
+    warn: mat-palette($dsh-warn),
+    is-dark: false,
+    // Custom
+    name: 'persian-green',
+    success-base: mat-color(mat-palette($dsh-success), 400),
+    pending-base: mat-color(mat-palette($dsh-pending), 800),
+    warn-base: mat-color(mat-palette($dsh-warn), 300)
+);
+
+@include dsh-theme($config, $background, $foreground);
