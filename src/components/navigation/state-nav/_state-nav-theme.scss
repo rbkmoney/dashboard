@@ -28,7 +28,7 @@
                 }
             }
             &.selected {
-                color: mat-color($primary, 400);
+                color: mat-color($primary, default);
             }
         }
 
@@ -48,7 +48,7 @@
                     color: map-get($warn-text, 300);
                 }
                 &.selected {
-                    background: mat-color($primary, 400);
+                    background: mat-color($primary, default);
                     color: map-get($primary-text, 400);
                 }
             }

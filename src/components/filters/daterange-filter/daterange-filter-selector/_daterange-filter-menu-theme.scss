@@ -4,6 +4,6 @@
     $primary: map-get($theme, primary);
 
     .dsh-daterange-filter-menu-item-active {
-        color: mat-color($primary, 400);
+        color: mat-color($primary, default);
     }
 }

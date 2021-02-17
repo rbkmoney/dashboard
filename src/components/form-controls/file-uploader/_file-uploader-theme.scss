@@ -9,13 +9,13 @@
             border-color: map-get($foreground, border);
 
             &-dragover {
-                border-color: mat-color($primary, 400);
+                border-color: mat-color($primary, default);
                 transition: ease 1s;
             }
         }
 
         &-choose-files {
-            color: mat-color($primary, 400);
+            color: mat-color($primary, default);
         }
     }
 }

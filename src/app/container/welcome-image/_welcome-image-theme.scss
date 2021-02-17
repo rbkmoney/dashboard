@@ -4,6 +4,6 @@
     $primary: map-get($theme, primary);
 
     .dsh-welcome-image {
-        background-color: mat-color($primary, 400);
+        background-color: mat-color($primary, default);
     }
 }
