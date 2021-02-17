@@ -69,7 +69,7 @@ export class BeneficialOwnersService extends QuestionaryFormService {
         return this.form;
     }
 
-    protected checkOwners(): void {
+    private checkOwners(): void {
         const ownersCount = getAbstractControl<FormArray>(this.form, 'beneficialOwners').length;
 
         if (ownersCount === 0) {
