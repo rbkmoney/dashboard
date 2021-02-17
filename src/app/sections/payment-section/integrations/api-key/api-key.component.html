@@ -4,9 +4,9 @@
         <div class="mat-body-1">
             {{ t('description') }} <a [href]="paymentsApiSpecEndpoint" target="_blank">{{ t('api') }}</a>
         </div>
-        <div fxLayout="column" [fxLayoutGap]="layoutGap">
-            <mat-form-field fxFlex="100" class="ym-hide-content">
-                <textarea matInput rows="6" readonly [value]="token$ | async"></textarea>
+        <div class="ym-hide-content" fxLayout="column" [fxLayoutGap]="layoutGap">
+            <mat-form-field fxFlex="100">
+                <textarea class="ym-disable-keys" matInput rows="6" readonly [value]="token$ | async"></textarea>
             </mat-form-field>
             <div>
                 <button
