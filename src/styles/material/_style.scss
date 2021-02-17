@@ -1,0 +1,17 @@
+@import 'styles/mat-menu';
+@import 'styles/mat-theme-loaded-marker';
+@import 'styles/mat-dialog';
+@import 'styles/mat-snack-bar';
+@import 'styles/mat-form-field';
+@import 'styles/mat-checkbox';
+@import 'styles/mat-dialog-container';
+
+@mixin mat-style() {
+    @include mat-menu-override();
+    @include mat-theme-loaded-marker-override();
+    @include mat-dialog-override();
+    @include mat-snack-bar-override();
+    @include mat-form-field-infix-override();
+    @include mat-checkbox-override();
+    @include mat-dialog-container-override();
+}

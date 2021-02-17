@@ -11,7 +11,6 @@
     $accent-text: map-get($accent, contrast);
     $warn: map-get($theme, warn);
     $warn-text: map-get($warn, contrast);
-    $success: map-get($theme, success);
 
     .dsh-state-nav {
         &-item {
@@ -29,7 +28,7 @@
                 }
             }
             &.selected {
-                color: mat-color($primary, 400);
+                color: mat-color($primary, 500);
             }
         }
 
@@ -49,8 +48,8 @@
                     color: map-get($warn-text, 300);
                 }
                 &.selected {
-                    background: mat-color($primary, 400);
-                    color: map-get($primary-text, 400);
+                    background: mat-color($primary, 500);
+                    color: map-get($primary-text, 500);
                 }
             }
         }

@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { donutChartColors } from '../../../../../styles/chart-colors';
+import { Theme, THEME } from '../../../../../styles/theme';
 import { SearchParams } from '../search-params';
 import { PaymentsErrorDistributionService } from './payments-error-distribution.service';
 
@@ -23,9 +23,9 @@ export class PaymentsErrorDistributionComponent implements OnChanges {
 
     currentErrorTitle$ = this.distributionsService.currentErrorTitle$;
 
-    colors = donutChartColors;
+    colors = this.theme.charts.donutChartColors;
 
-    constructor(private distributionsService: PaymentsErrorDistributionService) {}
+    constructor(private distributionsService: PaymentsErrorDistributionService, @Inject(THEME) private theme: Theme) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (

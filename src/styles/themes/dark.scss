@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
-@import '../utils/palette';
-@import './theme';
+@import 'palette';
+@import 'theme';
 
 $background: (
     status-bar: black,
@@ -46,7 +46,7 @@ $foreground: (
     /*
      * Custom
      *
- */
+ */ contrast-text: black,
 );
 
 $theme: (
@@ -69,4 +69,5 @@ $theme: (
     warn-base: mat-color(mat-palette($dsh-warn), 300),
 );
 
-@include dsh-theme($theme);
+// TODO: Prepare for use
+//@include dsh-theme($theme, $background, $foreground);
