@@ -12,10 +12,7 @@ export const initializer = (
 ) => () =>
     Promise.all([
         configService.init({ configUrl: '/appConfig.json' }).then(() => {
-            return yandexMetrikaService.init(
-                configService.yandexMetrika,
-                platformId
-            )
+            return yandexMetrikaService.init(configService.yandexMetrika, platformId);
         }),
         keycloakService.init({
             config: '/authConfig.json',
