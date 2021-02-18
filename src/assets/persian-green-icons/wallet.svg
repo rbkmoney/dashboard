@@ -6,11 +6,11 @@
     />
     <path
         d="M0 33.7555C0 30.9969 2.23634 28.7605 4.995 28.7605H133.005C135.764 28.7605 138 30.9969 138 33.7555V48.9688C138 51.7275 135.764 53.9638 133.005 53.9638H4.995C2.23634 53.9638 0 51.7275 0 48.9688V33.7555Z"
-        fill="url(#paint0_linear)"
+        fill="url(#paint0_linear_persian)"
     />
     <path
         d="M12.9407 53.989C5.79377 53.989 0 48.3414 0 41.3748V125.386C0 132.352 5.79377 138 12.9407 138H125.059C132.206 138 138 132.352 138 125.386V41.3748C138 44.7203 136.637 47.9288 134.21 50.2944C131.783 52.66 128.491 53.989 125.059 53.989H12.9407Z"
-        fill="url(#paint1_linear)"
+        fill="url(#paint1_linear_persian)"
     />
     <path
         d="M125.059 82.7496H81.9407C74.7938 82.7496 69 88.3972 69 95.3638C69 102.33 74.7938 107.978 81.9407 107.978H125.059C132.206 107.978 138 102.33 138 95.3638V70.1353C138 77.102 132.206 82.7496 125.059 82.7496Z"
@@ -23,19 +23,33 @@
     <path
         opacity="0.8"
         d="M22.8533 37.313C22.8628 43.1036 24.2539 48.8127 26.9167 53.989H95.3732C98.0359 48.8127 99.427 43.1036 99.4365 37.313C99.4195 34.4305 99.0546 31.5599 98.3495 28.7605H23.9144C23.218 31.5609 22.8619 34.4315 22.8533 37.313H22.8533Z"
-        fill="url(#paint2_linear)"
+        fill="url(#paint2_linear_persian)"
     />
     <defs>
-        <linearGradient id="paint0_linear" x1="0" y1="28.7605" x2="0" y2="53.9638" gradientUnits="userSpaceOnUse">
+        <linearGradient
+            id="paint0_linear_persian"
+            x1="0"
+            y1="28.7605"
+            x2="0"
+            y2="53.9638"
+            gradientUnits="userSpaceOnUse"
+        >
             <stop stop-color="#3B5F94" />
             <stop offset="1" stop-color="#003A8E" />
         </linearGradient>
-        <linearGradient id="paint1_linear" x1="137.701" y1="89.792" x2="0" y2="89.792" gradientUnits="userSpaceOnUse">
+        <linearGradient
+            id="paint1_linear_persian"
+            x1="137.701"
+            y1="89.792"
+            x2="0"
+            y2="89.792"
+            gradientUnits="userSpaceOnUse"
+        >
             <stop stop-color="#033D91" />
             <stop offset="1" stop-color="#254F8A" />
         </linearGradient>
         <linearGradient
-            id="paint2_linear"
+            id="paint2_linear_persian"
             x1="22.8533"
             y1="28.7605"
             x2="22.8533"
