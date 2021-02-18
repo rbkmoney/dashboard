@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { BrandType } from './brand-type';
+import { coerceBoolean } from '@dsh/utils';
+
 
 @Component({
     selector: 'dsh-brand',
@@ -9,17 +10,10 @@ import { BrandType } from './brand-type';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandComponent {
-    @Input() type: BrandType = BrandType.normal;
+    @Input() @coerceBoolean inverted: boolean;
     @Input() navigationLink = '/';
 
     get iconName(): string {
-        switch (this.type) {
-            case BrandType.invert:
-                return 'logo_white';
-            case BrandType.normal:
-                return 'logo';
-            default:
-                throw new Error(`Unknown brand type: ${this.type}`);
-        }
+        return  this.inverted ? 'logo_white' : 'logo'
     }
 }

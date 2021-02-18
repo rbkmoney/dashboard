@@ -15,6 +15,7 @@ export class ThemeManager {
     private static readonly KEY = 'theme';
 
     current: ThemeName;
+    hasMainBackground: boolean = !!this.configService.theme.backgroundImageUrls?.length;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 

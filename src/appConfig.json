@@ -15,6 +15,13 @@
         "webvisor": true
     },
     "theme": {
-        "default": "light"
+        "default": "light",
+        "backgroundImageUrls": [
+            "assets/background/1.png",
+            "assets/background/2.png",
+            "assets/background/3.png",
+            "assets/background/4.png",
+            "assets/background/5.png"
+        ]
     }
 }
