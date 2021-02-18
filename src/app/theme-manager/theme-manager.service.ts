@@ -15,7 +15,7 @@ export class ThemeManager {
     private static readonly KEY = 'theme';
 
     current: ThemeName;
-    hasMainBackground: boolean = !!this.configService.theme.backgroundImageUrls?.length;
+    hasMainBackground: boolean;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 
@@ -23,16 +23,16 @@ export class ThemeManager {
         private settingsService: SettingsService,
         @Inject(DOCUMENT) private doc: Document,
         private configService: ConfigService
-    ) {
-        this.init();
-    }
+    ) {}
 
     change(name: ThemeName) {
         this.removeCurrent();
         this.set(name);
     }
 
-    private init() {
+    async init() {
+        this.hasMainBackground = !!this.configService.theme.backgroundImageUrls?.length;
+
         const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
         const correctedName = this.getCorrectName(name);
         this.change(correctedName);
