@@ -14,7 +14,7 @@ export class BrandComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() navigationLink = '/';
 
-    size = this.configService.theme.logo.size;
+    size: { width?: string; height?: string } = this.configService.theme.logo.size;
 
     constructor(private configService: ConfigService) {}
 
