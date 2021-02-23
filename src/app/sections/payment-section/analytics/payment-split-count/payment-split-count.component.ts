@@ -22,7 +22,10 @@ export class PaymentSplitCountComponent implements OnChanges {
 
     colors = this.theme.stackedBarChart;
 
-    constructor(private paymentSplitCountService: PaymentSplitCountService, @Inject(CHARTS_THEME) private theme: ChartsThemeProvider) {}
+    constructor(
+        private paymentSplitCountService: PaymentSplitCountService,
+        @Inject(CHARTS_THEME) private theme: ChartsThemeProvider
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (

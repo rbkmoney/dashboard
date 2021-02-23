@@ -25,7 +25,10 @@ export class PaymentsErrorDistributionComponent implements OnChanges {
 
     colors = this.theme.donutChart;
 
-    constructor(private distributionsService: PaymentsErrorDistributionService, @Inject(CHARTS_THEME) private theme: ChartsThemeProvider) {}
+    constructor(
+        private distributionsService: PaymentsErrorDistributionService,
+        @Inject(CHARTS_THEME) private theme: ChartsThemeProvider
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (
