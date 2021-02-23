@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { coerceBoolean } from '@dsh/utils';
 
+import { ConfigService } from '../../config';
 
 @Component({
     selector: 'dsh-brand',
@@ -13,7 +14,11 @@ export class BrandComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() navigationLink = '/';
 
+    size = this.configService.theme.logo.size;
+
+    constructor(private configService: ConfigService) {}
+
     get iconName(): string {
-        return  this.inverted ? 'logo_white' : 'logo'
+        return this.inverted ? 'logo_white' : 'logo';
     }
 }

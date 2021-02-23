@@ -2,12 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as prettier from 'prettier';
 
+import * as iconsConfig from '../icons-config.json';
+
 const ROOT_DIR = path.join(__dirname, '..');
-const RESULT_ICONS_ROOT_PATH = path.join(ROOT_DIR, 'src/app/icons/icons');
 
 async function genIconsList(iconsDirPath: string) {
     const iconsDirName = path.basename(iconsDirPath);
-    const resultPath = path.join(RESULT_ICONS_ROOT_PATH, `${iconsDirName}.json`);
+    const resultPath = path.join(ROOT_DIR, iconsConfig.resultIconsDirPath, `${iconsDirName}.json`);
 
     const icons = fs.readdirSync(iconsDirPath).map((file) => file.slice(0, -4));
     const filePath = await prettier.resolveConfigFile();
@@ -20,5 +21,5 @@ async function genIconsList(iconsDirPath: string) {
 }
 
 (async () => {
-    return await Promise.all([genIconsList('src/assets/icons'), genIconsList('src/assets/persian-green-icons')]);
+    return await Promise.all(iconsConfig.sourceIconsDirPaths.map((sourcePath) => genIconsList(sourcePath)));
 })();

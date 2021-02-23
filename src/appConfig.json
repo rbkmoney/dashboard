@@ -22,6 +22,15 @@
             "assets/background/3.png",
             "assets/background/4.png",
             "assets/background/5.png"
-        ]
+        ],
+        "logo": {
+            "icons": {
+                "default": "assets/logo/rbkmoney/default.svg",
+                "white": "assets/logo/rbkmoney/white.svg"
+            },
+            "size": {
+                "width": "96px"
+            }
+        }
     }
 }

@@ -1,13 +1,12 @@
-$logo-height: 48px;
-$logo-width: 96px;
+$height: 48px;
 
 :host {
-    height: $logo-height;
+    height: $height;
 }
 
 mat-icon {
-    height: $logo-height;
-    width: $logo-width;
+    height: 100%;
+    width: 100%;
     cursor: pointer;
     outline: none;
 }
