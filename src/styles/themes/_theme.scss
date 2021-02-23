@@ -41,7 +41,7 @@
             // --- Custom ---
             // Theme name (for CSS class name)
             name: map-get-strict($config, name),
-            // TODO: remove, use base color from palette
+            // If you need other colors, then replace with a palette
             success-base: map-get-strict($config, success-base),
             pending-base: map-get-strict($config, pending-base),
             warn-base: map-get-strict($config, warn-base),
