@@ -3,7 +3,7 @@
     [title]="t('title')"
     (cancel)="cancel()"
     (confirm)="create()"
-    [disabledConfirm]="form.invalid || (inProgress$ | async)"
+    [confirmButtonDisabled]="form.invalid || (inProgress$ | async)"
 >
     <form fxLayout="column" [formGroup]="form">
         <mat-form-field>
