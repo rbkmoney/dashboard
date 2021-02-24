@@ -4,10 +4,10 @@ import { shareReplay } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { PaymentSearchService } from '@dsh/api/search';
+import { booleanDebounceTime } from '@dsh/operators';
 
-import { booleanDebounceTime } from '../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../partial-fetcher';
-import { PaymentSearchFormValue } from '../../payment-section/operations/payments/search-form';
+import { PaymentSearchFormValue } from '../../payment-section/operations/payments';
 
 @Injectable()
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {

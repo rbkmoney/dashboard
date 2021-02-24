@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { stackedBarChartColors } from '../../../../../styles/chart-colors';
+import { Theme, THEME } from '../../../../../styles/theme';
 import { SearchParams } from '../search-params';
 import { PaymentSplitCountService } from './payment-split-count.service';
 
@@ -20,9 +20,9 @@ export class PaymentSplitCountComponent implements OnChanges {
     isLoading$ = this.paymentSplitCountService.isLoading$;
     error$ = this.paymentSplitCountService.error$;
 
-    colors = stackedBarChartColors;
+    colors = this.theme.charts.stackedBarChartColors;
 
-    constructor(private paymentSplitCountService: PaymentSplitCountService) {}
+    constructor(private paymentSplitCountService: PaymentSplitCountService, @Inject(THEME) private theme: Theme) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (

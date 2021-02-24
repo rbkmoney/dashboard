@@ -8,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { deepEqual, instance, mock, verify } from 'ts-mockito';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
@@ -16,7 +16,10 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { MainFiltersComponent } from '../../main-filters';
-import { StatusFiltersModule } from '../../status-filters';
+import { PaymentStatusFilterModule } from '../../payment-status-filter';
+import { PaymentSumFilterModule } from '../../payment-sum-filter';
+import { PaymentSystemFilterModule } from '../../payment-system-filter/payment-system-filter.module';
+import { TokenProviderFilterModule } from '../../token-provider-filter/token-provider-filter.module';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { DialogFiltersComponent } from './dialog-filters.component';
 
@@ -42,7 +45,10 @@ describe('DialogFiltersComponent', () => {
                 MatFormFieldModule,
                 MatInputModule,
                 MatDividerModule,
-                StatusFiltersModule,
+                PaymentStatusFilterModule,
+                PaymentSumFilterModule,
+                TokenProviderFilterModule,
+                PaymentSystemFilterModule,
             ],
             declarations: [DialogFiltersComponent, MainFiltersComponent, MatIcon],
             providers: [
@@ -92,18 +98,80 @@ describe('DialogFiltersComponent', () => {
                 rrn: '1234',
             });
         });
+
+        it('should init paymentSum filters with provided data', async () => {
+            await createComponent({
+                paymentAmountFrom: 500,
+                paymentAmountTo: 600,
+            });
+
+            expect(component.paymentSumFiltersGroup.value).toEqual({
+                min: '',
+                max: '',
+            });
+
+            fixture.detectChanges();
+
+            expect(component.paymentSumFiltersGroup.value).toEqual({
+                min: '500',
+                max: '600',
+            });
+        });
+
+        it('should init paymentSum filters with provided float numbers', async () => {
+            await createComponent({
+                paymentAmountFrom: 500.6,
+                paymentAmountTo: 600.89,
+            });
+
+            expect(component.paymentSumFiltersGroup.value).toEqual({
+                min: '',
+                max: '',
+            });
+
+            fixture.detectChanges();
+
+            expect(component.paymentSumFiltersGroup.value).toEqual({
+                min: '500,6',
+                max: '600,89',
+            });
+        });
     });
 
-    describe('mainFiltersGroup', () => {
-        it('should return main filters form group', async () => {
+    describe('filtersGroup', () => {
+        beforeEach(async () => {
             await createComponent({
                 payerEmail: 'ada@ada',
                 customerID: 'mine',
                 rrn: '1234',
+                paymentStatus: 'pending',
+                paymentAmountFrom: 500,
+                paymentAmountTo: 800,
             });
-            fixture.detectChanges();
 
+            fixture.detectChanges();
+        });
+
+        it('should return main filters form group', () => {
             expect(component.mainFiltersGroup instanceof FormGroup).toBe(true);
+            expect(component.mainFiltersGroup.value).toEqual({
+                payerEmail: 'ada@ada',
+                customerID: 'mine',
+                rrn: '1234',
+            });
+        });
+
+        it('should return statusFilter form control', () => {
+            expect(component.statusFilterControl instanceof FormControl).toBe(true);
+            expect(component.statusFilterControl.value).toBe('pending');
+        });
+
+        it('should return paymentSumFilters form group', () => {
+            expect(component.paymentSumFiltersGroup instanceof FormGroup).toBe(true);
+            expect(component.paymentSumFiltersGroup.value).toEqual({
+                min: '500',
+                max: '800',
+            });
         });
     });
 
@@ -209,6 +277,48 @@ describe('DialogFiltersComponent', () => {
                 )
             );
             expect().nothing();
+        });
+
+        describe('formatting paymentSumFilter data', () => {
+            beforeEach(async () => {
+                await createComponent({});
+                fixture.detectChanges();
+            });
+
+            afterEach(() => {
+                component.confirm();
+
+                verify(
+                    mockMatDialogRef.close(
+                        deepEqual({
+                            paymentAmountFrom: 500.6,
+                            paymentAmountTo: 800.89,
+                        })
+                    )
+                );
+                expect().nothing();
+            });
+
+            it('should format number data', async () => {
+                component.paymentSumFiltersGroup.setValue({
+                    min: 500.6,
+                    max: 800.89,
+                });
+            });
+
+            it('should format string data', async () => {
+                component.paymentSumFiltersGroup.setValue({
+                    min: '500,6',
+                    max: '800,89',
+                });
+            });
+
+            it('should format combined string and numbers data', async () => {
+                component.paymentSumFiltersGroup.setValue({
+                    min: 500.6,
+                    max: '800,89',
+                });
+            });
         });
     });
 });

@@ -5,14 +5,12 @@
 
 @mixin dsh-bar-chart-theme($theme) {
     $foreground: map-get($theme, foreground);
-    $background: map-get($theme, background);
-    $gray: map-get($theme, gray);
 
     @include dsh-charts-theme($theme);
 
     .dsh-bar-chart-tooltip {
         &-title {
-            color: map-get($gray, 500);
+            color: map-get($foreground, light-text);
         }
     }
 }

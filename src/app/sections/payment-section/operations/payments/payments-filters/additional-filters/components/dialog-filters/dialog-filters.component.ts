@@ -1,13 +1,18 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AbstractControl, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
+import { formatMajorAmountToStr, getAmountNum } from '@dsh/app/shared/utils/amount-formatters';
 import { removeDictEmptyFields } from '@dsh/utils';
 
 import { MainFilters } from '../../main-filters';
-import { paymentStatusValidator, StatusFilters } from '../../status-filters';
+import { paymentStatusValidator } from '../../payment-status-filter';
+import { PaymentStatusFilterValue } from '../../payment-status-filter/types/payment-status-filter-value';
+import { PaymentSumFilter } from '../../payment-sum-filter';
+import { PaymentSystemFilterValue } from '../../payment-system-filter/types/payment-system-filter-value';
+import { TokenProviderFilterValue } from '../../token-provider-filter/types/token-provider-filter-value';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 
@@ -19,22 +24,38 @@ import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 })
 export class DialogFiltersComponent implements OnInit {
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
-        mainFilters: this.formBuilder.group<MainFilters>({
+        main: this.formBuilder.group<MainFilters>({
             payerEmail: ['', Validators.email],
             customerID: [''],
             rrn: ['', Validators.pattern(new RegExp(/^\d+$/))],
         }),
-        statusFilters: this.formBuilder.group<StatusFilters>({
-            paymentStatus: [null, paymentStatusValidator],
+        paymentStatus: [null, paymentStatusValidator],
+        paymentSum: this.formBuilder.group<PaymentSumFilter>({
+            min: [''],
+            max: [''],
         }),
+        bankCardTokenProvider: [null],
+        bankCardPaymentSystem: [null],
     });
 
     get mainFiltersGroup(): FormGroup<MainFilters> {
-        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'mainFilters');
+        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'main');
     }
 
-    get statusFiltersGroup(): FormGroup<StatusFilters> {
-        return getAbstractControl<FormGroup<StatusFilters>>(this.form, 'statusFilters');
+    get statusFilterControl(): FormControl<PaymentStatusFilterValue> {
+        return getAbstractControl<FormControl<PaymentStatusFilterValue>>(this.form, 'paymentStatus');
+    }
+
+    get paymentSumFiltersGroup(): FormGroup<PaymentSumFilter> {
+        return getAbstractControl<FormGroup<PaymentSumFilter>>(this.form, 'paymentSum');
+    }
+
+    get tokenProviderFilterControl(): FormControl<TokenProviderFilterValue> {
+        return getAbstractControl<FormControl<TokenProviderFilterValue>>(this.form, 'bankCardTokenProvider');
+    }
+
+    get paymentSystemFilterControl(): FormControl<PaymentSystemFilterValue> {
+        return getAbstractControl<FormControl<PaymentSystemFilterValue>>(this.form, 'bankCardPaymentSystem');
     }
 
     constructor(
@@ -44,17 +65,7 @@ export class DialogFiltersComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const { payerEmail = '', customerID = '', rrn = '', paymentStatus = null } = this.data;
-        this.form.setValue({
-            mainFilters: {
-                payerEmail,
-                customerID,
-                rrn,
-            },
-            statusFilters: {
-                paymentStatus,
-            },
-        });
+        this.initForm();
     }
 
     clear(): void {
@@ -69,10 +80,49 @@ export class DialogFiltersComponent implements OnInit {
         this.dialogRef.close(this.getFiltersData());
     }
 
+    private initForm(): void {
+        this.form.setValue(this.getInitFormValues());
+    }
+
+    private getInitFormValues(): AdditionalFiltersForm {
+        const {
+            payerEmail = '',
+            customerID = '',
+            rrn = '',
+            paymentStatus = null,
+            paymentAmountFrom = null,
+            paymentAmountTo = null,
+            bankCardTokenProvider = null,
+            bankCardPaymentSystem = null,
+        } = this.data;
+        return {
+            main: {
+                payerEmail,
+                customerID,
+                rrn,
+            },
+            paymentStatus,
+            paymentSum: {
+                min: formatMajorAmountToStr(paymentAmountFrom),
+                max: formatMajorAmountToStr(paymentAmountTo),
+            },
+            bankCardTokenProvider,
+            bankCardPaymentSystem,
+        };
+    }
+
     private getFiltersData(): AdditionalFilters {
+        const { min, max } = this.extractGroupValidFields(this.paymentSumFiltersGroup);
+
         return removeDictEmptyFields({
             ...this.extractGroupValidFields(this.mainFiltersGroup),
-            ...this.extractGroupValidFields(this.statusFiltersGroup),
+            ...removeDictEmptyFields({
+                paymentAmountFrom: getAmountNum(String(min)),
+                paymentAmountTo: getAmountNum(String(max)),
+            }),
+            paymentStatus: this.statusFilterControl.value,
+            bankCardTokenProvider: this.tokenProviderFilterControl.value,
+            bankCardPaymentSystem: this.paymentSystemFilterControl.value,
         });
     }
 
@@ -86,7 +136,6 @@ export class DialogFiltersComponent implements OnInit {
     }
 
     private resetFiltersData(): void {
-        this.mainFiltersGroup.reset();
-        this.statusFiltersGroup.reset();
+        this.form.reset();
     }
 }

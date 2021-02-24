@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '../../../../node_modules/@angular/cdk/a11y';
+@import '~@angular/cdk/a11y';
 
 @mixin dsh-tabs-theme($theme) {
     $primary: map-get($theme, primary);
@@ -18,7 +18,7 @@
             color: map-get($foreground, text);
 
             &-active {
-                color: map-get($primary, 400);
+                color: map-get($primary, 500);
             }
 
             &-disabled {
@@ -32,7 +32,7 @@
         }
 
         &-ink-bar {
-            background-color: map-get($primary, 400);
+            background-color: map-get($primary, 500);
         }
 
         &-tab-nav-bar-inverted {

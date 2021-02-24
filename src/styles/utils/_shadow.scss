@@ -6,7 +6,7 @@
 
 @mixin dsh-shadow($theme) {
     $primary: map-get($theme, primary);
-    $shadow-color: mat-color($primary, 100);
+    $shadow-color: mat-color($primary, 200);
 
     box-shadow: #{get-shadow($shadow-color, 0.24)} !important;
 }
