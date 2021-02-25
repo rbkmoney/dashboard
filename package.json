@@ -19,6 +19,7 @@
     "codegen": "run-p swagger-codegen openapi-codegen",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "gen-icons-list": "ts-node --project tools/tsconfig.json tools/gen-icons-list.ts",
+    "gen-icons-ids": "ts-node --project tools/tsconfig.json tools/gen-icons-ids.ts",
     "postinstall": "ngcc"
   },
   "private": true,
@@ -84,6 +85,7 @@
     "@rbkmoney/angular-templates": "^0.2.2",
     "@types/d3": "^5.7.0",
     "@types/del": "^4.0.0",
+    "@types/glob": "^7.1.3",
     "@types/humanize-duration": "^3.18.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.6",
@@ -108,6 +110,7 @@
     "@types/uuid": "^3.4.5",
     "codelyzer": "^6.0.0",
     "del": "^5.1.0",
+    "glob": "^7.1.6",
     "jasmine-core": "~3.6.0",
     "jasmine-marbles": "^0.6.0",
     "jasmine-spec-reporter": "~5.0.0",

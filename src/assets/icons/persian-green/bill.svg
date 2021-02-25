@@ -3,7 +3,7 @@
         fill-rule="evenodd"
         clip-rule="evenodd"
         d="M66.3611 114.503V37.5108L60.831 32.8571L55.3009 37.5108L49.7708 32.8571L44.2407 37.5108L38.7106 32.8571L33.1805 37.5108L27.6504 32.8571L22.1204 37.5108L16.5903 32.8571L11.0602 37.5108L5.53009 32.8571L0 37.5108V114.934C0 119.507 3.5779 123.214 7.99146 123.214H72.8182C69.238 123.131 66.3611 119.256 66.3611 114.503Z"
-        fill="url(#paint0_linear_persian_bill)"
+        fill="url(#ID-0__f2140cfd-7205-4e2a-99af-0cd30ef13d95)"
     />
     <rect
         x="60.4137"
@@ -17,13 +17,13 @@
         fill-rule="evenodd"
         clip-rule="evenodd"
         d="M43.9742 123.269H52.9666V61.7424H35.8683V112.884C35.8683 118.62 39.4906 123.269 43.9742 123.269Z"
-        fill="url(#paint1_linear_persian_bill)"
+        fill="url(#ID-1__d386eaac-9a47-4db7-ac75-c40ee251b28b)"
     />
     <path
         fill-rule="evenodd"
         clip-rule="evenodd"
         d="M33.4153 112.884C33.4153 118.62 29.793 123.269 25.3095 123.269L98.4615 123.181L102.164 3.8147e-06L43.7249 0.215755C38.0255 0.215755 33.4153 6.12837 33.4153 13.4307V112.884Z"
-        fill="url(#paint2_linear_persian_bill)"
+        fill="url(#ID-2__a1c1b2f7-5e3e-428f-a0e0-9664ad9c5310)"
     />
     <path
         fill-rule="evenodd"
@@ -96,7 +96,7 @@
     />
     <defs>
         <linearGradient
-            id="paint0_linear_persian_bill"
+            id="ID-0__f2140cfd-7205-4e2a-99af-0cd30ef13d95"
             x1="0"
             y1="106.601"
             x2="46.0708"
@@ -107,7 +107,7 @@
             <stop offset="1" stop-color="#13448B" />
         </linearGradient>
         <linearGradient
-            id="paint1_linear_persian_bill"
+            id="ID-1__d386eaac-9a47-4db7-ac75-c40ee251b28b"
             x1="34.1205"
             y1="126.062"
             x2="52.7639"
@@ -118,7 +118,7 @@
             <stop offset="1" stop-color="#003A8E" />
         </linearGradient>
         <linearGradient
-            id="paint2_linear_persian_bill"
+            id="ID-2__a1c1b2f7-5e3e-428f-a0e0-9664ad9c5310"
             x1="25.3095"
             y1="162.833"
             x2="74.0748"
