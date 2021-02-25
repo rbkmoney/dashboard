@@ -64,9 +64,9 @@ export class NestedTableGroupComponent implements AfterContentInit, OnChanges {
             .pipe(untilDestroyed(this))
             .subscribe(([rows, showMoreDisplayed]) => {
                 if (showMoreDisplayed) {
-                    rows.forEach((row, idx) => (row.hidden = idx >= this.displayedCount));
+                    rows.forEach((row, idx) => row.setHidden(idx >= this.displayedCount));
                 } else {
-                    rows.forEach((row) => (row.hidden = false));
+                    rows.forEach((row) => row.setHidden(false));
                 }
             });
     }

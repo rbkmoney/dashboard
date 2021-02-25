@@ -3,6 +3,7 @@
     align-items: center;
     min-height: 32px;
     padding: 8px;
+    overflow: auto;
 
     & > ::ng-deep button,
     & > ::ng-deep mat-checkbox,

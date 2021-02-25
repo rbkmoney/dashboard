@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder } from '@ngneat/reactive-forms';
+import { AbstractControl, FormBuilder, FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { first, switchMap, take } from 'rxjs/operators';
 
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
+import { Shop } from '@dsh/api-codegen/capi';
 import { InviteeContact, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
+import { getTypedFormArray } from '@dsh/app/shared/utils';
 import { inProgressTo } from '@dsh/utils';
 
 import { CreateInvitationDialogData } from './types/create-invitation-dialog-data';
@@ -25,6 +27,7 @@ import { CreateInvitationDialogForm } from './types/create-invitation-dialog-for
 export class CreateInvitationDialogComponent {
     form = this.fb.group<CreateInvitationDialogForm>({
         email: ['', Validators.email],
+        roles: this.fb.array([]),
     });
     inProgress$ = new BehaviorSubject<boolean>(false);
 

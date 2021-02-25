@@ -1,0 +1,44 @@
+<dsh-nested-table>
+    <dsh-nested-table-row>
+        <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
+        <dsh-nested-table-col
+            class="dsh-body-2"
+            *ngFor="let roleControl of rolesForm.controls"
+            fxLayoutAlign="center center"
+            >{{ roleControl.value.id }}</dsh-nested-table-col
+        >
+        <dsh-nested-table-col>
+            <button dsh-button color="accent" (click)="add()">add</button>
+        </dsh-nested-table-col>
+    </dsh-nested-table-row>
+
+    <ng-container *ngIf="shops$ | async" [dshNestedTableCollapse]="true">
+        <dsh-nested-table-row>
+            <dsh-nested-table-col>
+                <dsh-nested-table-collapse-button
+                    >shops ({{ (shops$ | async).length }})</dsh-nested-table-collapse-button
+                >
+            </dsh-nested-table-col>
+            <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+                <mat-checkbox
+                    [checked]="roleControl.value.shopIds.length === (shops$ | async).length"
+                    [indeterminate]="
+                        !!roleControl.value.shopIds.length && roleControl.value.shopIds.length < (shops$ | async).length
+                    "
+                    (change)="changeAll(roleControl)"
+                ></mat-checkbox>
+            </dsh-nested-table-col>
+        </dsh-nested-table-row>
+        <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="10">
+            <dsh-nested-table-row *ngFor="let shop of shops$ | async">
+                <dsh-nested-table-col>{{ shop.details.name }}</dsh-nested-table-col>
+                <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+                    <mat-checkbox
+                        [checked]="roleControl.value.shopIds.includes(shop.id)"
+                        (change)="change(roleControl, shop)"
+                    ></mat-checkbox>
+                </dsh-nested-table-col>
+            </dsh-nested-table-row>
+        </dsh-nested-table-group>
+    </ng-container>
+</dsh-nested-table>

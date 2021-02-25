@@ -1,14 +1,18 @@
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
+    ElementRef,
     HostBinding,
+    NgZone,
     OnInit,
     QueryList,
+    Renderer2,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
@@ -27,26 +31,42 @@ import { LayoutManagementService } from '../../services/layout-management/layout
 export class NestedTableRowComponent implements AfterContentInit, OnInit {
     @HostBinding(TABLE_ITEM_CLASS) readonly tableItemClass = true;
     @HostBinding('style.grid-template-columns') gridTemplateColumns: string;
-    @HostBinding('style.display') get display() {
-        return this.hidden ? 'none' : undefined;
-    }
-    hidden = false;
+    @HostBinding('style.display') display = 'grid';
+
     colsCount$ = new ReplaySubject<number>(1);
-    fillCols$: Observable<null[]> = this.layoutManagementService.getFillCols(this.colsCount$);
+    fillCols: string[];
 
     @ContentChildren(NestedTableColComponent)
     private nestedTableColComponentChildren: QueryList<NestedTableColComponent>;
 
-    constructor(private layoutManagementService: LayoutManagementService) {}
+    constructor(
+        private layoutManagementService: LayoutManagementService,
+        private el: ElementRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.layoutManagementService.gridTemplateColumns$
             .pipe(untilDestroyed(this))
-            .subscribe((gridTemplateColumns) => (this.gridTemplateColumns = gridTemplateColumns));
+            .subscribe((gridTemplateColumns) => {
+                this.gridTemplateColumns = gridTemplateColumns;
+                this.renderer.setStyle(this.el.nativeElement, 'grid-template-columns', gridTemplateColumns);
+            });
+        this.layoutManagementService.getFillCols(this.colsCount$).subscribe((fillCols) => {
+            this.fillCols = fillCols;
+            this.cdr.detectChanges();
+        });
     }
 
     ngAfterContentInit() {
         this.listenColsCount();
+    }
+
+    setHidden(hidden: boolean) {
+        this.display = hidden ? 'none' : 'grid';
+        this.renderer.setStyle(this.el.nativeElement, 'display', this.display);
     }
 
     private listenColsCount() {

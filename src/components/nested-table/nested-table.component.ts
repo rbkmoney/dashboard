@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
 import { LayoutManagementService } from '@dsh/components/nested-table/services/layout-management/layout-management.service';
@@ -41,6 +41,7 @@ export class NestedTableComponent implements AfterContentInit, OnChanges {
             .pipe(
                 switchMap((rows) => combineLatest(rows.map(({ colsCount$ }) => colsCount$))),
                 map((rowsColsCounts) => Math.max(...rowsColsCounts)),
+                distinctUntilChanged(),
                 untilDestroyed(this)
             )
             .subscribe((colsCount) => this.layoutManagementService.setLayoutColsCount(colsCount));
