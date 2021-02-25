@@ -23,6 +23,7 @@
 @import '../../components/filters/daterange-filter/daterange-filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
+@import '../../components/layout/limited-list/limited-list-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -79,4 +80,5 @@
     @include dsh-last-updated-theme($theme);
     @include dsh-balances-theme($theme);
     @include dsh-feedback-theme($theme);
+    @include dsh-limited-list-theme($theme);
 }

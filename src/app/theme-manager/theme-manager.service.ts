@@ -1,39 +1,50 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments';
+import { ConfigService } from '../config';
 import { SettingsService } from '../settings';
-import { ThemeName } from './theme-name';
-
-enum Type {
-    JS = 'js',
-    CSS = 'css',
-}
+import { FileType } from './types/file-type';
+import { ThemeName } from './types/theme-name';
+import { createScriptElement } from './utils/create-script-element';
+import { createStyleElement } from './utils/create-style-element';
+import { isTheme } from './utils/is-theme';
 
 @Injectable()
 export class ThemeManager {
     private static readonly KEY = 'theme';
 
     current: ThemeName;
+    hasMainBackground: boolean;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 
-    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
-        const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
-        const correctedName = this.getCorrectName(name);
-        this.change(correctedName);
-    }
+    constructor(
+        private settingsService: SettingsService,
+        @Inject(DOCUMENT) private doc: Document,
+        private configService: ConfigService
+    ) {}
 
     change(name: ThemeName) {
         this.removeCurrent();
         this.set(name);
     }
 
-    private getCorrectName(theme: ThemeName | string): ThemeName {
-        if (!Object.values<string>(ThemeName).includes(theme)) {
-            return this.current || ThemeName.light;
+    async init() {
+        this.hasMainBackground = !!this.configService.theme.backgroundImageUrls?.length;
+
+        const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
+        const correctedName = this.getCorrectName(name);
+        this.change(correctedName);
+    }
+
+    private getCorrectName(theme: string): ThemeName {
+        // TODO: For several themes you will need to add a list of allowed theme to the config
+        const allowedThemes: ThemeName[] = [this.configService.theme.default as ThemeName];
+        if (isTheme(theme) && allowedThemes.includes(theme)) {
+            return theme;
         }
-        return theme as ThemeName;
+        return (this.configService.theme.default as ThemeName) || ThemeName.light;
     }
 
     private set(name: ThemeName) {
@@ -52,21 +63,8 @@ export class ThemeManager {
     }
 
     private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
-        const fileType: Type = environment.production ? Type.CSS : Type.JS;
+        const fileType: FileType = environment.production ? FileType.CSS : FileType.JS;
         const url = `themes/${name}.${fileType}`;
-        return fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
-    }
-
-    private createStyleElement(url: string): HTMLLinkElement {
-        const styleElement = document.createElement('link');
-        styleElement.href = url;
-        styleElement.rel = 'stylesheet';
-        return styleElement;
-    }
-
-    private createScriptElement(url: string): HTMLScriptElement {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = url;
-        return scriptElement;
+        return fileType === FileType.JS ? createScriptElement(url) : createStyleElement(url);
     }
 }

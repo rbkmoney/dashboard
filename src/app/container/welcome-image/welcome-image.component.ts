@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import random from 'lodash.random';
 
 @Component({
     selector: 'dsh-welcome-image',
@@ -7,10 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeImageComponent {
-    endpoint = `assets/background/${this.getFileName()}`;
+    @Input() imageUrls: string[];
 
-    private getFileName(filesCount: number = 5, ext = 'png', min = 1): string {
-        const fileName = Math.floor(Math.random() * (filesCount - min) + min);
-        return `${fileName}.${ext}`;
+    get imageUrl() {
+        const idx = random(0, this.imageUrls.length - 1);
+        return this.imageUrls[idx];
     }
 }

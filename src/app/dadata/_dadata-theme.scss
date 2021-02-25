@@ -4,7 +4,7 @@
     $primary: map-get($theme, primary);
 
     .dsh-dadata-autocomplete-mark {
-        background-color: mat-color($primary, 200);
+        background-color: mat-color($primary, 100);
     }
 }
 
