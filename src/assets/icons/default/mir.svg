@@ -36,7 +36,14 @@
         }
     </style>
     <title>МИР</title>
-    <linearGradient y2="3" x2="48.5" y1="3" x1="34.1742" gradientUnits="userSpaceOnUse" id="ID-4__667d0bfc-73bc-4916-a43e-c241d998ec3c">
+    <linearGradient
+        y2="3"
+        x2="48.5"
+        y1="3"
+        x1="34.1742"
+        gradientUnits="userSpaceOnUse"
+        id="ID-4__667d0bfc-73bc-4916-a43e-c241d998ec3c"
+    >
         <stop id="ID-5__1b28d9f0-a523-4f1e-8264-fbb6fa4f6f8d" style="stop-color: #00b4e6" offset="0" />
         <stop id="ID-6__05f76168-5374-4f32-a2af-3b0d38a2345f" style="stop-color: #088ccb" offset="1" />
     </linearGradient>
