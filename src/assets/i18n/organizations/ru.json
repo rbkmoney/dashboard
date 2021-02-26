@@ -74,6 +74,38 @@
             "expiresAt": "Дата истечения срока принятия",
             "email": "Email"
         },
-        "create": "Отправить приглашение"
+        "send": "Отправить приглашение"
+    },
+    "changeRolesTable": {
+        "add": "Добавить",
+        "remove": "Удалить",
+        "shops": "Магазины"
+    },
+    "selectRoleDialog": {
+        "title": "Выбирите роль",
+        "select": "Выбрать",
+        "accesses": {
+            "payments": "Платежи",
+            "viewAnalytics": "Просмотр аналитики",
+            "viewInvoices": "Просмотр инвойсов",
+            "viewPayments": "Просмотр платежей",
+            "viewRefunds": "Просмотр возвратов",
+            "viewPayouts": "Просмотр возмещений",
+            "viewApiKey": "Просмотр API key",
+            "manageReports": "Управление отчетами",
+            "manageWebhooks": "Управление Webhooks",
+            "createInvoice": "Создать инвойс",
+            "createPaymentLink": "Создать платежную ссылку",
+            "createRefund": "Совершить возврат",
+            "wallets": "Кошельки",
+            "claims": "Заявки",
+            "manageOrganizations": "Управление организациями и сотрудниками"
+        }
+    },
+    "roles": {
+        "Administrator": "Администратор",
+        "Manager": "Менеджер",
+        "Accountant": "Бухгалтер",
+        "Integrator": "Интегратор"
     }
 }

@@ -1,0 +1,37 @@
+<dsh-base-dialog
+    *transloco="let t; scope: 'organizations'; read: 'organizations.selectRoleDialog'"
+    [title]="t('title')"
+    (cancel)="cancel()"
+    (confirm)="select()"
+    [confirmButtonDisabled]="roleControl.invalid"
+    [confirmButtonName]="t('select')"
+>
+    <mat-radio-group [formControl]="roleControl">
+        <dsh-nested-table [rowsGridTemplateColumns]="rowsGridTemplateColumns">
+            <dsh-nested-table-row *transloco="let r; scope: 'organizations'; read: 'organizations.roles'">
+                <dsh-nested-table-col></dsh-nested-table-col>
+                <dsh-nested-table-col *ngFor="let role of roles" fxLayoutAlign="center center">
+                    <span class="dsh-body-2 header">{{ r(role) }}</span>
+                </dsh-nested-table-col>
+            </dsh-nested-table-row>
+            <dsh-nested-table-row>
+                <dsh-nested-table-col></dsh-nested-table-col>
+                <dsh-nested-table-col *ngFor="let role of roles">
+                    <mat-radio-button [value]="role"></mat-radio-button>
+                </dsh-nested-table-col>
+            </dsh-nested-table-row>
+
+            <dsh-nested-table-row *ngFor="let access of accesses">
+                <dsh-nested-table-col>
+                    <span [class.dsh-body-2]="access.isHeader">{{ t('accesses.' + access.name) }}</span>
+                </dsh-nested-table-col>
+                <dsh-nested-table-col *ngFor="let role of roles" fxLayoutAlign="center center">
+                    <dsh-selection
+                        *ngIf="access.access[role] !== undefined"
+                        [selected]="access.access[role]"
+                    ></dsh-selection>
+                </dsh-nested-table-col>
+            </dsh-nested-table-row>
+        </dsh-nested-table>
+    </mat-radio-group>
+</dsh-base-dialog>

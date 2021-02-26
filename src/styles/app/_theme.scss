@@ -26,6 +26,7 @@
 @import '../../components/layout/limited-list/limited-list-theme';
 @import '../../components/nested-table/nested-table-theme';
 @import '../../components/layout/headline/headline-theme';
+@import '../../components/indicators/selection/selection-theme';
 
 @import '../../app/container/container-theme';
 @import '../../app/container/actionbar/actionbar-theme';
@@ -85,4 +86,5 @@
     @include dsh-limited-list-theme($theme);
     @include dsh-nested-table-theme($theme);
     @include dsh-headline-theme($theme);
+    @include dsh-selection-theme($theme);
 }

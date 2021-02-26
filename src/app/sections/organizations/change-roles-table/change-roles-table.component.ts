@@ -1,18 +1,37 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Inject,
+    OnInit,
+    Output,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
-import { take } from 'rxjs/operators';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { startWith, take } from 'rxjs/operators';
 
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
-import { RoleId } from '@dsh/api-codegen/organizations';
+import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
+import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared';
 
+import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
+import { SelectRoleDialogResult } from './components/select-role-dialog/types/select-role-dialog-result';
+import { SelectRoleDialogData } from './components/select-role-dialog/types/selected-role-dialog-data';
+
+@UntilDestroy()
 @Component({
     selector: 'dsh-change-roles-table',
     templateUrl: 'change-roles-table.component.html',
+    styleUrls: ['change-roles-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeRolesTableComponent {
+export class ChangeRolesTableComponent implements OnInit {
+    @Output() selectedRoles = new EventEmitter<MemberRole[]>();
+
     rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>([]);
     shops$ = this.shopsService.shops$;
     RoleId = RoleId;
@@ -22,11 +41,45 @@ export class ChangeRolesTableComponent {
         private errorService: ErrorService,
         private notificationService: NotificationService,
         private fb: FormBuilder,
-        private shopsService: ApiShopsService
+        private shopsService: ApiShopsService,
+        private dialog: MatDialog,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
+        private cdr: ChangeDetectorRef
     ) {}
 
+    ngOnInit() {
+        this.rolesForm.valueChanges.pipe(startWith(this.rolesForm.value), untilDestroyed(this)).subscribe((value) => {
+            const memberRoles: MemberRole[] = value
+                .map((v) =>
+                    v.shopIds.map(
+                        (resourceId): MemberRole => ({ roleId: v.id, scope: { id: ResourceScopeId.Shop, resourceId } })
+                    )
+                )
+                .flat();
+            this.selectedRoles.emit(memberRoles);
+        });
+    }
+
     add() {
-        this.rolesForm.push(this.fb.control({ id: RoleId.Accountant, shopIds: [] as string[] }));
+        this.dialog.openDialogs.forEach((d) => d.addPanelClass('dsh-hidden'));
+        this.dialog
+            .open<SelectRoleDialogComponent, SelectRoleDialogData, SelectRoleDialogResult>(SelectRoleDialogComponent, {
+                data: {
+                    availableRoles: Object.values(RoleId).filter(
+                        (id) => this.rolesForm.value.findIndex((r) => r.id === id) === -1
+                    ),
+                },
+                ...this.dialogConfig.large,
+            })
+            .afterClosed()
+            .pipe(untilDestroyed(this))
+            .subscribe((result) => {
+                this.dialog.openDialogs.forEach((d) => d.removePanelClass('dsh-hidden'));
+                if (typeof result === 'object') {
+                    this.rolesForm.push(this.fb.control({ id: result.selectedRoleId, shopIds: [] }));
+                    this.cdr.detectChanges();
+                }
+            });
     }
 
     change(roleControl: AbstractControl<{ id: RoleId; shopIds: string[] }>, shop: Shop) {
@@ -44,11 +97,12 @@ export class ChangeRolesTableComponent {
 
     changeAll(roleControl: AbstractControl<{ id: RoleId; shopIds: string[] }>) {
         this.shopsService.shops$.pipe(take(1)).subscribe((shops) => {
-            if (roleControl.value.shopIds.length < shops.length) {
-                roleControl.patchValue({ ...roleControl.value, shopIds: shops.map((s) => s.id) });
-            } else {
-                roleControl.patchValue({ ...roleControl.value, shopIds: [] });
-            }
+            const shopIds = roleControl.value.shopIds.length < shops.length ? shops.map((s) => s.id) : [];
+            roleControl.patchValue({ ...roleControl.value, shopIds });
         });
+    }
+
+    remove(roleControl: AbstractControl) {
+        this.rolesForm.remove(roleControl.value);
     }
 }

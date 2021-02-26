@@ -3,14 +3,15 @@
     [title]="t('title')"
     (cancel)="cancel()"
     (confirm)="create()"
-    [confirmButtonDisabled]="form.invalid || (inProgress$ | async)"
+    [confirmButtonDisabled]="emailControl.invalid || (inProgress$ | async) || !selectedRoles.length"
+    [confirmButtonName]="t('send')"
 >
-    <form fxLayout="column" [formGroup]="form">
+    <div fxLayout="column">
         <mat-form-field fxFlex>
             <mat-label>{{ t('form.email') }}</mat-label>
-            <input formControlName="email" matInput type="email" required />
+            <input [formControl]="emailControl" matInput type="email" required />
         </mat-form-field>
 
-        <dsh-change-roles-table></dsh-change-roles-table>
-    </form>
+        <dsh-change-roles-table (selectedRoles)="selectRoles($event)"></dsh-change-roles-table>
+    </div>
 </dsh-base-dialog>

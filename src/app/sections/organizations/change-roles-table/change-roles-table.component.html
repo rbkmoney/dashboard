@@ -1,14 +1,14 @@
-<dsh-nested-table>
-    <dsh-nested-table-row>
+<dsh-nested-table *transloco="let t; scope: 'organizations'; read: 'organizations.changeRolesTable'">
+    <dsh-nested-table-row *transloco="let r; scope: 'organizations'; read: 'organizations.roles'">
         <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
         <dsh-nested-table-col
             class="dsh-body-2"
             *ngFor="let roleControl of rolesForm.controls"
             fxLayoutAlign="center center"
-            >{{ roleControl.value.id }}</dsh-nested-table-col
+            >{{ r(roleControl.value.id) }}</dsh-nested-table-col
         >
         <dsh-nested-table-col>
-            <button dsh-button color="accent" (click)="add()">add</button>
+            <button dsh-button color="accent" (click)="add()">{{ t('add') }}</button>
         </dsh-nested-table-col>
     </dsh-nested-table-row>
 
@@ -16,7 +16,7 @@
         <dsh-nested-table-row>
             <dsh-nested-table-col>
                 <dsh-nested-table-collapse-button
-                    >shops ({{ (shops$ | async).length }})</dsh-nested-table-collapse-button
+                    >{{ t('shops') }} ({{ (shops$ | async).length }})</dsh-nested-table-collapse-button
                 >
             </dsh-nested-table-col>
             <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
@@ -41,4 +41,15 @@
             </dsh-nested-table-row>
         </dsh-nested-table-group>
     </ng-container>
+
+    <dsh-nested-table-row *ngIf="rolesForm.length">
+        <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
+        <dsh-nested-table-col
+            class="dsh-body-2"
+            *ngFor="let roleControl of rolesForm.controls"
+            fxLayoutAlign="center center"
+        >
+            <button dsh-button color="warn" (click)="remove(roleControl)">{{ t('remove') }}</button>
+        </dsh-nested-table-col>
+    </dsh-nested-table-row>
 </dsh-nested-table>
