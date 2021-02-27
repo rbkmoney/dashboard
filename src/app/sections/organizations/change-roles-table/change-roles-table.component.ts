@@ -4,6 +4,7 @@ import {
     Component,
     EventEmitter,
     Inject,
+    Input,
     OnInit,
     Output,
 } from '@angular/core';
@@ -18,6 +19,7 @@ import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizati
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared';
 
+import { getRolesByGroup } from '../organization-roles/utils/get-roles-by-group';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
 import { SelectRoleDialogResult } from './components/select-role-dialog/types/select-role-dialog-result';
 import { SelectRoleDialogData } from './components/select-role-dialog/types/selected-role-dialog-data';
@@ -30,6 +32,14 @@ import { SelectRoleDialogData } from './components/select-role-dialog/types/sele
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangeRolesTableComponent implements OnInit {
+    @Input() set roles(roles: MemberRole[]) {
+        this.rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>(
+            getRolesByGroup(roles).map((group) => ({
+                id: group.id,
+                shopIds: group.scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
+            }))
+        );
+    }
     @Output() selectedRoles = new EventEmitter<MemberRole[]>();
 
     rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>([]);

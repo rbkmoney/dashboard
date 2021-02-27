@@ -107,5 +107,9 @@
         "Manager": "Менеджер",
         "Accountant": "Бухгалтер",
         "Integrator": "Интегратор"
+    },
+    "editRolesDialog": {
+        "title": "Редактирование ролей",
+        "save": "Сохранить"
     }
 }
