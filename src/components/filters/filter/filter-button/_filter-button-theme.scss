@@ -10,11 +10,11 @@
 
         &:hover:enabled,
         &-active:enabled {
-            border-color: mat-color($primary, 500);
+            border-color: mat-color($primary, default);
         }
 
         &-active:enabled {
-            color: mat-color($primary, 500);
+            color: mat-color($primary, default);
         }
 
         &:disabled {

@@ -40,8 +40,8 @@
                                 "lazy": true
                             },
                             {
-                                "input": "src/styles/themes/dark.scss",
-                                "bundleName": "themes/dark",
+                                "input": "src/styles/themes/persian-green.scss",
+                                "bundleName": "themes/persian-green",
                                 "lazy": true
                             }
                         ],
@@ -122,8 +122,8 @@
                                 "lazy": true
                             },
                             {
-                                "input": "src/styles/themes/dark.scss",
-                                "bundleName": "themes/dark",
+                                "input": "src/styles/themes/persian-green.scss",
+                                "bundleName": "themes/persian-green",
                                 "lazy": true
                             }
                         ],
@@ -147,8 +147,8 @@
                                 "lazy": true
                             },
                             {
-                                "input": "src/styles/themes/dark.scss",
-                                "bundleName": "themes/dark",
+                                "input": "src/styles/themes/persian-green.scss",
+                                "bundleName": "themes/persian-green",
                                 "lazy": true
                             }
                         ],

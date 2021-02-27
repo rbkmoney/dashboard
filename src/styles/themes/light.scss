@@ -1,58 +1,37 @@
-@import 'palette';
-@import 'theme';
 @import '~@angular/material/theming';
 
+@import 'palette';
+@import 'theme';
+
 $background: (
-    status-bar: map_get($mat-grey, 300),
-    app-bar: map_get($mat-grey, 100),
+    // Overrides
     background: #f1f7fb,
-    card: white,
-    dialog: white,
-    disabled-button: rgba(black, 0.12),
-    raised-button: white,
-    focused-button: $dark-focused,
-    selected-disabled-button: map_get($mat-grey, 400),
-    disabled-button-toggle: map_get($mat-grey, 200),
-    unselected-chip: map_get($mat-grey, 300),
-    disabled-list-option: map_get($mat-grey, 200),
     // Custom
-    hover: map_get($mat-grey, 200),
-    selected-button: map_get($mat-grey, 100),
+    hover: map-get($mat-grey, 200),
+    selected-button: map-get($mat-grey, 100)
 );
 
 $foreground: (
-    base: black,
-    divider: $dark-dividers,
-    dividers: $dark-dividers,
-    disabled: $dark-disabled-text,
-    disabled-button: rgba(#000, 0.26),
-    disabled-text: $dark-disabled-text,
-    elevation: black,
-    hint-text: $dark-disabled-text,
-    secondary-text: $dark-secondary-text,
-    icon: rgba(#000, 0.54),
-    icons: rgba(#000, 0.54),
-    slider-off: rgba(#000, 0.26),
-    slider-off-active: rgba(#000, 0.38),
     // Overrides
     text: #475166,
     slider-min: #475166,
     // Custom
     contrast-text: $light-text,
     light-text: mat-color(mat-palette($mat-grey), 500),
-    border: map_get($mat-grey, 200),
+    border: map-get($mat-grey, 200)
 );
 
 $config: (
-    primary: mat-palette($dsh-slateblue),
-    accent: mat-palette($dsh-palegreen),
-    warn: mat-palette($dsh-warn),
+    // Overrides
+    primary: mat-palette($dsh-slateblue, 400),
+    accent: mat-palette($dsh-palegreen, 300),
+    warn: mat-palette($dsh-warn, 300),
     is-dark: false,
     // Custom
     name: 'light',
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
-    warn-base: mat-color(mat-palette($dsh-warn), 300),
+    warn-base: mat-color(mat-palette($dsh-warn), 300)
 );
 
 @include dsh-theme($config, $background, $foreground);
