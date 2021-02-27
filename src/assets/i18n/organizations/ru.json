@@ -62,6 +62,16 @@
         "invitations": {
             "createInvitation": "Сформировать приглашение"
         },
+        "invitation": {
+            "titles": {
+                "roles": "Роли",
+                "actions": "Действия"
+            },
+            "actions": {
+                "repeat": "Выслать повторное приглашение",
+                "cancel": "Отменить приглашение"
+            }
+        },
         "invitationsList": {
             "headerRow": {
                 "email": "Email"

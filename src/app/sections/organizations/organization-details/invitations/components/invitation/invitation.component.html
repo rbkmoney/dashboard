@@ -6,4 +6,17 @@
     <div class="dsh-headline">{{ invitation.invitee?.contact?.email }}</div>
 
     <mat-divider></mat-divider>
+    <div class="dsh-title">{{ t('titles.roles') }}</div>
+    <dsh-organization-roles [roles]="invitation.invitee.roles"></dsh-organization-roles>
+
+    <mat-divider></mat-divider>
+    <div class="dsh-title">{{ t('titles.actions') }}</div>
+    <div fxLayout fxLayoutGap="24px">
+        <button (click)="repeat()" dsh-button color="accent">
+            {{ t('actions.repeat') }}
+        </button>
+        <button (click)="cancel()" dsh-button color="warn">
+            {{ t('actions.cancel') }}
+        </button>
+    </div>
 </div>

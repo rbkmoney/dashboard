@@ -9,4 +9,8 @@ import { Invitation } from '@dsh/api-codegen/organizations';
 })
 export class InvitationComponent {
     @Input() invitation: Invitation;
+
+    repeat() {}
+
+    cancel() {}
 }
