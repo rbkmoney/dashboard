@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { Theme, THEME } from '../../../../../styles/theme';
+import { ChartsThemeProvider, CHARTS_THEME } from '../charts-theme';
 import { SearchParams } from '../search-params';
 import { PaymentsToolDistributionService } from './payments-tool-distribution.service';
 
@@ -20,9 +20,12 @@ export class PaymentsToolDistributionComponent implements OnChanges {
     isLoading$ = this.distributionsService.isLoading$;
     error$ = this.distributionsService.error$;
 
-    colors = this.theme.charts.donutChartColors;
+    colors = this.theme.donutChart;
 
-    constructor(private distributionsService: PaymentsToolDistributionService, @Inject(THEME) private theme: Theme) {}
+    constructor(
+        private distributionsService: PaymentsToolDistributionService,
+        @Inject(CHARTS_THEME) private theme: ChartsThemeProvider
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (

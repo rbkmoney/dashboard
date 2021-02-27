@@ -1,0 +1,4 @@
+{
+    "resultIconsDirPath": "src/app/icons/icons",
+    "sourceIconsDirPaths": ["src/assets/icons/default", "src/assets/icons/persian-green"]
+}
