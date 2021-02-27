@@ -50,7 +50,7 @@ import { InvitationsComponent } from './invitations.component';
         MatCheckboxModule,
         MatRadioModule,
         ChangeRolesTableModule,
-        OrganizationRolesModule
+        OrganizationRolesModule,
     ],
     declarations: [
         InvitationsComponent,
