@@ -15,9 +15,19 @@ import { ChangeRolesTableComponent } from './change-roles-table.component';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
 
 @NgModule({
-    imports: [NestedTableModule, MatCheckboxModule, CommonModule, ButtonModule, FlexModule, BaseDialogModule, TranslocoModule, MatRadioModule, ReactiveFormsModule, SelectionModule],
+    imports: [
+        NestedTableModule,
+        MatCheckboxModule,
+        CommonModule,
+        ButtonModule,
+        FlexModule,
+        BaseDialogModule,
+        TranslocoModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        SelectionModule,
+    ],
     declarations: [ChangeRolesTableComponent, SelectRoleDialogComponent],
     exports: [ChangeRolesTableComponent],
-    providers: [],
 })
 export class ChangeRolesTableModule {}

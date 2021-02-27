@@ -48,7 +48,7 @@ import { InvitationsComponent } from './invitations.component';
         NestedTableModule,
         MatCheckboxModule,
         MatRadioModule,
-        ChangeRolesTableModule
+        ChangeRolesTableModule,
     ],
     declarations: [
         InvitationsComponent,

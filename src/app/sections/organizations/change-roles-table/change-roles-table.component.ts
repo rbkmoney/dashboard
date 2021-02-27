@@ -13,11 +13,10 @@ import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { startWith, take } from 'rxjs/operators';
 
-import { ApiShopsService, OrganizationsService } from '@dsh/api';
+import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
-import { ErrorService, NotificationService } from '@dsh/app/shared';
 
 import { getRolesByGroup } from '../organization-roles/utils/get-roles-by-group';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
@@ -47,9 +46,6 @@ export class ChangeRolesTableComponent implements OnInit {
     RoleId = RoleId;
 
     constructor(
-        private organizationsService: OrganizationsService,
-        private errorService: ErrorService,
-        private notificationService: NotificationService,
         private fb: FormBuilder,
         private shopsService: ApiShopsService,
         private dialog: MatDialog,

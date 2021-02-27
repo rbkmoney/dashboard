@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { mock, verify, when } from 'ts-mockito';
+import { anything, mock, verify, when } from 'ts-mockito';
 
 import { provideMockService } from '@dsh/app/shared/tests';
 import { NestedTableColComponent } from '@dsh/components/nested-table/components/nested-table-col/nested-table-col.component';
@@ -41,6 +41,7 @@ describe('NestedTableComponent', () => {
     beforeEach(async () => {
         mockLayoutManagementService = mock(LayoutManagementService);
         when(mockLayoutManagementService.gridTemplateColumns$).thenReturn(of(''));
+        when(mockLayoutManagementService.getFillCols(anything())).thenReturn(of(['']));
 
         await TestBed.configureTestingModule({
             imports: [CommonModule, NoopAnimationsModule],

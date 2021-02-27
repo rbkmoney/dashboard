@@ -6,7 +6,6 @@ import {
     ContentChildren,
     ElementRef,
     HostBinding,
-    NgZone,
     OnInit,
     QueryList,
     Renderer2,
@@ -43,7 +42,6 @@ export class NestedTableRowComponent implements AfterContentInit, OnInit {
         private layoutManagementService: LayoutManagementService,
         private el: ElementRef,
         private renderer: Renderer2,
-        private ngZone: NgZone,
         private cdr: ChangeDetectorRef
     ) {}
 

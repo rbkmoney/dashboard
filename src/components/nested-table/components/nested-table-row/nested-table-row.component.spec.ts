@@ -47,6 +47,6 @@ describe('NestedTableRowComponent', () => {
     it('should be init', () => {
         expect(component.colsCount$).toBeObservable(cold('(a)', { a: 3 }));
         layoutManagementService.setLayoutColsCount(4);
-        expect(component.fillCols$).toBeObservable(cold('(a)', { a: [null] }));
+        expect(component.fillCols).toEqual(['']);
     });
 });

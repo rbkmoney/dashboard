@@ -68,7 +68,7 @@ describe('NestedTableLimitedRowsComponent', () => {
             const rows = fixture.debugElement.queryAll(By.directive(NestedTableRowComponent));
             expect(rows.length).toBe(10);
             for (const row of rows) {
-                expect((row.componentInstance as NestedTableRowComponent).hidden).toBeFalse();
+                expect((row.componentInstance as NestedTableRowComponent).display).toBe('grid');
             }
         });
         it('should display by limit', () => {
@@ -77,12 +77,12 @@ describe('NestedTableLimitedRowsComponent', () => {
             const rows = fixture.debugElement.queryAll(By.directive(NestedTableRowComponent));
             expect(rows.length).toBe(11);
             for (const row of rows.slice(0, 1)) {
-                expect((row.componentInstance as NestedTableRowComponent).hidden).toBeFalse();
+                expect((row.componentInstance as NestedTableRowComponent).display).toBe('grid');
             }
             for (const row of rows.slice(2, 9)) {
-                expect((row.componentInstance as NestedTableRowComponent).hidden).toBeTrue();
+                expect((row.componentInstance as NestedTableRowComponent).display).toBe('none');
             }
-            expect((rows[10].componentInstance as NestedTableRowComponent).hidden).toBeFalse();
+            expect((rows[10].componentInstance as NestedTableRowComponent).display).toBe('grid');
         });
     });
 });
