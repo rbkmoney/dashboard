@@ -1,0 +1,43 @@
+.mobile-navigation {
+    &-node {
+        display: block;
+
+        a {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 28px;
+            text-decoration: none;
+            color: black;
+        }
+
+        &-parent {
+            cursor: pointer;
+
+            .mobile-navigation-node-route {
+                padding: 8px 0;
+            }
+
+            .mobile-navigation-node-route .mobile-navigation-node-title {
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+            }
+        }
+
+        &-route {
+            padding: 12px 0;
+        }
+
+        &-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &--hidden {
+            display: none;
+        }
+    }
+}

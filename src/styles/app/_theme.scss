@@ -24,9 +24,9 @@
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 
-@import '../../app/container/container-theme';
-@import '../../app/container/actionbar/actionbar-theme';
-@import '../../app/container/welcome-image/welcome-image-theme';
+@import 'src/app/core/home/home-theme';
+@import 'src/app/core/home/actionbar/actionbar-theme';
+@import 'src/app/core/home/welcome-image/welcome-image-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
@@ -40,7 +40,7 @@
 @import '../../app/feedback/feedback-theme';
 
 @mixin app-theme($theme) {
-    @include dsh-container-theme($theme);
+    @include dsh-home-theme($theme);
     @include dsh-actionbar-theme($theme);
     @include dsh-dropdown-theme($theme);
     @include dsh-invoice-cart-theme($theme);

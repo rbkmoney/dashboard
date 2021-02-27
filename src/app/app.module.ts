@@ -21,7 +21,7 @@ import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
-import { ContainerModule } from './container';
+import { HomeModule } from './core/home';
 import { FeedbackModule } from './feedback';
 import icons from './icons.json';
 import { initializer } from './initializer';
@@ -43,7 +43,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
-        ContainerModule,
+        HomeModule,
         SettingsModule,
         KeycloakAngularModule,
         HttpClientModule,

@@ -1,0 +1,20 @@
+<div *ngIf="routerNavigationEnd$ | async">
+    <dsh-welcome-image *ngIf="isRoot()"></dsh-welcome-image>
+    <ng-container *ngTemplateOutlet="(isMobileScreen$ | async) ? mobile : laptop"> </ng-container>
+</div>
+
+<ng-template #content>
+    <ng-content></ng-content>
+</ng-template>
+
+<ng-template #mobile>
+    <dsh-mobile-grid [invertedLogo]="isRoot()" [brandType]="brandType()">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+    </dsh-mobile-grid>
+</ng-template>
+
+<ng-template #laptop>
+    <dsh-laptop-grid [brandType]="brandType()">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+    </dsh-laptop-grid>
+</ng-template>

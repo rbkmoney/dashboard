@@ -3,6 +3,11 @@
         "main": "Главная",
         "payments": "Платежи",
         "wallets": "Кошельки",
-        "claims": "Заявки"
+        "claims": "Заявки",
+        "analytics": "Аналитика",
+        "operations": "Операции",
+        "payouts": "Возмещения",
+        "reports": "Отчеты",
+        "integrations": "Интеграция"
     }
 }

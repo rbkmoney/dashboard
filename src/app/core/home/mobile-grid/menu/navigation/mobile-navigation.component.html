@@ -1,0 +1,66 @@
+<cdk-tree [dataSource]="menu" [treeControl]="treeControl">
+    <!-- leaf nodes -->
+    <cdk-tree-node
+        *cdkTreeNodeDef="let node"
+        class="mobile-navigation-node"
+        cdkTreeNodePadding
+        cdkTreeNodePaddingIndent="4px"
+        [class.mobile-navigation-node--hidden]="!shouldDisplayNode(node)"
+    >
+        <div class="mobile-navigation-node-wrap">
+            <ng-container
+                *ngTemplateOutlet="hasNodeLink(node) ? routerNodeName : nodeName; context: { $implicit: node }"
+            ></ng-container>
+        </div>
+    </cdk-tree-node>
+    <!-- expandable nodes -->
+    <cdk-tree-node
+        *cdkTreeNodeDef="let node; when: isExpandableNode"
+        class="mobile-navigation-node mobile-navigation-node-parent"
+        cdkTreeNodePadding
+        cdkTreeNodePaddingIndent="4px"
+        [class.mobile-navigation-node--hidden]="!shouldDisplayNode(node)"
+    >
+        <div
+            class="mobile-navigation-node-wrap"
+            (click)="toggleNode(node)"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <ng-container *ngTemplateOutlet="nodeName; context: { $implicit: node }"></ng-container>
+            <mat-icon>
+                {{ node.isExpanded ? 'expand_more' : 'chevron_right' }}
+            </mat-icon>
+        </div>
+    </cdk-tree-node>
+</cdk-tree>
+
+<ng-template #nodeName let-node>
+    <ng-container *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'">
+        <div fxLayout="row" fxLayoutGap="16px">
+            <dsh-colored-icon
+                *ngIf="hasNodeIcon(node)"
+                [color]="isNodeActive(node) ? 'primary' : 'default'"
+                [icon]="node.meta.icon"
+            >
+            </dsh-colored-icon>
+            <div class="mobile-navigation-node-title">{{ t(node.id) }}</div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #routerNodeName let-node>
+    <ng-container *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'">
+        <div class="mobile-navigation-node-route" fxLayout="row" fxLayoutGap="16px">
+            <dsh-colored-icon
+                *ngIf="hasNodeIcon(node)"
+                [color]="isNodeActive(node) ? 'primary' : 'default'"
+                [icon]="node.meta.icon"
+            >
+            </dsh-colored-icon>
+            <a fxFlex class="mobile-navigation-node-title" [routerLink]="node.meta.path" (click)="navigated()">{{
+                t(node.id)
+            }}</a>
+        </div>
+    </ng-container>
+</ng-template>

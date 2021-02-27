@@ -1,0 +1,17 @@
+<mat-drawer-container class="mobile-grid">
+    <mat-drawer class="mobile-grid-drawer" mode="over">
+        <div class="mobile-grid-drawer-wrapper" fxLayout="column">
+            <div class="mobile-grid-drawer-actions" fxLayout="row" fxLayoutAlign="end center">
+                <mat-icon class="mobile-grid-toggle-button" (click)="closeSideNav()" svgIcon="cross"></mat-icon>
+            </div>
+            <dsh-mobile-menu fxFlex [menu]="menu$ | async" (navigationChanged)="closeSideNav()"></dsh-mobile-menu>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="mobile-grid-content" [class.mobile-grid-content--hidden]="isOpen">
+        <div class="mobile-grid-content-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <mat-icon class="mobile-grid-toggle-button" (click)="openSideNav()" [svgIcon]="menuIcon"></mat-icon>
+            <dsh-brand fxFlex="168px" [type]="brandType" class="dsh-side-section"></dsh-brand>
+        </div>
+        <ng-content></ng-content>
+    </mat-drawer-content>
+</mat-drawer-container>
