@@ -1,6 +1,8 @@
 import { NavigationSections } from '../navigation';
 import { PartialNavigationNode } from './types/partial-navigation-node';
 
+export const ROOT_NODE_LEVEL = 0;
+
 export const MOBILE_MENU: PartialNavigationNode[] = [
     {
         id: NavigationSections.main,

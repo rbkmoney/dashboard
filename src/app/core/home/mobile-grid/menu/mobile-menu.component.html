@@ -1,5 +1,10 @@
 <div class="mobile-menu" fxLayout="column">
-    <dsh-mobile-navigation fxFlex [menu]="menu" (navigationChanged)="navigated()"></dsh-mobile-navigation>
+    <dsh-mobile-navigation
+        fxFlex
+        [menu]="menu"
+        [activeId]="activeId"
+        (navigationChanged)="navigated()"
+    ></dsh-mobile-navigation>
     <mat-divider></mat-divider>
     <dsh-mobile-user-bar></dsh-mobile-user-bar>
 </div>

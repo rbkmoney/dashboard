@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-mobile-menu-navigation-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+
+    .mobile-navigation-node-title {
+        color: map-get($foreground, text);
+    }
+
+    .mobile-navigation-node-wrap .mobile-navigation-node-title-active {
+        color: mat-color($primary, 500);
+    }
+}

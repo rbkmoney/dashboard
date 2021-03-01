@@ -7,12 +7,11 @@ import { KeycloakService } from 'keycloak-angular';
     styleUrls: ['./mobile-user-bar.component.scss'],
 })
 export class MobileUserBarComponent {
-    userName = 'user.name';
+    userName: string = this.keycloakService.getUsername();
 
     constructor(private keycloakService: KeycloakService) {}
 
     logout(): void {
-        // console.log('Log out, ', this.userName);
         this.keycloakService.logout();
     }
 }

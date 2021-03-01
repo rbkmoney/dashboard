@@ -1,5 +1,9 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import isNil from 'lodash.isnil';
+import isObject from 'lodash.isobject';
+
+import { ComponentChanges } from '@dsh/type-utils';
 
 import { isParentFlatNode } from '../../types/is-parent-flat-node';
 import { NavigationFlatNode } from '../../types/navigation-flat-node';
@@ -11,7 +15,7 @@ import { NavigationFlatNodeParent } from '../../types/navigation-flat-node-paren
     styleUrls: ['./mobile-navigation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MobileNavigationComponent {
+export class MobileNavigationComponent implements OnChanges {
     @Input() menu: NavigationFlatNode[];
     @Input() activeId: string;
 
@@ -21,6 +25,37 @@ export class MobileNavigationComponent {
         (node: NavigationFlatNode) => node.level,
         (node: NavigationFlatNode) => isParentFlatNode(node)
     );
+
+    ngOnChanges(changes: ComponentChanges<MobileNavigationComponent>): void {
+        if (isObject(changes.activeId) || isObject(changes.menu)) {
+            this.openActiveNodeParents();
+        }
+    }
+
+    openActiveNodeParents(): void {
+        if (isNil(this.menu) || isNil(this.activeId)) {
+            return;
+        }
+
+        const activeNode = this.menu.find(({ id }: NavigationFlatNode) => id === this.activeId);
+        const parents = [];
+        let parentNode = this.getParentNode(activeNode);
+
+        while (!isNil(parentNode)) {
+            parents.push(parentNode);
+            parentNode = this.getParentNode(parentNode);
+        }
+
+        this.menu.forEach((menuNode: NavigationFlatNode) => {
+            if (isParentFlatNode(menuNode)) {
+                menuNode.isExpanded = false;
+            }
+        });
+
+        parents.forEach((node: NavigationFlatNodeParent) => {
+            node.isExpanded = true;
+        });
+    }
 
     isExpandableNode(_: number, node: NavigationFlatNode): boolean {
         return isParentFlatNode(node);

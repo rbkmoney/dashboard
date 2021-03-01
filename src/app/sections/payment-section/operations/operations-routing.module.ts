@@ -20,6 +20,10 @@ const operationsRoutes: Routes = [
                 path: 'invoices',
                 loadChildren: () => import('./invoices/invoices.module').then((mod) => mod.InvoicesModule),
             },
+            {
+                path: '**',
+                redirectTo: 'payments',
+            },
         ],
     },
 ];

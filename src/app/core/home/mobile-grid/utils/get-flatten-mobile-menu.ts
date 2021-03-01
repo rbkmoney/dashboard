@@ -1,6 +1,7 @@
 import isArray from 'lodash.isarray';
 import isNil from 'lodash.isnil';
 
+import { ROOT_NODE_LEVEL } from '../consts';
 import { NavigationLinkNodeMeta } from '../types/navigation-link-node-meta';
 import { PartialNavigationFlatNode } from '../types/partial-navigation-flat-node';
 import { PartialNavigationGroup } from '../types/partial-navigation-group';
@@ -8,8 +9,6 @@ import { PartialNavigationLeaf } from '../types/partial-navigation-leaf';
 import { PartialNavigationNode } from '../types/partial-navigation-node';
 
 export function getFlattenMobileMenu(menu: PartialNavigationNode[]): PartialNavigationFlatNode[] {
-    const ROOT_NODE_LEVEL = 0;
-
     const flatNodes = menu.map((el: PartialNavigationNode) => {
         return {
             ...el,

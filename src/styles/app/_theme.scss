@@ -24,9 +24,10 @@
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 
-@import 'src/app/core/home/home-theme';
-@import 'src/app/core/home/actionbar/actionbar-theme';
-@import 'src/app/core/home/welcome-image/welcome-image-theme';
+@import '../../app/core/home/home-theme';
+@import '../../app/core/home/actionbar/actionbar-theme';
+@import '../../app/core/home/welcome-image/welcome-image-theme';
+@import '../../app/core/home/mobile-grid/mobile_menu_theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
@@ -49,6 +50,7 @@
     @include dsh-tabs-theme($theme);
     @include dsh-state-nav-theme($theme);
     @include dsh-navbar-theme($theme);
+    @include dsh-mobile-menu-theme($theme);
     @include dsh-button-theme($theme);
     @include dsh-button-toggle-theme($theme);
     @include dsh-float-panel-theme($theme);

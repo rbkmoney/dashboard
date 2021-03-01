@@ -8,11 +8,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ColoredIconModule } from '@dsh/components/indicators';
 
+import { TreeNavChildPaddingDirective } from './directives/tree-nav-child-padding/tree-nav-child-padding.directive';
 import { MobileNavigationComponent } from './mobile-navigation.component';
 
 @NgModule({
     imports: [CommonModule, CdkTreeModule, MatIconModule, RouterModule, TranslocoModule, FlexModule, ColoredIconModule],
-    declarations: [MobileNavigationComponent],
+    declarations: [MobileNavigationComponent, TreeNavChildPaddingDirective],
     exports: [MobileNavigationComponent],
 })
 export class MobileNavigationModule {}

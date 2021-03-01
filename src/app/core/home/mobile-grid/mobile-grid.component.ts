@@ -21,13 +21,18 @@ export class MobileGridComponent implements OnInit {
     @ViewChild(MatDrawer) drawer: MatDrawer;
 
     menu$: Observable<NavigationFlatNode[]>;
-    activeMenuItem$: Observable<NavigationFlatNode['id']>;
+    activeMenuItemId$: Observable<NavigationFlatNode['id']>;
 
     private mobileMenuFormat: PartialNavigationFlatNode[] = getFlattenMobileMenu(MOBILE_MENU);
 
     constructor(private navigationService: NavigationService) {}
 
+    get menuIcon(): string {
+        return this.invertedLogo ? 'menu_inverted' : 'menu';
+    }
+
     ngOnInit(): void {
+        this.activeMenuItemId$ = this.navigationService.activeLink$.pipe(map((link: NavigationLink) => link.id));
         this.menu$ = this.navigationService.availableLinks$.pipe(
             map((links: NavigationLink[]) => {
                 return links.reduce((linksMap: Map<string, NavigationLink>, link: NavigationLink) => {
@@ -39,26 +44,17 @@ export class MobileGridComponent implements OnInit {
                 return this.mobileMenuFormat
                     .filter(({ id }: PartialNavigationFlatNode) => linksMap.has(id))
                     .map((menuNavNode: PartialNavigationFlatNode) => {
-                        const { path, activateStartPaths } = linksMap.get(menuNavNode.id);
+                        const { path } = linksMap.get(menuNavNode.id);
                         return {
                             ...menuNavNode,
                             meta: {
                                 ...menuNavNode.meta,
                                 path,
-                                activateStartPaths,
                             },
                         };
                     });
             })
         );
-    }
-
-    get menuIcon(): string {
-        return this.invertedLogo ? 'menu_inverted' : 'menu';
-    }
-
-    get isOpen(): boolean {
-        return this.drawer?.opened ?? false;
     }
 
     openSideNav(): void {

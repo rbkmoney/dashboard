@@ -9,6 +9,7 @@ import { NavigationFlatNode } from '../types/navigation-flat-node';
 })
 export class MobileMenuComponent {
     @Input() menu: NavigationFlatNode[];
+    @Input() activeId: string;
 
     @Output() navigationChanged = new EventEmitter<void>();
 

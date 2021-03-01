@@ -1,5 +1,7 @@
-import { Link } from '@dsh/app/shared/models';
+import { NavigationLinkSections } from './navigation-link-sections';
 
-export interface NavigationLink extends Link {
+export interface NavigationLink {
     id: string;
+    path: string;
+    navPlace: NavigationLinkSections;
 }

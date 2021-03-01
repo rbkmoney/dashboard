@@ -33,10 +33,6 @@ const routes: Routes = [
         loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
     },
     {
-        path: 'invoice',
-        loadChildren: () => import('./invoice-details').then((m) => m.InvoiceDetailsModule),
-    },
-    {
         path: 'onboarding',
         loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
