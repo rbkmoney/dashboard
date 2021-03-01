@@ -242,6 +242,7 @@ export class CreatePaymentLinkService {
                                     break;
                                 case TokenProvider.Yandexpay:
                                     paymentMethodsControls.yandexPay.enable();
+                                    break;
                                 default:
                                     console.error(`Unhandled TokenProvider - ${provider}`);
                                     break;
