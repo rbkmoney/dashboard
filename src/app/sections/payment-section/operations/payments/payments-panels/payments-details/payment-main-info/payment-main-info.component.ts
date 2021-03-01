@@ -1,9 +1,8 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
 
 import { PaymentResourcePayer, PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 
 import { PayerType } from '../../../../../../payment-details/payer-details';
 import { CommonPayer } from './types/common-payer';
@@ -16,8 +15,6 @@ import { PaymentAdditionalInfo } from './types/payment-additional-info';
 })
 export class PaymentMainInfoComponent {
     @Input() payment: PaymentSearchResult;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     get payer(): CommonPayer {
         return this.payment.payer as CommonPayer;
