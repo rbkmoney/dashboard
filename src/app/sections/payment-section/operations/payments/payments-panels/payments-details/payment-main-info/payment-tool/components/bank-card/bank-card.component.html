@@ -1,13 +1,15 @@
-<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="none center">
+<div fxLayout="row wrap" fxLayoutGap="8px" fxLayoutAlign="none center">
     <div class="mat-body-1">{{ bankCard.cardNumberMask | bankCard }}</div>
-    <ng-container [ngSwitch]="bankCard.paymentSystem">
-        <mat-icon *ngSwitchCase="paymentSystems.Visa" svgIcon="visa"></mat-icon>
-        <mat-icon *ngSwitchCase="paymentSystems.Mastercard" svgIcon="mastercard"></mat-icon>
-        <mat-icon *ngSwitchCase="paymentSystems.Nspkmir" svgIcon="mir"></mat-icon>
-    </ng-container>
-    <ng-container [ngSwitch]="bankCard.tokenProvider">
-        <mat-icon *ngSwitchCase="tokenProviders.Applepay" svgIcon="apple_pay"></mat-icon>
-        <mat-icon *ngSwitchCase="tokenProviders.Samsungpay" svgIcon="samsung_pay"></mat-icon>
-        <mat-icon *ngSwitchCase="tokenProviders.Googlepay" svgIcon="google_pay"></mat-icon>
-    </ng-container>
+    <mat-icon
+        *ngIf="getPaymentSystemIconConfig(bankCard?.paymentSystem) as iconConfig"
+        [svgIcon]="iconConfig.iconName"
+        [style.width]="iconConfig.width"
+        [style.height]="iconConfig.height"
+    ></mat-icon>
+    <mat-icon
+        *ngIf="getTokenProviderIconConfig(bankCard?.tokenProvider) as iconConfig"
+        [svgIcon]="iconConfig.iconName"
+        [style.width]="iconConfig.width"
+        [style.height]="iconConfig.height"
+    ></mat-icon>
 </div>
