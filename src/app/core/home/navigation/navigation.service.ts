@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Event, Router, UrlSegment } from '@angular/router';
-import cloneDeep from 'lodash.clonedeep';
 import { combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
 import { PaymentInstitutionRealm, WalletService } from '@dsh/api';
 
-import { MENU_LINKS, REALM_TYPE, REALM_TYPE_POSITION, ROOT_ROUTE_PATH } from './consts';
+import { MENU_LINKS_TOKEN, REALM_TYPE, REALM_TYPE_POSITION, ROOT_ROUTE_PATH } from './consts';
 import { NavigationLink } from './types/navigation-link';
 import { NavigationSections } from './types/navigation-sections';
 import { findActiveNavLink } from './utils/find-active-nav-link';
@@ -16,7 +15,6 @@ export class NavigationService {
     availableLinks$: Observable<NavigationLink[]>;
     activeLink$: Observable<NavigationLink>;
 
-    private menuLinks: NavigationLink[] = cloneDeep(MENU_LINKS);
     private currentUrl$: Observable<string> = this.router.events.pipe(
         startWith<Event, null>(null),
         map(() => this.router.url),
@@ -39,7 +37,12 @@ export class NavigationService {
         )
     );
 
-    constructor(private walletsService: WalletService, private router: Router) {
+    constructor(
+        private walletsService: WalletService,
+        private router: Router,
+        @Inject(MENU_LINKS_TOKEN)
+        private menuLinks: NavigationLink[]
+    ) {
         this.initLinks();
         this.initActiveLink();
         this.activeLink$.subscribe();

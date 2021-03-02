@@ -32,7 +32,60 @@ export class MobileNavigationComponent implements OnChanges {
         }
     }
 
-    openActiveNodeParents(): void {
+    isExpandableNode(_: number, node: NavigationFlatNode): boolean {
+        return isParentFlatNode(node);
+    }
+
+    hasNodeIcon(node: NavigationFlatNode): boolean {
+        if (isParentFlatNode(node)) {
+            return false;
+        }
+
+        return Boolean(node?.meta?.icon);
+    }
+
+    hasNodeLink(node: NavigationFlatNode): boolean {
+        return isParentFlatNode(node) ? false : Boolean(node?.meta?.path);
+    }
+
+    shouldDisplayNode(node: NavigationFlatNode): boolean {
+        let parent = this.getParentNode(node);
+        while (parent) {
+            if (!parent.isExpanded) {
+                return false;
+            }
+            parent = this.getParentNode(parent);
+        }
+        return true;
+    }
+
+    toggleNode(node: NavigationFlatNode): void {
+        if (isParentFlatNode(node)) {
+            node.isExpanded = !node.isExpanded;
+        }
+    }
+
+    navigated(): void {
+        this.navigationChanged.emit();
+    }
+
+    isNodeActive(node: NavigationFlatNode): boolean {
+        return node.id === this.activeId;
+    }
+
+    private getParentNode(node: NavigationFlatNode): NavigationFlatNodeParent | null {
+        const nodeIndex = this.menu.indexOf(node);
+
+        for (let i = nodeIndex - 1; i >= 0; i -= 1) {
+            if (this.menu[i].level === node.level - 1) {
+                return this.menu[i] as NavigationFlatNodeParent;
+            }
+        }
+
+        return null;
+    }
+
+    private openActiveNodeParents(): void {
         if (isNil(this.menu) || isNil(this.activeId)) {
             return;
         }
@@ -55,56 +108,5 @@ export class MobileNavigationComponent implements OnChanges {
         parents.forEach((node: NavigationFlatNodeParent) => {
             node.isExpanded = true;
         });
-    }
-
-    isExpandableNode(_: number, node: NavigationFlatNode): boolean {
-        return isParentFlatNode(node);
-    }
-
-    hasNodeIcon(node: NavigationFlatNode): boolean {
-        if (isParentFlatNode(node)) {
-            return false;
-        }
-
-        return Boolean(node.meta.icon);
-    }
-
-    hasNodeLink(node: NavigationFlatNode): boolean {
-        return isParentFlatNode(node) ? false : Boolean(node.meta.path);
-    }
-
-    shouldDisplayNode(node: NavigationFlatNode): boolean {
-        let parent = this.getParentNode(node);
-        while (parent) {
-            if (!parent.isExpanded) {
-                return false;
-            }
-            parent = this.getParentNode(parent);
-        }
-        return true;
-    }
-
-    toggleNode(node): void {
-        node.isExpanded = !node.isExpanded;
-    }
-
-    navigated(): void {
-        this.navigationChanged.emit();
-    }
-
-    isNodeActive(node: NavigationFlatNode): boolean {
-        return node.id === this.activeId;
-    }
-
-    private getParentNode(node: NavigationFlatNode): NavigationFlatNodeParent | null {
-        const nodeIndex = this.menu.indexOf(node);
-
-        for (let i = nodeIndex - 1; i >= 0; i -= 1) {
-            if (this.menu[i].level === node.level - 1) {
-                return this.menu[i] as NavigationFlatNodeParent;
-            }
-        }
-
-        return null;
     }
 }

@@ -2,7 +2,7 @@ import isArray from 'lodash.isarray';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 
-import { PAGE_POSITION_INDEX, ROOT_ROUTE_PATH, SECTION_POSITION_INDEX, SUBSECTION_POSITION_INDEX } from '../consts';
+import { PAGE_POSITION_INDEX, SECTION_POSITION_INDEX, SUBSECTION_POSITION_INDEX } from '../consts';
 import { NavigationLink } from '../types/navigation-link';
 
 const NO_MATCH_LEVEL = 0;
@@ -10,13 +10,13 @@ const PAGE_MATCH_LEVEL = 1;
 const SECTION_MATCH_LEVEL = 2;
 const SUBSECTION_MATCH_LEVEL = 3;
 
-export const findActiveNavLink = (urlSegments: string[], links: NavigationLink[]): NavigationLink => {
+export const findActiveNavLink = (urlSegments: string[], links: NavigationLink[]): NavigationLink | null => {
     const pageSegment = urlSegments[PAGE_POSITION_INDEX];
     const sectionSegment = urlSegments[SECTION_POSITION_INDEX];
     const subsectionSegment = urlSegments[SUBSECTION_POSITION_INDEX];
 
     if (isEmpty(urlSegments)) {
-        return links.find((link: NavigationLink) => link.path === ROOT_ROUTE_PATH);
+        return null;
     }
 
     const activeLink = links

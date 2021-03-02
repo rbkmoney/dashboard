@@ -2,6 +2,7 @@ import isArray from 'lodash.isarray';
 import isNil from 'lodash.isnil';
 
 import { ROOT_NODE_LEVEL } from '../consts';
+import { NavigationFlatNodeParent } from '../types/navigation-flat-node-parent';
 import { NavigationLinkNodeMeta } from '../types/navigation-link-node-meta';
 import { PartialNavigationFlatNode } from '../types/partial-navigation-flat-node';
 import { PartialNavigationGroup } from '../types/partial-navigation-group';
@@ -21,25 +22,25 @@ export function getFlattenMobileMenu(menu: PartialNavigationNode[]): PartialNavi
         const processingNodes = flatNodes.slice();
         hasUnhandledChildren = false;
 
-        processingNodes.forEach(
-            (node: PartialNavigationNode & { level: number; isExpanded?: boolean }, index: number) => {
-                const children = (node as PartialNavigationGroup).children;
+        for (let index = 0; index < processingNodes.length; index += 1) {
+            const node: PartialNavigationNode & { level: number; isExpanded?: boolean } = processingNodes[index];
+            const children = (node as PartialNavigationGroup).children;
 
-                if (isArray(children)) {
-                    hasUnhandledChildren = true;
-                    const childNodes = children.map((child: PartialNavigationNode) => {
-                        return {
-                            ...child,
-                            level: node.level + 1,
-                        };
-                    });
-                    flatNodes.splice(index + 1, 0, ...childNodes);
+            if (isArray(children)) {
+                hasUnhandledChildren = true;
+                const childNodes = children.map((child: PartialNavigationNode) => {
+                    return {
+                        ...child,
+                        level: node.level + 1,
+                    };
+                });
+                flatNodes.splice(index + 1, 0, ...childNodes);
 
-                    (node as any).isExpanded = false;
-                    delete (node as PartialNavigationGroup).children;
-                }
+                (node as NavigationFlatNodeParent).isExpanded = false;
+                delete (node as PartialNavigationGroup).children;
+                break;
             }
-        );
+        }
     }
 
     return flatNodes.map(
@@ -56,7 +57,6 @@ export function getFlattenMobileMenu(menu: PartialNavigationNode[]): PartialNavi
                       id,
                       level,
                       isExpanded,
-                      meta,
                   };
         }
     );

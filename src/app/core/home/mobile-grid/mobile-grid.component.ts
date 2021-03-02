@@ -1,12 +1,19 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { coerceBoolean } from '@dsh/utils';
+
+import { BrandType } from '../brand';
 import { NavigationLink, NavigationService } from '../navigation';
-import { MOBILE_MENU } from './consts';
+import { MOBILE_MENU_TOKEN } from './consts';
+import { isParentFlatNode } from './types/is-parent-flat-node';
 import { NavigationFlatNode } from './types/navigation-flat-node';
+import { NavigationFlatNodeParent } from './types/navigation-flat-node-parent';
 import { PartialNavigationFlatNode } from './types/partial-navigation-flat-node';
+import { PartialNavigationFlatNodeLeaf } from './types/partial-navigation-flat-node-leaf';
+import { PartialNavigationNode } from './types/partial-navigation-node';
 import { getFlattenMobileMenu } from './utils/get-flatten-mobile-menu';
 
 @Component({
@@ -15,23 +22,31 @@ import { getFlattenMobileMenu } from './utils/get-flatten-mobile-menu';
     styleUrls: ['./mobile-grid.component.scss'],
 })
 export class MobileGridComponent implements OnInit {
-    @Input() invertedLogo: boolean;
-    @Input() brandType;
+    @Input()
+    @coerceBoolean
+    invertedLogo: boolean;
+
+    @Input() brandType: BrandType;
 
     @ViewChild(MatDrawer) drawer: MatDrawer;
 
     menu$: Observable<NavigationFlatNode[]>;
     activeMenuItemId$: Observable<NavigationFlatNode['id']>;
 
-    private mobileMenuFormat: PartialNavigationFlatNode[] = getFlattenMobileMenu(MOBILE_MENU);
+    private mobileMenuFormat: PartialNavigationFlatNode[];
 
-    constructor(private navigationService: NavigationService) {}
+    constructor(
+        private navigationService: NavigationService,
+        @Inject(MOBILE_MENU_TOKEN)
+        private mobileMenu: PartialNavigationNode[]
+    ) {}
 
     get menuIcon(): string {
         return this.invertedLogo ? 'menu_inverted' : 'menu';
     }
 
     ngOnInit(): void {
+        this.mobileMenuFormat = getFlattenMobileMenu(this.mobileMenu);
         this.activeMenuItemId$ = this.navigationService.activeLink$.pipe(map((link: NavigationLink) => link.id));
         this.menu$ = this.navigationService.availableLinks$.pipe(
             map((links: NavigationLink[]) => {
@@ -42,13 +57,20 @@ export class MobileGridComponent implements OnInit {
             }),
             map((linksMap: Map<string, NavigationLink>) => {
                 return this.mobileMenuFormat
-                    .filter(({ id }: PartialNavigationFlatNode) => linksMap.has(id))
-                    .map((menuNavNode: PartialNavigationFlatNode) => {
-                        const { path } = linksMap.get(menuNavNode.id);
+                    .filter(
+                        (menuNode: PartialNavigationFlatNode) => linksMap.has(menuNode.id) || isParentFlatNode(menuNode)
+                    )
+                    .map((menuNode: PartialNavigationFlatNode) => {
+                        if (isParentFlatNode(menuNode)) {
+                            return menuNode as NavigationFlatNodeParent;
+                        }
+
+                        const { path } = linksMap.get(menuNode.id);
+                        const { meta = {} } = menuNode as PartialNavigationFlatNodeLeaf;
                         return {
-                            ...menuNavNode,
+                            ...menuNode,
                             meta: {
-                                ...menuNavNode.meta,
+                                ...meta,
                                 path,
                             },
                         };
@@ -61,7 +83,7 @@ export class MobileGridComponent implements OnInit {
         this.drawer.open('program');
     }
 
-    closeSideNav() {
+    closeSideNav(): void {
         this.drawer.close();
     }
 }

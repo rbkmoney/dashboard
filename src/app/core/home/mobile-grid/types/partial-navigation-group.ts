@@ -1,6 +1,6 @@
-import { PartialNavigationLeaf } from './partial-navigation-leaf';
+import { PartialNavigationNode } from './partial-navigation-node';
 
 export interface PartialNavigationGroup {
     id: string;
-    children: PartialNavigationLeaf[];
+    children: PartialNavigationNode[];
 }

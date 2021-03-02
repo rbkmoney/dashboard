@@ -5,12 +5,13 @@ import isObject from 'lodash.isobject';
 
 import { ROOT_NODE_LEVEL } from '../../../../consts';
 import { NavigationFlatNode } from '../../../../types/navigation-flat-node';
+import { parseIndentValue } from '../../utils/parse-indent-value';
 
 @UntilDestroy()
 @Directive({
     selector: '[dshTreeNavChildPadding]',
 })
-export class TreeNavChildPaddingDirective<T extends NavigationFlatNode, K = T> implements OnInit {
+export class TreeNavChildPaddingDirective<T extends NavigationFlatNode = NavigationFlatNode, K = T> implements OnInit {
     @Input('dshTreeNavChildPadding')
     get indent(): number | string {
         return this.elPadding;
@@ -56,7 +57,7 @@ export class TreeNavChildPaddingDirective<T extends NavigationFlatNode, K = T> i
         const positionIndex = dataSource.map(({ id }: T) => id).indexOf(nodeData.id);
 
         const elBefore = dataSource[positionIndex - 1];
-        const elAfter = dataSource[positionIndex - 1];
+        const elAfter = dataSource[positionIndex + 1];
         const hasParentBefore = isObject(elBefore) && elBefore.level === nodeData.level - 1;
         const hasParentAfter = isObject(elAfter) && elAfter.level === nodeData.level - 1;
 

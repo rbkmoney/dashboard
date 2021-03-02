@@ -1,7 +1,11 @@
+import { InjectionToken } from '@angular/core';
+
 import { NavigationSections } from '../navigation';
 import { PartialNavigationNode } from './types/partial-navigation-node';
 
 export const ROOT_NODE_LEVEL = 0;
+
+export const MOBILE_MENU_TOKEN = new InjectionToken<PartialNavigationNode[]>('mobile-menu-token');
 
 export const MOBILE_MENU: PartialNavigationNode[] = [
     {

@@ -6,7 +6,9 @@ describe('ScreenSizeControlService', () => {
     let service: ScreenSizeControlService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            providers: [ScreenSizeControlService],
+        });
         service = TestBed.inject(ScreenSizeControlService);
     });
 

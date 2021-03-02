@@ -1,3 +1,5 @@
+import { InjectionToken } from '@angular/core';
+
 import { NavigationLink } from './types/navigation-link';
 import { NavigationSections } from './types/navigation-sections';
 
@@ -9,6 +11,8 @@ export const PAGE_POSITION_INDEX = 0;
 export const REALM_TYPE_POSITION = 2;
 export const SECTION_POSITION_INDEX = 3;
 export const SUBSECTION_POSITION_INDEX = 4;
+
+export const MENU_LINKS_TOKEN = new InjectionToken<NavigationLink[]>('menu-links-token');
 
 export const MENU_LINKS: NavigationLink[] = [
     {

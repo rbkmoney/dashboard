@@ -1,6 +1,4 @@
-import { NavigationFlatNode } from './navigation-flat-node';
-import { NavigationLinkNodeMeta } from './navigation-link-node-meta';
+import { NavigationFlatNodeParent } from './navigation-flat-node-parent';
+import { PartialNavigationFlatNodeLeaf } from './partial-navigation-flat-node-leaf';
 
-export type PartialNavigationFlatNode = Omit<NavigationFlatNode, 'meta'> & {
-    meta: { icon?: NavigationLinkNodeMeta['icon'] };
-};
+export type PartialNavigationFlatNode = NavigationFlatNodeParent | PartialNavigationFlatNodeLeaf;
