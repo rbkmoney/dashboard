@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
+import { ConfigModule } from '../../config';
 import { ScreenSizeControlModule } from '../services/screen-size-control/screen-size-control.module';
 import { HomeComponent } from './home.component';
 import { LaptopGridModule } from './laptop-grid/laptop-grid.module';
@@ -24,6 +25,7 @@ import { WelcomeImageModule } from './welcome-image';
         MobileGridModule,
         LaptopGridModule,
         NavigationModule,
+        ConfigModule,
     ],
     declarations: [HomeComponent],
     exports: [HomeComponent],

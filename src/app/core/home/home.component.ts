@@ -4,10 +4,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
+import { ConfigService } from '../../config';
 import { ThemeManager } from '../../theme-manager';
 import { ScreenSize } from '../services/screen-size-control/interfaces/screen-size';
 import { ScreenSizeControlService } from '../services/screen-size-control/screen-size-control.service';
-import { BrandType } from './brand';
+import { ROOT_ROUTE_PATH } from './navigation/consts';
 
 @UntilDestroy()
 @Component({
@@ -22,13 +23,20 @@ export class HomeComponent implements OnInit {
     constructor(
         private screenSizeController: ScreenSizeControlService,
         private router: Router,
+        private configService: ConfigService,
         // need to create class when home component was init
-        private themeService: ThemeManager
+        private themeManager: ThemeManager
     ) {}
 
+    get imageUrls() {
+        return this.configService.theme.backgroundImageUrls;
+    }
+
+    get hasBackground() {
+        return this.router.url === ROOT_ROUTE_PATH && this.themeManager.hasMainBackground;
+    }
+
     ngOnInit(): void {
-        // tslint:disable-next-line:no-console
-        console.log(this.themeService.current);
         this.routerNavigationEnd$ = this.router.events.pipe(
             filter((event: RouterEvent) => event instanceof NavigationEnd),
             map(() => true),
@@ -40,13 +48,5 @@ export class HomeComponent implements OnInit {
         this.isMobileScreen$ = this.screenSizeController.screenSize$.pipe(
             map((screenSize: ScreenSize) => screenSize === ScreenSize.MOBILE)
         );
-    }
-
-    isRoot(): boolean {
-        return this.router.url === '/';
-    }
-
-    brandType(): BrandType {
-        return this.isRoot() ? BrandType.invert : BrandType.normal;
     }
 }

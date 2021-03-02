@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { coerceBoolean } from '@dsh/utils';
 
-import { ConfigService } from '../../config';
+import { ConfigService } from '../../../config';
 
 @Component({
     selector: 'dsh-brand',

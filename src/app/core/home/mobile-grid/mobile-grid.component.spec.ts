@@ -9,7 +9,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
-import { BrandType } from '../brand';
 import { NavigationService } from '../navigation';
 import { MOBILE_MENU_TOKEN } from './consts';
 import { MobileGridComponent } from './mobile-grid.component';
@@ -32,7 +31,7 @@ class MockMobileMenuComponent {
     template: '',
 })
 class MockBrandComponent {
-    @Input() type: BrandType = BrandType.normal;
+    @Input() inverted: boolean;
     @Input() navigationLink = '/';
 }
 
@@ -85,12 +84,12 @@ describe('MobileGridComponent', () => {
         });
 
         it('should return "menu_inverted" if logo was inverted', () => {
-            component.invertedLogo = true;
+            component.inverted = true;
             expect(component.menuIcon).toBe('menu_inverted');
         });
 
         it('should return "menu" if logo was not inverted', () => {
-            component.invertedLogo = false;
+            component.inverted = false;
             expect(component.menuIcon).toBe('menu');
         });
     });

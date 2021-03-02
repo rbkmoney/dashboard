@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import { coerceBoolean } from '@dsh/utils';
 
-import { BrandType } from '../brand';
 import { NavigationLink, NavigationService } from '../navigation';
 import { MOBILE_MENU_TOKEN } from './consts';
 import { isParentFlatNode } from './types/is-parent-flat-node';
@@ -24,9 +23,7 @@ import { getFlattenMobileMenu } from './utils/get-flatten-mobile-menu';
 export class MobileGridComponent implements OnInit {
     @Input()
     @coerceBoolean
-    invertedLogo: boolean;
-
-    @Input() brandType: BrandType;
+    inverted: boolean;
 
     @ViewChild(MatDrawer) drawer: MatDrawer;
 
@@ -42,7 +39,7 @@ export class MobileGridComponent implements OnInit {
     ) {}
 
     get menuIcon(): string {
-        return this.invertedLogo ? 'menu_inverted' : 'menu';
+        return this.inverted ? 'menu_inverted' : 'menu';
     }
 
     ngOnInit(): void {

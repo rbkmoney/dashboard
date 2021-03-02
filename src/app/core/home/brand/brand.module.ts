@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
-import { ConfigModule } from '../../config';
+import { ConfigModule } from '../../../config';
 import { BrandComponent } from './brand.component';
 
 @NgModule({
