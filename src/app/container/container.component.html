@@ -1,0 +1,7 @@
+<div *ngIf="routerNavigationEnd$ | async">
+    <dsh-welcome-image *ngIf="hasBackground" [imageUrls]="imageUrls"></dsh-welcome-image>
+    <div class="container">
+        <dsh-toolbar [inverted]="hasBackground"></dsh-toolbar>
+        <ng-content></ng-content>
+    </div>
+</div>

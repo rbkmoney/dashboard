@@ -22,8 +22,6 @@
     "keyboard_arrow_down",
     "keyboard_arrow_up",
     "launch",
-    "logo",
-    "logo_white",
     "mastercard",
     "mir",
     "mode_comment",
@@ -53,5 +51,6 @@
     "visa",
     "visibility",
     "wallet",
-    "wallet_menu"
+    "wallet_menu",
+    "yandex_pay"
 ]

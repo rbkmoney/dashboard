@@ -6,21 +6,21 @@ How to create palette
 0. Choose base color
 1. Enter in https://material.io/inline-tools/color/ base color - get 50-900 colors
 2. Enter color 500 (gotten at the previous step) into http://mcg.mbitson.com - get A100-A700 colors
-and find out recommendation when to use a dark font color and in which light
+   and find out recommendation when to use a dark font color and in which light
 */
 
-// base 500
+// base 400
 $dsh-slateblue: (
-    50: #edebff,
-    100: #ede8ff,
-    200: #d0c6fe,
-    300: #b0a1fe,
-    400: #8b79ff,
-    500: #695bff,
-    600: #3b3efd,
-    700: #2239f7,
-    800: #0032ee,
-    900: #002de8,
+    50: #ede8ff,
+    100: #d0c6fe,
+    200: #b0a1fe,
+    300: #8b79ff,
+    400: #695bff,
+    500: #3b3efd,
+    600: #2239f7,
+    700: #0032ee,
+    800: #002de8,
+    900: #0022d9,
     A100: #ffffff,
     A200: #fafaff,
     A400: #c7c7ff,
@@ -30,7 +30,7 @@ $dsh-slateblue: (
         100: $dark-text,
         200: $dark-text,
         300: $dark-text,
-        400: $dark-text,
+        400: $light-text,
         500: $light-text,
         600: $light-text,
         700: $light-text,
@@ -167,6 +167,74 @@ $dsh-warn: (
         200: $dark-text,
         300: $light-text,
         400: $light-text,
+        500: $light-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text,
+    ),
+);
+
+// base 400
+$dsh-persian-green: (
+    50: #dff2f1,
+    100: #b0dfdc,
+    200: #7bcbc5,
+    300: #42b6ad,
+    400: #00a69b,
+    500: #009689,
+    600: #00897c,
+    700: #00796b,
+    800: #00695c,
+    900: #004d40,
+    A100: #97ffed,
+    A200: #64ffe5,
+    A400: #31ffdc,
+    A700: #18ffd8,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $light-text,
+        500: $light-text,
+        600: $light-text,
+        700: $light-text,
+        800: $light-text,
+        900: $light-text,
+        A100: $dark-text,
+        A200: $dark-text,
+        A400: $dark-text,
+        A700: $dark-text,
+    ),
+);
+
+// base 900
+$dsh-smalt: (
+    50: #e2f0fb,
+    100: #b8d9f5,
+    200: #8bc1ee,
+    300: #5ea9e7,
+    400: #3c98e3,
+    500: #1887df,
+    600: #157ad1,
+    700: #0f69bf,
+    800: #0958ad,
+    900: #003b8e,
+    A100: #f4f8ff,
+    A200: #c1d7ff,
+    A400: #8eb6ff,
+    A700: #74a6ff,
+    contrast: (
+        50: $dark-text,
+        100: $dark-text,
+        200: $dark-text,
+        300: $dark-text,
+        400: $dark-text,
         500: $light-text,
         600: $light-text,
         700: $light-text,

@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { Theme, THEME } from '../../../../../styles/theme';
+import { ChartsThemeProvider, CHARTS_THEME } from '../charts-theme';
 import { SearchParams } from '../search-params';
 import { PaymentSplitCountService } from './payment-split-count.service';
 
@@ -20,9 +20,12 @@ export class PaymentSplitCountComponent implements OnChanges {
     isLoading$ = this.paymentSplitCountService.isLoading$;
     error$ = this.paymentSplitCountService.error$;
 
-    colors = this.theme.charts.stackedBarChartColors;
+    colors = this.theme.stackedBarChart;
 
-    constructor(private paymentSplitCountService: PaymentSplitCountService, @Inject(THEME) private theme: Theme) {}
+    constructor(
+        private paymentSplitCountService: PaymentSplitCountService,
+        @Inject(CHARTS_THEME) private theme: ChartsThemeProvider
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (

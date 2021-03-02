@@ -8,8 +8,7 @@ import {
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatIconRegistry } from '@angular/material/icon';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
@@ -23,12 +22,12 @@ import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
 import { HomeModule } from './core/home';
 import { FeedbackModule } from './feedback';
-import icons from './icons.json';
+import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
 import { SettingsModule } from './settings';
-import { ThemeManagerModule } from './theme-manager';
+import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { translocoLoader } from './transloco.loader';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
 
@@ -54,13 +53,22 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         OrganizationsModule,
         UserModule,
         FeedbackModule,
+        IconsModule,
     ],
     providers: [
         LanguageService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LanguageService, YandexMetrikaConfigService, PLATFORM_ID],
+            deps: [
+                ConfigService,
+                KeycloakService,
+                LanguageService,
+                YandexMetrikaConfigService,
+                PLATFORM_ID,
+                ThemeManager,
+                IconsService,
+            ],
             multi: true,
         },
         {
@@ -93,18 +101,4 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
-    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-        this.registerIcons();
-    }
-
-    registerIcons() {
-        for (const name of icons) {
-            this.matIconRegistry.addSvgIcon(
-                name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
-            );
-        }
-        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
-    }
-}
+export class AppModule {}

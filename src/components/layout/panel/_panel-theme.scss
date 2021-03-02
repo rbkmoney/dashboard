@@ -16,7 +16,7 @@
     .dsh-panel {
         @include panel(map-get($background, card));
         &-primary {
-            @include panel(mat-color($primary, 100));
+            @include panel(mat-color($primary, 50));
         }
         &-accent {
             @include panel(mat-color($accent, 50));

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { map } from 'rxjs/operators';
 
-import { BrandType } from '../brand';
-import { LinkId, ToolbarLinksService } from './toolbar-links.service';
+import { coerceBoolean } from '@dsh/utils';
+
+import { ToolbarLinksService } from './toolbar-links.service';
 
 @Component({
     selector: 'dsh-toolbar',
@@ -12,10 +12,9 @@ import { LinkId, ToolbarLinksService } from './toolbar-links.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent {
-    @Input() brandType: BrandType = BrandType.normal;
+    @Input() @coerceBoolean inverted: boolean;
 
     links$ = this.toolbarLinksService.links$;
-    inverted$ = this.toolbarLinksService.active$.pipe(map((active) => active.id === LinkId.main));
     active$ = this.toolbarLinksService.active$;
 
     constructor(private toolbarLinksService: ToolbarLinksService) {}

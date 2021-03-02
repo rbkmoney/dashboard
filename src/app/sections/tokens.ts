@@ -1,6 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { MatDialogConfig } from '@angular/material/dialog';
 
+import { ChartsThemeProvider } from './payment-section/analytics/charts-theme';
+
 /**
  * @deprecated
  */
@@ -20,4 +22,21 @@ export const DEFAULT_DIALOG_CONFIG: DialogConfig = {
     small: { ...baseConfig, width: '360px' },
     medium: { ...baseConfig, width: '552px' },
     large: { ...baseConfig, width: '648px' },
+};
+
+export const DEFAULT_CHARTS_THEME: ChartsThemeProvider = {
+    stackedBarChart: ['#67DAAA', '#FC9B51', '#FB7777', '#9E9E9E'],
+    barChart: ['#695BFF'],
+    donutChart: [
+        '#38C1CD',
+        '#E9E452',
+        '#5B9FFF',
+        '#BB5BFF',
+        '#FFAB91',
+        '#CD3876',
+        '#81C784',
+        '#FC9B51',
+        '#695BFF',
+        '#9E9E9E',
+    ],
 };
