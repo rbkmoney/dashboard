@@ -15,11 +15,11 @@ export class RevokeClaimDialogComponent {
 
     constructor(private revokeClaimDialogService: RevokeClaimDialogService) {}
 
-    back() {
+    cancel(): void {
         this.revokeClaimDialogService.back();
     }
 
-    revoke(reason: string) {
+    revoke(reason: string): void {
         this.revokeClaimDialogService.revoke(reason);
     }
 }
