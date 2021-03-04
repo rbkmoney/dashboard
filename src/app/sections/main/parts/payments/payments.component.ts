@@ -27,7 +27,7 @@ export class PaymentsComponent {
 
     get iconName(): string {
         switch (this.currentThemeName) {
-            case ThemeName.light:
+            case ThemeName.main:
                 return 'bill';
             case ThemeName.persianGreen:
                 return 'bill_persian_green';

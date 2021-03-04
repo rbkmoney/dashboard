@@ -26,7 +26,7 @@ $config: (
     warn: mat-palette($dsh-warn, 300),
     is-dark: false,
     // Custom
-    name: 'light',
+    name: 'main',
     success-base: mat-color(mat-palette($dsh-success), 400),
     pending-base: mat-color(mat-palette($dsh-pending), 800),
     warn-base: mat-color(mat-palette($dsh-warn), 300)

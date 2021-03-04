@@ -41,7 +41,7 @@ export class ThemeManager {
     }
 
     private getCorrectName(theme: string): ThemeName {
-        return isTheme(theme) ? theme : ThemeName.light;
+        return isTheme(theme) ? theme : ThemeName.main;
     }
 
     private set(name: ThemeName) {

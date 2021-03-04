@@ -23,7 +23,7 @@ export class SpinnerComponent implements OnChanges {
         switch (this.themeManager.current) {
             case ThemeName.persianGreen:
                 return '#003b8e';
-            case ThemeName.light:
+            case ThemeName.main:
                 return '#695bff';
         }
     }
