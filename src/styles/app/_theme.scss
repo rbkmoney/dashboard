@@ -25,9 +25,10 @@
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
 
-@import '../../app/container/container-theme';
-@import '../../app/container/actionbar/actionbar-theme';
-@import '../../app/container/welcome-image/welcome-image-theme';
+@import '../../app/home/home-theme';
+@import '../../app/home/actionbar/actionbar-theme';
+@import '../../app/home/welcome-image/welcome-image-theme';
+@import '../../app/home/mobile-grid/mobile_menu_theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
@@ -41,7 +42,7 @@
 @import '../../app/feedback/feedback-theme';
 
 @mixin app-theme($theme) {
-    @include dsh-container-theme($theme);
+    @include dsh-home-theme($theme);
     @include dsh-actionbar-theme($theme);
     @include dsh-dropdown-theme($theme);
     @include dsh-invoice-cart-theme($theme);
@@ -50,6 +51,7 @@
     @include dsh-tabs-theme($theme);
     @include dsh-state-nav-theme($theme);
     @include dsh-navbar-theme($theme);
+    @include dsh-mobile-menu-theme($theme);
     @include dsh-button-theme($theme);
     @include dsh-button-toggle-theme($theme);
     @include dsh-float-panel-theme($theme);
