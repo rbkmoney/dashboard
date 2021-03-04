@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { ThemeName } from '../../../../theme-manager';
 
 @Component({
     selector: 'dsh-wallets',
@@ -6,4 +8,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     styleUrls: ['wallets.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WalletsComponent {}
+export class WalletsComponent {
+    @Input() currentThemeName: ThemeName;
+
+    get iconName(): string {
+        switch (this.currentThemeName) {
+            case ThemeName.light:
+                return 'wallet';
+            case ThemeName.persianGreen:
+                return 'wallet_persian_green';
+            default:
+                return '';
+        }
+    }
+}

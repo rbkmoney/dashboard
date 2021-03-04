@@ -26,6 +26,8 @@ export class MobileGridComponent implements OnInit {
     @coerceBoolean
     inverted: boolean;
 
+    @Input() logoName: string;
+
     @ViewChild(MatDrawer) drawer: MatDrawer;
 
     menu$: Observable<NavigationFlatNode[]>;

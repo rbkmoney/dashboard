@@ -4,7 +4,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
-import { ConfigService } from '../config';
 import { ThemeManager } from '../theme-manager';
 import { ROOT_ROUTE_PATH } from './navigation/consts';
 import { ScreenSize } from './services/screen-size-control/interfaces/screen-size';
@@ -23,17 +22,16 @@ export class HomeComponent implements OnInit {
     constructor(
         private screenSizeController: ScreenSizeControlService,
         private router: Router,
-        private configService: ConfigService,
         // need to create class when home component was init
         private themeManager: ThemeManager
     ) {}
 
-    get imageUrls() {
-        return this.configService.theme.backgroundImageUrls;
+    get hasBackground(): boolean {
+        return this.router.url === ROOT_ROUTE_PATH && this.themeManager.isMainBackgroundImages;
     }
 
-    get hasBackground() {
-        return this.router.url === ROOT_ROUTE_PATH && this.themeManager.hasMainBackground;
+    get logoName(): string {
+        return this.themeManager.logoName;
     }
 
     ngOnInit(): void {
