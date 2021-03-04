@@ -41,12 +41,7 @@ export class ThemeManager {
     }
 
     private getCorrectName(theme: string): ThemeName {
-        // TODO: For several themes you will need to add a list of allowed theme to the config
-        const allowedThemes: ThemeName[] = [this.configService.theme.name as ThemeName];
-        if (isTheme(theme) && allowedThemes.includes(theme)) {
-            return theme;
-        }
-        return (this.configService.theme.name as ThemeName) || ThemeName.light;
+        return isTheme(theme) ? theme : ThemeName.light;
     }
 
     private set(name: ThemeName) {
