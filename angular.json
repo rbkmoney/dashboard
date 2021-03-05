@@ -35,8 +35,8 @@
                         "styles": [
                             "src/styles/core.scss",
                             {
-                                "input": "src/styles/themes/light.scss",
-                                "bundleName": "themes/light",
+                                "input": "src/styles/themes/main.scss",
+                                "bundleName": "themes/main",
                                 "lazy": true
                             },
                             {
@@ -117,8 +117,8 @@
                         "styles": [
                             "src/styles/core.scss",
                             {
-                                "input": "src/styles/themes/light.scss",
-                                "bundleName": "themes/light",
+                                "input": "src/styles/themes/main.scss",
+                                "bundleName": "themes/main",
                                 "lazy": true
                             },
                             {
@@ -142,8 +142,8 @@
                         "styles": [
                             "src/styles/core.scss",
                             {
-                                "input": "src/styles/themes/light.scss",
-                                "bundleName": "themes/light",
+                                "input": "src/styles/themes/main.scss",
+                                "bundleName": "themes/main",
                                 "lazy": true
                             },
                             {

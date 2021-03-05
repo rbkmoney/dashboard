@@ -12,6 +12,11 @@
     </div>
 </div>
 <div fxLayout fxLayout.lt-md="column" fxLayoutGap="32px">
-    <dsh-payments fxFlex="50" fxFlex.lt-md="100"></dsh-payments>
-    <dsh-wallets fxFlex="50" fxFlex.lt-md="100" *ngIf="hasWallets$ | async"></dsh-wallets>
+    <dsh-payments fxFlex="50" fxFlex.lt-md="100" [currentThemeName]="currentThemeName"></dsh-payments>
+    <dsh-wallets
+        fxFlex="50"
+        fxFlex.lt-md="100"
+        *ngIf="hasWallets$ | async"
+        [currentThemeName]="currentThemeName"
+    ></dsh-wallets>
 </div>
