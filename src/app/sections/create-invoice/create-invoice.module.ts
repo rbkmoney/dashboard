@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceModule } from '@dsh/api/invoice';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
@@ -46,6 +47,7 @@ const EXPORTED_DECLARATIONS = [CreateInvoiceComponent];
         ShopSelectorModule,
         MatDialogModule,
         ConfirmActionDialogModule,
+        BaseDialogModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

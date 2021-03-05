@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
@@ -30,6 +31,7 @@ import { CreatePayoutService } from './create-payout.service';
         SpinnerModule,
         FormatInputModule,
         ApiModelTypesModule,
+        BaseDialogModule,
     ],
     declarations: [CreatePayoutDialogComponent],
     providers: [CreatePayoutService],

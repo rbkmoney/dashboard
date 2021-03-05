@@ -10,7 +10,6 @@ import {
     ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogContent } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -47,7 +46,7 @@ import { RussianShopEntity } from './types/russian-shop-entity';
     providers: [CreateRussianShopEntityService],
 })
 export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
-    @ViewChild(MatDialogContent, { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
+    @ViewChild('content', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
 
     @Output() cancel = new EventEmitter<void>();
     @Output() send = new EventEmitter<void>();
@@ -70,7 +69,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     payoutTool$: Observable<PayoutTool> = this.payoutToolService.shopPayoutTool$;
 
     get contentElement(): HTMLElement | undefined {
-        return this.contentRef?.nativeElement;
+        return this.contentRef?.nativeElement?.parentElement;
     }
 
     constructor(

@@ -1,0 +1,11 @@
+.create-report-dialog {
+    &-title {
+        &-close {
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+}

@@ -122,7 +122,7 @@ describe('CreateRussianShopEntityComponent', () => {
 
         it('should return native element if element ref was inited', () => {
             const element = instance(mockHtmlElement);
-            when(mockElementRef.nativeElement).thenReturn(element);
+            when(mockElementRef.nativeElement).thenReturn({ parentElement: element });
             component.contentRef = instance(mockElementRef);
 
             expect(component.contentElement).toEqual(element);
