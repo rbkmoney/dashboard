@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,6 @@ import { CreateShopDialogConfig } from '../../types/create-shop-dialog-config';
     selector: 'dsh-create-shop-dialog',
     templateUrl: 'create-shop-dialog.component.html',
     styleUrls: ['create-shop-dialog.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateShopDialogComponent {
     selectedShopType: ShopType;
