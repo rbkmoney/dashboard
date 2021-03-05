@@ -13,6 +13,7 @@ import { ToolbarLinksService } from './toolbar-links.service';
 })
 export class ToolbarComponent {
     @Input() @coerceBoolean inverted: boolean;
+    @Input() logoName: string;
 
     links$ = this.toolbarLinksService.links$;
     active$ = this.toolbarLinksService.active$;

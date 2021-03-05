@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import random from 'lodash-es/random';
 
 @Component({
@@ -8,7 +8,13 @@ import random from 'lodash-es/random';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeImageComponent {
-    @Input() imageUrls: string[];
+    imageUrls = [
+        'assets/background/1.png',
+        'assets/background/2.png',
+        'assets/background/3.png',
+        'assets/background/4.png',
+        'assets/background/5.png',
+    ];
 
     get imageUrl() {
         const idx = random(0, this.imageUrls.length - 1);

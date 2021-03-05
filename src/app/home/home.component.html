@@ -1,5 +1,5 @@
 <div *ngIf="routerNavigationEnd$ | async">
-    <dsh-welcome-image *ngIf="hasBackground" [imageUrls]="imageUrls"></dsh-welcome-image>
+    <dsh-welcome-image *ngIf="hasBackground"></dsh-welcome-image>
     <ng-container *ngTemplateOutlet="(isMobileScreen$ | async) ? mobile : laptop"> </ng-container>
 </div>
 
@@ -8,13 +8,13 @@
 </ng-template>
 
 <ng-template #mobile>
-    <dsh-mobile-grid [inverted]="hasBackground">
+    <dsh-mobile-grid [inverted]="hasBackground" [logoName]="logoName">
         <ng-container *ngTemplateOutlet="content"></ng-container>
     </dsh-mobile-grid>
 </ng-template>
 
 <ng-template #laptop>
-    <dsh-laptop-grid [inverted]="hasBackground">
+    <dsh-laptop-grid [inverted]="hasBackground" [logoName]="logoName">
         <ng-container *ngTemplateOutlet="content"></ng-container>
     </dsh-laptop-grid>
 </ng-template>
