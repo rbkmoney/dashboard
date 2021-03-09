@@ -1,7 +1,7 @@
-<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-display-1">{{ t('onboarding.headline') }}</h1>
-    <dsh-card>
-        <h2 class="mat-title">{{ t('onboarding.companySearch.title') }}</h2>
+<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="48px">
+    <h1 class="dsh-display-1">{{ t('onboarding.headline') }}</h1>
+    <dsh-card fxLayout="column" fxLayoutGap="24px">
+        <h2 class="dsh-title">{{ t('onboarding.companySearch.title') }}</h2>
         <form fxLayout="column" [formGroup]="form">
             <mat-form-field>
                 <mat-label>{{ t('onboarding.companySearch.searchFieldLabel') }}</mat-label>
@@ -24,10 +24,12 @@
             ></dsh-manual-contractor-selector>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-            <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
+            <button fxFlex="125px" dsh-stroked-button color="accent" (click)="leaveOnboarding()">
                 {{ t('back') }}
             </button>
-            <button dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">{{ t('next') }}</button>
+            <button fxFlex="125px" dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">
+                {{ t('next') }}
+            </button>
         </div>
     </dsh-card>
 </div>
