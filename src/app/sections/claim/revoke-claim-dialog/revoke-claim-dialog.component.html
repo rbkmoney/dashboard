@@ -3,7 +3,11 @@
         <form [formGroup]="form">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('reason') }}</mat-label>
-                <input aria-label="reason" formControlName="reason" matInput required type="text" autocomplete="off" />
+                <mat-select formControlName="reason">
+                    <mat-option *ngFor="let reason of reasons" [value]="reason">
+                        {{ reason }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </form>
         <div *ngIf="errorCode$ | async">
@@ -11,20 +15,10 @@
                 {{ errors(errorCode$ | async) }}
             </div>
         </div>
-        <div
-            dshBaseDialogActions
-            fxLayout="row"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between stretch"
-            fxLayoutGap="20px"
-            fxLayoutGap.xs="10px"
-        >
-            <button dsh-stroked-button color="warn" (click)="cancel()" [disabled]="inProgress$ | async">
-                {{ t('back') }}
-            </button>
+        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="end">
             <button
                 dsh-button
-                color="accent"
+                color="warn"
                 (click)="revoke(form.value.reason)"
                 [disabled]="!form.valid || (inProgress$ | async)"
             >

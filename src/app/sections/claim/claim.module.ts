@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ClaimsModule } from '@dsh/api/claims';
@@ -34,6 +35,7 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         MatInputModule,
         ConfirmActionDialogModule,
         BaseDialogModule,
+        MatSelectModule,
     ],
     declarations: [ClaimComponent, RevokeClaimDialogComponent],
 })
