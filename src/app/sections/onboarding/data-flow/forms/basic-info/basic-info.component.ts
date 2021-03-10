@@ -9,8 +9,6 @@ import { BasicInfoService } from './basic-info.service';
     templateUrl: 'basic-info.component.html',
 })
 export class BasicInfoComponent implements OnInit, OnDestroy {
-    layoutGap = '20px';
-
     form$ = this.basicInfoService.form$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;

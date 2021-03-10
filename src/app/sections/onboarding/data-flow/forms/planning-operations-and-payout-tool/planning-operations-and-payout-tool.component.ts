@@ -10,8 +10,6 @@ import { PlanningOperationsAndPayoutToolService } from './planning-operations-an
     styleUrls: ['planning-operations-and-payout-tool.component.scss'],
 })
 export class PlanningOperationsAndPayoutToolComponent implements OnInit, OnDestroy {
-    layoutGap = '20px';
-
     form$ = this.payoutToolService.form$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;

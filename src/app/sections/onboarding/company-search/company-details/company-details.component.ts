@@ -8,7 +8,6 @@ import { toCompanyDetails } from './to-company-details';
 @Component({
     selector: 'dsh-company-details',
     templateUrl: 'company-details.component.html',
-    styleUrls: ['company-details.component.scss'],
 })
 export class CompanyDetailsComponent implements OnChanges {
     @Input() content: PartyContent;

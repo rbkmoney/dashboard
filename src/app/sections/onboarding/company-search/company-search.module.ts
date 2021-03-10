@@ -15,7 +15,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { DaDataModule } from '../../../dadata';
-import { CompanyDetailItemComponent } from './company-detail-item';
 import { CompanyDetailsComponent } from './company-details';
 import { CompanySearchComponent } from './company-search.component';
 import { ManualContractorSelectorComponent } from './manual-contractor-selector';
@@ -38,12 +37,7 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         TranslocoModule,
         ConfirmActionDialogModule,
     ],
-    declarations: [
-        CompanySearchComponent,
-        CompanyDetailsComponent,
-        CompanyDetailItemComponent,
-        ManualContractorSelectorComponent,
-    ],
+    declarations: [CompanySearchComponent, CompanyDetailsComponent, ManualContractorSelectorComponent],
     exports: [CompanySearchComponent],
 })
 export class CompanySearchModule {}

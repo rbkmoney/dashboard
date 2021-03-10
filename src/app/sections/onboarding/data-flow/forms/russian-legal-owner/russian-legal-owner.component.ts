@@ -7,8 +7,6 @@ import { RussianLegalOwnerService } from './russian-legal-owner.service';
     templateUrl: 'russian-legal-owner.component.html',
 })
 export class RussianLegalOwnerComponent implements OnInit, OnDestroy {
-    layoutGap = '20px';
-
     form$ = this.russianLegalOwnerService.form$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
