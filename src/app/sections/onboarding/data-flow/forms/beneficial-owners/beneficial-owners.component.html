@@ -1,19 +1,19 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutGap="16px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.beneficialOwners'"
 >
     <label class="dsh-body-1 beneficial-owner-description">{{ t('beneficialOwnerDescription') }}</label>
     <div formArrayName="beneficialOwners">
         <div
             fxLayout="column"
-            fxLayoutGap="10px"
+            fxLayoutGap="16px"
             class="beneficial-owner-container"
             *ngFor="let beneficialOwner of (beneficialOwners$ | async).controls; let i = index"
             [formGroupName]="i"
         >
-            <div class="owner-count mat-body-2">{{ t('owner') }} #{{ i + 1 }}</div>
+            <div class="owner-count dsh-body-2">{{ t('owner') }} #{{ i + 1 }}</div>
             <div fxLayout>
                 <mat-form-field fxFlex="48.5%">
                     <mat-label>{{ t('ownershipPercentage') }}</mat-label>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { merge, Observable, Subject } from 'rxjs';
 import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
@@ -16,6 +17,7 @@ import { ValidationCheckService } from '../../validation-check';
 import { ValidityService } from '../../validity';
 import { QuestionaryFormService } from '../questionary-form.service';
 
+@UntilDestroy()
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {
     private filesUploaded$ = new Subject<string[]>();
@@ -55,8 +57,8 @@ export class UploadDocumentsService extends QuestionaryFormService {
             share()
         );
         const result$ = merge(uploadedFilesWithError$, deletedFilesWithError$).pipe(share());
-        result$.pipe(filterPayload).subscribe(() => this.claimService.reloadClaim());
-        result$.pipe(filterError).subscribe(() =>
+        result$.pipe(filterPayload, untilDestroyed(this)).subscribe(() => this.claimService.reloadClaim());
+        result$.pipe(filterError, untilDestroyed(this)).subscribe(() =>
             this.snackBar.open(this.transloco.translate('httpError'), 'OK', {
                 duration: 5000,
             })

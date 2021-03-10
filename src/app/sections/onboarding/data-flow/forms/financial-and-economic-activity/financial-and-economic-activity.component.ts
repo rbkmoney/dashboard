@@ -9,8 +9,6 @@ import { FinancialAndEconomicActivityService } from './financial-and-economic-ac
     templateUrl: 'financial-and-economic-activity.component.html',
 })
 export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy {
-    layoutGap = '20px';
-
     form$ = this.activityService.form$;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
