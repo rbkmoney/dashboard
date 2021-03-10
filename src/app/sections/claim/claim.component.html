@@ -2,8 +2,8 @@
     <div *ngIf="!(claimReceived$ | async) && !(error$ | async)" fxLayout fxLayoutAlign="center center">
         <dsh-spinner></dsh-spinner>
     </div>
-    <div *ngIf="(claimReceived$ | async) && !(error$ | async)" fxLayout="column" fxLayoutGap="20px">
-        <h1 class="mat-display-1">
+    <div *ngIf="(claimReceived$ | async) && !(error$ | async)" fxLayout="column" fxLayoutGap="48px">
+        <h1 class="dsh-display-1">
             {{ t('details') }} <span dshSecondaryTitle> #{{ claimID$ | async }} </span>
         </h1>
         <dsh-card>
@@ -11,13 +11,13 @@
                 <dsh-status
                     *transloco="let claimStatus; read: 'claimStatus'"
                     [color]="claimStatusColor$ | async"
-                    class="mat-title"
+                    class="dsh-title"
                     mark="false"
                 >
                     {{ claimStatus(claimStatus$ | async) }}
                 </dsh-status>
             </div>
-            <div fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutGap="24px">
                 <dsh-conversation></dsh-conversation>
                 <div fxLayout="row" fxLayoutAlign="space-between">
                     <div>
