@@ -11,7 +11,7 @@ const ICONS_ROOT_DIR = 'assets/icons';
 export class IconsService {
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
 
-    async init() {
+    init() {
         this.addIcons(icons);
         this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
     }
