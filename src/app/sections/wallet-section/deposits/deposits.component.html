@@ -2,7 +2,7 @@
 <div class="dsh-deposits" *transloco="let d; scope: 'deposits'; read: 'deposits'" fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-display-1" *transloco="let t; scope: 'deposits'; read: 'deposits'">{{ t('title') }}</h1>
     <dsh-search-form></dsh-search-form>
-    <dsh-deposit-list [deposits]="deposits$ | async"></dsh-deposit-list>
+    <dsh-deposits-list [deposits]="deposits$ | async"></dsh-deposits-list>
     <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
     </dsh-show-more-panel>
     <div *ngIf="!(deposits$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-deposits-empty">

@@ -5,12 +5,12 @@ import { filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rx
 
 import { Deposit } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { DepositsSearchParams, DepositsService as DepositsApiService } from '@dsh/api/deposits';
+import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
-import { SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { PartialFetcher } from '../../partial-fetcher';
+import { PartialFetcher } from '../../../partial-fetcher';
 
 @Injectable()
-export class DepositsService extends PartialFetcher<Deposit, DepositsSearchParams> {
+export class FetchDepositsService extends PartialFetcher<Deposit, DepositsSearchParams> {
     private limit = 10;
 
     selectedId$ = this.route.fragment.pipe(

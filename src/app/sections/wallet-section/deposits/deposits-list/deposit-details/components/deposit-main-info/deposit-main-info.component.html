@@ -1,0 +1,32 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'deposits'; read: 'deposits'">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="33" class="dsh-headline">
+            {{ deposit.body.amount | toMajor | currency: deposit.body.currency }}
+        </div>
+        <dsh-details-item fxFlex="33" [title]="t('amount')">
+            {{ deposit.body.amount | toMajor | currency: deposit.body.currency }}
+        </dsh-details-item>
+        <dsh-details-item fxFlex="33" [title]="t('fee')">
+            {{ deposit.fee.amount | toMajor | currency: deposit.fee.currency }}
+        </dsh-details-item>
+    </div>
+    <div fxLayout="row">
+        <dsh-details-item fxFlex="33" [title]="t('status')">
+            <dsh-status [color]="deposit.status | depositStatusColor">{{
+                deposit.status | depositStatusName
+            }}</dsh-status>
+        </dsh-details-item>
+        <dsh-details-item fxFlex="33" [title]="t('wallet')">
+            {{ (getWallet(deposit.wallet) | async)?.name }}
+        </dsh-details-item>
+    </div>
+    <div *ngIf="deposit.failure" fxLayout="row">
+        <dsh-details-item
+            fxFlex="33"
+            [title]="t('failure')"
+            *transloco="let errors; scope: 'deposit-info'; read: 'depositInfo.errors'"
+        >
+            {{ errors(deposit.failure.code) }}
+        </dsh-details-item>
+    </div>
+</div>

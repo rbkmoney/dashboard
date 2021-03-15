@@ -20,7 +20,7 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
 import { WalletSectionModule } from '../wallet-section.module';
-import { DepositListComponent } from './deposit-list/deposit-list.component';
+import { DepositsListModule } from './deposits-list';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
 import { SearchFormComponent } from './search-form';
@@ -50,7 +50,8 @@ import { SearchFormComponent } from './search-form';
         InvoiceDetailsModule,
         WalletSectionModule,
         DepositInfoModule,
+        DepositsListModule,
     ],
-    declarations: [DepositsComponent, SearchFormComponent, DepositListComponent],
+    declarations: [DepositsComponent, SearchFormComponent],
 })
 export class DepositsModule {}

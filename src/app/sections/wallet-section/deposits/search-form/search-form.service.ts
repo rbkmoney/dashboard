@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { map, startWith } from 'rxjs/operators';
 
-import { DepositsService } from '../deposits.service';
+import { FetchDepositsService } from '../services/fetch-deposits.service';
 import { FormParams } from './form-params';
 import { toFormValue } from './to-form-value';
 import { toQueryParams } from './to-query-params';
@@ -33,7 +33,7 @@ export class SearchFormService {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private depositsService: DepositsService
+        private depositsService: FetchDepositsService
     ) {
         this.init();
     }
