@@ -13,7 +13,7 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
-import { ErrorModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
+import { ErrorModule, KeycloakTokenInfoModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -56,6 +56,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         UserModule,
         FeedbackModule,
         IconsModule,
+        KeycloakTokenInfoModule,
     ],
     providers: [
         LanguageService,
