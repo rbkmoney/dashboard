@@ -17,7 +17,6 @@ import { DepositInfoModule } from '@dsh/components/layout/deposit-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
 import { WalletSectionModule } from '../wallet-section.module';
 import { DepositsListModule } from './deposits-list';
@@ -47,7 +46,6 @@ import { SearchFormComponent } from './search-form';
         ShowMorePanelModule,
         SpinnerModule,
         ScrollUpModule,
-        InvoiceDetailsModule,
         WalletSectionModule,
         DepositInfoModule,
         DepositsListModule,
