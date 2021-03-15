@@ -5,6 +5,7 @@ import { PaymentInstitutionRealm } from '../model';
 export interface SearchReportsReq {
     fromTime: string;
     toTime: string;
+    limit: number;
     reportTypes: Report.ReportTypeEnum[];
     paymentInstitutionRealm?: PaymentInstitutionRealm;
     shopIDs?: string[];

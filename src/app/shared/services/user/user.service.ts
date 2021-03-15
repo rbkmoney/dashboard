@@ -5,6 +5,10 @@ import { KeycloakProfile } from 'keycloak-js';
 import { BehaviorSubject, defer, Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
+// TODO: use KeycloakTokenInfoService instead
+/**
+ * @deprecated
+ */
 @UntilDestroy()
 @Injectable()
 export class UserService {
