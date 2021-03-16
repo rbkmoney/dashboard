@@ -2,21 +2,23 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { progress } from '../../custom-operators';
 import { UIError } from '../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';
 import { RouteParamClaimService } from './route-param-claim.service';
 
+@UntilDestroy()
 @Injectable()
 export class ReviewClaimService {
     private reviewClaim$: Subject<void> = new Subject();
     private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private progress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     reviewAvailable$: Observable<boolean> = this.receiveClaimService.claim$.pipe(
         map(({ status }) => status === 'pending'),
@@ -26,7 +28,7 @@ export class ReviewClaimService {
         filter((err) => err.hasError),
         pluck('code')
     );
-    inProgress$: Observable<boolean> = progress(this.reviewClaim$, this.error$);
+    inProgress$: Observable<boolean> = this.progress$.asObservable();
 
     constructor(
         private claimsApiService: ClaimsService,
@@ -38,24 +40,36 @@ export class ReviewClaimService {
     ) {
         this.reviewClaim$
             .pipe(
-                tap(() => this.error$.next({ hasError: false })),
+                tap(() => {
+                    this.error$.next({ hasError: false });
+                    this.progress$.next(true);
+                }),
                 switchMap(() =>
                     this.dialog
                         .open(ConfirmActionDialogComponent)
                         .afterClosed()
-                        .pipe(filter((r) => r === 'confirm'))
+                        .pipe(
+                            tap((r) => {
+                                if (r === 'cancel') {
+                                    this.progress$.next(false);
+                                }
+                            }),
+                            filter((r) => r === 'confirm')
+                        )
                 ),
                 switchMap(() => this.routeParamClaimService.claim$),
                 switchMap(({ id, revision }) =>
                     this.claimsApiService.requestReviewClaimByID(id, revision).pipe(
                         catchError((ex) => {
+                            this.progress$.next(false);
                             console.error(ex);
                             const error = { hasError: true, code: 'requestReviewClaimByIDFailed' };
                             this.error$.next(error);
                             return of(error);
                         })
                     )
-                )
+                ),
+                untilDestroyed(this)
             )
             .subscribe(() => {
                 this.receiveClaimService.receiveClaim();

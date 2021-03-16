@@ -15,7 +15,8 @@ export class ThemeManager {
     private static readonly KEY = 'theme';
 
     current: ThemeName;
-    hasMainBackground: boolean;
+    isMainBackgroundImages = false;
+    logoName: string;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 
@@ -31,20 +32,16 @@ export class ThemeManager {
     }
 
     async init() {
-        this.hasMainBackground = !!this.configService.theme.backgroundImageUrls?.length;
-
+        const theme = this.configService?.theme;
+        this.isMainBackgroundImages = theme?.isMainBackgroundImages;
+        this.logoName = theme?.logoName;
         const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
         const correctedName = this.getCorrectName(name);
         this.change(correctedName);
     }
 
     private getCorrectName(theme: string): ThemeName {
-        // TODO: For several themes you will need to add a list of allowed theme to the config
-        const allowedThemes: ThemeName[] = [this.configService.theme.default as ThemeName];
-        if (isTheme(theme) && allowedThemes.includes(theme)) {
-            return theme;
-        }
-        return (this.configService.theme.default as ThemeName) || ThemeName.light;
+        return isTheme(theme) ? theme : ThemeName.main;
     }
 
     private set(name: ThemeName) {

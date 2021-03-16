@@ -12,8 +12,6 @@ import { BeneficialOwnersService } from './beneficial-owners.service';
     styleUrls: ['beneficial-owners.component.scss'],
 })
 export class BeneficialOwnersComponent implements OnInit, OnDestroy {
-    layoutGap = '20px';
-
     form$ = this.beneficialOwnersService.form$;
 
     beneficialOwners$: Observable<FormArray> = this.beneficialOwnersService.form$.pipe(

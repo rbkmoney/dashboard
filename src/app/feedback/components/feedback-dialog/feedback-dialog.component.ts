@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
@@ -7,8 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { MessagesService } from '@dsh/api/sender';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
-
-import { inProgressTo } from '../../../../utils';
+import { inProgressTo } from '@dsh/utils';
 
 const MAX_LENGTH = 2000;
 
@@ -16,7 +15,6 @@ const MAX_LENGTH = 2000;
 @Component({
     selector: 'dsh-feedback-dialog',
     templateUrl: 'feedback-dialog.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackDialogComponent {
     messageControl = this.fb.control('');

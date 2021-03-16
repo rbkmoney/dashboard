@@ -1,0 +1,35 @@
+@import '~@angular/material/theming';
+
+@import 'palette';
+@import 'theme';
+
+$background: (
+    // Overrides
+    background: #f1f7fb,
+    // Custom
+    hover: map-get($mat-grey, 200),
+    selected-button: map-get($mat-grey, 100)
+);
+
+$foreground: (
+    // Overrides
+    // Custom
+    contrast-text: $light-text,
+    light-text: mat-color(mat-palette($mat-grey), 500),
+    border: map-get($mat-grey, 200)
+);
+
+$config: (
+    // Overrides
+    primary: mat-palette($dsh-slateblue, 400),
+    accent: mat-palette($dsh-palegreen, 300),
+    warn: mat-palette($dsh-warn, 300),
+    is-dark: false,
+    // Custom
+    name: 'main',
+    success-base: mat-color(mat-palette($dsh-success), 400),
+    pending-base: mat-color(mat-palette($dsh-pending), 800),
+    warn-base: mat-color(mat-palette($dsh-warn), 300)
+);
+
+@include dsh-theme($config, $background, $foreground);

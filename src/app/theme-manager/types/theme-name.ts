@@ -1,4 +1,4 @@
 export enum ThemeName {
-    light = 'light',
+    main = 'main',
     persianGreen = 'persian-green',
 }

@@ -1,47 +1,49 @@
 <ng-container *ngIf="!selectionConfirmed">
-    <div fxLayout="column" fxLayoutGap="32px" *transloco="let t; scope: 'create-shop'; read: 'createShop'">
-        <h1 class="dsh-headline">{{ t('title') }}</h1>
-        <div fxLayout="column" fxLayoutGap="16px">
-            <p class="dsh-subheading-2">{{ t('type') }}</p>
-            <mat-radio-group fxLayout="column" fxLayoutGap="16px">
-                <mat-radio-button
-                    [checked]="selectedShopType === shopType.russian"
-                    [value]="shopType.russian"
-                    (change)="onTypeChange($event.value)"
-                    >{{ t('russianLegalEntityType') }}</mat-radio-button
+    <ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop'">
+        <dsh-base-dialog [title]="t('title')" (cancel)="cancelClaim()">
+            <div fxLayout="column" fxLayoutGap="16px">
+                <p class="dsh-subheading-2">{{ t('type') }}</p>
+                <mat-radio-group fxLayout="column" fxLayoutGap="16px">
+                    <mat-radio-button
+                        [checked]="selectedShopType === shopType.russian"
+                        [value]="shopType.russian"
+                        (change)="onTypeChange($event.value)"
+                        >{{ t('russianLegalEntityType') }}</mat-radio-button
+                    >
+                    <mat-radio-button
+                        [checked]="selectedShopType === shopType.new"
+                        [value]="shopType.new"
+                        (change)="onTypeChange($event.value)"
+                        >{{ t('newLegalEntityType') }}</mat-radio-button
+                    >
+                    <mat-radio-button
+                        [checked]="selectedShopType === shopType.international"
+                        [value]="shopType.international"
+                        (change)="onTypeChange($event.value)"
+                        >{{ t('internationalLegalEntityType') }}</mat-radio-button
+                    >
+                </mat-radio-group>
+            </div>
+            <div dshBaseDialogActions *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
+                <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancelClaim()">
+                    {{ c('cancel') }}
+                </button>
+                <button
+                    fxFlex="160px"
+                    fxFlex.xs="none"
+                    dsh-button
+                    (click)="next()"
+                    color="accent"
+                    class="next-button"
+                    [disabled]="!selectedShopType"
                 >
-                <mat-radio-button
-                    [checked]="selectedShopType === shopType.new"
-                    [value]="shopType.new"
-                    (change)="onTypeChange($event.value)"
-                    >{{ t('newLegalEntityType') }}</mat-radio-button
-                >
-                <mat-radio-button
-                    [checked]="selectedShopType === shopType.international"
-                    [value]="shopType.international"
-                    (change)="onTypeChange($event.value)"
-                    >{{ t('internationalLegalEntityType') }}</mat-radio-button
-                >
-            </mat-radio-group>
-        </div>
-        <div *transloco="let c" fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between">
-            <button fxFlex="160px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancelClaim()">
-                {{ c('cancel') }}
-            </button>
-            <button
-                fxFlex="160px"
-                fxFlex.xs="none"
-                dsh-button
-                (click)="next()"
-                color="accent"
-                class="next-button"
-                [disabled]="!selectedShopType"
-            >
-                {{ c('next') }}
-            </button>
-        </div>
-    </div>
+                    {{ c('next') }}
+                </button>
+            </div>
+        </dsh-base-dialog>
+    </ng-container>
 </ng-container>
+
 <dsh-create-russian-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.russian"
     (send)="sendClaim()"

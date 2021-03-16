@@ -1,10 +1,10 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutGap="16px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.basicInfo'"
 >
-    <div fxLayout [fxLayoutGap]="layoutGap">
+    <div fxLayout fxLayoutGap="24px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('name') }}</mat-label>
             <dsh-dadata-autocomplete
@@ -23,7 +23,7 @@
         <mat-label>{{ t('registrationPlace') }}</mat-label>
         <dsh-dadata-autocomplete formControlName="registrationPlace" type="address" required></dsh-dadata-autocomplete>
     </mat-form-field>
-    <label class="mat-body-2">{{ t('shopInfo') }}</label>
+    <label class="dsh-body-2">{{ t('shopInfo') }}</label>
     <mat-form-field fxFlex>
         <mat-label>{{ t('shopUrl') }}</mat-label>
         <input type="text" autocomplete="off" matInput formControlName="shopUrl" required />
@@ -32,8 +32,8 @@
         <mat-label>{{ t('shopName') }}</mat-label>
         <input type="text" autocomplete="off" matInput formControlName="shopName" required />
     </mat-form-field>
-    <label class="mat-body-2">{{ t('contactInfo') }}</label>
-    <div fxLayout [fxLayoutGap]="layoutGap">
+    <label class="dsh-body-2">{{ t('contactInfo') }}</label>
+    <div fxLayout fxLayoutGap="24px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('email') }}</mat-label>
             <input matInput formControlName="email" required />

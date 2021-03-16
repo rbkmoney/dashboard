@@ -8,11 +8,12 @@ import {
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
-import { ErrorModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
+import { ErrorModule, KeycloakTokenInfoModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -20,9 +21,10 @@ import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
-import { ContainerModule } from './container';
 import { FeedbackModule } from './feedback';
-import { IconsModule, IconsService } from './icons';
+import { HomeModule } from './home';
+import { IconsModule } from './icons';
+import icons from './icons/icons.json';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
@@ -42,7 +44,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
-        ContainerModule,
+        HomeModule,
         SettingsModule,
         KeycloakAngularModule,
         HttpClientModule,
@@ -54,6 +56,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         UserModule,
         FeedbackModule,
         IconsModule,
+        KeycloakTokenInfoModule,
     ],
     providers: [
         LanguageService,
@@ -67,7 +70,6 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 YandexMetrikaConfigService,
                 PLATFORM_ID,
                 ThemeManager,
-                IconsService,
             ],
             multi: true,
         },
@@ -101,4 +103,18 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+        this.registerIcons();
+    }
+
+    registerIcons() {
+        for (const name of icons) {
+            this.matIconRegistry.addSvgIcon(
+                name,
+                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
+            );
+        }
+        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
+    }
+}

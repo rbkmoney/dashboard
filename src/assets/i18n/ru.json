@@ -97,7 +97,8 @@
     "bankCardTokenProvider": {
         "applepay": "Apple Pay",
         "googlepay": "Google Pay",
-        "samsungpay": "Samsung Pay"
+        "samsungpay": "Samsung Pay",
+        "yandexpay": "Yandex Pay"
     },
     "bankCardPaymentSystem": {
         "visa": "Visa",

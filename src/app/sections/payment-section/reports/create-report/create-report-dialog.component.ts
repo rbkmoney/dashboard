@@ -15,6 +15,7 @@ const timePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 
 @Component({
     templateUrl: 'create-report-dialog.component.html',
+    styleUrls: ['create-report-dialog.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CreateReportDialogService],
 })

@@ -16,6 +16,7 @@
             "applePay": "Apple Pay",
             "googlePay": "Google Pay",
             "samsungPay": "Samsung Pay",
+            "yandexPay": "Yandex Pay",
             "uzcard": "Uzcard"
         },
         "paymentFlowHold": "Предварительно заблокировать сумму платежа у покупателя",

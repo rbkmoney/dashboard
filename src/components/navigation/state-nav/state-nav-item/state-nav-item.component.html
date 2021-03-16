@@ -1,12 +1,15 @@
-<li
+<div
     class="dsh-state-nav-item"
     (click)="clickHandler()"
     [ngClass]="{ selected: selected, success: status === 'success', warn: status === 'warn' }"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="8px"
 >
-    <div *ngIf="icon" class="dsh-state-nav-icon-container" fxLayout="row" fxLayoutAlign="start center">
+    <div class="dsh-icon-container" fxFlex="24px" *ngIf="icon">
         <mat-icon *ngIf="iconVisible" [svgIcon]="icon"></mat-icon>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="dsh-state-nav-content">
         <ng-content></ng-content>
     </div>
-</li>
+</div>

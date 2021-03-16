@@ -1,0 +1,8 @@
+$dsh-container-padding: 16px;
+$dsh-container-max-width: 1128px;
+
+.laptop-grid {
+    padding: $dsh-container-padding;
+    max-width: $dsh-container-max-width;
+    margin: 0 auto;
+}
