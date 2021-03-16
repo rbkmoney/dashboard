@@ -7,8 +7,12 @@ import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 
 import { FetchDepositsService } from '../../services/fetch-deposits.service';
 
+interface DepositWithID extends Deposit {
+    id: string;
+}
+
 @Injectable()
-export class DepositsExpandedIdManagerService extends ExpandedIdManager<Deposit> {
+export class DepositsExpandedIdManagerService extends ExpandedIdManager<DepositWithID> {
     constructor(
         protected route: ActivatedRoute,
         protected router: Router,
