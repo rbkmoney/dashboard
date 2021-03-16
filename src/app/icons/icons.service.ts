@@ -13,8 +13,8 @@ export class IconsService {
         this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
     }
 
-    private registerIcons(icons) {
-        for (const name of icons) {
+    private registerIcons(iconList) {
+        for (const name of iconList) {
             this.matIconRegistry.addSvgIcon(
                 name,
                 this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
