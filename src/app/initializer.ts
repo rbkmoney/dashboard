@@ -1,5 +1,6 @@
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
+import { IconsService } from './icons';
 import { LanguageService } from './language';
 import { ThemeManager } from './theme-manager';
 import { YandexMetrikaConfigService } from './yandex-metrika';
@@ -10,7 +11,8 @@ export const initializer = (
     languageService: LanguageService,
     yandexMetrikaService: YandexMetrikaConfigService,
     platformId: object,
-    themeManager: ThemeManager
+    themeManager: ThemeManager,
+    iconsService: IconsService
 ) => () =>
     Promise.all([
         configService
@@ -30,4 +32,5 @@ export const initializer = (
             bearerPrefix: 'Bearer',
         }),
         languageService.init(),
+        iconsService.init(),
     ]);
