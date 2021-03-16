@@ -8,8 +8,7 @@ import {
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatIconRegistry } from '@angular/material/icon';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
@@ -23,8 +22,7 @@ import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
 import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
-import { IconsModule } from './icons';
-import icons from './icons/icons.json';
+import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
@@ -70,6 +68,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 YandexMetrikaConfigService,
                 PLATFORM_ID,
                 ThemeManager,
+                IconsService,
             ],
             multi: true,
         },
@@ -103,18 +102,4 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
-    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-        this.registerIcons();
-    }
-
-    registerIcons() {
-        for (const name of icons) {
-            this.matIconRegistry.addSvgIcon(
-                name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
-            );
-        }
-        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
-    }
-}
+export class AppModule {}
