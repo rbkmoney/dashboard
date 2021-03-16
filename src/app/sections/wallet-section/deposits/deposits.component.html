@@ -6,6 +6,7 @@
         [isLoading]="isLoading$ | async"
         [hasMore]="hasMore$ | async"
         [expandedId]="expandedId$ | async"
+        [lastUpdated]="lastUpdated$ | async"
         (showMore)="fetchMore()"
         (expandedIdChanged)="expandedIdChange($event)"
     ></dsh-deposit-panels>
