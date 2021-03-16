@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { InlineResponse20010, PaymentSearchResult, SearchService } from '@dsh/api-codegen/anapi';
+import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
 import { genXRequestID, toDateLike } from '../utils';
 import { Duration, PaymentsSearchParams } from './model';
 
+export type PaymentsAndContinuationToken = InlineResponse20010;
+
 @Injectable()
 export class PaymentSearchService {
-    constructor(private searchService: SearchService) {}
+    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
+
+    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
 
     searchPayments(
         fromTime: string,
@@ -18,39 +23,43 @@ export class PaymentSearchService {
         params: PaymentsSearchParams,
         limit: number,
         continuationToken?: string
-    ): Observable<InlineResponse20010> {
-        return this.searchService.searchPayments(
-            genXRequestID(),
-            toDateLike(fromTime),
-            toDateLike(toTime),
-            limit,
-            undefined,
-            undefined,
-            params.shopID,
-            params.shopIDs,
-            params.paymentInstitutionRealm,
-            params.invoiceIDs,
-            params.paymentStatus,
-            params.paymentFlow,
-            params.paymentMethod,
-            params.paymentTerminalProvider,
-            params.invoiceID,
-            params.paymentID,
-            params.externalID,
-            params.payerEmail,
-            params.payerIP,
-            params.payerFingerprint,
-            params.customerID,
-            params.first6,
-            params.last4,
-            params.rrn,
-            params.approvalCode,
-            params.bankCardTokenProvider,
-            params.bankCardPaymentSystem,
-            params.paymentAmountFrom,
-            params.paymentAmountTo,
-            params.excludedShops,
-            continuationToken
+    ): Observable<PaymentsAndContinuationToken> {
+        return this.partyID$.pipe(
+            switchMap((partyID) =>
+                this.searchService.searchPayments(
+                    genXRequestID(),
+                    toDateLike(fromTime),
+                    toDateLike(toTime),
+                    limit,
+                    undefined,
+                    partyID,
+                    params.shopID,
+                    params.shopIDs,
+                    params.paymentInstitutionRealm,
+                    params.invoiceIDs,
+                    params.paymentStatus,
+                    params.paymentFlow,
+                    params.paymentMethod,
+                    params.paymentTerminalProvider,
+                    params.invoiceID,
+                    params.paymentID,
+                    params.externalID,
+                    params.payerEmail,
+                    params.payerIP,
+                    params.payerFingerprint,
+                    params.customerID,
+                    params.first6,
+                    params.last4,
+                    params.rrn,
+                    params.approvalCode,
+                    params.bankCardTokenProvider,
+                    params.bankCardPaymentSystem,
+                    params.paymentAmountFrom,
+                    params.paymentAmountTo,
+                    params.excludedShops,
+                    continuationToken
+                )
+            )
         );
     }
 
@@ -59,7 +68,7 @@ export class PaymentSearchService {
         params: PaymentsSearchParams,
         limit: number,
         continuationToken?: string
-    ): Observable<InlineResponse20010> {
+    ): Observable<PaymentsAndContinuationToken> {
         const from = moment().subtract(amount, unit).startOf('d').utc().format();
         const to = moment().endOf('d').utc().format();
         return this.searchPayments(from, to, params, limit, continuationToken);
