@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Deposit } from '@dsh/api-codegen/wallet-api';
 
 @Component({
-    selector: 'dsh-deposit-details',
-    templateUrl: 'deposit-details.component.html',
+    selector: 'dsh-deposit-info',
+    templateUrl: 'deposit-info.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DepositDetailsComponent {
+export class DepositInfoComponent {
     @Input() deposit: Deposit;
     @Output() refreshData = new EventEmitter<void>();
 }

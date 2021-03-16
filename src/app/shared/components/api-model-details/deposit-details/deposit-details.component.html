@@ -17,7 +17,7 @@
             }}</dsh-status>
         </dsh-details-item>
         <dsh-details-item fxFlex="33" [title]="t('wallet')">
-            {{ (getWallet(deposit.wallet) | async)?.name }}
+            {{ deposit.wallet | walletDetails }}
         </dsh-details-item>
     </div>
     <div *ngIf="deposit.failure" fxLayout="row">
