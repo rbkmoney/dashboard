@@ -9,7 +9,7 @@ export type DataSetItemID = { id: string };
 @UntilDestroy()
 @Injectable()
 export abstract class ListCachingService<R extends DataSetItemID> {
-    private get cachedItems(): R[] {
+    protected get cachedItems(): R[] {
         return this.itemsList$.value;
     }
 
@@ -20,9 +20,9 @@ export abstract class ListCachingService<R extends DataSetItemID> {
 
     items$: Observable<R[] | null>;
 
-    private itemsMap = new Map<string, CachedItem<R>>();
-    private itemsList$ = new BehaviorSubject<R[]>([]);
-    private cacheUpdates$ = new ReplaySubject<R[]>(1);
+    protected itemsMap = new Map<string, CachedItem<R>>();
+    protected itemsList$ = new BehaviorSubject<R[]>([]);
+    protected cacheUpdates$ = new ReplaySubject<R[]>(1);
 
     addElements(...items: R[]): void {
         this.addToCache(items);
@@ -49,7 +49,7 @@ export abstract class ListCachingService<R extends DataSetItemID> {
         this.updateCacheMap();
     }
 
-    private updateCacheList(list: R[]): void {
+    protected updateCacheList(list: R[]): void {
         // to not mutate cached data we should make a shallow copy
         const itemsList = this.cachedItems.slice();
 
@@ -68,7 +68,7 @@ export abstract class ListCachingService<R extends DataSetItemID> {
         this.updateCacheMap();
     }
 
-    private updateCacheMap(): void {
+    protected updateCacheMap(): void {
         this.cachedItems.forEach((item: R, listIndex: number) => {
             this.itemsMap.set(item.id, {
                 item,
@@ -77,7 +77,7 @@ export abstract class ListCachingService<R extends DataSetItemID> {
         });
     }
 
-    private filterCachedElements(list: R[]): R[] {
+    protected filterCachedElements(list: R[]): R[] {
         return list.filter((item: R) => {
             const { id } = item;
             return !this.itemsMap.has(id);
