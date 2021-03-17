@@ -82,11 +82,11 @@ describe('PaymentsService', () => {
                     c: [],
                 };
                 const cachedValues$ = cold('a--b--(c|)', mockPayments);
-                when(mockPaymentsCachingService.payments$).thenReturn(cachedValues$);
+                when(mockPaymentsCachingService.items$).thenReturn(cachedValues$);
 
                 createService();
 
-                expect(service.paymentsList$).toBeObservable(cachedValues$);
+                expect(service.list$).toBeObservable(cachedValues$);
             });
         });
 

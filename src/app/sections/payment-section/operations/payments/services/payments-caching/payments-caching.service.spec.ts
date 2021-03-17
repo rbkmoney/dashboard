@@ -30,7 +30,7 @@ describe('PaymentsCachingService', () => {
             service.addElements(...mockPayments.slice(2, 4));
             service.addElements(...mockPayments.slice(4));
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a', {
                     a: mockPayments,
                 })
@@ -50,7 +50,7 @@ describe('PaymentsCachingService', () => {
                 service.addElements(...payments);
             });
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b-c--d', {
                     a: [],
                     b: mockPayments.slice(0, 2),
@@ -83,7 +83,7 @@ describe('PaymentsCachingService', () => {
             const updatedList = mockPayments.slice();
             updatedList.splice(2, 1, newPayment);
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b', {
                     a: mockPayments,
                     b: updatedList,
@@ -103,7 +103,7 @@ describe('PaymentsCachingService', () => {
                 service.updateElements(payment);
             });
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b', {
                     a: mockPayments,
                     b: mockPayments,
@@ -132,7 +132,7 @@ describe('PaymentsCachingService', () => {
             const updatedList = mockPayments.slice();
             updatedList.splice(1, 2, ...newPayments);
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b', {
                     a: mockPayments,
                     b: updatedList,
@@ -170,7 +170,7 @@ describe('PaymentsCachingService', () => {
             updatedLists.a.splice(1, 1, newPayments[0]);
             updatedLists.b.splice(2, 1, newPayments[1]);
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b-c', {
                     a: mockPayments,
                     b: updatedLists.a,
@@ -198,7 +198,7 @@ describe('PaymentsCachingService', () => {
                     service.addElements(...payments);
                 });
 
-            expect(service.payments$).toBeObservable(
+            expect(service.items$).toBeObservable(
                 cold('a--b-c--d---e', {
                     a: [],
                     b: mockPayments.slice(0, 2),
