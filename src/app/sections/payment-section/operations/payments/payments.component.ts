@@ -23,7 +23,7 @@ import { PaymentSearchFormValue } from './types/payment-search-form-value';
 export class PaymentsComponent implements OnInit {
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
 
-    payments$: Observable<PaymentSearchResult[]> = this.paymentsService.paymentsList$;
+    payments$: Observable<PaymentSearchResult[]> = this.paymentsService.list$;
     isLoading$: Observable<boolean> = this.paymentsService.isLoading$;
     hasMoreElements$: Observable<boolean> = this.paymentsService.hasMore$;
     lastUpdated$: Observable<string> = this.paymentsService.lastUpdated$;

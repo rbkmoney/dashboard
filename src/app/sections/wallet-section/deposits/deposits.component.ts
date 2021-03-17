@@ -3,7 +3,7 @@ import { shareReplay } from 'rxjs/operators';
 
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '@dsh/operators';
 
-import { DepositsExpandedIdManagerService } from './deposit-panels/services/deposits-expanded-id-manager.service';
+import { DepositsExpandedIdManagerService } from './services/deposits-expanded-id-manager.service';
 import { FetchDepositsService } from './services/fetch-deposits.service';
 
 @Component({
