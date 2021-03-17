@@ -17,7 +17,7 @@ export class PaymentsExpandedIdManager extends ExpandedIdManager<PaymentSearchRe
     }
 
     protected toFragment(payment: PaymentSearchResult): Fragment {
-        return getPaymentId(payment);
+        return payment.id;
     }
 
     protected fragmentNotFound(): void {

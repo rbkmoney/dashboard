@@ -3,18 +3,17 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
+import { DEFAULT_UPDATE_DELAY_TOKEN, SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared/services';
 import { ListCachingService } from '@dsh/app/shared/services/list-caching/list-caching.service';
 
 import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
-import { PAYMENTS_UPDATE_DELAY_TOKEN } from '../../../sections/payment-section/operations/payments/consts';
 
 export type DataSetItemID = { id: string };
 
 @UntilDestroy()
 @Injectable()
-export class ListService<T, R extends DataSetItemID> {
+export abstract class ListService<T, R extends DataSetItemID> {
     list$: Observable<R[]> = this.cacheService.items$;
     isLoading$: Observable<boolean>;
     lastUpdated$: Observable<string> = this.fetchService.lastUpdated$;
@@ -26,7 +25,7 @@ export class ListService<T, R extends DataSetItemID> {
         private errorsService: ErrorService,
         private fetchService: IndicatorsPartialFetcher<R, T>,
         @Inject(SEARCH_LIMIT) private searchLimit: number,
-        @Inject(PAYMENTS_UPDATE_DELAY_TOKEN) private updateDelay: number,
+        @Inject(DEFAULT_UPDATE_DELAY_TOKEN) private updateDelay: number,
         public cacheService: ListCachingService<R>
     ) {
         this.initFetchedItemsCaching();

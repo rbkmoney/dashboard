@@ -7,7 +7,7 @@
         [hasMore]="hasMore$ | async"
         [expandedId]="expandedId$ | async"
         [lastUpdated]="lastUpdated$ | async"
-        (showMore)="fetchMore()"
+        (showMore)="requestNextPage()"
         (expandedIdChanged)="expandedIdChange($event)"
     ></dsh-deposit-panels>
 </div>

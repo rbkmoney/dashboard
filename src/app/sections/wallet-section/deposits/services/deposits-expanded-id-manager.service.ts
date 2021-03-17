@@ -5,15 +5,11 @@ import { Observable } from 'rxjs';
 import { Deposit } from '@dsh/api-codegen/wallet-api';
 import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 
-import { FetchDepositsService } from './fetch-deposits.service';
+import { DepositsService } from './deposits.service';
 
 @Injectable()
 export class DepositsExpandedIdManagerService extends ExpandedIdManager<Deposit> {
-    constructor(
-        protected route: ActivatedRoute,
-        protected router: Router,
-        private fetchDepositsService: FetchDepositsService
-    ) {
+    constructor(protected route: ActivatedRoute, protected router: Router, private depositsService: DepositsService) {
         super(route, router);
     }
 
@@ -22,10 +18,10 @@ export class DepositsExpandedIdManagerService extends ExpandedIdManager<Deposit>
     }
 
     protected fragmentNotFound(): void {
-        this.fetchDepositsService.fetchMore();
+        this.depositsService.loadMore();
     }
 
     protected get dataSet$(): Observable<Deposit[]> {
-        return this.fetchDepositsService.depositsList$;
+        return this.depositsService.list$;
     }
 }

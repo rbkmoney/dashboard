@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Deposit } from '@dsh/api-codegen/wallet-api/swagger-codegen';
@@ -12,8 +12,6 @@ import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../..
 
 @Injectable()
 export class FetchDepositsService extends IndicatorsPartialFetcher<Deposit, DepositsSearchParams> {
-    depositsList$: Observable<Deposit[]> = this.searchResult$;
-
     constructor(
         private depositsService: DepositsApiService,
         private snackBar: MatSnackBar,
