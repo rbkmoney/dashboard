@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="16px">
-    <dsh-deposit-row-header></dsh-deposit-row-header>
     <dsh-last-updated [lastUpdated]="lastUpdated"></dsh-last-updated>
+    <dsh-deposit-row-header></dsh-deposit-row-header>
     <ng-container *ngTemplateOutlet="depositsList"></ng-container>
     <ng-container *ngIf="!isLoading; else loading">
         <dsh-empty-search-result *ngIf="isEmptyList"></dsh-empty-search-result>
