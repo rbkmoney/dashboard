@@ -7,11 +7,10 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { QuestionaryModule } from '@dsh/api/questionary';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { LayoutModule } from '@dsh/components/layout';
-import { StateNavModule } from '@dsh/components/navigation';
-import { ConfirmActionDialogModule } from '@dsh/components/popups';
 import { TextColorModule } from '@dsh/components/indicators/text-color';
-import { BreadcrumbModule } from '@dsh/components/navigation';
+import { LayoutModule } from '@dsh/components/layout';
+import { StateNavModule, BreadcrumbModule } from '@dsh/components/navigation';
+import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { DataFlowRoutingModule } from './data-flow-routing.module';
 import { DataFlowComponent } from './data-flow.component';
