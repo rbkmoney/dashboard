@@ -13,6 +13,8 @@ import { KonturFocusModule } from '@dsh/api/kontur-focus';
 import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
+import { TextColorModule } from '@dsh/components/indicators/text-color';
+import { BreadcrumbModule } from '@dsh/components/navigation';
 
 import { DaDataModule } from '../../../dadata';
 import { CompanyDetailsComponent } from './company-details';
@@ -36,6 +38,8 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         MatSnackBarModule,
         TranslocoModule,
         ConfirmActionDialogModule,
+        TextColorModule,
+        BreadcrumbModule,
     ],
     declarations: [CompanySearchComponent, CompanyDetailsComponent, ManualContractorSelectorComponent],
     exports: [CompanySearchComponent],
