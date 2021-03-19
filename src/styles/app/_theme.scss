@@ -18,7 +18,9 @@
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/colored-icon/colored-icon-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
+@import '../../components/indicators/text-color/text-color-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
+@import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/filters/filter/filter-theme';
 @import '../../components/filters/daterange-filter/daterange-filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
@@ -87,4 +89,6 @@
     @include dsh-limited-list-theme($theme);
     @include dsh-nested-table-theme($theme);
     @include dsh-headline-theme($theme);
+    @include dsh-breadcrumb-theme($theme);
+    @include dsh-text-color-theme($theme);
 }

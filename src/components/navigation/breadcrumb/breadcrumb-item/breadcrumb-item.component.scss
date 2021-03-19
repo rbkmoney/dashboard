@@ -1,0 +1,14 @@
+$dsh-breadcrumb-item-padding: 4px;
+
+.dsh-breadcrumb-item {
+    // The separator between breadcrumbs
+    + .dsh-breadcrumb-item {
+        padding-left: $dsh-breadcrumb-item-padding;
+
+        &::before {
+            float: left; // Suppress inline spacings and underlining of the separator
+            padding-right: $dsh-breadcrumb-item-padding;
+            content: '/';
+        }
+    }
+}
