@@ -8,7 +8,7 @@ export type DataSetItemID = { id: string };
 
 @UntilDestroy()
 @Injectable()
-export abstract class ListCachingService<R extends DataSetItemID> {
+export abstract class DataCachingService<R extends DataSetItemID> {
     protected get cachedItems(): R[] {
         return this.itemsList$.value;
     }

@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { ListCachingService } from '@dsh/app/shared/services/list-caching/list-caching.service';
+import { DataCachingService } from '@dsh/app/shared/services/list/data-caching.service';
 
-import { getPaymentId } from "../../utils/get-payment-id";
-
+import { getPaymentId } from '../../utils/get-payment-id';
 
 @UntilDestroy()
 @Injectable()
-export class PaymentsCachingService extends ListCachingService<PaymentSearchResult> {
+export class PaymentsCachingService extends DataCachingService<PaymentSearchResult> {
     constructor() {
         super();
     }

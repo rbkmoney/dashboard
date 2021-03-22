@@ -7,7 +7,7 @@ import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { Duration, PaymentSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared/services';
-import { ListService } from '@dsh/app/shared/services/list/list.service';
+import { FetchedDataAggregator } from '@dsh/app/shared/services/list/fetched-data-aggregator';
 
 import { PAYMENTS_UPDATE_DELAY_TOKEN } from '../../consts';
 import { PaymentSearchFormValue } from '../../types/payment-search-form-value';
@@ -22,7 +22,7 @@ export const SINGLE_PAYMENT_REQUEST_DURATION: Duration = {
 
 @UntilDestroy()
 @Injectable()
-export class PaymentsService extends ListService<PaymentSearchFormValue, PaymentSearchResult> {
+export class PaymentsService extends FetchedDataAggregator<PaymentSearchFormValue, PaymentSearchResult> {
     constructor(
         private paymentSearchService: PaymentSearchService,
         private fetchPaymentsService: FetchPaymentsService,
