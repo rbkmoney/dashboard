@@ -11,7 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, startWith, take } from 'rxjs/operators';
+import { map, startWith, take, withLatestFrom } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
@@ -80,11 +80,16 @@ export class ChangeRolesTableComponent implements OnInit {
                 ...this.dialogConfig.large,
             })
             .afterClosed()
-            .pipe(untilDestroyed(this))
-            .subscribe((result) => {
+            .pipe(withLatestFrom(this.shops$), untilDestroyed(this))
+            .subscribe(([result, shops]) => {
                 this.dialog.openDialogs.forEach((d) => d.removePanelClass('dsh-hidden'));
                 if (typeof result === 'object') {
-                    this.rolesForm.push(this.fb.control({ id: result.selectedRoleId, shopIds: [] }));
+                    this.rolesForm.push(
+                        this.fb.control({
+                            id: result.selectedRoleId,
+                            shopIds: result.selectedRoleId === RoleId.Administrator ? shops.map(({ id }) => id) : [],
+                        })
+                    );
                     this.cdr.detectChanges();
                 }
             });
