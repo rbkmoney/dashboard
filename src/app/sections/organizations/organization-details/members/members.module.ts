@@ -11,6 +11,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api';
 import { ErrorModule, NotificationModule, UserModule } from '@dsh/app/shared';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
@@ -19,7 +20,9 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { NavigationLinkModule } from '@dsh/components/navigation-link';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
+import { ChangeRolesTableModule } from '../../change-roles-table';
 import { OrganizationRolesModule } from '../../organization-roles';
+import { EditRolesDialogComponent } from './components/edit-roles-dialog/edit-roles-dialog.component';
 import { MemberComponent } from './components/member/member.component';
 import { MembersListComponent } from './components/members-list/members-list.component';
 import { MembersRoutingModule } from './members-routing.module';
@@ -52,9 +55,9 @@ import { MembersComponent } from './members.component';
         NotificationModule,
         ErrorModule,
         MatInputModule,
-        OrganizationRolesModule,
+        OrganizationRolesModule, BaseDialogModule, ChangeRolesTableModule
     ],
-    declarations: [MembersComponent, MembersListComponent, MemberComponent],
+    declarations: [MembersComponent, MembersListComponent, MemberComponent,EditRolesDialogComponent],
     exports: [MembersComponent, MemberComponent],
 })
 export class MembersModule {}

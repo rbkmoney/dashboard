@@ -10,7 +10,7 @@
         <ng-content></ng-content>
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <div class="base-dialog-actions">
+    <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
         <div [dshNoContent]="actionsBlock" fxFlex="grow">
             <ng-content select="dshBaseDialogActions"></ng-content>
             <ng-content select="[dshBaseDialogActions]"></ng-content>

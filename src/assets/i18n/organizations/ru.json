@@ -87,6 +87,9 @@
         },
         "send": "Отправить приглашение"
     },
+    "editRolesDialog": {
+        "title": "Редактирование ролей"
+    },
     "changeRolesTable": {
         "add": "Добавить",
         "remove": "Удалить",

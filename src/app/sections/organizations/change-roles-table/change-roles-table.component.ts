@@ -5,13 +5,13 @@ import {
     EventEmitter,
     Inject,
     Input,
-    OnInit,
     Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, startWith, take, withLatestFrom } from 'rxjs/operators';
+import isNil from 'lodash-es/isNil';
+import { map, take, withLatestFrom } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
@@ -30,14 +30,12 @@ import { SelectRoleDialogData } from './components/select-role-dialog/types/sele
     styleUrls: ['change-roles-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeRolesTableComponent implements OnInit {
+export class ChangeRolesTableComponent {
     @Input() set roles(roles: MemberRole[]) {
-        this.rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>(
-            getRolesByGroup(roles).map((group) => ({
-                id: group.id,
-                shopIds: group.scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
-            }))
-        );
+        if (!isNil(roles)) {
+            this.rolesForm.clear();
+            this.createRolesForm(roles).controls.forEach((c) => this.rolesForm.push(c));
+        }
     }
     @Output() selectedRoles = new EventEmitter<MemberRole[]>();
 
@@ -45,7 +43,7 @@ export class ChangeRolesTableComponent implements OnInit {
         return Object.values(RoleId).filter((id) => this.rolesForm.value.findIndex((r) => r.id === id) === -1);
     }
 
-    rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>([]);
+    rolesForm = this.createRolesForm();
     shops$ = this.shopsService.shops$;
     RoleId = RoleId;
 
@@ -56,19 +54,6 @@ export class ChangeRolesTableComponent implements OnInit {
         @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
         private cdr: ChangeDetectorRef
     ) {}
-
-    ngOnInit() {
-        this.rolesForm.valueChanges.pipe(startWith(this.rolesForm.value), untilDestroyed(this)).subscribe((value) => {
-            const memberRoles: MemberRole[] = value
-                .map((v) =>
-                    v.shopIds.map(
-                        (resourceId): MemberRole => ({ roleId: v.id, scope: { id: ResourceScopeId.Shop, resourceId } })
-                    )
-                )
-                .flat();
-            this.selectedRoles.emit(memberRoles);
-        });
-    }
 
     add() {
         this.dialog.openDialogs.forEach((d) => d.addPanelClass('dsh-hidden'));
@@ -90,6 +75,9 @@ export class ChangeRolesTableComponent implements OnInit {
                             shopIds: result.selectedRoleId === RoleId.Administrator ? shops.map(({ id }) => id) : [],
                         })
                     );
+                    if (result.selectedRoleId === RoleId.Administrator) {
+                        this.emitSelectedRoles();
+                    }
                     this.cdr.detectChanges();
                 }
             });
@@ -106,20 +94,45 @@ export class ChangeRolesTableComponent implements OnInit {
             shopIds.push(shop.id);
         }
         roleControl.patchValue({ ...roleControl.value, shopIds });
+        this.emitSelectedRoles();
     }
 
     changeAll(roleControl: AbstractControl<{ id: RoleId; shopIds: string[] }>) {
         this.shopsService.shops$.pipe(take(1)).subscribe((shops) => {
             const shopIds = roleControl.value.shopIds.length < shops.length ? shops.map((s) => s.id) : [];
             roleControl.patchValue({ ...roleControl.value, shopIds });
+            this.emitSelectedRoles();
         });
     }
 
     remove(roleControl: AbstractControl) {
         this.rolesForm.remove(roleControl.value);
+        this.emitSelectedRoles();
     }
 
     isIndeterminateShops(shopIds: string[]) {
         return this.shops$.pipe(map((shops) => !!shopIds?.length && shopIds.length < shops.length));
+    }
+
+    private createRolesForm(roles?: MemberRole[]) {
+        return this.fb.array<{ id: RoleId; shopIds: string[] }>(
+            roles?.length
+                ? getRolesByGroup(roles).map((group) => ({
+                      id: group.id,
+                      shopIds: group.scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
+                  }))
+                : []
+        );
+    }
+
+    private emitSelectedRoles() {
+        const memberRoles: MemberRole[] = this.rolesForm.value
+            .map((v) =>
+                v.shopIds.map(
+                    (resourceId): MemberRole => ({ roleId: v.id, scope: { id: ResourceScopeId.Shop, resourceId } })
+                )
+            )
+            .flat();
+        this.selectedRoles.emit(memberRoles);
     }
 }
