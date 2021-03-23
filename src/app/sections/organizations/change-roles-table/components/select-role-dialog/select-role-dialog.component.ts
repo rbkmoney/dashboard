@@ -6,11 +6,10 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { RoleId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 
-import { ACCESSES } from './accesses';
+import { ROLES_ACCESSES } from './roles-accesses';
+import { ROLES_PRIORITY } from './roles-priority';
 import { SelectRoleDialogResult } from './types/select-role-dialog-result';
 import { SelectRoleDialogData } from './types/selected-role-dialog-data';
-
-const PRIORITY = { [RoleId.Administrator]: 4, [RoleId.Manager]: 3, [RoleId.Accountant]: 2, [RoleId.Integrator]: 1 };
 
 @Component({
     selector: 'dsh-select-role-dialog',
@@ -20,12 +19,12 @@ const PRIORITY = { [RoleId.Administrator]: 4, [RoleId.Manager]: 3, [RoleId.Accou
 })
 export class SelectRoleDialogComponent {
     roleControl = this.fb.control<RoleId>(null, Validators.required);
-    accesses = ACCESSES;
+    accesses = ROLES_ACCESSES;
     get rowsGridTemplateColumns() {
         return `2fr ${'1fr '.repeat(this.data.availableRoles.length)}`;
     }
     get roles() {
-        return this.data.availableRoles.sort((a, b) => PRIORITY[b] - PRIORITY[a]);
+        return this.data.availableRoles.sort((a, b) => ROLES_PRIORITY[b] - ROLES_PRIORITY[a]);
     }
 
     constructor(

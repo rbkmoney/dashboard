@@ -1,6 +1,6 @@
 import { RoleId } from '@dsh/api-codegen/organizations';
 
-export const ACCESSES: {
+export const ROLES_ACCESSES: {
     name: string;
     isHeader?: boolean;
     access: { [R in RoleId]?: boolean };
