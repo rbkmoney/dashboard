@@ -7,7 +7,7 @@
             fxLayoutAlign="center center"
             >{{ r(roleControl.value.id) }}</dsh-nested-table-col
         >
-        <dsh-nested-table-col>
+        <dsh-nested-table-col *ngIf="availableRoles.length">
             <button dsh-button color="accent" (click)="add()">{{ t('add') }}</button>
         </dsh-nested-table-col>
     </dsh-nested-table-row>

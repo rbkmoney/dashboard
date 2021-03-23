@@ -41,6 +41,10 @@ export class ChangeRolesTableComponent implements OnInit {
     }
     @Output() selectedRoles = new EventEmitter<MemberRole[]>();
 
+    get availableRoles() {
+        return Object.values(RoleId).filter((id) => this.rolesForm.value.findIndex((r) => r.id === id) === -1);
+    }
+
     rolesForm = this.fb.array<{ id: RoleId; shopIds: string[] }>([]);
     shops$ = this.shopsService.shops$;
     RoleId = RoleId;
@@ -71,9 +75,7 @@ export class ChangeRolesTableComponent implements OnInit {
         this.dialog
             .open<SelectRoleDialogComponent, SelectRoleDialogData, SelectRoleDialogResult>(SelectRoleDialogComponent, {
                 data: {
-                    availableRoles: Object.values(RoleId).filter(
-                        (id) => this.rolesForm.value.findIndex((r) => r.id === id) === -1
-                    ),
+                    availableRoles: this.availableRoles,
                 },
                 ...this.dialogConfig.large,
             })
