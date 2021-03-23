@@ -47,6 +47,7 @@
 @import '../../app/feedback/feedback-theme';
 
 @mixin app-theme($theme) {
+    @include dsh-home-theme($theme);
     @include dsh-actionbar-theme($theme);
     @include dsh-dropdown-theme($theme);
     @include dsh-invoice-cart-theme($theme);
