@@ -36,7 +36,7 @@
         <div class="base-dialog-actions-block" fxLayout="row" fxLayoutAlign="space-between">
             <!-- layout needs this empty div here -->
             <div></div>
-            <button dsh-button color="accent" [disabled]="confirmButtonDisabled" (click)="confirmDialog()">
+            <button dsh-button color="accent" [disabled]="confirmButtonDisabled || disabled" (click)="confirmDialog()">
                 {{ confirmButtonName || c('confirm') }}
             </button>
         </div>

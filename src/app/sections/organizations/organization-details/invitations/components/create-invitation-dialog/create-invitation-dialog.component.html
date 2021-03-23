@@ -3,7 +3,8 @@
     [title]="t('title')"
     (cancel)="cancel()"
     (confirm)="create()"
-    [confirmButtonDisabled]="emailControl.invalid || (inProgress$ | async) || !selectedRoles.length"
+    [confirmButtonDisabled]="emailControl.invalid || !selectedRoles.length"
+    [disabled]="inProgress$ | async"
     [confirmButtonName]="t('send')"
 >
     <div fxLayout="column" fxLayoutGap="16px">

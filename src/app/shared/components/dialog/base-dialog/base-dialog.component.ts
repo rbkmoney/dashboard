@@ -15,13 +15,19 @@ export class BaseDialogComponent {
 
     @coerceBoolean
     @Input()
+    disabled: boolean;
+
+    @coerceBoolean
+    @Input()
     hasDivider: boolean;
 
     @Output() cancel = new EventEmitter<void>();
     @Output() confirm = new EventEmitter<void>();
 
     cancelDialog(): void {
-        this.cancel.emit();
+        if (!this.disabled) {
+            this.cancel.emit();
+        }
     }
 
     confirmDialog(): void {

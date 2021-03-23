@@ -131,6 +131,7 @@ export const ROLES_ACCESSES: {
     },
     {
         name: 'manageOrganizations',
+        isHeader: true,
         access: {
             [RoleId.Administrator]: true,
             [RoleId.Manager]: false,
