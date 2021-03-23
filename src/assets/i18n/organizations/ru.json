@@ -96,7 +96,7 @@
         "shops": "Магазины"
     },
     "selectRoleDialog": {
-        "title": "Выбирите роль",
+        "title": "Выберите роль",
         "select": "Выбрать",
         "accesses": {
             "payments": "Платежи",
