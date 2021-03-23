@@ -75,6 +75,11 @@
         "Pending": "Запущено",
         "Failed": "Неуспешно"
     },
+    "depositRevertStatus": {
+        "Succeeded": "Успешно",
+        "Pending": "В процессе",
+        "Failed": "Неуспешно"
+    },
     "withdrawalStatus": {
         "Succeeded": "Успешен",
         "Pending": "Запущен",
