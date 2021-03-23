@@ -80,6 +80,7 @@
     },
     "createInvitationDialog": {
         "title": "Сформировать приглашение",
+        "roles": "Роли сотрудника",
         "form": {
             "expiresAt": "Дата истечения срока принятия",
             "email": "Email"
