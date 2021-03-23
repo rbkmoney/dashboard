@@ -11,7 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { startWith, take } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
@@ -112,5 +112,9 @@ export class ChangeRolesTableComponent implements OnInit {
 
     remove(roleControl: AbstractControl) {
         this.rolesForm.remove(roleControl.value);
+    }
+
+    isIndeterminateShops(shopIds: string[]) {
+        return this.shops$.pipe(map((shops) => !!shopIds?.length && shopIds.length < shops.length));
     }
 }

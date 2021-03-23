@@ -22,9 +22,7 @@
             <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
                 <mat-checkbox
                     [checked]="roleControl.value.shopIds.length === (shops$ | async).length"
-                    [indeterminate]="
-                        !!roleControl.value.shopIds.length && roleControl.value.shopIds.length < (shops$ | async).length
-                    "
+                    [indeterminate]="isIndeterminateShops(roleControl.value.shopIds) | async"
                     (change)="changeAll(roleControl)"
                 ></mat-checkbox>
             </dsh-nested-table-col>
