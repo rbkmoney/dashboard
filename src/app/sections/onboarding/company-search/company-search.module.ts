@@ -11,11 +11,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { KonturFocusModule } from '@dsh/api/kontur-focus';
 import { ButtonModule } from '@dsh/components/buttons';
+import { TextColorModule } from '@dsh/components/indicators/text-color';
 import { LayoutModule } from '@dsh/components/layout';
+import { BreadcrumbModule } from '@dsh/components/navigation';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { DaDataModule } from '../../../dadata';
-import { CompanyDetailItemComponent } from './company-detail-item';
 import { CompanyDetailsComponent } from './company-details';
 import { CompanySearchComponent } from './company-search.component';
 import { ManualContractorSelectorComponent } from './manual-contractor-selector';
@@ -37,13 +38,10 @@ import { ManualContractorSelectorComponent } from './manual-contractor-selector'
         MatSnackBarModule,
         TranslocoModule,
         ConfirmActionDialogModule,
+        TextColorModule,
+        BreadcrumbModule,
     ],
-    declarations: [
-        CompanySearchComponent,
-        CompanyDetailsComponent,
-        CompanyDetailItemComponent,
-        ManualContractorSelectorComponent,
-    ],
+    declarations: [CompanySearchComponent, CompanyDetailsComponent, ManualContractorSelectorComponent],
     exports: [CompanySearchComponent],
 })
 export class CompanySearchModule {}

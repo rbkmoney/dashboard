@@ -1,11 +1,12 @@
 export const orderedPaymentMethodsNames = [
     'bankCard',
-    'wallets',
-    'euroset',
-    'qps',
-    'mobileCommerce',
+    'yandexPay',
     'applePay',
     'googlePay',
     'samsungPay',
     'uzcard',
+    'wallets',
+    'euroset',
+    'qps',
+    'mobileCommerce',
 ] as const;

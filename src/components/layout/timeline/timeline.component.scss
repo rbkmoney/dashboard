@@ -1,9 +1,8 @@
-$size: 36px;
-$line-size: 2px;
+@import './timeline.scss';
 
 .dsh-timeline {
     position: relative;
-    border-bottom: $line-size solid;
+    border-bottom: $line-width solid;
 
     &::after {
         content: '';
@@ -11,7 +10,7 @@ $line-size: 2px;
         left: 0;
         top: 0;
         bottom: 0;
-        width: $line-size;
-        left: $size / 2 - $line-size / 2;
+        width: $line-width;
+        left: $badge-size / 2 - $line-width / 2;
     }
 }

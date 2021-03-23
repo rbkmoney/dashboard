@@ -12,7 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 
-import { ErrorModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
+import { ErrorModule, KeycloakTokenInfoModule, LoggerModule, UserModule } from '@dsh/app/shared/services';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -20,8 +20,8 @@ import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
-import { ContainerModule } from './container';
 import { FeedbackModule } from './feedback';
+import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
@@ -42,7 +42,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
-        ContainerModule,
+        HomeModule,
         SettingsModule,
         KeycloakAngularModule,
         HttpClientModule,
@@ -54,6 +54,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         UserModule,
         FeedbackModule,
         IconsModule,
+        KeycloakTokenInfoModule,
     ],
     providers: [
         LanguageService,

@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { CountryCodesModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -31,7 +31,7 @@ import { InternationalShopFormControllerService } from './services/international
         MatCheckboxModule,
         ButtonModule,
         CountryCodesModule,
-        MatDialogModule,
+        BaseDialogModule,
     ],
     declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
     exports: [CreateInternationalShopEntityComponent],

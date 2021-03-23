@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { SenderModule } from '@dsh/api/sender';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -25,6 +26,7 @@ import { FeedbackComponent } from './feedback.component';
         MatInputModule,
         SenderModule,
         ErrorModule,
+        BaseDialogModule,
     ],
     declarations: [FeedbackComponent, FeedbackDialogComponent],
     exports: [FeedbackComponent],

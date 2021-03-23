@@ -1,10 +1,13 @@
-<div *transloco="let t; scope: 'claim'; read: 'claim.revokeClaimDialog'" fxLayout="column" fxLayoutGap="20px">
-    <h2 class="mat-title">{{ t('subheading') }}</h2>
-    <div mat-dialog-content>
+<ng-container *transloco="let t; scope: 'claim'; read: 'claim.revokeClaimDialog'">
+    <dsh-base-dialog [title]="t('subheading')" (cancel)="cancel()">
         <form [formGroup]="form">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('reason') }}</mat-label>
-                <input formControlName="reason" matInput type="text" autocomplete="off" />
+                <mat-select formControlName="reason">
+                    <mat-option *ngFor="let reason of reasons" [value]="reason">
+                        {{ reason }}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </form>
         <div *ngIf="errorCode$ | async">
@@ -12,27 +15,15 @@
                 {{ errors(errorCode$ | async) }}
             </div>
         </div>
-    </div>
-    <div
-        mat-dialog-actions
-        class="dialog-actions"
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutAlign="space-between stretch"
-        fxLayoutGap="20px"
-        fxLayoutGap.xs="10px"
-    >
-        <button fxFlex fxFlex.xs="none" dsh-button (click)="back()" [disabled]="inProgress$ | async">
-            {{ t('back') }}
-        </button>
-        <button
-            fxFlex
-            fxFlex.xs="none"
-            dsh-button
-            (click)="revoke(form.value.reason)"
-            [disabled]="!form.valid || (inProgress$ | async)"
-        >
-            {{ t('revoke') }}
-        </button>
-    </div>
-</div>
+        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="end">
+            <button
+                dsh-button
+                color="warn"
+                (click)="revoke(form.value.reason)"
+                [disabled]="!form.valid || (inProgress$ | async)"
+            >
+                {{ t('revoke') }}
+            </button>
+        </div>
+    </dsh-base-dialog>
+</ng-container>

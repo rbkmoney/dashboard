@@ -16,14 +16,15 @@
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
 @import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/navigation-link/navigation-link-theme';
 
-@import '../../app/container/container-theme';
+@import '../../app/home/home-theme';
+@import '../../app/home/welcome-image/welcome-image-theme';
 @import '../../app/sections/main/main-theme';
-@import '../../app/container/welcome-image/welcome-image-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
@@ -53,4 +54,5 @@
     @include dsh-balances-typography($config);
     @include dsh-link-label-typography($config);
     @include dsh-navigation-link-typography($config);
+    @include dsh-breadcrumb-typography($config);
 }

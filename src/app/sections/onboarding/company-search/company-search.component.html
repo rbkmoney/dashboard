@@ -1,33 +1,45 @@
-<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-display-1">{{ t('onboarding.headline') }}</h1>
-    <dsh-card>
-        <h2 class="mat-title">{{ t('onboarding.companySearch.title') }}</h2>
-        <form fxLayout="column" [formGroup]="form">
-            <mat-form-field>
-                <mat-label>{{ t('onboarding.companySearch.searchFieldLabel') }}</mat-label>
-                <dsh-dadata-autocomplete
-                    formControlName="searchStr"
-                    type="party"
-                    (optionSelected)="updateSuggestion($event)"
-                    (errorOccurred)="searchSuggestionError()"
-                    (suggestionNotFound)="suggestionNotFound()"
-                    #daDadataAutocomplete
-                ></dsh-dadata-autocomplete>
-            </mat-form-field>
-        </form>
-        <div class="info-block">
+<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="48px">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <h1 class="dsh-display-1">{{ t('onboarding.headline') }}</h1>
+        <ol dsh-breadcrumb>
+            <li dsh-breadcrumb-item>
+                <a dshTextColor="secondary" [routerLink]="['/claims']">{{ t('onboarding.breadcrumbs.claims') }}</a>
+            </li>
+            <li dsh-breadcrumb-item>{{ t('onboarding.breadcrumbs.onboardingClaim') }}</li>
+        </ol>
+    </div>
+    <dsh-card fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout="column" fxLayoutGap="24px">
+            <h2 class="dsh-title">{{ t('onboarding.companySearch.title') }}</h2>
+            <form fxLayout="column" [formGroup]="form">
+                <mat-form-field>
+                    <mat-label>{{ t('onboarding.companySearch.searchFieldLabel') }}</mat-label>
+                    <dsh-dadata-autocomplete
+                        formControlName="searchStr"
+                        type="party"
+                        (optionSelected)="updateSuggestion($event)"
+                        (errorOccurred)="searchSuggestionError()"
+                        (suggestionNotFound)="suggestionNotFound()"
+                        #daDadataAutocomplete
+                    ></dsh-dadata-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+        <div fxLayout="column" fxLayoutGap="32px">
             <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content">
             </dsh-company-details>
             <dsh-manual-contractor-selector
                 *ngIf="manualContractorSelector"
                 (contractorTypeSelected)="manualContractorTypeSelected($event)"
             ></dsh-manual-contractor-selector>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <button dsh-stroked-button color="accent" (click)="leaveOnboarding()">
-                {{ t('back') }}
-            </button>
-            <button dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">{{ t('next') }}</button>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button fxFlex="125px" dsh-stroked-button color="accent" (click)="leaveOnboarding()">
+                    {{ t('back') }}
+                </button>
+                <button fxFlex="125px" dsh-button color="accent" [disabled]="!(data$ | async)" (click)="next()">
+                    {{ t('next') }}
+                </button>
+            </div>
         </div>
     </dsh-card>
 </div>

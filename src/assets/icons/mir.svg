@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    xml:space="preserve"
+    style="enable-background: new 0 0 49 14"
+    viewBox="0 0 49 14"
+    height="14px"
+    width="49px"
+    y="0px"
+    x="0px"
+    id="ID-0__f1ec11ba-799a-4bb2-a06c-49adebe144ff"
+    version="1.1"
+>
+    <metadata id="ID-1__087f6683-fd69-4b04-9b56-7f5267f13b5d">
+        <rdf:RDF
+            ><cc:Work rdf:about=""
+                ><dc:format>image/svg+xml</dc:format
+                ><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work
+        ></rdf:RDF>
+    </metadata>
+    <defs id="ID-2__394c4ab1-c3ae-4de8-acfd-0666178c7e25" />
+    <style id="ID-3__2276ba26-2220-4b5b-a841-c0af3bfd497e" type="text/css">
+        .st0 {
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            fill: url(#ID-4__66d715b4-ea7c-48a8-adb1-a061d9a64033);
+        }
+        .st1 {
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            fill: #4db45f;
+        }
+    </style>
+    <title>МИР</title>
+    <linearGradient
+        y2="3"
+        x2="48.5"
+        y1="3"
+        x1="34.1742"
+        gradientUnits="userSpaceOnUse"
+        id="ID-4__66d715b4-ea7c-48a8-adb1-a061d9a64033"
+    >
+        <stop id="ID-5__d50901a0-3c50-4b89-b51c-be3738f36f3f" style="stop-color: #00b4e6" offset="0" />
+        <stop id="ID-6__53706c32-839c-4585-b66a-9797a8772b83" style="stop-color: #088ccb" offset="1" />
+    </linearGradient>
+    <path
+        id="ID-7__bf0f6760-9caa-4e74-89ca-e27e704377f0"
+        d="M43.5,0h-9.3c0.5,3.1,3.5,6,6.8,6h7.4c0.1-0.3,0.1-0.7,0.1-1C48.5,2.2,46.3,0,43.5,0z"
+        class="st0"
+    />
+    <path
+        style="clip-rule: evenodd; fill: #4db45f; fill-rule: evenodd"
+        id="ID-8__85399873-581b-4927-a21a-17da15f7148a"
+        d="m 35,6.5 0,7.5 4.5,0 0,-4 4,0 c 2.2,0 4.1,-1.5 4.7,-3.5 z"
+        class="st1"
+    />
+    <path
+        id="ID-9__3d165612-3e55-4742-933b-89831d5d0f44"
+        d="M19,0v14h4c0,0,1,0,1.5-1C27.2,7.6,28,6,28,6h0.5v8H33V0h-4c0,0-1,0.1-1.5,1C25.2,5.6,24,8,24,8h-0.5V0H19z"
+        class="st1"
+    />
+    <path
+        id="ID-10__45955435-e8e7-4f6a-8348-cc0f0dd64692"
+        d="M0,14V0h4.5c0,0,1.3,0,2,2c1.8,5.3,2,6,2,6s0.4-1.3,2-6c0.7-2,2-2,2-2H17v14h-4.5V6.5H12L9.5,14h-2L5,6.5H4.5  V14H0z"
+        class="st1"
+    />
+</svg>

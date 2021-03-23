@@ -11,7 +11,7 @@
                 {{ t('subheading') }}
             </h4>
         </div>
-        <mat-icon fxHide.xs="true" fxFlex="138px" class="wallet-icon" svgIcon="wallet"></mat-icon>
+        <mat-icon fxHide.xs="true" fxFlex="138px" class="wallet-icon" [svgIcon]="iconName"></mat-icon>
     </div>
     <div fxLayout>
         <button fxFlex="50" fxFlex.xs="100" dsh-button color="accent" size="lg" routerLink="wallet-section">

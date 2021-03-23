@@ -6,7 +6,7 @@
         </div>
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <div class="base-dialog-content">
+    <div class="base-dialog-content" [dshNoContent]="noContent">
         <ng-content></ng-content>
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
@@ -21,6 +21,8 @@
 <ng-template #contentDividerContent>
     <mat-divider *ngIf="hasDivider"></mat-divider>
 </ng-template>
+
+<ng-template #noContent></ng-template>
 
 <ng-template #titleBlock>
     <div fxLayout="row" fxLayoutAlign="space-between">

@@ -53,6 +53,7 @@ export class PaymentLinkParams {
     applePay?: boolean;
     googlePay?: boolean;
     samsungPay?: boolean;
+    yandexPay?: boolean;
 }
 
 const Method = PaymentMethod.MethodEnum;
@@ -238,6 +239,9 @@ export class CreatePaymentLinkService {
                                     break;
                                 case TokenProvider.Samsungpay:
                                     paymentMethodsControls.samsungPay.enable();
+                                    break;
+                                case TokenProvider.Yandexpay:
+                                    paymentMethodsControls.yandexPay.enable();
                                     break;
                                 default:
                                     console.error(`Unhandled TokenProvider - ${provider}`);

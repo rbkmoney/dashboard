@@ -23,6 +23,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     expandedId$ = this.reportsExpandedIdManager.expandedId$;
     initSearchParams$ = this.reportsSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.fetchReportsService.errors$;
+    hasMore$ = this.fetchReportsService.hasMore$;
 
     constructor(
         private fetchReportsService: FetchReportsService,
@@ -66,5 +67,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     create() {
         this.createReportService.createReport();
+    }
+
+    fetchMore() {
+        this.fetchReportsService.fetchMore();
     }
 }

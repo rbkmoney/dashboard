@@ -18,10 +18,7 @@ export const initializer = (
         configService
             .init({ configUrl: '/appConfig.json' })
             .then(() =>
-                Promise.all([
-                    yandexMetrikaService.init(configService.yandexMetrika, platformId),
-                    themeManager.init().then(() => iconsService.init()),
-                ])
+                Promise.all([yandexMetrikaService.init(configService.yandexMetrika, platformId), themeManager.init()])
             ),
         keycloakService.init({
             config: '/authConfig.json',
@@ -35,4 +32,5 @@ export const initializer = (
             bearerPrefix: 'Bearer',
         }),
         languageService.init(),
+        iconsService.init(),
     ]);
