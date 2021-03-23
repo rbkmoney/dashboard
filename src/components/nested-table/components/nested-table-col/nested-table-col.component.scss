@@ -20,4 +20,8 @@
             margin: 0;
         }
     }
+
+    & > ::ng-deep button {
+        width: 100%;
+    }
 }
