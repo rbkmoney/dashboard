@@ -23,8 +23,8 @@
                 <mat-checkbox
                     [checked]="roleControl.value.shopIds.length === (shops$ | async).length"
                     [disabled]="roleControl.value.id === RoleId.Administrator"
-                    [indeterminate]="isIndeterminateShops(roleControl.value.shopIds) | async"
-                    (change)="changeAll(roleControl)"
+                    [indeterminate]="isIntermediate(roleControl) | async"
+                    (change)="toggleAll(roleControl)"
                 ></mat-checkbox>
             </dsh-nested-table-col>
         </dsh-nested-table-row>
@@ -35,7 +35,7 @@
                     <mat-checkbox
                         [checked]="roleControl.value.shopIds.includes(shop.id)"
                         [disabled]="roleControl.value.id === RoleId.Administrator"
-                        (change)="change(roleControl, shop)"
+                        (change)="toggle(roleControl, shop)"
                     ></mat-checkbox>
                 </dsh-nested-table-col>
             </dsh-nested-table-row>
