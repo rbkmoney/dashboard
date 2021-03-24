@@ -29,6 +29,7 @@
         "cancel": "Отмена"
     },
     "organizationRoles": {
+        "owner": "Владелец",
         "roles": {
             "Administrator": "Администратор",
             "Accountant": "Бухгалтер",

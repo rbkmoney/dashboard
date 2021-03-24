@@ -1,11 +1,15 @@
-import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 import { Member } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { ComponentChanges } from '@dsh/type-utils';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
+import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 import { EditRolesDialogComponent } from '../edit-roles-dialog/edit-roles-dialog.component';
 import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialog-data';
 
@@ -15,11 +19,25 @@ import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialo
     templateUrl: 'member.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MemberComponent {
+export class MemberComponent implements OnChanges {
     @Input() orgId: string;
     @Input() member: Member;
 
-    constructor(private dialog: MatDialog, @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig) {}
+    isOrganizationOwner$: Observable<boolean>;
+
+    constructor(
+        private dialog: MatDialog,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
+        private organizationManagementService: OrganizationManagementService
+    ) {}
+
+    ngOnChanges({ orgId }: ComponentChanges<MemberComponent>) {
+        if (orgId) {
+            this.isOrganizationOwner$ = this.organizationManagementService
+                .isOrganizationOwner(orgId.currentValue)
+                .pipe(shareReplay(1));
+        }
+    }
 
     removeFromOrganization() {}
 
