@@ -15,7 +15,12 @@ describe('EditRolesDialogComponent', () => {
         await TestBed.configureTestingModule({
             imports: [],
             declarations: [EditRolesDialogComponent],
-            providers: [provideMockService(MatDialogRef), provideMockToken(MAT_DIALOG_DATA, {}), provideMockService(OrganizationsService), provideMockService(ErrorService)],
+            providers: [
+                provideMockService(MatDialogRef),
+                provideMockToken(MAT_DIALOG_DATA, {}),
+                provideMockService(OrganizationsService),
+                provideMockService(ErrorService),
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(EditRolesDialogComponent);

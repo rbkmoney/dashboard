@@ -1,6 +1,6 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {  MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
@@ -23,7 +23,7 @@ describe('MemberComponent', () => {
         await TestBed.configureTestingModule({
             imports: [MatDialogModule],
             declarations: [HostComponent, MemberComponent],
-            providers: [provideMockToken(DIALOG_CONFIG, {} as any)]
+            providers: [provideMockToken(DIALOG_CONFIG, {} as any)],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
