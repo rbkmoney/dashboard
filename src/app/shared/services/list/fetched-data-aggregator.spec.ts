@@ -5,13 +5,13 @@ import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { DEFAULT_UPDATE_DELAY_TOKEN, SEARCH_LIMIT } from '@dsh/app/sections/tokens';
+
+import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
+import { FetchFn } from '../../../sections/partial-fetcher/fetch-fn';
 import { ErrorService } from '../error';
 import { DataCachingService } from './data-caching.service';
 import { FetchedDataAggregator } from './fetched-data-aggregator';
 import { generateDatasetItems } from './generate-dataset-items';
-
-import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
-import { FetchFn } from '../../../sections/partial-fetcher/fetch-fn';
 
 describe('FetchedDataAggregator', () => {
     class FetchedDataAggregatored extends FetchedDataAggregator<any, any> {}
