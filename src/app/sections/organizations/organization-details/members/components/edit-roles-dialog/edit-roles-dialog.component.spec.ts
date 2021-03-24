@@ -1,29 +1,25 @@
-import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { OrganizationsService } from '@dsh/api';
+import { ErrorService } from '@dsh/app/shared';
+import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
 import { EditRolesDialogComponent } from './edit-roles-dialog.component';
 
-@Component({
-    selector: 'dsh-host',
-    template: `<dsh-edit-roles-dialog></dsh-edit-roles-dialog>`,
-})
-class HostComponent {}
-
 describe('EditRolesDialogComponent', () => {
-    let fixture: ComponentFixture<HostComponent>;
-    let debugElement: DebugElement;
+    let fixture: ComponentFixture<EditRolesDialogComponent>;
     let component: EditRolesDialogComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [],
-            declarations: [HostComponent, EditRolesDialogComponent],
+            declarations: [EditRolesDialogComponent],
+            providers: [provideMockService(MatDialogRef), provideMockToken(MAT_DIALOG_DATA, {}), provideMockService(OrganizationsService), provideMockService(ErrorService)],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(HostComponent);
-        debugElement = fixture.debugElement.query(By.directive(EditRolesDialogComponent));
-        component = debugElement.componentInstance;
+        fixture = TestBed.createComponent(EditRolesDialogComponent);
+        component = fixture.debugElement.componentInstance;
 
         fixture.detectChanges();
     });
@@ -31,8 +27,4 @@ describe('EditRolesDialogComponent', () => {
     it('should be created', () => {
         expect(component).toBeTruthy();
     });
-
-    describe('methods', () => {});
-
-    describe('template', () => {});
 });
