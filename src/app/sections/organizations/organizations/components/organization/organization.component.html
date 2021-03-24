@@ -5,8 +5,8 @@
 >
     <div class="dsh-headline">{{ organization?.name }}</div>
 
-    <dsh-details-item *ngIf="membersCount$ | async as membersCount" [title]="t('numberOfEmployees')">
-        {{ membersCount }}
+    <dsh-details-item [title]="t('numberOfEmployees')">
+        {{ membersCount$ | async }}
     </dsh-details-item>
 
     <ng-container *ngIf="member$ | async as member">
