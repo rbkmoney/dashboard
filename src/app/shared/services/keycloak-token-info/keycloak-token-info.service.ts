@@ -14,6 +14,9 @@ export class KeycloakTokenInfoService {
         shareReplay(1)
     );
 
+    /**
+     * Party ID & User ID
+     */
     partyID$: Observable<string> = this.decoded$.pipe(pluck('sub'));
 
     constructor(private keycloakService: KeycloakService) {}
