@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { combineLatest, Observable, Subject } from 'rxjs';
+import { first, map, pluck, startWith, tap } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
@@ -12,15 +12,15 @@ import { ShopsRole } from '../types/shops-role';
 @Injectable()
 export class ShopRolesFormService {
     form = this.createRolesForm();
-    memberRoles$: Observable<MemberRole[]>;
+    updatedMemberRoles$: Observable<MemberRole[]>;
 
-    private _memberRoles$ = new BehaviorSubject<MemberRole[]>([]);
+    private updateMemberRoles$ = new Subject<MemberRole[]>();
 
     get memberRoles(): MemberRole[] {
         return this.form.value
-            .map((v) =>
-                v.shopIds.map(
-                    (resourceId): MemberRole => ({ roleId: v.id, scope: { id: ResourceScopeId.Shop, resourceId } })
+            .map(({ id, shopIds }) =>
+                shopIds.map(
+                    (resourceId): MemberRole => ({ roleId: id, scope: { id: ResourceScopeId.Shop, resourceId } })
                 )
             )
             .flat();
@@ -31,12 +31,12 @@ export class ShopRolesFormService {
     }
 
     constructor(private shopsService: ApiShopsService, private fb: FormBuilder) {
-        this.memberRoles$ = this._memberRoles$.asObservable();
+        this.updatedMemberRoles$ = this.updateMemberRoles$.asObservable();
     }
 
     init(roles: MemberRole[]) {
         this.form.clear();
-        this.createRolesForm(roles).controls.forEach((c) => this.form.push(c));
+        this.createRolesForm(roles).controls.forEach((control) => this.form.push(control));
     }
 
     add(roleId: RoleId) {
@@ -50,10 +50,9 @@ export class ShopRolesFormService {
                     })
                 );
                 if (roleId === RoleId.Administrator) {
-                    this.changedMemberRoles();
+                    this.updateMemberRoles();
                 }
-            }),
-            tap(() => this.changedMemberRoles())
+            })
         );
     }
 
@@ -68,7 +67,7 @@ export class ShopRolesFormService {
             shopIds.push(shopId);
         }
         roleControl.patchValue({ ...roleControl.value, shopIds });
-        this.changedMemberRoles();
+        this.updateMemberRoles();
     }
 
     toggleAll(roleControl: AbstractControl<ShopsRole>) {
@@ -78,32 +77,34 @@ export class ShopRolesFormService {
                 const shopIds = roleControl.value.shopIds.length < shops.length ? shops.map((s) => s.id) : [];
                 roleControl.patchValue({ ...roleControl.value, shopIds });
             }),
-            tap(() => this.changedMemberRoles())
+            tap(() => this.updateMemberRoles())
         );
     }
 
     remove(roleControl: AbstractControl<ShopsRole>) {
         this.form.remove(roleControl.value);
-        this.changedMemberRoles();
+        this.updateMemberRoles();
     }
 
     isIntermediate(roleControl: AbstractControl<ShopsRole>) {
-        const { shopIds } = roleControl.value;
-        return this.shopsService.shops$.pipe(map((shops) => shopIds?.length && shopIds.length < shops.length));
+        return combineLatest([
+            roleControl.valueChanges.pipe(startWith(roleControl.value), pluck('shopIds')),
+            this.shopsService.shops$,
+        ]).pipe(map(([shopIds, shops]) => !!shopIds?.length && shopIds.length < shops.length));
     }
 
     private createRolesForm(roles?: MemberRole[]) {
         return this.fb.array<ShopsRole>(
             roles?.length
-                ? getRolesByGroup(roles).map((group) => ({
-                      id: group.id,
-                      shopIds: group.scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
+                ? getRolesByGroup(roles).map(({ id, scopes }) => ({
+                      id,
+                      shopIds: scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
                   }))
                 : []
         );
     }
 
-    private changedMemberRoles() {
-        this._memberRoles$.next(this.memberRoles);
+    private updateMemberRoles() {
+        this.updateMemberRoles$.next(this.memberRoles);
     }
 }

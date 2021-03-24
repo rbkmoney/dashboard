@@ -6,7 +6,8 @@ import { Member } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { EditRolesDialogComponent, EditRolesDialogData } from '../edit-roles-dialog/edit-roles-dialog.component';
+import { EditRolesDialogComponent } from '../edit-roles-dialog/edit-roles-dialog.component';
+import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialog-data';
 
 @UntilDestroy()
 @Component({

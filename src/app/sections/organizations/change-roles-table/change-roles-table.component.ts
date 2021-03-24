@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Inject,
     Input,
+    OnInit,
     Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,7 +35,7 @@ import { ShopsRole } from './types/shops-role';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ShopRolesFormService],
 })
-export class ChangeRolesTableComponent {
+export class ChangeRolesTableComponent implements OnInit {
     @Input() set roles(roles: MemberRole[]) {
         if (!isNil(roles)) {
             this.shopRolesFormService.init(roles);
@@ -59,10 +60,10 @@ export class ChangeRolesTableComponent {
         private shopRolesFormService: ShopRolesFormService
     ) {}
 
-    onInit() {
-        this.shopRolesFormService.memberRoles$
+    ngOnInit() {
+        this.shopRolesFormService.updatedMemberRoles$
             .pipe(untilDestroyed(this))
-            .subscribe((roles) => this.selectedRoles.next(roles));
+            .subscribe((roles) => this.selectedRoles.emit(roles));
     }
 
     add() {
@@ -91,7 +92,7 @@ export class ChangeRolesTableComponent {
     }
 
     remove(roleControl: AbstractControl<ShopsRole>) {
-        this.rolesForm.remove(roleControl.value);
+        this.shopRolesFormService.remove(roleControl);
     }
 
     isIntermediate(roleControl: AbstractControl<ShopsRole>) {

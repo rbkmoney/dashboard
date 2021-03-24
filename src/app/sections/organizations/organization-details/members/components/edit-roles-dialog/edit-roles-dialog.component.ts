@@ -1,34 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEqual from 'lodash-es/isEqual';
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
-import { first, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, forkJoin, Observable, of } from 'rxjs';
+import { catchError, first, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { MemberRole } from '@dsh/api-codegen/organizations';
+import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { inProgressTo } from '@dsh/utils';
 
-function hasRole(roles: MemberRole[], role: MemberRole) {
-    return roles.findIndex((r) => isEqual(r, role)) !== -1;
-}
-
-function getAddedRoles(sourceRoles: MemberRole[], changedRoles: MemberRole[]) {
-    return changedRoles.filter((role) => !hasRole(sourceRoles, role));
-}
-
-function getChangedRoles(oldRoles: MemberRole[], newRoles: MemberRole[]) {
-    return {
-        added: getAddedRoles(oldRoles, newRoles),
-        removed: getAddedRoles(newRoles, oldRoles),
-    };
-}
-
-export interface EditRolesDialogData {
-    orgId: string;
-    userId: string;
-}
+import { EditRolesDialogData } from './types/edit-roles-dialog-data';
+import { getChangedRoles } from './utils/get-changed-roles';
 
 @UntilDestroy()
 @Component({
@@ -45,7 +28,7 @@ export class EditRolesDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<EditRolesDialogComponent, BaseDialogResponseStatus>,
         @Inject(MAT_DIALOG_DATA) private data: EditRolesDialogData,
-        private organizationsService: OrganizationsService
+        private organizationsService: OrganizationsService,private errorService: ErrorService
     ) {
         this.roles$ = this.updateRoles$.pipe(
             switchMap(() =>
@@ -75,8 +58,13 @@ export class EditRolesDialogComponent {
                     ? forkJoin([
                           ...added.map((role) => this.organizationsService.assignMemberRole(orgId, userId, role)),
                           ...removed.map((role) => this.organizationsService.removeMemberRole(orgId, userId, role)),
-                      ])
-                    : of()
+                      ]).pipe(
+                    catchError((err) => {
+                        this.errorService.error(err);
+                        return of(undefined);
+                    })
+            )
+                    : EMPTY
             )
         );
     }
