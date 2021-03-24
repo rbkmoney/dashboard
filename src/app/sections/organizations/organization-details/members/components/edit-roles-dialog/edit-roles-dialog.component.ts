@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, EMPTY, forkJoin, Observable, of } from 'rxjs';
-import { catchError, first, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { MemberRole } from '@dsh/api-codegen/organizations';
@@ -28,7 +28,8 @@ export class EditRolesDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<EditRolesDialogComponent, BaseDialogResponseStatus>,
         @Inject(MAT_DIALOG_DATA) private data: EditRolesDialogData,
-        private organizationsService: OrganizationsService,private errorService: ErrorService
+        private organizationsService: OrganizationsService,
+        private errorService: ErrorService
     ) {
         this.roles$ = this.updateRoles$.pipe(
             switchMap(() =>
@@ -59,11 +60,11 @@ export class EditRolesDialogComponent {
                           ...added.map((role) => this.organizationsService.assignMemberRole(orgId, userId, role)),
                           ...removed.map((role) => this.organizationsService.removeMemberRole(orgId, userId, role)),
                       ]).pipe(
-                    catchError((err) => {
-                        this.errorService.error(err);
-                        return of(undefined);
-                    })
-            )
+                          catchError((err) => {
+                              this.errorService.error(err);
+                              return of(undefined);
+                          })
+                      )
                     : EMPTY
             )
         );

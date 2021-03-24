@@ -55,9 +55,11 @@ import { MembersComponent } from './members.component';
         NotificationModule,
         ErrorModule,
         MatInputModule,
-        OrganizationRolesModule, BaseDialogModule, ChangeRolesTableModule
+        OrganizationRolesModule,
+        BaseDialogModule,
+        ChangeRolesTableModule,
     ],
-    declarations: [MembersComponent, MembersListComponent, MemberComponent,EditRolesDialogComponent],
+    declarations: [MembersComponent, MembersListComponent, MemberComponent, EditRolesDialogComponent],
     exports: [MembersComponent, MemberComponent],
 })
 export class MembersModule {}
