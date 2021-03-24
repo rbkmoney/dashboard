@@ -1,0 +1,12 @@
+@mixin dsh-text-color-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-text-color {
+        &-primary {
+            color: map-get($foreground, primary-text);
+        }
+        &-secondary {
+            color: map-get($foreground, secondary-text);
+        }
+    }
+}

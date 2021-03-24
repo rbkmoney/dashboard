@@ -1,5 +1,9 @@
 {
     "headline": "Заявка на подключение",
+    "breadcrumbs": {
+        "claims": "Заявки",
+        "onboardingClaim": "Заявка на подключение"
+    },
     "companySearch": {
         "title": "Поиск компании или ИП",
         "searchFieldLabel": "Введите название в свободной форме, адрес, ИНН или ОГРН",
