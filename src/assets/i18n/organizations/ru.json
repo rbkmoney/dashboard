@@ -40,6 +40,9 @@
         }
     },
     "organizationDetails": {
+        "breadcrumb": {
+            "organizations": "Организации"
+        },
         "links": {
             "members": "Сотрудники",
             "invitations": "Приглашения"

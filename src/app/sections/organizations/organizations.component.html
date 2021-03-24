@@ -1,11 +1,3 @@
-<div
-    class="dsh-organizations"
-    *transloco="let t; scope: 'organizations'; read: 'organizations'"
-    fxLayout="column"
-    fxLayoutGap="48px"
->
-    <h1 class="dsh-display-1">{{ t('header') }}</h1>
-    <div>
-        <router-outlet></router-outlet>
-    </div>
+<div class="dsh-organizations">
+    <router-outlet></router-outlet>
 </div>
