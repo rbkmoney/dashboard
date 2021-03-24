@@ -9,7 +9,7 @@ import {
     Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
+import { AbstractControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
 import { EMPTY, of } from 'rxjs';
@@ -52,7 +52,6 @@ export class ChangeRolesTableComponent implements OnInit {
     RoleId = RoleId;
 
     constructor(
-        private fb: FormBuilder,
         private shopsService: ApiShopsService,
         private dialog: MatDialog,
         @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
