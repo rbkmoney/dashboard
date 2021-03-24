@@ -1,13 +1,16 @@
 <ng-container *transloco="let t; scope: 'organizations'; read: 'organizations.organizationRoles'">
-    <div *ngIf="isOwner" class="dsh-body-1">{{ t('owner') }}</div>
+    <div *ngIf="isOwner; else notOwner" class="dsh-body-1">{{ t('owner') }}</div>
 
-    <div *ngIf="!isOwner" gdGap="24px" gdColumns="1fr 1fr">
-        <dsh-collapse *ngFor="let role of rolesByGroup" [title]="t('roles.' + role.id)">
-            <dsh-limited-list *ngFor="let scope of role.scopes" [title]="t('scopes.' + scope.id)">
-                <dsh-limited-list-item *ngFor="let resourceId of scope.resourcesIds">
-                    {{ resourceId }}
-                </dsh-limited-list-item>
-            </dsh-limited-list>
-        </dsh-collapse>
-    </div>
+    <ng-template #notOwner>
+        <div *ngIf="!rolesByGroup || rolesByGroup.length; else empty" gdGap="24px" gdColumns="1fr 1fr">
+            <dsh-collapse *ngFor="let role of rolesByGroup" [title]="t('roles.' + role.id)">
+                <dsh-limited-list *ngFor="let scope of role.scopes" [title]="t('scopes.' + scope.id)">
+                    <dsh-limited-list-item *ngFor="let resourceId of scope.resourcesIds">
+                        {{ resourceId }}
+                    </dsh-limited-list-item>
+                </dsh-limited-list>
+            </dsh-collapse>
+        </div>
+        <ng-template #empty><div class="dsh-body-1">-</div></ng-template>
+    </ng-template>
 </ng-container>
