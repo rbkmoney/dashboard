@@ -27,8 +27,8 @@
                 </dsh-nested-table-col>
                 <dsh-nested-table-col *ngFor="let role of roles" fxLayoutAlign="center center">
                     <dsh-selection
-                        *ngIf="access.access[role] !== undefined"
-                        [selected]="access.access[role]"
+                        *ngIf="access.availableRoles !== undefined"
+                        [selected]="access.availableRoles.includes(role)"
                     ></dsh-selection>
                 </dsh-nested-table-col>
             </dsh-nested-table-row>

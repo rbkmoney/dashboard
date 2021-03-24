@@ -1,142 +1,69 @@
 import { RoleId } from '@dsh/api-codegen/organizations';
 
-export const ROLES_ACCESSES: {
-    name: string;
-    isHeader?: boolean;
-    access: { [R in RoleId]?: boolean };
-}[] = [
+import { RoleAccess } from './types/role-access';
+
+export const ROLES_ACCESSES: RoleAccess[] = [
     {
         name: 'payments',
         isHeader: true,
-        access: {},
     },
     {
         name: 'viewAnalytics',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager],
     },
     {
         name: 'viewInvoices',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager,RoleId.Accountant, RoleId.Integrator]
     },
     {
         name: 'viewPayments',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager,RoleId.Accountant, RoleId.Integrator]
     },
     {
         name: 'viewRefunds',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager,RoleId.Accountant, RoleId.Integrator]
     },
     {
         name: 'viewPayouts',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager,RoleId.Accountant]
     },
     {
         name: 'viewApiKey',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Integrator]
     },
     {
         name: 'manageReports',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Accountant]
     },
     {
         name: 'manageWebhooks',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator,  RoleId.Integrator]
     },
     {
         name: 'createInvoice',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager]
     },
     {
         name: 'createPaymentLink',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: true,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Manager]
     },
     {
         name: 'createRefund',
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Accountant, ]
     },
     {
         name: 'wallets',
         isHeader: true,
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: true,
-            [RoleId.Integrator]: true,
-        },
+        availableRoles: [RoleId.Administrator, RoleId.Accountant, RoleId.Integrator]
     },
     {
         name: 'claims',
         isHeader: true,
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator]
     },
     {
         name: 'manageOrganizations',
         isHeader: true,
-        access: {
-            [RoleId.Administrator]: true,
-            [RoleId.Manager]: false,
-            [RoleId.Accountant]: false,
-            [RoleId.Integrator]: false,
-        },
+        availableRoles: [RoleId.Administrator]
     },
 ];
