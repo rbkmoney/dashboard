@@ -23,7 +23,7 @@
                     <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                         {{ member.id }}
                     </dsh-accordion-item-content-header>
-                    <dsh-member [member]="member"></dsh-member>
+                    <dsh-member [member]="member" [orgId]="orgId"></dsh-member>
                 </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>

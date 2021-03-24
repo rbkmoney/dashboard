@@ -8,6 +8,7 @@ import { Member } from '@dsh/api-codegen/organizations';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MembersListComponent {
+    @Input() orgId: string;
     @Input() members: Member[];
     @Input() expandedId: number;
     @Output() expandedIdChange = new EventEmitter<number>();

@@ -3,140 +3,20 @@
     [title]="t('title')"
     (cancel)="cancel()"
     (confirm)="create()"
-    [confirmButtonDisabled]="form.invalid || (inProgress$ | async)"
+    [confirmButtonDisabled]="emailControl.invalid || !selectedRoles.length"
+    [disabled]="inProgress$ | async"
+    [confirmButtonName]="t('send')"
 >
-    <form fxLayout="column" [formGroup]="form">
+    <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('form.email') }}</mat-label>
-            <input formControlName="email" matInput type="email" required />
+            <input [formControl]="emailControl" matInput type="email" required />
         </mat-form-field>
 
-        <!-- TODO: Demo       -->
-        <dsh-nested-table>
-            <dsh-nested-table-row>
-                <dsh-nested-table-col class="dsh-body-2">Admin</dsh-nested-table-col>
-                <dsh-nested-table-col class="dsh-body-2">Manager</dsh-nested-table-col>
-            </dsh-nested-table-row>
-
-            <dsh-nested-table-row>
-                <dsh-nested-table-col class="dsh-body-1">col</dsh-nested-table-col>
-                <dsh-nested-table-col>
-                    <!--                    -->
-                    <dsh-nested-table rowsGridTemplateColumns="2fr 1fr">
-                        <ng-container dshNestedTableCollapse>
-                            <dsh-nested-table-row>
-                                <dsh-nested-table-col>
-                                    <dsh-nested-table-collapse-button>col</dsh-nested-table-collapse-button>
-                                </dsh-nested-table-col>
-                                <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                            </dsh-nested-table-row>
-                            <dsh-nested-table-group *dshNestedTableCollapseBody>
-                                <dsh-nested-table-row>
-                                    <dsh-nested-table-col>col</dsh-nested-table-col>
-                                    <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                                </dsh-nested-table-row>
-                            </dsh-nested-table-group>
-                        </ng-container>
-                    </dsh-nested-table>
-                    <!--                    -->
-                </dsh-nested-table-col>
-            </dsh-nested-table-row>
-
-            <ng-container dshNestedTableCollapse="false">
-                <dsh-nested-table-row>
-                    <dsh-nested-table-col>
-                        <dsh-nested-table-collapse-button>col</dsh-nested-table-collapse-button>
-                    </dsh-nested-table-col>
-                    <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                </dsh-nested-table-row>
-                <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="2">
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>
-                            <button dsh-stroked-button color="warn">Action</button>
-                        </dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col><mat-checkbox></mat-checkbox></dsh-nested-table-col>
-                        <dsh-nested-table-col></dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col><mat-radio-button></mat-radio-button></dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col></dsh-nested-table-col>
-                        <dsh-nested-table-col></dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col
-                            >col col col col col col col col col col col col col col col col col
-                            col</dsh-nested-table-col
-                        >
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                </dsh-nested-table-group>
-            </ng-container>
-
-            <ng-container dshNestedTableCollapse>
-                <dsh-nested-table-row>
-                    <dsh-nested-table-col>
-                        <dsh-nested-table-collapse-button>col</dsh-nested-table-collapse-button>
-                    </dsh-nested-table-col>
-                    <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                </dsh-nested-table-row>
-                <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="2">
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col
-                            >col col col col col col col col col col col col col col col col col
-                            col</dsh-nested-table-col
-                        >
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                </dsh-nested-table-group>
-            </ng-container>
-
-            <dsh-nested-table-row>
-                <dsh-nested-table-col>col 1</dsh-nested-table-col>
-                <dsh-nested-table-col>col 2</dsh-nested-table-col>
-            </dsh-nested-table-row>
-            <ng-container dshNestedTableCollapse>
-                <dsh-nested-table-row>
-                    <dsh-nested-table-col>
-                        <dsh-nested-table-collapse-button>col</dsh-nested-table-collapse-button>
-                    </dsh-nested-table-col>
-                    <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                </dsh-nested-table-row>
-                <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="2">
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col
-                            >col col col col col col col col col col col col col col col col col
-                            col</dsh-nested-table-col
-                        >
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                    <dsh-nested-table-row>
-                        <dsh-nested-table-col>col</dsh-nested-table-col>
-                        <dsh-nested-table-col>col 2</dsh-nested-table-col>
-                    </dsh-nested-table-row>
-                </dsh-nested-table-group>
-            </ng-container>
-        </dsh-nested-table>
-    </form>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <mat-divider></mat-divider>
+            <h2 class="dsh-title">{{ t('roles') }}</h2>
+            <dsh-change-roles-table (selectedRoles)="selectRoles($event)"></dsh-change-roles-table>
+        </div>
+    </div>
 </dsh-base-dialog>

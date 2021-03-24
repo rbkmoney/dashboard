@@ -22,7 +22,7 @@ describe('LayoutManagementService', () => {
     describe('getFillCols', () => {
         it('should be return fill cols', () => {
             service.setLayoutColsCount(10);
-            expect(service.getFillCols(of(6))).toBeObservable(cold('(a)', { a: new Array(4).fill(null) }));
+            expect(service.getFillCols(of(6))).toBeObservable(cold('(a)', { a: new Array(4).fill('') }));
         });
     });
 

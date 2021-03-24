@@ -12,6 +12,11 @@ export class BaseDialogComponent {
     @Input() title: string;
     @Input() confirmButtonName: string;
     @Input() confirmButtonDisabled: boolean;
+    @Input() confirmButtonHidden: boolean;
+
+    @coerceBoolean
+    @Input()
+    disabled: boolean;
 
     @coerceBoolean
     @Input()
@@ -21,7 +26,9 @@ export class BaseDialogComponent {
     @Output() confirm = new EventEmitter<void>();
 
     cancelDialog(): void {
-        this.cancel.emit();
+        if (!this.disabled) {
+            this.cancel.emit();
+        }
     }
 
     confirmDialog(): void {

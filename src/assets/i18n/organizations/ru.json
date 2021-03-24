@@ -62,6 +62,16 @@
         "invitations": {
             "createInvitation": "Сформировать приглашение"
         },
+        "invitation": {
+            "titles": {
+                "roles": "Роли",
+                "actions": "Действия"
+            },
+            "actions": {
+                "repeat": "Выслать повторное приглашение",
+                "cancel": "Отменить приглашение"
+            }
+        },
         "invitationsList": {
             "headerRow": {
                 "email": "Email"
@@ -70,10 +80,50 @@
     },
     "createInvitationDialog": {
         "title": "Сформировать приглашение",
+        "roles": "Роли сотрудника",
         "form": {
             "expiresAt": "Дата истечения срока принятия",
             "email": "Email"
         },
-        "create": "Отправить приглашение"
+        "send": "Отправить приглашение"
+    },
+    "editRolesDialog": {
+        "title": "Редактирование ролей"
+    },
+    "changeRolesTable": {
+        "add": "Добавить",
+        "remove": "Удалить",
+        "shops": "Магазины"
+    },
+    "selectRoleDialog": {
+        "title": "Выберите роль",
+        "select": "Выбрать",
+        "accesses": {
+            "payments": "Платежи",
+            "viewAnalytics": "Просмотр аналитики",
+            "viewInvoices": "Просмотр инвойсов",
+            "viewPayments": "Просмотр платежей",
+            "viewRefunds": "Просмотр возвратов",
+            "viewPayouts": "Просмотр возмещений",
+            "viewApiKey": "Просмотр API key",
+            "manageReports": "Управление отчетами",
+            "manageWebhooks": "Управление Webhooks",
+            "createInvoice": "Создать инвойс",
+            "createPaymentLink": "Создать платежную ссылку",
+            "createRefund": "Совершить возврат",
+            "wallets": "Кошельки",
+            "claims": "Заявки",
+            "manageOrganizations": "Управление организациями и сотрудниками"
+        }
+    },
+    "roles": {
+        "Administrator": "Администратор",
+        "Manager": "Менеджер",
+        "Accountant": "Бухгалтер",
+        "Integrator": "Интегратор"
+    },
+    "editRolesDialog": {
+        "title": "Редактирование ролей",
+        "save": "Сохранить"
     }
 }

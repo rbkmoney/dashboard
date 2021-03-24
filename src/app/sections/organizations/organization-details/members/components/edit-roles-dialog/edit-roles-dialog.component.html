@@ -1,0 +1,9 @@
+<dsh-base-dialog
+    *transloco="let t; scope: 'organizations'; read: 'organizations.editRolesDialog'"
+    [title]="t('title')"
+    (cancel)="cancel()"
+    [disabled]="inProgress$ | async"
+    [confirmButtonHidden]="true"
+>
+    <dsh-change-roles-table (selectedRoles)="selectRoles($event)" [roles]="roles$ | async"></dsh-change-roles-table>
+</dsh-base-dialog>

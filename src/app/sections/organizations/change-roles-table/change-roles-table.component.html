@@ -1,0 +1,55 @@
+<dsh-nested-table *transloco="let t; scope: 'organizations'; read: 'organizations.changeRolesTable'">
+    <dsh-nested-table-row *transloco="let r; scope: 'organizations'; read: 'organizations.roles'">
+        <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
+        <dsh-nested-table-col
+            class="dsh-body-2"
+            *ngFor="let roleControl of rolesForm.controls"
+            fxLayoutAlign="center center"
+            >{{ r(roleControl.value.id) }}</dsh-nested-table-col
+        >
+        <dsh-nested-table-col *ngIf="availableRoles.length">
+            <button dsh-button color="accent" (click)="add()">{{ t('add') }}</button>
+        </dsh-nested-table-col>
+    </dsh-nested-table-row>
+
+    <ng-container *ngIf="shops$ | async" [dshNestedTableCollapse]="true">
+        <dsh-nested-table-row>
+            <dsh-nested-table-col>
+                <dsh-nested-table-collapse-button
+                    >{{ t('shops') }} ({{ (shops$ | async).length }})</dsh-nested-table-collapse-button
+                >
+            </dsh-nested-table-col>
+            <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+                <mat-checkbox
+                    [checked]="roleControl.value.shopIds.length === (shops$ | async).length"
+                    [disabled]="roleControl.value.id === RoleId.Administrator"
+                    [indeterminate]="isIntermediate(roleControl) | async"
+                    (change)="toggleAll(roleControl)"
+                ></mat-checkbox>
+            </dsh-nested-table-col>
+        </dsh-nested-table-row>
+        <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="10">
+            <dsh-nested-table-row *ngFor="let shop of shops$ | async">
+                <dsh-nested-table-col>{{ shop.details.name }}</dsh-nested-table-col>
+                <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+                    <mat-checkbox
+                        [checked]="roleControl.value.shopIds.includes(shop.id)"
+                        [disabled]="roleControl.value.id === RoleId.Administrator"
+                        (change)="toggle(roleControl, shop)"
+                    ></mat-checkbox>
+                </dsh-nested-table-col>
+            </dsh-nested-table-row>
+        </dsh-nested-table-group>
+    </ng-container>
+
+    <dsh-nested-table-row *ngIf="rolesForm.length">
+        <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
+        <dsh-nested-table-col
+            class="dsh-body-2"
+            *ngFor="let roleControl of rolesForm.controls"
+            fxLayoutAlign="center center"
+        >
+            <button dsh-button color="warn" (click)="remove(roleControl)">{{ t('remove') }}</button>
+        </dsh-nested-table-col>
+    </dsh-nested-table-row>
+</dsh-nested-table>

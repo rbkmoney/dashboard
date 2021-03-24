@@ -18,6 +18,8 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { NestedTableModule } from '@dsh/components/nested-table';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
+import { ChangeRolesTableModule } from '../../change-roles-table';
+import { OrganizationRolesModule } from '../../organization-roles';
 import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
 import { InvitationComponent } from './components/invitation/invitation.component';
 import { InvitationsListComponent } from './components/invitations-list/invitations-list.component';
@@ -47,6 +49,8 @@ import { InvitationsComponent } from './invitations.component';
         NestedTableModule,
         MatCheckboxModule,
         MatRadioModule,
+        ChangeRolesTableModule,
+        OrganizationRolesModule,
     ],
     declarations: [
         InvitationsComponent,

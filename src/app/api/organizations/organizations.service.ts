@@ -4,6 +4,7 @@ import {
     InlineObject,
     InvitationRequest,
     InvitationsService,
+    MemberRole,
     MembersService,
     Organization,
     OrganizationJoinRequest,
@@ -55,6 +56,24 @@ export class OrganizationsService {
 
     getOrgMember(orgId: Organization['id'], userId: string) {
         return this.membersService.getOrgMember(this.idGeneratorService.generateRequestID(), orgId, userId);
+    }
+
+    assignMemberRole(orgId: string, userId: string, memberRole: MemberRole) {
+        return this.membersService.assignMemberRole(
+            this.idGeneratorService.generateRequestID(),
+            orgId,
+            userId,
+            memberRole
+        );
+    }
+
+    removeMemberRole(orgId: string, userId: string, memberRole: MemberRole) {
+        return this.membersService.removeMemberRole(
+            this.idGeneratorService.generateRequestID(),
+            orgId,
+            userId,
+            memberRole
+        );
     }
 
     listOrgMembers(orgId: Organization['id']) {

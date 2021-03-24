@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, defer, Observable, of, ReplaySubject } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
@@ -25,9 +25,11 @@ export class LayoutManagementService {
         return new Array(colsCount).fill('1fr').join(' ');
     }
 
-    getFillCols(colsCount$: Observable<number>) {
+    getFillCols(colsCount$: Observable<number>): Observable<string[]> {
         return combineLatest([this.layoutColsCount$, colsCount$]).pipe(
-            map(([baseCount, count]) => new Array(baseCount - count).fill(null))
+            map(([baseCount, count]) => Math.max(baseCount - count, 0)),
+            distinctUntilChanged(),
+            map((count) => new Array(count).fill(''))
         );
     }
 

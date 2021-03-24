@@ -6,6 +6,7 @@
             <dsh-members-list
                 *ngIf="(members$ | async)?.length; else empty"
                 [members]="members$ | async"
+                [orgId]="organization.id"
             ></dsh-members-list>
             <ng-template #empty>
                 <dsh-empty-search-result></dsh-empty-search-result>

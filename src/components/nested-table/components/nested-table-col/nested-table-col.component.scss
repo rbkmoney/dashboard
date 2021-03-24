@@ -3,6 +3,7 @@
     align-items: center;
     min-height: 32px;
     padding: 8px;
+    overflow: auto;
 
     & > ::ng-deep button,
     & > ::ng-deep mat-checkbox,
@@ -18,5 +19,9 @@
             padding: 0;
             margin: 0;
         }
+    }
+
+    & > ::ng-deep button {
+        width: 100%;
     }
 }
