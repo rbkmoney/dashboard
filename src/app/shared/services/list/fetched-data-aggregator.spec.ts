@@ -1,55 +1,54 @@
 import { TestBed } from '@angular/core/testing';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 import moment from 'moment';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { PaymentSearchService } from '@dsh/api/search';
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
-import { ErrorService } from '@dsh/app/shared/services';
+import { DEFAULT_UPDATE_DELAY_TOKEN, SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { PAYMENTS_UPDATE_DELAY_TOKEN } from '../../consts';
-import { generateMockPayment } from '../../tests/generate-mock-payment';
-import { generateMockPaymentsList } from '../../tests/generate-mock-payments-list';
-import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
-import { PaymentsCachingService } from '../payments-caching/payments-caching.service';
-import { PaymentsService, SINGLE_PAYMENT_REQUEST_DURATION } from './payments.service';
+import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
+import { FetchFn } from '../../../sections/partial-fetcher/fetch-fn';
+import { ErrorService } from '../error';
+import { DataCachingService } from './data-caching.service';
+import { FetchedDataAggregator } from './fetched-data-aggregator';
+import { generateDatasetItems } from './generate-dataset-items';
 
-describe('PaymentsService', () => {
-    let service: PaymentsService;
-    let mockPaymentSearchService: PaymentSearchService;
-    let mockFetchPaymentsService: FetchPaymentsService;
-    let mockPaymentsCachingService: PaymentsCachingService;
+describe('FetchedDataAggregator', () => {
+    class FetchedDataAggregatored extends FetchedDataAggregator<any, any> {}
+    class DataCached extends DataCachingService<any> {}
+    class IndicatorsPartialFetched extends IndicatorsPartialFetcher<any, any> {
+        protected fetch(...args): ReturnType<FetchFn<any, any>> {
+            return undefined;
+        }
+    }
+
+    let service: FetchedDataAggregatored;
+    let mockIndicatorsPartialFetched: IndicatorsPartialFetched;
+    let mockCachingService: DataCached;
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
-        mockPaymentSearchService = mock(PaymentSearchService);
-        mockFetchPaymentsService = mock(FetchPaymentsService);
-        mockPaymentsCachingService = mock(PaymentsCachingService);
+        mockCachingService = mock(DataCached);
         mockErrorService = mock(ErrorService);
+        mockIndicatorsPartialFetched = mock(IndicatorsPartialFetched);
     });
 
     beforeEach(() => {
-        when(mockFetchPaymentsService.paymentsList$).thenReturn(of());
-        when(mockFetchPaymentsService.errors$).thenReturn(of());
+        when(mockIndicatorsPartialFetched.searchResult$).thenReturn(of());
+        when(mockIndicatorsPartialFetched.errors$).thenReturn(of());
     });
 
     function createService() {
         TestBed.configureTestingModule({
             providers: [
-                PaymentsService,
+                FetchedDataAggregatored,
                 {
-                    provide: PaymentSearchService,
-                    useFactory: () => instance(mockPaymentSearchService),
+                    provide: IndicatorsPartialFetcher,
+                    useFactory: () => instance(mockIndicatorsPartialFetched),
                 },
                 {
-                    provide: FetchPaymentsService,
-                    useFactory: () => instance(mockFetchPaymentsService),
-                },
-                {
-                    provide: PaymentsCachingService,
-                    useFactory: () => instance(mockPaymentsCachingService),
+                    provide: DataCachingService,
+                    useFactory: () => instance(mockCachingService),
                 },
                 {
                     provide: ErrorService,
@@ -60,12 +59,12 @@ describe('PaymentsService', () => {
                     useValue: 2,
                 },
                 {
-                    provide: PAYMENTS_UPDATE_DELAY_TOKEN,
+                    provide: DEFAULT_UPDATE_DELAY_TOKEN,
                     useValue: 100,
                 },
             ],
         });
-        service = TestBed.inject(PaymentsService);
+        service = TestBed.inject(FetchedDataAggregatored);
     }
 
     it('should be created', () => {
@@ -74,15 +73,15 @@ describe('PaymentsService', () => {
     });
 
     describe('constructor', () => {
-        describe('paymentsList$', () => {
-            it('should return cached payments', () => {
-                const mockPayments = {
-                    a: generateMockPaymentsList(2),
-                    b: generateMockPaymentsList(4),
+        describe('list$', () => {
+            it('should return cached items', () => {
+                const mockItems = {
+                    a: generateDatasetItems(2),
+                    b: generateDatasetItems(4),
                     c: [],
                 };
-                const cachedValues$ = cold('a--b--(c|)', mockPayments);
-                when(mockPaymentsCachingService.items$).thenReturn(cachedValues$);
+                const cachedValues$ = cold('a--b--(c|)', mockItems);
+                when(mockCachingService.items$).thenReturn(cachedValues$);
 
                 createService();
 
@@ -146,9 +145,9 @@ describe('PaymentsService', () => {
                     service.loadMore();
                 });
 
-                when(mockFetchPaymentsService.paymentsList$).thenReturn(
+                when(mockIndicatorsPartialFetched.searchResult$).thenReturn(
                     hot('^------(a|)', {
-                        a: generateMockPaymentsList(2),
+                        a: generateDatasetItems(2),
                     })
                 );
 
@@ -170,7 +169,7 @@ describe('PaymentsService', () => {
                     a: new Date('December 23, 2020 03:24:00').toString(),
                     b: new Date().toString(),
                 });
-                when(mockFetchPaymentsService.lastUpdated$).thenReturn(updateDate$);
+                when(mockIndicatorsPartialFetched.lastUpdated$).thenReturn(updateDate$);
 
                 createService();
 
@@ -184,7 +183,7 @@ describe('PaymentsService', () => {
                     a: true,
                     b: false,
                 });
-                when(mockFetchPaymentsService.hasMore$).thenReturn(hasMore$);
+                when(mockIndicatorsPartialFetched.hasMore$).thenReturn(hasMore$);
 
                 createService();
 
@@ -194,23 +193,18 @@ describe('PaymentsService', () => {
 
         describe('caching fetched data', () => {
             it('should slice items from fetcher using search limit and send it to cache service', () => {
-                const mockPayments = generateMockPaymentsList(7);
+                const mockItems = generateDatasetItems(7);
 
-                when(mockFetchPaymentsService.paymentsList$).thenReturn(
-                    of(
-                        mockPayments.slice(0, 2),
-                        mockPayments.slice(0, 4),
-                        mockPayments.slice(0, 6),
-                        mockPayments.slice()
-                    )
+                when(mockIndicatorsPartialFetched.searchResult$).thenReturn(
+                    of(mockItems.slice(0, 2), mockItems.slice(0, 4), mockItems.slice(0, 6), mockItems.slice())
                 );
 
                 createService();
 
-                verify(mockPaymentsCachingService.addElements(...mockPayments.slice(0, 2).map(deepEqual))).once();
-                verify(mockPaymentsCachingService.addElements(...mockPayments.slice(2, 4).map(deepEqual))).once();
-                verify(mockPaymentsCachingService.addElements(...mockPayments.slice(4, 6).map(deepEqual))).once();
-                verify(mockPaymentsCachingService.addElements(...mockPayments.slice(5).map(deepEqual))).once();
+                verify(mockCachingService.addElements(...mockItems.slice(0, 2).map(deepEqual))).once();
+                verify(mockCachingService.addElements(...mockItems.slice(2, 4).map(deepEqual))).once();
+                verify(mockCachingService.addElements(...mockItems.slice(4, 6).map(deepEqual))).once();
+                verify(mockCachingService.addElements(...mockItems.slice(5).map(deepEqual))).once();
                 expect().nothing();
             });
         });
@@ -222,7 +216,7 @@ describe('PaymentsService', () => {
                     b: new Error('another_error'),
                 };
 
-                when(mockFetchPaymentsService.errors$).thenReturn(of(errorsValues.a, errorsValues.b));
+                when(mockIndicatorsPartialFetched.errors$).thenReturn(of(errorsValues.a, errorsValues.b));
 
                 createService();
 
@@ -230,17 +224,6 @@ describe('PaymentsService', () => {
                 verify(mockErrorService.error(deepEqual(errorsValues.b))).once();
                 expect().nothing();
             });
-        });
-    });
-
-    describe('initRealm', () => {
-        it('should init realm in fetcher', () => {
-            createService();
-
-            service.initRealm(PaymentInstitutionRealm.live);
-
-            verify(mockFetchPaymentsService.initRealm(PaymentInstitutionRealm.live)).once();
-            expect().nothing();
         });
     });
 
@@ -262,7 +245,7 @@ describe('PaymentsService', () => {
             };
 
             service.search(searchParams);
-            verify(mockFetchPaymentsService.search(deepEqual(searchParams))).once();
+            verify(mockIndicatorsPartialFetched.search(deepEqual(searchParams))).once();
         });
 
         it('should clear cache', () => {
@@ -273,7 +256,7 @@ describe('PaymentsService', () => {
                 },
             });
 
-            verify(mockPaymentsCachingService.clear()).once();
+            verify(mockCachingService.clear()).once();
         });
     });
 
@@ -289,13 +272,13 @@ describe('PaymentsService', () => {
         it('should call fetcher refresh method', () => {
             service.refresh();
 
-            verify(mockFetchPaymentsService.refresh()).once();
+            verify(mockIndicatorsPartialFetched.refresh()).once();
         });
 
         it('should clear cache', () => {
             service.refresh();
 
-            verify(mockPaymentsCachingService.clear()).once();
+            verify(mockCachingService.clear()).once();
         });
     });
 
@@ -311,69 +294,13 @@ describe('PaymentsService', () => {
         it('should request fetch more from fetcher', () => {
             service.loadMore();
 
-            verify(mockFetchPaymentsService.fetchMore()).once();
+            verify(mockIndicatorsPartialFetched.fetchMore()).once();
         });
 
         it('should not clear cache', () => {
             service.loadMore();
 
-            verify(mockPaymentsCachingService.clear()).never();
-        });
-    });
-
-    describe('updatePayment', () => {
-        beforeEach(() => {
-            createService();
-        });
-
-        afterEach(() => {
-            expect().nothing();
-        });
-
-        it('should request load one element after delay', () => {
-            const scheduler = getTestScheduler();
-            const mockPayment = generateMockPayment();
-
-            when(
-                mockPaymentSearchService.getPaymentByDuration(
-                    deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
-                    'my_invoice_id',
-                    'my_payment_id'
-                )
-            ).thenReturn(of(mockPayment));
-
-            scheduler.run(({ flush }) => {
-                service.updatePayment('my_invoice_id', 'my_payment_id');
-
-                flush();
-                verify(
-                    mockPaymentSearchService.getPaymentByDuration(
-                        deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
-                        'my_invoice_id',
-                        'my_payment_id'
-                    )
-                ).once();
-            });
-        });
-
-        it('should send a request to cache service to update payment', () => {
-            const scheduler = getTestScheduler();
-            const mockPayment = generateMockPayment();
-
-            when(
-                mockPaymentSearchService.getPaymentByDuration(
-                    deepEqual(SINGLE_PAYMENT_REQUEST_DURATION),
-                    'my_invoice_id',
-                    'my_payment_id'
-                )
-            ).thenReturn(of(mockPayment));
-
-            scheduler.run(({ flush }) => {
-                service.updatePayment('my_invoice_id', 'my_payment_id');
-
-                flush();
-                verify(mockPaymentsCachingService.updateElements(deepEqual(mockPayment))).once();
-            });
+            verify(mockCachingService.clear()).never();
         });
     });
 });

@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-breadcrumb-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-breadcrumb {
+        color: map-get($foreground, secondary-text);
+    }
+}
+
+@mixin dsh-breadcrumb-typography($config) {
+    .dsh-breadcrumb {
+        @include mat-typography-level-to-styles($config, subheading-2);
+    }
+}

@@ -12,6 +12,7 @@ import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog'
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
+import { BreadcrumbModule } from '@dsh/components/navigation';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { ClaimRoutingModule } from './claim-routing.module';
@@ -36,6 +37,7 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         ConfirmActionDialogModule,
         BaseDialogModule,
         MatSelectModule,
+        BreadcrumbModule,
     ],
     declarations: [ClaimComponent, RevokeClaimDialogComponent],
 })

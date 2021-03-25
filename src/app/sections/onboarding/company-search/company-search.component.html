@@ -1,5 +1,13 @@
 <div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="48px">
-    <h1 class="dsh-display-1">{{ t('onboarding.headline') }}</h1>
+    <div fxLayout="column" fxLayoutGap="8px">
+        <h1 class="dsh-display-1">{{ t('onboarding.headline') }}</h1>
+        <ol dsh-breadcrumb>
+            <li dsh-breadcrumb-item>
+                <a dshTextColor="secondary" [routerLink]="['/claims']">{{ t('onboarding.breadcrumbs.claims') }}</a>
+            </li>
+            <li dsh-breadcrumb-item>{{ t('onboarding.breadcrumbs.onboardingClaim') }}</li>
+        </ol>
+    </div>
     <dsh-card fxLayout="column" fxLayoutGap="16px">
         <div fxLayout="column" fxLayoutGap="24px">
             <h2 class="dsh-title">{{ t('onboarding.companySearch.title') }}</h2>

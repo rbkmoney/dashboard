@@ -16,6 +16,7 @@
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
 @import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
 @import '../../components/global-banner/global-banner-theme';
@@ -53,4 +54,5 @@
     @include dsh-balances-typography($config);
     @include dsh-link-label-typography($config);
     @include dsh-navigation-link-typography($config);
+    @include dsh-breadcrumb-typography($config);
 }
