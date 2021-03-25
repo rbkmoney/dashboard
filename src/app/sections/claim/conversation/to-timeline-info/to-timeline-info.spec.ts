@@ -226,22 +226,4 @@ describe('toTimelineInfo', () => {
         ];
         expect(result).toEqual(expected);
     });
-
-    it('2 neighboring and same units should concat modifications', () => {
-        const createdAt = '2019-11-21T18:43:00.000000Z';
-        const units = [
-            genFileModificationUnit(67, '2019-11-21T18:40:00.000000Z', '7dfbc2fe-7ac4-416a-9f96-fileId1'),
-            genFileModificationUnit(68, createdAt, '7dfbc2fe-7ac4-416a-9f96-fileId2'),
-        ];
-        const result = toTimelineInfo(units);
-        const expected = [
-            {
-                action: 'filesAdded',
-                userInfo: units[0].userInfo,
-                createdAt,
-                modifications: [units[0].modification, units[1].modification],
-            } as TimelineItemInfo,
-        ];
-        expect(result).toEqual(expected);
-    });
 });
