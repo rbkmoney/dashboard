@@ -12,7 +12,7 @@ import { getRolesByGroup } from './utils/get-roles-by-group';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationRolesComponent {
-    @Input() @coerceBoolean hasAdminAccess: boolean;
+    @Input() @coerceBoolean isOwner: boolean;
 
     @Input() set roles(roles: MemberRole[]) {
         this.rolesByGroup = getRolesByGroup(roles);

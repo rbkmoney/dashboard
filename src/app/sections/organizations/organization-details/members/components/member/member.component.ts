@@ -23,7 +23,7 @@ export class MemberComponent implements OnChanges {
     @Input() orgId: string;
     @Input() member: Member;
 
-    hasAdminAccess$: Observable<boolean>;
+    isOwner$: Observable<boolean>;
 
     constructor(
         private dialog: MatDialog,
@@ -33,8 +33,8 @@ export class MemberComponent implements OnChanges {
 
     ngOnChanges({ orgId }: ComponentChanges<MemberComponent>) {
         if (orgId) {
-            this.hasAdminAccess$ = this.organizationManagementService
-                .hasAdminAccess(orgId.currentValue)
+            this.isOwner$ = this.organizationManagementService
+                .isOrganizationOwner(orgId.currentValue)
                 .pipe(shareReplay(1));
         }
     }

@@ -31,6 +31,7 @@ export class OrganizationComponent implements OnChanges {
     member$: Observable<Member>;
     membersCount$: Observable<number>;
     hasAdminAccess$: Observable<boolean>;
+    isOwner$: Observable<boolean>;
 
     constructor(
         private organizationManagementService: OrganizationManagementService,
@@ -47,6 +48,7 @@ export class OrganizationComponent implements OnChanges {
             this.member$ = this.getCurrentMember(organization.currentValue.id);
             this.membersCount$ = this.getMembersCount(organization.currentValue.id);
             this.hasAdminAccess$ = this.organizationManagementService.hasAdminAccess(organization.currentValue);
+            this.isOwner$ = this.organizationManagementService.isOrganizationOwner(organization.currentValue);
         }
     }
 
