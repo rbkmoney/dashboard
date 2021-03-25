@@ -14,7 +14,7 @@ export type DataSetItemID = { id: string };
 @UntilDestroy()
 @Injectable()
 export abstract class FetchedDataAggregator<T, R extends DataSetItemID> {
-    list$: Observable<R[]> = this.cacheService.items$;
+    data$: Observable<R[]> = this.cacheService.items$;
     isLoading$: Observable<boolean>;
     lastUpdated$: Observable<string> = this.fetchService.lastUpdated$;
     hasMore$: Observable<boolean> = this.fetchService.hasMore$;
