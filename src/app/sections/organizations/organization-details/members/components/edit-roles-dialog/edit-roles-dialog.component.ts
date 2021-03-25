@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, EMPTY, forkJoin, Observable, of } from 'rxjs';
-import { catchError, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, first, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { MemberRole } from '@dsh/api-codegen/organizations';
@@ -54,6 +54,7 @@ export class EditRolesDialogComponent {
         return this.roles$.pipe(
             first(),
             map((roles) => getChangedRoles(roles, newRoles)),
+            tap(console.log),
             switchMap(({ added, removed }) =>
                 added.length || removed.length
                     ? forkJoin([

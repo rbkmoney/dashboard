@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
-import { first, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Member, Organization, RoleId } from '@dsh/api-codegen/organizations';
