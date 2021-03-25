@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import isEqual from 'lodash/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
-import isEqual from 'lodash/isEqual';
 
 import { DocumentModificationUnit } from '@dsh/api-codegen/claim-management';
 import { QuestionaryData } from '@dsh/api-codegen/questionary';
