@@ -19,6 +19,7 @@ import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
 import { MemberRole, RoleId } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { coerceBoolean } from '@dsh/utils';
 
 import { addDialogsClass } from '../../../../utils/add-dialogs-class';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
@@ -41,10 +42,18 @@ export class ChangeRolesTableComponent implements OnInit {
             this.shopRolesFormService.init(roles);
         }
     }
+    @Input() @coerceBoolean disableBatchChanges: boolean;
     @Output() selectedRoles = new EventEmitter<MemberRole[]>();
 
     get availableRoles() {
         return this.shopRolesFormService.availableRoleIds;
+    }
+
+    get isAllowRemoves() {
+        return (
+            !!this.rolesForm.length &&
+            (!this.disableBatchChanges || this.rolesForm.value.findIndex((r) => r.id === RoleId.Administrator) !== -1)
+        );
     }
 
     rolesForm = this.shopRolesFormService.form;

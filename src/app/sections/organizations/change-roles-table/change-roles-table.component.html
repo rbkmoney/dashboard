@@ -21,8 +21,11 @@
             </dsh-nested-table-col>
             <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
                 <mat-checkbox
-                    [checked]="roleControl.value.shopIds.length === (shops$ | async).length"
-                    [disabled]="roleControl.value.id === RoleId.Administrator"
+                    [checked]="
+                        roleControl.value.id === RoleId.Administrator ||
+                        roleControl.value.shopIds.length === (shops$ | async).length
+                    "
+                    [disabled]="roleControl.value.id === RoleId.Administrator || disableBatchChanges"
                     [indeterminate]="isIntermediate(roleControl) | async"
                     (change)="toggleAll(roleControl)"
                 ></mat-checkbox>
@@ -33,7 +36,9 @@
                 <dsh-nested-table-col>{{ shop.details.name }}</dsh-nested-table-col>
                 <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
                     <mat-checkbox
-                        [checked]="roleControl.value.shopIds.includes(shop.id)"
+                        [checked]="
+                            roleControl.value.id === RoleId.Administrator || roleControl.value.shopIds.includes(shop.id)
+                        "
                         [disabled]="roleControl.value.id === RoleId.Administrator"
                         (change)="toggle(roleControl, shop)"
                     ></mat-checkbox>
@@ -42,14 +47,21 @@
         </dsh-nested-table-group>
     </ng-container>
 
-    <dsh-nested-table-row *ngIf="rolesForm.length">
+    <dsh-nested-table-row *ngIf="isAllowRemoves">
         <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
         <dsh-nested-table-col
             class="dsh-body-2"
             *ngFor="let roleControl of rolesForm.controls"
             fxLayoutAlign="center center"
         >
-            <button dsh-button color="warn" (click)="remove(roleControl)">{{ t('remove') }}</button>
+            <button
+                *ngIf="roleControl.value.id === RoleId.Administrator || !disableBatchChanges"
+                dsh-button
+                color="warn"
+                (click)="remove(roleControl)"
+            >
+                {{ t('remove') }}
+            </button>
         </dsh-nested-table-col>
     </dsh-nested-table-row>
 </dsh-nested-table>

@@ -6,8 +6,8 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { RoleId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 
+import { ROLES_PRIORITY } from '../../roles-priority';
 import { ROLES_ACCESSES } from './roles-accesses';
-import { ROLES_PRIORITY } from './roles-priority';
 import { SelectRoleDialogResult } from './types/select-role-dialog-result';
 import { SelectRoleDialogData } from './types/selected-role-dialog-data';
 
