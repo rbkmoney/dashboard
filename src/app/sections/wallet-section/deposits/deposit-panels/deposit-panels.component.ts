@@ -12,7 +12,6 @@ export class DepositPanelsComponent {
     @Input() isLoading: boolean;
     @Input() hasMore: boolean;
     @Input() expandedId: number;
-    @Input() lastUpdated: string;
 
     @Output() showMore = new EventEmitter<void>();
     @Output() expandedIdChanged = new EventEmitter<number>();

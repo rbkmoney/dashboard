@@ -2,9 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { finalize } from 'rxjs/operators';
 
-import { generateDatasetItems } from '@dsh/app/shared/services/list/generate-dataset-items';
+import { DataSetItemStrID } from '@dsh/app/shared';
 
-import { DataCachingService, DataSetItemID } from './data-caching.service';
+import { DataCachingService } from './data-caching.service';
+import { generateDatasetItems } from './generate-dataset-items';
 
 describe('DataCachingService', () => {
     class DataCached extends DataCachingService<any> {}
@@ -46,7 +47,7 @@ describe('DataCachingService', () => {
                 a: mockDatasetItems.slice(0, 2),
                 b: mockDatasetItems.slice(2, 4),
                 c: mockDatasetItems.slice(4),
-            }).subscribe((items: DataSetItemID[]) => {
+            }).subscribe((items: DataSetItemStrID[]) => {
                 service.addElements(...items);
             });
 
@@ -62,7 +63,7 @@ describe('DataCachingService', () => {
     });
 
     describe('updateElements', () => {
-        let mockItems: DataSetItemID[];
+        let mockItems: DataSetItemStrID[];
 
         beforeEach(() => {
             mockItems = generateDatasetItems(5);
@@ -75,7 +76,7 @@ describe('DataCachingService', () => {
             };
             hot('^--a|', {
                 a: newItem,
-            }).subscribe((item: DataSetItemID) => {
+            }).subscribe((item: DataSetItemStrID) => {
                 service.updateElements(item);
             });
 
@@ -97,7 +98,7 @@ describe('DataCachingService', () => {
 
             hot('^--a|', {
                 a: newItem,
-            }).subscribe((item: DataSetItemID) => {
+            }).subscribe((item: DataSetItemStrID) => {
                 service.updateElements(item);
             });
 
@@ -121,7 +122,7 @@ describe('DataCachingService', () => {
 
             hot('^--a|', {
                 a: newItems,
-            }).subscribe((items: DataSetItemID[]) => {
+            }).subscribe((items: DataSetItemStrID[]) => {
                 service.updateElements(...items);
             });
 
@@ -152,7 +153,7 @@ describe('DataCachingService', () => {
             hot('^--a-b|', {
                 a: newItems.slice(0, 1),
                 b: newItems.slice(1),
-            }).subscribe((items: DataSetItemID[]) => {
+            }).subscribe((items: DataSetItemStrID[]) => {
                 service.updateElements(...items);
             });
 
@@ -187,7 +188,7 @@ describe('DataCachingService', () => {
                         service.clear();
                     })
                 )
-                .subscribe((items: DataSetItemID[]) => {
+                .subscribe((items: DataSetItemStrID[]) => {
                     service.addElements(...items);
                 });
 

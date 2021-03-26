@@ -1,12 +1,12 @@
-<div class="dsh-deposits" fxLayout="column" fxLayoutGap="20px">
+<div class="dsh-deposits" fxLayout="column" fxLayoutGap="16px">
     <h1 class="mat-display-1" *transloco="let t; scope: 'deposits'; read: 'deposits'">{{ t('title') }}</h1>
     <dsh-search-form></dsh-search-form>
+    <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refreshList()"></dsh-last-updated>
     <dsh-deposit-panels
         [list]="deposits$ | async"
         [isLoading]="isLoading$ | async"
         [hasMore]="hasMore$ | async"
         [expandedId]="expandedId$ | async"
-        [lastUpdated]="lastUpdated$ | async"
         (showMore)="requestNextPage()"
         (expandedIdChanged)="expandedIdChange($event)"
     ></dsh-deposit-panels>

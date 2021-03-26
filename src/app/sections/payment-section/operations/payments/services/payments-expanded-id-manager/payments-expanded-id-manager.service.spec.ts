@@ -44,7 +44,7 @@ describe('PaymentsExpandedIdManager', () => {
 
     describe('expandedId$', () => {
         it('should return index position in payments list using fragment id', () => {
-            when(mockPaymentsService.list$).thenReturn(of(generateMockPaymentsList(3)));
+            when(mockPaymentsService.data$).thenReturn(of(generateMockPaymentsList(3)));
             when(mockActivatedRoute.fragment).thenReturn(of('invoiceIDmock_payment_1'));
             service = TestBed.inject(PaymentsExpandedIdManager);
 
@@ -56,7 +56,7 @@ describe('PaymentsExpandedIdManager', () => {
         });
 
         it('should return -1 if items was not found in list', () => {
-            when(mockPaymentsService.list$).thenReturn(of(generateMockPaymentsList(3)));
+            when(mockPaymentsService.data$).thenReturn(of(generateMockPaymentsList(3)));
             when(mockActivatedRoute.fragment).thenReturn(of(''));
             service = TestBed.inject(PaymentsExpandedIdManager);
 
@@ -68,7 +68,7 @@ describe('PaymentsExpandedIdManager', () => {
         });
 
         it('should return -1 if list is empty', () => {
-            when(mockPaymentsService.list$).thenReturn(of([]));
+            when(mockPaymentsService.data$).thenReturn(of([]));
             when(mockActivatedRoute.fragment).thenReturn(of('test'));
             service = TestBed.inject(PaymentsExpandedIdManager);
 

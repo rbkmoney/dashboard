@@ -25,6 +25,6 @@ export class PaymentsExpandedIdManager extends ExpandedIdManager<PaymentSearchRe
     }
 
     protected get dataSet$(): Observable<PaymentSearchResult[]> {
-        return this.paymentsService.list$;
+        return this.paymentsService.data$;
     }
 }
