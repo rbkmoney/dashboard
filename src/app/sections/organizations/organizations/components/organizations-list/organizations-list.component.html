@@ -20,10 +20,7 @@
                     <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                         <div fxLayout fxLayoutAlign="space-between">
                             <div>{{ organization.id }}</div>
-                            <div>
-                                {{ organization.createdAt | date: 'longDate' }},
-                                {{ organization.createdAt | date: 'shortTime' }}
-                            </div>
+                            <div>{{ organization.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
                         </div>
                     </dsh-accordion-item-content-header>
                     <dsh-organization [organization]="organization"></dsh-organization>

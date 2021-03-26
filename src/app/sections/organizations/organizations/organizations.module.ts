@@ -58,7 +58,7 @@ import { OrganizationsComponent } from './organizations.component';
         MatInputModule,
         OrganizationRolesModule,
         DialogModule,
-        EmptyModule
+        EmptyModule,
     ],
     declarations: [
         OrganizationsComponent,

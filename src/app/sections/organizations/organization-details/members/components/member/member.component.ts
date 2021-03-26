@@ -32,7 +32,9 @@ export class MemberComponent implements OnChanges {
         private dialog: MatDialog,
         @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
         private organizationManagementService: OrganizationManagementService,
-        private organizationsService: OrganizationsService,private notificationService: NotificationService, private  errorService: ErrorService
+        private organizationsService: OrganizationsService,
+        private notificationService: NotificationService,
+        private errorService: ErrorService
     ) {}
 
     ngOnChanges({ orgId }: ComponentChanges<MemberComponent>) {
@@ -45,18 +47,18 @@ export class MemberComponent implements OnChanges {
 
     @ignoreBeforeCompletion
     removeFromOrganization() {
-            return this.dialog
-                .open<ConfirmActionDialogComponent, void, ConfirmActionDialogResult>(ConfirmActionDialogComponent)
-                .afterClosed()
-                .pipe(
-                    filter((r) => r === 'confirm'),
-                    switchMap(() => this.organizationsService.expelOrgMember(this.orgId, this.member.id)),
-                    untilDestroyed(this)
-                )
-                .subscribe(
-                    () => this.notificationService.success(),
-                    (err) => this.errorService.error(err)
-                );
+        return this.dialog
+            .open<ConfirmActionDialogComponent, void, ConfirmActionDialogResult>(ConfirmActionDialogComponent)
+            .afterClosed()
+            .pipe(
+                filter((r) => r === 'confirm'),
+                switchMap(() => this.organizationsService.expelOrgMember(this.orgId, this.member.id)),
+                untilDestroyed(this)
+            )
+            .subscribe(
+                () => this.notificationService.success(),
+                (err) => this.errorService.error(err)
+            );
     }
 
     @ignoreBeforeCompletion

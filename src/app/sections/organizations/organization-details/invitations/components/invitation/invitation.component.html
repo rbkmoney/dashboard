@@ -5,6 +5,15 @@
 >
     <div class="dsh-headline">{{ invitation.invitee?.contact?.email }}</div>
 
+    <div gdColumns="1fr 1fr">
+        <dsh-details-item [title]="t('createdAt')">
+            {{ invitation.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+        </dsh-details-item>
+        <dsh-details-item [title]="t('expiresAt')">
+            {{ invitation.expiresAt | date: 'dd MMMM yyyy, HH:mm' }}
+        </dsh-details-item>
+    </div>
+
     <mat-divider></mat-divider>
     <div class="dsh-title">{{ t('titles.roles') }}</div>
     <dsh-organization-roles [roles]="invitation.invitee.roles"></dsh-organization-roles>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout';
+import { FlexModule, GridModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,7 +14,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
-import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule, DetailsItemModule, RowModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { NestedTableModule } from '@dsh/components/nested-table';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
@@ -52,7 +52,9 @@ import { InvitationsComponent } from './invitations.component';
         MatRadioModule,
         ChangeRolesTableModule,
         OrganizationRolesModule,
-        EmptyModule
+        EmptyModule,
+        DetailsItemModule,
+        GridModule,
     ],
     declarations: [
         InvitationsComponent,

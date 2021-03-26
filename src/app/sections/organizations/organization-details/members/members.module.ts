@@ -59,7 +59,7 @@ import { MembersComponent } from './members.component';
         OrganizationRolesModule,
         BaseDialogModule,
         ChangeRolesTableModule,
-        EmptyModule
+        EmptyModule,
     ],
     declarations: [MembersComponent, MembersListComponent, MemberComponent, EditRolesDialogComponent],
     exports: [MembersComponent, MemberComponent],

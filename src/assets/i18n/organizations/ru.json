@@ -70,6 +70,8 @@
             "createInvitation": "Сформировать приглашение"
         },
         "invitation": {
+            "createdAt": "Дата и время приглашения",
+            "expiresAt": "Время истечения срока принятия",
             "titles": {
                 "roles": "Роли",
                 "actions": "Действия"
