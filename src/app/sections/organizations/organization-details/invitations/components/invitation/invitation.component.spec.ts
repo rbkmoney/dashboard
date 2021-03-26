@@ -1,6 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
+
+import { OrganizationsService } from '@dsh/api';
+import { ErrorService, NotificationService } from '@dsh/app/shared';
+import { provideMockService } from '@dsh/app/shared/tests';
 
 import { InvitationComponent } from './invitation.component';
 
@@ -17,8 +22,13 @@ describe('InvitationComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [],
             declarations: [HostComponent, InvitationComponent],
+            providers: [
+                provideMockService(MatDialog),
+                provideMockService(OrganizationsService),
+                provideMockService(NotificationService),
+                provideMockService(ErrorService),
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);
