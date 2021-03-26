@@ -4,11 +4,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { DepositRevertDetailsModule } from '@dsh/app/shared';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { DepositRevertsComponent } from './deposit-reverts.component';
-import { DepositRevertDetailsModule } from "@dsh/app/shared";
 
 @NgModule({
     declarations: [DepositRevertsComponent],
