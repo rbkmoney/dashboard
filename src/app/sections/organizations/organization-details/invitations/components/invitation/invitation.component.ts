@@ -36,7 +36,7 @@ export class InvitationComponent {
             .pipe(
                 filter((r) => r === 'confirm'),
                 switchMap(() =>
-                    this.organizationsService.revokeInvitation(this.invitation as any, this.invitation.id, {
+                    this.organizationsService.revokeInvitation(this.orgId, this.invitation.id, {
                         status: InlineObject1.StatusEnum.Revoked,
                     })
                 ),
