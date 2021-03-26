@@ -1,9 +1,11 @@
-import { untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CachedItem, DataSetItemStrID } from '../../models';
 
 export class DataCachingService<R extends DataSetItemStrID> {
+    private destroyed$ = new BehaviorSubject(false);
+
     protected get cachedItems(): R[] {
         return this.itemsList$.value;
     }
@@ -31,8 +33,12 @@ export class DataCachingService<R extends DataSetItemStrID> {
         this.clearCache();
     }
 
+    destroy() {
+        this.destroyed$.next(true);
+    }
+
     private initUpdatesListener(): void {
-        this.cacheUpdates$.pipe(untilDestroyed(this)).subscribe((updatedList: R[]) => {
+        this.cacheUpdates$.pipe(takeUntil(this.destroyed$)).subscribe((updatedList: R[]) => {
             this.updateCacheList(updatedList);
         });
     }

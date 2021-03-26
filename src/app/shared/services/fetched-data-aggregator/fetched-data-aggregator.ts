@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { DataCachingService } from './data-caching.service';
 
 @UntilDestroy()
 @Injectable()
-export class FetchedDataAggregator<T, R extends DataSetItemStrID> {
+export class FetchedDataAggregator<T, R extends DataSetItemStrID> implements OnDestroy {
     data$: Observable<R[]>;
     isLoading$: Observable<boolean>;
     lastUpdated$: Observable<string> = this.fetchService.lastUpdated$;
@@ -31,6 +31,10 @@ export class FetchedDataAggregator<T, R extends DataSetItemStrID> {
         this.cacheService = new DataCachingService();
         this.data$ = this.cacheService.items$;
         this.isLoading$ = this.innerLoading$.pipe(distinctUntilChanged());
+    }
+
+    ngOnDestroy() {
+        this.cacheService.destroy();
     }
 
     search(data: T): void {
