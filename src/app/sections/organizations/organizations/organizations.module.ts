@@ -10,7 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api/organizations';
-import { ErrorModule, NotificationModule, UserModule } from '@dsh/app/shared';
+import { ErrorModule, NotificationModule } from '@dsh/app/shared';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
@@ -47,7 +47,6 @@ import { OrganizationsComponent } from './organizations.component';
         DetailsItemModule,
         NavigationLinkModule,
         IndicatorsModule,
-        UserModule,
         MatSnackBarModule,
         MatDialogModule,
         ReactiveFormsModule,
