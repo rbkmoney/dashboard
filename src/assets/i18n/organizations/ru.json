@@ -66,10 +66,10 @@
             }
         },
         "invitations": {
+            "emptyInvitations": "Приглашения отсутствуют",
             "createInvitation": "Сформировать приглашение"
         },
         "invitation": {
-            "emptyInvitations": "Приглашения отсутствуют",
             "titles": {
                 "roles": "Роли",
                 "actions": "Действия"
