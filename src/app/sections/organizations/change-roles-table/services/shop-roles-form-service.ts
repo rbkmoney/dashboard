@@ -30,7 +30,9 @@ export class ShopRolesFormService {
     }
 
     get availableRoleIds(): RoleId[] {
-        return Object.values(RoleId).filter((id) => this.form.value.findIndex((r) => r.id === id) === -1);
+        return Object.values(RoleId)
+            .filter((id) => this.form.value.findIndex((r) => r.id === id) === -1)
+            .filter((id) => (this.form.value.length ? id !== RoleId.Administrator : true));
     }
 
     constructor(private shopsService: ApiShopsService, private fb: FormBuilder) {
