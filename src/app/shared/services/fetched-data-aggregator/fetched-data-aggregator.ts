@@ -1,36 +1,35 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { DEFAULT_UPDATE_DELAY_TOKEN, SEARCH_LIMIT } from '@dsh/app/sections/tokens';
-import { ErrorService } from '@dsh/app/shared/services';
-import { DataCachingService } from '@dsh/app/shared/services/list/data-caching.service';
-
 import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
-
-export type DataSetItemID = { id: string };
+import { DataSetItemStrID } from '../../models';
+import { ErrorService } from '../error';
+import { DataCachingService } from './data-caching.service';
 
 @UntilDestroy()
 @Injectable()
-export abstract class FetchedDataAggregator<T, R extends DataSetItemID> {
-    list$: Observable<R[]> = this.cacheService.items$;
+export class FetchedDataAggregator<T, R extends DataSetItemStrID> {
+    data$: Observable<R[]>;
     isLoading$: Observable<boolean>;
     lastUpdated$: Observable<string> = this.fetchService.lastUpdated$;
     hasMore$: Observable<boolean> = this.fetchService.hasMore$;
+    cacheService: DataCachingService<R>;
 
     private innerLoading$ = new BehaviorSubject<boolean>(false);
 
     constructor(
         private errorsService: ErrorService,
         private fetchService: IndicatorsPartialFetcher<R, T>,
-        @Inject(SEARCH_LIMIT) private searchLimit: number,
-        @Inject(DEFAULT_UPDATE_DELAY_TOKEN) private updateDelay: number,
-        public cacheService: DataCachingService<R>
+        private searchLimit: number,
+        private updateDelay: number
     ) {
         this.initFetchedItemsCaching();
         this.initFetcherErrorsHandling();
 
+        this.cacheService = new DataCachingService();
+        this.data$ = this.cacheService.items$;
         this.isLoading$ = this.innerLoading$.pipe(distinctUntilChanged());
     }
 

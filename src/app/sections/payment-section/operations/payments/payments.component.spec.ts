@@ -55,7 +55,7 @@ describe('PaymentsComponent', () => {
 
     beforeEach(() => {
         const date = new Date();
-        when(mockPaymentsService.list$).thenReturn(
+        when(mockPaymentsService.data$).thenReturn(
             of([
                 generateMockPayment({
                     statusChangedAt: date,

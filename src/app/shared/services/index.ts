@@ -8,3 +8,4 @@ export * from './user';
 export * from './notification';
 export * from './error';
 export * from './keycloak-token-info';
+export * from './fetched-data-aggregator';

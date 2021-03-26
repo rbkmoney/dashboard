@@ -1,14 +1,9 @@
-import { Injectable } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 
-import { CachedItem } from '../../models';
+import { CachedItem, DataSetItemStrID } from '../../models';
 
-export type DataSetItemID = { id: string };
-
-@UntilDestroy()
-@Injectable()
-export abstract class DataCachingService<R extends DataSetItemID> {
+export class DataCachingService<R extends DataSetItemStrID> {
     protected get cachedItems(): R[] {
         return this.itemsList$.value;
     }

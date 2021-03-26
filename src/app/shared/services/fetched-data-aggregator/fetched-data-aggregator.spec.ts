@@ -73,7 +73,7 @@ describe('FetchedDataAggregator', () => {
     });
 
     describe('constructor', () => {
-        describe('list$', () => {
+        describe('data$', () => {
             it('should return cached items', () => {
                 const mockItems = {
                     a: generateDatasetItems(2),
@@ -85,7 +85,7 @@ describe('FetchedDataAggregator', () => {
 
                 createService();
 
-                expect(service.list$).toBeObservable(cachedValues$);
+                expect(service.data$).toBeObservable(cachedValues$);
             });
         });
 

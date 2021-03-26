@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { DataCachingService } from '@dsh/app/shared/services/list/data-caching.service';
+import { DataCachingService } from '@dsh/app/shared/services/fetched-data-aggregator/data-caching.service';
 
 import { getPaymentId } from '../../utils/get-payment-id';
 

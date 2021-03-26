@@ -6,8 +6,7 @@ import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { Duration, PaymentSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
-import { ErrorService } from '@dsh/app/shared/services';
-import { FetchedDataAggregator } from '@dsh/app/shared/services/list/fetched-data-aggregator';
+import { ErrorService, FetchedDataAggregator } from '@dsh/app/shared/services';
 
 import { PAYMENTS_UPDATE_DELAY_TOKEN } from '../../consts';
 import { PaymentSearchFormValue } from '../../types/payment-search-form-value';
@@ -33,7 +32,7 @@ export class PaymentsService extends FetchedDataAggregator<PaymentSearchFormValu
         @Inject(PAYMENTS_UPDATE_DELAY_TOKEN)
         updateDelay: number
     ) {
-        super(errorsService, fetchPaymentsService, searchLimit, updateDelay, cacheService);
+        super(errorsService, fetchPaymentsService, searchLimit, updateDelay);
     }
 
     initRealm(realm: PaymentInstitutionRealm): void {
