@@ -17,6 +17,7 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { DEFAULT_DEPOSITS_UPDATE_DELAY, DEPOSITS_UPDATE_DELAY_TOKEN } from './consts';
 import { DepositPanelsModule } from './deposit-panels';
+import { DepositsFiltersModule } from './deposits-filters';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
 import { SearchFormComponent } from './search-form';
@@ -39,6 +40,7 @@ import { SearchFormComponent } from './search-form';
         ButtonModule,
         MatInputModule,
         IndicatorsModule,
+        DepositsFiltersModule,
     ],
     declarations: [DepositsComponent, SearchFormComponent],
     providers: [
