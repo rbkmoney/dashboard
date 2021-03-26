@@ -50,15 +50,20 @@ export class ChangeRolesTableComponent implements OnInit {
     }
 
     get isAllowRemoves() {
-        return (
-            !!this.rolesForm.length &&
-            (!this.disableBatchChanges || this.rolesForm.value.findIndex((r) => r.id === RoleId.Administrator) !== -1)
-        );
+        return !!this.rolesForm.length && (!this.disableBatchChanges || this.hasAdminRole);
+    }
+
+    get isAllowAdd() {
+        return !!this.availableRoles.length && !this.hasAdminRole;
     }
 
     rolesForm = this.shopRolesFormService.form;
     shops$ = this.shopsService.shops$;
     RoleId = RoleId;
+
+    private get hasAdminRole() {
+        return this.rolesForm.value.findIndex((r) => r.id === RoleId.Administrator) !== -1;
+    }
 
     constructor(
         private shopsService: ApiShopsService,
