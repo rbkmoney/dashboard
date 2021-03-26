@@ -7,7 +7,7 @@ import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 
 import { getRolesByGroup } from '../../organization-roles/utils/get-roles-by-group';
-import { ROLES_PRIORITY } from '../roles-priority';
+import { ROLE_PRIORITY_DESC } from '../../organization-roles/utils/role-priority-desc';
 import { ShopsRole } from '../types/shops-role';
 
 @Injectable()
@@ -52,7 +52,7 @@ export class ShopRolesFormService {
                         shopIds: [],
                     })
                 );
-                this.form.setValue(this.form.value.sort((a, b) => ROLES_PRIORITY[b.id] - ROLES_PRIORITY[a.id]));
+                this.form.setValue(this.form.value.sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]));
                 if (roleId === RoleId.Administrator) {
                     this.updateMemberRoles();
                 }
