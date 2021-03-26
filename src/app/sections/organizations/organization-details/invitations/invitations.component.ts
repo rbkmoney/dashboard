@@ -79,4 +79,8 @@ export class InvitationsComponent {
     refresh() {
         this.loadInvitations$.next();
     }
+
+    loadInvitations() {
+        this.loadInvitations$.next();
+    }
 }

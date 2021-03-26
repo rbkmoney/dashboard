@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
     InlineObject,
+    Invitation,
     InvitationRequest,
     InvitationsService,
     MemberRole,
@@ -94,5 +95,13 @@ export class OrganizationsService {
 
     listInvitations(orgId: Organization['id']) {
         return this.invitationsService.listInvitations(this.idGeneratorService.generateRequestID(), orgId);
+    }
+
+    revokeInvitation(orgId: Organization['id'], invitationId: Invitation['id']) {
+        return this.invitationsService.revokeInvitation(
+            this.idGeneratorService.generateRequestID(),
+            orgId,
+            invitationId
+        );
     }
 }

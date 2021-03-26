@@ -16,6 +16,8 @@
                 <dsh-invitations-list
                     *dshEmpty="!(invitations$ | async)?.length; text: t('emptyInvitations')"
                     [invitations]="invitations$ | async"
+                    [orgId]="organization.id"
+                    (changed)="loadInvitations()"
                 ></dsh-invitations-list>
             </div>
         </ng-template>
