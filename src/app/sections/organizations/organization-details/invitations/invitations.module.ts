@@ -11,6 +11,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { ButtonModule } from '@dsh/components/buttons';
+import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
 import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
@@ -51,6 +52,7 @@ import { InvitationsComponent } from './invitations.component';
         MatRadioModule,
         ChangeRolesTableModule,
         OrganizationRolesModule,
+        EmptyModule
     ],
     declarations: [
         InvitationsComponent,

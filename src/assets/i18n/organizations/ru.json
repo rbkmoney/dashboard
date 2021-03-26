@@ -1,6 +1,8 @@
 {
     "header": "Организации",
     "createOrganization": "Создать организацию",
+    "emptyOrganizations": "Организации отсутствуют",
+    "emptyMembers": "Участники отсутствуют",
     "headerRow": {
         "name": "Наименование организации"
     },
@@ -67,6 +69,7 @@
             "createInvitation": "Сформировать приглашение"
         },
         "invitation": {
+            "emptyInvitations": "Приглашения отсутствуют",
             "titles": {
                 "roles": "Роли",
                 "actions": "Действия"
@@ -90,9 +93,6 @@
             "email": "Email"
         },
         "send": "Отправить приглашение"
-    },
-    "editRolesDialog": {
-        "title": "Редактирование ролей"
     },
     "changeRolesTable": {
         "add": "Добавить",

@@ -5,6 +5,7 @@
     <dsh-accordion
         fxLayout="column"
         fxLayoutGap="16px"
+        *dshEmpty="!organizations?.length; text: t('emptyOrganizations')"
         (expandedChange)="expandedIdChange($event)"
         [expanded]="expandedId$ | async"
     >

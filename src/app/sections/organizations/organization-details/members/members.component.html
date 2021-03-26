@@ -4,13 +4,10 @@
         <ng-template #loaded>
             <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
             <dsh-members-list
-                *ngIf="(members$ | async)?.length; else empty"
+                *dshEmpty="!(members$ | async)?.length; text: t('emptyMembers')"
                 [members]="members$ | async"
                 [orgId]="organization.id"
             ></dsh-members-list>
-            <ng-template #empty>
-                <dsh-empty-search-result></dsh-empty-search-result>
-            </ng-template>
         </ng-template>
     </ng-container>
 </div>
