@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { map, pluck } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
-import { claimStatusToColor } from '../../view-utils';
 import { ReceiveClaimService } from './receive-claim.service';
 import { ReviewClaimService } from './review-claim.service';
 import { RevokeClaimService } from './revoke-claim.service';
@@ -23,8 +22,6 @@ import { UpdateClaimService } from './update-claim';
 export class ClaimComponent implements OnInit {
     claimID$ = this.receiveClaimService.claim$.pipe(pluck('id'));
     claimStatus$ = this.receiveClaimService.claim$.pipe(pluck('status'));
-    claimStatusColor$ = this.claimStatus$.pipe(map(claimStatusToColor));
-    claimType$ = this.receiveClaimService.claimType$;
     claimReceived$ = this.receiveClaimService.claimReceived$;
     error$ = this.receiveClaimService.error$;
     revokeAvailable$ = this.revokeClaimService.revokeAvailable$;
