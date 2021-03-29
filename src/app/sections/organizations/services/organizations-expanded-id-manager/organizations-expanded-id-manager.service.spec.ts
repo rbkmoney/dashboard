@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
+import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationsExpandedIdManager } from './organizations-expanded-id-manager.service';
 
 describe('OrganizationsExpandedIdManager', () => {

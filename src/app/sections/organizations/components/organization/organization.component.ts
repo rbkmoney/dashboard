@@ -14,8 +14,8 @@ import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/co
 import { ComponentChanges } from '@dsh/type-utils';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
+import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 import { RenameOrganizationDialogData } from '../rename-organization-dialog/types/rename-organization-dialog-data';
 

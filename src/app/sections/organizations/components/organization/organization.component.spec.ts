@@ -18,11 +18,11 @@ import { NotificationModule, NotificationService } from '@dsh/app/shared/service
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { OrganizationRolesModule } from '../../../organization-roles';
-import { FetchOrganizationsService } from '../../../services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
-import { MOCK_MEMBER } from '../../../tests/mock-member';
-import { MOCK_ORG } from '../../../tests/mock-org';
+import { OrganizationRolesModule } from '../../organization-roles';
+import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
+import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
+import { MOCK_MEMBER } from '../../tests/mock-member';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { OrganizationComponent } from './organization.component';
 
 @Component({

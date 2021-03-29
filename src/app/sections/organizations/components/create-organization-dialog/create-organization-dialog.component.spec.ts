@@ -12,7 +12,7 @@ import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_ORG } from '../../../tests/mock-org';
+import { MOCK_ORG } from '../../tests/mock-org';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
 describe('CreateOrganizationDialogComponent', () => {

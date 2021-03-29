@@ -7,16 +7,6 @@ export const routes: Routes = [
     {
         path: '',
         component: OrganizationsComponent,
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
-            },
-            {
-                path: 'accept-invitation',
-                loadChildren: () => import('./accept-invitation').then((m) => m.AcceptInvitationModule),
-            },
-        ],
     },
 ];
 
