@@ -10,12 +10,12 @@ import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
+import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
 import { ComponentChanges } from '@dsh/type-utils';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 import { RenameOrganizationDialogData } from '../rename-organization-dialog/types/rename-organization-dialog-data';
 

@@ -8,11 +8,11 @@ import { OrganizationsService } from '@dsh/api';
 import { Member } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared';
+import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
 import { ComponentChanges } from '@dsh/type-utils';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { OrganizationManagementService } from '../../../../organizations/services/organization-management/organization-management.service';
 import { EditRolesDialogComponent } from '../edit-roles-dialog/edit-roles-dialog.component';
 import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialog-data';
 

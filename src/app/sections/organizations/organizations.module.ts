@@ -13,6 +13,7 @@ import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api/organiza
 import { ErrorModule, NotificationModule } from '@dsh/app/shared';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
+import { OrganizationManagementModule } from '@dsh/app/shared/services/organization-management/organization-management.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -29,7 +30,6 @@ import { RenameOrganizationDialogComponent } from './components/rename-organizat
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from './services/organization-management/organization-management.service';
 
 @NgModule({
     imports: [
@@ -60,6 +60,7 @@ import { OrganizationManagementService } from './services/organization-managemen
         DialogModule,
         EmptyModule,
         OrganizationRolesModule,
+        OrganizationManagementModule,
     ],
     declarations: [
         OrganizationsComponent,
@@ -68,6 +69,6 @@ import { OrganizationManagementService } from './services/organization-managemen
         CreateOrganizationDialogComponent,
         RenameOrganizationDialogComponent,
     ],
-    providers: [FetchOrganizationsService, OrganizationManagementService],
+    providers: [FetchOrganizationsService],
 })
 export class OrganizationsModule {}

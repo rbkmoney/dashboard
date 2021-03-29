@@ -15,14 +15,14 @@ import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
 import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
+import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
 import { ErrorModule, ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationModule, NotificationService } from '@dsh/app/shared/services/notification';
+import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { OrganizationRolesModule } from '../../../../shared/components/organization-roles';
 import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
-import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { OrganizationComponent } from './organization.component';
 
 @Component({
