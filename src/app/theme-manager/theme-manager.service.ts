@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@angular/core';
 
 import { environment } from '../../environments';
 import { ConfigService } from '../config';
-import { SettingsService } from '../settings';
 import { FileType } from './types/file-type';
 import { ThemeName } from './types/theme-name';
 import { createScriptElement } from './utils/create-script-element';
@@ -12,19 +11,13 @@ import { isTheme } from './utils/is-theme';
 
 @Injectable()
 export class ThemeManager {
-    private static readonly KEY = 'theme';
-
     current: ThemeName;
     isMainBackgroundImages = false;
     logoName: string;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 
-    constructor(
-        private settingsService: SettingsService,
-        @Inject(DOCUMENT) private doc: Document,
-        private configService: ConfigService
-    ) {}
+    constructor(@Inject(DOCUMENT) private doc: Document, private configService: ConfigService) {}
 
     change(name: ThemeName) {
         this.removeCurrent();
@@ -35,8 +28,7 @@ export class ThemeManager {
         const theme = this.configService?.theme;
         this.isMainBackgroundImages = theme?.isMainBackgroundImages;
         this.logoName = theme?.logoName;
-        const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
-        const correctedName = this.getCorrectName(name);
+        const correctedName = this.getCorrectName(theme.name);
         this.change(correctedName);
     }
 
@@ -48,7 +40,6 @@ export class ThemeManager {
         this.element = this.createElement(name);
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
-        this.settingsService.setLocalStorageItem(ThemeManager.KEY, name);
         this.current = name;
     }
 
