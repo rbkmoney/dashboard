@@ -1,4 +1,6 @@
 <div *transloco="let t; scope: 'organizations'; read: 'organizations'" fxLayout="column" fxLayoutGap="32px">
+    <h1 class="dsh-display-1">{{ t('header') }}</h1>
+
     <div fxLayout fxLayoutAlign="end">
         <button dsh-button color="accent" (click)="createOrganization()">
             {{ t('createOrganization') }}
@@ -10,13 +12,8 @@
         <ng-template #loaded>
             <div fxLayout="column" fxLayoutGap="16px">
                 <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
-                <ng-container *ngIf="(organizations$ | async)?.length; else empty">
-                    <dsh-organizations-list [organizations]="organizations$ | async"></dsh-organizations-list>
-                    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
-                </ng-container>
-                <ng-template #empty>
-                    <dsh-empty-search-result></dsh-empty-search-result>
-                </ng-template>
+                <dsh-organizations-list [organizations]="organizations$ | async"></dsh-organizations-list>
+                <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="showMore()"></dsh-show-more-panel>
             </div>
         </ng-template>
     </div>

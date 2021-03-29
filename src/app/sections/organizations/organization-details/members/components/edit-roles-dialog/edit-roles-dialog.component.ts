@@ -45,7 +45,7 @@ export class EditRolesDialogComponent {
 
     @inProgressTo('inProgress$')
     selectRoles(selectedRoles: MemberRole[]) {
-        return this.updateRoles(this.data.orgId, this.data.orgId, selectedRoles)
+        return this.updateRoles(this.data.orgId, this.data.userId, selectedRoles)
             .pipe(untilDestroyed(this))
             .subscribe(() => this.updateRoles$.next());
     }

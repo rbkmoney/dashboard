@@ -6,8 +6,8 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { RoleId } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 
+import { ROLE_PRIORITY_DESC } from '../../../organization-roles/utils/role-priority-desc';
 import { ROLES_ACCESSES } from './roles-accesses';
-import { ROLES_PRIORITY } from './roles-priority';
 import { SelectRoleDialogResult } from './types/select-role-dialog-result';
 import { SelectRoleDialogData } from './types/selected-role-dialog-data';
 
@@ -24,7 +24,7 @@ export class SelectRoleDialogComponent {
         return `2fr ${'1fr '.repeat(this.data.availableRoles.length)}`;
     }
     get roles() {
-        return this.data.availableRoles.sort((a, b) => ROLES_PRIORITY[b] - ROLES_PRIORITY[a]);
+        return this.data.availableRoles.sort((a, b) => ROLE_PRIORITY_DESC[a] - ROLE_PRIORITY_DESC[b]);
     }
 
     constructor(

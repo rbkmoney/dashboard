@@ -10,7 +10,7 @@
         <div class="dsh-title">{{ t('titles.roles') }}</div>
         <button (click)="editRoles()" dsh-button color="accent">{{ t('actions.editRoles') }}</button>
     </div>
-    <dsh-organization-roles [roles]="member?.roles"></dsh-organization-roles>
+    <dsh-organization-roles [roles]="member?.roles" [isOwner]="isOwner$ | async"></dsh-organization-roles>
 
     <mat-divider></mat-divider>
     <div class="dsh-title">{{ t('titles.actions') }}</div>

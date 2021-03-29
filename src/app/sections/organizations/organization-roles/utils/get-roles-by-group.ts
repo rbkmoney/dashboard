@@ -1,12 +1,7 @@
-import { MemberRole, RoleId } from '../../../../api-codegen/organizations';
-import { RoleGroup, RoleGroupScope } from '../types/role-group';
+import { MemberRole } from '@dsh/api-codegen/organizations';
 
-const ROLE_PRIORITY_DESC: Record<RoleId, number> = {
-    Administrator: 0,
-    Accountant: 1,
-    Integrator: 2,
-    Manager: 3,
-};
+import { RoleGroup, RoleGroupScope } from '../types/role-group';
+import { ROLE_PRIORITY_DESC } from './role-priority-desc';
 
 export function getRolesByGroup(roles: MemberRole[]): RoleGroup[] {
     return roles

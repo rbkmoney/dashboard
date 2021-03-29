@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
+import { OrganizationsService } from '@dsh/api';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
-import { provideMockToken } from '@dsh/app/shared/tests';
+import { ErrorService, NotificationService } from '@dsh/app/shared';
+import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
+import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
 import { MemberComponent } from './member.component';
 
 @Component({
@@ -23,7 +26,13 @@ describe('MemberComponent', () => {
         await TestBed.configureTestingModule({
             imports: [MatDialogModule],
             declarations: [HostComponent, MemberComponent],
-            providers: [provideMockToken(DIALOG_CONFIG, {} as any)],
+            providers: [
+                provideMockToken(DIALOG_CONFIG, {} as any),
+                provideMockService(OrganizationManagementService),
+                provideMockService(OrganizationsService),
+                provideMockService(NotificationService),
+                provideMockService(ErrorService),
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);

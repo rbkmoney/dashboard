@@ -5,6 +5,7 @@
     <dsh-accordion
         fxLayout="column"
         fxLayoutGap="16px"
+        *dshEmpty="!organizations?.length; text: t('emptyOrganizations')"
         (expandedChange)="expandedIdChange($event)"
         [expanded]="expandedId$ | async"
     >
@@ -19,10 +20,7 @@
                     <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                         <div fxLayout fxLayoutAlign="space-between">
                             <div>{{ organization.id }}</div>
-                            <div>
-                                {{ organization.createdAt | date: 'longDate' }},
-                                {{ organization.createdAt | date: 'shortTime' }}
-                            </div>
+                            <div>{{ organization.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
                         </div>
                     </dsh-accordion-item-content-header>
                     <dsh-organization [organization]="organization"></dsh-organization>

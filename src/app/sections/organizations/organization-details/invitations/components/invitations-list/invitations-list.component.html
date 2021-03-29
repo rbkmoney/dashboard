@@ -23,7 +23,11 @@
                     <dsh-accordion-item-content-header (collapse)="accordionItem.collapse($event)">
                         {{ invitation.id }}
                     </dsh-accordion-item-content-header>
-                    <dsh-invitation [invitation]="invitation"></dsh-invitation>
+                    <dsh-invitation
+                        [invitation]="invitation"
+                        [orgId]="orgId"
+                        (changed)="changed.emit()"
+                    ></dsh-invitation>
                 </dsh-card>
             </dsh-accordion-item-content>
         </dsh-accordion-item>

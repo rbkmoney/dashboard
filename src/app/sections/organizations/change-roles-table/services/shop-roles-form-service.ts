@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { first, map, pluck, startWith, tap } from 'rxjs/operators';
+import { first, map, startWith, tap } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 
 import { getRolesByGroup } from '../../organization-roles/utils/get-roles-by-group';
+import { ROLE_PRIORITY_DESC } from '../../organization-roles/utils/role-priority-desc';
 import { ShopsRole } from '../types/shops-role';
 
 @Injectable()
@@ -19,15 +20,19 @@ export class ShopRolesFormService {
     get memberRoles(): MemberRole[] {
         return this.form.value
             .map(({ id, shopIds }) =>
-                shopIds.map(
-                    (resourceId): MemberRole => ({ roleId: id, scope: { id: ResourceScopeId.Shop, resourceId } })
-                )
+                id === RoleId.Administrator
+                    ? { roleId: id }
+                    : shopIds.map(
+                          (resourceId): MemberRole => ({ roleId: id, scope: { id: ResourceScopeId.Shop, resourceId } })
+                      )
             )
             .flat();
     }
 
     get availableRoleIds(): RoleId[] {
-        return Object.values(RoleId).filter((id) => this.form.value.findIndex((r) => r.id === id) === -1);
+        return Object.values(RoleId)
+            .filter((id) => this.form.value.findIndex((r) => r.id === id) === -1)
+            .filter((id) => (this.form.value.length ? id !== RoleId.Administrator : true));
     }
 
     constructor(private shopsService: ApiShopsService, private fb: FormBuilder) {
@@ -46,9 +51,10 @@ export class ShopRolesFormService {
                 this.form.push(
                     this.fb.control({
                         id: roleId,
-                        shopIds: roleId === RoleId.Administrator ? shops.map(({ id }) => id) : [],
+                        shopIds: [],
                     })
                 );
+                this.form.setValue(this.form.value.sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]));
                 if (roleId === RoleId.Administrator) {
                     this.updateMemberRoles();
                 }
@@ -88,9 +94,14 @@ export class ShopRolesFormService {
 
     isIntermediate(roleControl: AbstractControl<ShopsRole>) {
         return combineLatest([
-            roleControl.valueChanges.pipe(startWith(roleControl.value), pluck('shopIds')),
+            roleControl.valueChanges.pipe(startWith(roleControl.value)),
             this.shopsService.shops$,
-        ]).pipe(map(([shopIds, shops]) => !!shopIds?.length && shopIds.length < shops.length));
+        ]).pipe(
+            map(
+                ([{ id, shopIds }, shops]) =>
+                    id !== RoleId.Administrator && !!shopIds?.length && shopIds.length < shops.length
+            )
+        );
     }
 
     private createRolesForm(roles?: MemberRole[]) {

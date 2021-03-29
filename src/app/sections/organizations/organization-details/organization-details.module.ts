@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { DshTabsModule, HeadlineModule } from '../../../../components/layout';
+import { IndicatorsModule } from '@dsh/components/indicators';
+import { DshTabsModule } from '@dsh/components/layout';
+import { BreadcrumbModule } from '@dsh/components/navigation';
+
 import { OrganizationDetailsRoutingModule } from './organization-details-routing.module';
 import { OrganizationDetailsComponent } from './organization-details.component';
 
@@ -13,8 +16,9 @@ import { OrganizationDetailsComponent } from './organization-details.component';
         CommonModule,
         FlexLayoutModule,
         TranslocoModule,
-        HeadlineModule,
         DshTabsModule,
+        BreadcrumbModule,
+        IndicatorsModule,
     ],
     declarations: [OrganizationDetailsComponent],
     exports: [OrganizationDetailsComponent],

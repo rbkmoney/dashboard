@@ -153,6 +153,7 @@
     "yes": "Да",
     "no": "Нет",
     "emptySearchResult": "Данные за указанный период отсутствуют",
+    "emptyData": "Данные отсутствуют",
     "paymentErrors": {
         "rejected_by_inspector": "Отклонено сервисом противодействия мошенничеству",
         "preauthorization_failed": {

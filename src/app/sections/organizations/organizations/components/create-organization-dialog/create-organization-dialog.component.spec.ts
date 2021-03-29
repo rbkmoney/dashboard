@@ -6,12 +6,12 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of, throwError } from 'rxjs';
 import { anyString, anything, mock, objectContaining, verify, when } from 'ts-mockito';
 
+import { OrganizationsService } from '@dsh/api';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { OrganizationManagementService } from '../../../services/organization-management/organization-management.service';
 import { MOCK_ORG } from '../../../tests/mock-org';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
@@ -19,13 +19,13 @@ describe('CreateOrganizationDialogComponent', () => {
     let component: CreateOrganizationDialogComponent;
     let fixture: ComponentFixture<CreateOrganizationDialogComponent>;
     let mockDialogRef: MatDialogRef<CreateOrganizationDialogComponent>;
-    let mockOrganizationManagementService: OrganizationManagementService;
+    let mockOrganizationsService: OrganizationsService;
     let mockNotificationsService: NotificationService;
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
         mockDialogRef = mock(MatDialogRef);
-        mockOrganizationManagementService = mock(OrganizationManagementService);
+        mockOrganizationsService = mock(OrganizationsService);
         mockNotificationsService = mock(NotificationService);
         mockErrorService = mock(ErrorService);
 
@@ -38,7 +38,7 @@ describe('CreateOrganizationDialogComponent', () => {
             declarations: [CreateOrganizationDialogComponent],
             providers: [
                 provideMockService(MatDialogRef, mockDialogRef),
-                provideMockService(OrganizationManagementService, mockOrganizationManagementService),
+                provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(NotificationService, mockNotificationsService),
                 provideMockService(ErrorService, mockErrorService),
             ],
@@ -63,26 +63,26 @@ describe('CreateOrganizationDialogComponent', () => {
 
     describe('create', () => {
         it('should create organization', () => {
-            when(mockOrganizationManagementService.createOrganization(anything())).thenReturn(of(MOCK_ORG));
+            when(mockOrganizationsService.createOrg(anything())).thenReturn(of(MOCK_ORG));
             const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
             fixture.detectChanges();
             component.create();
-            verify(mockOrganizationManagementService.createOrganization(objectContaining({ name: 'Test 2' }))).once();
+            verify(mockOrganizationsService.createOrg(objectContaining({ name: 'Test 2' }))).once();
             verify(mockNotificationsService.success()).once();
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
             expect().nothing();
         });
         it("shouldn't create organization", () => {
             const error = new Error('Error 1');
-            when(mockOrganizationManagementService.createOrganization(anything())).thenReturn(throwError(error));
+            when(mockOrganizationsService.createOrg(anything())).thenReturn(throwError(error));
             const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
             input.value = 'Test 2';
             input.dispatchEvent(new Event('input'));
             fixture.detectChanges();
             component.create();
-            verify(mockOrganizationManagementService.createOrganization(objectContaining({ name: 'Test 2' }))).once();
+            verify(mockOrganizationsService.createOrg(objectContaining({ name: 'Test 2' }))).once();
             verify(mockErrorService.error(error)).once();
             verify(mockDialogRef.close(anyString())).never();
             expect().nothing();

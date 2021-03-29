@@ -6,6 +6,7 @@ import { BehaviorSubject, defer, of } from 'rxjs';
 import { catchError, filter, first, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
+import { Invitation } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
@@ -33,7 +34,7 @@ export class InvitationsComponent {
                 pluck('result'),
                 catchError((err) => {
                     this.errorService.error(err);
-                    return of([]);
+                    return of([] as Invitation[]);
                 })
             )
         ),
@@ -76,6 +77,10 @@ export class InvitationsComponent {
     }
 
     refresh() {
+        this.loadInvitations$.next();
+    }
+
+    loadInvitations() {
         this.loadInvitations$.next();
     }
 }

@@ -94,7 +94,7 @@ describe('OrganizationComponent', () => {
     it('should be init', () => {
         expect(component.organization).toBe(MOCK_ORG);
         expect(component.member$).toBeObservable(cold('(a|)', { a: MOCK_MEMBER }));
-        expect(component.isOrganizationOwner$).toBeObservable(cold('(a|)', { a: true }));
+        expect(component.isOwner$).toBeObservable(cold('(a|)', { a: true }));
         expect(component.membersCount$).toBeObservable(cold('(a|)', { a: 15 }));
     });
 

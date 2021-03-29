@@ -30,7 +30,8 @@ export class OrganizationComponent implements OnChanges {
 
     member$: Observable<Member>;
     membersCount$: Observable<number>;
-    isOrganizationOwner$: Observable<boolean>;
+    hasAdminAccess$: Observable<boolean>;
+    isOwner$: Observable<boolean>;
 
     constructor(
         private organizationManagementService: OrganizationManagementService,
@@ -46,7 +47,8 @@ export class OrganizationComponent implements OnChanges {
         if (!isNil(organization?.currentValue)) {
             this.member$ = this.getCurrentMember(organization.currentValue.id);
             this.membersCount$ = this.getMembersCount(organization.currentValue.id);
-            this.isOrganizationOwner$ = this.getIsOrganizationOwner(organization.currentValue);
+            this.hasAdminAccess$ = this.organizationManagementService.hasAdminAccess(organization.currentValue);
+            this.isOwner$ = this.organizationManagementService.isOrganizationOwner(organization.currentValue);
         }
     }
 
@@ -90,9 +92,5 @@ export class OrganizationComponent implements OnChanges {
 
     private getMembersCount(orgId: Organization['id']) {
         return this.organizationsService.listOrgMembers(orgId).pipe(pluck('result', 'length'), shareReplay(1));
-    }
-
-    private getIsOrganizationOwner(org: Organization) {
-        return this.organizationManagementService.isOrganizationOwner(org).pipe(shareReplay(1));
     }
 }
